@@ -61,18 +61,26 @@ def _mc_AcceptanceCriteriaSummary(s):
     return [
          SomMetaNode(
             class_name="AcceptanceCriteriaSummary",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the acceptance framework before the must-pass, quality-gate and detailed-criteria subsections below. Cover who accepts, and on what evidence."),
+         SomMetaNode(
+            class_name="AcceptanceCriteriaSummary",
             member_name="acceptanceFrameworkContent",
             section_id="ACCRSU-ACCE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="acceptanceProcess", type_name="String", description="Acceptance Process", hint="Formal UAT, continuous acceptance", order=0), SomFormFieldMeta(name="acceptanceAuthority", type_name="String", description="Acceptance Authority", hint="Who signs off on acceptance", order=1), SomFormFieldMeta(name="acceptanceScope", type_name="String", description="Acceptance Scope", hint="Full system, incremental, phase-based", order=2), SomFormFieldMeta(name="acceptanceEnvironment", type_name="String", description="Acceptance Environment", hint="Where acceptance testing occurs", order=3), SomFormFieldMeta(name="acceptanceTimeline", type_name="String", description="Acceptance Timeline", hint="Duration of acceptance period", order=4), SomFormFieldMeta(name="partialAcceptance", type_name="String", description="Partial Acceptance", hint="Policy on accepting with defects", order=5), SomFormFieldMeta(name="acceptanceRejectionCriteria", type_name="String", description="Rejection Criteria", hint="What triggers rejection", order=6)])),
          SomMetaNode(
             class_name="AcceptanceCriteriaSummary",
             member_name="acceptanceOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overview of acceptance process, key acceptance criteria, and acceptance governance.",
             doc_comment="Acceptance criteria overview."),
@@ -83,7 +91,7 @@ def _mc_AcceptanceCriteriaSummary(s):
                 class_section_id="MUPACR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MustPassCriteria",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.7.1. Must-Pass Criteria.",
                 class_doc_comment="11.7.1. Must-Pass Criteria.\n\nCriteria that must be met for the system to be accepted.",
                 recursive=r,
@@ -95,7 +103,7 @@ def _mc_AcceptanceCriteriaSummary(s):
                 class_section_id="QUGACH",
                 kind=SomMetaKind.COMPLEX,
                 type_name="QualityGateChecklist",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="11.7.2. Quality Gate Checklist.",
                 class_doc_comment="11.7.2. Quality Gate Checklist.\n\nQuality gate checklist used during acceptance.",
                 recursive=r,
@@ -107,7 +115,7 @@ def _mc_AcceptanceCriteriaSummary(s):
                 class_section_id="ACRITL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AcceptanceCriteriaList",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Canonical, enumerated acceptance criteria (SR-54 explicit link).\n\nThe single source of truth for the full set of traceable acceptance\ncriteria; this summary references — rather than duplicates — it. The same\n[AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.",
                 class_doc_comment="14.2.1. Acceptance Criteria.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -118,7 +126,7 @@ def _mc_AcceptanceCriteriaSummary(s):
             member_name="acceptanceTestSummary",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Summary of acceptance test plan and expected outcomes.",
             doc_comment="Acceptance test summary."),
@@ -635,11 +643,19 @@ def _mc_Accessibility(s):
     return [
          SomMetaNode(
             class_name="Accessibility",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the accessibility commitment before the WCAG, checklist, keyboard and screen-reader subsections below. Cover the target conformance level and who verifies it."),
+         SomMetaNode(
+            class_name="Accessibility",
             member_name="accessibilityOverviewContent",
             section_id="ACCESS-ACCE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="wcagComplianceTarget", type_name="String", description="WCAG Compliance Target", hint="A, AA, AAA", order=0), SomFormFieldMeta(name="wcagVersion", type_name="String", description="WCAG Version", hint="2.0, 2.1, 2.2", order=1), SomFormFieldMeta(name="additionalStandards", type_name="String", description="Additional Standards", hint="Section 508, EN 301 549, ADA", order=2), SomFormFieldMeta(name="accessibilityStatement", type_name="bool", description="Accessibility Statement", hint="Publish accessibility statement", order=3)])),
          SomMetaNode(
             class_name="Accessibility",
@@ -647,7 +663,7 @@ def _mc_Accessibility(s):
             section_id="ACSTGY",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Ownership and inclusive design philosophy.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="accessibilityPhilosophy", type_name="String", description="Accessibility Philosophy", hint="Inclusive design, equivalent experience", order=0), SomFormFieldMeta(name="accessibilityOwnership", type_name="String", description="Accessibility Ownership", hint="Who is responsible for accessibility", order=1), SomFormFieldMeta(name="accessibilityTraining", type_name="String", description="Accessibility Training", hint="Team training requirements", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 30071-1:2019 — accessibility is embedded into the organization through defined ownership and inclusive design practices", "W3C WCAG 2.2 — an inclusive design strategy delivers an equivalent experience for users with disabilities"], "connotation": "The organizational strategy for accessibility including ownership, philosophy, and team training."})]),
@@ -657,7 +673,7 @@ def _mc_Accessibility(s):
             section_id="ACTE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Accessibility testing approach.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="automatedTestingTools", type_name="String", description="Automated Testing Tools", hint="axe, WAVE, Lighthouse", order=0), SomFormFieldMeta(name="manualTestingProcess", type_name="String", description="Manual Testing Process", hint="How manual testing is performed", order=1), SomFormFieldMeta(name="assistiveTechTesting", type_name="String", description="Assistive Tech Testing", hint="Screen readers, switch devices", order=2), SomFormFieldMeta(name="userTestingWithDisabilities", type_name="bool", description="User Testing with Disabilities", hint="Include users with disabilities", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WCAG 2.2 — conformance is evaluated by testing each success criterion with automated and manual methods", "EN 301 549 — accessibility is verified through testing including evaluation with assistive technologies"], "connotation": "The approach for testing accessibility through automated tools, manual review, and user testing."})]),
@@ -667,7 +683,7 @@ def _mc_Accessibility(s):
             section_id="ACSU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Supported assistive technologies and platform features.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="targetScreenReaders", type_name="String", description="Target Screen Readers", hint="NVDA, JAWS, VoiceOver, TalkBack", order=0), SomFormFieldMeta(name="targetBrowserAccessibility", type_name="String", description="Target Browser Accessibility", hint="Browser accessibility features used", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WAI-ARIA — user interface semantics are exposed so screen readers and other assistive technologies can convey them", "ISO 9241-171:2008 — software provides support for assistive technologies and platform accessibility features"], "connotation": "The assistive technologies and platform accessibility features the interface supports."})]),
@@ -676,7 +692,7 @@ def _mc_Accessibility(s):
             member_name="accessibilityOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of accessibility approach, compliance targets, and inclusive design principles.",
             doc_comment="Accessibility overview narrative."),
@@ -687,7 +703,7 @@ def _mc_Accessibility(s):
                 class_section_id="WCCO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="WcagCompliance",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="10.9.1. WCAG Compliance Level.",
                 class_doc_comment="10.9.1. WCAG Compliance Level.",
                 recursive=r,
@@ -699,7 +715,7 @@ def _mc_Accessibility(s):
                 class_section_id="ACCHLS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AccessibilityChecklist",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="10.9.2. Accessibility Checklist.",
                 class_doc_comment="10.9.2. Accessibility Checklist.\n\nComprehensive accessibility verification checklist.",
                 recursive=r,
@@ -709,7 +725,7 @@ def _mc_Accessibility(s):
             member_name="keyboardNavigation",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Keyboard navigation patterns, focus management, and keyboard shortcuts.",
             doc_comment="Keyboard navigation specification."),
@@ -718,7 +734,7 @@ def _mc_Accessibility(s):
             member_name="screenReaderSupport",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Screen reader support: ARIA labels, landmarks, live regions, and announcements.",
             doc_comment="Screen reader support specification."),
@@ -727,7 +743,7 @@ def _mc_Accessibility(s):
             member_name="colorAndContrast",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Color contrast requirements, color-blind-friendly design, and non-color indicators.",
             doc_comment="Color and contrast specification."),
@@ -780,18 +796,26 @@ def _mc_AccessibilityChecklist(s):
     return [
          SomMetaNode(
             class_name="AccessibilityChecklist",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the verification checklist before the individual items below. Cover when the checklist is run and who signs it off."),
+         SomMetaNode(
+            class_name="AccessibilityChecklist",
             member_name="checklistOverviewContent",
             section_id="ACCHLS-CHEC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="checklistStandard", type_name="String", description="Checklist Standard", hint="Based on WCAG, custom additions", order=0), SomFormFieldMeta(name="checklistOwner", type_name="String", description="Checklist Owner", hint="Who maintains the checklist", order=1), SomFormFieldMeta(name="checkFrequency", type_name="String", description="Check Frequency", hint="Per feature, per release, continuous", order=2), SomFormFieldMeta(name="automatedChecks", type_name="String", description="Automated Checks", hint="Automated accessibility testing coverage", order=3), SomFormFieldMeta(name="manualChecks", type_name="String", description="Manual Checks", hint="Manual testing procedures", order=4), SomFormFieldMeta(name="userTesting", type_name="String", description="User Testing", hint="Testing with users with disabilities", order=5), SomFormFieldMeta(name="reportingFormat", type_name="String", description="Reporting Format", hint="How accessibility status is reported", order=6), SomFormFieldMeta(name="remediationProcess", type_name="String", description="Remediation Process", hint="How issues are fixed", order=7)])),
          SomMetaNode(
             class_name="AccessibilityChecklist",
             member_name="checklistOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Accessibility checklist overview."),
          SomMetaNode(
@@ -801,7 +825,7 @@ def _mc_AccessibilityChecklist(s):
             section_id_pattern="ACCH-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="AccessibilityCheckEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per accessibility check.",
             doc_comment="Contains 0+× AccessibilityCheck.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WCAG 2.2 — the checklist enumerates testable success criteria for the interactive product", "EN 301 549 — accessibility requirements are enumerated as verifiable checklist items"], "connotation": "The collection of accessibility checklist entries."})],
@@ -1009,11 +1033,19 @@ def _mc_ActorEntry(s):
     return [
          SomMetaNode(
             class_name="ActorEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this actor — their working context, motivation and constraints, beyond the characteristics, goals and permissions recorded below."),
+         SomMetaNode(
+            class_name="ActorEntry",
             member_name="identification",
             section_id="ACID",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Actor identification.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="actorType", type_name="String", description="Actor Type — human user, system, external system, scheduled", hint="State whether the actor is a person, system or scheduled job", order=0), SomFormFieldMeta(name="category", type_name="String", description="Category — primary, secondary, supporting, offstage", hint="Classify using Cockburn primary/secondary/supporting/offstage", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description — role purpose", hint="Explain the actor’s purpose in one or two sentences", order=2), SomFormFieldMeta(name="realWorldExamples", type_name="String", description="Real World Examples — who fills this role", hint="Name concrete job titles or people that fill this role", order=3), SomFormFieldMeta(name="organizationalUnit", type_name="String", description="Organizational Unit — department or team", hint="Identify the department or team the actor belongs to", order=4), SomFormFieldMeta(name="estimatedCount", type_name="String", description="Estimated Count — how many users in this role", hint="Estimate the number of individuals in this role", order=5), SomFormFieldMeta(name="geographicDistribution", type_name="String", description="Geographic Distribution — where actors are located", hint="Note the locations or regions where actors operate", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships", "BABOK v3 — stakeholder & actor analysis"], "connotation": "Uniquely identifies and classifies an actor, capturing type, category and real-world population."})]),
@@ -1024,7 +1056,7 @@ def _mc_ActorEntry(s):
                 class_section_id="ACTCHA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ActorCharacteristics",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="Actor characteristics.",
                 class_doc_comment="Actor characteristics.",
                 recursive=r,
@@ -1036,7 +1068,7 @@ def _mc_ActorEntry(s):
             section_id_pattern="ACGO-GOAL-xxx",
             kind=SomMetaKind.LIST,
             type_name="ActorGoals",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per actor goal.",
             doc_comment="Actor goals (Cockburn style).",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"], "connotation": "The set of goals an actor seeks to achieve through the system."})],
@@ -1048,7 +1080,7 @@ def _mc_ActorEntry(s):
             section_id_pattern="ACPE-PERM-xxx",
             kind=SomMetaKind.LIST,
             type_name="ActorPermissions",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per actor permission set.",
             doc_comment="Actor permissions and access.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["NIST RBAC — role-based access (actor permissions)", "ISO/IEC 27001 A.9 — access control (actor authorization)"], "connotation": "The access rights and authorization levels granted to an actor."})],
@@ -1059,7 +1091,7 @@ def _mc_ActorEntry(s):
             section_id="ACTEPR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Actor technology profile.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="primaryAccessChannel", type_name="String", description="Primary Access Channel — web, mobile app, desktop, API", hint="Name the main channel the actor uses to access the system", order=0), SomFormFieldMeta(name="secondaryAccessChannels", type_name="String", description="Secondary Access Channels — alternative channels", hint="List alternative channels the actor may use", order=1), SomFormFieldMeta(name="deviceTypes", type_name="String", description="Device Types — desktop, laptop, tablet, smartphone", hint="List the device types the actor uses", order=2), SomFormFieldMeta(name="operatingSystems", type_name="String", description="Operating Systems — Windows, macOS, iOS, Android", hint="List the operating systems the actor runs", order=3), SomFormFieldMeta(name="browserRequirements", type_name="String", description="Browser Requirements — supported browsers", hint="Note the browsers that must be supported", order=4), SomFormFieldMeta(name="networkConnectivity", type_name="String", description="Network Connectivity — always online, occasionally offline", hint="Describe the actor’s typical network connectivity", order=5), SomFormFieldMeta(name="bandwidthExpectations", type_name="String", description="Bandwidth Expectations — high-speed, limited", hint="State the bandwidth the actor typically has available", order=6), SomFormFieldMeta(name="integratedTools", type_name="String", description="Integrated Tools — other tools actor uses", hint="List other tools the actor integrates with", order=7), SomFormFieldMeta(name="authenticationMethod", type_name="String", description="Authentication Method — password, SSO, MFA, biometric", hint="State how the actor authenticates to the system", order=8)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §6 — stakeholders & operational context", "BABOK v3 — stakeholder & actor analysis"], "connotation": "Describes the channels, devices, connectivity and authentication through which an actor accesses the system."})]),
@@ -1069,7 +1101,7 @@ def _mc_ActorEntry(s):
             section_id="ACINSU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Actor interactions summary.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="primaryInteractions", type_name="String", description="Primary Interactions — main use cases", hint="List the main use cases the actor initiates or drives", order=0), SomFormFieldMeta(name="secondaryInteractions", type_name="String", description="Secondary Interactions — supporting use cases", hint="List supporting use cases the actor takes part in", order=1), SomFormFieldMeta(name="interactionFrequency", type_name="String", description="Interaction Frequency — how often each type", hint="State how often each interaction type occurs", order=2), SomFormFieldMeta(name="criticalInteractions", type_name="String", description="Critical Interactions — most important", hint="Highlight the actor’s most important interactions", order=3), SomFormFieldMeta(name="complexInteractions", type_name="String", description="Complex Interactions — most challenging", hint="Note the actor’s most challenging interactions", order=4), SomFormFieldMeta(name="collaborativeInteractions", type_name="String", description="Collaborative Interactions — involves other actors", hint="List interactions that involve other actors", order=5), SomFormFieldMeta(name="handoffPoints", type_name="String", description="Handoff Points — where work passes to others", hint="Identify points where work is handed off to others", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships", "Cockburn — Writing Effective Use Cases: actor goals & levels (primary/secondary/offstage)"], "connotation": "Summarises the use-case interactions an actor participates in, their frequency, criticality and handoff points."})]),
@@ -1150,11 +1182,19 @@ def _mc_ActorRelationshipDiagram(s):
     return [
          SomMetaNode(
             class_name="ActorRelationshipDiagram",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the actor landscape before the hierarchy and actor-system diagrams below. Cover which actors are human, which are systems, and how they generalize."),
+         SomMetaNode(
+            class_name="ActorRelationshipDiagram",
             member_name="overview",
             section_id="ACDIOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Diagram overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="diagramPurpose", type_name="String", description="Diagram Purpose — show actor relationships", hint="State what the diagram is meant to communicate", order=0), SomFormFieldMeta(name="actorCategories", type_name="String", description="Actor Categories — primary, secondary, supporting", hint="List the actor categories shown in the diagram", order=1), SomFormFieldMeta(name="systemBoundary", type_name="String", description="System Boundary — what is inside/outside", hint="Define what lies inside vs outside the system", order=2), SomFormFieldMeta(name="notation", type_name="String", description="Notation — UML use case, custom", hint="Name the diagram notation used", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships", "BPMN 2.0 — collaboration / pools & lanes (participants)"], "connotation": "Explains the purpose, categories and notation of the actor relationship diagram."})]),
@@ -1163,7 +1203,7 @@ def _mc_ActorRelationshipDiagram(s):
             member_name="actorHierarchy",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="mermaid-flow", description=""),
             doc_comment="Actor hierarchy diagram (generalization relationships)."),
          SomMetaNode(
@@ -1171,7 +1211,7 @@ def _mc_ActorRelationshipDiagram(s):
             member_name="actorSystemDiagram",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             content_type=SomContentTypeMeta(type="mermaid-flow", description=""),
             doc_comment="Actor-system interaction overview diagram."),
     ]
@@ -1568,18 +1608,26 @@ def _mc_AlertingConfiguration(s):
     return [
          SomMetaNode(
             class_name="AlertingConfiguration",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the alerting approach before the channel, rule, escalation and on-call subsections below. Cover what warrants an alert at all, and the noise-versus-coverage balance the rules aim for."),
+         SomMetaNode(
+            class_name="AlertingConfiguration",
             member_name="alertingOverview",
             section_id="ALCO-ALER",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="alertingPhilosophy", type_name="String", description="Alerting Philosophy", hint="Page on symptoms, not causes; reduce noise", order=0), SomFormFieldMeta(name="alertSeverityLevels", type_name="String", description="Alert Severity Levels", hint="Critical, Warning, Info", order=1), SomFormFieldMeta(name="onCallModel", type_name="String", description="On-Call Model", hint="Follow-the-sun, regional, single team", order=2), SomFormFieldMeta(name="criticalResponseTime", type_name="String", description="Critical Response Time", hint="Max time to acknowledge critical alerts", order=3), SomFormFieldMeta(name="warningResponseTime", type_name="String", description="Warning Response Time", hint="Max time to acknowledge warnings", order=4), SomFormFieldMeta(name="infoResponseTime", type_name="String", description="Info Response Time", hint="Expected review time for info alerts", order=5), SomFormFieldMeta(name="alertReviewCadence", type_name="String", description="Alert Review Cadence", hint="How often alert rules are reviewed", order=6), SomFormFieldMeta(name="noisyAlertPolicy", type_name="String", description="Noisy Alert Policy", hint="Process for tuning noisy alerts", order=7), SomFormFieldMeta(name="staleAlertCleanup", type_name="String", description="Stale Alert Cleanup", hint="Removing outdated alert rules", order=8)])),
          SomMetaNode(
             class_name="AlertingConfiguration",
             member_name="overviewNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Alerting overview narrative."),
          _cx("AlertNotificationChannels", s, _mc_AlertNotificationChannels,
@@ -1589,7 +1637,7 @@ def _mc_AlertingConfiguration(s):
                 class_section_id="ALNOCH",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AlertNotificationChannels",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="Notification channels.",
                 class_doc_comment="Alert notification channels.",
                 recursive=r,
@@ -1601,7 +1649,7 @@ def _mc_AlertingConfiguration(s):
             section_id_pattern="ALERUL-ALER-xxx",
             kind=SomMetaKind.LIST,
             type_name="AlertRuleEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per alert rule.",
             doc_comment="Alert rules catalog.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Prometheus — Alertmanager (routing, grouping, silencing)"], "connotation": "The catalog of alert rules the system evaluates."})],
@@ -1613,7 +1661,7 @@ def _mc_AlertingConfiguration(s):
                 class_section_id="ALESPO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AlertEscalationPolicies",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Escalation policies.",
                 class_doc_comment="Alert escalation policies.",
                 recursive=r,
@@ -1625,7 +1673,7 @@ def _mc_AlertingConfiguration(s):
             section_id_pattern="ALSURU-SUPP-xxx",
             kind=SomMetaKind.LIST,
             type_name="AlertSuppressionRules",
-            serialization_order=5,
+            serialization_order=6,
             content_help="Add one entry per suppression or maintenance window.",
             doc_comment="Alert suppression and maintenance windows.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Prometheus — Alertmanager (routing, grouping, silencing)"], "connotation": "The catalog of alert suppression and maintenance window rules."})],
@@ -1637,7 +1685,7 @@ def _mc_AlertingConfiguration(s):
                 class_section_id="OCSC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="OnCallScheduleConfig",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="On-call schedule.",
                 class_doc_comment="On-call schedule configuration.",
                 recursive=r,
@@ -4295,10 +4343,18 @@ def _mc_BoundaryAssumptions(s):
     return [
          SomMetaNode(
             class_name="BoundaryAssumptions",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the assumptions the project depends on before the individual items below. Cover how an assumption is validated and what happens when one fails."),
+         SomMetaNode(
+            class_name="BoundaryAssumptions",
             member_name="assumptionApproach",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe assumption categories, validation timeline, and impact assessment approach for assumption failures.",
             doc_comment="Overview of assumption categories and validation approach."),
@@ -4309,7 +4365,7 @@ def _mc_BoundaryAssumptions(s):
             section_id_pattern="BAE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="BoundaryAssumptionEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Each entry records one assumption with its category, validation status, and risk if proven incorrect.",
             doc_comment="Contains 0+× BoundaryAssumptionEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies", "ISO 31000 — risk management (assumption risk)"], "connotation": "Lists each individual assumption so it can be owned, validated, and risk-assessed."})],
@@ -4386,11 +4442,19 @@ def _mc_BreakpointConfiguration(s):
     return [
          SomMetaNode(
             class_name="BreakpointConfiguration",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the breakpoint scheme before the individual breakpoints below. Cover the units used and the reasoning behind the chosen thresholds."),
+         SomMetaNode(
+            class_name="BreakpointConfiguration",
             member_name="breakpointOverview",
             section_id="BC-BREA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="mobileMax", type_name="String", description="Mobile Max Width", hint="Maximum width for mobile (e.g., 599)", order=0), SomFormFieldMeta(name="tabletMin", type_name="String", description="Tablet Min Width", hint="Minimum width for tablet (e.g., 600)", order=1), SomFormFieldMeta(name="tabletMax", type_name="String", description="Tablet Max Width", hint="Maximum width for tablet (e.g., 1023)", order=2), SomFormFieldMeta(name="desktopMin", type_name="String", description="Desktop Min Width", hint="Minimum width for desktop (e.g., 1024)", order=3), SomFormFieldMeta(name="largeDesktopMin", type_name="String", description="Large Desktop Min Width", hint="Minimum width for large screens (e.g., 1440)", order=4), SomFormFieldMeta(name="watchMax", type_name="String", description="Watch Max Width", hint="Maximum width for wearables", order=5), SomFormFieldMeta(name="foldableBreakpoint", type_name="String", description="Foldable Breakpoint", hint="Breakpoint for foldable devices", order=6), SomFormFieldMeta(name="customBreakpoints", type_name="String", description="Custom Breakpoints", hint="Additional app-specific breakpoints", order=7), SomFormFieldMeta(name="breakpointUnit", type_name="String", description="Breakpoint Unit", hint="Logical pixels, device pixels", order=8), SomFormFieldMeta(name="densityHandling", type_name="String", description="Density Handling", hint="How pixel density is handled", order=9)])),
          SomMetaNode(
             class_name="BreakpointConfiguration",
@@ -4399,7 +4463,7 @@ def _mc_BreakpointConfiguration(s):
             section_id_pattern="BE-BREA-xxx",
             kind=SomMetaKind.LIST,
             type_name="BreakpointEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per layout breakpoint.",
             doc_comment="Breakpoint entries.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes"], "connotation": "The collection of layout breakpoint entries."})],
@@ -5060,11 +5124,19 @@ def _mc_BusinessObjectEntry(s):
     return [
          SomMetaNode(
             class_name="BusinessObjectEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this business object — its role in the domain, beyond the attribute, state, rule and operation facets recorded below."),
+         SomMetaNode(
+            class_name="BusinessObjectEntry",
             member_name="identity",
             section_id="BJOEN-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="objectAlias", type_name="String", description="Alias/Abbreviation", hint="Short alias for diagrams (e.g., ORD, CUST)", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Clear business definition of what this object represents", order=1), SomFormFieldMeta(name="businessGlossaryTerm", type_name="String", description="Business Glossary Term", hint="Official business glossary term if different", order=2), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event", order=3), SomFormFieldMeta(name="stereotypePattern", type_name="String", description="Stereotype/Pattern", hint="DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga", order=4)])),
          SomMetaNode(
             class_name="BusinessObjectEntry",
@@ -5072,7 +5144,7 @@ def _mc_BusinessObjectEntry(s):
             section_id="BJOEN-DOMA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="boundedContext", type_name="String", description="Bounded Context", hint="DDD bounded context this object belongs to", order=0), SomFormFieldMeta(name="owningDomain", type_name="String", description="Owning Domain", hint="Business domain responsible for this object", order=1), SomFormFieldMeta(name="domainExpert", type_name="String", description="Domain Expert", hint="Business expert who defines this object", order=2), SomFormFieldMeta(name="ubiquitousLanguageTerm", type_name="String", description="Ubiquitous Language Term", hint="How this is referred to in the ubiquitous language", order=3), SomFormFieldMeta(name="relatedObjects", type_name="String", description="Related Objects", hint="Key related business objects", order=4)])),
          SomMetaNode(
             class_name="BusinessObjectEntry",
@@ -5080,7 +5152,7 @@ def _mc_BusinessObjectEntry(s):
             section_id="BJOEN-LIFE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="keyStates", type_name="String", description="Key States", hint="Primary lifecycle states (e.g., Draft → Submitted → Confirmed → Closed)", order=0), SomFormFieldMeta(name="initialState", type_name="String", description="Initial State", hint="State when object is created", order=1), SomFormFieldMeta(name="terminalStates", type_name="String", description="Terminal States", hint="States where lifecycle ends (e.g., Closed, Cancelled, Deleted)", order=2), SomFormFieldMeta(name="stateTransitionRules", type_name="String", description="State Transition Rules", hint="Summary of allowed state transitions", order=3), SomFormFieldMeta(name="lifecycleOwner", type_name="String", description="Lifecycle Owner", hint="System or process responsible for lifecycle management", order=4)])),
          SomMetaNode(
             class_name="BusinessObjectEntry",
@@ -5089,7 +5161,7 @@ def _mc_BusinessObjectEntry(s):
             section_id_pattern="BEHAV-BEHA-xxx",
             kind=SomMetaKind.LIST,
             type_name="BehaviorRuleEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per behavior rule.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements", "Domain-Driven Design — aggregates/entities/value objects"], "connotation": "The behavior rules that govern how this object acts."})],
             element_node=_cx("BehaviorRuleEntry", s, _mc_BehaviorRuleEntry, lambda r, c: SomMetaNode(class_name="BehaviorRuleEntry", class_section_id="BEHAV", kind=SomMetaKind.COMPLEX, type_name="BehaviorRuleEntry", doc_comment="A single behavior rule entry.", class_doc_comment="A single behavior rule entry.", recursive=r, children=c))),
@@ -5099,7 +5171,7 @@ def _mc_BusinessObjectEntry(s):
             section_id="BJOEN-OWNE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="dataOwner", type_name="String", description="Data Owner", hint="Business role accountable for this object", order=0), SomFormFieldMeta(name="dataSteward", type_name="String", description="Data Steward", hint="Role responsible for data quality", order=1), SomFormFieldMeta(name="versioningStrategy", type_name="String", description="Versioning Strategy", hint="None | Sequential | Timestamp | Optimistic | EventSourced", order=2), SomFormFieldMeta(name="concurrencyControl", type_name="String", description="Concurrency Control", hint="Optimistic | Pessimistic | None", order=3), SomFormFieldMeta(name="auditTrail", type_name="String", description="Audit Trail", hint="What changes are tracked: None | StateChanges | AllChanges | FullHistory", order=4)])),
          SomMetaNode(
             class_name="BusinessObjectEntry",
@@ -5108,7 +5180,7 @@ def _mc_BusinessObjectEntry(s):
             section_id_pattern="INTEG-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="IntegrationPointEntry",
-            serialization_order=5,
+            serialization_order=6,
             content_help="Add one entry per integration point.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Domain-Driven Design — aggregates/entities/value objects", "BPMN 2.0 — business process model & notation"], "connotation": "The integration points where this object exposes APIs or publishes and subscribes to events."})],
             element_node=_cx("IntegrationPointEntry", s, _mc_IntegrationPointEntry, lambda r, c: SomMetaNode(class_name="IntegrationPointEntry", class_section_id="INTEG", kind=SomMetaKind.COMPLEX, type_name="IntegrationPointEntry", doc_comment="A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application's own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.", class_doc_comment="A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application's own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.", recursive=r, children=c))),
@@ -5119,7 +5191,7 @@ def _mc_BusinessObjectEntry(s):
             section_id_pattern="BIOBAT-ATTR-xxx",
             kind=SomMetaKind.LIST,
             type_name="BusinessObjectAttributeEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per business object attribute.",
             doc_comment="Contains 0+× BusinessObjectAttribute.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / data element definitions", "Domain-Driven Design — aggregates/entities/value objects"], "connotation": "The business-level attributes that describe this object."})],
@@ -5131,7 +5203,7 @@ def _mc_BusinessObjectEntry(s):
             section_id_pattern="OBST-KEYS-xxx",
             kind=SomMetaKind.LIST,
             type_name="ObjectStateEntry",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per object state.",
             doc_comment="Contains 0+× ObjectState.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["UML state machines — object lifecycle/state modeling"], "connotation": "The key lifecycle states this object can occupy."})],
@@ -5143,7 +5215,7 @@ def _mc_BusinessObjectEntry(s):
             section_id_pattern="BIRURE-KEYB-xxx",
             kind=SomMetaKind.LIST,
             type_name="BusinessRuleReferenceEntry",
-            serialization_order=8,
+            serialization_order=9,
             content_help="Add one entry per business rule reference.",
             doc_comment="Contains 0+× BusinessRuleReference.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements"], "connotation": "The business rules that govern this object."})],
@@ -5155,7 +5227,7 @@ def _mc_BusinessObjectEntry(s):
             section_id_pattern="LFTRS-LIFE-xxx",
             kind=SomMetaKind.LIST,
             type_name="LifecycleTransitionEntry",
-            serialization_order=9,
+            serialization_order=10,
             content_help="Add one entry per lifecycle transition.",
             doc_comment="Contains 0+× LifecycleTransition.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["UML state machines — object lifecycle/state modeling"], "connotation": "The allowed state transitions in this object lifecycle."})],
@@ -5167,7 +5239,7 @@ def _mc_BusinessObjectEntry(s):
             section_id_pattern="OBOP-OPER-xxx",
             kind=SomMetaKind.LIST,
             type_name="ObjectOperationEntry",
-            serialization_order=10,
+            serialization_order=11,
             content_help="Add one entry per object operation.",
             doc_comment="Contains 0+× ObjectOperation.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Domain-Driven Design — aggregates/entities/value objects", "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"], "connotation": "The domain operations that can be performed on this object."})],
@@ -5179,7 +5251,7 @@ def _mc_BusinessObjectEntry(s):
             section_id_pattern="OBINV-INVA-xxx",
             kind=SomMetaKind.LIST,
             type_name="ObjectInvariantEntry",
-            serialization_order=11,
+            serialization_order=12,
             content_help="Add one entry per object invariant.",
             doc_comment="Contains 0+× ObjectInvariant.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements", "Domain-Driven Design — aggregates/entities/value objects"], "connotation": "The invariants that must always hold true for this object."})],
@@ -5400,6 +5472,14 @@ def _mc_BusinessProcessDescriptions(s):
 
 def _mc_BusinessProcessEntry(s):
     return [
+         SomMetaNode(
+            class_name="BusinessProcessEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this business process — the story of how it actually runs, and anything the identification, trigger, role, performance and control facets below do not capture."),
          _cx("ProcessIdentification", s, _mc_ProcessIdentification,
             lambda r, c: SomMetaNode(
                 class_name="ProcessIdentification",
@@ -5407,7 +5487,7 @@ def _mc_BusinessProcessEntry(s):
                 class_section_id="PRIDN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessIdentification",
-                serialization_order=0,
+                serialization_order=1,
                 doc_comment="Process identification.",
                 class_doc_comment="Process identification.",
                 recursive=r,
@@ -5419,7 +5499,7 @@ def _mc_BusinessProcessEntry(s):
                 class_section_id="PRCHR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessCharacteristics",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="Process characteristics.",
                 class_doc_comment="Process characteristics.",
                 recursive=r,
@@ -5431,7 +5511,7 @@ def _mc_BusinessProcessEntry(s):
                 class_section_id="PRTRG",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessTriggers",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="Process triggers and events.",
                 class_doc_comment="Process triggers and events.",
                 recursive=r,
@@ -5443,7 +5523,7 @@ def _mc_BusinessProcessEntry(s):
                 class_section_id="PRINOU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessInputsOutputs",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="Process inputs and outputs.",
                 class_doc_comment="Process inputs and outputs.",
                 recursive=r,
@@ -5455,7 +5535,7 @@ def _mc_BusinessProcessEntry(s):
                 class_section_id="PRRO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessRoles",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Roles and responsibilities.",
                 class_doc_comment="Process roles and responsibilities.",
                 recursive=r,
@@ -5467,7 +5547,7 @@ def _mc_BusinessProcessEntry(s):
                 class_section_id="PP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessPerformance",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Process performance.",
                 class_doc_comment="Process performance metrics.",
                 recursive=r,
@@ -5479,7 +5559,7 @@ def _mc_BusinessProcessEntry(s):
                 class_section_id="PRCO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessControls",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="Process controls and compliance.",
                 class_doc_comment="Process controls and compliance.",
                 recursive=r,
@@ -5491,7 +5571,7 @@ def _mc_BusinessProcessEntry(s):
                 class_section_id="PRTE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessTechnology",
-                serialization_order=7,
+                serialization_order=8,
                 doc_comment="Technology support.",
                 class_doc_comment="Process technology support.",
                 recursive=r,
@@ -5503,7 +5583,7 @@ def _mc_BusinessProcessEntry(s):
                 class_section_id="PREX",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessExceptions",
-                serialization_order=8,
+                serialization_order=9,
                 doc_comment="Process exceptions.",
                 class_doc_comment="Process exceptions and error handling.",
                 recursive=r,
@@ -5513,7 +5593,7 @@ def _mc_BusinessProcessEntry(s):
             member_name="processFlowPreview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             content_type=SomContentTypeMeta(type="mermaid-flow", description=""),
             doc_comment="Process flow preview (high-level)."),
     ]
@@ -5523,11 +5603,19 @@ def _mc_BusinessRuleEntry(s):
     return [
          SomMetaNode(
             class_name="BusinessRuleEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this business rule — the intent behind it, beyond the logic, enforcement and governance facets recorded below."),
+         SomMetaNode(
+            class_name="BusinessRuleEntry",
             member_name="identity",
             section_id="BIRU-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleVersion", type_name="String", description="Rule Version", hint="Version number for change tracking", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Full statement of the business rule", order=1), SomFormFieldMeta(name="businessStatement", type_name="String", description="Business Statement", hint="Natural language statement from business perspective", order=2)])),
          SomMetaNode(
             class_name="BusinessRuleEntry",
@@ -5535,7 +5623,7 @@ def _mc_BusinessRuleEntry(s):
             section_id="BIRU-CLAS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleType", type_name="String", description="Rule Type", hint="Structural | Derivation | Constraint | Authorization | Workflow | Calculation", order=0), SomFormFieldMeta(name="ruleCategory", type_name="String", description="Rule Category", hint="Validation | Computation | Inference | Action-Enabling", order=1), SomFormFieldMeta(name="enforcementLevel", type_name="String", description="Enforcement Level", hint="Mandatory | Guideline | Advisory", order=2), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="When rules conflict: 1 (highest) to 5 (lowest)", order=3), SomFormFieldMeta(name="source", type_name="String", description="Source", hint="Where rule originates: Regulation | Policy | Contract | BestPractice", order=4)])),
          SomMetaNode(
             class_name="BusinessRuleEntry",
@@ -5543,7 +5631,7 @@ def _mc_BusinessRuleEntry(s):
             section_id="BIRU-RULE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="condition", type_name="String", description="Condition (IF)", hint="Trigger condition in natural language or pseudo-code", order=0), SomFormFieldMeta(name="action", type_name="String", description="Action (THEN)", hint="What happens when condition is true", order=1), SomFormFieldMeta(name="elseAction", type_name="String", description="Else Action (ELSE)", hint="What happens when condition is false", order=2), SomFormFieldMeta(name="expression", type_name="String", description="Formal Expression", hint="Formalized rule logic", order=3), SomFormFieldMeta(name="parameters", type_name="String", description="Parameters", hint="Configurable values in the rule", order=4)])),
          SomMetaNode(
             class_name="BusinessRuleEntry",
@@ -5551,7 +5639,7 @@ def _mc_BusinessRuleEntry(s):
             section_id="BIRU-IMPL",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="enforcement", type_name="String", description="Enforcement", hint="How enforced: DatabaseConstraint | ApplicationLogic | Workflow | Manual", order=0), SomFormFieldMeta(name="implementationPoint", type_name="String", description="Implementation Point", hint="Where implemented: UI | API | Service | Database | Integration", order=1), SomFormFieldMeta(name="validationTiming", type_name="String", description="Validation Timing", hint="When validated: OnInput | OnSave | OnSubmit | Scheduled | RealTime", order=2), SomFormFieldMeta(name="systemsInvolved", type_name="String", description="Systems Involved", hint="Which systems enforce this rule", order=3), SomFormFieldMeta(name="testability", type_name="String", description="Testability", hint="How rule can be tested: UnitTestable | IntegrationRequired | ManualOnly", order=4)])),
          SomMetaNode(
             class_name="BusinessRuleEntry",
@@ -5559,7 +5647,7 @@ def _mc_BusinessRuleEntry(s):
             section_id="BIRU-EXCE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="exceptionHandling", type_name="String", description="Exception Handling", hint="How violations are handled", order=0), SomFormFieldMeta(name="overridePolicy", type_name="String", description="Override Policy", hint="Whether and how rule can be overridden", order=1), SomFormFieldMeta(name="overrideApproval", type_name="String", description="Override Approval", hint="Who can approve overrides", order=2), SomFormFieldMeta(name="escalationPath", type_name="String", description="Escalation Path", hint="How exceptions are escalated", order=3)])),
          SomMetaNode(
             class_name="BusinessRuleEntry",
@@ -5567,7 +5655,7 @@ def _mc_BusinessRuleEntry(s):
             section_id="BIRU-GOVE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleOwner", type_name="String", description="Rule Owner", hint="Business owner responsible for this rule", order=0), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="When rule becomes/became effective", order=1), SomFormFieldMeta(name="expirationDate", type_name="String", description="Expiration Date", hint="When rule expires (if applicable)", order=2), SomFormFieldMeta(name="reviewFrequency", type_name="String", description="Review Frequency", hint="How often rule is reviewed: Annually | OnChange | Never", order=3)])),
          SomMetaNode(
             class_name="BusinessRuleEntry",
@@ -5576,7 +5664,7 @@ def _mc_BusinessRuleEntry(s):
             section_id_pattern="AFOB-AFFE-xxx",
             kind=SomMetaKind.LIST,
             type_name="AffectedObjectEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per affected object.",
             doc_comment="Contains 0+× AffectedObject.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements"], "connotation": "The business objects this rule validates, constrains, or modifies."})],
@@ -5588,7 +5676,7 @@ def _mc_BusinessRuleEntry(s):
             section_id_pattern="AFFN-AFFE-xxx",
             kind=SomMetaKind.LIST,
             type_name="AffectedFunctionEntry",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per affected function.",
             doc_comment="Contains 0+× AffectedFunction.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements", "CRUD matrix — function/data interaction mapping"], "connotation": "The functions where this rule is triggered and applied."})],
@@ -5600,7 +5688,7 @@ def _mc_BusinessRuleEntry(s):
             section_id_pattern="RULEXM-EXAM-xxx",
             kind=SomMetaKind.LIST,
             type_name="RuleExampleEntry",
-            serialization_order=8,
+            serialization_order=9,
             content_help="Add one entry per rule example.",
             doc_comment="Contains 0+× RuleExample.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements"], "connotation": "Worked examples that illustrate how this rule evaluates."})],
@@ -6318,11 +6406,19 @@ def _mc_ChangeReadinessAssessment(s):
     return [
          SomMetaNode(
             class_name="ChangeReadinessAssessment",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the readiness assessment before the individual criteria below. Cover how readiness is measured and what happens when a group is not ready."),
+         SomMetaNode(
+            class_name="ChangeReadinessAssessment",
             member_name="overview",
             section_id="CHREOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Overview of readiness assessment approach.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="assessmentMethod", type_name="String", description="Assessment Method — surveys, interviews, observations, readiness gates", hint="The techniques used to assess readiness: surveys, interviews, observations, or formal readiness gates", order=0), SomFormFieldMeta(name="assessmentFrequency", type_name="String", description="Assessment Frequency — how often readiness is evaluated", hint="How frequently readiness is re-evaluated, e.g. weekly, per phase, or at each milestone gate", order=1), SomFormFieldMeta(name="readinessOwner", type_name="String", description="Readiness Owner — who tracks readiness", hint="The person or role accountable for tracking and reporting change readiness", order=2), SomFormFieldMeta(name="minimumReadinessLevel", type_name="String", description="Minimum Readiness Level — threshold to proceed", hint="The minimum readiness score or level required before the transition is allowed to proceed", order=3), SomFormFieldMeta(name="escalationTrigger", type_name="String", description="Escalation Trigger — when to escalate readiness concerns", hint="The conditions under which readiness concerns must be escalated to leadership", order=4), SomFormFieldMeta(name="readinessTooling", type_name="String", description="Readiness Tooling — tools/surveys used for assessment", hint="The tools, survey platforms, or instruments used to collect and analyze readiness data", order=5), SomFormFieldMeta(name="adkarFocus", type_name="String", description="ADKAR Focus — Awareness, Desire, Knowledge, Ability, Reinforcement status", hint="Which ADKAR dimensions (Awareness, Desire, Knowledge, Ability, Reinforcement) are the current focus and their status", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PROSCI ADKAR — change readiness assessment", "Kotter 8-Step — leading change"], "connotation": "Summarizes the overall method, cadence, ownership, and thresholds used to assess organizational readiness for the change."})]),
@@ -6333,7 +6429,7 @@ def _mc_ChangeReadinessAssessment(s):
             section_id_pattern="RDRCE-READ-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReadinessCriteriaEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per stakeholder group whose readiness is being assessed, capturing ADKAR levels, resistance factors, and status.",
             doc_comment="Readiness criteria per stakeholder group.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PROSCI ADKAR — change readiness assessment", "ITIL 4 — organizational change management"], "connotation": "The set of readiness criteria evaluated per stakeholder group to judge their preparedness for the change."})],
@@ -6417,12 +6513,20 @@ def _mc_ChangedRoleCompetencies(s):
     return [
          SomMetaNode(
             class_name="ChangedRoleCompetencies",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how this role's competency requirements shift before the new, removed and changed-level lists below."),
+         SomMetaNode(
+            class_name="ChangedRoleCompetencies",
             member_name="newCompetencies",
             section_id="ROLCP-NEWC-LST",
             section_id_pattern="ROLCP-NEWC-xxx",
             kind=SomMetaKind.LIST,
             type_name="RoleCompetencyEntry",
-            serialization_order=0,
+            serialization_order=1,
             content_help="Add one entry per competency newly required by the role.",
             doc_comment="New competencies required.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CIPD — competency frameworks and people management"], "connotation": "Competencies that become required for the role after the change."})],
@@ -6434,7 +6538,7 @@ def _mc_ChangedRoleCompetencies(s):
             section_id_pattern="ROLCP-REMO-xxx",
             kind=SomMetaKind.LIST,
             type_name="RoleCompetencyEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per competency no longer required by the role.",
             doc_comment="Competencies no longer required.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CIPD — competency frameworks and people management"], "connotation": "Competencies that are no longer required by the role after the change."})],
@@ -6446,7 +6550,7 @@ def _mc_ChangedRoleCompetencies(s):
             section_id_pattern="COLVCH-CHAN-xxx",
             kind=SomMetaKind.LIST,
             type_name="CompetencyLevelChangeEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per competency whose required level changes.",
             doc_comment="Competencies with changed proficiency levels.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CIPD — competency frameworks and people management"], "connotation": "Competencies retained by the role but at a different required proficiency level."})],
@@ -6457,7 +6561,7 @@ def _mc_ChangedRoleCompetencies(s):
             section_id="COGAAS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Overall competency gap assessment.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="overallGapSeverity", type_name="String", description="Overall Gap Severity — critical, significant, moderate, minor", hint="How severe the overall competency gap is", order=0), SomFormFieldMeta(name="criticalGaps", type_name="String", description="Critical Gaps — competencies where gap is most severe", hint="The competencies with the largest or most urgent gaps", order=1), SomFormFieldMeta(name="developmentStrategy", type_name="String", description="Development Strategy — training, coaching, hiring", hint="The approach chosen to close the competency gaps", order=2), SomFormFieldMeta(name="developmentTimeline", type_name="String", description="Development Timeline — when gaps will be closed", hint="When the competency gaps are expected to be closed", order=3), SomFormFieldMeta(name="interimMeasures", type_name="String", description="Interim Measures — how to manage until gaps closed", hint="How the role is covered until the gaps are closed", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CIPD — competency gap analysis", "ISO 9001 §7.2 — competence"], "connotation": "Assesses the overall competency gap for the changed role and the strategy, timeline, and interim measures to close it."})]),
@@ -6466,6 +6570,14 @@ def _mc_ChangedRoleCompetencies(s):
 
 def _mc_ChangedRoleEntry(s):
     return [
+         SomMetaNode(
+            class_name="ChangedRoleEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this changed role — what the change means for the people currently in it, beyond the responsibility, competency and transition facets recorded below."),
          _cx("ChangedRoleIdentification", s, _mc_ChangedRoleIdentification,
             lambda r, c: SomMetaNode(
                 class_name="ChangedRoleIdentification",
@@ -6473,7 +6585,7 @@ def _mc_ChangedRoleEntry(s):
                 class_section_id="CHROID",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ChangedRoleIdentification",
-                serialization_order=0,
+                serialization_order=1,
                 doc_comment="Changed role identification.",
                 class_doc_comment="Changed role identification.",
                 recursive=r,
@@ -6485,7 +6597,7 @@ def _mc_ChangedRoleEntry(s):
                 class_section_id="CHRORE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ChangedRoleResponsibilities",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="Responsibility changes.",
                 class_doc_comment="Changed role responsibilities.",
                 recursive=r,
@@ -6497,7 +6609,7 @@ def _mc_ChangedRoleEntry(s):
                 class_section_id="CHROCO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ChangedRoleCompetencies",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="Competency changes.",
                 class_doc_comment="Changed role competency requirements.",
                 recursive=r,
@@ -6508,7 +6620,7 @@ def _mc_ChangedRoleEntry(s):
             section_id="CRSA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="System access changes.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="newSystemAccess", type_name="String", description="New System Access — additional systems needed", hint="Systems the role newly needs access to", order=0), SomFormFieldMeta(name="removedSystemAccess", type_name="String", description="Removed System Access — systems no longer needed", hint="Systems the role no longer needs access to", order=1), SomFormFieldMeta(name="changedPermissions", type_name="String", description="Changed Permissions — modified access levels", hint="Permission or access-level changes on existing systems", order=2), SomFormFieldMeta(name="securityRoleChanges", type_name="String", description="Security Role Changes — updated security roles", hint="Security roles or groups reassigned to the role", order=3), SomFormFieldMeta(name="dataAccessChanges", type_name="String", description="Data Access Changes — modified data domains", hint="Changes to which data domains the role can access", order=4), SomFormFieldMeta(name="trainingOnNewSystems", type_name="String", description="Training on New Systems — training required", hint="Training needed for the newly accessible systems", order=5), SomFormFieldMeta(name="accessTransitionDate", type_name="String", description="Access Transition Date — when access changes", hint="Date the access changes take effect", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001 — access control / least privilege", "SHRM — HR best practices (role change management)"], "connotation": "Records how the role's system and data access rights change — access added, removed, or re-permissioned — and when the change takes effect."})]),
@@ -6518,7 +6630,7 @@ def _mc_ChangedRoleEntry(s):
             section_id="CRII",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Impact on incumbents.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="incumbentCount", type_name="int", description="Incumbent Count — people affected", hint="Number of current incumbents affected by the change", order=0), SomFormFieldMeta(name="impactAssessment", type_name="String", description="Impact Assessment — how incumbents are affected", hint="How the change affects the current incumbents", order=1), SomFormFieldMeta(name="competencyGapAnalysis", type_name="String", description="Competency Gap Analysis — where incumbents have gaps", hint="Where current incumbents fall short of new requirements", order=2), SomFormFieldMeta(name="readinessAssessment", type_name="String", description="Readiness Assessment — incumbent preparedness", hint="How prepared incumbents are for the changed role", order=3), SomFormFieldMeta(name="retentionRisk", type_name="String", description="Retention Risk — flight risk due to changes", hint="Risk of losing incumbents because of the change", order=4), SomFormFieldMeta(name="individualTransitionPlans", type_name="String", description="Individual Transition Plans — personalized plans", hint="Personalized transition plans for affected incumbents", order=5), SomFormFieldMeta(name="supportProvided", type_name="String", description="Support Provided — coaching, mentoring, training", hint="Support offered to help incumbents adapt", order=6), SomFormFieldMeta(name="alternativePaths", type_name="String", description="Alternative Paths — if incumbent cannot adapt", hint="Options for incumbents who cannot adapt to the change", order=7), SomFormFieldMeta(name="communicationApproach", type_name="String", description="Communication Approach — how changes are communicated", hint="How the change is communicated to incumbents", order=8), SomFormFieldMeta(name="changeAcceptanceStatus", type_name="String", description="Change Acceptance Status — incumbent reactions", hint="How incumbents are responding to the change", order=9)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — change impact / employee relations", "ADKAR / Kotter — change management"], "connotation": "Assesses how the role change affects the people currently in it — their readiness, retention risk, individual plans, support, and acceptance."})]),
@@ -6529,7 +6641,7 @@ def _mc_ChangedRoleEntry(s):
                 class_section_id="CHROTR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ChangedRoleTransition",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Transition planning.",
                 class_doc_comment="Changed role transition planning.",
                 recursive=r,
@@ -6573,12 +6685,20 @@ def _mc_ChangedRoleResponsibilities(s):
     return [
          SomMetaNode(
             class_name="ChangedRoleResponsibilities",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how this role's responsibilities shift before the added, removed and modified lists below."),
+         SomMetaNode(
+            class_name="ChangedRoleResponsibilities",
             member_name="addedResponsibilities",
             section_id="RSPCH-ADDE-LST",
             section_id_pattern="RSPCH-ADDE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ResponsibilityChangeEntry",
-            serialization_order=0,
+            serialization_order=1,
             content_help="Add one entry per responsibility being added to the role.",
             doc_comment="Responsibilities being added.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["O*NET — task statements"], "connotation": "The duties newly assigned to this role as part of the change."})],
@@ -6590,7 +6710,7 @@ def _mc_ChangedRoleResponsibilities(s):
             section_id_pattern="RSPCH-REMO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ResponsibilityChangeEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per responsibility being removed from the role.",
             doc_comment="Responsibilities being removed.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["O*NET — task statements"], "connotation": "The duties removed from this role as part of the change."})],
@@ -6602,7 +6722,7 @@ def _mc_ChangedRoleResponsibilities(s):
             section_id_pattern="RSPCH-MODI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ResponsibilityChangeEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per responsibility being modified in the role.",
             doc_comment="Responsibilities being modified.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["O*NET — task statements"], "connotation": "The duties whose scope or nature changes within this role."})],
@@ -6613,7 +6733,7 @@ def _mc_ChangedRoleResponsibilities(s):
             section_id="REIMSU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Net impact summary.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="netTimeImpact", type_name="String", description="Net Time Impact — increase/decrease in workload", hint="Overall change in time or workload for the role", order=0), SomFormFieldMeta(name="complexityChange", type_name="String", description="Complexity Change — simpler, same, more complex", hint="Whether the role becomes simpler or more complex", order=1), SomFormFieldMeta(name="scopeChange", type_name="String", description="Scope Change — narrower, same, broader", hint="Whether the scope of the role narrows or broadens", order=2), SomFormFieldMeta(name="authorityChange", type_name="String", description="Authority Change — less, same, more", hint="Whether the role gains or loses authority", order=3), SomFormFieldMeta(name="classificationImpact", type_name="String", description="Classification Impact — should job grade change", hint="Whether the job grade or classification should change", order=4), SomFormFieldMeta(name="compensationImpact", type_name="String", description="Compensation Impact — salary implications", hint="Salary or compensation implications of the change", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — HR best practices (role change management)", "O*NET — occupational job analysis"], "connotation": "Summarizes the aggregate effect of the responsibility changes on the role — workload, complexity, scope, authority, classification, and pay."})]),
@@ -6656,18 +6776,26 @@ def _mc_ChangesFromCurrentStructure(s):
     return [
          SomMetaNode(
             class_name="ChangesFromCurrentStructure",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the current-to-target delta before the narrative, chart comparison and individual changes below. Cover which parts of the organization are deliberately left untouched."),
+         SomMetaNode(
+            class_name="ChangesFromCurrentStructure",
             member_name="overviewContent",
             section_id="OCCHG-OVER",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="changeScope", type_name="String", description="Change Scope", hint="Departments and functions affected by restructuring", order=0), SomFormFieldMeta(name="changeDriver", type_name="String", description="Change Driver", hint="System implementation, process optimization, strategy shift", order=1), SomFormFieldMeta(name="impactSummary", type_name="String", description="Impact Summary", hint="Total affected headcount, key structural shifts", order=2), SomFormFieldMeta(name="designPrinciples", type_name="String", description="Design Principles", hint="Guiding principles for organizational design changes", order=3), SomFormFieldMeta(name="governanceChanges", type_name="String", description="Governance Changes", hint="Changes to decision-making authority and oversight", order=4), SomFormFieldMeta(name="reportingLineChanges", type_name="String", description="Reporting Line Changes", hint="Summary of reporting relationship modifications", order=5), SomFormFieldMeta(name="communicationChannelChanges", type_name="String", description="Communication Channel Changes", hint="New or modified formal communication flows", order=6), SomFormFieldMeta(name="collaborationModelChanges", type_name="String", description="Collaboration Model Changes", hint="How teams will work together differently", order=7)])),
          SomMetaNode(
             class_name="ChangesFromCurrentStructure",
             member_name="changeNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Provide narrative description of the organizational transformation: what the current structure looks like, what the target structure will be, and how the transition will be managed.",
             doc_comment="Detailed description of structural changes."),
@@ -6676,7 +6804,7 @@ def _mc_ChangesFromCurrentStructure(s):
             member_name="orgChartComparison",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             content_type=SomContentTypeMeta(type="mermaid", description=""),
             content_help="Visual representation comparing current and target organization structures - attach or embed org chart diagrams.",
             doc_comment="Organization chart comparison (current vs future)."),
@@ -6687,7 +6815,7 @@ def _mc_ChangesFromCurrentStructure(s):
             section_id_pattern="ORGCE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="OrganizationalChangeEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per discrete organizational change — each with its current state, target state, rationale, impact, and transition.",
             doc_comment="Contains 0+× OrganizationalChange.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BABOK v3 — future-state analysis", "PMBOK — resource management (organizational roles & responsibilities)"], "connotation": "The set of discrete structural changes that together transform the current organization into the target structure."})],
@@ -7861,18 +7989,26 @@ def _mc_CompatibilityCharacteristic(s):
     return [
          SomMetaNode(
             class_name="CompatibilityCharacteristic",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce compatibility for this system before any co-existence and interoperability detail below. Cover what the system must share an environment or an interface with."),
+         SomMetaNode(
+            class_name="CompatibilityCharacteristic",
             member_name="compatibilityContent",
             section_id="CMPT-COMP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="coExistenceRequirements", type_name="String", description="Co-existence Requirements", hint="Other products sharing the environment without adverse impact", order=0), SomFormFieldMeta(name="interoperabilityStandards", type_name="String", description="Interoperability Standards", hint="Protocols/formats for exchanging and using information", order=1)])),
          SomMetaNode(
             class_name="CompatibilityCharacteristic",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of co-existence and interoperability goals.",
             doc_comment="Compatibility overview."),
@@ -8048,11 +8184,19 @@ def _mc_CompetencyFramework(s):
     return [
          SomMetaNode(
             class_name="CompetencyFramework",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the competency framework before the core, technical and leadership competency lists below. Cover how proficiency levels are defined."),
+         SomMetaNode(
+            class_name="CompetencyFramework",
             member_name="overview",
             section_id="COFROV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Framework overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="frameworkPurpose", type_name="String", description="Framework Purpose — how competencies guide hiring/development", hint="How the framework guides hiring and development", order=0), SomFormFieldMeta(name="competencyModel", type_name="String", description="Competency Model — model name/source (SHRM, custom, etc.)", hint="Model name or source — e.g. SHRM, CIPD, custom", order=1), SomFormFieldMeta(name="proficiencyLevels", type_name="String", description="Proficiency Levels — scale used (1-5, Novice to Expert, etc.)", hint="Scale used — e.g. 1-5, Novice to Expert", order=2), SomFormFieldMeta(name="assessmentMethod", type_name="String", description="Assessment Method — how competencies are measured", hint="How competencies are measured", order=3), SomFormFieldMeta(name="developmentApproach", type_name="String", description="Development Approach — how gaps are addressed", hint="How competency gaps are addressed", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CIPD — competency frameworks", "ISO 9001 §7.2 — competence"], "connotation": "Summarises the competency framework — its purpose, the model it is based on, the proficiency scale, how competencies are assessed, and how gaps are developed."})]),
@@ -8063,7 +8207,7 @@ def _mc_CompetencyFramework(s):
             section_id_pattern="COMPE-CORE-xxx",
             kind=SomMetaKind.LIST,
             type_name="CompetencyEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per core competency required across all roles.",
             doc_comment="Core competencies required across all roles.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CIPD — competency frameworks"], "connotation": "The set of core competencies expected of every role across the target organization."})],
@@ -8075,7 +8219,7 @@ def _mc_CompetencyFramework(s):
             section_id_pattern="COMPE-TECH-xxx",
             kind=SomMetaKind.LIST,
             type_name="CompetencyEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per technical or functional competency.",
             doc_comment="Technical/functional competencies by role family.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CIPD — competency frameworks", "ISO 9001 §7.2 — competence"], "connotation": "The set of technical or functional competencies specific to particular role families."})],
@@ -8087,7 +8231,7 @@ def _mc_CompetencyFramework(s):
             section_id_pattern="COMPE-LEAD-xxx",
             kind=SomMetaKind.LIST,
             type_name="CompetencyEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per leadership competency for management roles.",
             doc_comment="Leadership competencies for management roles.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CIPD — competency frameworks"], "connotation": "The set of leadership competencies expected of management and supervisory roles."})],
@@ -8659,12 +8803,20 @@ def _mc_ComponentLibrary(s):
     return [
          SomMetaNode(
             class_name="ComponentLibrary",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the design system before the token, colour and typography subsections below. Cover where the foundations come from and how they are versioned."),
+         SomMetaNode(
+            class_name="ComponentLibrary",
             member_name="designFoundations",
             section_id="DESIG-DESI-LST",
             section_id_pattern="DESIG-DESI-xxx",
             kind=SomMetaKind.LIST,
             type_name="DesignFoundationEntry",
-            serialization_order=0,
+            serialization_order=1,
             content_help="Add one entry per design foundation.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Material Design — design tokens capture reusable values for the design system", "W3C CSS — foundational style values are expressed as reusable declarations", "ISO/IEC 25010:2023 — shared foundations support maintainability through reuse"], "connotation": "The collection of design-foundation entries defining the base design tokens."})],
             element_node=_cx("DesignFoundationEntry", s, _mc_DesignFoundationEntry, lambda r, c: SomMetaNode(class_name="DesignFoundationEntry", class_section_id="DESIG", kind=SomMetaKind.COMPLEX, type_name="DesignFoundationEntry", doc_comment="A single design foundation entry.", class_doc_comment="A single design foundation entry.", recursive=r, children=c))),
@@ -8674,7 +8826,7 @@ def _mc_ComponentLibrary(s):
             section_id="COLICO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Color system.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="secondaryColor", type_name="String", description="Secondary Color", hint="Secondary brand colour hex value (e.g., \"#03DAC6\")", order=0), SomFormFieldMeta(name="tertiaryColor", type_name="String", description="Tertiary Color", hint="Tertiary accent colour hex value (e.g., \"#3700B3\")", order=1), SomFormFieldMeta(name="errorColor", type_name="String", description="Error Color", hint="Colour for error states (e.g., \"#B00020\")", order=2), SomFormFieldMeta(name="warningColor", type_name="String", description="Warning Color", hint="Colour for warning states (e.g., \"#FF9800\")", order=3), SomFormFieldMeta(name="successColor", type_name="String", description="Success Color", hint="Colour for success states (e.g., \"#4CAF50\")", order=4), SomFormFieldMeta(name="infoColor", type_name="String", description="Info Color", hint="Colour for informational states (e.g., \"#2196F3\")", order=5), SomFormFieldMeta(name="surfaceColors", type_name="String", description="Surface Colors", hint="Background, card, dialog surfaces", order=6), SomFormFieldMeta(name="colorTokenFormat", type_name="String", description="Color Token Format", hint="CSS variables, Dart constants, theme data", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — colour is applied so information stays legible and distinguishable", "W3C WCAG 2.2 — SC 1.4.3 Contrast defines minimum contrast for text and colour", "Material Design — the colour system organises roles and tokens across the palette"], "connotation": "The library-level colour configuration covering the semantic palette and colour tokens."})]),
@@ -8684,7 +8836,7 @@ def _mc_ComponentLibrary(s):
             section_id="COLITY",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Typography system.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="fontFamilySecondary", type_name="String", description="Secondary Font Family", hint="Secondary typeface for accents (e.g., \"Roboto Slab\")", order=0), SomFormFieldMeta(name="fontFamilyMonospace", type_name="String", description="Monospace Font Family", hint="Monospace typeface for code (e.g., \"JetBrains Mono\")", order=1), SomFormFieldMeta(name="typographyScale", type_name="String", description="Typography Scale", hint="Material type scale, custom scale", order=2), SomFormFieldMeta(name="fontSizeUnit", type_name="String", description="Font Size Unit", hint="Logical pixels, rem, sp", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — typography presents information so text stays legible", "W3C CSS — font families and type scales are defined through style rules", "W3C WCAG 2.2 — SC 1.4.4 Resize text keeps text usable when scaled"], "connotation": "The library-level typography configuration covering font families, scales, and size units."})]),
@@ -8694,7 +8846,7 @@ def _mc_ComponentLibrary(s):
             section_id="COLISP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Spacing and elevation.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="spacingTokens", type_name="String", description="Spacing Tokens", hint="xxs, xs, sm, md, lg, xl, xxl", order=0), SomFormFieldMeta(name="elevationLevels", type_name="String", description="Elevation Levels", hint="Number of elevation levels", order=1), SomFormFieldMeta(name="elevationImplementation", type_name="String", description="Elevation Implementation", hint="Shadows, borders, color shifts", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — spacing arranges information so the layout stays clear and consistent", "Material Design — spacing tokens define a coherent rhythm across the design system"], "connotation": "The library-level configuration for spacing tokens and elevation levels."})]),
@@ -8704,7 +8856,7 @@ def _mc_ComponentLibrary(s):
             section_id="COLIBO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Borders and corners.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="cornerRadiusScale", type_name="String", description="Corner Radius Scale", hint="Rounded levels: none, sm, md, lg, full", order=0), SomFormFieldMeta(name="borderStyleDefaults", type_name="String", description="Border Style Defaults", hint="Default border width, style, and colour (e.g., \"1px solid outline\")", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — borders present information so boundaries remain legible", "W3C WCAG 2.2 — SC 1.4.11 Non-text Contrast requires sufficient contrast for graphical boundaries"], "connotation": "The library-level configuration for border styles and corner radius scales."})]),
@@ -8714,7 +8866,7 @@ def _mc_ComponentLibrary(s):
             section_id="COLIVI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Icons and animation.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="iconLibrary", type_name="String", description="Icon Library", hint="Material Icons, Cupertino, custom", order=0), SomFormFieldMeta(name="iconSizeScale", type_name="String", description="Icon Size Scale", hint="Small, medium, large sizes", order=1), SomFormFieldMeta(name="animationDurations", type_name="String", description="Animation Durations", hint="Fast, normal, slow durations", order=2), SomFormFieldMeta(name="animationCurves", type_name="String", description="Animation Curves", hint="Easing curves: ease, easeInOut, custom", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — icons and motion are presented so information stays perceivable and legible", "ISO 9241-125:2017 — visual elements are arranged consistently across the layout", "Material Design — elevation and motion tokens give a coherent visual system"], "connotation": "The library-level visual configuration covering icons, elevation, and animation values."})]),
@@ -8723,7 +8875,7 @@ def _mc_ComponentLibrary(s):
             member_name="designSystemNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Comprehensive description of the design system foundations, visual language, and component philosophy.",
             doc_comment="Design system narrative."),
@@ -8732,7 +8884,7 @@ def _mc_ComponentLibrary(s):
             member_name="designTokenCatalog",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Catalog of all design tokens: colors, typography, spacing, elevation, borders, and animation values.",
             doc_comment="Design token catalog."),
@@ -8743,7 +8895,7 @@ def _mc_ComponentLibrary(s):
             section_id_pattern="COPA-COLO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ColorPaletteEntry",
-            serialization_order=8,
+            serialization_order=9,
             content_help="Add one entry per colour palette.",
             doc_comment="Color palette specification.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — colour is applied so information stays legible and distinguishable", "W3C WCAG 2.2 — SC 1.4.3 Contrast defines minimum contrast for text and colour"], "connotation": "The collection of colour palette entries in the design system."})],
@@ -8755,7 +8907,7 @@ def _mc_ComponentLibrary(s):
             section_id_pattern="TYST-TYPO-xxx",
             kind=SomMetaKind.LIST,
             type_name="TypographyStyleEntry",
-            serialization_order=9,
+            serialization_order=10,
             content_help="Add one entry per typography style.",
             doc_comment="Typography styles.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — typography presents information so text stays legible", "W3C CSS — text styles are declared through style rules", "W3C WCAG 2.2 — SC 1.4.4 Resize text keeps text usable when scaled"], "connotation": "The collection of typography style entries in the library type scale."})],
@@ -9732,11 +9884,19 @@ def _mc_ContextualHelp(s):
     return [
          SomMetaNode(
             class_name="ContextualHelp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce on-screen contextual help before the inline, panel and rich-help subsections below. Cover which surfaces carry help and how it is kept current."),
+         SomMetaNode(
+            class_name="ContextualHelp",
             member_name="contextualHelpContent",
             section_id="COHE-CONT",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="tooltipTrigger", type_name="String", description="Tooltip Trigger", hint="Hover, click, focus, icon click", order=0), SomFormFieldMeta(name="tooltipDelay", type_name="String", description="Tooltip Delay", hint="Milliseconds before showing", order=1), SomFormFieldMeta(name="tooltipDuration", type_name="String", description="Tooltip Duration", hint="How long tooltip stays visible", order=2), SomFormFieldMeta(name="tooltipMaxWidth", type_name="String", description="Tooltip Max Width", hint="Maximum width in pixels", order=3), SomFormFieldMeta(name="tooltipPosition", type_name="String", description="Tooltip Position", hint="Above, below, auto-position", order=4)])),
          SomMetaNode(
             class_name="ContextualHelp",
@@ -9744,7 +9904,7 @@ def _mc_ContextualHelp(s):
             section_id="COHEIN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Inline help behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="inlineHelpPlacement", type_name="String", description="Inline Help Placement", hint="Below labels, below fields, expandable", order=0), SomFormFieldMeta(name="inlineHelpVisibility", type_name="String", description="Inline Help Visibility", hint="Always visible, on demand, progressive", order=1), SomFormFieldMeta(name="inlineHelpLength", type_name="String", description="Inline Help Length", hint="Max characters for inline help", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-13:1998 — user guidance embeds prompts alongside the input elements", "ISO 9241-110:2020 — self-descriptiveness places explanatory text near the controls"], "connotation": "The inline-help settings that place explanatory text next to fields and labels."})]),
@@ -9754,7 +9914,7 @@ def _mc_ContextualHelp(s):
             section_id="COHEPA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Help panel behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="helpPanelAvailable", type_name="bool", description="Help Panel Available", hint="Slide-out help panel", order=0), SomFormFieldMeta(name="helpPanelPosition", type_name="String", description="Help Panel Position", hint="Right side, bottom, overlay", order=1), SomFormFieldMeta(name="helpPanelContent", type_name="String", description="Help Panel Content", hint="Field help, page help, related articles", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — embedded user assistance presents help in a dedicated pane", "ISO 9241-125:2017 — visual presentation positions help panels relative to content"], "connotation": "The help-panel settings that govern a slide-out pane of contextual assistance."})]),
@@ -9764,7 +9924,7 @@ def _mc_ContextualHelp(s):
             section_id="CHWT",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="What's-this mode settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="whatsThisMode", type_name="bool", description="What's This Mode", hint="Click-anywhere help mode", order=0), SomFormFieldMeta(name="whatsThisActivation", type_name="String", description="What's This Activation", hint="Keyboard shortcut, toolbar button", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-13:1998 — user guidance supplies point-and-ask help on request", "ISO 9241-110:2020 — self-descriptiveness lets the interface explain its elements on demand"], "connotation": "The what-this help-mode settings that let users ask about any element directly."})]),
@@ -9774,7 +9934,7 @@ def _mc_ContextualHelp(s):
             section_id="COHERI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Rich help media settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="helpScreenshots", type_name="bool", description="Help Screenshots", hint="Include screenshots in help", order=0), SomFormFieldMeta(name="helpVideos", type_name="bool", description="Help Videos", hint="Include video tutorials", order=1), SomFormFieldMeta(name="helpAnimations", type_name="bool", description="Help Animations", hint="Animated demonstrations", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — embedded user assistance uses illustrations and multimedia", "ISO 9241-125:2017 — visual presentation governs images and rich media in help"], "connotation": "The rich-media settings that add screenshots, videos, and animations to help."})]),
@@ -9783,7 +9943,7 @@ def _mc_ContextualHelp(s):
             member_name="contextualHelpNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Contextual help narrative."),
          SomMetaNode(
@@ -9793,7 +9953,7 @@ def _mc_ContextualHelp(s):
             section_id_pattern="FLDHP-FIEL-xxx",
             kind=SomMetaKind.LIST,
             type_name="FieldHelpEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per field that needs contextual help.",
             doc_comment="Field help catalog.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — forms provide field help for input controls", "ISO 9241-13:1998 — user guidance offers field-level help for input elements"], "connotation": "The collection of field-help entries for the input fields in the interface."})],
@@ -13448,11 +13608,19 @@ def _mc_DataAttributeEntry(s):
     return [
          SomMetaNode(
             class_name="DataAttributeEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this attribute — what it means and how it is used, beyond the type, constraint and lineage facets recorded below."),
+         SomMetaNode(
+            class_name="DataAttributeEntry",
             member_name="identity",
             section_id="DAATT-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="columnName", type_name="String", description="Physical Column Name", hint="Database column name if different (e.g., snake_case)", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Clear definition of what this attribute represents", order=1), SomFormFieldMeta(name="businessTerm", type_name="String", description="Business Term", hint="Business glossary term this maps to", order=2), SomFormFieldMeta(name="exampleValues", type_name="String", description="Example Values", hint="Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")", order=3)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13460,7 +13628,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DATA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="dataType", type_name="DataAttributeKind", description="Data Type", hint="The logical type — selects the promoted options subsection.", order=0, enum_values=["string", "integer", "decimal", "date", "dateTime", "binary", "fileReference", "boolean", "uuid", "json", "enumeration"]), SomFormFieldMeta(name="physicalType", type_name="String", description="Physical Type", hint="Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", order=1), SomFormFieldMeta(name="format", type_name="String", description="Format", hint="Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", order=2)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13468,7 +13636,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DTTX",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Text-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `string` logical type; carries only the character\nlength and collation attributes (no numeric precision, no timezone).",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="length", type_name="String", description="Length", hint="Maximum character length", order=0), SomFormFieldMeta(name="collation", type_name="String", description="Collation", hint="Character collation for text (e.g., utf8_general_ci)", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element", "ISO/IEC 25012 — data quality characteristics for stored text"], "connotation": "The character length and collation constraints for a text attribute."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.string"})]),
@@ -13478,7 +13646,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DTNU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Numeric-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric logical types; carries only the precision and\nscale attributes (no length, collation or timezone).",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="precision", type_name="String", description="Precision", hint="Total digits for numeric types", order=0), SomFormFieldMeta(name="scale", type_name="String", description="Scale", hint="Decimal places for numeric types", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element", "ISO 80000-1 — quantities and units, on numeric precision"], "connotation": "The precision and scale constraints for a numeric attribute."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.integer"}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.decimal"})]),
@@ -13488,7 +13656,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DTTM",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Temporal-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/time logical types; carries only the timezone\nhandling attribute.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="timezone", type_name="String", description="Timezone", hint="For datetime: UTC | Local | WithOffset", order=0)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 8601-1:2019 — representation of dates and times", "ISO 8601-2:2019 — extensions including time-zone offsets"], "connotation": "The timezone handling for a date or date-time attribute."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.date"}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.dateTime"})]),
@@ -13498,7 +13666,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DTBI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type — the record holds the **bytes\nthemselves** — so it carries only the stored size. Separated from the text\n`length` because a byte size and a character length are different\nconstraints on different types. An attribute that holds a file's *address*\ninstead is `DataAttributeKind.fileReference` (csra10), not a storage mode\nof this one: a mode field would restate the logical type and could then\ndisagree with it.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="maxSizeBytes", type_name="String", description="Max Size (Bytes)", hint="Maximum stored size in bytes", order=0)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element"], "connotation": "The stored size constraints for a binary attribute."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.binary"})]),
@@ -13508,7 +13676,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DTFR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             doc_comment="File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores the\n**address of a stored file**, so what a specification must say is where the\nfile is filed, which store holds it, whether it dies with its record, and\nwhat may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="storageGroup", type_name="String", description="Storage Group", required=True, hint="Naming group the files are filed under — sets their retention and access partition (e.g. documents/attachment)", order=0), SomFormFieldMeta(name="fileStore", type_name="String", description="File Store", hint="Name of the configured file store holding the files; empty means the deployment default store", order=1), SomFormFieldMeta(name="deleteWithRecord", type_name="String", description="Delete With Record", hint="Yes | No — whether deleting the record also deletes the file (Yes unless the file outlives its reference by design)", order=2), SomFormFieldMeta(name="acceptedContentKinds", type_name="String", description="Accepted Content Kinds", hint="Comma-separated content kinds accepted on upload (e.g. PDF, PNG); empty means unrestricted", order=3), SomFormFieldMeta(name="defaultContentKind", type_name="String", description="Default Content Kind", hint="Content kind recorded when an upload declares none", order=4), SomFormFieldMeta(name="maxFileSizeBytes", type_name="String", description="Max File Size (Bytes)", hint="Maximum accepted file size in bytes", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element", "RFC 6838 — media type specifications and registration procedures"], "connotation": "Where a referenced file is stored, how long it lives and what may be uploaded into it."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.fileReference"})]),
@@ -13518,7 +13686,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DTEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             doc_comment="Enumeration-kind type options — a promoted `@OneOf` case.\n\nPresent only for the `enumeration` logical type, and carrying exactly one\nthing: **which** domain enum the attribute is typed by. The emitted\ncolumn's value type *is* the generated enum type, so an enumerated\nattribute that names no enum cannot be emitted — which is why this is a\nrequired field rather than a hint.\n\nThe enum is **named, never restated**. `DomainEnumRegistry` is the single\nsource for closed value sets, and its entries are what the `domainEnum`\nmember kind is generated from; listing the values again here would be a\nsecond source that could disagree with the first. The same choice is made\nwherever else the model types a value by an enum — an operation request or\nresponse member (`SVOPM.domainEnum`) names its entry the same way.\n\nHow the value is **stored** is not authored here either: the backing type\nbelongs to the enum (`DMENE.backingType`), so every attribute typed by it\nstores it the same way. And *narrowing* — this attribute permitting only\nsome of the enum's values — is a constraint, authored in the `constraints`\nlist where every other per-attribute restriction lives.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="domainEnum", type_name="String", description="Domain Enum", required=True, hint="DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here", order=0, refers_to=["DMENE.enumName"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element"], "connotation": "The declared value set a domain-enum attribute draws from."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.enumeration"})]),
@@ -13529,7 +13697,7 @@ def _mc_DataAttributeEntry(s):
             section_id_pattern="DATAA-CONS-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataAttributeConstraintEntry",
-            serialization_order=8,
+            serialization_order=9,
             content_help="Add one entry per attribute constraint.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements", "ISO/IEC 25012 — data quality"], "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."})],
             element_node=_cx("DataAttributeConstraintEntry", s, _mc_DataAttributeConstraintEntry, lambda r, c: SomMetaNode(class_name="DataAttributeConstraintEntry", class_section_id="DATAA", kind=SomMetaKind.COMPLEX, type_name="DataAttributeConstraintEntry", doc_comment="A single constraint entry.", class_doc_comment="A single constraint entry.", recursive=r, children=c))),
@@ -13539,7 +13707,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DERI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="isComputed", type_name="String", description="Is Computed", hint="Whether value is computed: Yes | No", order=0), SomFormFieldMeta(name="computeFormula", type_name="String", description="Compute Formula", hint="Formula or expression for computed fields", order=1), SomFormFieldMeta(name="isDerived", type_name="String", description="Is Derived", hint="Whether derived from other attributes: Yes | No", order=2), SomFormFieldMeta(name="derivationLogic", type_name="String", description="Derivation Logic", hint="How derived value is calculated", order=3)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13547,7 +13715,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-SECU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=10,
+            serialization_order=11,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sensitivityLevel", type_name="String", description="Sensitivity Level", hint="Public | Internal | Confidential | Restricted | PII | PHI", order=0), SomFormFieldMeta(name="isPii", type_name="String", description="Is PII", hint="Personally identifiable information: Yes | No", order=1), SomFormFieldMeta(name="maskingRule", type_name="String", description="Masking Rule", hint="How to mask in logs/displays: None | Partial | Full | Hash", order=2), SomFormFieldMeta(name="encryptionLevel", type_name="String", description="Encryption Level", hint="Field-level encryption: None | Encrypted | Tokenized", order=3), SomFormFieldMeta(name="auditLevel", type_name="String", description="Audit Level", hint="Change tracking: None | ValueChanges | FullHistory", order=4)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13555,7 +13723,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-MIGR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=11,
+            serialization_order=12,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceSystem", type_name="String", description="Source System", hint="Originating system for data lineage", order=0), SomFormFieldMeta(name="sourceAttribute", type_name="String", description="Source Attribute", hint="Source field name for migration mapping", order=1), SomFormFieldMeta(name="transformationRule", type_name="String", description="Transformation Rule", hint="Transformation applied during migration/ETL", order=2), SomFormFieldMeta(name="dataLineage", type_name="String", description="Data Lineage", hint="Upstream sources that feed this attribute", order=3), SomFormFieldMeta(name="qualityRules", type_name="String", description="Quality Rules", hint="Data quality checks (e.g., completeness, accuracy)", order=4)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13564,7 +13732,7 @@ def _mc_DataAttributeEntry(s):
             section_id_pattern="DISPL-DISP-xxx",
             kind=SomMetaKind.LIST,
             type_name="DisplayPropertyEntry",
-            serialization_order=12,
+            serialization_order=13,
             content_help="Add one entry per display property.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."})],
             element_node=_cx("DisplayPropertyEntry", s, _mc_DisplayPropertyEntry, lambda r, c: SomMetaNode(class_name="DisplayPropertyEntry", class_section_id="DISPL", kind=SomMetaKind.COMPLEX, type_name="DisplayPropertyEntry", doc_comment="A single display property entry.", class_doc_comment="A single display property entry.", recursive=r, children=c))),
@@ -13575,11 +13743,19 @@ def _mc_DataClassification(s):
     return [
          SomMetaNode(
             class_name="DataClassification",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the classification framework before the individual levels below. Cover who classifies data and when a classification is reviewed."),
+         SomMetaNode(
+            class_name="DataClassification",
             member_name="overview",
             section_id="DATCL-OVER",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="classificationFramework", type_name="String", description="Classification Framework", hint="Standard used: Custom | ISO27001 | NIST | IndustrySpecific", order=0), SomFormFieldMeta(name="defaultClassification", type_name="String", description="Default Classification", hint="Default sensitivity for unclassified data", order=1), SomFormFieldMeta(name="classificationOwner", type_name="String", description="Classification Owner", hint="Role responsible for data classification decisions", order=2), SomFormFieldMeta(name="reviewFrequency", type_name="String", description="Review Frequency", hint="How often classifications are reviewed: Annually | Quarterly | OnChange", order=3)])),
          SomMetaNode(
             class_name="DataClassification",
@@ -13588,7 +13764,7 @@ def _mc_DataClassification(s):
             section_id_pattern="DCLSE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataClassificationEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per data classification level.",
             doc_comment="Contains 0+× DataClassificationEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001 / NIST — data classification", "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"], "connotation": "The individual data-classification entries (sensitivity levels) that make up the classification scheme."})],
@@ -13600,11 +13776,19 @@ def _mc_DataClassificationEntry(s):
     return [
          SomMetaNode(
             class_name="DataClassificationEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this classification level — what kind of data belongs in it, beyond the storage, access and retention rules below."),
+         SomMetaNode(
+            class_name="DataClassificationEntry",
             member_name="identity",
             section_id="DCLSE-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="classificationLevel", type_name="String", description="Classification Level", hint="Sensitivity: Public | Internal | Confidential | Restricted | TopSecret", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this classification means", order=1), SomFormFieldMeta(name="dataCategories", type_name="String", description="Data Categories", hint="Types of data in this class: PII | PHI | Financial | Legal | Technical", order=2), SomFormFieldMeta(name="examples", type_name="String", description="Examples", hint="Examples of data at this classification", order=3)])),
          SomMetaNode(
             class_name="DataClassificationEntry",
@@ -13612,7 +13796,7 @@ def _mc_DataClassificationEntry(s):
             section_id="DCLSE-STOR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="encryptionAtRest", type_name="String", description="Encryption At Rest", hint="Encryption requirement for storage: None | Standard | Strong | FieldLevel", order=0), SomFormFieldMeta(name="encryptionInTransit", type_name="String", description="Encryption In Transit", hint="Encryption for transmission: TLS | mTLS | EndToEnd", order=1), SomFormFieldMeta(name="storageLocations", type_name="String", description="Allowed Storage Locations", hint="Where data can be stored: OnPremise | Cloud | Either | Restricted", order=2), SomFormFieldMeta(name="geographicRestrictions", type_name="String", description="Geographic Restrictions", hint="Data residency requirements (e.g., EU only)", order=3), SomFormFieldMeta(name="backupRequirements", type_name="String", description="Backup Requirements", hint="Special backup considerations", order=4)])),
          SomMetaNode(
             class_name="DataClassificationEntry",
@@ -13620,7 +13804,7 @@ def _mc_DataClassificationEntry(s):
             section_id="DCLSE-ACCE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="accessLevels", type_name="String", description="Access Levels", hint="Who can access: AllEmployees | RoleRestricted | NeedToKnow | SystemOnly", order=0), SomFormFieldMeta(name="authenticationRequirements", type_name="String", description="Authentication Requirements", hint="Required auth: Basic | MFA | CertificateBased | Biometric", order=1), SomFormFieldMeta(name="authorizationModel", type_name="String", description="Authorization Model", hint="RBAC | ABAC | MAC | DAC", order=2), SomFormFieldMeta(name="auditRequirements", type_name="String", description="Audit Requirements", hint="Access audit: None | ReadAudit | WriteAudit | FullAudit", order=3), SomFormFieldMeta(name="accessRequestProcess", type_name="String", description="Access Request Process", hint="How access is granted: SelfService | ManagerApproval | SecurityApproval", order=4)])),
          SomMetaNode(
             class_name="DataClassificationEntry",
@@ -13628,7 +13812,7 @@ def _mc_DataClassificationEntry(s):
             section_id="DCLSE-RETE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="retentionPeriod", type_name="String", description="Retention Period", hint="How long data is retained (e.g., 7 years)", order=0), SomFormFieldMeta(name="retentionBasis", type_name="String", description="Retention Basis", hint="Legal | Regulatory | Business | CustomerContract", order=1), SomFormFieldMeta(name="archivalPolicy", type_name="String", description="Archival Policy", hint="When and how to archive: AfterPeriod | OnInactivity | Never", order=2), SomFormFieldMeta(name="disposalMethod", type_name="String", description="Disposal Method", hint="How data is disposed: Delete | Anonymize | Shred | CryptoErase", order=3), SomFormFieldMeta(name="disposalApproval", type_name="String", description="Disposal Approval", hint="Who approves disposal: Automatic | DataOwner | Legal", order=4)])),
          SomMetaNode(
             class_name="DataClassificationEntry",
@@ -13636,7 +13820,7 @@ def _mc_DataClassificationEntry(s):
             section_id="DCLSE-COMP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="applicableRegulations", type_name="String", description="Applicable Regulations", hint="Regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA | FERPA", order=0), SomFormFieldMeta(name="complianceRequirements", type_name="String", description="Compliance Requirements", hint="Specific compliance requirements", order=1), SomFormFieldMeta(name="breachNotificationSla", type_name="String", description="Breach Notification SLA", hint="Time to notify on breach (e.g., 72 hours for GDPR)", order=2), SomFormFieldMeta(name="dataSubjectRights", type_name="String", description="Data Subject Rights", hint="Applicable rights: Access | Rectification | Erasure | Portability", order=3)])),
          SomMetaNode(
             class_name="DataClassificationEntry",
@@ -13645,7 +13829,7 @@ def _mc_DataClassificationEntry(s):
             section_id_pattern="HNDRE-HAND-xxx",
             kind=SomMetaKind.LIST,
             type_name="HandlingRequirementEntry",
-            serialization_order=5,
+            serialization_order=6,
             content_help="Add one entry per handling requirement.",
             doc_comment="Contains 0+× HandlingRequirement.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001 / NIST — data classification", "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"], "connotation": "The handling procedures required for data at this classification level."})],
@@ -13657,7 +13841,7 @@ def _mc_DataClassificationEntry(s):
             section_id_pattern="ACRSE-ACCE-xxx",
             kind=SomMetaKind.LIST,
             type_name="AccessRestrictionEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per access restriction.",
             doc_comment="Contains 0+× AccessRestriction.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001 / NIST — data classification", "GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)"], "connotation": "The access restrictions that apply to data at this classification level."})],
@@ -13792,11 +13976,19 @@ def _mc_DataEntityEntry(s):
     return [
          SomMetaNode(
             class_name="DataEntityEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this data entity — what it represents in the business, beyond the identity, attribute and key facets recorded below."),
+         SomMetaNode(
+            class_name="DataEntityEntry",
             member_name="identity",
             section_id="DAENT-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="entityName", type_name="String", description="Entity Name", required=True, hint="Singular noun or noun phrase (e.g., Customer, OrderItem)", order=0), SomFormFieldMeta(name="tableName", type_name="String", description="Physical Table Name", hint="Database table name if different from logical name", order=1), SomFormFieldMeta(name="entityAlias", type_name="String", description="Alias/Abbreviation", hint="Short alias for diagrams and references (e.g., CUST, ORD)", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Clear definition of what this entity represents", order=3), SomFormFieldMeta(name="entityStereoType", type_name="String", description="Stereotype", hint="Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge", order=4)])),
          SomMetaNode(
             class_name="DataEntityEntry",
@@ -13804,7 +13996,7 @@ def _mc_DataEntityEntry(s):
             section_id="DAENT-CLAS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData", order=0), SomFormFieldMeta(name="boundedContext", type_name="String", description="Bounded Context", hint="Domain-driven design bounded context this entity belongs to", order=1), SomFormFieldMeta(name="owningDomain", type_name="String", description="Owning Domain", hint="Business domain responsible for this entity", order=2), SomFormFieldMeta(name="dataOwner", type_name="String", description="Data Owner", hint="Role or team accountable for data quality", order=3), SomFormFieldMeta(name="dataSteward", type_name="String", description="Data Steward", hint="Person or role responsible for data governance", order=4), SomFormFieldMeta(name="sourceSystem", type_name="String", description="Source System", hint="System of record or originating system for migration", order=5)])),
          SomMetaNode(
             class_name="DataEntityEntry",
@@ -13812,7 +14004,7 @@ def _mc_DataEntityEntry(s):
             section_id="DAENT-LIFE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="lifecyclePhases", type_name="String", description="Lifecycle Phases", hint="Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted", order=0), SomFormFieldMeta(name="retentionPolicy", type_name="String", description="Retention Policy", hint="How long data is retained and why (e.g., 7 years per tax regulations)", order=1), SomFormFieldMeta(name="archivalTrigger", type_name="String", description="Archival Trigger", hint="Condition for moving to archive (e.g., 2 years after last activity)", order=2), SomFormFieldMeta(name="archivalDestination", type_name="String", description="Archival Destination", hint="Where archived data goes: ColdStorage | Archive | DataLake", order=3), SomFormFieldMeta(name="purgePolicy", type_name="String", description="Purge Policy", hint="When and how data is permanently deleted", order=4), SomFormFieldMeta(name="anonymizationPolicy", type_name="String", description="Anonymization Policy", hint="PII anonymization rules (e.g., hash email after deletion)", order=5), SomFormFieldMeta(name="auditRequirements", type_name="String", description="Audit Requirements", hint="What changes must be tracked: None | KeyFields | AllFields | FullHistory", order=6), SomFormFieldMeta(name="auditRetention", type_name="String", description="Audit Retention", hint="How long audit records are kept", order=7)])),
          SomMetaNode(
             class_name="DataEntityEntry",
@@ -13820,7 +14012,7 @@ def _mc_DataEntityEntry(s):
             section_id="DAENT-RELA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="parentEntities", type_name="String", description="Parent Entities", hint="Entities this depends on (e.g., Order depends on Customer)", order=0), SomFormFieldMeta(name="childEntities", type_name="String", description="Child Entities", hint="Entities that depend on this (e.g., OrderItem depends on Order)", order=1), SomFormFieldMeta(name="referencedEntities", type_name="String", description="Referenced Entities", hint="Lookup/reference entities used (e.g., OrderStatus, PaymentMethod)", order=2), SomFormFieldMeta(name="crossDomainRelationships", type_name="String", description="Cross-Domain Relationships", hint="Relationships that cross bounded context boundaries", order=3)])),
          SomMetaNode(
             class_name="DataEntityEntry",
@@ -13829,7 +14021,7 @@ def _mc_DataEntityEntry(s):
             section_id_pattern="DAATT-ATTR-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataAttributeEntry",
-            serialization_order=4,
+            serialization_order=5,
             content_help="Add one entry per data attribute.",
             doc_comment="Contains 0+× DataAttribute.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / data element definitions", "DAMA-DMBOK2 — data management body of knowledge"], "connotation": "The data attributes (fields) that belong to this entity."})],
@@ -13841,7 +14033,7 @@ def _mc_DataEntityEntry(s):
             section_id_pattern="KEATT-KEYA-xxx",
             kind=SomMetaKind.LIST,
             type_name="KeyAttributeEntry",
-            serialization_order=5,
+            serialization_order=6,
             content_help="Add one entry per key attribute.",
             doc_comment="Contains 0+× KeyAttribute.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ER modeling (Chen / Barker notation)", "ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "The key attributes (primary, foreign, alternate, composite) that identify or reference this entity."})],
@@ -13853,7 +14045,7 @@ def _mc_DataEntityEntry(s):
             section_id_pattern="ENIDX-INDE-xxx",
             kind=SomMetaKind.LIST,
             type_name="EntityIndexEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per entity index.",
             doc_comment="Contains 0+× EntityIndex.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "The database indexes defined on this entity for query optimization."})],
@@ -13865,7 +14057,7 @@ def _mc_DataEntityEntry(s):
             section_id_pattern="ENCNS-CONS-xxx",
             kind=SomMetaKind.LIST,
             type_name="EntityConstraintEntry",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per entity constraint.",
             doc_comment="Contains 0+× EntityConstraint.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements", "ISO/IEC 25012 — data quality"], "connotation": "Business and technical constraints on the entity beyond keys, such as check, unique, and exclusion constraints."})],
@@ -18517,18 +18709,26 @@ def _mc_DocumentationQualityCriteria(s):
     return [
          SomMetaNode(
             class_name="DocumentationQualityCriteria",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the documentation quality bar before the readability, completeness, correctness and changeability subsections below. Cover which deliverables the criteria apply to."),
+         SomMetaNode(
+            class_name="DocumentationQualityCriteria",
             member_name="documentationOverviewContent",
             section_id="DOQUCR-DOCU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="documentationStrategy", type_name="String", description="Documentation Strategy", hint="Comprehensive, minimal, just-in-time", order=0), SomFormFieldMeta(name="documentationOwnership", type_name="String", description="Documentation Ownership", hint="Technical writers, developers, shared", order=1), SomFormFieldMeta(name="documentationPlatform", type_name="String", description="Documentation Platform", hint="Confluence, GitBook, custom", order=2), SomFormFieldMeta(name="documentationReviewProcess", type_name="String", description="Review Process", hint="Peer review, editorial review", order=3), SomFormFieldMeta(name="documentationVersionControl", type_name="String", description="Version Control", hint="Git, CMS versioning, manual", order=4), SomFormFieldMeta(name="documentationUpdateCadence", type_name="String", description="Update Cadence", hint="Continuous, per-release, scheduled", order=5)])),
          SomMetaNode(
             class_name="DocumentationQualityCriteria",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of documentation goals, target audiences, and key documentation metrics.",
             doc_comment="Documentation quality overview narrative."),
@@ -18539,7 +18739,7 @@ def _mc_DocumentationQualityCriteria(s):
                 class_section_id="REQU1",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Readability",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.5.1. Readability.",
                 class_doc_comment="11.5.1. Readability quality.",
                 recursive=r,
@@ -18551,7 +18751,7 @@ def _mc_DocumentationQualityCriteria(s):
                 class_section_id="DOCOQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DocCompleteness",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="11.5.2. Completeness.",
                 class_doc_comment="11.5.2. Documentation completeness quality.",
                 recursive=r,
@@ -18563,7 +18763,7 @@ def _mc_DocumentationQualityCriteria(s):
                 class_section_id="DOCOQ1",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DocCorrectness",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="11.5.3. Correctness.",
                 class_doc_comment="11.5.3. Documentation correctness quality.",
                 recursive=r,
@@ -18575,7 +18775,7 @@ def _mc_DocumentationQualityCriteria(s):
                 class_section_id="DOCHQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DocChangeability",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="11.5.4. Changeability.",
                 class_doc_comment="11.5.4. Documentation changeability quality.",
                 recursive=r,
@@ -19461,11 +19661,19 @@ def _mc_EntityFollowUpEntry(s):
     return [
          SomMetaNode(
             class_name="EntityFollowUpEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this entity's follow-up facets — operational context the volume, compliance, technical and migration lists below do not capture."),
+         SomMetaNode(
+            class_name="EntityFollowUpEntry",
             member_name="entityRef",
             section_id="DMFUE-ENTI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="entityAlias", type_name="String", description="Alias/Abbreviation", hint="Short alias of the referenced entity (e.g., CUST, ORD)", order=0)])),
          SomMetaNode(
             class_name="EntityFollowUpEntry",
@@ -19474,7 +19682,7 @@ def _mc_EntityFollowUpEntry(s):
             section_id_pattern="VOLUM-VOLU-xxx",
             kind=SomMetaKind.LIST,
             type_name="VolumeMetricEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per volume metric.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates."})],
             element_node=_cx("VolumeMetricEntry", s, _mc_VolumeMetricEntry, lambda r, c: SomMetaNode(class_name="VolumeMetricEntry", class_section_id="VOLUM", kind=SomMetaKind.COMPLEX, type_name="VolumeMetricEntry", doc_comment="A single volume metric entry.", class_doc_comment="A single volume metric entry.", recursive=r, children=c))),
@@ -19485,7 +19693,7 @@ def _mc_EntityFollowUpEntry(s):
             section_id_pattern="CRE-COMP-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComplianceRequirementEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per compliance requirement.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)", "ISO/IEC 27001 / NIST — data classification"], "connotation": "Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access."})],
             element_node=_cx("ComplianceRequirementEntry", s, _mc_ComplianceRequirementEntry, lambda r, c: SomMetaNode(class_name="ComplianceRequirementEntry", class_section_id="CRE", kind=SomMetaKind.COMPLEX, type_name="ComplianceRequirementEntry", doc_comment="A single compliance requirement entry.", class_doc_comment="A single compliance requirement entry.", recursive=r, children=c))),
@@ -19496,7 +19704,7 @@ def _mc_EntityFollowUpEntry(s):
             section_id_pattern="TECHN-TECH-xxx",
             kind=SomMetaKind.LIST,
             type_name="TechnicalCharacteristicEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per technical characteristic.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior."})],
             element_node=_cx("TechnicalCharacteristicEntry", s, _mc_TechnicalCharacteristicEntry, lambda r, c: SomMetaNode(class_name="TechnicalCharacteristicEntry", class_section_id="TECHN", kind=SomMetaKind.COMPLEX, type_name="TechnicalCharacteristicEntry", doc_comment="A single technical characteristic entry.", class_doc_comment="A single technical characteristic entry.", recursive=r, children=c))),
@@ -19507,7 +19715,7 @@ def _mc_EntityFollowUpEntry(s):
             section_id_pattern="MIGME-MIGR-xxx",
             kind=SomMetaKind.LIST,
             type_name="MigrationMappingEntry",
-            serialization_order=4,
+            serialization_order=5,
             content_help="Add one entry per migration mapping.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"], "connotation": "Source-to-target field mappings for planning the migration of data into this entity."})],
             element_node=_cx("MigrationMappingEntry", s, _mc_MigrationMappingEntry, lambda r, c: SomMetaNode(class_name="MigrationMappingEntry", class_section_id="MIGME", kind=SomMetaKind.COMPLEX, type_name="MigrationMappingEntry", doc_comment="A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", class_doc_comment="A migration mapping entry (form).\n\nMaps source system data to target entity for data migration planning.", recursive=r, children=c))),
@@ -19530,11 +19738,19 @@ def _mc_EntityRelationshipEntry(s):
     return [
          SomMetaNode(
             class_name="EntityRelationshipEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this relationship — the business fact it records, beyond the cardinality and referential-integrity facets below."),
+         SomMetaNode(
+            class_name="EntityRelationshipEntry",
             member_name="identity",
             section_id="ENRLE-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="relationshipType", type_name="String", description="Relationship Type", hint="Association | Aggregation | Composition | Generalization | Dependency", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Business meaning of this relationship", order=1), SomFormFieldMeta(name="businessJustification", type_name="String", description="Business Justification", hint="Why this relationship exists from business perspective", order=2), SomFormFieldMeta(name="implementationType", type_name="String", description="Implementation Type", hint="ForeignKey | JunctionTable | Embedded | Reference", order=3)])),
          SomMetaNode(
             class_name="EntityRelationshipEntry",
@@ -19543,7 +19759,7 @@ def _mc_EntityRelationshipEntry(s):
             section_id_pattern="PARTI-PART-xxx",
             kind=SomMetaKind.LIST,
             type_name="ParticipantEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per participating entity.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ER modeling (Chen / Barker notation)", "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"], "connotation": "The entities participating in this relationship, with their role names."})],
             element_node=_cx("ParticipantEntry", s, _mc_ParticipantEntry, lambda r, c: SomMetaNode(class_name="ParticipantEntry", class_section_id="PARTI", kind=SomMetaKind.COMPLEX, type_name="ParticipantEntry", doc_comment="A single participant entry.", class_doc_comment="A single participant entry.", recursive=r, children=c))),
@@ -19553,7 +19769,7 @@ def _mc_EntityRelationshipEntry(s):
             section_id="ENRLE-CARD",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceCardinality", type_name="String", description="Source Cardinality", hint="Source side: 1 | 0..1 | 0..* | 1..* | n..m", order=0), SomFormFieldMeta(name="targetCardinality", type_name="String", description="Target Cardinality", hint="Target side: 1 | 0..1 | 0..* | 1..* | n..m", order=1), SomFormFieldMeta(name="sourceParticipation", type_name="String", description="Source Participation", hint="Mandatory | Optional (whether source must participate)", order=2), SomFormFieldMeta(name="targetParticipation", type_name="String", description="Target Participation", hint="Mandatory | Optional (whether target must participate)", order=3), SomFormFieldMeta(name="minSourceInstances", type_name="String", description="Min Source Instances", hint="Minimum number of source entity instances", order=4), SomFormFieldMeta(name="maxTargetInstances", type_name="String", description="Max Target Instances", hint="Maximum number of related target instances", order=5)])),
          SomMetaNode(
             class_name="EntityRelationshipEntry",
@@ -19561,7 +19777,7 @@ def _mc_EntityRelationshipEntry(s):
             section_id="ENRLE-REFE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="onDeleteAction", type_name="String", description="On Delete Action", hint="Cascade | SetNull | Restrict | NoAction | SetDefault | Archive", order=0), SomFormFieldMeta(name="onUpdateAction", type_name="String", description="On Update Action", hint="Cascade | SetNull | Restrict | NoAction", order=1), SomFormFieldMeta(name="enforcementLevel", type_name="String", description="Enforcement Level", hint="Database | Application | Both | None", order=2), SomFormFieldMeta(name="isDeferrable", type_name="String", description="Is Deferrable", hint="Whether constraint check can be deferred: Yes | No", order=3), SomFormFieldMeta(name="cascadeScope", type_name="String", description="Cascade Scope", hint="For cascading: DirectOnly | AllDescendants | Custom", order=4), SomFormFieldMeta(name="orphanHandling", type_name="String", description="Orphan Handling", hint="How orphaned records are handled: Prevent | Allow | AssignDefault", order=5)])),
          SomMetaNode(
             class_name="EntityRelationshipEntry",
@@ -19569,7 +19785,7 @@ def _mc_EntityRelationshipEntry(s):
             section_id="ENRLE-NAVI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="navigability", type_name="String", description="Navigability", hint="Bidirectional | SourceToTarget | TargetToSource", order=0), SomFormFieldMeta(name="loadingStrategy", type_name="String", description="Loading Strategy", hint="Eager | Lazy | Explicit | None", order=1), SomFormFieldMeta(name="foreignKeyLocation", type_name="String", description="Foreign Key Location", hint="Where FK resides: Source | Target | JunctionTable", order=2), SomFormFieldMeta(name="junctionTableName", type_name="String", description="Junction Table Name", hint="For many-to-many: name of the junction/bridge table", order=3), SomFormFieldMeta(name="inverseRelationship", type_name="String", description="Inverse Relationship", hint="Name of the relationship from the other side", order=4)])),
          SomMetaNode(
             class_name="EntityRelationshipEntry",
@@ -19578,7 +19794,7 @@ def _mc_EntityRelationshipEntry(s):
             section_id_pattern="RELAT-RELA-xxx",
             kind=SomMetaKind.LIST,
             type_name="RelationshipAttributeEntry",
-            serialization_order=5,
+            serialization_order=6,
             content_help="Add one entry per relationship attribute.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ER modeling (Chen / Barker notation)", "ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "Attributes that belong to the relationship itself, for relationships that carry their own properties."})],
             element_node=_cx("RelationshipAttributeEntry", s, _mc_RelationshipAttributeEntry, lambda r, c: SomMetaNode(class_name="RelationshipAttributeEntry", class_section_id="RELAT", kind=SomMetaKind.COMPLEX, type_name="RelationshipAttributeEntry", doc_comment="A single relationship attribute entry.", class_doc_comment="A single relationship attribute entry.", recursive=r, children=c))),
@@ -19588,7 +19804,7 @@ def _mc_EntityRelationshipEntry(s):
             section_id="ENRLE-SOUR-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_type=SomContentTypeMeta(type="text", description=""),
             extra=[SomMetaExtra(annotation="Reference", args={"description": "sourceEntityName"})]),
          SomMetaNode(
@@ -19597,7 +19813,7 @@ def _mc_EntityRelationshipEntry(s):
             section_id="ENRLE-TARG-REF",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_type=SomContentTypeMeta(type="text", description=""),
             extra=[SomMetaExtra(annotation="Reference", args={"description": "targetEntityName"})]),
     ]
@@ -19914,11 +20130,19 @@ def _mc_EquipmentRequirements(s):
     return [
          SomMetaNode(
             class_name="EquipmentRequirements",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the equipment provision for this workplace before the computing, display, input and peripheral lists below. Cover the standard issue and what is granted only by exception."),
+         SomMetaNode(
+            class_name="EquipmentRequirements",
             member_name="overview",
             section_id="EQOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Equipment overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="equipmentStandard", type_name="String", description="Equipment Standard — corporate standard, premium, basic", order=0), SomFormFieldMeta(name="refreshCycle", type_name="String", description="Refresh Cycle — replacement frequency (e.g., 3 years)", order=1), SomFormFieldMeta(name="procurementProcess", type_name="String", description="Procurement Process — how equipment is ordered", order=2), SomFormFieldMeta(name="assetTracking", type_name="String", description="Asset Tracking — how equipment is tracked", order=3), SomFormFieldMeta(name="supportModel", type_name="String", description="Support Model — warranty, maintenance, break-fix", order=4), SomFormFieldMeta(name="disposalProcess", type_name="String", description="Disposal Process — end-of-life handling", order=5), SomFormFieldMeta(name="budgetAllocation", type_name="String", description="Budget Allocation — equipment budget per user", order=6)])),
          SomMetaNode(
@@ -19928,7 +20152,7 @@ def _mc_EquipmentRequirements(s):
             section_id_pattern="COEQ-PRIM-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComputingEquipmentEntry",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Primary computing equipment.",
             element_node=_cx("ComputingEquipmentEntry", s, _mc_ComputingEquipmentEntry, lambda r, c: SomMetaNode(class_name="ComputingEquipmentEntry", class_section_id="COEQ", kind=SomMetaKind.COMPLEX, type_name="ComputingEquipmentEntry", doc_comment="Computing equipment entry (form).", class_doc_comment="Computing equipment entry (form).", recursive=r, children=c))),
          SomMetaNode(
@@ -19938,7 +20162,7 @@ def _mc_EquipmentRequirements(s):
             section_id_pattern="DSEQ-DISP-xxx",
             kind=SomMetaKind.LIST,
             type_name="DisplayEquipmentEntry",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Display and monitors.",
             element_node=_cx("DisplayEquipmentEntry", s, _mc_DisplayEquipmentEntry, lambda r, c: SomMetaNode(class_name="DisplayEquipmentEntry", class_section_id="DSEQ", kind=SomMetaKind.COMPLEX, type_name="DisplayEquipmentEntry", doc_comment="Display equipment entry (form).", class_doc_comment="Display equipment entry (form).", recursive=r, children=c))),
          SomMetaNode(
@@ -19948,7 +20172,7 @@ def _mc_EquipmentRequirements(s):
             section_id_pattern="IDE-INPU-xxx",
             kind=SomMetaKind.LIST,
             type_name="InputDeviceEntry",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Input devices.",
             element_node=_cx("InputDeviceEntry", s, _mc_InputDeviceEntry, lambda r, c: SomMetaNode(class_name="InputDeviceEntry", class_section_id="IDE", kind=SomMetaKind.COMPLEX, type_name="InputDeviceEntry", doc_comment="Input device entry (form).", class_doc_comment="Input device entry (form).", recursive=r, children=c))),
          SomMetaNode(
@@ -19958,7 +20182,7 @@ def _mc_EquipmentRequirements(s):
             section_id_pattern="PEREQ-PERI-xxx",
             kind=SomMetaKind.LIST,
             type_name="PeripheralEquipmentEntry",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Peripheral equipment.",
             element_node=_cx("PeripheralEquipmentEntry", s, _mc_PeripheralEquipmentEntry, lambda r, c: SomMetaNode(class_name="PeripheralEquipmentEntry", class_section_id="PEREQ", kind=SomMetaKind.COMPLEX, type_name="PeripheralEquipmentEntry", doc_comment="Peripheral equipment entry (form).", class_doc_comment="Peripheral equipment entry (form).", recursive=r, children=c))),
          SomMetaNode(
@@ -19968,7 +20192,7 @@ def _mc_EquipmentRequirements(s):
             section_id_pattern="MOBDE-MOBI-xxx",
             kind=SomMetaKind.LIST,
             type_name="MobileDeviceEntry",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Mobile devices.",
             element_node=_cx("MobileDeviceEntry", s, _mc_MobileDeviceEntry, lambda r, c: SomMetaNode(class_name="MobileDeviceEntry", class_section_id="MOBDE", kind=SomMetaKind.COMPLEX, type_name="MobileDeviceEntry", doc_comment="Mobile device entry (form).", class_doc_comment="Mobile device entry (form).", recursive=r, children=c))),
          SomMetaNode(
@@ -19978,7 +20202,7 @@ def _mc_EquipmentRequirements(s):
             section_id_pattern="SPEQ-SPEC-xxx",
             kind=SomMetaKind.LIST,
             type_name="SpecializedEquipmentEntry",
-            serialization_order=6,
+            serialization_order=7,
             doc_comment="Specialized equipment.",
             element_node=_cx("SpecializedEquipmentEntry", s, _mc_SpecializedEquipmentEntry, lambda r, c: SomMetaNode(class_name="SpecializedEquipmentEntry", class_section_id="SPEQ", kind=SomMetaKind.COMPLEX, type_name="SpecializedEquipmentEntry", doc_comment="Specialized equipment entry (form).", class_doc_comment="Specialized equipment entry (form).", recursive=r, children=c))),
     ]
@@ -20057,11 +20281,19 @@ def _mc_ErrorHandling(s):
     return [
          SomMetaNode(
             class_name="ErrorHandling",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the error-handling experience before the validation, system-error and recovery subsections below. Cover the tone errors are written in and the balance struck between prevention and recovery."),
+         SomMetaNode(
+            class_name="ErrorHandling",
             member_name="errorPhilosophyContent",
             section_id="ERHACO-ERRO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="errorPhilosophy", type_name="String", description="Error Handling Philosophy", hint="Prevention-first, graceful degradation, user empowerment", order=0), SomFormFieldMeta(name="errorToneOfVoice", type_name="String", description="Error Tone of Voice", hint="Friendly, professional, apologetic, neutral", order=1), SomFormFieldMeta(name="errorLanguageStyle", type_name="String", description="Error Language Style", hint="Plain language, technical, user-focused", order=2), SomFormFieldMeta(name="blameAvoidance", type_name="String", description="Blame Avoidance Approach", hint="Never blame user, focus on solutions", order=3)])),
          SomMetaNode(
             class_name="ErrorHandling",
@@ -20069,7 +20301,7 @@ def _mc_ErrorHandling(s):
             section_id="EHCC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Error categorization and display priority.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="errorCategories", type_name="String", description="Error Categories", hint="Validation, network, server, permission, data", order=0), SomFormFieldMeta(name="errorSeverityLevels", type_name="String", description="Severity Levels", hint="Critical, warning, info, success", order=1), SomFormFieldMeta(name="errorPriorityDisplay", type_name="String", description="Priority Display Order", hint="Most severe first, chronological, by field", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-13:1998 — user guidance orders feedback so the most important errors are noticed first", "ISO/IEC 25010:2023 — fault tolerance benefits from classifying errors by category and severity"], "connotation": "The error-handling classification configuration governing categories and display priority."})]),
@@ -20079,7 +20311,7 @@ def _mc_ErrorHandling(s):
             section_id="EHCA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Accessibility and inclusive error cues.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="errorAccessibility", type_name="String", description="Error Accessibility", hint="Screen reader announcements, ARIA live regions", order=0), SomFormFieldMeta(name="colorContrastCompliance", type_name="String", description="Color Contrast Compliance", hint="WCAG AA, AAA for error states", order=1), SomFormFieldMeta(name="nonColorIndicators", type_name="String", description="Non-Color Indicators", hint="Icons, text, patterns for colorblind users", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — visual presentation ensures error cues remain perceivable through non-colour indicators", "ISO/IEC 25010:2023 — appropriateness recognisability supports inclusive error cues for all users"], "connotation": "The error-handling accessibility configuration governing inclusive error cues."})]),
@@ -20089,7 +20321,7 @@ def _mc_ErrorHandling(s):
             section_id="EHCO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Localization and analytics behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="errorLocalization", type_name="String", description="Error Localization", hint="All messages localized, fallback language", order=0), SomFormFieldMeta(name="dynamicContentHandling", type_name="String", description="Dynamic Content Handling", hint="How dynamic values are inserted into messages", order=1), SomFormFieldMeta(name="errorTrackingApproach", type_name="String", description="Error Tracking Approach", hint="Analytics for user errors, trend analysis", order=2), SomFormFieldMeta(name="userFrustrationDetection", type_name="String", description="User Frustration Detection", hint="Rage click detection, repeated errors", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-13:1998 — user guidance presents error messages in the language and terms of the user", "ISO/IEC 25010:2023 — user error protection and reliability inform the tracking of recurring input errors"], "connotation": "The error-handling operations configuration governing localisation and error analytics."})]),
@@ -20098,7 +20330,7 @@ def _mc_ErrorHandling(s):
             member_name="errorHandlingOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of error handling approach, key principles, and user experience goals.",
             doc_comment="Error handling overview and strategy."),
@@ -20109,7 +20341,7 @@ def _mc_ErrorHandling(s):
                 class_section_id="VAFE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ValidationFeedback",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="10.7.1. Validation Feedback.",
                 class_doc_comment="10.7.1. Validation Feedback.\n\nField validation error display and feedback mechanisms.",
                 recursive=r,
@@ -20121,7 +20353,7 @@ def _mc_ErrorHandling(s):
                 class_section_id="SYERDI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemErrorDisplay",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="10.7.2. System Error Display.",
                 class_doc_comment="10.7.2. System Error Display.\n\nSystem error presentation including server errors, network issues,\nand timeouts.",
                 recursive=r,
@@ -20133,7 +20365,7 @@ def _mc_ErrorHandling(s):
                 class_section_id="ERRE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ErrorRecovery",
-                serialization_order=7,
+                serialization_order=8,
                 doc_comment="10.7.3. Error Recovery.",
                 class_doc_comment="10.7.3. Error Recovery.\n\nError recovery flows including data preservation, retry mechanisms,\nand guided recovery steps.",
                 recursive=r,
@@ -20143,7 +20375,7 @@ def _mc_ErrorHandling(s):
             member_name="errorMessageCatalog",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Centralized catalog of error message templates with consistent formatting and tone.",
             doc_comment="Error message catalog."),
@@ -20152,7 +20384,7 @@ def _mc_ErrorHandling(s):
             member_name="errorVisualDesign",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Visual design specifications for error states including colors, icons, animations.",
             doc_comment="Error state visual design."),
@@ -20225,11 +20457,19 @@ def _mc_ErrorRecovery(s):
     return [
          SomMetaNode(
             class_name="ErrorRecovery",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how a user gets back on track after an error before the preservation, retry and guided-recovery subsections below. Cover what work must never be lost."),
+         SomMetaNode(
+            class_name="ErrorRecovery",
             member_name="recoveryMechanismsContent",
             section_id="ERRE-RECO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="formDataPreservation", type_name="String", description="Form Data Preservation", hint="How unsaved form data is preserved on error", order=0), SomFormFieldMeta(name="sessionRecovery", type_name="String", description="Session Recovery", hint="How expired sessions are handled", order=1), SomFormFieldMeta(name="supportContactMethod", type_name="String", description="Support Contact Method", hint="Chat, email, phone, ticket", order=2)])),
          SomMetaNode(
             class_name="ErrorRecovery",
@@ -20237,7 +20477,7 @@ def _mc_ErrorRecovery(s):
             section_id="ERDP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Data preservation: draft auto-save settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="draftAutoSave", type_name="bool", description="Draft Auto-Save", hint="Automatic draft saving before submission", order=0), SomFormFieldMeta(name="draftSaveInterval", type_name="String", description="Draft Save Interval", hint="How often drafts are auto-saved", order=1), SomFormFieldMeta(name="draftStorageMethod", type_name="String", description="Draft Storage Method", hint="LocalStorage, IndexedDB, server-side", order=2), SomFormFieldMeta(name="draftRetentionPeriod", type_name="String", description="Draft Retention Period", hint="How long drafts are kept", order=3), SomFormFieldMeta(name="draftRecoveryPrompt", type_name="String", description="Draft Recovery Prompt", hint="How users are notified of recoverable drafts", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — recoverability restores affected data after a failure so user work is not lost", "ISO 9241-110:2020 — use-error tolerance preserves user input so recovery requires minimal effort"], "connotation": "The data-preservation configuration describing draft auto-save so user input survives failures."})]),
@@ -20247,7 +20487,7 @@ def _mc_ErrorRecovery(s):
             section_id="ERRM",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Retry mechanisms configuration.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="automaticRetryEnabled", type_name="bool", description="Automatic Retry Enabled", hint="Whether failed operations are retried automatically", order=0), SomFormFieldMeta(name="retryBackoffStrategy", type_name="String", description="Retry Backoff Strategy", hint="Exponential, linear, fixed", order=1), SomFormFieldMeta(name="maxAutomaticRetries", type_name="int", description="Max Automatic Retries", hint="Maximum number of automatic retry attempts", order=2), SomFormFieldMeta(name="manualRetryButton", type_name="bool", description="Manual Retry Button", hint="Whether a user-triggered retry button is shown", order=3), SomFormFieldMeta(name="retryButtonLabel", type_name="String", description="Retry Button Label", hint="Button text (e.g., \"Try Again\")", order=4), SomFormFieldMeta(name="retryFeedback", type_name="String", description="Retry Feedback", hint="How retry attempts are indicated", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — fault tolerance keeps the system operating as intended despite faults by retrying failed operations", "ISO 9241-110:2020 — use-error tolerance allows users to reattempt an operation after a transient failure"], "connotation": "The retry-mechanism configuration describing automatic and manual reattempts after a failed operation."})]),
@@ -20257,7 +20497,7 @@ def _mc_ErrorRecovery(s):
             section_id="ERGR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Guided recovery options.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="stepByStepRecovery", type_name="bool", description="Step-by-Step Recovery", hint="Guided recovery wizard", order=0), SomFormFieldMeta(name="alternativeActions", type_name="String", description="Alternative Actions", hint="What else user can do", order=1), SomFormFieldMeta(name="skipOption", type_name="bool", description="Skip Option", hint="Allow skipping failed operation", order=2), SomFormFieldMeta(name="cancelOption", type_name="bool", description="Cancel Option", hint="Allow canceling and returning", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — use-error tolerance guides users through corrective steps with minimal effort", "ISO 9241-13:1998 — user guidance offers constructive suggestions for recovering from an error"], "connotation": "The guided-recovery configuration describing step-by-step assistance and alternative actions after a failure."})]),
@@ -20267,7 +20507,7 @@ def _mc_ErrorRecovery(s):
             section_id="ERSC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Support contact details.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="supportAvailability", type_name="String", description="Support Availability", hint="When support is available", order=0), SomFormFieldMeta(name="errorReportSubmission", type_name="bool", description="Error Report Submission", hint="Allow user to submit error report", order=1), SomFormFieldMeta(name="includeDebugInfo", type_name="bool", description="Include Debug Info", hint="Include technical details in report", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001:2022 — Annex A controls require reporting and logging of events for incident escalation", "ISO 9241-13:1998 — user guidance provides a path to further help when an error cannot be self-resolved"], "connotation": "The support-contact configuration describing availability and error-report submission to reach assistance."})]),
@@ -20277,7 +20517,7 @@ def _mc_ErrorRecovery(s):
             section_id="ERSH",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Session handling configuration.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="reauthenticationFlow", type_name="String", description="Reauthentication Flow", hint="Inline login, redirect, modal", order=0), SomFormFieldMeta(name="preserveContextOnReauth", type_name="bool", description="Preserve Context on Reauth", hint="Return to original location after reauth", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — recoverability restores data and state after a session interruption or failure", "ISO 9241-110:2020 — controllability lets users continue an interrupted task without loss of context"], "connotation": "The session-handling configuration describing reauthentication and context preservation after errors."})]),
@@ -20286,7 +20526,7 @@ def _mc_ErrorRecovery(s):
             member_name="recoveryNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Detailed specification of error recovery flows and user empowerment strategies.",
             doc_comment="Error recovery narrative."),
@@ -20297,7 +20537,7 @@ def _mc_ErrorRecovery(s):
             section_id_pattern="ERRE-RECO-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per recovery flow.",
             doc_comment="Recovery flow diagrams.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs", "ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data"], "connotation": "The collection of recovery-flow entries."})]),
@@ -20308,7 +20548,7 @@ def _mc_ErrorRecovery(s):
             section_id_pattern="RCVSCN-RECO-xxx",
             kind=SomMetaKind.LIST,
             type_name="RecoveryScenarioEntry",
-            serialization_order=8,
+            serialization_order=9,
             content_help="Add one entry per common recovery scenario.",
             doc_comment="Common recovery scenarios.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — use-error tolerance guides users through common failure situations toward recovery", "ISO/IEC 25010:2023 — recoverability restores a desired state after an interruption or failure"], "connotation": "The collection of common recovery-scenario entries."})],
@@ -21381,11 +21621,19 @@ def _mc_ExternalInterfaceEntry(s):
     return [
          SomMetaNode(
             class_name="ExternalInterfaceEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this interface — the business need it serves and the partner behind it, beyond the technical, data and security facets recorded below."),
+         SomMetaNode(
+            class_name="ExternalInterfaceEntry",
             member_name="identificationContent",
             section_id="EIE-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="externalSystem", type_name="String", description="External System Name", required=True, hint="Name of the external system being integrated", order=0), SomFormFieldMeta(name="externalSystemVendor", type_name="String", description="Vendor/Provider", hint="Vendor or provider that owns the external system", order=1), SomFormFieldMeta(name="interfaceCategory", type_name="String", description="Category (Payment, Identity, Data, Messaging, etc.)", hint="Functional category of the interface", order=2), SomFormFieldMeta(name="integrationPattern", type_name="String", description="Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", hint="Primary integration pattern used", order=3), SomFormFieldMeta(name="priority", type_name="String", description="Priority (Critical, High, Medium, Low)", hint="Relative importance of this interface", order=4), SomFormFieldMeta(name="status", type_name="String", description="Status (Existing, New, To be replaced)", hint="Lifecycle status of the interface", order=5)])),
          _cx("InterfaceBusinessContext", s, _mc_InterfaceBusinessContext,
             lambda r, c: SomMetaNode(
@@ -21394,7 +21642,7 @@ def _mc_ExternalInterfaceEntry(s):
                 class_section_id="INBUCO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InterfaceBusinessContext",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="Business purpose and value of this interface.",
                 class_doc_comment="Business context for an interface.",
                 recursive=r,
@@ -21406,7 +21654,7 @@ def _mc_ExternalInterfaceEntry(s):
                 class_section_id="INTESP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InterfaceTechnicalSpec",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="Technical details of the interface.",
                 class_doc_comment="Technical specification for an interface.",
                 recursive=r,
@@ -21418,7 +21666,7 @@ def _mc_ExternalInterfaceEntry(s):
                 class_section_id="INDASP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InterfaceDataSpec",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="Data exchange specification.",
                 class_doc_comment="Data specification for an interface.",
                 recursive=r,
@@ -21430,7 +21678,7 @@ def _mc_ExternalInterfaceEntry(s):
                 class_section_id="IS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InterfaceSecurity",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Security and authentication requirements.",
                 class_doc_comment="Security specification for an interface.",
                 recursive=r,
@@ -21442,7 +21690,7 @@ def _mc_ExternalInterfaceEntry(s):
                 class_section_id="INOP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InterfaceOperational",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Operational and SLA requirements.",
                 class_doc_comment="Operational characteristics.",
                 recursive=r,
@@ -21454,7 +21702,7 @@ def _mc_ExternalInterfaceEntry(s):
                 class_section_id="INERHA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InterfaceErrorHandling",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="Error handling and resilience.",
                 class_doc_comment="Error handling specification.",
                 recursive=r,
@@ -21466,7 +21714,7 @@ def _mc_ExternalInterfaceEntry(s):
                 class_section_id="INGO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InterfaceGovernance",
-                serialization_order=7,
+                serialization_order=8,
                 doc_comment="Contractual and governance information.",
                 class_doc_comment="Governance and contracts.",
                 recursive=r,
@@ -21478,7 +21726,7 @@ def _mc_ExternalInterfaceEntry(s):
                 class_section_id="INTE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InterfaceTesting",
-                serialization_order=8,
+                serialization_order=9,
                 doc_comment="Testing and environment information.",
                 class_doc_comment="Testing specification.",
                 recursive=r,
@@ -21490,10 +21738,18 @@ def _mc_ExternalInterfaces(s):
     return [
          SomMetaNode(
             class_name="ExternalInterfaces",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the external-integration landscape before the individual interfaces below. Cover the integration style favoured and the governance around adding one."),
+         SomMetaNode(
+            class_name="ExternalInterfaces",
             member_name="integrationSummary",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Summarize integration portfolio: total count by category, strategic vs tactical integrations, integration platform approach.",
             doc_comment="Summary of the integration landscape."),
@@ -21502,7 +21758,7 @@ def _mc_ExternalInterfaces(s):
             member_name="architectureApproach",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe integration patterns: point-to-point vs hub, synchronous vs async, API gateway usage, message broker approach.",
             doc_comment="Integration architecture approach."),
@@ -21511,7 +21767,7 @@ def _mc_ExternalInterfaces(s):
             member_name="governanceModel",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe integration governance: ownership model, change control process, versioning strategy, deprecation policy.",
             doc_comment="Integration governance model."),
@@ -21522,7 +21778,7 @@ def _mc_ExternalInterfaces(s):
             section_id_pattern="EIE-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExternalInterfaceEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per external system interface, each documenting identification, technical, data, security, and governance details.",
             doc_comment="Contains 0+× ExternalInterfaceEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["OpenAPI / AsyncAPI — API specification", "Enterprise Integration Patterns (EIP) — integration styles"], "connotation": "Holds one entry per external interface, the core inventory from which integration specifications are derived."})],
@@ -22625,18 +22881,26 @@ def _mc_FlexibilityCharacteristic(s):
     return [
          SomMetaNode(
             class_name="FlexibilityCharacteristic",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce flexibility for this system before the adaptability and portability subsections below. Cover the changes the system is expected to absorb without redesign."),
+         SomMetaNode(
+            class_name="FlexibilityCharacteristic",
             member_name="flexibilityContent",
             section_id="FLXC-FLEX",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="flexibilityApproach", type_name="String", description="Flexibility Approach", hint="How adaptability, scalability and portability are achieved", order=0), SomFormFieldMeta(name="portabilityTarget", type_name="String", description="Portability Target", hint="Target environments/platforms the product must run on", order=1)])),
          SomMetaNode(
             class_name="FlexibilityCharacteristic",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of flexibility, adaptability and portability goals.",
             doc_comment="Flexibility overview."),
@@ -22647,7 +22911,7 @@ def _mc_FlexibilityCharacteristic(s):
                 class_section_id="FLQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Flexibility",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.9.1. Flexibility (adaptability/scalability/extensibility).",
                 class_doc_comment="11.3.3. Flexibility quality.",
                 recursive=r,
@@ -22659,7 +22923,7 @@ def _mc_FlexibilityCharacteristic(s):
                 class_section_id="POQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Portability",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="11.9.2. Portability.",
                 class_doc_comment="11.3.2. Portability quality.",
                 recursive=r,
@@ -22858,11 +23122,19 @@ def _mc_FunctionModel(s):
     return [
          SomMetaNode(
             class_name="FunctionModel",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the function model before the decomposition, matrix and rule lists below. Cover how deep the decomposition goes and how functions are mapped onto data."),
+         SomMetaNode(
+            class_name="FunctionModel",
             member_name="decompositionOverview",
             section_id="FUMO-DECO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="decompositionApproach", type_name="String", description="Decomposition Approach", hint="How functions are decomposed: Hierarchical | ProcessBased | CapabilityBased", order=0), SomFormFieldMeta(name="decompositionDepth", type_name="String", description="Decomposition Depth", hint="Number of levels in the hierarchy", order=1), SomFormFieldMeta(name="topLevelFunctions", type_name="String", description="Top-Level Functions", hint="Summary of major function areas", order=2), SomFormFieldMeta(name="decompositionBasis", type_name="String", description="Decomposition Basis", hint="Criteria for breaking down: BusinessCapability | ProcessStep | OrganizationalUnit", order=3)])),
          SomMetaNode(
             class_name="FunctionModel",
@@ -22870,7 +23142,7 @@ def _mc_FunctionModel(s):
             section_id="FUMO-MATR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="crudNotation", type_name="String", description="CRUD Notation", hint="Notation used: CRUD | CRUDx | Custom", order=0), SomFormFieldMeta(name="matrixScope", type_name="String", description="Matrix Scope", hint="What's covered: CoreFunctions | AllFunctions | UserFacing", order=1), SomFormFieldMeta(name="primaryAccessPatterns", type_name="String", description="Primary Access Patterns", hint="Summary of major access patterns", order=2), SomFormFieldMeta(name="dataOwnership", type_name="String", description="Data Ownership", hint="Which functions own which data", order=3)])),
          SomMetaNode(
             class_name="FunctionModel",
@@ -22879,7 +23151,7 @@ def _mc_FunctionModel(s):
             section_id_pattern="FUNCT-FUNC-xxx",
             kind=SomMetaKind.LIST,
             type_name="FunctionEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per function.",
             doc_comment="7.3.1. Function Decomposition — contains 0+× Function.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Structured Analysis (DeMarco/Yourdon) — functional decomposition", "IEEE 830 / ISO/IEC/IEEE 29148 — functional requirements"], "connotation": "The business functions the system provides, decomposed hierarchically."})],
@@ -22891,7 +23163,7 @@ def _mc_FunctionModel(s):
             section_id_pattern="FNDMX-MATR-xxx",
             kind=SomMetaKind.LIST,
             type_name="FunctionDataMatrixEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per function/data matrix mapping.",
             doc_comment="7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CRUD matrix — function/data interaction mapping"], "connotation": "The rows of the CRUD matrix mapping each function to the data entities it accesses."})],
@@ -22903,7 +23175,7 @@ def _mc_FunctionModel(s):
             section_id_pattern="BIRU-BUSI-xxx",
             kind=SomMetaKind.LIST,
             type_name="BusinessRuleEntry",
-            serialization_order=4,
+            serialization_order=5,
             min=1,
             content_help="Add one entry per business rule.",
             doc_comment="7.3.3. Business Rules — contains 1+× Business Rule.",
@@ -23159,18 +23431,26 @@ def _mc_FunctionalSuitabilityCharacteristic(s):
     return [
          SomMetaNode(
             class_name="FunctionalSuitabilityCharacteristic",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce functional suitability for this system before the completeness and correctness subsections below. Cover what \"the right functions, done correctly\" means here."),
+         SomMetaNode(
+            class_name="FunctionalSuitabilityCharacteristic",
             member_name="functionalSuitabilityContent",
             section_id="FNSU-FUNC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="functionalSuitabilityApproach", type_name="String", description="Functional Suitability Approach", hint="How functional completeness and correctness are assured", order=0), SomFormFieldMeta(name="functionalCoverageTarget", type_name="String", description="Functional Coverage Target", hint="Required vs. optional feature coverage", order=1), SomFormFieldMeta(name="correctnessStandard", type_name="String", description="Correctness Standard", hint="Acceptable defect density, accuracy thresholds", order=2)])),
          SomMetaNode(
             class_name="FunctionalSuitabilityCharacteristic",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of functional-suitability goals, coverage targets, and correctness metrics.",
             doc_comment="Functional suitability overview."),
@@ -23181,7 +23461,7 @@ def _mc_FunctionalSuitabilityCharacteristic(s):
                 class_section_id="FNCOQ",
                 kind=SomMetaKind.COMPLEX,
                 type_name="FunctionalCompleteness",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.2.1. Functional Completeness.",
                 class_doc_comment="11.2.2. Functional completeness quality.",
                 recursive=r,
@@ -23193,7 +23473,7 @@ def _mc_FunctionalSuitabilityCharacteristic(s):
                 class_section_id="COQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Correctness",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="11.2.2. Correctness.",
                 class_doc_comment="11.2.3. Correctness quality.",
                 recursive=r,
@@ -25364,18 +25644,26 @@ def _mc_InteractionCapabilityCharacteristic(s):
     return [
          SomMetaNode(
             class_name="InteractionCapabilityCharacteristic",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce interaction capability for this system before the usability subsection below. Cover the user groups whose experience sets the bar."),
+         SomMetaNode(
+            class_name="InteractionCapabilityCharacteristic",
             member_name="interactionCapabilityContent",
             section_id="INCP-INTE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="userQualityPhilosophy", type_name="String", description="User Quality Philosophy", hint="User-first, balanced, efficiency-focused", order=0), SomFormFieldMeta(name="targetUserExperience", type_name="String", description="Target User Experience", hint="Delightful, efficient, adequate, minimal", order=1), SomFormFieldMeta(name="userResearchBasis", type_name="String", description="User Research Basis", hint="Personas, surveys, interviews, analytics", order=2), SomFormFieldMeta(name="userFeedbackChannel", type_name="String", description="User Feedback Channel", hint="How user quality feedback is collected", order=3), SomFormFieldMeta(name="userSatisfactionTarget", type_name="String", description="User Satisfaction Target", hint="NPS > 50, CSAT > 80%, etc.", order=4), SomFormFieldMeta(name="accessibilityLevel", type_name="String", description="Accessibility Level", hint="WCAG 2.1 AA, AAA, Section 508", order=5)])),
          SomMetaNode(
             class_name="InteractionCapabilityCharacteristic",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of interaction-capability goals, target user experience, and key user-quality metrics.",
             doc_comment="Interaction capability overview."),
@@ -25386,7 +25674,7 @@ def _mc_InteractionCapabilityCharacteristic(s):
                 class_section_id="USAQL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Usability",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.5.1. Usability.",
                 class_doc_comment="11.2.1. Usability quality.",
                 recursive=r,
@@ -25531,11 +25819,19 @@ def _mc_InteractionEntry(s):
     return [
          SomMetaNode(
             class_name="InteractionEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this interaction — the situation it arises in and why it matters, beyond the scope, flow and rule facets recorded below."),
+         SomMetaNode(
+            class_name="InteractionEntry",
             member_name="identification",
             section_id="INID",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Interaction identification (use case header).",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="useCaseName", type_name="String", description="Use Case Name — active verb goal phrase", required=True, hint="Active-verb goal, e.g. \"Place order\"", order=0), SomFormFieldMeta(name="processReference", type_name="String", description="Process Reference — TOM-xxx", hint="The TOM-xxx process this use case realizes", order=1), SomFormFieldMeta(name="briefDescription", type_name="String", description="Brief Description — one sentence", hint="One-sentence summary of the goal", order=2), SomFormFieldMeta(name="fullDescription", type_name="String", description="Full Description — complete explanation", hint="Fuller narrative of what the interaction achieves", order=3), SomFormFieldMeta(name="primaryActor", type_name="String", description="Primary Actor — who initiates", hint="The actor with the goal who starts the interaction", order=4), SomFormFieldMeta(name="supportingActors", type_name="String", description="Supporting Actors — who else participates", hint="Other actors or systems that contribute", order=5), SomFormFieldMeta(name="goalLevel", type_name="String", description="Goal Level — summary (+), user goal (!), subfunction (-)", hint="Cockburn level: + summary, ! user goal, - subfunction", order=6), SomFormFieldMeta(name="designScope", type_name="String", description="Design Scope — organization, system, subsystem, component", hint="Boundary in view: organization, system, subsystem, component", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: use-case identity & scope", "UML 2.5.1 (ISO/IEC 19505) — use cases"], "connotation": "Identifies a use case by id, name, actors, goal level and design scope — its header attributes."})]),
@@ -25545,7 +25841,7 @@ def _mc_InteractionEntry(s):
             section_id="UCSC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Use case scope and context (Cockburn style).",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="systemUnderDiscussion", type_name="String", description="System Under Discussion — SuD name", hint="Name the system whose behavior is being described", order=0), SomFormFieldMeta(name="systemBoundary", type_name="String", description="System Boundary — what is inside/outside", hint="State what falls inside vs. outside the system", order=1), SomFormFieldMeta(name="level", type_name="String", description="Level — sea level/user goal, fish/subfunction", hint="Cockburn altitude: sea (user goal), fish (subfunction)", order=2), SomFormFieldMeta(name="context", type_name="String", description="Context — business context", hint="Business situation in which this use case occurs", order=3), SomFormFieldMeta(name="assumption", type_name="String", description="Assumptions — what is assumed true", hint="Facts assumed true but not verified in the flow", order=4), SomFormFieldMeta(name="dependency", type_name="String", description="Dependencies — what this depends on", hint="External systems or use cases this relies on", order=5), SomFormFieldMeta(name="constraint", type_name="String", description="Constraints — limitations", hint="Limitations bounding how the use case may work", order=6), SomFormFieldMeta(name="relatedUseCases", type_name="String", description="Related Use Cases — includes, extends", hint="Use cases this one includes or extends", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: scope, level and context", "UML 2.5.1 (ISO/IEC 19505) — use cases"], "connotation": "Sets the boundary, level and surrounding context — assumptions, dependencies and related use cases — for this interaction."})]),
@@ -25556,7 +25852,7 @@ def _mc_InteractionEntry(s):
             section_id_pattern="STANIN-STAK-xxx",
             kind=SomMetaKind.LIST,
             type_name="StakeholdersAndInterests",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per stakeholder interest.",
             doc_comment="Stakeholders and interests.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: stakeholders and interests", "BABOK v3 — use cases & scenarios"], "connotation": "The stakeholders of this interaction and the interests each of them wants protected."})],
@@ -25568,7 +25864,7 @@ def _mc_InteractionEntry(s):
             section_id_pattern="PRANTR-PREC-xxx",
             kind=SomMetaKind.LIST,
             type_name="PreconditionsAndTriggers",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per precondition/trigger set.",
             doc_comment="Preconditions and triggers.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: preconditions and triggers", "UML 2.5.1 (ISO/IEC 19505) — use cases"], "connotation": "The conditions that must hold before this interaction and the events that trigger it."})],
@@ -25580,7 +25876,7 @@ def _mc_InteractionEntry(s):
             section_id_pattern="POANGU-POST-xxx",
             kind=SomMetaKind.LIST,
             type_name="PostconditionsAndGuarantees",
-            serialization_order=4,
+            serialization_order=5,
             content_help="Add one entry per postcondition/guarantee set.",
             doc_comment="Postconditions and guarantees.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: minimal and success guarantees", "UML 2.5.1 (ISO/IEC 19505) — use cases"], "connotation": "The minimal and success guarantees describing the system state after this interaction completes."})],
@@ -25592,7 +25888,7 @@ def _mc_InteractionEntry(s):
                 class_section_id="MASUSC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MainSuccessScenario",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Main success scenario (basic flow).",
                 class_doc_comment="Main success scenario (basic flow).",
                 recursive=r,
@@ -25604,7 +25900,7 @@ def _mc_InteractionEntry(s):
                 class_section_id="USCAEX",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UseCaseExtensions",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="Extensions (alternative and exception flows).",
                 class_doc_comment="Use case extensions (alternative and exception flows).",
                 recursive=r,
@@ -25616,7 +25912,7 @@ def _mc_InteractionEntry(s):
             section_id_pattern="TEDAVA-VARI-xxx",
             kind=SomMetaKind.LIST,
             type_name="TechnologyDataVariations",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per variation.",
             doc_comment="Technology and data variations.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: technology & data variations", "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"], "connotation": "The data, technology and channel variations under which this interaction may play out."})],
@@ -25628,7 +25924,7 @@ def _mc_InteractionEntry(s):
                 class_section_id="UIRP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UIRequirementsPreview",
-                serialization_order=8,
+                serialization_order=9,
                 doc_comment="UI requirements preview.",
                 class_doc_comment="UI requirements preview for this interaction.",
                 recursive=r,
@@ -25639,7 +25935,7 @@ def _mc_InteractionEntry(s):
             section_id="INPE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             doc_comment="Performance and frequency.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="expectedFrequency", type_name="String", description="Expected Frequency — times per day/week", hint="How often the interaction runs, e.g. per day", order=0), SomFormFieldMeta(name="peakVolume", type_name="String", description="Peak Volume — maximum concurrent", hint="Maximum concurrent load expected", order=1), SomFormFieldMeta(name="responseTimeTarget", type_name="String", description="Response Time Target — max acceptable", hint="Maximum acceptable response time", order=2), SomFormFieldMeta(name="throughputTarget", type_name="String", description="Throughput Target — transactions per second", hint="Required transactions per second", order=3), SomFormFieldMeta(name="availabilityRequirement", type_name="String", description="Availability Requirement — uptime needed", hint="Required uptime, e.g. 99.9%", order=4), SomFormFieldMeta(name="concurrencyExpectation", type_name="String", description="Concurrency Expectation — simultaneous users", hint="Expected number of simultaneous users", order=5), SomFormFieldMeta(name="dataVolumeHandled", type_name="String", description="Data Volume Handled — typical data size", hint="Typical data size processed per run", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — performance efficiency", "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"], "connotation": "States the performance targets for the interaction — frequency, volume, response time, throughput and availability."})]),
@@ -25649,7 +25945,7 @@ def _mc_InteractionEntry(s):
             section_id="INSE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=10,
+            serialization_order=11,
             doc_comment="Security and authorization.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="authenticationRequired", type_name="String", description="Authentication Required — auth needed", hint="Whether and how the actor must authenticate", order=0), SomFormFieldMeta(name="authorizationRules", type_name="String", description="Authorization Rules — who can do this", hint="Which roles are permitted to perform this", order=1), SomFormFieldMeta(name="dataClassification", type_name="String", description="Data Classification — sensitivity level", hint="Sensitivity level of the data handled", order=2), SomFormFieldMeta(name="encryptionRequirements", type_name="String", description="Encryption Requirements — data protection", hint="Encryption needed in transit and at rest", order=3), SomFormFieldMeta(name="auditLogging", type_name="String", description="Audit Logging — what is logged", hint="Security-relevant events to log", order=4), SomFormFieldMeta(name="sessionRequirements", type_name="String", description="Session Requirements — timeout, renewal", hint="Session timeout and renewal rules", order=5), SomFormFieldMeta(name="complianceRequirements", type_name="String", description="Compliance Requirements — GDPR, HIPAA", hint="Regulations to satisfy, e.g. GDPR, HIPAA", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001 A.9 — access control", "ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements"], "connotation": "States the security requirements for the interaction — authentication, authorization, data protection, auditing and compliance."})]),
@@ -25660,7 +25956,7 @@ def _mc_InteractionEntry(s):
             section_id_pattern="INBURU-BUSI-xxx",
             kind=SomMetaKind.LIST,
             type_name="InteractionBusinessRules",
-            serialization_order=11,
+            serialization_order=12,
             content_help="Add one entry per business-rule group.",
             doc_comment="Business rules triggered.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BABOK v3 — business rules", "Cockburn — Writing Effective Use Cases: main success scenario"], "connotation": "The business rules invoked while executing this interaction."})],
@@ -25671,7 +25967,7 @@ def _mc_InteractionEntry(s):
             section_id="INTR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=12,
+            serialization_order=13,
             doc_comment="Related elements and traceability.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="relatedProcess", type_name="String", description="Related Process — TOM-xxx", hint="TOM-xxx process this interaction realizes", order=0), SomFormFieldMeta(name="relatedRequirements", type_name="String", description="Related Requirements", hint="Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", order=1, refers_to=["FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"]), SomFormFieldMeta(name="relatedUseCase", type_name="String", description="Related Use Case — ISC-xxx in ISC document", hint="ISC-xxx use case in the ISC document", order=2), SomFormFieldMeta(name="relatedDataEntities", type_name="String", description="Related Data Entities — entity names", hint="Data entities read or written", order=3), SomFormFieldMeta(name="relatedBusinessObjects", type_name="String", description="Related Business Objects — BO-xxx", hint="BO-xxx business objects involved", order=4), SomFormFieldMeta(name="relatedBusinessRules", type_name="String", description="Related Business Rules — BR-xxx", hint="BR-xxx business rules referenced", order=5), SomFormFieldMeta(name="relatedIntegrations", type_name="String", description="Related Integrations — INT-xxx", hint="INT-xxx integrations touched", order=6), SomFormFieldMeta(name="relatedTestCases", type_name="String", description="Related Test Cases — TC-xxx", hint="TC-xxx test cases covering this", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements", "BABOK v3 — use cases & scenarios"], "connotation": "Traces the interaction to related processes, requirements, data, business objects, rules, integrations and test cases."})]),
@@ -26773,11 +27069,19 @@ def _mc_JobDescriptionsAndStaffing(s):
     return [
          SomMetaNode(
             class_name="JobDescriptionsAndStaffing",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the role changes before the new, changed and removed role lists below. Cover the net headcount effect and the sourcing approach."),
+         SomMetaNode(
+            class_name="JobDescriptionsAndStaffing",
             member_name="overview",
             section_id="JODEOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Overview of the job architecture and role design approach.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="roleDesignApproach", type_name="String", description="Role Design Approach — methodology for defining roles", hint="Methodology used to define and structure roles", order=0), SomFormFieldMeta(name="jobArchitectureModel", type_name="String", description="Job Architecture Model — job families, levels, career paths", hint="Job families, levels, and career paths", order=1), SomFormFieldMeta(name="competencyModel", type_name="String", description="Competency Model — framework for defining skills/competencies", hint="Framework used to define skills and competencies", order=2), SomFormFieldMeta(name="gradingStructure", type_name="String", description="Grading Structure — how roles are graded/leveled", hint="How roles are graded or leveled", order=3), SomFormFieldMeta(name="totalRoleImpact", type_name="String", description="Total Role Impact — summary of new/changed/removed roles", hint="Summary count of new, changed, and removed roles", order=4), SomFormFieldMeta(name="totalFteChange", type_name="String", description="Total FTE Change — net headcount impact", hint="Net headcount impact across all role changes", order=5), SomFormFieldMeta(name="hrPartner", type_name="String", description="HR Partner — HR contact for role changes", hint="HR contact responsible for these role changes", order=6), SomFormFieldMeta(name="unionConsiderations", type_name="String", description="Union/Works Council Considerations — labor relations impact", hint="Labor relations and works council impact", order=7), SomFormFieldMeta(name="legalRequirements", type_name="String", description="Legal Requirements — employment law considerations", hint="Employment law considerations affecting role changes", order=8)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — HR best practices (job design, staffing, workforce planning)", "CIPD — competency frameworks and people management"], "connotation": "Summarises the overall approach to designing roles — the job architecture, competency model, grading, net headcount impact, and the HR/legal considerations that govern the role changes."})]),
@@ -26788,7 +27092,7 @@ def _mc_JobDescriptionsAndStaffing(s):
             section_id_pattern="NRE-NEWR-xxx",
             kind=SomMetaKind.LIST,
             type_name="NewRoleEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per new role being created.",
             doc_comment="5.2.1. New Roles — contains 0+× New Role.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["O*NET — occupational job analysis (tasks, skills, knowledge)"], "connotation": "The set of brand-new roles the system introduces, each defined through job analysis (tasks, skills, and knowledge requirements)."})],
@@ -26800,7 +27104,7 @@ def _mc_JobDescriptionsAndStaffing(s):
             section_id_pattern="CHAROL-CHAN-xxx",
             kind=SomMetaKind.LIST,
             type_name="ChangedRoleEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per existing role whose definition changes.",
             doc_comment="5.2.2. Changed Roles — contains 0+× Changed Role.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — HR best practices (job design, staffing, workforce planning)"], "connotation": "The set of existing roles whose responsibilities, skills, or grading change as a result of the system introduction."})],
@@ -26812,7 +27116,7 @@ def _mc_JobDescriptionsAndStaffing(s):
             section_id_pattern="REMROL-REMO-xxx",
             kind=SomMetaKind.LIST,
             type_name="RemovedRoleEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per role being eliminated.",
             doc_comment="5.2.3. Removed Roles — contains 0+× role being eliminated.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — HR best practices (job design, staffing, workforce planning)"], "connotation": "The set of roles being eliminated by the system introduction, with the rationale and people-impact for each."})],
@@ -26824,7 +27128,7 @@ def _mc_JobDescriptionsAndStaffing(s):
                 class_section_id="STPL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="StaffingPlan",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="5.2.4. Staffing Plan.",
                 class_doc_comment="5.2.4. Staffing Plan.",
                 recursive=r,
@@ -26836,7 +27140,7 @@ def _mc_JobDescriptionsAndStaffing(s):
                 class_section_id="COFR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CompetencyFramework",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="5.2.5. Competency Framework.",
                 class_doc_comment="5.2.5. Competency Framework.",
                 recursive=r,
@@ -27216,11 +27520,19 @@ def _mc_LanguageCountrySelection(s):
     return [
          SomMetaNode(
             class_name="LanguageCountrySelection",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the language and country picker before the default, persistence and fallback subsections below. Cover where the picker appears and when a user first meets it."),
+         SomMetaNode(
+            class_name="LanguageCountrySelection",
             member_name="languageSelectionContent",
             section_id="LACOSE-LANG",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="pickerLocation", type_name="String", description="Picker Location", hint="Header, footer, settings, onboarding", order=0), SomFormFieldMeta(name="pickerStyle", type_name="String", description="Picker Style", hint="Dropdown, modal, full page", order=1), SomFormFieldMeta(name="languageDisplay", type_name="String", description="Language Display", hint="Native names, English names, flags", order=2), SomFormFieldMeta(name="countryDisplay", type_name="String", description="Country Display", hint="How countries are displayed", order=3), SomFormFieldMeta(name="searchable", type_name="bool", description="Searchable", hint="Can user search languages/countries", order=4)])),
          SomMetaNode(
             class_name="LanguageCountrySelection",
@@ -27228,7 +27540,7 @@ def _mc_LanguageCountrySelection(s):
             section_id="LCSD",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Default locale behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="defaultLanguage", type_name="String", description="Default Language", hint="How default language is determined", order=0), SomFormFieldMeta(name="defaultCountry", type_name="String", description="Default Country", hint="How default country is determined", order=1), SomFormFieldMeta(name="autoDetection", type_name="String", description="Auto-Detection", hint="Browser, OS, geo-IP detection", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BCP 47 (W3C Internationalization) — the accepted language tags drive default-locale detection", "ISO 3166 — country and region codes support geo-based default country detection"], "connotation": "How the default language and country are determined, including auto-detection sources."})]),
@@ -27238,7 +27550,7 @@ def _mc_LanguageCountrySelection(s):
             section_id="LCSP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Retention rules — how a chosen preference survives, without naming a store.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="guestRetention", type_name="String", description="Guest Retention", hint="Whether and for how long a preference chosen before sign-in is retained", order=0), SomFormFieldMeta(name="signInCarryOver", type_name="String", description="Sign-In Carry-Over", hint="What happens to a guest-chosen locale when the user signs in and a stored preference applies", order=1), SomFormFieldMeta(name="reselectionPrompt", type_name="String", description="Re-Selection Prompt", hint="When the user is asked to confirm or re-pick the retained preference", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BCP 47 (W3C Internationalization) — the retained preference is expressed as a language tag", "ISO/IEC 25010:2023 — usability requires the chosen locale to survive across sessions"], "connotation": "How a chosen language and country preference is retained across sessions, before and after the user is identified."})]),
@@ -27248,7 +27560,7 @@ def _mc_LanguageCountrySelection(s):
             section_id="LCSF",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Fallback behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="localeFallbackBehavior", type_name="String", description="Locale Fallback Behavior", hint="What happens when locale unavailable", order=0), SomFormFieldMeta(name="partialLocalSupport", type_name="String", description="Partial Locale Support", hint="UI in one locale, content in another", order=1), SomFormFieldMeta(name="missingTranslationDisplay", type_name="String", description="Missing Translation Display", hint="How missing translations are shown", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BCP 47 (W3C Internationalization) — the lookup and filtering rules define fallback between language tags", "CLDR (Unicode Common Locale Data Repository) — the locale inheritance chain guides fallback to a parent locale"], "connotation": "The fallback behavior when a requested locale is unavailable or only partially supported."})]),
@@ -27258,7 +27570,7 @@ def _mc_LanguageCountrySelection(s):
             section_id="LCSU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Switching UX behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="languageSwitchBehavior", type_name="String", description="Language Switch Behavior", hint="Page reload, inline update", order=0), SomFormFieldMeta(name="confirmationRequired", type_name="bool", description="Confirmation Required", hint="Confirm before switching", order=1), SomFormFieldMeta(name="contentRetention", type_name="String", description="Content Retention", hint="What happens to in-progress content", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — usability covers how the interface responds when the user switches language", "WCAG 2.2 SC 3.1.2 — language of parts requires the interface to signal the active language after a switch"], "connotation": "The user-experience behavior when switching language, including confirmation and content retention."})]),
@@ -27267,7 +27579,7 @@ def _mc_LanguageCountrySelection(s):
             member_name="languageSelectionNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Language selection narrative."),
          SomMetaNode(
@@ -27275,7 +27587,7 @@ def _mc_LanguageCountrySelection(s):
             member_name="languagePickerMockup",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_type=SomContentTypeMeta(type="mermaid", description=""),
             doc_comment="Language selection mockup."),
     ]
@@ -27786,11 +28098,19 @@ def _mc_LocalizationProcess(s):
     return [
          SomMetaNode(
             class_name="LocalizationProcess",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the localization workflow before the review, formatting and deployment subsections below. Cover how translatable content is identified and externalized."),
+         SomMetaNode(
+            class_name="LocalizationProcess",
             member_name="localizationProcessContent",
             section_id="LOPR-LOCA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="contentIdentification", type_name="String", description="Content Identification", hint="How localizable content is identified", order=0), SomFormFieldMeta(name="stringExternalization", type_name="String", description="String Externalization", hint="Approach to externalizing strings", order=1), SomFormFieldMeta(name="contentTagging", type_name="String", description="Content Tagging", hint="How content is tagged for translation", order=2), SomFormFieldMeta(name="localizationScope", type_name="String", description="Localization Scope", hint="UI text, images, audio, video, documents", order=3)])),
          SomMetaNode(
             class_name="LocalizationProcess",
@@ -27798,7 +28118,7 @@ def _mc_LocalizationProcess(s):
             section_id="LOPRR1",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Review process.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="reviewWorkflow", type_name="String", description="Review Workflow", hint="Steps in the localization review", order=0), SomFormFieldMeta(name="stakeholderApproval", type_name="String", description="Stakeholder Approval", hint="Who approves localized content", order=1), SomFormFieldMeta(name="qualityAssurance", type_name="String", description="Quality Assurance", hint="QA process for localized content", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 17100:2015 — the revision and review steps define quality checks on localized content", "ISO/IEC 25010:2023 — review supports usability of the adapted, localized product"], "connotation": "The review workflow, stakeholder approval, and quality assurance for localized content."})]),
@@ -27808,7 +28128,7 @@ def _mc_LocalizationProcess(s):
             section_id="LOPRFO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Formatting rules.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="dateFormatRules", type_name="String", description="Date Format Rules", hint="Locale-specific date formatting", order=0), SomFormFieldMeta(name="numberFormatRules", type_name="String", description="Number Format Rules", hint="Locale-specific number formatting", order=1), SomFormFieldMeta(name="currencyFormatRules", type_name="String", description="Currency Format Rules", hint="Locale-specific currency formatting", order=2), SomFormFieldMeta(name="addressFormatRules", type_name="String", description="Address Format Rules", hint="Locale-specific address formatting", order=3), SomFormFieldMeta(name="phoneFormatRules", type_name="String", description="Phone Format Rules", hint="Locale-specific phone number formatting", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CLDR (Unicode Common Locale Data Repository) — locale data drives date, number, and currency formatting", "ISO 8601 — the standard representation for dates and times per locale", "ISO 4217 — currency codes underpin locale-specific currency formatting"], "connotation": "The locale-specific formatting rules for dates, numbers, currency, addresses, and phone numbers."})]),
@@ -27818,7 +28138,7 @@ def _mc_LocalizationProcess(s):
             section_id="LOPRDE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Deployment settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="localeDeployment", type_name="String", description="Locale Deployment", hint="How locales are deployed", order=0), SomFormFieldMeta(name="localeToggling", type_name="String", description="Locale Toggling", hint="Feature flags for locales", order=1), SomFormFieldMeta(name="perLocaleCustomization", type_name="String", description="Per-Locale Customization", hint="Locale-specific features or content", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — per-locale deployment and toggling contribute to portability adaptability", "CLDR (Unicode Common Locale Data Repository) — locale identifiers select which locale package is deployed"], "connotation": "The deployment, toggling, and per-locale customization settings for localized content."})]),
@@ -27827,7 +28147,7 @@ def _mc_LocalizationProcess(s):
             member_name="localizationNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Localization process narrative."),
          SomMetaNode(
@@ -27835,7 +28155,7 @@ def _mc_LocalizationProcess(s):
             member_name="workflowDiagram",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="mermaid-flow", description=""),
             doc_comment="Localization workflow diagram."),
     ]
@@ -28237,18 +28557,26 @@ def _mc_MaintainabilityCharacteristic(s):
     return [
          SomMetaNode(
             class_name="MaintainabilityCharacteristic",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce maintainability for this system before the maintainability subsection below. Cover who will maintain it, and over what horizon."),
+         SomMetaNode(
+            class_name="MaintainabilityCharacteristic",
             member_name="maintainabilityContent",
             section_id="MNTC-MAIN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="maintainabilityApproach", type_name="String", description="Maintainability Approach", hint="Modularity, analyzability, testability priorities", order=0), SomFormFieldMeta(name="maintainabilityStandard", type_name="String", description="Maintainability Standard", hint="Complexity thresholds, test-coverage targets", order=1)])),
          SomMetaNode(
             class_name="MaintainabilityCharacteristic",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of maintainability goals and standards.",
             doc_comment="Maintainability overview."),
@@ -28259,7 +28587,7 @@ def _mc_MaintainabilityCharacteristic(s):
                 class_section_id="MAQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Maintainability",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.8.1. Maintainability (product maintainability attributes).",
                 class_doc_comment="11.3.5. Maintainability quality.",
                 recursive=r,
@@ -28768,18 +29096,26 @@ def _mc_MetricsAndObservability(s):
     return [
          SomMetaNode(
             class_name="MetricsAndObservability",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the observability approach before the application, infrastructure, business and tracing subsections below. Cover which questions the telemetry has to answer, and the retention and cost trade-off behind it."),
+         SomMetaNode(
+            class_name="MetricsAndObservability",
             member_name="metricsOverview",
             section_id="MEANOB-METR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="metricsEnabled", type_name="bool", description="Metrics Enabled", hint="Whether metrics collection is enabled", order=0), SomFormFieldMeta(name="logsEnabled", type_name="bool", description="Logs Enabled", hint="Whether log collection is enabled", order=1), SomFormFieldMeta(name="tracesEnabled", type_name="bool", description="Traces Enabled", hint="Whether distributed tracing is enabled", order=2), SomFormFieldMeta(name="profilesEnabled", type_name="bool", description="Profiles Enabled", hint="Continuous profiling", order=3), SomFormFieldMeta(name="metricsFormat", type_name="String", description="Metrics Format", hint="Prometheus, OpenMetrics, StatsD", order=4), SomFormFieldMeta(name="logsFormat", type_name="String", description="Logs Format", hint="Structured JSON, syslog", order=5), SomFormFieldMeta(name="tracingStandard", type_name="String", description="Tracing Standard", hint="OpenTelemetry, OpenTracing, W3C Trace Context", order=6), SomFormFieldMeta(name="collectionMethod", type_name="String", description="Collection Method", hint="Pull (Prometheus), push (agent), sidecar", order=7), SomFormFieldMeta(name="scrapeInterval", type_name="String", description="Scrape Interval", hint="Metrics collection frequency", order=8), SomFormFieldMeta(name="samplingRate", type_name="String", description="Sampling Rate", hint="Trace sampling percentage", order=9)])),
          SomMetaNode(
             class_name="MetricsAndObservability",
             member_name="overviewNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Observability overview narrative."),
          _cx("ApplicationMetricsSpec", s, _mc_ApplicationMetricsSpec,
@@ -28789,7 +29125,7 @@ def _mc_MetricsAndObservability(s):
                 class_section_id="APMESP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ApplicationMetricsSpec",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="Application metrics specification.",
                 class_doc_comment="Application metrics specification.",
                 recursive=r,
@@ -28801,7 +29137,7 @@ def _mc_MetricsAndObservability(s):
                 class_section_id="INMESP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InfrastructureMetricsSpec",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="Infrastructure metrics specification.",
                 class_doc_comment="Infrastructure metrics specification.",
                 recursive=r,
@@ -28813,7 +29149,7 @@ def _mc_MetricsAndObservability(s):
                 class_section_id="BUMESP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="BusinessMetricsSpec",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Business metrics specification.",
                 class_doc_comment="Business metrics specification.",
                 recursive=r,
@@ -28825,7 +29161,7 @@ def _mc_MetricsAndObservability(s):
                 class_section_id="DITRSP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DistributedTracingSpec",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Distributed tracing specification.",
                 class_doc_comment="Distributed tracing specification.",
                 recursive=r,
@@ -28837,7 +29173,7 @@ def _mc_MetricsAndObservability(s):
             section_id_pattern="CUSMET-CUST-xxx",
             kind=SomMetaKind.LIST,
             type_name="CustomMetricEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per custom metric.",
             doc_comment="Custom metrics catalog.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Prometheus — metric types and exposition format"], "connotation": "The catalog of custom application metrics the system emits."})],
@@ -29015,18 +29351,26 @@ def _mc_MigrationConsiderations(s):
     return [
          SomMetaNode(
             class_name="MigrationConsiderations",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the portfolio-wide migration approach before the resource, risk and coordination subsections below. Cover the sequencing principle that applies across systems."),
+         SomMetaNode(
+            class_name="MigrationConsiderations",
             member_name="strategyContent",
             section_id="MIGCON-STRA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="overallStrategy", type_name="String", description="Overall Strategy (Big Bang, Phased, Parallel, Strangler)", hint="Chosen cutover pattern for the migration program", order=0), SomFormFieldMeta(name="sequencingApproach", type_name="String", description="Sequencing Approach", hint="Order in which systems are migrated and why", order=1), SomFormFieldMeta(name="interdependencyHandling", type_name="String", description="Interdependency Handling", hint="How cross-system dependencies are coordinated", order=2), SomFormFieldMeta(name="migrationWindowStrategy", type_name="String", description="Migration Window Strategy", hint="When migrations run, e.g. weekends, off-hours", order=3), SomFormFieldMeta(name="blackoutPeriods", type_name="String", description="Blackout Periods", hint="Times when no migration activity is permitted", order=4), SomFormFieldMeta(name="parallelRunDuration", type_name="String", description="Parallel Run Duration", hint="How long old and new run side by side", order=5)])),
          SomMetaNode(
             class_name="MigrationConsiderations",
             member_name="strategyNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Detailed strategy narrative."),
          _cx("MigrationResources", s, _mc_MigrationResources,
@@ -29036,7 +29380,7 @@ def _mc_MigrationConsiderations(s):
                 class_section_id="MIRE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MigrationResources",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="Resource requirements for migration program.",
                 class_doc_comment="Migration resource requirements.",
                 recursive=r,
@@ -29048,7 +29392,7 @@ def _mc_MigrationConsiderations(s):
                 class_section_id="MIRI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MigrationRisks",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="Migration risks.",
                 class_doc_comment="Migration risks — program-level risks.\n\nComprehensive migration risk management framework for program-level\nrisks across the entire migration portfolio. Covers risk governance,\nassessment methodology, monitoring, and escalation procedures.\nFollows PMI risk management practices and enterprise risk frameworks.",
                 recursive=r,
@@ -29058,7 +29402,7 @@ def _mc_MigrationConsiderations(s):
             member_name="timeline",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="High-level migration timeline."),
          SomMetaNode(
@@ -29068,7 +29412,7 @@ def _mc_MigrationConsiderations(s):
             section_id_pattern="MGMLS-MILE-xxx",
             kind=SomMetaKind.LIST,
             type_name="MigrationMilestoneEntry",
-            serialization_order=5,
+            serialization_order=6,
             content_help="Add one entry per program milestone, with its target date, systems included, and the success/gate criteria that must be met.",
             doc_comment="Migration milestones.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — migration & transition planning", "PMBOK — schedule / risk / cost management"], "connotation": "The set of program-level migration milestones marking key gates and deliverables across the transition timeline."})],
@@ -29078,7 +29422,7 @@ def _mc_MigrationConsiderations(s):
             member_name="dataMapping",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Cross-system data mapping considerations."),
          SomMetaNode(
@@ -29086,7 +29430,7 @@ def _mc_MigrationConsiderations(s):
             member_name="masterDataApproach",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Master data management approach during migration."),
          SomMetaNode(
@@ -29094,7 +29438,7 @@ def _mc_MigrationConsiderations(s):
             member_name="rollbackStrategy",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Global rollback strategy and governance."),
          SomMetaNode(
@@ -29102,7 +29446,7 @@ def _mc_MigrationConsiderations(s):
             member_name="goNoGosCriteria",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Go/No-Go decision criteria for each migration."),
          SomMetaNode(
@@ -29110,7 +29454,7 @@ def _mc_MigrationConsiderations(s):
             member_name="communicationPlan",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=10,
+            serialization_order=11,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Stakeholder communication plan for migration program."),
          SomMetaNode(
@@ -29120,7 +29464,7 @@ def _mc_MigrationConsiderations(s):
             section_id_pattern="MIGCON-ESCA-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=11,
+            serialization_order=12,
             content_help="Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.",
             doc_comment="Escalation procedures during migration.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ITIL — service transition / change enablement", "ISO 31000 — risk management (migration risk)"], "connotation": "The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition."})]),
@@ -29541,11 +29885,19 @@ def _mc_MigrationRisks(s):
     return [
          SomMetaNode(
             class_name="MigrationRisks",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the program-level migration risk framework before the governance, category and response subsections below. Cover the risk appetite the program works to."),
+         SomMetaNode(
+            class_name="MigrationRisks",
             member_name="governanceContent",
             section_id="MIRI-GOVE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="riskGovernanceModel", type_name="String", description="Risk Governance Model", hint="Centralized, federated, hybrid approach", order=0), SomFormFieldMeta(name="riskCommitteeCharter", type_name="String", description="Risk Committee Charter", hint="Mandate and remit of the risk committee", order=1), SomFormFieldMeta(name="riskReviewFrequency", type_name="String", description="Risk Review Frequency", hint="Weekly, bi-weekly, monthly cycles", order=2)])),
          SomMetaNode(
             class_name="MigrationRisks",
@@ -29553,7 +29905,7 @@ def _mc_MigrationRisks(s):
             section_id="MIRIGO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Governance and decision authority.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="riskEscalationPath", type_name="String", description="Escalation Path", hint="PM → Steering Committee → Executive Sponsor", order=0), SomFormFieldMeta(name="riskToleranceLevel", type_name="String", description="Risk Tolerance Level", hint="Enterprise risk appetite for migration", order=1), SomFormFieldMeta(name="riskDecisionAuthority", type_name="String", description="Risk Decision Authority", hint="Who approves risk acceptance/transfer", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "Captures the governance model and decision authority for accepting, transferring, or escalating migration risks."})]),
@@ -29563,7 +29915,7 @@ def _mc_MigrationRisks(s):
             section_id="MIRIAS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Assessment methodology settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="riskAssessmentFramework", type_name="String", description="Assessment Framework", hint="PMBOK, ISO 31000, COSO, custom", order=0), SomFormFieldMeta(name="probabilityScale", type_name="String", description="Probability Scale", hint="1-5, percentage bands, qualitative", order=1), SomFormFieldMeta(name="impactScale", type_name="String", description="Impact Scale", hint="1-5, monetary, qualitative", order=2), SomFormFieldMeta(name="riskScoringMethod", type_name="String", description="Risk Scoring Method", hint="P×I matrix, expected value, Monte Carlo", order=3), SomFormFieldMeta(name="riskCategoryTaxonomy", type_name="String", description="Risk Category Taxonomy", hint="Technical, schedule, resource, business", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "Captures the methodology used to assess migration risks, including the framework, probability/impact scales, and scoring approach."})]),
@@ -29573,7 +29925,7 @@ def _mc_MigrationRisks(s):
             section_id="MIRITH",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Threshold and trigger settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="criticalRiskThreshold", type_name="String", description="Critical Risk Threshold", hint="Score ≥ X requires executive attention", order=0), SomFormFieldMeta(name="highRiskThreshold", type_name="String", description="High Risk Threshold", hint="Score range classified as high risk", order=1), SomFormFieldMeta(name="mediumRiskThreshold", type_name="String", description="Medium Risk Threshold", hint="Score range classified as medium risk", order=2), SomFormFieldMeta(name="emergentRiskTriggers", type_name="String", description="Emergent Risk Triggers", hint="Indicators requiring immediate risk review", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "Captures the score thresholds and triggers that classify migration risk severity and prompt review or escalation."})]),
@@ -29583,7 +29935,7 @@ def _mc_MigrationRisks(s):
             section_id="MIRIRE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Reporting settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="riskReportingCadence", type_name="String", description="Reporting Cadence", hint="How often risk reports are produced", order=0), SomFormFieldMeta(name="riskDashboardTools", type_name="String", description="Dashboard Tools", hint="Tools for risk visualization", order=1), SomFormFieldMeta(name="riskRegisterRepository", type_name="String", description="Risk Register Repository", hint="Where risk register is maintained", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "Captures how migration risk status is reported — cadence, dashboards, and where the risk register is maintained."})]),
@@ -29592,7 +29944,7 @@ def _mc_MigrationRisks(s):
             member_name="riskOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of migration risk landscape: critical risks, overall risk posture, trending analysis.",
             doc_comment="Risk overview at program level."),
@@ -29601,7 +29953,7 @@ def _mc_MigrationRisks(s):
             member_name="assessmentMethodology",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Detailed description of risk assessment approach, including probability/impact criteria and scoring guidelines.",
             doc_comment="Risk assessment methodology narrative."),
@@ -29612,7 +29964,7 @@ def _mc_MigrationRisks(s):
             section_id_pattern="MIRI-RISK-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per risk category, naming the category and the kinds of migration risks it groups.",
             doc_comment="Risk categories and taxonomy.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The taxonomy of migration risk categories used to classify and organize risks across the program."})]),
@@ -29623,7 +29975,7 @@ def _mc_MigrationRisks(s):
             section_id_pattern="MIRI-RBDE-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             content_help="Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.",
             doc_comment="Risk-based decision making criteria.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The decision criteria that govern how migration risks drive go/no-go and acceptance choices."})]),
@@ -29634,7 +29986,7 @@ def _mc_MigrationRisks(s):
             section_id_pattern="MIRI-MONI-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             content_help="Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.",
             doc_comment="Risk monitoring and control procedures.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "ITIL — service transition / change enablement"], "connotation": "The procedures used to monitor and control migration risks throughout the transition."})]),
@@ -29645,7 +29997,7 @@ def _mc_MigrationRisks(s):
             section_id_pattern="MIRI-RESP-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=10,
+            serialization_order=11,
             content_help="Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.",
             doc_comment="Risk response strategies by category.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk."})]),
@@ -29654,7 +30006,7 @@ def _mc_MigrationRisks(s):
             member_name="riskAggregation",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=11,
+            serialization_order=12,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="How individual system risks roll up to program level, correlation analysis, compound risk assessment.",
             doc_comment="Risk aggregation and portfolio view."),
@@ -29663,7 +30015,7 @@ def _mc_MigrationRisks(s):
             member_name="riskMatrix",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=12,
+            serialization_order=13,
             content_type=SomContentTypeMeta(type="mermaid", description=""),
             content_help="Probability × Impact matrix showing risk distribution.",
             doc_comment="Risk matrix / heat map visualization."),
@@ -29672,7 +30024,7 @@ def _mc_MigrationRisks(s):
             member_name="riskTimeline",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=13,
+            serialization_order=14,
             content_type=SomContentTypeMeta(type="mermaid-gantt", description=""),
             content_help="Timeline showing when risks are highest and mitigation points.",
             doc_comment="Risk timeline showing risk exposure over migration phases."),
@@ -29683,7 +30035,7 @@ def _mc_MigrationRisks(s):
             section_id_pattern="MGRSK-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="MigrationRiskEntry",
-            serialization_order=14,
+            serialization_order=15,
             content_help="Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution.",
             doc_comment="Contains 0+× MigrationRiskEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"], "connotation": "The register of individual migration risk entries that make up the program-level risk portfolio."})],
@@ -29979,18 +30331,26 @@ def _mc_Monitoring(s):
     return [
          SomMetaNode(
             class_name="Monitoring",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the monitoring approach before the health-check, alerting, metrics, dashboard and SLA subsections below. Cover what is monitored, who watches it, and how a finding reaches an operator."),
+         SomMetaNode(
+            class_name="Monitoring",
             member_name="monitoringOverview",
             section_id="MONITO-MONI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="monitoringStrategy", type_name="String", description="Monitoring Strategy", hint="Proactive, reactive, hybrid approach", order=0), SomFormFieldMeta(name="observabilityMaturity", type_name="String", description="Observability Maturity", hint="Current maturity level (L1-L4)", order=1), SomFormFieldMeta(name="monitoringScope", type_name="String", description="Monitoring Scope", hint="Infrastructure, application, business metrics", order=2), SomFormFieldMeta(name="primaryMonitoringPlatform", type_name="String", description="Primary Monitoring Platform", hint="Datadog, New Relic, Prometheus, CloudWatch", order=3), SomFormFieldMeta(name="metricsStore", type_name="String", description="Metrics Store", hint="InfluxDB, Prometheus, CloudWatch Metrics", order=4), SomFormFieldMeta(name="tracingPlatform", type_name="String", description="Tracing Platform", hint="Jaeger, Zipkin, AWS X-Ray, Datadog APM", order=5), SomFormFieldMeta(name="loggingPlatform", type_name="String", description="Logging Platform", hint="ELK Stack, Loki, CloudWatch Logs", order=6), SomFormFieldMeta(name="coverageRequirement", type_name="String", description="Coverage Requirement", hint="Which services must be monitored", order=7), SomFormFieldMeta(name="dataRetention", type_name="String", description="Data Retention", hint="Metrics: 15d, traces: 7d, logs: 30d", order=8), SomFormFieldMeta(name="costBudget", type_name="String", description="Cost Budget", hint="Monthly monitoring cost budget", order=9)])),
          SomMetaNode(
             class_name="Monitoring",
             member_name="overviewNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of monitoring philosophy, tool selection rationale, and observability goals.",
             doc_comment="Monitoring strategy narrative."),
@@ -30001,7 +30361,7 @@ def _mc_Monitoring(s):
                 class_section_id="HCADS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="HealthChecksAndDiagnosticsSection",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="8.7.2.1. Health Checks and Diagnostics.",
                 class_doc_comment="8.7.2.1. Health Checks and Diagnostics.",
                 recursive=r,
@@ -30013,7 +30373,7 @@ def _mc_Monitoring(s):
                 class_section_id="ALCO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AlertingConfiguration",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="8.7.2.2. Alerting Configuration.",
                 class_doc_comment="8.7.2.2. Alerting Configuration.\n\nComprehensive alerting rules, notification channels, and escalation\npolicies.",
                 recursive=r,
@@ -30025,7 +30385,7 @@ def _mc_Monitoring(s):
                 class_section_id="MEANOB",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MetricsAndObservability",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="8.7.2.3. Metrics and Observability.",
                 class_doc_comment="8.7.2.3. Metrics and Observability.\n\nComprehensive metrics collection, distributed tracing, and observability\nrequirements.",
                 recursive=r,
@@ -30037,7 +30397,7 @@ def _mc_Monitoring(s):
                 class_section_id="MODA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MonitoringDashboards",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="8.7.2.4. Monitoring Dashboards.",
                 class_doc_comment="8.7.2.4. Monitoring Dashboards.\n\nOperational dashboards for system monitoring.",
                 recursive=r,
@@ -30049,7 +30409,7 @@ def _mc_Monitoring(s):
                 class_section_id="SASM",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SlaAndSloMonitoring",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="8.7.2.5. SLA and SLO Monitoring.",
                 class_doc_comment="8.7.2.5. SLA and SLO Monitoring.\n\nService Level Agreement and Service Level Objective tracking.",
                 recursive=r,
@@ -30202,18 +30562,26 @@ def _mc_MonitoringDashboards(s):
     return [
          SomMetaNode(
             class_name="MonitoringDashboards",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the dashboard landscape before the individual dashboards and templates below. Cover who each dashboard is for and what decision it supports."),
+         SomMetaNode(
+            class_name="MonitoringDashboards",
             member_name="dashboardOverview",
             section_id="MODA-DASH",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="dashboardPlatform", type_name="String", description="Dashboard Platform", hint="Grafana, Datadog, CloudWatch, custom", order=0), SomFormFieldMeta(name="dashboardAccessControl", type_name="String", description="Dashboard Access Control", hint="Who can view, edit dashboards", order=1), SomFormFieldMeta(name="dashboardVersioning", type_name="bool", description="Dashboard Versioning", hint="Version control for dashboards", order=2), SomFormFieldMeta(name="dashboardNamingConvention", type_name="String", description="Dashboard Naming Convention", hint="Naming standards for dashboards", order=3), SomFormFieldMeta(name="standardLayout", type_name="String", description="Standard Layout", hint="Common layout patterns", order=4), SomFormFieldMeta(name="colorCodingStandards", type_name="String", description="Color Coding Standards", hint="Red=bad, green=good conventions", order=5), SomFormFieldMeta(name="executiveDashboards", type_name="bool", description="Executive Dashboards", hint="High-level business KPIs", order=6), SomFormFieldMeta(name="operationalDashboards", type_name="bool", description="Operational Dashboards", hint="Real-time ops dashboards", order=7), SomFormFieldMeta(name="serviceDashboards", type_name="bool", description="Service Dashboards", hint="Per-service detail dashboards", order=8), SomFormFieldMeta(name="infrastructureDashboards", type_name="bool", description="Infrastructure Dashboards", hint="Infra-level dashboards", order=9)])),
          SomMetaNode(
             class_name="MonitoringDashboards",
             member_name="overviewNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Dashboard overview narrative."),
          SomMetaNode(
@@ -30223,7 +30591,7 @@ def _mc_MonitoringDashboards(s):
             section_id_pattern="DASENT-DASH-xxx",
             kind=SomMetaKind.LIST,
             type_name="DashboardEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per dashboard.",
             doc_comment="Dashboard catalog.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Grafana — dashboard and panel design"], "connotation": "The catalog of monitoring dashboards the system provides."})],
@@ -30235,7 +30603,7 @@ def _mc_MonitoringDashboards(s):
             section_id_pattern="DATE-DASH-xxx",
             kind=SomMetaKind.LIST,
             type_name="DashboardTemplates",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per dashboard template.",
             doc_comment="Dashboard template specifications.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Grafana — dashboard and panel design"], "connotation": "The catalog of reusable dashboard templates the system provides."})],
@@ -30396,18 +30764,26 @@ def _mc_MultiLanguageSupport(s):
     return [
          SomMetaNode(
             class_name="MultiLanguageSupport",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce multi-language support before the selection and supported-locale subsections below. Cover which languages ship first and what drives adding another."),
+         SomMetaNode(
+            class_name="MultiLanguageSupport",
             member_name="multiLanguageOverview",
             section_id="MLAR-MULT",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="supportedLanguages", type_name="String", description="Supported Languages", hint="List of supported languages (e.g., en, de, fr, es)", order=0), SomFormFieldMeta(name="primaryLanguage", type_name="String", description="Primary Language", hint="Default/fallback language", order=1), SomFormFieldMeta(name="futureLanguages", type_name="String", description="Future Languages", hint="Languages planned for future support", order=2), SomFormFieldMeta(name="rtlLanguages", type_name="String", description="RTL Languages", hint="Right-to-left languages supported", order=3)])),
          SomMetaNode(
             class_name="MultiLanguageSupport",
             member_name="overviewNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of internationalization and localization approach for the system.",
             doc_comment="Multi-language overview narrative."),
@@ -30418,7 +30794,7 @@ def _mc_MultiLanguageSupport(s):
                 class_section_id="LACOSE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="LanguageCountrySelection",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="10.12.4. Language and Country Selection.",
                 class_doc_comment="10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).",
                 maps_to="D09ExperienceDesignSpecification",
@@ -30432,7 +30808,7 @@ def _mc_MultiLanguageSupport(s):
             section_id_pattern="SUPLOC-SUPP-xxx",
             kind=SomMetaKind.LIST,
             type_name="SupportedLocaleEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per supported locale.",
             doc_comment="Supported locale entries.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 639 — language codes identify each supported locale", "ISO 3166 — country and region codes complete each locale identifier", "W3C Internationalization / BCP 47 — language tags name the supported locales"], "connotation": "The collection of locales the system supports."})],
@@ -30444,18 +30820,26 @@ def _mc_MustPassCriteria(s):
     return [
          SomMetaNode(
             class_name="MustPassCriteria",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the must-pass criteria before the individual items below. Cover what makes a criterion must-pass rather than merely desirable."),
+         SomMetaNode(
+            class_name="MustPassCriteria",
             member_name="mustPassOverviewContent",
             section_id="MUPACR-MUST",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="mustPassPhilosophy", type_name="String", description="Must-Pass Philosophy", hint="All must pass, weighted approach", order=0), SomFormFieldMeta(name="mustPassCount", type_name="int", description="Number of Must-Pass Criteria", hint="Total count of must-pass criteria", order=1), SomFormFieldMeta(name="criticalityDefinition", type_name="String", description="Criticality Definition", hint="What makes a criterion must-pass", order=2), SomFormFieldMeta(name="waiverProcess", type_name="String", description="Waiver Process", hint="Can must-pass criteria be waived", order=3), SomFormFieldMeta(name="waiverAuthority", type_name="String", description="Waiver Authority", hint="Who can grant waivers", order=4)])),
          SomMetaNode(
             class_name="MustPassCriteria",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overview of must-pass criteria approach and rationale for selection.",
             doc_comment="Must-pass criteria overview."),
@@ -30466,7 +30850,7 @@ def _mc_MustPassCriteria(s):
             section_id_pattern="MSTPCR-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="MustPassCriterionEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per must-pass criterion.",
             doc_comment="Contains 0+× MustPassCriterion.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29119 — each acceptance criterion is enumerated as a discrete item with a defined verification method"], "connotation": "Enumerates the must-pass criteria as discrete items, each with a defined verification method."})],
@@ -31391,10 +31775,18 @@ def _mc_NewOrganizationStructure(s):
     return [
          SomMetaNode(
             class_name="NewOrganizationStructure",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the target organization structure before the change and transition-timeline subsections below. Cover the design principle behind the new shape."),
+         SomMetaNode(
+            class_name="NewOrganizationStructure",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe the vision for the new organization structure: design principles, key structural changes, governance model, decision-making framework, and expected benefits.",
             doc_comment="Overview of the target organization structure."),
@@ -31405,7 +31797,7 @@ def _mc_NewOrganizationStructure(s):
                 class_section_id="OCCHG",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ChangesFromCurrentStructure",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="5.1.1. Changes from Current Structure.",
                 class_doc_comment="5.1.1. Changes from Current Structure.\n\nExplicitly documents what changes from the current organization structure.\nIdentifies affected departments, changed reporting lines, and new roles\nthat need to be created. Provides traceability from current to future state.",
                 recursive=r,
@@ -31417,7 +31809,7 @@ def _mc_NewOrganizationStructure(s):
                 class_section_id="OTTML",
                 kind=SomMetaKind.COMPLEX,
                 type_name="OrganizationalTransitionTimeline",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="5.1.2. Organizational Transition Timeline.",
                 class_doc_comment="5.1.2. Organizational Transition Timeline.\n\nDescribes when organizational changes take effect, how the transition is\nmanaged, and what training or communication is needed. Follows change\nmanagement best practices (PROSCI ADKAR, Kotter's 8-step model).",
                 recursive=r,
@@ -31429,11 +31821,19 @@ def _mc_NewRoleEntry(s):
     return [
          SomMetaNode(
             class_name="NewRoleEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this new role — why it is needed and how it fits the organization, beyond the responsibility, qualification and access facets recorded below."),
+         SomMetaNode(
+            class_name="NewRoleEntry",
             member_name="identification",
             section_id="NEROID",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Role identification and overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="roleFamily", type_name="String", description="Job Family", hint="Broader job family or category this role belongs to", order=0), SomFormFieldMeta(name="jobLevel", type_name="String", description="Job Level/Grade", hint="Seniority level or pay grade", order=1), SomFormFieldMeta(name="rolePurpose", type_name="String", description="Role Purpose — why this role exists", hint="Core mission the role fulfils", order=2), SomFormFieldMeta(name="roleJustification", type_name="String", description="Role Justification — business case for new role", hint="Why creating this role is needed now", order=3), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="When the role becomes active", order=4), SomFormFieldMeta(name="roleStatus", type_name="String", description="Role Status — draft, approved, posted, filled", hint="Current lifecycle stage of the role", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — HR best practices (job design, role definition)", "O*NET — occupational job analysis (tasks, skills, knowledge)"], "connotation": "Identifies the new role and records the business case that justifies creating it."})]),
@@ -31443,7 +31843,7 @@ def _mc_NewRoleEntry(s):
             section_id="NEROOR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Role positioning in organization.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="department", type_name="String", description="Department", hint="Department the role sits in", order=0), SomFormFieldMeta(name="division", type_name="String", description="Division/Business Unit", hint="Division or business unit", order=1), SomFormFieldMeta(name="team", type_name="String", description="Team — immediate team", hint="Immediate team the role joins", order=2), SomFormFieldMeta(name="location", type_name="String", description="Location — primary work location", hint="Primary physical or office location", order=3), SomFormFieldMeta(name="workModel", type_name="String", description="Work Model — on-site, remote, hybrid", hint="On-site, remote, or hybrid arrangement", order=4), SomFormFieldMeta(name="reportsTo", type_name="String", description="Reports To — direct manager title", hint="Title of the direct manager", order=5), SomFormFieldMeta(name="directReports", type_name="String", description="Direct Reports — roles reporting to this", hint="Roles that report into this one", order=6), SomFormFieldMeta(name="matrixRelationships", type_name="String", description="Matrix Relationships — dotted-line reporting", hint="Dotted-line or matrix reporting links", order=7), SomFormFieldMeta(name="keyStakeholders", type_name="String", description="Key Stakeholders — internal/external contacts", hint="Important internal/external contacts", order=8), SomFormFieldMeta(name="collaborationScope", type_name="String", description="Collaboration Scope — teams/departments interacted with", hint="Teams or departments regularly interacted with", order=9)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 21500 — project management (organizational roles)", "PMBOK — resource management (roles & responsibilities)"], "connotation": "Places the role within the organization — its reporting lines, team, location and the network of people it works with."})]),
@@ -31454,7 +31854,7 @@ def _mc_NewRoleEntry(s):
                 class_section_id="NERORE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="NewRoleResponsibilities",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="Responsibilities breakdown.",
                 class_doc_comment="New role responsibilities.",
                 recursive=r,
@@ -31466,7 +31866,7 @@ def _mc_NewRoleEntry(s):
                 class_section_id="NEROQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="NewRoleQualifications",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="Required competencies and qualifications.",
                 class_doc_comment="New role qualifications and competencies.",
                 recursive=r,
@@ -31477,7 +31877,7 @@ def _mc_NewRoleEntry(s):
             section_id="NRSA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="System access and tools.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="primarySystems", type_name="String", description="Primary Systems — main applications used daily", hint="Main applications used every day", order=0), SomFormFieldMeta(name="secondarySystems", type_name="String", description="Secondary Systems — occasionally used applications", hint="Applications used occasionally", order=1), SomFormFieldMeta(name="dataAccess", type_name="String", description="Data Access — data domains accessible", hint="Data domains the role may access", order=2), SomFormFieldMeta(name="securityRole", type_name="String", description="Security Role — role in access control system", hint="Role assigned in the access control system", order=3), SomFormFieldMeta(name="privilegedAccess", type_name="String", description="Privileged Access — admin/elevated rights needed", hint="Any admin or elevated rights required", order=4), SomFormFieldMeta(name="mobileAccess", type_name="String", description="Mobile Access — mobile app/device requirements", hint="Mobile app or device requirements", order=5), SomFormFieldMeta(name="remoteAccessTools", type_name="String", description="Remote Access Tools — VPN, virtual desktop", hint="Remote access such as VPN or virtual desktop", order=6), SomFormFieldMeta(name="communicationTools", type_name="String", description="Communication Tools — email, chat, video", hint="Email, chat and video tools needed", order=7), SomFormFieldMeta(name="reportingTools", type_name="String", description="Reporting Tools — BI, dashboards, analytics", hint="BI, dashboard or analytics tools needed", order=8), SomFormFieldMeta(name="accessProvisioning", type_name="String", description="Access Provisioning — how access is granted", hint="How and when access is provisioned", order=9)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001 — access control / least privilege", "SHRM — HR best practices (job design, role definition)"], "connotation": "Specifies the systems, data and tools the role needs and how that access is granted, applying least-privilege principles."})]),
@@ -31487,7 +31887,7 @@ def _mc_NewRoleEntry(s):
             section_id="NEROPE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Performance and success metrics.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="performanceObjectives", type_name="String", description="Performance Objectives — key goals", hint="Key goals the role is expected to achieve", order=0), SomFormFieldMeta(name="kpis", type_name="String", description="KPIs — quantitative metrics", hint="Quantitative metrics used to gauge success", order=1), SomFormFieldMeta(name="qualitativeMetrics", type_name="String", description="Qualitative Metrics — behavioral/quality measures", hint="Behavioral or quality-based measures", order=2), SomFormFieldMeta(name="reviewFrequency", type_name="String", description="Review Frequency — performance review cadence", hint="How often performance is reviewed", order=3), SomFormFieldMeta(name="probationPeriod", type_name="String", description="Probation Period — initial review period", hint="Length of the initial probation period", order=4), SomFormFieldMeta(name="successMilestones", type_name="String", description="Success Milestones — 30/60/90 day goals", hint="Early milestones such as 30/60/90 day goals", order=5), SomFormFieldMeta(name="careerPath", type_name="String", description="Career Path — typical progression from this role", hint="Typical progression from this role", order=6), SomFormFieldMeta(name="promotionCriteria", type_name="String", description="Promotion Criteria — requirements for advancement", hint="Requirements for advancement", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — performance management", "CIPD — competency frameworks and people management"], "connotation": "Defines how success in the role is measured — objectives, KPIs, review cadence, milestones and the path to advancement."})]),
@@ -31497,7 +31897,7 @@ def _mc_NewRoleEntry(s):
             section_id="NEROON",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             doc_comment="Onboarding and development.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="onboardingDuration", type_name="String", description="Onboarding Duration — weeks to full productivity", hint="Time expected to reach full productivity", order=0), SomFormFieldMeta(name="orientationTopics", type_name="String", description="Orientation Topics — company/department intro", hint="Company and department introduction topics", order=1), SomFormFieldMeta(name="requiredTraining", type_name="String", description="Required Training — mandatory courses", hint="Mandatory training courses", order=2), SomFormFieldMeta(name="systemTraining", type_name="String", description="System Training — application-specific training", hint="Application-specific training needed", order=3), SomFormFieldMeta(name="processTraining", type_name="String", description="Process Training — business process training", hint="Training on relevant business processes", order=4), SomFormFieldMeta(name="mentorAssignment", type_name="String", description="Mentor Assignment — buddy/mentor program", hint="Buddy or mentor assigned to the new hire", order=5), SomFormFieldMeta(name="shadowingPlan", type_name="String", description="Shadowing Plan — observation opportunities", hint="Opportunities to observe experienced staff", order=6), SomFormFieldMeta(name="checkpointMeetings", type_name="String", description="Checkpoint Meetings — scheduled check-ins", hint="Scheduled check-in meetings", order=7), SomFormFieldMeta(name="rampUpExpectations", type_name="String", description="Ramp-Up Expectations — productivity expectations over time", hint="Productivity expectations over the ramp-up period", order=8)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — onboarding", "CIPD — competency frameworks and people management"], "connotation": "Lays out how a new hire is brought up to speed — orientation, training, mentoring, shadowing, check-ins and ramp-up expectations."})]),
@@ -31552,12 +31952,20 @@ def _mc_NewRoleResponsibilities(s):
     return [
          SomMetaNode(
             class_name="NewRoleResponsibilities",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce what this role is accountable for before the primary, secondary and decision-authority subsections below."),
+         SomMetaNode(
+            class_name="NewRoleResponsibilities",
             member_name="primaryResponsibilities",
             section_id="RSPDT-PRIM-LST",
             section_id_pattern="RSPDT-PRIM-xxx",
             kind=SomMetaKind.LIST,
             type_name="ResponsibilityDetailEntry",
-            serialization_order=0,
+            serialization_order=1,
             content_help="Add one entry per primary responsibility.",
             doc_comment="Primary responsibilities (key accountabilities).",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["O*NET — task statements (core duties)"], "connotation": "The set of primary duties that define the core accountabilities of the role."})],
@@ -31569,7 +31977,7 @@ def _mc_NewRoleResponsibilities(s):
             section_id_pattern="RSPDT-SECO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ResponsibilityDetailEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per secondary responsibility.",
             doc_comment="Secondary responsibilities (supporting duties).",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["O*NET — supplemental task statements"], "connotation": "Supporting duties the role performs beyond its core accountabilities."})],
@@ -31580,7 +31988,7 @@ def _mc_NewRoleResponsibilities(s):
             section_id="RODEAU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Decision-making authority.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="approvalAuthority", type_name="String", description="Approval Authority — what can be approved without escalation", hint="What may be approved without escalating", order=0), SomFormFieldMeta(name="budgetAuthority", type_name="String", description="Budget Authority — spending limits", hint="Spending limits the role can authorize", order=1), SomFormFieldMeta(name="hiringAuthority", type_name="String", description="Hiring Authority — ability to hire/terminate", hint="Authority to hire or terminate staff", order=2), SomFormFieldMeta(name="policyAuthority", type_name="String", description="Policy Authority — ability to set/change policies", hint="Authority to set or change policies", order=3), SomFormFieldMeta(name="contractAuthority", type_name="String", description="Contract Authority — signing limits for agreements", hint="Signing limits for agreements", order=4), SomFormFieldMeta(name="exceptionAuthority", type_name="String", description="Exception Authority — ability to grant exceptions", hint="Authority to grant exceptions to rules", order=5), SomFormFieldMeta(name="escalationRequired", type_name="String", description="Escalation Required — when must escalate", hint="Situations that must be escalated", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["RACI — accountable/responsible", "PMBOK — resource management (roles & responsibilities)"], "connotation": "Defines the decisions the role can make on its own — approval, budget, hiring, policy and contract authority — and when escalation is required."})]),
@@ -31814,11 +32222,19 @@ def _mc_OnboardingHelp(s):
     return [
          SomMetaNode(
             class_name="OnboardingHelp",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the onboarding experience before the tour, sample-data and checklist subsections below. Cover what a first-time user must reach before onboarding counts as done."),
+         SomMetaNode(
+            class_name="OnboardingHelp",
             member_name="onboardingContent",
             section_id="ONHE-ONBO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="welcomeFlowEnabled", type_name="bool", description="Welcome Flow Enabled", hint="Whether the welcome flow is enabled", order=0), SomFormFieldMeta(name="welcomeFlowStyle", type_name="String", description="Welcome Flow Style", hint="Modal wizard, full-page, inline", order=1), SomFormFieldMeta(name="welcomeFlowSkippable", type_name="bool", description="Welcome Flow Skippable", hint="Whether users can skip the welcome flow", order=2), SomFormFieldMeta(name="welcomeFlowDuration", type_name="String", description="Welcome Flow Duration", hint="Expected completion time", order=3)])),
          SomMetaNode(
             class_name="OnboardingHelp",
@@ -31826,7 +32242,7 @@ def _mc_OnboardingHelp(s):
             section_id="ONHETO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Feature tour settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="featureToursEnabled", type_name="bool", description="Feature Tours Enabled", hint="Whether feature tours are enabled", order=0), SomFormFieldMeta(name="featureTourStyle", type_name="String", description="Feature Tour Style", hint="Spotlight, coach marks, carousel", order=1), SomFormFieldMeta(name="featureTourTrigger", type_name="String", description="Feature Tour Trigger", hint="First visit, after action, manual", order=2), SomFormFieldMeta(name="featureTourProgress", type_name="bool", description="Feature Tour Progress", hint="Show progress indicator", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — configures guided feature tours as a form of interactive user assistance", "ISO 9241-13:1998 — presents guidance and prompts that orient users to available features"], "connotation": "The feature-tour settings controlling tour style, trigger, and progress display."})]),
@@ -31836,7 +32252,7 @@ def _mc_OnboardingHelp(s):
             section_id="OHSD",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Sample data settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sampleDataAvailable", type_name="bool", description="Sample Data Available", hint="Whether sample data is provided", order=0), SomFormFieldMeta(name="sampleDataScope", type_name="String", description="Sample Data Scope", hint="What sample data is provided", order=1), SomFormFieldMeta(name="sampleDataClear", type_name="String", description="Sample Data Clear", hint="How users remove sample data", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — supplies example data so users can learn the system through hands-on exploration", "ISO/IEC 25010:2023 — supports learnability by letting users practise with representative sample content"], "connotation": "The sample-data settings that let new users explore the system with example content."})]),
@@ -31846,7 +32262,7 @@ def _mc_OnboardingHelp(s):
             section_id="ONHECH",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Getting started checklist configuration.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="gettingStartedChecklist", type_name="bool", description="Getting Started Checklist", hint="Show a getting-started checklist to new users", order=0), SomFormFieldMeta(name="checklistItems", type_name="String", description="Checklist Items", hint="Setup tasks to complete", order=1), SomFormFieldMeta(name="checklistProgress", type_name="String", description="Checklist Progress", hint="How progress is shown", order=2), SomFormFieldMeta(name="checklistRewards", type_name="String", description="Checklist Rewards", hint="Gamification elements", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — presents onboarding tasks as a checklist that guides new users to completion", "ISO/IEC 25010:2023 — supports learnability by tracking progress through initial setup tasks"], "connotation": "The getting-started checklist configuration guiding new users through setup tasks."})]),
@@ -31856,7 +32272,7 @@ def _mc_OnboardingHelp(s):
             section_id="ONHEDI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Progressive disclosure configuration.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="progressiveDisclosure", type_name="String", description="Progressive Disclosure", hint="How features are revealed over time", order=0), SomFormFieldMeta(name="skillLevelAdaptation", type_name="String", description="Skill Level Adaptation", hint="Adapt to user skill level", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — reveals functionality progressively to keep the interface suitable for learning", "ISO/IEC 25010:2023 — adapts to user skill level to improve learnability and operability"], "connotation": "The progressive-disclosure configuration that reveals features as users gain skill."})]),
@@ -31866,7 +32282,7 @@ def _mc_OnboardingHelp(s):
             section_id="ONHERE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Returning user experience.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="returnUserWelcome", type_name="String", description="Return User Welcome", hint="Message for returning users", order=0), SomFormFieldMeta(name="whatsNewFeature", type_name="bool", description="What's New Feature", hint="Show new features to returning users", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — provides ongoing assistance that re-engages returning users with new content", "ISO/IEC 25010:2023 — supports appropriateness recognisability so returning users recognise what changed"], "connotation": "The re-engagement experience shown to returning users, including new-feature highlights."})]),
@@ -31875,7 +32291,7 @@ def _mc_OnboardingHelp(s):
             member_name="onboardingNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Onboarding narrative."),
          SomMetaNode(
@@ -31885,7 +32301,7 @@ def _mc_OnboardingHelp(s):
             section_id_pattern="FTRTUR-FEAT-xxx",
             kind=SomMetaKind.LIST,
             type_name="FeatureTourEntry",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per feature tour.",
             doc_comment="Feature tour definitions.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — develops a set of guided tutorials that introduce product features"], "connotation": "The collection of feature-tour definitions offered during onboarding."})],
@@ -31936,10 +32352,18 @@ def _mc_OperatingEnvironment(s):
     return [
          SomMetaNode(
             class_name="OperatingEnvironment",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the environment the system will run in before the organizational, functional and technical subsections below. Cover the environmental factors that most constrain the design."),
+         SomMetaNode(
+            class_name="OperatingEnvironment",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Provide executive summary of the operating environment: organizational context, technical landscape, key constraints, and critical dependencies affecting project execution.",
             doc_comment="Framework conditions overview."),
@@ -31950,7 +32374,7 @@ def _mc_OperatingEnvironment(s):
                 class_section_id="OREN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="OrganizationalEnvironment",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="4.6.1. Organizational Environment.",
                 class_doc_comment="4.6.1. Organizational Environment.\n\nDescribes the organizational context in which the system will operate,\nincluding departments, reporting structures, decision authority, and\norganizational constraints. Follows organizational design principles\nand enterprise architecture governance patterns.",
                 recursive=r,
@@ -31962,7 +32386,7 @@ def _mc_OperatingEnvironment(s):
                 class_section_id="FURE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="FunctionalResponsibilities",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="4.6.2. Functional Responsibilities — contains 0+×.",
                 class_doc_comment="4.6.2. Functional Responsibilities.\n\nMaps system functions to organizational units responsible for them.\nIdentifies domain owners, data stewards, and operational contacts for\neach function area. Follows RACI matrix patterns and enterprise\naccountability frameworks.",
                 recursive=r,
@@ -31974,7 +32398,7 @@ def _mc_OperatingEnvironment(s):
                 class_section_id="TEEN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TechnicalEnvironment",
-                serialization_order=3,
+                serialization_order=4,
                 comment="Seeds → ATS",
                 doc_comment="4.6.3. Technical Environment. Seeds → ATS.",
                 class_doc_comment="4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.",
@@ -31988,7 +32412,7 @@ def _mc_OperatingEnvironment(s):
             section_id="COANDE",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="description", description="Summarize how the operating environment described in this section gives rise to constraints and dependencies, and reference the canonical register in SBP.6 (Assumptions, Constraints & Dependencies). Do not restate individual constraint or dependency entries here — record them once, in the SBP.6 register."),
             doc_comment="4.6.4. Constraints and Dependencies — contains 0+×.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §6 — operating environment & constraints", "PMBOK — constraints, assumptions & dependency management"], "connotation": "Frames how the operating-environment conditions in §4.6 give rise to constraints and dependencies, pointing to the canonical SBP.6 register."})]),
@@ -32423,11 +32847,19 @@ def _mc_OrganizationalEnvironment(s):
     return [
          SomMetaNode(
             class_name="OrganizationalEnvironment",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the organizational context before the structure, department and decision-making subsections below. Cover the reporting reality the project has to work within."),
+         SomMetaNode(
+            class_name="OrganizationalEnvironment",
             member_name="organizationContent",
             section_id="OREN-ORGA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="organizationName", type_name="String", description="Organization Name", hint="Legal or common name of the organization", order=0), SomFormFieldMeta(name="organizationType", type_name="String", description="Organization Type (Enterprise, SMB, Startup, Government, Non-profit)", hint="Category that best describes the organization", order=1), SomFormFieldMeta(name="industryVertical", type_name="String", description="Industry Vertical (Finance, Healthcare, Retail, Tech, etc.)", hint="Primary industry the organization operates in", order=2), SomFormFieldMeta(name="geographicFootprint", type_name="String", description="Geographic Footprint (Local, National, Regional, Global)", hint="Geographic reach of the organization", order=3), SomFormFieldMeta(name="employeeCount", type_name="String", description="Employee Count", hint="Approximate number of employees", order=4), SomFormFieldMeta(name="revenueRange", type_name="String", description="Revenue Range", hint="Approximate annual revenue band", order=5)])),
          SomMetaNode(
             class_name="OrganizationalEnvironment",
@@ -32435,7 +32867,7 @@ def _mc_OrganizationalEnvironment(s):
             section_id="ORENMA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Organizational maturity indicators.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="digitalMaturityLevel", type_name="String", description="Digital Maturity (Nascent, Developing, Defined, Optimizing, Leading)", hint="Overall digital capability stage of the organization", order=0), SomFormFieldMeta(name="changeReadiness", type_name="String", description="Change Readiness (Low, Medium, High)", hint="Organizational appetite and capacity for change", order=1), SomFormFieldMeta(name="projectManagementMaturity", type_name="String", description="PM Maturity (Ad-hoc, Repeatable, Defined, Managed, Optimizing)", hint="Maturity of project management practices", order=2), SomFormFieldMeta(name="itGovernanceMaturity", type_name="String", description="IT Governance Maturity (Initial, Repeatable, Defined, Managed)", hint="Maturity of IT governance and oversight", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — enterprise environmental factors (EEF)", "TOGAF — enterprise context & environment"], "connotation": "Captures organizational maturity indicators that signal readiness for change and the rigor of existing governance."})]),
@@ -32445,7 +32877,7 @@ def _mc_OrganizationalEnvironment(s):
             section_id="OEDM",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Decision-making context.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="decisionMakingStyle", type_name="String", description="Decision Style (Centralized, Federated, Consensus, Delegated)", hint="How decisions are typically made in the organization", order=0), SomFormFieldMeta(name="approvalLevels", type_name="String", description="Approval Levels/Hierarchy", hint="Layers of approval required for decisions", order=1), SomFormFieldMeta(name="escalationPath", type_name="String", description="Escalation Path", hint="Route for escalating unresolved decisions", order=2), SomFormFieldMeta(name="budgetAuthority", type_name="String", description="Budget Authority Structure", hint="Who holds spending authority and at what thresholds", order=3), SomFormFieldMeta(name="procurementProcess", type_name="String", description="Procurement Process Type", hint="Nature of the procurement and purchasing process", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 21500 — organizational roles & responsibilities", "PMBOK — enterprise environmental factors (EEF)"], "connotation": "Captures the decision-making context including style, approval hierarchy, and budget authority that govern project decisions."})]),
@@ -32454,7 +32886,7 @@ def _mc_OrganizationalEnvironment(s):
             member_name="structure",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe the organizational structure: departments involved, reporting relationships, matrix structures, and how the project intersects with existing organization.",
             doc_comment="Detailed organizational structure narrative."),
@@ -32465,7 +32897,7 @@ def _mc_OrganizationalEnvironment(s):
             section_id_pattern="ADE-AFFE-xxx",
             kind=SomMetaKind.LIST,
             type_name="AffectedDepartmentEntry",
-            serialization_order=4,
+            serialization_order=5,
             content_help="List each affected department with its role, impact level, and key contacts so organizational reach is fully documented.",
             doc_comment="Departments and business units affected.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 21500 — organizational roles & responsibilities", "TOGAF — enterprise context & environment"], "connotation": "Lists the departments and business units affected by the project so their roles and impact levels are captured."})],
@@ -32475,7 +32907,7 @@ def _mc_OrganizationalEnvironment(s):
             member_name="decisionMaking",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe decision-making processes: governance boards, approval workflows, decision criteria, and timeline expectations for different decision types.",
             doc_comment="Decision making processes and authority."),
@@ -32486,7 +32918,7 @@ def _mc_OrganizationalEnvironment(s):
             section_id_pattern="DME-DECI-xxx",
             kind=SomMetaKind.LIST,
             type_name="DecisionMakerEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="List each decision maker with their decision authority, domains, and influence level to map governance and approval paths.",
             doc_comment="Key decision makers and their roles.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 21500 — organizational roles & responsibilities", "PMBOK — enterprise environmental factors (EEF)"], "connotation": "Identifies the key decision makers and their authority so governance and approval paths are clear."})],
@@ -32498,7 +32930,7 @@ def _mc_OrganizationalEnvironment(s):
             section_id_pattern="OREN-CULT-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_help="List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.",
             doc_comment="Cultural considerations and organizational dynamics.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — enterprise environmental factors (EEF)", "TOGAF — enterprise context & environment"], "connotation": "Captures cultural considerations and organizational dynamics that may influence adoption and change."})]),
@@ -32509,7 +32941,7 @@ def _mc_OrganizationalEnvironment(s):
             section_id_pattern="OREN-COMM-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             content_help="List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.",
             doc_comment="Stakeholder communication preferences.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 42010 — architecture environment & stakeholders", "PMBOK — enterprise environmental factors (EEF)"], "connotation": "Records stakeholder communication preferences so engagement and reporting fit the organizational context."})]),
@@ -32518,7 +32950,7 @@ def _mc_OrganizationalEnvironment(s):
             member_name="politicalLandscape",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe organizational politics: power centers, influence networks, historical project outcomes, and potential resistance points.",
             doc_comment="Political dynamics and influence patterns."),
@@ -32529,7 +32961,7 @@ def _mc_OrganizationalEnvironment(s):
             section_id_pattern="OREN-CHAN-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=10,
+            serialization_order=11,
             content_help="List change champions and sponsors, noting their influence and role in driving adoption across the organization.",
             doc_comment="Change champions and sponsors.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — enterprise environmental factors (EEF)", "ISO 21500 — organizational roles & responsibilities"], "connotation": "Identifies change champions and sponsors who can drive adoption and overcome organizational resistance."})]),
@@ -32540,10 +32972,18 @@ def _mc_OrganizationalFramework(s):
     return [
          SomMetaNode(
             class_name="OrganizationalFramework",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the organizational changes the system requires before the structure, role and workplace subsections below. Cover the scale of the change and the organization's appetite for it."),
+         SomMetaNode(
+            class_name="OrganizationalFramework",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Provide executive summary of organizational impact: scope of restructuring, number of affected roles, key organizational design principles, change management approach, and timeline overview.",
             doc_comment="Overview of organizational changes required for the new system."),
@@ -32554,7 +32994,7 @@ def _mc_OrganizationalFramework(s):
                 class_section_id="NORGS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="NewOrganizationStructure",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="5.1. New Organization Structure.",
                 class_doc_comment="5.1. New Organization Structure.\n\nOrganizational changes required by the new system including new teams,\nrestructured departments, changed responsibilities, and new communication\nchannels. Follows organizational design principles (span of control,\ndecision rights, coordination mechanisms) and change management patterns.",
                 recursive=r,
@@ -32566,7 +33006,7 @@ def _mc_OrganizationalFramework(s):
                 class_section_id="JDAS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="JobDescriptionsAndStaffing",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="5.2. Job Descriptions and Staffing Plans.\n\nSingle composite section: the role multiplicity is carried by the inner\nnew/changed/removed-role lists, so this is one section, not a catalog of\nsections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).",
                 class_doc_comment="5.2. Job Descriptions and Staffing Plans.\n\nDocuments new and changed roles resulting from the system introduction,\nfollowing HR best practices and job analysis methodologies (O*NET, SHRM).\nIncludes competency frameworks, staffing projections, and recruitment planning.",
                 recursive=r,
@@ -32578,7 +33018,7 @@ def _mc_OrganizationalFramework(s):
             section_id_pattern="WPDE-WORK-xxx",
             kind=SomMetaKind.LIST,
             type_name="WorkplaceDescriptionEntry",
-            serialization_order=3,
+            serialization_order=4,
             min=1,
             comment="per user category",
             doc_comment="5.3. Workplace Descriptions — contains 1+× per user category.",
@@ -32699,6 +33139,14 @@ def _mc_OrganizationalRequirements(s):
 
 def _mc_OrganizationalTransitionTimeline(s):
     return [
+         SomMetaNode(
+            class_name="OrganizationalTransitionTimeline",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the organizational transition before the phase, readiness, communication and support subsections below. Cover the pace of change and what sets it."),
          _cx("TransitionOverview", s, _mc_TransitionOverview,
             lambda r, c: SomMetaNode(
                 class_name="TransitionOverview",
@@ -32706,7 +33154,7 @@ def _mc_OrganizationalTransitionTimeline(s):
                 class_section_id="TROVW",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TransitionOverview",
-                serialization_order=0,
+                serialization_order=1,
                 doc_comment="Overview of the transition approach and guiding principles.",
                 class_doc_comment="Overview of the organizational transition approach.",
                 recursive=r,
@@ -32718,7 +33166,7 @@ def _mc_OrganizationalTransitionTimeline(s):
             section_id_pattern="TRPHE-PHAS-xxx",
             kind=SomMetaKind.LIST,
             type_name="TransitionPhaseEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per transition phase, in sequence — e.g. Preparation, Pilot, Rollout, Stabilization, Closure.",
             doc_comment="Transition phases with milestones and durations.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §6 — transition", "PMBOK — schedule management"], "connotation": "The ordered set of distinct transition phases, each with its own timeline, activities, and milestones."})],
@@ -32730,7 +33178,7 @@ def _mc_OrganizationalTransitionTimeline(s):
             section_id_pattern="TRMIL-MILE-xxx",
             kind=SomMetaKind.LIST,
             type_name="TransitionMilestoneEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per transition milestone or decision gate — e.g. checkpoints, go-live, closure.",
             doc_comment="Key transition milestones and decision gates.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — schedule management", "ITIL 4 — service transition"], "connotation": "The set of key transition milestones and decision gates that mark progress and Go/No-Go points across the transition."})],
@@ -32742,7 +33190,7 @@ def _mc_OrganizationalTransitionTimeline(s):
                 class_section_id="CHREAS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ChangeReadinessAssessment",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="Change readiness assessment approach.",
                 class_doc_comment="Change readiness assessment approach.",
                 recursive=r,
@@ -32754,7 +33202,7 @@ def _mc_OrganizationalTransitionTimeline(s):
                 class_section_id="TRCOPL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TransitionCommunicationPlan",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Communication plan for the transition.",
                 class_doc_comment="Communication plan for the transition.",
                 recursive=r,
@@ -32766,7 +33214,7 @@ def _mc_OrganizationalTransitionTimeline(s):
                 class_section_id="TRSUST",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TransitionSupportStructure",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Support structure during transition.",
                 class_doc_comment="Support structure during transition.",
                 recursive=r,
@@ -32778,7 +33226,7 @@ def _mc_OrganizationalTransitionTimeline(s):
                 class_section_id="TRSUME",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TransitionSuccessMetrics",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="Success metrics and measurement approach.",
                 class_doc_comment="Success metrics for the transition.",
                 recursive=r,
@@ -32790,7 +33238,7 @@ def _mc_OrganizationalTransitionTimeline(s):
             section_id_pattern="TRRS-TRAN-xxx",
             kind=SomMetaKind.LIST,
             type_name="TransitionRiskEntry",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per transition-specific risk, with its likelihood, impact, and planned mitigation.",
             doc_comment="Risks specific to the organizational transition.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000 — risk management"], "connotation": "The set of risks specific to the organizational transition, each with its likelihood, impact, and mitigation."})],
@@ -32878,10 +33326,18 @@ def _mc_OutOfScope(s):
     return [
          SomMetaNode(
             class_name="OutOfScope",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the exclusions before the individual out-of-scope items below. Cover the principle by which something was excluded and where it might be picked up later."),
+         SomMetaNode(
+            class_name="OutOfScope",
             member_name="scopePhilosophy",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe the scope philosophy and how exclusions were determined. Reference any scope workshops or decision records.",
             doc_comment="Overview of scope exclusion approach."),
@@ -32892,7 +33348,7 @@ def _mc_OutOfScope(s):
             section_id_pattern="OUTSCO-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="OutOfScopeEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Each entry records one excluded feature, system, or integration along with its exclusion rationale.",
             doc_comment="Contains 0+× OutOfScopeEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies", "PMBOK — scope management & assumption log"], "connotation": "Lists each individually excluded item so every out-of-scope decision is recorded and traceable."})],
@@ -33506,18 +33962,26 @@ def _mc_PerformanceEfficiencyCharacteristic(s):
     return [
          SomMetaNode(
             class_name="PerformanceEfficiencyCharacteristic",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce performance efficiency for this system before the efficiency subsection below. Cover the load profile the targets are stated against."),
+         SomMetaNode(
+            class_name="PerformanceEfficiencyCharacteristic",
             member_name="performanceEfficiencyContent",
             section_id="PEEF-PERF",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="technicalQualityPhilosophy", type_name="String", description="Technical Quality Philosophy", hint="Performance-first, maintainability-first, balanced", order=0), SomFormFieldMeta(name="architecturalQualityGoals", type_name="String", description="Architectural Quality Goals", hint="Key architectural quality attributes", order=1), SomFormFieldMeta(name="technicalDebtTolerance", type_name="String", description="Technical Debt Tolerance", hint="Zero, controlled, pragmatic", order=2), SomFormFieldMeta(name="codeQualityStandard", type_name="String", description="Code Quality Standard", hint="Style guide, linting rules", order=3), SomFormFieldMeta(name="designPrinciplesAdherence", type_name="String", description="Design Principles Adherence", hint="SOLID, DRY, KISS, YAGNI", order=4)])),
          SomMetaNode(
             class_name="PerformanceEfficiencyCharacteristic",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of performance-efficiency goals, architectural decisions, and key technical metrics.",
             doc_comment="Performance efficiency overview."),
@@ -33528,7 +33992,7 @@ def _mc_PerformanceEfficiencyCharacteristic(s):
                 class_section_id="EFQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Efficiency",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.3.1. Efficiency.",
                 class_doc_comment="11.3.1. Efficiency quality.",
                 recursive=r,
@@ -34718,11 +35182,19 @@ def _mc_ProcessCatalog(s):
     return [
          SomMetaNode(
             class_name="ProcessCatalog",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the process catalog before the classification scheme and the process entries below. Cover the scope of the catalog and what is deliberately outside it."),
+         SomMetaNode(
+            class_name="ProcessCatalog",
             member_name="overview",
             section_id="PCOVW",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Process catalog overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="totalProcessCount", type_name="int", description="Total Process Count", hint="Number of processes in the catalog", order=0), SomFormFieldMeta(name="scopeStatement", type_name="String", description="Scope Statement — what processes are in scope", hint="What the catalog does and does not cover", order=1), SomFormFieldMeta(name="classificationFramework", type_name="String", description="Classification Framework — APQC PCF, custom", hint="Framework used to classify processes", order=2), SomFormFieldMeta(name="namingConvention", type_name="String", description="Naming Convention — process naming standards", hint="Rules for naming processes", order=3), SomFormFieldMeta(name="idConvention", type_name="String", description="ID Convention — process ID standards", hint="Rules for assigning process IDs", order=4), SomFormFieldMeta(name="processOwnership", type_name="String", description="Process Ownership — how ownership is assigned", hint="How process owners are determined", order=5), SomFormFieldMeta(name="governanceModel", type_name="String", description="Governance Model — change control, approval", hint="How process changes are controlled", order=6), SomFormFieldMeta(name="versioningApproach", type_name="String", description="Versioning Approach — how process versions are managed", hint="How process versions are tracked", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["APQC PCF — Process Classification Framework"], "connotation": "Summarises the scope, conventions and governance that frame the process catalog as a whole."})]),
@@ -34732,7 +35204,7 @@ def _mc_ProcessCatalog(s):
             section_id="PRCCL",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Process classification scheme.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="level1Categories", type_name="String", description="Level 1 Categories — operating, management, support", hint="Top-level process categories", order=0), SomFormFieldMeta(name="level2Breakdown", type_name="String", description="Level 2 Breakdown — major process groups", hint="Major process groups within each category", order=1), SomFormFieldMeta(name="level3Detail", type_name="String", description="Level 3 Detail — specific processes", hint="Specific processes at the detailed level", order=2), SomFormFieldMeta(name="crossFunctional", type_name="String", description="Cross-Functional — which processes span functions", hint="Processes that cross organisational boundaries", order=3), SomFormFieldMeta(name="customerFacing", type_name="String", description="Customer-Facing — which processes touch customers", hint="Processes with direct customer contact", order=4), SomFormFieldMeta(name="valueDriving", type_name="String", description="Value-Driving — which are core value chain", hint="Processes central to the value chain", order=5), SomFormFieldMeta(name="supportProcesses", type_name="String", description="Support Processes — enabling processes", hint="Enabling or support processes", order=6), SomFormFieldMeta(name="managementProcesses", type_name="String", description="Management Processes — governance, strategy", hint="Governance and strategic processes", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["APQC PCF — process hierarchy", "BPM CBOK — business process management body of knowledge"], "connotation": "Defines the classification hierarchy used to organise processes into categories, groups and specific processes."})]),
@@ -34743,7 +35215,7 @@ def _mc_ProcessCatalog(s):
             section_id_pattern="BPREN-PROC-xxx",
             kind=SomMetaKind.LIST,
             type_name="BusinessProcessEntry",
-            serialization_order=2,
+            serialization_order=3,
             min=1,
             content_help="Add one entry per business process.",
             doc_comment="Contains 1+× Business Process.",
@@ -34820,11 +35292,19 @@ def _mc_ProcessControls(s):
     return [
          SomMetaNode(
             class_name="ProcessControls",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the control framework for this process before the individual controls below. Cover which risks the controls address and who tests them."),
+         SomMetaNode(
+            class_name="ProcessControls",
             member_name="overview",
             section_id="PRCOOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Controls overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="controlFramework", type_name="String", description="Control Framework — COSO, COBIT, custom", hint="Name the governing control framework", order=0), SomFormFieldMeta(name="riskLevel", type_name="String", description="Risk Level — inherent risk", hint="State the inherent risk level", order=1), SomFormFieldMeta(name="complianceRequirements", type_name="String", description="Compliance Requirements — regulations, standards", hint="List applicable regulations/standards", order=2), SomFormFieldMeta(name="auditFrequency", type_name="String", description="Audit Frequency — when audited", hint="State how often the process is audited", order=3), SomFormFieldMeta(name="segregationOfDuties", type_name="String", description="Segregation of Duties — duty separation rules", hint="Describe duty separation rules", order=4), SomFormFieldMeta(name="approvalMatrix", type_name="String", description="Approval Matrix — who approves what", hint="Define who approves which actions", order=5), SomFormFieldMeta(name="documentationRequirements", type_name="String", description="Documentation Requirements — what must be recorded", hint="List what must be documented", order=6), SomFormFieldMeta(name="retentionRequirements", type_name="String", description="Retention Requirements — how long to keep records", hint="State record retention periods", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — gateways / decision points", "ISO 9001:2015 §4.4 — process approach"], "connotation": "Summarises the control framework, risk level, and compliance requirements governing the process."})]),
@@ -34835,7 +35315,7 @@ def _mc_ProcessControls(s):
             section_id_pattern="PCCTL-CONT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessControlEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per control applied to this process.",
             doc_comment="Contains 0+× process control.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — gateways / decision points"], "connotation": "The set of controls applied to this process."})],
@@ -34871,11 +35351,19 @@ def _mc_ProcessDesignPrinciples(s):
     return [
          SomMetaNode(
             class_name="ProcessDesignPrinciples",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the design principles before the individual principles below. Cover where they came from and how a conflict between two of them is resolved."),
+         SomMetaNode(
+            class_name="ProcessDesignPrinciples",
             member_name="overview",
             section_id="DPOVW",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Design principles overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="principlePhilosophy", type_name="String", description="Principle Philosophy — overall approach to process design", hint="The guiding philosophy behind the principles", order=0), SomFormFieldMeta(name="priorityOrder", type_name="String", description="Priority Order — how to resolve principle conflicts", hint="How competing principles are ranked", order=1), SomFormFieldMeta(name="exceptionHandling", type_name="String", description="Exception Handling — how deviations are managed", hint="How deviations from principles are handled", order=2), SomFormFieldMeta(name="continuousImprovement", type_name="String", description="Continuous Improvement — how processes evolve", hint="How principles adapt over time", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPM CBOK — business process management body of knowledge"], "connotation": "Summarises the overall philosophy and precedence rules governing the set of process design principles."})]),
@@ -34886,7 +35374,7 @@ def _mc_ProcessDesignPrinciples(s):
             section_id_pattern="PDPEN-PRIN-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessDesignPrincipleEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per process design principle.",
             doc_comment="Contains 0+× Design Principle.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPM CBOK — business process management body of knowledge"], "connotation": "The set of individual design principles governing process design decisions."})],
@@ -34955,11 +35443,19 @@ def _mc_ProcessExceptions(s):
     return [
          SomMetaNode(
             class_name="ProcessExceptions",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the exception-handling philosophy for this process before the individual exception scenarios below. Cover what is handled in-process and what is escalated out of it."),
+         SomMetaNode(
+            class_name="ProcessExceptions",
             member_name="overview",
             section_id="PREXOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Exceptions overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="exceptionPhilosophy", type_name="String", description="Exception Philosophy — how exceptions are handled", hint="State the overall exception approach", order=0), SomFormFieldMeta(name="exceptionRate", type_name="String", description="Exception Rate — expected percentage", hint="Give the expected exception rate", order=1), SomFormFieldMeta(name="exceptionRouting", type_name="String", description="Exception Routing — where exceptions go", hint="State where exceptions are routed", order=2), SomFormFieldMeta(name="resolutionSla", type_name="String", description="Resolution SLA — time to resolve exceptions", hint="Give the exception resolution SLA", order=3), SomFormFieldMeta(name="escalationPath", type_name="String", description="Escalation Path — who handles escalations", hint="Name who handles escalations", order=4), SomFormFieldMeta(name="rootCauseAnalysis", type_name="String", description="Root Cause Analysis — how causes are identified", hint="Describe root-cause analysis approach", order=5), SomFormFieldMeta(name="continuousImprovement", type_name="String", description="Continuous Improvement — how exceptions drive change", hint="Describe how exceptions drive change", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — exceptions / error events", "BPM CBOK — business process management body of knowledge"], "connotation": "Summarises how exceptions are handled overall, including routing, SLAs, and root-cause practices."})]),
@@ -34970,7 +35466,7 @@ def _mc_ProcessExceptions(s):
             section_id_pattern="PCEXC-EXCE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessExceptionEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per exception scenario for this process.",
             doc_comment="Contains 0+× exception scenario.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — exceptions / error events"], "connotation": "The set of exception scenarios handled by this process."})],
@@ -35056,11 +35552,19 @@ def _mc_ProcessImprovementSummary(s):
     return [
          SomMetaNode(
             class_name="ProcessImprovementSummary",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the improvements expected over the current processes before the itemized improvements and the business case below. Cover the baseline they are measured against."),
+         SomMetaNode(
+            class_name="ProcessImprovementSummary",
             member_name="overview",
             section_id="IMOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Improvement overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="improvementTheme", type_name="String", description="Improvement Theme — overall improvement approach", hint="State the overall improvement theme", order=0), SomFormFieldMeta(name="baselineDate", type_name="String", description="Baseline Date — when current state measured", hint="Give the baseline measurement date", order=1), SomFormFieldMeta(name="targetDate", type_name="String", description="Target Date — when improvements achieved", hint="Give the target achievement date", order=2), SomFormFieldMeta(name="benefitRealizationPlan", type_name="String", description="Benefit Realization Plan — how benefits are tracked", hint="Describe how benefits are tracked", order=3), SomFormFieldMeta(name="changeEnablers", type_name="String", description="Change Enablers — what makes improvement possible", hint="List what enables the improvement", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Six Sigma / Lean — process improvement"], "connotation": "Describes the overall improvement theme, baseline and target dates, and how benefits will be realised."})]),
@@ -35071,7 +35575,7 @@ def _mc_ProcessImprovementSummary(s):
             section_id_pattern="PCIMV-IMPR-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessImprovementEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per planned process improvement.",
             doc_comment="Contains 0+× improvement item.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Six Sigma / Lean — process improvement"], "connotation": "The set of process improvements planned in this summary."})],
@@ -35082,7 +35586,7 @@ def _mc_ProcessImprovementSummary(s):
             section_id="IMBUCA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Business case summary.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="totalInvestment", type_name="String", description="Total Investment — cost of transformation", hint="Give the total investment cost", order=0), SomFormFieldMeta(name="annualBenefits", type_name="String", description="Annual Benefits — yearly value delivered", hint="Give the yearly value delivered", order=1), SomFormFieldMeta(name="paybackPeriod", type_name="String", description="Payback Period — time to break even", hint="Give the time to break even", order=2), SomFormFieldMeta(name="roi", type_name="String", description="ROI — return on investment", hint="Give the return on investment", order=3), SomFormFieldMeta(name="npv", type_name="String", description="NPV — net present value", hint="Give the net present value", order=4), SomFormFieldMeta(name="intangibleBenefits", type_name="String", description="Intangible Benefits — non-financial value", hint="List non-financial benefits", order=5), SomFormFieldMeta(name="riskAdjustment", type_name="String", description="Risk Adjustment — confidence factor", hint="State the confidence/risk factor", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Six Sigma / Lean — process improvement", "BPM CBOK — business process management body of knowledge"], "connotation": "Summarises the financial business case for the improvements, including investment, benefits, and return metrics."})]),
@@ -35105,11 +35609,19 @@ def _mc_ProcessInputsOutputs(s):
     return [
          SomMetaNode(
             class_name="ProcessInputsOutputs",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the data this process consumes and produces before the input and output lists below. Cover where the inputs originate and who consumes the outputs."),
+         SomMetaNode(
+            class_name="ProcessInputsOutputs",
             member_name="overview",
             section_id="INOUOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Inputs overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="inputSummary", type_name="String", description="Input Summary — overview of required inputs", hint="High-level overview of required inputs", order=0), SomFormFieldMeta(name="outputSummary", type_name="String", description="Output Summary — overview of produced outputs", hint="High-level overview of produced outputs", order=1), SomFormFieldMeta(name="dataFlowSummary", type_name="String", description="Data Flow Summary — how data moves through process", hint="How data flows through the process", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — data objects & artifacts"], "connotation": "Summarises the inputs, outputs and overall data flow of the process at a glance."})]),
@@ -35120,7 +35632,7 @@ def _mc_ProcessInputsOutputs(s):
             section_id_pattern="PCINP-INPU-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessInputEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per process input.",
             doc_comment="Contains 0+× process input.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — data objects & artifacts"], "connotation": "The set of data inputs the process consumes."})],
@@ -35132,7 +35644,7 @@ def _mc_ProcessInputsOutputs(s):
             section_id_pattern="PCOUT-OUTP-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessOutputEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per process output.",
             doc_comment="Contains 0+× process output.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — data objects & artifacts"], "connotation": "The set of data outputs the process produces."})],
@@ -35423,11 +35935,19 @@ def _mc_ProcessOverviewDiagram(s):
     return [
          SomMetaNode(
             class_name="ProcessOverviewDiagram",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the process landscape before the landscape, hierarchy and value-chain diagrams below. Cover the reading order and the level of detail each diagram shows."),
+         SomMetaNode(
+            class_name="ProcessOverviewDiagram",
             member_name="overview",
             section_id="PRDIOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Diagram overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="diagramPurpose", type_name="String", description="Diagram Purpose — what the diagram shows", hint="State what the diagram conveys", order=0), SomFormFieldMeta(name="diagramScope", type_name="String", description="Diagram Scope — what is included/excluded", hint="State what is in and out of scope", order=1), SomFormFieldMeta(name="notation", type_name="String", description="Notation — BPMN, flowchart, swimlane", hint="Name the diagram notation used", order=2), SomFormFieldMeta(name="readingGuide", type_name="String", description="Reading Guide — how to interpret the diagram", hint="Explain how to read the diagram", order=3), SomFormFieldMeta(name="legend", type_name="String", description="Legend — symbol meanings", hint="Define the symbols used", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — collaboration/choreography diagrams"], "connotation": "Explains the purpose, scope, notation, and legend needed to read the process overview diagrams."})]),
@@ -35436,7 +35956,7 @@ def _mc_ProcessOverviewDiagram(s):
             member_name="landscapeDiagram",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="mermaid-flow", description=""),
             doc_comment="Main process landscape diagram."),
          SomMetaNode(
@@ -35444,7 +35964,7 @@ def _mc_ProcessOverviewDiagram(s):
             member_name="hierarchyDiagram",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             content_type=SomContentTypeMeta(type="mermaid-flow", description=""),
             doc_comment="Process hierarchy diagram."),
          SomMetaNode(
@@ -35452,7 +35972,7 @@ def _mc_ProcessOverviewDiagram(s):
             member_name="valueChainDiagram",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             content_type=SomContentTypeMeta(type="mermaid-flow", description=""),
             doc_comment="Value chain diagram."),
     ]
@@ -35486,11 +36006,19 @@ def _mc_ProcessPerformance(s):
     return [
          SomMetaNode(
             class_name="ProcessPerformance",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how this process is measured before the KPI and SLA lists below. Cover the measurement period and the data source behind the numbers."),
+         SomMetaNode(
+            class_name="ProcessPerformance",
             member_name="overview",
             section_id="PRPEOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Performance overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="targetCycleTime", type_name="String", description="Target Cycle Time — expected end-to-end duration", hint="Give the expected end-to-end duration", order=0), SomFormFieldMeta(name="targetThroughput", type_name="String", description="Target Throughput — expected cases per period", hint="Give the expected cases per period", order=1), SomFormFieldMeta(name="targetQuality", type_name="String", description="Target Quality — error rate, first-time-right", hint="State the target error/first-time-right rate", order=2), SomFormFieldMeta(name="targetCost", type_name="String", description="Target Cost — cost per transaction", hint="Give the target cost per transaction", order=3), SomFormFieldMeta(name="targetCustomerSat", type_name="String", description="Target Customer Satisfaction — CSAT/NPS target", hint="Give the CSAT/NPS satisfaction target", order=4), SomFormFieldMeta(name="monitoringFrequency", type_name="String", description="Monitoring Frequency — how often metrics reviewed", hint="State how often metrics are reviewed", order=5), SomFormFieldMeta(name="dashboardLocation", type_name="String", description="Dashboard Location — where metrics are visible", hint="Name where the metrics dashboard lives", order=6), SomFormFieldMeta(name="improvementGoals", type_name="String", description="Improvement Goals — targets for next period", hint="State improvement targets for next period", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — performance efficiency", "BPM CBOK — process performance"], "connotation": "Summarises the top-level performance targets and monitoring approach for the process."})]),
@@ -35501,7 +36029,7 @@ def _mc_ProcessPerformance(s):
             section_id_pattern="PCKPI-KPIS-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessKpiEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per KPI tracked for this process.",
             doc_comment="Contains 0+× performance metric.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — performance efficiency"], "connotation": "The set of KPIs tracked for this process."})],
@@ -35513,7 +36041,7 @@ def _mc_ProcessPerformance(s):
             section_id_pattern="PCSLA-SLAS-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessSlaEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per service level agreement for this process.",
             doc_comment="Service Level Agreements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ITIL 4 — service level management", "ISO/IEC 25010 — performance efficiency"], "connotation": "The set of service level agreements committed for this process."})],
@@ -35618,11 +36146,19 @@ def _mc_ProcessRoles(s):
     return [
          SomMetaNode(
             class_name="ProcessRoles",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the participants in this process before the per-role entries below. Cover how responsibility is split and where the hand-offs occur."),
+         SomMetaNode(
+            class_name="ProcessRoles",
             member_name="overview",
             section_id="PRROOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Roles overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="primaryActor", type_name="String", description="Primary Actor — main role executing", hint="The main role that executes the process", order=0), SomFormFieldMeta(name="processOwner", type_name="String", description="Process Owner — accountable for outcomes", hint="Role accountable for process outcomes", order=1), SomFormFieldMeta(name="supportRoles", type_name="String", description="Support Roles — assisting roles", hint="Roles that assist the process", order=2), SomFormFieldMeta(name="escalationPath", type_name="String", description="Escalation Path — who handles issues", hint="Who issues are escalated to", order=3), SomFormFieldMeta(name="raciSummary", type_name="String", description="RACI Summary — responsibility assignment overview", hint="Overview of the RACI assignments", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["RACI — responsibility assignment"], "connotation": "Summarises the key roles in the process and their RACI relationships at a glance."})]),
@@ -35633,7 +36169,7 @@ def _mc_ProcessRoles(s):
             section_id_pattern="PCROL-ROLE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessRoleEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per process role.",
             doc_comment="Contains 0+× process role.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["RACI — responsibility assignment"], "connotation": "The set of role definitions participating in the process and their RACI assignments."})],
@@ -35864,11 +36400,19 @@ def _mc_ProcessTriggers(s):
     return [
          SomMetaNode(
             class_name="ProcessTriggers",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how this process starts and ends before the trigger and end-event lists below. Cover whether it is event-, schedule- or request-driven."),
+         SomMetaNode(
+            class_name="ProcessTriggers",
             member_name="overview",
             section_id="TGOVW",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Main trigger overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="primaryTrigger", type_name="String", description="Primary Trigger — main way process starts", hint="The most common way the process starts", order=0), SomFormFieldMeta(name="triggerChannel", type_name="String", description="Trigger Channel — UI, API, event, schedule", hint="Channel through which triggers arrive", order=1), SomFormFieldMeta(name="triggerFrequency", type_name="String", description="Trigger Frequency — how often triggered", hint="How often the process is triggered", order=2), SomFormFieldMeta(name="peakTriggerTime", type_name="String", description="Peak Trigger Time — when most triggers occur", hint="When trigger volume peaks", order=3), SomFormFieldMeta(name="preTriggerState", type_name="String", description="Pre-Trigger State — system state before trigger", hint="System state expected before triggering", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — events (start/end/intermediate)"], "connotation": "Summarises how the process is typically triggered, including its primary trigger, channel and frequency."})]),
@@ -35879,7 +36423,7 @@ def _mc_ProcessTriggers(s):
             section_id_pattern="PTREN-TRIG-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessTriggerEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per process trigger.",
             doc_comment="Contains 0+× process trigger.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — events (start/end/intermediate)"], "connotation": "The set of trigger (start-event) definitions that can initiate the process."})],
@@ -35891,7 +36435,7 @@ def _mc_ProcessTriggers(s):
             section_id_pattern="PEEVT-ENDE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProcessEndEventEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per process end event.",
             doc_comment="Process end events (outcomes).",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — events (start/end/intermediate)"], "connotation": "The set of end-event definitions describing the possible outcomes at which the process terminates."})],
@@ -35903,11 +36447,19 @@ def _mc_ProcessVision(s):
     return [
          SomMetaNode(
             class_name="ProcessVision",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the target-state process vision before the narrative, improvement and success-criteria subsections below. Cover what changes about how the work is done, and for whom."),
+         SomMetaNode(
+            class_name="ProcessVision",
             member_name="overview",
             section_id="PVOVW",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Process vision overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="visionStatement", type_name="String", description="Vision Statement — concise statement of process future state", hint="One or two sentences describing the future-state process", order=0), SomFormFieldMeta(name="strategicAlignment", type_name="String", description="Strategic Alignment — how processes support business strategy", hint="Link processes to strategic goals", order=1), SomFormFieldMeta(name="transformationTheme", type_name="String", description="Transformation Theme — overall transformation approach", hint="The unifying theme of the change (e.g. digital, automation)", order=2), SomFormFieldMeta(name="targetMaturityLevel", type_name="String", description="Target Maturity Level — CMMI or similar maturity target", hint="Desired maturity level to reach", order=3), SomFormFieldMeta(name="timeHorizon", type_name="String", description="Time Horizon — when full vision is realized", hint="Timeframe for achieving the vision", order=4), SomFormFieldMeta(name="keyEnabler", type_name="String", description="Key Enablers — technology, skills, culture changes needed", hint="What must be in place to enable the vision", order=5), SomFormFieldMeta(name="changeScope", type_name="String", description="Change Scope — breadth and depth of process change", hint="How wide and deep the change reaches", order=6), SomFormFieldMeta(name="stakeholderImpact", type_name="String", description="Stakeholder Impact — who is affected and how", hint="Groups affected and the nature of impact", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BABOK v3 — future-state / process analysis"], "connotation": "Summarises the overarching process vision, strategic alignment and transformation theme in a single form."})]),
@@ -35916,7 +36468,7 @@ def _mc_ProcessVision(s):
             member_name="visionNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Vision narrative describing the target state."),
          SomMetaNode(
@@ -35926,7 +36478,7 @@ def _mc_ProcessVision(s):
             section_id_pattern="EXIPR-EXPE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExpectedImprovements",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per expected improvement.",
             doc_comment="Expected improvements over current state.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Six Sigma / Lean — process improvement"], "connotation": "The set of anticipated improvements the target processes deliver over the current state."})],
@@ -35937,7 +36489,7 @@ def _mc_ProcessVision(s):
             section_id="PRSUC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Success criteria for process transformation.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="kpiTargets", type_name="String", description="KPI Targets — measurable success indicators", hint="Concrete KPI values that signal success", order=0), SomFormFieldMeta(name="timeToValue", type_name="String", description="Time to Value — when benefits are realized", hint="How soon benefits should appear", order=1), SomFormFieldMeta(name="adoptionTargets", type_name="String", description="Adoption Targets — user adoption expectations", hint="Expected user adoption levels", order=2), SomFormFieldMeta(name="qualityTargets", type_name="String", description="Quality Targets — defect/error rates", hint="Target defect or error rates", order=3), SomFormFieldMeta(name="performanceTargets", type_name="String", description="Performance Targets — response time, throughput", hint="Target response time or throughput", order=4), SomFormFieldMeta(name="userSatisfaction", type_name="String", description="User Satisfaction — NPS, satisfaction scores", hint="Target satisfaction or NPS scores", order=5), SomFormFieldMeta(name="businessOutcomes", type_name="String", description="Business Outcomes — revenue, market share impact", hint="Expected business-level outcomes", order=6), SomFormFieldMeta(name="measurementApproach", type_name="String", description="Measurement Approach — how success is measured", hint="How and when success is measured", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — performance efficiency", "BABOK v3 — future-state / process analysis"], "connotation": "Defines the measurable criteria that determine whether the process transformation is deemed successful."})]),
@@ -36335,11 +36887,19 @@ def _mc_Prototype(s):
     return [
          SomMetaNode(
             class_name="Prototype",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the prototype effort before the goal, feature-subset and type subsections below. Cover why a prototype is needed and which decision it is meant to inform."),
+         SomMetaNode(
+            class_name="Prototype",
             member_name="prototypeOverview",
             section_id="PROTOT-PROT",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="prototypePurpose", type_name="String", description="Prototype Purpose", hint="Primary goal: validation, alignment, feasibility", order=0), SomFormFieldMeta(name="prototypeScope", type_name="String", description="Prototype Scope", hint="What is included in prototype", order=1), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", hint="Who will evaluate the prototype", order=2), SomFormFieldMeta(name="successCriteria", type_name="String", description="Success Criteria", hint="How success is measured", order=3)])),
          SomMetaNode(
             class_name="Prototype",
@@ -36347,7 +36907,7 @@ def _mc_Prototype(s):
             section_id="PRTI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Prototype timing commitments.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="prototypeTimeline", type_name="String", description="Prototype Timeline", hint="Duration for prototype phase", order=0), SomFormFieldMeta(name="prototypeDeadline", type_name="String", description="Prototype Deadline", hint="When prototype must be ready", order=1), SomFormFieldMeta(name="evaluationPeriod", type_name="String", description="Evaluation Period", hint="How long for evaluation", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — iterative design activities are scheduled so prototyping and evaluation fit the project timeline"], "connotation": "The timing commitments for the prototype phase and its evaluation window."})]),
@@ -36357,7 +36917,7 @@ def _mc_Prototype(s):
             section_id="PRORES",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Prototype staffing and environment.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="prototypeTeam", type_name="String", description="Prototype Team", hint="Who builds the prototype", order=0), SomFormFieldMeta(name="prototypeBudget", type_name="String", description="Prototype Budget", hint="Budget allocation", order=1), SomFormFieldMeta(name="prototypeEnvironment", type_name="String", description="Prototype Environment", hint="Where prototype is deployed", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — human-centred design is resourced with appropriate people, budget, and environment"], "connotation": "The staffing, budget, and environment allocated to building the prototype."})]),
@@ -36367,7 +36927,7 @@ def _mc_Prototype(s):
             section_id="PRGO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Approval and progression criteria.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="acceptanceCriteria", type_name="String", description="Acceptance Criteria", hint="Required criteria to proceed", order=0), SomFormFieldMeta(name="stakeholderSignoff", type_name="String", description="Stakeholder Signoff", hint="Who must approve prototype", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — acceptance of a design solution is decided against agreed criteria with stakeholder involvement"], "connotation": "The approval and progression criteria that decide whether the prototype may proceed."})]),
@@ -36376,7 +36936,7 @@ def _mc_Prototype(s):
             member_name="overviewNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of prototype approach, objectives, and expected outcomes.",
             doc_comment="Prototype overview narrative."),
@@ -36387,7 +36947,7 @@ def _mc_Prototype(s):
                 class_section_id="PG",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PrototypeGoals",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="10.13.1. Prototype Goals.",
                 class_doc_comment="10.13.1. Prototype Goals.\n\nWhat the prototype should validate.",
                 recursive=r,
@@ -36399,7 +36959,7 @@ def _mc_Prototype(s):
                 class_section_id="PRFESU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PrototypeFeatureSubset",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="10.13.2. Selected Feature Subset.",
                 class_doc_comment="10.13.2. Selected Feature Subset.\n\nFeatures included in the prototype.",
                 recursive=r,
@@ -36411,7 +36971,7 @@ def _mc_Prototype(s):
                 class_section_id="PRTYSE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PrototypeType",
-                serialization_order=7,
+                serialization_order=8,
                 doc_comment="10.13.3. Prototype Type.",
                 class_doc_comment="10.13.3. Prototype Type.\n\nClassification and implications of the prototype type.",
                 recursive=r,
@@ -36421,7 +36981,7 @@ def _mc_Prototype(s):
             member_name="prototypeSchedule",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Detailed timeline for prototype development and evaluation.",
             doc_comment="Prototype schedule."),
@@ -36444,11 +37004,19 @@ def _mc_PrototypeFeatureSubset(s):
     return [
          SomMetaNode(
             class_name="PrototypeFeatureSubset",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the feature selection before the individual features below. Cover the criterion that put a feature in or left it out."),
+         SomMetaNode(
+            class_name="PrototypeFeatureSubset",
             member_name="featureSubsetContent",
             section_id="PRFESU-FEAT",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="selectionCriteria", type_name="String", description="Selection Criteria", hint="How features were selected", order=0), SomFormFieldMeta(name="riskBasedSelection", type_name="String", description="Risk-Based Selection", hint="High-risk features included", order=1), SomFormFieldMeta(name="valueBasedSelection", type_name="String", description="Value-Based Selection", hint="High-value features included", order=2), SomFormFieldMeta(name="uncertaintyBasedSelection", type_name="String", description="Uncertainty-Based Selection", hint="Most uncertain features included", order=3)])),
          SomMetaNode(
             class_name="PrototypeFeatureSubset",
@@ -36456,7 +37024,7 @@ def _mc_PrototypeFeatureSubset(s):
             section_id="PFSS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Included and excluded feature scope.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="includedFeatures", type_name="String", description="Included Features", hint="Features in prototype", order=0), SomFormFieldMeta(name="excludedFeatures", type_name="String", description="Excluded Features", hint="Features not in prototype", order=1), SomFormFieldMeta(name="partialFeatures", type_name="String", description="Partial Features", hint="Features partially implemented", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — the scope of the prototype is bounded by stating which features are included, excluded, or partial"], "connotation": "The included, excluded, and partially implemented features of the prototype."})]),
@@ -36466,7 +37034,7 @@ def _mc_PrototypeFeatureSubset(s):
             section_id="PFSF",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Fidelity expectations for the prototype.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="prototypeFidelity", type_name="String", description="Prototype Fidelity", hint="Low, medium, high fidelity", order=0), SomFormFieldMeta(name="interactiveFidelity", type_name="String", description="Interactive Fidelity", hint="Level of interactivity", order=1), SomFormFieldMeta(name="dataFidelity", type_name="String", description="Data Fidelity", hint="Real vs. mock data", order=2), SomFormFieldMeta(name="visualFidelity", type_name="String", description="Visual Fidelity", hint="Production visuals vs. wireframes", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — prototype fidelity is chosen to suit the questions the evaluation must answer"], "connotation": "The fidelity expectations for interactivity, data, and visuals in the prototype."})]),
@@ -36475,7 +37043,7 @@ def _mc_PrototypeFeatureSubset(s):
             member_name="featureNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Feature subset narrative."),
          SomMetaNode(
@@ -36485,7 +37053,7 @@ def _mc_PrototypeFeatureSubset(s):
             section_id_pattern="PFE-FEAT-xxx",
             kind=SomMetaKind.LIST,
             type_name="PrototypeFeatureEntry",
-            serialization_order=4,
+            serialization_order=5,
             content_help="Add one entry per prototype feature.",
             doc_comment="Prototype feature entries.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — the prototyped features are enumerated so scope and fidelity can be tracked per feature"], "connotation": "The collection of prototype-feature entries."})],
@@ -36509,11 +37077,19 @@ def _mc_PrototypeGoals(s):
     return [
          SomMetaNode(
             class_name="PrototypeGoals",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce what the prototype must validate before the individual goals below. Cover the risk that makes the validation worth the effort."),
+         SomMetaNode(
+            class_name="PrototypeGoals",
             member_name="goalsContent",
             section_id="PG-GOAL",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="usabilityValidation", type_name="bool", description="Usability Validation", hint="Validate usability of key workflows", order=0), SomFormFieldMeta(name="stakeholderAlignment", type_name="bool", description="Stakeholder Alignment", hint="Align stakeholders on UI/UX", order=1), SomFormFieldMeta(name="technicalFeasibility", type_name="bool", description="Technical Feasibility", hint="Prove technical approach works", order=2), SomFormFieldMeta(name="performanceValidation", type_name="bool", description="Performance Validation", hint="Validate performance targets", order=3), SomFormFieldMeta(name="integrationValidation", type_name="bool", description="Integration Validation", hint="Validate third-party integrations", order=4)])),
          SomMetaNode(
             class_name="PrototypeGoals",
@@ -36521,7 +37097,7 @@ def _mc_PrototypeGoals(s):
             section_id="PRGORI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Risk reduction and assumption testing.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="riskMitigation", type_name="String", description="Risk Mitigation", hint="Risks the prototype addresses", order=0), SomFormFieldMeta(name="unknownsResolution", type_name="String", description="Unknowns Resolution", hint="Unknowns to be resolved", order=1), SomFormFieldMeta(name="assumptionsTesting", type_name="String", description="Assumptions Testing", hint="Assumptions to be tested", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — prototyping reduces risk by testing assumptions and resolving unknowns early"], "connotation": "The risks, unknowns, and assumptions the prototype is meant to reduce."})]),
@@ -36531,7 +37107,7 @@ def _mc_PrototypeGoals(s):
             section_id="PRGOFE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="User feedback objectives and intake.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="userFeedbackGoals", type_name="String", description="User Feedback Goals", hint="What feedback to gather", order=0), SomFormFieldMeta(name="usabilityTestingPlan", type_name="String", description="Usability Testing Plan", hint="How usability testing is done", order=1), SomFormFieldMeta(name="feedbackIntegration", type_name="String", description="Feedback Integration", hint="How feedback flows back", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — user feedback is gathered from prototype evaluation to inform the design"], "connotation": "The user-feedback objectives and how feedback from the prototype is collected."})]),
@@ -36540,7 +37116,7 @@ def _mc_PrototypeGoals(s):
             member_name="goalsNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Prototype goals narrative."),
          SomMetaNode(
@@ -36550,7 +37126,7 @@ def _mc_PrototypeGoals(s):
             section_id_pattern="PGE-GOAL-xxx",
             kind=SomMetaKind.LIST,
             type_name="PrototypeGoalEntry",
-            serialization_order=4,
+            serialization_order=5,
             content_help="Add one entry per prototype goal.",
             doc_comment="Individual goal entries.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — individual validation goals are recorded so prototype evaluation can be traced against them"], "connotation": "The collection of individual prototype-goal entries."})],
@@ -36562,11 +37138,19 @@ def _mc_PrototypeType(s):
     return [
          SomMetaNode(
             class_name="PrototypeType",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the prototype classification before the reusable, training and throwaway subsections below. Cover which type applies and what follows from that choice."),
+         SomMetaNode(
+            class_name="PrototypeType",
             member_name="prototypeTypeOverview",
             section_id="PRTYSE-PROT",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="prototypeType", type_name="String", description="Prototype Type", required=True, hint="Reusable, Training, Throwaway", order=0), SomFormFieldMeta(name="typeRationale", type_name="String", description="Type Rationale", hint="Why this type was chosen", order=1), SomFormFieldMeta(name="typeImplications", type_name="String", description="Type Implications", hint="Implications for development", order=2), SomFormFieldMeta(name="codeQualityExpectation", type_name="String", description="Code Quality Expectation", hint="Production, demo, quick-and-dirty", order=3), SomFormFieldMeta(name="documentationRequirement", type_name="String", description="Documentation Requirement", hint="Documentation needed", order=4), SomFormFieldMeta(name="transitionPlan", type_name="String", description="Transition Plan", hint="How prototype transitions", order=5)])),
          _cx("ReusablePrototype", s, _mc_ReusablePrototype,
             lambda r, c: SomMetaNode(
@@ -36575,7 +37159,7 @@ def _mc_PrototypeType(s):
                 class_section_id="REUPRO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ReusablePrototype",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="10.13.3.1. Reusable Prototype.",
                 class_doc_comment="10.13.3.1. Reusable Prototype.\n\nPrototype that becomes part of the final product.",
                 recursive=r,
@@ -36587,7 +37171,7 @@ def _mc_PrototypeType(s):
                 class_section_id="TP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TrainingPrototype",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="10.13.3.2. Training Prototype.",
                 class_doc_comment="10.13.3.2. Training Prototype.\n\nPrototype where concepts are reused but not code.",
                 recursive=r,
@@ -36599,7 +37183,7 @@ def _mc_PrototypeType(s):
                 class_section_id="THPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ThrowawayPrototype",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="10.13.3.3. Throwaway Prototype.",
                 class_doc_comment="10.13.3.3. Throwaway Prototype.\n\nPrototype evaluated and then discarded.",
                 recursive=r,
@@ -36774,11 +37358,19 @@ def _mc_QualityFramework(s):
     return [
          SomMetaNode(
             class_name="QualityFramework",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the quality framework before the objective, category and verification subsections below. Cover how quality work is organized and governed."),
+         SomMetaNode(
+            class_name="QualityFramework",
             member_name="frameworkContent",
             section_id="QLFWK-FRAM",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="qualityModel", type_name="String", description="Quality Model", hint="ISO 25010, McCall, Boehm, custom", order=0), SomFormFieldMeta(name="qualityModelVersion", type_name="String", description="Model Version", hint="Specific version of quality model", order=1), SomFormFieldMeta(name="qualityModelAdaptations", type_name="String", description="Model Adaptations", hint="How standard model is adapted for this project", order=2)])),
          SomMetaNode(
             class_name="QualityFramework",
@@ -36786,7 +37378,7 @@ def _mc_QualityFramework(s):
             section_id="QFOBJ",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Quality objective structure and alignment.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="objectivesHierarchy", type_name="String", description="Objectives Hierarchy", hint="How quality objectives are structured", order=0), SomFormFieldMeta(name="objectivesAlignment", type_name="String", description="Objectives Alignment", hint="How quality objectives align with business goals", order=1), SomFormFieldMeta(name="objectivesMeasurability", type_name="String", description="Measurability Requirement", hint="All objectives SMART, key objectives only", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — quality objectives express the required levels of the product quality characteristics as measurable targets"], "connotation": "Captures the structure and business alignment of the quality objectives."})]),
@@ -36796,7 +37388,7 @@ def _mc_QualityFramework(s):
             section_id="QFTRD",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Trade-off priorities and decision authority.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="primaryQualityAttribute", type_name="String", description="Primary Quality Attribute", hint="Most important attribute when trade-offs required", order=0), SomFormFieldMeta(name="secondaryQualityAttribute", type_name="String", description="Secondary Quality Attribute", hint="Attribute yielded when the primary attribute takes precedence", order=1), SomFormFieldMeta(name="tradeOffApproach", type_name="String", description="Trade-off Approach", hint="How conflicts between attributes are resolved", order=2), SomFormFieldMeta(name="qualityCompromiseAuthority", type_name="String", description="Compromise Authority", hint="Who can authorize quality trade-offs", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — because improving one characteristic can degrade another, trade-offs between quality characteristics are made explicit and justified"], "connotation": "Captures the trade-off priorities and decision authority between quality attributes."})]),
@@ -36806,7 +37398,7 @@ def _mc_QualityFramework(s):
             section_id="QFVER",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Verification and defect handling approach.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="verificationStrategy", type_name="String", description="Verification Strategy", hint="Testing, review, analysis, demonstration", order=0), SomFormFieldMeta(name="verificationCoverage", type_name="String", description="Verification Coverage", hint="All attributes, critical only, risk-based", order=1), SomFormFieldMeta(name="defectClassification", type_name="String", description="Defect Classification Scheme", hint="Critical, major, minor, trivial", order=2), SomFormFieldMeta(name="defectPriorityScheme", type_name="String", description="Defect Priority Scheme", hint="P1-P5, urgent/high/medium/low", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25040:2011 — the quality evaluation process defines activities to plan, execute, and conclude the evaluation of software product quality", "ISO/IEC 25023:2016 — quality measures are applied to verify the achieved quality levels"], "connotation": "Captures how quality is verified and how defects are classified and handled."})]),
@@ -36815,7 +37407,7 @@ def _mc_QualityFramework(s):
             member_name="qualityObjectivesOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overall quality objectives: expected quality level, how quality will be measured, acceptable trade-offs.",
             doc_comment="11.1.1. Quality Objectives Overview."),
@@ -36824,7 +37416,7 @@ def _mc_QualityFramework(s):
             member_name="objectivesBreakdown",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Structured breakdown of objectives for each quality category with measurable targets.",
             doc_comment="Quality objectives breakdown by category."),
@@ -36835,7 +37427,7 @@ def _mc_QualityFramework(s):
             section_id_pattern="QCATE-QUAL-xxx",
             kind=SomMetaKind.LIST,
             type_name="QualityCategoryEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per quality category.",
             doc_comment="11.1.2. Quality Categories — contains 0+× QualityCategory.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — product quality is organised into characteristics and sub-characteristics that form the categories against which quality is specified and evaluated"], "connotation": "Lists the quality categories against which requirements are specified and evaluated."})],
@@ -36847,7 +37439,7 @@ def _mc_QualityFramework(s):
             section_id_pattern="QLFWK-CATE-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per category dependency.",
             doc_comment="Quality dependencies map.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs"], "connotation": "Lists dependencies between quality categories used to reason about trade-offs."})]),
@@ -37030,18 +37622,26 @@ def _mc_QualityGateChecklist(s):
     return [
          SomMetaNode(
             class_name="QualityGateChecklist",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the quality gates before the individual checklist items below. Cover when each gate is run and who may waive one."),
+         SomMetaNode(
+            class_name="QualityGateChecklist",
             member_name="checklistOverviewContent",
             section_id="QUGACH-CHEC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="checklistPurpose", type_name="String", description="Checklist Purpose", hint="Gate review, final acceptance, milestone", order=0), SomFormFieldMeta(name="checklistCompleteness", type_name="String", description="Completeness Requirement", hint="All checks required, critical only", order=1), SomFormFieldMeta(name="checklistReviewProcess", type_name="String", description="Review Process", hint="Individual, committee, automated", order=2), SomFormFieldMeta(name="checklistSignoff", type_name="String", description="Signoff Requirement", hint="Single, multiple signoffs", order=3), SomFormFieldMeta(name="checklistFrequency", type_name="String", description="Checklist Frequency", hint="When checklist is used", order=4)])),
          SomMetaNode(
             class_name="QualityGateChecklist",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overview of quality gate process and checklist usage.",
             doc_comment="Quality gate checklist overview."),
@@ -37052,7 +37652,7 @@ def _mc_QualityGateChecklist(s):
             section_id_pattern="QGCHK-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="QualityGateCheckEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per quality gate check.",
             doc_comment="Contains 0+× QualityGateCheck.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29119 — each gate check is enumerated as a discrete item with a defined verification method"], "connotation": "Enumerates each gate check as a discrete item with its verification method."})],
@@ -37064,18 +37664,26 @@ def _mc_QualityPrioritization(s):
     return [
          SomMetaNode(
             class_name="QualityPrioritization",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how quality attributes are ranked before the weighted-matrix and trade-off subsections below. Cover who decides the ranking and how a dispute is settled."),
+         SomMetaNode(
+            class_name="QualityPrioritization",
             member_name="prioritizationFrameworkContent",
             section_id="QUPR-PRIO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="prioritizationMethod", type_name="String", description="Prioritization Method", hint="Weighted scoring, AHP, forced ranking", order=0), SomFormFieldMeta(name="prioritizationStakeholders", type_name="String", description="Prioritization Stakeholders", hint="Who participates in prioritization", order=1), SomFormFieldMeta(name="prioritizationFrequency", type_name="String", description="Prioritization Frequency", hint="Once, per-phase, continuous", order=2), SomFormFieldMeta(name="prioritizationDocumentation", type_name="String", description="Prioritization Documentation", hint="How decisions are documented", order=3), SomFormFieldMeta(name="prioritizationReview", type_name="String", description="Prioritization Review", hint="When priorities are reviewed", order=4), SomFormFieldMeta(name="conflictResolutionAuthority", type_name="String", description="Conflict Resolution Authority", hint="Who resolves priority conflicts", order=5)])),
          SomMetaNode(
             class_name="QualityPrioritization",
             member_name="prioritizationOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overview of how quality attributes are prioritized, including stakeholder involvement and decision process.",
             doc_comment="Prioritization approach overview."),
@@ -37086,7 +37694,7 @@ def _mc_QualityPrioritization(s):
                 class_section_id="WEQUMA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="WeightedQualityMatrix",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.6.1. Weighted Quality Matrix.",
                 class_doc_comment="11.6.1. Weighted Quality Matrix.",
                 recursive=r,
@@ -37098,7 +37706,7 @@ def _mc_QualityPrioritization(s):
                 class_section_id="TROFDE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TradeOffDecisions",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="11.6.2. Trade-off Decisions.",
                 class_doc_comment="11.6.2. Trade-off Decisions.\n\nExplicit trade-off decisions between quality attributes.",
                 recursive=r,
@@ -37799,18 +38407,26 @@ def _mc_ReliabilityCharacteristic(s):
     return [
          SomMetaNode(
             class_name="ReliabilityCharacteristic",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce reliability for this system before the availability, service-level and monitoring subsections below. Cover the cost of downtime that justifies the targets."),
+         SomMetaNode(
+            class_name="ReliabilityCharacteristic",
             member_name="reliabilityContent",
             section_id="RELC-RELI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="operationsMaturityModel", type_name="String", description="Operations Maturity Model", hint="ITIL, DevOps, SRE", order=0), SomFormFieldMeta(name="operationsPhilosophy", type_name="String", description="Operations Philosophy", hint="Ops-driven, DevOps, NoOps", order=1), SomFormFieldMeta(name="operationsResponsibility", type_name="String", description="Operations Responsibility", hint="Dedicated team, shared, outsourced", order=2), SomFormFieldMeta(name="incidentManagementProcess", type_name="String", description="Incident Management Process", hint="PagerDuty, custom, ITIL-based", order=3), SomFormFieldMeta(name="changeManagementProcess", type_name="String", description="Change Management Process", hint="ITIL change management, lightweight", order=4), SomFormFieldMeta(name="operationsToolchain", type_name="String", description="Operations Toolchain", hint="Key ops tools and platforms", order=5)])),
          SomMetaNode(
             class_name="ReliabilityCharacteristic",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of reliability and operational requirements, support model, and key operational metrics.",
             doc_comment="Reliability overview narrative."),
@@ -37821,7 +38437,7 @@ def _mc_ReliabilityCharacteristic(s):
                 class_section_id="REQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Reliability",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.6.1. Reliability (product reliability attributes).",
                 class_doc_comment="11.3.6. Reliability quality.",
                 recursive=r,
@@ -37833,7 +38449,7 @@ def _mc_ReliabilityCharacteristic(s):
                 class_section_id="AVQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Availability",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="11.6.2. Availability.",
                 class_doc_comment="11.4.1. Availability quality.",
                 recursive=r,
@@ -37845,7 +38461,7 @@ def _mc_ReliabilityCharacteristic(s):
                 class_section_id="SELEQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ServiceLevel",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="11.6.3. Service Level Requirements.",
                 class_doc_comment="11.4.2. Service level quality.",
                 recursive=r,
@@ -37857,7 +38473,7 @@ def _mc_ReliabilityCharacteristic(s):
                 class_section_id="MOQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="OperationalMonitoring",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="11.6.4. Monitoring and Prevention.",
                 class_doc_comment="11.4.3. Monitoring quality.",
                 recursive=r,
@@ -37931,10 +38547,18 @@ def _mc_ReplacementInventory(s):
     return [
          SomMetaNode(
             class_name="ReplacementInventory",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the replacement inventory before the individual systems below. Cover the portfolio-level metrics and the sequencing logic."),
+         SomMetaNode(
+            class_name="ReplacementInventory",
             member_name="portfolioSummary",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Summarize the replacement portfolio: total system count, technology categories, combined user base, and overall complexity.",
             doc_comment="Portfolio summary before listing individual systems."),
@@ -37943,7 +38567,7 @@ def _mc_ReplacementInventory(s):
             member_name="prioritizationCriteria",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe how replacement order is determined: business value, technical debt, risk, dependency chains, resource availability.",
             doc_comment="Prioritization criteria for replacement sequencing."),
@@ -37954,7 +38578,7 @@ def _mc_ReplacementInventory(s):
             section_id_pattern="SYTORE-SYST-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemToReplaceEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment.",
             doc_comment="Contains 0+× SystemToReplaceEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — application portfolio management", "Gartner TIME model (Tolerate, Invest, Migrate, Eliminate) — application rationalization"], "connotation": "Lists each individual system to be replaced as a comprehensive assessment entry within the replacement portfolio."})],
@@ -39540,11 +40164,19 @@ def _mc_ResponsiveBehavior(s):
     return [
          SomMetaNode(
             class_name="ResponsiveBehavior",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how the interface adapts across breakpoints before the layout, navigation and visibility subsections below. Cover what is hidden rather than reflowed, and why."),
+         SomMetaNode(
+            class_name="ResponsiveBehavior",
             member_name="layoutAdaptation",
             section_id="REBE-LAYO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="mobileColumnLayout", type_name="String", description="Mobile Column Layout", hint="Single column, stacked", order=0), SomFormFieldMeta(name="tabletColumnLayout", type_name="String", description="Tablet Column Layout", hint="2-column, master-detail", order=1), SomFormFieldMeta(name="desktopColumnLayout", type_name="String", description="Desktop Column Layout", hint="3-column, sidebar + main", order=2)])),
          SomMetaNode(
             class_name="ResponsiveBehavior",
@@ -39552,7 +40184,7 @@ def _mc_ResponsiveBehavior(s):
             section_id="REBENA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Navigation patterns per device class.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="mobileNavigation", type_name="String", description="Mobile Navigation", hint="Bottom nav bar, hamburger drawer", order=0), SomFormFieldMeta(name="tabletNavigation", type_name="String", description="Tablet Navigation", hint="Navigation rail, collapsible drawer", order=1), SomFormFieldMeta(name="desktopNavigation", type_name="String", description="Desktop Navigation", hint="Full sidebar, top navigation", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C Responsive Web Design — the navigation pattern adapts to the viewport size of each device class", "ISO/IEC 25010:2023 — adaptability selects a navigation form suited to the display environment"], "connotation": "The navigation patterns chosen for mobile, tablet, and desktop device classes."})]),
@@ -39562,7 +40194,7 @@ def _mc_ResponsiveBehavior(s):
             section_id="REBEVI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Visibility rules.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="mobileHiddenElements", type_name="String", description="Mobile Hidden Elements", hint="Elements hidden on mobile", order=0), SomFormFieldMeta(name="tabletHiddenElements", type_name="String", description="Tablet Hidden Elements", hint="Elements hidden on tablet", order=1), SomFormFieldMeta(name="desktopOnlyElements", type_name="String", description="Desktop Only Elements", hint="Elements shown only on desktop", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["WCAG 2.2 SC 1.4.10 Reflow — showing or hiding elements per viewport keeps content usable without loss of function", "ISO/IEC 25010:2023 — adaptability tailors what is presented to the capabilities of the display environment"], "connotation": "The rules describing which elements are shown or hidden at each device class to keep the interface usable."})]),
@@ -39572,7 +40204,7 @@ def _mc_ResponsiveBehavior(s):
             section_id="REBETO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Touch and interaction optimizations.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="touchTargetMinSize", type_name="String", description="Touch Target Min Size", hint="Minimum touch target (48dp recommended)", order=0), SomFormFieldMeta(name="hoverEffects", type_name="String", description="Hover Effects", hint="When to show hover effects", order=1), SomFormFieldMeta(name="gesturePriority", type_name="String", description="Gesture Priority", hint="Swipe, long-press on touch devices", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — operability requires interaction targets suited to the input device in use", "WCAG 2.2 SC 2.5.8 Target Size — touch targets are large enough to operate reliably on touch devices"], "connotation": "The rules optimizing touch targets, hover behavior, and gesture priority for the input capabilities of each device."})]),
@@ -39582,7 +40214,7 @@ def _mc_ResponsiveBehavior(s):
             section_id="REBECO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Content reflow rules.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="contentReflowStrategy", type_name="String", description="Content Reflow Strategy", hint="How content reflows across breakpoints", order=0), SomFormFieldMeta(name="imageScaling", type_name="String", description="Image Scaling", hint="How images scale responsively", order=1), SomFormFieldMeta(name="tableResponsiveness", type_name="String", description="Table Responsiveness", hint="Horizontal scroll, cards, hide columns", order=2), SomFormFieldMeta(name="formLayout", type_name="String", description="Form Layout", hint="How forms adapt: single column, multi-column", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["WCAG 2.2 SC 1.4.10 Reflow — content reflows into a single column without loss of information or function at small viewports", "W3C Responsive Web Design — content adapts fluidly as the viewport changes"], "connotation": "The rules describing how content, images, tables, and forms reflow as the viewport changes across breakpoints."})]),
@@ -39591,7 +40223,7 @@ def _mc_ResponsiveBehavior(s):
             member_name="behaviorNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Detailed description of responsive behavior across all breakpoints and device types.",
             doc_comment="Responsive behavior narrative."),
@@ -39602,7 +40234,7 @@ def _mc_ResponsiveBehavior(s):
             section_id_pattern="RESPSR-SCRE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ResponsiveScreenRuleEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per screen with distinct responsive rules.",
             doc_comment="Screen-specific responsive rules.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — presentation of information adapts per screen to the available display area"], "connotation": "The collection of screen-specific responsive rule entries."})],
@@ -39614,18 +40246,26 @@ def _mc_ResponsiveDesign(s):
     return [
          SomMetaNode(
             class_name="ResponsiveDesign",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the responsive strategy before the breakpoint and behaviour subsections below. Cover the device classes supported and which of them is designed for first."),
+         SomMetaNode(
+            class_name="ResponsiveDesign",
             member_name="responsiveOverview",
             section_id="REDE-RESP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="responsivePhilosophy", type_name="String", description="Responsive Philosophy", hint="Mobile-first, desktop-first, adaptive", order=0), SomFormFieldMeta(name="primaryTargetDevice", type_name="String", description="Primary Target Device", hint="Mobile phone, tablet, desktop", order=1), SomFormFieldMeta(name="deviceAssumptions", type_name="String", description="Device Assumptions", hint="Assumptions about target devices", order=2), SomFormFieldMeta(name="responsiveFramework", type_name="String", description="Responsive Framework", hint="LayoutBuilder, MediaQuery, responsive_framework", order=3), SomFormFieldMeta(name="breakpointPackage", type_name="String", description="Breakpoint Package", hint="Custom, responsive_framework, flutter_screenutil", order=4), SomFormFieldMeta(name="orientationSupport", type_name="String", description="Orientation Support", hint="Portrait only, landscape only, both", order=5), SomFormFieldMeta(name="responsiveTestingApproach", type_name="String", description="Responsive Testing Approach", hint="Device lab, emulator matrix, golden tests", order=6), SomFormFieldMeta(name="targetDeviceMatrix", type_name="String", description="Target Device Matrix", hint="List of target devices for testing", order=7)])),
          SomMetaNode(
             class_name="ResponsiveDesign",
             member_name="responsiveNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overview of responsive design approach, key decisions, and implementation strategy.",
             doc_comment="Responsive design narrative."),
@@ -39636,7 +40276,7 @@ def _mc_ResponsiveDesign(s):
                 class_section_id="BC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="BreakpointConfiguration",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="10.10.1. Breakpoints.",
                 class_doc_comment="10.10.1. Breakpoints.\n\nBreakpoint definitions for responsive layouts.",
                 recursive=r,
@@ -39648,7 +40288,7 @@ def _mc_ResponsiveDesign(s):
                 class_section_id="REBE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ResponsiveBehavior",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="10.10.2. Responsive Behavior.",
                 class_doc_comment="10.10.2. Responsive Behavior.\n\nHow the UI adapts across breakpoints.",
                 recursive=r,
@@ -39919,11 +40559,19 @@ def _mc_ReusablePrototype(s):
     return [
          SomMetaNode(
             class_name="ReusablePrototype",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the reusable prototype before the architecture, integration and transition subsections below. Cover the quality bar it must meet to survive into the product."),
+         SomMetaNode(
+            class_name="ReusablePrototype",
             member_name="reusableContent",
             section_id="REUPRO-REUS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="codeQualityRequirements", type_name="String", description="Code Quality Requirements", hint="Standards prototype code must meet", order=0), SomFormFieldMeta(name="testCoverageRequirement", type_name="String", description="Test Coverage Requirement", hint="Required test coverage", order=1), SomFormFieldMeta(name="codeReviewRequired", type_name="bool", description="Code Review Required", hint="Whether code review is required", order=2), SomFormFieldMeta(name="documentationRequired", type_name="bool", description="Documentation Required", hint="Whether documentation is required", order=3)])),
          SomMetaNode(
             class_name="ReusablePrototype",
@@ -39931,7 +40579,7 @@ def _mc_ReusablePrototype(s):
             section_id="REPRAR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Architecture alignment and refactoring expectations.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="architectureAlignment", type_name="String", description="Architecture Alignment", hint="How prototype aligns with target architecture", order=0), SomFormFieldMeta(name="refactoringPlan", type_name="String", description="Refactoring Plan", hint="Planned refactoring after prototype", order=1), SomFormFieldMeta(name="technicalDebt", type_name="String", description="Technical Debt", hint="Acceptable technical debt", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — the prototype aligns with the target architecture to support maintainability and limit technical debt"], "connotation": "The architecture alignment and refactoring expectations for a reusable prototype."})]),
@@ -39941,7 +40589,7 @@ def _mc_ReusablePrototype(s):
             section_id="REPRIN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Integration and merge strategy.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="integrationPlan", type_name="String", description="Integration Plan", hint="How prototype integrates into product", order=0), SomFormFieldMeta(name="featureBranchStrategy", type_name="String", description="Feature Branch Strategy", hint="Git branching approach", order=1), SomFormFieldMeta(name="mergeCriteria", type_name="String", description="Merge Criteria", hint="Criteria to merge prototype code", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — the prototype is integrated into the product under defined merge criteria to protect maintainability"], "connotation": "The integration and merge strategy for bringing reusable prototype code into the product."})]),
@@ -39951,7 +40599,7 @@ def _mc_ReusablePrototype(s):
             section_id="REPRTR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Transition and handoff planning.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="transitionTimeline", type_name="String", description="Transition Timeline", hint="When the transition to the product occurs", order=0), SomFormFieldMeta(name="teamHandoff", type_name="String", description="Team Handoff", hint="Handoff to development team", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — handoff of the design solution to the development team is planned as part of iterative design"], "connotation": "The transition and handoff planning for a reusable prototype."})]),
@@ -39960,7 +40608,7 @@ def _mc_ReusablePrototype(s):
             member_name="reusableNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Reusable prototype narrative."),
     ]
@@ -40148,6 +40796,14 @@ def _mc_RiskBusinessImpact(s):
 
 def _mc_RiskEntry(s):
     return [
+         SomMetaNode(
+            class_name="RiskEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this risk — how it would actually play out, beyond the analysis, response and monitoring facets recorded below."),
          _cx("RiskIdentification", s, _mc_RiskIdentification,
             lambda r, c: SomMetaNode(
                 class_name="RiskIdentification",
@@ -40155,7 +40811,7 @@ def _mc_RiskEntry(s):
                 class_section_id="RIID",
                 kind=SomMetaKind.COMPLEX,
                 type_name="RiskIdentification",
-                serialization_order=0,
+                serialization_order=1,
                 doc_comment="Risk identification — unique identifier and basic description.",
                 class_doc_comment="Risk identification details.",
                 recursive=r,
@@ -40166,7 +40822,7 @@ def _mc_RiskEntry(s):
             section_id="RIAN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Risk analysis — probability, impact, and scoring.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="probability", type_name="String", description="Probability — Very Low, Low, Medium, High, Very High", hint="Qualitative likelihood rating", order=0), SomFormFieldMeta(name="probabilityValue", type_name="double", description="Probability Value — numeric (0.0-1.0) for quantitative analysis", hint="Numeric likelihood between 0.0 and 1.0", order=1), SomFormFieldMeta(name="impact", type_name="String", description="Impact — Negligible, Minor, Moderate, Major, Catastrophic", hint="Qualitative severity rating", order=2), SomFormFieldMeta(name="impactValue", type_name="double", description="Impact Value — numeric score (1-5 or monetary value)", hint="Numeric severity score or monetary value", order=3), SomFormFieldMeta(name="riskScore", type_name="double", description="Risk Score — calculated (probability × impact)", hint="Computed score from probability times impact", order=4), SomFormFieldMeta(name="riskLevel", type_name="String", description="Risk Level — Low, Medium, High, Critical", hint="Overall risk level classification", order=5), SomFormFieldMeta(name="riskRanking", type_name="int", description="Risk Ranking — priority relative to other risks", hint="Priority rank relative to other risks", order=6), SomFormFieldMeta(name="analysisMethod", type_name="String", description="Analysis Method — Qualitative, Semi-quantitative, Quantitative", hint="Method used to assess the risk", order=7), SomFormFieldMeta(name="confidenceLevel", type_name="String", description="Confidence Level — in probability/impact estimates", hint="Confidence in the probability and impact estimates", order=8), SomFormFieldMeta(name="analysisNotes", type_name="String", description="Analysis Notes — methodology and findings", hint="Notes on methodology and findings", order=9)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 31010 — risk assessment techniques", "ISO 31000:2018 — risk management", "PMBOK — project risk management"], "connotation": "This section captures the probability, impact, and resulting score that quantify a risk and drive its prioritization."})]),
@@ -40177,7 +40833,7 @@ def _mc_RiskEntry(s):
                 class_section_id="RIRE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="RiskResponse",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="Risk response — strategy and planned actions.",
                 class_doc_comment="Risk response — strategy and planned actions.",
                 recursive=r,
@@ -40188,7 +40844,7 @@ def _mc_RiskEntry(s):
             section_id="RIOW",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Risk ownership and governance.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="riskOwner", type_name="String", description="Risk Owner — person accountable for monitoring", hint="Person accountable for monitoring the risk", order=0), SomFormFieldMeta(name="riskOwnerRole", type_name="String", description="Owner Role — role/title", hint="Role or title of the risk owner", order=1), SomFormFieldMeta(name="actionOwners", type_name="String", description="Action Owners — people responsible for mitigation actions", hint="People responsible for mitigation actions", order=2), SomFormFieldMeta(name="escalationContact", type_name="String", description="Escalation Contact — who to escalate to if risk worsens", hint="Who to escalate to if the risk worsens", order=3), SomFormFieldMeta(name="stakeholdersInformed", type_name="String", description="Stakeholders Informed — who needs to be kept informed", hint="Stakeholders to keep informed", order=4), SomFormFieldMeta(name="approvalRequired", type_name="bool", description="Approval Required — whether response actions need approval", hint="Whether response actions require approval", order=5), SomFormFieldMeta(name="approver", type_name="String", description="Approver — person who must approve response actions", hint="Person who must approve response actions", order=6), SomFormFieldMeta(name="decisionAuthority", type_name="String", description="Decision Authority — authority level for decisions", hint="Authority level for risk decisions", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000:2018 — risk management", "PMBOK — project risk management"], "connotation": "This section assigns accountability and approval authority for the risk so governance and escalation lines are unambiguous."})]),
@@ -40199,7 +40855,7 @@ def _mc_RiskEntry(s):
                 class_section_id="RIMO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="RiskMonitoring",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Risk monitoring and tracking details.",
                 class_doc_comment="Risk monitoring and tracking.",
                 recursive=r,
@@ -40211,7 +40867,7 @@ def _mc_RiskEntry(s):
                 class_section_id="RIBUIM",
                 kind=SomMetaKind.COMPLEX,
                 type_name="RiskBusinessImpact",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Business impact assessment.",
                 class_doc_comment="Business impact assessment for the risk.",
                 recursive=r,
@@ -40223,7 +40879,7 @@ def _mc_RiskEntry(s):
             section_id_pattern="RR-RELA-xxx",
             kind=SomMetaKind.LIST,
             type_name="RiskRelationships",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Relationships connecting this risk to other risks, assumptions, requirements, and affected project elements.",
             doc_comment="Relationships to other risks, assumptions, and project elements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000:2018 — risk management", "PMBOK — project risk management"], "connotation": "This list links the risk to related risks, assumptions, requirements, and components so dependencies and ripple effects are visible."})],
@@ -40343,11 +40999,19 @@ def _mc_RisksAndAssumptions(s):
     return [
          SomMetaNode(
             class_name="RisksAndAssumptions",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the risk register before the individual risks below. Cover how risks are identified, how often the register is reviewed, and who owns it."),
+         SomMetaNode(
+            class_name="RisksAndAssumptions",
             member_name="overview",
             section_id="RIOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Overview of the risk management approach for this project.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="riskManagementApproach", type_name="String", description="Risk Management Approach — overall methodology and framework", hint="Describe the methodology and framework used to manage risk", order=0), SomFormFieldMeta(name="riskAppetite", type_name="String", description="Risk Appetite — organization tolerance (risk-averse, risk-neutral, risk-seeking)", hint="State the organization tolerance level for risk", order=1), SomFormFieldMeta(name="riskThresholds", type_name="String", description="Risk Thresholds — quantitative escalation levels (e.g., cost > $50K)", hint="Define quantitative thresholds that trigger escalation", order=2), SomFormFieldMeta(name="riskReviewCadence", type_name="String", description="Risk Review Cadence — frequency of review meetings", hint="How often risks are reviewed", order=3), SomFormFieldMeta(name="escalationPath", type_name="String", description="Escalation Path — hierarchy for escalating high-severity risks", hint="Chain of escalation for high-severity risks", order=4), SomFormFieldMeta(name="riskTooling", type_name="String", description="Risk Management Tooling — tools used to track risks", hint="Tools or systems used to track and report risks", order=5), SomFormFieldMeta(name="riskCategories", type_name="String", description="Risk Categories — Technical, Schedule, Cost, Resource, External, etc.", hint="Categories used to classify risks", order=6), SomFormFieldMeta(name="probabilityScale", type_name="String", description="Probability Scale — Very Low (<10%), Low (10-30%), Medium (30-50%), High (50-70%), Very High (>70%)", hint="Scale used to rate likelihood of occurrence", order=7), SomFormFieldMeta(name="impactScale", type_name="String", description="Impact Scale — Negligible, Minor, Moderate, Major, Catastrophic with criteria", hint="Scale used to rate severity of impact", order=8)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000:2018 — risk management", "PMBOK — project risk management", "ISO/IEC 31010 — risk assessment techniques"], "connotation": "This section captures the overarching risk management methodology, appetite, and scales that frame how every individual risk is assessed."})]),
@@ -40358,7 +41022,7 @@ def _mc_RisksAndAssumptions(s):
             section_id_pattern="RISENT-KEYR-xxx",
             kind=SomMetaKind.LIST,
             type_name="RiskEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.",
             doc_comment="4.7.1. Key Risks — contains 0+× Risk.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 31000:2018 — risk management", "PMBOK — project risk management"], "connotation": "This list holds the individual risk entries that make up the project risk register and drive prioritization and response planning."})],
@@ -41213,11 +41877,19 @@ def _mc_ScenarioEntry(s):
     return [
          SomMetaNode(
             class_name="ScenarioEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this scenario — the end-to-end story it tells, beyond the steps, data and timing recorded below."),
+         SomMetaNode(
+            class_name="ScenarioEntry",
             member_name="identification",
             section_id="SCID",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Scenario identification.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioType", type_name="String", description="Scenario Type — happy path, alternative, exception", hint="One of happy path, alternative, or exception", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description — narrative summary", hint="One-paragraph narrative of the journey", order=1), SomFormFieldMeta(name="businessGoal", type_name="String", description="Business Goal — what is achieved", hint="The outcome the actor is trying to reach", order=2), SomFormFieldMeta(name="primaryActor", type_name="String", description="Primary Actor — who performs scenario", hint="The main actor driving the scenario", order=3), SomFormFieldMeta(name="supportingActors", type_name="String", description="Supporting Actors — who else", hint="Other actors or systems that participate", order=4), SomFormFieldMeta(name="priority", type_name="String", description="Priority — critical, high, medium, low", hint="Business priority of this scenario", order=5), SomFormFieldMeta(name="complexity", type_name="String", description="Complexity — simple, moderate, complex", hint="Relative implementation/test complexity", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: scenarios & scenario identity", "ISO/IEC/IEEE 29148 §6 — operational scenarios"], "connotation": "Captures the identifying attributes of a single key end-to-end scenario."})]),
@@ -41227,7 +41899,7 @@ def _mc_ScenarioEntry(s):
             section_id="SCCO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Scenario context.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="preconditions", type_name="String", description="Preconditions — required initial state", hint="State that must hold before the scenario starts", order=0), SomFormFieldMeta(name="trigger", type_name="String", description="Trigger — what starts the scenario", hint="The event that initiates the scenario", order=1), SomFormFieldMeta(name="successCondition", type_name="String", description="Success Condition — how to know it worked", hint="Observable state indicating success", order=2), SomFormFieldMeta(name="failureCondition", type_name="String", description="Failure Condition — how to know it failed", hint="Observable state indicating failure", order=3), SomFormFieldMeta(name="assumptions", type_name="String", description="Assumptions — what is assumed true", hint="Assumptions taken as given for this scenario", order=4), SomFormFieldMeta(name="outOfScope", type_name="String", description="Out of Scope — what is not included", hint="What this scenario deliberately excludes", order=5), SomFormFieldMeta(name="relatedInteractions", type_name="String", description="Related Interactions — INT-xxx references", hint="INT-xxx interactions referenced by this scenario", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: preconditions, triggers & guarantees", "ISO/IEC/IEEE 29148 §6 — operational scenarios"], "connotation": "Establishes the surrounding conditions of the scenario: preconditions, trigger, success/failure conditions, and scope."})]),
@@ -41238,7 +41910,7 @@ def _mc_ScenarioEntry(s):
             section_id_pattern="SCNST-STEP-xxx",
             kind=SomMetaKind.LIST,
             type_name="ScenarioStepEntry",
-            serialization_order=2,
+            serialization_order=3,
             min=1,
             content_help="Add one entry per main-flow step, in order.",
             doc_comment="Contains 1+× Scenario Step.",
@@ -41251,7 +41923,7 @@ def _mc_ScenarioEntry(s):
             section_id_pattern="ALFL-ALTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="AlternativeFlowEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per alternative or exception flow.",
             doc_comment="Alternative flows — contains 0+× Alternative Flow.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: extensions & alternative flows"], "connotation": "The valid variations and exception branches that diverge from the main success path of the scenario."})],
@@ -41262,7 +41934,7 @@ def _mc_ScenarioEntry(s):
             section_id="SCDA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Scenario data.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="inputData", type_name="String", description="Input Data — data needed to start", hint="Data required before the scenario can run", order=0), SomFormFieldMeta(name="outputData", type_name="String", description="Output Data — data produced", hint="Data the scenario produces on completion", order=1), SomFormFieldMeta(name="testDataRequirements", type_name="String", description="Test Data Requirements — data for testing", hint="Data needed to exercise this scenario in tests", order=2), SomFormFieldMeta(name="dataTransformations", type_name="String", description="Data Transformations — how data changes", hint="How data is transformed through the scenario", order=3), SomFormFieldMeta(name="dataValidations", type_name="String", description="Data Validations — checks performed", hint="Validation checks applied to the data", order=4), SomFormFieldMeta(name="sampleDataValues", type_name="String", description="Sample Data Values — example input/output", hint="Concrete example values for input/output", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29119 — software testing (scenario validation)", "BABOK v3 — use cases & scenarios"], "connotation": "Specifies the input, output, test, and sample data the scenario consumes, produces, and transforms."})]),
@@ -41272,7 +41944,7 @@ def _mc_ScenarioEntry(s):
             section_id="SCTI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Scenario timing.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="totalDuration", type_name="String", description="Total Duration — end-to-end time", hint="Expected end-to-end elapsed time", order=0), SomFormFieldMeta(name="userActiveTime", type_name="String", description="User Active Time — user effort", hint="Time the user is actively engaged", order=1), SomFormFieldMeta(name="systemProcessingTime", type_name="String", description="System Processing Time — system work", hint="Time the system spends processing", order=2), SomFormFieldMeta(name="waitTime", type_name="String", description="Wait Time — delays for external factors", hint="Delays waiting on external factors", order=3), SomFormFieldMeta(name="timeConstraints", type_name="String", description="Time Constraints — deadlines, SLAs", hint="Deadlines or SLAs the scenario must meet", order=4), SomFormFieldMeta(name="timeoutHandling", type_name="String", description="Timeout Handling — what if too slow", hint="What happens if timing limits are exceeded", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — performance efficiency", "ISO/IEC/IEEE 29148 §6 — operational scenarios"], "connotation": "Defines the timing expectations of the scenario: total duration, user/system time, wait time, constraints, and timeout handling."})]),
@@ -41282,7 +41954,7 @@ def _mc_ScenarioEntry(s):
             section_id="SCVA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             doc_comment="Scenario validation.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="acceptanceCriteria", type_name="String", description="Acceptance Criteria — how success is verified", hint="Criteria that confirm the scenario succeeded", order=0), SomFormFieldMeta(name="testScenarios", type_name="String", description="Test Scenarios — TC-xxx references", hint="TC-xxx test cases covering this scenario", order=1), SomFormFieldMeta(name="verificationMethod", type_name="String", description="Verification Method — manual, automated", hint="How the scenario is verified: manual or automated", order=2), SomFormFieldMeta(name="validationData", type_name="String", description="Validation Data — data to check", hint="Data checked to validate the outcome", order=3), SomFormFieldMeta(name="expectedMetrics", type_name="String", description="Expected Metrics — performance targets", hint="Performance or quality targets to meet", order=4), SomFormFieldMeta(name="knownIssues", type_name="String", description="Known Issues — documented problems", hint="Documented problems or limitations", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29119 — software testing (scenario validation)", "Cockburn — Writing Effective Use Cases: success guarantees"], "connotation": "Defines how the scenario is validated: acceptance criteria, test references, verification method, and expected metrics."})]),
@@ -42863,18 +43535,26 @@ def _mc_SecurityCharacteristic(s):
     return [
          SomMetaNode(
             class_name="SecurityCharacteristic",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the security quality expectations before the security and IT-security-operations subsections below. Cover the threat model the expectations answer to."),
+         SomMetaNode(
+            class_name="SecurityCharacteristic",
             member_name="securityContent",
             section_id="SECC-SECU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="securityApproach", type_name="String", description="Security Approach", hint="Zero-trust, defence-in-depth, least-privilege", order=0), SomFormFieldMeta(name="securityComplianceTarget", type_name="String", description="Security Compliance Target", hint="ISO 27001, SOC 2, GDPR, sector-specific", order=1)])),
          SomMetaNode(
             class_name="SecurityCharacteristic",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of security goals, threat model, and compliance targets.",
             doc_comment="Security overview."),
@@ -42885,7 +43565,7 @@ def _mc_SecurityCharacteristic(s):
                 class_section_id="SEQU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Security",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="11.7.1. Security (product security attributes).",
                 class_doc_comment="11.3.4. Security quality.",
                 recursive=r,
@@ -42897,7 +43577,7 @@ def _mc_SecurityCharacteristic(s):
                 class_section_id="ISOQ",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ItSecurityOperations",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="11.7.2. IT Security Operations.",
                 class_doc_comment="11.4.4. IT Security Operations quality.",
                 recursive=r,
@@ -44837,18 +45517,26 @@ def _mc_SlaAndSloMonitoring(s):
     return [
          SomMetaNode(
             class_name="SlaAndSloMonitoring",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the service-level regime before the SLI, SLO and error-budget subsections below. Cover which agreements are contractual and which are internal objectives."),
+         SomMetaNode(
+            class_name="SlaAndSloMonitoring",
             member_name="slaOverview",
             section_id="SASM-SLAO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sloFramework", type_name="String", description="SLO Framework", hint="Google SRE, custom", order=0), SomFormFieldMeta(name="errorBudgetPolicy", type_name="String", description="Error Budget Policy", hint="How error budget is managed", order=1), SomFormFieldMeta(name="errorBudgetExhaustionPolicy", type_name="String", description="Error Budget Exhaustion Policy", hint="Actions when budget exhausted", order=2), SomFormFieldMeta(name="slaReportingCadence", type_name="String", description="SLA Reporting Cadence", hint="Weekly, monthly SLA reports", order=3), SomFormFieldMeta(name="slaReportingAudience", type_name="String", description="SLA Reporting Audience", hint="Who receives SLA reports", order=4), SomFormFieldMeta(name="slaBreachProcess", type_name="String", description="SLA Breach Process", hint="Process when SLA is breached", order=5), SomFormFieldMeta(name="customerFacingSLAs", type_name="bool", description="Customer-Facing SLAs", hint="SLAs published to customers", order=6), SomFormFieldMeta(name="slaCredits", type_name="String", description="SLA Credits", hint="Credit/refund policy for breaches", order=7), SomFormFieldMeta(name="slaExclusions", type_name="String", description="SLA Exclusions", hint="Maintenance windows, force majeure", order=8)])),
          SomMetaNode(
             class_name="SlaAndSloMonitoring",
             member_name="overviewNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="SLA/SLO overview narrative."),
          _cx("ServiceLevelIndicators", s, _mc_ServiceLevelIndicators,
@@ -44858,7 +45546,7 @@ def _mc_SlaAndSloMonitoring(s):
                 class_section_id="SELEIN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ServiceLevelIndicators",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="Service Level Indicators.",
                 class_doc_comment="Service Level Indicators.",
                 recursive=r,
@@ -44870,7 +45558,7 @@ def _mc_SlaAndSloMonitoring(s):
             section_id_pattern="SE-SLOS-xxx",
             kind=SomMetaKind.LIST,
             type_name="SloEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per SLO.",
             doc_comment="SLO catalog.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Google SRE — service level objectives (SLOs and SLIs)"], "connotation": "The catalog of service level objectives the system commits to."})],
@@ -44882,7 +45570,7 @@ def _mc_SlaAndSloMonitoring(s):
                 class_section_id="ERBUTR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ErrorBudgetTracking",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Error budget tracking.",
                 class_doc_comment="Error budget tracking.",
                 recursive=r,
@@ -45302,11 +45990,19 @@ def _mc_StaffingPlan(s):
     return [
          SomMetaNode(
             class_name="StaffingPlan",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the staffing approach before the budget, position and timeline subsections below. Cover build-versus-buy and the constraints on hiring."),
+         SomMetaNode(
+            class_name="StaffingPlan",
             member_name="overview",
             section_id="STPLOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Staffing plan overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="staffingStrategy", type_name="String", description="Staffing Strategy", hint="Hire / Promote / Contract / Outsource mix — overall approach", order=0), SomFormFieldMeta(name="sourcingChannels", type_name="String", description="Sourcing Channels", hint="Internal / External / Agencies / Referrals", order=1), SomFormFieldMeta(name="selectionProcess", type_name="String", description="Selection Process", hint="Interviews, assessments, background checks — selection steps", order=2), SomFormFieldMeta(name="onboardingApproach", type_name="String", description="Onboarding Approach", hint="New hire integration plan and timeline", order=3), SomFormFieldMeta(name="retentionStrategy", type_name="String", description="Retention Strategy", hint="How to keep critical talent — compensation, growth, culture", order=4), SomFormFieldMeta(name="successionPlanning", type_name="String", description="Succession Planning", hint="Backup for key positions — deputies, knowledge transfer", order=5), SomFormFieldMeta(name="contingentWorkforce", type_name="String", description="Contingent Workforce", hint="Contractors, temps, consultants — scope and governance", order=6), SomFormFieldMeta(name="geographicDistribution", type_name="String", description="Geographic Distribution", hint="Locations where hires are needed — remote/on-site split", order=7), SomFormFieldMeta(name="diversityTargets", type_name="String", description="Diversity & Inclusion Targets", hint="DEI hiring goals and constraints on sourcing/selection process", order=8), SomFormFieldMeta(name="complianceRequirements", type_name="String", description="Labor Compliance Requirements", hint="Labor law, visa/work-permit constraints, union agreements, works council obligations", order=9)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — HR best practices (job design, staffing, workforce planning)", "PMBOK — resource management (acquire/develop/manage team)"], "connotation": "Describes the overall staffing strategy — how positions will be sourced, selected, onboarded, and retained, plus geographic, diversity, and compliance constraints."})]),
@@ -45317,7 +46013,7 @@ def _mc_StaffingPlan(s):
                 class_section_id="STBU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="StaffingBudget",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="Budget details.",
                 class_doc_comment="Staffing budget details.",
                 recursive=r,
@@ -45329,7 +46025,7 @@ def _mc_StaffingPlan(s):
             section_id_pattern="STFE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="StaffingEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per staffing position to be filled.",
             doc_comment="Contains 0+× Staffing entry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — resource management (acquire/develop/manage team)"], "connotation": "The set of individual staffing positions to be filled, each with its role, capacity, sourcing, budget, and timeline."})],
@@ -45340,7 +46036,7 @@ def _mc_StaffingPlan(s):
             section_id="RETI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Recruitment timeline.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="recruitmentStart", type_name="String", description="Recruitment Start Date", hint="When recruitment activities begin", order=0), SomFormFieldMeta(name="recruitmentEnd", type_name="String", description="Recruitment End Date", hint="Target date for completing all hiring", order=1), SomFormFieldMeta(name="criticalHires", type_name="String", description="Critical Hires", hint="Roles that must be filled first — blocking dependencies", order=2), SomFormFieldMeta(name="hiringWaves", type_name="String", description="Hiring Waves", hint="Phased recruitment approach — wave 1, wave 2, etc.", order=3), SomFormFieldMeta(name="leadTimeAssumptions", type_name="String", description="Lead Time Assumptions", hint="Expected time to hire per role type — e.g. 8 weeks for senior", order=4), SomFormFieldMeta(name="onboardingWaves", type_name="String", description="Onboarding Waves", hint="Start date cohorts for coordinated onboarding", order=5), SomFormFieldMeta(name="externalDependencies", type_name="String", description="External Dependencies", hint="Notice periods, visa processing, security clearance lead times — blockers outside your control", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — talent acquisition / time-to-fill", "PMBOK — resource management (acquire/develop/manage team)"], "connotation": "Lays out the schedule for hiring — start and end dates, critical hires, hiring and onboarding waves, lead-time assumptions, and external dependencies that gate fill dates."})]),
@@ -46951,11 +47647,19 @@ def _mc_SuccessCriteriaByCategory(s):
     return [
          SomMetaNode(
             class_name="SuccessCriteriaByCategory",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the success criteria before the per-category buckets below. Cover who judges success and at what point the judgement is made."),
+         SomMetaNode(
+            class_name="SuccessCriteriaByCategory",
             member_name="businessCriteria",
             section_id="SCBC-BUSI",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="description", description="Overview of business-focused success criteria including ROI, market impact, and strategic alignment."),
             content_help="Describe how business outcomes will be measured.",
             doc_comment="Business outcome criteria overview."),
@@ -46965,7 +47669,7 @@ def _mc_SuccessCriteriaByCategory(s):
             section_id="SCBC-TECH",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="description", description="Overview of technical quality criteria including performance, reliability, and maintainability."),
             content_help="Describe how technical quality will be measured.",
             doc_comment="Technical quality criteria overview."),
@@ -46975,7 +47679,7 @@ def _mc_SuccessCriteriaByCategory(s):
             section_id="SCBC-USER",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             content_type=SomContentTypeMeta(type="description", description="Overview of user-focused success criteria including adoption, satisfaction, and productivity."),
             content_help="Describe how user satisfaction will be measured.",
             doc_comment="User satisfaction criteria overview."),
@@ -46985,7 +47689,7 @@ def _mc_SuccessCriteriaByCategory(s):
             section_id="SCBC-COMP",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             content_type=SomContentTypeMeta(type="description", description="Overview of compliance-related success criteria including regulatory, security, and audit requirements."),
             content_help="Describe how compliance will be verified.",
             doc_comment="Compliance criteria overview."),
@@ -46995,7 +47699,7 @@ def _mc_SuccessCriteriaByCategory(s):
             section_id="SCBC-PROJ",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="description", description="Overview of project management criteria including timeline adherence, budget compliance, and scope management."),
             content_help="Describe how project execution will be measured.",
             doc_comment="Timeline and budget criteria overview."),
@@ -47092,11 +47796,19 @@ def _mc_SupportAccess(s):
     return [
          SomMetaNode(
             class_name="SupportAccess",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how users reach support before the help-centre, live-support and ticket subsections below. Cover which channels exist and when each is available."),
+         SomMetaNode(
+            class_name="SupportAccess",
             member_name="supportAccessContent",
             section_id="SUAC-SUPP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="helpCenterAvailable", type_name="bool", description="Help Center Available", hint="Whether a help centre is provided", order=0), SomFormFieldMeta(name="liveChatAvailable", type_name="bool", description="Live Chat Available", hint="Whether live chat support is provided", order=1), SomFormFieldMeta(name="ticketSubmission", type_name="bool", description="Ticket Submission", hint="Whether users can submit support tickets", order=2)])),
          SomMetaNode(
             class_name="SupportAccess",
@@ -47104,7 +47816,7 @@ def _mc_SupportAccess(s):
             section_id="SAHC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Help center configuration.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="helpCenterLocation", type_name="String", description="Help Center Location", hint="In-app, external, hybrid", order=0), SomFormFieldMeta(name="helpCenterSearch", type_name="bool", description="Help Center Search", hint="Searchable knowledge base", order=1), SomFormFieldMeta(name="helpArticleCategories", type_name="String", description="Article Categories", hint="How help is organized", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — organises user assistance into a searchable, categorised help repository", "ISO/IEC 20000-1:2018 — offers a knowledge base as a self-service support channel"], "connotation": "The help-centre configuration covering location, search, and article categories."})]),
@@ -47114,7 +47826,7 @@ def _mc_SupportAccess(s):
             section_id="SALS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Live support settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="liveChatHours", type_name="String", description="Live Chat Hours", hint="Availability hours", order=0), SomFormFieldMeta(name="chatbotFirstLine", type_name="bool", description="Chatbot First Line", hint="Chatbot before human", order=1), SomFormFieldMeta(name="chatbotCapabilities", type_name="String", description="Chatbot Capabilities", hint="What chatbot can handle", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 20000-1:2018 — provides interactive support channels staffed within defined availability hours", "ISO/IEC/IEEE 26514:2022 — supplements documented assistance with real-time support interactions"], "connotation": "The live-support settings covering chat hours and chatbot handling."})]),
@@ -47124,7 +47836,7 @@ def _mc_SupportAccess(s):
             section_id="SUACTI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Ticket system configuration.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="ticketFormFields", type_name="String", description="Ticket Form Fields", hint="Required ticket information", order=0), SomFormFieldMeta(name="ticketAttachments", type_name="bool", description="Ticket Attachments", hint="Allow file attachments", order=1), SomFormFieldMeta(name="ticketResponseSla", type_name="String", description="Ticket Response SLA", hint="Expected response time", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 20000-1:2018 — records requests and incidents as tickets and manages them to resolution within agreed targets"], "connotation": "The support-ticket system configuration for submitting and tracking requests."})]),
@@ -47134,7 +47846,7 @@ def _mc_SupportAccess(s):
             section_id="SACM",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Contact methods.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="emailSupport", type_name="bool", description="Email Support", hint="Offer support by email", order=0), SomFormFieldMeta(name="phoneSupport", type_name="bool", description="Phone Support", hint="Offer support by phone", order=1), SomFormFieldMeta(name="phoneNumber", type_name="String", description="Phone Number", hint="Published support phone number", order=2), SomFormFieldMeta(name="communityForum", type_name="bool", description="Community Forum", hint="Offer a community forum for peer support", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 20000-1:2018 — makes support contact channels available so users can reach the service provider", "ISO/IEC/IEEE 26511:2018 — identifies the channels through which users obtain assistance"], "connotation": "The contact methods through which users can reach support."})]),
@@ -47144,7 +47856,7 @@ def _mc_SupportAccess(s):
             section_id="SASS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Self-service and feedback options.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="faqSection", type_name="bool", description="FAQ Section", hint="Offer a frequently asked questions section", order=0), SomFormFieldMeta(name="troubleshootingGuides", type_name="bool", description="Troubleshooting Guides", hint="Provide step-by-step troubleshooting guides", order=1), SomFormFieldMeta(name="videoTutorials", type_name="bool", description="Video Tutorials", hint="Offer instructional video tutorials", order=2), SomFormFieldMeta(name="releaseNotes", type_name="bool", description="Release Notes", hint="Publish release notes for updates", order=3), SomFormFieldMeta(name="feedbackButton", type_name="bool", description="Feedback Button", hint="Always-visible feedback option", order=4), SomFormFieldMeta(name="featureRequests", type_name="bool", description="Feature Requests", hint="Submit feature requests", order=5), SomFormFieldMeta(name="bugReporting", type_name="bool", description="Bug Reporting", hint="Report bugs from app", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 20000-1:2018 — provides self-service channels so users can resolve requests without agent involvement", "ISO/IEC/IEEE 26514:2022 — supplies self-help assistance content such as FAQs and troubleshooting guides"], "connotation": "The self-service and feedback options offered alongside assisted support."})]),
@@ -47153,7 +47865,7 @@ def _mc_SupportAccess(s):
             member_name="supportAccessNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Support access narrative."),
     ]
@@ -47233,10 +47945,18 @@ def _mc_SystemBoundaries(s):
     return [
          SomMetaNode(
             class_name="SystemBoundaries",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the system boundary before the interface, out-of-scope and assumption subsections below. Cover what sits inside the boundary and what the system merely talks to."),
+         SomMetaNode(
+            class_name="SystemBoundaries",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Provide executive summary of system boundaries: integration count, scope philosophy, and boundary governance approach.",
             doc_comment="Overview of system boundaries and scope definition approach."),
@@ -47247,7 +47967,7 @@ def _mc_SystemBoundaries(s):
                 class_section_id="EXIN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExternalInterfaces",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="4.5.1. Interfaces to External Systems — contains 0+×.",
                 class_doc_comment="Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -47260,7 +47980,7 @@ def _mc_SystemBoundaries(s):
                 class_section_id="OUOFSC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="OutOfScope",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="4.5.2. Out of Scope — contains 0+×.",
                 class_doc_comment="4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -47273,7 +47993,7 @@ def _mc_SystemBoundaries(s):
                 class_section_id="BOAS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="BoundaryAssumptions",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="4.5.3. Assumptions — contains 0+×.",
                 class_doc_comment="4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -47286,7 +48006,7 @@ def _mc_SystemBoundaries(s):
                 class_section_id="SYLAIN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemLandscapeInventory",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.",
                 class_doc_comment="4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -47299,7 +48019,7 @@ def _mc_SystemBoundaries(s):
             section_id_pattern="BOINPA-BOUN-xxx",
             kind=SomMetaKind.LIST,
             type_name="BoundaryInteractionPatterns",
-            serialization_order=5,
+            serialization_order=6,
             content_help="List the boundary interaction patterns used across integrations: request-reply, pub-sub, event-driven, batch, etc.",
             doc_comment="4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Enterprise Integration Patterns (EIP) — integration styles", "TOGAF — system context & boundary definition"], "connotation": "Catalogs the recurring interaction patterns at the system boundary so integrations can be designed consistently."})],
@@ -47311,7 +48031,7 @@ def _mc_SystemBoundaries(s):
                 class_section_id="INTES1",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InteractionTestingStrategy",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="4.5.6. Interaction Testing Strategy. Covers IIS-TST.",
                 class_doc_comment="4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -47324,7 +48044,7 @@ def _mc_SystemBoundaries(s):
                 class_section_id="INDEAN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InteractionDependencyAnalysis",
-                serialization_order=7,
+                serialization_order=8,
                 doc_comment="4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.",
                 class_doc_comment="4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -47337,7 +48057,7 @@ def _mc_SystemBoundaries(s):
             section_id_pattern="MIIN-MIGR-xxx",
             kind=SomMetaKind.LIST,
             type_name="MigrationInteractions",
-            serialization_order=8,
+            serialization_order=9,
             content_help="List interactions specific to the migration period, including data backfills, dual-run sync, and cutover handoffs.",
             doc_comment="4.5.8. Migration Interactions. Covers IIS-MIG.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — system context & boundary definition", "Enterprise Integration Patterns (EIP) — integration styles"], "connotation": "Records interactions that exist only during migration so transitional integration work is planned and later retired."})],
@@ -47349,7 +48069,7 @@ def _mc_SystemBoundaries(s):
             section_id_pattern="CBOC-OPER-xxx",
             kind=SomMetaKind.LIST,
             type_name="CrossBoundaryOperationalConsiderations",
-            serialization_order=9,
+            serialization_order=10,
             content_help="List cross-boundary operational concerns: end-to-end monitoring, capacity planning, joint support, and run-book ownership.",
             doc_comment="4.5.9. Cross-Boundary Operational Considerations.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — product quality (operational considerations)", "Enterprise Integration Patterns (EIP) — integration styles"], "connotation": "Captures operational concerns that span the system boundary, such as monitoring, capacity, and support across integrations."})],
@@ -47361,7 +48081,7 @@ def _mc_SystemBoundaries(s):
                 class_section_id="CBEH",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CrossBoundaryErrorHandling",
-                serialization_order=10,
+                serialization_order=11,
                 doc_comment="4.5.10. Cross-Boundary Error Handling.",
                 class_doc_comment="4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.",
                 detailed_in="D07IntegrationInterfaceSpecification",
@@ -47971,11 +48691,19 @@ def _mc_SystemErrorDisplay(s):
     return [
          SomMetaNode(
             class_name="SystemErrorDisplay",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how system-side failures are presented before the error-type, display and fallback subsections below. Cover what the user is told and what is deliberately withheld."),
+         SomMetaNode(
+            class_name="SystemErrorDisplay",
             member_name="systemErrorContent",
             section_id="SYERDI-SYST",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="networkErrorHandling", type_name="String", description="Network Error Handling", hint="How connectivity issues are displayed", order=0), SomFormFieldMeta(name="systemErrorDisplayMethod", type_name="String", description="Display Method", hint="Modal, snackbar, banner, full-page", order=1), SomFormFieldMeta(name="gracefulDegradation", type_name="String", description="Graceful Degradation", hint="How features degrade on partial failure", order=2)])),
          SomMetaNode(
             class_name="SystemErrorDisplay",
@@ -47983,7 +48711,7 @@ def _mc_SystemErrorDisplay(s):
             section_id="SEDET",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Error type handling configuration.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="serverErrorHandling", type_name="String", description="Server Error Handling", hint="How 5xx errors are presented", order=0), SomFormFieldMeta(name="timeoutHandling", type_name="String", description="Timeout Handling", hint="How request timeouts are displayed", order=1), SomFormFieldMeta(name="authenticationErrorHandling", type_name="String", description="Authentication Error", hint="Session expired, unauthorized", order=2), SomFormFieldMeta(name="permissionErrorHandling", type_name="String", description="Permission Error", hint="Forbidden access display", order=3), SomFormFieldMeta(name="maintenanceModeHandling", type_name="String", description="Maintenance Mode", hint="Scheduled downtime display", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — fault tolerance defines how each class of system fault is handled", "ISO 9241-13:1998 — user guidance tailors clear feedback to each type of error condition"], "connotation": "The per-type handling configuration for different classes of system error."})]),
@@ -47993,7 +48721,7 @@ def _mc_SystemErrorDisplay(s):
             section_id="SEDM",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Display method settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="errorModalStyle", type_name="String", description="Error Modal Style", hint="Dialog design for error modals", order=0), SomFormFieldMeta(name="snackbarPosition", type_name="String", description="Snackbar Position", hint="Bottom, top, bottom-left, top-right", order=1), SomFormFieldMeta(name="snackbarDuration", type_name="String", description="Snackbar Duration", hint="Auto-dismiss time or persistent", order=2), SomFormFieldMeta(name="bannerPosition", type_name="String", description="Banner Position", hint="Top of page, top of content", order=3), SomFormFieldMeta(name="fullPageErrorTemplate", type_name="String", description="Full Page Error Template", hint="Design for full-page errors (500, 503)", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — visual presentation of information governs how error modals, banners, and pages are laid out", "ISO 9241-13:1998 — user guidance ensures error feedback is presented in a noticeable and readable way"], "connotation": "The display-method settings that decide how a system error is shown on screen."})]),
@@ -48003,7 +48731,7 @@ def _mc_SystemErrorDisplay(s):
             section_id="SEDC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Content options.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="showTechnicalDetails", type_name="bool", description="Show Technical Details", hint="Display error codes, request IDs", order=0), SomFormFieldMeta(name="showRetryOption", type_name="bool", description="Show Retry Option", hint="Offer a retry button on the error", order=1), SomFormFieldMeta(name="showContactSupport", type_name="bool", description="Show Contact Support", hint="Show a link to contact support", order=2), SomFormFieldMeta(name="showStatusPageLink", type_name="bool", description="Show Status Page Link", hint="Show a link to the service status page", order=3), SomFormFieldMeta(name="offlineModeMessage", type_name="String", description="Offline Mode Message", hint="Message when app detects offline state", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-13:1998 — user guidance presents clear and specific error message content", "ISO 9241-125:2017 — presentation of information governs which error details are shown to users"], "connotation": "The content options that decide what information an error display presents."})]),
@@ -48013,7 +48741,7 @@ def _mc_SystemErrorDisplay(s):
             section_id="SEDF",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Fallback behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="cachedDataFallback", type_name="String", description="Cached Data Fallback", hint="Show stale data with indicator", order=0), SomFormFieldMeta(name="retryStrategy", type_name="String", description="Retry Strategy", hint="Automatic retry with backoff", order=1), SomFormFieldMeta(name="maxRetryAttempts", type_name="int", description="Max Retry Attempts", hint="Number of retries before giving up", order=2), SomFormFieldMeta(name="retryDelaySeconds", type_name="int", description="Retry Delay (seconds)", hint="Seconds to wait between retries", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — fault tolerance keeps the system operating through cached data and retry fallbacks", "ISO 9241-110:2020 — use-error tolerance sustains a workable state when a system error occurs"], "connotation": "The fallback behaviour applied when a system error prevents normal operation."})]),
@@ -48022,7 +48750,7 @@ def _mc_SystemErrorDisplay(s):
             member_name="systemErrorNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Detailed specification of system error presentation and user communication approach.",
             doc_comment="System error display narrative."),
@@ -48033,7 +48761,7 @@ def _mc_SystemErrorDisplay(s):
             section_id_pattern="SYERDI-ERRO-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per error page design.",
             doc_comment="Error page designs.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs", "ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback"], "connotation": "The collection of error-page design entries."})]),
@@ -48044,7 +48772,7 @@ def _mc_SystemErrorDisplay(s):
             section_id_pattern="SYERCO-ERRO-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemErrorCodeEntry",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per system error code.",
             doc_comment="Error codes catalog.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated", "ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message"], "connotation": "The collection of catalogued system error code entries."})],
@@ -48479,11 +49207,19 @@ def _mc_SystemQualityGoals(s):
     return [
          SomMetaNode(
             class_name="SystemQualityGoals",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the quality goals before the governance, per-characteristic and acceptance subsections below. Cover which quality attributes matter most for this system, and why."),
+         SomMetaNode(
+            class_name="SystemQualityGoals",
             member_name="governanceContent",
             section_id="SYQG-GOVE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="qualityApproach", type_name="String", description="Quality Approach", hint="Overall quality philosophy: proactive, reactive, hybrid", order=0), SomFormFieldMeta(name="qualityStandards", type_name="String", description="Applicable Quality Standards", hint="ISO 25010, ISO 9001, CMMI, industry-specific", order=1), SomFormFieldMeta(name="qualityOwner", type_name="String", description="Quality Owner", hint="Role accountable for quality outcomes", order=2)])),
          SomMetaNode(
             class_name="SystemQualityGoals",
@@ -48491,7 +49227,7 @@ def _mc_SystemQualityGoals(s):
             section_id="SQGGV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Governance board and escalation details.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="qualityReviewBoard", type_name="String", description="Quality Review Board", hint="Governance body for quality decisions", order=0), SomFormFieldMeta(name="qualityMeetingCadence", type_name="String", description="Quality Meeting Cadence", hint="Weekly, bi-weekly, sprint-aligned", order=1), SomFormFieldMeta(name="qualityEscalationPath", type_name="String", description="Escalation Path", hint="How quality issues escalate to leadership", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — quality requirements are governed and maintained to ensure the product quality model is applied consistently across the system"], "connotation": "Captures the governance board and escalation path for quality decisions."})]),
@@ -48501,7 +49237,7 @@ def _mc_SystemQualityGoals(s):
             section_id="SQGBS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Baseline and target settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="qualityBaselineDate", type_name="String", description="Quality Baseline Date", hint="When quality targets were baselined", order=0), SomFormFieldMeta(name="qualityBaselineVersion", type_name="String", description="Baseline Version", hint="Version identifier of the quality baseline snapshot", order=1), SomFormFieldMeta(name="overallQualityTargetLevel", type_name="String", description="Overall Quality Target Level", hint="High, production-grade, MVP-acceptable", order=2), SomFormFieldMeta(name="qualityRiskTolerance", type_name="String", description="Quality Risk Tolerance", hint="Low (zero defects), medium, high tolerance", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — a quality baseline records the current measured levels of the product quality characteristics as a reference for improvement"], "connotation": "Captures the quality baseline and target settings used as a reference for improvement."})]),
@@ -48511,7 +49247,7 @@ def _mc_SystemQualityGoals(s):
             section_id="SQGMS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Measurement and reporting approach.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="qualityMetricsFramework", type_name="String", description="Metrics Framework", hint="How quality is measured: GQM, balanced scorecard", order=0), SomFormFieldMeta(name="qualityReportingFrequency", type_name="String", description="Reporting Frequency", hint="Daily, weekly, sprint, release", order=1), SomFormFieldMeta(name="qualityDashboardTool", type_name="String", description="Quality Dashboard Tool", hint="SonarQube, custom dashboard, spreadsheet", order=2), SomFormFieldMeta(name="defectTrackingSystem", type_name="String", description="Defect Tracking System", hint="Jira, Azure DevOps, GitHub Issues", order=3), SomFormFieldMeta(name="qualityTrendAnalysis", type_name="String", description="Trend Analysis Approach", hint="How quality trends are tracked over time", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25023:2016 — measures are defined and applied to quantify the quality characteristics and sub-characteristics of the system and software product"], "connotation": "Captures how quality is measured, reported, and tracked over time."})]),
@@ -48521,7 +49257,7 @@ def _mc_SystemQualityGoals(s):
             section_id="SQGRS",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Quality resources and enablement.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="qualityBudget", type_name="String", description="Quality Budget", hint="Budget allocated for QA activities", order=0), SomFormFieldMeta(name="qaTeamSize", type_name="String", description="QA Team Size", hint="Number of dedicated QA resources", order=1), SomFormFieldMeta(name="testAutomationTarget", type_name="String", description="Test Automation Target %", hint="Target percentage of automated tests", order=2), SomFormFieldMeta(name="qualityTrainingPlan", type_name="String", description="Quality Training Plan", hint="Training for team on quality practices", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — adequate resources and responsibilities are assigned so that specified quality requirements can be achieved and verified"], "connotation": "Captures the resources, budget, and enablement assigned to achieve quality goals."})]),
@@ -48530,7 +49266,7 @@ def _mc_SystemQualityGoals(s):
             member_name="executiveSummary",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="High-level overview of quality objectives, expected quality level, key quality risks, and approach summary.",
             doc_comment="Executive summary of quality goals and approach."),
@@ -48539,7 +49275,7 @@ def _mc_SystemQualityGoals(s):
             member_name="qualityVision",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Quality vision statement, core principles guiding quality decisions, and non-negotiable quality standards.",
             doc_comment="Quality vision and principles."),
@@ -48548,7 +49284,7 @@ def _mc_SystemQualityGoals(s):
             member_name="qaStrategy",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overall QA strategy: shift-left testing, continuous testing, test pyramid approach, verification vs validation approach.",
             doc_comment="Quality assurance strategy."),
@@ -48559,7 +49295,7 @@ def _mc_SystemQualityGoals(s):
             section_id_pattern="SYQG-ATTR-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             content_help="Add one entry per quality attribute interdependency.",
             doc_comment="Quality attribute interdependencies.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs"], "connotation": "Lists interdependencies between quality attributes used to manage trade-offs."})]),
@@ -48568,7 +49304,7 @@ def _mc_SystemQualityGoals(s):
             member_name="qualityRadar",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             content_type=SomContentTypeMeta(type="mermaid", description=""),
             content_help="Visual showing relative importance of quality attributes.",
             doc_comment="Quality attribute priority radar."),
@@ -48579,7 +49315,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="QLFWK",
                 kind=SomMetaKind.COMPLEX,
                 type_name="QualityFramework",
-                serialization_order=10,
+                serialization_order=11,
                 doc_comment="11.1. Quality Framework.",
                 class_doc_comment="11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48592,7 +49328,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="FNSU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="FunctionalSuitabilityCharacteristic",
-                serialization_order=11,
+                serialization_order=12,
                 doc_comment="11.2. Functional Suitability (ISO/IEC 25010:2023).",
                 class_doc_comment="11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48605,7 +49341,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="PEEF",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PerformanceEfficiencyCharacteristic",
-                serialization_order=12,
+                serialization_order=13,
                 doc_comment="11.3. Performance Efficiency (ISO/IEC 25010:2023).",
                 class_doc_comment="11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48618,7 +49354,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="CMPT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CompatibilityCharacteristic",
-                serialization_order=13,
+                serialization_order=14,
                 doc_comment="11.4. Compatibility (ISO/IEC 25010:2023).",
                 class_doc_comment="11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48631,7 +49367,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="INCP",
                 kind=SomMetaKind.COMPLEX,
                 type_name="InteractionCapabilityCharacteristic",
-                serialization_order=14,
+                serialization_order=15,
                 doc_comment="11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).",
                 class_doc_comment="11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48644,7 +49380,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="RELC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ReliabilityCharacteristic",
-                serialization_order=15,
+                serialization_order=16,
                 doc_comment="11.6. Reliability (ISO/IEC 25010:2023).",
                 class_doc_comment="11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48657,7 +49393,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="SECC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SecurityCharacteristic",
-                serialization_order=16,
+                serialization_order=17,
                 doc_comment="11.7. Security (ISO/IEC 25010:2023).",
                 class_doc_comment="11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48670,7 +49406,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="MNTC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MaintainabilityCharacteristic",
-                serialization_order=17,
+                serialization_order=18,
                 doc_comment="11.8. Maintainability (ISO/IEC 25010:2023).",
                 class_doc_comment="11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48683,7 +49419,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="FLXC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="FlexibilityCharacteristic",
-                serialization_order=18,
+                serialization_order=19,
                 doc_comment="11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).",
                 class_doc_comment="11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48696,7 +49432,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="DOQUCR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DocumentationQualityCriteria",
-                serialization_order=19,
+                serialization_order=20,
                 doc_comment="11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable\nannex — has no ISO/IEC 25010:2023 product-quality home; retained as a\ndocumentation-quality annex per L34C-8).",
                 class_doc_comment="11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48709,7 +49445,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="QUPR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="QualityPrioritization",
-                serialization_order=20,
+                serialization_order=21,
                 doc_comment="11.6. Quality Prioritization.",
                 class_doc_comment="11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48722,7 +49458,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="ACCRSU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AcceptanceCriteriaSummary",
-                serialization_order=21,
+                serialization_order=22,
                 doc_comment="11.7. Acceptance Criteria Summary.",
                 class_doc_comment="11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).",
                 detailed_in="D10QualityAcceptancePlan",
@@ -48735,7 +49471,7 @@ def _mc_SystemQualityGoals(s):
                 class_section_id="TEST",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TestStrategy",
-                serialization_order=22,
+                serialization_order=23,
                 doc_comment="11.8. Test Strategy..",
                 class_doc_comment="11.8. Test Strategy.\n\nOverall test strategy for the project..",
                 detailed_in="D10QualityAcceptancePlan",
@@ -49255,11 +49991,19 @@ def _mc_SystemToReplaceEntry(s):
     return [
          SomMetaNode(
             class_name="SystemToReplaceEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this legacy system — its history and the reason it is being replaced, beyond the technical, business and migration facets recorded below."),
+         SomMetaNode(
+            class_name="SystemToReplaceEntry",
             member_name="identificationContent",
             section_id="SYTORE-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="systemId", type_name="String", description="System ID (e.g., SYS-CRM-001)", required=True, hint="The identifier the organisation already uses for the legacy system being replaced, e.g. SYS-CRM-001 — owned outside this document", order=0), SomFormFieldMeta(name="officialName", type_name="String", description="Official/Vendor Name", hint="Vendor/product name and edition, if a commercial system", order=1), SomFormFieldMeta(name="systemDescription", type_name="String", description="Description", hint="Brief description of what the system does and who uses it", order=2)])),
          SomMetaNode(
             class_name="SystemToReplaceEntry",
@@ -49267,7 +50011,7 @@ def _mc_SystemToReplaceEntry(s):
             section_id="STREP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Classification and ownership details.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="systemCategory", type_name="String", description="Category (CRM, ERP, HR, Finance, etc.)", hint="Functional category of the system", order=0), SomFormFieldMeta(name="applicationTier", type_name="String", description="Tier (Mission Critical, Business Critical, Operational)", hint="Criticality tier of the application", order=1), SomFormFieldMeta(name="businessOwner", type_name="String", description="Business Owner", hint="Person or role accountable for the business function", order=2), SomFormFieldMeta(name="technicalOwner", type_name="String", description="Technical Owner", hint="Person or role accountable for the technical platform", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — application portfolio management (classification & ownership)"], "connotation": "Captures the system classification, application tier, and business/technical ownership used to position it within the portfolio."})]),
@@ -49277,7 +50021,7 @@ def _mc_SystemToReplaceEntry(s):
             section_id="STREV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Vendor and contract status.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="vendorName", type_name="String", description="Vendor/Provider", hint="Name of the supplying vendor or provider", order=0), SomFormFieldMeta(name="contractStatus", type_name="String", description="Contract Status (Active, Expired, Month-to-month)", hint="Current state of the vendor contract", order=1), SomFormFieldMeta(name="contractEndDate", type_name="String", description="Contract End Date", hint="Date the current contract expires", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — application portfolio management (vendor & contract status)"], "connotation": "Captures the vendor, contract status, and contract end date that constrain replacement timing and commercial decisions."})]),
@@ -49288,7 +50032,7 @@ def _mc_SystemToReplaceEntry(s):
                 class_section_id="SYTEAS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemTechnicalAssessment",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="Technical stack and architecture assessment.",
                 class_doc_comment="Technical assessment for a system to replace.",
                 recursive=r,
@@ -49300,7 +50044,7 @@ def _mc_SystemToReplaceEntry(s):
                 class_section_id="SYBUCR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemBusinessCriticality",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Business value and criticality assessment.",
                 class_doc_comment="Business criticality assessment.",
                 recursive=r,
@@ -49312,7 +50056,7 @@ def _mc_SystemToReplaceEntry(s):
                 class_section_id="SYREST",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemReplacementStrategy",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Detailed replacement approach.",
                 class_doc_comment="Replacement strategy details.",
                 recursive=r,
@@ -49324,7 +50068,7 @@ def _mc_SystemToReplaceEntry(s):
                 class_section_id="SYDASC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemDataScope",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="Data migration scope and assessment.",
                 class_doc_comment="Data scope and migration assessment.",
                 recursive=r,
@@ -49336,7 +50080,7 @@ def _mc_SystemToReplaceEntry(s):
             section_id_pattern="RESYDE-DEPE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReplacementSystemDependencyEntry",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated.",
             doc_comment="Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — application portfolio management (integration dependencies)"], "connotation": "Lists integrations and dependencies between this system and others, so replacement sequencing accounts for connected systems."})],
@@ -49348,7 +50092,7 @@ def _mc_SystemToReplaceEntry(s):
                 class_section_id="SYUSIM",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemUserImpact",
-                serialization_order=8,
+                serialization_order=9,
                 doc_comment="User impact and change management needs.",
                 class_doc_comment="User impact assessment.",
                 recursive=r,
@@ -49360,7 +50104,7 @@ def _mc_SystemToReplaceEntry(s):
                 class_section_id="SYCOAN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemCostAnalysis",
-                serialization_order=9,
+                serialization_order=10,
                 doc_comment="Financial analysis for replacement decision.",
                 class_doc_comment="Cost analysis for replacement.",
                 recursive=r,
@@ -49372,7 +50116,7 @@ def _mc_SystemToReplaceEntry(s):
                 class_section_id="SYMIPL",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemMigrationPlan",
-                serialization_order=10,
+                serialization_order=11,
                 doc_comment="Per-system migration considerations.",
                 class_doc_comment="Per-system migration plan.",
                 recursive=r,
@@ -49384,7 +50128,7 @@ def _mc_SystemToReplaceEntry(s):
                 class_section_id="SYKNTR",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SystemKnowledgeTransfer",
-                serialization_order=11,
+                serialization_order=12,
                 doc_comment="Documentation and knowledge transfer status.",
                 class_doc_comment="Knowledge transfer status.",
                 recursive=r,
@@ -49489,10 +50233,18 @@ def _mc_SystemsToReplace(s):
     return [
          SomMetaNode(
             class_name="SystemsToReplace",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the replacement portfolio before the inventory and migration-considerations subsections below. Cover the rationalization strategy behind the selection."),
+         SomMetaNode(
+            class_name="SystemsToReplace",
             member_name="overview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Provide executive summary of systems being replaced: portfolio count, replacement rationale, expected timeline, and overall migration approach.",
             doc_comment="Overview of the systems replacement scope and strategy."),
@@ -49503,7 +50255,7 @@ def _mc_SystemsToReplace(s):
                 class_section_id="RI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ReplacementInventory",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="4.4.1. Replacement Inventory — contains 0+×.",
                 class_doc_comment="Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.",
                 detailed_in="D01CurrentLandscapeAssessment",
@@ -49516,7 +50268,7 @@ def _mc_SystemsToReplace(s):
                 class_section_id="MIGCON",
                 kind=SomMetaKind.COMPLEX,
                 type_name="MigrationConsiderations",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="4.4.2. Migration Considerations.",
                 class_doc_comment="4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.",
                 detailed_in="D01CurrentLandscapeAssessment",
@@ -49869,11 +50621,19 @@ def _mc_TechnicalEnvironment(s):
     return [
          SomMetaNode(
             class_name="TechnicalEnvironment",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the pre-existing technical landscape before the governance, standards and infrastructure subsections below. Cover what is mandated and what is merely current practice."),
+         SomMetaNode(
+            class_name="TechnicalEnvironment",
             member_name="technicalOverviewContent",
             section_id="TEEN-TECH",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="architectureMaturity", type_name="String", description="Architecture Maturity", hint="TOGAF maturity level or equivalent", order=0), SomFormFieldMeta(name="cloudStrategy", type_name="String", description="Cloud Strategy", hint="Cloud-first, hybrid, on-premises, multi-cloud", order=1), SomFormFieldMeta(name="primaryCloudProvider", type_name="String", description="Primary Cloud Provider", hint="AWS, Azure, GCP, private cloud, none", order=2)])),
          SomMetaNode(
             class_name="TechnicalEnvironment",
@@ -49881,7 +50641,7 @@ def _mc_TechnicalEnvironment(s):
             section_id="TEENGO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Architecture governance context.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="secondaryCloudProviders", type_name="String", description="Secondary Cloud Providers", hint="Additional or fallback cloud providers in use", order=0), SomFormFieldMeta(name="technologyGovernance", type_name="String", description="Technology Governance", hint="How technology decisions are governed", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — technology architecture & environment", "ISO/IEC/IEEE 42010 — architecture description (environment)"], "connotation": "Captures the governance context that shapes technology decisions, including cloud strategy and decision authority."})]),
@@ -49891,7 +50651,7 @@ def _mc_TechnicalEnvironment(s):
             section_id="TEENST",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Platform standards and preferred technologies.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="preferredLanguages", type_name="String", description="Preferred Languages", hint="Mandated or preferred programming languages", order=0), SomFormFieldMeta(name="preferredFrameworks", type_name="String", description="Preferred Frameworks", hint="Mandated or preferred frameworks", order=1), SomFormFieldMeta(name="preferredDatabases", type_name="String", description="Preferred Databases", hint="Mandated or preferred database platforms", order=2), SomFormFieldMeta(name="messagingPlatforms", type_name="String", description="Messaging Platforms", hint="Enterprise messaging/queue platforms", order=3), SomFormFieldMeta(name="integrationPlatforms", type_name="String", description="Integration Platforms", hint="ESB, API gateway, iPaaS solutions", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — technology architecture & environment", "ISO/IEC 25010 — product quality (infrastructure/platform quality)"], "connotation": "Captures mandated or preferred platform technologies — languages, frameworks, databases, and integration platforms."})]),
@@ -49901,7 +50661,7 @@ def _mc_TechnicalEnvironment(s):
             section_id="TES",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Security and compliance requirements.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="securityFramework", type_name="String", description="Security Framework", hint="NIST, ISO 27001, SOC2, CIS — security framework used", order=0), SomFormFieldMeta(name="complianceRequirements", type_name="String", description="Compliance Requirements", hint="GDPR, HIPAA, PCI-DSS, SOX, industry-specific", order=1), SomFormFieldMeta(name="dataClassificationScheme", type_name="String", description="Data Classification", hint="Public, internal, confidential, restricted", order=2), SomFormFieldMeta(name="encryptionStandards", type_name="String", description="Encryption Standards", hint="Required encryption algorithms and key lengths", order=3), SomFormFieldMeta(name="identityProvider", type_name="String", description="Identity Provider", hint="Enterprise identity platform (Azure AD, Okta, etc.)", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — product quality (infrastructure/platform quality)", "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"], "connotation": "Captures the security frameworks, compliance regimes, and encryption/identity standards the solution must satisfy."})]),
@@ -49912,7 +50672,7 @@ def _mc_TechnicalEnvironment(s):
                 class_section_id="TEENNE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TechnicalEnvironmentNetwork",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="Network and infrastructure standards.",
                 class_doc_comment="Network and infrastructure standards.",
                 recursive=r,
@@ -49922,7 +50682,7 @@ def _mc_TechnicalEnvironment(s):
             member_name="existingInfrastructure",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe existing infrastructure: data centers, servers, networks, storage, systems that cannot be replaced, and infrastructure that the new solution must integrate with or leverage.",
             doc_comment="Existing infrastructure that must be reused or integrated with."),
@@ -49933,7 +50693,7 @@ def _mc_TechnicalEnvironment(s):
             section_id_pattern="TEEN-DATA-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_help="List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.",
             doc_comment="Data center and hosting environment details.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — technology architecture & environment", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"], "connotation": "Enumerates data center and hosting environments the solution must run on or integrate with."})]),
@@ -49942,7 +50702,7 @@ def _mc_TechnicalEnvironment(s):
             member_name="networkTopology",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Describe network topology, bandwidth constraints, latency requirements, VPN/private connectivity, and firewall restrictions.",
             doc_comment="Network topology and connectivity constraints."),
@@ -49951,7 +50711,7 @@ def _mc_TechnicalEnvironment(s):
             member_name="standardsOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overview of technology standards: adoption policy, exception process, standard review cycle, and compliance monitoring.",
             doc_comment="Technology standards that must be followed."),
@@ -49962,7 +50722,7 @@ def _mc_TechnicalEnvironment(s):
             section_id_pattern="TSE-TECH-xxx",
             kind=SomMetaKind.LIST,
             type_name="TechnologyStandardEntry",
-            serialization_order=9,
+            serialization_order=10,
             content_help="List technology standards the solution must follow, with their scope, mandate level, and compliance expectations.",
             doc_comment="Technology standards — contains 0+× TechnologyStandard.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — technology architecture & environment", "ISO/IEC 25010 — product quality (infrastructure/platform quality)"], "connotation": "Lists mandated or preferred technology standards the solution must adhere to."})],
@@ -49972,7 +50732,7 @@ def _mc_TechnicalEnvironment(s):
             member_name="integrationOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=10,
+            serialization_order=11,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overview of integration constraints: API standards, protocol restrictions, message format requirements, and integration platform mandates.",
             doc_comment="Integration constraints overview."),
@@ -49983,7 +50743,7 @@ def _mc_TechnicalEnvironment(s):
             section_id_pattern="INTCON-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="IntegrationConstraintEntry",
-            serialization_order=11,
+            serialization_order=12,
             content_help="List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect.",
             doc_comment="Integration constraints — contains 0+× IntegrationConstraint.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — technology architecture & environment", "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"], "connotation": "Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect."})],
@@ -50367,11 +51127,19 @@ def _mc_TechnicalInfrastructure(s):
     return [
          SomMetaNode(
             class_name="TechnicalInfrastructure",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the technical infrastructure this workplace depends on before the connectivity, software and remote-access subsections below."),
+         SomMetaNode(
+            class_name="TechnicalInfrastructure",
             member_name="networkConnectivity",
             section_id="NECO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Network connectivity requirements.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="connectionType", type_name="String", description="Connection Type — wired ethernet, Wi-Fi, both", order=0), SomFormFieldMeta(name="bandwidthRequirement", type_name="String", description="Bandwidth Requirement — minimum Mbps", order=1), SomFormFieldMeta(name="latencyRequirement", type_name="String", description="Latency Requirement — maximum acceptable ms", order=2), SomFormFieldMeta(name="vpnRequirement", type_name="String", description="VPN Requirement — always-on, on-demand, none", order=3), SomFormFieldMeta(name="networkSegment", type_name="String", description="Network Segment — VLAN, security zone", order=4), SomFormFieldMeta(name="firewallRules", type_name="String", description="Firewall Rules — ports, protocols needed", order=5), SomFormFieldMeta(name="proxyConfiguration", type_name="String", description="Proxy Configuration — if required", order=6), SomFormFieldMeta(name="dnsRequirements", type_name="String", description="DNS Requirements — internal DNS, split DNS", order=7), SomFormFieldMeta(name="redundancyRequirement", type_name="String", description="Redundancy Requirement — failover connectivity", order=8), SomFormFieldMeta(name="guestNetworkAccess", type_name="String", description="Guest Network Access — if needed", order=9)])),
          _cx("WorkplaceSoftwareRequirements", s, _mc_WorkplaceSoftwareRequirements,
@@ -50381,7 +51149,7 @@ def _mc_TechnicalInfrastructure(s):
                 class_section_id="WOSORE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="WorkplaceSoftwareRequirements",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="Software requirements.",
                 class_doc_comment="Workplace software requirements.",
                 recursive=r,
@@ -50392,7 +51160,7 @@ def _mc_TechnicalInfrastructure(s):
             section_id="REACRE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Remote access requirements.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="remoteAccessType", type_name="String", description="Remote Access Type — VPN, VDI, direct access", order=0), SomFormFieldMeta(name="vpnClient", type_name="String", description="VPN Client — specific client software", order=1), SomFormFieldMeta(name="vdiPlatform", type_name="String", description="VDI Platform — Citrix, VMware Horizon, AVD", order=2), SomFormFieldMeta(name="mfaRequirement", type_name="String", description="MFA Requirement — hardware token, app, SMS", order=3), SomFormFieldMeta(name="homeNetworkRequirements", type_name="String", description="Home Network Requirements — minimum internet speed", order=4), SomFormFieldMeta(name="splitTunnel", type_name="String", description="Split Tunnel — allowed, required, prohibited", order=5), SomFormFieldMeta(name="sessionTimeout", type_name="String", description="Session Timeout — idle timeout, max session", order=6), SomFormFieldMeta(name="localPrintingAllowed", type_name="String", description="Local Printing Allowed — yes, no, restricted", order=7), SomFormFieldMeta(name="localDriveAccess", type_name="String", description="Local Drive Access — allowed, restricted, blocked", order=8), SomFormFieldMeta(name="remoteSupport", type_name="String", description="Remote Support — how IT supports remote users", order=9)])),
          SomMetaNode(
@@ -50402,7 +51170,7 @@ def _mc_TechnicalInfrastructure(s):
             section_id_pattern="COTORE-COMM-xxx",
             kind=SomMetaKind.LIST,
             type_name="CommunicationToolsRequirements",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Communication tools.",
             element_node=_cx("CommunicationToolsRequirements", s, _mc_CommunicationToolsRequirements, lambda r, c: SomMetaNode(class_name="CommunicationToolsRequirements", class_section_id="COTORE", kind=SomMetaKind.COMPLEX, type_name="CommunicationToolsRequirements", doc_comment="Communication tools requirements.", class_doc_comment="Communication tools requirements.", recursive=r, children=c))),
     ]
@@ -51224,11 +51992,19 @@ def _mc_ThrowawayPrototype(s):
     return [
          SomMetaNode(
             class_name="ThrowawayPrototype",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the throwaway prototype before the findings, disposition and value subsections below. Cover how the findings are captured before the artifact is discarded."),
+         SomMetaNode(
+            class_name="ThrowawayPrototype",
             member_name="throwawayContent",
             section_id="THPR-THRO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="evaluationCriteria", type_name="String", description="Evaluation Criteria", hint="Criteria for evaluation", order=0), SomFormFieldMeta(name="evaluationMethod", type_name="String", description="Evaluation Method", hint="How prototype is evaluated", order=1), SomFormFieldMeta(name="evaluationParticipants", type_name="String", description="Evaluation Participants", hint="Who participates in evaluation", order=2), SomFormFieldMeta(name="evaluationTimeline", type_name="String", description="Evaluation Timeline", hint="When evaluation takes place", order=3)])),
          SomMetaNode(
             class_name="ThrowawayPrototype",
@@ -51236,7 +52012,7 @@ def _mc_ThrowawayPrototype(s):
             section_id="THPRFI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Findings and decisions captured from evaluation.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="findingsDocumentation", type_name="String", description="Findings Documentation", hint="How findings are documented", order=0), SomFormFieldMeta(name="recommendationsOutput", type_name="String", description="Recommendations Output", hint="Recommendations produced", order=1), SomFormFieldMeta(name="decisionsMade", type_name="String", description="Decisions Made", hint="Decisions made based on prototype", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — findings and decisions from evaluation are documented to inform the design"], "connotation": "The findings and decisions captured from evaluating a throwaway prototype."})]),
@@ -51246,7 +52022,7 @@ def _mc_ThrowawayPrototype(s):
             section_id="THPRDI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Disposal and follow-up handling.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="disposalPlan", type_name="String", description="Disposal Plan", hint="How prototype is disposed", order=0), SomFormFieldMeta(name="archivingApproach", type_name="String", description="Archiving Approach", hint="Whether/how prototype is archived", order=1), SomFormFieldMeta(name="nextSteps", type_name="String", description="Next Steps", hint="What happens after evaluation", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — disposal and follow-up of the discarded prototype are handled deliberately"], "connotation": "The disposal and follow-up handling for a throwaway prototype."})]),
@@ -51256,7 +52032,7 @@ def _mc_ThrowawayPrototype(s):
             section_id="THPRVA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Long-term value retained from the prototype.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="insightsCaptured", type_name="String", description="Insights Captured", hint="Key insights from prototype", order=0), SomFormFieldMeta(name="futureReference", type_name="String", description="Future Reference", hint="What to preserve for future", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — insights worth retaining are preserved even when the prototype itself is discarded"], "connotation": "The long-term value and insights retained from a throwaway prototype."})]),
@@ -51265,7 +52041,7 @@ def _mc_ThrowawayPrototype(s):
             member_name="throwawayNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Throwaway prototype narrative."),
     ]
@@ -51709,18 +52485,26 @@ def _mc_TradeOffDecisions(s):
     return [
          SomMetaNode(
             class_name="TradeOffDecisions",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the trade-off decisions before the individual items below. Cover how a trade-off is raised, decided and revisited."),
+         SomMetaNode(
+            class_name="TradeOffDecisions",
             member_name="tradeOffGovernanceContent",
             section_id="TROFDE-TRAD",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="tradeOffGovernance", type_name="String", description="Trade-off Governance", hint="Who can make trade-off decisions", order=0), SomFormFieldMeta(name="tradeOffDocumentation", type_name="String", description="Trade-off Documentation", hint="How decisions are documented", order=1), SomFormFieldMeta(name="tradeOffReview", type_name="String", description="Trade-off Review", hint="When trade-offs are reviewed", order=2), SomFormFieldMeta(name="tradeOffReversal", type_name="String", description="Trade-off Reversal", hint="Process to reverse a trade-off decision", order=3)])),
          SomMetaNode(
             class_name="TradeOffDecisions",
             member_name="tradeOffOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Overview of major trade-off decisions and their impact on system quality and design choices.",
             doc_comment="Trade-off decisions overview."),
@@ -51731,7 +52515,7 @@ def _mc_TradeOffDecisions(s):
             section_id_pattern="TODE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="TradeOffDecisionEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per trade-off decision.",
             doc_comment="Contains 0+× TradeOffDecision.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — each trade-off between competing quality characteristics is enumerated as a discrete decision"], "connotation": "Enumerates each trade-off between competing quality characteristics as a discrete decision."})],
@@ -51782,18 +52566,26 @@ def _mc_TrainingDeliverableRequirements(s):
     return [
          SomMetaNode(
             class_name="TrainingDeliverableRequirements",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the end-user training deliverables before the module catalogue below. Cover the audiences, the delivery mode, and when training happens relative to rollout."),
+         SomMetaNode(
+            class_name="TrainingDeliverableRequirements",
             member_name="trainingContent",
             section_id="TRMAT-TRAI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="trainingMaterials", type_name="String", description="Training Materials", hint="Slides, workbooks, exercises", order=0), SomFormFieldMeta(name="trainingFormat", type_name="String", description="Training Format", hint="In-person, virtual, self-paced", order=1), SomFormFieldMeta(name="trainingDuration", type_name="String", description="Training Duration", hint="Duration per role/module", order=2), SomFormFieldMeta(name="trainingSchedule", type_name="String", description="Training Schedule", hint="When training occurs", order=3), SomFormFieldMeta(name="trainTheTrainer", type_name="bool", description="Train-the-Trainer", hint="Train internal trainers", order=4), SomFormFieldMeta(name="refresherTraining", type_name="String", description="Refresher Training", hint="Ongoing training approach", order=5), SomFormFieldMeta(name="knowledgeTransferPlan", type_name="String", description="Knowledge Transfer Plan", hint="How knowledge is transferred", order=6), SomFormFieldMeta(name="supportHandoff", type_name="String", description="Support Handoff", hint="Transition to support team", order=7), SomFormFieldMeta(name="certificationProgram", type_name="String", description="Certification Program", hint="User certification if applicable", order=8)])),
          SomMetaNode(
             class_name="TrainingDeliverableRequirements",
             member_name="trainingNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Training narrative."),
          SomMetaNode(
@@ -51803,7 +52595,7 @@ def _mc_TrainingDeliverableRequirements(s):
             section_id_pattern="TME-TRAI-xxx",
             kind=SomMetaKind.LIST,
             type_name="TrainingModuleEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per training module.",
             doc_comment="Training module entries.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set", "ISO 17100:2015 — each training module can be localized through the translation process"], "connotation": "The collection of training-module entries offered to end users."})],
@@ -51918,11 +52710,19 @@ def _mc_TrainingPrototype(s):
     return [
          SomMetaNode(
             class_name="TrainingPrototype",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the training prototype before the disposition and output subsections below. Cover which concepts are meant to carry forward once the code does not."),
+         SomMetaNode(
+            class_name="TrainingPrototype",
             member_name="trainingContent",
             section_id="TP-TRAI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="designDecisionsCarriedForward", type_name="String", description="Design Decisions Carried Forward", hint="What design decisions are preserved", order=0), SomFormFieldMeta(name="patternsDocumented", type_name="String", description="Patterns Documented", hint="Patterns documented from prototype", order=1), SomFormFieldMeta(name="lessonsLearned", type_name="String", description="Lessons Learned", hint="What was learned", order=2)])),
          SomMetaNode(
             class_name="TrainingPrototype",
@@ -51930,7 +52730,7 @@ def _mc_TrainingPrototype(s):
             section_id="TRPRDI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Code disposition and reimplementation planning.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="codeDisposition", type_name="String", description="Code Disposition", hint="What happens to prototype code", order=0), SomFormFieldMeta(name="reimplementationPlan", type_name="String", description="Reimplementation Plan", hint="Plan for reimplementing features", order=1), SomFormFieldMeta(name="reimplementationEstimate", type_name="String", description="Reimplementation Estimate", hint="Effort to reimplement", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — the disposition of prototype code and any reimplementation are planned after learning is captured"], "connotation": "The code disposition and reimplementation planning for a training prototype."})]),
@@ -51940,7 +52740,7 @@ def _mc_TrainingPrototype(s):
             section_id="TRPROU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Documentation outputs and team learning.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="documentationProduced", type_name="String", description="Documentation Produced", hint="Documentation from prototype", order=0), SomFormFieldMeta(name="designSystemOutput", type_name="String", description="Design System Output", hint="Design system artifacts", order=1), SomFormFieldMeta(name="componentSpecifications", type_name="String", description="Component Specifications", hint="Component specs from prototype", order=2), SomFormFieldMeta(name="teamSkillsGained", type_name="String", description="Team Skills Gained", hint="Skills team gained", order=3), SomFormFieldMeta(name="technologyInsights", type_name="String", description="Technology Insights", hint="Technology insights gained", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210:2019 — documentation and design outputs from the prototype are captured so team learning is retained"], "connotation": "The documentation outputs and team learning produced by a training prototype."})]),
@@ -51949,7 +52749,7 @@ def _mc_TrainingPrototype(s):
             member_name="trainingNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Training prototype narrative."),
     ]
@@ -51959,11 +52759,19 @@ def _mc_TrainingRequirements(s):
     return [
          SomMetaNode(
             class_name="TrainingRequirements",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the training program for this workplace before the initial, ongoing, certification and assessment subsections below. Cover the learning objectives it is built around."),
+         SomMetaNode(
+            class_name="TrainingRequirements",
             member_name="overview",
             section_id="TROV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Training overview and strategy.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="trainingStrategy", type_name="String", description="Training Strategy — overall approach to training", order=0), SomFormFieldMeta(name="learningManagementSystem", type_name="String", description="Learning Management System — LMS platform used", order=1), SomFormFieldMeta(name="blendedLearningApproach", type_name="String", description="Blended Learning Approach — mix of methods", order=2), SomFormFieldMeta(name="trainingBudget", type_name="String", description="Training Budget — per user, total", order=3), SomFormFieldMeta(name="trainingTimeline", type_name="String", description="Training Timeline — when training occurs", order=4), SomFormFieldMeta(name="trainingOwner", type_name="String", description="Training Owner — department/person responsible", order=5), SomFormFieldMeta(name="trainerResources", type_name="String", description="Trainer Resources — internal trainers, external vendors", order=6), SomFormFieldMeta(name="trainingFacilities", type_name="String", description="Training Facilities — classrooms, labs, online", order=7), SomFormFieldMeta(name="successCriteria", type_name="String", description="Success Criteria — how training success is measured", order=8), SomFormFieldMeta(name="feedbackMechanism", type_name="String", description="Feedback Mechanism — how feedback is collected", order=9)])),
          SomMetaNode(
@@ -51973,7 +52781,7 @@ def _mc_TrainingRequirements(s):
             section_id_pattern="ITE-INIT-xxx",
             kind=SomMetaKind.LIST,
             type_name="InitialTrainingEntry",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Initial/onboarding training.",
             element_node=_cx("InitialTrainingEntry", s, _mc_InitialTrainingEntry, lambda r, c: SomMetaNode(class_name="InitialTrainingEntry", class_section_id="ITE", kind=SomMetaKind.COMPLEX, type_name="InitialTrainingEntry", doc_comment="Initial training entry (form).", class_doc_comment="Initial training entry (form).", recursive=r, children=c))),
          SomMetaNode(
@@ -51983,7 +52791,7 @@ def _mc_TrainingRequirements(s):
             section_id_pattern="ONGTR-ONGO-xxx",
             kind=SomMetaKind.LIST,
             type_name="OngoingTrainingEntry",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Ongoing/refresher training.",
             element_node=_cx("OngoingTrainingEntry", s, _mc_OngoingTrainingEntry, lambda r, c: SomMetaNode(class_name="OngoingTrainingEntry", class_section_id="ONGTR", kind=SomMetaKind.COMPLEX, type_name="OngoingTrainingEntry", doc_comment="Ongoing training entry (form).", class_doc_comment="Ongoing training entry (form).", recursive=r, children=c))),
          SomMetaNode(
@@ -51993,7 +52801,7 @@ def _mc_TrainingRequirements(s):
             section_id_pattern="SYTR-SYST-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemTrainingEntry",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="System-specific training.",
             element_node=_cx("SystemTrainingEntry", s, _mc_SystemTrainingEntry, lambda r, c: SomMetaNode(class_name="SystemTrainingEntry", class_section_id="SYTR", kind=SomMetaKind.COMPLEX, type_name="SystemTrainingEntry", doc_comment="System training entry (form).", class_doc_comment="System training entry (form).", recursive=r, children=c))),
          SomMetaNode(
@@ -52003,7 +52811,7 @@ def _mc_TrainingRequirements(s):
             section_id_pattern="CRT-CERT-xxx",
             kind=SomMetaKind.LIST,
             type_name="CertificationEntry",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Certification requirements.",
             element_node=_cx("CertificationEntry", s, _mc_CertificationEntry, lambda r, c: SomMetaNode(class_name="CertificationEntry", class_section_id="CRT", kind=SomMetaKind.COMPLEX, type_name="CertificationEntry", doc_comment="Certification entry (form).", class_doc_comment="Certification entry (form).", recursive=r, children=c))),
          _cx("TrainingMaterials", s, _mc_TrainingMaterials,
@@ -52013,7 +52821,7 @@ def _mc_TrainingRequirements(s):
                 class_section_id="TRMA",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TrainingMaterials",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Training materials and resources.",
                 class_doc_comment="Training materials and resources.",
                 recursive=r,
@@ -52025,7 +52833,7 @@ def _mc_TrainingRequirements(s):
                 class_section_id="TRAS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TrainingAssessment",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="Assessment and evaluation.",
                 class_doc_comment="Training assessment and evaluation.",
                 recursive=r,
@@ -52061,11 +52869,19 @@ def _mc_TransitionCommunicationPlan(s):
     return [
          SomMetaNode(
             class_name="TransitionCommunicationPlan",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the communication approach before the event and channel lists below. Cover the key messages and who delivers them."),
+         SomMetaNode(
+            class_name="TransitionCommunicationPlan",
             member_name="strategy",
             section_id="TRCOST",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Communication strategy overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="communicationStrategy", type_name="String", description="Communication Strategy — overall approach", hint="The overarching approach to transition communications, including tone, principles, and objectives", order=0), SomFormFieldMeta(name="keyMessages", type_name="String", description="Key Messages — core messages to convey throughout", hint="The core messages to be reinforced consistently across all communications throughout the transition", order=1), SomFormFieldMeta(name="messagingOwner", type_name="String", description="Messaging Owner — who controls/approves communications", hint="The person or role that owns and approves the content of all transition communications", order=2), SomFormFieldMeta(name="feedbackChannels", type_name="String", description="Feedback Channels — how stakeholders can respond", hint="The mechanisms through which stakeholders can ask questions, raise concerns, or provide feedback", order=3), SomFormFieldMeta(name="communicationCadence", type_name="String", description="Communication Cadence — frequency of updates", hint="How often transition updates are issued, e.g. weekly digests or per-milestone bulletins", order=4), SomFormFieldMeta(name="brandingGuidelines", type_name="String", description="Branding Guidelines — visual identity for change", hint="The visual identity, naming, and branding standards applied to change communications", order=5), SomFormFieldMeta(name="languageRequirements", type_name="String", description="Language Requirements — languages/translations needed", hint="The languages and translation requirements needed to reach all affected audiences", order=6), SomFormFieldMeta(name="accessibilityRequirements", type_name="String", description="Accessibility Requirements — accessibility considerations", hint="The accessibility considerations (formats, captions, screen reader support) communications must meet", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — communications management", "PROSCI ADKAR — change communications"], "connotation": "Captures the overall communication approach, key messages, ownership, and cadence that govern all transition communications."})]),
@@ -52076,7 +52892,7 @@ def _mc_TransitionCommunicationPlan(s):
             section_id_pattern="COEV-COMM-xxx",
             kind=SomMetaKind.LIST,
             type_name="CommunicationEventEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per planned communication event, such as a town hall, announcement, workshop, or newsletter.",
             doc_comment="Specific communication events/activities.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — communications management", "PROSCI ADKAR — change communications"], "connotation": "The scheduled communication events and activities that deliver the transition messages to their target audiences."})],
@@ -52088,7 +52904,7 @@ def _mc_TransitionCommunicationPlan(s):
             section_id_pattern="TRCOCH-CHAN-xxx",
             kind=SomMetaKind.LIST,
             type_name="TransitionCommunicationChannels",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per communication channel describing its purpose, ownership, and accessibility.",
             doc_comment="Communication channels and their use.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — communications management", "PROSCI ADKAR — change communications"], "connotation": "The communication channels used during the transition and how each is owned, accessed, and applied."})],
@@ -52228,6 +53044,14 @@ def _mc_TransitionPhaseActivities(s):
 
 def _mc_TransitionPhaseEntry(s):
     return [
+         SomMetaNode(
+            class_name="TransitionPhaseEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this transition phase — what it looks like on the ground, beyond the activity, stakeholder and exit-criteria facets recorded below."),
          _cx("TransitionPhaseIdentification", s, _mc_TransitionPhaseIdentification,
             lambda r, c: SomMetaNode(
                 class_name="TransitionPhaseIdentification",
@@ -52235,7 +53059,7 @@ def _mc_TransitionPhaseEntry(s):
                 class_section_id="TPIDN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TransitionPhaseIdentification",
-                serialization_order=0,
+                serialization_order=1,
                 doc_comment="Phase identification and timeline.",
                 class_doc_comment="Phase identification and timeline.",
                 recursive=r,
@@ -52247,7 +53071,7 @@ def _mc_TransitionPhaseEntry(s):
             section_id_pattern="TPACT-ACTI-xxx",
             kind=SomMetaKind.LIST,
             type_name="TransitionPhaseActivities",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per group of activities and deliverables for this phase — e.g. training, communication, system, and process work.",
             doc_comment="Activities and deliverables for this phase.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — schedule management"], "connotation": "The set of activities and deliverables to be completed within this transition phase."})],
@@ -52259,7 +53083,7 @@ def _mc_TransitionPhaseEntry(s):
             section_id_pattern="TPSTK-STAK-xxx",
             kind=SomMetaKind.LIST,
             type_name="TransitionPhaseStakeholders",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per stakeholder group engaged in this phase, with the engagement and feedback approach for each.",
             doc_comment="Stakeholder engagement for this phase.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — resource management"], "connotation": "The stakeholders engaged in this transition phase and how they are involved."})],
@@ -52270,7 +53094,7 @@ def _mc_TransitionPhaseEntry(s):
             section_id="TPEXT",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Exit criteria and phase completion conditions.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="exitCriteria", type_name="String", description="Exit Criteria — conditions to complete phase", hint="The conditions that must be satisfied for the phase to be considered complete", order=0), SomFormFieldMeta(name="signOffRequired", type_name="String", description="Sign-Off Required — who must approve phase completion", hint="Who must approve phase completion before moving on", order=1), SomFormFieldMeta(name="qualityGates", type_name="String", description="Quality Gates — checks to pass", hint="The quality checks that must pass before the phase can close", order=2), SomFormFieldMeta(name="successIndicators", type_name="String", description="Success Indicators — measurable outcomes", hint="The measurable outcomes that indicate the phase succeeded", order=3), SomFormFieldMeta(name="knownIssuesResolution", type_name="String", description="Known Issues Resolution — outstanding items allowed", hint="Which outstanding items are permitted to remain unresolved at phase exit", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — schedule management", "ITIL 4 — service transition"], "connotation": "Specifies the exit criteria, sign-offs, and quality gates that must be met before a transition phase is considered complete."})]),
@@ -52357,11 +53181,19 @@ def _mc_TransitionSuccessMetrics(s):
     return [
          SomMetaNode(
             class_name="TransitionSuccessMetrics",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how transition success is judged before the individual metrics below. Cover the baseline and the point at which the measurement is taken."),
+         SomMetaNode(
+            class_name="TransitionSuccessMetrics",
             member_name="overview",
             section_id="TRMEOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Metrics overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="measurementApproach", type_name="String", description="Measurement Approach — how success is evaluated", hint="The overall approach to evaluating transition success, including data collection and analysis methods", order=0), SomFormFieldMeta(name="reportingCadence", type_name="String", description="Reporting Cadence — how often metrics are reported", hint="How often metrics are compiled and reported, e.g. weekly, monthly, per milestone", order=1), SomFormFieldMeta(name="reportingOwner", type_name="String", description="Reporting Owner — who produces reports", hint="The person or role responsible for producing the metrics reports", order=2), SomFormFieldMeta(name="reportingAudience", type_name="String", description="Reporting Audience — who receives reports", hint="The audience who receives the metrics reports, e.g. steering committee, sponsors, teams", order=3), SomFormFieldMeta(name="dashboardLocation", type_name="String", description="Dashboard Location — where metrics are visible", hint="Where the metrics dashboard or reports can be viewed", order=4), SomFormFieldMeta(name="baselinePeriod", type_name="String", description="Baseline Period — when baseline was established", hint="The period during which the baseline values were established for comparison", order=5), SomFormFieldMeta(name="targetAchievementDate", type_name="String", description="Target Achievement Date — when targets should be met", hint="The date by which the metric targets are expected to be met", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — monitoring & controlling", "PROSCI — adoption metrics"], "connotation": "Summarizes how transition success is measured and reported — the approach, cadence, ownership, audience, and baseline."})]),
@@ -52372,7 +53204,7 @@ def _mc_TransitionSuccessMetrics(s):
             section_id_pattern="TRME-METR-xxx",
             kind=SomMetaKind.LIST,
             type_name="TransitionMetricEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per success metric describing its category, measurement method, baseline, and target.",
             doc_comment="Specific success metrics.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — monitoring & controlling", "ISO/IEC 25010 — quality measurement"], "connotation": "The specific success metrics tracked to evaluate adoption, performance, quality, and satisfaction during the transition."})],
@@ -52396,11 +53228,19 @@ def _mc_TransitionSupportStructure(s):
     return [
          SomMetaNode(
             class_name="TransitionSupportStructure",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the transition support model before the resource and escalation lists below. Cover how long enhanced support lasts."),
+         SomMetaNode(
+            class_name="TransitionSupportStructure",
             member_name="overview",
             section_id="TRSUOV",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="Support organization overview.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="supportModel", type_name="String", description="Support Model — tiered support, buddy system, floor walkers", hint="How transition support is organized: tiered help desk, buddy system, floor walkers, super-users", order=0), SomFormFieldMeta(name="supportHours", type_name="String", description="Support Hours — when support is available", hint="The hours and days during which transition support is available to users", order=1), SomFormFieldMeta(name="supportChannels", type_name="String", description="Support Channels — help desk, chat, in-person, phone", hint="The channels through which users can reach support: help desk, chat, in-person, phone", order=2), SomFormFieldMeta(name="supportCapacity", type_name="String", description="Support Capacity — expected volumes and staffing", hint="The expected support volumes and the staffing provisioned to meet them", order=3), SomFormFieldMeta(name="supportDuration", type_name="String", description="Support Duration — how long enhanced support lasts", hint="How long the period of enhanced transition support will last before scaling back", order=4), SomFormFieldMeta(name="transitionToBAU", type_name="String", description="Transition to BAU — when/how support moves to business-as-usual", hint="When and how support hands over to the business-as-usual support organization", order=5), SomFormFieldMeta(name="knowledgeBase", type_name="String", description="Knowledge Base — self-service resources available", hint="The self-service resources (FAQs, guides, knowledge base) available to users", order=6), SomFormFieldMeta(name="superUserNetwork", type_name="String", description="Super-User Network — local experts in each area", hint="The network of local super-users or champions who provide peer support in each area", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ITIL 4 — service transition / early life support", "PMBOK — resource management"], "connotation": "Summarizes the support model, hours, channels, capacity, and duration that frame how users are supported through the transition."})]),
@@ -52411,7 +53251,7 @@ def _mc_TransitionSupportStructure(s):
             section_id_pattern="TRSPRE-SUPP-xxx",
             kind=SomMetaKind.LIST,
             type_name="TransitionSupportResourceEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per support resource describing its type, coverage, capacity, and ownership.",
             doc_comment="Support resources available.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ITIL 4 — service transition / early life support", "PMBOK — resource management"], "connotation": "The support resources made available during the transition, such as help desks, super users, floor walkers, and coaches."})],
@@ -52423,7 +53263,7 @@ def _mc_TransitionSupportStructure(s):
             section_id_pattern="TRESPA-ESCA-xxx",
             kind=SomMetaKind.LIST,
             type_name="TransitionEscalationPaths",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per escalation path describing its levels, criteria, and response-time targets.",
             doc_comment="Escalation paths for support.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ITIL 4 — service transition / early life support", "PMBOK — resource management"], "connotation": "The escalation paths that route support issues from first-line help through to specialist, expert, and management levels."})],
@@ -52435,11 +53275,19 @@ def _mc_TranslationProcess(s):
     return [
          SomMetaNode(
             class_name="TranslationProcess",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the translation workflow before the tooling, quality, terminology and vendor subsections below. Cover who translates and how translation quality is judged."),
+         SomMetaNode(
+            class_name="TranslationProcess",
             member_name="translationProcessContent",
             section_id="TRPR-TRAN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="translationManagementSystem", type_name="String", description="Translation Management System", hint="TMS tool (Phrase, Lokalise, Crowdin)", order=0), SomFormFieldMeta(name="translationMemory", type_name="String", description="Translation Memory", hint="TM usage and maintenance", order=1), SomFormFieldMeta(name="machineTranslation", type_name="String", description="Machine Translation", hint="MT usage (Google, DeepL, none)", order=2), SomFormFieldMeta(name="catTools", type_name="String", description="CAT Tools", hint="Computer-assisted translation tools", order=3)])),
          SomMetaNode(
             class_name="TranslationProcess",
@@ -52447,7 +53295,7 @@ def _mc_TranslationProcess(s):
             section_id="TRPRWO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Translation workflow.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="translationWorkflow", type_name="String", description="Translation Workflow", hint="Steps: extract → translate → review → integrate", order=0), SomFormFieldMeta(name="reviewCycles", type_name="String", description="Review Cycles", hint="Number of review rounds", order=1), SomFormFieldMeta(name="inCountryReview", type_name="String", description="In-Country Review", hint="Native speaker review process", order=2), SomFormFieldMeta(name="contextualReview", type_name="String", description="Contextual Review", hint="In-app review process", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 17100:2015 — the translation process sequences translation, revision, and in-country review steps", "ISO 18587:2017 — machine-translation post-editing can be inserted into the workflow"], "connotation": "The step-by-step translation workflow including review cycles and in-country review."})]),
@@ -52457,7 +53305,7 @@ def _mc_TranslationProcess(s):
             section_id="TRPRQU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Quality assurance.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="qualityChecks", type_name="String", description="Quality Checks", hint="Automated quality checks", order=0), SomFormFieldMeta(name="linguisticQA", type_name="String", description="Linguistic QA", hint="Linguistic quality assurance", order=1), SomFormFieldMeta(name="functionalQA", type_name="String", description="Functional QA", hint="Functional testing of translations", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 17100:2015 — the revision step defines linguistic quality checks on translated content", "ISO/IEC/IEEE 29119 — functional testing verifies that translated builds behave correctly"], "connotation": "The linguistic and functional quality-assurance checks applied to translations."})]),
@@ -52467,7 +53315,7 @@ def _mc_TranslationProcess(s):
             section_id="TRPRTE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Terminology and voice management.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="glossaryManagement", type_name="String", description="Glossary Management", hint="Term base management", order=0), SomFormFieldMeta(name="styleGuide", type_name="String", description="Style Guide", hint="Translation style guidelines", order=1), SomFormFieldMeta(name="brandVoice", type_name="String", description="Brand Voice", hint="How brand voice is maintained", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 17100:2015 — terminology and style resources support consistent translation output"], "connotation": "The glossary, style guide, and brand-voice management for translations."})]),
@@ -52477,7 +53325,7 @@ def _mc_TranslationProcess(s):
             section_id="TRPRON",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Ongoing localization operations.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="continuousLocalization", type_name="String", description="Continuous Localization", hint="CI/CD integration for translations", order=0), SomFormFieldMeta(name="translationMemoryMaintenance", type_name="String", description="TM Maintenance", hint="How translation memory is maintained", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 17100:2015 — translation memory is a process asset maintained across ongoing localization work", "ISO 18587:2017 — continuous machine-translation post-editing supports ongoing operations"], "connotation": "The continuous localization and translation-memory maintenance operations."})]),
@@ -52486,7 +53334,7 @@ def _mc_TranslationProcess(s):
             member_name="translationNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Translation process narrative."),
          SomMetaNode(
@@ -52496,7 +53344,7 @@ def _mc_TranslationProcess(s):
             section_id_pattern="TVE-VEND-xxx",
             kind=SomMetaKind.LIST,
             type_name="TranslationVendorEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per translation vendor.",
             doc_comment="Translation vendor entries.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 17100:2015 — each listed translation vendor meets defined competence requirements", "ISO 18587:2017 — a listed vendor may provide machine-translation post-editing services"], "connotation": "The collection of translation-vendor entries engaged for localization."})],
@@ -52508,11 +53356,19 @@ def _mc_TranslationRequirements(s):
     return [
          SomMetaNode(
             class_name="TranslationRequirements",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the internationalization framework before the RTL, formatting and technical subsections below. Cover the string-externalization format and the locale-resolution rule."),
+         SomMetaNode(
+            class_name="TranslationRequirements",
             member_name="translationRequirementsContent",
             section_id="TRAREQ-TRAN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="i18nFramework", type_name="String", description="I18N Framework", hint="flutter_localizations, intl, easy_localization", order=0), SomFormFieldMeta(name="stringExternalizationFormat", type_name="String", description="String Externalization Format", hint="ARB, JSON, YAML, Gettext", order=1), SomFormFieldMeta(name="localeHandling", type_name="String", description="Locale Handling", hint="How locales are loaded and switched", order=2)])),
          SomMetaNode(
             class_name="TranslationRequirements",
@@ -52520,7 +53376,7 @@ def _mc_TranslationRequirements(s):
             section_id="TRRERT",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="RTL and bidirectional support.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="rtlSupport", type_name="bool", description="RTL Support", hint="Whether right-to-left languages are supported", order=0), SomFormFieldMeta(name="rtlImplementation", type_name="String", description="RTL Implementation", hint="How RTL is implemented", order=1), SomFormFieldMeta(name="bidirectionalText", type_name="String", description="Bidirectional Text", hint="Handling mixed LTR/RTL content", order=2), SomFormFieldMeta(name="rtlMirroring", type_name="String", description="RTL Mirroring", hint="UI element mirroring rules", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Unicode Standard / ISO/IEC 10646 — the Unicode bidirectional algorithm governs mixed left-to-right and right-to-left text", "ISO/IEC 25010:2023 — usability covers layout adaptation and mirroring for right-to-left languages"], "connotation": "The right-to-left and bidirectional text support, including mirroring rules for the interface."})]),
@@ -52530,7 +53386,7 @@ def _mc_TranslationRequirements(s):
             section_id="TRREFO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Locale-specific formatting rules.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="dateTimeFormatting", type_name="String", description="Date/Time Formatting", hint="intl DateFormat, custom", order=0), SomFormFieldMeta(name="numberFormatting", type_name="String", description="Number Formatting", hint="intl NumberFormat, custom", order=1), SomFormFieldMeta(name="currencyFormatting", type_name="String", description="Currency Formatting", hint="Currency display and conversion", order=2), SomFormFieldMeta(name="measurementUnits", type_name="String", description="Measurement Units", hint="Metric, imperial, locale-based", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["CLDR (Unicode Common Locale Data Repository) — supplies locale-specific date, number, and unit formatting data", "ISO 8601 — defines date and time representation", "ISO 4217 — defines currency codes for currency display"], "connotation": "The date, number, currency, and measurement-unit formatting rules applied per locale."})]),
@@ -52540,7 +53396,7 @@ def _mc_TranslationRequirements(s):
             section_id="TRREVA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Pluralization and variants.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="pluralizationRules", type_name="String", description="Pluralization Rules", hint="ICU plural format, custom", order=0), SomFormFieldMeta(name="genderSupport", type_name="String", description="Gender Support", hint="Grammatical gender handling", order=1), SomFormFieldMeta(name="contextualVariants", type_name="String", description="Contextual Variants", hint="Formal/informal, regional variants", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ICU MessageFormat — expresses pluralization and gender selection for translated messages", "CLDR (Unicode Common Locale Data Repository) — provides the plural rules for each language"], "connotation": "The pluralization rules, gender handling, and contextual variants required for translated text."})]),
@@ -52550,7 +53406,7 @@ def _mc_TranslationRequirements(s):
             section_id="TRRETE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Technical text and font support.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="unicodeSupport", type_name="String", description="Unicode Support", hint="Unicode handling and normalization", order=0), SomFormFieldMeta(name="fontFallback", type_name="String", description="Font Fallback", hint="Font fallback for different scripts", order=1), SomFormFieldMeta(name="textDirection", type_name="String", description="Text Direction", hint="Directionality handling", order=2), SomFormFieldMeta(name="keyboardLayouts", type_name="String", description="Keyboard Layouts", hint="IME and keyboard support", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Unicode Standard / ISO/IEC 10646 — defines character encoding, normalization, and text handling across scripts", "ISO/IEC 25010:2023 — usability covers font fallback and text direction handling for different scripts"], "connotation": "The Unicode handling, font fallback, text direction, and keyboard support required across scripts."})]),
@@ -52559,7 +53415,7 @@ def _mc_TranslationRequirements(s):
             member_name="requirementsNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Translation requirements narrative."),
     ]
@@ -52755,11 +53611,19 @@ def _mc_UiComponentEntry(s):
     return [
          SomMetaNode(
             class_name="UiComponentEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this component — what it is for and when to reach for it, beyond the visual, behaviour and data-binding facets recorded below."),
+         SomMetaNode(
+            class_name="UiComponentEntry",
             member_name="identity",
             section_id="UICOM-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="componentFamily", type_name="String", description="Component Family", hint="Button, Input, Table, Navigation, etc.", order=0), SomFormFieldMeta(name="baseComponent", type_name="String", description="Base Component", hint="Base component of the shared library this one specialises (Data Table, Text Input)", order=1)])),
          SomMetaNode(
             class_name="UiComponentEntry",
@@ -52767,7 +53631,7 @@ def _mc_UiComponentEntry(s):
             section_id="UCEP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Wrapper mapping and business purpose.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="tomWrapperClass", type_name="String", description="Tom Wrapper Class", hint="TomDataTable, TomTextField, etc.", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="What the component does", order=1), SomFormFieldMeta(name="businessContext", type_name="String", description="Business Context", hint="Business scenarios where used", order=2), SomFormFieldMeta(name="userGoals", type_name="String", description="User Goals", hint="What user accomplishes with this", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — components conform with user expectations by mapping to a clear purpose and business context", "ISO/IEC 25010:2023 — a reusable component library supports maintainability through modularity and reusability"], "connotation": "The UI-component-entry purpose definition describing the wrapper mapping, purpose, business context, and user goals of one catalog component."})]),
@@ -52777,7 +53641,7 @@ def _mc_UiComponentEntry(s):
             section_id="UCEC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Classification details.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="atomicLevel", type_name="String", description="Atomic Level", hint="Atom, molecule, organism", order=0), SomFormFieldMeta(name="complexity", type_name="String", description="Complexity", hint="Simple, moderate, complex", order=1), SomFormFieldMeta(name="reusability", type_name="String", description="Reusability", hint="Generic, semi-generic, specialized", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Atomic Design (Brad Frost) — classifying components as atoms, molecules, or organisms guides composition", "ISO/IEC 25010:2023 — a reusable component library supports maintainability through modularity and reusability"], "connotation": "The UI-component-entry classification definition describing atomic level, complexity, and reusability of one catalog component."})]),
@@ -52787,7 +53651,7 @@ def _mc_UiComponentEntry(s):
             section_id="UICOM-VISU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="defaultAppearance", type_name="String", description="Default Appearance", hint="Visual description of default state", order=0), SomFormFieldMeta(name="colorScheme", type_name="String", description="Color Scheme", hint="Primary, secondary, surface colors used", order=1), SomFormFieldMeta(name="typography", type_name="String", description="Typography", hint="Text styles used", order=2), SomFormFieldMeta(name="iconography", type_name="String", description="Iconography", hint="Icons used and their placement", order=3)])),
          SomMetaNode(
             class_name="UiComponentEntry",
@@ -52795,7 +53659,7 @@ def _mc_UiComponentEntry(s):
             section_id="UCED",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Visual dimensions.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="defaultWidth", type_name="String", description="Default Width", hint="Default width or width behavior", order=0), SomFormFieldMeta(name="defaultHeight", type_name="String", description="Default Height", hint="Default height or height behavior", order=1), SomFormFieldMeta(name="minDimensions", type_name="String", description="Minimum Dimensions", hint="Smallest allowed size", order=2), SomFormFieldMeta(name="maxDimensions", type_name="String", description="Maximum Dimensions", hint="Largest allowed size", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — sizing of interface elements supports readable presentation of information", "WCAG 2.2 — SC 1.4.10 Reflow requires components to remain usable across a range of dimensions", "Material Design — layout and sizing guidance defines default and constraining dimensions for components"], "connotation": "The UI-component-entry dimension definition describing default, minimum, and maximum sizing for one catalog component."})]),
@@ -52805,7 +53669,7 @@ def _mc_UiComponentEntry(s):
             section_id="UCES",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Spacing rules.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="internalPadding", type_name="String", description="Internal Padding", hint="Padding inside the component", order=0), SomFormFieldMeta(name="externalMargin", type_name="String", description="External Margin", hint="Margin around the component", order=1), SomFormFieldMeta(name="contentSpacing", type_name="String", description="Content Spacing", hint="Spacing between internal elements", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — spacing between elements supports clear presentation of information", "Material Design — spacing and layout guidance defines padding and margin rhythm for components", "ISO 9241-161:2016 — consistent spacing helps users perceive grouping of interface elements"], "connotation": "The UI-component-entry spacing definition describing internal padding, external margin, and content spacing for one catalog component."})]),
@@ -52815,7 +53679,7 @@ def _mc_UiComponentEntry(s):
             section_id="UICOENSU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             doc_comment="Surface treatment.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="borderStyle", type_name="String", description="Border Style", hint="Solid, dashed, none", order=0), SomFormFieldMeta(name="cornerRadius", type_name="String", description="Corner Radius", hint="Rounding of component corners", order=1), SomFormFieldMeta(name="elevation", type_name="String", description="Elevation", hint="Depth or z-level of the surface", order=2), SomFormFieldMeta(name="shadowStyle", type_name="String", description="Shadow Style", hint="Drop shadow appearance", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Material Design — surface, elevation, and shadow properties define the visual layering of components", "ISO 9241-125:2017 — presentation of information relies on consistent surface treatment for legibility", "WCAG 2.2 — SC 1.4.11 Non-text Contrast requires component boundaries to remain distinguishable"], "connotation": "The UI-component-entry surface definition describing border, corner, elevation, and shadow treatment for one catalog component."})]),
@@ -52824,7 +53688,7 @@ def _mc_UiComponentEntry(s):
             member_name="visualDiagram",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_type=SomContentTypeMeta(type="mermaid", description=""),
             content_help="Visual diagram or mockup of the component.",
             doc_comment="Visual design diagram."),
@@ -52834,7 +53698,7 @@ def _mc_UiComponentEntry(s):
             section_id="UICOM-INTE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="tapBehavior", type_name="String", description="Tap Behavior", hint="What happens on tap/click", order=0), SomFormFieldMeta(name="longPressBehavior", type_name="String", description="Long Press Behavior", hint="What happens on long press", order=1), SomFormFieldMeta(name="doubleTapBehavior", type_name="String", description="Double Tap Behavior", hint="What happens on double tap", order=2), SomFormFieldMeta(name="swipeBehavior", type_name="String", description="Swipe Behavior", hint="What happens on swipe gestures", order=3), SomFormFieldMeta(name="dragBehavior", type_name="String", description="Drag Behavior", hint="What happens on drag gestures", order=4), SomFormFieldMeta(name="hoverBehavior", type_name="String", description="Hover Behavior", order=5)])),
          SomMetaNode(
             class_name="UiComponentEntry",
@@ -52842,7 +53706,7 @@ def _mc_UiComponentEntry(s):
             section_id="UCEIB",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             doc_comment="Focus and keyboard behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="focusBehavior", type_name="String", description="Focus Behavior", hint="Focus ring, highlight, navigation", order=0), SomFormFieldMeta(name="keyboardNavigation", type_name="String", description="Keyboard Navigation", hint="Tab order, arrow key behavior", order=1), SomFormFieldMeta(name="keyboardShortcuts", type_name="String", description="Keyboard Shortcuts", hint="Key combinations the component handles", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["WCAG 2.2 — SC 2.1.1 Keyboard and SC 2.4.7 Focus Visible ensure the component is operable and its focus is apparent", "W3C WAI-ARIA 1.2 — keyboard interaction and focus management follow expected authoring patterns", "ISO 9241-171:2008 — keyboard access supports users who cannot operate a pointing device"], "connotation": "The UI-component-entry input-behaviour definition describing focus, keyboard navigation, and shortcut handling for one catalog component."})]),
@@ -52852,7 +53716,7 @@ def _mc_UiComponentEntry(s):
             section_id="UCEA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=10,
+            serialization_order=11,
             doc_comment="Animation behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="entryAnimation", type_name="String", description="Entry Animation", hint="How the component appears", order=0), SomFormFieldMeta(name="exitAnimation", type_name="String", description="Exit Animation", hint="How the component disappears", order=1), SomFormFieldMeta(name="stateTransitions", type_name="String", description="State Transitions", hint="Animation between states", order=2), SomFormFieldMeta(name="feedbackAnimations", type_name="String", description="Feedback Animations", hint="Ripple, scale, color change", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Material Design — motion specifications define entry, exit, and state-change animations for components", "WCAG 2.2 — SC 2.3.3 Animation from Interactions allows motion effects to be reduced when requested", "ISO 9241-161:2016 — animated feedback communicates changes in component state to users"], "connotation": "The UI-component-entry animation definition describing entry, exit, transition, and feedback motion for one catalog component."})]),
@@ -52862,7 +53726,7 @@ def _mc_UiComponentEntry(s):
             section_id="UICOENSC",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=11,
+            serialization_order=12,
             doc_comment="Scrolling behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="scrollBehavior", type_name="String", description="Scroll Behavior", hint="If component is scrollable", order=0), SomFormFieldMeta(name="stickyBehavior", type_name="String", description="Sticky Behavior", hint="Headers, columns that stick", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-161:2016 — scrollable regions and sticky elements are presented so users can perceive content boundaries", "ISO 9241-125:2017 — presentation of information remains legible as content scrolls within a component"], "connotation": "The UI-component-entry scroll definition describing scrolling and sticky behaviour of one catalog component."})]),
@@ -52872,7 +53736,7 @@ def _mc_UiComponentEntry(s):
             section_id="UICOM-RESP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=12,
+            serialization_order=13,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="mobileLayout", type_name="String", description="Mobile Layout", hint="Layout on mobile (< 600dp)", order=0), SomFormFieldMeta(name="tabletLayout", type_name="String", description="Tablet Layout", hint="Layout on tablet (600-1024dp)", order=1), SomFormFieldMeta(name="desktopLayout", type_name="String", description="Desktop Layout", hint="Layout on desktop (> 1024dp)", order=2), SomFormFieldMeta(name="breakpointBehavior", type_name="String", description="Breakpoint Behavior", hint="What changes at breakpoints", order=3), SomFormFieldMeta(name="adaptiveContent", type_name="String", description="Adaptive Content", hint="Content that appears/hides", order=4), SomFormFieldMeta(name="touchTargets", type_name="String", description="Touch Targets", hint="Minimum touch target sizes", order=5), SomFormFieldMeta(name="orientationBehavior", type_name="String", description="Orientation Behavior", hint="Portrait vs. landscape", order=6)])),
          SomMetaNode(
             class_name="UiComponentEntry",
@@ -52880,7 +53744,7 @@ def _mc_UiComponentEntry(s):
             section_id="UICOM-ACCE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=13,
+            serialization_order=14,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="semanticRole", type_name="String", description="Semantic Role", hint="ARIA role or semantic meaning", order=0), SomFormFieldMeta(name="screenReaderLabel", type_name="String", description="Screen Reader Label", hint="How screen readers announce", order=1), SomFormFieldMeta(name="screenReaderHint", type_name="String", description="Screen Reader Hint", hint="Additional context for screen readers", order=2), SomFormFieldMeta(name="focusOrder", type_name="String", description="Focus Order", hint="Tab order in context", order=3), SomFormFieldMeta(name="ariaAttributes", type_name="String", description="ARIA Attributes", hint="Required ARIA attributes", order=4), SomFormFieldMeta(name="colorContrastNotes", type_name="String", description="Color Contrast Notes", hint="Contrast ratios and compliance notes", order=5), SomFormFieldMeta(name="motionSensitivity", type_name="String", description="Motion Sensitivity", hint="Reduced motion behavior", order=6), SomFormFieldMeta(name="textScalingBehavior", type_name="String", description="Text Scaling Behavior", hint="How component responds to text scaling", order=7)])),
          SomMetaNode(
             class_name="UiComponentEntry",
@@ -52888,7 +53752,7 @@ def _mc_UiComponentEntry(s):
             section_id="UICOM-AUTH",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=14,
+            serialization_order=15,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="authBasePath", type_name="String", description="Auth Base Path", hint="Base path for authorization lookup", order=0), SomFormFieldMeta(name="authVisibilityBehavior", type_name="String", description="Visibility Behavior", hint="Hidden, visible, conditionally visible", order=1), SomFormFieldMeta(name="authEnabledBehavior", type_name="String", description="Enabled Behavior", hint="Disabled, enabled, conditionally enabled", order=2), SomFormFieldMeta(name="authReadonlyBehavior", type_name="String", description="Readonly Behavior", hint="Readonly state behavior", order=3), SomFormFieldMeta(name="authActionControl", type_name="String", description="Action Control", hint="Which actions are auth-controlled", order=4), SomFormFieldMeta(name="authFallbackBehavior", type_name="String", description="Fallback Behavior", hint="Behavior when auth unavailable", order=5), SomFormFieldMeta(name="fourStateMapping", type_name="String", description="Four-State Mapping", hint="Mapping to TomAuthState four states", order=6)])),
          SomMetaNode(
             class_name="UiComponentEntry",
@@ -52896,7 +53760,7 @@ def _mc_UiComponentEntry(s):
             section_id="UICOM-RESO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=15,
+            serialization_order=16,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="resourceBasePath", type_name="String", description="Resource Base Path", hint="Base path for resource lookup", order=0), SomFormFieldMeta(name="labelResource", type_name="String", description="Label Resource", hint="Message key (MSGKR registry) for label text", order=1, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="hintResource", type_name="String", description="Hint Resource", hint="Message key (MSGKR registry) for hint text", order=2, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="errorResource", type_name="String", description="Error Resource", hint="Message key (MSGKR registry) for error messages", order=3, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="tooltipResource", type_name="String", description="Tooltip Resource", hint="Message key (MSGKR registry) for tooltip text", order=4, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="placeholderResource", type_name="String", description="Placeholder Resource", hint="Message key (MSGKR registry) for placeholder text", order=5, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="ariaLabelResource", type_name="String", description="ARIA Label Resource", hint="Message key (MSGKR registry) for the ARIA label", order=6, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="iconResource", type_name="String", description="Icon Resource", hint="Resource key for icon selection", order=7), SomFormFieldMeta(name="resourceFallbacks", type_name="String", description="Resource Fallbacks", hint="Fallback behavior when resource missing", order=8)])),
          SomMetaNode(
             class_name="UiComponentEntry",
@@ -52904,14 +53768,14 @@ def _mc_UiComponentEntry(s):
             section_id="UICOM-DATA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=16,
+            serialization_order=17,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="dataType", type_name="String", description="Data Type", hint="Type of data component displays/edits", order=0), SomFormFieldMeta(name="bindingPattern", type_name="String", description="Binding Pattern", hint="Observable, form field, direct", order=1), SomFormFieldMeta(name="valueAccessor", type_name="String", description="Value Accessor", hint="How value is read/written", order=2), SomFormFieldMeta(name="changeNotification", type_name="String", description="Change Notification", hint="How changes are communicated", order=3), SomFormFieldMeta(name="validationIntegration", type_name="String", description="Validation Integration", hint="How validation errors are displayed", order=4), SomFormFieldMeta(name="dirtyTracking", type_name="String", description="Dirty Tracking", hint="How dirty state is tracked", order=5), SomFormFieldMeta(name="undoRedoSupport", type_name="String", description="Undo/Redo Support", hint="Whether edits can be undone and redone", order=6)])),
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="behaviorNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=17,
+            serialization_order=18,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Detailed description of component behavior, user interactions, and edge cases.",
             doc_comment="Component behavior narrative."),
@@ -52922,7 +53786,7 @@ def _mc_UiComponentEntry(s):
             section_id_pattern="COMSTA-STAT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComponentStateEntry",
-            serialization_order=18,
+            serialization_order=19,
             content_help="Add one entry per component state.",
             doc_comment="Contains 0+× ComponentState.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology", "ISO 9241-161:2016 — each interactive state is presented so users can recognise it"], "connotation": "The collection of component-state entries defining the visual and functional states of the component."})],
@@ -52934,7 +53798,7 @@ def _mc_UiComponentEntry(s):
             section_id_pattern="CVE-VARI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComponentVariantEntry",
-            serialization_order=19,
+            serialization_order=20,
             content_help="Add one entry per component variant.",
             doc_comment="Contains 0+× ComponentVariant.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Material Design — component variants define alternative appearances such as filled, outlined, and text styles", "ISO/IEC 25010:2023 — a set of component variants supports maintainability through modularity and reusability"], "connotation": "The collection of component-variant entries defining alternative configurations of the component."})],
@@ -52946,7 +53810,7 @@ def _mc_UiComponentEntry(s):
             section_id_pattern="CMAC-ACTI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComponentActionEntry",
-            serialization_order=20,
+            serialization_order=21,
             content_help="Add one entry per component action.",
             doc_comment="Contains 0+× ComponentAction.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — component actions conform with user expectations for interaction and controllability", "W3C WAI-ARIA 1.2 — actionable elements expose their role and available operations to assistive technology"], "connotation": "The collection of component-action entries defining operations the component can perform."})],
@@ -52958,7 +53822,7 @@ def _mc_UiComponentEntry(s):
             section_id_pattern="CMSL-SLOT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComponentSlotEntry",
-            serialization_order=21,
+            serialization_order=22,
             content_help="Add one entry per component slot.",
             doc_comment="Contains 0+× ComponentSlot.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Atomic Design (Brad Frost) — composition slots allow a component to host nested content in defined regions", "ISO/IEC 25010:2023 — configurable slots support maintainability through modularity and reusability"], "connotation": "The collection of component-slot entries defining named content regions of the component."})],
@@ -52970,7 +53834,7 @@ def _mc_UiComponentEntry(s):
             section_id_pattern="CMPR-PROP-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComponentPropertyEntry",
-            serialization_order=22,
+            serialization_order=23,
             content_help="Add one entry per component property.",
             doc_comment="Contains 0+× ComponentProperty.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WAI-ARIA 1.2 — component properties such as label and description are exposed to assistive technology", "ISO/IEC 25010:2023 — a well-defined set of component properties supports maintainability through modularity"], "connotation": "The collection of component-property entries defining configurable properties of the component."})],
@@ -52982,11 +53846,19 @@ def _mc_UiComponents(s):
     return [
          SomMetaNode(
             class_name="UiComponents",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the component library before the design system, per-component specifications and family lists below. Cover what is reused, what is built, and the rule for adding a new component."),
+         SomMetaNode(
+            class_name="UiComponents",
             member_name="componentLibraryOverview",
             section_id="UICO-COMP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="designSystemName", type_name="String", description="Design System Name", hint="Name of the design system (e.g., \"Acme Design System\")", order=0), SomFormFieldMeta(name="designSystemVersion", type_name="String", description="Design System Version", hint="Semantic version of the design system (e.g., \"2.1.0\")", order=1), SomFormFieldMeta(name="basedOnFramework", type_name="String", description="Based On Framework", hint="Material Design 3, Cupertino, Custom", order=2), SomFormFieldMeta(name="sharedLibraryIntegration", type_name="bool", description="Shared Library Integration", hint="Builds on the organisation-wide shared component library rather than bespoke components", order=3)])),
          SomMetaNode(
             class_name="UiComponents",
@@ -52994,7 +53866,7 @@ def _mc_UiComponents(s):
             section_id="UCVL",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Visual language and brand alignment.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="visualLanguage", type_name="String", description="Visual Language", hint="Clean, playful, professional, minimal", order=0), SomFormFieldMeta(name="brandAlignment", type_name="String", description="Brand Alignment", hint="How design aligns with brand guidelines", order=1), SomFormFieldMeta(name="motionPrinciples", type_name="String", description="Motion Principles", hint="Animation philosophy: subtle, expressive, functional", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-161:2016 — visual interface elements are catalogued so they are applied consistently", "ISO 9241-110:2020 — consistency underpins a coherent visual language", "ISO/IEC 25010:2023 — a shared visual language supports maintainability through reuse"], "connotation": "The visual-language configuration describing brand alignment and motion principles."})]),
@@ -53004,7 +53876,7 @@ def _mc_UiComponents(s):
             section_id="UCCA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Component naming and documentation approach.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="componentGranularity", type_name="String", description="Component Granularity", hint="Atomic design levels: atoms, molecules, organisms", order=0), SomFormFieldMeta(name="componentNaming", type_name="String", description="Component Naming Convention", hint="PascalCase, kebab-case, prefix rules", order=1), SomFormFieldMeta(name="componentDocumentation", type_name="String", description="Component Documentation", hint="Storybook, living style guide, doc site", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-161:2016 — interface elements are named and documented so they are used consistently", "ISO 9241-110:2020 — consistency guides naming and documentation conventions", "ISO/IEC 25010:2023 — clear naming and documentation support maintainability"], "connotation": "The approach configuration describing component granularity, naming, and documentation practice."})]),
@@ -53014,7 +53886,7 @@ def _mc_UiComponents(s):
             section_id="UICOCU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Extension and theming boundaries.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="extensionModel", type_name="String", description="Extension Model", hint="How components can be extended or themed", order=0), SomFormFieldMeta(name="themingApproach", type_name="String", description="Theming Approach", hint="Token-based, widget-level, theme data", order=1), SomFormFieldMeta(name="customizationBoundaries", type_name="String", description="Customization Boundaries", hint="What can vs. cannot be customized", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-161:2016 — interface elements are catalogued so they are extended consistently", "ISO 9241-110:2020 — consistency governs how components can be themed and adapted", "ISO/IEC 25010:2023 — bounded extension points support maintainability and modularity"], "connotation": "The customization configuration describing how components can be extended and themed."})]),
@@ -53025,7 +53897,7 @@ def _mc_UiComponents(s):
                 class_section_id="COLI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ComponentLibrary",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="10.11.1. Component Library.",
                 class_doc_comment="10.11.1. Component Library.\n\nDesign system and component catalog specification.",
                 recursive=r,
@@ -53037,7 +53909,7 @@ def _mc_UiComponents(s):
             section_id_pattern="UICOM-COMP-xxx",
             kind=SomMetaKind.LIST,
             type_name="UiComponentEntry",
-            serialization_order=5,
+            serialization_order=6,
             content_help="Add one entry per catalog component.",
             doc_comment="10.11.2. Component Specifications — contains 0+×.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Atomic Design (Brad Frost) — each catalog component is specified as a composable building block", "ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity"], "connotation": "The collection of catalog component-specification entries."})],
@@ -53049,7 +53921,7 @@ def _mc_UiComponents(s):
             section_id_pattern="CMFA-COMP-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComponentFamilyEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per component family.",
             doc_comment="10.11.3. Component Families — contains 0+×.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Atomic Design (Brad Frost) — related components are grouped into families of shared composition", "ISO/IEC 25010:2023 — component families support maintainability through modularity and reuse"], "connotation": "The collection of component-family entries grouping related catalog components."})],
@@ -53430,11 +54302,19 @@ def _mc_UserAssistance(s):
     return [
          SomMetaNode(
             class_name="UserAssistance",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the in-app help system before the contextual-help, onboarding and support-access subsections below. Cover when help is offered unprompted and when it has to be sought."),
+         SomMetaNode(
+            class_name="UserAssistance",
             member_name="helpOverviewContent",
             section_id="USAS-HELP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="helpPhilosophy", type_name="String", description="Help Philosophy", hint="Self-service first, guided, on-demand", order=0), SomFormFieldMeta(name="helpAccessibility", type_name="String", description="Help Accessibility", hint="Always visible, contextual, searchable", order=1), SomFormFieldMeta(name="helpPersonalization", type_name="String", description="Help Personalization", hint="Role-based, skill-based, contextual", order=2), SomFormFieldMeta(name="helpContentStrategy", type_name="String", description="Help Content Strategy", hint="Video, text, interactive, mixed", order=3)])),
          SomMetaNode(
             class_name="UserAssistance",
@@ -53442,7 +54322,7 @@ def _mc_UserAssistance(s):
             section_id="USASDE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Content stewardship and help affordances.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="helpContentOwnership", type_name="String", description="Help Content Ownership", hint="Who maintains help content", order=0), SomFormFieldMeta(name="helpUpdateProcess", type_name="String", description="Help Update Process", hint="How help content is kept current", order=1), SomFormFieldMeta(name="helpIconStandard", type_name="String", description="Help Icon Standard", hint="Question mark, info icon, custom", order=2), SomFormFieldMeta(name="helpIconPlacement", type_name="String", description="Help Icon Placement", hint="By field labels, in headers, floating", order=3), SomFormFieldMeta(name="helpTooltipStyle", type_name="String", description="Help Tooltip Style", hint="Tooltip design and behavior", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — user assistance content is owned, maintained, and kept current", "ISO 9241-13:1998 — user guidance uses consistent help icons and tooltips"], "connotation": "The delivery settings covering help-content stewardship and help affordances."})]),
@@ -53452,7 +54332,7 @@ def _mc_UserAssistance(s):
             section_id="USASIN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Analytics and improvement feedback.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="helpAnalytics", type_name="String", description="Help Analytics", hint="Track help usage, identify gaps", order=0), SomFormFieldMeta(name="helpFeedback", type_name="String", description="Help Feedback", hint="Rate help articles, suggest improvements", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26515:2018 — agile user assistance improves from usage feedback", "ISO/IEC 25010:2023 — learnability and operability are refined through analytics"], "connotation": "The insights settings that track help usage and gather improvement feedback."})]),
@@ -53461,7 +54341,7 @@ def _mc_UserAssistance(s):
             member_name="helpOverview",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Executive summary of help system approach, content strategy, and user empowerment goals.",
             doc_comment="Help system overview narrative."),
@@ -53472,7 +54352,7 @@ def _mc_UserAssistance(s):
                 class_section_id="COHE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ContextualHelp",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="10.8.1. Contextual Help.",
                 class_doc_comment="10.8.1. Contextual Help.",
                 recursive=r,
@@ -53484,7 +54364,7 @@ def _mc_UserAssistance(s):
                 class_section_id="ONHE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="OnboardingHelp",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="10.8.2. Onboarding.",
                 class_doc_comment="10.8.2. Onboarding Help.",
                 recursive=r,
@@ -53496,7 +54376,7 @@ def _mc_UserAssistance(s):
                 class_section_id="SUAC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SupportAccess",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="10.8.3. Support Access.",
                 class_doc_comment="10.8.3. Support Access.",
                 recursive=r,
@@ -53506,7 +54386,7 @@ def _mc_UserAssistance(s):
             member_name="helpContentInventory",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Inventory of all help content by feature area.",
             doc_comment="Help content inventory."),
@@ -53780,11 +54660,19 @@ def _mc_UserDocumentationRequirements(s):
     return [
          SomMetaNode(
             class_name="UserDocumentationRequirements",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the end-user documentation deliverables before the format and localization subsections below. Cover the audiences served and the channel each deliverable reaches them through."),
+         SomMetaNode(
+            class_name="UserDocumentationRequirements",
             member_name="documentationContent",
             section_id="DOANTR-DOCU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="documentationFormat", type_name="String", description="Documentation Format", hint="HTML, PDF, in-app, wiki", order=0), SomFormFieldMeta(name="documentationPlatform", type_name="String", description="Documentation Platform", hint="GitBook, Notion, custom, Confluence", order=1), SomFormFieldMeta(name="documentationVersioning", type_name="String", description="Documentation Versioning", hint="How docs are versioned with releases", order=2)])),
          SomMetaNode(
             class_name="UserDocumentationRequirements",
@@ -53792,7 +54680,7 @@ def _mc_UserDocumentationRequirements(s):
             section_id="DATD",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Documentation deliverables provided to users.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="userGuide", type_name="bool", description="User Guide", hint="Include a full user guide (true or false)", order=0), SomFormFieldMeta(name="quickStartGuide", type_name="bool", description="Quick Start Guide", hint="Include a quick start guide (true or false)", order=1), SomFormFieldMeta(name="onlineHelp", type_name="bool", description="Online Help", hint="Include online help pages (true or false)", order=2), SomFormFieldMeta(name="videoTutorials", type_name="bool", description="Video Tutorials", hint="Include video tutorials (true or false)", order=3), SomFormFieldMeta(name="contextualHelp", type_name="bool", description="Contextual Help", hint="Include in-context help hints (true or false)", order=4), SomFormFieldMeta(name="faq", type_name="bool", description="FAQ", hint="Include a frequently-asked-questions page (true or false)", order=5), SomFormFieldMeta(name="releaseNotes", type_name="bool", description="Release Notes", hint="Include per-release notes (true or false)", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514 — user documentation deliverables cover the required content set for software users", "ISO 17100:2015 — documentation deliverables can be produced and revised through the translation process"], "connotation": "The set of end-user documentation deliverables included with the system."})]),
@@ -53802,7 +54690,7 @@ def _mc_UserDocumentationRequirements(s):
             section_id="DATL",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Documentation localization approach.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="documentationLanguages", type_name="String", description="Documentation Languages", hint="Languages for documentation", order=0), SomFormFieldMeta(name="documentationTranslation", type_name="String", description="Documentation Translation", hint="Translation approach for docs", order=1)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 17100:2015 — the translation process governs producing documentation in additional languages", "CLDR (Unicode Common Locale Data Repository) — locale data drives locale-appropriate documentation formatting", "ISO 3166 — country and region codes identify each documentation locale"], "connotation": "The approach for localizing and translating user documentation into supported languages."})]),
@@ -53811,7 +54699,7 @@ def _mc_UserDocumentationRequirements(s):
             member_name="documentationNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Documentation narrative."),
     ]
@@ -54718,11 +55606,19 @@ def _mc_ValidationFeedback(s):
     return [
          SomMetaNode(
             class_name="ValidationFeedback",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce how input errors are surfaced before the placement, message and rule subsections below. Cover when validation runs — on change, on blur, or on submit."),
+         SomMetaNode(
+            class_name="ValidationFeedback",
             member_name="validationDisplayContent",
             section_id="VAFE-VALI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="validationTiming", type_name="String", description="Validation Timing", hint="Real-time, on-blur, on-submit, debounced", order=0), SomFormFieldMeta(name="debounceDelay", type_name="String", description="Debounce Delay", hint="Milliseconds before validation triggers", order=1), SomFormFieldMeta(name="validationSequence", type_name="String", description="Validation Sequence", hint="Field-by-field, all-at-once, progressive", order=2)])),
          SomMetaNode(
             class_name="ValidationFeedback",
@@ -54730,7 +55626,7 @@ def _mc_ValidationFeedback(s):
             section_id="VAFEPL",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Display placement details.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="errorMessagePlacement", type_name="String", description="Error Message Placement", hint="Inline below field, above field, tooltip, summary", order=0), SomFormFieldMeta(name="summaryPosition", type_name="String", description="Error Summary Position", hint="Top of form, bottom of form, modal", order=1), SomFormFieldMeta(name="fieldHighlighting", type_name="String", description="Field Highlighting", hint="Border color, background color, icon", order=2), SomFormFieldMeta(name="fieldErrorIcon", type_name="String", description="Field Error Icon", hint="Icon displayed on invalid fields", order=3), SomFormFieldMeta(name="fieldErrorIconPosition", type_name="String", description="Icon Position", hint="Leading, trailing, inside field, outside", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — visual presentation governs the placement of feedback near the relevant field", "ISO 9241-143:2012 — forms position validation feedback where users can readily associate it with a field"], "connotation": "The validation-feedback placement configuration governing where error indicators appear."})]),
@@ -54740,7 +55636,7 @@ def _mc_ValidationFeedback(s):
             section_id="VAFEME",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Message formatting details.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="messageFormat", type_name="String", description="Message Format", hint="Text only, icon + text, structured", order=0), SomFormFieldMeta(name="maxMessageLength", type_name="String", description="Max Message Length", hint="Character limit for inline messages", order=1), SomFormFieldMeta(name="multipleErrorsDisplay", type_name="String", description="Multiple Errors Display", hint="First only, all, expandable list", order=2), SomFormFieldMeta(name="errorPersistence", type_name="String", description="Error Persistence", hint="Until fixed, until field accessed, timed", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — forms present specific validation messages for input fields", "ISO 9241-13:1998 — user guidance provides clear and concise error messages"], "connotation": "The validation-feedback message configuration governing formatting of error messages."})]),
@@ -54750,7 +55646,7 @@ def _mc_ValidationFeedback(s):
             section_id="VAFEGU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Guidance settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="showRequirements", type_name="bool", description="Show Requirements", hint="Display field requirements before error", order=0), SomFormFieldMeta(name="showSuggestions", type_name="bool", description="Show Suggestions", hint="Suggest corrections for common errors", order=1), SomFormFieldMeta(name="showExamples", type_name="bool", description="Show Examples", hint="Show example valid input", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — self-descriptiveness helps users understand what valid input looks like", "ISO 9241-143:2012 — forms offer requirements and examples that guide correct entry"], "connotation": "The validation-feedback guidance configuration governing requirements, suggestions, and examples."})]),
@@ -54760,7 +55656,7 @@ def _mc_ValidationFeedback(s):
             section_id="VAFEBE",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Animation and focus behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="errorAnimation", type_name="String", description="Error Animation", hint="Shake, fade-in, bounce, none", order=0), SomFormFieldMeta(name="clearAnimation", type_name="String", description="Clear Animation", hint="Animation when error is resolved", order=1), SomFormFieldMeta(name="scrollToError", type_name="bool", description="Scroll to Error", hint="Auto-scroll to first error on submit", order=2), SomFormFieldMeta(name="focusOnError", type_name="bool", description="Focus on Error", hint="Move focus to first invalid field", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — forms move focus toward fields that need correction after validation", "ISO 9241-13:1998 — user guidance draws attention to the location of an input error"], "connotation": "The validation-feedback behaviour configuration governing animation and focus on errors."})]),
@@ -54769,7 +55665,7 @@ def _mc_ValidationFeedback(s):
             member_name="validationNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Detailed specification of validation feedback behavior and user experience considerations.",
             doc_comment="Validation feedback narrative."),
@@ -54780,7 +55676,7 @@ def _mc_ValidationFeedback(s):
             section_id_pattern="VMT-MESS-xxx",
             kind=SomMetaKind.LIST,
             type_name="ValidationMessageTemplate",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per validation message template.",
             doc_comment="Validation message templates.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — forms present specific validation messages for input fields"], "connotation": "The collection of validation-message template entries."})],
@@ -54792,7 +55688,7 @@ def _mc_ValidationFeedback(s):
             section_id_pattern="VAFE-FIEL-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per field validation rule.",
             doc_comment="Field validation rules by type.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field", "ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data"], "connotation": "The collection of field validation rule entries organised by field type."})]),
@@ -55184,11 +56080,19 @@ def _mc_WcagCompliance(s):
     return [
          SomMetaNode(
             class_name="WcagCompliance",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the WCAG conformance target before the per-principle subsections and the success-criteria list below. Cover the level claimed and any documented exception to it."),
+         SomMetaNode(
+            class_name="WcagCompliance",
             member_name="wcagComplianceContent",
             section_id="WCCO-WCAG",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="textAlternatives", type_name="String", description="Text Alternatives (1.1)", hint="Alt text for non-text content", order=0), SomFormFieldMeta(name="timeBasedMedia", type_name="String", description="Time-Based Media (1.2)", hint="Captions, audio descriptions", order=1), SomFormFieldMeta(name="adaptableContent", type_name="String", description="Adaptable Content (1.3)", hint="Structure, sequence, sensory", order=2), SomFormFieldMeta(name="distinguishableContent", type_name="String", description="Distinguishable (1.4)", hint="Color, contrast, resize, audio", order=3)])),
          SomMetaNode(
             class_name="WcagCompliance",
@@ -55196,7 +56100,7 @@ def _mc_WcagCompliance(s):
             section_id="WCCOOP",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             doc_comment="Operable principles.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="keyboardAccessible", type_name="String", description="Keyboard Accessible (2.1)", hint="Full keyboard operation", order=0), SomFormFieldMeta(name="enoughTime", type_name="String", description="Enough Time (2.2)", hint="Adjustable timing, pause", order=1), SomFormFieldMeta(name="seizureSafe", type_name="String", description="Seizure Safe (2.3)", hint="No flashing content", order=2), SomFormFieldMeta(name="navigable", type_name="String", description="Navigable (2.4)", hint="Skip links, page titles, focus", order=3), SomFormFieldMeta(name="inputModalities", type_name="String", description="Input Modalities (2.5)", hint="Pointer, motion, touch", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WCAG 2.2 — user interface components and navigation are operable by all users", "EN 301 549 — the interactive product supports keyboard operation, adjustable timing, and safe input modalities"], "connotation": "The WCAG operable principle requirements covering keyboard access, timing, navigation, and input modalities."})]),
@@ -55206,7 +56110,7 @@ def _mc_WcagCompliance(s):
             section_id="WCCOUN",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Understandable principles.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="readable", type_name="String", description="Readable (3.1)", hint="Language, abbreviations", order=0), SomFormFieldMeta(name="predictable", type_name="String", description="Predictable (3.2)", hint="Consistent navigation, identification", order=1), SomFormFieldMeta(name="inputAssistance", type_name="String", description="Input Assistance (3.3)", hint="Error prevention, labels, suggestions", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WCAG 2.2 — information and the operation of the user interface are understandable to all users", "EN 301 549 — the interactive product presents readable, predictable content with input assistance"], "connotation": "The WCAG understandable principle requirements covering readability, predictability, and input assistance."})]),
@@ -55216,7 +56120,7 @@ def _mc_WcagCompliance(s):
             section_id="WCCORO",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             doc_comment="Robustness requirements.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="compatible", type_name="String", description="Compatible (4.1)", hint="Parsing, name/role/value", order=0)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WCAG 2.2 — content is robust enough to be interpreted reliably by a wide variety of user agents including assistive technologies", "W3C WAI-ARIA — name, role, and value are exposed so assistive technologies can interpret user interface components"], "connotation": "The WCAG robust principle requirements ensuring compatibility with assistive technologies."})]),
@@ -55225,7 +56129,7 @@ def _mc_WcagCompliance(s):
             member_name="wcagNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="WCAG compliance narrative."),
          SomMetaNode(
@@ -55235,7 +56139,7 @@ def _mc_WcagCompliance(s):
             section_id_pattern="WCSUCR-SUCC-xxx",
             kind=SomMetaKind.LIST,
             type_name="WcagSuccessCriterionEntry",
-            serialization_order=5,
+            serialization_order=6,
             content_help="Add one entry per WCAG success criterion.",
             doc_comment="WCAG success criteria mapping.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WCAG 2.2 — each success criterion states a testable accessibility requirement", "ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard"], "connotation": "The collection of WCAG success-criterion entries."})],
@@ -55259,18 +56163,26 @@ def _mc_WeightedQualityMatrix(s):
     return [
          SomMetaNode(
             class_name="WeightedQualityMatrix",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the weighting scheme before the individual weights below. Cover the scale used and how stakeholder input was gathered."),
+         SomMetaNode(
+            class_name="WeightedQualityMatrix",
             member_name="matrixConfigContent",
             section_id="WEQUMA-MATR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="matrixFormat", type_name="String", description="Matrix Format", hint="Spreadsheet, radar chart, heatmap", order=0), SomFormFieldMeta(name="weightingScale", type_name="String", description="Weighting Scale", hint="1-5, 1-10, percentage", order=1), SomFormFieldMeta(name="totalWeightRequirement", type_name="String", description="Total Weight Requirement", hint="Sum to 100%, relative weights", order=2), SomFormFieldMeta(name="weightJustificationRequired", type_name="bool", description="Weight Justification Required", hint="Whether each weight needs a documented justification", order=3), SomFormFieldMeta(name="matrixUpdateProcess", type_name="String", description="Matrix Update Process", hint="How weights are updated", order=4)])),
          SomMetaNode(
             class_name="WeightedQualityMatrix",
             member_name="matrixNarrative",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=1,
+            serialization_order=2,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Description of weighted quality matrix including weights assigned to each attribute and rationale.",
             doc_comment="Weighted quality matrix narrative."),
@@ -55281,7 +56193,7 @@ def _mc_WeightedQualityMatrix(s):
             section_id_pattern="QLWGT-WEIG-xxx",
             kind=SomMetaKind.LIST,
             type_name="QualityWeightEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per quality attribute weight.",
             doc_comment="Quality attribute weight entries.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25030:2019 — each weighted quality requirement is enumerated with its assigned relative weight"], "connotation": "Enumerates each weighted quality requirement with its assigned relative weight."})],
@@ -55291,7 +56203,7 @@ def _mc_WeightedQualityMatrix(s):
             member_name="matrixVisualization",
             kind=SomMetaKind.SECTION,
             type_name="String",
-            serialization_order=3,
+            serialization_order=4,
             content_type=SomContentTypeMeta(type="mermaid", description=""),
             content_help="Visual representation of quality attribute priorities.",
             doc_comment="Quality matrix visualization."),
@@ -55553,11 +56465,19 @@ def _mc_WorkflowStepSystem(s):
     return [
          SomMetaNode(
             class_name="WorkflowStepSystem",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Notes on how this workflow step uses the named system — the function it performs there, and any limitation of the system that shapes the step."),
+         SomMetaNode(
+            class_name="WorkflowStepSystem",
             member_name="name",
             section_id="WOSTSY-NAME",
             kind=SomMetaKind.CONTENT,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
             content_help="Name of the system used in this workflow step."),
     ]
@@ -55639,11 +56559,19 @@ def _mc_WorkplaceDescriptionEntry(s):
     return [
          SomMetaNode(
             class_name="WorkplaceDescriptionEntry",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Narrative for this workplace category — how these users actually work, beyond the physical, equipment, infrastructure and training facets recorded below."),
+         SomMetaNode(
+            class_name="WorkplaceDescriptionEntry",
             member_name="userCategory",
             section_id="WOUSCA",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=0,
+            serialization_order=1,
             doc_comment="User category identification.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryId", type_name="String", description="Category ID (e.g., WP-001)", required=True, order=0), SomFormFieldMeta(name="categoryName", type_name="String", description="Category Name", required=True, order=1), SomFormFieldMeta(name="description", type_name="String", description="Description — what defines this category", order=2), SomFormFieldMeta(name="headcount", type_name="int", description="Headcount — number of users in this category", order=3), SomFormFieldMeta(name="roles", type_name="String", description="Roles — job titles in this category", order=4), SomFormFieldMeta(name="workPatterns", type_name="String", description="Work Patterns — shift work, flex time, standard hours", order=5), SomFormFieldMeta(name="workLocations", type_name="String", description="Work Locations — office, remote, hybrid, field", order=6), SomFormFieldMeta(name="primaryResponsibilities", type_name="String", description="Primary Responsibilities — main work tasks", order=7), SomFormFieldMeta(name="systemUsageIntensity", type_name="String", description="System Usage Intensity — constant, frequent, occasional, rare", order=8), SomFormFieldMeta(name="criticalityLevel", type_name="String", description="Criticality Level — how critical is system access for this category", order=9)])),
          _cx("PhysicalWorkplaceRequirements", s, _mc_PhysicalWorkplaceRequirements,
@@ -55653,7 +56581,7 @@ def _mc_WorkplaceDescriptionEntry(s):
                 class_section_id="PHWORE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="PhysicalWorkplaceRequirements",
-                serialization_order=1,
+                serialization_order=2,
                 doc_comment="Physical workplace layout and environment.",
                 class_doc_comment="Physical workplace layout and environment requirements.",
                 recursive=r,
@@ -55665,7 +56593,7 @@ def _mc_WorkplaceDescriptionEntry(s):
                 class_section_id="EQRE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="EquipmentRequirements",
-                serialization_order=2,
+                serialization_order=3,
                 doc_comment="5.3.1. Equipment Requirements.",
                 class_doc_comment="5.3.1. Equipment Requirements.\n\nHardware and peripheral requirements per workplace type.",
                 recursive=r,
@@ -55677,7 +56605,7 @@ def _mc_WorkplaceDescriptionEntry(s):
                 class_section_id="TEIN",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TechnicalInfrastructure",
-                serialization_order=3,
+                serialization_order=4,
                 doc_comment="Technical infrastructure requirements.",
                 class_doc_comment="Technical infrastructure requirements.",
                 recursive=r,
@@ -55689,7 +56617,7 @@ def _mc_WorkplaceDescriptionEntry(s):
                 class_section_id="TRRE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TrainingRequirements",
-                serialization_order=4,
+                serialization_order=5,
                 doc_comment="5.3.2. Training Requirements.",
                 class_doc_comment="5.3.2. Training Requirements.\n\nComprehensive training program requirements following adult learning\nprinciples (ADDIE, Kirkpatrick evaluation model).",
                 recursive=r,
@@ -55701,7 +56629,7 @@ def _mc_WorkplaceDescriptionEntry(s):
                 class_section_id="WOSURE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="WorkplaceSupportResources",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="Support resources available to users.",
                 class_doc_comment="Support resources available to users.",
                 recursive=r,
@@ -55800,6 +56728,10 @@ class AcceptanceCriteriaSummaryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def acceptanceFrameworkContent(self):
@@ -56093,6 +57025,10 @@ class AccessibilityNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def accessibilityOverviewContent(self):
         return SomMetaRef(self.tree, f"{self.path}/ACCESS-ACCE")
 
@@ -56161,6 +57097,10 @@ class AccessibilityChecklistNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def checklistOverviewContent(self):
@@ -56314,6 +57254,10 @@ class ActorEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def identification(self):
         return SomMetaRef(self.tree, f"{self.path}/ACID")
 
@@ -56388,6 +57332,10 @@ class ActorRelationshipDiagramNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -56628,6 +57576,10 @@ class AlertingConfigurationNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def alertingOverview(self):
@@ -58056,6 +59008,10 @@ class BoundaryAssumptionsNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def assumptionApproach(self):
         return SomMetaRef(self.tree, f"{self.path}/assumptionApproach")
 
@@ -58107,6 +59063,10 @@ class BreakpointConfigurationNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def breakpointOverview(self):
@@ -58441,6 +59401,10 @@ class BusinessObjectEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def identity(self):
         return SomMetaRef(self.tree, f"{self.path}/BJOEN-IDEN")
 
@@ -58585,6 +59549,10 @@ class BusinessProcessEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def identification(self):
         return ProcessIdentificationNav(self.tree, f"{self.path}/identification")
 
@@ -58630,6 +59598,10 @@ class BusinessRuleEntryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def identity(self):
@@ -59047,6 +60019,10 @@ class ChangeReadinessAssessmentNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/CHREOV")
 
@@ -59104,6 +60080,10 @@ class ChangedRoleCompetenciesNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def newCompetencies(self):
         return SomListMetaRef(self.tree, f"{self.path}/ROLCP-NEWC-LST", RoleCompetencyEntryNav)
 
@@ -59125,6 +60105,10 @@ class ChangedRoleEntryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def identification(self):
@@ -59177,6 +60161,10 @@ class ChangedRoleResponsibilitiesNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def addedResponsibilities(self):
         return SomListMetaRef(self.tree, f"{self.path}/RSPCH-ADDE-LST", ResponsibilityChangeEntryNav)
 
@@ -59217,6 +60205,10 @@ class ChangesFromCurrentStructureNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overviewContent(self):
@@ -59869,6 +60861,10 @@ class CompatibilityCharacteristicNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def compatibilityContent(self):
         return SomMetaRef(self.tree, f"{self.path}/CMPT-COMP")
 
@@ -59952,6 +60948,10 @@ class CompetencyFrameworkNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -60274,6 +61274,10 @@ class ComponentLibraryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def designFoundations(self):
@@ -60846,6 +61850,10 @@ class ContextualHelpNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def contextualHelpContent(self):
@@ -62398,6 +63406,10 @@ class DataAttributeEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def identity(self):
         return SomMetaRef(self.tree, f"{self.path}/DAATT-IDEN")
 
@@ -62457,6 +63469,10 @@ class DataClassificationNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/DATCL-OVER")
 
@@ -62470,6 +63486,10 @@ class DataClassificationEntryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def identity(self):
@@ -62584,6 +63604,10 @@ class DataEntityEntryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def identity(self):
@@ -64995,6 +66019,10 @@ class DocumentationQualityCriteriaNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def documentationOverviewContent(self):
         return SomMetaRef(self.tree, f"{self.path}/DOQUCR-DOCU")
 
@@ -65538,6 +66566,10 @@ class EntityFollowUpEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def entityRef(self):
         return SomMetaRef(self.tree, f"{self.path}/DMFUE-ENTI")
 
@@ -65574,6 +66606,10 @@ class EntityRelationshipEntryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def identity(self):
@@ -65773,6 +66809,10 @@ class EquipmentRequirementsNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/EQOV")
 
@@ -65853,6 +66893,10 @@ class ErrorHandlingNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def errorPhilosophyContent(self):
         return SomMetaRef(self.tree, f"{self.path}/ERHACO-ERRO")
 
@@ -65929,6 +66973,10 @@ class ErrorRecoveryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def recoveryMechanismsContent(self):
@@ -66482,6 +67530,10 @@ class ExternalInterfaceEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def identificationContent(self):
         return SomMetaRef(self.tree, f"{self.path}/EIE-IDEN")
 
@@ -66523,6 +67575,10 @@ class ExternalInterfacesNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def integrationSummary(self):
@@ -67141,6 +68197,10 @@ class FlexibilityCharacteristicNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def flexibilityContent(self):
         return SomMetaRef(self.tree, f"{self.path}/FLXC-FLEX")
 
@@ -67265,6 +68325,10 @@ class FunctionModelNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def decompositionOverview(self):
@@ -67408,6 +68472,10 @@ class FunctionalSuitabilityCharacteristicNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def functionalSuitabilityContent(self):
@@ -68609,6 +69677,10 @@ class InteractionCapabilityCharacteristicNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def interactionCapabilityContent(self):
         return SomMetaRef(self.tree, f"{self.path}/INCP-INTE")
 
@@ -68695,6 +69767,10 @@ class InteractionEntryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def identification(self):
@@ -69341,6 +70417,10 @@ class JobDescriptionsAndStaffingNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/JODEOV")
 
@@ -69597,6 +70677,10 @@ class LanguageCountrySelectionNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def languageSelectionContent(self):
@@ -69884,6 +70968,10 @@ class LocalizationProcessNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def localizationProcessContent(self):
         return SomMetaRef(self.tree, f"{self.path}/LOPR-LOCA")
 
@@ -70141,6 +71229,10 @@ class MaintainabilityCharacteristicNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def maintainabilityContent(self):
@@ -70426,6 +71518,10 @@ class MetricsAndObservabilityNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def metricsOverview(self):
         return SomMetaRef(self.tree, f"{self.path}/MEANOB-METR")
 
@@ -70561,6 +71657,10 @@ class MigrationConsiderationsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def strategyContent(self):
@@ -70854,6 +71954,10 @@ class MigrationRisksNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def governanceContent(self):
         return SomMetaRef(self.tree, f"{self.path}/MIRI-GOVE")
 
@@ -71085,6 +72189,10 @@ class MonitoringNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def monitoringOverview(self):
         return SomMetaRef(self.tree, f"{self.path}/MONITO-MONI")
 
@@ -71173,6 +72281,10 @@ class MonitoringDashboardsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def dashboardOverview(self):
@@ -71282,6 +72394,10 @@ class MultiLanguageSupportNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def multiLanguageOverview(self):
         return SomMetaRef(self.tree, f"{self.path}/MLAR-MULT")
 
@@ -71303,6 +72419,10 @@ class MustPassCriteriaNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def mustPassOverviewContent(self):
@@ -71772,6 +72892,10 @@ class NewOrganizationStructureNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/overview")
 
@@ -71789,6 +72913,10 @@ class NewRoleEntryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def identification(self):
@@ -71847,6 +72975,10 @@ class NewRoleResponsibilitiesNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def primaryResponsibilities(self):
@@ -72004,6 +73136,10 @@ class OnboardingHelpNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def onboardingContent(self):
         return SomMetaRef(self.tree, f"{self.path}/ONHE-ONBO")
 
@@ -72064,6 +73200,10 @@ class OperatingEnvironmentNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -72322,6 +73462,10 @@ class OrganizationalEnvironmentNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def organizationContent(self):
         return SomMetaRef(self.tree, f"{self.path}/OREN-ORGA")
 
@@ -72371,6 +73515,10 @@ class OrganizationalFrameworkNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -72448,6 +73596,10 @@ class OrganizationalTransitionTimelineNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -72536,6 +73688,10 @@ class OutOfScopeNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def scopePhilosophy(self):
@@ -72869,6 +74025,10 @@ class PerformanceEfficiencyCharacteristicNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def performanceEfficiencyContent(self):
@@ -73557,6 +74717,10 @@ class ProcessCatalogNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/PCOVW")
 
@@ -73614,6 +74778,10 @@ class ProcessControlsNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/PRCOOV")
 
@@ -73649,6 +74817,10 @@ class ProcessDesignPrinciplesNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -73705,6 +74877,10 @@ class ProcessExceptionsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -73764,6 +74940,10 @@ class ProcessImprovementSummaryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/IMOV")
 
@@ -73792,6 +74972,10 @@ class ProcessInputsOutputsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -73954,6 +75138,10 @@ class ProcessOverviewDiagramNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/PRDIOV")
 
@@ -73990,6 +75178,10 @@ class ProcessPerformanceNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -74069,6 +75261,10 @@ class ProcessRolesNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -74207,6 +75403,10 @@ class ProcessTriggersNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/TGOVW")
 
@@ -74224,6 +75424,10 @@ class ProcessVisionNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -74434,6 +75638,10 @@ class PrototypeNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def prototypeOverview(self):
         return SomMetaRef(self.tree, f"{self.path}/PROTOT-PROT")
 
@@ -74488,6 +75696,10 @@ class PrototypeFeatureSubsetNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def featureSubsetContent(self):
         return SomMetaRef(self.tree, f"{self.path}/PRFESU-FEAT")
 
@@ -74526,6 +75738,10 @@ class PrototypeGoalsNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def goalsContent(self):
         return SomMetaRef(self.tree, f"{self.path}/PG-GOAL")
 
@@ -74551,6 +75767,10 @@ class PrototypeTypeNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def prototypeTypeOverview(self):
@@ -74655,6 +75875,10 @@ class QualityFrameworkNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def frameworkContent(self):
@@ -74788,6 +76012,10 @@ class QualityGateChecklistNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def checklistOverviewContent(self):
         return SomMetaRef(self.tree, f"{self.path}/QUGACH-CHEC")
 
@@ -74805,6 +76033,10 @@ class QualityPrioritizationNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def prioritizationFrameworkContent(self):
@@ -75240,6 +76472,10 @@ class ReliabilityCharacteristicNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def reliabilityContent(self):
         return SomMetaRef(self.tree, f"{self.path}/RELC-RELI")
 
@@ -75307,6 +76543,10 @@ class ReplacementInventoryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def portfolioSummary(self):
@@ -76183,6 +77423,10 @@ class ResponsiveBehaviorNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def layoutAdaptation(self):
         return SomMetaRef(self.tree, f"{self.path}/REBE-LAYO")
 
@@ -76216,6 +77460,10 @@ class ResponsiveDesignNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def responsiveOverview(self):
@@ -76375,6 +77623,10 @@ class ReusablePrototypeNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def reusableContent(self):
         return SomMetaRef(self.tree, f"{self.path}/REUPRO-REUS")
 
@@ -76505,6 +77757,10 @@ class RiskEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def identification(self):
         return RiskIdentificationNav(self.tree, f"{self.path}/identification")
 
@@ -76606,6 +77862,10 @@ class RisksAndAssumptionsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -77115,6 +78375,10 @@ class ScenarioEntryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def identification(self):
@@ -77952,6 +79216,10 @@ class SecurityCharacteristicNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def securityContent(self):
@@ -79004,6 +80272,10 @@ class SlaAndSloMonitoringNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def slaOverview(self):
         return SomMetaRef(self.tree, f"{self.path}/SASM-SLAO")
 
@@ -79254,6 +80526,10 @@ class StaffingPlanNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -80096,6 +81372,10 @@ class SuccessCriteriaByCategoryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def businessCriteria(self):
         return SomMetaRef(self.tree, f"{self.path}/SCBC-BUSI")
 
@@ -80167,6 +81447,10 @@ class SupportAccessNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def supportAccessContent(self):
@@ -80247,6 +81531,10 @@ class SystemBoundariesNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -80589,6 +81877,10 @@ class SystemErrorDisplayNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def systemErrorContent(self):
         return SomMetaRef(self.tree, f"{self.path}/SYERDI-SYST")
 
@@ -80837,6 +82129,10 @@ class SystemQualityGoalsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def governanceContent(self):
@@ -81160,6 +82456,10 @@ class SystemToReplaceEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def identificationContent(self):
         return SomMetaRef(self.tree, f"{self.path}/SYTORE-IDEN")
 
@@ -81263,6 +82563,10 @@ class SystemsToReplaceNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -81486,6 +82790,10 @@ class TechnicalEnvironmentNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def technicalOverviewContent(self):
@@ -81721,6 +83029,10 @@ class TechnicalInfrastructureNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def networkConnectivity(self):
@@ -82179,6 +83491,10 @@ class ThrowawayPrototypeNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def throwawayContent(self):
         return SomMetaRef(self.tree, f"{self.path}/THPR-THRO")
 
@@ -82430,6 +83746,10 @@ class TradeOffDecisionsNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def tradeOffGovernanceContent(self):
         return SomMetaRef(self.tree, f"{self.path}/TROFDE-TRAD")
 
@@ -82470,6 +83790,10 @@ class TrainingDeliverableRequirementsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def trainingContent(self):
@@ -82555,6 +83879,10 @@ class TrainingPrototypeNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def trainingContent(self):
         return SomMetaRef(self.tree, f"{self.path}/TP-TRAI")
 
@@ -82576,6 +83904,10 @@ class TrainingRequirementsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def overview(self):
@@ -82633,6 +83965,10 @@ class TransitionCommunicationPlanNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def strategy(self):
@@ -82737,6 +84073,10 @@ class TransitionPhaseEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def identification(self):
         return TransitionPhaseIdentificationNav(self.tree, f"{self.path}/identification")
 
@@ -82809,6 +84149,10 @@ class TransitionSuccessMetricsNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/TRMEOV")
 
@@ -82835,6 +84179,10 @@ class TransitionSupportStructureNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def overview(self):
         return SomMetaRef(self.tree, f"{self.path}/TRSUOV")
 
@@ -82852,6 +84200,10 @@ class TranslationProcessNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def translationProcessContent(self):
@@ -82887,6 +84239,10 @@ class TranslationRequirementsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def translationRequirementsContent(self):
@@ -83051,6 +84407,10 @@ class UiComponentEntryNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def identity(self):
         return SomMetaRef(self.tree, f"{self.path}/UICOM-IDEN")
 
@@ -83148,6 +84508,10 @@ class UiComponentsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def componentLibraryOverview(self):
@@ -83381,6 +84745,10 @@ class UserAssistanceNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def helpOverviewContent(self):
         return SomMetaRef(self.tree, f"{self.path}/USAS-HELP")
 
@@ -83541,6 +84909,10 @@ class UserDocumentationRequirementsNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def documentationContent(self):
@@ -84040,6 +85412,10 @@ class ValidationFeedbackNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def validationDisplayContent(self):
         return SomMetaRef(self.tree, f"{self.path}/VAFE-VALI")
 
@@ -84293,6 +85669,10 @@ class WcagComplianceNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def wcagComplianceContent(self):
         return SomMetaRef(self.tree, f"{self.path}/WCCO-WCAG")
 
@@ -84333,6 +85713,10 @@ class WeightedQualityMatrixNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def matrixConfigContent(self):
@@ -84519,6 +85903,10 @@ class WorkflowStepSystemNav(SomMetaRef):
     document positions while ``.meta`` raises (the metadata tree ends there)."""
 
     @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
     def name(self):
         return SomMetaRef(self.tree, f"{self.path}/WOSTSY-NAME")
 
@@ -84580,6 +85968,10 @@ class WorkplaceDescriptionEntryNav(SomMetaRef):
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
 
     @property
     def userCategory(self):

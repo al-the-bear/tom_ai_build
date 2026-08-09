@@ -66,10 +66,13 @@ const String _sectionIdSlot = '@sectionId';
     if (cls == null) continue;
     if (className == containerRoot) continue;
 
-    // `tom_specs_model_rules.md` §5.4 — content: String? expected (warning)
+    // `tom_specs_model_rules.md` §5.2 / §5.4 — every section class re-declares
+    // `content: String?` with `@override`, so a section can carry its own prose
+    // regardless of which form fields it also has. Only the container root (T1,
+    // exempted above) may omit it.
     final hasContent = cls.fields.any((f) => f.name == 'content');
     if (!hasContent) {
-      warnings.add('$className: missing field "content: String?"');
+      errors.add('$className: missing field "content: String?"');
     }
 
     for (final field in cls.fields) {

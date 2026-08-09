@@ -4,12 +4,13 @@
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
   - `QualityFramework`
-    - frameworkContent, objectives, tradeOffs, verification, qualityObjectivesOverview @text, objectivesBreakdown @text
+    - content, frameworkContent, objectives, tradeOffs, verification, qualityObjectivesOverview @text,
+      objectivesBreakdown @text
     - qualityCategories: `QualityCategoryEntry`[]
       - content @Form(categoryWeight), definition, relationships, governance, metrics, categoryDetails @text
     - categoryDependencies: `String`[]
   - functionalSuitability: `FunctionalSuitabilityCharacteristic`
-    - functionalSuitabilityContent, overview @text
+    - content, functionalSuitabilityContent, overview @text
     - `FunctionalCompleteness`
       - content @Form(featureCoverageTarget, coreWorkflowCoverage, edgeCaseHandling, scopePrioritization, mvpDefinition, deferredFeatureHandling, completenessVerification, userStoryTracking, gapAnalysisFrequency),
         narrative @text
@@ -17,19 +18,19 @@
       - content @Form(defectDensityTarget, criticalDefectTarget, defectEscapeRate), integrity, accuracy, verification,
         narrative @text
   - performanceEfficiency: `PerformanceEfficiencyCharacteristic`
-    - performanceEfficiencyContent, overview @text
+    - content, performanceEfficiencyContent, overview @text
     - `Efficiency`
       - content @Form(responseTimeP50Target, responseTimeP95Target, responseTimeP99Target), throughput, resources,
         verification, narrative @text
   - compatibility: `CompatibilityCharacteristic`
-    - compatibilityContent, overview @text
+    - content, compatibilityContent, overview @text
   - interactionCapability: `InteractionCapabilityCharacteristic`
-    - interactionCapabilityContent, overview @text
+    - content, interactionCapabilityContent, overview @text
     - `Usability`
       - content @Form(operabilityTarget, ergonomicsStandard, learnabilityTarget), operability, learnability, clarity,
         interaction, performance, narrative @text
   - reliability: `ReliabilityCharacteristic`
-    - reliabilityContent, overview @text
+    - content, reliabilityContent, overview @text
     - `Reliability`
       - content @Form(uptimeTarget, plannedDowntimeWindow, degradedModeCapability), recovery, failover, durability,
         verification, narrative @text
@@ -45,7 +46,7 @@
       - content @Form(scalabilityMonitoringApproach, capacityPlanningProcess, growthProjections), coverage, automation,
         alerting, operations, narrative @text
   - security: `SecurityCharacteristic`
-    - securityContent, overview @text
+    - content, securityContent, overview @text
     - `Security`
       - content @Form(encryptionAtRest, encryptionInTransit, keyManagement), authentication, authorization,
         vulnerability, compliance, narrative @text
@@ -53,12 +54,12 @@
       - content @Form(accessControlModel, drPlanRequired, incidentResponsePlan), access, recovery, testing, incident,
         narrative @text
   - maintainability: `MaintainabilityCharacteristic`
-    - maintainabilityContent, overview @text
+    - content, maintainabilityContent, overview @text
     - `Maintainability`
       - content @Form(adaptabilityTarget, changeImpactLimit), analyzability, changeability, testability, governance,
         narrative @text
   - flexibility: `FlexibilityCharacteristic`
-    - flexibilityContent, overview @text
+    - content, flexibilityContent, overview @text
     - `Flexibility`
       - content @Form(componentArchitecture, componentGranularity, componentReplaceability), modularity, deployment,
         extensibility, narrative @text
@@ -66,7 +67,7 @@
       - content @Form(targetPlatforms, browserSupport, mobileOsVersions, desktopOsVersions, migrationEffortConstraint, dataPortability, vendorLockInAvoidance, containerizationRequirement, infrastructureAsCode, portabilityVerification),
         narrative @text
   - `DocumentationQualityCriteria`
-    - documentationOverviewContent, overview @text
+    - content, documentationOverviewContent, overview @text
     - `Readability`
       - content @Form(terminologyStandard, ambiguityPrevention, jargonPolicy), navigation, comprehensibility,
         structure, style, narrative @text
@@ -80,23 +81,23 @@
       - content @Form(versioningStrategy, versionHistoryTracking, multiVersionSupport), extensibility, structure,
         maintenance, narrative @text
   - `QualityPrioritization`
-    - prioritizationFrameworkContent, prioritizationOverview @text
+    - content, prioritizationFrameworkContent, prioritizationOverview @text
     - `WeightedQualityMatrix`
-      - matrixConfigContent, matrixNarrative @text, matrixVisualization @mermaid
+      - content, matrixConfigContent, matrixNarrative @text, matrixVisualization @mermaid
       - weights: `QualityWeightEntry`[]
         - content @Form(qualityAttribute, qualityCategory, weight, priority, rationale, stakeholderAgreement, tradeOffImplications)
     - `TradeOffDecisions`
-      - tradeOffGovernanceContent, tradeOffOverview @text
+      - content, tradeOffGovernanceContent, tradeOffOverview @text
       - items: `TradeOffDecisionEntry`[]
         - content @Form(decisionStatus), qualities, rationale, impact, mitigation, approval, detailedAnalysis @text
   - `AcceptanceCriteriaSummary`
-    - acceptanceFrameworkContent, acceptanceOverview @text, acceptanceTestSummary @text
+    - content, acceptanceFrameworkContent, acceptanceOverview @text, acceptanceTestSummary @text
     - `MustPassCriteria`
-      - mustPassOverviewContent, overview @text
+      - content, mustPassOverviewContent, overview @text
       - items: `MustPassCriterionEntry`[]
         - content @Form(verificationMethod), definition, verification, governance, status, details @text
     - `QualityGateChecklist`
-      - checklistOverviewContent, overview @text
+      - content, checklistOverviewContent, overview @text
       - items: `QualityGateCheckEntry`[]
         - content @Form(checkItem, verificationMethod), definition, verification, execution, status, blocking
     - detailedCriteria: `AcceptanceCriteriaList`

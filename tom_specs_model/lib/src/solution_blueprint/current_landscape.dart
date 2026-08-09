@@ -2594,9 +2594,18 @@ class WorkflowTriggerEntry extends DocSpecsSection {
 ], 'A single system that a workflow step relies on to do its work.')
 @SectionId('WOSTSY')
 class WorkflowStepSystem extends DocSpecsSection {
+  @ContentHelp(
+    'Notes on how this workflow step uses the named system — the function '
+    'it performs there, and any limitation of the system that shapes the '
+    'step.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('WOSTSY-NAME')
   @ContentHelp('Name of the system used in this workflow step.')
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? name;
 }
 

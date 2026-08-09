@@ -223,7 +223,7 @@
           - relationships: `SuccessCriterionRelationships`[]
             - content @Form(relatedGoals, relatedRequirements, dependencies, stakeholders)
         - byCategory: `SuccessCriteriaByCategory`
-          - businessCriteria, technicalCriteria, userCriteria, complianceCriteria, projectCriteria
+          - content, businessCriteria, technicalCriteria, userCriteria, complianceCriteria, projectCriteria
     - requirements: `RequirementsOverview` ← (Seeds → RSP)
       - content, requirementsForm, traceabilityMatrix
       - `FunctionalRequirements` → RSP
@@ -233,11 +233,11 @@
       - requirementRelationships: `RequirementRelationships`[] → RSP
       - `RequirementCoverage` → RSP
     - `SystemsToReplace` ← (Seeds → CLA)
-      - overview @text
+      - content, overview @text
       - `ReplacementInventory` → CLA
       - `MigrationConsiderations` → CLA
     - `SystemBoundaries` ← (Seeds → IIS)
-      - overview @text
+      - content, overview @text
       - `ExternalInterfaces` → IIS
       - `OutOfScope` → IIS
       - assumptions: `BoundaryAssumptions` → IIS
@@ -249,9 +249,9 @@
       - operationalConsiderations: `CrossBoundaryOperationalConsiderations`[] → IIS
       - `CrossBoundaryErrorHandling` → IIS
     - `OperatingEnvironment`
-      - overview @text, constraintsAndDependencies
+      - content, overview @text, constraintsAndDependencies
       - `OrganizationalEnvironment`
-        - organizationContent, maturity, decisionMakingContext, structure @text, decisionMaking @text,
+        - content, organizationContent, maturity, decisionMakingContext, structure @text, decisionMaking @text,
           politicalLandscape @text
         - affectedDepartments: `AffectedDepartmentEntry`[]
           - content @Form(departmentHead, employeeCount, impactLevel, roleInProject, currentSystems, changeReadiness, keyContacts, specialConsiderations)
@@ -273,9 +273,9 @@
             - content @Form(primarySystems, dataOwnership, processOwnership)
       - `TechnicalEnvironment` ← (Seeds → ATS) → ATS
     - `RisksAndAssumptions`
-      - overview
+      - content, overview
       - keyRisks: `RiskEntry`[]
-        - analysis, ownership
+        - content, analysis, ownership
         - identification: `RiskIdentification`
           - content @Form(description, category, subcategory), sourceDetails, cause
         - response: `RiskResponse`
@@ -465,21 +465,22 @@
     - organizationAndProcess: `OrganizationAndProcessConcept`
       - content
       - `OrganizationalFramework`
-        - overview @text
+        - content, overview @text
         - organizationStructure: `NewOrganizationStructure`
-          - overview @text
+          - content, overview @text
           - `ChangesFromCurrentStructure`
-            - overviewContent, changeNarrative @text, orgChartComparison @mermaid
+            - content, overviewContent, changeNarrative @text, orgChartComparison @mermaid
             - items: `OrganizationalChangeEntry`[]
               - content @Form(changeType), identification, scope, rationale, impact, transition, status
               - risks: `OrgChangeRisks`[]
                 - content @Form(risks, mitigations, dependencies)
           - transitionTimeline: `OrganizationalTransitionTimeline`
+            - content
             - overview: `TransitionOverview`
               - content @Form(transitionApproach, changeManagementMethodology, transitionStartDate, targetCompletionDate),
                 timeline, governance
             - phases: `TransitionPhaseEntry`[]
-              - exitCriteria
+              - content, exitCriteria
               - identification: `TransitionPhaseIdentification`
                 - content @Form(phaseType, phaseOwner), timeline, scope
               - activities: `TransitionPhaseActivities`[]
@@ -490,33 +491,33 @@
               - content @Form(milestoneType, targetDate, actualDate, status, description), governance, dependencies,
                 recognition
             - changeReadiness: `ChangeReadinessAssessment`
-              - overview
+              - content, overview
               - readinessCriteria: `ReadinessCriteriaEntry`[]
                 - content @Form(stakeholderGroup, awarenessLevel, desireLevel, knowledgeLevel, abilityLevel, reinforcementNeeded, resistanceFactors, mitigationActions, readinessStatus, assessmentDate)
             - communicationPlan: `TransitionCommunicationPlan`
-              - strategy
+              - content, strategy
               - communicationEvents: `CommunicationEventEntry`[]
                 - content @Form(eventType, targetAudience, scheduledDate, phase, keyMessages), delivery, outcome
               - channels: `TransitionCommunicationChannels`[]
                 - content @Form(primaryChannels, urgentChannels, feedbackChannels, documentationRepository, channelOwnership, channelAccessibility)
             - supportStructure: `TransitionSupportStructure`
-              - overview
+              - content, overview
               - supportResources: `TransitionSupportResourceEntry`[]
                 - content @Form(resourceType, availabilityPeriod, coverage, contactInfo, capacity, skills, owner, costCenter)
               - escalationPaths: `TransitionEscalationPaths`[]
                 - content @Form(level1, level2, level3, emergencyContact, escalationCriteria, responseTimeTargets, managementEscalation)
             - successMetrics: `TransitionSuccessMetrics`
-              - overview
+              - content, overview
               - metrics: `TransitionMetricEntry`[]
                 - content @Form(category, description, measurementMethod, baseline, target), operations, statusSection
             - transitionRisks: `TransitionRiskEntry`[]
               - content @Form(riskCategory, description), assessment, response
         - jobDescriptions: `JobDescriptionsAndStaffing`
-          - overview
+          - content, overview
           - newRoles: `NewRoleEntry`[]
-            - identification, organization, systemAccess, performance, onboarding
+            - content, identification, organization, systemAccess, performance, onboarding
             - responsibilities: `NewRoleResponsibilities`
-              - decisionAuthority
+              - content, decisionAuthority
               - primaryResponsibilities: `ResponsibilityDetailEntry`[]
                 - content @Form(responsibility, description, timeAllocation, frequency, deliverables, qualityStandards, relatedProcesses, toolsUsed)
               - secondaryResponsibilities: `ResponsibilityDetailEntry`[]
@@ -526,11 +527,11 @@
               - requiredCompetencies: `RoleCompetencyEntry`[]
                 - content @Form(competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
           - changedRoles: `ChangedRoleEntry`[]
-            - systemAccess, incumbentImpact
+            - content, systemAccess, incumbentImpact
             - identification: `ChangedRoleIdentification`
               - content @Form(newRoleTitle, changeRationale), structure, transition
             - responsibilities: `ChangedRoleResponsibilities`
-              - impactSummary
+              - content, impactSummary
               - addedResponsibilities: `ResponsibilityChangeEntry`[]
                 - content @Form(responsibility, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
               - removedResponsibilities: `ResponsibilityChangeEntry`[]
@@ -538,7 +539,7 @@
               - modifiedResponsibilities: `ResponsibilityChangeEntry`[]
                 - content @Form(responsibility, currentState, futureState, reason, impactLevel, trainingNeeded, toolsAffected, transitionApproach)
             - competencies: `ChangedRoleCompetencies`
-              - gapAssessment
+              - content, gapAssessment
               - newCompetencies: `RoleCompetencyEntry`[]
                 - content @Form(competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
               - removedCompetencies: `RoleCompetencyEntry`[]
@@ -551,13 +552,13 @@
             - content @Form(department, removalReason, effectiveDate, incumbentCount), transition, governance,
               continuity
           - `StaffingPlan`
-            - overview, recruitmentTimeline
+            - content, overview, recruitmentTimeline
             - budget: `StaffingBudget`
               - content @Form(totalBudget, currencyCode, salaryBudget, benefitsBudget), allocations, governance
             - items: `StaffingEntry`[]
               - content @Form(roleTitle, jobFamily, jobLevel), organization, capacity, recruitment, ownership
           - `CompetencyFramework`
-            - overview
+            - content, overview
             - coreCompetencies: `CompetencyEntry`[]
               - content @Form(description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
             - technicalCompetencies: `CompetencyEntry`[]
@@ -565,11 +566,11 @@
             - leadershipCompetencies: `CompetencyEntry`[]
               - content @Form(description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
         - [1,] workplaceDescriptions: `WorkplaceDescriptionEntry`[] ← (per user category)
-          - userCategory
+          - content, userCategory
           - physicalRequirements: `PhysicalWorkplaceRequirements`
             - content @Form(workplaceType, workstationLayout, spaceRequirements, ergonomicStandards), environment, usage
           - `EquipmentRequirements`
-            - overview
+            - content, overview
             - primaryComputing: `ComputingEquipmentEntry`[]
               - content @Form(deviceType, brand, modelSpecification), hardware, platform, planning
             - displays: `DisplayEquipmentEntry`[]
@@ -583,13 +584,13 @@
             - specializedEquipment: `SpecializedEquipmentEntry`[]
               - content @Form(equipmentType, brand, model, purpose), technical, planning
           - `TechnicalInfrastructure`
-            - networkConnectivity, remoteAccess
+            - content, networkConnectivity, remoteAccess
             - softwareRequirements: `WorkplaceSoftwareRequirements`
               - content @Form(operatingSystem, productivitySuite, browser, emailClient), platform, delivery
             - communicationTools: `CommunicationToolsRequirements`[]
               - content @Form(unifiedComms, voiceCapability, videoConferencing, instantMessaging, presenceIndicator, screenSharing, recordingCapability, integrations, externalCommunication, emergencyContact)
           - `TrainingRequirements`
-            - overview
+            - content, overview
             - initialTraining: `InitialTrainingEntry`[]
               - content @Form(description), audience, learningContent, delivery, schedule, assessment
             - ongoingTraining: `OngoingTrainingEntry`[]
@@ -633,10 +634,11 @@
     - `DataModel`
       - content
       - [1,] entities: `DataEntityEntry`[]
-        - identity, classification, lifecyclePolicy, relationshipSummary
+        - content, identity, classification, lifecyclePolicy, relationshipSummary
         - attributes: `DataAttributeEntry`[]
-          - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
-            fileReferenceOptions, enumerationTypeOptions, derivation, securityClassification, migrationLineage
+          - content, identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions,
+            binaryTypeOptions, fileReferenceOptions, enumerationTypeOptions, derivation, securityClassification,
+            migrationLineage
           - constraints: `DataAttributeConstraintEntry`[]
             - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
           - displayProperties: `DisplayPropertyEntry`[]
@@ -655,7 +657,7 @@
     - `BusinessObjectModel`
       - content, objectDiagram @mermaid
       - [1,] objects: `BusinessObjectEntry`[]
-        - identity, domainContext, lifecycleSummary, ownership
+        - content, identity, domainContext, lifecycleSummary, ownership
         - behaviorRules: `BehaviorRuleEntry`[]
           - content @Form(keyBusinessRules, invariants, keyOperations, validationRules, calculatedProperties)
         - integrationPoints: `IntegrationPointEntry`[]
@@ -674,7 +676,7 @@
         - invariants: `ObjectInvariantEntry`[]
           - content @Form(description, expression, scope, enforcementPoint, violationAction, businessJustification)
     - `FunctionModel`
-      - decompositionOverview, matrixOverview
+      - content, decompositionOverview, matrixOverview
       - functions: `FunctionEntry`[]
         - content @Form(description, parentFunction), classification, operations, implementation
         - subFunctions: `SubFunctionEntry`[]
@@ -682,7 +684,7 @@
       - matrixEntries: `FunctionDataMatrixEntry`[]
         - content @Form(entityName, accessType, accessFrequency, isOwner, accessReason)
       - [1,] businessRules: `BusinessRuleEntry`[]
-        - identity, classification, ruleLogic, implementation, exceptionHandling, governance
+        - content, identity, classification, ruleLogic, implementation, exceptionHandling, governance
         - affectedObjects: `AffectedObjectEntry`[]
           - content @Form(affectedAttributes, impact, accessType), objectRef
         - affectedFunctions: `AffectedFunctionEntry`[]
@@ -735,7 +737,7 @@
     - `DataModelFollowUp`
       - content, erDiagram @mermaid-er
       - entityFollowUps: `EntityFollowUpEntry`[]
-        - entityRef
+        - content, entityRef
         - volumeMetrics: `VolumeMetricEntry`[]
           - content @Form(estimatedRecordCount, growthRate, peakTransactionVolume, averageRecordSize, storageEstimate, partitioningStrategy)
         - complianceRequirements: `ComplianceRequirementEntry`[]
@@ -856,7 +858,7 @@
     - localizationFollowUp: `ExperienceLocalizationFollowUp`
       - content @description
       - `MultiLanguageSupport`
-        - multiLanguageOverview, overviewNarrative @text
+        - content, multiLanguageOverview, overviewNarrative @text
         - `LanguageCountrySelection` → XDS
         - supportedLocales: `SupportedLocaleEntry`[]
           - content @Form(localeCode, languageName, nativeLanguageName, countryRegion), formatting, rollout
@@ -865,8 +867,8 @@
   - `QualityAndAcceptanceModel`
     - content
     - `SystemQualityGoals`
-      - governanceContent, governance, baseline, measurement, resources, executiveSummary @text, qualityVision @text,
-        qaStrategy @text, qualityRadar @mermaid
+      - content, governanceContent, governance, baseline, measurement, resources, executiveSummary @text,
+        qualityVision @text, qaStrategy @text, qualityRadar @mermaid
       - attributeInterdependencies: `String`[]
       - framework: `QualityFramework` → QAP
       - functionalSuitability: `FunctionalSuitabilityCharacteristic` → QAP

@@ -8564,6 +8564,15 @@ class ExportTemplateEntry extends DocSpecsSection {
       'CE-ER — error-result display over the canonical structured error envelope.',
 )
 class ErrorHandling extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the error-handling experience before the validation, '
+    'system-error and recovery subsections below. Cover the tone errors are '
+    'written in and the balance struck between prevention and recovery.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
   // ─────────────────────────────────────────────────────────────────────────
@@ -8595,7 +8604,7 @@ class ErrorHandling extends DocSpecsSection {
       hint: 'Never blame user, focus on solutions',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? errorPhilosophyContent;
 
   /// Error categorization and display priority.
@@ -8627,7 +8636,7 @@ class ErrorHandling extends DocSpecsSection {
       hint: 'Most severe first, chronological, by field',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? classification;
 
   /// Accessibility and inclusive error cues.
@@ -8659,7 +8668,7 @@ class ErrorHandling extends DocSpecsSection {
       hint: 'Icons, text, patterns for colorblind users',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? accessibility;
 
   /// Localization and analytics behavior.
@@ -8697,7 +8706,7 @@ class ErrorHandling extends DocSpecsSection {
       hint: 'Rage click detection, repeated errors',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? operations;
 
   /// Error handling overview and strategy.
@@ -8705,19 +8714,19 @@ class ErrorHandling extends DocSpecsSection {
     'Executive summary of error handling approach, '
     'key principles, and user experience goals.',
   )
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TextSection errorHandlingOverview = TextSection();
 
   /// 10.7.1. Validation Feedback.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   ValidationFeedback validationFeedback = ValidationFeedback();
 
   /// 10.7.2. System Error Display.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   SystemErrorDisplay systemErrorDisplay = SystemErrorDisplay();
 
   /// 10.7.3. Error Recovery.
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   ErrorRecovery errorRecovery = ErrorRecovery();
 
   /// Error message catalog.
@@ -8725,7 +8734,7 @@ class ErrorHandling extends DocSpecsSection {
     'Centralized catalog of error message templates '
     'with consistent formatting and tone.',
   )
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   TextSection errorMessageCatalog = TextSection();
 
   /// Error state visual design.
@@ -8733,7 +8742,7 @@ class ErrorHandling extends DocSpecsSection {
     'Visual design specifications for error states '
     'including colors, icons, animations.',
   )
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   TextSection errorVisualDesign = TextSection();
 }
 
@@ -8752,6 +8761,15 @@ class ErrorHandling extends DocSpecsSection {
   CodeSpecPart.validation,
 ], note: 'CE-VA — per-field / per-element validation rule.')
 class ValidationFeedback extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how input errors are surfaced before the placement, message '
+    'and rule subsections below. Cover when validation runs — on change, on '
+    'blur, or on submit.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('VAFE-VALI')
   @Form([
     Field(
@@ -8773,7 +8791,7 @@ class ValidationFeedback extends DocSpecsSection {
       hint: 'Field-by-field, all-at-once, progressive',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? validationDisplayContent;
 
   /// Display placement details.
@@ -8817,7 +8835,7 @@ class ValidationFeedback extends DocSpecsSection {
       hint: 'Leading, trailing, inside field, outside',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? placement;
 
   /// Message formatting details.
@@ -8855,7 +8873,7 @@ class ValidationFeedback extends DocSpecsSection {
       hint: 'Until fixed, until field accessed, timed',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? messages;
 
   /// Guidance settings.
@@ -8887,7 +8905,7 @@ class ValidationFeedback extends DocSpecsSection {
       hint: 'Show example valid input',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? guidance;
 
   /// Animation and focus behavior.
@@ -8925,7 +8943,7 @@ class ValidationFeedback extends DocSpecsSection {
       hint: 'Move focus to first invalid field',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? behavior;
 
   /// Validation feedback narrative.
@@ -8933,7 +8951,7 @@ class ValidationFeedback extends DocSpecsSection {
     'Detailed specification of validation feedback behavior '
     'and user experience considerations.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection validationNarrative = TextSection();
 
   /// Validation message templates.
@@ -8943,7 +8961,7 @@ class ValidationFeedback extends DocSpecsSection {
   @SectionId('VMT-MESS-LST')
   @SectionIdPattern('VMT-MESS-xxx')
   @ContentHelp('Add one entry per validation message template.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<ValidationMessageTemplate> messageTemplates = [];
 
   /// Field validation rules by type.
@@ -8954,7 +8972,7 @@ class ValidationFeedback extends DocSpecsSection {
   @SectionId('VAFE-FIEL-LST')
   @SectionIdPattern('VAFE-FIEL-xxx')
   @ContentHelp('Add one entry per field validation rule.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<DocSpecsSection> fieldValidationRules = [];
 }
 
@@ -9057,6 +9075,15 @@ class ValidationMessageTemplate extends DocSpecsSection {
       'CE-ER — error-result display over the canonical structured error envelope.',
 )
 class SystemErrorDisplay extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how system-side failures are presented before the '
+    'error-type, display and fallback subsections below. Cover what the '
+    'user is told and what is deliberately withheld.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // System Error Handling
   // ─────────────────────────────────────────────────────────────────────────
@@ -9081,7 +9108,7 @@ class SystemErrorDisplay extends DocSpecsSection {
       hint: 'How features degrade on partial failure',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? systemErrorContent;
 
   /// Error type handling configuration.
@@ -9125,7 +9152,7 @@ class SystemErrorDisplay extends DocSpecsSection {
       hint: 'Scheduled downtime display',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? errorTypes;
 
   /// Display method settings.
@@ -9169,7 +9196,7 @@ class SystemErrorDisplay extends DocSpecsSection {
       hint: 'Design for full-page errors (500, 503)',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? displayMethods;
 
   /// Content options.
@@ -9213,7 +9240,7 @@ class SystemErrorDisplay extends DocSpecsSection {
       hint: 'Message when app detects offline state',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? displayContent;
 
   /// Fallback behavior.
@@ -9251,7 +9278,7 @@ class SystemErrorDisplay extends DocSpecsSection {
       hint: 'Seconds to wait between retries',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? fallback;
 
   /// System error display narrative.
@@ -9259,7 +9286,7 @@ class SystemErrorDisplay extends DocSpecsSection {
     'Detailed specification of system error presentation '
     'and user communication approach.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection systemErrorNarrative = TextSection();
 
   /// Error page designs.
@@ -9270,7 +9297,7 @@ class SystemErrorDisplay extends DocSpecsSection {
   @SectionId('SYERDI-ERRO-LST')
   @SectionIdPattern('SYERDI-ERRO-xxx')
   @ContentHelp('Add one entry per error page design.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<DocSpecsSection> errorPageDesigns = [];
 
   /// Error codes catalog.
@@ -9281,7 +9308,7 @@ class SystemErrorDisplay extends DocSpecsSection {
   @SectionId('SYERCO-ERRO-LST')
   @SectionIdPattern('SYERCO-ERRO-xxx')
   @ContentHelp('Add one entry per system error code.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<SystemErrorCodeEntry> errorCodes = [];
 }
 
@@ -9407,6 +9434,15 @@ class SystemErrorCodeEntry extends DocSpecsSection {
       'CE-ER — error-result display over the canonical structured error envelope.',
 )
 class ErrorRecovery extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how a user gets back on track after an error before the '
+    'preservation, retry and guided-recovery subsections below. Cover what '
+    'work must never be lost.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Recovery Mechanisms
   // ─────────────────────────────────────────────────────────────────────────
@@ -9431,7 +9467,7 @@ class ErrorRecovery extends DocSpecsSection {
       hint: 'Chat, email, phone, ticket',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? recoveryMechanismsContent;
 
   /// Data preservation: draft auto-save settings.
@@ -9475,7 +9511,7 @@ class ErrorRecovery extends DocSpecsSection {
       hint: 'How users are notified of recoverable drafts',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? dataPreservation;
 
   /// Retry mechanisms configuration.
@@ -9525,7 +9561,7 @@ class ErrorRecovery extends DocSpecsSection {
       hint: 'How retry attempts are indicated',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? retryMechanisms;
 
   /// Guided recovery options.
@@ -9563,7 +9599,7 @@ class ErrorRecovery extends DocSpecsSection {
       hint: 'Allow canceling and returning',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? guidedRecovery;
 
   /// Support contact details.
@@ -9595,7 +9631,7 @@ class ErrorRecovery extends DocSpecsSection {
       hint: 'Include technical details in report',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? supportContact;
 
   /// Session handling configuration.
@@ -9621,7 +9657,7 @@ class ErrorRecovery extends DocSpecsSection {
       hint: 'Return to original location after reauth',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? sessionHandling;
 
   /// Error recovery narrative.
@@ -9629,7 +9665,7 @@ class ErrorRecovery extends DocSpecsSection {
     'Detailed specification of error recovery flows '
     'and user empowerment strategies.',
   )
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   TextSection recoveryNarrative = TextSection();
 
   /// Recovery flow diagrams.
@@ -9640,7 +9676,7 @@ class ErrorRecovery extends DocSpecsSection {
   @SectionId('ERRE-RECO-LST')
   @SectionIdPattern('ERRE-RECO-xxx')
   @ContentHelp('Add one entry per recovery flow.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<DocSpecsSection> recoveryFlows = [];
 
   /// Common recovery scenarios.
@@ -9651,7 +9687,7 @@ class ErrorRecovery extends DocSpecsSection {
   @SectionId('RCVSCN-RECO-LST')
   @SectionIdPattern('RCVSCN-RECO-xxx')
   @ContentHelp('Add one entry per common recovery scenario.')
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<RecoveryScenarioEntry> recoveryScenarios = [];
 }
 
@@ -9741,6 +9777,15 @@ class RecoveryScenarioEntry extends DocSpecsSection {
       'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
 )
 class UserAssistance extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the in-app help system before the contextual-help, '
+    'onboarding and support-access subsections below. Cover when help is '
+    'offered unprompted and when it has to be sought.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -9773,7 +9818,7 @@ class UserAssistance extends DocSpecsSection {
       hint: 'Video, text, interactive, mixed',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? helpOverviewContent;
 
   /// Content stewardship and help affordances.
@@ -9817,7 +9862,7 @@ class UserAssistance extends DocSpecsSection {
       hint: 'Tooltip design and behavior',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? delivery;
 
   /// Analytics and improvement feedback.
@@ -9843,7 +9888,7 @@ class UserAssistance extends DocSpecsSection {
       hint: 'Rate help articles, suggest improvements',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? insights;
 
   /// Help system overview narrative.
@@ -9851,24 +9896,24 @@ class UserAssistance extends DocSpecsSection {
     'Executive summary of help system approach, '
     'content strategy, and user empowerment goals.',
   )
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   TextSection helpOverview = TextSection();
 
   /// 10.8.1. Contextual Help.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   ContextualHelp contextualHelp = ContextualHelp();
 
   /// 10.8.2. Onboarding.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   OnboardingHelp onboarding = OnboardingHelp();
 
   /// 10.8.3. Support Access.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   SupportAccess supportAccess = SupportAccess();
 
   /// Help content inventory.
   @ContentHelp('Inventory of all help content by feature area.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   TextSection helpContentInventory = TextSection();
 }
 
@@ -9888,6 +9933,15 @@ class UserAssistance extends DocSpecsSection {
       'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
 )
 class ContextualHelp extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce on-screen contextual help before the inline, panel and '
+    'rich-help subsections below. Cover which surfaces carry help and how '
+    'it is kept current.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('COHE-CONT')
   @Form([
     Field(
@@ -9921,7 +9975,7 @@ class ContextualHelp extends DocSpecsSection {
       hint: 'Above, below, auto-position',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? contextualHelpContent;
 
   /// Inline help behavior.
@@ -9953,7 +10007,7 @@ class ContextualHelp extends DocSpecsSection {
       hint: 'Max characters for inline help',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? inline;
 
   /// Help panel behavior.
@@ -9985,7 +10039,7 @@ class ContextualHelp extends DocSpecsSection {
       hint: 'Field help, page help, related articles',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? panels;
 
   /// What's-this mode settings.
@@ -10011,7 +10065,7 @@ class ContextualHelp extends DocSpecsSection {
       hint: 'Keyboard shortcut, toolbar button',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? whatsThis;
 
   /// Rich help media settings.
@@ -10038,11 +10092,11 @@ class ContextualHelp extends DocSpecsSection {
       hint: 'Animated demonstrations',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? rich;
 
   /// Contextual help narrative.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection contextualHelpNarrative = TextSection();
 
   /// Field help catalog.
@@ -10056,7 +10110,7 @@ class ContextualHelp extends DocSpecsSection {
   @SectionId('FLDHP-FIEL-LST')
   @SectionIdPattern('FLDHP-FIEL-xxx')
   @ContentHelp('Add one entry per field that needs contextual help.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<FieldHelpEntry> fieldHelpCatalog = [];
 }
 
@@ -10134,6 +10188,15 @@ class FieldHelpEntry extends DocSpecsSection {
       'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
 )
 class OnboardingHelp extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the onboarding experience before the tour, sample-data and '
+    'checklist subsections below. Cover what a first-time user must reach '
+    'before onboarding counts as done.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('ONHE-ONBO')
   @Form([
     Field(
@@ -10161,7 +10224,7 @@ class OnboardingHelp extends DocSpecsSection {
       hint: 'Expected completion time',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? onboardingContent;
 
   /// Feature tour settings.
@@ -10199,7 +10262,7 @@ class OnboardingHelp extends DocSpecsSection {
       hint: 'Show progress indicator',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? tours;
 
   /// Sample data settings.
@@ -10231,7 +10294,7 @@ class OnboardingHelp extends DocSpecsSection {
       hint: 'How users remove sample data',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? sampleData;
 
   /// Getting started checklist configuration.
@@ -10269,7 +10332,7 @@ class OnboardingHelp extends DocSpecsSection {
       hint: 'Gamification elements',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? checklist;
 
   /// Progressive disclosure configuration.
@@ -10295,7 +10358,7 @@ class OnboardingHelp extends DocSpecsSection {
       hint: 'Adapt to user skill level',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? disclosure;
 
   /// Returning user experience.
@@ -10321,11 +10384,11 @@ class OnboardingHelp extends DocSpecsSection {
       hint: 'Show new features to returning users',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? reengagement;
 
   /// Onboarding narrative.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   TextSection onboardingNarrative = TextSection();
 
   /// Feature tour definitions.
@@ -10335,7 +10398,7 @@ class OnboardingHelp extends DocSpecsSection {
   @SectionId('FTRTUR-FEAT-LST')
   @SectionIdPattern('FTRTUR-FEAT-xxx')
   @ContentHelp('Add one entry per feature tour.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<FeatureTourEntry> featureTours = [];
 }
 
@@ -10470,6 +10533,15 @@ class TourStepEntry extends DocSpecsSection {
 )
 @SectionId('SUAC')
 class SupportAccess extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how users reach support before the help-centre, live-support '
+    'and ticket subsections below. Cover which channels exist and when each '
+    'is available.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('SUAC-SUPP')
   @Form([
     Field(
@@ -10491,7 +10563,7 @@ class SupportAccess extends DocSpecsSection {
       hint: 'Whether users can submit support tickets',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? supportAccessContent;
 
   /// Help center configuration.
@@ -10523,7 +10595,7 @@ class SupportAccess extends DocSpecsSection {
       hint: 'How help is organized',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? helpCenter;
 
   /// Live support settings.
@@ -10552,7 +10624,7 @@ class SupportAccess extends DocSpecsSection {
       hint: 'What chatbot can handle',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? liveSupport;
 
   /// Ticket system configuration.
@@ -10583,7 +10655,7 @@ class SupportAccess extends DocSpecsSection {
       hint: 'Expected response time',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? tickets;
 
   /// Contact methods.
@@ -10618,7 +10690,7 @@ class SupportAccess extends DocSpecsSection {
       hint: 'Offer a community forum for peer support',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? contactMethods;
 
   /// Self-service and feedback options.
@@ -10666,11 +10738,11 @@ class SupportAccess extends DocSpecsSection {
     ),
     Field('bugReporting', bool, 'Bug Reporting', hint: 'Report bugs from app'),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? selfService;
 
   /// Support access narrative.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   TextSection supportAccessNarrative = TextSection();
 }
 
@@ -10693,6 +10765,15 @@ class SupportAccess extends DocSpecsSection {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 class Accessibility extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the accessibility commitment before the WCAG, checklist, '
+    'keyboard and screen-reader subsections below. Cover the target '
+    'conformance level and who verifies it.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -10718,7 +10799,7 @@ class Accessibility extends DocSpecsSection {
       hint: 'Publish accessibility statement',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? accessibilityOverviewContent;
 
   /// Ownership and inclusive design philosophy.
@@ -10750,7 +10831,7 @@ class Accessibility extends DocSpecsSection {
       hint: 'Team training requirements',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? strategy;
 
   /// Accessibility testing approach.
@@ -10788,7 +10869,7 @@ class Accessibility extends DocSpecsSection {
       hint: 'Include users with disabilities',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? testing;
 
   /// Supported assistive technologies and platform features.
@@ -10814,7 +10895,7 @@ class Accessibility extends DocSpecsSection {
       hint: 'Browser accessibility features used',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? support;
 
   /// Accessibility overview narrative.
@@ -10822,15 +10903,15 @@ class Accessibility extends DocSpecsSection {
     'Executive summary of accessibility approach, '
     'compliance targets, and inclusive design principles.',
   )
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TextSection accessibilityOverview = TextSection();
 
   /// 10.9.1. WCAG Compliance Level.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   WcagCompliance wcagComplianceLevel = WcagCompliance();
 
   /// 10.9.2. Accessibility Checklist.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   AccessibilityChecklist accessibilityChecklist = AccessibilityChecklist();
 
   /// Keyboard navigation specification.
@@ -10838,7 +10919,7 @@ class Accessibility extends DocSpecsSection {
     'Keyboard navigation patterns, focus management, '
     'and keyboard shortcuts.',
   )
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   TextSection keyboardNavigation = TextSection();
 
   /// Screen reader support specification.
@@ -10846,7 +10927,7 @@ class Accessibility extends DocSpecsSection {
     'Screen reader support: ARIA labels, landmarks, '
     'live regions, and announcements.',
   )
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   TextSection screenReaderSupport = TextSection();
 
   /// Color and contrast specification.
@@ -10854,7 +10935,7 @@ class Accessibility extends DocSpecsSection {
     'Color contrast requirements, color-blind-friendly '
     'design, and non-color indicators.',
   )
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   TextSection colorAndContrast = TextSection();
 }
 
@@ -10868,6 +10949,15 @@ class Accessibility extends DocSpecsSection {
 )
 @SectionId('WCCO')
 class WcagCompliance extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the WCAG conformance target before the per-principle '
+    'subsections and the success-criteria list below. Cover the level '
+    'claimed and any documented exception to it.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('WCCO-WCAG')
   @Form([
     Field(
@@ -10895,7 +10985,7 @@ class WcagCompliance extends DocSpecsSection {
       hint: 'Color, contrast, resize, audio',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? wcagComplianceContent;
 
   /// Operable principles.
@@ -10939,7 +11029,7 @@ class WcagCompliance extends DocSpecsSection {
       hint: 'Pointer, motion, touch',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? operable;
 
   /// Understandable principles.
@@ -10971,7 +11061,7 @@ class WcagCompliance extends DocSpecsSection {
       hint: 'Error prevention, labels, suggestions',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? understandable;
 
   /// Robustness requirements.
@@ -10991,11 +11081,11 @@ class WcagCompliance extends DocSpecsSection {
       hint: 'Parsing, name/role/value',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? robust;
 
   /// WCAG compliance narrative.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TextSection wcagNarrative = TextSection();
 
   /// WCAG success criteria mapping.
@@ -11006,7 +11096,7 @@ class WcagCompliance extends DocSpecsSection {
   @SectionId('WCSUCR-SUCC-LST')
   @SectionIdPattern('WCSUCR-SUCC-xxx')
   @ContentHelp('Add one entry per WCAG success criterion.')
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<WcagSuccessCriterionEntry> successCriteria = [];
 }
 
@@ -11075,6 +11165,14 @@ class WcagSuccessCriterionEntry extends DocSpecsSection {
 ], 'The comprehensive checklist used to verify accessibility conformance.')
 @SectionId('ACCHLS')
 class AccessibilityChecklist extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the verification checklist before the individual items '
+    'below. Cover when the checklist is run and who signs it off.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('ACCHLS-CHEC')
   @Form([
     Field(
@@ -11126,11 +11224,11 @@ class AccessibilityChecklist extends DocSpecsSection {
       hint: 'How issues are fixed',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? checklistOverviewContent;
 
   /// Accessibility checklist overview.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection checklistOverview = TextSection();
 
   /// Contains 0+× AccessibilityCheck.
@@ -11141,7 +11239,7 @@ class AccessibilityChecklist extends DocSpecsSection {
   @SectionId('ACCH-ITEM-LST')
   @SectionIdPattern('ACCH-ITEM-xxx')
   @ContentHelp('Add one entry per accessibility check.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<AccessibilityCheckEntry> items = [];
 }
 
@@ -11293,6 +11391,15 @@ class AccessibilityCheckEntry extends DocSpecsSection {
       'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
 )
 class ResponsiveDesign extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the responsive strategy before the breakpoint and behaviour '
+    'subsections below. Cover the device classes supported and which of '
+    'them is designed for first.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -11350,7 +11457,7 @@ class ResponsiveDesign extends DocSpecsSection {
       hint: 'List of target devices for testing',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? responsiveOverview;
 
   /// Responsive design narrative.
@@ -11358,15 +11465,15 @@ class ResponsiveDesign extends DocSpecsSection {
     'Overview of responsive design approach, '
     'key decisions, and implementation strategy.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection responsiveNarrative = TextSection();
 
   /// 10.10.1. Breakpoints.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   BreakpointConfiguration breakpointConfig = BreakpointConfiguration();
 
   /// 10.10.2. Responsive Behavior.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   ResponsiveBehavior responsiveBehavior = ResponsiveBehavior();
 }
 
@@ -11387,6 +11494,15 @@ class ResponsiveDesign extends DocSpecsSection {
       'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
 )
 class BreakpointConfiguration extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the breakpoint scheme before the individual breakpoints '
+    'below. Cover the units used and the reasoning behind the chosen '
+    'thresholds.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('BC-BREA')
   @Form([
     // Standard breakpoints
@@ -11453,7 +11569,7 @@ class BreakpointConfiguration extends DocSpecsSection {
       hint: 'How pixel density is handled',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? breakpointOverview;
 
   /// Breakpoint entries.
@@ -11463,7 +11579,7 @@ class BreakpointConfiguration extends DocSpecsSection {
   @SectionId('BE-BREA-LST')
   @SectionIdPattern('BE-BREA-xxx')
   @ContentHelp('Add one entry per layout breakpoint.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<BreakpointEntry> breakpoints = [];
 }
 
@@ -11583,6 +11699,15 @@ class BreakpointEntry extends DocSpecsSection {
       'CE-LO — screen/region layout (unblocked by csm-2-2 layout-node + dsb6 tom_flutter_ui basis).',
 )
 class ResponsiveBehavior extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how the interface adapts across breakpoints before the '
+    'layout, navigation and visibility subsections below. Cover what is '
+    'hidden rather than reflowed, and why.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Layout Adaptation
   // ─────────────────────────────────────────────────────────────────────────
@@ -11607,7 +11732,7 @@ class ResponsiveBehavior extends DocSpecsSection {
       hint: '3-column, sidebar + main',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? layoutAdaptation;
 
   /// Navigation patterns per device class.
@@ -11639,7 +11764,7 @@ class ResponsiveBehavior extends DocSpecsSection {
       hint: 'Full sidebar, top navigation',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? navigation;
 
   /// Visibility rules.
@@ -11671,7 +11796,7 @@ class ResponsiveBehavior extends DocSpecsSection {
       hint: 'Elements shown only on desktop',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? visibility;
 
   /// Touch and interaction optimizations.
@@ -11703,7 +11828,7 @@ class ResponsiveBehavior extends DocSpecsSection {
       hint: 'Swipe, long-press on touch devices',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? touch;
 
   /// Content reflow rules.
@@ -11741,7 +11866,7 @@ class ResponsiveBehavior extends DocSpecsSection {
       hint: 'How forms adapt: single column, multi-column',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   String? contentReflow;
 
   /// Responsive behavior narrative.
@@ -11749,7 +11874,7 @@ class ResponsiveBehavior extends DocSpecsSection {
     'Detailed description of responsive behavior '
     'across all breakpoints and device types.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection behaviorNarrative = TextSection();
 
   /// Screen-specific responsive rules.
@@ -11759,7 +11884,7 @@ class ResponsiveBehavior extends DocSpecsSection {
   @SectionId('RESPSR-SCRE-LST')
   @SectionIdPattern('RESPSR-SCRE-xxx')
   @ContentHelp('Add one entry per screen with distinct responsive rules.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<ResponsiveScreenRuleEntry> screenRules = [];
 }
 
@@ -11845,6 +11970,15 @@ class ResponsiveScreenRuleEntry extends DocSpecsSection {
       'CE-EL — a screen element by semantic type then concrete implementation.',
 )
 class UiComponents extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the component library before the design system, '
+    'per-component specifications and family lists below. Cover what is '
+    'reused, what is built, and the rule for adding a new component.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -11875,7 +12009,7 @@ class UiComponents extends DocSpecsSection {
       hint: 'Builds on the organisation-wide shared component library rather than bespoke components',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? componentLibraryOverview;
 
   /// Visual language and brand alignment.
@@ -11908,7 +12042,7 @@ class UiComponents extends DocSpecsSection {
       hint: 'Animation philosophy: subtle, expressive, functional',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? visualLanguage;
 
   /// Component naming and documentation approach.
@@ -11941,7 +12075,7 @@ class UiComponents extends DocSpecsSection {
       hint: 'Storybook, living style guide, doc site',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? componentApproach;
 
   /// Extension and theming boundaries.
@@ -11974,11 +12108,11 @@ class UiComponents extends DocSpecsSection {
       hint: 'What can vs. cannot be customized',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? customization;
 
   /// 10.11.1. Component Library.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   ComponentLibrary componentLibrary = ComponentLibrary();
 
   /// 10.11.2. Component Specifications — contains 0+×.
@@ -11989,7 +12123,7 @@ class UiComponents extends DocSpecsSection {
   @SectionId('UICOM-COMP-LST')
   @SectionIdPattern('UICOM-COMP-xxx')
   @ContentHelp('Add one entry per catalog component.')
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<UiComponentEntry> componentSpecs = [];
 
   /// 10.11.3. Component Families — contains 0+×.
@@ -12003,7 +12137,7 @@ class UiComponents extends DocSpecsSection {
   @SectionId('CMFA-COMP-LST')
   @SectionIdPattern('CMFA-COMP-xxx')
   @ContentHelp('Add one entry per component family.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<ComponentFamilyEntry> componentFamilies = [];
 }
 
@@ -12025,6 +12159,15 @@ class UiComponents extends DocSpecsSection {
       'CE-EL — a screen element by semantic type then concrete implementation.',
 )
 class ComponentLibrary extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the design system before the token, colour and typography '
+    'subsections below. Cover where the foundations come from and how they '
+    'are versioned.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @StandardReferences(
     [
       'Material Design — design tokens capture reusable values for the design system',
@@ -12036,7 +12179,7 @@ class ComponentLibrary extends DocSpecsSection {
   @SectionId('DESIG-DESI-LST')
   @SectionIdPattern('DESIG-DESI-xxx')
   @ContentHelp('Add one entry per design foundation.')
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   List<DesignFoundationEntry> designFoundations = [];
 
   /// Color system.
@@ -12099,7 +12242,7 @@ class ComponentLibrary extends DocSpecsSection {
       hint: 'CSS variables, Dart constants, theme data',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? colors;
 
   /// Typography system.
@@ -12138,7 +12281,7 @@ class ComponentLibrary extends DocSpecsSection {
       hint: 'Logical pixels, rem, sp',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? typography;
 
   /// Spacing and elevation.
@@ -12167,7 +12310,7 @@ class ComponentLibrary extends DocSpecsSection {
       hint: 'Shadows, borders, color shifts',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? spacing;
 
   /// Borders and corners.
@@ -12194,7 +12337,7 @@ class ComponentLibrary extends DocSpecsSection {
           'Default border width, style, and colour (e.g., "1px solid outline")',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? borders;
 
   /// Icons and animation.
@@ -12233,7 +12376,7 @@ class ComponentLibrary extends DocSpecsSection {
       hint: 'Easing curves: ease, easeInOut, custom',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? visuals;
 
   /// Design system narrative.
@@ -12241,7 +12384,7 @@ class ComponentLibrary extends DocSpecsSection {
     'Comprehensive description of the design system foundations, '
     'visual language, and component philosophy.',
   )
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   TextSection designSystemNarrative = TextSection();
 
   /// Design token catalog.
@@ -12249,7 +12392,7 @@ class ComponentLibrary extends DocSpecsSection {
     'Catalog of all design tokens: colors, typography, spacing, '
     'elevation, borders, and animation values.',
   )
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   TextSection designTokenCatalog = TextSection();
 
   /// Color palette specification.
@@ -12260,7 +12403,7 @@ class ComponentLibrary extends DocSpecsSection {
   @SectionId('COPA-COLO-LST')
   @SectionIdPattern('COPA-COLO-xxx')
   @ContentHelp('Add one entry per colour palette.')
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<ColorPaletteEntry> colorPalettes = [];
 
   /// Typography styles.
@@ -12272,7 +12415,7 @@ class ComponentLibrary extends DocSpecsSection {
   @SectionId('TYST-TYPO-LST')
   @SectionIdPattern('TYST-TYPO-xxx')
   @ContentHelp('Add one entry per typography style.')
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   List<TypographyStyleEntry> typographyStyles = [];
 }
 
@@ -12491,6 +12634,15 @@ class FamilyComponentRef extends DocSpecsSection {
       'CE-EL — a screen element by semantic type then concrete implementation.',
 )
 class UiComponentEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this component — what it is for and when to reach for '
+    'it, beyond the visual, behaviour and data-binding facets recorded '
+    'below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Component Identity
   // ─────────────────────────────────────────────────────────────────────────
@@ -12510,7 +12662,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Base component of the shared library this one specialises (Data Table, Text Input)',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identity;
 
   /// Wrapper mapping and business purpose.
@@ -12549,7 +12701,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'What user accomplishes with this',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? purposeProfile;
 
   /// Classification details.
@@ -12581,7 +12733,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Generic, semi-generic, specialized',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? classification;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -12609,7 +12761,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Icons used and their placement',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? visualDesign;
 
   /// Visual dimensions.
@@ -12648,7 +12800,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Largest allowed size',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? dimensions;
 
   /// Spacing rules.
@@ -12681,7 +12833,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Spacing between internal elements',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? spacing;
 
   /// Surface treatment.
@@ -12715,12 +12867,12 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Drop shadow appearance',
     ),
   ])
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   DocSpecsSection? surface;
 
   /// Visual design diagram.
   @ContentHelp('Visual diagram or mockup of the component.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   DiagramSection visualDiagram = DiagramSection();
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -12760,7 +12912,7 @@ class UiComponentEntry extends DocSpecsSection {
     ),
     Field('hoverBehavior', String, 'Hover Behavior'),
   ])
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   DocSpecsSection? interactiveBehavior;
 
   /// Focus and keyboard behavior.
@@ -12793,7 +12945,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Key combinations the component handles',
     ),
   ])
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   DocSpecsSection? inputBehavior;
 
   /// Animation behavior.
@@ -12832,7 +12984,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Ripple, scale, color change',
     ),
   ])
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   DocSpecsSection? animation;
 
   /// Scrolling behavior.
@@ -12858,7 +13010,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Headers, columns that stick',
     ),
   ])
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   DocSpecsSection? scroll;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -12909,7 +13061,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Portrait vs. landscape',
     ),
   ])
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   DocSpecsSection? responsiveness;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -12961,7 +13113,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'How component responds to text scaling',
     ),
   ])
-  @SerializationOrder(13)
+  @SerializationOrder(14)
   DocSpecsSection? accessibility;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -13012,7 +13164,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Mapping to TomAuthState four states',
     ),
   ])
-  @SerializationOrder(14)
+  @SerializationOrder(15)
   DocSpecsSection? authorization;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -13081,7 +13233,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Fallback behavior when resource missing',
     ),
   ])
-  @SerializationOrder(15)
+  @SerializationOrder(16)
   DocSpecsSection? resourceIntegration;
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -13132,7 +13284,7 @@ class UiComponentEntry extends DocSpecsSection {
       hint: 'Whether edits can be undone and redone',
     ),
   ])
-  @SerializationOrder(16)
+  @SerializationOrder(17)
   DocSpecsSection? dataBinding;
 
   /// Component behavior narrative.
@@ -13140,7 +13292,7 @@ class UiComponentEntry extends DocSpecsSection {
     'Detailed description of component behavior, '
     'user interactions, and edge cases.',
   )
-  @SerializationOrder(17)
+  @SerializationOrder(18)
   TextSection behaviorNarrative = TextSection();
 
   /// Contains 0+× ComponentState.
@@ -13154,7 +13306,7 @@ class UiComponentEntry extends DocSpecsSection {
   @SectionId('COMSTA-STAT-LST')
   @SectionIdPattern('COMSTA-STAT-xxx')
   @ContentHelp('Add one entry per component state.')
-  @SerializationOrder(18)
+  @SerializationOrder(19)
   List<ComponentStateEntry> states = [];
 
   /// Contains 0+× ComponentVariant.
@@ -13168,7 +13320,7 @@ class UiComponentEntry extends DocSpecsSection {
   @SectionId('CVE-VARI-LST')
   @SectionIdPattern('CVE-VARI-xxx')
   @ContentHelp('Add one entry per component variant.')
-  @SerializationOrder(19)
+  @SerializationOrder(20)
   List<ComponentVariantEntry> variants = [];
 
   /// Contains 0+× ComponentAction.
@@ -13182,7 +13334,7 @@ class UiComponentEntry extends DocSpecsSection {
   @SectionId('CMAC-ACTI-LST')
   @SectionIdPattern('CMAC-ACTI-xxx')
   @ContentHelp('Add one entry per component action.')
-  @SerializationOrder(20)
+  @SerializationOrder(21)
   List<ComponentActionEntry> actions = [];
 
   /// Contains 0+× ComponentSlot.
@@ -13196,7 +13348,7 @@ class UiComponentEntry extends DocSpecsSection {
   @SectionId('CMSL-SLOT-LST')
   @SectionIdPattern('CMSL-SLOT-xxx')
   @ContentHelp('Add one entry per component slot.')
-  @SerializationOrder(21)
+  @SerializationOrder(22)
   List<ComponentSlotEntry> slots = [];
 
   /// Contains 0+× ComponentProperty.
@@ -13210,7 +13362,7 @@ class UiComponentEntry extends DocSpecsSection {
   @SectionId('CMPR-PROP-LST')
   @SectionIdPattern('CMPR-PROP-xxx')
   @ContentHelp('Add one entry per component property.')
-  @SerializationOrder(22)
+  @SerializationOrder(23)
   List<ComponentPropertyEntry> properties = [];
 }
 
@@ -13772,6 +13924,15 @@ class ComponentPropertyEntry extends DocSpecsSection {
       'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
 )
 class MultiLanguageSupport extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce multi-language support before the selection and '
+    'supported-locale subsections below. Cover which languages ship first '
+    'and what drives adding another.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Multi-language Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -13804,7 +13965,7 @@ class MultiLanguageSupport extends DocSpecsSection {
     ),
     // Locale handling
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? multiLanguageOverview;
 
   /// Multi-language overview narrative.
@@ -13812,11 +13973,11 @@ class MultiLanguageSupport extends DocSpecsSection {
     'Executive summary of internationalization and '
     'localization approach for the system.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overviewNarrative = TextSection();
 
   /// 10.12.4. Language and Country Selection.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   LanguageCountrySelection languageCountrySelection =
       LanguageCountrySelection();
 
@@ -13829,7 +13990,7 @@ class MultiLanguageSupport extends DocSpecsSection {
   @SectionId('SUPLOC-SUPP-LST')
   @SectionIdPattern('SUPLOC-SUPP-xxx')
   @ContentHelp('Add one entry per supported locale.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<SupportedLocaleEntry> supportedLocales = [];
 }
 
@@ -13895,6 +14056,15 @@ class LocaleHandlingRequirements extends DocSpecsSection {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 class LocalizationProcess extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the localization workflow before the review, formatting and '
+    'deployment subsections below. Cover how translatable content is '
+    'identified and externalized.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('LOPR-LOCA')
   @Form([
     Field(
@@ -13922,7 +14092,7 @@ class LocalizationProcess extends DocSpecsSection {
       hint: 'UI text, images, audio, video, documents',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? localizationProcessContent;
 
   /// Review process.
@@ -13954,7 +14124,7 @@ class LocalizationProcess extends DocSpecsSection {
       hint: 'QA process for localized content',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? review;
 
   /// Formatting rules.
@@ -13999,7 +14169,7 @@ class LocalizationProcess extends DocSpecsSection {
       hint: 'Locale-specific phone number formatting',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? formatting;
 
   /// Deployment settings.
@@ -14031,15 +14201,15 @@ class LocalizationProcess extends DocSpecsSection {
       hint: 'Locale-specific features or content',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? deployment;
 
   /// Localization process narrative.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TextSection localizationNarrative = TextSection();
 
   /// Localization workflow diagram.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   FlowDiagramSection workflowDiagram = FlowDiagramSection();
 }
 
@@ -14057,6 +14227,15 @@ class LocalizationProcess extends DocSpecsSection {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 class TranslationProcess extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the translation workflow before the tooling, quality, '
+    'terminology and vendor subsections below. Cover who translates and how '
+    'translation quality is judged.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('TRPR-TRAN')
   @Form([
     Field(
@@ -14084,7 +14263,7 @@ class TranslationProcess extends DocSpecsSection {
       hint: 'Computer-assisted translation tools',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? translationProcessContent;
 
   /// Translation workflow.
@@ -14122,7 +14301,7 @@ class TranslationProcess extends DocSpecsSection {
       hint: 'In-app review process',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? workflow;
 
   /// Quality assurance.
@@ -14154,7 +14333,7 @@ class TranslationProcess extends DocSpecsSection {
       hint: 'Functional testing of translations',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? quality;
 
   /// Terminology and voice management.
@@ -14182,7 +14361,7 @@ class TranslationProcess extends DocSpecsSection {
       hint: 'How brand voice is maintained',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? terminology;
 
   /// Ongoing localization operations.
@@ -14208,11 +14387,11 @@ class TranslationProcess extends DocSpecsSection {
       hint: 'How translation memory is maintained',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? ongoing;
 
   /// Translation process narrative.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection translationNarrative = TextSection();
 
   /// Translation vendor entries.
@@ -14223,7 +14402,7 @@ class TranslationProcess extends DocSpecsSection {
   @SectionId('TVE-VEND-LST')
   @SectionIdPattern('TVE-VEND-xxx')
   @ContentHelp('Add one entry per translation vendor.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<TranslationVendorEntry> vendors = [];
 }
 
@@ -14299,6 +14478,15 @@ class TranslationVendorEntry extends DocSpecsSection {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 class UserDocumentationRequirements extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the end-user documentation deliverables before the format '
+    'and localization subsections below. Cover the audiences served and the '
+    'channel each deliverable reaches them through.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('DOANTR-DOCU')
   @Form([
     Field(
@@ -14320,7 +14508,7 @@ class UserDocumentationRequirements extends DocSpecsSection {
       hint: 'How docs are versioned with releases',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? documentationContent;
 
   /// Documentation deliverables provided to users.
@@ -14373,7 +14561,7 @@ class UserDocumentationRequirements extends DocSpecsSection {
       hint: 'Include per-release notes (true or false)',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? deliverables;
 
   /// Documentation localization approach.
@@ -14400,11 +14588,11 @@ class UserDocumentationRequirements extends DocSpecsSection {
       hint: 'Translation approach for docs',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? localization;
 
   /// Documentation narrative.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   TextSection documentationNarrative = TextSection();
 }
 
@@ -14428,6 +14616,15 @@ class UserDocumentationRequirements extends DocSpecsSection {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 class TrainingDeliverableRequirements extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the end-user training deliverables before the module '
+    'catalogue below. Cover the audiences, the delivery mode, and when '
+    'training happens relative to rollout.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('TRMAT-TRAI')
   @Form([
     // Training materials
@@ -14488,11 +14685,11 @@ class TrainingDeliverableRequirements extends DocSpecsSection {
       hint: 'User certification if applicable',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? trainingContent;
 
   /// Training narrative.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection trainingNarrative = TextSection();
 
   /// Training module entries.
@@ -14503,7 +14700,7 @@ class TrainingDeliverableRequirements extends DocSpecsSection {
   @SectionId('TME-TRAI-LST')
   @SectionIdPattern('TME-TRAI-xxx')
   @ContentHelp('Add one entry per training module.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<TrainingModuleEntry> trainingModules = [];
 }
 
@@ -14582,6 +14779,15 @@ class TrainingModuleEntry extends DocSpecsSection {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 class LanguageCountrySelection extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the language and country picker before the default, '
+    'persistence and fallback subsections below. Cover where the picker '
+    'appears and when a user first meets it.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('LACOSE-LANG')
   @Form([
     Field(
@@ -14615,7 +14821,7 @@ class LanguageCountrySelection extends DocSpecsSection {
       hint: 'Can user search languages/countries',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? languageSelectionContent;
 
   /// Default locale behavior.
@@ -14647,7 +14853,7 @@ class LanguageCountrySelection extends DocSpecsSection {
       hint: 'Browser, OS, geo-IP detection',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? defaults;
 
   /// Retention rules — how a chosen preference survives, without naming a store.
@@ -14684,7 +14890,7 @@ class LanguageCountrySelection extends DocSpecsSection {
       hint: 'When the user is asked to confirm or re-pick the retained preference',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? persistence;
 
   /// Fallback behavior.
@@ -14716,7 +14922,7 @@ class LanguageCountrySelection extends DocSpecsSection {
       hint: 'How missing translations are shown',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? fallback;
 
   /// Switching UX behavior.
@@ -14748,15 +14954,15 @@ class LanguageCountrySelection extends DocSpecsSection {
       hint: 'What happens to in-progress content',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? ux;
 
   /// Language selection narrative.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection languageSelectionNarrative = TextSection();
 
   /// Language selection mockup.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   DiagramSection languagePickerMockup = DiagramSection();
 }
 
@@ -14780,6 +14986,15 @@ class LanguageCountrySelection extends DocSpecsSection {
       'CE-TX — UI text / i18n copy (help, placeholder, message templates, locale handling).',
 )
 class TranslationRequirements extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the internationalization framework before the RTL, '
+    'formatting and technical subsections below. Cover the '
+    'string-externalization format and the locale-resolution rule.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('TRAREQ-TRAN')
   @Form([
     Field(
@@ -14801,7 +15016,7 @@ class TranslationRequirements extends DocSpecsSection {
       hint: 'How locales are loaded and switched',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? translationRequirementsContent;
 
   /// RTL and bidirectional support.
@@ -14839,7 +15054,7 @@ class TranslationRequirements extends DocSpecsSection {
       hint: 'UI element mirroring rules',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? rtl;
 
   /// Locale-specific formatting rules.
@@ -14878,7 +15093,7 @@ class TranslationRequirements extends DocSpecsSection {
       hint: 'Metric, imperial, locale-based',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? formatting;
 
   /// Pluralization and variants.
@@ -14910,7 +15125,7 @@ class TranslationRequirements extends DocSpecsSection {
       hint: 'Formal/informal, regional variants',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? variants;
 
   /// Technical text and font support.
@@ -14948,11 +15163,11 @@ class TranslationRequirements extends DocSpecsSection {
       hint: 'IME and keyboard support',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? technical;
 
   /// Translation requirements narrative.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection requirementsNarrative = TextSection();
 }
 
@@ -15075,6 +15290,15 @@ class SupportedLocaleEntry extends DocSpecsSection {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 class Prototype extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the prototype effort before the goal, feature-subset and '
+    'type subsections below. Cover why a prototype is needed and which '
+    'decision it is meant to inform.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Prototype Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -15105,7 +15329,7 @@ class Prototype extends DocSpecsSection {
       hint: 'How success is measured',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? prototypeOverview;
 
   /// Prototype timing commitments.
@@ -15133,7 +15357,7 @@ class Prototype extends DocSpecsSection {
       hint: 'How long for evaluation',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? timeline;
 
   /// Prototype staffing and environment.
@@ -15164,7 +15388,7 @@ class Prototype extends DocSpecsSection {
       hint: 'Where prototype is deployed',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? resources;
 
   /// Approval and progression criteria.
@@ -15189,7 +15413,7 @@ class Prototype extends DocSpecsSection {
       hint: 'Who must approve prototype',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? governance;
 
   /// Prototype overview narrative.
@@ -15197,24 +15421,24 @@ class Prototype extends DocSpecsSection {
     'Executive summary of prototype approach, '
     'objectives, and expected outcomes.',
   )
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TextSection overviewNarrative = TextSection();
 
   /// 10.13.1. Prototype Goals.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   PrototypeGoals prototypeGoals = PrototypeGoals();
 
   /// 10.13.2. Selected Feature Subset.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   PrototypeFeatureSubset featureSubset = PrototypeFeatureSubset();
 
   /// 10.13.3. Prototype Type.
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   PrototypeType prototypeType = PrototypeType();
 
   /// Prototype schedule.
   @ContentHelp('Detailed timeline for prototype development and evaluation.')
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   TextSection prototypeSchedule = TextSection();
 }
 
@@ -15227,6 +15451,14 @@ class Prototype extends DocSpecsSection {
 ], 'The goals the prototype is intended to validate.')
 @SectionId('PG')
 class PrototypeGoals extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce what the prototype must validate before the individual goals '
+    'below. Cover the risk that makes the validation worth the effort.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('PG-GOAL')
   @Form([
     // Validation goals
@@ -15261,7 +15493,7 @@ class PrototypeGoals extends DocSpecsSection {
       hint: 'Validate third-party integrations',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? goalsContent;
 
   /// Risk reduction and assumption testing.
@@ -15289,7 +15521,7 @@ class PrototypeGoals extends DocSpecsSection {
       hint: 'Assumptions to be tested',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? riskProfile;
 
   /// User feedback objectives and intake.
@@ -15320,11 +15552,11 @@ class PrototypeGoals extends DocSpecsSection {
       hint: 'How feedback flows back',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? feedbackProfile;
 
   /// Prototype goals narrative.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   TextSection goalsNarrative = TextSection();
 
   /// Individual goal entries.
@@ -15334,7 +15566,7 @@ class PrototypeGoals extends DocSpecsSection {
   @SectionId('PGE-GOAL-LST')
   @SectionIdPattern('PGE-GOAL-xxx')
   @ContentHelp('Add one entry per prototype goal.')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<PrototypeGoalEntry> goals = [];
 }
 
@@ -15405,6 +15637,14 @@ class PrototypeGoalEntry extends DocSpecsSection {
 ], 'The set of features selected for inclusion in the prototype.')
 @SectionId('PRFESU')
 class PrototypeFeatureSubset extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the feature selection before the individual features below. '
+    'Cover the criterion that put a feature in or left it out.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('PRFESU-FEAT')
   @Form([
     // Selection criteria
@@ -15433,7 +15673,7 @@ class PrototypeFeatureSubset extends DocSpecsSection {
       hint: 'Most uncertain features included',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? featureSubsetContent;
 
   /// Included and excluded feature scope.
@@ -15464,7 +15704,7 @@ class PrototypeFeatureSubset extends DocSpecsSection {
       hint: 'Features partially implemented',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? scope;
 
   /// Fidelity expectations for the prototype.
@@ -15496,11 +15736,11 @@ class PrototypeFeatureSubset extends DocSpecsSection {
       hint: 'Production visuals vs. wireframes',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? fidelity;
 
   /// Feature subset narrative.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   TextSection featureNarrative = TextSection();
 
   /// Prototype feature entries.
@@ -15510,7 +15750,7 @@ class PrototypeFeatureSubset extends DocSpecsSection {
   @SectionId('PFE-FEAT-LST')
   @SectionIdPattern('PFE-FEAT-xxx')
   @ContentHelp('Add one entry per prototype feature.')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<PrototypeFeatureEntry> features = [];
 }
 
@@ -15581,6 +15821,15 @@ class PrototypeFeatureEntry extends DocSpecsSection {
 ], 'The classification of the prototype and the implications of that choice.')
 @SectionId('PRTYSE')
 class PrototypeType extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the prototype classification before the reusable, training '
+    'and throwaway subsections below. Cover which type applies and what '
+    'follows from that choice.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('PRTYSE-PROT')
   @Form([
     Field(
@@ -15621,19 +15870,19 @@ class PrototypeType extends DocSpecsSection {
       hint: 'How prototype transitions',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? prototypeTypeOverview;
 
   /// 10.13.3.1. Reusable Prototype.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   ReusablePrototype reusablePrototype = ReusablePrototype();
 
   /// 10.13.3.2. Training Prototype.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   TrainingPrototype trainingPrototype = TrainingPrototype();
 
   /// 10.13.3.3. Throwaway Prototype.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   ThrowawayPrototype throwawayPrototype = ThrowawayPrototype();
 }
 
@@ -15646,6 +15895,15 @@ class PrototypeType extends DocSpecsSection {
 ], 'A reusable prototype that becomes part of the final product.')
 @SectionId('REUPRO')
 class ReusablePrototype extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the reusable prototype before the architecture, integration '
+    'and transition subsections below. Cover the quality bar it must meet '
+    'to survive into the product.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('REUPRO-REUS')
   @Form([
     Field(
@@ -15673,7 +15931,7 @@ class ReusablePrototype extends DocSpecsSection {
       hint: 'Whether documentation is required',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? reusableContent;
 
   /// Architecture alignment and refactoring expectations.
@@ -15704,7 +15962,7 @@ class ReusablePrototype extends DocSpecsSection {
       hint: 'Acceptable technical debt',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? architecture;
 
   /// Integration and merge strategy.
@@ -15735,7 +15993,7 @@ class ReusablePrototype extends DocSpecsSection {
       hint: 'Criteria to merge prototype code',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? integration;
 
   /// Transition and handoff planning.
@@ -15757,11 +16015,11 @@ class ReusablePrototype extends DocSpecsSection {
       hint: 'Handoff to development team',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? transition;
 
   /// Reusable prototype narrative.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TextSection reusableNarrative = TextSection();
 }
 
@@ -15773,6 +16031,15 @@ class ReusablePrototype extends DocSpecsSection {
 ], 'A training prototype whose concepts, not code, are carried forward.')
 @SectionId('TP')
 class TrainingPrototype extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the training prototype before the disposition and output '
+    'subsections below. Cover which concepts are meant to carry forward '
+    'once the code does not.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('TP-TRAI')
   @Form([
     // Knowledge transfer
@@ -15795,7 +16062,7 @@ class TrainingPrototype extends DocSpecsSection {
       hint: 'What was learned',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? trainingContent;
 
   /// Code disposition and reimplementation planning.
@@ -15826,7 +16093,7 @@ class TrainingPrototype extends DocSpecsSection {
       hint: 'Effort to reimplement',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? disposition;
 
   /// Documentation outputs and team learning.
@@ -15869,11 +16136,11 @@ class TrainingPrototype extends DocSpecsSection {
       hint: 'Technology insights gained',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? outputs;
 
   /// Training prototype narrative.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   TextSection trainingNarrative = TextSection();
 }
 
@@ -15885,6 +16152,15 @@ class TrainingPrototype extends DocSpecsSection {
 ], 'A throwaway prototype that is evaluated and then discarded.')
 @SectionId('THPR')
 class ThrowawayPrototype extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the throwaway prototype before the findings, disposition and '
+    'value subsections below. Cover how the findings are captured before '
+    'the artifact is discarded.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('THPR-THRO')
   @Form([
     Field(
@@ -15912,7 +16188,7 @@ class ThrowawayPrototype extends DocSpecsSection {
       hint: 'When evaluation takes place',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? throwawayContent;
 
   /// Findings and decisions captured from evaluation.
@@ -15943,7 +16219,7 @@ class ThrowawayPrototype extends DocSpecsSection {
       hint: 'Decisions made based on prototype',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? findings;
 
   /// Disposal and follow-up handling.
@@ -15971,7 +16247,7 @@ class ThrowawayPrototype extends DocSpecsSection {
       hint: 'What happens after evaluation',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? disposition;
 
   /// Long-term value retained from the prototype.
@@ -15993,11 +16269,11 @@ class ThrowawayPrototype extends DocSpecsSection {
       hint: 'What to preserve for future',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? value;
 
   /// Throwaway prototype narrative.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TextSection throwawayNarrative = TextSection();
 }
 

@@ -4,16 +4,16 @@
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
   - `LocalizationProcess`
-    - localizationProcessContent, review, formatting, deployment, localizationNarrative @text,
+    - content, localizationProcessContent, review, formatting, deployment, localizationNarrative @text,
       workflowDiagram @mermaid-flow
   - `TranslationProcess`
-    - translationProcessContent, workflow, quality, terminology, ongoing, translationNarrative @text
+    - content, translationProcessContent, workflow, quality, terminology, ongoing, translationNarrative @text
     - vendors: `TranslationVendorEntry`[]
       - content @Form(vendorType, languages, specializations, turnaroundTime, qualityRating, contactInfo)
   - userDocumentation: `UserDocumentationRequirements`
-    - documentationContent, deliverables, localization, documentationNarrative @text
+    - content, documentationContent, deliverables, localization, documentationNarrative @text
   - trainingDeliverables: `TrainingDeliverableRequirements`
-    - trainingContent, trainingNarrative @text
+    - content, trainingContent, trainingNarrative @text
     - trainingModules: `TrainingModuleEntry`[]
       - content @Form(targetAudience, duration, deliveryMethod, prerequisites, learningObjectives, assessmentMethod)
   - `RolloutPlan`

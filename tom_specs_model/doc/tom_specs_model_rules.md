@@ -460,7 +460,7 @@ Walking a class in serialization order, each member is exactly one of:
 |------|----------|--------|
 | **No primitive non-String scalars** | error | Form/scalar leaf values are `String`, `String?`, or an enum. No `int`, `double`, `bool`, `num`, `DateTime`. Dates and numbers are `String?` with a type hint on the `@Form` field. |
 | **No `List<primitive>`** | error | A repeated section is `List<SectionClass>` or `List<DocSpecsSection>` (shapes 5/6), never a list of raw scalars. |
-| **`content: String?` expected** | warning | Nearly every class carries a `content: String?` override — the section text between the headline and the next headline. Missing it is a warning, not a blocker. |
+| **`content: String?` required** | error | Every section class carries a `content: String?` override (§5.2) — the section text between the headline and the next headline. The only exemption is the container root (T1), which is a structural node rather than a section. |
 
 ### 5.5 Class style and naming
 
@@ -1598,7 +1598,7 @@ self-contained.
 
 #### 11.2.6 Content field
 
-The `content: String?` field is present on nearly every class; it represents the
+The `content: String?` field is present on every section class; it represents the
 section content of a document section, the text between the section headline and
 the next headline. It is shown as a regular leaf field (first in the comma list
 by convention) — **not** hidden or implicit. Other scalar fields are inside this

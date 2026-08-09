@@ -8,7 +8,7 @@
   - `ActorOverview`
     - content, overview, categorization
     - [1,] actors: `ActorEntry`[]
-      - identification, technology, interactions
+      - content, identification, technology, interactions
       - characteristics: `ActorCharacteristics`
         - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency), usage, support
       - goals: `ActorGoals`[]
@@ -18,7 +18,7 @@
   - `InteractionCatalog`
     - content, overview, prioritization
     - [1,] interactions: `InteractionEntry`[]
-      - identification, scopeContext, performance, security, traceability
+      - content, identification, scopeContext, performance, security, traceability
       - stakeholders: `StakeholdersAndInterests`[]
         - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders)
       - preconditions: `PreconditionsAndTriggers`[]
@@ -45,7 +45,7 @@
   - `KeyScenarios`
     - content, overview
     - [1,] scenarios: `ScenarioEntry`[]
-      - identification, context, scenarioData, timing, validation
+      - content, identification, context, scenarioData, timing, validation
       - [1,] steps: `ScenarioStepEntry`[]
         - content @Form(stepNumber, actor, action, systemResponse), context, execution
       - alternativeFlows: `AlternativeFlowEntry`[]
@@ -53,7 +53,7 @@
         - steps: `AlternativeStepEntry`[]
           - content @Form(stepNumber, action, response, expectedResult)
   - `ActorRelationshipDiagram`
-    - overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
+    - content, overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
   - endToEndTestScenarios: `EndToEndTestScenario`[]
     - content
   - `UseCaseTraceability`

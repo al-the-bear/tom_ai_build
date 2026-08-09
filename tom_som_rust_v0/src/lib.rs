@@ -94,7 +94,16 @@ impl AcceptanceCriteriaSummary {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn acceptance_framework_content(&self) -> AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm {
@@ -677,7 +686,16 @@ impl Accessibility {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn accessibility_overview_content(&self) -> AccessibilityAccessibilityOverviewContentForm {
@@ -777,7 +795,16 @@ impl AccessibilityChecklist {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn checklist_overview_content(&self) -> AccessibilityChecklistChecklistOverviewContentForm {
@@ -1085,7 +1112,16 @@ impl ActorEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Actor identification.
@@ -1241,7 +1277,16 @@ impl ActorRelationshipDiagram {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Diagram overview.
@@ -1667,7 +1712,16 @@ impl AlertingConfiguration {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn alerting_overview(&self) -> AlertingConfigurationAlertingOverviewForm {
@@ -4378,7 +4432,16 @@ impl BoundaryAssumptions {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     // Overview of assumption categories and validation approach.
@@ -4487,7 +4550,16 @@ impl BreakpointConfiguration {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn breakpoint_overview(&self) -> BreakpointConfigurationBreakpointOverviewForm {
@@ -5051,7 +5123,16 @@ impl BusinessObjectEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn identity(&self) -> BusinessObjectEntryIdentityForm {
@@ -5345,7 +5426,16 @@ impl BusinessProcessEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Process identification.
@@ -5414,7 +5504,16 @@ impl BusinessRuleEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn identity(&self) -> BusinessRuleEntryIdentityForm {
@@ -6181,7 +6280,16 @@ impl ChangeReadinessAssessment {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Overview of readiness assessment approach.
@@ -6286,7 +6394,16 @@ impl ChangedRoleCompetencies {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// New competencies required.
@@ -6343,7 +6460,16 @@ impl ChangedRoleEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Changed role identification.
@@ -6425,7 +6551,16 @@ impl ChangedRoleResponsibilities {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Responsibilities being added.
@@ -6516,7 +6651,16 @@ impl ChangesFromCurrentStructure {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn overview_content(&self) -> ChangesFromCurrentStructureOverviewContentForm {
@@ -7746,7 +7890,16 @@ impl CompatibilityCharacteristic {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn compatibility_content(&self) -> CompatibilityCharacteristicCompatibilityContentForm {
@@ -7924,7 +8077,16 @@ impl CompetencyFramework {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Framework overview.
@@ -8524,7 +8686,16 @@ impl ComponentLibrary {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn design_foundations(&self) -> som::SomList<DesignFoundationEntry> {
@@ -9562,7 +9733,16 @@ impl ContextualHelp {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn contextual_help_content(&self) -> ContextualHelpContextualHelpContentForm {
@@ -13042,7 +13222,16 @@ impl DataAttributeEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn identity(&self) -> DataAttributeEntryIdentityForm {
@@ -13182,7 +13371,16 @@ impl DataClassification {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn overview(&self) -> DataClassificationOverviewForm {
@@ -13217,7 +13415,16 @@ impl DataClassificationEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn identity(&self) -> DataClassificationEntryIdentityForm {
@@ -13450,7 +13657,16 @@ impl DataEntityEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn identity(&self) -> DataEntityEntryIdentityForm {
@@ -17821,7 +18037,16 @@ impl DocumentationQualityCriteria {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn documentation_overview_content(&self) -> DocumentationQualityCriteriaDocumentationOverviewContentForm {
@@ -18960,7 +19185,16 @@ impl EntityFollowUpEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn entity_ref(&self) -> EntityFollowUpEntryEntityRefForm {
@@ -19046,7 +19280,16 @@ impl EntityRelationshipEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn identity(&self) -> EntityRelationshipEntryIdentityForm {
@@ -19398,7 +19641,16 @@ impl EquipmentRequirements {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Equipment overview.
@@ -19603,7 +19855,16 @@ impl ErrorHandling {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn error_philosophy_content(&self) -> ErrorHandlingErrorPhilosophyContentForm {
@@ -19716,7 +19977,16 @@ impl ErrorRecovery {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn recovery_mechanisms_content(&self) -> ErrorRecoveryRecoveryMechanismsContentForm {
@@ -20771,7 +21041,16 @@ impl ExternalInterfaceEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn identification_content(&self) -> ExternalInterfaceEntryIdentificationContentForm {
@@ -20840,7 +21119,16 @@ impl ExternalInterfaces {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     // Summary of the integration landscape.
@@ -22001,7 +22289,16 @@ impl FlexibilityCharacteristic {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn flexibility_content(&self) -> FlexibilityCharacteristicFlexibilityContentForm {
@@ -22235,7 +22532,16 @@ impl FunctionModel {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn decomposition_overview(&self) -> FunctionModelDecompositionOverviewForm {
@@ -22503,7 +22809,16 @@ impl FunctionalSuitabilityCharacteristic {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn functional_suitability_content(&self) -> FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
@@ -24820,7 +25135,16 @@ impl InteractionCapabilityCharacteristic {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn interaction_capability_content(&self) -> InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
@@ -24997,7 +25321,16 @@ impl InteractionEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Interaction identification (use case header).
@@ -26218,7 +26551,16 @@ impl JobDescriptionsAndStaffing {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Overview of the job architecture and role design approach.
@@ -26754,7 +27096,16 @@ impl LanguageCountrySelection {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn language_selection_content(&self) -> LanguageCountrySelectionLanguageSelectionContentForm {
@@ -27261,7 +27612,16 @@ impl LocalizationProcess {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn localization_process_content(&self) -> LocalizationProcessLocalizationProcessContentForm {
@@ -27735,7 +28095,16 @@ impl MaintainabilityCharacteristic {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn maintainability_content(&self) -> MaintainabilityCharacteristicMaintainabilityContentForm {
@@ -28297,7 +28666,16 @@ impl MetricsAndObservability {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn metrics_overview(&self) -> MetricsAndObservabilityMetricsOverviewForm {
@@ -28566,7 +28944,16 @@ impl MigrationConsiderations {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn strategy_content(&self) -> MigrationConsiderationsStrategyContentForm {
@@ -29103,7 +29490,16 @@ impl MigrationRisks {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn governance_content(&self) -> MigrationRisksGovernanceContentForm {
@@ -29498,7 +29894,16 @@ impl Monitoring {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn monitoring_overview(&self) -> MonitoringMonitoringOverviewForm {
@@ -29640,7 +30045,16 @@ impl MonitoringDashboards {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn dashboard_overview(&self) -> MonitoringDashboardsDashboardOverviewForm {
@@ -29853,7 +30267,16 @@ impl MultiLanguageSupport {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn multi_language_overview(&self) -> MultiLanguageSupportMultiLanguageOverviewForm {
@@ -29896,7 +30319,16 @@ impl MustPassCriteria {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn must_pass_overview_content(&self) -> MustPassCriteriaMustPassOverviewContentForm {
@@ -30710,7 +31142,16 @@ impl NewOrganizationStructure {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     // Overview of the target organization structure.
@@ -30745,7 +31186,16 @@ impl NewRoleEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Role identification and overview.
@@ -30842,7 +31292,16 @@ impl NewRoleResponsibilities {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Primary responsibilities (key accountabilities).
@@ -31159,7 +31618,16 @@ impl OnboardingHelp {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn onboarding_content(&self) -> OnboardingHelpOnboardingContentForm {
@@ -31263,7 +31731,16 @@ impl OperatingEnvironment {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     // Framework conditions overview.
@@ -31787,7 +32264,16 @@ impl OrganizationalEnvironment {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn organization_content(&self) -> OrganizationalEnvironmentOrganizationContentForm {
@@ -31885,7 +32371,16 @@ impl OrganizationalFramework {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     // Overview of organizational changes required for the new system.
@@ -32039,7 +32534,16 @@ impl OrganizationalTransitionTimeline {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Overview of the transition approach and guiding principles.
@@ -32206,7 +32710,16 @@ impl OutOfScope {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     // Overview of scope exclusion approach.
@@ -32851,7 +33364,16 @@ impl PerformanceEfficiencyCharacteristic {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn performance_efficiency_content(&self) -> PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
@@ -34176,7 +34698,16 @@ impl ProcessCatalog {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Process catalog overview.
@@ -34281,7 +34812,16 @@ impl ProcessControls {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Controls overview.
@@ -34363,7 +34903,16 @@ impl ProcessDesignPrinciples {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Design principles overview.
@@ -34483,7 +35032,16 @@ impl ProcessExceptions {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Exceptions overview.
@@ -34590,7 +35148,16 @@ impl ProcessImprovementSummary {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Improvement overview.
@@ -34652,7 +35219,16 @@ impl ProcessInputsOutputs {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Inputs overview.
@@ -35010,7 +35586,16 @@ impl ProcessOverviewDiagram {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Diagram overview.
@@ -35081,7 +35666,16 @@ impl ProcessPerformance {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Performance overview.
@@ -35252,7 +35846,16 @@ impl ProcessRoles {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Roles overview.
@@ -35526,7 +36129,16 @@ impl ProcessTriggers {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Main trigger overview.
@@ -35572,7 +36184,16 @@ impl ProcessVision {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Process vision overview.
@@ -35958,7 +36579,16 @@ impl Prototype {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn prototype_overview(&self) -> PrototypePrototypeOverviewForm {
@@ -36042,7 +36672,16 @@ impl PrototypeFeatureSubset {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn feature_subset_content(&self) -> PrototypeFeatureSubsetFeatureSubsetContentForm {
@@ -36113,7 +36752,16 @@ impl PrototypeGoals {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn goals_content(&self) -> PrototypeGoalsGoalsContentForm {
@@ -36161,7 +36809,16 @@ impl PrototypeType {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn prototype_type_overview(&self) -> PrototypeTypePrototypeTypeOverviewForm {
@@ -36337,7 +36994,16 @@ impl QualityFramework {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn framework_content(&self) -> QualityFrameworkFrameworkContentForm {
@@ -36583,7 +37249,16 @@ impl QualityGateChecklist {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn checklist_overview_content(&self) -> QualityGateChecklistChecklistOverviewContentForm {
@@ -36622,7 +37297,16 @@ impl QualityPrioritization {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn prioritization_framework_content(&self) -> QualityPrioritizationPrioritizationFrameworkContentForm {
@@ -37441,7 +38125,16 @@ impl ReliabilityCharacteristic {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn reliability_content(&self) -> ReliabilityCharacteristicReliabilityContentForm {
@@ -37565,7 +38258,16 @@ impl ReplacementInventory {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     // Portfolio summary before listing individual systems.
@@ -39361,7 +40063,16 @@ impl ResponsiveBehavior {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn layout_adaptation(&self) -> ResponsiveBehaviorLayoutAdaptationForm {
@@ -39420,7 +40131,16 @@ impl ResponsiveDesign {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn responsive_overview(&self) -> ResponsiveDesignResponsiveOverviewForm {
@@ -39737,7 +40457,16 @@ impl ReusablePrototype {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn reusable_content(&self) -> ReusablePrototypeReusableContentForm {
@@ -39963,7 +40692,16 @@ impl RiskEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Risk identification — unique identifier and basic description.
@@ -40155,7 +40893,16 @@ impl RisksAndAssumptions {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Overview of the risk management approach for this project.
@@ -41174,7 +41921,16 @@ impl ScenarioEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Scenario identification.
@@ -42878,7 +43634,16 @@ impl SecurityCharacteristic {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn security_content(&self) -> SecurityCharacteristicSecurityContentForm {
@@ -44900,7 +45665,16 @@ impl SlaAndSloMonitoring {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn sla_overview(&self) -> SlaAndSloMonitoringSlaOverviewForm {
@@ -45373,7 +46147,16 @@ impl StaffingPlan {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Staffing plan overview.
@@ -46975,7 +47758,16 @@ impl SuccessCriteriaByCategory {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Business outcome criteria overview.
@@ -47128,7 +47920,16 @@ impl SupportAccess {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn support_access_content(&self) -> SupportAccessSupportAccessContentForm {
@@ -47289,7 +48090,16 @@ impl SystemBoundaries {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     // Overview of system boundaries and scope definition approach.
@@ -47895,7 +48705,16 @@ impl SystemErrorDisplay {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn system_error_content(&self) -> SystemErrorDisplaySystemErrorContentForm {
@@ -48369,7 +49188,16 @@ impl SystemQualityGoals {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn governance_content(&self) -> SystemQualityGoalsGovernanceContentForm {
@@ -48901,7 +49729,16 @@ impl SystemToReplaceEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn identification_content(&self) -> SystemToReplaceEntryIdentificationContentForm {
@@ -49075,7 +49912,16 @@ impl SystemsToReplace {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     // Overview of the systems replacement scope and strategy.
@@ -49509,7 +50355,16 @@ impl TechnicalEnvironment {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn technical_overview_content(&self) -> TechnicalEnvironmentTechnicalOverviewContentForm {
@@ -49959,7 +50814,16 @@ impl TechnicalInfrastructure {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Network connectivity requirements.
@@ -50835,7 +51699,16 @@ impl ThrowawayPrototype {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn throwaway_content(&self) -> ThrowawayPrototypeThrowawayContentForm {
@@ -51260,7 +52133,16 @@ impl TradeOffDecisions {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn trade_off_governance_content(&self) -> TradeOffDecisionsTradeOffGovernanceContentForm {
@@ -51342,7 +52224,16 @@ impl TrainingDeliverableRequirements {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn training_content(&self) -> TrainingDeliverableRequirementsTrainingContentForm {
@@ -51513,7 +52404,16 @@ impl TrainingPrototype {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn training_content(&self) -> TrainingPrototypeTrainingContentForm {
@@ -51552,7 +52452,16 @@ impl TrainingRequirements {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Training overview and strategy.
@@ -51672,7 +52581,16 @@ impl TransitionCommunicationPlan {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Communication strategy overview.
@@ -51868,7 +52786,16 @@ impl TransitionPhaseEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Phase identification and timeline.
@@ -52006,7 +52933,16 @@ impl TransitionSuccessMetrics {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Metrics overview.
@@ -52063,7 +52999,16 @@ impl TransitionSupportStructure {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Support organization overview.
@@ -52109,7 +53054,16 @@ impl TranslationProcess {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn translation_process_content(&self) -> TranslationProcessTranslationProcessContentForm {
@@ -52167,7 +53121,16 @@ impl TranslationRequirements {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn translation_requirements_content(&self) -> TranslationRequirementsTranslationRequirementsContentForm {
@@ -52490,7 +53453,16 @@ impl UiComponentEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn identity(&self) -> UiComponentEntryIdentityForm {
@@ -52641,7 +53613,16 @@ impl UiComponents {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn component_library_overview(&self) -> UiComponentsComponentLibraryOverviewForm {
@@ -53083,7 +54064,16 @@ impl UserAssistance {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn help_overview_content(&self) -> UserAssistanceHelpOverviewContentForm {
@@ -53389,7 +54379,16 @@ impl UserDocumentationRequirements {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn documentation_content(&self) -> UserDocumentationRequirementsDocumentationContentForm {
@@ -54423,7 +55422,16 @@ impl ValidationFeedback {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn validation_display_content(&self) -> ValidationFeedbackValidationDisplayContentForm {
@@ -54876,7 +55884,16 @@ impl WcagCompliance {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn wcag_compliance_content(&self) -> WcagComplianceWcagComplianceContentForm {
@@ -54950,7 +55967,16 @@ impl WeightedQualityMatrix {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn matrix_config_content(&self) -> WeightedQualityMatrixMatrixConfigContentForm {
@@ -55365,7 +56391,16 @@ impl WorkflowStepSystem {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     pub fn name(&self) -> String {
@@ -55514,7 +56549,16 @@ impl WorkplaceDescriptionEntry {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// User category identification.

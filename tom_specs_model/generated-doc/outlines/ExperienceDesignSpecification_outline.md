@@ -238,65 +238,65 @@
       - recipients: `ReportRecipientEntry`[]
         - content @Form(recipientId, recipientType, recipientReference), context, delivery, lifecycle
   - `ErrorHandling`
-    - errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
+    - content, errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
       errorMessageCatalog @text, errorVisualDesign @text
     - `ValidationFeedback`
-      - validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
+      - content, validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
       - messageTemplates: `ValidationMessageTemplate`[]
         - content @Form(validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
       - fieldValidationRules: `String`[]
     - `SystemErrorDisplay`
-      - systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
+      - content, systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
       - errorPageDesigns: `String`[]
       - errorCodes: `SystemErrorCodeEntry`[]
         - content @Form(errorCode, httpStatus, errorCategory, userMessage), handling, operations
     - `ErrorRecovery`
-      - recoveryMechanismsContent, dataPreservation, retryMechanisms, guidedRecovery, supportContact, sessionHandling,
-        recoveryNarrative @text
+      - content, recoveryMechanismsContent, dataPreservation, retryMechanisms, guidedRecovery, supportContact,
+        sessionHandling, recoveryNarrative @text
       - recoveryFlows: `String`[]
       - recoveryScenarios: `RecoveryScenarioEntry`[]
         - content @Form(triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
           detailedFlow @text
   - `UserAssistance`
-    - helpOverviewContent, delivery, insights, helpOverview @text, helpContentInventory @text
+    - content, helpOverviewContent, delivery, insights, helpOverview @text, helpContentInventory @text
     - `ContextualHelp`
-      - contextualHelpContent, inline, panels, whatsThis, rich, contextualHelpNarrative @text
+      - content, contextualHelpContent, inline, panels, whatsThis, rich, contextualHelpNarrative @text
       - fieldHelpCatalog: `FieldHelpEntry`[]
         - content @Form(fieldId, tooltipText, inlineHelpText, extendedHelp, relatedArticles, exampleValues, commonMistakes)
     - onboarding: `OnboardingHelp`
-      - onboardingContent, tours, sampleData, checklist, disclosure, reengagement, onboardingNarrative @text
+      - content, onboardingContent, tours, sampleData, checklist, disclosure, reengagement, onboardingNarrative @text
       - featureTours: `FeatureTourEntry`[]
         - content @Form(tourDescription, targetAudience, triggerCondition, stepCount, estimatedDuration, skippable, repeatPolicy)
         - steps: `TourStepEntry`[]
           - content @Form(stepOrder, targetElement, stepContent, placement, actionRequired, spotlightShape)
     - `SupportAccess`
-      - supportAccessContent, helpCenter, liveSupport, tickets, contactMethods, selfService,
+      - content, supportAccessContent, helpCenter, liveSupport, tickets, contactMethods, selfService,
         supportAccessNarrative @text
   - `Accessibility`
-    - accessibilityOverviewContent, strategy, testing, support, accessibilityOverview @text, keyboardNavigation @text,
-      screenReaderSupport @text, colorAndContrast @text
+    - content, accessibilityOverviewContent, strategy, testing, support, accessibilityOverview @text,
+      keyboardNavigation @text, screenReaderSupport @text, colorAndContrast @text
     - wcagComplianceLevel: `WcagCompliance`
-      - wcagComplianceContent, operable, understandable, robust, wcagNarrative @text
+      - content, wcagComplianceContent, operable, understandable, robust, wcagNarrative @text
       - successCriteria: `WcagSuccessCriterionEntry`[]
         - content @Form(criterionId, level, applicability, implementation, testingMethod, status, exceptions)
     - `AccessibilityChecklist`
-      - checklistOverviewContent, checklistOverview @text
+      - content, checklistOverviewContent, checklistOverview @text
       - items: `AccessibilityCheckEntry`[]
         - content @Form(checkItem, checkDescription, verificationMethod), compliance, execution, remediation
   - `ResponsiveDesign`
-    - responsiveOverview, responsiveNarrative @text
+    - content, responsiveOverview, responsiveNarrative @text
     - breakpointConfig: `BreakpointConfiguration`
-      - breakpointOverview
+      - content, breakpointOverview
       - breakpoints: `BreakpointEntry`[]
         - content @Form(breakpointId, minWidth, maxWidth), layout, scaling
     - `ResponsiveBehavior`
-      - layoutAdaptation, navigation, visibility, touch, contentReflow, behaviorNarrative @text
+      - content, layoutAdaptation, navigation, visibility, touch, contentReflow, behaviorNarrative @text
       - screenRules: `ResponsiveScreenRuleEntry`[]
         - content @Form(screenId, mobileLayout, tabletLayout, desktopLayout, specialConsiderations)
   - `UiComponents`
-    - componentLibraryOverview, visualLanguage, componentApproach, customization
+    - content, componentLibraryOverview, visualLanguage, componentApproach, customization
     - `ComponentLibrary`
-      - colors, typography, spacing, borders, visuals, designSystemNarrative @text, designTokenCatalog @text
+      - content, colors, typography, spacing, borders, visuals, designSystemNarrative @text, designTokenCatalog @text
       - designFoundations: `DesignFoundationEntry`[]
         - content @Form(primaryColor, fontFamilyPrimary, spacingScale)
       - colorPalettes: `ColorPaletteEntry`[]
@@ -304,9 +304,9 @@
       - typographyStyles: `TypographyStyleEntry`[]
         - content @Form(fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textDecoration, useCase)
     - componentSpecs: `UiComponentEntry`[]
-      - identity, purposeProfile, classification, visualDesign, dimensions, spacing, surface, visualDiagram @mermaid,
-        interactiveBehavior, inputBehavior, animation, scroll, responsiveness, accessibility, authorization,
-        resourceIntegration, dataBinding, behaviorNarrative @text
+      - content, identity, purposeProfile, classification, visualDesign, dimensions, spacing, surface,
+        visualDiagram @mermaid, interactiveBehavior, inputBehavior, animation, scroll, responsiveness, accessibility,
+        authorization, resourceIntegration, dataBinding, behaviorNarrative @text
       - states: `ComponentStateEntry`[]
         - content @Form(stateId, stateDescription), visual, behavior, transitions, stateMockup @mermaid
       - variants: `ComponentVariantEntry`[]
@@ -322,25 +322,25 @@
       - components: `FamilyComponentRef`[]
         - content @Form(componentId, familyRole, relationToOthers)
   - `LanguageCountrySelection`
-    - languageSelectionContent, defaults, persistence, fallback, ux, languageSelectionNarrative @text,
+    - content, languageSelectionContent, defaults, persistence, fallback, ux, languageSelectionNarrative @text,
       languagePickerMockup @mermaid
   - `Prototype`
-    - prototypeOverview, timeline, resources, governance, overviewNarrative @text, prototypeSchedule @text
+    - content, prototypeOverview, timeline, resources, governance, overviewNarrative @text, prototypeSchedule @text
     - `PrototypeGoals`
-      - goalsContent, riskProfile, feedbackProfile, goalsNarrative @text
+      - content, goalsContent, riskProfile, feedbackProfile, goalsNarrative @text
       - goals: `PrototypeGoalEntry`[]
         - content @Form(goalDescription, goalCategory, validationMethod, successMetric, priority, relatedRisks, stakeholders)
     - featureSubset: `PrototypeFeatureSubset`
-      - featureSubsetContent, scope, fidelity, featureNarrative @text
+      - content, featureSubsetContent, scope, fidelity, featureNarrative @text
       - features: `PrototypeFeatureEntry`[]
         - content @Form(featureId, inclusionReason, fidelityLevel, completenessLevel, relatedGoals, implementationNotes, knownLimitations)
     - `PrototypeType`
-      - prototypeTypeOverview
+      - content, prototypeTypeOverview
       - `ReusablePrototype`
-        - reusableContent, architecture, integration, transition, reusableNarrative @text
+        - content, reusableContent, architecture, integration, transition, reusableNarrative @text
       - `TrainingPrototype`
-        - trainingContent, disposition, outputs, trainingNarrative @text
+        - content, trainingContent, disposition, outputs, trainingNarrative @text
       - `ThrowawayPrototype`
-        - throwawayContent, findings, disposition, value, throwawayNarrative @text
+        - content, throwawayContent, findings, disposition, value, throwawayNarrative @text
   - `WireframesAndMockups`
     - content

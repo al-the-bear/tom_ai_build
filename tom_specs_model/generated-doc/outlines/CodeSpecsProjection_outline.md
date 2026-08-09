@@ -34,9 +34,9 @@
   - `DataModel` ← (locus: server — CE-DB/CE-VA)
     - content
     - [1,] entities: `DataEntityEntry`[]
-      - identity, classification, lifecyclePolicy, relationshipSummary
+      - content, identity, classification, lifecyclePolicy, relationshipSummary
       - attributes: `DataAttributeEntry`[]
-        - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
+        - content, identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
           fileReferenceOptions, enumerationTypeOptions, derivation, securityClassification, migrationLineage
         - constraints: `DataAttributeConstraintEntry`[]
           - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
@@ -51,15 +51,15 @@
     - `EntityRelationships`
       - content
       - items: `EntityRelationshipEntry`[]
-        - identity, cardinality, referentialIntegrity, navigation, sourceEntityRef, targetEntityRef
+        - content, identity, cardinality, referentialIntegrity, navigation, sourceEntityRef, targetEntityRef
         - participants: `ParticipantEntry`[]
           - content @Form(sourceEntityName, sourceRole, targetEntityName, targetRole)
         - relationshipAttributes: `RelationshipAttributeEntry`[]
           - content @Form(hasRelationshipAttributes, relationshipAttributes, temporalAspects)
     - `DataClassification`
-      - overview
+      - content, overview
       - items: `DataClassificationEntry`[]
-        - identity, storageTransmission, accessControl, retentionDisposal, compliance
+        - content, identity, storageTransmission, accessControl, retentionDisposal, compliance
         - handlingRequirements: `HandlingRequirementEntry`[]
           - content @Form(requirementType, requirement, rationale, enforcementMechanism, validationMethod, exceptionProcess)
         - accessRestrictions: `AccessRestrictionEntry`[]
@@ -542,7 +542,7 @@
               selfService
         - maintenanceProcedures: `String`[]
       - `Monitoring`
-        - monitoringOverview, overviewNarrative @text
+        - content, monitoringOverview, overviewNarrative @text
         - healthChecksAndDiagnostics: `HealthChecksAndDiagnosticsSection`
           - content, overview @text
           - healthEndpoints: `HealthCheckEndpoints`
@@ -558,7 +558,7 @@
             - content @Form(databaseHealthCheck, databaseLatencyThreshold, databaseConnectionPoolHealth), cache, queue,
               external, thresholds
         - `AlertingConfiguration`
-          - alertingOverview, overviewNarrative @text
+          - content, alertingOverview, overviewNarrative @text
           - notificationChannels: `AlertNotificationChannels`
             - content @Form(pagingService, slackIntegration, teamsIntegration), delivery, routing, formatting
           - alertRules: `AlertRuleEntry`[]
@@ -571,7 +571,7 @@
             - content @Form(rotationSchedule, scheduleTimezone, primaryOnCallDuties, secondaryOnCallDuties), coverage,
               operations
         - `MetricsAndObservability`
-          - metricsOverview, overviewNarrative @text
+          - content, metricsOverview, overviewNarrative @text
           - applicationMetrics: `ApplicationMetricsSpec`
             - content @Form(requestRate, errorRate, requestDuration), resources, application, labels
           - infrastructureMetrics: `InfrastructureMetricsSpec`
@@ -584,13 +584,13 @@
           - customMetrics: `CustomMetricEntry`[]
             - content @Form(metricType, metricDescription, unit, labels, source, alertOnMetric, dashboardInclusion, notes)
         - dashboards: `MonitoringDashboards`
-          - dashboardOverview, overviewNarrative @text
+          - content, dashboardOverview, overviewNarrative @text
           - dashboards: `DashboardEntry`[]
             - content @Form(dashboardCategory, targetAudience), configuration, operations
           - dashboardTemplates: `DashboardTemplates`[]
             - content @Form(serviceTemplateLayout, serviceTemplateVariables, infraTemplateLayout, k8sTemplateLayout, databaseTemplateLayout, customTemplateProcess, templateVersioning, notes)
         - `SlaAndSloMonitoring`
-          - slaOverview, overviewNarrative @text
+          - content, slaOverview, overviewNarrative @text
           - slis: `ServiceLevelIndicators`
             - content @Form(availabilitySli, availabilityExclusions), performance, quality, measurement
           - slos: `SloEntry`[]
@@ -1006,7 +1006,7 @@
     - `ActorOverview`
       - content, overview, categorization
       - [1,] actors: `ActorEntry`[]
-        - identification, technology, interactions
+        - content, identification, technology, interactions
         - characteristics: `ActorCharacteristics`
           - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency), usage, support
         - goals: `ActorGoals`[]
@@ -1016,7 +1016,7 @@
     - `InteractionCatalog`
       - content, overview, prioritization
       - [1,] interactions: `InteractionEntry`[]
-        - identification, scopeContext, performance, security, traceability
+        - content, identification, scopeContext, performance, security, traceability
         - stakeholders: `StakeholdersAndInterests`[]
           - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders)
         - preconditions: `PreconditionsAndTriggers`[]
@@ -1043,7 +1043,7 @@
     - `KeyScenarios`
       - content, overview
       - [1,] scenarios: `ScenarioEntry`[]
-        - identification, context, scenarioData, timing, validation
+        - content, identification, context, scenarioData, timing, validation
         - [1,] steps: `ScenarioStepEntry`[]
           - content @Form(stepNumber, actor, action, systemResponse), context, execution
         - alternativeFlows: `AlternativeFlowEntry`[]
@@ -1051,7 +1051,7 @@
           - steps: `AlternativeStepEntry`[]
             - content @Form(stepNumber, action, response, expectedResult)
     - `ActorRelationshipDiagram`
-      - overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
+      - content, overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
     - endToEndTestScenarios: `EndToEndTestScenario`[]
       - content
     - `UseCaseTraceability`
@@ -1208,39 +1208,39 @@
         - transitions: `ScreenTransitionEntry`[]
           - content @Form(sourceRouteId, actionId, outcome, targetRouteId, presentationMode, outcomeReference)
     - `ErrorHandling`
-      - errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
+      - content, errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
         errorMessageCatalog @text, errorVisualDesign @text
       - `ValidationFeedback`
-        - validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
+        - content, validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
         - messageTemplates: `ValidationMessageTemplate`[]
           - content @Form(validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
         - fieldValidationRules: `String`[]
       - `SystemErrorDisplay`
-        - systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
+        - content, systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
         - errorPageDesigns: `String`[]
         - errorCodes: `SystemErrorCodeEntry`[]
           - content @Form(errorCode, httpStatus, errorCategory, userMessage), handling, operations
       - `ErrorRecovery`
-        - recoveryMechanismsContent, dataPreservation, retryMechanisms, guidedRecovery, supportContact,
+        - content, recoveryMechanismsContent, dataPreservation, retryMechanisms, guidedRecovery, supportContact,
           sessionHandling, recoveryNarrative @text
         - recoveryFlows: `String`[]
         - recoveryScenarios: `RecoveryScenarioEntry`[]
           - content @Form(triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
             detailedFlow @text
     - `ResponsiveDesign`
-      - responsiveOverview, responsiveNarrative @text
+      - content, responsiveOverview, responsiveNarrative @text
       - breakpointConfig: `BreakpointConfiguration`
-        - breakpointOverview
+        - content, breakpointOverview
         - breakpoints: `BreakpointEntry`[]
           - content @Form(breakpointId, minWidth, maxWidth), layout, scaling
       - `ResponsiveBehavior`
-        - layoutAdaptation, navigation, visibility, touch, contentReflow, behaviorNarrative @text
+        - content, layoutAdaptation, navigation, visibility, touch, contentReflow, behaviorNarrative @text
         - screenRules: `ResponsiveScreenRuleEntry`[]
           - content @Form(screenId, mobileLayout, tabletLayout, desktopLayout, specialConsiderations)
     - `UiComponents`
-      - componentLibraryOverview, visualLanguage, componentApproach, customization
+      - content, componentLibraryOverview, visualLanguage, componentApproach, customization
       - `ComponentLibrary`
-        - colors, typography, spacing, borders, visuals, designSystemNarrative @text, designTokenCatalog @text
+        - content, colors, typography, spacing, borders, visuals, designSystemNarrative @text, designTokenCatalog @text
         - designFoundations: `DesignFoundationEntry`[]
           - content @Form(primaryColor, fontFamilyPrimary, spacingScale)
         - colorPalettes: `ColorPaletteEntry`[]
@@ -1248,9 +1248,9 @@
         - typographyStyles: `TypographyStyleEntry`[]
           - content @Form(fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textDecoration, useCase)
       - componentSpecs: `UiComponentEntry`[]
-        - identity, purposeProfile, classification, visualDesign, dimensions, spacing, surface, visualDiagram @mermaid,
-          interactiveBehavior, inputBehavior, animation, scroll, responsiveness, accessibility, authorization,
-          resourceIntegration, dataBinding, behaviorNarrative @text
+        - content, identity, purposeProfile, classification, visualDesign, dimensions, spacing, surface,
+          visualDiagram @mermaid, interactiveBehavior, inputBehavior, animation, scroll, responsiveness, accessibility,
+          authorization, resourceIntegration, dataBinding, behaviorNarrative @text
         - states: `ComponentStateEntry`[]
           - content @Form(stateId, stateDescription), visual, behavior, transitions, stateMockup @mermaid
         - variants: `ComponentVariantEntry`[]

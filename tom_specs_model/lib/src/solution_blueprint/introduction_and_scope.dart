@@ -7482,6 +7482,14 @@ class SuccessCriteria extends DocSpecsSection {
 )
 @SectionId('SCBC')
 class SuccessCriteriaByCategory extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the success criteria before the per-category buckets below. '
+    'Cover who judges success and at what point the judgement is made.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Business outcome criteria overview.
   @SectionId('SCBC-BUSI')
   @ContentType(
@@ -7490,7 +7498,7 @@ class SuccessCriteriaByCategory extends DocSpecsSection {
         'including ROI, market impact, and strategic alignment.',
   )
   @ContentHelp('Describe how business outcomes will be measured.')
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? businessCriteria;
 
   /// Technical quality criteria overview.
@@ -7501,7 +7509,7 @@ class SuccessCriteriaByCategory extends DocSpecsSection {
         'including performance, reliability, and maintainability.',
   )
   @ContentHelp('Describe how technical quality will be measured.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? technicalCriteria;
 
   /// User satisfaction criteria overview.
@@ -7512,7 +7520,7 @@ class SuccessCriteriaByCategory extends DocSpecsSection {
         'including adoption, satisfaction, and productivity.',
   )
   @ContentHelp('Describe how user satisfaction will be measured.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? userCriteria;
 
   /// Compliance criteria overview.
@@ -7523,7 +7531,7 @@ class SuccessCriteriaByCategory extends DocSpecsSection {
         'including regulatory, security, and audit requirements.',
   )
   @ContentHelp('Describe how compliance will be verified.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? complianceCriteria;
 
   /// Timeline and budget criteria overview.
@@ -7534,7 +7542,7 @@ class SuccessCriteriaByCategory extends DocSpecsSection {
         'including timeline adherence, budget compliance, and scope management.',
   )
   @ContentHelp('Describe how project execution will be measured.')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? projectCriteria;
 }
 
@@ -11136,21 +11144,30 @@ class OrgImplementationActivity extends DocSpecsSection {
 @Comment('Seeds → CLA')
 @MapsTo(D01CurrentLandscapeAssessment)
 class SystemsToReplace extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the replacement portfolio before the inventory and '
+    'migration-considerations subsections below. Cover the rationalization '
+    'strategy behind the selection.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Overview of the systems replacement scope and strategy.
   @ContentHelp(
     'Provide executive summary of systems being replaced: '
     'portfolio count, replacement rationale, expected timeline, '
     'and overall migration approach.',
   )
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 4.4.1. Replacement Inventory — contains 0+×.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   ReplacementInventory replacementInventory = ReplacementInventory();
 
   /// 4.4.2. Migration Considerations.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   MigrationConsiderations migrationConsiderations = MigrationConsiderations();
 }
 
@@ -11173,12 +11190,20 @@ class SystemsToReplace extends DocSpecsSection {
 @SectionId('RI')
 @DetailedIn(D01CurrentLandscapeAssessment)
 class ReplacementInventory extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the replacement inventory before the individual systems '
+    'below. Cover the portfolio-level metrics and the sequencing logic.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Portfolio summary before listing individual systems.
   @ContentHelp(
     'Summarize the replacement portfolio: total system count, '
     'technology categories, combined user base, and overall complexity.',
   )
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   TextSection portfolioSummary = TextSection();
 
   /// Prioritization criteria for replacement sequencing.
@@ -11186,7 +11211,7 @@ class ReplacementInventory extends DocSpecsSection {
     'Describe how replacement order is determined: business value, '
     'technical debt, risk, dependency chains, resource availability.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection prioritizationCriteria = TextSection();
 
   /// Contains 0+× SystemToReplaceEntry.
@@ -11204,7 +11229,7 @@ class ReplacementInventory extends DocSpecsSection {
     'Add one entry per legacy system targeted for replacement; '
     'each entry captures its full technical, business, and migration assessment.',
   )
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<SystemToReplaceEntry> systems = [];
 }
 
@@ -11224,6 +11249,15 @@ class ReplacementInventory extends DocSpecsSection {
 )
 @SectionId('SYTORE')
 class SystemToReplaceEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this legacy system — its history and the reason it is '
+    'being replaced, beyond the technical, business and migration facets '
+    'recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // -------------------------------------------------------------------------
   // System Identification
   // -------------------------------------------------------------------------
@@ -11252,7 +11286,7 @@ class SystemToReplaceEntry extends DocSpecsSection {
       hint: 'Brief description of what the system does and who uses it',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identificationContent;
 
   /// Classification and ownership details.
@@ -11288,7 +11322,7 @@ class SystemToReplaceEntry extends DocSpecsSection {
       hint: 'Person or role accountable for the technical platform',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? profile;
 
   /// Vendor and contract status.
@@ -11318,23 +11352,23 @@ class SystemToReplaceEntry extends DocSpecsSection {
       hint: 'Date the current contract expires',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? vendor;
 
   /// Technical stack and architecture assessment.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   SystemTechnicalAssessment technicalAssessment = SystemTechnicalAssessment();
 
   /// Business value and criticality assessment.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   SystemBusinessCriticality businessCriticality = SystemBusinessCriticality();
 
   /// Detailed replacement approach.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   SystemReplacementStrategy replacementStrategy = SystemReplacementStrategy();
 
   /// Data migration scope and assessment.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   SystemDataScope dataScope = SystemDataScope();
 
   /// Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
@@ -11349,23 +11383,23 @@ class SystemToReplaceEntry extends DocSpecsSection {
     'Add one entry per integration or dependency; capture direction, '
     'criticality, and how the link will be rebuilt or eliminated.',
   )
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<ReplacementSystemDependencyEntry> dependencies = [];
 
   /// User impact and change management needs.
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   SystemUserImpact userImpact = SystemUserImpact();
 
   /// Financial analysis for replacement decision.
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   SystemCostAnalysis costAnalysis = SystemCostAnalysis();
 
   /// Per-system migration considerations.
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   SystemMigrationPlan migrationPlan = SystemMigrationPlan();
 
   /// Documentation and knowledge transfer status.
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   SystemKnowledgeTransfer knowledgeTransfer = SystemKnowledgeTransfer();
 }
 
@@ -12904,6 +12938,15 @@ class SystemKnowledgeTransfer extends DocSpecsSection {
 @SectionId('MIGCON')
 @DetailedIn(D01CurrentLandscapeAssessment)
 class MigrationConsiderations extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the portfolio-wide migration approach before the resource, '
+    'risk and coordination subsections below. Cover the sequencing '
+    'principle that applies across systems.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('MIGCON-STRA')
   @Form([
     Field(
@@ -12943,23 +12986,23 @@ class MigrationConsiderations extends DocSpecsSection {
       hint: 'How long old and new run side by side',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? strategyContent;
 
   /// Detailed strategy narrative.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection strategyNarrative = TextSection();
 
   /// Resource requirements for migration program.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   MigrationResources resources = MigrationResources();
 
   /// Migration risks.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   MigrationRisks migrationRisks = MigrationRisks();
 
   /// High-level migration timeline.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TextSection timeline = TextSection();
 
   /// Migration milestones.
@@ -12977,27 +13020,27 @@ class MigrationConsiderations extends DocSpecsSection {
     'Add one entry per program milestone, with its target date, '
     'systems included, and the success/gate criteria that must be met.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<MigrationMilestoneEntry> milestones = [];
 
   /// Cross-system data mapping considerations.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   TextSection dataMapping = TextSection();
 
   /// Master data management approach during migration.
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   TextSection masterDataApproach = TextSection();
 
   /// Global rollback strategy and governance.
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   TextSection rollbackStrategy = TextSection();
 
   /// Go/No-Go decision criteria for each migration.
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   TextSection goNoGosCriteria = TextSection();
 
   /// Stakeholder communication plan for migration program.
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   TextSection communicationPlan = TextSection();
 
   /// Escalation procedures during migration.
@@ -13015,7 +13058,7 @@ class MigrationConsiderations extends DocSpecsSection {
     'Add one entry per escalation procedure, describing the trigger '
     'condition, the escalation path, and the responsible decision authority.',
   )
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   List<DocSpecsSection> escalationProcedures = [];
 }
 
@@ -13166,6 +13209,15 @@ class MigrationMilestoneEntry extends DocSpecsSection {
 )
 @SectionId('MIRI')
 class MigrationRisks extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the program-level migration risk framework before the '
+    'governance, category and response subsections below. Cover the risk '
+    'appetite the program works to.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('MIRI-GOVE')
   @Form([
     Field(
@@ -13187,7 +13239,7 @@ class MigrationRisks extends DocSpecsSection {
       hint: 'Weekly, bi-weekly, monthly cycles',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? governanceContent;
 
   /// Governance and decision authority.
@@ -13220,7 +13272,7 @@ class MigrationRisks extends DocSpecsSection {
       hint: 'Who approves risk acceptance/transfer',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? governance;
 
   /// Assessment methodology settings.
@@ -13265,7 +13317,7 @@ class MigrationRisks extends DocSpecsSection {
       hint: 'Technical, schedule, resource, business',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? assessment;
 
   /// Threshold and trigger settings.
@@ -13304,7 +13356,7 @@ class MigrationRisks extends DocSpecsSection {
       hint: 'Indicators requiring immediate risk review',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? thresholds;
 
   /// Reporting settings.
@@ -13337,7 +13389,7 @@ class MigrationRisks extends DocSpecsSection {
       hint: 'Where risk register is maintained',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? reporting;
 
   /// Risk overview at program level.
@@ -13345,7 +13397,7 @@ class MigrationRisks extends DocSpecsSection {
     'Executive summary of migration risk landscape: '
     'critical risks, overall risk posture, trending analysis.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection riskOverview = TextSection();
 
   /// Risk assessment methodology narrative.
@@ -13353,7 +13405,7 @@ class MigrationRisks extends DocSpecsSection {
     'Detailed description of risk assessment approach, '
     'including probability/impact criteria and scoring guidelines.',
   )
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   TextSection assessmentMethodology = TextSection();
 
   /// Risk categories and taxonomy.
@@ -13371,7 +13423,7 @@ class MigrationRisks extends DocSpecsSection {
     'Add one entry per risk category, naming the category and the '
     'kinds of migration risks it groups.',
   )
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<DocSpecsSection> riskCategories = [];
 
   /// Risk-based decision making criteria.
@@ -13389,7 +13441,7 @@ class MigrationRisks extends DocSpecsSection {
     'Add one entry per risk-based decision rule, describing the '
     'threshold or criterion and the decision it triggers.',
   )
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<DocSpecsSection> riskBasedDecisions = [];
 
   /// Risk monitoring and control procedures.
@@ -13407,7 +13459,7 @@ class MigrationRisks extends DocSpecsSection {
     'Add one entry per monitoring procedure, describing what is '
     'tracked, how often, and the control action taken.',
   )
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   List<DocSpecsSection> monitoringProcedures = [];
 
   /// Risk response strategies by category.
@@ -13425,7 +13477,7 @@ class MigrationRisks extends DocSpecsSection {
     'Add one entry per response strategy, mapping a risk category to '
     'its chosen response approach and rationale.',
   )
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   List<DocSpecsSection> responseStrategies = [];
 
   /// Risk aggregation and portfolio view.
@@ -13433,17 +13485,17 @@ class MigrationRisks extends DocSpecsSection {
     'How individual system risks roll up to program level, '
     'correlation analysis, compound risk assessment.',
   )
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   TextSection riskAggregation = TextSection();
 
   /// Risk matrix / heat map visualization.
   @ContentHelp('Probability × Impact matrix showing risk distribution.')
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   DiagramSection riskMatrix = DiagramSection();
 
   /// Risk timeline showing risk exposure over migration phases.
   @ContentHelp('Timeline showing when risks are highest and mitigation points.')
-  @SerializationOrder(13)
+  @SerializationOrder(14)
   GanttDiagramSection riskTimeline = GanttDiagramSection();
 
   /// Contains 0+× MigrationRiskEntry.
@@ -13461,7 +13513,7 @@ class MigrationRisks extends DocSpecsSection {
     'Add one entry per identified migration risk, each capturing its '
     'full lifecycle from identification through resolution.',
   )
-  @SerializationOrder(14)
+  @SerializationOrder(15)
   List<MigrationRiskEntry> items = [];
 }
 
@@ -14113,28 +14165,37 @@ class MigrationRiskIndicators extends DocSpecsSection {
 @Comment('Seeds → IIS')
 @MapsTo(D07IntegrationInterfaceSpecification)
 class SystemBoundaries extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the system boundary before the interface, out-of-scope and '
+    'assumption subsections below. Cover what sits inside the boundary and '
+    'what the system merely talks to.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Overview of system boundaries and scope definition approach.
   @ContentHelp(
     'Provide executive summary of system boundaries: '
     'integration count, scope philosophy, and boundary governance approach.',
   )
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 4.5.1. Interfaces to External Systems — contains 0+×.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   ExternalInterfaces externalInterfaces = ExternalInterfaces();
 
   /// 4.5.2. Out of Scope — contains 0+×.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   OutOfScope outOfScope = OutOfScope();
 
   /// 4.5.3. Assumptions — contains 0+×.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   BoundaryAssumptions assumptions = BoundaryAssumptions();
 
   /// 4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   SystemLandscapeInventory systemLandscapeInventory =
       SystemLandscapeInventory();
 
@@ -14152,16 +14213,16 @@ class SystemBoundaries extends DocSpecsSection {
     'List the boundary interaction patterns used across '
     'integrations: request-reply, pub-sub, event-driven, batch, etc.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<BoundaryInteractionPatterns> boundaryInteractionPatterns = [];
 
   /// 4.5.6. Interaction Testing Strategy. Covers IIS-TST.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   InteractionTestingStrategy interactionTestingStrategy =
       InteractionTestingStrategy();
 
   /// 4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   InteractionDependencyAnalysis interactionDependencyAnalysis =
       InteractionDependencyAnalysis();
 
@@ -14179,7 +14240,7 @@ class SystemBoundaries extends DocSpecsSection {
     'List interactions specific to the migration period, '
     'including data backfills, dual-run sync, and cutover handoffs.',
   )
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<MigrationInteractions> migrationInteractions = [];
 
   /// 4.5.9. Cross-Boundary Operational Considerations.
@@ -14196,11 +14257,11 @@ class SystemBoundaries extends DocSpecsSection {
     'List cross-boundary operational concerns: end-to-end '
     'monitoring, capacity planning, joint support, and run-book ownership.',
   )
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   List<CrossBoundaryOperationalConsiderations> operationalConsiderations = [];
 
   /// 4.5.10. Cross-Boundary Error Handling.
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   CrossBoundaryErrorHandling crossBoundaryErrorHandling =
       CrossBoundaryErrorHandling();
 }
@@ -14227,12 +14288,21 @@ class SystemBoundaries extends DocSpecsSection {
 @SectionId('EXIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
 class ExternalInterfaces extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the external-integration landscape before the individual '
+    'interfaces below. Cover the integration style favoured and the '
+    'governance around adding one.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Summary of the integration landscape.
   @ContentHelp(
     'Summarize integration portfolio: total count by category, '
     'strategic vs tactical integrations, integration platform approach.',
   )
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   TextSection integrationSummary = TextSection();
 
   /// Integration architecture approach.
@@ -14240,7 +14310,7 @@ class ExternalInterfaces extends DocSpecsSection {
     'Describe integration patterns: point-to-point vs hub, '
     'synchronous vs async, API gateway usage, message broker approach.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection architectureApproach = TextSection();
 
   /// Integration governance model.
@@ -14248,7 +14318,7 @@ class ExternalInterfaces extends DocSpecsSection {
     'Describe integration governance: ownership model, '
     'change control process, versioning strategy, deprecation policy.',
   )
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   TextSection governanceModel = TextSection();
 
   /// Contains 0+× ExternalInterfaceEntry.
@@ -14265,7 +14335,7 @@ class ExternalInterfaces extends DocSpecsSection {
     'Add one entry per external system interface, each '
     'documenting identification, technical, data, security, and governance details.',
   )
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<ExternalInterfaceEntry> interfaces = [];
 }
 
@@ -14295,6 +14365,15 @@ class ExternalInterfaces extends DocSpecsSection {
       'service-unit grouping.',
 )
 class ExternalInterfaceEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this interface — the business need it serves and the '
+    'partner behind it, beyond the technical, data and security facets '
+    'recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // -------------------------------------------------------------------------
   // Interface Identification
   // -------------------------------------------------------------------------
@@ -14339,11 +14418,11 @@ class ExternalInterfaceEntry extends DocSpecsSection {
       hint: 'Lifecycle status of the interface',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identificationContent;
 
   /// Business purpose and value of this interface.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   InterfaceBusinessContext businessContext = InterfaceBusinessContext();
 
   // -------------------------------------------------------------------------
@@ -14351,7 +14430,7 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   // -------------------------------------------------------------------------
 
   /// Technical details of the interface.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   InterfaceTechnicalSpec technicalSpec = InterfaceTechnicalSpec();
 
   // -------------------------------------------------------------------------
@@ -14359,7 +14438,7 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   // -------------------------------------------------------------------------
 
   /// Data exchange specification.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   InterfaceDataSpec dataSpec = InterfaceDataSpec();
 
   // -------------------------------------------------------------------------
@@ -14367,7 +14446,7 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   // -------------------------------------------------------------------------
 
   /// Security and authentication requirements.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   InterfaceSecurity security = InterfaceSecurity();
 
   // -------------------------------------------------------------------------
@@ -14375,7 +14454,7 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   // -------------------------------------------------------------------------
 
   /// Operational and SLA requirements.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   InterfaceOperational operational = InterfaceOperational();
 
   // -------------------------------------------------------------------------
@@ -14383,7 +14462,7 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   // -------------------------------------------------------------------------
 
   /// Error handling and resilience.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   InterfaceErrorHandling errorHandling = InterfaceErrorHandling();
 
   // -------------------------------------------------------------------------
@@ -14391,7 +14470,7 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   // -------------------------------------------------------------------------
 
   /// Contractual and governance information.
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   InterfaceGovernance governance = InterfaceGovernance();
 
   // -------------------------------------------------------------------------
@@ -14399,7 +14478,7 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   // -------------------------------------------------------------------------
 
   /// Testing and environment information.
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   InterfaceTesting testing = InterfaceTesting();
 }
 
@@ -15692,12 +15771,21 @@ class InterfaceTestScenarioEntry extends DocSpecsSection {
 @SectionId('OUOFSC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
 class OutOfScope extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the exclusions before the individual out-of-scope items '
+    'below. Cover the principle by which something was excluded and where '
+    'it might be picked up later.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Overview of scope exclusion approach.
   @ContentHelp(
     'Describe the scope philosophy and how exclusions were '
     'determined. Reference any scope workshops or decision records.',
   )
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   TextSection scopePhilosophy = TextSection();
 
   /// Contains 0+× OutOfScopeEntry.
@@ -15714,7 +15802,7 @@ class OutOfScope extends DocSpecsSection {
     'Each entry records one excluded feature, system, or '
     'integration along with its exclusion rationale.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<OutOfScopeEntry> items = [];
 }
 
@@ -15851,12 +15939,21 @@ class OutOfScopeEntry extends DocSpecsSection {
 @SectionId('BOAS')
 @DetailedIn(D07IntegrationInterfaceSpecification)
 class BoundaryAssumptions extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the assumptions the project depends on before the individual '
+    'items below. Cover how an assumption is validated and what happens '
+    'when one fails.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Overview of assumption categories and validation approach.
   @ContentHelp(
     'Describe assumption categories, validation timeline, '
     'and impact assessment approach for assumption failures.',
   )
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   TextSection assumptionApproach = TextSection();
 
   /// Contains 0+× BoundaryAssumptionEntry.
@@ -15873,7 +15970,7 @@ class BoundaryAssumptions extends DocSpecsSection {
     'Each entry records one assumption with its category, '
     'validation status, and risk if proven incorrect.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<BoundaryAssumptionEntry> items = [];
 }
 
@@ -16018,28 +16115,37 @@ class BoundaryAssumptionEntry extends DocSpecsSection {
 )
 @SectionId('OPEN')
 class OperatingEnvironment extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the environment the system will run in before the '
+    'organizational, functional and technical subsections below. Cover the '
+    'environmental factors that most constrain the design.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Framework conditions overview.
   @ContentHelp(
     'Provide executive summary of the operating environment: '
     'organizational context, technical landscape, key constraints, '
     'and critical dependencies affecting project execution.',
   )
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 4.6.1. Organizational Environment.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   OrganizationalEnvironment organizationalEnvironment =
       OrganizationalEnvironment();
 
   /// 4.6.2. Functional Responsibilities — contains 0+×.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   FunctionalResponsibilities functionalResponsibilities =
       FunctionalResponsibilities();
 
   /// 4.6.3. Technical Environment. Seeds → ATS.
   @Comment('Seeds → ATS')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   TechnicalEnvironment technicalEnvironment = TechnicalEnvironment();
 
   /// 4.6.4. Constraints and Dependencies — contains 0+×.
@@ -16059,7 +16165,7 @@ class OperatingEnvironment extends DocSpecsSection {
         '& Dependencies). Do not restate individual constraint or dependency '
         'entries here — record them once, in the SBP.6 register.',
   )
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? constraintsAndDependencies;
 }
 
@@ -16079,6 +16185,15 @@ class OperatingEnvironment extends DocSpecsSection {
 )
 @SectionId('OREN')
 class OrganizationalEnvironment extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the organizational context before the structure, department '
+    'and decision-making subsections below. Cover the reporting reality the '
+    'project has to work within.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // -------------------------------------------------------------------------
   // Organizational Overview
   // -------------------------------------------------------------------------
@@ -16121,7 +16236,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
       hint: 'Approximate annual revenue band',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? organizationContent;
 
   /// Organizational maturity indicators.
@@ -16159,7 +16274,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
       hint: 'Maturity of IT governance and oversight',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? maturity;
 
   /// Decision-making context.
@@ -16203,7 +16318,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
       hint: 'Nature of the procurement and purchasing process',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? decisionMakingContext;
 
   // -------------------------------------------------------------------------
@@ -16216,7 +16331,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
     'reporting relationships, matrix structures, and how the project '
     'intersects with existing organization.',
   )
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   TextSection structure = TextSection();
 
   /// Departments and business units affected.
@@ -16233,7 +16348,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
     'List each affected department with its role, impact level, '
     'and key contacts so organizational reach is fully documented.',
   )
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<AffectedDepartmentEntry> affectedDepartments = [];
 
   // -------------------------------------------------------------------------
@@ -16246,7 +16361,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
     'approval workflows, decision criteria, and timeline expectations '
     'for different decision types.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection decisionMaking = TextSection();
 
   /// Key decision makers and their roles.
@@ -16263,7 +16378,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
     'List each decision maker with their decision authority, '
     'domains, and influence level to map governance and approval paths.',
   )
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<DecisionMakerEntry> decisionMakers = [];
 
   // -------------------------------------------------------------------------
@@ -16284,7 +16399,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
     'List cultural factors and organizational dynamics that could '
     'affect project adoption, collaboration, or change readiness.',
   )
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<DocSpecsSection> culturalConsiderations = [];
 
   /// Stakeholder communication preferences.
@@ -16301,7 +16416,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
     'List communication preferences per stakeholder group to guide '
     'engagement channels, frequency, and reporting style.',
   )
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<DocSpecsSection> communicationPreferences = [];
 
   // -------------------------------------------------------------------------
@@ -16313,7 +16428,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
     'Describe organizational politics: power centers, influence '
     'networks, historical project outcomes, and potential resistance points.',
   )
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   TextSection politicalLandscape = TextSection();
 
   /// Change champions and sponsors.
@@ -16330,7 +16445,7 @@ class OrganizationalEnvironment extends DocSpecsSection {
     'List change champions and sponsors, noting their influence and '
     'role in driving adoption across the organization.',
   )
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   List<DocSpecsSection> changeAdvocates = [];
 }
 
@@ -16877,6 +16992,15 @@ class ResponsibilitySystems extends DocSpecsSection {
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
 class TechnicalEnvironment extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the pre-existing technical landscape before the governance, '
+    'standards and infrastructure subsections below. Cover what is mandated '
+    'and what is merely current practice.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // -------------------------------------------------------------------------
   // Technical Landscape Overview
   // -------------------------------------------------------------------------
@@ -16901,7 +17025,7 @@ class TechnicalEnvironment extends DocSpecsSection {
       hint: 'AWS, Azure, GCP, private cloud, none',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? technicalOverviewContent;
 
   /// Architecture governance context.
@@ -16927,7 +17051,7 @@ class TechnicalEnvironment extends DocSpecsSection {
       hint: 'How technology decisions are governed',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? governance;
 
   /// Platform standards and preferred technologies.
@@ -16971,7 +17095,7 @@ class TechnicalEnvironment extends DocSpecsSection {
       hint: 'ESB, API gateway, iPaaS solutions',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? standards;
 
   /// Security and compliance requirements.
@@ -17015,11 +17139,11 @@ class TechnicalEnvironment extends DocSpecsSection {
       hint: 'Enterprise identity platform (Azure AD, Okta, etc.)',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? security;
 
   /// Network and infrastructure standards.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TechnicalEnvironmentNetwork network = TechnicalEnvironmentNetwork();
 
   // -------------------------------------------------------------------------
@@ -17032,7 +17156,7 @@ class TechnicalEnvironment extends DocSpecsSection {
     'networks, storage, systems that cannot be replaced, and infrastructure '
     'that the new solution must integrate with or leverage.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection existingInfrastructure = TextSection();
 
   /// Data center and hosting environment details.
@@ -17049,7 +17173,7 @@ class TechnicalEnvironment extends DocSpecsSection {
     'List data centers and hosting environments: location, '
     'ownership, capacity, and any reuse or integration constraints.',
   )
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<DocSpecsSection> datacenters = [];
 
   /// Network topology and connectivity constraints.
@@ -17057,7 +17181,7 @@ class TechnicalEnvironment extends DocSpecsSection {
     'Describe network topology, bandwidth constraints, latency '
     'requirements, VPN/private connectivity, and firewall restrictions.',
   )
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   TextSection networkTopology = TextSection();
 
   // -------------------------------------------------------------------------
@@ -17069,7 +17193,7 @@ class TechnicalEnvironment extends DocSpecsSection {
     'Overview of technology standards: adoption policy, '
     'exception process, standard review cycle, and compliance monitoring.',
   )
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   TextSection standardsOverview = TextSection();
 
   /// Technology standards — contains 0+× TechnologyStandard.
@@ -17086,7 +17210,7 @@ class TechnicalEnvironment extends DocSpecsSection {
     'List technology standards the solution must follow, with '
     'their scope, mandate level, and compliance expectations.',
   )
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   List<TechnologyStandardEntry> technologyStandards = [];
 
   // -------------------------------------------------------------------------
@@ -17099,7 +17223,7 @@ class TechnicalEnvironment extends DocSpecsSection {
     'protocol restrictions, message format requirements, and '
     'integration platform mandates.',
   )
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   TextSection integrationOverview = TextSection();
 
   /// Integration constraints — contains 0+× IntegrationConstraint.
@@ -17116,7 +17240,7 @@ class TechnicalEnvironment extends DocSpecsSection {
     'List integration constraints: protocol and format '
     'requirements, platform mandates, and the interfaces they affect.',
   )
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   List<IntegrationConstraintEntry> integrationConstraints = [];
 
   // -------------------------------------------------------------------------
@@ -17563,6 +17687,15 @@ class IntegrationConstraintEntry extends DocSpecsSection {
 )
 @SectionId('RIANAS')
 class RisksAndAssumptions extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the risk register before the individual risks below. Cover '
+    'how risks are identified, how often the register is reviewed, and who '
+    'owns it.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Overview of the risk management approach for this project.
   @SectionId('RIOV')
   @StandardReferences(
@@ -17629,7 +17762,7 @@ class RisksAndAssumptions extends DocSpecsSection {
       hint: 'Scale used to rate severity of impact',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// 4.7.1. Key Risks — contains 0+× Risk.
@@ -17642,7 +17775,7 @@ class RisksAndAssumptions extends DocSpecsSection {
   @ContentHelp(
     'List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<RiskEntry> keyRisks = [];
 }
 
@@ -17661,8 +17794,16 @@ class RisksAndAssumptions extends DocSpecsSection {
 )
 @SectionId('RISENT')
 class RiskEntry extends DocSpecsSection {
-  /// Risk identification — unique identifier and basic description.
+  @ContentHelp(
+    'Narrative for this risk — how it would actually play out, beyond the '
+    'analysis, response and monitoring facets recorded below.',
+  )
+  @override
   @SerializationOrder(0)
+  String? content;
+
+  /// Risk identification — unique identifier and basic description.
+  @SerializationOrder(1)
   RiskIdentification identification = RiskIdentification();
 
   /// Risk analysis — probability, impact, and scoring.
@@ -17737,11 +17878,11 @@ class RiskEntry extends DocSpecsSection {
       hint: 'Notes on methodology and findings',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? analysis;
 
   /// Risk response — strategy and planned actions.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   RiskResponse response = RiskResponse();
 
   /// Risk ownership and governance.
@@ -17800,15 +17941,15 @@ class RiskEntry extends DocSpecsSection {
       hint: 'Authority level for risk decisions',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? ownership;
 
   /// Risk monitoring and tracking details.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   RiskMonitoring monitoring = RiskMonitoring();
 
   /// Business impact assessment.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   RiskBusinessImpact businessImpact = RiskBusinessImpact();
 
   /// Relationships to other risks, assumptions, and project elements.
@@ -17821,7 +17962,7 @@ class RiskEntry extends DocSpecsSection {
   @ContentHelp(
     'Relationships connecting this risk to other risks, assumptions, requirements, and affected project elements.',
   )
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<RiskRelationships> relationships = [];
 }
 

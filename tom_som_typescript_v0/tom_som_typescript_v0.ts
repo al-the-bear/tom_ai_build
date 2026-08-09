@@ -59,6 +59,18 @@ export class AcceptanceCriteriaSummary extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get acceptanceFrameworkContent(): AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm {
     return new AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(this.doc, this.path + "/ACCRSU-ACCE");
   }
@@ -484,6 +496,18 @@ export class Accessibility extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get accessibilityOverviewContent(): AccessibilityAccessibilityOverviewContentForm {
     return new AccessibilityAccessibilityOverviewContentForm(this.doc, this.path + "/ACCESS-ACCE");
   }
@@ -558,6 +582,18 @@ export class AccessibilityCheckEntry extends SomNode {
 export class AccessibilityChecklist extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get checklistOverviewContent(): AccessibilityChecklistChecklistOverviewContentForm {
@@ -770,6 +806,18 @@ export class ActorEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Actor identification.
   get identification(): ActorEntryIdentificationForm {
     return new ActorEntryIdentificationForm(this.doc, this.path + "/ACID");
@@ -864,6 +912,18 @@ export class ActorPermissions extends SomNode {
 export class ActorRelationshipDiagram extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Diagram overview.
@@ -1147,6 +1207,18 @@ export class AlertSuppressionRules extends SomNode {
 export class AlertingConfiguration extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get alertingOverview(): AlertingConfigurationAlertingOverviewForm {
@@ -3072,6 +3144,18 @@ export class BoundaryAssumptions extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Overview of assumption categories and validation approach.
   // (skipped: assumptionApproach has no target type)
 
@@ -3141,6 +3225,18 @@ export class BoundedContextEntry extends SomNode {
 export class BreakpointConfiguration extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get breakpointOverview(): BreakpointConfigurationBreakpointOverviewForm {
@@ -3559,6 +3655,18 @@ export class BusinessObjectEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get identity(): BusinessObjectEntryIdentityForm {
     return new BusinessObjectEntryIdentityForm(this.doc, this.path + "/BJOEN-IDEN");
   }
@@ -3754,6 +3862,18 @@ export class BusinessProcessEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Process identification.
   get identification(): ProcessIdentification {
     return new ProcessIdentification(this.doc, this.path + "/identification");
@@ -3809,6 +3929,18 @@ export class BusinessProcessEntry extends SomNode {
 export class BusinessRuleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get identity(): BusinessRuleEntryIdentityForm {
@@ -4338,6 +4470,18 @@ export class ChangeReadinessAssessment extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Overview of readiness assessment approach.
   get overview(): ChangeReadinessAssessmentOverviewForm {
     return new ChangeReadinessAssessmentOverviewForm(this.doc, this.path + "/CHREOV");
@@ -4402,6 +4546,18 @@ export class ChangedRoleCompetencies extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // New competencies required.
   get newCompetencies(): SomList<RoleCompetencyEntry> {
     return new SomList(this.doc, this.path + "/ROLCP-NEWC-LST", (d: SpecDocument, p: string) => new RoleCompetencyEntry(d, p), "ROLCP-NEWC-xxx");
@@ -4430,6 +4586,18 @@ export class ChangedRoleCompetencies extends SomNode {
 export class ChangedRoleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Changed role identification.
@@ -4490,6 +4658,18 @@ export class ChangedRoleResponsibilities extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Responsibilities being added.
   get addedResponsibilities(): SomList<ResponsibilityChangeEntry> {
     return new SomList(this.doc, this.path + "/RSPCH-ADDE-LST", (d: SpecDocument, p: string) => new ResponsibilityChangeEntry(d, p), "RSPCH-ADDE-xxx");
@@ -4540,6 +4720,18 @@ export class ChangedRoleTransition extends SomNode {
 export class ChangesFromCurrentStructure extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get overviewContent(): ChangesFromCurrentStructureOverviewContentForm {
@@ -5371,6 +5563,18 @@ export class CompatibilityCharacteristic extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get compatibilityContent(): CompatibilityCharacteristicCompatibilityContentForm {
     return new CompatibilityCharacteristicCompatibilityContentForm(this.doc, this.path + "/CMPT-COMP");
   }
@@ -5474,6 +5678,18 @@ export class CompetencyEntry extends SomNode {
 export class CompetencyFramework extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Framework overview.
@@ -5877,6 +6093,18 @@ export class ComponentInterfaceEntry extends SomNode {
 export class ComponentLibrary extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get designFoundations(): SomList<DesignFoundationEntry> {
@@ -6605,6 +6833,18 @@ export class ContextDiagram extends SomNode {
 export class ContextualHelp extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get contextualHelpContent(): ContextualHelpContextualHelpContentForm {
@@ -9392,6 +9632,18 @@ export class DataAttributeEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get identity(): DataAttributeEntryIdentityForm {
     return new DataAttributeEntryIdentityForm(this.doc, this.path + "/DAATT-IDEN");
   }
@@ -9510,6 +9762,18 @@ export class DataClassification extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get overview(): DataClassificationOverviewForm {
     return new DataClassificationOverviewForm(this.doc, this.path + "/DATCL-OVER");
   }
@@ -9526,6 +9790,18 @@ export class DataClassification extends SomNode {
 export class DataClassificationEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get identity(): DataClassificationEntryIdentityForm {
@@ -9677,6 +9953,18 @@ export class DataDuplicationEntry extends SomNode {
 export class DataEntityEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get identity(): DataEntityEntryIdentityForm {
@@ -12772,6 +13060,18 @@ export class DocumentationQualityCriteria extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get documentationOverviewContent(): DocumentationQualityCriteriaDocumentationOverviewContentForm {
     return new DocumentationQualityCriteriaDocumentationOverviewContentForm(this.doc, this.path + "/DOQUCR-DOCU");
   }
@@ -13542,6 +13842,18 @@ export class EntityFollowUpEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get entityRef(): EntityFollowUpEntryEntityRefForm {
     return new EntityFollowUpEntryEntityRefForm(this.doc, this.path + "/DMFUE-ENTI");
   }
@@ -13582,6 +13894,18 @@ export class EntityIndexEntry extends SomNode {
 export class EntityRelationshipEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get identity(): EntityRelationshipEntryIdentityForm {
@@ -13833,6 +14157,18 @@ export class EquipmentRequirements extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Equipment overview.
   get overview(): EquipmentRequirementsOverviewForm {
     return new EquipmentRequirementsOverviewForm(this.doc, this.path + "/EQOV");
@@ -13958,6 +14294,18 @@ export class ErrorHandling extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get errorPhilosophyContent(): ErrorHandlingErrorPhilosophyContentForm {
     return new ErrorHandlingErrorPhilosophyContentForm(this.doc, this.path + "/ERHACO-ERRO");
   }
@@ -14045,6 +14393,18 @@ export class ErrorHandlingStandards extends SomNode {
 export class ErrorRecovery extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get recoveryMechanismsContent(): ErrorRecoveryRecoveryMechanismsContentForm {
@@ -14822,6 +15182,18 @@ export class ExternalInterfaceEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get identificationContent(): ExternalInterfaceEntryIdentificationContentForm {
     return new ExternalInterfaceEntryIdentificationContentForm(this.doc, this.path + "/EIE-IDEN");
   }
@@ -14877,6 +15249,18 @@ export class ExternalInterfaceEntry extends SomNode {
 export class ExternalInterfaces extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Summary of the integration landscape.
@@ -15679,6 +16063,18 @@ export class FlexibilityCharacteristic extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get flexibilityContent(): FlexibilityCharacteristicFlexibilityContentForm {
     return new FlexibilityCharacteristicFlexibilityContentForm(this.doc, this.path + "/FLXC-FLEX");
   }
@@ -15832,6 +16228,18 @@ export class FunctionEntry extends SomNode {
 export class FunctionModel extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get decompositionOverview(): FunctionModelDecompositionOverviewForm {
@@ -16018,6 +16426,18 @@ export class FunctionalResponsibilities extends SomNode {
 export class FunctionalSuitabilityCharacteristic extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get functionalSuitabilityContent(): FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
@@ -17607,6 +18027,18 @@ export class InteractionCapabilityCharacteristic extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get interactionCapabilityContent(): InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
     return new InteractionCapabilityCharacteristicInteractionCapabilityContentForm(this.doc, this.path + "/INCP-INTE");
   }
@@ -17730,6 +18162,18 @@ export class InteractionDependencyAnalysis extends SomNode {
 export class InteractionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Interaction identification (use case header).
@@ -18552,6 +18996,18 @@ export class JobDescriptionsAndStaffing extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Overview of the job architecture and role design approach.
   get overview(): JobDescriptionsAndStaffingOverviewForm {
     return new JobDescriptionsAndStaffingOverviewForm(this.doc, this.path + "/JODEOV");
@@ -18905,6 +19361,18 @@ export class LanguageCountrySelection extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get languageSelectionContent(): LanguageCountrySelectionLanguageSelectionContentForm {
     return new LanguageCountrySelectionLanguageSelectionContentForm(this.doc, this.path + "/LACOSE-LANG");
   }
@@ -19256,6 +19724,18 @@ export class LocalizationProcess extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get localizationProcessContent(): LocalizationProcessLocalizationProcessContentForm {
     return new LocalizationProcessLocalizationProcessContentForm(this.doc, this.path + "/LOPR-LOCA");
   }
@@ -19576,6 +20056,18 @@ export class Maintainability extends SomNode {
 export class MaintainabilityCharacteristic extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get maintainabilityContent(): MaintainabilityCharacteristicMaintainabilityContentForm {
@@ -19971,6 +20463,18 @@ export class MetricsAndObservability extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get metricsOverview(): MetricsAndObservabilityMetricsOverviewForm {
     return new MetricsAndObservabilityMetricsOverviewForm(this.doc, this.path + "/MEANOB-METR");
   }
@@ -20145,6 +20649,18 @@ export class MfaConfiguration extends SomNode {
 export class MigrationConsiderations extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get strategyContent(): MigrationConsiderationsStrategyContentForm {
@@ -20504,6 +21020,18 @@ export class MigrationRisks extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get governanceContent(): MigrationRisksGovernanceContentForm {
     return new MigrationRisksGovernanceContentForm(this.doc, this.path + "/MIRI-GOVE");
   }
@@ -20766,6 +21294,18 @@ export class Monitoring extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get monitoringOverview(): MonitoringMonitoringOverviewForm {
     return new MonitoringMonitoringOverviewForm(this.doc, this.path + "/MONITO-MONI");
   }
@@ -20880,6 +21420,18 @@ export class MonitoringAndAlertingSection extends SomNode {
 export class MonitoringDashboards extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get dashboardOverview(): MonitoringDashboardsDashboardOverviewForm {
@@ -21023,6 +21575,18 @@ export class MultiLanguageSupport extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get multiLanguageOverview(): MultiLanguageSupportMultiLanguageOverviewForm {
     return new MultiLanguageSupportMultiLanguageOverviewForm(this.doc, this.path + "/MLAR-MULT");
   }
@@ -21047,6 +21611,18 @@ export class MultiLanguageSupport extends SomNode {
 export class MustPassCriteria extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get mustPassOverviewContent(): MustPassCriteriaMustPassOverviewContentForm {
@@ -21649,6 +22225,18 @@ export class NewOrganizationStructure extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Overview of the target organization structure.
   // (skipped: overview has no target type)
 
@@ -21670,6 +22258,18 @@ export class NewOrganizationStructure extends SomNode {
 export class NewRoleEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Role identification and overview.
@@ -21738,6 +22338,18 @@ export class NewRoleQualifications extends SomNode {
 export class NewRoleResponsibilities extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Primary responsibilities (key accountabilities).
@@ -21927,6 +22539,18 @@ export class OnboardingHelp extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get onboardingContent(): OnboardingHelpOnboardingContentForm {
     return new OnboardingHelpOnboardingContentForm(this.doc, this.path + "/ONHE-ONBO");
   }
@@ -22000,6 +22624,18 @@ export class OngoingTrainingEntry extends SomNode {
 export class OperatingEnvironment extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Framework conditions overview.
@@ -22381,6 +23017,18 @@ export class OrganizationalEnvironment extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get organizationContent(): OrganizationalEnvironmentOrganizationContentForm {
     return new OrganizationalEnvironmentOrganizationContentForm(this.doc, this.path + "/OREN-ORGA");
   }
@@ -22440,6 +23088,18 @@ export class OrganizationalEnvironment extends SomNode {
 export class OrganizationalFramework extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Overview of organizational changes required for the new system.
@@ -22553,6 +23213,18 @@ export class OrganizationalTransitionTimeline extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Overview of the transition approach and guiding principles.
   get overview(): TransitionOverview {
     return new TransitionOverview(this.doc, this.path + "/overview");
@@ -22655,6 +23327,18 @@ export class OtherAgreementEntry extends SomNode {
 export class OutOfScope extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Overview of scope exclusion approach.
@@ -23110,6 +23794,18 @@ export class PenetrationTestingRequirements extends SomNode {
 export class PerformanceEfficiencyCharacteristic extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get performanceEfficiencyContent(): PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
@@ -23983,6 +24679,18 @@ export class ProcessCatalog extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Process catalog overview.
   get overview(): ProcessCatalogOverviewForm {
     return new ProcessCatalogOverviewForm(this.doc, this.path + "/PCOVW");
@@ -24047,6 +24755,18 @@ export class ProcessControls extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Controls overview.
   get overview(): ProcessControlsOverviewForm {
     return new ProcessControlsOverviewForm(this.doc, this.path + "/PRCOOV");
@@ -24086,6 +24806,18 @@ export class ProcessDesignPrincipleEntry extends SomNode {
 export class ProcessDesignPrinciples extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Design principles overview.
@@ -24158,6 +24890,18 @@ export class ProcessExceptions extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Exceptions overview.
   get overview(): ProcessExceptionsOverviewForm {
     return new ProcessExceptionsOverviewForm(this.doc, this.path + "/PREXOV");
@@ -24224,6 +24968,18 @@ export class ProcessImprovementSummary extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Improvement overview.
   get overview(): ProcessImprovementSummaryOverviewForm {
     return new ProcessImprovementSummaryOverviewForm(this.doc, this.path + "/IMOV");
@@ -24255,6 +25011,18 @@ export class ProcessInputEntry extends SomNode {
 export class ProcessInputsOutputs extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Inputs overview.
@@ -24480,6 +25248,18 @@ export class ProcessOverviewDiagram extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Diagram overview.
   get overview(): ProcessOverviewDiagramOverviewForm {
     return new ProcessOverviewDiagramOverviewForm(this.doc, this.path + "/PRDIOV");
@@ -24523,6 +25303,18 @@ export class ProcessPainPoints extends SomNode {
 export class ProcessPerformance extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Performance overview.
@@ -24617,6 +25409,18 @@ export class ProcessRoleEntry extends SomNode {
 export class ProcessRoles extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Roles overview.
@@ -24780,6 +25584,18 @@ export class ProcessTriggers extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Main trigger overview.
   get overview(): ProcessTriggersOverviewForm {
     return new ProcessTriggersOverviewForm(this.doc, this.path + "/TGOVW");
@@ -24802,6 +25618,18 @@ export class ProcessTriggers extends SomNode {
 export class ProcessVision extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Process vision overview.
@@ -25085,6 +25913,18 @@ export class Prototype extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get prototypeOverview(): PrototypePrototypeOverviewForm {
     return new PrototypePrototypeOverviewForm(this.doc, this.path + "/PROTOT-PROT");
   }
@@ -25145,6 +25985,18 @@ export class PrototypeFeatureSubset extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get featureSubsetContent(): PrototypeFeatureSubsetFeatureSubsetContentForm {
     return new PrototypeFeatureSubsetFeatureSubsetContentForm(this.doc, this.path + "/PRFESU-FEAT");
   }
@@ -25187,6 +26039,18 @@ export class PrototypeGoals extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get goalsContent(): PrototypeGoalsGoalsContentForm {
     return new PrototypeGoalsGoalsContentForm(this.doc, this.path + "/PG-GOAL");
   }
@@ -25216,6 +26080,18 @@ export class PrototypeGoals extends SomNode {
 export class PrototypeType extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get prototypeTypeOverview(): PrototypeTypePrototypeTypeOverviewForm {
@@ -25347,6 +26223,18 @@ export class QualityCategoryEntry extends SomNode {
 export class QualityFramework extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get frameworkContent(): QualityFrameworkFrameworkContentForm {
@@ -25517,6 +26405,18 @@ export class QualityGateChecklist extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get checklistOverviewContent(): QualityGateChecklistChecklistOverviewContentForm {
     return new QualityGateChecklistChecklistOverviewContentForm(this.doc, this.path + "/QUGACH-CHEC");
   }
@@ -25537,6 +26437,18 @@ export class QualityGateChecklist extends SomNode {
 export class QualityPrioritization extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get prioritizationFrameworkContent(): QualityPrioritizationPrioritizationFrameworkContentForm {
@@ -26072,6 +26984,18 @@ export class ReliabilityCharacteristic extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get reliabilityContent(): ReliabilityCharacteristicReliabilityContentForm {
     return new ReliabilityCharacteristicReliabilityContentForm(this.doc, this.path + "/RELC-RELI");
   }
@@ -26161,6 +27085,18 @@ export class RemovedRoleEntry extends SomNode {
 export class ReplacementInventory extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Portfolio summary before listing individual systems.
@@ -27377,6 +28313,18 @@ export class ResponsiveBehavior extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get layoutAdaptation(): ResponsiveBehaviorLayoutAdaptationForm {
     return new ResponsiveBehaviorLayoutAdaptationForm(this.doc, this.path + "/REBE-LAYO");
   }
@@ -27417,6 +28365,18 @@ export class ResponsiveBehavior extends SomNode {
 export class ResponsiveDesign extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get responsiveOverview(): ResponsiveDesignResponsiveOverviewForm {
@@ -27625,6 +28585,18 @@ export class ReusablePrototype extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get reusableContent(): ReusablePrototypeReusableContentForm {
     return new ReusablePrototypeReusableContentForm(this.doc, this.path + "/REUPRO-REUS");
   }
@@ -27779,6 +28751,18 @@ export class RiskEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Risk identification — unique identifier and basic description.
   get identification(): RiskIdentification {
     return new RiskIdentification(this.doc, this.path + "/identification");
@@ -27904,6 +28888,18 @@ export class RiskResponse extends SomNode {
 export class RisksAndAssumptions extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Overview of the risk management approach for this project.
@@ -28595,6 +29591,18 @@ export class ScalingTriggersAndThresholds extends SomNode {
 export class ScenarioEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Scenario identification.
@@ -29797,6 +30805,18 @@ export class SecurityCertificationRequirements extends SomNode {
 export class SecurityCharacteristic extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get securityContent(): SecurityCharacteristicSecurityContentForm {
@@ -31276,6 +32296,18 @@ export class SlaAndSloMonitoring extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get slaOverview(): SlaAndSloMonitoringSlaOverviewForm {
     return new SlaAndSloMonitoringSlaOverviewForm(this.doc, this.path + "/SASM-SLAO");
   }
@@ -31608,6 +32640,18 @@ export class StaffingEntry extends SomNode {
 export class StaffingPlan extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Staffing plan overview.
@@ -32722,6 +33766,18 @@ export class SuccessCriteriaByCategory extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Business outcome criteria overview.
   get businessCriteria(): string {
     return this.doc.content(this.path + "/SCBC-BUSI") || '';
@@ -32827,6 +33883,18 @@ export class SuccessCriterionRelationships extends SomNode {
 export class SupportAccess extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get supportAccessContent(): SupportAccessSupportAccessContentForm {
@@ -32941,6 +34009,18 @@ export class SystemArchitectureSpec extends SomNode {
 export class SystemBoundaries extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Overview of system boundaries and scope definition approach.
@@ -33361,6 +34441,18 @@ export class SystemErrorDisplay extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get systemErrorContent(): SystemErrorDisplaySystemErrorContentForm {
     return new SystemErrorDisplaySystemErrorContentForm(this.doc, this.path + "/SYERDI-SYST");
   }
@@ -33697,6 +34789,18 @@ export class SystemPurpose extends SomNode {
 export class SystemQualityGoals extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get governanceContent(): SystemQualityGoalsGovernanceContentForm {
@@ -34109,6 +35213,18 @@ export class SystemToReplaceEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get identificationContent(): SystemToReplaceEntryIdentificationContentForm {
     return new SystemToReplaceEntryIdentificationContentForm(this.doc, this.path + "/SYTORE-IDEN");
   }
@@ -34235,6 +35351,18 @@ export class SystemUserImpact extends SomNode {
 export class SystemsToReplace extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Overview of the systems replacement scope and strategy.
@@ -34501,6 +35629,18 @@ export class TechnicalDependencyEntry extends SomNode {
 export class TechnicalEnvironment extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get technicalOverviewContent(): TechnicalEnvironmentTechnicalOverviewContentForm {
@@ -34813,6 +35953,18 @@ export class TechnicalGoals extends SomNode {
 export class TechnicalInfrastructure extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Network connectivity requirements.
@@ -35448,6 +36600,18 @@ export class ThrowawayPrototype extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get throwawayContent(): ThrowawayPrototypeThrowawayContentForm {
     return new ThrowawayPrototypeThrowawayContentForm(this.doc, this.path + "/THPR-THRO");
   }
@@ -35769,6 +36933,18 @@ export class TradeOffDecisions extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get tradeOffGovernanceContent(): TradeOffDecisionsTradeOffGovernanceContentForm {
     return new TradeOffDecisionsTradeOffGovernanceContentForm(this.doc, this.path + "/TROFDE-TRAD");
   }
@@ -35820,6 +36996,18 @@ export class TrainingAssessment extends SomNode {
 export class TrainingDeliverableRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get trainingContent(): TrainingDeliverableRequirementsTrainingContentForm {
@@ -35926,6 +37114,18 @@ export class TrainingPrototype extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get trainingContent(): TrainingPrototypeTrainingContentForm {
     return new TrainingPrototypeTrainingContentForm(this.doc, this.path + "/TP-TRAI");
   }
@@ -35951,6 +37151,18 @@ export class TrainingPrototype extends SomNode {
 export class TrainingRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Training overview and strategy.
@@ -36015,6 +37227,18 @@ export class TransitionCommunicationChannels extends SomNode {
 export class TransitionCommunicationPlan extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // Communication strategy overview.
@@ -36131,6 +37355,18 @@ export class TransitionPhaseEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Phase identification and timeline.
   get identification(): TransitionPhaseIdentification {
     return new TransitionPhaseIdentification(this.doc, this.path + "/identification");
@@ -36211,6 +37447,18 @@ export class TransitionSuccessMetrics extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Metrics overview.
   get overview(): TransitionSuccessMetricsOverviewForm {
     return new TransitionSuccessMetricsOverviewForm(this.doc, this.path + "/TRMEOV");
@@ -36239,6 +37487,18 @@ export class TransitionSupportStructure extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   // Support organization overview.
   get overview(): TransitionSupportStructureOverviewForm {
     return new TransitionSupportStructureOverviewForm(this.doc, this.path + "/TRSUOV");
@@ -36261,6 +37521,18 @@ export class TransitionSupportStructure extends SomNode {
 export class TranslationProcess extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get translationProcessContent(): TranslationProcessTranslationProcessContentForm {
@@ -36302,6 +37574,18 @@ export class TranslationProcess extends SomNode {
 export class TranslationRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get translationRequirementsContent(): TranslationRequirementsTranslationRequirementsContentForm {
@@ -36508,6 +37792,18 @@ export class UiComponentEntry extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get identity(): UiComponentEntryIdentityForm {
     return new UiComponentEntryIdentityForm(this.doc, this.path + "/UICOM-IDEN");
   }
@@ -36620,6 +37916,18 @@ export class UiComponentEntry extends SomNode {
 export class UiComponents extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get componentLibraryOverview(): UiComponentsComponentLibraryOverviewForm {
@@ -36941,6 +38249,18 @@ export class UserAssistance extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get helpOverviewContent(): UserAssistanceHelpOverviewContentForm {
     return new UserAssistanceHelpOverviewContentForm(this.doc, this.path + "/USAS-HELP");
   }
@@ -37149,6 +38469,18 @@ export class UserCategoryEntry extends SomNode {
 export class UserDocumentationRequirements extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get documentationContent(): UserDocumentationRequirementsDocumentationContentForm {
@@ -37896,6 +39228,18 @@ export class ValidationFeedback extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get validationDisplayContent(): ValidationFeedbackValidationDisplayContentForm {
     return new ValidationFeedbackValidationDisplayContentForm(this.doc, this.path + "/VAFE-VALI");
   }
@@ -38203,6 +39547,18 @@ export class WcagCompliance extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get wcagComplianceContent(): WcagComplianceWcagComplianceContentForm {
     return new WcagComplianceWcagComplianceContentForm(this.doc, this.path + "/WCCO-WCAG");
   }
@@ -38246,6 +39602,18 @@ export class WcagSuccessCriterionEntry extends SomNode {
 export class WeightedQualityMatrix extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   get matrixConfigContent(): WeightedQualityMatrixMatrixConfigContentForm {
@@ -38482,6 +39850,18 @@ export class WorkflowStepSystem extends SomNode {
     super(doc, path);
   }
 
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
   get name(): string {
     return this.doc.content(this.path + "/WOSTSY-NAME") || '';
   }
@@ -38561,6 +39941,18 @@ export class WorkflowTriggers extends SomNode {
 export class WorkplaceDescriptionEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
   }
 
   // User category identification.

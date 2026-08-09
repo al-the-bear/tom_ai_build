@@ -400,6 +400,12 @@ class AcceptanceCriteriaList extends SomNode {
 class AcceptanceCriteriaSummary extends SomNode {
   AcceptanceCriteriaSummary(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm get acceptanceFrameworkContent => AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(doc, '$path/ACCRSU-ACCE');
 
   /// Acceptance criteria overview.
@@ -672,6 +678,12 @@ class AccessUserCategories extends SomNode {
 class Accessibility extends SomNode {
   Accessibility(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   AccessibilityAccessibilityOverviewContentForm get accessibilityOverviewContent => AccessibilityAccessibilityOverviewContentForm(doc, '$path/ACCESS-ACCE');
 
   /// Ownership and inclusive design philosophy.
@@ -723,6 +735,12 @@ class AccessibilityCheckEntry extends SomNode {
 /// Comprehensive accessibility verification checklist.
 class AccessibilityChecklist extends SomNode {
   AccessibilityChecklist(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   AccessibilityChecklistChecklistOverviewContentForm get checklistOverviewContent => AccessibilityChecklistChecklistOverviewContentForm(doc, '$path/ACCHLS-CHEC');
 
@@ -864,6 +882,12 @@ class ActorCharacteristics extends SomNode {
 class ActorEntry extends SomNode {
   ActorEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Actor identification.
   ActorEntryIdentificationForm get identification => ActorEntryIdentificationForm(doc, '$path/ACID');
 
@@ -923,6 +947,12 @@ class ActorPermissions extends SomNode {
 /// 6.2. Actor Relationship Diagram.
 class ActorRelationshipDiagram extends SomNode {
   ActorRelationshipDiagram(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Diagram overview.
   ActorRelationshipDiagramOverviewForm get overview => ActorRelationshipDiagramOverviewForm(doc, '$path/ACDIOV');
@@ -1102,6 +1132,12 @@ class AlertSuppressionRules extends SomNode {
 /// policies.
 class AlertingConfiguration extends SomNode {
   AlertingConfiguration(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   AlertingConfigurationAlertingOverviewForm get alertingOverview => AlertingConfigurationAlertingOverviewForm(doc, '$path/ALCO-ALER');
 
@@ -2353,6 +2389,12 @@ class BoundaryAssumptionEntry extends SomNode {
 class BoundaryAssumptions extends SomNode {
   BoundaryAssumptions(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Overview of assumption categories and validation approach.
   // (skipped: assumptionApproach has no target type)
 
@@ -2399,6 +2441,12 @@ class BoundedContextEntry extends SomNode {
 /// Breakpoint definitions for responsive layouts.
 class BreakpointConfiguration extends SomNode {
   BreakpointConfiguration(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   BreakpointConfigurationBreakpointOverviewForm get breakpointOverview => BreakpointConfigurationBreakpointOverviewForm(doc, '$path/BC-BREA');
 
@@ -2660,6 +2708,12 @@ class BusinessObjectAttributeEntry extends SomNode {
 class BusinessObjectEntry extends SomNode {
   BusinessObjectEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   BusinessObjectEntryIdentityForm get identity => BusinessObjectEntryIdentityForm(doc, '$path/BJOEN-IDEN');
 
   BusinessObjectEntryDomainContextForm get domainContext => BusinessObjectEntryDomainContextForm(doc, '$path/BJOEN-DOMA');
@@ -2779,6 +2833,12 @@ class BusinessProcessDescriptions extends SomNode {
 class BusinessProcessEntry extends SomNode {
   BusinessProcessEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Process identification.
   ProcessIdentification get identification => ProcessIdentification(doc, '$path/identification');
 
@@ -2815,6 +2875,12 @@ class BusinessProcessEntry extends SomNode {
 /// Comprehensive business rule specification following SBVR-like patterns.
 class BusinessRuleEntry extends SomNode {
   BusinessRuleEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   BusinessRuleEntryIdentityForm get identity => BusinessRuleEntryIdentityForm(doc, '$path/BIRU-IDEN');
 
@@ -3146,6 +3212,12 @@ class ChangeProcess extends SomNode {
 class ChangeReadinessAssessment extends SomNode {
   ChangeReadinessAssessment(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Overview of readiness assessment approach.
   ChangeReadinessAssessmentOverviewForm get overview => ChangeReadinessAssessmentOverviewForm(doc, '$path/CHREOV');
 
@@ -3188,6 +3260,12 @@ class ChangeStepEntry extends SomNode {
 class ChangedRoleCompetencies extends SomNode {
   ChangedRoleCompetencies(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// New competencies required.
   SomList<RoleCompetencyEntry> get newCompetencies => SomList<RoleCompetencyEntry>(doc, '$path/ROLCP-NEWC-LST', (d, p) => RoleCompetencyEntry(d, p), pattern: 'ROLCP-NEWC-xxx');
 
@@ -3207,6 +3285,12 @@ class ChangedRoleCompetencies extends SomNode {
 /// transition planning, and incumbent management.
 class ChangedRoleEntry extends SomNode {
   ChangedRoleEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Changed role identification.
   ChangedRoleIdentification get identification => ChangedRoleIdentification(doc, '$path/identification');
@@ -3244,6 +3328,12 @@ class ChangedRoleIdentification extends SomNode {
 class ChangedRoleResponsibilities extends SomNode {
   ChangedRoleResponsibilities(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Responsibilities being added.
   SomList<ResponsibilityChangeEntry> get addedResponsibilities => SomList<ResponsibilityChangeEntry>(doc, '$path/RSPCH-ADDE-LST', (d, p) => ResponsibilityChangeEntry(d, p), pattern: 'RSPCH-ADDE-xxx');
 
@@ -3277,6 +3367,12 @@ class ChangedRoleTransition extends SomNode {
 /// that need to be created. Provides traceability from current to future state.
 class ChangesFromCurrentStructure extends SomNode {
   ChangesFromCurrentStructure(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   ChangesFromCurrentStructureOverviewContentForm get overviewContent => ChangesFromCurrentStructureOverviewContentForm(doc, '$path/OCCHG-OVER');
 
@@ -3812,6 +3908,12 @@ class CommunicationTypeEntry extends SomNode {
 class CompatibilityCharacteristic extends SomNode {
   CompatibilityCharacteristic(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   CompatibilityCharacteristicCompatibilityContentForm get compatibilityContent => CompatibilityCharacteristicCompatibilityContentForm(doc, '$path/CMPT-COMP');
 
   /// Compatibility overview.
@@ -3878,6 +3980,12 @@ class CompetencyEntry extends SomNode {
 /// 5.2.5. Competency Framework.
 class CompetencyFramework extends SomNode {
   CompetencyFramework(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Framework overview.
   CompetencyFrameworkOverviewForm get overview => CompetencyFrameworkOverviewForm(doc, '$path/COFROV');
@@ -4139,6 +4247,12 @@ class ComponentInterfaceEntry extends SomNode {
 /// Design system and component catalog specification.
 class ComponentLibrary extends SomNode {
   ComponentLibrary(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   SomList<DesignFoundationEntry> get designFoundations => SomList<DesignFoundationEntry>(doc, '$path/DESIG-DESI-LST', (d, p) => DesignFoundationEntry(d, p), pattern: 'DESIG-DESI-xxx');
 
@@ -4605,6 +4719,12 @@ class ContextDiagram extends SomNode {
 /// 10.8.1. Contextual Help.
 class ContextualHelp extends SomNode {
   ContextualHelp(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   ContextualHelpContextualHelpContentForm get contextualHelpContent => ContextualHelpContextualHelpContentForm(doc, '$path/COHE-CONT');
 
@@ -6548,6 +6668,12 @@ class DataAttributeConstraintEntry extends SomNode {
 class DataAttributeEntry extends SomNode {
   DataAttributeEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   DataAttributeEntryIdentityForm get identity => DataAttributeEntryIdentityForm(doc, '$path/DAATT-IDEN');
 
   DataAttributeEntryDataTypeSpecForm get dataTypeSpec => DataAttributeEntryDataTypeSpecForm(doc, '$path/DAATT-DATA');
@@ -6638,6 +6764,12 @@ class DataAttributeEntry extends SomNode {
 class DataClassification extends SomNode {
   DataClassification(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   DataClassificationOverviewForm get overview => DataClassificationOverviewForm(doc, '$path/DATCL-OVER');
 
   /// Contains 0+× DataClassificationEntry.
@@ -6649,6 +6781,12 @@ class DataClassification extends SomNode {
 /// Comprehensive data classification for security and compliance.
 class DataClassificationEntry extends SomNode {
   DataClassificationEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   DataClassificationEntryIdentityForm get identity => DataClassificationEntryIdentityForm(doc, '$path/DCLSE-IDEN');
 
@@ -6741,6 +6879,12 @@ class DataDuplicationEntry extends SomNode {
 /// Captures conceptual, logical, and physical design aspects.
 class DataEntityEntry extends SomNode {
   DataEntityEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   DataEntityEntryIdentityForm get identity => DataEntityEntryIdentityForm(doc, '$path/DAENT-IDEN');
 
@@ -8695,6 +8839,12 @@ class DocumentationDeliverables extends SomNode {
 class DocumentationQualityCriteria extends SomNode {
   DocumentationQualityCriteria(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   DocumentationQualityCriteriaDocumentationOverviewContentForm get documentationOverviewContent => DocumentationQualityCriteriaDocumentationOverviewContentForm(doc, '$path/DOQUCR-DOCU');
 
   /// Documentation quality overview narrative.
@@ -9193,6 +9343,12 @@ class EntityConstraintEntry extends SomNode {
 class EntityFollowUpEntry extends SomNode {
   EntityFollowUpEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   EntityFollowUpEntryEntityRefForm get entityRef => EntityFollowUpEntryEntityRefForm(doc, '$path/DMFUE-ENTI');
 
   SomList<VolumeMetricEntry> get volumeMetrics => SomList<VolumeMetricEntry>(doc, '$path/VOLUM-VOLU-LST', (d, p) => VolumeMetricEntry(d, p), pattern: 'VOLUM-VOLU-xxx');
@@ -9218,6 +9374,12 @@ class EntityIndexEntry extends SomNode {
 /// Comprehensive relationship specification following ER modeling best practices.
 class EntityRelationshipEntry extends SomNode {
   EntityRelationshipEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   EntityRelationshipEntryIdentityForm get identity => EntityRelationshipEntryIdentityForm(doc, '$path/ENRLE-IDEN');
 
@@ -9370,6 +9532,12 @@ class Environments extends SomNode {
 class EquipmentRequirements extends SomNode {
   EquipmentRequirements(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Equipment overview.
   EquipmentRequirementsOverviewForm get overview => EquipmentRequirementsOverviewForm(doc, '$path/EQOV');
 
@@ -9457,6 +9625,12 @@ class ErrorCodeRegistry extends SomNode {
 class ErrorHandling extends SomNode {
   ErrorHandling(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   ErrorHandlingErrorPhilosophyContentForm get errorPhilosophyContent => ErrorHandlingErrorPhilosophyContentForm(doc, '$path/ERHACO-ERRO');
 
   /// Error categorization and display priority.
@@ -9515,6 +9689,12 @@ class ErrorHandlingStandards extends SomNode {
 /// and guided recovery steps.
 class ErrorRecovery extends SomNode {
   ErrorRecovery(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   ErrorRecoveryRecoveryMechanismsContentForm get recoveryMechanismsContent => ErrorRecoveryRecoveryMechanismsContentForm(doc, '$path/ERRE-RECO');
 
@@ -10019,6 +10199,12 @@ class ExternalConnectivitySection extends SomNode {
 class ExternalInterfaceEntry extends SomNode {
   ExternalInterfaceEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   ExternalInterfaceEntryIdentificationContentForm get identificationContent => ExternalInterfaceEntryIdentificationContentForm(doc, '$path/EIE-IDEN');
 
   /// Business purpose and value of this interface.
@@ -10055,6 +10241,12 @@ class ExternalInterfaceEntry extends SomNode {
 /// API-first design principles.
 class ExternalInterfaces extends SomNode {
   ExternalInterfaces(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Summary of the integration landscape.
   // (skipped: integrationSummary has no target type)
@@ -10583,6 +10775,12 @@ class Flexibility extends SomNode {
 class FlexibilityCharacteristic extends SomNode {
   FlexibilityCharacteristic(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   FlexibilityCharacteristicFlexibilityContentForm get flexibilityContent => FlexibilityCharacteristicFlexibilityContentForm(doc, '$path/FLXC-FLEX');
 
   /// Flexibility overview.
@@ -10681,6 +10879,12 @@ class FunctionEntry extends SomNode {
 /// Business functions, their decomposition, and relationships to data objects.
 class FunctionModel extends SomNode {
   FunctionModel(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   FunctionModelDecompositionOverviewForm get decompositionOverview => FunctionModelDecompositionOverviewForm(doc, '$path/FUMO-DECO');
 
@@ -10803,6 +11007,12 @@ class FunctionalResponsibilities extends SomNode {
 /// user-bucket functional leaves under the 25010:2023 spine (L34C-8).
 class FunctionalSuitabilityCharacteristic extends SomNode {
   FunctionalSuitabilityCharacteristic(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm get functionalSuitabilityContent => FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(doc, '$path/FNSU-FUNC');
 
@@ -11817,6 +12027,12 @@ class InteractionBusinessRules extends SomNode {
 class InteractionCapabilityCharacteristic extends SomNode {
   InteractionCapabilityCharacteristic(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   InteractionCapabilityCharacteristicInteractionCapabilityContentForm get interactionCapabilityContent => InteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc, '$path/INCP-INTE');
 
   /// Interaction capability overview.
@@ -11897,6 +12113,12 @@ class InteractionDependencyAnalysis extends SomNode {
 /// use case template. Seeds the ISC (Interaction Scenarios) document.
 class InteractionEntry extends SomNode {
   InteractionEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Interaction identification (use case header).
   InteractionEntryIdentificationForm get identification => InteractionEntryIdentificationForm(doc, '$path/INID');
@@ -12415,6 +12637,12 @@ class ItStandardComplianceEntry extends SomNode {
 class JobDescriptionsAndStaffing extends SomNode {
   JobDescriptionsAndStaffing(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Overview of the job architecture and role design approach.
   JobDescriptionsAndStaffingOverviewForm get overview => JobDescriptionsAndStaffingOverviewForm(doc, '$path/JODEOV');
 
@@ -12654,6 +12882,12 @@ class KnowledgeTransfer extends SomNode {
 class LanguageCountrySelection extends SomNode {
   LanguageCountrySelection(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   LanguageCountrySelectionLanguageSelectionContentForm get languageSelectionContent => LanguageCountrySelectionLanguageSelectionContentForm(doc, '$path/LACOSE-LANG');
 
   /// Default locale behavior.
@@ -12877,6 +13111,12 @@ class LocaleHandlingRequirements extends SomNode {
 class LocalizationProcess extends SomNode {
   LocalizationProcess(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   LocalizationProcessLocalizationProcessContentForm get localizationProcessContent => LocalizationProcessLocalizationProcessContentForm(doc, '$path/LOPR-LOCA');
 
   /// Review process.
@@ -13090,6 +13330,12 @@ class Maintainability extends SomNode {
 /// the 25010:2023 spine (L34C-8).
 class MaintainabilityCharacteristic extends SomNode {
   MaintainabilityCharacteristic(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   MaintainabilityCharacteristicMaintainabilityContentForm get maintainabilityContent => MaintainabilityCharacteristicMaintainabilityContentForm(doc, '$path/MNTC-MAIN');
 
@@ -13350,6 +13596,12 @@ class MessageLocaleVariantEntry extends SomNode {
 class MetricsAndObservability extends SomNode {
   MetricsAndObservability(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   MetricsAndObservabilityMetricsOverviewForm get metricsOverview => MetricsAndObservabilityMetricsOverviewForm(doc, '$path/MEANOB-METR');
 
   /// Observability overview narrative.
@@ -13461,6 +13713,12 @@ class MfaConfiguration extends SomNode {
 /// migration details with global governance.
 class MigrationConsiderations extends SomNode {
   MigrationConsiderations(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   MigrationConsiderationsStrategyContentForm get strategyContent => MigrationConsiderationsStrategyContentForm(doc, '$path/MIGCON-STRA');
 
@@ -13707,6 +13965,12 @@ class MigrationRiskIndicators extends SomNode {
 class MigrationRisks extends SomNode {
   MigrationRisks(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   MigrationRisksGovernanceContentForm get governanceContent => MigrationRisksGovernanceContentForm(doc, '$path/MIRI-GOVE');
 
   /// Governance and decision authority.
@@ -13877,6 +14141,12 @@ class ModuleVersioningStrategy extends SomNode {
 class Monitoring extends SomNode {
   Monitoring(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   MonitoringMonitoringOverviewForm get monitoringOverview => MonitoringMonitoringOverviewForm(doc, '$path/MONITO-MONI');
 
   /// Monitoring strategy narrative.
@@ -13950,6 +14220,12 @@ class MonitoringAndAlertingSection extends SomNode {
 /// Operational dashboards for system monitoring.
 class MonitoringDashboards extends SomNode {
   MonitoringDashboards(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   MonitoringDashboardsDashboardOverviewForm get dashboardOverview => MonitoringDashboardsDashboardOverviewForm(doc, '$path/MODA-DASH');
 
@@ -14046,6 +14322,12 @@ class MultiChannelExperience extends SomNode {
 class MultiLanguageSupport extends SomNode {
   MultiLanguageSupport(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   MultiLanguageSupportMultiLanguageOverviewForm get multiLanguageOverview => MultiLanguageSupportMultiLanguageOverviewForm(doc, '$path/MLAR-MULT');
 
   /// Multi-language overview narrative.
@@ -14063,6 +14345,12 @@ class MultiLanguageSupport extends SomNode {
 /// Criteria that must be met for the system to be accepted.
 class MustPassCriteria extends SomNode {
   MustPassCriteria(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   MustPassCriteriaMustPassOverviewContentForm get mustPassOverviewContent => MustPassCriteriaMustPassOverviewContentForm(doc, '$path/MUPACR-MUST');
 
@@ -14450,6 +14738,12 @@ class NetworkSecurityRequirements extends SomNode {
 class NewOrganizationStructure extends SomNode {
   NewOrganizationStructure(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Overview of the target organization structure.
   // (skipped: overview has no target type)
 
@@ -14466,6 +14760,12 @@ class NewOrganizationStructure extends SomNode {
 /// Includes competencies, responsibilities, system access, and success metrics.
 class NewRoleEntry extends SomNode {
   NewRoleEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Role identification and overview.
   NewRoleEntryIdentificationForm get identification => NewRoleEntryIdentificationForm(doc, '$path/NEROID');
@@ -14508,6 +14808,12 @@ class NewRoleQualifications extends SomNode {
 /// New role responsibilities.
 class NewRoleResponsibilities extends SomNode {
   NewRoleResponsibilities(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Primary responsibilities (key accountabilities).
   SomList<ResponsibilityDetailEntry> get primaryResponsibilities => SomList<ResponsibilityDetailEntry>(doc, '$path/RSPDT-PRIM-LST', (d, p) => ResponsibilityDetailEntry(d, p), pattern: 'RSPDT-PRIM-xxx');
@@ -14628,6 +14934,12 @@ class OnCallScheduleConfig extends SomNode {
 class OnboardingHelp extends SomNode {
   OnboardingHelp(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   OnboardingHelpOnboardingContentForm get onboardingContent => OnboardingHelpOnboardingContentForm(doc, '$path/ONHE-ONBO');
 
   /// Feature tour settings.
@@ -14676,6 +14988,12 @@ class OngoingTrainingEntry extends SomNode {
 /// context patterns and PMBOK environmental factors analysis.
 class OperatingEnvironment extends SomNode {
   OperatingEnvironment(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Framework conditions overview.
   // (skipped: overview has no target type)
@@ -14918,6 +15236,12 @@ class OrganizationalContext extends SomNode {
 class OrganizationalEnvironment extends SomNode {
   OrganizationalEnvironment(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   OrganizationalEnvironmentOrganizationContentForm get organizationContent => OrganizationalEnvironmentOrganizationContentForm(doc, '$path/OREN-ORGA');
 
   /// Organizational maturity indicators.
@@ -14960,6 +15284,12 @@ class OrganizationalEnvironment extends SomNode {
 /// and HR management standards (SHRM, CIPD).
 class OrganizationalFramework extends SomNode {
   OrganizationalFramework(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Overview of organizational changes required for the new system.
   // (skipped: overview has no target type)
@@ -15036,6 +15366,12 @@ class OrganizationalRequirements extends SomNode {
 class OrganizationalTransitionTimeline extends SomNode {
   OrganizationalTransitionTimeline(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Overview of the transition approach and guiding principles.
   TransitionOverview get overview => TransitionOverview(doc, '$path/overview');
 
@@ -15101,6 +15437,12 @@ class OtherAgreementEntry extends SomNode {
 /// rationale to prevent scope creep and manage stakeholder expectations.
 class OutOfScope extends SomNode {
   OutOfScope(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Overview of scope exclusion approach.
   // (skipped: scopePhilosophy has no target type)
@@ -15389,6 +15731,12 @@ class PenetrationTestingRequirements extends SomNode {
 /// preserved here so no authored content is lost.
 class PerformanceEfficiencyCharacteristic extends SomNode {
   PerformanceEfficiencyCharacteristic(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm get performanceEfficiencyContent => PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(doc, '$path/PEEF-PERF');
 
@@ -15948,6 +16296,12 @@ class ProcessAdjustments extends SomNode {
 class ProcessCatalog extends SomNode {
   ProcessCatalog(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Process catalog overview.
   ProcessCatalogOverviewForm get overview => ProcessCatalogOverviewForm(doc, '$path/PCOVW');
 
@@ -15988,6 +16342,12 @@ class ProcessControlEntry extends SomNode {
 class ProcessControls extends SomNode {
   ProcessControls(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Controls overview.
   ProcessControlsOverviewForm get overview => ProcessControlsOverviewForm(doc, '$path/PRCOOV');
 
@@ -16014,6 +16374,12 @@ class ProcessDesignPrincipleEntry extends SomNode {
 /// Principles that guide process design decisions.
 class ProcessDesignPrinciples extends SomNode {
   ProcessDesignPrinciples(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Design principles overview.
   ProcessDesignPrinciplesOverviewForm get overview => ProcessDesignPrinciplesOverviewForm(doc, '$path/DPOVW');
@@ -16059,6 +16425,12 @@ class ProcessExceptionHandling extends SomNode {
 class ProcessExceptions extends SomNode {
   ProcessExceptions(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Exceptions overview.
   ProcessExceptionsOverviewForm get overview => ProcessExceptionsOverviewForm(doc, '$path/PREXOV');
 
@@ -16101,6 +16473,12 @@ class ProcessImprovementEntry extends SomNode {
 class ProcessImprovementSummary extends SomNode {
   ProcessImprovementSummary(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Improvement overview.
   ProcessImprovementSummaryOverviewForm get overview => ProcessImprovementSummaryOverviewForm(doc, '$path/IMOV');
 
@@ -16121,6 +16499,12 @@ class ProcessInputEntry extends SomNode {
 /// Process inputs and outputs.
 class ProcessInputsOutputs extends SomNode {
   ProcessInputsOutputs(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Inputs overview.
   ProcessInputsOutputsOverviewForm get overview => ProcessInputsOutputsOverviewForm(doc, '$path/INOUOV');
@@ -16258,6 +16642,12 @@ class ProcessOutputEntry extends SomNode {
 class ProcessOverviewDiagram extends SomNode {
   ProcessOverviewDiagram(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Diagram overview.
   ProcessOverviewDiagramOverviewForm get overview => ProcessOverviewDiagramOverviewForm(doc, '$path/PRDIOV');
 
@@ -16288,6 +16678,12 @@ class ProcessPainPoints extends SomNode {
 /// Process performance metrics.
 class ProcessPerformance extends SomNode {
   ProcessPerformance(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Performance overview.
   ProcessPerformanceOverviewForm get overview => ProcessPerformanceOverviewForm(doc, '$path/PRPEOV');
@@ -16346,6 +16742,12 @@ class ProcessRoleEntry extends SomNode {
 /// Process roles and responsibilities.
 class ProcessRoles extends SomNode {
   ProcessRoles(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Roles overview.
   ProcessRolesOverviewForm get overview => ProcessRolesOverviewForm(doc, '$path/PRROOV');
@@ -16448,6 +16850,12 @@ class ProcessTriggerEntry extends SomNode {
 class ProcessTriggers extends SomNode {
   ProcessTriggers(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Main trigger overview.
   ProcessTriggersOverviewForm get overview => ProcessTriggersOverviewForm(doc, '$path/TGOVW');
 
@@ -16463,6 +16871,12 @@ class ProcessTriggers extends SomNode {
 /// The overall vision for how business processes will work with the new system.
 class ProcessVision extends SomNode {
   ProcessVision(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Process vision overview.
   ProcessVisionOverviewForm get overview => ProcessVisionOverviewForm(doc, '$path/PVOVW');
@@ -16638,6 +17052,12 @@ class ProtocolsAndStandardsSection extends SomNode {
 class Prototype extends SomNode {
   Prototype(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   PrototypePrototypeOverviewForm get prototypeOverview => PrototypePrototypeOverviewForm(doc, '$path/PROTOT-PROT');
 
   /// Prototype timing commitments.
@@ -16678,6 +17098,12 @@ class PrototypeFeatureEntry extends SomNode {
 class PrototypeFeatureSubset extends SomNode {
   PrototypeFeatureSubset(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   PrototypeFeatureSubsetFeatureSubsetContentForm get featureSubsetContent => PrototypeFeatureSubsetFeatureSubsetContentForm(doc, '$path/PRFESU-FEAT');
 
   /// Included and excluded feature scope.
@@ -16706,6 +17132,12 @@ class PrototypeGoalEntry extends SomNode {
 class PrototypeGoals extends SomNode {
   PrototypeGoals(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   PrototypeGoalsGoalsContentForm get goalsContent => PrototypeGoalsGoalsContentForm(doc, '$path/PG-GOAL');
 
   /// Risk reduction and assumption testing.
@@ -16726,6 +17158,12 @@ class PrototypeGoals extends SomNode {
 /// Classification and implications of the prototype type.
 class PrototypeType extends SomNode {
   PrototypeType(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   PrototypeTypePrototypeTypeOverviewForm get prototypeTypeOverview => PrototypeTypePrototypeTypeOverviewForm(doc, '$path/PRTYSE-PROT');
 
@@ -16809,6 +17247,12 @@ class QualityCategoryEntry extends SomNode {
 /// and how quality is structured and governed across the system.
 class QualityFramework extends SomNode {
   QualityFramework(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   QualityFrameworkFrameworkContentForm get frameworkContent => QualityFrameworkFrameworkContentForm(doc, '$path/QLFWK-FRAM');
 
@@ -16917,6 +17361,12 @@ class QualityGateCheckEntry extends SomNode {
 class QualityGateChecklist extends SomNode {
   QualityGateChecklist(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   QualityGateChecklistChecklistOverviewContentForm get checklistOverviewContent => QualityGateChecklistChecklistOverviewContentForm(doc, '$path/QUGACH-CHEC');
 
   /// Quality gate checklist overview.
@@ -16932,6 +17382,12 @@ class QualityGateChecklist extends SomNode {
 /// matrices and explicit trade-off decisions.
 class QualityPrioritization extends SomNode {
   QualityPrioritization(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   QualityPrioritizationPrioritizationFrameworkContentForm get prioritizationFrameworkContent => QualityPrioritizationPrioritizationFrameworkContentForm(doc, '$path/QUPR-PRIO');
 
@@ -17276,6 +17732,12 @@ class Reliability extends SomNode {
 class ReliabilityCharacteristic extends SomNode {
   ReliabilityCharacteristic(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   ReliabilityCharacteristicReliabilityContentForm get reliabilityContent => ReliabilityCharacteristicReliabilityContentForm(doc, '$path/RELC-RELI');
 
   /// Reliability overview narrative.
@@ -17336,6 +17798,12 @@ class RemovedRoleEntry extends SomNode {
 /// with portfolio-level metrics and prioritization guidance.
 class ReplacementInventory extends SomNode {
   ReplacementInventory(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Portfolio summary before listing individual systems.
   // (skipped: portfolioSummary has no target type)
@@ -18110,6 +18578,12 @@ class ResponsibilitySystems extends SomNode {
 class ResponsiveBehavior extends SomNode {
   ResponsiveBehavior(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   ResponsiveBehaviorLayoutAdaptationForm get layoutAdaptation => ResponsiveBehaviorLayoutAdaptationForm(doc, '$path/REBE-LAYO');
 
   /// Navigation patterns per device class.
@@ -18137,6 +18611,12 @@ class ResponsiveBehavior extends SomNode {
 /// adaptive layouts, and device-specific behavior for Flutter applications.
 class ResponsiveDesign extends SomNode {
   ResponsiveDesign(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   ResponsiveDesignResponsiveOverviewForm get responsiveOverview => ResponsiveDesignResponsiveOverviewForm(doc, '$path/REDE-RESP');
 
@@ -18276,6 +18756,12 @@ class ReusableComponentsSection extends SomNode {
 class ReusablePrototype extends SomNode {
   ReusablePrototype(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   ReusablePrototypeReusableContentForm get reusableContent => ReusablePrototypeReusableContentForm(doc, '$path/REUPRO-REUS');
 
   /// Architecture alignment and refactoring expectations.
@@ -18376,6 +18862,12 @@ class RiskBusinessImpact extends SomNode {
 class RiskEntry extends SomNode {
   RiskEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Risk identification — unique identifier and basic description.
   RiskIdentification get identification => RiskIdentification(doc, '$path/identification');
 
@@ -18458,6 +18950,12 @@ class RiskResponse extends SomNode {
 /// sweep, which will rename it to `Risks`.)
 class RisksAndAssumptions extends SomNode {
   RisksAndAssumptions(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Overview of the risk management approach for this project.
   RisksAndAssumptionsOverviewForm get overview => RisksAndAssumptionsOverviewForm(doc, '$path/RIOV');
@@ -18904,6 +19402,12 @@ class ScalingTriggersAndThresholds extends SomNode {
 /// Comprehensive scenario definition for end-to-end user journey.
 class ScenarioEntry extends SomNode {
   ScenarioEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Scenario identification.
   ScenarioEntryIdentificationForm get identification => ScenarioEntryIdentificationForm(doc, '$path/SCID');
@@ -19710,6 +20214,12 @@ class SecurityCertificationRequirements extends SomNode {
 /// operations leaf under the 25010:2023 spine (L34C-8).
 class SecurityCharacteristic extends SomNode {
   SecurityCharacteristic(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   SecurityCharacteristicSecurityContentForm get securityContent => SecurityCharacteristicSecurityContentForm(doc, '$path/SECC-SECU');
 
@@ -20688,6 +21198,12 @@ class SingleSignOnPolicy extends SomNode {
 class SlaAndSloMonitoring extends SomNode {
   SlaAndSloMonitoring(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   SlaAndSloMonitoringSlaOverviewForm get slaOverview => SlaAndSloMonitoringSlaOverviewForm(doc, '$path/SASM-SLAO');
 
   /// SLA/SLO overview narrative.
@@ -20897,6 +21413,12 @@ class StaffingEntry extends SomNode {
 /// 5.2.4. Staffing Plan.
 class StaffingPlan extends SomNode {
   StaffingPlan(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Staffing plan overview.
   StaffingPlanOverviewForm get overview => StaffingPlanOverviewForm(doc, '$path/STPLOV');
@@ -21625,6 +22147,12 @@ class SuccessCriteria extends SomNode {
 class SuccessCriteriaByCategory extends SomNode {
   SuccessCriteriaByCategory(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Business outcome criteria overview.
   String get businessCriteria => doc.content('$path/SCBC-BUSI') ?? '';
   set businessCriteria(String value) => doc.setContent('$path/SCBC-BUSI', value);
@@ -21684,6 +22212,12 @@ class SuccessCriterionRelationships extends SomNode {
 /// 10.8.3. Support Access.
 class SupportAccess extends SomNode {
   SupportAccess(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   SupportAccessSupportAccessContentForm get supportAccessContent => SupportAccessSupportAccessContentForm(doc, '$path/SUAC-SUPP');
 
@@ -21758,6 +22292,12 @@ class SystemArchitectureSpec extends SomNode {
 /// system context patterns and enterprise integration best practices.
 class SystemBoundaries extends SomNode {
   SystemBoundaries(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Overview of system boundaries and scope definition approach.
   // (skipped: overview has no target type)
@@ -22021,6 +22561,12 @@ class SystemErrorCodeEntry extends SomNode {
 class SystemErrorDisplay extends SomNode {
   SystemErrorDisplay(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   SystemErrorDisplaySystemErrorContentForm get systemErrorContent => SystemErrorDisplaySystemErrorContentForm(doc, '$path/SYERDI-SYST');
 
   /// Error type handling configuration.
@@ -22233,6 +22779,12 @@ class SystemPurpose extends SomNode {
 /// targets, verification methods, and acceptance criteria.
 class SystemQualityGoals extends SomNode {
   SystemQualityGoals(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   SystemQualityGoalsGovernanceContentForm get governanceContent => SystemQualityGoalsGovernanceContentForm(doc, '$path/SYQG-GOVE');
 
@@ -22497,6 +23049,12 @@ class SystemTechnicalAssessment extends SomNode {
 class SystemToReplaceEntry extends SomNode {
   SystemToReplaceEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   SystemToReplaceEntryIdentificationContentForm get identificationContent => SystemToReplaceEntryIdentificationContentForm(doc, '$path/SYTORE-IDEN');
 
   /// Classification and ownership details.
@@ -22576,6 +23134,12 @@ class SystemUserImpact extends SomNode {
 /// comprehensive assessment for informed replacement decisions.
 class SystemsToReplace extends SomNode {
   SystemsToReplace(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Overview of the systems replacement scope and strategy.
   // (skipped: overview has no target type)
@@ -22750,6 +23314,12 @@ class TechnicalDependencyEntry extends SomNode {
 /// Architecture & Technology Specification (ATS) document.
 class TechnicalEnvironment extends SomNode {
   TechnicalEnvironment(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   TechnicalEnvironmentTechnicalOverviewContentForm get technicalOverviewContent => TechnicalEnvironmentTechnicalOverviewContentForm(doc, '$path/TEEN-TECH');
 
@@ -22948,6 +23518,12 @@ class TechnicalGoals extends SomNode {
 /// Technical infrastructure requirements.
 class TechnicalInfrastructure extends SomNode {
   TechnicalInfrastructure(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Network connectivity requirements.
   TechnicalInfrastructureNetworkConnectivityForm get networkConnectivity => TechnicalInfrastructureNetworkConnectivityForm(doc, '$path/NECO');
@@ -23358,6 +23934,12 @@ class ThirdPartyLibraryEntry extends SomNode {
 class ThrowawayPrototype extends SomNode {
   ThrowawayPrototype(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   ThrowawayPrototypeThrowawayContentForm get throwawayContent => ThrowawayPrototypeThrowawayContentForm(doc, '$path/THPR-THRO');
 
   /// Findings and decisions captured from evaluation.
@@ -23567,6 +24149,12 @@ class TradeOffDecisionEntry extends SomNode {
 class TradeOffDecisions extends SomNode {
   TradeOffDecisions(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   TradeOffDecisionsTradeOffGovernanceContentForm get tradeOffGovernanceContent => TradeOffDecisionsTradeOffGovernanceContentForm(doc, '$path/TROFDE-TRAD');
 
   /// Trade-off decisions overview.
@@ -23603,6 +24191,12 @@ class TrainingAssessment extends SomNode {
 /// content in one D12 subsection rather than fragmenting it across a new id.
 class TrainingDeliverableRequirements extends SomNode {
   TrainingDeliverableRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   TrainingDeliverableRequirementsTrainingContentForm get trainingContent => TrainingDeliverableRequirementsTrainingContentForm(doc, '$path/TRMAT-TRAI');
 
@@ -23672,6 +24266,12 @@ class TrainingModuleEntry extends SomNode {
 class TrainingPrototype extends SomNode {
   TrainingPrototype(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   TrainingPrototypeTrainingContentForm get trainingContent => TrainingPrototypeTrainingContentForm(doc, '$path/TP-TRAI');
 
   /// Code disposition and reimplementation planning.
@@ -23690,6 +24290,12 @@ class TrainingPrototype extends SomNode {
 /// principles (ADDIE, Kirkpatrick evaluation model).
 class TrainingRequirements extends SomNode {
   TrainingRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Training overview and strategy.
   TrainingRequirementsOverviewForm get overview => TrainingRequirementsOverviewForm(doc, '$path/TROV');
@@ -23730,6 +24336,12 @@ class TransitionCommunicationChannels extends SomNode {
 /// Communication plan for the transition.
 class TransitionCommunicationPlan extends SomNode {
   TransitionCommunicationPlan(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// Communication strategy overview.
   TransitionCommunicationPlanStrategyForm get strategy => TransitionCommunicationPlanStrategyForm(doc, '$path/TRCOST');
@@ -23803,6 +24415,12 @@ class TransitionPhaseActivities extends SomNode {
 class TransitionPhaseEntry extends SomNode {
   TransitionPhaseEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Phase identification and timeline.
   TransitionPhaseIdentification get identification => TransitionPhaseIdentification(doc, '$path/identification');
 
@@ -23853,6 +24471,12 @@ class TransitionRiskEntry extends SomNode {
 class TransitionSuccessMetrics extends SomNode {
   TransitionSuccessMetrics(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Metrics overview.
   TransitionSuccessMetricsOverviewForm get overview => TransitionSuccessMetricsOverviewForm(doc, '$path/TRMEOV');
 
@@ -23871,6 +24495,12 @@ class TransitionSupportResourceEntry extends SomNode {
 class TransitionSupportStructure extends SomNode {
   TransitionSupportStructure(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   /// Support organization overview.
   TransitionSupportStructureOverviewForm get overview => TransitionSupportStructureOverviewForm(doc, '$path/TRSUOV');
 
@@ -23886,6 +24516,12 @@ class TransitionSupportStructure extends SomNode {
 /// Workflow for translating content.
 class TranslationProcess extends SomNode {
   TranslationProcess(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   TranslationProcessTranslationProcessContentForm get translationProcessContent => TranslationProcessTranslationProcessContentForm(doc, '$path/TRPR-TRAN');
 
@@ -23913,6 +24549,12 @@ class TranslationProcess extends SomNode {
 /// Technical requirements for internationalization framework.
 class TranslationRequirements extends SomNode {
   TranslationRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   TranslationRequirementsTranslationRequirementsContentForm get translationRequirementsContent => TranslationRequirementsTranslationRequirementsContentForm(doc, '$path/TRAREQ-TRAN');
 
@@ -24050,6 +24692,12 @@ class UatTestStepEntry extends SomNode {
 class UiComponentEntry extends SomNode {
   UiComponentEntry(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   UiComponentEntryIdentityForm get identity => UiComponentEntryIdentityForm(doc, '$path/UICOM-IDEN');
 
   /// Wrapper mapping and business purpose.
@@ -24119,6 +24767,12 @@ class UiComponentEntry extends SomNode {
 /// Flutter-based implementation with Tom framework integration.
 class UiComponents extends SomNode {
   UiComponents(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   UiComponentsComponentLibraryOverviewForm get componentLibraryOverview => UiComponentsComponentLibraryOverviewForm(doc, '$path/UICO-COMP');
 
@@ -24323,6 +24977,12 @@ class UserAccountStatesDefinition extends SomNode {
 class UserAssistance extends SomNode {
   UserAssistance(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   UserAssistanceHelpOverviewContentForm get helpOverviewContent => UserAssistanceHelpOverviewContentForm(doc, '$path/USAS-HELP');
 
   /// Content stewardship and help affordances.
@@ -24456,6 +25116,12 @@ class UserCategoryEntry extends SomNode {
 /// `TRP-DOC` D12 detail subsection.
 class UserDocumentationRequirements extends SomNode {
   UserDocumentationRequirements(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   UserDocumentationRequirementsDocumentationContentForm get documentationContent => UserDocumentationRequirementsDocumentationContentForm(doc, '$path/DOANTR-DOCU');
 
@@ -24933,6 +25599,12 @@ class ValidationConstraints extends SomNode {
 class ValidationFeedback extends SomNode {
   ValidationFeedback(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   ValidationFeedbackValidationDisplayContentForm get validationDisplayContent => ValidationFeedbackValidationDisplayContentForm(doc, '$path/VAFE-VALI');
 
   /// Display placement details.
@@ -25126,6 +25798,12 @@ class WarrantyTerms extends SomNode {
 class WcagCompliance extends SomNode {
   WcagCompliance(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   WcagComplianceWcagComplianceContentForm get wcagComplianceContent => WcagComplianceWcagComplianceContentForm(doc, '$path/WCCO-WCAG');
 
   /// Operable principles.
@@ -25154,6 +25832,12 @@ class WcagSuccessCriterionEntry extends SomNode {
 /// 11.6.1. Weighted Quality Matrix.
 class WeightedQualityMatrix extends SomNode {
   WeightedQualityMatrix(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   WeightedQualityMatrixMatrixConfigContentForm get matrixConfigContent => WeightedQualityMatrixMatrixConfigContentForm(doc, '$path/WEQUMA-MATR');
 
@@ -25304,6 +25988,12 @@ class WorkflowStepIssue extends SomNode {
 class WorkflowStepSystem extends SomNode {
   WorkflowStepSystem(super.doc, super.path);
 
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
   String get name => doc.content('$path/WOSTSY-NAME') ?? '';
   set name(String value) => doc.setContent('$path/WOSTSY-NAME', value);
 }
@@ -25353,6 +26043,12 @@ class WorkflowTriggers extends SomNode {
 /// technical, and training aspects per user category.
 class WorkplaceDescriptionEntry extends SomNode {
   WorkplaceDescriptionEntry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
 
   /// User category identification.
   WorkplaceDescriptionEntryUserCategoryForm get userCategory => WorkplaceDescriptionEntryUserCategoryForm(doc, '$path/WOUSCA');

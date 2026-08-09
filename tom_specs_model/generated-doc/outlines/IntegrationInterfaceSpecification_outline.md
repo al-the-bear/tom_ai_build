@@ -4,9 +4,9 @@
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
   - `ExternalInterfaces`
-    - integrationSummary @text, architectureApproach @text, governanceModel @text
+    - content, integrationSummary @text, architectureApproach @text, governanceModel @text
     - interfaces: `ExternalInterfaceEntry`[]
-      - identificationContent
+      - content, identificationContent
       - businessContext: `InterfaceBusinessContext`
         - content @Form(businessPurpose, businessValue, businessOwner, useCases, businessCriticality, revenueImpact, regulatoryDriver)
         - dependentProcesses: `InterfaceBusinessProcessEntry`[]
@@ -39,11 +39,11 @@
         - testScenarios: `InterfaceTestScenarioEntry`[]
           - content @Form(scenarioType, preconditions, testSteps, expectedResult, automated)
   - `OutOfScope`
-    - scopePhilosophy @text
+    - content, scopePhilosophy @text
     - items: `OutOfScopeEntry`[]
       - content @Form(itemId, item, itemType, rationale), decision, mitigation
   - `BoundaryAssumptions`
-    - assumptionApproach @text
+    - content, assumptionApproach @text
     - items: `BoundaryAssumptionEntry`[]
       - content @Form(assumption, category), validation, risk
   - systemInventory: `SystemLandscapeInventory`

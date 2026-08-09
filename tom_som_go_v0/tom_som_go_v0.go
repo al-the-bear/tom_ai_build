@@ -71,6 +71,20 @@ func NewAcceptanceCriteriaSummary(doc *som.SpecDocument, path string) *Acceptanc
 	return &AcceptanceCriteriaSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AcceptanceCriteriaSummary) CanHaveContent() bool {
+	return true
+}
+
+func (x *AcceptanceCriteriaSummary) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *AcceptanceCriteriaSummary) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *AcceptanceCriteriaSummary) AcceptanceFrameworkContent() *AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm {
 	return NewAcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(x.Doc(), x.Path()+"/ACCRSU-ACCE")
 }
@@ -557,6 +571,20 @@ func NewAccessibility(doc *som.SpecDocument, path string) *Accessibility {
 	return &Accessibility{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *Accessibility) CanHaveContent() bool {
+	return true
+}
+
+func (x *Accessibility) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *Accessibility) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *Accessibility) AccessibilityOverviewContent() *AccessibilityAccessibilityOverviewContentForm {
 	return NewAccessibilityAccessibilityOverviewContentForm(x.Doc(), x.Path()+"/ACCESS-ACCE")
 }
@@ -637,6 +665,20 @@ type AccessibilityChecklist struct {
 // NewAccessibilityChecklist binds a AccessibilityChecklist facade to a document and a path.
 func NewAccessibilityChecklist(doc *som.SpecDocument, path string) *AccessibilityChecklist {
 	return &AccessibilityChecklist{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AccessibilityChecklist) CanHaveContent() bool {
+	return true
+}
+
+func (x *AccessibilityChecklist) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *AccessibilityChecklist) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *AccessibilityChecklist) ChecklistOverviewContent() *AccessibilityChecklistChecklistOverviewContentForm {
@@ -888,6 +930,20 @@ func NewActorEntry(doc *som.SpecDocument, path string) *ActorEntry {
 	return &ActorEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ActorEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *ActorEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ActorEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Actor identification.
 func (x *ActorEntry) Identification() *ActorEntryIdentificationForm {
 	return NewActorEntryIdentificationForm(x.Doc(), x.Path()+"/ACID")
@@ -1002,6 +1058,20 @@ type ActorRelationshipDiagram struct {
 // NewActorRelationshipDiagram binds a ActorRelationshipDiagram facade to a document and a path.
 func NewActorRelationshipDiagram(doc *som.SpecDocument, path string) *ActorRelationshipDiagram {
 	return &ActorRelationshipDiagram{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ActorRelationshipDiagram) CanHaveContent() bool {
+	return true
+}
+
+func (x *ActorRelationshipDiagram) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ActorRelationshipDiagram) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Diagram overview.
@@ -1323,6 +1393,20 @@ type AlertingConfiguration struct {
 // NewAlertingConfiguration binds a AlertingConfiguration facade to a document and a path.
 func NewAlertingConfiguration(doc *som.SpecDocument, path string) *AlertingConfiguration {
 	return &AlertingConfiguration{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AlertingConfiguration) CanHaveContent() bool {
+	return true
+}
+
+func (x *AlertingConfiguration) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *AlertingConfiguration) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *AlertingConfiguration) AlertingOverview() *AlertingConfigurationAlertingOverviewForm {
@@ -3528,6 +3612,20 @@ func NewBoundaryAssumptions(doc *som.SpecDocument, path string) *BoundaryAssumpt
 	return &BoundaryAssumptions{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *BoundaryAssumptions) CanHaveContent() bool {
+	return true
+}
+
+func (x *BoundaryAssumptions) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *BoundaryAssumptions) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Overview of assumption categories and validation approach.
 // (skipped: assumptionApproach has no target type)
 
@@ -3610,6 +3708,20 @@ type BreakpointConfiguration struct {
 // NewBreakpointConfiguration binds a BreakpointConfiguration facade to a document and a path.
 func NewBreakpointConfiguration(doc *som.SpecDocument, path string) *BreakpointConfiguration {
 	return &BreakpointConfiguration{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *BreakpointConfiguration) CanHaveContent() bool {
+	return true
+}
+
+func (x *BreakpointConfiguration) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *BreakpointConfiguration) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *BreakpointConfiguration) BreakpointOverview() *BreakpointConfigurationBreakpointOverviewForm {
@@ -4072,6 +4184,20 @@ func NewBusinessObjectEntry(doc *som.SpecDocument, path string) *BusinessObjectE
 	return &BusinessObjectEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *BusinessObjectEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *BusinessObjectEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *BusinessObjectEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *BusinessObjectEntry) Identity() *BusinessObjectEntryIdentityForm {
 	return NewBusinessObjectEntryIdentityForm(x.Doc(), x.Path()+"/BJOEN-IDEN")
 }
@@ -4309,6 +4435,20 @@ func NewBusinessProcessEntry(doc *som.SpecDocument, path string) *BusinessProces
 	return &BusinessProcessEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *BusinessProcessEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *BusinessProcessEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *BusinessProcessEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Process identification.
 func (x *BusinessProcessEntry) Identification() *ProcessIdentification {
 	return NewProcessIdentification(x.Doc(), x.Path()+"/identification")
@@ -4367,6 +4507,20 @@ type BusinessRuleEntry struct {
 // NewBusinessRuleEntry binds a BusinessRuleEntry facade to a document and a path.
 func NewBusinessRuleEntry(doc *som.SpecDocument, path string) *BusinessRuleEntry {
 	return &BusinessRuleEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *BusinessRuleEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *BusinessRuleEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *BusinessRuleEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *BusinessRuleEntry) Identity() *BusinessRuleEntryIdentityForm {
@@ -4977,6 +5131,20 @@ func NewChangeReadinessAssessment(doc *som.SpecDocument, path string) *ChangeRea
 	return &ChangeReadinessAssessment{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ChangeReadinessAssessment) CanHaveContent() bool {
+	return true
+}
+
+func (x *ChangeReadinessAssessment) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ChangeReadinessAssessment) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Overview of readiness assessment approach.
 func (x *ChangeReadinessAssessment) Overview() *ChangeReadinessAssessmentOverviewForm {
 	return NewChangeReadinessAssessmentOverviewForm(x.Doc(), x.Path()+"/CHREOV")
@@ -5052,6 +5220,20 @@ func NewChangedRoleCompetencies(doc *som.SpecDocument, path string) *ChangedRole
 	return &ChangedRoleCompetencies{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ChangedRoleCompetencies) CanHaveContent() bool {
+	return true
+}
+
+func (x *ChangedRoleCompetencies) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ChangedRoleCompetencies) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // New competencies required.
 func (x *ChangedRoleCompetencies) NewCompetencies() *som.SomList[*RoleCompetencyEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/ROLCP-NEWC-LST", func(d *som.SpecDocument, p string) *RoleCompetencyEntry {
@@ -5089,6 +5271,20 @@ type ChangedRoleEntry struct {
 // NewChangedRoleEntry binds a ChangedRoleEntry facade to a document and a path.
 func NewChangedRoleEntry(doc *som.SpecDocument, path string) *ChangedRoleEntry {
 	return &ChangedRoleEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ChangedRoleEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *ChangedRoleEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ChangedRoleEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Changed role identification.
@@ -5155,6 +5351,20 @@ func NewChangedRoleResponsibilities(doc *som.SpecDocument, path string) *Changed
 	return &ChangedRoleResponsibilities{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ChangedRoleResponsibilities) CanHaveContent() bool {
+	return true
+}
+
+func (x *ChangedRoleResponsibilities) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ChangedRoleResponsibilities) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Responsibilities being added.
 func (x *ChangedRoleResponsibilities) AddedResponsibilities() *som.SomList[*ResponsibilityChangeEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/RSPCH-ADDE-LST", func(d *som.SpecDocument, p string) *ResponsibilityChangeEntry {
@@ -5217,6 +5427,20 @@ type ChangesFromCurrentStructure struct {
 // NewChangesFromCurrentStructure binds a ChangesFromCurrentStructure facade to a document and a path.
 func NewChangesFromCurrentStructure(doc *som.SpecDocument, path string) *ChangesFromCurrentStructure {
 	return &ChangesFromCurrentStructure{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ChangesFromCurrentStructure) CanHaveContent() bool {
+	return true
+}
+
+func (x *ChangesFromCurrentStructure) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ChangesFromCurrentStructure) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *ChangesFromCurrentStructure) OverviewContent() *ChangesFromCurrentStructureOverviewContentForm {
@@ -6170,6 +6394,20 @@ func NewCompatibilityCharacteristic(doc *som.SpecDocument, path string) *Compati
 	return &CompatibilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *CompatibilityCharacteristic) CanHaveContent() bool {
+	return true
+}
+
+func (x *CompatibilityCharacteristic) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *CompatibilityCharacteristic) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *CompatibilityCharacteristic) CompatibilityContent() *CompatibilityCharacteristicCompatibilityContentForm {
 	return NewCompatibilityCharacteristicCompatibilityContentForm(x.Doc(), x.Path()+"/CMPT-COMP")
 }
@@ -6300,6 +6538,20 @@ type CompetencyFramework struct {
 // NewCompetencyFramework binds a CompetencyFramework facade to a document and a path.
 func NewCompetencyFramework(doc *som.SpecDocument, path string) *CompetencyFramework {
 	return &CompetencyFramework{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *CompetencyFramework) CanHaveContent() bool {
+	return true
+}
+
+func (x *CompetencyFramework) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *CompetencyFramework) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Framework overview.
@@ -6763,6 +7015,20 @@ type ComponentLibrary struct {
 // NewComponentLibrary binds a ComponentLibrary facade to a document and a path.
 func NewComponentLibrary(doc *som.SpecDocument, path string) *ComponentLibrary {
 	return &ComponentLibrary{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ComponentLibrary) CanHaveContent() bool {
+	return true
+}
+
+func (x *ComponentLibrary) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ComponentLibrary) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *ComponentLibrary) DesignFoundations() *som.SomList[*DesignFoundationEntry] {
@@ -7587,6 +7853,20 @@ type ContextualHelp struct {
 // NewContextualHelp binds a ContextualHelp facade to a document and a path.
 func NewContextualHelp(doc *som.SpecDocument, path string) *ContextualHelp {
 	return &ContextualHelp{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ContextualHelp) CanHaveContent() bool {
+	return true
+}
+
+func (x *ContextualHelp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ContextualHelp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *ContextualHelp) ContextualHelpContent() *ContextualHelpContextualHelpContentForm {
@@ -10842,6 +11122,20 @@ func NewDataAttributeEntry(doc *som.SpecDocument, path string) *DataAttributeEnt
 	return &DataAttributeEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DataAttributeEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *DataAttributeEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DataAttributeEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *DataAttributeEntry) Identity() *DataAttributeEntryIdentityForm {
 	return NewDataAttributeEntryIdentityForm(x.Doc(), x.Path()+"/DAATT-IDEN")
 }
@@ -10967,6 +11261,20 @@ func NewDataClassification(doc *som.SpecDocument, path string) *DataClassificati
 	return &DataClassification{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DataClassification) CanHaveContent() bool {
+	return true
+}
+
+func (x *DataClassification) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DataClassification) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *DataClassification) Overview() *DataClassificationOverviewForm {
 	return NewDataClassificationOverviewForm(x.Doc(), x.Path()+"/DATCL-OVER")
 }
@@ -10988,6 +11296,20 @@ type DataClassificationEntry struct {
 // NewDataClassificationEntry binds a DataClassificationEntry facade to a document and a path.
 func NewDataClassificationEntry(doc *som.SpecDocument, path string) *DataClassificationEntry {
 	return &DataClassificationEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DataClassificationEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *DataClassificationEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DataClassificationEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *DataClassificationEntry) Identity() *DataClassificationEntryIdentityForm {
@@ -11167,6 +11489,20 @@ type DataEntityEntry struct {
 // NewDataEntityEntry binds a DataEntityEntry facade to a document and a path.
 func NewDataEntityEntry(doc *som.SpecDocument, path string) *DataEntityEntry {
 	return &DataEntityEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DataEntityEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *DataEntityEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DataEntityEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *DataEntityEntry) Identity() *DataEntityEntryIdentityForm {
@@ -14696,6 +15032,20 @@ func NewDocumentationQualityCriteria(doc *som.SpecDocument, path string) *Docume
 	return &DocumentationQualityCriteria{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DocumentationQualityCriteria) CanHaveContent() bool {
+	return true
+}
+
+func (x *DocumentationQualityCriteria) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DocumentationQualityCriteria) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *DocumentationQualityCriteria) DocumentationOverviewContent() *DocumentationQualityCriteriaDocumentationOverviewContentForm {
 	return NewDocumentationQualityCriteriaDocumentationOverviewContentForm(x.Doc(), x.Path()+"/DOQUCR-DOCU")
 }
@@ -15595,6 +15945,20 @@ func NewEntityFollowUpEntry(doc *som.SpecDocument, path string) *EntityFollowUpE
 	return &EntityFollowUpEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *EntityFollowUpEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *EntityFollowUpEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *EntityFollowUpEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *EntityFollowUpEntry) EntityRef() *EntityFollowUpEntryEntityRefForm {
 	return NewEntityFollowUpEntryEntityRefForm(x.Doc(), x.Path()+"/DMFUE-ENTI")
 }
@@ -15649,6 +16013,20 @@ type EntityRelationshipEntry struct {
 // NewEntityRelationshipEntry binds a EntityRelationshipEntry facade to a document and a path.
 func NewEntityRelationshipEntry(doc *som.SpecDocument, path string) *EntityRelationshipEntry {
 	return &EntityRelationshipEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *EntityRelationshipEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *EntityRelationshipEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *EntityRelationshipEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *EntityRelationshipEntry) Identity() *EntityRelationshipEntryIdentityForm {
@@ -15931,6 +16309,20 @@ func NewEquipmentRequirements(doc *som.SpecDocument, path string) *EquipmentRequ
 	return &EquipmentRequirements{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *EquipmentRequirements) CanHaveContent() bool {
+	return true
+}
+
+func (x *EquipmentRequirements) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *EquipmentRequirements) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Equipment overview.
 func (x *EquipmentRequirements) Overview() *EquipmentRequirementsOverviewForm {
 	return NewEquipmentRequirementsOverviewForm(x.Doc(), x.Path()+"/EQOV")
@@ -16084,6 +16476,20 @@ func NewErrorHandling(doc *som.SpecDocument, path string) *ErrorHandling {
 	return &ErrorHandling{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ErrorHandling) CanHaveContent() bool {
+	return true
+}
+
+func (x *ErrorHandling) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ErrorHandling) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *ErrorHandling) ErrorPhilosophyContent() *ErrorHandlingErrorPhilosophyContentForm {
 	return NewErrorHandlingErrorPhilosophyContentForm(x.Doc(), x.Path()+"/ERHACO-ERRO")
 }
@@ -16177,6 +16583,20 @@ type ErrorRecovery struct {
 // NewErrorRecovery binds a ErrorRecovery facade to a document and a path.
 func NewErrorRecovery(doc *som.SpecDocument, path string) *ErrorRecovery {
 	return &ErrorRecovery{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ErrorRecovery) CanHaveContent() bool {
+	return true
+}
+
+func (x *ErrorRecovery) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ErrorRecovery) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *ErrorRecovery) RecoveryMechanismsContent() *ErrorRecoveryRecoveryMechanismsContentForm {
@@ -17057,6 +17477,20 @@ func NewExternalInterfaceEntry(doc *som.SpecDocument, path string) *ExternalInte
 	return &ExternalInterfaceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ExternalInterfaceEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *ExternalInterfaceEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ExternalInterfaceEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *ExternalInterfaceEntry) IdentificationContent() *ExternalInterfaceEntryIdentificationContentForm {
 	return NewExternalInterfaceEntryIdentificationContentForm(x.Doc(), x.Path()+"/EIE-IDEN")
 }
@@ -17115,6 +17549,20 @@ type ExternalInterfaces struct {
 // NewExternalInterfaces binds a ExternalInterfaces facade to a document and a path.
 func NewExternalInterfaces(doc *som.SpecDocument, path string) *ExternalInterfaces {
 	return &ExternalInterfaces{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ExternalInterfaces) CanHaveContent() bool {
+	return true
+}
+
+func (x *ExternalInterfaces) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ExternalInterfaces) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Summary of the integration landscape.
@@ -18033,6 +18481,20 @@ func NewFlexibilityCharacteristic(doc *som.SpecDocument, path string) *Flexibili
 	return &FlexibilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *FlexibilityCharacteristic) CanHaveContent() bool {
+	return true
+}
+
+func (x *FlexibilityCharacteristic) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *FlexibilityCharacteristic) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *FlexibilityCharacteristic) FlexibilityContent() *FlexibilityCharacteristicFlexibilityContentForm {
 	return NewFlexibilityCharacteristicFlexibilityContentForm(x.Doc(), x.Path()+"/FLXC-FLEX")
 }
@@ -18210,6 +18672,20 @@ type FunctionModel struct {
 // NewFunctionModel binds a FunctionModel facade to a document and a path.
 func NewFunctionModel(doc *som.SpecDocument, path string) *FunctionModel {
 	return &FunctionModel{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *FunctionModel) CanHaveContent() bool {
+	return true
+}
+
+func (x *FunctionModel) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *FunctionModel) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *FunctionModel) DecompositionOverview() *FunctionModelDecompositionOverviewForm {
@@ -18423,6 +18899,20 @@ type FunctionalSuitabilityCharacteristic struct {
 // NewFunctionalSuitabilityCharacteristic binds a FunctionalSuitabilityCharacteristic facade to a document and a path.
 func NewFunctionalSuitabilityCharacteristic(doc *som.SpecDocument, path string) *FunctionalSuitabilityCharacteristic {
 	return &FunctionalSuitabilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *FunctionalSuitabilityCharacteristic) CanHaveContent() bool {
+	return true
+}
+
+func (x *FunctionalSuitabilityCharacteristic) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *FunctionalSuitabilityCharacteristic) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *FunctionalSuitabilityCharacteristic) FunctionalSuitabilityContent() *FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm {
@@ -20255,6 +20745,20 @@ func NewInteractionCapabilityCharacteristic(doc *som.SpecDocument, path string) 
 	return &InteractionCapabilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *InteractionCapabilityCharacteristic) CanHaveContent() bool {
+	return true
+}
+
+func (x *InteractionCapabilityCharacteristic) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *InteractionCapabilityCharacteristic) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *InteractionCapabilityCharacteristic) InteractionCapabilityContent() *InteractionCapabilityCharacteristicInteractionCapabilityContentForm {
 	return NewInteractionCapabilityCharacteristicInteractionCapabilityContentForm(x.Doc(), x.Path()+"/INCP-INTE")
 }
@@ -20398,6 +20902,20 @@ type InteractionEntry struct {
 // NewInteractionEntry binds a InteractionEntry facade to a document and a path.
 func NewInteractionEntry(doc *som.SpecDocument, path string) *InteractionEntry {
 	return &InteractionEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *InteractionEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *InteractionEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *InteractionEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Interaction identification (use case header).
@@ -21352,6 +21870,20 @@ func NewJobDescriptionsAndStaffing(doc *som.SpecDocument, path string) *JobDescr
 	return &JobDescriptionsAndStaffing{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *JobDescriptionsAndStaffing) CanHaveContent() bool {
+	return true
+}
+
+func (x *JobDescriptionsAndStaffing) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *JobDescriptionsAndStaffing) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Overview of the job architecture and role design approach.
 func (x *JobDescriptionsAndStaffing) Overview() *JobDescriptionsAndStaffingOverviewForm {
 	return NewJobDescriptionsAndStaffingOverviewForm(x.Doc(), x.Path()+"/JODEOV")
@@ -21765,6 +22297,20 @@ func NewLanguageCountrySelection(doc *som.SpecDocument, path string) *LanguageCo
 	return &LanguageCountrySelection{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *LanguageCountrySelection) CanHaveContent() bool {
+	return true
+}
+
+func (x *LanguageCountrySelection) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *LanguageCountrySelection) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *LanguageCountrySelection) LanguageSelectionContent() *LanguageCountrySelectionLanguageSelectionContentForm {
 	return NewLanguageCountrySelectionLanguageSelectionContentForm(x.Doc(), x.Path()+"/LACOSE-LANG")
 }
@@ -22165,6 +22711,20 @@ func NewLocalizationProcess(doc *som.SpecDocument, path string) *LocalizationPro
 	return &LocalizationProcess{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *LocalizationProcess) CanHaveContent() bool {
+	return true
+}
+
+func (x *LocalizationProcess) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *LocalizationProcess) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *LocalizationProcess) LocalizationProcessContent() *LocalizationProcessLocalizationProcessContentForm {
 	return NewLocalizationProcessLocalizationProcessContentForm(x.Doc(), x.Path()+"/LOPR-LOCA")
 }
@@ -22532,6 +23092,20 @@ type MaintainabilityCharacteristic struct {
 // NewMaintainabilityCharacteristic binds a MaintainabilityCharacteristic facade to a document and a path.
 func NewMaintainabilityCharacteristic(doc *som.SpecDocument, path string) *MaintainabilityCharacteristic {
 	return &MaintainabilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MaintainabilityCharacteristic) CanHaveContent() bool {
+	return true
+}
+
+func (x *MaintainabilityCharacteristic) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *MaintainabilityCharacteristic) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *MaintainabilityCharacteristic) MaintainabilityContent() *MaintainabilityCharacteristicMaintainabilityContentForm {
@@ -22984,6 +23558,20 @@ func NewMetricsAndObservability(doc *som.SpecDocument, path string) *MetricsAndO
 	return &MetricsAndObservability{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MetricsAndObservability) CanHaveContent() bool {
+	return true
+}
+
+func (x *MetricsAndObservability) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *MetricsAndObservability) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *MetricsAndObservability) MetricsOverview() *MetricsAndObservabilityMetricsOverviewForm {
 	return NewMetricsAndObservabilityMetricsOverviewForm(x.Doc(), x.Path()+"/MEANOB-METR")
 }
@@ -23189,6 +23777,20 @@ type MigrationConsiderations struct {
 // NewMigrationConsiderations binds a MigrationConsiderations facade to a document and a path.
 func NewMigrationConsiderations(doc *som.SpecDocument, path string) *MigrationConsiderations {
 	return &MigrationConsiderations{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MigrationConsiderations) CanHaveContent() bool {
+	return true
+}
+
+func (x *MigrationConsiderations) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *MigrationConsiderations) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *MigrationConsiderations) StrategyContent() *MigrationConsiderationsStrategyContentForm {
@@ -23603,6 +24205,20 @@ func NewMigrationRisks(doc *som.SpecDocument, path string) *MigrationRisks {
 	return &MigrationRisks{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MigrationRisks) CanHaveContent() bool {
+	return true
+}
+
+func (x *MigrationRisks) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *MigrationRisks) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *MigrationRisks) GovernanceContent() *MigrationRisksGovernanceContentForm {
 	return NewMigrationRisksGovernanceContentForm(x.Doc(), x.Path()+"/MIRI-GOVE")
 }
@@ -23902,6 +24518,20 @@ func NewMonitoring(doc *som.SpecDocument, path string) *Monitoring {
 	return &Monitoring{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *Monitoring) CanHaveContent() bool {
+	return true
+}
+
+func (x *Monitoring) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *Monitoring) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *Monitoring) MonitoringOverview() *MonitoringMonitoringOverviewForm {
 	return NewMonitoringMonitoringOverviewForm(x.Doc(), x.Path()+"/MONITO-MONI")
 }
@@ -24026,6 +24656,20 @@ type MonitoringDashboards struct {
 // NewMonitoringDashboards binds a MonitoringDashboards facade to a document and a path.
 func NewMonitoringDashboards(doc *som.SpecDocument, path string) *MonitoringDashboards {
 	return &MonitoringDashboards{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MonitoringDashboards) CanHaveContent() bool {
+	return true
+}
+
+func (x *MonitoringDashboards) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *MonitoringDashboards) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *MonitoringDashboards) DashboardOverview() *MonitoringDashboardsDashboardOverviewForm {
@@ -24192,6 +24836,20 @@ func NewMultiLanguageSupport(doc *som.SpecDocument, path string) *MultiLanguageS
 	return &MultiLanguageSupport{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MultiLanguageSupport) CanHaveContent() bool {
+	return true
+}
+
+func (x *MultiLanguageSupport) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *MultiLanguageSupport) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *MultiLanguageSupport) MultiLanguageOverview() *MultiLanguageSupportMultiLanguageOverviewForm {
 	return NewMultiLanguageSupportMultiLanguageOverviewForm(x.Doc(), x.Path()+"/MLAR-MULT")
 }
@@ -24221,6 +24879,20 @@ type MustPassCriteria struct {
 // NewMustPassCriteria binds a MustPassCriteria facade to a document and a path.
 func NewMustPassCriteria(doc *som.SpecDocument, path string) *MustPassCriteria {
 	return &MustPassCriteria{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MustPassCriteria) CanHaveContent() bool {
+	return true
+}
+
+func (x *MustPassCriteria) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *MustPassCriteria) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *MustPassCriteria) MustPassOverviewContent() *MustPassCriteriaMustPassOverviewContentForm {
@@ -24894,6 +25566,20 @@ func NewNewOrganizationStructure(doc *som.SpecDocument, path string) *NewOrganiz
 	return &NewOrganizationStructure{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *NewOrganizationStructure) CanHaveContent() bool {
+	return true
+}
+
+func (x *NewOrganizationStructure) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *NewOrganizationStructure) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Overview of the target organization structure.
 // (skipped: overview has no target type)
 
@@ -24918,6 +25604,20 @@ type NewRoleEntry struct {
 // NewNewRoleEntry binds a NewRoleEntry facade to a document and a path.
 func NewNewRoleEntry(doc *som.SpecDocument, path string) *NewRoleEntry {
 	return &NewRoleEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *NewRoleEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *NewRoleEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *NewRoleEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Role identification and overview.
@@ -24994,6 +25694,20 @@ type NewRoleResponsibilities struct {
 // NewNewRoleResponsibilities binds a NewRoleResponsibilities facade to a document and a path.
 func NewNewRoleResponsibilities(doc *som.SpecDocument, path string) *NewRoleResponsibilities {
 	return &NewRoleResponsibilities{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *NewRoleResponsibilities) CanHaveContent() bool {
+	return true
+}
+
+func (x *NewRoleResponsibilities) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *NewRoleResponsibilities) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Primary responsibilities (key accountabilities).
@@ -25222,6 +25936,20 @@ func NewOnboardingHelp(doc *som.SpecDocument, path string) *OnboardingHelp {
 	return &OnboardingHelp{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *OnboardingHelp) CanHaveContent() bool {
+	return true
+}
+
+func (x *OnboardingHelp) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *OnboardingHelp) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *OnboardingHelp) OnboardingContent() *OnboardingHelpOnboardingContentForm {
 	return NewOnboardingHelpOnboardingContentForm(x.Doc(), x.Path()+"/ONHE-ONBO")
 }
@@ -25303,6 +26031,20 @@ type OperatingEnvironment struct {
 // NewOperatingEnvironment binds a OperatingEnvironment facade to a document and a path.
 func NewOperatingEnvironment(doc *som.SpecDocument, path string) *OperatingEnvironment {
 	return &OperatingEnvironment{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *OperatingEnvironment) CanHaveContent() bool {
+	return true
+}
+
+func (x *OperatingEnvironment) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *OperatingEnvironment) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Framework conditions overview.
@@ -25742,6 +26484,20 @@ func NewOrganizationalEnvironment(doc *som.SpecDocument, path string) *Organizat
 	return &OrganizationalEnvironment{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *OrganizationalEnvironment) CanHaveContent() bool {
+	return true
+}
+
+func (x *OrganizationalEnvironment) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *OrganizationalEnvironment) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *OrganizationalEnvironment) OrganizationContent() *OrganizationalEnvironmentOrganizationContentForm {
 	return NewOrganizationalEnvironmentOrganizationContentForm(x.Doc(), x.Path()+"/OREN-ORGA")
 }
@@ -25814,6 +26570,20 @@ type OrganizationalFramework struct {
 // NewOrganizationalFramework binds a OrganizationalFramework facade to a document and a path.
 func NewOrganizationalFramework(doc *som.SpecDocument, path string) *OrganizationalFramework {
 	return &OrganizationalFramework{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *OrganizationalFramework) CanHaveContent() bool {
+	return true
+}
+
+func (x *OrganizationalFramework) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *OrganizationalFramework) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Overview of organizational changes required for the new system.
@@ -25942,6 +26712,20 @@ func NewOrganizationalTransitionTimeline(doc *som.SpecDocument, path string) *Or
 	return &OrganizationalTransitionTimeline{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *OrganizationalTransitionTimeline) CanHaveContent() bool {
+	return true
+}
+
+func (x *OrganizationalTransitionTimeline) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *OrganizationalTransitionTimeline) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Overview of the transition approach and guiding principles.
 func (x *OrganizationalTransitionTimeline) Overview() *TransitionOverview {
 	return NewTransitionOverview(x.Doc(), x.Path()+"/overview")
@@ -26062,6 +26846,20 @@ type OutOfScope struct {
 // NewOutOfScope binds a OutOfScope facade to a document and a path.
 func NewOutOfScope(doc *som.SpecDocument, path string) *OutOfScope {
 	return &OutOfScope{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *OutOfScope) CanHaveContent() bool {
+	return true
+}
+
+func (x *OutOfScope) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *OutOfScope) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Overview of scope exclusion approach.
@@ -26584,6 +27382,20 @@ type PerformanceEfficiencyCharacteristic struct {
 // NewPerformanceEfficiencyCharacteristic binds a PerformanceEfficiencyCharacteristic facade to a document and a path.
 func NewPerformanceEfficiencyCharacteristic(doc *som.SpecDocument, path string) *PerformanceEfficiencyCharacteristic {
 	return &PerformanceEfficiencyCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PerformanceEfficiencyCharacteristic) CanHaveContent() bool {
+	return true
+}
+
+func (x *PerformanceEfficiencyCharacteristic) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *PerformanceEfficiencyCharacteristic) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *PerformanceEfficiencyCharacteristic) PerformanceEfficiencyContent() *PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm {
@@ -27609,6 +28421,20 @@ func NewProcessCatalog(doc *som.SpecDocument, path string) *ProcessCatalog {
 	return &ProcessCatalog{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessCatalog) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessCatalog) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessCatalog) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Process catalog overview.
 func (x *ProcessCatalog) Overview() *ProcessCatalogOverviewForm {
 	return NewProcessCatalogOverviewForm(x.Doc(), x.Path()+"/PCOVW")
@@ -27684,6 +28510,20 @@ func NewProcessControls(doc *som.SpecDocument, path string) *ProcessControls {
 	return &ProcessControls{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessControls) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessControls) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessControls) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Controls overview.
 func (x *ProcessControls) Overview() *ProcessControlsOverviewForm {
 	return NewProcessControlsOverviewForm(x.Doc(), x.Path()+"/PRCOOV")
@@ -27734,6 +28574,20 @@ type ProcessDesignPrinciples struct {
 // NewProcessDesignPrinciples binds a ProcessDesignPrinciples facade to a document and a path.
 func NewProcessDesignPrinciples(doc *som.SpecDocument, path string) *ProcessDesignPrinciples {
 	return &ProcessDesignPrinciples{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessDesignPrinciples) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessDesignPrinciples) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessDesignPrinciples) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Design principles overview.
@@ -27822,6 +28676,20 @@ func NewProcessExceptions(doc *som.SpecDocument, path string) *ProcessExceptions
 	return &ProcessExceptions{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessExceptions) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessExceptions) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessExceptions) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Exceptions overview.
 func (x *ProcessExceptions) Overview() *ProcessExceptionsOverviewForm {
 	return NewProcessExceptionsOverviewForm(x.Doc(), x.Path()+"/PREXOV")
@@ -27899,6 +28767,20 @@ func NewProcessImprovementSummary(doc *som.SpecDocument, path string) *ProcessIm
 	return &ProcessImprovementSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessImprovementSummary) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessImprovementSummary) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessImprovementSummary) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Improvement overview.
 func (x *ProcessImprovementSummary) Overview() *ProcessImprovementSummaryOverviewForm {
 	return NewProcessImprovementSummaryOverviewForm(x.Doc(), x.Path()+"/IMOV")
@@ -27938,6 +28820,20 @@ type ProcessInputsOutputs struct {
 // NewProcessInputsOutputs binds a ProcessInputsOutputs facade to a document and a path.
 func NewProcessInputsOutputs(doc *som.SpecDocument, path string) *ProcessInputsOutputs {
 	return &ProcessInputsOutputs{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessInputsOutputs) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessInputsOutputs) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessInputsOutputs) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Inputs overview.
@@ -28215,6 +29111,20 @@ func NewProcessOverviewDiagram(doc *som.SpecDocument, path string) *ProcessOverv
 	return &ProcessOverviewDiagram{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessOverviewDiagram) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessOverviewDiagram) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessOverviewDiagram) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Diagram overview.
 func (x *ProcessOverviewDiagram) Overview() *ProcessOverviewDiagramOverviewForm {
 	return NewProcessOverviewDiagramOverviewForm(x.Doc(), x.Path()+"/PRDIOV")
@@ -28268,6 +29178,20 @@ type ProcessPerformance struct {
 // NewProcessPerformance binds a ProcessPerformance facade to a document and a path.
 func NewProcessPerformance(doc *som.SpecDocument, path string) *ProcessPerformance {
 	return &ProcessPerformance{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessPerformance) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessPerformance) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessPerformance) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Performance overview.
@@ -28387,6 +29311,20 @@ type ProcessRoles struct {
 // NewProcessRoles binds a ProcessRoles facade to a document and a path.
 func NewProcessRoles(doc *som.SpecDocument, path string) *ProcessRoles {
 	return &ProcessRoles{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessRoles) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessRoles) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessRoles) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Roles overview.
@@ -28584,6 +29522,20 @@ func NewProcessTriggers(doc *som.SpecDocument, path string) *ProcessTriggers {
 	return &ProcessTriggers{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessTriggers) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessTriggers) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessTriggers) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Main trigger overview.
 func (x *ProcessTriggers) Overview() *ProcessTriggersOverviewForm {
 	return NewProcessTriggersOverviewForm(x.Doc(), x.Path()+"/TGOVW")
@@ -28613,6 +29565,20 @@ type ProcessVision struct {
 // NewProcessVision binds a ProcessVision facade to a document and a path.
 func NewProcessVision(doc *som.SpecDocument, path string) *ProcessVision {
 	return &ProcessVision{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessVision) CanHaveContent() bool {
+	return true
+}
+
+func (x *ProcessVision) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ProcessVision) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Process vision overview.
@@ -28936,6 +29902,20 @@ func NewPrototype(doc *som.SpecDocument, path string) *Prototype {
 	return &Prototype{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *Prototype) CanHaveContent() bool {
+	return true
+}
+
+func (x *Prototype) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *Prototype) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *Prototype) PrototypeOverview() *PrototypePrototypeOverviewForm {
 	return NewPrototypePrototypeOverviewForm(x.Doc(), x.Path()+"/PROTOT-PROT")
 }
@@ -29002,6 +29982,20 @@ func NewPrototypeFeatureSubset(doc *som.SpecDocument, path string) *PrototypeFea
 	return &PrototypeFeatureSubset{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PrototypeFeatureSubset) CanHaveContent() bool {
+	return true
+}
+
+func (x *PrototypeFeatureSubset) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *PrototypeFeatureSubset) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *PrototypeFeatureSubset) FeatureSubsetContent() *PrototypeFeatureSubsetFeatureSubsetContentForm {
 	return NewPrototypeFeatureSubsetFeatureSubsetContentForm(x.Doc(), x.Path()+"/PRFESU-FEAT")
 }
@@ -29052,6 +30046,20 @@ func NewPrototypeGoals(doc *som.SpecDocument, path string) *PrototypeGoals {
 	return &PrototypeGoals{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PrototypeGoals) CanHaveContent() bool {
+	return true
+}
+
+func (x *PrototypeGoals) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *PrototypeGoals) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *PrototypeGoals) GoalsContent() *PrototypeGoalsGoalsContentForm {
 	return NewPrototypeGoalsGoalsContentForm(x.Doc(), x.Path()+"/PG-GOAL")
 }
@@ -29086,6 +30094,20 @@ type PrototypeType struct {
 // NewPrototypeType binds a PrototypeType facade to a document and a path.
 func NewPrototypeType(doc *som.SpecDocument, path string) *PrototypeType {
 	return &PrototypeType{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PrototypeType) CanHaveContent() bool {
+	return true
+}
+
+func (x *PrototypeType) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *PrototypeType) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *PrototypeType) PrototypeTypeOverview() *PrototypeTypePrototypeTypeOverviewForm {
@@ -29231,6 +30253,20 @@ type QualityFramework struct {
 // NewQualityFramework binds a QualityFramework facade to a document and a path.
 func NewQualityFramework(doc *som.SpecDocument, path string) *QualityFramework {
 	return &QualityFramework{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *QualityFramework) CanHaveContent() bool {
+	return true
+}
+
+func (x *QualityFramework) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *QualityFramework) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *QualityFramework) FrameworkContent() *QualityFrameworkFrameworkContentForm {
@@ -29426,6 +30462,20 @@ func NewQualityGateChecklist(doc *som.SpecDocument, path string) *QualityGateChe
 	return &QualityGateChecklist{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *QualityGateChecklist) CanHaveContent() bool {
+	return true
+}
+
+func (x *QualityGateChecklist) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *QualityGateChecklist) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *QualityGateChecklist) ChecklistOverviewContent() *QualityGateChecklistChecklistOverviewContentForm {
 	return NewQualityGateChecklistChecklistOverviewContentForm(x.Doc(), x.Path()+"/QUGACH-CHEC")
 }
@@ -29451,6 +30501,20 @@ type QualityPrioritization struct {
 // NewQualityPrioritization binds a QualityPrioritization facade to a document and a path.
 func NewQualityPrioritization(doc *som.SpecDocument, path string) *QualityPrioritization {
 	return &QualityPrioritization{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *QualityPrioritization) CanHaveContent() bool {
+	return true
+}
+
+func (x *QualityPrioritization) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *QualityPrioritization) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *QualityPrioritization) PrioritizationFrameworkContent() *QualityPrioritizationPrioritizationFrameworkContentForm {
@@ -30075,6 +31139,20 @@ func NewReliabilityCharacteristic(doc *som.SpecDocument, path string) *Reliabili
 	return &ReliabilityCharacteristic{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ReliabilityCharacteristic) CanHaveContent() bool {
+	return true
+}
+
+func (x *ReliabilityCharacteristic) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ReliabilityCharacteristic) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *ReliabilityCharacteristic) ReliabilityContent() *ReliabilityCharacteristicReliabilityContentForm {
 	return NewReliabilityCharacteristicReliabilityContentForm(x.Doc(), x.Path()+"/RELC-RELI")
 }
@@ -30175,6 +31253,20 @@ type ReplacementInventory struct {
 // NewReplacementInventory binds a ReplacementInventory facade to a document and a path.
 func NewReplacementInventory(doc *som.SpecDocument, path string) *ReplacementInventory {
 	return &ReplacementInventory{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ReplacementInventory) CanHaveContent() bool {
+	return true
+}
+
+func (x *ReplacementInventory) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ReplacementInventory) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Portfolio summary before listing individual systems.
@@ -31591,6 +32683,20 @@ func NewResponsiveBehavior(doc *som.SpecDocument, path string) *ResponsiveBehavi
 	return &ResponsiveBehavior{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ResponsiveBehavior) CanHaveContent() bool {
+	return true
+}
+
+func (x *ResponsiveBehavior) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ResponsiveBehavior) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *ResponsiveBehavior) LayoutAdaptation() *ResponsiveBehaviorLayoutAdaptationForm {
 	return NewResponsiveBehaviorLayoutAdaptationForm(x.Doc(), x.Path()+"/REBE-LAYO")
 }
@@ -31636,6 +32742,20 @@ type ResponsiveDesign struct {
 // NewResponsiveDesign binds a ResponsiveDesign facade to a document and a path.
 func NewResponsiveDesign(doc *som.SpecDocument, path string) *ResponsiveDesign {
 	return &ResponsiveDesign{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ResponsiveDesign) CanHaveContent() bool {
+	return true
+}
+
+func (x *ResponsiveDesign) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ResponsiveDesign) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *ResponsiveDesign) ResponsiveOverview() *ResponsiveDesignResponsiveOverviewForm {
@@ -31879,6 +32999,20 @@ func NewReusablePrototype(doc *som.SpecDocument, path string) *ReusablePrototype
 	return &ReusablePrototype{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ReusablePrototype) CanHaveContent() bool {
+	return true
+}
+
+func (x *ReusablePrototype) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ReusablePrototype) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *ReusablePrototype) ReusableContent() *ReusablePrototypeReusableContentForm {
 	return NewReusablePrototypeReusableContentForm(x.Doc(), x.Path()+"/REUPRO-REUS")
 }
@@ -32051,6 +33185,20 @@ func NewRiskEntry(doc *som.SpecDocument, path string) *RiskEntry {
 	return &RiskEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RiskEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *RiskEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *RiskEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Risk identification — unique identifier and basic description.
 func (x *RiskEntry) Identification() *RiskIdentification {
 	return NewRiskIdentification(x.Doc(), x.Path()+"/identification")
@@ -32193,6 +33341,20 @@ type RisksAndAssumptions struct {
 // NewRisksAndAssumptions binds a RisksAndAssumptions facade to a document and a path.
 func NewRisksAndAssumptions(doc *som.SpecDocument, path string) *RisksAndAssumptions {
 	return &RisksAndAssumptions{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RisksAndAssumptions) CanHaveContent() bool {
+	return true
+}
+
+func (x *RisksAndAssumptions) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *RisksAndAssumptions) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Overview of the risk management approach for this project.
@@ -32995,6 +34157,20 @@ type ScenarioEntry struct {
 // NewScenarioEntry binds a ScenarioEntry facade to a document and a path.
 func NewScenarioEntry(doc *som.SpecDocument, path string) *ScenarioEntry {
 	return &ScenarioEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScenarioEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *ScenarioEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ScenarioEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Scenario identification.
@@ -34370,6 +35546,20 @@ type SecurityCharacteristic struct {
 // NewSecurityCharacteristic binds a SecurityCharacteristic facade to a document and a path.
 func NewSecurityCharacteristic(doc *som.SpecDocument, path string) *SecurityCharacteristic {
 	return &SecurityCharacteristic{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SecurityCharacteristic) CanHaveContent() bool {
+	return true
+}
+
+func (x *SecurityCharacteristic) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SecurityCharacteristic) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *SecurityCharacteristic) SecurityContent() *SecurityCharacteristicSecurityContentForm {
@@ -36045,6 +37235,20 @@ func NewSlaAndSloMonitoring(doc *som.SpecDocument, path string) *SlaAndSloMonito
 	return &SlaAndSloMonitoring{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SlaAndSloMonitoring) CanHaveContent() bool {
+	return true
+}
+
+func (x *SlaAndSloMonitoring) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SlaAndSloMonitoring) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *SlaAndSloMonitoring) SlaOverview() *SlaAndSloMonitoringSlaOverviewForm {
 	return NewSlaAndSloMonitoringSlaOverviewForm(x.Doc(), x.Path()+"/SASM-SLAO")
 }
@@ -36427,6 +37631,20 @@ type StaffingPlan struct {
 // NewStaffingPlan binds a StaffingPlan facade to a document and a path.
 func NewStaffingPlan(doc *som.SpecDocument, path string) *StaffingPlan {
 	return &StaffingPlan{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *StaffingPlan) CanHaveContent() bool {
+	return true
+}
+
+func (x *StaffingPlan) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *StaffingPlan) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Staffing plan overview.
@@ -37711,6 +38929,20 @@ func NewSuccessCriteriaByCategory(doc *som.SpecDocument, path string) *SuccessCr
 	return &SuccessCriteriaByCategory{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SuccessCriteriaByCategory) CanHaveContent() bool {
+	return true
+}
+
+func (x *SuccessCriteriaByCategory) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SuccessCriteriaByCategory) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Business outcome criteria overview.
 func (x *SuccessCriteriaByCategory) BusinessCriteria() string {
 	return x.Doc().ContentOr(x.Path() + "/SCBC-BUSI")
@@ -37827,6 +39059,20 @@ type SupportAccess struct {
 // NewSupportAccess binds a SupportAccess facade to a document and a path.
 func NewSupportAccess(doc *som.SpecDocument, path string) *SupportAccess {
 	return &SupportAccess{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SupportAccess) CanHaveContent() bool {
+	return true
+}
+
+func (x *SupportAccess) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SupportAccess) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *SupportAccess) SupportAccessContent() *SupportAccessSupportAccessContentForm {
@@ -37958,6 +39204,20 @@ type SystemBoundaries struct {
 // NewSystemBoundaries binds a SystemBoundaries facade to a document and a path.
 func NewSystemBoundaries(doc *som.SpecDocument, path string) *SystemBoundaries {
 	return &SystemBoundaries{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemBoundaries) CanHaveContent() bool {
+	return true
+}
+
+func (x *SystemBoundaries) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SystemBoundaries) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Overview of system boundaries and scope definition approach.
@@ -38438,6 +39698,20 @@ func NewSystemErrorDisplay(doc *som.SpecDocument, path string) *SystemErrorDispl
 	return &SystemErrorDisplay{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemErrorDisplay) CanHaveContent() bool {
+	return true
+}
+
+func (x *SystemErrorDisplay) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SystemErrorDisplay) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *SystemErrorDisplay) SystemErrorContent() *SystemErrorDisplaySystemErrorContentForm {
 	return NewSystemErrorDisplaySystemErrorContentForm(x.Doc(), x.Path()+"/SYERDI-SYST")
 }
@@ -38826,6 +40100,20 @@ type SystemQualityGoals struct {
 // NewSystemQualityGoals binds a SystemQualityGoals facade to a document and a path.
 func NewSystemQualityGoals(doc *som.SpecDocument, path string) *SystemQualityGoals {
 	return &SystemQualityGoals{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemQualityGoals) CanHaveContent() bool {
+	return true
+}
+
+func (x *SystemQualityGoals) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SystemQualityGoals) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *SystemQualityGoals) GovernanceContent() *SystemQualityGoalsGovernanceContentForm {
@@ -39277,6 +40565,20 @@ func NewSystemToReplaceEntry(doc *som.SpecDocument, path string) *SystemToReplac
 	return &SystemToReplaceEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemToReplaceEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *SystemToReplaceEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SystemToReplaceEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *SystemToReplaceEntry) IdentificationContent() *SystemToReplaceEntryIdentificationContentForm {
 	return NewSystemToReplaceEntryIdentificationContentForm(x.Doc(), x.Path()+"/SYTORE-IDEN")
 }
@@ -39416,6 +40718,20 @@ type SystemsToReplace struct {
 // NewSystemsToReplace binds a SystemsToReplace facade to a document and a path.
 func NewSystemsToReplace(doc *som.SpecDocument, path string) *SystemsToReplace {
 	return &SystemsToReplace{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemsToReplace) CanHaveContent() bool {
+	return true
+}
+
+func (x *SystemsToReplace) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *SystemsToReplace) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Overview of the systems replacement scope and strategy.
@@ -39729,6 +41045,20 @@ type TechnicalEnvironment struct {
 // NewTechnicalEnvironment binds a TechnicalEnvironment facade to a document and a path.
 func NewTechnicalEnvironment(doc *som.SpecDocument, path string) *TechnicalEnvironment {
 	return &TechnicalEnvironment{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TechnicalEnvironment) CanHaveContent() bool {
+	return true
+}
+
+func (x *TechnicalEnvironment) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TechnicalEnvironment) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *TechnicalEnvironment) TechnicalOverviewContent() *TechnicalEnvironmentTechnicalOverviewContentForm {
@@ -40096,6 +41426,20 @@ type TechnicalInfrastructure struct {
 // NewTechnicalInfrastructure binds a TechnicalInfrastructure facade to a document and a path.
 func NewTechnicalInfrastructure(doc *som.SpecDocument, path string) *TechnicalInfrastructure {
 	return &TechnicalInfrastructure{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TechnicalInfrastructure) CanHaveContent() bool {
+	return true
+}
+
+func (x *TechnicalInfrastructure) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TechnicalInfrastructure) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Network connectivity requirements.
@@ -40821,6 +42165,20 @@ func NewThrowawayPrototype(doc *som.SpecDocument, path string) *ThrowawayPrototy
 	return &ThrowawayPrototype{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ThrowawayPrototype) CanHaveContent() bool {
+	return true
+}
+
+func (x *ThrowawayPrototype) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ThrowawayPrototype) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *ThrowawayPrototype) ThrowawayContent() *ThrowawayPrototypeThrowawayContentForm {
 	return NewThrowawayPrototypeThrowawayContentForm(x.Doc(), x.Path()+"/THPR-THRO")
 }
@@ -41177,6 +42535,20 @@ func NewTradeOffDecisions(doc *som.SpecDocument, path string) *TradeOffDecisions
 	return &TradeOffDecisions{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TradeOffDecisions) CanHaveContent() bool {
+	return true
+}
+
+func (x *TradeOffDecisions) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TradeOffDecisions) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *TradeOffDecisions) TradeOffGovernanceContent() *TradeOffDecisionsTradeOffGovernanceContentForm {
 	return NewTradeOffDecisionsTradeOffGovernanceContentForm(x.Doc(), x.Path()+"/TROFDE-TRAD")
 }
@@ -41236,6 +42608,20 @@ type TrainingDeliverableRequirements struct {
 // NewTrainingDeliverableRequirements binds a TrainingDeliverableRequirements facade to a document and a path.
 func NewTrainingDeliverableRequirements(doc *som.SpecDocument, path string) *TrainingDeliverableRequirements {
 	return &TrainingDeliverableRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TrainingDeliverableRequirements) CanHaveContent() bool {
+	return true
+}
+
+func (x *TrainingDeliverableRequirements) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TrainingDeliverableRequirements) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *TrainingDeliverableRequirements) TrainingContent() *TrainingDeliverableRequirementsTrainingContentForm {
@@ -41363,6 +42749,20 @@ func NewTrainingPrototype(doc *som.SpecDocument, path string) *TrainingPrototype
 	return &TrainingPrototype{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TrainingPrototype) CanHaveContent() bool {
+	return true
+}
+
+func (x *TrainingPrototype) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TrainingPrototype) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *TrainingPrototype) TrainingContent() *TrainingPrototypeTrainingContentForm {
 	return NewTrainingPrototypeTrainingContentForm(x.Doc(), x.Path()+"/TP-TRAI")
 }
@@ -41391,6 +42791,20 @@ type TrainingRequirements struct {
 // NewTrainingRequirements binds a TrainingRequirements facade to a document and a path.
 func NewTrainingRequirements(doc *som.SpecDocument, path string) *TrainingRequirements {
 	return &TrainingRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TrainingRequirements) CanHaveContent() bool {
+	return true
+}
+
+func (x *TrainingRequirements) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TrainingRequirements) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Training overview and strategy.
@@ -41472,6 +42886,20 @@ type TransitionCommunicationPlan struct {
 // NewTransitionCommunicationPlan binds a TransitionCommunicationPlan facade to a document and a path.
 func NewTransitionCommunicationPlan(doc *som.SpecDocument, path string) *TransitionCommunicationPlan {
 	return &TransitionCommunicationPlan{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TransitionCommunicationPlan) CanHaveContent() bool {
+	return true
+}
+
+func (x *TransitionCommunicationPlan) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TransitionCommunicationPlan) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // Communication strategy overview.
@@ -41610,6 +43038,20 @@ func NewTransitionPhaseEntry(doc *som.SpecDocument, path string) *TransitionPhas
 	return &TransitionPhaseEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TransitionPhaseEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *TransitionPhaseEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TransitionPhaseEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Phase identification and timeline.
 func (x *TransitionPhaseEntry) Identification() *TransitionPhaseIdentification {
 	return NewTransitionPhaseIdentification(x.Doc(), x.Path()+"/identification")
@@ -41706,6 +43148,20 @@ func NewTransitionSuccessMetrics(doc *som.SpecDocument, path string) *Transition
 	return &TransitionSuccessMetrics{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TransitionSuccessMetrics) CanHaveContent() bool {
+	return true
+}
+
+func (x *TransitionSuccessMetrics) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TransitionSuccessMetrics) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Metrics overview.
 func (x *TransitionSuccessMetrics) Overview() *TransitionSuccessMetricsOverviewForm {
 	return NewTransitionSuccessMetricsOverviewForm(x.Doc(), x.Path()+"/TRMEOV")
@@ -41742,6 +43198,20 @@ func NewTransitionSupportStructure(doc *som.SpecDocument, path string) *Transiti
 	return &TransitionSupportStructure{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TransitionSupportStructure) CanHaveContent() bool {
+	return true
+}
+
+func (x *TransitionSupportStructure) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TransitionSupportStructure) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 // Support organization overview.
 func (x *TransitionSupportStructure) Overview() *TransitionSupportStructureOverviewForm {
 	return NewTransitionSupportStructureOverviewForm(x.Doc(), x.Path()+"/TRSUOV")
@@ -41771,6 +43241,20 @@ type TranslationProcess struct {
 // NewTranslationProcess binds a TranslationProcess facade to a document and a path.
 func NewTranslationProcess(doc *som.SpecDocument, path string) *TranslationProcess {
 	return &TranslationProcess{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TranslationProcess) CanHaveContent() bool {
+	return true
+}
+
+func (x *TranslationProcess) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TranslationProcess) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *TranslationProcess) TranslationProcessContent() *TranslationProcessTranslationProcessContentForm {
@@ -41817,6 +43301,20 @@ type TranslationRequirements struct {
 // NewTranslationRequirements binds a TranslationRequirements facade to a document and a path.
 func NewTranslationRequirements(doc *som.SpecDocument, path string) *TranslationRequirements {
 	return &TranslationRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TranslationRequirements) CanHaveContent() bool {
+	return true
+}
+
+func (x *TranslationRequirements) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *TranslationRequirements) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *TranslationRequirements) TranslationRequirementsContent() *TranslationRequirementsTranslationRequirementsContentForm {
@@ -42059,6 +43557,20 @@ func NewUiComponentEntry(doc *som.SpecDocument, path string) *UiComponentEntry {
 	return &UiComponentEntry{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UiComponentEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *UiComponentEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *UiComponentEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *UiComponentEntry) Identity() *UiComponentEntryIdentityForm {
 	return NewUiComponentEntryIdentityForm(x.Doc(), x.Path()+"/UICOM-IDEN")
 }
@@ -42184,6 +43696,20 @@ type UiComponents struct {
 // NewUiComponents binds a UiComponents facade to a document and a path.
 func NewUiComponents(doc *som.SpecDocument, path string) *UiComponents {
 	return &UiComponents{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UiComponents) CanHaveContent() bool {
+	return true
+}
+
+func (x *UiComponents) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *UiComponents) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *UiComponents) ComponentLibraryOverview() *UiComponentsComponentLibraryOverviewForm {
@@ -42554,6 +44080,20 @@ func NewUserAssistance(doc *som.SpecDocument, path string) *UserAssistance {
 	return &UserAssistance{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserAssistance) CanHaveContent() bool {
+	return true
+}
+
+func (x *UserAssistance) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *UserAssistance) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *UserAssistance) HelpOverviewContent() *UserAssistanceHelpOverviewContentForm {
 	return NewUserAssistanceHelpOverviewContentForm(x.Doc(), x.Path()+"/USAS-HELP")
 }
@@ -42796,6 +44336,20 @@ type UserDocumentationRequirements struct {
 // NewUserDocumentationRequirements binds a UserDocumentationRequirements facade to a document and a path.
 func NewUserDocumentationRequirements(doc *som.SpecDocument, path string) *UserDocumentationRequirements {
 	return &UserDocumentationRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserDocumentationRequirements) CanHaveContent() bool {
+	return true
+}
+
+func (x *UserDocumentationRequirements) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *UserDocumentationRequirements) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *UserDocumentationRequirements) DocumentationContent() *UserDocumentationRequirementsDocumentationContentForm {
@@ -43664,6 +45218,20 @@ func NewValidationFeedback(doc *som.SpecDocument, path string) *ValidationFeedba
 	return &ValidationFeedback{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ValidationFeedback) CanHaveContent() bool {
+	return true
+}
+
+func (x *ValidationFeedback) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ValidationFeedback) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *ValidationFeedback) ValidationDisplayContent() *ValidationFeedbackValidationDisplayContentForm {
 	return NewValidationFeedbackValidationDisplayContentForm(x.Doc(), x.Path()+"/VAFE-VALI")
 }
@@ -44016,6 +45584,20 @@ func NewWcagCompliance(doc *som.SpecDocument, path string) *WcagCompliance {
 	return &WcagCompliance{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *WcagCompliance) CanHaveContent() bool {
+	return true
+}
+
+func (x *WcagCompliance) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *WcagCompliance) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *WcagCompliance) WcagComplianceContent() *WcagComplianceWcagComplianceContentForm {
 	return NewWcagComplianceWcagComplianceContentForm(x.Doc(), x.Path()+"/WCCO-WCAG")
 }
@@ -44067,6 +45649,20 @@ type WeightedQualityMatrix struct {
 // NewWeightedQualityMatrix binds a WeightedQualityMatrix facade to a document and a path.
 func NewWeightedQualityMatrix(doc *som.SpecDocument, path string) *WeightedQualityMatrix {
 	return &WeightedQualityMatrix{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *WeightedQualityMatrix) CanHaveContent() bool {
+	return true
+}
+
+func (x *WeightedQualityMatrix) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *WeightedQualityMatrix) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 func (x *WeightedQualityMatrix) MatrixConfigContent() *WeightedQualityMatrixMatrixConfigContentForm {
@@ -44363,6 +45959,20 @@ func NewWorkflowStepSystem(doc *som.SpecDocument, path string) *WorkflowStepSyst
 	return &WorkflowStepSystem{SomNode: som.NewSomNode(doc, path)}
 }
 
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *WorkflowStepSystem) CanHaveContent() bool {
+	return true
+}
+
+func (x *WorkflowStepSystem) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *WorkflowStepSystem) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
 func (x *WorkflowStepSystem) Name() string {
 	return x.Doc().ContentOr(x.Path() + "/WOSTSY-NAME")
 }
@@ -44463,6 +46073,20 @@ type WorkplaceDescriptionEntry struct {
 // NewWorkplaceDescriptionEntry binds a WorkplaceDescriptionEntry facade to a document and a path.
 func NewWorkplaceDescriptionEntry(doc *som.SpecDocument, path string) *WorkplaceDescriptionEntry {
 	return &WorkplaceDescriptionEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *WorkplaceDescriptionEntry) CanHaveContent() bool {
+	return true
+}
+
+func (x *WorkplaceDescriptionEntry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *WorkplaceDescriptionEntry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
 // User category identification.

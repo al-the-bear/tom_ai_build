@@ -4,9 +4,9 @@
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
   - [1,] entities: `DataEntityEntry`[]
-    - identity, classification, lifecyclePolicy, relationshipSummary
+    - content, identity, classification, lifecyclePolicy, relationshipSummary
     - attributes: `DataAttributeEntry`[]
-      - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
+      - content, identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
         fileReferenceOptions, enumerationTypeOptions, derivation, securityClassification, migrationLineage
       - constraints: `DataAttributeConstraintEntry`[]
         - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
@@ -21,21 +21,21 @@
   - `EntityRelationships`
     - content
     - items: `EntityRelationshipEntry`[]
-      - identity, cardinality, referentialIntegrity, navigation, sourceEntityRef, targetEntityRef
+      - content, identity, cardinality, referentialIntegrity, navigation, sourceEntityRef, targetEntityRef
       - participants: `ParticipantEntry`[]
         - content @Form(sourceEntityName, sourceRole, targetEntityName, targetRole)
       - relationshipAttributes: `RelationshipAttributeEntry`[]
         - content @Form(hasRelationshipAttributes, relationshipAttributes, temporalAspects)
   - `DataClassification`
-    - overview
+    - content, overview
     - items: `DataClassificationEntry`[]
-      - identity, storageTransmission, accessControl, retentionDisposal, compliance
+      - content, identity, storageTransmission, accessControl, retentionDisposal, compliance
       - handlingRequirements: `HandlingRequirementEntry`[]
         - content @Form(requirementType, requirement, rationale, enforcementMechanism, validationMethod, exceptionProcess)
       - accessRestrictions: `AccessRestrictionEntry`[]
         - content @Form(restrictionType, restriction, scope, enforcement, effectiveConditions, overridePolicy)
   - [1,] objectCatalog: `BusinessObjectEntry`[]
-    - identity, domainContext, lifecycleSummary, ownership
+    - content, identity, domainContext, lifecycleSummary, ownership
     - behaviorRules: `BehaviorRuleEntry`[]
       - content @Form(keyBusinessRules, invariants, keyOperations, validationRules, calculatedProperties)
     - integrationPoints: `IntegrationPointEntry`[]
@@ -60,7 +60,7 @@
   - functionToDataMatrix: `FunctionDataMatrixEntry`[]
     - content @Form(entityName, accessType, accessFrequency, isOwner, accessReason)
   - [1,] businessRules: `BusinessRuleEntry`[]
-    - identity, classification, ruleLogic, implementation, exceptionHandling, governance
+    - content, identity, classification, ruleLogic, implementation, exceptionHandling, governance
     - affectedObjects: `AffectedObjectEntry`[]
       - content @Form(affectedAttributes, impact, accessType), objectRef
     - affectedFunctions: `AffectedFunctionEntry`[]

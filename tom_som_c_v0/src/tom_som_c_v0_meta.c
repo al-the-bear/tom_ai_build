@@ -1312,6 +1312,7 @@ static SomMetaNode **meta_children_workplace_support_resources(SomStrList *stack
 static void meta_build_acceptance_criteria_list_content(SomMetaNode *n);
 static void meta_build_acceptance_criteria_list_items(SomMetaNode *n);
 static void meta_build_acceptance_criteria_list_items_elem(SomMetaNode *n);
+static void meta_build_acceptance_criteria_summary_content(SomMetaNode *n);
 static void meta_build_acceptance_criteria_summary_acceptance_framework_content(SomMetaNode *n);
 static void meta_build_acceptance_criteria_summary_acceptance_overview(SomMetaNode *n);
 static void meta_build_acceptance_criteria_summary_must_pass_criteria(SomMetaNode *n);
@@ -1366,6 +1367,7 @@ static void meta_build_access_restriction_entry_content(SomMetaNode *n);
 static void meta_build_access_user_categories_content(SomMetaNode *n);
 static void meta_build_access_user_categories_items(SomMetaNode *n);
 static void meta_build_access_user_categories_items_elem(SomMetaNode *n);
+static void meta_build_accessibility_content(SomMetaNode *n);
 static void meta_build_accessibility_accessibility_overview_content(SomMetaNode *n);
 static void meta_build_accessibility_strategy(SomMetaNode *n);
 static void meta_build_accessibility_testing(SomMetaNode *n);
@@ -1380,6 +1382,7 @@ static void meta_build_accessibility_check_entry_content(SomMetaNode *n);
 static void meta_build_accessibility_check_entry_compliance(SomMetaNode *n);
 static void meta_build_accessibility_check_entry_execution(SomMetaNode *n);
 static void meta_build_accessibility_check_entry_remediation(SomMetaNode *n);
+static void meta_build_accessibility_checklist_content(SomMetaNode *n);
 static void meta_build_accessibility_checklist_checklist_overview_content(SomMetaNode *n);
 static void meta_build_accessibility_checklist_checklist_overview(SomMetaNode *n);
 static void meta_build_accessibility_checklist_items(SomMetaNode *n);
@@ -1403,6 +1406,7 @@ static void meta_build_action_parameter_entry_content(SomMetaNode *n);
 static void meta_build_actor_characteristics_content(SomMetaNode *n);
 static void meta_build_actor_characteristics_usage(SomMetaNode *n);
 static void meta_build_actor_characteristics_support(SomMetaNode *n);
+static void meta_build_actor_entry_content(SomMetaNode *n);
 static void meta_build_actor_entry_identification(SomMetaNode *n);
 static void meta_build_actor_entry_characteristics(SomMetaNode *n);
 static void meta_build_actor_entry_goals(SomMetaNode *n);
@@ -1418,6 +1422,7 @@ static void meta_build_actor_overview_actors(SomMetaNode *n);
 static void meta_build_actor_overview_actors_elem(SomMetaNode *n);
 static void meta_build_actor_overview_categorization(SomMetaNode *n);
 static void meta_build_actor_permissions_content(SomMetaNode *n);
+static void meta_build_actor_relationship_diagram_content(SomMetaNode *n);
 static void meta_build_actor_relationship_diagram_overview(SomMetaNode *n);
 static void meta_build_actor_relationship_diagram_actor_hierarchy(SomMetaNode *n);
 static void meta_build_actor_relationship_diagram_actor_system_diagram(SomMetaNode *n);
@@ -1457,6 +1462,7 @@ static void meta_build_alert_rule_entry_trigger(SomMetaNode *n);
 static void meta_build_alert_rule_entry_response(SomMetaNode *n);
 static void meta_build_alert_rule_entry_ownership(SomMetaNode *n);
 static void meta_build_alert_suppression_rules_content(SomMetaNode *n);
+static void meta_build_alerting_configuration_content(SomMetaNode *n);
 static void meta_build_alerting_configuration_alerting_overview(SomMetaNode *n);
 static void meta_build_alerting_configuration_overview_narrative(SomMetaNode *n);
 static void meta_build_alerting_configuration_notification_channels(SomMetaNode *n);
@@ -1727,6 +1733,7 @@ static void meta_build_biometric_authentication_policy_biometric_details(SomMeta
 static void meta_build_boundary_assumption_entry_content(SomMetaNode *n);
 static void meta_build_boundary_assumption_entry_validation(SomMetaNode *n);
 static void meta_build_boundary_assumption_entry_risk(SomMetaNode *n);
+static void meta_build_boundary_assumptions_content(SomMetaNode *n);
 static void meta_build_boundary_assumptions_assumption_approach(SomMetaNode *n);
 static void meta_build_boundary_assumptions_items(SomMetaNode *n);
 static void meta_build_boundary_assumptions_items_elem(SomMetaNode *n);
@@ -1736,6 +1743,7 @@ static void meta_build_bounded_context_entry_scope(SomMetaNode *n);
 static void meta_build_bounded_context_entry_boundaries(SomMetaNode *n);
 static void meta_build_bounded_context_entry_implementation(SomMetaNode *n);
 static void meta_build_bounded_context_entry_integration(SomMetaNode *n);
+static void meta_build_breakpoint_configuration_content(SomMetaNode *n);
 static void meta_build_breakpoint_configuration_breakpoint_overview(SomMetaNode *n);
 static void meta_build_breakpoint_configuration_breakpoints(SomMetaNode *n);
 static void meta_build_breakpoint_configuration_breakpoints_elem(SomMetaNode *n);
@@ -1800,6 +1808,7 @@ static void meta_build_business_object_attribute_entry_content(SomMetaNode *n);
 static void meta_build_business_object_attribute_entry_definition(SomMetaNode *n);
 static void meta_build_business_object_attribute_entry_validation(SomMetaNode *n);
 static void meta_build_business_object_attribute_entry_governance(SomMetaNode *n);
+static void meta_build_business_object_entry_content(SomMetaNode *n);
 static void meta_build_business_object_entry_identity(SomMetaNode *n);
 static void meta_build_business_object_entry_domain_context(SomMetaNode *n);
 static void meta_build_business_object_entry_lifecycle_summary(SomMetaNode *n);
@@ -1841,6 +1850,7 @@ static void meta_build_business_process_descriptions_cross_process_analysis(SomM
 static void meta_build_business_process_descriptions_exception_handling(SomMetaNode *n);
 static void meta_build_business_process_descriptions_process_metrics_and_kpis(SomMetaNode *n);
 static void meta_build_business_process_descriptions_process_metrics_and_kpis_elem(SomMetaNode *n);
+static void meta_build_business_process_entry_content(SomMetaNode *n);
 static void meta_build_business_process_entry_identification(SomMetaNode *n);
 static void meta_build_business_process_entry_characteristics(SomMetaNode *n);
 static void meta_build_business_process_entry_triggers(SomMetaNode *n);
@@ -1851,6 +1861,7 @@ static void meta_build_business_process_entry_controls(SomMetaNode *n);
 static void meta_build_business_process_entry_technology(SomMetaNode *n);
 static void meta_build_business_process_entry_exceptions(SomMetaNode *n);
 static void meta_build_business_process_entry_process_flow_preview(SomMetaNode *n);
+static void meta_build_business_rule_entry_content(SomMetaNode *n);
 static void meta_build_business_rule_entry_identity(SomMetaNode *n);
 static void meta_build_business_rule_entry_classification(SomMetaNode *n);
 static void meta_build_business_rule_entry_rule_logic(SomMetaNode *n);
@@ -1935,6 +1946,7 @@ static void meta_build_change_process_roles_elem(SomMetaNode *n);
 static void meta_build_change_process_decision_criteria(SomMetaNode *n);
 static void meta_build_change_process_notification_rules(SomMetaNode *n);
 static void meta_build_change_process_notification_rules_elem(SomMetaNode *n);
+static void meta_build_change_readiness_assessment_content(SomMetaNode *n);
 static void meta_build_change_readiness_assessment_overview(SomMetaNode *n);
 static void meta_build_change_readiness_assessment_readiness_criteria(SomMetaNode *n);
 static void meta_build_change_readiness_assessment_readiness_criteria_elem(SomMetaNode *n);
@@ -1945,6 +1957,7 @@ static void meta_build_change_step_entry_artifacts(SomMetaNode *n);
 static void meta_build_change_step_entry_criteria(SomMetaNode *n);
 static void meta_build_change_step_entry_decision(SomMetaNode *n);
 static void meta_build_change_step_entry_subflow_diagram(SomMetaNode *n);
+static void meta_build_changed_role_competencies_content(SomMetaNode *n);
 static void meta_build_changed_role_competencies_new_competencies(SomMetaNode *n);
 static void meta_build_changed_role_competencies_new_competencies_elem(SomMetaNode *n);
 static void meta_build_changed_role_competencies_removed_competencies(SomMetaNode *n);
@@ -1952,6 +1965,7 @@ static void meta_build_changed_role_competencies_removed_competencies_elem(SomMe
 static void meta_build_changed_role_competencies_changed_levels(SomMetaNode *n);
 static void meta_build_changed_role_competencies_changed_levels_elem(SomMetaNode *n);
 static void meta_build_changed_role_competencies_gap_assessment(SomMetaNode *n);
+static void meta_build_changed_role_entry_content(SomMetaNode *n);
 static void meta_build_changed_role_entry_identification(SomMetaNode *n);
 static void meta_build_changed_role_entry_responsibilities(SomMetaNode *n);
 static void meta_build_changed_role_entry_competencies(SomMetaNode *n);
@@ -1961,6 +1975,7 @@ static void meta_build_changed_role_entry_transition(SomMetaNode *n);
 static void meta_build_changed_role_identification_content(SomMetaNode *n);
 static void meta_build_changed_role_identification_structure(SomMetaNode *n);
 static void meta_build_changed_role_identification_transition(SomMetaNode *n);
+static void meta_build_changed_role_responsibilities_content(SomMetaNode *n);
 static void meta_build_changed_role_responsibilities_added_responsibilities(SomMetaNode *n);
 static void meta_build_changed_role_responsibilities_added_responsibilities_elem(SomMetaNode *n);
 static void meta_build_changed_role_responsibilities_removed_responsibilities(SomMetaNode *n);
@@ -1971,6 +1986,7 @@ static void meta_build_changed_role_responsibilities_impact_summary(SomMetaNode 
 static void meta_build_changed_role_transition_content(SomMetaNode *n);
 static void meta_build_changed_role_transition_training(SomMetaNode *n);
 static void meta_build_changed_role_transition_support(SomMetaNode *n);
+static void meta_build_changes_from_current_structure_content(SomMetaNode *n);
 static void meta_build_changes_from_current_structure_overview_content(SomMetaNode *n);
 static void meta_build_changes_from_current_structure_change_narrative(SomMetaNode *n);
 static void meta_build_changes_from_current_structure_org_chart_comparison(SomMetaNode *n);
@@ -2092,6 +2108,7 @@ static void meta_build_communication_requirements_protocols_and_standards(SomMet
 static void meta_build_communication_requirements_external_connectivity(SomMetaNode *n);
 static void meta_build_communication_tools_requirements_content(SomMetaNode *n);
 static void meta_build_communication_type_entry_content(SomMetaNode *n);
+static void meta_build_compatibility_characteristic_content(SomMetaNode *n);
 static void meta_build_compatibility_characteristic_compatibility_content(SomMetaNode *n);
 static void meta_build_compatibility_characteristic_overview(SomMetaNode *n);
 static void meta_build_compatibility_requirements_section_content(SomMetaNode *n);
@@ -2116,6 +2133,7 @@ static void meta_build_compatibility_requirements_section_data_format_compatibil
 static void meta_build_compatibility_requirements_section_backwards_compatibility(SomMetaNode *n);
 static void meta_build_compatibility_requirements_section_interoperability(SomMetaNode *n);
 static void meta_build_competency_entry_content(SomMetaNode *n);
+static void meta_build_competency_framework_content(SomMetaNode *n);
 static void meta_build_competency_framework_overview(SomMetaNode *n);
 static void meta_build_competency_framework_core_competencies(SomMetaNode *n);
 static void meta_build_competency_framework_core_competencies_elem(SomMetaNode *n);
@@ -2179,6 +2197,7 @@ static void meta_build_component_interface_entry_security(SomMetaNode *n);
 static void meta_build_component_interface_entry_data(SomMetaNode *n);
 static void meta_build_component_interface_entry_sla(SomMetaNode *n);
 static void meta_build_component_interface_entry_operations(SomMetaNode *n);
+static void meta_build_component_library_content(SomMetaNode *n);
 static void meta_build_component_library_design_foundations(SomMetaNode *n);
 static void meta_build_component_library_design_foundations_elem(SomMetaNode *n);
 static void meta_build_component_library_colors(SomMetaNode *n);
@@ -2287,6 +2306,7 @@ static void meta_build_content_scanning_policy_content_scanning_details(SomMetaN
 static void meta_build_context_diagram_content(SomMetaNode *n);
 static void meta_build_context_diagram_diagram(SomMetaNode *n);
 static void meta_build_context_diagram_legend(SomMetaNode *n);
+static void meta_build_contextual_help_content(SomMetaNode *n);
 static void meta_build_contextual_help_contextual_help_content(SomMetaNode *n);
 static void meta_build_contextual_help_inline(SomMetaNode *n);
 static void meta_build_contextual_help_panels(SomMetaNode *n);
@@ -2621,6 +2641,7 @@ static void meta_build_data_architecture_consistency(SomMetaNode *n);
 static void meta_build_data_architecture_lifecycle(SomMetaNode *n);
 static void meta_build_data_architecture_security(SomMetaNode *n);
 static void meta_build_data_attribute_constraint_entry_content(SomMetaNode *n);
+static void meta_build_data_attribute_entry_content(SomMetaNode *n);
 static void meta_build_data_attribute_entry_identity(SomMetaNode *n);
 static void meta_build_data_attribute_entry_data_type_spec(SomMetaNode *n);
 static void meta_build_data_attribute_entry_text_type_options(SomMetaNode *n);
@@ -2636,9 +2657,11 @@ static void meta_build_data_attribute_entry_security_classification(SomMetaNode 
 static void meta_build_data_attribute_entry_migration_lineage(SomMetaNode *n);
 static void meta_build_data_attribute_entry_display_properties(SomMetaNode *n);
 static void meta_build_data_attribute_entry_display_properties_elem(SomMetaNode *n);
+static void meta_build_data_classification_content(SomMetaNode *n);
 static void meta_build_data_classification_overview(SomMetaNode *n);
 static void meta_build_data_classification_items(SomMetaNode *n);
 static void meta_build_data_classification_items_elem(SomMetaNode *n);
+static void meta_build_data_classification_entry_content(SomMetaNode *n);
 static void meta_build_data_classification_entry_identity(SomMetaNode *n);
 static void meta_build_data_classification_entry_storage_transmission(SomMetaNode *n);
 static void meta_build_data_classification_entry_access_control(SomMetaNode *n);
@@ -2660,6 +2683,7 @@ static void meta_build_data_duplication_entry_content(SomMetaNode *n);
 static void meta_build_data_duplication_entry_sources(SomMetaNode *n);
 static void meta_build_data_duplication_entry_synchronization(SomMetaNode *n);
 static void meta_build_data_duplication_entry_governance(SomMetaNode *n);
+static void meta_build_data_entity_entry_content(SomMetaNode *n);
 static void meta_build_data_entity_entry_identity(SomMetaNode *n);
 static void meta_build_data_entity_entry_classification(SomMetaNode *n);
 static void meta_build_data_entity_entry_lifecycle_policy(SomMetaNode *n);
@@ -3113,6 +3137,7 @@ static void meta_build_document_relevant_sections_sections_elem(SomMetaNode *n);
 static void meta_build_documentation_deliverables_content(SomMetaNode *n);
 static void meta_build_documentation_deliverables_items(SomMetaNode *n);
 static void meta_build_documentation_deliverables_items_elem(SomMetaNode *n);
+static void meta_build_documentation_quality_criteria_content(SomMetaNode *n);
 static void meta_build_documentation_quality_criteria_documentation_overview_content(SomMetaNode *n);
 static void meta_build_documentation_quality_criteria_overview(SomMetaNode *n);
 static void meta_build_documentation_quality_criteria_readability(SomMetaNode *n);
@@ -3208,6 +3233,7 @@ static void meta_build_entitlement_entry_resource_key_references(SomMetaNode *n)
 static void meta_build_entitlement_entry_resource_key_references_elem(SomMetaNode *n);
 static void meta_build_entitlement_reference_entry_content(SomMetaNode *n);
 static void meta_build_entity_constraint_entry_content(SomMetaNode *n);
+static void meta_build_entity_follow_up_entry_content(SomMetaNode *n);
 static void meta_build_entity_follow_up_entry_entity_ref(SomMetaNode *n);
 static void meta_build_entity_follow_up_entry_volume_metrics(SomMetaNode *n);
 static void meta_build_entity_follow_up_entry_volume_metrics_elem(SomMetaNode *n);
@@ -3218,6 +3244,7 @@ static void meta_build_entity_follow_up_entry_technical_characteristics_elem(Som
 static void meta_build_entity_follow_up_entry_migration_mappings(SomMetaNode *n);
 static void meta_build_entity_follow_up_entry_migration_mappings_elem(SomMetaNode *n);
 static void meta_build_entity_index_entry_content(SomMetaNode *n);
+static void meta_build_entity_relationship_entry_content(SomMetaNode *n);
 static void meta_build_entity_relationship_entry_identity(SomMetaNode *n);
 static void meta_build_entity_relationship_entry_participants(SomMetaNode *n);
 static void meta_build_entity_relationship_entry_participants_elem(SomMetaNode *n);
@@ -3259,6 +3286,7 @@ static void meta_build_environment_strategy_ephemeral(SomMetaNode *n);
 static void meta_build_environments_content(SomMetaNode *n);
 static void meta_build_environments_items(SomMetaNode *n);
 static void meta_build_environments_items_elem(SomMetaNode *n);
+static void meta_build_equipment_requirements_content(SomMetaNode *n);
 static void meta_build_equipment_requirements_overview(SomMetaNode *n);
 static void meta_build_equipment_requirements_primary_computing(SomMetaNode *n);
 static void meta_build_equipment_requirements_primary_computing_elem(SomMetaNode *n);
@@ -3279,6 +3307,7 @@ static void meta_build_error_code_entry_content(SomMetaNode *n);
 static void meta_build_error_code_registry_content(SomMetaNode *n);
 static void meta_build_error_code_registry_error_codes(SomMetaNode *n);
 static void meta_build_error_code_registry_error_codes_elem(SomMetaNode *n);
+static void meta_build_error_handling_content(SomMetaNode *n);
 static void meta_build_error_handling_error_philosophy_content(SomMetaNode *n);
 static void meta_build_error_handling_classification(SomMetaNode *n);
 static void meta_build_error_handling_accessibility(SomMetaNode *n);
@@ -3295,6 +3324,7 @@ static void meta_build_error_handling_standards_patterns(SomMetaNode *n);
 static void meta_build_error_handling_standards_reporting(SomMetaNode *n);
 static void meta_build_error_handling_standards_user_communication(SomMetaNode *n);
 static void meta_build_error_handling_standards_recovery(SomMetaNode *n);
+static void meta_build_error_recovery_content(SomMetaNode *n);
 static void meta_build_error_recovery_recovery_mechanisms_content(SomMetaNode *n);
 static void meta_build_error_recovery_data_preservation(SomMetaNode *n);
 static void meta_build_error_recovery_retry_mechanisms(SomMetaNode *n);
@@ -3405,6 +3435,7 @@ static void meta_build_external_connectivity_section_third_party_apis(SomMetaNod
 static void meta_build_external_connectivity_section_network_security(SomMetaNode *n);
 static void meta_build_external_connectivity_section_service_mesh_and_gateway(SomMetaNode *n);
 static void meta_build_external_connectivity_section_resilience(SomMetaNode *n);
+static void meta_build_external_interface_entry_content(SomMetaNode *n);
 static void meta_build_external_interface_entry_identification_content(SomMetaNode *n);
 static void meta_build_external_interface_entry_business_context(SomMetaNode *n);
 static void meta_build_external_interface_entry_technical_spec(SomMetaNode *n);
@@ -3414,6 +3445,7 @@ static void meta_build_external_interface_entry_operational(SomMetaNode *n);
 static void meta_build_external_interface_entry_error_handling(SomMetaNode *n);
 static void meta_build_external_interface_entry_governance(SomMetaNode *n);
 static void meta_build_external_interface_entry_testing(SomMetaNode *n);
+static void meta_build_external_interfaces_content(SomMetaNode *n);
 static void meta_build_external_interfaces_integration_summary(SomMetaNode *n);
 static void meta_build_external_interfaces_architecture_approach(SomMetaNode *n);
 static void meta_build_external_interfaces_governance_model(SomMetaNode *n);
@@ -3528,6 +3560,7 @@ static void meta_build_flexibility_modularity(SomMetaNode *n);
 static void meta_build_flexibility_deployment(SomMetaNode *n);
 static void meta_build_flexibility_extensibility(SomMetaNode *n);
 static void meta_build_flexibility_narrative(SomMetaNode *n);
+static void meta_build_flexibility_characteristic_content(SomMetaNode *n);
 static void meta_build_flexibility_characteristic_flexibility_content(SomMetaNode *n);
 static void meta_build_flexibility_characteristic_overview(SomMetaNode *n);
 static void meta_build_flexibility_characteristic_flexibility(SomMetaNode *n);
@@ -3551,6 +3584,7 @@ static void meta_build_function_entry_operations(SomMetaNode *n);
 static void meta_build_function_entry_implementation(SomMetaNode *n);
 static void meta_build_function_entry_sub_functions(SomMetaNode *n);
 static void meta_build_function_entry_sub_functions_elem(SomMetaNode *n);
+static void meta_build_function_model_content(SomMetaNode *n);
 static void meta_build_function_model_decomposition_overview(SomMetaNode *n);
 static void meta_build_function_model_matrix_overview(SomMetaNode *n);
 static void meta_build_function_model_functions(SomMetaNode *n);
@@ -3583,6 +3617,7 @@ static void meta_build_functional_responsibilities_content(SomMetaNode *n);
 static void meta_build_functional_responsibilities_matrix_overview(SomMetaNode *n);
 static void meta_build_functional_responsibilities_items(SomMetaNode *n);
 static void meta_build_functional_responsibilities_items_elem(SomMetaNode *n);
+static void meta_build_functional_suitability_characteristic_content(SomMetaNode *n);
 static void meta_build_functional_suitability_characteristic_functional_suitability_content(SomMetaNode *n);
 static void meta_build_functional_suitability_characteristic_overview(SomMetaNode *n);
 static void meta_build_functional_suitability_characteristic_functional_completeness(SomMetaNode *n);
@@ -3800,6 +3835,7 @@ static void meta_build_intellectual_property_requirements_content(SomMetaNode *n
 static void meta_build_intellectual_property_requirements_ownership_details(SomMetaNode *n);
 static void meta_build_intellectual_property_requirements_ownership_details_elem(SomMetaNode *n);
 static void meta_build_interaction_business_rules_content(SomMetaNode *n);
+static void meta_build_interaction_capability_characteristic_content(SomMetaNode *n);
 static void meta_build_interaction_capability_characteristic_interaction_capability_content(SomMetaNode *n);
 static void meta_build_interaction_capability_characteristic_overview(SomMetaNode *n);
 static void meta_build_interaction_capability_characteristic_usability(SomMetaNode *n);
@@ -3817,6 +3853,7 @@ static void meta_build_interaction_channel_entry_ux_specification(SomMetaNode *n
 static void meta_build_interaction_channel_entry_integrations(SomMetaNode *n);
 static void meta_build_interaction_channel_entry_integrations_elem(SomMetaNode *n);
 static void meta_build_interaction_dependency_analysis_content(SomMetaNode *n);
+static void meta_build_interaction_entry_content(SomMetaNode *n);
 static void meta_build_interaction_entry_identification(SomMetaNode *n);
 static void meta_build_interaction_entry_scope_context(SomMetaNode *n);
 static void meta_build_interaction_entry_stakeholders(SomMetaNode *n);
@@ -3942,6 +3979,7 @@ static void meta_build_it_standard_compliance_entry_requirements(SomMetaNode *n)
 static void meta_build_it_standard_compliance_entry_timeline(SomMetaNode *n);
 static void meta_build_it_standard_compliance_entry_ownership(SomMetaNode *n);
 static void meta_build_it_standard_compliance_entry_evidence(SomMetaNode *n);
+static void meta_build_job_descriptions_and_staffing_content(SomMetaNode *n);
 static void meta_build_job_descriptions_and_staffing_overview(SomMetaNode *n);
 static void meta_build_job_descriptions_and_staffing_new_roles(SomMetaNode *n);
 static void meta_build_job_descriptions_and_staffing_new_roles_elem(SomMetaNode *n);
@@ -3987,6 +4025,7 @@ static void meta_build_key_scenarios_scenarios_elem(SomMetaNode *n);
 static void meta_build_key_storage_policy_content(SomMetaNode *n);
 static void meta_build_key_storage_policy_notes(SomMetaNode *n);
 static void meta_build_knowledge_transfer_content(SomMetaNode *n);
+static void meta_build_language_country_selection_content(SomMetaNode *n);
 static void meta_build_language_country_selection_language_selection_content(SomMetaNode *n);
 static void meta_build_language_country_selection_defaults(SomMetaNode *n);
 static void meta_build_language_country_selection_persistence(SomMetaNode *n);
@@ -4045,6 +4084,7 @@ static void meta_build_local_development_setup_running(SomMetaNode *n);
 static void meta_build_local_development_setup_testing(SomMetaNode *n);
 static void meta_build_local_development_setup_troubleshooting(SomMetaNode *n);
 static void meta_build_locale_handling_requirements_content(SomMetaNode *n);
+static void meta_build_localization_process_content(SomMetaNode *n);
 static void meta_build_localization_process_localization_process_content(SomMetaNode *n);
 static void meta_build_localization_process_review(SomMetaNode *n);
 static void meta_build_localization_process_formatting(SomMetaNode *n);
@@ -4088,6 +4128,7 @@ static void meta_build_maintainability_changeability(SomMetaNode *n);
 static void meta_build_maintainability_testability(SomMetaNode *n);
 static void meta_build_maintainability_governance(SomMetaNode *n);
 static void meta_build_maintainability_narrative(SomMetaNode *n);
+static void meta_build_maintainability_characteristic_content(SomMetaNode *n);
 static void meta_build_maintainability_characteristic_maintainability_content(SomMetaNode *n);
 static void meta_build_maintainability_characteristic_overview(SomMetaNode *n);
 static void meta_build_maintainability_characteristic_maintainability(SomMetaNode *n);
@@ -4141,6 +4182,7 @@ static void meta_build_message_key_registry_content(SomMetaNode *n);
 static void meta_build_message_key_registry_message_keys(SomMetaNode *n);
 static void meta_build_message_key_registry_message_keys_elem(SomMetaNode *n);
 static void meta_build_message_locale_variant_entry_content(SomMetaNode *n);
+static void meta_build_metrics_and_observability_content(SomMetaNode *n);
 static void meta_build_metrics_and_observability_metrics_overview(SomMetaNode *n);
 static void meta_build_metrics_and_observability_overview_narrative(SomMetaNode *n);
 static void meta_build_metrics_and_observability_application_metrics(SomMetaNode *n);
@@ -4165,6 +4207,7 @@ static void meta_build_mfa_category_requirement_entry_timing(SomMetaNode *n);
 static void meta_build_mfa_category_requirement_entry_operations(SomMetaNode *n);
 static void meta_build_mfa_configuration_content(SomMetaNode *n);
 static void meta_build_mfa_configuration_mfa_details(SomMetaNode *n);
+static void meta_build_migration_considerations_content(SomMetaNode *n);
 static void meta_build_migration_considerations_strategy_content(SomMetaNode *n);
 static void meta_build_migration_considerations_strategy_narrative(SomMetaNode *n);
 static void meta_build_migration_considerations_resources(SomMetaNode *n);
@@ -4220,6 +4263,7 @@ static void meta_build_migration_risk_entry_history(SomMetaNode *n);
 static void meta_build_migration_risk_entry_analysis_narrative(SomMetaNode *n);
 static void meta_build_migration_risk_entry_mitigation_details(SomMetaNode *n);
 static void meta_build_migration_risk_indicators_content(SomMetaNode *n);
+static void meta_build_migration_risks_content(SomMetaNode *n);
 static void meta_build_migration_risks_governance_content(SomMetaNode *n);
 static void meta_build_migration_risks_governance(SomMetaNode *n);
 static void meta_build_migration_risks_assessment(SomMetaNode *n);
@@ -4263,6 +4307,7 @@ static void meta_build_module_versioning_strategy_compatibility(SomMetaNode *n);
 static void meta_build_module_versioning_strategy_release_management(SomMetaNode *n);
 static void meta_build_module_versioning_strategy_dependencies(SomMetaNode *n);
 static void meta_build_module_versioning_strategy_coordination(SomMetaNode *n);
+static void meta_build_monitoring_content(SomMetaNode *n);
 static void meta_build_monitoring_monitoring_overview(SomMetaNode *n);
 static void meta_build_monitoring_overview_narrative(SomMetaNode *n);
 static void meta_build_monitoring_health_checks_and_diagnostics(SomMetaNode *n);
@@ -4283,6 +4328,7 @@ static void meta_build_monitoring_and_alerting_section_dashboards(SomMetaNode *n
 static void meta_build_monitoring_and_alerting_section_on_call_procedures(SomMetaNode *n);
 static void meta_build_monitoring_and_alerting_section_incident_management(SomMetaNode *n);
 static void meta_build_monitoring_and_alerting_section_sla_monitoring(SomMetaNode *n);
+static void meta_build_monitoring_dashboards_content(SomMetaNode *n);
 static void meta_build_monitoring_dashboards_dashboard_overview(SomMetaNode *n);
 static void meta_build_monitoring_dashboards_overview_narrative(SomMetaNode *n);
 static void meta_build_monitoring_dashboards_dashboards(SomMetaNode *n);
@@ -4304,11 +4350,13 @@ static void meta_build_moscow_entry_stage_assignment(SomMetaNode *n);
 static void meta_build_moscow_entry_traceability(SomMetaNode *n);
 static void meta_build_multi_channel_experience_content(SomMetaNode *n);
 static void meta_build_multi_channel_experience_multi_channel_configuration(SomMetaNode *n);
+static void meta_build_multi_language_support_content(SomMetaNode *n);
 static void meta_build_multi_language_support_multi_language_overview(SomMetaNode *n);
 static void meta_build_multi_language_support_overview_narrative(SomMetaNode *n);
 static void meta_build_multi_language_support_language_country_selection(SomMetaNode *n);
 static void meta_build_multi_language_support_supported_locales(SomMetaNode *n);
 static void meta_build_multi_language_support_supported_locales_elem(SomMetaNode *n);
+static void meta_build_must_pass_criteria_content(SomMetaNode *n);
 static void meta_build_must_pass_criteria_must_pass_overview_content(SomMetaNode *n);
 static void meta_build_must_pass_criteria_overview(SomMetaNode *n);
 static void meta_build_must_pass_criteria_items(SomMetaNode *n);
@@ -4401,9 +4449,11 @@ static void meta_build_network_security_requirements_access(SomMetaNode *n);
 static void meta_build_network_security_requirements_monitoring(SomMetaNode *n);
 static void meta_build_network_security_requirements_ddos(SomMetaNode *n);
 static void meta_build_network_security_requirements_compliance(SomMetaNode *n);
+static void meta_build_new_organization_structure_content(SomMetaNode *n);
 static void meta_build_new_organization_structure_overview(SomMetaNode *n);
 static void meta_build_new_organization_structure_changes_from_current_structure(SomMetaNode *n);
 static void meta_build_new_organization_structure_transition_timeline(SomMetaNode *n);
+static void meta_build_new_role_entry_content(SomMetaNode *n);
 static void meta_build_new_role_entry_identification(SomMetaNode *n);
 static void meta_build_new_role_entry_organization(SomMetaNode *n);
 static void meta_build_new_role_entry_responsibilities(SomMetaNode *n);
@@ -4416,6 +4466,7 @@ static void meta_build_new_role_qualifications_credentials(SomMetaNode *n);
 static void meta_build_new_role_qualifications_screening(SomMetaNode *n);
 static void meta_build_new_role_qualifications_required_competencies(SomMetaNode *n);
 static void meta_build_new_role_qualifications_required_competencies_elem(SomMetaNode *n);
+static void meta_build_new_role_responsibilities_content(SomMetaNode *n);
 static void meta_build_new_role_responsibilities_primary_responsibilities(SomMetaNode *n);
 static void meta_build_new_role_responsibilities_primary_responsibilities_elem(SomMetaNode *n);
 static void meta_build_new_role_responsibilities_secondary_responsibilities(SomMetaNode *n);
@@ -4444,6 +4495,7 @@ static void meta_build_on_call_procedures_documentation(SomMetaNode *n);
 static void meta_build_on_call_schedule_config_content(SomMetaNode *n);
 static void meta_build_on_call_schedule_config_coverage(SomMetaNode *n);
 static void meta_build_on_call_schedule_config_operations(SomMetaNode *n);
+static void meta_build_onboarding_help_content(SomMetaNode *n);
 static void meta_build_onboarding_help_onboarding_content(SomMetaNode *n);
 static void meta_build_onboarding_help_tours(SomMetaNode *n);
 static void meta_build_onboarding_help_sample_data(SomMetaNode *n);
@@ -4457,6 +4509,7 @@ static void meta_build_ongoing_training_entry_content(SomMetaNode *n);
 static void meta_build_ongoing_training_entry_schedule(SomMetaNode *n);
 static void meta_build_ongoing_training_entry_content_management(SomMetaNode *n);
 static void meta_build_ongoing_training_entry_compliance(SomMetaNode *n);
+static void meta_build_operating_environment_content(SomMetaNode *n);
 static void meta_build_operating_environment_overview(SomMetaNode *n);
 static void meta_build_operating_environment_organizational_environment(SomMetaNode *n);
 static void meta_build_operating_environment_functional_responsibilities(SomMetaNode *n);
@@ -4504,6 +4557,7 @@ static void meta_build_organizational_context_content(SomMetaNode *n);
 static void meta_build_organizational_context_organizational_units(SomMetaNode *n);
 static void meta_build_organizational_context_organizational_units_elem(SomMetaNode *n);
 static void meta_build_organizational_context_business_process_coverage(SomMetaNode *n);
+static void meta_build_organizational_environment_content(SomMetaNode *n);
 static void meta_build_organizational_environment_organization_content(SomMetaNode *n);
 static void meta_build_organizational_environment_maturity(SomMetaNode *n);
 static void meta_build_organizational_environment_decision_making_context(SomMetaNode *n);
@@ -4517,6 +4571,7 @@ static void meta_build_organizational_environment_cultural_considerations(SomMet
 static void meta_build_organizational_environment_communication_preferences(SomMetaNode *n);
 static void meta_build_organizational_environment_political_landscape(SomMetaNode *n);
 static void meta_build_organizational_environment_change_advocates(SomMetaNode *n);
+static void meta_build_organizational_framework_content(SomMetaNode *n);
 static void meta_build_organizational_framework_overview(SomMetaNode *n);
 static void meta_build_organizational_framework_organization_structure(SomMetaNode *n);
 static void meta_build_organizational_framework_job_descriptions(SomMetaNode *n);
@@ -4533,6 +4588,7 @@ static void meta_build_organizational_requirements_content(SomMetaNode *n);
 static void meta_build_organizational_requirements_summary_form(SomMetaNode *n);
 static void meta_build_organizational_requirements_requirements(SomMetaNode *n);
 static void meta_build_organizational_requirements_requirements_elem(SomMetaNode *n);
+static void meta_build_organizational_transition_timeline_content(SomMetaNode *n);
 static void meta_build_organizational_transition_timeline_overview(SomMetaNode *n);
 static void meta_build_organizational_transition_timeline_phases(SomMetaNode *n);
 static void meta_build_organizational_transition_timeline_phases_elem(SomMetaNode *n);
@@ -4551,6 +4607,7 @@ static void meta_build_os_compatibility_entry_requirements(SomMetaNode *n);
 static void meta_build_os_compatibility_entry_testing(SomMetaNode *n);
 static void meta_build_os_compatibility_entry_lifecycle(SomMetaNode *n);
 static void meta_build_other_agreement_entry_content(SomMetaNode *n);
+static void meta_build_out_of_scope_content(SomMetaNode *n);
 static void meta_build_out_of_scope_scope_philosophy(SomMetaNode *n);
 static void meta_build_out_of_scope_items(SomMetaNode *n);
 static void meta_build_out_of_scope_items_elem(SomMetaNode *n);
@@ -4613,6 +4670,7 @@ static void meta_build_penetration_testing_requirements_content(SomMetaNode *n);
 static void meta_build_penetration_testing_requirements_scheduling(SomMetaNode *n);
 static void meta_build_penetration_testing_requirements_execution(SomMetaNode *n);
 static void meta_build_penetration_testing_requirements_reporting(SomMetaNode *n);
+static void meta_build_performance_efficiency_characteristic_content(SomMetaNode *n);
 static void meta_build_performance_efficiency_characteristic_performance_efficiency_content(SomMetaNode *n);
 static void meta_build_performance_efficiency_characteristic_overview(SomMetaNode *n);
 static void meta_build_performance_efficiency_characteristic_efficiency(SomMetaNode *n);
@@ -4739,6 +4797,7 @@ static void meta_build_process_adjustments_adjustment_summary(SomMetaNode *n);
 static void meta_build_process_adjustments_process_flow_diagram(SomMetaNode *n);
 static void meta_build_process_adjustments_items(SomMetaNode *n);
 static void meta_build_process_adjustments_items_elem(SomMetaNode *n);
+static void meta_build_process_catalog_content(SomMetaNode *n);
 static void meta_build_process_catalog_overview(SomMetaNode *n);
 static void meta_build_process_catalog_classification(SomMetaNode *n);
 static void meta_build_process_catalog_processes(SomMetaNode *n);
@@ -4749,11 +4808,13 @@ static void meta_build_process_characteristics_business(SomMetaNode *n);
 static void meta_build_process_control_entry_content(SomMetaNode *n);
 static void meta_build_process_control_entry_operation(SomMetaNode *n);
 static void meta_build_process_control_entry_verification(SomMetaNode *n);
+static void meta_build_process_controls_content(SomMetaNode *n);
 static void meta_build_process_controls_overview(SomMetaNode *n);
 static void meta_build_process_controls_controls(SomMetaNode *n);
 static void meta_build_process_controls_controls_elem(SomMetaNode *n);
 static void meta_build_process_dependency_entry_content(SomMetaNode *n);
 static void meta_build_process_design_principle_entry_content(SomMetaNode *n);
+static void meta_build_process_design_principles_content(SomMetaNode *n);
 static void meta_build_process_design_principles_overview(SomMetaNode *n);
 static void meta_build_process_design_principles_principles(SomMetaNode *n);
 static void meta_build_process_design_principles_principles_elem(SomMetaNode *n);
@@ -4762,6 +4823,7 @@ static void meta_build_process_exception_entry_content(SomMetaNode *n);
 static void meta_build_process_exception_entry_assessment(SomMetaNode *n);
 static void meta_build_process_exception_entry_response(SomMetaNode *n);
 static void meta_build_process_exception_handling_content(SomMetaNode *n);
+static void meta_build_process_exceptions_content(SomMetaNode *n);
 static void meta_build_process_exceptions_overview(SomMetaNode *n);
 static void meta_build_process_exceptions_exceptions(SomMetaNode *n);
 static void meta_build_process_exceptions_exceptions_elem(SomMetaNode *n);
@@ -4772,11 +4834,13 @@ static void meta_build_process_identification_governance(SomMetaNode *n);
 static void meta_build_process_improvement_entry_content(SomMetaNode *n);
 static void meta_build_process_improvement_entry_benefits(SomMetaNode *n);
 static void meta_build_process_improvement_entry_delivery(SomMetaNode *n);
+static void meta_build_process_improvement_summary_content(SomMetaNode *n);
 static void meta_build_process_improvement_summary_overview(SomMetaNode *n);
 static void meta_build_process_improvement_summary_improvements(SomMetaNode *n);
 static void meta_build_process_improvement_summary_improvements_elem(SomMetaNode *n);
 static void meta_build_process_improvement_summary_business_case(SomMetaNode *n);
 static void meta_build_process_input_entry_content(SomMetaNode *n);
+static void meta_build_process_inputs_outputs_content(SomMetaNode *n);
 static void meta_build_process_inputs_outputs_overview(SomMetaNode *n);
 static void meta_build_process_inputs_outputs_inputs(SomMetaNode *n);
 static void meta_build_process_inputs_outputs_inputs_elem(SomMetaNode *n);
@@ -4813,6 +4877,7 @@ static void meta_build_process_metrics_items(SomMetaNode *n);
 static void meta_build_process_metrics_items_elem(SomMetaNode *n);
 static void meta_build_process_metrics_baseline_table(SomMetaNode *n);
 static void meta_build_process_output_entry_content(SomMetaNode *n);
+static void meta_build_process_overview_diagram_content(SomMetaNode *n);
 static void meta_build_process_overview_diagram_overview(SomMetaNode *n);
 static void meta_build_process_overview_diagram_landscape_diagram(SomMetaNode *n);
 static void meta_build_process_overview_diagram_hierarchy_diagram(SomMetaNode *n);
@@ -4820,6 +4885,7 @@ static void meta_build_process_overview_diagram_value_chain_diagram(SomMetaNode 
 static void meta_build_process_pain_points_content(SomMetaNode *n);
 static void meta_build_process_pain_points_improvements(SomMetaNode *n);
 static void meta_build_process_pain_points_improvements_elem(SomMetaNode *n);
+static void meta_build_process_performance_content(SomMetaNode *n);
 static void meta_build_process_performance_overview(SomMetaNode *n);
 static void meta_build_process_performance_kpis(SomMetaNode *n);
 static void meta_build_process_performance_kpis_elem(SomMetaNode *n);
@@ -4835,6 +4901,7 @@ static void meta_build_process_relationships_relationships_elem(SomMetaNode *n);
 static void meta_build_process_role_entry_content(SomMetaNode *n);
 static void meta_build_process_role_entry_execution(SomMetaNode *n);
 static void meta_build_process_role_entry_coordination(SomMetaNode *n);
+static void meta_build_process_roles_content(SomMetaNode *n);
 static void meta_build_process_roles_overview(SomMetaNode *n);
 static void meta_build_process_roles_roles(SomMetaNode *n);
 static void meta_build_process_roles_roles_elem(SomMetaNode *n);
@@ -4859,11 +4926,13 @@ static void meta_build_process_technology_content(SomMetaNode *n);
 static void meta_build_process_technology_information(SomMetaNode *n);
 static void meta_build_process_technology_experience(SomMetaNode *n);
 static void meta_build_process_trigger_entry_content(SomMetaNode *n);
+static void meta_build_process_triggers_content(SomMetaNode *n);
 static void meta_build_process_triggers_overview(SomMetaNode *n);
 static void meta_build_process_triggers_triggers(SomMetaNode *n);
 static void meta_build_process_triggers_triggers_elem(SomMetaNode *n);
 static void meta_build_process_triggers_end_events(SomMetaNode *n);
 static void meta_build_process_triggers_end_events_elem(SomMetaNode *n);
+static void meta_build_process_vision_content(SomMetaNode *n);
 static void meta_build_process_vision_overview(SomMetaNode *n);
 static void meta_build_process_vision_vision_narrative(SomMetaNode *n);
 static void meta_build_process_vision_expected_improvements(SomMetaNode *n);
@@ -4906,6 +4975,7 @@ static void meta_build_protocols_and_standards_section_api_versioning(SomMetaNod
 static void meta_build_protocols_and_standards_section_message_formats(SomMetaNode *n);
 static void meta_build_protocols_and_standards_section_rate_limiting(SomMetaNode *n);
 static void meta_build_protocols_and_standards_section_compliance(SomMetaNode *n);
+static void meta_build_prototype_content(SomMetaNode *n);
 static void meta_build_prototype_prototype_overview(SomMetaNode *n);
 static void meta_build_prototype_timeline(SomMetaNode *n);
 static void meta_build_prototype_resources(SomMetaNode *n);
@@ -4916,6 +4986,7 @@ static void meta_build_prototype_feature_subset(SomMetaNode *n);
 static void meta_build_prototype_prototype_type(SomMetaNode *n);
 static void meta_build_prototype_prototype_schedule(SomMetaNode *n);
 static void meta_build_prototype_feature_entry_content(SomMetaNode *n);
+static void meta_build_prototype_feature_subset_content(SomMetaNode *n);
 static void meta_build_prototype_feature_subset_feature_subset_content(SomMetaNode *n);
 static void meta_build_prototype_feature_subset_scope(SomMetaNode *n);
 static void meta_build_prototype_feature_subset_fidelity(SomMetaNode *n);
@@ -4923,12 +4994,14 @@ static void meta_build_prototype_feature_subset_feature_narrative(SomMetaNode *n
 static void meta_build_prototype_feature_subset_features(SomMetaNode *n);
 static void meta_build_prototype_feature_subset_features_elem(SomMetaNode *n);
 static void meta_build_prototype_goal_entry_content(SomMetaNode *n);
+static void meta_build_prototype_goals_content(SomMetaNode *n);
 static void meta_build_prototype_goals_goals_content(SomMetaNode *n);
 static void meta_build_prototype_goals_risk_profile(SomMetaNode *n);
 static void meta_build_prototype_goals_feedback_profile(SomMetaNode *n);
 static void meta_build_prototype_goals_goals_narrative(SomMetaNode *n);
 static void meta_build_prototype_goals_goals(SomMetaNode *n);
 static void meta_build_prototype_goals_goals_elem(SomMetaNode *n);
+static void meta_build_prototype_type_content(SomMetaNode *n);
 static void meta_build_prototype_type_prototype_type_overview(SomMetaNode *n);
 static void meta_build_prototype_type_reusable_prototype(SomMetaNode *n);
 static void meta_build_prototype_type_training_prototype(SomMetaNode *n);
@@ -4948,6 +5021,7 @@ static void meta_build_quality_category_entry_relationships(SomMetaNode *n);
 static void meta_build_quality_category_entry_governance(SomMetaNode *n);
 static void meta_build_quality_category_entry_metrics(SomMetaNode *n);
 static void meta_build_quality_category_entry_category_details(SomMetaNode *n);
+static void meta_build_quality_framework_content(SomMetaNode *n);
 static void meta_build_quality_framework_framework_content(SomMetaNode *n);
 static void meta_build_quality_framework_objectives(SomMetaNode *n);
 static void meta_build_quality_framework_trade_offs(SomMetaNode *n);
@@ -4975,10 +5049,12 @@ static void meta_build_quality_gate_check_entry_verification(SomMetaNode *n);
 static void meta_build_quality_gate_check_entry_execution(SomMetaNode *n);
 static void meta_build_quality_gate_check_entry_status(SomMetaNode *n);
 static void meta_build_quality_gate_check_entry_blocking(SomMetaNode *n);
+static void meta_build_quality_gate_checklist_content(SomMetaNode *n);
 static void meta_build_quality_gate_checklist_checklist_overview_content(SomMetaNode *n);
 static void meta_build_quality_gate_checklist_overview(SomMetaNode *n);
 static void meta_build_quality_gate_checklist_items(SomMetaNode *n);
 static void meta_build_quality_gate_checklist_items_elem(SomMetaNode *n);
+static void meta_build_quality_prioritization_content(SomMetaNode *n);
 static void meta_build_quality_prioritization_prioritization_framework_content(SomMetaNode *n);
 static void meta_build_quality_prioritization_prioritization_overview(SomMetaNode *n);
 static void meta_build_quality_prioritization_weighted_quality_matrix(SomMetaNode *n);
@@ -5052,6 +5128,7 @@ static void meta_build_reliability_failover(SomMetaNode *n);
 static void meta_build_reliability_durability(SomMetaNode *n);
 static void meta_build_reliability_verification(SomMetaNode *n);
 static void meta_build_reliability_narrative(SomMetaNode *n);
+static void meta_build_reliability_characteristic_content(SomMetaNode *n);
 static void meta_build_reliability_characteristic_reliability_content(SomMetaNode *n);
 static void meta_build_reliability_characteristic_overview(SomMetaNode *n);
 static void meta_build_reliability_characteristic_reliability(SomMetaNode *n);
@@ -5064,6 +5141,7 @@ static void meta_build_removed_role_entry_content(SomMetaNode *n);
 static void meta_build_removed_role_entry_transition(SomMetaNode *n);
 static void meta_build_removed_role_entry_governance(SomMetaNode *n);
 static void meta_build_removed_role_entry_continuity(SomMetaNode *n);
+static void meta_build_replacement_inventory_content(SomMetaNode *n);
 static void meta_build_replacement_inventory_portfolio_summary(SomMetaNode *n);
 static void meta_build_replacement_inventory_prioritization_criteria(SomMetaNode *n);
 static void meta_build_replacement_inventory_systems(SomMetaNode *n);
@@ -5232,6 +5310,7 @@ static void meta_build_responsibility_entry_governance(SomMetaNode *n);
 static void meta_build_responsibility_function_details_content(SomMetaNode *n);
 static void meta_build_responsibility_reference_entry_content(SomMetaNode *n);
 static void meta_build_responsibility_systems_content(SomMetaNode *n);
+static void meta_build_responsive_behavior_content(SomMetaNode *n);
 static void meta_build_responsive_behavior_layout_adaptation(SomMetaNode *n);
 static void meta_build_responsive_behavior_navigation(SomMetaNode *n);
 static void meta_build_responsive_behavior_visibility(SomMetaNode *n);
@@ -5240,6 +5319,7 @@ static void meta_build_responsive_behavior_content_reflow(SomMetaNode *n);
 static void meta_build_responsive_behavior_behavior_narrative(SomMetaNode *n);
 static void meta_build_responsive_behavior_screen_rules(SomMetaNode *n);
 static void meta_build_responsive_behavior_screen_rules_elem(SomMetaNode *n);
+static void meta_build_responsive_design_content(SomMetaNode *n);
 static void meta_build_responsive_design_responsive_overview(SomMetaNode *n);
 static void meta_build_responsive_design_responsive_narrative(SomMetaNode *n);
 static void meta_build_responsive_design_breakpoint_config(SomMetaNode *n);
@@ -5273,6 +5353,7 @@ static void meta_build_reusable_components_section_third_party_libraries(SomMeta
 static void meta_build_reusable_components_section_third_party_libraries_elem(SomMetaNode *n);
 static void meta_build_reusable_components_section_governance(SomMetaNode *n);
 static void meta_build_reusable_components_section_registry(SomMetaNode *n);
+static void meta_build_reusable_prototype_content(SomMetaNode *n);
 static void meta_build_reusable_prototype_reusable_content(SomMetaNode *n);
 static void meta_build_reusable_prototype_architecture(SomMetaNode *n);
 static void meta_build_reusable_prototype_integration(SomMetaNode *n);
@@ -5295,6 +5376,7 @@ static void meta_build_revision_entry_content(SomMetaNode *n);
 static void meta_build_risk_business_impact_content(SomMetaNode *n);
 static void meta_build_risk_business_impact_stakeholders(SomMetaNode *n);
 static void meta_build_risk_business_impact_delivery(SomMetaNode *n);
+static void meta_build_risk_entry_content(SomMetaNode *n);
 static void meta_build_risk_entry_identification(SomMetaNode *n);
 static void meta_build_risk_entry_analysis(SomMetaNode *n);
 static void meta_build_risk_entry_response(SomMetaNode *n);
@@ -5313,6 +5395,7 @@ static void meta_build_risk_relationships_content(SomMetaNode *n);
 static void meta_build_risk_response_content(SomMetaNode *n);
 static void meta_build_risk_response_residual(SomMetaNode *n);
 static void meta_build_risk_response_implementation(SomMetaNode *n);
+static void meta_build_risks_and_assumptions_content(SomMetaNode *n);
 static void meta_build_risks_and_assumptions_overview(SomMetaNode *n);
 static void meta_build_risks_and_assumptions_key_risks(SomMetaNode *n);
 static void meta_build_risks_and_assumptions_key_risks_elem(SomMetaNode *n);
@@ -5399,6 +5482,7 @@ static void meta_build_scaling_triggers_and_thresholds_memory(SomMetaNode *n);
 static void meta_build_scaling_triggers_and_thresholds_request(SomMetaNode *n);
 static void meta_build_scaling_triggers_and_thresholds_behavior(SomMetaNode *n);
 static void meta_build_scaling_triggers_and_thresholds_type(SomMetaNode *n);
+static void meta_build_scenario_entry_content(SomMetaNode *n);
 static void meta_build_scenario_entry_identification(SomMetaNode *n);
 static void meta_build_scenario_entry_context(SomMetaNode *n);
 static void meta_build_scenario_entry_steps(SomMetaNode *n);
@@ -5569,6 +5653,7 @@ static void meta_build_security_certification_requirements_iso27001(SomMetaNode 
 static void meta_build_security_certification_requirements_soc2(SomMetaNode *n);
 static void meta_build_security_certification_requirements_industry(SomMetaNode *n);
 static void meta_build_security_certification_requirements_maintenance(SomMetaNode *n);
+static void meta_build_security_characteristic_content(SomMetaNode *n);
 static void meta_build_security_characteristic_security_content(SomMetaNode *n);
 static void meta_build_security_characteristic_overview(SomMetaNode *n);
 static void meta_build_security_characteristic_security(SomMetaNode *n);
@@ -5761,6 +5846,7 @@ static void meta_build_single_sign_on_policy_session(SomMetaNode *n);
 static void meta_build_single_sign_on_policy_access(SomMetaNode *n);
 static void meta_build_single_sign_on_policy_operations(SomMetaNode *n);
 static void meta_build_single_sign_on_policy_sso_details(SomMetaNode *n);
+static void meta_build_sla_and_slo_monitoring_content(SomMetaNode *n);
 static void meta_build_sla_and_slo_monitoring_sla_overview(SomMetaNode *n);
 static void meta_build_sla_and_slo_monitoring_overview_narrative(SomMetaNode *n);
 static void meta_build_sla_and_slo_monitoring_slis(SomMetaNode *n);
@@ -5805,6 +5891,7 @@ static void meta_build_staffing_entry_organization(SomMetaNode *n);
 static void meta_build_staffing_entry_capacity(SomMetaNode *n);
 static void meta_build_staffing_entry_recruitment(SomMetaNode *n);
 static void meta_build_staffing_entry_ownership(SomMetaNode *n);
+static void meta_build_staffing_plan_content(SomMetaNode *n);
 static void meta_build_staffing_plan_overview(SomMetaNode *n);
 static void meta_build_staffing_plan_budget(SomMetaNode *n);
 static void meta_build_staffing_plan_items(SomMetaNode *n);
@@ -5983,6 +6070,7 @@ static void meta_build_success_criteria_items_elem(SomMetaNode *n);
 static void meta_build_success_criteria_by_category(SomMetaNode *n);
 static void meta_build_success_criteria_success_criteria_matrix(SomMetaNode *n);
 static void meta_build_success_criteria_post_implementation_review(SomMetaNode *n);
+static void meta_build_success_criteria_by_category_content(SomMetaNode *n);
 static void meta_build_success_criteria_by_category_business_criteria(SomMetaNode *n);
 static void meta_build_success_criteria_by_category_technical_criteria(SomMetaNode *n);
 static void meta_build_success_criteria_by_category_user_criteria(SomMetaNode *n);
@@ -5997,6 +6085,7 @@ static void meta_build_success_criterion_entry_relationships(SomMetaNode *n);
 static void meta_build_success_criterion_entry_relationships_elem(SomMetaNode *n);
 static void meta_build_success_criterion_entry_status(SomMetaNode *n);
 static void meta_build_success_criterion_relationships_content(SomMetaNode *n);
+static void meta_build_support_access_content(SomMetaNode *n);
 static void meta_build_support_access_support_access_content(SomMetaNode *n);
 static void meta_build_support_access_help_center(SomMetaNode *n);
 static void meta_build_support_access_live_support(SomMetaNode *n);
@@ -6011,6 +6100,7 @@ static void meta_build_supported_locale_entry_content(SomMetaNode *n);
 static void meta_build_supported_locale_entry_formatting(SomMetaNode *n);
 static void meta_build_supported_locale_entry_rollout(SomMetaNode *n);
 static void meta_build_system_architecture_spec_content(SomMetaNode *n);
+static void meta_build_system_boundaries_content(SomMetaNode *n);
 static void meta_build_system_boundaries_overview(SomMetaNode *n);
 static void meta_build_system_boundaries_external_interfaces(SomMetaNode *n);
 static void meta_build_system_boundaries_out_of_scope(SomMetaNode *n);
@@ -6083,6 +6173,7 @@ static void meta_build_system_diagnostic_tools_self_service(SomMetaNode *n);
 static void meta_build_system_error_code_entry_content(SomMetaNode *n);
 static void meta_build_system_error_code_entry_handling(SomMetaNode *n);
 static void meta_build_system_error_code_entry_operations(SomMetaNode *n);
+static void meta_build_system_error_display_content(SomMetaNode *n);
 static void meta_build_system_error_display_system_error_content(SomMetaNode *n);
 static void meta_build_system_error_display_error_types(SomMetaNode *n);
 static void meta_build_system_error_display_display_methods(SomMetaNode *n);
@@ -6131,6 +6222,7 @@ static void meta_build_system_purpose_stakeholders(SomMetaNode *n);
 static void meta_build_system_purpose_value_proposition(SomMetaNode *n);
 static void meta_build_system_purpose_strategic_alignment(SomMetaNode *n);
 static void meta_build_system_purpose_scope_boundaries(SomMetaNode *n);
+static void meta_build_system_quality_goals_content(SomMetaNode *n);
 static void meta_build_system_quality_goals_governance_content(SomMetaNode *n);
 static void meta_build_system_quality_goals_governance(SomMetaNode *n);
 static void meta_build_system_quality_goals_baseline(SomMetaNode *n);
@@ -6201,6 +6293,7 @@ static void meta_build_system_technical_assessment_lifecycle(SomMetaNode *n);
 static void meta_build_system_technical_assessment_quality(SomMetaNode *n);
 static void meta_build_system_technical_assessment_known_issues(SomMetaNode *n);
 static void meta_build_system_technical_assessment_security_concerns(SomMetaNode *n);
+static void meta_build_system_to_replace_entry_content(SomMetaNode *n);
 static void meta_build_system_to_replace_entry_identification_content(SomMetaNode *n);
 static void meta_build_system_to_replace_entry_profile(SomMetaNode *n);
 static void meta_build_system_to_replace_entry_vendor(SomMetaNode *n);
@@ -6224,6 +6317,7 @@ static void meta_build_system_user_impact_enablement(SomMetaNode *n);
 static void meta_build_system_user_impact_adoption(SomMetaNode *n);
 static void meta_build_system_user_impact_user_groups(SomMetaNode *n);
 static void meta_build_system_user_impact_user_groups_elem(SomMetaNode *n);
+static void meta_build_systems_to_replace_content(SomMetaNode *n);
 static void meta_build_systems_to_replace_overview(SomMetaNode *n);
 static void meta_build_systems_to_replace_replacement_inventory(SomMetaNode *n);
 static void meta_build_systems_to_replace_migration_considerations(SomMetaNode *n);
@@ -6260,6 +6354,7 @@ static void meta_build_team_structure_overview_team_diagram(SomMetaNode *n);
 static void meta_build_technical_characteristic_entry_content(SomMetaNode *n);
 static void meta_build_technical_constraint_entry_content(SomMetaNode *n);
 static void meta_build_technical_dependency_entry_content(SomMetaNode *n);
+static void meta_build_technical_environment_content(SomMetaNode *n);
 static void meta_build_technical_environment_technical_overview_content(SomMetaNode *n);
 static void meta_build_technical_environment_governance(SomMetaNode *n);
 static void meta_build_technical_environment_standards(SomMetaNode *n);
@@ -6309,6 +6404,7 @@ static void meta_build_technical_goal_test_criteria_items_elem(SomMetaNode *n);
 static void meta_build_technical_goals_content(SomMetaNode *n);
 static void meta_build_technical_goals_goals(SomMetaNode *n);
 static void meta_build_technical_goals_goals_elem(SomMetaNode *n);
+static void meta_build_technical_infrastructure_content(SomMetaNode *n);
 static void meta_build_technical_infrastructure_network_connectivity(SomMetaNode *n);
 static void meta_build_technical_infrastructure_software_requirements(SomMetaNode *n);
 static void meta_build_technical_infrastructure_remote_access(SomMetaNode *n);
@@ -6394,6 +6490,7 @@ static void meta_build_third_party_library_entry_license_info(SomMetaNode *n);
 static void meta_build_third_party_library_entry_risk(SomMetaNode *n);
 static void meta_build_third_party_library_entry_usage(SomMetaNode *n);
 static void meta_build_third_party_library_entry_monitoring(SomMetaNode *n);
+static void meta_build_throwaway_prototype_content(SomMetaNode *n);
 static void meta_build_throwaway_prototype_throwaway_content(SomMetaNode *n);
 static void meta_build_throwaway_prototype_findings(SomMetaNode *n);
 static void meta_build_throwaway_prototype_disposition(SomMetaNode *n);
@@ -6442,6 +6539,7 @@ static void meta_build_trade_off_decision_entry_impact(SomMetaNode *n);
 static void meta_build_trade_off_decision_entry_mitigation(SomMetaNode *n);
 static void meta_build_trade_off_decision_entry_approval(SomMetaNode *n);
 static void meta_build_trade_off_decision_entry_detailed_analysis(SomMetaNode *n);
+static void meta_build_trade_off_decisions_content(SomMetaNode *n);
 static void meta_build_trade_off_decisions_trade_off_governance_content(SomMetaNode *n);
 static void meta_build_trade_off_decisions_trade_off_overview(SomMetaNode *n);
 static void meta_build_trade_off_decisions_items(SomMetaNode *n);
@@ -6450,6 +6548,7 @@ static void meta_build_training_assessment_content(SomMetaNode *n);
 static void meta_build_training_assessment_effectiveness(SomMetaNode *n);
 static void meta_build_training_assessment_improvement(SomMetaNode *n);
 static void meta_build_training_assessment_reporting(SomMetaNode *n);
+static void meta_build_training_deliverable_requirements_content(SomMetaNode *n);
 static void meta_build_training_deliverable_requirements_training_content(SomMetaNode *n);
 static void meta_build_training_deliverable_requirements_training_narrative(SomMetaNode *n);
 static void meta_build_training_deliverable_requirements_training_modules(SomMetaNode *n);
@@ -6464,10 +6563,12 @@ static void meta_build_training_materials_practice(SomMetaNode *n);
 static void meta_build_training_materials_knowledge(SomMetaNode *n);
 static void meta_build_training_materials_operations(SomMetaNode *n);
 static void meta_build_training_module_entry_content(SomMetaNode *n);
+static void meta_build_training_prototype_content(SomMetaNode *n);
 static void meta_build_training_prototype_training_content(SomMetaNode *n);
 static void meta_build_training_prototype_disposition(SomMetaNode *n);
 static void meta_build_training_prototype_outputs(SomMetaNode *n);
 static void meta_build_training_prototype_training_narrative(SomMetaNode *n);
+static void meta_build_training_requirements_content(SomMetaNode *n);
 static void meta_build_training_requirements_overview(SomMetaNode *n);
 static void meta_build_training_requirements_initial_training(SomMetaNode *n);
 static void meta_build_training_requirements_initial_training_elem(SomMetaNode *n);
@@ -6481,6 +6582,7 @@ static void meta_build_training_requirements_training_materials(SomMetaNode *n);
 static void meta_build_training_requirements_assessment(SomMetaNode *n);
 static void meta_build_training_topic_entry_content(SomMetaNode *n);
 static void meta_build_transition_communication_channels_content(SomMetaNode *n);
+static void meta_build_transition_communication_plan_content(SomMetaNode *n);
 static void meta_build_transition_communication_plan_strategy(SomMetaNode *n);
 static void meta_build_transition_communication_plan_communication_events(SomMetaNode *n);
 static void meta_build_transition_communication_plan_communication_events_elem(SomMetaNode *n);
@@ -6498,6 +6600,7 @@ static void meta_build_transition_overview_content(SomMetaNode *n);
 static void meta_build_transition_overview_timeline(SomMetaNode *n);
 static void meta_build_transition_overview_governance(SomMetaNode *n);
 static void meta_build_transition_phase_activities_content(SomMetaNode *n);
+static void meta_build_transition_phase_entry_content(SomMetaNode *n);
 static void meta_build_transition_phase_entry_identification(SomMetaNode *n);
 static void meta_build_transition_phase_entry_activities(SomMetaNode *n);
 static void meta_build_transition_phase_entry_activities_elem(SomMetaNode *n);
@@ -6511,15 +6614,18 @@ static void meta_build_transition_phase_stakeholders_content(SomMetaNode *n);
 static void meta_build_transition_risk_entry_content(SomMetaNode *n);
 static void meta_build_transition_risk_entry_assessment(SomMetaNode *n);
 static void meta_build_transition_risk_entry_response(SomMetaNode *n);
+static void meta_build_transition_success_metrics_content(SomMetaNode *n);
 static void meta_build_transition_success_metrics_overview(SomMetaNode *n);
 static void meta_build_transition_success_metrics_metrics(SomMetaNode *n);
 static void meta_build_transition_success_metrics_metrics_elem(SomMetaNode *n);
 static void meta_build_transition_support_resource_entry_content(SomMetaNode *n);
+static void meta_build_transition_support_structure_content(SomMetaNode *n);
 static void meta_build_transition_support_structure_overview(SomMetaNode *n);
 static void meta_build_transition_support_structure_support_resources(SomMetaNode *n);
 static void meta_build_transition_support_structure_support_resources_elem(SomMetaNode *n);
 static void meta_build_transition_support_structure_escalation_paths(SomMetaNode *n);
 static void meta_build_transition_support_structure_escalation_paths_elem(SomMetaNode *n);
+static void meta_build_translation_process_content(SomMetaNode *n);
 static void meta_build_translation_process_translation_process_content(SomMetaNode *n);
 static void meta_build_translation_process_workflow(SomMetaNode *n);
 static void meta_build_translation_process_quality(SomMetaNode *n);
@@ -6528,6 +6634,7 @@ static void meta_build_translation_process_ongoing(SomMetaNode *n);
 static void meta_build_translation_process_translation_narrative(SomMetaNode *n);
 static void meta_build_translation_process_vendors(SomMetaNode *n);
 static void meta_build_translation_process_vendors_elem(SomMetaNode *n);
+static void meta_build_translation_requirements_content(SomMetaNode *n);
 static void meta_build_translation_requirements_translation_requirements_content(SomMetaNode *n);
 static void meta_build_translation_requirements_rtl(SomMetaNode *n);
 static void meta_build_translation_requirements_formatting(SomMetaNode *n);
@@ -6552,6 +6659,7 @@ static void meta_build_uat_test_cycle_entry_content(SomMetaNode *n);
 static void meta_build_uat_test_cycle_entry_scope(SomMetaNode *n);
 static void meta_build_uat_test_cycle_entry_execution(SomMetaNode *n);
 static void meta_build_uat_test_step_entry_content(SomMetaNode *n);
+static void meta_build_ui_component_entry_content(SomMetaNode *n);
 static void meta_build_ui_component_entry_identity(SomMetaNode *n);
 static void meta_build_ui_component_entry_purpose_profile(SomMetaNode *n);
 static void meta_build_ui_component_entry_classification(SomMetaNode *n);
@@ -6580,6 +6688,7 @@ static void meta_build_ui_component_entry_slots(SomMetaNode *n);
 static void meta_build_ui_component_entry_slots_elem(SomMetaNode *n);
 static void meta_build_ui_component_entry_properties(SomMetaNode *n);
 static void meta_build_ui_component_entry_properties_elem(SomMetaNode *n);
+static void meta_build_ui_components_content(SomMetaNode *n);
 static void meta_build_ui_components_component_library_overview(SomMetaNode *n);
 static void meta_build_ui_components_visual_language(SomMetaNode *n);
 static void meta_build_ui_components_component_approach(SomMetaNode *n);
@@ -6628,6 +6737,7 @@ static void meta_build_user_accessibility_needs_content(SomMetaNode *n);
 static void meta_build_user_accessibility_needs_accessibility_form(SomMetaNode *n);
 static void meta_build_user_account_states_definition_content(SomMetaNode *n);
 static void meta_build_user_account_states_definition_state_transition_diagram(SomMetaNode *n);
+static void meta_build_user_assistance_content(SomMetaNode *n);
 static void meta_build_user_assistance_help_overview_content(SomMetaNode *n);
 static void meta_build_user_assistance_delivery(SomMetaNode *n);
 static void meta_build_user_assistance_insights(SomMetaNode *n);
@@ -6664,6 +6774,7 @@ static void meta_build_user_category_entry_access_permissions(SomMetaNode *n);
 static void meta_build_user_category_entry_training_requirements(SomMetaNode *n);
 static void meta_build_user_category_entry_accessibility_needs(SomMetaNode *n);
 static void meta_build_user_category_entry_user_journey(SomMetaNode *n);
+static void meta_build_user_documentation_requirements_content(SomMetaNode *n);
 static void meta_build_user_documentation_requirements_documentation_content(SomMetaNode *n);
 static void meta_build_user_documentation_requirements_deliverables(SomMetaNode *n);
 static void meta_build_user_documentation_requirements_localization(SomMetaNode *n);
@@ -6756,6 +6867,7 @@ static void meta_build_utility_navigation_item_entry_behavior(SomMetaNode *n);
 static void meta_build_utility_navigation_item_entry_menu_items(SomMetaNode *n);
 static void meta_build_utility_navigation_item_entry_menu_items_elem(SomMetaNode *n);
 static void meta_build_validation_constraints_content(SomMetaNode *n);
+static void meta_build_validation_feedback_content(SomMetaNode *n);
 static void meta_build_validation_feedback_validation_display_content(SomMetaNode *n);
 static void meta_build_validation_feedback_placement(SomMetaNode *n);
 static void meta_build_validation_feedback_messages(SomMetaNode *n);
@@ -6802,6 +6914,7 @@ static void meta_build_warranty_terms_process(SomMetaNode *n);
 static void meta_build_warranty_terms_transition(SomMetaNode *n);
 static void meta_build_warranty_terms_financial(SomMetaNode *n);
 static void meta_build_warranty_terms_warranty_narrative(SomMetaNode *n);
+static void meta_build_wcag_compliance_content(SomMetaNode *n);
 static void meta_build_wcag_compliance_wcag_compliance_content(SomMetaNode *n);
 static void meta_build_wcag_compliance_operable(SomMetaNode *n);
 static void meta_build_wcag_compliance_understandable(SomMetaNode *n);
@@ -6810,6 +6923,7 @@ static void meta_build_wcag_compliance_wcag_narrative(SomMetaNode *n);
 static void meta_build_wcag_compliance_success_criteria(SomMetaNode *n);
 static void meta_build_wcag_compliance_success_criteria_elem(SomMetaNode *n);
 static void meta_build_wcag_success_criterion_entry_content(SomMetaNode *n);
+static void meta_build_weighted_quality_matrix_content(SomMetaNode *n);
 static void meta_build_weighted_quality_matrix_matrix_config_content(SomMetaNode *n);
 static void meta_build_weighted_quality_matrix_matrix_narrative(SomMetaNode *n);
 static void meta_build_weighted_quality_matrix_weights(SomMetaNode *n);
@@ -6844,6 +6958,7 @@ static void meta_build_workflow_step_entry_business_rules_elem(SomMetaNode *n);
 static void meta_build_workflow_step_entry_known_issues(SomMetaNode *n);
 static void meta_build_workflow_step_entry_known_issues_elem(SomMetaNode *n);
 static void meta_build_workflow_step_issue_content(SomMetaNode *n);
+static void meta_build_workflow_step_system_content(SomMetaNode *n);
 static void meta_build_workflow_step_system_name(SomMetaNode *n);
 static void meta_build_workflow_summary_entry_content(SomMetaNode *n);
 static void meta_build_workflow_summary_table_content(SomMetaNode *n);
@@ -6853,6 +6968,7 @@ static void meta_build_workflow_trigger_entry_content(SomMetaNode *n);
 static void meta_build_workflow_triggers_content(SomMetaNode *n);
 static void meta_build_workflow_triggers_triggers(SomMetaNode *n);
 static void meta_build_workflow_triggers_triggers_elem(SomMetaNode *n);
+static void meta_build_workplace_description_entry_content(SomMetaNode *n);
 static void meta_build_workplace_description_entry_user_category(SomMetaNode *n);
 static void meta_build_workplace_description_entry_physical_requirements(SomMetaNode *n);
 static void meta_build_workplace_description_entry_equipment_requirements(SomMetaNode *n);
@@ -11941,6 +12057,18 @@ static void meta_build_acceptance_criteria_list_items_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "An acceptance criterion entry (form).\n\nA single criterion that must be met for formal project acceptance.\nAligned with IEEE 830 acceptance criteria structure and ISTQB\nacceptance test design.");
   meta_set(&n->class_doc_comment, "An acceptance criterion entry (form).\n\nA single criterion that must be met for formal project acceptance.\nAligned with IEEE 830 acceptance criteria structure and ISTQB\nacceptance test design.");
 }
+static void meta_build_acceptance_criteria_summary_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "AcceptanceCriteriaSummary");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the acceptance framework before the must-pass, quality-gate and detailed-criteria subsections below. Cover who accepts, and on what evidence.");
+}
 static void meta_build_acceptance_criteria_summary_acceptance_framework_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AcceptanceCriteriaSummary");
   meta_set(&n->member_name, "acceptanceFrameworkContent");
@@ -11948,7 +12076,7 @@ static void meta_build_acceptance_criteria_summary_acceptance_framework_content(
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -12001,7 +12129,7 @@ static void meta_build_acceptance_criteria_summary_acceptance_overview(SomMetaNo
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -12015,7 +12143,7 @@ static void meta_build_acceptance_criteria_summary_must_pass_criteria(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MustPassCriteria");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.7.1. Must-Pass Criteria.");
   meta_set(&n->class_doc_comment, "11.7.1. Must-Pass Criteria.\n\nCriteria that must be met for the system to be accepted.");
 }
@@ -12026,7 +12154,7 @@ static void meta_build_acceptance_criteria_summary_quality_gate_checklist(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "QualityGateChecklist");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "11.7.2. Quality Gate Checklist.");
   meta_set(&n->class_doc_comment, "11.7.2. Quality Gate Checklist.\n\nQuality gate checklist used during acceptance.");
 }
@@ -12037,7 +12165,7 @@ static void meta_build_acceptance_criteria_summary_detailed_criteria(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AcceptanceCriteriaList");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Canonical, enumerated acceptance criteria (SR-54 explicit link).\n\nThe single source of truth for the full set of traceable acceptance\ncriteria; this summary references — rather than duplicates — it. The same\n[AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.");
   meta_set(&n->class_doc_comment, "14.2.1. Acceptance Criteria.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -12048,7 +12176,7 @@ static void meta_build_acceptance_criteria_summary_acceptance_test_summary(SomMe
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -13037,6 +13165,18 @@ static void meta_build_access_user_categories_items_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A user category definition (form).");
   meta_set(&n->class_doc_comment, "A user category definition (form).");
 }
+static void meta_build_accessibility_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "Accessibility");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the accessibility commitment before the WCAG, checklist, keyboard and screen-reader subsections below. Cover the target conformance level and who verifies it.");
+}
 static void meta_build_accessibility_accessibility_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "Accessibility");
   meta_set(&n->member_name, "accessibilityOverviewContent");
@@ -13044,7 +13184,7 @@ static void meta_build_accessibility_accessibility_overview_content(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -13080,7 +13220,7 @@ static void meta_build_accessibility_strategy(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Ownership and inclusive design philosophy.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -13115,7 +13255,7 @@ static void meta_build_accessibility_testing(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Accessibility testing approach.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -13156,7 +13296,7 @@ static void meta_build_accessibility_support(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Supported assistive technologies and platform features.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -13184,7 +13324,7 @@ static void meta_build_accessibility_accessibility_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -13198,7 +13338,7 @@ static void meta_build_accessibility_wcag_compliance_level(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WcagCompliance");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "10.9.1. WCAG Compliance Level.");
   meta_set(&n->class_doc_comment, "10.9.1. WCAG Compliance Level.");
 }
@@ -13209,7 +13349,7 @@ static void meta_build_accessibility_accessibility_checklist(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AccessibilityChecklist");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "10.9.2. Accessibility Checklist.");
   meta_set(&n->class_doc_comment, "10.9.2. Accessibility Checklist.\n\nComprehensive accessibility verification checklist.");
 }
@@ -13219,7 +13359,7 @@ static void meta_build_accessibility_keyboard_navigation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -13232,7 +13372,7 @@ static void meta_build_accessibility_screen_reader_support(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -13245,7 +13385,7 @@ static void meta_build_accessibility_color_and_contrast(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -13392,6 +13532,18 @@ static void meta_build_accessibility_check_entry_remediation(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"W3C WCAG 2.2 — accessibility conformance failures are documented and remediated to meet the success criteria\",\"EN 301 549 — the interactive product records and resolves accessibility non-conformances\"],\"connotation\":\"The record of accessibility issues found during checking and the plan to remediate them.\"}", NULL);
 }
+static void meta_build_accessibility_checklist_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "AccessibilityChecklist");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the verification checklist before the individual items below. Cover when the checklist is run and who signs it off.");
+}
 static void meta_build_accessibility_checklist_checklist_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessibilityChecklist");
   meta_set(&n->member_name, "checklistOverviewContent");
@@ -13399,7 +13551,7 @@ static void meta_build_accessibility_checklist_checklist_overview_content(SomMet
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -13458,7 +13610,7 @@ static void meta_build_accessibility_checklist_checklist_overview(SomMetaNode *n
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -13472,7 +13624,7 @@ static void meta_build_accessibility_checklist_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AccessibilityCheckEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per accessibility check.");
   meta_set(&n->doc_comment, "Contains 0+× AccessibilityCheck.");
   n->extra_len = 1;
@@ -13924,6 +14076,18 @@ static void meta_build_actor_characteristics_support(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 — stakeholder & actor analysis\",\"ISO/IEC/IEEE 29148 §6 — stakeholders & operational context\"],\"connotation\":\"Records how an actor is supervised and reached, and the language and accessibility accommodations they require.\"}", NULL);
 }
+static void meta_build_actor_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ActorEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this actor — their working context, motivation and constraints, beyond the characteristics, goals and permissions recorded below.");
+}
 static void meta_build_actor_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "ActorEntry");
   meta_set(&n->member_name, "identification");
@@ -13931,7 +14095,7 @@ static void meta_build_actor_entry_identification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Actor identification.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -13990,7 +14154,7 @@ static void meta_build_actor_entry_characteristics(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ActorCharacteristics");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Actor characteristics.");
   meta_set(&n->class_doc_comment, "Actor characteristics.");
 }
@@ -14002,7 +14166,7 @@ static void meta_build_actor_entry_goals(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ActorGoals");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per actor goal.");
   meta_set(&n->doc_comment, "Actor goals (Cockburn style).");
   n->extra_len = 1;
@@ -14026,7 +14190,7 @@ static void meta_build_actor_entry_permissions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ActorPermissions");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per actor permission set.");
   meta_set(&n->doc_comment, "Actor permissions and access.");
   n->extra_len = 1;
@@ -14049,7 +14213,7 @@ static void meta_build_actor_entry_technology(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Actor technology profile.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
@@ -14120,7 +14284,7 @@ static void meta_build_actor_entry_interactions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Actor interactions summary.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -14434,6 +14598,18 @@ static void meta_build_actor_permissions_content(SomMetaNode *n) {
   n->form->fields[7].hint = som_strdup("List the actor actions that must be logged for audit");
   n->form->fields[7].order = 7;
 }
+static void meta_build_actor_relationship_diagram_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ActorRelationshipDiagram");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the actor landscape before the hierarchy and actor-system diagrams below. Cover which actors are human, which are systems, and how they generalize.");
+}
 static void meta_build_actor_relationship_diagram_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ActorRelationshipDiagram");
   meta_set(&n->member_name, "overview");
@@ -14441,7 +14617,7 @@ static void meta_build_actor_relationship_diagram_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Diagram overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -14481,7 +14657,7 @@ static void meta_build_actor_relationship_diagram_actor_hierarchy(SomMetaNode *n
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-flow");
   n->content_type->description = som_strdup("");
@@ -14493,7 +14669,7 @@ static void meta_build_actor_relationship_diagram_actor_system_diagram(SomMetaNo
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-flow");
   n->content_type->description = som_strdup("");
@@ -15694,6 +15870,18 @@ static void meta_build_alert_suppression_rules_content(SomMetaNode *n) {
   n->form->fields[9].hint = som_strdup("Additional suppression notes");
   n->form->fields[9].order = 9;
 }
+static void meta_build_alerting_configuration_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "AlertingConfiguration");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the alerting approach before the channel, rule, escalation and on-call subsections below. Cover what warrants an alert at all, and the noise-versus-coverage balance the rules aim for.");
+}
 static void meta_build_alerting_configuration_alerting_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "AlertingConfiguration");
   meta_set(&n->member_name, "alertingOverview");
@@ -15701,7 +15889,7 @@ static void meta_build_alerting_configuration_alerting_overview(SomMetaNode *n) 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -15766,7 +15954,7 @@ static void meta_build_alerting_configuration_overview_narrative(SomMetaNode *n)
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -15779,7 +15967,7 @@ static void meta_build_alerting_configuration_notification_channels(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AlertNotificationChannels");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Notification channels.");
   meta_set(&n->class_doc_comment, "Alert notification channels.");
 }
@@ -15791,7 +15979,7 @@ static void meta_build_alerting_configuration_alert_rules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AlertRuleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per alert rule.");
   meta_set(&n->doc_comment, "Alert rules catalog.");
   n->extra_len = 1;
@@ -15814,7 +16002,7 @@ static void meta_build_alerting_configuration_escalation_policies(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AlertEscalationPolicies");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Escalation policies.");
   meta_set(&n->class_doc_comment, "Alert escalation policies.");
 }
@@ -15826,7 +16014,7 @@ static void meta_build_alerting_configuration_suppression_rules(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AlertSuppressionRules");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per suppression or maintenance window.");
   meta_set(&n->doc_comment, "Alert suppression and maintenance windows.");
   n->extra_len = 1;
@@ -15849,7 +16037,7 @@ static void meta_build_alerting_configuration_on_call_schedule(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OnCallScheduleConfig");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "On-call schedule.");
   meta_set(&n->class_doc_comment, "On-call schedule configuration.");
 }
@@ -21945,13 +22133,25 @@ static void meta_build_boundary_assumption_entry_risk(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 31000 — risk management (assumption risk)\",\"PMBOK — scope management & assumption log\"],\"connotation\":\"Captures the consequences if an assumption proves false and the contingency plan to address it.\"}", NULL);
 }
+static void meta_build_boundary_assumptions_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "BoundaryAssumptions");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the assumptions the project depends on before the individual items below. Cover how an assumption is validated and what happens when one fails.");
+}
 static void meta_build_boundary_assumptions_assumption_approach(SomMetaNode *n) {
   meta_set(&n->class_name, "BoundaryAssumptions");
   meta_set(&n->member_name, "assumptionApproach");
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -21966,7 +22166,7 @@ static void meta_build_boundary_assumptions_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BoundaryAssumptionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Each entry records one assumption with its category, validation status, and risk if proven incorrect.");
   meta_set(&n->doc_comment, "Contains 0+× BoundaryAssumptionEntry.");
   n->extra_len = 1;
@@ -22175,6 +22375,18 @@ static void meta_build_bounded_context_entry_integration(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Domain-Driven Design — bounded contexts / modules\",\"SOLID principles — object-oriented design\"],\"connotation\":\"Describes the API endpoints and integration patterns through which a bounded context connects to others.\"}", NULL);
 }
+static void meta_build_breakpoint_configuration_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "BreakpointConfiguration");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the breakpoint scheme before the individual breakpoints below. Cover the units used and the reasoning behind the chosen thresholds.");
+}
 static void meta_build_breakpoint_configuration_breakpoint_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "BreakpointConfiguration");
   meta_set(&n->member_name, "breakpointOverview");
@@ -22182,7 +22394,7 @@ static void meta_build_breakpoint_configuration_breakpoint_overview(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -22255,7 +22467,7 @@ static void meta_build_breakpoint_configuration_breakpoints(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BreakpointEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per layout breakpoint.");
   meta_set(&n->doc_comment, "Breakpoint entries.");
   n->extra_len = 1;
@@ -23990,6 +24202,18 @@ static void meta_build_business_object_attribute_entry_governance(SomMetaNode *n
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 27001 / NIST — data classification\",\"DAMA-DMBOK2 — data management body of knowledge\"],\"connotation\":\"The sensitivity classification and presentation ordering that govern a business object attribute.\"}", NULL);
 }
+static void meta_build_business_object_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "BusinessObjectEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this business object — its role in the domain, beyond the attribute, state, rule and operation facets recorded below.");
+}
 static void meta_build_business_object_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectEntry");
   meta_set(&n->member_name, "identity");
@@ -23997,7 +24221,7 @@ static void meta_build_business_object_entry_identity(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -24039,7 +24263,7 @@ static void meta_build_business_object_entry_domain_context(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -24081,7 +24305,7 @@ static void meta_build_business_object_entry_lifecycle_summary(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -24124,7 +24348,7 @@ static void meta_build_business_object_entry_behavior_rules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BehaviorRuleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per behavior rule.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -24146,7 +24370,7 @@ static void meta_build_business_object_entry_ownership(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -24189,7 +24413,7 @@ static void meta_build_business_object_entry_integration_points(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "IntegrationPointEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per integration point.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -24212,7 +24436,7 @@ static void meta_build_business_object_entry_attributes(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BusinessObjectAttributeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per business object attribute.");
   meta_set(&n->doc_comment, "Contains 0+× BusinessObjectAttribute.");
   n->extra_len = 1;
@@ -24236,7 +24460,7 @@ static void meta_build_business_object_entry_key_states(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ObjectStateEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per object state.");
   meta_set(&n->doc_comment, "Contains 0+× ObjectState.");
   n->extra_len = 1;
@@ -24260,7 +24484,7 @@ static void meta_build_business_object_entry_key_business_rules(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BusinessRuleReferenceEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per business rule reference.");
   meta_set(&n->doc_comment, "Contains 0+× BusinessRuleReference.");
   n->extra_len = 1;
@@ -24284,7 +24508,7 @@ static void meta_build_business_object_entry_lifecycle_transitions(SomMetaNode *
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "LifecycleTransitionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->content_help, "Add one entry per lifecycle transition.");
   meta_set(&n->doc_comment, "Contains 0+× LifecycleTransition.");
   n->extra_len = 1;
@@ -24308,7 +24532,7 @@ static void meta_build_business_object_entry_operations(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ObjectOperationEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->content_help, "Add one entry per object operation.");
   meta_set(&n->doc_comment, "Contains 0+× ObjectOperation.");
   n->extra_len = 1;
@@ -24332,7 +24556,7 @@ static void meta_build_business_object_entry_invariants(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ObjectInvariantEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->content_help, "Add one entry per object invariant.");
   meta_set(&n->doc_comment, "Contains 0+× ObjectInvariant.");
   n->extra_len = 1;
@@ -24646,6 +24870,18 @@ static void meta_build_business_process_descriptions_process_metrics_and_kpis_el
   meta_set(&n->class_doc_comment, "6.1.10. Process Metrics and KPIs.\n\nProcess-level KPIs, SLAs, and measurement strategy.");
   meta_set(&n->detailed_in, "D02TargetOperatingModel");
 }
+static void meta_build_business_process_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "BusinessProcessEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this business process — the story of how it actually runs, and anything the identification, trigger, role, performance and control facets below do not capture.");
+}
 static void meta_build_business_process_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessIdentification");
   meta_set(&n->member_name, "identification");
@@ -24653,7 +24889,7 @@ static void meta_build_business_process_entry_identification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessIdentification");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Process identification.");
   meta_set(&n->class_doc_comment, "Process identification.");
 }
@@ -24664,7 +24900,7 @@ static void meta_build_business_process_entry_characteristics(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessCharacteristics");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Process characteristics.");
   meta_set(&n->class_doc_comment, "Process characteristics.");
 }
@@ -24675,7 +24911,7 @@ static void meta_build_business_process_entry_triggers(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessTriggers");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Process triggers and events.");
   meta_set(&n->class_doc_comment, "Process triggers and events.");
 }
@@ -24686,7 +24922,7 @@ static void meta_build_business_process_entry_inputs_outputs(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessInputsOutputs");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Process inputs and outputs.");
   meta_set(&n->class_doc_comment, "Process inputs and outputs.");
 }
@@ -24697,7 +24933,7 @@ static void meta_build_business_process_entry_roles(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessRoles");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Roles and responsibilities.");
   meta_set(&n->class_doc_comment, "Process roles and responsibilities.");
 }
@@ -24708,7 +24944,7 @@ static void meta_build_business_process_entry_performance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessPerformance");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Process performance.");
   meta_set(&n->class_doc_comment, "Process performance metrics.");
 }
@@ -24719,7 +24955,7 @@ static void meta_build_business_process_entry_controls(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessControls");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Process controls and compliance.");
   meta_set(&n->class_doc_comment, "Process controls and compliance.");
 }
@@ -24730,7 +24966,7 @@ static void meta_build_business_process_entry_technology(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessTechnology");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Technology support.");
   meta_set(&n->class_doc_comment, "Process technology support.");
 }
@@ -24741,7 +24977,7 @@ static void meta_build_business_process_entry_exceptions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessExceptions");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Process exceptions.");
   meta_set(&n->class_doc_comment, "Process exceptions and error handling.");
 }
@@ -24751,11 +24987,23 @@ static void meta_build_business_process_entry_process_flow_preview(SomMetaNode *
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-flow");
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Process flow preview (high-level).");
+}
+static void meta_build_business_rule_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "BusinessRuleEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this business rule — the intent behind it, beyond the logic, enforcement and governance facets recorded below.");
 }
 static void meta_build_business_rule_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessRuleEntry");
@@ -24764,7 +25012,7 @@ static void meta_build_business_rule_entry_identity(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -24794,7 +25042,7 @@ static void meta_build_business_rule_entry_classification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -24836,7 +25084,7 @@ static void meta_build_business_rule_entry_rule_logic(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -24878,7 +25126,7 @@ static void meta_build_business_rule_entry_implementation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -24920,7 +25168,7 @@ static void meta_build_business_rule_entry_exception_handling(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -24956,7 +25204,7 @@ static void meta_build_business_rule_entry_governance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -24993,7 +25241,7 @@ static void meta_build_business_rule_entry_affected_objects(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AffectedObjectEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per affected object.");
   meta_set(&n->doc_comment, "Contains 0+× AffectedObject.");
   n->extra_len = 1;
@@ -25017,7 +25265,7 @@ static void meta_build_business_rule_entry_affected_functions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AffectedFunctionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per affected function.");
   meta_set(&n->doc_comment, "Contains 0+× AffectedFunction.");
   n->extra_len = 1;
@@ -25041,7 +25289,7 @@ static void meta_build_business_rule_entry_examples(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RuleExampleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per rule example.");
   meta_set(&n->doc_comment, "Contains 0+× RuleExample.");
   n->extra_len = 1;
@@ -26864,6 +27112,18 @@ static void meta_build_change_process_notification_rules_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Notification rules for change process events.");
   meta_set(&n->class_doc_comment, "Notification rules for change process events.");
 }
+static void meta_build_change_readiness_assessment_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ChangeReadinessAssessment");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the readiness assessment before the individual criteria below. Cover how readiness is measured and what happens when a group is not ready.");
+}
 static void meta_build_change_readiness_assessment_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangeReadinessAssessment");
   meta_set(&n->member_name, "overview");
@@ -26871,7 +27131,7 @@ static void meta_build_change_readiness_assessment_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Overview of readiness assessment approach.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -26931,7 +27191,7 @@ static void meta_build_change_readiness_assessment_readiness_criteria(SomMetaNod
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReadinessCriteriaEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per stakeholder group whose readiness is being assessed, capturing ADKAR levels, resistance factors, and status.");
   meta_set(&n->doc_comment, "Readiness criteria per stakeholder group.");
   n->extra_len = 1;
@@ -27199,6 +27459,18 @@ static void meta_build_change_step_entry_subflow_diagram(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Subflow diagram for this step (e.g. Mermaid or image reference).");
 }
+static void meta_build_changed_role_competencies_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ChangedRoleCompetencies");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how this role's competency requirements shift before the new, removed and changed-level lists below.");
+}
 static void meta_build_changed_role_competencies_new_competencies(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangedRoleCompetencies");
   meta_set(&n->member_name, "newCompetencies");
@@ -27207,7 +27479,7 @@ static void meta_build_changed_role_competencies_new_competencies(SomMetaNode *n
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RoleCompetencyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per competency newly required by the role.");
   meta_set(&n->doc_comment, "New competencies required.");
   n->extra_len = 1;
@@ -27231,7 +27503,7 @@ static void meta_build_changed_role_competencies_removed_competencies(SomMetaNod
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RoleCompetencyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per competency no longer required by the role.");
   meta_set(&n->doc_comment, "Competencies no longer required.");
   n->extra_len = 1;
@@ -27255,7 +27527,7 @@ static void meta_build_changed_role_competencies_changed_levels(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CompetencyLevelChangeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per competency whose required level changes.");
   meta_set(&n->doc_comment, "Competencies with changed proficiency levels.");
   n->extra_len = 1;
@@ -27278,7 +27550,7 @@ static void meta_build_changed_role_competencies_gap_assessment(SomMetaNode *n) 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Overall competency gap assessment.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -27318,6 +27590,18 @@ static void meta_build_changed_role_competencies_gap_assessment(SomMetaNode *n) 
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"CIPD — competency gap analysis\",\"ISO 9001 §7.2 — competence\"],\"connotation\":\"Assesses the overall competency gap for the changed role and the strategy, timeline, and interim measures to close it.\"}", NULL);
 }
+static void meta_build_changed_role_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ChangedRoleEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this changed role — what the change means for the people currently in it, beyond the responsibility, competency and transition facets recorded below.");
+}
 static void meta_build_changed_role_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangedRoleIdentification");
   meta_set(&n->member_name, "identification");
@@ -27325,7 +27609,7 @@ static void meta_build_changed_role_entry_identification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ChangedRoleIdentification");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Changed role identification.");
   meta_set(&n->class_doc_comment, "Changed role identification.");
 }
@@ -27336,7 +27620,7 @@ static void meta_build_changed_role_entry_responsibilities(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ChangedRoleResponsibilities");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Responsibility changes.");
   meta_set(&n->class_doc_comment, "Changed role responsibilities.");
 }
@@ -27347,7 +27631,7 @@ static void meta_build_changed_role_entry_competencies(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ChangedRoleCompetencies");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Competency changes.");
   meta_set(&n->class_doc_comment, "Changed role competency requirements.");
 }
@@ -27358,7 +27642,7 @@ static void meta_build_changed_role_entry_system_access(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "System access changes.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -27417,7 +27701,7 @@ static void meta_build_changed_role_entry_incumbent_impact(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Impact on incumbents.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
@@ -27494,7 +27778,7 @@ static void meta_build_changed_role_entry_transition(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ChangedRoleTransition");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Transition planning.");
   meta_set(&n->class_doc_comment, "Changed role transition planning.");
 }
@@ -27603,6 +27887,18 @@ static void meta_build_changed_role_identification_transition(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"SHRM — HR best practices (workforce transition)\",\"ADKAR / Kotter — change management\"],\"connotation\":\"Tracks the kind of change, its rollout state, the effective date, and how many incumbents are affected.\"}", NULL);
 }
+static void meta_build_changed_role_responsibilities_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ChangedRoleResponsibilities");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how this role's responsibilities shift before the added, removed and modified lists below.");
+}
 static void meta_build_changed_role_responsibilities_added_responsibilities(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangedRoleResponsibilities");
   meta_set(&n->member_name, "addedResponsibilities");
@@ -27611,7 +27907,7 @@ static void meta_build_changed_role_responsibilities_added_responsibilities(SomM
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ResponsibilityChangeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per responsibility being added to the role.");
   meta_set(&n->doc_comment, "Responsibilities being added.");
   n->extra_len = 1;
@@ -27635,7 +27931,7 @@ static void meta_build_changed_role_responsibilities_removed_responsibilities(So
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ResponsibilityChangeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per responsibility being removed from the role.");
   meta_set(&n->doc_comment, "Responsibilities being removed.");
   n->extra_len = 1;
@@ -27659,7 +27955,7 @@ static void meta_build_changed_role_responsibilities_modified_responsibilities(S
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ResponsibilityChangeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per responsibility being modified in the role.");
   meta_set(&n->doc_comment, "Responsibilities being modified.");
   n->extra_len = 1;
@@ -27682,7 +27978,7 @@ static void meta_build_changed_role_responsibilities_impact_summary(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Net impact summary.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
@@ -27839,6 +28135,18 @@ static void meta_build_changed_role_transition_support(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ADKAR / Kotter — change management\",\"SHRM — HR best practices (workforce transition)\"],\"connotation\":\"Sets out the support available during the transition, adjusted performance expectations, milestones, and the criteria for a successful transition.\"}", NULL);
 }
+static void meta_build_changes_from_current_structure_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ChangesFromCurrentStructure");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the current-to-target delta before the narrative, chart comparison and individual changes below. Cover which parts of the organization are deliberately left untouched.");
+}
 static void meta_build_changes_from_current_structure_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ChangesFromCurrentStructure");
   meta_set(&n->member_name, "overviewContent");
@@ -27846,7 +28154,7 @@ static void meta_build_changes_from_current_structure_overview_content(SomMetaNo
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -27905,7 +28213,7 @@ static void meta_build_changes_from_current_structure_change_narrative(SomMetaNo
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -27918,7 +28226,7 @@ static void meta_build_changes_from_current_structure_org_chart_comparison(SomMe
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid");
   n->content_type->description = som_strdup("");
@@ -27933,7 +28241,7 @@ static void meta_build_changes_from_current_structure_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "OrganizationalChangeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per discrete organizational change — each with its current state, target state, rationale, impact, and transition.");
   meta_set(&n->doc_comment, "Contains 0+× OrganizationalChange.");
   n->extra_len = 1;
@@ -31319,6 +31627,18 @@ static void meta_build_communication_type_entry_content(SomMetaNode *n) {
   n->form->fields[8].hint = som_strdup("Public / Internal / Confidential / Restricted");
   n->form->fields[8].order = 8;
 }
+static void meta_build_compatibility_characteristic_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "CompatibilityCharacteristic");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce compatibility for this system before any co-existence and interoperability detail below. Cover what the system must share an environment or an interface with.");
+}
 static void meta_build_compatibility_characteristic_compatibility_content(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityCharacteristic");
   meta_set(&n->member_name, "compatibilityContent");
@@ -31326,7 +31646,7 @@ static void meta_build_compatibility_characteristic_compatibility_content(SomMet
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -31349,7 +31669,7 @@ static void meta_build_compatibility_characteristic_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -31658,6 +31978,18 @@ static void meta_build_competency_entry_content(SomMetaNode *n) {
   n->form->fields[6].hint = som_strdup("Tests, interviews, or simulations used to assess it");
   n->form->fields[6].order = 6;
 }
+static void meta_build_competency_framework_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "CompetencyFramework");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the competency framework before the core, technical and leadership competency lists below. Cover how proficiency levels are defined.");
+}
 static void meta_build_competency_framework_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "CompetencyFramework");
   meta_set(&n->member_name, "overview");
@@ -31665,7 +31997,7 @@ static void meta_build_competency_framework_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Framework overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -31713,7 +32045,7 @@ static void meta_build_competency_framework_core_competencies(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CompetencyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per core competency required across all roles.");
   meta_set(&n->doc_comment, "Core competencies required across all roles.");
   n->extra_len = 1;
@@ -31737,7 +32069,7 @@ static void meta_build_competency_framework_technical_competencies(SomMetaNode *
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CompetencyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per technical or functional competency.");
   meta_set(&n->doc_comment, "Technical/functional competencies by role family.");
   n->extra_len = 1;
@@ -31761,7 +32093,7 @@ static void meta_build_competency_framework_leadership_competencies(SomMetaNode 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CompetencyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per leadership competency for management roles.");
   meta_set(&n->doc_comment, "Leadership competencies for management roles.");
   n->extra_len = 1;
@@ -33312,6 +33644,18 @@ static void meta_build_component_interface_entry_operations(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 42010:2022 — the architecture description standard frames how components, interfaces, and their relationships are documented for stakeholders\"],\"connotation\":\"Captures operations and documentation for a component interface covering the recommended retry policy, documentation URL, and description.\"}", NULL);
 }
+static void meta_build_component_library_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ComponentLibrary");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the design system before the token, colour and typography subsections below. Cover where the foundations come from and how they are versioned.");
+}
 static void meta_build_component_library_design_foundations(SomMetaNode *n) {
   meta_set(&n->class_name, "ComponentLibrary");
   meta_set(&n->member_name, "designFoundations");
@@ -33320,7 +33664,7 @@ static void meta_build_component_library_design_foundations(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DesignFoundationEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per design foundation.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -33342,7 +33686,7 @@ static void meta_build_component_library_colors(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Color system.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -33407,7 +33751,7 @@ static void meta_build_component_library_typography(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Typography system.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -33448,7 +33792,7 @@ static void meta_build_component_library_spacing(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Spacing and elevation.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -33483,7 +33827,7 @@ static void meta_build_component_library_borders(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Borders and corners.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -33512,7 +33856,7 @@ static void meta_build_component_library_visuals(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Icons and animation.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -33552,7 +33896,7 @@ static void meta_build_component_library_design_system_narrative(SomMetaNode *n)
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -33565,7 +33909,7 @@ static void meta_build_component_library_design_token_catalog(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -33580,7 +33924,7 @@ static void meta_build_component_library_color_palettes(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ColorPaletteEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per colour palette.");
   meta_set(&n->doc_comment, "Color palette specification.");
   n->extra_len = 1;
@@ -33604,7 +33948,7 @@ static void meta_build_component_library_typography_styles(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TypographyStyleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->content_help, "Add one entry per typography style.");
   meta_set(&n->doc_comment, "Typography styles.");
   n->extra_len = 1;
@@ -36402,6 +36746,18 @@ static void meta_build_context_diagram_legend(SomMetaNode *n) {
   n->content_type->description = som_strdup("Legend explaining shapes, colors, and line styles used in the diagram.");
   meta_set(&n->doc_comment, "Diagram legend and conventions.");
 }
+static void meta_build_contextual_help_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ContextualHelp");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce on-screen contextual help before the inline, panel and rich-help subsections below. Cover which surfaces carry help and how it is kept current.");
+}
 static void meta_build_contextual_help_contextual_help_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ContextualHelp");
   meta_set(&n->member_name, "contextualHelpContent");
@@ -36409,7 +36765,7 @@ static void meta_build_contextual_help_contextual_help_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -36451,7 +36807,7 @@ static void meta_build_contextual_help_inline(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Inline help behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -36486,7 +36842,7 @@ static void meta_build_contextual_help_panels(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Help panel behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -36521,7 +36877,7 @@ static void meta_build_contextual_help_whats_this(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "What's-this mode settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -36550,7 +36906,7 @@ static void meta_build_contextual_help_rich(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Rich help media settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -36584,7 +36940,7 @@ static void meta_build_contextual_help_contextual_help_narrative(SomMetaNode *n)
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -36598,7 +36954,7 @@ static void meta_build_contextual_help_field_help_catalog(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "FieldHelpEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per field that needs contextual help.");
   meta_set(&n->doc_comment, "Field help catalog.");
   n->extra_len = 1;
@@ -41722,6 +42078,18 @@ static void meta_build_data_attribute_constraint_entry_content(SomMetaNode *n) {
   n->form->fields[7].hint = som_strdup("Regex for validation (e.g., ^[A-Z]{2}-\\d{6}$ for order IDs)");
   n->form->fields[7].order = 7;
 }
+static void meta_build_data_attribute_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataAttributeEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this attribute — what it means and how it is used, beyond the type, constraint and lineage facets recorded below.");
+}
 static void meta_build_data_attribute_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
   meta_set(&n->member_name, "identity");
@@ -41729,7 +42097,7 @@ static void meta_build_data_attribute_entry_identity(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -41765,7 +42133,7 @@ static void meta_build_data_attribute_entry_data_type_spec(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -41808,7 +42176,7 @@ static void meta_build_data_attribute_entry_text_type_options(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Text-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `string` logical type; carries only the character\nlength and collation attributes (no numeric precision, no timezone).");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -41839,7 +42207,7 @@ static void meta_build_data_attribute_entry_numeric_type_options(SomMetaNode *n)
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Numeric-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for numeric logical types; carries only the precision and\nscale attributes (no length, collation or timezone).");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -41872,7 +42240,7 @@ static void meta_build_data_attribute_entry_temporal_type_options(SomMetaNode *n
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Temporal-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for date/time logical types; carries only the timezone\nhandling attribute.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
@@ -41899,7 +42267,7 @@ static void meta_build_data_attribute_entry_binary_type_options(SomMetaNode *n) 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type — the record holds the **bytes\nthemselves** — so it carries only the stored size. Separated from the text\n`length` because a byte size and a character length are different\nconstraints on different types. An attribute that holds a file's *address*\ninstead is `DataAttributeKind.fileReference` (csra10), not a storage mode\nof this one: a mode field would restate the logical type and could then\ndisagree with it.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
@@ -41924,7 +42292,7 @@ static void meta_build_data_attribute_entry_file_reference_options(SomMetaNode *
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores the\n**address of a stored file**, so what a specification must say is where the\nfile is filed, which store holds it, whether it dies with its record, and\nwhat may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
@@ -41979,7 +42347,7 @@ static void meta_build_data_attribute_entry_enumeration_type_options(SomMetaNode
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Enumeration-kind type options — a promoted `@OneOf` case.\n\nPresent only for the `enumeration` logical type, and carrying exactly one\nthing: **which** domain enum the attribute is typed by. The emitted\ncolumn's value type *is* the generated enum type, so an enumerated\nattribute that names no enum cannot be emitted — which is why this is a\nrequired field rather than a hint.\n\nThe enum is **named, never restated**. `DomainEnumRegistry` is the single\nsource for closed value sets, and its entries are what the `domainEnum`\nmember kind is generated from; listing the values again here would be a\nsecond source that could disagree with the first. The same choice is made\nwherever else the model types a value by an enum — an operation request or\nresponse member (`SVOPM.domainEnum`) names its entry the same way.\n\nHow the value is **stored** is not authored here either: the backing type\nbelongs to the enum (`DMENE.backingType`), so every attribute typed by it\nstores it the same way. And *narrowing* — this attribute permitting only\nsome of the enum's values — is a constraint, authored in the `constraints`\nlist where every other per-attribute restriction lives.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
@@ -42008,7 +42376,7 @@ static void meta_build_data_attribute_entry_constraints(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DataAttributeConstraintEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per attribute constraint.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -42030,7 +42398,7 @@ static void meta_build_data_attribute_entry_derivation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -42066,7 +42434,7 @@ static void meta_build_data_attribute_entry_security_classification(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -42108,7 +42476,7 @@ static void meta_build_data_attribute_entry_migration_lineage(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -42151,7 +42519,7 @@ static void meta_build_data_attribute_entry_display_properties(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DisplayPropertyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   meta_set(&n->content_help, "Add one entry per display property.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -42166,6 +42534,18 @@ static void meta_build_data_attribute_entry_display_properties_elem(SomMetaNode 
   meta_set(&n->doc_comment, "A single display property entry.");
   meta_set(&n->class_doc_comment, "A single display property entry.");
 }
+static void meta_build_data_classification_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataClassification");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the classification framework before the individual levels below. Cover who classifies data and when a classification is reviewed.");
+}
 static void meta_build_data_classification_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassification");
   meta_set(&n->member_name, "overview");
@@ -42173,7 +42553,7 @@ static void meta_build_data_classification_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -42210,7 +42590,7 @@ static void meta_build_data_classification_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DataClassificationEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per data classification level.");
   meta_set(&n->doc_comment, "Contains 0+× DataClassificationEntry.");
   n->extra_len = 1;
@@ -42226,6 +42606,18 @@ static void meta_build_data_classification_items_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A data classification entry (form).\n\nComprehensive data classification for security and compliance.");
   meta_set(&n->class_doc_comment, "A data classification entry (form).\n\nComprehensive data classification for security and compliance.");
 }
+static void meta_build_data_classification_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataClassificationEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this classification level — what kind of data belongs in it, beyond the storage, access and retention rules below.");
+}
 static void meta_build_data_classification_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataClassificationEntry");
   meta_set(&n->member_name, "identity");
@@ -42233,7 +42625,7 @@ static void meta_build_data_classification_entry_identity(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -42269,7 +42661,7 @@ static void meta_build_data_classification_entry_storage_transmission(SomMetaNod
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -42311,7 +42703,7 @@ static void meta_build_data_classification_entry_access_control(SomMetaNode *n) 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -42353,7 +42745,7 @@ static void meta_build_data_classification_entry_retention_disposal(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -42395,7 +42787,7 @@ static void meta_build_data_classification_entry_compliance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -42432,7 +42824,7 @@ static void meta_build_data_classification_entry_handling_requirements(SomMetaNo
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "HandlingRequirementEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per handling requirement.");
   meta_set(&n->doc_comment, "Contains 0+× HandlingRequirement.");
   n->extra_len = 1;
@@ -42456,7 +42848,7 @@ static void meta_build_data_classification_entry_access_restrictions(SomMetaNode
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AccessRestrictionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per access restriction.");
   meta_set(&n->doc_comment, "Contains 0+× AccessRestriction.");
   n->extra_len = 1;
@@ -42844,6 +43236,18 @@ static void meta_build_data_duplication_entry_governance(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (data redundancy)\"],\"connotation\":\"Why this duplication exists and what to do about it: business reason, consolidation feasibility, impact, and recommended action.\"}", NULL);
 }
+static void meta_build_data_entity_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataEntityEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this data entity — what it represents in the business, beyond the identity, attribute and key facets recorded below.");
+}
 static void meta_build_data_entity_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityEntry");
   meta_set(&n->member_name, "identity");
@@ -42851,7 +43255,7 @@ static void meta_build_data_entity_entry_identity(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -42893,7 +43297,7 @@ static void meta_build_data_entity_entry_classification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -42941,7 +43345,7 @@ static void meta_build_data_entity_entry_lifecycle_policy(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -43001,7 +43405,7 @@ static void meta_build_data_entity_entry_relationship_summary(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -43038,7 +43442,7 @@ static void meta_build_data_entity_entry_attributes(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DataAttributeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per data attribute.");
   meta_set(&n->doc_comment, "Contains 0+× DataAttribute.");
   n->extra_len = 1;
@@ -43062,7 +43466,7 @@ static void meta_build_data_entity_entry_key_attributes(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "KeyAttributeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per key attribute.");
   meta_set(&n->doc_comment, "Contains 0+× KeyAttribute.");
   n->extra_len = 1;
@@ -43086,7 +43490,7 @@ static void meta_build_data_entity_entry_indexes(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "EntityIndexEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per entity index.");
   meta_set(&n->doc_comment, "Contains 0+× EntityIndex.");
   n->extra_len = 1;
@@ -43110,7 +43514,7 @@ static void meta_build_data_entity_entry_constraints(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "EntityConstraintEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per entity constraint.");
   meta_set(&n->doc_comment, "Contains 0+× EntityConstraint.");
   n->extra_len = 1;
@@ -54719,6 +55123,18 @@ static void meta_build_documentation_deliverables_items_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.");
   meta_set(&n->class_doc_comment, "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.");
 }
+static void meta_build_documentation_quality_criteria_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DocumentationQualityCriteria");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the documentation quality bar before the readability, completeness, correctness and changeability subsections below. Cover which deliverables the criteria apply to.");
+}
 static void meta_build_documentation_quality_criteria_documentation_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DocumentationQualityCriteria");
   meta_set(&n->member_name, "documentationOverviewContent");
@@ -54726,7 +55142,7 @@ static void meta_build_documentation_quality_criteria_documentation_overview_con
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -54773,7 +55189,7 @@ static void meta_build_documentation_quality_criteria_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -54787,7 +55203,7 @@ static void meta_build_documentation_quality_criteria_readability(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Readability");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.5.1. Readability.");
   meta_set(&n->class_doc_comment, "11.5.1. Readability quality.");
 }
@@ -54798,7 +55214,7 @@ static void meta_build_documentation_quality_criteria_completeness(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DocCompleteness");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "11.5.2. Completeness.");
   meta_set(&n->class_doc_comment, "11.5.2. Documentation completeness quality.");
 }
@@ -54809,7 +55225,7 @@ static void meta_build_documentation_quality_criteria_correctness(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DocCorrectness");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "11.5.3. Correctness.");
   meta_set(&n->class_doc_comment, "11.5.3. Documentation correctness quality.");
 }
@@ -54820,7 +55236,7 @@ static void meta_build_documentation_quality_criteria_changeability(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DocChangeability");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "11.5.4. Changeability.");
   meta_set(&n->class_doc_comment, "11.5.4. Documentation changeability quality.");
 }
@@ -57014,6 +57430,18 @@ static void meta_build_entity_constraint_entry_content(SomMetaNode *n) {
   n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
   n->form->fields[5].refers_to[0] = som_strdup("BIRU.@sectionId");
 }
+static void meta_build_entity_follow_up_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "EntityFollowUpEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this entity's follow-up facets — operational context the volume, compliance, technical and migration lists below do not capture.");
+}
 static void meta_build_entity_follow_up_entry_entity_ref(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityFollowUpEntry");
   meta_set(&n->member_name, "entityRef");
@@ -57021,7 +57449,7 @@ static void meta_build_entity_follow_up_entry_entity_ref(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
   n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
@@ -57040,7 +57468,7 @@ static void meta_build_entity_follow_up_entry_volume_metrics(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "VolumeMetricEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per volume metric.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -57063,7 +57491,7 @@ static void meta_build_entity_follow_up_entry_compliance_requirements(SomMetaNod
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ComplianceRequirementEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per compliance requirement.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -57086,7 +57514,7 @@ static void meta_build_entity_follow_up_entry_technical_characteristics(SomMetaN
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TechnicalCharacteristicEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per technical characteristic.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -57109,7 +57537,7 @@ static void meta_build_entity_follow_up_entry_migration_mappings(SomMetaNode *n)
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MigrationMappingEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per migration mapping.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -57183,6 +57611,18 @@ static void meta_build_entity_index_entry_content(SomMetaNode *n) {
   n->form->fields[7].hint = som_strdup("Expected index size");
   n->form->fields[7].order = 7;
 }
+static void meta_build_entity_relationship_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "EntityRelationshipEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this relationship — the business fact it records, beyond the cardinality and referential-integrity facets below.");
+}
 static void meta_build_entity_relationship_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationshipEntry");
   meta_set(&n->member_name, "identity");
@@ -57190,7 +57630,7 @@ static void meta_build_entity_relationship_entry_identity(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -57227,7 +57667,7 @@ static void meta_build_entity_relationship_entry_participants(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ParticipantEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per participating entity.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -57249,7 +57689,7 @@ static void meta_build_entity_relationship_entry_cardinality(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -57297,7 +57737,7 @@ static void meta_build_entity_relationship_entry_referential_integrity(SomMetaNo
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -57345,7 +57785,7 @@ static void meta_build_entity_relationship_entry_navigation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -57388,7 +57828,7 @@ static void meta_build_entity_relationship_entry_relationship_attributes(SomMeta
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RelationshipAttributeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per relationship attribute.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -57410,7 +57850,7 @@ static void meta_build_entity_relationship_entry_source_entity_ref(SomMetaNode *
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -57426,7 +57866,7 @@ static void meta_build_entity_relationship_entry_target_entity_ref(SomMetaNode *
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -58573,6 +59013,18 @@ static void meta_build_environments_items_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "An environment entry (form).\n\nComprehensive specification of a single project environment covering\nidentity, infrastructure, access, data management, configuration,\navailability, connectivity, monitoring, lifecycle, ownership, cost,\nand compliance. Aligns with PMBOK resource planning, ITIL service\ndesign, and PRINCE2 technical stage planning concerns.");
   meta_set(&n->class_doc_comment, "An environment entry (form).\n\nComprehensive specification of a single project environment covering\nidentity, infrastructure, access, data management, configuration,\navailability, connectivity, monitoring, lifecycle, ownership, cost,\nand compliance. Aligns with PMBOK resource planning, ITIL service\ndesign, and PRINCE2 technical stage planning concerns.");
 }
+static void meta_build_equipment_requirements_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "EquipmentRequirements");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the equipment provision for this workplace before the computing, display, input and peripheral lists below. Cover the standard issue and what is granted only by exception.");
+}
 static void meta_build_equipment_requirements_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "EquipmentRequirements");
   meta_set(&n->member_name, "overview");
@@ -58580,7 +59032,7 @@ static void meta_build_equipment_requirements_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Equipment overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -58636,7 +59088,7 @@ static void meta_build_equipment_requirements_primary_computing(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ComputingEquipmentEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Primary computing equipment.");
 }
 static void meta_build_equipment_requirements_primary_computing_elem(SomMetaNode *n) {
@@ -58655,7 +59107,7 @@ static void meta_build_equipment_requirements_displays(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DisplayEquipmentEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Display and monitors.");
 }
 static void meta_build_equipment_requirements_displays_elem(SomMetaNode *n) {
@@ -58674,7 +59126,7 @@ static void meta_build_equipment_requirements_input_devices(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "InputDeviceEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Input devices.");
 }
 static void meta_build_equipment_requirements_input_devices_elem(SomMetaNode *n) {
@@ -58693,7 +59145,7 @@ static void meta_build_equipment_requirements_peripherals(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "PeripheralEquipmentEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Peripheral equipment.");
 }
 static void meta_build_equipment_requirements_peripherals_elem(SomMetaNode *n) {
@@ -58712,7 +59164,7 @@ static void meta_build_equipment_requirements_mobile_devices(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MobileDeviceEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Mobile devices.");
 }
 static void meta_build_equipment_requirements_mobile_devices_elem(SomMetaNode *n) {
@@ -58731,7 +59183,7 @@ static void meta_build_equipment_requirements_specialized_equipment(SomMetaNode 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SpecializedEquipmentEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Specialized equipment.");
 }
 static void meta_build_equipment_requirements_specialized_equipment_elem(SomMetaNode *n) {
@@ -58939,6 +59391,18 @@ static void meta_build_error_code_registry_error_codes_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.");
   meta_set(&n->class_doc_comment, "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.");
 }
+static void meta_build_error_handling_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ErrorHandling");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the error-handling experience before the validation, system-error and recovery subsections below. Cover the tone errors are written in and the balance struck between prevention and recovery.");
+}
 static void meta_build_error_handling_error_philosophy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorHandling");
   meta_set(&n->member_name, "errorPhilosophyContent");
@@ -58946,7 +59410,7 @@ static void meta_build_error_handling_error_philosophy_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -58982,7 +59446,7 @@ static void meta_build_error_handling_classification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Error categorization and display priority.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -59017,7 +59481,7 @@ static void meta_build_error_handling_accessibility(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Accessibility and inclusive error cues.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -59052,7 +59516,7 @@ static void meta_build_error_handling_operations(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Localization and analytics behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -59092,7 +59556,7 @@ static void meta_build_error_handling_error_handling_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -59106,7 +59570,7 @@ static void meta_build_error_handling_validation_feedback(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ValidationFeedback");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "10.7.1. Validation Feedback.");
   meta_set(&n->class_doc_comment, "10.7.1. Validation Feedback.\n\nField validation error display and feedback mechanisms.");
 }
@@ -59117,7 +59581,7 @@ static void meta_build_error_handling_system_error_display(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemErrorDisplay");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "10.7.2. System Error Display.");
   meta_set(&n->class_doc_comment, "10.7.2. System Error Display.\n\nSystem error presentation including server errors, network issues,\nand timeouts.");
 }
@@ -59128,7 +59592,7 @@ static void meta_build_error_handling_error_recovery(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ErrorRecovery");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "10.7.3. Error Recovery.");
   meta_set(&n->class_doc_comment, "10.7.3. Error Recovery.\n\nError recovery flows including data preservation, retry mechanisms,\nand guided recovery steps.");
 }
@@ -59138,7 +59602,7 @@ static void meta_build_error_handling_error_message_catalog(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -59151,7 +59615,7 @@ static void meta_build_error_handling_error_visual_design(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -59362,6 +59826,18 @@ static void meta_build_error_handling_standards_recovery(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"POSA — patterns of software architecture\",\"GoF design patterns — reusable OO design\"],\"connotation\":\"Defines standard recovery strategies and compensating actions for partial failures.\"}", NULL);
 }
+static void meta_build_error_recovery_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ErrorRecovery");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how a user gets back on track after an error before the preservation, retry and guided-recovery subsections below. Cover what work must never be lost.");
+}
 static void meta_build_error_recovery_recovery_mechanisms_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorRecovery");
   meta_set(&n->member_name, "recoveryMechanismsContent");
@@ -59369,7 +59845,7 @@ static void meta_build_error_recovery_recovery_mechanisms_content(SomMetaNode *n
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -59399,7 +59875,7 @@ static void meta_build_error_recovery_data_preservation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Data preservation: draft auto-save settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -59446,7 +59922,7 @@ static void meta_build_error_recovery_retry_mechanisms(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Retry mechanisms configuration.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
@@ -59499,7 +59975,7 @@ static void meta_build_error_recovery_guided_recovery(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Guided recovery options.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -59540,7 +60016,7 @@ static void meta_build_error_recovery_support_contact(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Support contact details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -59575,7 +60051,7 @@ static void meta_build_error_recovery_session_handling(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Session handling configuration.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -59603,7 +60079,7 @@ static void meta_build_error_recovery_recovery_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -59618,7 +60094,7 @@ static void meta_build_error_recovery_recovery_flows(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per recovery flow.");
   meta_set(&n->doc_comment, "Recovery flow diagrams.");
   n->extra_len = 1;
@@ -59634,7 +60110,7 @@ static void meta_build_error_recovery_recovery_scenarios(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RecoveryScenarioEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per common recovery scenario.");
   meta_set(&n->doc_comment, "Common recovery scenarios.");
   n->extra_len = 1;
@@ -62122,6 +62598,18 @@ static void meta_build_external_connectivity_section_resilience(SomMetaNode *n) 
   meta_set(&n->doc_comment, "Connectivity resilience requirements.");
   meta_set(&n->class_doc_comment, "Connectivity resilience requirements.");
 }
+static void meta_build_external_interface_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ExternalInterfaceEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this interface — the business need it serves and the partner behind it, beyond the technical, data and security facets recorded below.");
+}
 static void meta_build_external_interface_entry_identification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalInterfaceEntry");
   meta_set(&n->member_name, "identificationContent");
@@ -62129,7 +62617,7 @@ static void meta_build_external_interface_entry_identification_content(SomMetaNo
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -62177,7 +62665,7 @@ static void meta_build_external_interface_entry_business_context(SomMetaNode *n)
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceBusinessContext");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Business purpose and value of this interface.");
   meta_set(&n->class_doc_comment, "Business context for an interface.");
 }
@@ -62188,7 +62676,7 @@ static void meta_build_external_interface_entry_technical_spec(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceTechnicalSpec");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Technical details of the interface.");
   meta_set(&n->class_doc_comment, "Technical specification for an interface.");
 }
@@ -62199,7 +62687,7 @@ static void meta_build_external_interface_entry_data_spec(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceDataSpec");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Data exchange specification.");
   meta_set(&n->class_doc_comment, "Data specification for an interface.");
 }
@@ -62210,7 +62698,7 @@ static void meta_build_external_interface_entry_security(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceSecurity");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Security and authentication requirements.");
   meta_set(&n->class_doc_comment, "Security specification for an interface.");
 }
@@ -62221,7 +62709,7 @@ static void meta_build_external_interface_entry_operational(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceOperational");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Operational and SLA requirements.");
   meta_set(&n->class_doc_comment, "Operational characteristics.");
 }
@@ -62232,7 +62720,7 @@ static void meta_build_external_interface_entry_error_handling(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceErrorHandling");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Error handling and resilience.");
   meta_set(&n->class_doc_comment, "Error handling specification.");
 }
@@ -62243,7 +62731,7 @@ static void meta_build_external_interface_entry_governance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceGovernance");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Contractual and governance information.");
   meta_set(&n->class_doc_comment, "Governance and contracts.");
 }
@@ -62254,9 +62742,21 @@ static void meta_build_external_interface_entry_testing(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceTesting");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Testing and environment information.");
   meta_set(&n->class_doc_comment, "Testing specification.");
+}
+static void meta_build_external_interfaces_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ExternalInterfaces");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the external-integration landscape before the individual interfaces below. Cover the integration style favoured and the governance around adding one.");
 }
 static void meta_build_external_interfaces_integration_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalInterfaces");
@@ -62264,7 +62764,7 @@ static void meta_build_external_interfaces_integration_summary(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -62277,7 +62777,7 @@ static void meta_build_external_interfaces_architecture_approach(SomMetaNode *n)
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -62290,7 +62790,7 @@ static void meta_build_external_interfaces_governance_model(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -62305,7 +62805,7 @@ static void meta_build_external_interfaces_interfaces(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ExternalInterfaceEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details.");
   meta_set(&n->doc_comment, "Contains 0+× ExternalInterfaceEntry.");
   n->extra_len = 1;
@@ -65431,6 +65931,18 @@ static void meta_build_flexibility_narrative(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Detailed flexibility requirements narrative.");
 }
+static void meta_build_flexibility_characteristic_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "FlexibilityCharacteristic");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce flexibility for this system before the adaptability and portability subsections below. Cover the changes the system is expected to absorb without redesign.");
+}
 static void meta_build_flexibility_characteristic_flexibility_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FlexibilityCharacteristic");
   meta_set(&n->member_name, "flexibilityContent");
@@ -65438,7 +65950,7 @@ static void meta_build_flexibility_characteristic_flexibility_content(SomMetaNod
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -65461,7 +65973,7 @@ static void meta_build_flexibility_characteristic_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -65475,7 +65987,7 @@ static void meta_build_flexibility_characteristic_flexibility(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Flexibility");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.9.1. Flexibility (adaptability/scalability/extensibility).");
   meta_set(&n->class_doc_comment, "11.3.3. Flexibility quality.");
 }
@@ -65486,7 +65998,7 @@ static void meta_build_flexibility_characteristic_portability(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Portability");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "11.9.2. Portability.");
   meta_set(&n->class_doc_comment, "11.3.2. Portability quality.");
 }
@@ -66014,6 +66526,18 @@ static void meta_build_function_entry_sub_functions_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A sub-function entry (form).\n\nLower-level function in the decomposition.");
   meta_set(&n->class_doc_comment, "A sub-function entry (form).\n\nLower-level function in the decomposition.");
 }
+static void meta_build_function_model_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "FunctionModel");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the function model before the decomposition, matrix and rule lists below. Cover how deep the decomposition goes and how functions are mapped onto data.");
+}
 static void meta_build_function_model_decomposition_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionModel");
   meta_set(&n->member_name, "decompositionOverview");
@@ -66021,7 +66545,7 @@ static void meta_build_function_model_decomposition_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -66057,7 +66581,7 @@ static void meta_build_function_model_matrix_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -66094,7 +66618,7 @@ static void meta_build_function_model_functions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "FunctionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per function.");
   meta_set(&n->doc_comment, "7.3.1. Function Decomposition — contains 0+× Function.");
   n->extra_len = 1;
@@ -66118,7 +66642,7 @@ static void meta_build_function_model_matrix_entries(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "FunctionDataMatrixEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per function/data matrix mapping.");
   meta_set(&n->doc_comment, "7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.");
   n->extra_len = 1;
@@ -66142,7 +66666,7 @@ static void meta_build_function_model_business_rules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BusinessRuleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->has_min = 1;
   n->min = 1;
   meta_set(&n->content_help, "Add one entry per business rule.");
@@ -66717,6 +67241,18 @@ static void meta_build_functional_responsibilities_items_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A responsibility entry (form).\n\nDocuments responsibility assignment for a specific functional area,\nfollowing RACI principles (Responsible, Accountable, Consulted, Informed)\nwith additional operational details for clear accountability.");
   meta_set(&n->class_doc_comment, "A responsibility entry (form).\n\nDocuments responsibility assignment for a specific functional area,\nfollowing RACI principles (Responsible, Accountable, Consulted, Informed)\nwith additional operational details for clear accountability.");
 }
+static void meta_build_functional_suitability_characteristic_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "FunctionalSuitabilityCharacteristic");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce functional suitability for this system before the completeness and correctness subsections below. Cover what \"the right functions, done correctly\" means here.");
+}
 static void meta_build_functional_suitability_characteristic_functional_suitability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FunctionalSuitabilityCharacteristic");
   meta_set(&n->member_name, "functionalSuitabilityContent");
@@ -66724,7 +67260,7 @@ static void meta_build_functional_suitability_characteristic_functional_suitabil
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -66753,7 +67289,7 @@ static void meta_build_functional_suitability_characteristic_overview(SomMetaNod
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -66767,7 +67303,7 @@ static void meta_build_functional_suitability_characteristic_functional_complete
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FunctionalCompleteness");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.2.1. Functional Completeness.");
   meta_set(&n->class_doc_comment, "11.2.2. Functional completeness quality.");
 }
@@ -66778,7 +67314,7 @@ static void meta_build_functional_suitability_characteristic_correctness(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Correctness");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "11.2.2. Correctness.");
   meta_set(&n->class_doc_comment, "11.2.3. Correctness quality.");
 }
@@ -72405,6 +72941,18 @@ static void meta_build_interaction_business_rules_content(SomMetaNode *n) {
   n->form->fields[5].hint = som_strdup("BR-xxx rules governing external integrations");
   n->form->fields[5].order = 5;
 }
+static void meta_build_interaction_capability_characteristic_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "InteractionCapabilityCharacteristic");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce interaction capability for this system before the usability subsection below. Cover the user groups whose experience sets the bar.");
+}
 static void meta_build_interaction_capability_characteristic_interaction_capability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionCapabilityCharacteristic");
   meta_set(&n->member_name, "interactionCapabilityContent");
@@ -72412,7 +72960,7 @@ static void meta_build_interaction_capability_characteristic_interaction_capabil
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -72459,7 +73007,7 @@ static void meta_build_interaction_capability_characteristic_overview(SomMetaNod
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -72473,7 +73021,7 @@ static void meta_build_interaction_capability_characteristic_usability(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Usability");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.5.1. Usability.");
   meta_set(&n->class_doc_comment, "11.2.1. Usability quality.");
 }
@@ -72936,6 +73484,18 @@ static void meta_build_interaction_dependency_analysis_content(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "What happens when external interactions are slow or unavailable, and\nwhich of them lie on the critical path of user-facing flows.\n\n**What to capture:**\n- Critical-path map per business flow\n- Degraded-mode behavior (feature off, read-only, queue-and-retry)\n- Cache strategies for graceful degradation\n- Circuit-breaker / bulkhead configuration per interaction\n- Timeout budgets and retry policies\n- User-visible error handling for unavailable partners\n- Recovery behavior when partners come back online\n");
 }
+static void meta_build_interaction_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "InteractionEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this interaction — the situation it arises in and why it matters, beyond the scope, flow and rule facets recorded below.");
+}
 static void meta_build_interaction_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "InteractionEntry");
   meta_set(&n->member_name, "identification");
@@ -72943,7 +73503,7 @@ static void meta_build_interaction_entry_identification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Interaction identification (use case header).");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -73008,7 +73568,7 @@ static void meta_build_interaction_entry_scope_context(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Use case scope and context (Cockburn style).");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -73074,7 +73634,7 @@ static void meta_build_interaction_entry_stakeholders(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "StakeholdersAndInterests");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per stakeholder interest.");
   meta_set(&n->doc_comment, "Stakeholders and interests.");
   n->extra_len = 1;
@@ -73098,7 +73658,7 @@ static void meta_build_interaction_entry_preconditions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "PreconditionsAndTriggers");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per precondition/trigger set.");
   meta_set(&n->doc_comment, "Preconditions and triggers.");
   n->extra_len = 1;
@@ -73122,7 +73682,7 @@ static void meta_build_interaction_entry_postconditions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "PostconditionsAndGuarantees");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per postcondition/guarantee set.");
   meta_set(&n->doc_comment, "Postconditions and guarantees.");
   n->extra_len = 1;
@@ -73145,7 +73705,7 @@ static void meta_build_interaction_entry_main_scenario(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MainSuccessScenario");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Main success scenario (basic flow).");
   meta_set(&n->class_doc_comment, "Main success scenario (basic flow).");
 }
@@ -73156,7 +73716,7 @@ static void meta_build_interaction_entry_extensions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UseCaseExtensions");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Extensions (alternative and exception flows).");
   meta_set(&n->class_doc_comment, "Use case extensions (alternative and exception flows).");
 }
@@ -73168,7 +73728,7 @@ static void meta_build_interaction_entry_variations(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TechnologyDataVariations");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per variation.");
   meta_set(&n->doc_comment, "Technology and data variations.");
   n->extra_len = 1;
@@ -73191,7 +73751,7 @@ static void meta_build_interaction_entry_ui_preview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UIRequirementsPreview");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "UI requirements preview.");
   meta_set(&n->class_doc_comment, "UI requirements preview for this interaction.");
 }
@@ -73202,7 +73762,7 @@ static void meta_build_interaction_entry_performance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Performance and frequency.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -73261,7 +73821,7 @@ static void meta_build_interaction_entry_security(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Security and authorization.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -73321,7 +73881,7 @@ static void meta_build_interaction_entry_business_rules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "InteractionBusinessRules");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->content_help, "Add one entry per business-rule group.");
   meta_set(&n->doc_comment, "Business rules triggered.");
   n->extra_len = 1;
@@ -73344,7 +73904,7 @@ static void meta_build_interaction_entry_traceability(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Related elements and traceability.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -76316,6 +76876,18 @@ static void meta_build_it_standard_compliance_entry_evidence(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010 — product quality model\",\"ISO/IEC/IEEE 42010 — architecture description\"],\"connotation\":\"Captures the evidence required to demonstrate IT standard compliance.\"}", NULL);
 }
+static void meta_build_job_descriptions_and_staffing_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "JobDescriptionsAndStaffing");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the role changes before the new, changed and removed role lists below. Cover the net headcount effect and the sourcing approach.");
+}
 static void meta_build_job_descriptions_and_staffing_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "JobDescriptionsAndStaffing");
   meta_set(&n->member_name, "overview");
@@ -76323,7 +76895,7 @@ static void meta_build_job_descriptions_and_staffing_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Overview of the job architecture and role design approach.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
@@ -76395,7 +76967,7 @@ static void meta_build_job_descriptions_and_staffing_new_roles(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "NewRoleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per new role being created.");
   meta_set(&n->doc_comment, "5.2.1. New Roles — contains 0+× New Role.");
   n->extra_len = 1;
@@ -76419,7 +76991,7 @@ static void meta_build_job_descriptions_and_staffing_changed_roles(SomMetaNode *
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ChangedRoleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per existing role whose definition changes.");
   meta_set(&n->doc_comment, "5.2.2. Changed Roles — contains 0+× Changed Role.");
   n->extra_len = 1;
@@ -76443,7 +77015,7 @@ static void meta_build_job_descriptions_and_staffing_removed_roles(SomMetaNode *
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RemovedRoleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per role being eliminated.");
   meta_set(&n->doc_comment, "5.2.3. Removed Roles — contains 0+× role being eliminated.");
   n->extra_len = 1;
@@ -76466,7 +77038,7 @@ static void meta_build_job_descriptions_and_staffing_staffing_plan(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "StaffingPlan");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "5.2.4. Staffing Plan.");
   meta_set(&n->class_doc_comment, "5.2.4. Staffing Plan.");
 }
@@ -76477,7 +77049,7 @@ static void meta_build_job_descriptions_and_staffing_competency_framework(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CompetencyFramework");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "5.2.5. Competency Framework.");
   meta_set(&n->class_doc_comment, "5.2.5. Competency Framework.");
 }
@@ -77384,6 +77956,18 @@ static void meta_build_knowledge_transfer_content(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Formal handover of system knowledge to operations and support teams.\n\n**What to capture:**\n- Knowledge artifact catalog (runbooks, diagrams, configs, credentials)\n- Handover sessions (audience, agenda, duration, proof-of-comprehension)\n- Sign-off criteria for operations readiness\n- Shadow / co-ownership period before full handover\n- Reference contacts for escalation post-handover\n- Artifact storage location and access model\n");
 }
+static void meta_build_language_country_selection_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "LanguageCountrySelection");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the language and country picker before the default, persistence and fallback subsections below. Cover where the picker appears and when a user first meets it.");
+}
 static void meta_build_language_country_selection_language_selection_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LanguageCountrySelection");
   meta_set(&n->member_name, "languageSelectionContent");
@@ -77391,7 +77975,7 @@ static void meta_build_language_country_selection_language_selection_content(Som
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -77433,7 +78017,7 @@ static void meta_build_language_country_selection_defaults(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Default locale behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -77468,7 +78052,7 @@ static void meta_build_language_country_selection_persistence(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Retention rules — how a chosen preference survives, without naming a store.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -77503,7 +78087,7 @@ static void meta_build_language_country_selection_fallback(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Fallback behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -77538,7 +78122,7 @@ static void meta_build_language_country_selection_ux(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Switching UX behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -77572,7 +78156,7 @@ static void meta_build_language_country_selection_language_selection_narrative(S
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -77584,7 +78168,7 @@ static void meta_build_language_country_selection_language_picker_mockup(SomMeta
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid");
   n->content_type->description = som_strdup("");
@@ -78777,6 +79361,18 @@ static void meta_build_locale_handling_requirements_content(SomMetaNode *n) {
   n->form->fields[3].hint = som_strdup("Fallback order when locale not available");
   n->form->fields[3].order = 3;
 }
+static void meta_build_localization_process_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "LocalizationProcess");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the localization workflow before the review, formatting and deployment subsections below. Cover how translatable content is identified and externalized.");
+}
 static void meta_build_localization_process_localization_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "LocalizationProcess");
   meta_set(&n->member_name, "localizationProcessContent");
@@ -78784,7 +79380,7 @@ static void meta_build_localization_process_localization_process_content(SomMeta
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -78820,7 +79416,7 @@ static void meta_build_localization_process_review(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Review process.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -78855,7 +79451,7 @@ static void meta_build_localization_process_formatting(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Formatting rules.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -78902,7 +79498,7 @@ static void meta_build_localization_process_deployment(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Deployment settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -78936,7 +79532,7 @@ static void meta_build_localization_process_localization_narrative(SomMetaNode *
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -78948,7 +79544,7 @@ static void meta_build_localization_process_workflow_diagram(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-flow");
   n->content_type->description = som_strdup("");
@@ -80013,6 +80609,18 @@ static void meta_build_maintainability_narrative(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Detailed maintainability requirements narrative.");
 }
+static void meta_build_maintainability_characteristic_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MaintainabilityCharacteristic");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce maintainability for this system before the maintainability subsection below. Cover who will maintain it, and over what horizon.");
+}
 static void meta_build_maintainability_characteristic_maintainability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MaintainabilityCharacteristic");
   meta_set(&n->member_name, "maintainabilityContent");
@@ -80020,7 +80628,7 @@ static void meta_build_maintainability_characteristic_maintainability_content(So
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -80043,7 +80651,7 @@ static void meta_build_maintainability_characteristic_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -80057,7 +80665,7 @@ static void meta_build_maintainability_characteristic_maintainability(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Maintainability");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.8.1. Maintainability (product maintainability attributes).");
   meta_set(&n->class_doc_comment, "11.3.5. Maintainability quality.");
 }
@@ -81396,6 +82004,18 @@ static void meta_build_message_locale_variant_entry_content(SomMetaNode *n) {
   n->form->fields[1].hint = som_strdup("The user-facing text for this locale");
   n->form->fields[1].order = 1;
 }
+static void meta_build_metrics_and_observability_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MetricsAndObservability");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the observability approach before the application, infrastructure, business and tracing subsections below. Cover which questions the telemetry has to answer, and the retention and cost trade-off behind it.");
+}
 static void meta_build_metrics_and_observability_metrics_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MetricsAndObservability");
   meta_set(&n->member_name, "metricsOverview");
@@ -81403,7 +82023,7 @@ static void meta_build_metrics_and_observability_metrics_overview(SomMetaNode *n
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -81474,7 +82094,7 @@ static void meta_build_metrics_and_observability_overview_narrative(SomMetaNode 
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -81487,7 +82107,7 @@ static void meta_build_metrics_and_observability_application_metrics(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ApplicationMetricsSpec");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Application metrics specification.");
   meta_set(&n->class_doc_comment, "Application metrics specification.");
 }
@@ -81498,7 +82118,7 @@ static void meta_build_metrics_and_observability_infrastructure_metrics(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InfrastructureMetricsSpec");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Infrastructure metrics specification.");
   meta_set(&n->class_doc_comment, "Infrastructure metrics specification.");
 }
@@ -81509,7 +82129,7 @@ static void meta_build_metrics_and_observability_business_metrics(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BusinessMetricsSpec");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Business metrics specification.");
   meta_set(&n->class_doc_comment, "Business metrics specification.");
 }
@@ -81520,7 +82140,7 @@ static void meta_build_metrics_and_observability_distributed_tracing(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DistributedTracingSpec");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Distributed tracing specification.");
   meta_set(&n->class_doc_comment, "Distributed tracing specification.");
 }
@@ -81532,7 +82152,7 @@ static void meta_build_metrics_and_observability_custom_metrics(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CustomMetricEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per custom metric.");
   meta_set(&n->doc_comment, "Custom metrics catalog.");
   n->extra_len = 1;
@@ -82050,6 +82670,18 @@ static void meta_build_mfa_configuration_mfa_details(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"NIST SP 800-63B — authentication and authenticator lifecycle\",\"FIDO2 / W3C WebAuthn — phishing-resistant authentication\"],\"connotation\":\"The catalog of multi-factor authentication method definitions.\"}", NULL);
 }
+static void meta_build_migration_considerations_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MigrationConsiderations");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the portfolio-wide migration approach before the resource, risk and coordination subsections below. Cover the sequencing principle that applies across systems.");
+}
 static void meta_build_migration_considerations_strategy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationConsiderations");
   meta_set(&n->member_name, "strategyContent");
@@ -82057,7 +82689,7 @@ static void meta_build_migration_considerations_strategy_content(SomMetaNode *n)
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -82104,7 +82736,7 @@ static void meta_build_migration_considerations_strategy_narrative(SomMetaNode *
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -82117,7 +82749,7 @@ static void meta_build_migration_considerations_resources(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MigrationResources");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Resource requirements for migration program.");
   meta_set(&n->class_doc_comment, "Migration resource requirements.");
 }
@@ -82128,7 +82760,7 @@ static void meta_build_migration_considerations_migration_risks(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MigrationRisks");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Migration risks.");
   meta_set(&n->class_doc_comment, "Migration risks — program-level risks.\n\nComprehensive migration risk management framework for program-level\nrisks across the entire migration portfolio. Covers risk governance,\nassessment methodology, monitoring, and escalation procedures.\nFollows PMI risk management practices and enterprise risk frameworks.");
 }
@@ -82138,7 +82770,7 @@ static void meta_build_migration_considerations_timeline(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -82152,7 +82784,7 @@ static void meta_build_migration_considerations_milestones(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MigrationMilestoneEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per program milestone, with its target date, systems included, and the success/gate criteria that must be met.");
   meta_set(&n->doc_comment, "Migration milestones.");
   n->extra_len = 1;
@@ -82174,7 +82806,7 @@ static void meta_build_migration_considerations_data_mapping(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -82186,7 +82818,7 @@ static void meta_build_migration_considerations_master_data_approach(SomMetaNode
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -82198,7 +82830,7 @@ static void meta_build_migration_considerations_rollback_strategy(SomMetaNode *n
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -82210,7 +82842,7 @@ static void meta_build_migration_considerations_go_no_gos_criteria(SomMetaNode *
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -82222,7 +82854,7 @@ static void meta_build_migration_considerations_communication_plan(SomMetaNode *
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -82236,7 +82868,7 @@ static void meta_build_migration_considerations_escalation_procedures(SomMetaNod
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->content_help, "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.");
   meta_set(&n->doc_comment, "Escalation procedures during migration.");
   n->extra_len = 1;
@@ -83850,6 +84482,18 @@ static void meta_build_migration_risk_indicators_content(SomMetaNode *n) {
   n->form->fields[4].hint = som_strdup("Limits that trigger escalation");
   n->form->fields[4].order = 4;
 }
+static void meta_build_migration_risks_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MigrationRisks");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the program-level migration risk framework before the governance, category and response subsections below. Cover the risk appetite the program works to.");
+}
 static void meta_build_migration_risks_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MigrationRisks");
   meta_set(&n->member_name, "governanceContent");
@@ -83857,7 +84501,7 @@ static void meta_build_migration_risks_governance_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -83887,7 +84531,7 @@ static void meta_build_migration_risks_governance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Governance and decision authority.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -83922,7 +84566,7 @@ static void meta_build_migration_risks_assessment(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Assessment methodology settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -83969,7 +84613,7 @@ static void meta_build_migration_risks_thresholds(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Threshold and trigger settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -84010,7 +84654,7 @@ static void meta_build_migration_risks_reporting(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Reporting settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -84044,7 +84688,7 @@ static void meta_build_migration_risks_risk_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -84057,7 +84701,7 @@ static void meta_build_migration_risks_assessment_methodology(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -84072,7 +84716,7 @@ static void meta_build_migration_risks_risk_categories(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per risk category, naming the category and the kinds of migration risks it groups.");
   meta_set(&n->doc_comment, "Risk categories and taxonomy.");
   n->extra_len = 1;
@@ -84088,7 +84732,7 @@ static void meta_build_migration_risks_risk_based_decisions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.");
   meta_set(&n->doc_comment, "Risk-based decision making criteria.");
   n->extra_len = 1;
@@ -84104,7 +84748,7 @@ static void meta_build_migration_risks_monitoring_procedures(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->content_help, "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.");
   meta_set(&n->doc_comment, "Risk monitoring and control procedures.");
   n->extra_len = 1;
@@ -84120,7 +84764,7 @@ static void meta_build_migration_risks_response_strategies(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->content_help, "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.");
   meta_set(&n->doc_comment, "Risk response strategies by category.");
   n->extra_len = 1;
@@ -84134,7 +84778,7 @@ static void meta_build_migration_risks_risk_aggregation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -84147,7 +84791,7 @@ static void meta_build_migration_risks_risk_matrix(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid");
   n->content_type->description = som_strdup("");
@@ -84160,7 +84804,7 @@ static void meta_build_migration_risks_risk_timeline(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 14;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-gantt");
   n->content_type->description = som_strdup("");
@@ -84175,7 +84819,7 @@ static void meta_build_migration_risks_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MigrationRiskEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 14;
+  n->serialization_order = 15;
   meta_set(&n->content_help, "Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution.");
   meta_set(&n->doc_comment, "Contains 0+× MigrationRiskEntry.");
   n->extra_len = 1;
@@ -85140,6 +85784,18 @@ static void meta_build_module_versioning_strategy_coordination(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Domain-Driven Design — bounded contexts / modules\",\"ISO/IEC 25010 — maintainability / modularity quality attributes\"],\"connotation\":\"Captures how module versions are coordinated and constrained across the module set.\"}", NULL);
 }
+static void meta_build_monitoring_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "Monitoring");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the monitoring approach before the health-check, alerting, metrics, dashboard and SLA subsections below. Cover what is monitored, who watches it, and how a finding reaches an operator.");
+}
 static void meta_build_monitoring_monitoring_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "Monitoring");
   meta_set(&n->member_name, "monitoringOverview");
@@ -85147,7 +85803,7 @@ static void meta_build_monitoring_monitoring_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -85218,7 +85874,7 @@ static void meta_build_monitoring_overview_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -85232,7 +85888,7 @@ static void meta_build_monitoring_health_checks_and_diagnostics(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "HealthChecksAndDiagnosticsSection");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "8.7.2.1. Health Checks and Diagnostics.");
   meta_set(&n->class_doc_comment, "8.7.2.1. Health Checks and Diagnostics.");
 }
@@ -85243,7 +85899,7 @@ static void meta_build_monitoring_alerting_configuration(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AlertingConfiguration");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "8.7.2.2. Alerting Configuration.");
   meta_set(&n->class_doc_comment, "8.7.2.2. Alerting Configuration.\n\nComprehensive alerting rules, notification channels, and escalation\npolicies.");
 }
@@ -85254,7 +85910,7 @@ static void meta_build_monitoring_metrics_and_observability(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MetricsAndObservability");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "8.7.2.3. Metrics and Observability.");
   meta_set(&n->class_doc_comment, "8.7.2.3. Metrics and Observability.\n\nComprehensive metrics collection, distributed tracing, and observability\nrequirements.");
 }
@@ -85265,7 +85921,7 @@ static void meta_build_monitoring_dashboards(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MonitoringDashboards");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "8.7.2.4. Monitoring Dashboards.");
   meta_set(&n->class_doc_comment, "8.7.2.4. Monitoring Dashboards.\n\nOperational dashboards for system monitoring.");
 }
@@ -85276,7 +85932,7 @@ static void meta_build_monitoring_sla_and_slo_monitoring(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SlaAndSloMonitoring");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "8.7.2.5. SLA and SLO Monitoring.");
   meta_set(&n->class_doc_comment, "8.7.2.5. SLA and SLO Monitoring.\n\nService Level Agreement and Service Level Objective tracking.");
 }
@@ -85427,6 +86083,18 @@ static void meta_build_monitoring_and_alerting_section_sla_monitoring(SomMetaNod
   meta_set(&n->doc_comment, "SLA monitoring.");
   meta_set(&n->class_doc_comment, "SLA monitoring requirements.");
 }
+static void meta_build_monitoring_dashboards_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MonitoringDashboards");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the dashboard landscape before the individual dashboards and templates below. Cover who each dashboard is for and what decision it supports.");
+}
 static void meta_build_monitoring_dashboards_dashboard_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MonitoringDashboards");
   meta_set(&n->member_name, "dashboardOverview");
@@ -85434,7 +86102,7 @@ static void meta_build_monitoring_dashboards_dashboard_overview(SomMetaNode *n) 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
   n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
@@ -85505,7 +86173,7 @@ static void meta_build_monitoring_dashboards_overview_narrative(SomMetaNode *n) 
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -85519,7 +86187,7 @@ static void meta_build_monitoring_dashboards_dashboards(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DashboardEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per dashboard.");
   meta_set(&n->doc_comment, "Dashboard catalog.");
   n->extra_len = 1;
@@ -85543,7 +86211,7 @@ static void meta_build_monitoring_dashboards_dashboard_templates(SomMetaNode *n)
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DashboardTemplates");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per dashboard template.");
   meta_set(&n->doc_comment, "Dashboard template specifications.");
   n->extra_len = 1;
@@ -86064,6 +86732,18 @@ static void meta_build_multi_channel_experience_multi_channel_configuration(SomM
   n->form->fields[8].hint = som_strdup("Offline-first approach for applicable channels");
   n->form->fields[8].order = 8;
 }
+static void meta_build_multi_language_support_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MultiLanguageSupport");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce multi-language support before the selection and supported-locale subsections below. Cover which languages ship first and what drives adding another.");
+}
 static void meta_build_multi_language_support_multi_language_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "MultiLanguageSupport");
   meta_set(&n->member_name, "multiLanguageOverview");
@@ -86071,7 +86751,7 @@ static void meta_build_multi_language_support_multi_language_overview(SomMetaNod
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -86106,7 +86786,7 @@ static void meta_build_multi_language_support_overview_narrative(SomMetaNode *n)
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -86120,7 +86800,7 @@ static void meta_build_multi_language_support_language_country_selection(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "LanguageCountrySelection");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "10.12.4. Language and Country Selection.");
   meta_set(&n->class_doc_comment, "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -86134,7 +86814,7 @@ static void meta_build_multi_language_support_supported_locales(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SupportedLocaleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per supported locale.");
   meta_set(&n->doc_comment, "Supported locale entries.");
   n->extra_len = 1;
@@ -86150,6 +86830,18 @@ static void meta_build_multi_language_support_supported_locales_elem(SomMetaNode
   meta_set(&n->doc_comment, "A supported locale entry.");
   meta_set(&n->class_doc_comment, "A supported locale entry.");
 }
+static void meta_build_must_pass_criteria_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MustPassCriteria");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the must-pass criteria before the individual items below. Cover what makes a criterion must-pass rather than merely desirable.");
+}
 static void meta_build_must_pass_criteria_must_pass_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MustPassCriteria");
   meta_set(&n->member_name, "mustPassOverviewContent");
@@ -86157,7 +86849,7 @@ static void meta_build_must_pass_criteria_must_pass_overview_content(SomMetaNode
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -86198,7 +86890,7 @@ static void meta_build_must_pass_criteria_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -86213,7 +86905,7 @@ static void meta_build_must_pass_criteria_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MustPassCriterionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per must-pass criterion.");
   meta_set(&n->doc_comment, "Contains 0+× MustPassCriterion.");
   n->extra_len = 1;
@@ -88495,13 +89187,25 @@ static void meta_build_network_security_requirements_compliance(SomMetaNode *n) 
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 27033 — network security\"],\"connotation\":\"Network security compliance requirements such as PCI-DSS and audit logging.\"}", NULL);
 }
+static void meta_build_new_organization_structure_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "NewOrganizationStructure");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the target organization structure before the change and transition-timeline subsections below. Cover the design principle behind the new shape.");
+}
 static void meta_build_new_organization_structure_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "NewOrganizationStructure");
   meta_set(&n->member_name, "overview");
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -88515,7 +89219,7 @@ static void meta_build_new_organization_structure_changes_from_current_structure
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ChangesFromCurrentStructure");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "5.1.1. Changes from Current Structure.");
   meta_set(&n->class_doc_comment, "5.1.1. Changes from Current Structure.\n\nExplicitly documents what changes from the current organization structure.\nIdentifies affected departments, changed reporting lines, and new roles\nthat need to be created. Provides traceability from current to future state.");
 }
@@ -88526,9 +89230,21 @@ static void meta_build_new_organization_structure_transition_timeline(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OrganizationalTransitionTimeline");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "5.1.2. Organizational Transition Timeline.");
   meta_set(&n->class_doc_comment, "5.1.2. Organizational Transition Timeline.\n\nDescribes when organizational changes take effect, how the transition is\nmanaged, and what training or communication is needed. Follows change\nmanagement best practices (PROSCI ADKAR, Kotter's 8-step model).");
+}
+static void meta_build_new_role_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "NewRoleEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this new role — why it is needed and how it fits the organization, beyond the responsibility, qualification and access facets recorded below.");
 }
 static void meta_build_new_role_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "NewRoleEntry");
@@ -88537,7 +89253,7 @@ static void meta_build_new_role_entry_identification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Role identification and overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
@@ -88590,7 +89306,7 @@ static void meta_build_new_role_entry_organization(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Role positioning in organization.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
@@ -88667,7 +89383,7 @@ static void meta_build_new_role_entry_responsibilities(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "NewRoleResponsibilities");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Responsibilities breakdown.");
   meta_set(&n->class_doc_comment, "New role responsibilities.");
 }
@@ -88678,7 +89394,7 @@ static void meta_build_new_role_entry_qualifications(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "NewRoleQualifications");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Required competencies and qualifications.");
   meta_set(&n->class_doc_comment, "New role qualifications and competencies.");
 }
@@ -88689,7 +89405,7 @@ static void meta_build_new_role_entry_system_access(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "System access and tools.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
@@ -88766,7 +89482,7 @@ static void meta_build_new_role_entry_performance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Performance and success metrics.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -88831,7 +89547,7 @@ static void meta_build_new_role_entry_onboarding(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Onboarding and development.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
@@ -89030,6 +89746,18 @@ static void meta_build_new_role_qualifications_required_competencies_elem(SomMet
   meta_set(&n->doc_comment, "Role competency entry (form).");
   meta_set(&n->class_doc_comment, "Role competency entry (form).");
 }
+static void meta_build_new_role_responsibilities_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "NewRoleResponsibilities");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce what this role is accountable for before the primary, secondary and decision-authority subsections below.");
+}
 static void meta_build_new_role_responsibilities_primary_responsibilities(SomMetaNode *n) {
   meta_set(&n->class_name, "NewRoleResponsibilities");
   meta_set(&n->member_name, "primaryResponsibilities");
@@ -89038,7 +89766,7 @@ static void meta_build_new_role_responsibilities_primary_responsibilities(SomMet
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ResponsibilityDetailEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per primary responsibility.");
   meta_set(&n->doc_comment, "Primary responsibilities (key accountabilities).");
   n->extra_len = 1;
@@ -89062,7 +89790,7 @@ static void meta_build_new_role_responsibilities_secondary_responsibilities(SomM
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ResponsibilityDetailEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per secondary responsibility.");
   meta_set(&n->doc_comment, "Secondary responsibilities (supporting duties).");
   n->extra_len = 1;
@@ -89085,7 +89813,7 @@ static void meta_build_new_role_responsibilities_decision_authority(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Decision-making authority.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -89896,6 +90624,18 @@ static void meta_build_on_call_schedule_config_operations(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PagerDuty / on-call — escalation policy design\",\"Google SRE — being on-call and incident response\"],\"connotation\":\"How on-call compensation and scheduling tooling are handled.\"}", NULL);
 }
+static void meta_build_onboarding_help_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "OnboardingHelp");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the onboarding experience before the tour, sample-data and checklist subsections below. Cover what a first-time user must reach before onboarding counts as done.");
+}
 static void meta_build_onboarding_help_onboarding_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OnboardingHelp");
   meta_set(&n->member_name, "onboardingContent");
@@ -89903,7 +90643,7 @@ static void meta_build_onboarding_help_onboarding_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -89939,7 +90679,7 @@ static void meta_build_onboarding_help_tours(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Feature tour settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -89980,7 +90720,7 @@ static void meta_build_onboarding_help_sample_data(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Sample data settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -90015,7 +90755,7 @@ static void meta_build_onboarding_help_checklist(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Getting started checklist configuration.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -90056,7 +90796,7 @@ static void meta_build_onboarding_help_disclosure(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Progressive disclosure configuration.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -90085,7 +90825,7 @@ static void meta_build_onboarding_help_reengagement(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Returning user experience.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -90113,7 +90853,7 @@ static void meta_build_onboarding_help_onboarding_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -90127,7 +90867,7 @@ static void meta_build_onboarding_help_feature_tours(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "FeatureTourEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per feature tour.");
   meta_set(&n->doc_comment, "Feature tour definitions.");
   n->extra_len = 1;
@@ -90277,13 +91017,25 @@ static void meta_build_ongoing_training_entry_compliance(SomMetaNode *n) {
   n->form->fields[4].hint = som_strdup("");
   n->form->fields[4].order = 4;
 }
+static void meta_build_operating_environment_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "OperatingEnvironment");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the environment the system will run in before the organizational, functional and technical subsections below. Cover the environmental factors that most constrain the design.");
+}
 static void meta_build_operating_environment_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "OperatingEnvironment");
   meta_set(&n->member_name, "overview");
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -90297,7 +91049,7 @@ static void meta_build_operating_environment_organizational_environment(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OrganizationalEnvironment");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "4.6.1. Organizational Environment.");
   meta_set(&n->class_doc_comment, "4.6.1. Organizational Environment.\n\nDescribes the organizational context in which the system will operate,\nincluding departments, reporting structures, decision authority, and\norganizational constraints. Follows organizational design principles\nand enterprise architecture governance patterns.");
 }
@@ -90308,7 +91060,7 @@ static void meta_build_operating_environment_functional_responsibilities(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FunctionalResponsibilities");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "4.6.2. Functional Responsibilities — contains 0+×.");
   meta_set(&n->class_doc_comment, "4.6.2. Functional Responsibilities.\n\nMaps system functions to organizational units responsible for them.\nIdentifies domain owners, data stewards, and operational contacts for\neach function area. Follows RACI matrix patterns and enterprise\naccountability frameworks.");
 }
@@ -90319,7 +91071,7 @@ static void meta_build_operating_environment_technical_environment(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TechnicalEnvironment");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->comment, "Seeds → ATS");
   meta_set(&n->doc_comment, "4.6.3. Technical Environment. Seeds → ATS.");
   meta_set(&n->class_doc_comment, "4.6.3. Technical Environment. Seeds → ATS.\n\nDocuments pre-existing technical constraints including mandated platforms,\nnetwork restrictions, compliance requirements, existing infrastructure\nthat must be reused, and technology standards to follow. Provides the\ntechnical landscape in which the solution must operate. Seeds the detailed\nArchitecture & Technology Specification (ATS) document.");
@@ -90333,7 +91085,7 @@ static void meta_build_operating_environment_constraints_and_dependencies(SomMet
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Summarize how the operating environment described in this section gives rise to constraints and dependencies, and reference the canonical register in SBP.6 (Assumptions, Constraints & Dependencies). Do not restate individual constraint or dependency entries here — record them once, in the SBP.6 register.");
@@ -91392,6 +92144,18 @@ static void meta_build_organizational_context_business_process_coverage(SomMetaN
   n->content_type->description = som_strdup("Which business processes does this system support or automate?");
   meta_set(&n->doc_comment, "Business process coverage.");
 }
+static void meta_build_organizational_environment_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "OrganizationalEnvironment");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the organizational context before the structure, department and decision-making subsections below. Cover the reporting reality the project has to work within.");
+}
 static void meta_build_organizational_environment_organization_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalEnvironment");
   meta_set(&n->member_name, "organizationContent");
@@ -91399,7 +92163,7 @@ static void meta_build_organizational_environment_organization_content(SomMetaNo
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -91447,7 +92211,7 @@ static void meta_build_organizational_environment_maturity(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Organizational maturity indicators.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -91488,7 +92252,7 @@ static void meta_build_organizational_environment_decision_making_context(SomMet
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Decision-making context.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -91534,7 +92298,7 @@ static void meta_build_organizational_environment_structure(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -91549,7 +92313,7 @@ static void meta_build_organizational_environment_affected_departments(SomMetaNo
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AffectedDepartmentEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->content_help, "List each affected department with its role, impact level, and key contacts so organizational reach is fully documented.");
   meta_set(&n->doc_comment, "Departments and business units affected.");
   n->extra_len = 1;
@@ -91571,7 +92335,7 @@ static void meta_build_organizational_environment_decision_making(SomMetaNode *n
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -91586,7 +92350,7 @@ static void meta_build_organizational_environment_decision_makers(SomMetaNode *n
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DecisionMakerEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "List each decision maker with their decision authority, domains, and influence level to map governance and approval paths.");
   meta_set(&n->doc_comment, "Key decision makers and their roles.");
   n->extra_len = 1;
@@ -91610,7 +92374,7 @@ static void meta_build_organizational_environment_cultural_considerations(SomMet
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.");
   meta_set(&n->doc_comment, "Cultural considerations and organizational dynamics.");
   n->extra_len = 1;
@@ -91626,7 +92390,7 @@ static void meta_build_organizational_environment_communication_preferences(SomM
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.");
   meta_set(&n->doc_comment, "Stakeholder communication preferences.");
   n->extra_len = 1;
@@ -91640,7 +92404,7 @@ static void meta_build_organizational_environment_political_landscape(SomMetaNod
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -91655,7 +92419,7 @@ static void meta_build_organizational_environment_change_advocates(SomMetaNode *
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->content_help, "List change champions and sponsors, noting their influence and role in driving adoption across the organization.");
   meta_set(&n->doc_comment, "Change champions and sponsors.");
   n->extra_len = 1;
@@ -91663,13 +92427,25 @@ static void meta_build_organizational_environment_change_advocates(SomMetaNode *
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"PMBOK — enterprise environmental factors (EEF)\",\"ISO 21500 — organizational roles & responsibilities\"],\"connotation\":\"Identifies change champions and sponsors who can drive adoption and overcome organizational resistance.\"}", NULL);
 }
+static void meta_build_organizational_framework_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "OrganizationalFramework");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the organizational changes the system requires before the structure, role and workplace subsections below. Cover the scale of the change and the organization's appetite for it.");
+}
 static void meta_build_organizational_framework_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalFramework");
   meta_set(&n->member_name, "overview");
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -91683,7 +92459,7 @@ static void meta_build_organizational_framework_organization_structure(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "NewOrganizationStructure");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "5.1. New Organization Structure.");
   meta_set(&n->class_doc_comment, "5.1. New Organization Structure.\n\nOrganizational changes required by the new system including new teams,\nrestructured departments, changed responsibilities, and new communication\nchannels. Follows organizational design principles (span of control,\ndecision rights, coordination mechanisms) and change management patterns.");
 }
@@ -91694,7 +92470,7 @@ static void meta_build_organizational_framework_job_descriptions(SomMetaNode *n)
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "JobDescriptionsAndStaffing");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "5.2. Job Descriptions and Staffing Plans.\n\nSingle composite section: the role multiplicity is carried by the inner\nnew/changed/removed-role lists, so this is one section, not a catalog of\nsections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).");
   meta_set(&n->class_doc_comment, "5.2. Job Descriptions and Staffing Plans.\n\nDocuments new and changed roles resulting from the system introduction,\nfollowing HR best practices and job analysis methodologies (O*NET, SHRM).\nIncludes competency frameworks, staffing projections, and recruitment planning.");
 }
@@ -91706,7 +92482,7 @@ static void meta_build_organizational_framework_workplace_descriptions(SomMetaNo
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "WorkplaceDescriptionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->has_min = 1;
   n->min = 1;
   meta_set(&n->comment, "per user category");
@@ -92013,6 +92789,18 @@ static void meta_build_organizational_requirements_requirements_elem(SomMetaNode
   meta_set(&n->doc_comment, "An organizational requirement entry.\n\nComprehensive organizational requirement definition following change\nmanagement and organizational development best practices.");
   meta_set(&n->class_doc_comment, "An organizational requirement entry.\n\nComprehensive organizational requirement definition following change\nmanagement and organizational development best practices.");
 }
+static void meta_build_organizational_transition_timeline_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "OrganizationalTransitionTimeline");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the organizational transition before the phase, readiness, communication and support subsections below. Cover the pace of change and what sets it.");
+}
 static void meta_build_organizational_transition_timeline_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionOverview");
   meta_set(&n->member_name, "overview");
@@ -92020,7 +92808,7 @@ static void meta_build_organizational_transition_timeline_overview(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TransitionOverview");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Overview of the transition approach and guiding principles.");
   meta_set(&n->class_doc_comment, "Overview of the organizational transition approach.");
 }
@@ -92032,7 +92820,7 @@ static void meta_build_organizational_transition_timeline_phases(SomMetaNode *n)
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TransitionPhaseEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per transition phase, in sequence — e.g. Preparation, Pilot, Rollout, Stabilization, Closure.");
   meta_set(&n->doc_comment, "Transition phases with milestones and durations.");
   n->extra_len = 1;
@@ -92056,7 +92844,7 @@ static void meta_build_organizational_transition_timeline_milestones(SomMetaNode
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TransitionMilestoneEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per transition milestone or decision gate — e.g. checkpoints, go-live, closure.");
   meta_set(&n->doc_comment, "Key transition milestones and decision gates.");
   n->extra_len = 1;
@@ -92079,7 +92867,7 @@ static void meta_build_organizational_transition_timeline_change_readiness(SomMe
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ChangeReadinessAssessment");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Change readiness assessment approach.");
   meta_set(&n->class_doc_comment, "Change readiness assessment approach.");
 }
@@ -92090,7 +92878,7 @@ static void meta_build_organizational_transition_timeline_communication_plan(Som
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TransitionCommunicationPlan");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Communication plan for the transition.");
   meta_set(&n->class_doc_comment, "Communication plan for the transition.");
 }
@@ -92101,7 +92889,7 @@ static void meta_build_organizational_transition_timeline_support_structure(SomM
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TransitionSupportStructure");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Support structure during transition.");
   meta_set(&n->class_doc_comment, "Support structure during transition.");
 }
@@ -92112,7 +92900,7 @@ static void meta_build_organizational_transition_timeline_success_metrics(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TransitionSuccessMetrics");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Success metrics and measurement approach.");
   meta_set(&n->class_doc_comment, "Success metrics for the transition.");
 }
@@ -92124,7 +92912,7 @@ static void meta_build_organizational_transition_timeline_transition_risks(SomMe
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TransitionRiskEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per transition-specific risk, with its likelihood, impact, and planned mitigation.");
   meta_set(&n->doc_comment, "Risks specific to the organizational transition.");
   n->extra_len = 1;
@@ -92421,13 +93209,25 @@ static void meta_build_other_agreement_entry_content(SomMetaNode *n) {
   n->form->fields[6].hint = som_strdup("Where the signed agreement is stored");
   n->form->fields[6].order = 6;
 }
+static void meta_build_out_of_scope_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "OutOfScope");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the exclusions before the individual out-of-scope items below. Cover the principle by which something was excluded and where it might be picked up later.");
+}
 static void meta_build_out_of_scope_scope_philosophy(SomMetaNode *n) {
   meta_set(&n->class_name, "OutOfScope");
   meta_set(&n->member_name, "scopePhilosophy");
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -92442,7 +93242,7 @@ static void meta_build_out_of_scope_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "OutOfScopeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Each entry records one excluded feature, system, or integration along with its exclusion rationale.");
   meta_set(&n->doc_comment, "Contains 0+× OutOfScopeEntry.");
   n->extra_len = 1;
@@ -93932,6 +94732,18 @@ static void meta_build_penetration_testing_requirements_reporting(SomMetaNode *n
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"OWASP WSTG — web security testing guide (penetration testing)\",\"NIST SP 800-53 — audit and accountability (AU) controls\"],\"connotation\":\"Reporting format and remediation timelines for penetration testing findings.\"}", NULL);
 }
+static void meta_build_performance_efficiency_characteristic_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "PerformanceEfficiencyCharacteristic");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce performance efficiency for this system before the efficiency subsection below. Cover the load profile the targets are stated against.");
+}
 static void meta_build_performance_efficiency_characteristic_performance_efficiency_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PerformanceEfficiencyCharacteristic");
   meta_set(&n->member_name, "performanceEfficiencyContent");
@@ -93939,7 +94751,7 @@ static void meta_build_performance_efficiency_characteristic_performance_efficie
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -93980,7 +94792,7 @@ static void meta_build_performance_efficiency_characteristic_overview(SomMetaNod
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -93994,7 +94806,7 @@ static void meta_build_performance_efficiency_characteristic_efficiency(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Efficiency");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.3.1. Efficiency.");
   meta_set(&n->class_doc_comment, "11.3.1. Efficiency quality.");
 }
@@ -97404,6 +98216,18 @@ static void meta_build_process_adjustments_items_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A process adjustment entry (form).\n\nDocuments a specific deviation from standard process steps, including\nthe type of modification, dependencies affected, risk assessment,\nand implementation details.");
   meta_set(&n->class_doc_comment, "A process adjustment entry (form).\n\nDocuments a specific deviation from standard process steps, including\nthe type of modification, dependencies affected, risk assessment,\nand implementation details.");
 }
+static void meta_build_process_catalog_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessCatalog");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the process catalog before the classification scheme and the process entries below. Cover the scope of the catalog and what is deliberately outside it.");
+}
 static void meta_build_process_catalog_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessCatalog");
   meta_set(&n->member_name, "overview");
@@ -97411,7 +98235,7 @@ static void meta_build_process_catalog_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Process catalog overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -97476,7 +98300,7 @@ static void meta_build_process_catalog_classification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Process classification scheme.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -97542,7 +98366,7 @@ static void meta_build_process_catalog_processes(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BusinessProcessEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->has_min = 1;
   n->min = 1;
   meta_set(&n->content_help, "Add one entry per business process.");
@@ -97782,6 +98606,18 @@ static void meta_build_process_control_entry_verification(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BPMN 2.0 — gateways / decision points\",\"ISO 9001:2015 §4.4 — process approach\"],\"connotation\":\"Captures the evidence a control produces, how it is tested, and what happens when it fails.\"}", NULL);
 }
+static void meta_build_process_controls_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessControls");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the control framework for this process before the individual controls below. Cover which risks the controls address and who tests them.");
+}
 static void meta_build_process_controls_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessControls");
   meta_set(&n->member_name, "overview");
@@ -97789,7 +98625,7 @@ static void meta_build_process_controls_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Controls overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -97855,7 +98691,7 @@ static void meta_build_process_controls_controls(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessControlEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per control applied to this process.");
   meta_set(&n->doc_comment, "Contains 0+× process control.");
   n->extra_len = 1;
@@ -97989,6 +98825,18 @@ static void meta_build_process_design_principle_entry_content(SomMetaNode *n) {
   n->form->fields[7].hint = som_strdup("Which processes the principle applies to");
   n->form->fields[7].order = 7;
 }
+static void meta_build_process_design_principles_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessDesignPrinciples");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the design principles before the individual principles below. Cover where they came from and how a conflict between two of them is resolved.");
+}
 static void meta_build_process_design_principles_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessDesignPrinciples");
   meta_set(&n->member_name, "overview");
@@ -97996,7 +98844,7 @@ static void meta_build_process_design_principles_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Design principles overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -98038,7 +98886,7 @@ static void meta_build_process_design_principles_principles(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessDesignPrincipleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per process design principle.");
   meta_set(&n->doc_comment, "Contains 0+× Design Principle.");
   n->extra_len = 1;
@@ -98218,6 +99066,18 @@ static void meta_build_process_exception_handling_content(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Handling of exceptions that interrupt a normal process flow. Distinct\nfrom UI-level error handling — this is about business\nprocess recovery.\n\n**What to capture:**\n- Exception catalog (what can go wrong at which step)\n- Escalation matrix (who is notified, who decides)\n- Compensation / rollback activities\n- Retry strategies and timeouts\n- Manual-intervention procedures\n- Audit requirements for handled exceptions\n");
 }
+static void meta_build_process_exceptions_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessExceptions");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the exception-handling philosophy for this process before the individual exception scenarios below. Cover what is handled in-process and what is escalated out of it.");
+}
 static void meta_build_process_exceptions_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessExceptions");
   meta_set(&n->member_name, "overview");
@@ -98225,7 +99085,7 @@ static void meta_build_process_exceptions_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Exceptions overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -98285,7 +99145,7 @@ static void meta_build_process_exceptions_exceptions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessExceptionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per exception scenario for this process.");
   meta_set(&n->doc_comment, "Contains 0+× exception scenario.");
   n->extra_len = 1;
@@ -98540,6 +99400,18 @@ static void meta_build_process_improvement_entry_delivery(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Six Sigma / Lean — process improvement\"],\"connotation\":\"Captures the enablers, dependencies, risks, and verification method for an improvement.\"}", NULL);
 }
+static void meta_build_process_improvement_summary_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessImprovementSummary");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the improvements expected over the current processes before the itemized improvements and the business case below. Cover the baseline they are measured against.");
+}
 static void meta_build_process_improvement_summary_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessImprovementSummary");
   meta_set(&n->member_name, "overview");
@@ -98547,7 +99419,7 @@ static void meta_build_process_improvement_summary_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Improvement overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -98595,7 +99467,7 @@ static void meta_build_process_improvement_summary_improvements(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessImprovementEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per planned process improvement.");
   meta_set(&n->doc_comment, "Contains 0+× improvement item.");
   n->extra_len = 1;
@@ -98618,7 +99490,7 @@ static void meta_build_process_improvement_summary_business_case(SomMetaNode *n)
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Business case summary.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -98729,6 +99601,18 @@ static void meta_build_process_input_entry_content(SomMetaNode *n) {
   n->form->fields[7].hint = som_strdup("Sensitivity level of the input");
   n->form->fields[7].order = 7;
 }
+static void meta_build_process_inputs_outputs_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessInputsOutputs");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the data this process consumes and produces before the input and output lists below. Cover where the inputs originate and who consumes the outputs.");
+}
 static void meta_build_process_inputs_outputs_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessInputsOutputs");
   meta_set(&n->member_name, "overview");
@@ -98736,7 +99620,7 @@ static void meta_build_process_inputs_outputs_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Inputs overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -98772,7 +99656,7 @@ static void meta_build_process_inputs_outputs_inputs(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessInputEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per process input.");
   meta_set(&n->doc_comment, "Contains 0+× process input.");
   n->extra_len = 1;
@@ -98796,7 +99680,7 @@ static void meta_build_process_inputs_outputs_outputs(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessOutputEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per process output.");
   meta_set(&n->doc_comment, "Contains 0+× process output.");
   n->extra_len = 1;
@@ -99374,6 +100258,18 @@ static void meta_build_process_output_entry_content(SomMetaNode *n) {
   n->form->fields[7].hint = som_strdup("Processes that consume this output");
   n->form->fields[7].order = 7;
 }
+static void meta_build_process_overview_diagram_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessOverviewDiagram");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the process landscape before the landscape, hierarchy and value-chain diagrams below. Cover the reading order and the level of detail each diagram shows.");
+}
 static void meta_build_process_overview_diagram_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessOverviewDiagram");
   meta_set(&n->member_name, "overview");
@@ -99381,7 +100277,7 @@ static void meta_build_process_overview_diagram_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Diagram overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -99427,7 +100323,7 @@ static void meta_build_process_overview_diagram_landscape_diagram(SomMetaNode *n
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-flow");
   n->content_type->description = som_strdup("");
@@ -99439,7 +100335,7 @@ static void meta_build_process_overview_diagram_hierarchy_diagram(SomMetaNode *n
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-flow");
   n->content_type->description = som_strdup("");
@@ -99451,7 +100347,7 @@ static void meta_build_process_overview_diagram_value_chain_diagram(SomMetaNode 
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-flow");
   n->content_type->description = som_strdup("");
@@ -99492,6 +100388,18 @@ static void meta_build_process_pain_points_improvements_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A process improvement opportunity.");
   meta_set(&n->class_doc_comment, "A process improvement opportunity.");
 }
+static void meta_build_process_performance_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessPerformance");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how this process is measured before the KPI and SLA lists below. Cover the measurement period and the data source behind the numbers.");
+}
 static void meta_build_process_performance_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessPerformance");
   meta_set(&n->member_name, "overview");
@@ -99499,7 +100407,7 @@ static void meta_build_process_performance_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Performance overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -99565,7 +100473,7 @@ static void meta_build_process_performance_kpis(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessKpiEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per KPI tracked for this process.");
   meta_set(&n->doc_comment, "Contains 0+× performance metric.");
   n->extra_len = 1;
@@ -99589,7 +100497,7 @@ static void meta_build_process_performance_slas(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessSlaEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per service level agreement for this process.");
   meta_set(&n->doc_comment, "Service Level Agreements.");
   n->extra_len = 1;
@@ -99882,6 +100790,18 @@ static void meta_build_process_role_entry_coordination(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"RACI — responsibility assignment\",\"BPM CBOK — business process management body of knowledge\"],\"connotation\":\"Captures when a role must be available, who covers it, and how work is handed off to and from it.\"}", NULL);
 }
+static void meta_build_process_roles_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessRoles");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the participants in this process before the per-role entries below. Cover how responsibility is split and where the hand-offs occur.");
+}
 static void meta_build_process_roles_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessRoles");
   meta_set(&n->member_name, "overview");
@@ -99889,7 +100809,7 @@ static void meta_build_process_roles_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Roles overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -99937,7 +100857,7 @@ static void meta_build_process_roles_roles(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessRoleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per process role.");
   meta_set(&n->doc_comment, "Contains 0+× process role.");
   n->extra_len = 1;
@@ -100462,6 +101382,18 @@ static void meta_build_process_trigger_entry_content(SomMetaNode *n) {
   n->form->fields[6].hint = som_strdup("Expected occurrence rate of the trigger");
   n->form->fields[6].order = 6;
 }
+static void meta_build_process_triggers_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessTriggers");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how this process starts and ends before the trigger and end-event lists below. Cover whether it is event-, schedule- or request-driven.");
+}
 static void meta_build_process_triggers_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessTriggers");
   meta_set(&n->member_name, "overview");
@@ -100469,7 +101401,7 @@ static void meta_build_process_triggers_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Main trigger overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -100517,7 +101449,7 @@ static void meta_build_process_triggers_triggers(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessTriggerEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per process trigger.");
   meta_set(&n->doc_comment, "Contains 0+× process trigger.");
   n->extra_len = 1;
@@ -100541,7 +101473,7 @@ static void meta_build_process_triggers_end_events(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ProcessEndEventEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per process end event.");
   meta_set(&n->doc_comment, "Process end events (outcomes).");
   n->extra_len = 1;
@@ -100557,6 +101489,18 @@ static void meta_build_process_triggers_end_events_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A process end event entry.");
   meta_set(&n->class_doc_comment, "A process end event entry.");
 }
+static void meta_build_process_vision_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProcessVision");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the target-state process vision before the narrative, improvement and success-criteria subsections below. Cover what changes about how the work is done, and for whom.");
+}
 static void meta_build_process_vision_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessVision");
   meta_set(&n->member_name, "overview");
@@ -100564,7 +101508,7 @@ static void meta_build_process_vision_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Process vision overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -100628,7 +101572,7 @@ static void meta_build_process_vision_vision_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -100642,7 +101586,7 @@ static void meta_build_process_vision_expected_improvements(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ExpectedImprovements");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per expected improvement.");
   meta_set(&n->doc_comment, "Expected improvements over current state.");
   n->extra_len = 1;
@@ -100665,7 +101609,7 @@ static void meta_build_process_vision_success_criteria(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Success criteria for process transformation.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -101486,6 +102430,18 @@ static void meta_build_protocols_and_standards_section_compliance(SomMetaNode *n
   meta_set(&n->doc_comment, "Protocol compliance requirements.");
   meta_set(&n->class_doc_comment, "Protocol compliance requirements.");
 }
+static void meta_build_prototype_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "Prototype");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the prototype effort before the goal, feature-subset and type subsections below. Cover why a prototype is needed and which decision it is meant to inform.");
+}
 static void meta_build_prototype_prototype_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "Prototype");
   meta_set(&n->member_name, "prototypeOverview");
@@ -101493,7 +102449,7 @@ static void meta_build_prototype_prototype_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -101529,7 +102485,7 @@ static void meta_build_prototype_timeline(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Prototype timing commitments.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -101564,7 +102520,7 @@ static void meta_build_prototype_resources(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Prototype staffing and environment.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -101599,7 +102555,7 @@ static void meta_build_prototype_governance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Approval and progression criteria.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -101627,7 +102583,7 @@ static void meta_build_prototype_overview_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -101641,7 +102597,7 @@ static void meta_build_prototype_prototype_goals(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PrototypeGoals");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "10.13.1. Prototype Goals.");
   meta_set(&n->class_doc_comment, "10.13.1. Prototype Goals.\n\nWhat the prototype should validate.");
 }
@@ -101652,7 +102608,7 @@ static void meta_build_prototype_feature_subset(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PrototypeFeatureSubset");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "10.13.2. Selected Feature Subset.");
   meta_set(&n->class_doc_comment, "10.13.2. Selected Feature Subset.\n\nFeatures included in the prototype.");
 }
@@ -101663,7 +102619,7 @@ static void meta_build_prototype_prototype_type(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PrototypeType");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "10.13.3. Prototype Type.");
   meta_set(&n->class_doc_comment, "10.13.3. Prototype Type.\n\nClassification and implications of the prototype type.");
 }
@@ -101673,7 +102629,7 @@ static void meta_build_prototype_prototype_schedule(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -101736,6 +102692,18 @@ static void meta_build_prototype_feature_entry_content(SomMetaNode *n) {
   n->form->fields[6].hint = som_strdup("Known limitations of the prototyped feature");
   n->form->fields[6].order = 6;
 }
+static void meta_build_prototype_feature_subset_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "PrototypeFeatureSubset");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the feature selection before the individual features below. Cover the criterion that put a feature in or left it out.");
+}
 static void meta_build_prototype_feature_subset_feature_subset_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeFeatureSubset");
   meta_set(&n->member_name, "featureSubsetContent");
@@ -101743,7 +102711,7 @@ static void meta_build_prototype_feature_subset_feature_subset_content(SomMetaNo
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -101779,7 +102747,7 @@ static void meta_build_prototype_feature_subset_scope(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Included and excluded feature scope.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -101814,7 +102782,7 @@ static void meta_build_prototype_feature_subset_fidelity(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Fidelity expectations for the prototype.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -101854,7 +102822,7 @@ static void meta_build_prototype_feature_subset_feature_narrative(SomMetaNode *n
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -101868,7 +102836,7 @@ static void meta_build_prototype_feature_subset_features(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "PrototypeFeatureEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per prototype feature.");
   meta_set(&n->doc_comment, "Prototype feature entries.");
   n->extra_len = 1;
@@ -101937,6 +102905,18 @@ static void meta_build_prototype_goal_entry_content(SomMetaNode *n) {
   n->form->fields[6].hint = som_strdup("Stakeholders interested in this goal");
   n->form->fields[6].order = 6;
 }
+static void meta_build_prototype_goals_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "PrototypeGoals");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce what the prototype must validate before the individual goals below. Cover the risk that makes the validation worth the effort.");
+}
 static void meta_build_prototype_goals_goals_content(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeGoals");
   meta_set(&n->member_name, "goalsContent");
@@ -101944,7 +102924,7 @@ static void meta_build_prototype_goals_goals_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -101986,7 +102966,7 @@ static void meta_build_prototype_goals_risk_profile(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Risk reduction and assumption testing.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -102021,7 +103001,7 @@ static void meta_build_prototype_goals_feedback_profile(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "User feedback objectives and intake.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -102055,7 +103035,7 @@ static void meta_build_prototype_goals_goals_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -102069,7 +103049,7 @@ static void meta_build_prototype_goals_goals(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "PrototypeGoalEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per prototype goal.");
   meta_set(&n->doc_comment, "Individual goal entries.");
   n->extra_len = 1;
@@ -102085,6 +103065,18 @@ static void meta_build_prototype_goals_goals_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A prototype goal entry.");
   meta_set(&n->class_doc_comment, "A prototype goal entry.");
 }
+static void meta_build_prototype_type_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "PrototypeType");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the prototype classification before the reusable, training and throwaway subsections below. Cover which type applies and what follows from that choice.");
+}
 static void meta_build_prototype_type_prototype_type_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "PrototypeType");
   meta_set(&n->member_name, "prototypeTypeOverview");
@@ -102092,7 +103084,7 @@ static void meta_build_prototype_type_prototype_type_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -102140,7 +103132,7 @@ static void meta_build_prototype_type_reusable_prototype(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReusablePrototype");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "10.13.3.1. Reusable Prototype.");
   meta_set(&n->class_doc_comment, "10.13.3.1. Reusable Prototype.\n\nPrototype that becomes part of the final product.");
 }
@@ -102151,7 +103143,7 @@ static void meta_build_prototype_type_training_prototype(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TrainingPrototype");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "10.13.3.2. Training Prototype.");
   meta_set(&n->class_doc_comment, "10.13.3.2. Training Prototype.\n\nPrototype where concepts are reused but not code.");
 }
@@ -102162,7 +103154,7 @@ static void meta_build_prototype_type_throwaway_prototype(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ThrowawayPrototype");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "10.13.3.3. Throwaway Prototype.");
   meta_set(&n->class_doc_comment, "10.13.3.3. Throwaway Prototype.\n\nPrototype evaluated and then discarded.");
 }
@@ -102575,6 +103567,18 @@ static void meta_build_quality_category_entry_category_details(SomMetaNode *n) {
   meta_set(&n->content_help, "Extended description of category scope, boundaries, and quality attributes included.");
   meta_set(&n->doc_comment, "Detailed category definition.");
 }
+static void meta_build_quality_framework_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "QualityFramework");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the quality framework before the objective, category and verification subsections below. Cover how quality work is organized and governed.");
+}
 static void meta_build_quality_framework_framework_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityFramework");
   meta_set(&n->member_name, "frameworkContent");
@@ -102582,7 +103586,7 @@ static void meta_build_quality_framework_framework_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -102612,7 +103616,7 @@ static void meta_build_quality_framework_objectives(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Quality objective structure and alignment.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -102647,7 +103651,7 @@ static void meta_build_quality_framework_trade_offs(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Trade-off priorities and decision authority.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -102688,7 +103692,7 @@ static void meta_build_quality_framework_verification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Verification and defect handling approach.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -102728,7 +103732,7 @@ static void meta_build_quality_framework_quality_objectives_overview(SomMetaNode
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -102741,7 +103745,7 @@ static void meta_build_quality_framework_objectives_breakdown(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -102756,7 +103760,7 @@ static void meta_build_quality_framework_quality_categories(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "QualityCategoryEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per quality category.");
   meta_set(&n->doc_comment, "11.1.2. Quality Categories — contains 0+× QualityCategory.");
   n->extra_len = 1;
@@ -102780,7 +103784,7 @@ static void meta_build_quality_framework_category_dependencies(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per category dependency.");
   meta_set(&n->doc_comment, "Quality dependencies map.");
   n->extra_len = 1;
@@ -103341,6 +104345,18 @@ static void meta_build_quality_gate_check_entry_blocking(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25040:2011 — a gate check may block acceptance when the evaluated result does not meet the required level\"],\"connotation\":\"Captures whether a failed check blocks acceptance and the rationale.\"}", NULL);
 }
+static void meta_build_quality_gate_checklist_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "QualityGateChecklist");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the quality gates before the individual checklist items below. Cover when each gate is run and who may waive one.");
+}
 static void meta_build_quality_gate_checklist_checklist_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityGateChecklist");
   meta_set(&n->member_name, "checklistOverviewContent");
@@ -103348,7 +104364,7 @@ static void meta_build_quality_gate_checklist_checklist_overview_content(SomMeta
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -103389,7 +104405,7 @@ static void meta_build_quality_gate_checklist_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -103404,7 +104420,7 @@ static void meta_build_quality_gate_checklist_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "QualityGateCheckEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per quality gate check.");
   meta_set(&n->doc_comment, "Contains 0+× QualityGateCheck.");
   n->extra_len = 1;
@@ -103420,6 +104436,18 @@ static void meta_build_quality_gate_checklist_items_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A quality gate check entry (form).");
   meta_set(&n->class_doc_comment, "A quality gate check entry (form).");
 }
+static void meta_build_quality_prioritization_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "QualityPrioritization");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how quality attributes are ranked before the weighted-matrix and trade-off subsections below. Cover who decides the ranking and how a dispute is settled.");
+}
 static void meta_build_quality_prioritization_prioritization_framework_content(SomMetaNode *n) {
   meta_set(&n->class_name, "QualityPrioritization");
   meta_set(&n->member_name, "prioritizationFrameworkContent");
@@ -103427,7 +104455,7 @@ static void meta_build_quality_prioritization_prioritization_framework_content(S
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -103474,7 +104502,7 @@ static void meta_build_quality_prioritization_prioritization_overview(SomMetaNod
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -103488,7 +104516,7 @@ static void meta_build_quality_prioritization_weighted_quality_matrix(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WeightedQualityMatrix");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.6.1. Weighted Quality Matrix.");
   meta_set(&n->class_doc_comment, "11.6.1. Weighted Quality Matrix.");
 }
@@ -103499,7 +104527,7 @@ static void meta_build_quality_prioritization_trade_off_decisions(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TradeOffDecisions");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "11.6.2. Trade-off Decisions.");
   meta_set(&n->class_doc_comment, "11.6.2. Trade-off Decisions.\n\nExplicit trade-off decisions between quality attributes.");
 }
@@ -105597,6 +106625,18 @@ static void meta_build_reliability_narrative(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Detailed reliability requirements narrative.");
 }
+static void meta_build_reliability_characteristic_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReliabilityCharacteristic");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce reliability for this system before the availability, service-level and monitoring subsections below. Cover the cost of downtime that justifies the targets.");
+}
 static void meta_build_reliability_characteristic_reliability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ReliabilityCharacteristic");
   meta_set(&n->member_name, "reliabilityContent");
@@ -105604,7 +106644,7 @@ static void meta_build_reliability_characteristic_reliability_content(SomMetaNod
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -105651,7 +106691,7 @@ static void meta_build_reliability_characteristic_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -105665,7 +106705,7 @@ static void meta_build_reliability_characteristic_reliability(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Reliability");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.6.1. Reliability (product reliability attributes).");
   meta_set(&n->class_doc_comment, "11.3.6. Reliability quality.");
 }
@@ -105676,7 +106716,7 @@ static void meta_build_reliability_characteristic_availability(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Availability");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "11.6.2. Availability.");
   meta_set(&n->class_doc_comment, "11.4.1. Availability quality.");
 }
@@ -105687,7 +106727,7 @@ static void meta_build_reliability_characteristic_service_level_requirements(Som
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ServiceLevel");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "11.6.3. Service Level Requirements.");
   meta_set(&n->class_doc_comment, "11.4.2. Service level quality.");
 }
@@ -105698,7 +106738,7 @@ static void meta_build_reliability_characteristic_monitoring_and_prevention(SomM
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OperationalMonitoring");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "11.6.4. Monitoring and Prevention.");
   meta_set(&n->class_doc_comment, "11.4.3. Monitoring quality.");
 }
@@ -105859,13 +106899,25 @@ static void meta_build_removed_role_entry_continuity(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"SHRM — workforce reduction / redeployment\",\"PMBOK — resource management (roles & responsibilities)\"],\"connotation\":\"Ensures the work of a removed role continues — how institutional knowledge is captured and where its responsibilities are reassigned.\"}", NULL);
 }
+static void meta_build_replacement_inventory_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReplacementInventory");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the replacement inventory before the individual systems below. Cover the portfolio-level metrics and the sequencing logic.");
+}
 static void meta_build_replacement_inventory_portfolio_summary(SomMetaNode *n) {
   meta_set(&n->class_name, "ReplacementInventory");
   meta_set(&n->member_name, "portfolioSummary");
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -105878,7 +106930,7 @@ static void meta_build_replacement_inventory_prioritization_criteria(SomMetaNode
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -105893,7 +106945,7 @@ static void meta_build_replacement_inventory_systems(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SystemToReplaceEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment.");
   meta_set(&n->doc_comment, "Contains 0+× SystemToReplaceEntry.");
   n->extra_len = 1;
@@ -110465,6 +111517,18 @@ static void meta_build_responsibility_systems_content(SomMetaNode *n) {
   n->form->fields[2].hint = som_strdup("Business processes owned by this function");
   n->form->fields[2].order = 2;
 }
+static void meta_build_responsive_behavior_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ResponsiveBehavior");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how the interface adapts across breakpoints before the layout, navigation and visibility subsections below. Cover what is hidden rather than reflowed, and why.");
+}
 static void meta_build_responsive_behavior_layout_adaptation(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsiveBehavior");
   meta_set(&n->member_name, "layoutAdaptation");
@@ -110472,7 +111536,7 @@ static void meta_build_responsive_behavior_layout_adaptation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -110502,7 +111566,7 @@ static void meta_build_responsive_behavior_navigation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Navigation patterns per device class.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -110537,7 +111601,7 @@ static void meta_build_responsive_behavior_visibility(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Visibility rules.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -110572,7 +111636,7 @@ static void meta_build_responsive_behavior_touch(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Touch and interaction optimizations.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -110607,7 +111671,7 @@ static void meta_build_responsive_behavior_content_reflow(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Content reflow rules.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -110647,7 +111711,7 @@ static void meta_build_responsive_behavior_behavior_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -110662,7 +111726,7 @@ static void meta_build_responsive_behavior_screen_rules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ResponsiveScreenRuleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per screen with distinct responsive rules.");
   meta_set(&n->doc_comment, "Screen-specific responsive rules.");
   n->extra_len = 1;
@@ -110678,6 +111742,18 @@ static void meta_build_responsive_behavior_screen_rules_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A screen-specific responsive rule entry.");
   meta_set(&n->class_doc_comment, "A screen-specific responsive rule entry.");
 }
+static void meta_build_responsive_design_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ResponsiveDesign");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the responsive strategy before the breakpoint and behaviour subsections below. Cover the device classes supported and which of them is designed for first.");
+}
 static void meta_build_responsive_design_responsive_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "ResponsiveDesign");
   meta_set(&n->member_name, "responsiveOverview");
@@ -110685,7 +111761,7 @@ static void meta_build_responsive_design_responsive_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -110744,7 +111820,7 @@ static void meta_build_responsive_design_responsive_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -110758,7 +111834,7 @@ static void meta_build_responsive_design_breakpoint_config(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BreakpointConfiguration");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "10.10.1. Breakpoints.");
   meta_set(&n->class_doc_comment, "10.10.1. Breakpoints.\n\nBreakpoint definitions for responsive layouts.");
 }
@@ -110769,7 +111845,7 @@ static void meta_build_responsive_design_responsive_behavior(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ResponsiveBehavior");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "10.10.2. Responsive Behavior.");
   meta_set(&n->class_doc_comment, "10.10.2. Responsive Behavior.\n\nHow the UI adapts across breakpoints.");
 }
@@ -111388,6 +112464,18 @@ static void meta_build_reusable_components_section_registry(SomMetaNode *n) {
   meta_set(&n->doc_comment, "Component discovery and registry.");
   meta_set(&n->class_doc_comment, "Component discovery and registry configuration.");
 }
+static void meta_build_reusable_prototype_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReusablePrototype");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the reusable prototype before the architecture, integration and transition subsections below. Cover the quality bar it must meet to survive into the product.");
+}
 static void meta_build_reusable_prototype_reusable_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ReusablePrototype");
   meta_set(&n->member_name, "reusableContent");
@@ -111395,7 +112483,7 @@ static void meta_build_reusable_prototype_reusable_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -111431,7 +112519,7 @@ static void meta_build_reusable_prototype_architecture(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Architecture alignment and refactoring expectations.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -111466,7 +112554,7 @@ static void meta_build_reusable_prototype_integration(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Integration and merge strategy.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -111501,7 +112589,7 @@ static void meta_build_reusable_prototype_transition(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Transition and handoff planning.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -111529,7 +112617,7 @@ static void meta_build_reusable_prototype_reusable_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -112166,6 +113254,18 @@ static void meta_build_risk_business_impact_delivery(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 31000:2018 — risk management\",\"PMBOK — project risk management\"],\"connotation\":\"This section captures the operational, strategic, and delivery consequences of the risk on milestones and deliverables.\"}", NULL);
 }
+static void meta_build_risk_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "RiskEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this risk — how it would actually play out, beyond the analysis, response and monitoring facets recorded below.");
+}
 static void meta_build_risk_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "RiskIdentification");
   meta_set(&n->member_name, "identification");
@@ -112173,7 +113273,7 @@ static void meta_build_risk_entry_identification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RiskIdentification");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Risk identification — unique identifier and basic description.");
   meta_set(&n->class_doc_comment, "Risk identification details.");
 }
@@ -112184,7 +113284,7 @@ static void meta_build_risk_entry_analysis(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Risk analysis — probability, impact, and scoring.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
@@ -112261,7 +113361,7 @@ static void meta_build_risk_entry_response(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RiskResponse");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Risk response — strategy and planned actions.");
   meta_set(&n->class_doc_comment, "Risk response — strategy and planned actions.");
 }
@@ -112272,7 +113372,7 @@ static void meta_build_risk_entry_ownership(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Risk ownership and governance.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -112337,7 +113437,7 @@ static void meta_build_risk_entry_monitoring(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RiskMonitoring");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Risk monitoring and tracking details.");
   meta_set(&n->class_doc_comment, "Risk monitoring and tracking.");
 }
@@ -112348,7 +113448,7 @@ static void meta_build_risk_entry_business_impact(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RiskBusinessImpact");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Business impact assessment.");
   meta_set(&n->class_doc_comment, "Business impact assessment for the risk.");
 }
@@ -112360,7 +113460,7 @@ static void meta_build_risk_entry_relationships(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RiskRelationships");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Relationships connecting this risk to other risks, assumptions, requirements, and affected project elements.");
   meta_set(&n->doc_comment, "Relationships to other risks, assumptions, and project elements.");
   n->extra_len = 1;
@@ -112756,6 +113856,18 @@ static void meta_build_risk_response_implementation(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 31000:2018 — risk management\",\"PMBOK — project risk management\"],\"connotation\":\"This section captures the cost, timeline, and effectiveness of implementing the risk response so trade-offs can be weighed.\"}", NULL);
 }
+static void meta_build_risks_and_assumptions_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "RisksAndAssumptions");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the risk register before the individual risks below. Cover how risks are identified, how often the register is reviewed, and who owns it.");
+}
 static void meta_build_risks_and_assumptions_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "RisksAndAssumptions");
   meta_set(&n->member_name, "overview");
@@ -112763,7 +113875,7 @@ static void meta_build_risks_and_assumptions_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Overview of the risk management approach for this project.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
@@ -112835,7 +113947,7 @@ static void meta_build_risks_and_assumptions_key_risks(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RiskEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.");
   meta_set(&n->doc_comment, "4.7.1. Key Risks — contains 0+× Risk.");
   n->extra_len = 1;
@@ -115187,6 +116299,18 @@ static void meta_build_scaling_triggers_and_thresholds_type(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"The Twelve-Factor App — concurrency (scale out via the process model)\",\"AWS Well-Architected — reliability pillar (workload scaling)\"],\"connotation\":\"Selects horizontal versus vertical scaling, the auto-scaling provider, and scheduled scaling for known peaks.\"}", NULL);
 }
+static void meta_build_scenario_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScenarioEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this scenario — the end-to-end story it tells, beyond the steps, data and timing recorded below.");
+}
 static void meta_build_scenario_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "ScenarioEntry");
   meta_set(&n->member_name, "identification");
@@ -115194,7 +116318,7 @@ static void meta_build_scenario_entry_identification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Scenario identification.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -115253,7 +116377,7 @@ static void meta_build_scenario_entry_context(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Scenario context.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -115313,7 +116437,7 @@ static void meta_build_scenario_entry_steps(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ScenarioStepEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->has_min = 1;
   n->min = 1;
   meta_set(&n->content_help, "Add one entry per main-flow step, in order.");
@@ -115339,7 +116463,7 @@ static void meta_build_scenario_entry_alternative_flows(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AlternativeFlowEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per alternative or exception flow.");
   meta_set(&n->doc_comment, "Alternative flows — contains 0+× Alternative Flow.");
   n->extra_len = 1;
@@ -115362,7 +116486,7 @@ static void meta_build_scenario_entry_scenario_data(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Scenario data.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
@@ -115415,7 +116539,7 @@ static void meta_build_scenario_entry_timing(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Scenario timing.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
@@ -115468,7 +116592,7 @@ static void meta_build_scenario_entry_validation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Scenario validation.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
@@ -119712,6 +120836,18 @@ static void meta_build_security_certification_requirements_maintenance(SomMetaNo
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 27001 — internal audit and management review (Clause 9)\",\"SOC 2 — trust services criteria (security, audit evidence)\"],\"connotation\":\"Recertification cycle, continuous monitoring, and budget for security certifications.\"}", NULL);
 }
+static void meta_build_security_characteristic_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SecurityCharacteristic");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the security quality expectations before the security and IT-security-operations subsections below. Cover the threat model the expectations answer to.");
+}
 static void meta_build_security_characteristic_security_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityCharacteristic");
   meta_set(&n->member_name, "securityContent");
@@ -119719,7 +120855,7 @@ static void meta_build_security_characteristic_security_content(SomMetaNode *n) 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -119742,7 +120878,7 @@ static void meta_build_security_characteristic_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -119756,7 +120892,7 @@ static void meta_build_security_characteristic_security(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Security");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "11.7.1. Security (product security attributes).");
   meta_set(&n->class_doc_comment, "11.3.4. Security quality.");
 }
@@ -119767,7 +120903,7 @@ static void meta_build_security_characteristic_it_security_operations(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ItSecurityOperations");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "11.7.2. IT Security Operations.");
   meta_set(&n->class_doc_comment, "11.4.4. IT Security Operations quality.");
 }
@@ -124597,6 +125733,18 @@ static void meta_build_single_sign_on_policy_sso_details(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Additional SSO details (text).");
 }
+static void meta_build_sla_and_slo_monitoring_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SlaAndSloMonitoring");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the service-level regime before the SLI, SLO and error-budget subsections below. Cover which agreements are contractual and which are internal objectives.");
+}
 static void meta_build_sla_and_slo_monitoring_sla_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SlaAndSloMonitoring");
   meta_set(&n->member_name, "slaOverview");
@@ -124604,7 +125752,7 @@ static void meta_build_sla_and_slo_monitoring_sla_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -124669,7 +125817,7 @@ static void meta_build_sla_and_slo_monitoring_overview_narrative(SomMetaNode *n)
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -124682,7 +125830,7 @@ static void meta_build_sla_and_slo_monitoring_slis(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ServiceLevelIndicators");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Service Level Indicators.");
   meta_set(&n->class_doc_comment, "Service Level Indicators.");
 }
@@ -124694,7 +125842,7 @@ static void meta_build_sla_and_slo_monitoring_slos(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SloEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per SLO.");
   meta_set(&n->doc_comment, "SLO catalog.");
   n->extra_len = 1;
@@ -124717,7 +125865,7 @@ static void meta_build_sla_and_slo_monitoring_error_budget(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ErrorBudgetTracking");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Error budget tracking.");
   meta_set(&n->class_doc_comment, "Error budget tracking.");
 }
@@ -125734,6 +126882,18 @@ static void meta_build_staffing_entry_ownership(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"RACI — responsibility assignment\",\"SHRM — HR best practices (job design, staffing, workforce planning)\"],\"connotation\":\"Identifies who owns the position — hiring manager and recruiter — together with its salary range and any special notes.\"}", NULL);
 }
+static void meta_build_staffing_plan_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "StaffingPlan");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the staffing approach before the budget, position and timeline subsections below. Cover build-versus-buy and the constraints on hiring.");
+}
 static void meta_build_staffing_plan_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "StaffingPlan");
   meta_set(&n->member_name, "overview");
@@ -125741,7 +126901,7 @@ static void meta_build_staffing_plan_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Staffing plan overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
@@ -125818,7 +126978,7 @@ static void meta_build_staffing_plan_budget(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "StaffingBudget");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Budget details.");
   meta_set(&n->class_doc_comment, "Staffing budget details.");
 }
@@ -125830,7 +126990,7 @@ static void meta_build_staffing_plan_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "StaffingEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per staffing position to be filled.");
   meta_set(&n->doc_comment, "Contains 0+× Staffing entry.");
   n->extra_len = 1;
@@ -125853,7 +127013,7 @@ static void meta_build_staffing_plan_recruitment_timeline(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Recruitment timeline.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -130531,6 +131691,18 @@ static void meta_build_success_criteria_post_implementation_review(SomMetaNode *
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 — solution evaluation (success measures)\"],\"connotation\":\"The plan for reviewing success after implementation: review schedule and owner, participants, reporting, lessons learned, benefits-tracking duration, and corrective action.\"}", NULL);
 }
+static void meta_build_success_criteria_by_category_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SuccessCriteriaByCategory");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the success criteria before the per-category buckets below. Cover who judges success and at what point the judgement is made.");
+}
 static void meta_build_success_criteria_by_category_business_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "SuccessCriteriaByCategory");
   meta_set(&n->member_name, "businessCriteria");
@@ -130538,7 +131710,7 @@ static void meta_build_success_criteria_by_category_business_criteria(SomMetaNod
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of business-focused success criteria including ROI, market impact, and strategic alignment.");
@@ -130552,7 +131724,7 @@ static void meta_build_success_criteria_by_category_technical_criteria(SomMetaNo
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of technical quality criteria including performance, reliability, and maintainability.");
@@ -130566,7 +131738,7 @@ static void meta_build_success_criteria_by_category_user_criteria(SomMetaNode *n
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of user-focused success criteria including adoption, satisfaction, and productivity.");
@@ -130580,7 +131752,7 @@ static void meta_build_success_criteria_by_category_compliance_criteria(SomMetaN
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of compliance-related success criteria including regulatory, security, and audit requirements.");
@@ -130594,7 +131766,7 @@ static void meta_build_success_criteria_by_category_project_criteria(SomMetaNode
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Overview of project management criteria including timeline adherence, budget compliance, and scope management.");
@@ -130900,6 +132072,18 @@ static void meta_build_success_criterion_relationships_content(SomMetaNode *n) {
   n->form->fields[3].hint = som_strdup("Who cares most about this criterion");
   n->form->fields[3].order = 3;
 }
+static void meta_build_support_access_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SupportAccess");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how users reach support before the help-centre, live-support and ticket subsections below. Cover which channels exist and when each is available.");
+}
 static void meta_build_support_access_support_access_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SupportAccess");
   meta_set(&n->member_name, "supportAccessContent");
@@ -130907,7 +132091,7 @@ static void meta_build_support_access_support_access_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -130937,7 +132121,7 @@ static void meta_build_support_access_help_center(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Help center configuration.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -130972,7 +132156,7 @@ static void meta_build_support_access_live_support(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Live support settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -131007,7 +132191,7 @@ static void meta_build_support_access_tickets(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Ticket system configuration.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -131042,7 +132226,7 @@ static void meta_build_support_access_contact_methods(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Contact methods.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -131083,7 +132267,7 @@ static void meta_build_support_access_self_service(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Self-service and feedback options.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -131141,7 +132325,7 @@ static void meta_build_support_access_support_access_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -131306,13 +132490,25 @@ static void meta_build_system_architecture_spec_content(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "System-level architecture description: layering, package structure,\nsignificant design patterns, boundary definitions, and architectural\ndrivers / trade-offs.\n\n**What to capture:**\n- Layering strategy (presentation / application / domain / infrastructure)\n- Package / module structure and dependency direction rules\n- Design patterns adopted (CQRS, event sourcing, hexagonal, etc.)\n- Architectural drivers (performance, security, maintainability)\n- Trade-offs explicitly accepted\n- Reference architecture diagrams (high-level + key views)\n- Technology-radar alignment (Adopt / Trial / Assess / Hold)\n");
 }
+static void meta_build_system_boundaries_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SystemBoundaries");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the system boundary before the interface, out-of-scope and assumption subsections below. Cover what sits inside the boundary and what the system merely talks to.");
+}
 static void meta_build_system_boundaries_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemBoundaries");
   meta_set(&n->member_name, "overview");
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -131326,7 +132522,7 @@ static void meta_build_system_boundaries_external_interfaces(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExternalInterfaces");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "4.5.1. Interfaces to External Systems — contains 0+×.");
   meta_set(&n->class_doc_comment, "Container for external interface definitions.\n\nProvides structured inventory of all external system integrations with\ncategorization, prioritization, and governance information. Each interface\nseeds detailed specification in the IIS (Integration & Interface\nSpecification) document. Follows enterprise integration patterns (EIP) and\nAPI-first design principles.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -131338,7 +132534,7 @@ static void meta_build_system_boundaries_out_of_scope(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OutOfScope");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "4.5.2. Out of Scope — contains 0+×.");
   meta_set(&n->class_doc_comment, "4.5.2. Out of Scope.\n\nExplicit documentation of functionality, systems, and integrations that\nare excluded from the project scope. Provides clear boundaries and\nrationale to prevent scope creep and manage stakeholder expectations.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -131350,7 +132546,7 @@ static void meta_build_system_boundaries_assumptions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BoundaryAssumptions");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "4.5.3. Assumptions — contains 0+×.");
   meta_set(&n->class_doc_comment, "4.5.3. Assumptions.\n\nDocuments assumptions about external systems, data availability,\norganizational readiness, and third-party services that must hold true\nfor the project to succeed. Each assumption should be validated and\ntracked as a potential risk if proven incorrect.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -131362,7 +132558,7 @@ static void meta_build_system_boundaries_system_landscape_inventory(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemLandscapeInventory");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "4.5.4. System Landscape Inventory. Covers IIS-LAN-INV.");
   meta_set(&n->class_doc_comment, "4.5.4. System Landscape Inventory.\n\nComplete external-system inventory covering IIS-LAN-INV content.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -131375,7 +132571,7 @@ static void meta_build_system_boundaries_boundary_interaction_patterns(SomMetaNo
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BoundaryInteractionPatterns");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "List the boundary interaction patterns used across integrations: request-reply, pub-sub, event-driven, batch, etc.");
   meta_set(&n->doc_comment, "4.5.5. Boundary Interaction Patterns. Covers IIS-PAT.");
   n->extra_len = 1;
@@ -131399,7 +132595,7 @@ static void meta_build_system_boundaries_interaction_testing_strategy(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InteractionTestingStrategy");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "4.5.6. Interaction Testing Strategy. Covers IIS-TST.");
   meta_set(&n->class_doc_comment, "4.5.6. Interaction Testing Strategy.\n\nContract / integration / failure-mode testing for system boundaries.\nCovers IIS-TST.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -131411,7 +132607,7 @@ static void meta_build_system_boundaries_interaction_dependency_analysis(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InteractionDependencyAnalysis");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "4.5.7. Interaction Dependency Analysis. Covers IIS-DEP.");
   meta_set(&n->class_doc_comment, "4.5.7. Interaction Dependency Analysis.\n\nCritical-path and degraded-mode behavior analysis for system\ndependencies. Covers IIS-DEP.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -131424,7 +132620,7 @@ static void meta_build_system_boundaries_migration_interactions(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MigrationInteractions");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "List interactions specific to the migration period, including data backfills, dual-run sync, and cutover handoffs.");
   meta_set(&n->doc_comment, "4.5.8. Migration Interactions. Covers IIS-MIG.");
   n->extra_len = 1;
@@ -131449,7 +132645,7 @@ static void meta_build_system_boundaries_operational_considerations(SomMetaNode 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CrossBoundaryOperationalConsiderations");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->content_help, "List cross-boundary operational concerns: end-to-end monitoring, capacity planning, joint support, and run-book ownership.");
   meta_set(&n->doc_comment, "4.5.9. Cross-Boundary Operational Considerations.");
   n->extra_len = 1;
@@ -131473,7 +132669,7 @@ static void meta_build_system_boundaries_cross_boundary_error_handling(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CrossBoundaryErrorHandling");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "4.5.10. Cross-Boundary Error Handling.");
   meta_set(&n->class_doc_comment, "4.5.10. Cross-Boundary Error Handling.\n\nFailure-propagation policy that applies across system boundaries.\nDistinct from per-interface error handling.");
   meta_set(&n->detailed_in, "D07IntegrationInterfaceSpecification");
@@ -132973,6 +134169,18 @@ static void meta_build_system_error_code_entry_operations(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 27001:2022 — event logging records error events at the appropriate severity level\",\"ISO/IEC 20000-1:2018 — incident handling routes error notifications to support functions\"],\"connotation\":\"The operational support and logging controls for a system error code.\"}", NULL);
 }
+static void meta_build_system_error_display_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SystemErrorDisplay");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how system-side failures are presented before the error-type, display and fallback subsections below. Cover what the user is told and what is deliberately withheld.");
+}
 static void meta_build_system_error_display_system_error_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemErrorDisplay");
   meta_set(&n->member_name, "systemErrorContent");
@@ -132980,7 +134188,7 @@ static void meta_build_system_error_display_system_error_content(SomMetaNode *n)
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -133010,7 +134218,7 @@ static void meta_build_system_error_display_error_types(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Error type handling configuration.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -133057,7 +134265,7 @@ static void meta_build_system_error_display_display_methods(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Display method settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -133104,7 +134312,7 @@ static void meta_build_system_error_display_display_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Content options.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -133151,7 +134359,7 @@ static void meta_build_system_error_display_fallback(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Fallback behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -133191,7 +134399,7 @@ static void meta_build_system_error_display_system_error_narrative(SomMetaNode *
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -133206,7 +134414,7 @@ static void meta_build_system_error_display_error_page_designs(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per error page design.");
   meta_set(&n->doc_comment, "Error page designs.");
   n->extra_len = 1;
@@ -133222,7 +134430,7 @@ static void meta_build_system_error_display_error_codes(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SystemErrorCodeEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per system error code.");
   meta_set(&n->doc_comment, "Error codes catalog.");
   n->extra_len = 1;
@@ -134071,6 +135279,18 @@ static void meta_build_system_purpose_scope_boundaries(SomMetaNode *n) {
   meta_set(&n->doc_comment, "4.1.1.6. Scope Boundaries.");
   meta_set(&n->class_doc_comment, "4.1.1.6. Scope Boundaries.\n\nClear definition of what is in scope and out of scope for this system.\nHelps set expectations and prevent scope creep.");
 }
+static void meta_build_system_quality_goals_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SystemQualityGoals");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the quality goals before the governance, per-characteristic and acceptance subsections below. Cover which quality attributes matter most for this system, and why.");
+}
 static void meta_build_system_quality_goals_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemQualityGoals");
   meta_set(&n->member_name, "governanceContent");
@@ -134078,7 +135298,7 @@ static void meta_build_system_quality_goals_governance_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -134108,7 +135328,7 @@ static void meta_build_system_quality_goals_governance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Governance board and escalation details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -134143,7 +135363,7 @@ static void meta_build_system_quality_goals_baseline(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Baseline and target settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -134184,7 +135404,7 @@ static void meta_build_system_quality_goals_measurement(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Measurement and reporting approach.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -134231,7 +135451,7 @@ static void meta_build_system_quality_goals_resources(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Quality resources and enablement.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -134271,7 +135491,7 @@ static void meta_build_system_quality_goals_executive_summary(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -134284,7 +135504,7 @@ static void meta_build_system_quality_goals_quality_vision(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -134297,7 +135517,7 @@ static void meta_build_system_quality_goals_qa_strategy(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -134312,7 +135532,7 @@ static void meta_build_system_quality_goals_attribute_interdependencies(SomMetaN
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per quality attribute interdependency.");
   meta_set(&n->doc_comment, "Quality attribute interdependencies.");
   n->extra_len = 1;
@@ -134326,7 +135546,7 @@ static void meta_build_system_quality_goals_quality_radar(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid");
   n->content_type->description = som_strdup("");
@@ -134340,7 +135560,7 @@ static void meta_build_system_quality_goals_framework(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "QualityFramework");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "11.1. Quality Framework.");
   meta_set(&n->class_doc_comment, "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134352,7 +135572,7 @@ static void meta_build_system_quality_goals_functional_suitability(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FunctionalSuitabilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "11.2. Functional Suitability (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.2. Functional Suitability (ISO/IEC 25010:2023).\n\nDegree to which the product provides functions that meet stated and implied\nneeds — functional completeness and correctness. Re-homes the former\nuser-bucket functional leaves under the 25010:2023 spine (L34C-8).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134364,7 +135584,7 @@ static void meta_build_system_quality_goals_performance_efficiency(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PerformanceEfficiencyCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "11.3. Performance Efficiency (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.3. Performance Efficiency (ISO/IEC 25010:2023).\n\nPerformance relative to the amount of resources used under stated\nconditions. Re-homes the former technical-bucket efficiency leaf under the\n25010:2023 spine (L34C-8). The dissolved technical-quality overview form is\npreserved here so no authored content is lost.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134376,7 +135596,7 @@ static void meta_build_system_quality_goals_compatibility(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CompatibilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 14;
   meta_set(&n->doc_comment, "11.4. Compatibility (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.4. Compatibility (ISO/IEC 25010:2023).\n\nDegree to which the product can exchange information with other products and\nshare the same environment and resources (co-existence + interoperability).\nIntroduced by the 25010:2023 regroup (L34C-8); modelled as an overview\npending project-specific compatibility leaves.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134388,7 +135608,7 @@ static void meta_build_system_quality_goals_interaction_capability(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InteractionCapabilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 14;
+  n->serialization_order = 15;
   meta_set(&n->doc_comment, "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).");
   meta_set(&n->class_doc_comment, "11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).\n\nDegree to which the product can be interacted with effectively, efficiently\nand satisfactorily by users. Re-homes the former user-bucket usability leaf\nunder the 25010:2023 spine (L34C-8). The dissolved user-quality overview\nform is preserved here so no authored content is lost.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134400,7 +135620,7 @@ static void meta_build_system_quality_goals_reliability(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReliabilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 15;
+  n->serialization_order = 16;
   meta_set(&n->doc_comment, "11.6. Reliability (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.6. Reliability (ISO/IEC 25010:2023).\n\nDegree to which the product performs specified functions under specified\nconditions for a specified period (availability, fault tolerance,\nrecoverability, maturity). Re-homes the former technical-bucket reliability\nleaf and the operations-bucket availability, service-level and monitoring\nleaves under the 25010:2023 spine (L34C-8). The dissolved operations-quality\noverview form is preserved here so no authored content is lost.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134412,7 +135632,7 @@ static void meta_build_system_quality_goals_security(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SecurityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 16;
+  n->serialization_order = 17;
   meta_set(&n->doc_comment, "11.7. Security (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.7. Security (ISO/IEC 25010:2023).\n\nDegree to which the product protects information and data. Re-homes the\nformer technical-bucket security leaf and the operations-bucket IT-security\noperations leaf under the 25010:2023 spine (L34C-8).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134424,7 +135644,7 @@ static void meta_build_system_quality_goals_maintainability(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MaintainabilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 17;
+  n->serialization_order = 18;
   meta_set(&n->doc_comment, "11.8. Maintainability (ISO/IEC 25010:2023).");
   meta_set(&n->class_doc_comment, "11.8. Maintainability (ISO/IEC 25010:2023).\n\nDegree of effectiveness and efficiency with which the product can be\nmodified. Re-homes the former technical-bucket maintainability leaf under\nthe 25010:2023 spine (L34C-8).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134436,7 +135656,7 @@ static void meta_build_system_quality_goals_flexibility(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FlexibilityCharacteristic");
   n->has_serialization_order = 1;
-  n->serialization_order = 18;
+  n->serialization_order = 19;
   meta_set(&n->doc_comment, "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).");
   meta_set(&n->class_doc_comment, "11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).\n\nDegree to which the product can be adapted to changes in requirements,\ncontexts of use, or system environment (adaptability, scalability,\ninstallability, replaceability). Re-homes the former technical-bucket\nflexibility and portability leaves under the 25010:2023 spine (L34C-8).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134448,7 +135668,7 @@ static void meta_build_system_quality_goals_documentation_quality(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DocumentationQualityCriteria");
   n->has_serialization_order = 1;
-  n->serialization_order = 19;
+  n->serialization_order = 20;
   meta_set(&n->doc_comment, "11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable\nannex — has no ISO/IEC 25010:2023 product-quality home; retained as a\ndocumentation-quality annex per L34C-8).");
   meta_set(&n->class_doc_comment, "11.10. Documentation Quality (ISO/IEC 26514 annex).\n\nDocumentation-deliverable quality criteria — readability, completeness,\ncorrectness, and changeability of the user/technical documentation. This\ncharacteristic has no home in the ISO/IEC 25010:2023 product-quality model\n(which scopes the *product*, not its documentation), so per L34C-8 it is\nretained as a documentation-quality annex aligned to ISO/IEC 26514\n(systems & software engineering — design and development of information for\nusers) rather than re-homed under a 25010:2023 characteristic.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134460,7 +135680,7 @@ static void meta_build_system_quality_goals_prioritization(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "QualityPrioritization");
   n->has_serialization_order = 1;
-  n->serialization_order = 20;
+  n->serialization_order = 21;
   meta_set(&n->doc_comment, "11.6. Quality Prioritization.");
   meta_set(&n->class_doc_comment, "11.6. Quality Prioritization.\n\nPrioritization and balancing of quality attributes including weighted\nmatrices and explicit trade-off decisions.");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134472,7 +135692,7 @@ static void meta_build_system_quality_goals_acceptance_criteria(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AcceptanceCriteriaSummary");
   n->has_serialization_order = 1;
-  n->serialization_order = 21;
+  n->serialization_order = 22;
   meta_set(&n->doc_comment, "11.7. Acceptance Criteria Summary.");
   meta_set(&n->class_doc_comment, "11.7. Acceptance Criteria Summary.\n\nThe acceptance *framework* and summary for the project: the acceptance\nprocess/authority/scope, the must-pass criteria, and the quality-gate\nchecklist. The full enumerated, traceable acceptance criteria are NOT\nre-declared here — they live in the canonical [AcceptanceCriteriaList]\n(ACRITL / QAP-CRI) under the acceptance plan, which this summary references\nexplicitly via [detailedCriteria] (SR-54: one canonical spine, summary\nreferencing list).");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -134484,7 +135704,7 @@ static void meta_build_system_quality_goals_test_strategy(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TestStrategy");
   n->has_serialization_order = 1;
-  n->serialization_order = 22;
+  n->serialization_order = 23;
   meta_set(&n->doc_comment, "11.8. Test Strategy..");
   meta_set(&n->class_doc_comment, "11.8. Test Strategy.\n\nOverall test strategy for the project..");
   meta_set(&n->detailed_in, "D10QualityAcceptancePlan");
@@ -135549,6 +136769,18 @@ static void meta_build_system_technical_assessment_security_concerns(SomMetaNode
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)\"],\"connotation\":\"Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls.\"}", NULL);
 }
+static void meta_build_system_to_replace_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SystemToReplaceEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this legacy system — its history and the reason it is being replaced, beyond the technical, business and migration facets recorded below.");
+}
 static void meta_build_system_to_replace_entry_identification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemToReplaceEntry");
   meta_set(&n->member_name, "identificationContent");
@@ -135556,7 +136788,7 @@ static void meta_build_system_to_replace_entry_identification_content(SomMetaNod
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -135586,7 +136818,7 @@ static void meta_build_system_to_replace_entry_profile(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Classification and ownership details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -135627,7 +136859,7 @@ static void meta_build_system_to_replace_entry_vendor(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Vendor and contract status.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -135662,7 +136894,7 @@ static void meta_build_system_to_replace_entry_technical_assessment(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemTechnicalAssessment");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Technical stack and architecture assessment.");
   meta_set(&n->class_doc_comment, "Technical assessment for a system to replace.");
 }
@@ -135673,7 +136905,7 @@ static void meta_build_system_to_replace_entry_business_criticality(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemBusinessCriticality");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Business value and criticality assessment.");
   meta_set(&n->class_doc_comment, "Business criticality assessment.");
 }
@@ -135684,7 +136916,7 @@ static void meta_build_system_to_replace_entry_replacement_strategy(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemReplacementStrategy");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Detailed replacement approach.");
   meta_set(&n->class_doc_comment, "Replacement strategy details.");
 }
@@ -135695,7 +136927,7 @@ static void meta_build_system_to_replace_entry_data_scope(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemDataScope");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Data migration scope and assessment.");
   meta_set(&n->class_doc_comment, "Data scope and migration assessment.");
 }
@@ -135707,7 +136939,7 @@ static void meta_build_system_to_replace_entry_dependencies(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReplacementSystemDependencyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated.");
   meta_set(&n->doc_comment, "Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.");
   n->extra_len = 1;
@@ -135730,7 +136962,7 @@ static void meta_build_system_to_replace_entry_user_impact(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemUserImpact");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "User impact and change management needs.");
   meta_set(&n->class_doc_comment, "User impact assessment.");
 }
@@ -135741,7 +136973,7 @@ static void meta_build_system_to_replace_entry_cost_analysis(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemCostAnalysis");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Financial analysis for replacement decision.");
   meta_set(&n->class_doc_comment, "Cost analysis for replacement.");
 }
@@ -135752,7 +136984,7 @@ static void meta_build_system_to_replace_entry_migration_plan(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemMigrationPlan");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Per-system migration considerations.");
   meta_set(&n->class_doc_comment, "Per-system migration plan.");
 }
@@ -135763,7 +136995,7 @@ static void meta_build_system_to_replace_entry_knowledge_transfer(SomMetaNode *n
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemKnowledgeTransfer");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Documentation and knowledge transfer status.");
   meta_set(&n->class_doc_comment, "Knowledge transfer status.");
 }
@@ -136059,13 +137291,25 @@ static void meta_build_system_user_impact_user_groups_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "User group impact entry.");
   meta_set(&n->class_doc_comment, "User group impact entry.");
 }
+static void meta_build_systems_to_replace_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "SystemsToReplace");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the replacement portfolio before the inventory and migration-considerations subsections below. Cover the rationalization strategy behind the selection.");
+}
 static void meta_build_systems_to_replace_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemsToReplace");
   meta_set(&n->member_name, "overview");
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -136079,7 +137323,7 @@ static void meta_build_systems_to_replace_replacement_inventory(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReplacementInventory");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "4.4.1. Replacement Inventory — contains 0+×.");
   meta_set(&n->class_doc_comment, "Container for systems to replace.\n\nProvides a structured inventory of all systems targeted for replacement,\nwith portfolio-level metrics and prioritization guidance.");
   meta_set(&n->detailed_in, "D01CurrentLandscapeAssessment");
@@ -136091,7 +137335,7 @@ static void meta_build_systems_to_replace_migration_considerations(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MigrationConsiderations");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "4.4.2. Migration Considerations.");
   meta_set(&n->class_doc_comment, "4.4.2. Migration Considerations (global).\n\nCross-system migration concerns covering portfolio-wide strategy,\nresource planning, and coordination. Complements per-system\nmigration details with global governance.");
   meta_set(&n->detailed_in, "D01CurrentLandscapeAssessment");
@@ -137062,6 +138306,18 @@ static void meta_build_technical_dependency_entry_content(SomMetaNode *n) {
   n->form->fields[5].hint = som_strdup("Available / Pending / At Risk");
   n->form->fields[5].order = 5;
 }
+static void meta_build_technical_environment_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TechnicalEnvironment");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the pre-existing technical landscape before the governance, standards and infrastructure subsections below. Cover what is mandated and what is merely current practice.");
+}
 static void meta_build_technical_environment_technical_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalEnvironment");
   meta_set(&n->member_name, "technicalOverviewContent");
@@ -137069,7 +138325,7 @@ static void meta_build_technical_environment_technical_overview_content(SomMetaN
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -137099,7 +138355,7 @@ static void meta_build_technical_environment_governance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Architecture governance context.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -137128,7 +138384,7 @@ static void meta_build_technical_environment_standards(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Platform standards and preferred technologies.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -137175,7 +138431,7 @@ static void meta_build_technical_environment_security(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Security and compliance requirements.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -137222,7 +138478,7 @@ static void meta_build_technical_environment_network(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TechnicalEnvironmentNetwork");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Network and infrastructure standards.");
   meta_set(&n->class_doc_comment, "Network and infrastructure standards.");
 }
@@ -137232,7 +138488,7 @@ static void meta_build_technical_environment_existing_infrastructure(SomMetaNode
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -137247,7 +138503,7 @@ static void meta_build_technical_environment_datacenters(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.");
   meta_set(&n->doc_comment, "Data center and hosting environment details.");
   n->extra_len = 1;
@@ -137261,7 +138517,7 @@ static void meta_build_technical_environment_network_topology(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -137274,7 +138530,7 @@ static void meta_build_technical_environment_standards_overview(SomMetaNode *n) 
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -137289,7 +138545,7 @@ static void meta_build_technical_environment_technology_standards(SomMetaNode *n
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TechnologyStandardEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->content_help, "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations.");
   meta_set(&n->doc_comment, "Technology standards — contains 0+× TechnologyStandard.");
   n->extra_len = 1;
@@ -137311,7 +138567,7 @@ static void meta_build_technical_environment_integration_overview(SomMetaNode *n
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -137326,7 +138582,7 @@ static void meta_build_technical_environment_integration_constraints(SomMetaNode
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "IntegrationConstraintEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->content_help, "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect.");
   meta_set(&n->doc_comment, "Integration constraints — contains 0+× IntegrationConstraint.");
   n->extra_len = 1;
@@ -137966,6 +139222,18 @@ static void meta_build_technical_goals_goals_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A technical goal entry.\n\nComprehensive technical goal definition with quality attributes,\narchitectural impact, and verification approach.");
   meta_set(&n->class_doc_comment, "A technical goal entry.\n\nComprehensive technical goal definition with quality attributes,\narchitectural impact, and verification approach.");
 }
+static void meta_build_technical_infrastructure_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TechnicalInfrastructure");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the technical infrastructure this workplace depends on before the connectivity, software and remote-access subsections below.");
+}
 static void meta_build_technical_infrastructure_network_connectivity(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalInfrastructure");
   meta_set(&n->member_name, "networkConnectivity");
@@ -137973,7 +139241,7 @@ static void meta_build_technical_infrastructure_network_connectivity(SomMetaNode
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Network connectivity requirements.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
@@ -138046,7 +139314,7 @@ static void meta_build_technical_infrastructure_software_requirements(SomMetaNod
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WorkplaceSoftwareRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Software requirements.");
   meta_set(&n->class_doc_comment, "Workplace software requirements.");
 }
@@ -138057,7 +139325,7 @@ static void meta_build_technical_infrastructure_remote_access(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Remote access requirements.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
@@ -138131,7 +139399,7 @@ static void meta_build_technical_infrastructure_communication_tools(SomMetaNode 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CommunicationToolsRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Communication tools.");
 }
 static void meta_build_technical_infrastructure_communication_tools_elem(SomMetaNode *n) {
@@ -140262,6 +141530,18 @@ static void meta_build_third_party_library_entry_monitoring(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"package management (pub / npm / Maven) — dependency management\",\"Semantic Versioning (SemVer) — library versioning\"],\"connotation\":\"Captures how updates and deprecations of the third-party library are monitored and handled.\"}", NULL);
 }
+static void meta_build_throwaway_prototype_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ThrowawayPrototype");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the throwaway prototype before the findings, disposition and value subsections below. Cover how the findings are captured before the artifact is discarded.");
+}
 static void meta_build_throwaway_prototype_throwaway_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ThrowawayPrototype");
   meta_set(&n->member_name, "throwawayContent");
@@ -140269,7 +141549,7 @@ static void meta_build_throwaway_prototype_throwaway_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -140305,7 +141585,7 @@ static void meta_build_throwaway_prototype_findings(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Findings and decisions captured from evaluation.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -140340,7 +141620,7 @@ static void meta_build_throwaway_prototype_disposition(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Disposal and follow-up handling.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -140375,7 +141655,7 @@ static void meta_build_throwaway_prototype_value(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Long-term value retained from the prototype.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -140403,7 +141683,7 @@ static void meta_build_throwaway_prototype_throwaway_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -142151,6 +143431,18 @@ static void meta_build_trade_off_decision_entry_detailed_analysis(SomMetaNode *n
   meta_set(&n->content_help, "Extended analysis of trade-off decision including quantitative impact assessment.");
   meta_set(&n->doc_comment, "Detailed trade-off analysis.");
 }
+static void meta_build_trade_off_decisions_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TradeOffDecisions");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the trade-off decisions before the individual items below. Cover how a trade-off is raised, decided and revisited.");
+}
 static void meta_build_trade_off_decisions_trade_off_governance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TradeOffDecisions");
   meta_set(&n->member_name, "tradeOffGovernanceContent");
@@ -142158,7 +143450,7 @@ static void meta_build_trade_off_decisions_trade_off_governance_content(SomMetaN
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -142193,7 +143485,7 @@ static void meta_build_trade_off_decisions_trade_off_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -142208,7 +143500,7 @@ static void meta_build_trade_off_decisions_items(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TradeOffDecisionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per trade-off decision.");
   meta_set(&n->doc_comment, "Contains 0+× TradeOffDecision.");
   n->extra_len = 1;
@@ -142364,6 +143656,18 @@ static void meta_build_training_assessment_reporting(SomMetaNode *n) {
   n->form->fields[2].hint = som_strdup("");
   n->form->fields[2].order = 2;
 }
+static void meta_build_training_deliverable_requirements_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TrainingDeliverableRequirements");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the end-user training deliverables before the module catalogue below. Cover the audiences, the delivery mode, and when training happens relative to rollout.");
+}
 static void meta_build_training_deliverable_requirements_training_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TrainingDeliverableRequirements");
   meta_set(&n->member_name, "trainingContent");
@@ -142371,7 +143675,7 @@ static void meta_build_training_deliverable_requirements_training_content(SomMet
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -142436,7 +143740,7 @@ static void meta_build_training_deliverable_requirements_training_narrative(SomM
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -142450,7 +143754,7 @@ static void meta_build_training_deliverable_requirements_training_modules(SomMet
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TrainingModuleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per training module.");
   meta_set(&n->doc_comment, "Training module entries.");
   n->extra_len = 1;
@@ -142738,6 +144042,18 @@ static void meta_build_training_module_entry_content(SomMetaNode *n) {
   n->form->fields[5].hint = som_strdup("Quiz, exercise, certification");
   n->form->fields[5].order = 5;
 }
+static void meta_build_training_prototype_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TrainingPrototype");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the training prototype before the disposition and output subsections below. Cover which concepts are meant to carry forward once the code does not.");
+}
 static void meta_build_training_prototype_training_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TrainingPrototype");
   meta_set(&n->member_name, "trainingContent");
@@ -142745,7 +144061,7 @@ static void meta_build_training_prototype_training_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -142775,7 +144091,7 @@ static void meta_build_training_prototype_disposition(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Code disposition and reimplementation planning.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -142810,7 +144126,7 @@ static void meta_build_training_prototype_outputs(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Documentation outputs and team learning.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -142856,11 +144172,23 @@ static void meta_build_training_prototype_training_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Training prototype narrative.");
+}
+static void meta_build_training_requirements_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TrainingRequirements");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the training program for this workplace before the initial, ongoing, certification and assessment subsections below. Cover the learning objectives it is built around.");
 }
 static void meta_build_training_requirements_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "TrainingRequirements");
@@ -142869,7 +144197,7 @@ static void meta_build_training_requirements_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Training overview and strategy.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
@@ -142943,7 +144271,7 @@ static void meta_build_training_requirements_initial_training(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "InitialTrainingEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Initial/onboarding training.");
 }
 static void meta_build_training_requirements_initial_training_elem(SomMetaNode *n) {
@@ -142962,7 +144290,7 @@ static void meta_build_training_requirements_ongoing_training(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "OngoingTrainingEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Ongoing/refresher training.");
 }
 static void meta_build_training_requirements_ongoing_training_elem(SomMetaNode *n) {
@@ -142981,7 +144309,7 @@ static void meta_build_training_requirements_system_training(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SystemTrainingEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "System-specific training.");
 }
 static void meta_build_training_requirements_system_training_elem(SomMetaNode *n) {
@@ -143000,7 +144328,7 @@ static void meta_build_training_requirements_certifications(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CertificationEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Certification requirements.");
 }
 static void meta_build_training_requirements_certifications_elem(SomMetaNode *n) {
@@ -143018,7 +144346,7 @@ static void meta_build_training_requirements_training_materials(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TrainingMaterials");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Training materials and resources.");
   meta_set(&n->class_doc_comment, "Training materials and resources.");
 }
@@ -143029,7 +144357,7 @@ static void meta_build_training_requirements_assessment(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TrainingAssessment");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Assessment and evaluation.");
   meta_set(&n->class_doc_comment, "Training assessment and evaluation.");
 }
@@ -143121,6 +144449,18 @@ static void meta_build_transition_communication_channels_content(SomMetaNode *n)
   n->form->fields[5].hint = som_strdup("Which audiences can access each channel and any access restrictions that apply");
   n->form->fields[5].order = 5;
 }
+static void meta_build_transition_communication_plan_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TransitionCommunicationPlan");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the communication approach before the event and channel lists below. Cover the key messages and who delivers them.");
+}
 static void meta_build_transition_communication_plan_strategy(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionCommunicationPlan");
   meta_set(&n->member_name, "strategy");
@@ -143128,7 +144468,7 @@ static void meta_build_transition_communication_plan_strategy(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Communication strategy overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -143194,7 +144534,7 @@ static void meta_build_transition_communication_plan_communication_events(SomMet
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CommunicationEventEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per planned communication event, such as a town hall, announcement, workshop, or newsletter.");
   meta_set(&n->doc_comment, "Specific communication events/activities.");
   n->extra_len = 1;
@@ -143218,7 +144558,7 @@ static void meta_build_transition_communication_plan_channels(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TransitionCommunicationChannels");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per communication channel describing its purpose, ownership, and accessibility.");
   meta_set(&n->doc_comment, "Communication channels and their use.");
   n->extra_len = 1;
@@ -143708,6 +145048,18 @@ static void meta_build_transition_phase_activities_content(SomMetaNode *n) {
   n->form->fields[7].hint = som_strdup("Any consultants or vendors needed to support this phase");
   n->form->fields[7].order = 7;
 }
+static void meta_build_transition_phase_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TransitionPhaseEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this transition phase — what it looks like on the ground, beyond the activity, stakeholder and exit-criteria facets recorded below.");
+}
 static void meta_build_transition_phase_entry_identification(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionPhaseIdentification");
   meta_set(&n->member_name, "identification");
@@ -143715,7 +145067,7 @@ static void meta_build_transition_phase_entry_identification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TransitionPhaseIdentification");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Phase identification and timeline.");
   meta_set(&n->class_doc_comment, "Phase identification and timeline.");
 }
@@ -143727,7 +145079,7 @@ static void meta_build_transition_phase_entry_activities(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TransitionPhaseActivities");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per group of activities and deliverables for this phase — e.g. training, communication, system, and process work.");
   meta_set(&n->doc_comment, "Activities and deliverables for this phase.");
   n->extra_len = 1;
@@ -143751,7 +145103,7 @@ static void meta_build_transition_phase_entry_stakeholders(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TransitionPhaseStakeholders");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per stakeholder group engaged in this phase, with the engagement and feedback approach for each.");
   meta_set(&n->doc_comment, "Stakeholder engagement for this phase.");
   n->extra_len = 1;
@@ -143774,7 +145126,7 @@ static void meta_build_transition_phase_entry_exit_criteria(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Exit criteria and phase completion conditions.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -144071,6 +145423,18 @@ static void meta_build_transition_risk_entry_response(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 31000 — risk management\",\"PMBOK — risk management\"],\"connotation\":\"Records how a transition risk is responded to — its mitigation strategy, contingency plan, owner, and current status.\"}", NULL);
 }
+static void meta_build_transition_success_metrics_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TransitionSuccessMetrics");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how transition success is judged before the individual metrics below. Cover the baseline and the point at which the measurement is taken.");
+}
 static void meta_build_transition_success_metrics_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionSuccessMetrics");
   meta_set(&n->member_name, "overview");
@@ -144078,7 +145442,7 @@ static void meta_build_transition_success_metrics_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Metrics overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -144138,7 +145502,7 @@ static void meta_build_transition_success_metrics_metrics(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TransitionMetricEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per success metric describing its category, measurement method, baseline, and target.");
   meta_set(&n->doc_comment, "Specific success metrics.");
   n->extra_len = 1;
@@ -144213,6 +145577,18 @@ static void meta_build_transition_support_resource_entry_content(SomMetaNode *n)
   n->form->fields[7].hint = som_strdup("The cost center or budget against which this resource is allocated");
   n->form->fields[7].order = 7;
 }
+static void meta_build_transition_support_structure_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TransitionSupportStructure");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the transition support model before the resource and escalation lists below. Cover how long enhanced support lasts.");
+}
 static void meta_build_transition_support_structure_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "TransitionSupportStructure");
   meta_set(&n->member_name, "overview");
@@ -144220,7 +145596,7 @@ static void meta_build_transition_support_structure_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "Support organization overview.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
@@ -144286,7 +145662,7 @@ static void meta_build_transition_support_structure_support_resources(SomMetaNod
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TransitionSupportResourceEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per support resource describing its type, coverage, capacity, and ownership.");
   meta_set(&n->doc_comment, "Support resources available.");
   n->extra_len = 1;
@@ -144310,7 +145686,7 @@ static void meta_build_transition_support_structure_escalation_paths(SomMetaNode
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TransitionEscalationPaths");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per escalation path describing its levels, criteria, and response-time targets.");
   meta_set(&n->doc_comment, "Escalation paths for support.");
   n->extra_len = 1;
@@ -144326,6 +145702,18 @@ static void meta_build_transition_support_structure_escalation_paths_elem(SomMet
   meta_set(&n->doc_comment, "Escalation paths for transition support.");
   meta_set(&n->class_doc_comment, "Escalation paths for transition support.");
 }
+static void meta_build_translation_process_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TranslationProcess");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the translation workflow before the tooling, quality, terminology and vendor subsections below. Cover who translates and how translation quality is judged.");
+}
 static void meta_build_translation_process_translation_process_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TranslationProcess");
   meta_set(&n->member_name, "translationProcessContent");
@@ -144333,7 +145721,7 @@ static void meta_build_translation_process_translation_process_content(SomMetaNo
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -144369,7 +145757,7 @@ static void meta_build_translation_process_workflow(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Translation workflow.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -144410,7 +145798,7 @@ static void meta_build_translation_process_quality(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Quality assurance.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -144445,7 +145833,7 @@ static void meta_build_translation_process_terminology(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Terminology and voice management.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -144480,7 +145868,7 @@ static void meta_build_translation_process_ongoing(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Ongoing localization operations.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -144508,7 +145896,7 @@ static void meta_build_translation_process_translation_narrative(SomMetaNode *n)
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -144522,7 +145910,7 @@ static void meta_build_translation_process_vendors(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TranslationVendorEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per translation vendor.");
   meta_set(&n->doc_comment, "Translation vendor entries.");
   n->extra_len = 1;
@@ -144538,6 +145926,18 @@ static void meta_build_translation_process_vendors_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A translation vendor entry.");
   meta_set(&n->class_doc_comment, "A translation vendor entry.");
 }
+static void meta_build_translation_requirements_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TranslationRequirements");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the internationalization framework before the RTL, formatting and technical subsections below. Cover the string-externalization format and the locale-resolution rule.");
+}
 static void meta_build_translation_requirements_translation_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TranslationRequirements");
   meta_set(&n->member_name, "translationRequirementsContent");
@@ -144545,7 +145945,7 @@ static void meta_build_translation_requirements_translation_requirements_content
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -144575,7 +145975,7 @@ static void meta_build_translation_requirements_rtl(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "RTL and bidirectional support.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -144616,7 +146016,7 @@ static void meta_build_translation_requirements_formatting(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Locale-specific formatting rules.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -144657,7 +146057,7 @@ static void meta_build_translation_requirements_variants(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Pluralization and variants.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -144692,7 +146092,7 @@ static void meta_build_translation_requirements_technical(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Technical text and font support.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -144732,7 +146132,7 @@ static void meta_build_translation_requirements_requirements_narrative(SomMetaNo
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -145312,6 +146712,18 @@ static void meta_build_uat_test_step_entry_content(SomMetaNode *n) {
   n->form->fields[6].hint = som_strdup("Clarification, timing notes, or alternative paths");
   n->form->fields[6].order = 6;
 }
+static void meta_build_ui_component_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "UiComponentEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this component — what it is for and when to reach for it, beyond the visual, behaviour and data-binding facets recorded below.");
+}
 static void meta_build_ui_component_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "identity");
@@ -145319,7 +146731,7 @@ static void meta_build_ui_component_entry_identity(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
   n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
@@ -145343,7 +146755,7 @@ static void meta_build_ui_component_entry_purpose_profile(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Wrapper mapping and business purpose.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -145384,7 +146796,7 @@ static void meta_build_ui_component_entry_classification(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Classification details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -145419,7 +146831,7 @@ static void meta_build_ui_component_entry_visual_design(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -145455,7 +146867,7 @@ static void meta_build_ui_component_entry_dimensions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Visual dimensions.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -145496,7 +146908,7 @@ static void meta_build_ui_component_entry_spacing(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Spacing rules.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -145531,7 +146943,7 @@ static void meta_build_ui_component_entry_surface(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Surface treatment.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -145571,7 +146983,7 @@ static void meta_build_ui_component_entry_visual_diagram(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid");
   n->content_type->description = som_strdup("");
@@ -145585,7 +146997,7 @@ static void meta_build_ui_component_entry_interactive_behavior(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -145633,7 +147045,7 @@ static void meta_build_ui_component_entry_input_behavior(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Focus and keyboard behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -145668,7 +147080,7 @@ static void meta_build_ui_component_entry_animation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Animation behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -145709,7 +147121,7 @@ static void meta_build_ui_component_entry_scroll(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Scrolling behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -145738,7 +147150,7 @@ static void meta_build_ui_component_entry_responsiveness(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -145792,7 +147204,7 @@ static void meta_build_ui_component_entry_accessibility(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 14;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 8;
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
@@ -145852,7 +147264,7 @@ static void meta_build_ui_component_entry_authorization(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 14;
+  n->serialization_order = 15;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -145906,7 +147318,7 @@ static void meta_build_ui_component_entry_resource_integration(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 15;
+  n->serialization_order = 16;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 9;
   n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
@@ -145990,7 +147402,7 @@ static void meta_build_ui_component_entry_data_binding(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 16;
+  n->serialization_order = 17;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
   n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
@@ -146043,7 +147455,7 @@ static void meta_build_ui_component_entry_behavior_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 17;
+  n->serialization_order = 18;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -146058,7 +147470,7 @@ static void meta_build_ui_component_entry_states(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ComponentStateEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 18;
+  n->serialization_order = 19;
   meta_set(&n->content_help, "Add one entry per component state.");
   meta_set(&n->doc_comment, "Contains 0+× ComponentState.");
   n->extra_len = 1;
@@ -146082,7 +147494,7 @@ static void meta_build_ui_component_entry_variants(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ComponentVariantEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 19;
+  n->serialization_order = 20;
   meta_set(&n->content_help, "Add one entry per component variant.");
   meta_set(&n->doc_comment, "Contains 0+× ComponentVariant.");
   n->extra_len = 1;
@@ -146106,7 +147518,7 @@ static void meta_build_ui_component_entry_actions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ComponentActionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 20;
+  n->serialization_order = 21;
   meta_set(&n->content_help, "Add one entry per component action.");
   meta_set(&n->doc_comment, "Contains 0+× ComponentAction.");
   n->extra_len = 1;
@@ -146130,7 +147542,7 @@ static void meta_build_ui_component_entry_slots(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ComponentSlotEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 21;
+  n->serialization_order = 22;
   meta_set(&n->content_help, "Add one entry per component slot.");
   meta_set(&n->doc_comment, "Contains 0+× ComponentSlot.");
   n->extra_len = 1;
@@ -146154,7 +147566,7 @@ static void meta_build_ui_component_entry_properties(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ComponentPropertyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 22;
+  n->serialization_order = 23;
   meta_set(&n->content_help, "Add one entry per component property.");
   meta_set(&n->doc_comment, "Contains 0+× ComponentProperty.");
   n->extra_len = 1;
@@ -146170,6 +147582,18 @@ static void meta_build_ui_component_entry_properties_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A component property entry.\n\nDefines a configurable property of the component.");
   meta_set(&n->class_doc_comment, "A component property entry.\n\nDefines a configurable property of the component.");
 }
+static void meta_build_ui_components_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "UiComponents");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the component library before the design system, per-component specifications and family lists below. Cover what is reused, what is built, and the rule for adding a new component.");
+}
 static void meta_build_ui_components_component_library_overview(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponents");
   meta_set(&n->member_name, "componentLibraryOverview");
@@ -146177,7 +147601,7 @@ static void meta_build_ui_components_component_library_overview(SomMetaNode *n) 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -146213,7 +147637,7 @@ static void meta_build_ui_components_visual_language(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Visual language and brand alignment.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -146248,7 +147672,7 @@ static void meta_build_ui_components_component_approach(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Component naming and documentation approach.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -146283,7 +147707,7 @@ static void meta_build_ui_components_customization(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Extension and theming boundaries.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -146318,7 +147742,7 @@ static void meta_build_ui_components_component_library(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ComponentLibrary");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "10.11.1. Component Library.");
   meta_set(&n->class_doc_comment, "10.11.1. Component Library.\n\nDesign system and component catalog specification.");
 }
@@ -146330,7 +147754,7 @@ static void meta_build_ui_components_component_specs(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "UiComponentEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per catalog component.");
   meta_set(&n->doc_comment, "10.11.2. Component Specifications — contains 0+×.");
   n->extra_len = 1;
@@ -146354,7 +147778,7 @@ static void meta_build_ui_components_component_families(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ComponentFamilyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per component family.");
   meta_set(&n->doc_comment, "10.11.3. Component Families — contains 0+×.");
   n->extra_len = 1;
@@ -147453,6 +148877,18 @@ static void meta_build_user_account_states_definition_state_transition_diagram(S
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "State Transition Diagram (mermaid).");
 }
+static void meta_build_user_assistance_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "UserAssistance");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the in-app help system before the contextual-help, onboarding and support-access subsections below. Cover when help is offered unprompted and when it has to be sought.");
+}
 static void meta_build_user_assistance_help_overview_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAssistance");
   meta_set(&n->member_name, "helpOverviewContent");
@@ -147460,7 +148896,7 @@ static void meta_build_user_assistance_help_overview_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -147496,7 +148932,7 @@ static void meta_build_user_assistance_delivery(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Content stewardship and help affordances.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -147543,7 +148979,7 @@ static void meta_build_user_assistance_insights(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Analytics and improvement feedback.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -147571,7 +149007,7 @@ static void meta_build_user_assistance_help_overview(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -147585,7 +149021,7 @@ static void meta_build_user_assistance_contextual_help(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ContextualHelp");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "10.8.1. Contextual Help.");
   meta_set(&n->class_doc_comment, "10.8.1. Contextual Help.");
 }
@@ -147596,7 +149032,7 @@ static void meta_build_user_assistance_onboarding(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OnboardingHelp");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "10.8.2. Onboarding.");
   meta_set(&n->class_doc_comment, "10.8.2. Onboarding Help.");
 }
@@ -147607,7 +149043,7 @@ static void meta_build_user_assistance_support_access(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SupportAccess");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "10.8.3. Support Access.");
   meta_set(&n->class_doc_comment, "10.8.3. Support Access.");
 }
@@ -147617,7 +149053,7 @@ static void meta_build_user_assistance_help_content_inventory(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -148136,6 +149572,18 @@ static void meta_build_user_category_entry_user_journey(SomMetaNode *n) {
   meta_set(&n->doc_comment, "4.1.4.n.7. User Journey.");
   meta_set(&n->class_doc_comment, "4.1.4.n.7. User Journey.\n\nKey touchpoints and journey map for this user category's experience.");
 }
+static void meta_build_user_documentation_requirements_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "UserDocumentationRequirements");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the end-user documentation deliverables before the format and localization subsections below. Cover the audiences served and the channel each deliverable reaches them through.");
+}
 static void meta_build_user_documentation_requirements_documentation_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserDocumentationRequirements");
   meta_set(&n->member_name, "documentationContent");
@@ -148143,7 +149591,7 @@ static void meta_build_user_documentation_requirements_documentation_content(Som
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -148173,7 +149621,7 @@ static void meta_build_user_documentation_requirements_deliverables(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Documentation deliverables provided to users.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -148232,7 +149680,7 @@ static void meta_build_user_documentation_requirements_localization(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Documentation localization approach.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 2;
@@ -148260,7 +149708,7 @@ static void meta_build_user_documentation_requirements_documentation_narrative(S
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -149959,6 +151407,18 @@ static void meta_build_validation_constraints_content(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Business-level validation rules enforced on data. Distinct from schema\nconstraints (which are database-level) and from per-field form hints\n(which are UI-level).\n\n**What to capture:**\n- Rule catalog (name, scope, severity)\n- Cross-field rules (field A must match format of field B)\n- Cross-entity rules (order total must match line-item sum)\n- Conditional rules (required only when X, forbidden when Y)\n- Validation trigger points (on entry, on save, on batch, on publish)\n- Error-message catalog for each rule\n");
 }
+static void meta_build_validation_feedback_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ValidationFeedback");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce how input errors are surfaced before the placement, message and rule subsections below. Cover when validation runs — on change, on blur, or on submit.");
+}
 static void meta_build_validation_feedback_validation_display_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ValidationFeedback");
   meta_set(&n->member_name, "validationDisplayContent");
@@ -149966,7 +151426,7 @@ static void meta_build_validation_feedback_validation_display_content(SomMetaNod
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -149996,7 +151456,7 @@ static void meta_build_validation_feedback_placement(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Display placement details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -150043,7 +151503,7 @@ static void meta_build_validation_feedback_messages(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Message formatting details.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -150084,7 +151544,7 @@ static void meta_build_validation_feedback_guidance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Guidance settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -150119,7 +151579,7 @@ static void meta_build_validation_feedback_behavior(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Animation and focus behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -150159,7 +151619,7 @@ static void meta_build_validation_feedback_validation_narrative(SomMetaNode *n) 
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -150174,7 +151634,7 @@ static void meta_build_validation_feedback_message_templates(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ValidationMessageTemplate");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per validation message template.");
   meta_set(&n->doc_comment, "Validation message templates.");
   n->extra_len = 1;
@@ -150198,7 +151658,7 @@ static void meta_build_validation_feedback_field_validation_rules(SomMetaNode *n
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per field validation rule.");
   meta_set(&n->doc_comment, "Field validation rules by type.");
   n->extra_len = 1;
@@ -151455,6 +152915,18 @@ static void meta_build_warranty_terms_warranty_narrative(SomMetaNode *n) {
   meta_set(&n->content_help, "Detailed warranty terms description: legal context, relationship to contract, scenarios and examples, common issues and their warranty status, handover checklist for transition to support.");
   meta_set(&n->doc_comment, "Warranty terms narrative.");
 }
+static void meta_build_wcag_compliance_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "WcagCompliance");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the WCAG conformance target before the per-principle subsections and the success-criteria list below. Cover the level claimed and any documented exception to it.");
+}
 static void meta_build_wcag_compliance_wcag_compliance_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WcagCompliance");
   meta_set(&n->member_name, "wcagComplianceContent");
@@ -151462,7 +152934,7 @@ static void meta_build_wcag_compliance_wcag_compliance_content(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -151498,7 +152970,7 @@ static void meta_build_wcag_compliance_operable(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Operable principles.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -151545,7 +153017,7 @@ static void meta_build_wcag_compliance_understandable(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Understandable principles.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -151580,7 +153052,7 @@ static void meta_build_wcag_compliance_robust(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Robustness requirements.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 1;
@@ -151602,7 +153074,7 @@ static void meta_build_wcag_compliance_wcag_narrative(SomMetaNode *n) {
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -151616,7 +153088,7 @@ static void meta_build_wcag_compliance_success_criteria(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "WcagSuccessCriterionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per WCAG success criterion.");
   meta_set(&n->doc_comment, "WCAG success criteria mapping.");
   n->extra_len = 1;
@@ -151685,6 +153157,18 @@ static void meta_build_wcag_success_criterion_entry_content(SomMetaNode *n) {
   n->form->fields[6].hint = som_strdup("Any documented exceptions");
   n->form->fields[6].order = 6;
 }
+static void meta_build_weighted_quality_matrix_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "WeightedQualityMatrix");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Introduce the weighting scheme before the individual weights below. Cover the scale used and how stakeholder input was gathered.");
+}
 static void meta_build_weighted_quality_matrix_matrix_config_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WeightedQualityMatrix");
   meta_set(&n->member_name, "matrixConfigContent");
@@ -151692,7 +153176,7 @@ static void meta_build_weighted_quality_matrix_matrix_config_content(SomMetaNode
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -151733,7 +153217,7 @@ static void meta_build_weighted_quality_matrix_matrix_narrative(SomMetaNode *n) 
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -151748,7 +153232,7 @@ static void meta_build_weighted_quality_matrix_weights(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "QualityWeightEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per quality attribute weight.");
   meta_set(&n->doc_comment, "Quality attribute weight entries.");
   n->extra_len = 1;
@@ -151770,7 +153254,7 @@ static void meta_build_weighted_quality_matrix_matrix_visualization(SomMetaNode 
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid");
   n->content_type->description = som_strdup("");
@@ -152369,6 +153853,18 @@ static void meta_build_workflow_step_issue_content(SomMetaNode *n) {
   n->form->fields[3].hint = som_strdup("");
   n->form->fields[3].order = 3;
 }
+static void meta_build_workflow_step_system_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "WorkflowStepSystem");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Notes on how this workflow step uses the named system — the function it performs there, and any limitation of the system that shapes the step.");
+}
 static void meta_build_workflow_step_system_name(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowStepSystem");
   meta_set(&n->member_name, "name");
@@ -152376,7 +153872,7 @@ static void meta_build_workflow_step_system_name(SomMetaNode *n) {
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
@@ -152576,6 +154072,18 @@ static void meta_build_workflow_triggers_triggers_elem(SomMetaNode *n) {
   meta_set(&n->doc_comment, "A single workflow trigger.");
   meta_set(&n->class_doc_comment, "A single workflow trigger.");
 }
+static void meta_build_workplace_description_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "WorkplaceDescriptionEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Narrative for this workplace category — how these users actually work, beyond the physical, equipment, infrastructure and training facets recorded below.");
+}
 static void meta_build_workplace_description_entry_user_category(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkplaceDescriptionEntry");
   meta_set(&n->member_name, "userCategory");
@@ -152583,7 +154091,7 @@ static void meta_build_workplace_description_entry_user_category(SomMetaNode *n)
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 0;
+  n->serialization_order = 1;
   meta_set(&n->doc_comment, "User category identification.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 10;
@@ -152656,7 +154164,7 @@ static void meta_build_workplace_description_entry_physical_requirements(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PhysicalWorkplaceRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->doc_comment, "Physical workplace layout and environment.");
   meta_set(&n->class_doc_comment, "Physical workplace layout and environment requirements.");
 }
@@ -152667,7 +154175,7 @@ static void meta_build_workplace_description_entry_equipment_requirements(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "EquipmentRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "5.3.1. Equipment Requirements.");
   meta_set(&n->class_doc_comment, "5.3.1. Equipment Requirements.\n\nHardware and peripheral requirements per workplace type.");
 }
@@ -152678,7 +154186,7 @@ static void meta_build_workplace_description_entry_technical_infrastructure(SomM
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TechnicalInfrastructure");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->doc_comment, "Technical infrastructure requirements.");
   meta_set(&n->class_doc_comment, "Technical infrastructure requirements.");
 }
@@ -152689,7 +154197,7 @@ static void meta_build_workplace_description_entry_training_requirements(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TrainingRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "5.3.2. Training Requirements.");
   meta_set(&n->class_doc_comment, "5.3.2. Training Requirements.\n\nComprehensive training program requirements following adult learning\nprinciples (ADDIE, Kirkpatrick evaluation model).");
 }
@@ -152700,7 +154208,7 @@ static void meta_build_workplace_description_entry_support_resources(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WorkplaceSupportResources");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Support resources available to users.");
   meta_set(&n->class_doc_comment, "Support resources available to users.");
 }
@@ -152971,6 +154479,11 @@ static SomMetaNode **meta_children_acceptance_criteria_summary(SomStrList *stack
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_acceptance_criteria_summary_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_acceptance_criteria_summary_acceptance_framework_content(n);
@@ -153268,6 +154781,11 @@ static SomMetaNode **meta_children_accessibility(SomStrList *stack, size_t *len)
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_accessibility_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_accessibility_accessibility_overview_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -153343,6 +154861,11 @@ static SomMetaNode **meta_children_accessibility_checklist(SomStrList *stack, si
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_accessibility_checklist_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_accessibility_checklist_checklist_overview_content(n);
@@ -153527,6 +155050,11 @@ static SomMetaNode **meta_children_actor_entry(SomStrList *stack, size_t *len) {
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_actor_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_actor_entry_identification(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -153615,6 +155143,11 @@ static SomMetaNode **meta_children_actor_relationship_diagram(SomStrList *stack,
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_actor_relationship_diagram_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_actor_relationship_diagram_overview(n);
@@ -153884,6 +155417,11 @@ static SomMetaNode **meta_children_alerting_configuration(SomStrList *stack, siz
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_alerting_configuration_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_alerting_configuration_alerting_overview(n);
@@ -155404,6 +156942,11 @@ static SomMetaNode **meta_children_boundary_assumptions(SomStrList *stack, size_
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_boundary_assumptions_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_boundary_assumptions_assumption_approach(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -155466,6 +157009,11 @@ static SomMetaNode **meta_children_breakpoint_configuration(SomStrList *stack, s
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_breakpoint_configuration_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_breakpoint_configuration_breakpoint_overview(n);
@@ -155824,6 +157372,11 @@ static SomMetaNode **meta_children_business_object_entry(SomStrList *stack, size
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_business_object_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_business_object_entry_identity(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -155975,6 +157528,11 @@ static SomMetaNode **meta_children_business_process_entry(SomStrList *stack, siz
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_business_process_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   meta_push(&arr, len, &cap, meta_cx("ProcessIdentification", stack, meta_children_process_identification, meta_build_business_process_entry_identification));
   meta_push(&arr, len, &cap, meta_cx("ProcessCharacteristics", stack, meta_children_process_characteristics, meta_build_business_process_entry_characteristics));
   meta_push(&arr, len, &cap, meta_cx("ProcessTriggers", stack, meta_children_process_triggers, meta_build_business_process_entry_triggers));
@@ -155996,6 +157554,11 @@ static SomMetaNode **meta_children_business_rule_entry(SomStrList *stack, size_t
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_business_rule_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_business_rule_entry_identity(n);
@@ -156472,6 +158035,11 @@ static SomMetaNode **meta_children_change_readiness_assessment(SomStrList *stack
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_change_readiness_assessment_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_change_readiness_assessment_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -156540,6 +158108,11 @@ static SomMetaNode **meta_children_changed_role_competencies(SomStrList *stack, 
   size_t cap = 0;
   *len = 0;
   {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_changed_role_competencies_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_changed_role_competencies_new_competencies(ln);
     ln->element_node = meta_cx("RoleCompetencyEntry", stack, meta_children_role_competency_entry, meta_build_changed_role_competencies_new_competencies_elem);
@@ -156569,6 +158142,11 @@ static SomMetaNode **meta_children_changed_role_entry(SomStrList *stack, size_t 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_changed_role_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   meta_push(&arr, len, &cap, meta_cx("ChangedRoleIdentification", stack, meta_children_changed_role_identification, meta_build_changed_role_entry_identification));
   meta_push(&arr, len, &cap, meta_cx("ChangedRoleResponsibilities", stack, meta_children_changed_role_responsibilities, meta_build_changed_role_entry_responsibilities));
   meta_push(&arr, len, &cap, meta_cx("ChangedRoleCompetencies", stack, meta_children_changed_role_competencies, meta_build_changed_role_entry_competencies));
@@ -156613,6 +158191,11 @@ static SomMetaNode **meta_children_changed_role_responsibilities(SomStrList *sta
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_changed_role_responsibilities_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_changed_role_responsibilities_added_responsibilities(ln);
@@ -156666,6 +158249,11 @@ static SomMetaNode **meta_children_changes_from_current_structure(SomStrList *st
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_changes_from_current_structure_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_changes_from_current_structure_overview_content(n);
@@ -157415,6 +159003,11 @@ static SomMetaNode **meta_children_compatibility_characteristic(SomStrList *stac
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_compatibility_characteristic_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_compatibility_characteristic_compatibility_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -157511,6 +159104,11 @@ static SomMetaNode **meta_children_competency_framework(SomStrList *stack, size_
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_competency_framework_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_competency_framework_overview(n);
@@ -157886,6 +159484,11 @@ static SomMetaNode **meta_children_component_library(SomStrList *stack, size_t *
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_component_library_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_component_library_design_foundations(ln);
@@ -158561,6 +160164,11 @@ static SomMetaNode **meta_children_contextual_help(SomStrList *stack, size_t *le
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_contextual_help_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_contextual_help_contextual_help_content(n);
@@ -159746,6 +161354,11 @@ static SomMetaNode **meta_children_data_attribute_entry(SomStrList *stack, size_
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_data_attribute_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_data_attribute_entry_identity(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -159820,6 +161433,11 @@ static SomMetaNode **meta_children_data_classification(SomStrList *stack, size_t
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_data_classification_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_data_classification_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -159836,6 +161454,11 @@ static SomMetaNode **meta_children_data_classification_entry(SomStrList *stack, 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_data_classification_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_data_classification_entry_identity(n);
@@ -159975,6 +161598,11 @@ static SomMetaNode **meta_children_data_entity_entry(SomStrList *stack, size_t *
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_data_entity_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_data_entity_entry_identity(n);
@@ -162573,6 +164201,11 @@ static SomMetaNode **meta_children_documentation_quality_criteria(SomStrList *st
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_documentation_quality_criteria_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_documentation_quality_criteria_documentation_overview_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -163181,6 +164814,11 @@ static SomMetaNode **meta_children_entity_follow_up_entry(SomStrList *stack, siz
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_entity_follow_up_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_entity_follow_up_entry_entity_ref(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -163228,6 +164866,11 @@ static SomMetaNode **meta_children_entity_relationship_entry(SomStrList *stack, 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_entity_relationship_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_entity_relationship_entry_identity(n);
@@ -163472,6 +165115,11 @@ static SomMetaNode **meta_children_equipment_requirements(SomStrList *stack, siz
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_equipment_requirements_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_equipment_requirements_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -163574,6 +165222,11 @@ static SomMetaNode **meta_children_error_handling(SomStrList *stack, size_t *len
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_error_handling_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_error_handling_error_philosophy_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -163655,6 +165308,11 @@ static SomMetaNode **meta_children_error_recovery(SomStrList *stack, size_t *len
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_error_recovery_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_error_recovery_recovery_mechanisms_content(n);
@@ -164213,6 +165871,11 @@ static SomMetaNode **meta_children_external_interface_entry(SomStrList *stack, s
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_external_interface_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_external_interface_entry_identification_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -164231,6 +165894,11 @@ static SomMetaNode **meta_children_external_interfaces(SomStrList *stack, size_t
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_external_interfaces_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_external_interfaces_integration_summary(n);
@@ -164935,6 +166603,11 @@ static SomMetaNode **meta_children_flexibility_characteristic(SomStrList *stack,
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_flexibility_characteristic_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_flexibility_characteristic_flexibility_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -165073,6 +166746,11 @@ static SomMetaNode **meta_children_function_model(SomStrList *stack, size_t *len
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_function_model_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_function_model_decomposition_overview(n);
@@ -165221,6 +166899,11 @@ static SomMetaNode **meta_children_functional_suitability_characteristic(SomStrL
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_functional_suitability_characteristic_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_functional_suitability_characteristic_functional_suitability_content(n);
@@ -166560,6 +168243,11 @@ static SomMetaNode **meta_children_interaction_capability_characteristic(SomStrL
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_interaction_capability_characteristic_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_interaction_capability_characteristic_interaction_capability_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -166660,6 +168348,11 @@ static SomMetaNode **meta_children_interaction_entry(SomStrList *stack, size_t *
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_interaction_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_interaction_entry_identification(n);
@@ -167385,6 +169078,11 @@ static SomMetaNode **meta_children_job_descriptions_and_staffing(SomStrList *sta
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_job_descriptions_and_staffing_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_job_descriptions_and_staffing_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -167669,6 +169367,11 @@ static SomMetaNode **meta_children_language_country_selection(SomStrList *stack,
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_language_country_selection_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_language_country_selection_language_selection_content(n);
@@ -167983,6 +169686,11 @@ static SomMetaNode **meta_children_localization_process(SomStrList *stack, size_
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_localization_process_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_localization_process_localization_process_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -168276,6 +169984,11 @@ static SomMetaNode **meta_children_maintainability_characteristic(SomStrList *st
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_maintainability_characteristic_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_maintainability_characteristic_maintainability_content(n);
@@ -168597,6 +170310,11 @@ static SomMetaNode **meta_children_metrics_and_observability(SomStrList *stack, 
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_metrics_and_observability_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_metrics_and_observability_metrics_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -168745,6 +170463,11 @@ static SomMetaNode **meta_children_migration_considerations(SomStrList *stack, s
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_migration_considerations_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_migration_considerations_strategy_content(n);
@@ -169094,6 +170817,11 @@ static SomMetaNode **meta_children_migration_risks(SomStrList *stack, size_t *le
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_migration_risks_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_migration_risks_governance_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -169376,6 +171104,11 @@ static SomMetaNode **meta_children_monitoring(SomStrList *stack, size_t *len) {
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_monitoring_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_monitoring_monitoring_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -169428,6 +171161,11 @@ static SomMetaNode **meta_children_monitoring_dashboards(SomStrList *stack, size
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_monitoring_dashboards_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_monitoring_dashboards_dashboard_overview(n);
@@ -169561,6 +171299,11 @@ static SomMetaNode **meta_children_multi_language_support(SomStrList *stack, siz
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_multi_language_support_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_multi_language_support_multi_language_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -169583,6 +171326,11 @@ static SomMetaNode **meta_children_must_pass_criteria(SomStrList *stack, size_t 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_must_pass_criteria_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_must_pass_criteria_must_pass_overview_content(n);
@@ -170074,6 +171822,11 @@ static SomMetaNode **meta_children_new_organization_structure(SomStrList *stack,
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_new_organization_structure_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_new_organization_structure_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -170086,6 +171839,11 @@ static SomMetaNode **meta_children_new_role_entry(SomStrList *stack, size_t *len
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_new_role_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_new_role_entry_identification(n);
@@ -170148,6 +171906,11 @@ static SomMetaNode **meta_children_new_role_responsibilities(SomStrList *stack, 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_new_role_responsibilities_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_new_role_responsibilities_primary_responsibilities(ln);
@@ -170340,6 +172103,11 @@ static SomMetaNode **meta_children_onboarding_help(SomStrList *stack, size_t *le
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_onboarding_help_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_onboarding_help_onboarding_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -170414,6 +172182,11 @@ static SomMetaNode **meta_children_operating_environment(SomStrList *stack, size
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_operating_environment_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_operating_environment_overview(n);
@@ -170683,6 +172456,11 @@ static SomMetaNode **meta_children_organizational_environment(SomStrList *stack,
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_organizational_environment_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_organizational_environment_organization_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -170745,6 +172523,11 @@ static SomMetaNode **meta_children_organizational_framework(SomStrList *stack, s
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_organizational_framework_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_organizational_framework_overview(n);
@@ -170818,6 +172601,11 @@ static SomMetaNode **meta_children_organizational_transition_timeline(SomStrList
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_organizational_transition_timeline_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   meta_push(&arr, len, &cap, meta_cx("TransitionOverview", stack, meta_children_transition_overview, meta_build_organizational_transition_timeline_overview));
   {
     SomMetaNode *ln = som_meta_node_new();
@@ -170907,6 +172695,11 @@ static SomMetaNode **meta_children_out_of_scope(SomStrList *stack, size_t *len) 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_out_of_scope_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_out_of_scope_scope_philosophy(n);
@@ -171268,6 +173061,11 @@ static SomMetaNode **meta_children_performance_efficiency_characteristic(SomStrL
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_performance_efficiency_characteristic_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_performance_efficiency_characteristic_performance_efficiency_content(n);
@@ -172081,6 +173879,11 @@ static SomMetaNode **meta_children_process_catalog(SomStrList *stack, size_t *le
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_process_catalog_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_process_catalog_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -172150,6 +173953,11 @@ static SomMetaNode **meta_children_process_controls(SomStrList *stack, size_t *l
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_process_controls_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_process_controls_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -172192,6 +174000,11 @@ static SomMetaNode **meta_children_process_design_principles(SomStrList *stack, 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_process_design_principles_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_process_design_principles_overview(n);
@@ -172259,6 +174072,11 @@ static SomMetaNode **meta_children_process_exceptions(SomStrList *stack, size_t 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_process_exceptions_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_process_exceptions_overview(n);
@@ -172330,6 +174148,11 @@ static SomMetaNode **meta_children_process_improvement_summary(SomStrList *stack
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_process_improvement_summary_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_process_improvement_summary_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -172364,6 +174187,11 @@ static SomMetaNode **meta_children_process_inputs_outputs(SomStrList *stack, siz
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_process_inputs_outputs_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_process_inputs_outputs_overview(n);
@@ -172554,6 +174382,11 @@ static SomMetaNode **meta_children_process_overview_diagram(SomStrList *stack, s
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_process_overview_diagram_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_process_overview_diagram_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -172597,6 +174430,11 @@ static SomMetaNode **meta_children_process_performance(SomStrList *stack, size_t
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_process_performance_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_process_performance_overview(n);
@@ -172693,6 +174531,11 @@ static SomMetaNode **meta_children_process_roles(SomStrList *stack, size_t *len)
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_process_roles_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_process_roles_overview(n);
@@ -172836,6 +174679,11 @@ static SomMetaNode **meta_children_process_triggers(SomStrList *stack, size_t *l
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_process_triggers_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_process_triggers_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -172858,6 +174706,11 @@ static SomMetaNode **meta_children_process_vision(SomStrList *stack, size_t *len
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_process_vision_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_process_vision_overview(n);
@@ -173061,6 +174914,11 @@ static SomMetaNode **meta_children_prototype(SomStrList *stack, size_t *len) {
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_prototype_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_prototype_prototype_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -173114,6 +174972,11 @@ static SomMetaNode **meta_children_prototype_feature_subset(SomStrList *stack, s
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_prototype_feature_subset_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_prototype_feature_subset_feature_subset_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -173160,6 +175023,11 @@ static SomMetaNode **meta_children_prototype_goals(SomStrList *stack, size_t *le
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_prototype_goals_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_prototype_goals_goals_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -173191,6 +175059,11 @@ static SomMetaNode **meta_children_prototype_type(SomStrList *stack, size_t *len
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_prototype_type_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_prototype_type_prototype_type_overview(n);
@@ -173292,6 +175165,11 @@ static SomMetaNode **meta_children_quality_framework(SomStrList *stack, size_t *
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_quality_framework_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_quality_framework_framework_content(n);
@@ -173454,6 +175332,11 @@ static SomMetaNode **meta_children_quality_gate_checklist(SomStrList *stack, siz
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_quality_gate_checklist_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_quality_gate_checklist_checklist_overview_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -173475,6 +175358,11 @@ static SomMetaNode **meta_children_quality_prioritization(SomStrList *stack, siz
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_quality_prioritization_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_quality_prioritization_prioritization_framework_content(n);
@@ -173984,6 +175872,11 @@ static SomMetaNode **meta_children_reliability_characteristic(SomStrList *stack,
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_reliability_characteristic_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_reliability_characteristic_reliability_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -174049,6 +175942,11 @@ static SomMetaNode **meta_children_replacement_inventory(SomStrList *stack, size
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_replacement_inventory_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_replacement_inventory_portfolio_summary(n);
@@ -175066,6 +176964,11 @@ static SomMetaNode **meta_children_responsive_behavior(SomStrList *stack, size_t
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_responsive_behavior_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_responsive_behavior_layout_adaptation(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -175107,6 +177010,11 @@ static SomMetaNode **meta_children_responsive_design(SomStrList *stack, size_t *
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_responsive_design_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_responsive_design_responsive_overview(n);
@@ -175284,6 +177192,11 @@ static SomMetaNode **meta_children_reusable_prototype(SomStrList *stack, size_t 
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_reusable_prototype_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_reusable_prototype_reusable_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -175439,6 +177352,11 @@ static SomMetaNode **meta_children_risk_entry(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_risk_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   meta_push(&arr, len, &cap, meta_cx("RiskIdentification", stack, meta_children_risk_identification, meta_build_risk_entry_identification));
   {
     SomMetaNode *n = som_meta_node_new();
@@ -175548,6 +177466,11 @@ static SomMetaNode **meta_children_risks_and_assumptions(SomStrList *stack, size
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_risks_and_assumptions_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_risks_and_assumptions_overview(n);
@@ -176158,6 +178081,11 @@ static SomMetaNode **meta_children_scenario_entry(SomStrList *stack, size_t *len
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_scenario_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_scenario_entry_identification(n);
@@ -177095,6 +179023,11 @@ static SomMetaNode **meta_children_security_characteristic(SomStrList *stack, si
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_security_characteristic_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_security_characteristic_security_content(n);
@@ -178243,6 +180176,11 @@ static SomMetaNode **meta_children_sla_and_slo_monitoring(SomStrList *stack, siz
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_sla_and_slo_monitoring_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_sla_and_slo_monitoring_sla_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -178512,6 +180450,11 @@ static SomMetaNode **meta_children_staffing_plan(SomStrList *stack, size_t *len)
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_staffing_plan_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_staffing_plan_overview(n);
@@ -179484,6 +181427,11 @@ static SomMetaNode **meta_children_success_criteria_by_category(SomStrList *stac
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_success_criteria_by_category_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_success_criteria_by_category_business_criteria(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -179571,6 +181519,11 @@ static SomMetaNode **meta_children_support_access(SomStrList *stack, size_t *len
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_support_access_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_support_access_support_access_content(n);
@@ -179667,6 +181620,11 @@ static SomMetaNode **meta_children_system_boundaries(SomStrList *stack, size_t *
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_boundaries_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_system_boundaries_overview(n);
@@ -180002,6 +181960,11 @@ static SomMetaNode **meta_children_system_error_display(SomStrList *stack, size_
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_system_error_display_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_system_error_display_system_error_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -180253,6 +182216,11 @@ static SomMetaNode **meta_children_system_quality_goals(SomStrList *stack, size_
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_quality_goals_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_system_quality_goals_governance_content(n);
@@ -180537,6 +182505,11 @@ static SomMetaNode **meta_children_system_to_replace_entry(SomStrList *stack, si
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_system_to_replace_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_system_to_replace_entry_identification_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -180632,6 +182605,11 @@ static SomMetaNode **meta_children_systems_to_replace(SomStrList *stack, size_t 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_systems_to_replace_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_systems_to_replace_overview(n);
@@ -180876,6 +182854,11 @@ static SomMetaNode **meta_children_technical_environment(SomStrList *stack, size
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_technical_environment_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_technical_environment_technical_overview_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -181104,6 +183087,11 @@ static SomMetaNode **meta_children_technical_infrastructure(SomStrList *stack, s
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_technical_infrastructure_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_technical_infrastructure_network_connectivity(n);
@@ -181617,6 +183605,11 @@ static SomMetaNode **meta_children_throwaway_prototype(SomStrList *stack, size_t
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_throwaway_prototype_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_throwaway_prototype_throwaway_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -181914,6 +183907,11 @@ static SomMetaNode **meta_children_trade_off_decisions(SomStrList *stack, size_t
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_trade_off_decisions_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_trade_off_decisions_trade_off_governance_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -181963,6 +183961,11 @@ static SomMetaNode **meta_children_training_deliverable_requirements(SomStrList 
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_training_deliverable_requirements_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_training_deliverable_requirements_training_content(n);
@@ -182061,6 +184064,11 @@ static SomMetaNode **meta_children_training_prototype(SomStrList *stack, size_t 
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_training_prototype_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_training_prototype_training_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -182086,6 +184094,11 @@ static SomMetaNode **meta_children_training_requirements(SomStrList *stack, size
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_training_requirements_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_training_requirements_overview(n);
@@ -182150,6 +184163,11 @@ static SomMetaNode **meta_children_transition_communication_plan(SomStrList *sta
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_transition_communication_plan_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_transition_communication_plan_strategy(n);
@@ -182274,6 +184292,11 @@ static SomMetaNode **meta_children_transition_phase_entry(SomStrList *stack, siz
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_transition_phase_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   meta_push(&arr, len, &cap, meta_cx("TransitionPhaseIdentification", stack, meta_children_transition_phase_identification, meta_build_transition_phase_entry_identification));
   {
     SomMetaNode *ln = som_meta_node_new();
@@ -182360,6 +184383,11 @@ static SomMetaNode **meta_children_transition_success_metrics(SomStrList *stack,
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_transition_success_metrics_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_transition_success_metrics_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -182391,6 +184419,11 @@ static SomMetaNode **meta_children_transition_support_structure(SomStrList *stac
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_transition_support_structure_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_transition_support_structure_overview(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -182413,6 +184446,11 @@ static SomMetaNode **meta_children_translation_process(SomStrList *stack, size_t
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_translation_process_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_translation_process_translation_process_content(n);
@@ -182457,6 +184495,11 @@ static SomMetaNode **meta_children_translation_requirements(SomStrList *stack, s
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_translation_requirements_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_translation_requirements_translation_requirements_content(n);
@@ -182653,6 +184696,11 @@ static SomMetaNode **meta_children_ui_component_entry(SomStrList *stack, size_t 
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_ui_component_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_ui_component_entry_identity(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -182778,6 +184826,11 @@ static SomMetaNode **meta_children_ui_components(SomStrList *stack, size_t *len)
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_ui_components_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_ui_components_component_library_overview(n);
@@ -183060,6 +185113,11 @@ static SomMetaNode **meta_children_user_assistance(SomStrList *stack, size_t *le
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_user_assistance_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_user_assistance_help_overview_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -183215,6 +185273,11 @@ static SomMetaNode **meta_children_user_documentation_requirements(SomStrList *s
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_user_documentation_requirements_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_user_documentation_requirements_documentation_content(n);
@@ -183737,6 +185800,11 @@ static SomMetaNode **meta_children_validation_feedback(SomStrList *stack, size_t
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_validation_feedback_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_validation_feedback_validation_display_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -184045,6 +186113,11 @@ static SomMetaNode **meta_children_wcag_compliance(SomStrList *stack, size_t *le
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_wcag_compliance_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_wcag_compliance_wcag_compliance_content(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -184094,6 +186167,11 @@ static SomMetaNode **meta_children_weighted_quality_matrix(SomStrList *stack, si
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_weighted_quality_matrix_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_weighted_quality_matrix_matrix_config_content(n);
@@ -184318,6 +186396,11 @@ static SomMetaNode **meta_children_workflow_step_system(SomStrList *stack, size_
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_workflow_step_system_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_workflow_step_system_name(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -184390,6 +186473,11 @@ static SomMetaNode **meta_children_workplace_description_entry(SomStrList *stack
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_workplace_description_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_workplace_description_entry_user_category(n);
@@ -185143,6 +187231,13 @@ SomListMetaRef acceptance_criteria_list_nav_items(som_nav_acceptance_criteria_li
   free(path);
   return out;
 }
+SomMetaRef acceptance_criteria_summary_nav_content(som_nav_acceptance_criteria_summary x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef acceptance_criteria_summary_nav_acceptance_framework_content(som_nav_acceptance_criteria_summary x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ACCRSU-ACCE");
@@ -185493,6 +187588,13 @@ SomListMetaRef access_user_categories_nav_items(som_nav_access_user_categories x
   free(path);
   return out;
 }
+SomMetaRef accessibility_nav_content(som_nav_accessibility x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef accessibility_nav_accessibility_overview_content(som_nav_accessibility x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ACCESS-ACCE");
@@ -185587,6 +187689,13 @@ SomMetaRef accessibility_check_entry_nav_execution(som_nav_accessibility_check_e
 SomMetaRef accessibility_check_entry_nav_remediation(som_nav_accessibility_check_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ACER");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef accessibility_checklist_nav_content(som_nav_accessibility_checklist x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -185745,6 +187854,13 @@ SomMetaRef actor_characteristics_nav_support(som_nav_actor_characteristics x) {
   free(path);
   return out;
 }
+SomMetaRef actor_entry_nav_content(som_nav_actor_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef actor_entry_nav_identification(som_nav_actor_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ACID");
@@ -185823,6 +187939,13 @@ SomMetaRef actor_overview_nav_categorization(som_nav_actor_overview x) {
   return out;
 }
 SomMetaRef actor_permissions_nav_content(som_nav_actor_permissions x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef actor_relationship_diagram_nav_content(som_nav_actor_relationship_diagram x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -186096,6 +188219,13 @@ SomMetaRef alert_rule_entry_nav_ownership(som_nav_alert_rule_entry x) {
   return out;
 }
 SomMetaRef alert_suppression_rules_nav_content(som_nav_alert_suppression_rules x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef alerting_configuration_nav_content(som_nav_alerting_configuration x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -187838,6 +189968,13 @@ SomMetaRef boundary_assumption_entry_nav_risk(som_nav_boundary_assumption_entry 
   free(path);
   return out;
 }
+SomMetaRef boundary_assumptions_nav_content(som_nav_boundary_assumptions x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef boundary_assumptions_nav_assumption_approach(som_nav_boundary_assumptions x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "assumptionApproach");
@@ -187890,6 +190027,13 @@ SomMetaRef bounded_context_entry_nav_implementation(som_nav_bounded_context_entr
 SomMetaRef bounded_context_entry_nav_integration(som_nav_bounded_context_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "BOCOENIN");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef breakpoint_configuration_nav_content(som_nav_breakpoint_configuration x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -188328,6 +190472,13 @@ SomMetaRef business_object_attribute_entry_nav_governance(som_nav_business_objec
   free(path);
   return out;
 }
+SomMetaRef business_object_entry_nav_content(som_nav_business_object_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef business_object_entry_nav_identity(som_nav_business_object_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "BJOEN-IDEN");
@@ -188531,6 +190682,13 @@ SomListMetaRef business_process_descriptions_nav_process_metrics_and_kpis(som_na
   free(path);
   return out;
 }
+SomMetaRef business_process_entry_nav_content(som_nav_business_process_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_process_identification business_process_entry_nav_identification(som_nav_business_process_entry x) {
   som_nav_process_identification out;
   char *path = spec_path_join(x.ref.path, "identification");
@@ -188597,6 +190755,13 @@ som_nav_process_exceptions business_process_entry_nav_exceptions(som_nav_busines
 SomMetaRef business_process_entry_nav_process_flow_preview(som_nav_business_process_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "processFlowPreview");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef business_rule_entry_nav_content(som_nav_business_rule_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -189119,6 +191284,13 @@ SomListMetaRef change_process_nav_notification_rules(som_nav_change_process x) {
   free(path);
   return out;
 }
+SomMetaRef change_readiness_assessment_nav_content(som_nav_change_readiness_assessment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef change_readiness_assessment_nav_overview(som_nav_change_readiness_assessment x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "CHREOV");
@@ -189182,6 +191354,13 @@ SomMetaRef change_step_entry_nav_subflow_diagram(som_nav_change_step_entry x) {
   free(path);
   return out;
 }
+SomMetaRef changed_role_competencies_nav_content(som_nav_changed_role_competencies x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef changed_role_competencies_nav_new_competencies(som_nav_changed_role_competencies x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ROLCP-NEWC-LST");
@@ -189206,6 +191385,13 @@ SomListMetaRef changed_role_competencies_nav_changed_levels(som_nav_changed_role
 SomMetaRef changed_role_competencies_nav_gap_assessment(som_nav_changed_role_competencies x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "COGAAS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef changed_role_entry_nav_content(som_nav_changed_role_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -189273,6 +191459,13 @@ SomMetaRef changed_role_identification_nav_transition(som_nav_changed_role_ident
   free(path);
   return out;
 }
+SomMetaRef changed_role_responsibilities_nav_content(som_nav_changed_role_responsibilities x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef changed_role_responsibilities_nav_added_responsibilities(som_nav_changed_role_responsibilities x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RSPCH-ADDE-LST");
@@ -189318,6 +191511,13 @@ SomMetaRef changed_role_transition_nav_training(som_nav_changed_role_transition 
 SomMetaRef changed_role_transition_nav_support(som_nav_changed_role_transition x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "CRTS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef changes_from_current_structure_nav_content(som_nav_changes_from_current_structure x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -190092,6 +192292,13 @@ SomMetaRef communication_type_entry_nav_content(som_nav_communication_type_entry
   free(path);
   return out;
 }
+SomMetaRef compatibility_characteristic_nav_content(som_nav_compatibility_characteristic x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef compatibility_characteristic_nav_compatibility_content(som_nav_compatibility_characteristic x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "CMPT-COMP");
@@ -190198,6 +192405,13 @@ som_nav_interoperability_requirements compatibility_requirements_section_nav_int
   return out;
 }
 SomMetaRef competency_entry_nav_content(som_nav_competency_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef competency_framework_nav_content(som_nav_competency_framework x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -190592,6 +192806,13 @@ SomMetaRef component_interface_entry_nav_sla(som_nav_component_interface_entry x
 SomMetaRef component_interface_entry_nav_operations(som_nav_component_interface_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "CIEO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef component_library_nav_content(som_nav_component_library x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -191299,6 +193520,13 @@ SomMetaRef context_diagram_nav_diagram(som_nav_context_diagram x) {
 SomMetaRef context_diagram_nav_legend(som_nav_context_diagram x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "CD-LEGE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef contextual_help_nav_content(som_nav_contextual_help x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -193452,6 +195680,13 @@ SomMetaRef data_attribute_constraint_entry_nav_content(som_nav_data_attribute_co
   free(path);
   return out;
 }
+SomMetaRef data_attribute_entry_nav_content(som_nav_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef data_attribute_entry_nav_identity(som_nav_data_attribute_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DAATT-IDEN");
@@ -193543,6 +195778,13 @@ SomListMetaRef data_attribute_entry_nav_display_properties(som_nav_data_attribut
   free(path);
   return out;
 }
+SomMetaRef data_classification_nav_content(som_nav_data_classification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef data_classification_nav_overview(som_nav_data_classification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DATCL-OVER");
@@ -193554,6 +195796,13 @@ SomListMetaRef data_classification_nav_items(som_nav_data_classification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DCLSE-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_data_classification_entry);
+  free(path);
+  return out;
+}
+SomMetaRef data_classification_entry_nav_content(som_nav_data_classification_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -193679,6 +195928,13 @@ SomMetaRef data_duplication_entry_nav_synchronization(som_nav_data_duplication_e
 SomMetaRef data_duplication_entry_nav_governance(som_nav_data_duplication_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DDEG");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_entity_entry_nav_content(som_nav_data_entity_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -196588,6 +198844,13 @@ SomListMetaRef documentation_deliverables_nav_items(som_nav_documentation_delive
   free(path);
   return out;
 }
+SomMetaRef documentation_quality_criteria_nav_content(som_nav_documentation_quality_criteria x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef documentation_quality_criteria_nav_documentation_overview_content(som_nav_documentation_quality_criteria x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DOQUCR-DOCU");
@@ -197183,6 +199446,13 @@ SomMetaRef entity_constraint_entry_nav_content(som_nav_entity_constraint_entry x
   free(path);
   return out;
 }
+SomMetaRef entity_follow_up_entry_nav_content(som_nav_entity_follow_up_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef entity_follow_up_entry_nav_entity_ref(som_nav_entity_follow_up_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DMFUE-ENTI");
@@ -197219,6 +199489,13 @@ SomListMetaRef entity_follow_up_entry_nav_migration_mappings(som_nav_entity_foll
   return out;
 }
 SomMetaRef entity_index_entry_nav_content(som_nav_entity_index_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef entity_relationship_entry_nav_content(som_nav_entity_relationship_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -197484,6 +199761,13 @@ SomListMetaRef environments_nav_items(som_nav_environments x) {
   free(path);
   return out;
 }
+SomMetaRef equipment_requirements_nav_content(som_nav_equipment_requirements x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef equipment_requirements_nav_overview(som_nav_equipment_requirements x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "EQOV");
@@ -197572,6 +199856,13 @@ SomListMetaRef error_code_registry_nav_error_codes(som_nav_error_code_registry x
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ERCEN-CODE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_error_code_entry);
+  free(path);
+  return out;
+}
+SomMetaRef error_handling_nav_content(som_nav_error_handling x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -197683,6 +199974,13 @@ SomMetaRef error_handling_standards_nav_user_communication(som_nav_error_handlin
 SomMetaRef error_handling_standards_nav_recovery(som_nav_error_handling_standards x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ERHASTRE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef error_recovery_nav_content(som_nav_error_recovery x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -198394,6 +200692,13 @@ som_nav_connectivity_resilience external_connectivity_section_nav_resilience(som
   free(path);
   return out;
 }
+SomMetaRef external_interface_entry_nav_content(som_nav_external_interface_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef external_interface_entry_nav_identification_content(som_nav_external_interface_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "EIE-IDEN");
@@ -198454,6 +200759,13 @@ som_nav_interface_testing external_interface_entry_nav_testing(som_nav_external_
   som_nav_interface_testing out;
   char *path = spec_path_join(x.ref.path, "testing");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef external_interfaces_nav_content(som_nav_external_interfaces x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -199192,6 +201504,13 @@ SomMetaRef flexibility_nav_narrative(som_nav_flexibility x) {
   free(path);
   return out;
 }
+SomMetaRef flexibility_characteristic_nav_content(som_nav_flexibility_characteristic x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef flexibility_characteristic_nav_flexibility_content(som_nav_flexibility_characteristic x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "FLXC-FLEX");
@@ -199336,6 +201655,13 @@ SomListMetaRef function_entry_nav_sub_functions(som_nav_function_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SUFN-SUBF-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_sub_function_entry);
+  free(path);
+  return out;
+}
+SomMetaRef function_model_nav_content(som_nav_function_model x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -199525,6 +201851,13 @@ SomListMetaRef functional_responsibilities_nav_items(som_nav_functional_responsi
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RE-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_responsibility_entry);
+  free(path);
+  return out;
+}
+SomMetaRef functional_suitability_characteristic_nav_content(som_nav_functional_suitability_characteristic x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -200928,6 +203261,13 @@ SomMetaRef interaction_business_rules_nav_content(som_nav_interaction_business_r
   free(path);
   return out;
 }
+SomMetaRef interaction_capability_characteristic_nav_content(som_nav_interaction_capability_characteristic x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef interaction_capability_characteristic_nav_interaction_capability_content(som_nav_interaction_capability_characteristic x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "INCP-INTE");
@@ -201027,6 +203367,13 @@ SomListMetaRef interaction_channel_entry_nav_integrations(som_nav_interaction_ch
   return out;
 }
 SomMetaRef interaction_dependency_analysis_nav_content(som_nav_interaction_dependency_analysis x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef interaction_entry_nav_content(som_nav_interaction_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -201817,6 +204164,13 @@ SomMetaRef it_standard_compliance_entry_nav_evidence(som_nav_it_standard_complia
   free(path);
   return out;
 }
+SomMetaRef job_descriptions_and_staffing_nav_content(som_nav_job_descriptions_and_staffing x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef job_descriptions_and_staffing_nav_overview(som_nav_job_descriptions_and_staffing x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "JODEOV");
@@ -202091,6 +204445,13 @@ SomMetaRef key_storage_policy_nav_notes(som_nav_key_storage_policy x) {
   return out;
 }
 SomMetaRef knowledge_transfer_nav_content(som_nav_knowledge_transfer x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef language_country_selection_nav_content(som_nav_language_country_selection x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -202461,6 +204822,13 @@ SomMetaRef locale_handling_requirements_nav_content(som_nav_locale_handling_requ
   free(path);
   return out;
 }
+SomMetaRef localization_process_nav_content(som_nav_localization_process x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef localization_process_nav_localization_process_content(som_nav_localization_process x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "LOPR-LOCA");
@@ -202751,6 +205119,13 @@ SomMetaRef maintainability_nav_governance(som_nav_maintainability x) {
 SomMetaRef maintainability_nav_narrative(som_nav_maintainability x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "narrative");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef maintainability_characteristic_nav_content(som_nav_maintainability_characteristic x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -203091,6 +205466,13 @@ SomMetaRef message_locale_variant_entry_nav_content(som_nav_message_locale_varia
   free(path);
   return out;
 }
+SomMetaRef metrics_and_observability_nav_content(som_nav_metrics_and_observability x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef metrics_and_observability_nav_metrics_overview(som_nav_metrics_and_observability x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MEANOB-METR");
@@ -203242,6 +205624,13 @@ SomListMetaRef mfa_configuration_nav_mfa_details(som_nav_mfa_configuration x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "MC-MFAD-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
+  free(path);
+  return out;
+}
+SomMetaRef migration_considerations_nav_content(som_nav_migration_considerations x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -203595,6 +205984,13 @@ SomMetaRef migration_risk_indicators_nav_content(som_nav_migration_risk_indicato
   free(path);
   return out;
 }
+SomMetaRef migration_risks_nav_content(som_nav_migration_risks x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef migration_risks_nav_governance_content(som_nav_migration_risks x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MIRI-GOVE");
@@ -203889,6 +206285,13 @@ SomMetaRef module_versioning_strategy_nav_coordination(som_nav_module_versioning
   free(path);
   return out;
 }
+SomMetaRef monitoring_nav_content(som_nav_monitoring x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef monitoring_nav_monitoring_overview(som_nav_monitoring x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MONITO-MONI");
@@ -204022,6 +206425,13 @@ som_nav_sla_monitoring_requirements monitoring_and_alerting_section_nav_sla_moni
   free(path);
   return out;
 }
+SomMetaRef monitoring_dashboards_nav_content(som_nav_monitoring_dashboards x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef monitoring_dashboards_nav_dashboard_overview(som_nav_monitoring_dashboards x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MODA-DASH");
@@ -204148,6 +206558,13 @@ SomMetaRef multi_channel_experience_nav_multi_channel_configuration(som_nav_mult
   free(path);
   return out;
 }
+SomMetaRef multi_language_support_nav_content(som_nav_multi_language_support x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef multi_language_support_nav_multi_language_overview(som_nav_multi_language_support x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MLAR-MULT");
@@ -204173,6 +206590,13 @@ SomListMetaRef multi_language_support_nav_supported_locales(som_nav_multi_langua
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SUPLOC-SUPP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_supported_locale_entry);
+  free(path);
+  return out;
+}
+SomMetaRef must_pass_criteria_nav_content(som_nav_must_pass_criteria x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -204785,6 +207209,13 @@ SomMetaRef network_security_requirements_nav_compliance(som_nav_network_security
   free(path);
   return out;
 }
+SomMetaRef new_organization_structure_nav_content(som_nav_new_organization_structure x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef new_organization_structure_nav_overview(som_nav_new_organization_structure x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "overview");
@@ -204803,6 +207234,13 @@ som_nav_organizational_transition_timeline new_organization_structure_nav_transi
   som_nav_organizational_transition_timeline out;
   char *path = spec_path_join(x.ref.path, "transitionTimeline");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef new_role_entry_nav_content(som_nav_new_role_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -204880,6 +207318,13 @@ SomListMetaRef new_role_qualifications_nav_required_competencies(som_nav_new_rol
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ROLCP-REQU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_role_competency_entry);
+  free(path);
+  return out;
+}
+SomMetaRef new_role_responsibilities_nav_content(som_nav_new_role_responsibilities x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -205044,6 +207489,13 @@ SomMetaRef on_call_schedule_config_nav_operations(som_nav_on_call_schedule_confi
   free(path);
   return out;
 }
+SomMetaRef onboarding_help_nav_content(som_nav_onboarding_help x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef onboarding_help_nav_onboarding_content(som_nav_onboarding_help x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ONHE-ONBO");
@@ -205124,6 +207576,13 @@ SomMetaRef ongoing_training_entry_nav_content_management(som_nav_ongoing_trainin
 SomMetaRef ongoing_training_entry_nav_compliance(som_nav_ongoing_training_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ONTRENCO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef operating_environment_nav_content(som_nav_operating_environment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -205429,6 +207888,13 @@ SomMetaRef organizational_context_nav_business_process_coverage(som_nav_organiza
   free(path);
   return out;
 }
+SomMetaRef organizational_environment_nav_content(som_nav_organizational_environment x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef organizational_environment_nav_organization_content(som_nav_organizational_environment x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "OREN-ORGA");
@@ -205503,6 +207969,13 @@ SomListMetaRef organizational_environment_nav_change_advocates(som_nav_organizat
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "OREN-CHAN-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
+  free(path);
+  return out;
+}
+SomMetaRef organizational_framework_nav_content(som_nav_organizational_framework x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -205601,6 +208074,13 @@ SomListMetaRef organizational_requirements_nav_requirements(som_nav_organization
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ORRQ-REQU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_organizational_requirement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef organizational_transition_timeline_nav_content(som_nav_organizational_transition_timeline x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -205703,6 +208183,13 @@ SomMetaRef os_compatibility_entry_nav_lifecycle(som_nav_os_compatibility_entry x
   return out;
 }
 SomMetaRef other_agreement_entry_nav_content(som_nav_other_agreement_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef out_of_scope_nav_content(som_nav_out_of_scope x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -206104,6 +208591,13 @@ SomMetaRef penetration_testing_requirements_nav_execution(som_nav_penetration_te
 SomMetaRef penetration_testing_requirements_nav_reporting(som_nav_penetration_testing_requirements x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PTRR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef performance_efficiency_characteristic_nav_content(som_nav_performance_efficiency_characteristic x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -206892,6 +209386,13 @@ SomListMetaRef process_adjustments_nav_items(som_nav_process_adjustments x) {
   free(path);
   return out;
 }
+SomMetaRef process_catalog_nav_content(som_nav_process_catalog x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef process_catalog_nav_overview(som_nav_process_catalog x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PCOVW");
@@ -206955,6 +209456,13 @@ SomMetaRef process_control_entry_nav_verification(som_nav_process_control_entry 
   free(path);
   return out;
 }
+SomMetaRef process_controls_nav_content(som_nav_process_controls x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef process_controls_nav_overview(som_nav_process_controls x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PRCOOV");
@@ -206977,6 +209485,13 @@ SomMetaRef process_dependency_entry_nav_content(som_nav_process_dependency_entry
   return out;
 }
 SomMetaRef process_design_principle_entry_nav_content(som_nav_process_design_principle_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef process_design_principles_nav_content(som_nav_process_design_principles x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -207026,6 +209541,13 @@ SomMetaRef process_exception_entry_nav_response(som_nav_process_exception_entry 
   return out;
 }
 SomMetaRef process_exception_handling_nav_content(som_nav_process_exception_handling x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef process_exceptions_nav_content(som_nav_process_exceptions x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -207095,6 +209617,13 @@ SomMetaRef process_improvement_entry_nav_delivery(som_nav_process_improvement_en
   free(path);
   return out;
 }
+SomMetaRef process_improvement_summary_nav_content(som_nav_process_improvement_summary x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef process_improvement_summary_nav_overview(som_nav_process_improvement_summary x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "IMOV");
@@ -207117,6 +209646,13 @@ SomMetaRef process_improvement_summary_nav_business_case(som_nav_process_improve
   return out;
 }
 SomMetaRef process_input_entry_nav_content(som_nav_process_input_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef process_inputs_outputs_nav_content(som_nav_process_inputs_outputs x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -207305,6 +209841,13 @@ SomMetaRef process_output_entry_nav_content(som_nav_process_output_entry x) {
   free(path);
   return out;
 }
+SomMetaRef process_overview_diagram_nav_content(som_nav_process_overview_diagram x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef process_overview_diagram_nav_overview(som_nav_process_overview_diagram x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PRDIOV");
@@ -207344,6 +209887,13 @@ SomListMetaRef process_pain_points_nav_improvements(som_nav_process_pain_points 
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "CPIE-IMPR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_current_process_improvement_entry);
+  free(path);
+  return out;
+}
+SomMetaRef process_performance_nav_content(som_nav_process_performance x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -207420,6 +209970,13 @@ SomMetaRef process_role_entry_nav_execution(som_nav_process_role_entry x) {
 SomMetaRef process_role_entry_nav_coordination(som_nav_process_role_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PREC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef process_roles_nav_content(som_nav_process_roles x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -207564,6 +210121,13 @@ SomMetaRef process_trigger_entry_nav_content(som_nav_process_trigger_entry x) {
   free(path);
   return out;
 }
+SomMetaRef process_triggers_nav_content(som_nav_process_triggers x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef process_triggers_nav_overview(som_nav_process_triggers x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "TGOVW");
@@ -207582,6 +210146,13 @@ SomListMetaRef process_triggers_nav_end_events(som_nav_process_triggers x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "PEEVT-ENDE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_process_end_event_entry);
+  free(path);
+  return out;
+}
+SomMetaRef process_vision_nav_content(som_nav_process_vision x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -207851,6 +210422,13 @@ som_nav_protocol_compliance_requirements protocols_and_standards_section_nav_com
   free(path);
   return out;
 }
+SomMetaRef prototype_nav_content(som_nav_prototype x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef prototype_nav_prototype_overview(som_nav_prototype x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PROTOT-PROT");
@@ -207921,6 +210499,13 @@ SomMetaRef prototype_feature_entry_nav_content(som_nav_prototype_feature_entry x
   free(path);
   return out;
 }
+SomMetaRef prototype_feature_subset_nav_content(som_nav_prototype_feature_subset x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef prototype_feature_subset_nav_feature_subset_content(som_nav_prototype_feature_subset x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PRFESU-FEAT");
@@ -207963,6 +210548,13 @@ SomMetaRef prototype_goal_entry_nav_content(som_nav_prototype_goal_entry x) {
   free(path);
   return out;
 }
+SomMetaRef prototype_goals_nav_content(som_nav_prototype_goals x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef prototype_goals_nav_goals_content(som_nav_prototype_goals x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PG-GOAL");
@@ -207995,6 +210587,13 @@ SomListMetaRef prototype_goals_nav_goals(som_nav_prototype_goals x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "PGE-GOAL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_prototype_goal_entry);
+  free(path);
+  return out;
+}
+SomMetaRef prototype_type_nav_content(som_nav_prototype_type x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -208127,6 +210726,13 @@ SomMetaRef quality_category_entry_nav_metrics(som_nav_quality_category_entry x) 
 SomMetaRef quality_category_entry_nav_category_details(som_nav_quality_category_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "categoryDetails");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef quality_framework_nav_content(som_nav_quality_framework x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -208299,6 +210905,13 @@ SomMetaRef quality_gate_check_entry_nav_blocking(som_nav_quality_gate_check_entr
   free(path);
   return out;
 }
+SomMetaRef quality_gate_checklist_nav_content(som_nav_quality_gate_checklist x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef quality_gate_checklist_nav_checklist_overview_content(som_nav_quality_gate_checklist x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "QUGACH-CHEC");
@@ -208317,6 +210930,13 @@ SomListMetaRef quality_gate_checklist_nav_items(som_nav_quality_gate_checklist x
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "QGCHK-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_quality_gate_check_entry);
+  free(path);
+  return out;
+}
+SomMetaRef quality_prioritization_nav_content(som_nav_quality_prioritization x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -208796,6 +211416,13 @@ SomMetaRef reliability_nav_narrative(som_nav_reliability x) {
   free(path);
   return out;
 }
+SomMetaRef reliability_characteristic_nav_content(som_nav_reliability_characteristic x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef reliability_characteristic_nav_reliability_content(som_nav_reliability_characteristic x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RELC-RELI");
@@ -208876,6 +211503,13 @@ SomMetaRef removed_role_entry_nav_governance(som_nav_removed_role_entry x) {
 SomMetaRef removed_role_entry_nav_continuity(som_nav_removed_role_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RREC");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef replacement_inventory_nav_content(som_nav_replacement_inventory x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -209895,6 +212529,13 @@ SomMetaRef responsibility_systems_nav_content(som_nav_responsibility_systems x) 
   free(path);
   return out;
 }
+SomMetaRef responsive_behavior_nav_content(som_nav_responsive_behavior x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef responsive_behavior_nav_layout_adaptation(som_nav_responsive_behavior x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "REBE-LAYO");
@@ -209941,6 +212582,13 @@ SomListMetaRef responsive_behavior_nav_screen_rules(som_nav_responsive_behavior 
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "RESPSR-SCRE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_responsive_screen_rule_entry);
+  free(path);
+  return out;
+}
+SomMetaRef responsive_design_nav_content(som_nav_responsive_design x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -210133,6 +212781,13 @@ som_nav_component_registry reusable_components_section_nav_registry(som_nav_reus
   free(path);
   return out;
 }
+SomMetaRef reusable_prototype_nav_content(som_nav_reusable_prototype x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef reusable_prototype_nav_reusable_content(som_nav_reusable_prototype x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "REUPRO-REUS");
@@ -210287,6 +212942,13 @@ SomMetaRef risk_business_impact_nav_delivery(som_nav_risk_business_impact x) {
   free(path);
   return out;
 }
+SomMetaRef risk_entry_nav_content(som_nav_risk_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_risk_identification risk_entry_nav_identification(som_nav_risk_entry x) {
   som_nav_risk_identification out;
   char *path = spec_path_join(x.ref.path, "identification");
@@ -210402,6 +213064,13 @@ SomMetaRef risk_response_nav_residual(som_nav_risk_response x) {
 SomMetaRef risk_response_nav_implementation(som_nav_risk_response x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RIREIM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef risks_and_assumptions_nav_content(som_nav_risks_and_assumptions x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -210962,6 +213631,13 @@ SomMetaRef scaling_triggers_and_thresholds_nav_behavior(som_nav_scaling_triggers
 SomMetaRef scaling_triggers_and_thresholds_nav_type(som_nav_scaling_triggers_and_thresholds x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "STATT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scenario_entry_nav_content(som_nav_scenario_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -211998,6 +214674,13 @@ SomMetaRef security_certification_requirements_nav_industry(som_nav_security_cer
 SomMetaRef security_certification_requirements_nav_maintenance(som_nav_security_certification_requirements x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCRM");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef security_characteristic_nav_content(som_nav_security_characteristic x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -213276,6 +215959,13 @@ SomMetaRef single_sign_on_policy_nav_sso_details(som_nav_single_sign_on_policy x
   free(path);
   return out;
 }
+SomMetaRef sla_and_slo_monitoring_nav_content(som_nav_sla_and_slo_monitoring x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef sla_and_slo_monitoring_nav_sla_overview(som_nav_sla_and_slo_monitoring x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SASM-SLAO");
@@ -213566,6 +216256,13 @@ SomMetaRef staffing_entry_nav_recruitment(som_nav_staffing_entry x) {
 SomMetaRef staffing_entry_nav_ownership(som_nav_staffing_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "STENOW");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef staffing_plan_nav_content(som_nav_staffing_plan x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -214648,6 +217345,13 @@ SomMetaRef success_criteria_nav_post_implementation_review(som_nav_success_crite
   free(path);
   return out;
 }
+SomMetaRef success_criteria_by_category_nav_content(som_nav_success_criteria_by_category x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef success_criteria_by_category_nav_business_criteria(som_nav_success_criteria_by_category x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCBC-BUSI");
@@ -214739,6 +217443,13 @@ SomMetaRef success_criterion_relationships_nav_content(som_nav_success_criterion
   free(path);
   return out;
 }
+SomMetaRef support_access_nav_content(som_nav_support_access x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef support_access_nav_support_access_content(som_nav_support_access x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SUAC-SUPP");
@@ -214824,6 +217535,13 @@ SomMetaRef supported_locale_entry_nav_rollout(som_nav_supported_locale_entry x) 
   return out;
 }
 SomMetaRef system_architecture_spec_nav_content(som_nav_system_architecture_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef system_boundaries_nav_content(som_nav_system_boundaries x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -215278,6 +217996,13 @@ SomMetaRef system_error_code_entry_nav_operations(som_nav_system_error_code_entr
   free(path);
   return out;
 }
+SomMetaRef system_error_display_nav_content(som_nav_system_error_display x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef system_error_display_nav_system_error_content(som_nav_system_error_display x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYERDI-SYST");
@@ -215590,6 +218315,13 @@ som_nav_scope_boundaries system_purpose_nav_scope_boundaries(som_nav_system_purp
   som_nav_scope_boundaries out;
   char *path = spec_path_join(x.ref.path, "scopeBoundaries");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef system_quality_goals_nav_content(som_nav_system_quality_goals x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -216069,6 +218801,13 @@ SomListMetaRef system_technical_assessment_nav_security_concerns(som_nav_system_
   free(path);
   return out;
 }
+SomMetaRef system_to_replace_entry_nav_content(som_nav_system_to_replace_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef system_to_replace_entry_nav_identification_content(som_nav_system_to_replace_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYTORE-IDEN");
@@ -216213,6 +218952,13 @@ SomListMetaRef system_user_impact_nav_user_groups(som_nav_system_user_impact x) 
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "USGRIM-USER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_user_group_impact_entry);
+  free(path);
+  return out;
+}
+SomMetaRef systems_to_replace_nav_content(som_nav_systems_to_replace x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -216441,6 +219187,13 @@ SomMetaRef technical_constraint_entry_nav_content(som_nav_technical_constraint_e
   return out;
 }
 SomMetaRef technical_dependency_entry_nav_content(som_nav_technical_dependency_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef technical_environment_nav_content(som_nav_technical_environment x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -216745,6 +219498,13 @@ SomListMetaRef technical_goals_nav_goals(som_nav_technical_goals x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "TGE-GOAL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_technical_goal_entry);
+  free(path);
+  return out;
+}
+SomMetaRef technical_infrastructure_nav_content(som_nav_technical_infrastructure x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -217301,6 +220061,13 @@ SomMetaRef third_party_library_entry_nav_monitoring(som_nav_third_party_library_
   free(path);
   return out;
 }
+SomMetaRef throwaway_prototype_nav_content(som_nav_throwaway_prototype x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef throwaway_prototype_nav_throwaway_content(som_nav_throwaway_prototype x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "THPR-THRO");
@@ -217630,6 +220397,13 @@ SomMetaRef trade_off_decision_entry_nav_detailed_analysis(som_nav_trade_off_deci
   free(path);
   return out;
 }
+SomMetaRef trade_off_decisions_nav_content(som_nav_trade_off_decisions x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef trade_off_decisions_nav_trade_off_governance_content(som_nav_trade_off_decisions x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "TROFDE-TRAD");
@@ -217675,6 +220449,13 @@ SomMetaRef training_assessment_nav_improvement(som_nav_training_assessment x) {
 SomMetaRef training_assessment_nav_reporting(som_nav_training_assessment x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "TRASRE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef training_deliverable_requirements_nav_content(som_nav_training_deliverable_requirements x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -217763,6 +220544,13 @@ SomMetaRef training_module_entry_nav_content(som_nav_training_module_entry x) {
   free(path);
   return out;
 }
+SomMetaRef training_prototype_nav_content(som_nav_training_prototype x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef training_prototype_nav_training_content(som_nav_training_prototype x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "TP-TRAI");
@@ -217787,6 +220575,13 @@ SomMetaRef training_prototype_nav_outputs(som_nav_training_prototype x) {
 SomMetaRef training_prototype_nav_training_narrative(som_nav_training_prototype x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "trainingNarrative");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef training_requirements_nav_content(som_nav_training_requirements x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -217848,6 +220643,13 @@ SomMetaRef training_topic_entry_nav_content(som_nav_training_topic_entry x) {
   return out;
 }
 SomMetaRef transition_communication_channels_nav_content(som_nav_transition_communication_channels x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef transition_communication_plan_nav_content(som_nav_transition_communication_plan x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -217959,6 +220761,13 @@ SomMetaRef transition_phase_activities_nav_content(som_nav_transition_phase_acti
   free(path);
   return out;
 }
+SomMetaRef transition_phase_entry_nav_content(som_nav_transition_phase_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_transition_phase_identification transition_phase_entry_nav_identification(som_nav_transition_phase_entry x) {
   som_nav_transition_phase_identification out;
   char *path = spec_path_join(x.ref.path, "identification");
@@ -218036,6 +220845,13 @@ SomMetaRef transition_risk_entry_nav_response(som_nav_transition_risk_entry x) {
   free(path);
   return out;
 }
+SomMetaRef transition_success_metrics_nav_content(som_nav_transition_success_metrics x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef transition_success_metrics_nav_overview(som_nav_transition_success_metrics x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "TRMEOV");
@@ -218051,6 +220867,13 @@ SomListMetaRef transition_success_metrics_nav_metrics(som_nav_transition_success
   return out;
 }
 SomMetaRef transition_support_resource_entry_nav_content(som_nav_transition_support_resource_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef transition_support_structure_nav_content(som_nav_transition_support_structure x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -218075,6 +220898,13 @@ SomListMetaRef transition_support_structure_nav_escalation_paths(som_nav_transit
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "TRESPA-ESCA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_transition_escalation_paths);
+  free(path);
+  return out;
+}
+SomMetaRef translation_process_nav_content(som_nav_translation_process x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -218124,6 +220954,13 @@ SomListMetaRef translation_process_nav_vendors(som_nav_translation_process x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "TVE-VEND-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_translation_vendor_entry);
+  free(path);
+  return out;
+}
+SomMetaRef translation_requirements_nav_content(som_nav_translation_requirements x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -218288,6 +221125,13 @@ SomMetaRef uat_test_step_entry_nav_content(som_nav_uat_test_step_entry x) {
   free(path);
   return out;
 }
+SomMetaRef ui_component_entry_nav_content(som_nav_ui_component_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef ui_component_entry_nav_identity(som_nav_ui_component_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "UICOM-IDEN");
@@ -218446,6 +221290,13 @@ SomListMetaRef ui_component_entry_nav_properties(som_nav_ui_component_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "CMPR-PROP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_component_property_entry);
+  free(path);
+  return out;
+}
+SomMetaRef ui_components_nav_content(som_nav_ui_components x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -218743,6 +221594,13 @@ SomMetaRef user_account_states_definition_nav_state_transition_diagram(som_nav_u
   free(path);
   return out;
 }
+SomMetaRef user_assistance_nav_content(som_nav_user_assistance x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef user_assistance_nav_help_overview_content(som_nav_user_assistance x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "USAS-HELP");
@@ -218950,6 +221808,13 @@ som_nav_user_journey user_category_entry_nav_user_journey(som_nav_user_category_
   som_nav_user_journey out;
   char *path = spec_path_join(x.ref.path, "userJourney");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef user_documentation_requirements_nav_content(som_nav_user_documentation_requirements x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -219541,6 +222406,13 @@ SomMetaRef validation_constraints_nav_content(som_nav_validation_constraints x) 
   free(path);
   return out;
 }
+SomMetaRef validation_feedback_nav_content(som_nav_validation_feedback x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef validation_feedback_nav_validation_display_content(som_nav_validation_feedback x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "VAFE-VALI");
@@ -219849,6 +222721,13 @@ SomMetaRef warranty_terms_nav_warranty_narrative(som_nav_warranty_terms x) {
   free(path);
   return out;
 }
+SomMetaRef wcag_compliance_nav_content(som_nav_wcag_compliance x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef wcag_compliance_nav_wcag_compliance_content(som_nav_wcag_compliance x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "WCCO-WCAG");
@@ -219892,6 +222771,13 @@ SomListMetaRef wcag_compliance_nav_success_criteria(som_nav_wcag_compliance x) {
   return out;
 }
 SomMetaRef wcag_success_criterion_entry_nav_content(som_nav_wcag_success_criterion_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef weighted_quality_matrix_nav_content(som_nav_weighted_quality_matrix x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -220073,6 +222959,13 @@ SomMetaRef workflow_step_issue_nav_content(som_nav_workflow_step_issue x) {
   free(path);
   return out;
 }
+SomMetaRef workflow_step_system_nav_content(som_nav_workflow_step_system x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef workflow_step_system_nav_name(som_nav_workflow_step_system x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "WOSTSY-NAME");
@@ -220119,6 +223012,13 @@ SomListMetaRef workflow_triggers_nav_triggers(som_nav_workflow_triggers x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "WOTREN-TRIG-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_workflow_trigger_entry);
+  free(path);
+  return out;
+}
+SomMetaRef workplace_description_entry_nav_content(som_nav_workplace_description_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }

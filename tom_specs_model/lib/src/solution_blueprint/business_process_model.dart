@@ -128,6 +128,15 @@ TOM (Target Operating Model) document.
 @SectionId('PRVIZ')
 @DetailedIn(D02TargetOperatingModel)
 class ProcessVision extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the target-state process vision before the narrative, '
+    'improvement and success-criteria subsections below. Cover what changes '
+    'about how the work is done, and for whom.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Process vision overview.
   @SectionId('PVOVW')
   @StandardReferences(
@@ -185,11 +194,11 @@ class ProcessVision extends DocSpecsSection {
       hint: 'Groups affected and the nature of impact',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Vision narrative describing the target state.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection visionNarrative = TextSection();
 
   /// Expected improvements over current state.
@@ -201,7 +210,7 @@ class ProcessVision extends DocSpecsSection {
   @SectionId('EXIPR-EXPE-LST')
   @SectionIdPattern('EXIPR-EXPE-xxx')
   @ContentHelp('Add one entry per expected improvement.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ExpectedImprovements> expectedImprovements = [];
 
   /// Success criteria for process transformation.
@@ -264,7 +273,7 @@ class ProcessVision extends DocSpecsSection {
       hint: 'How and when success is measured',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? successCriteria;
 }
 
@@ -357,6 +366,15 @@ class ExpectedImprovements extends DocSpecsSection {
 @SectionId('PDPRI')
 @DetailedIn(D02TargetOperatingModel)
 class ProcessDesignPrinciples extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the design principles before the individual principles '
+    'below. Cover where they came from and how a conflict between two of '
+    'them is resolved.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Design principles overview.
   @SectionId('DPOVW')
   @StandardReferences(
@@ -390,7 +408,7 @@ class ProcessDesignPrinciples extends DocSpecsSection {
       hint: 'How principles adapt over time',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Contains 0+× Design Principle.
@@ -402,7 +420,7 @@ class ProcessDesignPrinciples extends DocSpecsSection {
   @SectionId('PDPEN-PRIN-LST')
   @SectionIdPattern('PDPEN-PRIN-xxx')
   @ContentHelp('Add one entry per process design principle.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ProcessDesignPrincipleEntry> principles = [];
 }
 
@@ -483,6 +501,15 @@ class ProcessDesignPrincipleEntry extends DocSpecsSection {
 @SectionId('PRCAT')
 @DetailedIn(D02TargetOperatingModel)
 class ProcessCatalog extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the process catalog before the classification scheme and the '
+    'process entries below. Cover the scope of the catalog and what is '
+    'deliberately outside it.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Process catalog overview.
   @SectionId('PCOVW')
   @StandardReferences(
@@ -540,7 +567,7 @@ class ProcessCatalog extends DocSpecsSection {
       hint: 'How process versions are tracked',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Process classification scheme.
@@ -603,7 +630,7 @@ class ProcessCatalog extends DocSpecsSection {
       hint: 'Governance and strategic processes',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? classification;
 
   /// Contains 1+× Business Process.
@@ -614,7 +641,7 @@ class ProcessCatalog extends DocSpecsSection {
   @SectionIdPattern('BPREN-PROC-xxx')
   @Min(1)
   @ContentHelp('Add one entry per business process.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<BusinessProcessEntry> processes = [];
 }
 
@@ -631,44 +658,53 @@ class ProcessCatalog extends DocSpecsSection {
 )
 @SectionId('BPREN')
 class BusinessProcessEntry extends DocSpecsSection {
-  /// Process identification.
+  @ContentHelp(
+    'Narrative for this business process — the story of how it actually '
+    'runs, and anything the identification, trigger, role, performance and '
+    'control facets below do not capture.',
+  )
+  @override
   @SerializationOrder(0)
+  String? content;
+
+  /// Process identification.
+  @SerializationOrder(1)
   ProcessIdentification identification = ProcessIdentification();
 
   /// Process characteristics.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   ProcessCharacteristics characteristics = ProcessCharacteristics();
 
   /// Process triggers and events.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   ProcessTriggers triggers = ProcessTriggers();
 
   /// Process inputs and outputs.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   ProcessInputsOutputs inputsOutputs = ProcessInputsOutputs();
 
   /// Roles and responsibilities.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   ProcessRoles roles = ProcessRoles();
 
   /// Process performance.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   ProcessPerformance performance = ProcessPerformance();
 
   /// Process controls and compliance.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   ProcessControls controls = ProcessControls();
 
   /// Technology support.
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   ProcessTechnology technology = ProcessTechnology();
 
   /// Process exceptions.
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   ProcessExceptions exceptions = ProcessExceptions();
 
   /// Process flow preview (high-level).
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   FlowDiagramSection processFlowPreview = FlowDiagramSection();
 }
 
@@ -915,6 +951,15 @@ class ProcessCharacteristics extends DocSpecsSection {
 )
 @SectionId('PRTRG')
 class ProcessTriggers extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how this process starts and ends before the trigger and '
+    'end-event lists below. Cover whether it is event-, schedule- or '
+    'request-driven.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Main trigger overview.
   @SectionId('TGOVW')
   @StandardReferences(
@@ -954,7 +999,7 @@ class ProcessTriggers extends DocSpecsSection {
       hint: 'System state expected before triggering',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Contains 0+× process trigger.
@@ -966,7 +1011,7 @@ class ProcessTriggers extends DocSpecsSection {
   @SectionId('PTREN-TRIG-LST')
   @SectionIdPattern('PTREN-TRIG-xxx')
   @ContentHelp('Add one entry per process trigger.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ProcessTriggerEntry> triggers = [];
 
   /// Process end events (outcomes).
@@ -978,7 +1023,7 @@ class ProcessTriggers extends DocSpecsSection {
   @SectionId('PEEVT-ENDE-LST')
   @SectionIdPattern('PEEVT-ENDE-xxx')
   @ContentHelp('Add one entry per process end event.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ProcessEndEventEntry> endEvents = [];
 }
 
@@ -1098,6 +1143,15 @@ class ProcessEndEventEntry extends DocSpecsSection {
 )
 @SectionId('PRINOU')
 class ProcessInputsOutputs extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the data this process consumes and produces before the input '
+    'and output lists below. Cover where the inputs originate and who '
+    'consumes the outputs.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Inputs overview.
   @SectionId('INOUOV')
   @StandardReferences(
@@ -1125,7 +1179,7 @@ class ProcessInputsOutputs extends DocSpecsSection {
       hint: 'How data flows through the process',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Contains 0+× process input.
@@ -1135,7 +1189,7 @@ class ProcessInputsOutputs extends DocSpecsSection {
   @SectionId('PCINP-INPU-LST')
   @SectionIdPattern('PCINP-INPU-xxx')
   @ContentHelp('Add one entry per process input.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ProcessInputEntry> inputs = [];
 
   /// Contains 0+× process output.
@@ -1145,7 +1199,7 @@ class ProcessInputsOutputs extends DocSpecsSection {
   @SectionId('PCOUT-OUTP-LST')
   @SectionIdPattern('PCOUT-OUTP-xxx')
   @ContentHelp('Add one entry per process output.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ProcessOutputEntry> outputs = [];
 }
 
@@ -1286,6 +1340,15 @@ class ProcessOutputEntry extends DocSpecsSection {
 )
 @SectionId('PRRO')
 class ProcessRoles extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the participants in this process before the per-role entries '
+    'below. Cover how responsibility is split and where the hand-offs '
+    'occur.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Roles overview.
   @SectionId('PRROOV')
   @StandardReferences(
@@ -1325,7 +1388,7 @@ class ProcessRoles extends DocSpecsSection {
       hint: 'Overview of the RACI assignments',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Contains 0+× process role.
@@ -1337,7 +1400,7 @@ class ProcessRoles extends DocSpecsSection {
   @SectionId('PCROL-ROLE-LST')
   @SectionIdPattern('PCROL-ROLE-xxx')
   @ContentHelp('Add one entry per process role.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ProcessRoleEntry> roles = [];
 }
 
@@ -1454,6 +1517,15 @@ class ProcessRoleEntry extends DocSpecsSection {
 )
 @SectionId('PP')
 class ProcessPerformance extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how this process is measured before the KPI and SLA lists '
+    'below. Cover the measurement period and the data source behind the '
+    'numbers.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Performance overview.
   @SectionId('PRPEOV')
   @StandardReferences(
@@ -1514,7 +1586,7 @@ class ProcessPerformance extends DocSpecsSection {
       hint: 'State improvement targets for next period',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Contains 0+× performance metric.
@@ -1524,7 +1596,7 @@ class ProcessPerformance extends DocSpecsSection {
   @SectionId('PCKPI-KPIS-LST')
   @SectionIdPattern('PCKPI-KPIS-xxx')
   @ContentHelp('Add one entry per KPI tracked for this process.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ProcessKpiEntry> kpis = [];
 
   /// Service Level Agreements.
@@ -1535,7 +1607,7 @@ class ProcessPerformance extends DocSpecsSection {
   @SectionId('PCSLA-SLAS-LST')
   @SectionIdPattern('PCSLA-SLAS-xxx')
   @ContentHelp('Add one entry per service level agreement for this process.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ProcessSlaEntry> slas = [];
 }
 
@@ -1718,6 +1790,15 @@ class ProcessSlaEntry extends DocSpecsSection {
 )
 @SectionId('PRCO')
 class ProcessControls extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the control framework for this process before the individual '
+    'controls below. Cover which risks the controls address and who tests '
+    'them.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Controls overview.
   @SectionId('PRCOOV')
   @StandardReferences(
@@ -1778,7 +1859,7 @@ class ProcessControls extends DocSpecsSection {
       hint: 'State record retention periods',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Contains 0+× process control.
@@ -1788,7 +1869,7 @@ class ProcessControls extends DocSpecsSection {
   @SectionId('PCCTL-CONT-LST')
   @SectionIdPattern('PCCTL-CONT-xxx')
   @ContentHelp('Add one entry per control applied to this process.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ProcessControlEntry> controls = [];
 }
 
@@ -2021,6 +2102,15 @@ class ProcessTechnology extends DocSpecsSection {
 )
 @SectionId('PREX')
 class ProcessExceptions extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the exception-handling philosophy for this process before '
+    'the individual exception scenarios below. Cover what is handled '
+    'in-process and what is escalated out of it.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Exceptions overview.
   @SectionId('PREXOV')
   @StandardReferences(
@@ -2075,7 +2165,7 @@ class ProcessExceptions extends DocSpecsSection {
       hint: 'Describe how exceptions drive change',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Contains 0+× exception scenario.
@@ -2085,7 +2175,7 @@ class ProcessExceptions extends DocSpecsSection {
   @SectionId('PCEXC-EXCE-LST')
   @SectionIdPattern('PCEXC-EXCE-xxx')
   @ContentHelp('Add one entry per exception scenario for this process.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ProcessExceptionEntry> exceptions = [];
 }
 
@@ -2200,6 +2290,15 @@ class ProcessExceptionEntry extends DocSpecsSection {
 @SectionId('PROVDI')
 @DetailedIn(D02TargetOperatingModel)
 class ProcessOverviewDiagram extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the process landscape before the landscape, hierarchy and '
+    'value-chain diagrams below. Cover the reading order and the level of '
+    'detail each diagram shows.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Diagram overview.
   @SectionId('PRDIOV')
   @StandardReferences(
@@ -2239,19 +2338,19 @@ class ProcessOverviewDiagram extends DocSpecsSection {
       hint: 'Define the symbols used',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Main process landscape diagram.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   FlowDiagramSection landscapeDiagram = FlowDiagramSection();
 
   /// Process hierarchy diagram.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   FlowDiagramSection hierarchyDiagram = FlowDiagramSection();
 
   /// Value chain diagram.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   FlowDiagramSection valueChainDiagram = FlowDiagramSection();
 }
 
@@ -2269,6 +2368,15 @@ class ProcessOverviewDiagram extends DocSpecsSection {
 @SectionId('PRIMSU')
 @DetailedIn(D02TargetOperatingModel)
 class ProcessImprovementSummary extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the improvements expected over the current processes before '
+    'the itemized improvements and the business case below. Cover the '
+    'baseline they are measured against.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Improvement overview.
   @SectionId('IMOV')
   @StandardReferences(
@@ -2308,7 +2416,7 @@ class ProcessImprovementSummary extends DocSpecsSection {
       hint: 'List what enables the improvement',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Contains 0+× improvement item.
@@ -2318,7 +2426,7 @@ class ProcessImprovementSummary extends DocSpecsSection {
   @SectionId('PCIMV-IMPR-LST')
   @SectionIdPattern('PCIMV-IMPR-xxx')
   @ContentHelp('Add one entry per planned process improvement.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ProcessImprovementEntry> improvements = [];
 
   /// Business case summary.
@@ -2375,7 +2483,7 @@ class ProcessImprovementSummary extends DocSpecsSection {
       hint: 'State the confidence/risk factor',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? businessCase;
 }
 
@@ -2741,6 +2849,15 @@ class ProcessStepsOverview extends DocSpecsSection {
 @SectionId('ACREDI')
 @DetailedIn(D05InteractionScenarios)
 class ActorRelationshipDiagram extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the actor landscape before the hierarchy and actor-system '
+    'diagrams below. Cover which actors are human, which are systems, and '
+    'how they generalize.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Diagram overview.
   @SectionId('ACDIOV')
   @StandardReferences(
@@ -2777,15 +2894,15 @@ class ActorRelationshipDiagram extends DocSpecsSection {
       hint: 'Name the diagram notation used',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Actor hierarchy diagram (generalization relationships).
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   FlowDiagramSection actorHierarchy = FlowDiagramSection();
 
   /// Actor-system interaction overview diagram.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   FlowDiagramSection actorSystemDiagram = FlowDiagramSection();
 }
 
@@ -3112,6 +3229,15 @@ modeling conventions with Cockburn-style goal and scope annotations.
 )
 @SectionId('ACEN')
 class ActorEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this actor — their working context, motivation and '
+    'constraints, beyond the characteristics, goals and permissions '
+    'recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Actor identification.
   @SectionId('ACID')
   @StandardReferences(
@@ -3166,11 +3292,11 @@ class ActorEntry extends DocSpecsSection {
       hint: 'Note the locations or regions where actors operate',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identification;
 
   /// Actor characteristics.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   ActorCharacteristics characteristics = ActorCharacteristics();
 
   /// Actor goals (Cockburn style).
@@ -3181,7 +3307,7 @@ class ActorEntry extends DocSpecsSection {
   @SectionId('ACGO-GOAL-LST')
   @SectionIdPattern('ACGO-GOAL-xxx')
   @ContentHelp('Add one entry per actor goal.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ActorGoals> goals = [];
 
   /// Actor permissions and access.
@@ -3192,7 +3318,7 @@ class ActorEntry extends DocSpecsSection {
   @SectionId('ACPE-PERM-LST')
   @SectionIdPattern('ACPE-PERM-xxx')
   @ContentHelp('Add one entry per actor permission set.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<ActorPermissions> permissions = [];
 
   /// Actor technology profile.
@@ -3261,7 +3387,7 @@ class ActorEntry extends DocSpecsSection {
       hint: 'State how the actor authenticates to the system',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? technology;
 
   /// Actor interactions summary.
@@ -3319,7 +3445,7 @@ class ActorEntry extends DocSpecsSection {
       hint: 'Identify points where work is handed off to others',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? interactions;
 }
 
@@ -3777,6 +3903,14 @@ following Cockburn's fully dressed use case template.
   CodeSpecPart.action,
 ], note: 'CE-AC — a use case / interaction is a user-triggered action')
 class InteractionEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this interaction — the situation it arises in and why it '
+    'matters, beyond the scope, flow and rule facets recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Interaction identification (use case header).
   @SectionId('INID')
   @StandardReferences(
@@ -3838,7 +3972,7 @@ class InteractionEntry extends DocSpecsSection {
       hint: 'Boundary in view: organization, system, subsystem, component',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identification;
 
   /// Use case scope and context (Cockburn style).
@@ -3901,7 +4035,7 @@ class InteractionEntry extends DocSpecsSection {
       hint: 'Use cases this one includes or extends',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? scopeContext;
 
   /// Stakeholders and interests.
@@ -3916,7 +4050,7 @@ class InteractionEntry extends DocSpecsSection {
   @SectionId('STANIN-STAK-LST')
   @SectionIdPattern('STANIN-STAK-xxx')
   @ContentHelp('Add one entry per stakeholder interest.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<StakeholdersAndInterests> stakeholders = [];
 
   /// Preconditions and triggers.
@@ -3931,7 +4065,7 @@ class InteractionEntry extends DocSpecsSection {
   @SectionId('PRANTR-PREC-LST')
   @SectionIdPattern('PRANTR-PREC-xxx')
   @ContentHelp('Add one entry per precondition/trigger set.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<PreconditionsAndTriggers> preconditions = [];
 
   /// Postconditions and guarantees.
@@ -3946,15 +4080,15 @@ class InteractionEntry extends DocSpecsSection {
   @SectionId('POANGU-POST-LST')
   @SectionIdPattern('POANGU-POST-xxx')
   @ContentHelp('Add one entry per postcondition/guarantee set.')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<PostconditionsAndGuarantees> postconditions = [];
 
   /// Main success scenario (basic flow).
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   MainSuccessScenario mainScenario = MainSuccessScenario();
 
   /// Extensions (alternative and exception flows).
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   UseCaseExtensions extensions = UseCaseExtensions();
 
   /// Technology and data variations.
@@ -3969,11 +4103,11 @@ class InteractionEntry extends DocSpecsSection {
   @SectionId('TEDAVA-VARI-LST')
   @SectionIdPattern('TEDAVA-VARI-xxx')
   @ContentHelp('Add one entry per variation.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<TechnologyDataVariations> variations = [];
 
   /// UI requirements preview.
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   UIRequirementsPreview uiPreview = UIRequirementsPreview();
 
   /// Performance and frequency.
@@ -4030,7 +4164,7 @@ class InteractionEntry extends DocSpecsSection {
       hint: 'Typical data size processed per run',
     ),
   ])
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   DocSpecsSection? performance;
 
   /// Security and authorization.
@@ -4087,7 +4221,7 @@ class InteractionEntry extends DocSpecsSection {
       hint: 'Regulations to satisfy, e.g. GDPR, HIPAA',
     ),
   ])
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   DocSpecsSection? security;
 
   /// Business rules triggered.
@@ -4098,7 +4232,7 @@ class InteractionEntry extends DocSpecsSection {
   @SectionId('INBURU-BUSI-LST')
   @SectionIdPattern('INBURU-BUSI-xxx')
   @ContentHelp('Add one entry per business-rule group.')
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   List<InteractionBusinessRules> businessRules = [];
 
   /// Related elements and traceability.
@@ -4169,7 +4303,7 @@ class InteractionEntry extends DocSpecsSection {
       hint: 'TC-xxx test cases covering this',
     ),
   ])
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   DocSpecsSection? traceability;
 }
 
@@ -4940,6 +5074,14 @@ and places their first order."
   note: 'CE-AC — an end-to-end scenario is a goal-directed sequence of actions',
 )
 class ScenarioEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this scenario — the end-to-end story it tells, beyond '
+    'the steps, data and timing recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Scenario identification.
   @SectionId('SCID')
   @StandardReferences([
@@ -4990,7 +5132,7 @@ class ScenarioEntry extends DocSpecsSection {
       hint: 'Relative implementation/test complexity',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identification;
 
   /// Scenario context.
@@ -5046,7 +5188,7 @@ class ScenarioEntry extends DocSpecsSection {
       hint: 'INT-xxx interactions referenced by this scenario',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? context;
 
   /// Contains 1+× Scenario Step.
@@ -5062,7 +5204,7 @@ class ScenarioEntry extends DocSpecsSection {
   @SectionIdPattern('SCNST-STEP-xxx')
   @Min(1)
   @ContentHelp('Add one entry per main-flow step, in order.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ScenarioStepEntry> steps = [];
 
   /// Alternative flows — contains 0+× Alternative Flow.
@@ -5074,7 +5216,7 @@ class ScenarioEntry extends DocSpecsSection {
   @SectionId('ALFL-ALTE-LST')
   @SectionIdPattern('ALFL-ALTE-xxx')
   @ContentHelp('Add one entry per alternative or exception flow.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<AlternativeFlowEntry> alternativeFlows = [];
 
   /// Scenario data.
@@ -5124,7 +5266,7 @@ class ScenarioEntry extends DocSpecsSection {
       hint: 'Concrete example values for input/output',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? scenarioData;
 
   /// Scenario timing.
@@ -5174,7 +5316,7 @@ class ScenarioEntry extends DocSpecsSection {
       hint: 'What happens if timing limits are exceeded',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? timing;
 
   /// Scenario validation.
@@ -5224,7 +5366,7 @@ class ScenarioEntry extends DocSpecsSection {
       hint: 'Documented problems or limitations',
     ),
   ])
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   DocSpecsSection? validation;
 }
 

@@ -14,17 +14,26 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// and HR management standards (SHRM, CIPD).
 @SectionId('ORGF')
 class OrganizationalFramework extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the organizational changes the system requires before the '
+    'structure, role and workplace subsections below. Cover the scale of '
+    'the change and the organization\'s appetite for it.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Overview of organizational changes required for the new system.
   @ContentHelp(
     'Provide executive summary of organizational impact: '
     'scope of restructuring, number of affected roles, key organizational '
     'design principles, change management approach, and timeline overview.',
   )
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 5.1. New Organization Structure.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   NewOrganizationStructure organizationStructure = NewOrganizationStructure();
 
   /// 5.2. Job Descriptions and Staffing Plans.
@@ -32,7 +41,7 @@ class OrganizationalFramework extends DocSpecsSection {
   /// Single composite section: the role multiplicity is carried by the inner
   /// new/changed/removed-role lists, so this is one section, not a catalog of
   /// sections (collapsed from `List<JobDescriptionsAndStaffing>`, L34C-12 SR-23).
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   JobDescriptionsAndStaffing jobDescriptions = JobDescriptionsAndStaffing();
 
   /// 5.3. Workplace Descriptions — contains 1+× per user category.
@@ -40,7 +49,7 @@ class OrganizationalFramework extends DocSpecsSection {
   @SectionIdPattern('WPDE-WORK-xxx')
   @Min(1)
   @Comment('per user category')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<WorkplaceDescriptionEntry> workplaceDescriptions = [];
 }
 
@@ -66,22 +75,31 @@ class OrganizationalFramework extends DocSpecsSection {
 )
 @SectionId('NORGS')
 class NewOrganizationStructure extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the target organization structure before the change and '
+    'transition-timeline subsections below. Cover the design principle '
+    'behind the new shape.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Overview of the target organization structure.
   @ContentHelp(
     'Describe the vision for the new organization structure: '
     'design principles, key structural changes, governance model, '
     'decision-making framework, and expected benefits.',
   )
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   TextSection overview = TextSection();
 
   /// 5.1.1. Changes from Current Structure.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   ChangesFromCurrentStructure changesFromCurrentStructure =
       ChangesFromCurrentStructure();
 
   /// 5.1.2. Organizational Transition Timeline.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   OrganizationalTransitionTimeline transitionTimeline =
       OrganizationalTransitionTimeline();
 }
@@ -99,6 +117,15 @@ class NewOrganizationStructure extends DocSpecsSection {
 )
 @SectionId('OCCHG')
 class ChangesFromCurrentStructure extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the current-to-target delta before the narrative, chart '
+    'comparison and individual changes below. Cover which parts of the '
+    'organization are deliberately left untouched.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // -------------------------------------------------------------------------
   // Change Overview
   // -------------------------------------------------------------------------
@@ -153,7 +180,7 @@ class ChangesFromCurrentStructure extends DocSpecsSection {
       hint: 'How teams will work together differently',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overviewContent;
 
   /// Detailed description of structural changes.
@@ -162,7 +189,7 @@ class ChangesFromCurrentStructure extends DocSpecsSection {
     'transformation: what the current structure looks like, what the '
     'target structure will be, and how the transition will be managed.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection changeNarrative = TextSection();
 
   /// Organization chart comparison (current vs future).
@@ -170,7 +197,7 @@ class ChangesFromCurrentStructure extends DocSpecsSection {
     'Visual representation comparing current and target '
     'organization structures - attach or embed org chart diagrams.',
   )
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DiagramSection orgChartComparison = DiagramSection();
 
   /// Contains 0+× OrganizationalChange.
@@ -188,7 +215,7 @@ class ChangesFromCurrentStructure extends DocSpecsSection {
     'Add one entry per discrete organizational change — each with '
     'its current state, target state, rationale, impact, and transition.',
   )
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<OrganizationalChangeEntry> items = [];
 }
 
@@ -539,8 +566,17 @@ class OrgChangeRisks extends DocSpecsSection {
 )
 @SectionId('OTTML')
 class OrganizationalTransitionTimeline extends DocSpecsSection {
-  /// Overview of the transition approach and guiding principles.
+  @ContentHelp(
+    'Introduce the organizational transition before the phase, readiness, '
+    'communication and support subsections below. Cover the pace of change '
+    'and what sets it.',
+  )
+  @override
   @SerializationOrder(0)
+  String? content;
+
+  /// Overview of the transition approach and guiding principles.
+  @SerializationOrder(1)
   TransitionOverview overview = TransitionOverview();
 
   /// Transition phases with milestones and durations.
@@ -555,7 +591,7 @@ class OrganizationalTransitionTimeline extends DocSpecsSection {
     'Add one entry per transition phase, in sequence — e.g. '
     'Preparation, Pilot, Rollout, Stabilization, Closure.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<TransitionPhaseEntry> phases = [];
 
   /// Key transition milestones and decision gates.
@@ -570,23 +606,23 @@ class OrganizationalTransitionTimeline extends DocSpecsSection {
     'Add one entry per transition milestone or decision gate — '
     'e.g. checkpoints, go-live, closure.',
   )
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<TransitionMilestoneEntry> milestones = [];
 
   /// Change readiness assessment approach.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   ChangeReadinessAssessment changeReadiness = ChangeReadinessAssessment();
 
   /// Communication plan for the transition.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TransitionCommunicationPlan communicationPlan = TransitionCommunicationPlan();
 
   /// Support structure during transition.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TransitionSupportStructure supportStructure = TransitionSupportStructure();
 
   /// Success metrics and measurement approach.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   TransitionSuccessMetrics successMetrics = TransitionSuccessMetrics();
 
   /// Risks specific to the organizational transition.
@@ -601,7 +637,7 @@ class OrganizationalTransitionTimeline extends DocSpecsSection {
     'Add one entry per transition-specific risk, with its '
     'likelihood, impact, and planned mitigation.',
   )
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<TransitionRiskEntry> transitionRisks = [];
 }
 
@@ -740,8 +776,17 @@ class TransitionOverview extends DocSpecsSection {
 )
 @SectionId('TRPHE')
 class TransitionPhaseEntry extends DocSpecsSection {
-  /// Phase identification and timeline.
+  @ContentHelp(
+    'Narrative for this transition phase — what it looks like on the '
+    'ground, beyond the activity, stakeholder and exit-criteria facets '
+    'recorded below.',
+  )
+  @override
   @SerializationOrder(0)
+  String? content;
+
+  /// Phase identification and timeline.
+  @SerializationOrder(1)
   TransitionPhaseIdentification identification =
       TransitionPhaseIdentification();
 
@@ -757,7 +802,7 @@ class TransitionPhaseEntry extends DocSpecsSection {
     'Add one entry per group of activities and deliverables for '
     'this phase — e.g. training, communication, system, and process work.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<TransitionPhaseActivities> activities = [];
 
   /// Stakeholder engagement for this phase.
@@ -772,7 +817,7 @@ class TransitionPhaseEntry extends DocSpecsSection {
     'Add one entry per stakeholder group engaged in this phase, '
     'with the engagement and feedback approach for each.',
   )
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<TransitionPhaseStakeholders> stakeholders = [];
 
   /// Exit criteria and phase completion conditions.
@@ -818,7 +863,7 @@ class TransitionPhaseEntry extends DocSpecsSection {
           'phase exit',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? exitCriteria;
 }
 
@@ -1202,6 +1247,15 @@ class TransitionMilestoneEntry extends DocSpecsSection {
 )
 @SectionId('CHREAS')
 class ChangeReadinessAssessment extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the readiness assessment before the individual criteria '
+    'below. Cover how readiness is measured and what happens when a group '
+    'is not ready.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Overview of readiness assessment approach.
   @SectionId('CHREOV')
   @StandardReferences(
@@ -1270,7 +1324,7 @@ class ChangeReadinessAssessment extends DocSpecsSection {
           'Reinforcement) are the current focus and their status',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Readiness criteria per stakeholder group.
@@ -1288,7 +1342,7 @@ class ChangeReadinessAssessment extends DocSpecsSection {
     'Add one entry per stakeholder group whose readiness is being '
     'assessed, capturing ADKAR levels, resistance factors, and status.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ReadinessCriteriaEntry> readinessCriteria = [];
 }
 
@@ -1397,6 +1451,14 @@ class ReadinessCriteriaEntry extends DocSpecsSection {
 )
 @SectionId('TRCOPL')
 class TransitionCommunicationPlan extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the communication approach before the event and channel '
+    'lists below. Cover the key messages and who delivers them.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Communication strategy overview.
   @SectionId('TRCOST')
   @StandardReferences(
@@ -1473,7 +1535,7 @@ class TransitionCommunicationPlan extends DocSpecsSection {
           'reader support) communications must meet',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? strategy;
 
   /// Specific communication events/activities.
@@ -1491,7 +1553,7 @@ class TransitionCommunicationPlan extends DocSpecsSection {
     'Add one entry per planned communication event, such as a town '
     'hall, announcement, workshop, or newsletter.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<CommunicationEventEntry> communicationEvents = [];
 
   /// Communication channels and their use.
@@ -1509,7 +1571,7 @@ class TransitionCommunicationPlan extends DocSpecsSection {
     'Add one entry per communication channel describing its '
     'purpose, ownership, and accessibility.',
   )
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<TransitionCommunicationChannels> channels = [];
 }
 
@@ -1721,6 +1783,14 @@ class TransitionCommunicationChannels extends DocSpecsSection {
 )
 @SectionId('TRSUST')
 class TransitionSupportStructure extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the transition support model before the resource and '
+    'escalation lists below. Cover how long enhanced support lasts.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Support organization overview.
   @SectionId('TRSUOV')
   @StandardReferences(
@@ -1797,7 +1867,7 @@ class TransitionSupportStructure extends DocSpecsSection {
           'peer support in each area',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Support resources available.
@@ -1815,7 +1885,7 @@ class TransitionSupportStructure extends DocSpecsSection {
     'Add one entry per support resource describing its type, '
     'coverage, capacity, and ownership.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<TransitionSupportResourceEntry> supportResources = [];
 
   /// Escalation paths for support.
@@ -1833,7 +1903,7 @@ class TransitionSupportStructure extends DocSpecsSection {
     'Add one entry per escalation path describing its levels, '
     'criteria, and response-time targets.',
   )
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<TransitionEscalationPaths> escalationPaths = [];
 }
 
@@ -1992,6 +2062,15 @@ class TransitionEscalationPaths extends DocSpecsSection {
 )
 @SectionId('TRSUME')
 class TransitionSuccessMetrics extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how transition success is judged before the individual '
+    'metrics below. Cover the baseline and the point at which the '
+    'measurement is taken.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Metrics overview.
   @SectionId('TRMEOV')
   @StandardReferences(
@@ -2053,7 +2132,7 @@ class TransitionSuccessMetrics extends DocSpecsSection {
       hint: 'The date by which the metric targets are expected to be met',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Specific success metrics.
@@ -2068,7 +2147,7 @@ class TransitionSuccessMetrics extends DocSpecsSection {
     'Add one entry per success metric describing its category, '
     'measurement method, baseline, and target.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<TransitionMetricEntry> metrics = [];
 }
 
@@ -2340,6 +2419,14 @@ class TransitionRiskEntry extends DocSpecsSection {
 )
 @SectionId('JDAS')
 class JobDescriptionsAndStaffing extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the role changes before the new, changed and removed role '
+    'lists below. Cover the net headcount effect and the sourcing approach.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Overview of the job architecture and role design approach.
   @SectionId('JODEOV')
   @StandardReferences(
@@ -2407,7 +2494,7 @@ class JobDescriptionsAndStaffing extends DocSpecsSection {
       hint: 'Employment law considerations affecting role changes',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// 5.2.1. New Roles — contains 0+× New Role.
@@ -2419,7 +2506,7 @@ class JobDescriptionsAndStaffing extends DocSpecsSection {
   @SectionId('NRE-NEWR-LST')
   @SectionIdPattern('NRE-NEWR-xxx')
   @ContentHelp('Add one entry per new role being created.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<NewRoleEntry> newRoles = [];
 
   /// 5.2.2. Changed Roles — contains 0+× Changed Role.
@@ -2431,7 +2518,7 @@ class JobDescriptionsAndStaffing extends DocSpecsSection {
   @SectionId('CHAROL-CHAN-LST')
   @SectionIdPattern('CHAROL-CHAN-xxx')
   @ContentHelp('Add one entry per existing role whose definition changes.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ChangedRoleEntry> changedRoles = [];
 
   /// 5.2.3. Removed Roles — contains 0+× role being eliminated.
@@ -2443,15 +2530,15 @@ class JobDescriptionsAndStaffing extends DocSpecsSection {
   @SectionId('REMROL-REMO-LST')
   @SectionIdPattern('REMROL-REMO-xxx')
   @ContentHelp('Add one entry per role being eliminated.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<RemovedRoleEntry> removedRoles = [];
 
   /// 5.2.4. Staffing Plan.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   StaffingPlan staffingPlan = StaffingPlan();
 
   /// 5.2.5. Competency Framework.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   CompetencyFramework competencyFramework = CompetencyFramework();
 }
 
@@ -2466,6 +2553,15 @@ class JobDescriptionsAndStaffing extends DocSpecsSection {
 )
 @SectionId('STPL')
 class StaffingPlan extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the staffing approach before the budget, position and '
+    'timeline subsections below. Cover build-versus-buy and the constraints '
+    'on hiring.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Staffing plan overview.
   @SectionId('STPLOV')
   @StandardReferences(
@@ -2540,11 +2636,11 @@ class StaffingPlan extends DocSpecsSection {
           'Labor law, visa/work-permit constraints, union agreements, works council obligations',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Budget details.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   StaffingBudget budget = StaffingBudget();
 
   /// Contains 0+× Staffing entry.
@@ -2556,7 +2652,7 @@ class StaffingPlan extends DocSpecsSection {
   @SectionId('STFE-ITEM-LST')
   @SectionIdPattern('STFE-ITEM-xxx')
   @ContentHelp('Add one entry per staffing position to be filled.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<StaffingEntry> items = [];
 
   /// Recruitment timeline.
@@ -2615,7 +2711,7 @@ class StaffingPlan extends DocSpecsSection {
           'Notice periods, visa processing, security clearance lead times — blockers outside your control',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? recruitmentTimeline;
 }
 
@@ -2905,6 +3001,15 @@ class StaffingEntry extends DocSpecsSection {
 )
 @SectionId('COFR')
 class CompetencyFramework extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the competency framework before the core, technical and '
+    'leadership competency lists below. Cover how proficiency levels are '
+    'defined.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Framework overview.
   @SectionId('COFROV')
   @StandardReferences(
@@ -2945,7 +3050,7 @@ class CompetencyFramework extends DocSpecsSection {
       hint: 'How competency gaps are addressed',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Core competencies required across all roles.
@@ -2957,7 +3062,7 @@ class CompetencyFramework extends DocSpecsSection {
   @SectionId('COMPE-CORE-LST')
   @SectionIdPattern('COMPE-CORE-xxx')
   @ContentHelp('Add one entry per core competency required across all roles.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<CompetencyEntry> coreCompetencies = [];
 
   /// Technical/functional competencies by role family.
@@ -2969,7 +3074,7 @@ class CompetencyFramework extends DocSpecsSection {
   @SectionId('COMPE-TECH-LST')
   @SectionIdPattern('COMPE-TECH-xxx')
   @ContentHelp('Add one entry per technical or functional competency.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<CompetencyEntry> technicalCompetencies = [];
 
   /// Leadership competencies for management roles.
@@ -2981,7 +3086,7 @@ class CompetencyFramework extends DocSpecsSection {
   @SectionId('COMPE-LEAD-LST')
   @SectionIdPattern('COMPE-LEAD-xxx')
   @ContentHelp('Add one entry per leadership competency for management roles.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<CompetencyEntry> leadershipCompetencies = [];
 }
 
@@ -3057,6 +3162,15 @@ class CompetencyEntry extends DocSpecsSection {
 )
 @SectionId('NRE')
 class NewRoleEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this new role — why it is needed and how it fits the '
+    'organization, beyond the responsibility, qualification and access '
+    'facets recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Role identification and overview.
   @SectionId('NEROID')
   @StandardReferences(
@@ -3105,7 +3219,7 @@ class NewRoleEntry extends DocSpecsSection {
       hint: 'Current lifecycle stage of the role',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identification;
 
   /// Role positioning in organization.
@@ -3180,15 +3294,15 @@ class NewRoleEntry extends DocSpecsSection {
       hint: 'Teams or departments regularly interacted with',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? organization;
 
   /// Responsibilities breakdown.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   NewRoleResponsibilities responsibilities = NewRoleResponsibilities();
 
   /// Required competencies and qualifications.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   NewRoleQualifications qualifications = NewRoleQualifications();
 
   /// System access and tools.
@@ -3263,7 +3377,7 @@ class NewRoleEntry extends DocSpecsSection {
       hint: 'How and when access is provisioned',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? systemAccess;
 
   /// Performance and success metrics.
@@ -3326,7 +3440,7 @@ class NewRoleEntry extends DocSpecsSection {
       hint: 'Requirements for advancement',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? performance;
 
   /// Onboarding and development.
@@ -3392,7 +3506,7 @@ class NewRoleEntry extends DocSpecsSection {
       hint: 'Productivity expectations over the ramp-up period',
     ),
   ])
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   DocSpecsSection? onboarding;
 }
 
@@ -3407,6 +3521,14 @@ class NewRoleEntry extends DocSpecsSection {
 )
 @SectionId('NERORE')
 class NewRoleResponsibilities extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce what this role is accountable for before the primary, '
+    'secondary and decision-authority subsections below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Primary responsibilities (key accountabilities).
   @StandardReferences(
     ['O*NET — task statements (core duties)'],
@@ -3416,7 +3538,7 @@ class NewRoleResponsibilities extends DocSpecsSection {
   @SectionId('RSPDT-PRIM-LST')
   @SectionIdPattern('RSPDT-PRIM-xxx')
   @ContentHelp('Add one entry per primary responsibility.')
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   List<ResponsibilityDetailEntry> primaryResponsibilities = [];
 
   /// Secondary responsibilities (supporting duties).
@@ -3426,7 +3548,7 @@ class NewRoleResponsibilities extends DocSpecsSection {
   @SectionId('RSPDT-SECO-LST')
   @SectionIdPattern('RSPDT-SECO-xxx')
   @ContentHelp('Add one entry per secondary responsibility.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ResponsibilityDetailEntry> secondaryResponsibilities = [];
 
   /// Decision-making authority.
@@ -3483,7 +3605,7 @@ class NewRoleResponsibilities extends DocSpecsSection {
       hint: 'Situations that must be escalated',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? decisionAuthority;
 }
 
@@ -3747,16 +3869,25 @@ class RoleCompetencyEntry extends DocSpecsSection {
 )
 @SectionId('CHAROL')
 class ChangedRoleEntry extends DocSpecsSection {
-  /// Changed role identification.
+  @ContentHelp(
+    'Narrative for this changed role — what the change means for the people '
+    'currently in it, beyond the responsibility, competency and transition '
+    'facets recorded below.',
+  )
+  @override
   @SerializationOrder(0)
+  String? content;
+
+  /// Changed role identification.
+  @SerializationOrder(1)
   ChangedRoleIdentification identification = ChangedRoleIdentification();
 
   /// Responsibility changes.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   ChangedRoleResponsibilities responsibilities = ChangedRoleResponsibilities();
 
   /// Competency changes.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   ChangedRoleCompetencies competencies = ChangedRoleCompetencies();
 
   /// System access changes.
@@ -3813,7 +3944,7 @@ class ChangedRoleEntry extends DocSpecsSection {
       hint: 'Date the access changes take effect',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? systemAccess;
 
   /// Impact on incumbents.
@@ -3888,11 +4019,11 @@ class ChangedRoleEntry extends DocSpecsSection {
       hint: 'How incumbents are responding to the change',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? incumbentImpact;
 
   /// Transition planning.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   ChangedRoleTransition transition = ChangedRoleTransition();
 }
 
@@ -4015,6 +4146,14 @@ class ChangedRoleIdentification extends DocSpecsSection {
 )
 @SectionId('CHRORE')
 class ChangedRoleResponsibilities extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how this role\'s responsibilities shift before the added, '
+    'removed and modified lists below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Responsibilities being added.
   @StandardReferences([
     'O*NET — task statements',
@@ -4022,7 +4161,7 @@ class ChangedRoleResponsibilities extends DocSpecsSection {
   @SectionId('RSPCH-ADDE-LST')
   @SectionIdPattern('RSPCH-ADDE-xxx')
   @ContentHelp('Add one entry per responsibility being added to the role.')
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   List<ResponsibilityChangeEntry> addedResponsibilities = [];
 
   /// Responsibilities being removed.
@@ -4032,7 +4171,7 @@ class ChangedRoleResponsibilities extends DocSpecsSection {
   @SectionId('RSPCH-REMO-LST')
   @SectionIdPattern('RSPCH-REMO-xxx')
   @ContentHelp('Add one entry per responsibility being removed from the role.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ResponsibilityChangeEntry> removedResponsibilities = [];
 
   /// Responsibilities being modified.
@@ -4042,7 +4181,7 @@ class ChangedRoleResponsibilities extends DocSpecsSection {
   @SectionId('RSPCH-MODI-LST')
   @SectionIdPattern('RSPCH-MODI-xxx')
   @ContentHelp('Add one entry per responsibility being modified in the role.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ResponsibilityChangeEntry> modifiedResponsibilities = [];
 
   /// Net impact summary.
@@ -4093,7 +4232,7 @@ class ChangedRoleResponsibilities extends DocSpecsSection {
       hint: 'Salary or compensation implications of the change',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? impactSummary;
 }
 
@@ -4175,6 +4314,14 @@ class ResponsibilityChangeEntry extends DocSpecsSection {
 )
 @SectionId('CHROCO')
 class ChangedRoleCompetencies extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how this role\'s competency requirements shift before the '
+    'new, removed and changed-level lists below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// New competencies required.
   @StandardReferences([
     'CIPD — competency frameworks and people management',
@@ -4182,7 +4329,7 @@ class ChangedRoleCompetencies extends DocSpecsSection {
   @SectionId('ROLCP-NEWC-LST')
   @SectionIdPattern('ROLCP-NEWC-xxx')
   @ContentHelp('Add one entry per competency newly required by the role.')
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   List<RoleCompetencyEntry> newCompetencies = [];
 
   /// Competencies no longer required.
@@ -4192,7 +4339,7 @@ class ChangedRoleCompetencies extends DocSpecsSection {
   @SectionId('ROLCP-REMO-LST')
   @SectionIdPattern('ROLCP-REMO-xxx')
   @ContentHelp('Add one entry per competency no longer required by the role.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<RoleCompetencyEntry> removedCompetencies = [];
 
   /// Competencies with changed proficiency levels.
@@ -4204,7 +4351,7 @@ class ChangedRoleCompetencies extends DocSpecsSection {
   @SectionId('COLVCH-CHAN-LST')
   @SectionIdPattern('COLVCH-CHAN-xxx')
   @ContentHelp('Add one entry per competency whose required level changes.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<CompetencyLevelChangeEntry> changedLevels = [];
 
   /// Overall competency gap assessment.
@@ -4246,7 +4393,7 @@ class ChangedRoleCompetencies extends DocSpecsSection {
       hint: 'How the role is covered until the gaps are closed',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? gapAssessment;
 }
 
@@ -4562,6 +4709,15 @@ class RemovedRoleEntry extends DocSpecsSection {
 @Comment('per user category')
 @SectionId('WPDE')
 class WorkplaceDescriptionEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this workplace category — how these users actually work, '
+    'beyond the physical, equipment, infrastructure and training facets '
+    'recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// User category identification.
   @SectionId('WOUSCA')
   @Form([
@@ -4596,28 +4752,28 @@ class WorkplaceDescriptionEntry extends DocSpecsSection {
       'Criticality Level — how critical is system access for this category',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? userCategory;
 
   /// Physical workplace layout and environment.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   PhysicalWorkplaceRequirements physicalRequirements =
       PhysicalWorkplaceRequirements();
 
   /// 5.3.1. Equipment Requirements.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   EquipmentRequirements equipmentRequirements = EquipmentRequirements();
 
   /// Technical infrastructure requirements.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   TechnicalInfrastructure technicalInfrastructure = TechnicalInfrastructure();
 
   /// 5.3.2. Training Requirements.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TrainingRequirements trainingRequirements = TrainingRequirements();
 
   /// Support resources available to users.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   WorkplaceSupportResources supportResources = WorkplaceSupportResources();
 }
 
@@ -4706,6 +4862,15 @@ class PhysicalWorkplaceRequirements extends DocSpecsSection {
 /// Hardware and peripheral requirements per workplace type.
 @SectionId('EQRE')
 class EquipmentRequirements extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the equipment provision for this workplace before the '
+    'computing, display, input and peripheral lists below. Cover the '
+    'standard issue and what is granted only by exception.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Equipment overview.
   @SectionId('EQOV')
   @Form([
@@ -4737,43 +4902,43 @@ class EquipmentRequirements extends DocSpecsSection {
       'Budget Allocation — equipment budget per user',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Primary computing equipment.
   @SectionId('COEQ-PRIM-LST')
   @SectionIdPattern('COEQ-PRIM-xxx')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ComputingEquipmentEntry> primaryComputing = [];
 
   /// Display and monitors.
   @SectionId('DSEQ-DISP-LST')
   @SectionIdPattern('DSEQ-DISP-xxx')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<DisplayEquipmentEntry> displays = [];
 
   /// Input devices.
   @SectionId('IDE-INPU-LST')
   @SectionIdPattern('IDE-INPU-xxx')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<InputDeviceEntry> inputDevices = [];
 
   /// Peripheral equipment.
   @SectionId('PEREQ-PERI-LST')
   @SectionIdPattern('PEREQ-PERI-xxx')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<PeripheralEquipmentEntry> peripherals = [];
 
   /// Mobile devices.
   @SectionId('MOBDE-MOBI-LST')
   @SectionIdPattern('MOBDE-MOBI-xxx')
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<MobileDeviceEntry> mobileDevices = [];
 
   /// Specialized equipment.
   @SectionId('SPEQ-SPEC-LST')
   @SectionIdPattern('SPEQ-SPEC-xxx')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<SpecializedEquipmentEntry> specializedEquipment = [];
 }
 
@@ -5057,6 +5222,14 @@ class SpecializedEquipmentEntry extends DocSpecsSection {
 /// Technical infrastructure requirements.
 @SectionId('TEIN')
 class TechnicalInfrastructure extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the technical infrastructure this workplace depends on '
+    'before the connectivity, software and remote-access subsections below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Network connectivity requirements.
   @SectionId('NECO')
   @Form([
@@ -5095,11 +5268,11 @@ class TechnicalInfrastructure extends DocSpecsSection {
     ),
     Field('guestNetworkAccess', String, 'Guest Network Access — if needed'),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? networkConnectivity;
 
   /// Software requirements.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   WorkplaceSoftwareRequirements softwareRequirements =
       WorkplaceSoftwareRequirements();
 
@@ -5149,13 +5322,13 @@ class TechnicalInfrastructure extends DocSpecsSection {
       'Remote Support — how IT supports remote users',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? remoteAccess;
 
   /// Communication tools.
   @SectionId('COTORE-COMM-LST')
   @SectionIdPattern('COTORE-COMM-xxx')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<CommunicationToolsRequirements> communicationTools = [];
 }
 
@@ -5289,6 +5462,15 @@ class CommunicationToolsRequirements extends DocSpecsSection {
 /// principles (ADDIE, Kirkpatrick evaluation model).
 @SectionId('TRRE')
 class TrainingRequirements extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the training program for this workplace before the initial, '
+    'ongoing, certification and assessment subsections below. Cover the '
+    'learning objectives it is built around.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   /// Training overview and strategy.
   @SectionId('TROV')
   @Form([
@@ -5339,39 +5521,39 @@ class TrainingRequirements extends DocSpecsSection {
       'Feedback Mechanism — how feedback is collected',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Initial/onboarding training.
   @SectionId('ITE-INIT-LST')
   @SectionIdPattern('ITE-INIT-xxx')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<InitialTrainingEntry> initialTraining = [];
 
   /// Ongoing/refresher training.
   @SectionId('ONGTR-ONGO-LST')
   @SectionIdPattern('ONGTR-ONGO-xxx')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<OngoingTrainingEntry> ongoingTraining = [];
 
   /// System-specific training.
   @SectionId('SYTR-SYST-LST')
   @SectionIdPattern('SYTR-SYST-xxx')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<SystemTrainingEntry> systemTraining = [];
 
   /// Certification requirements.
   @SectionId('CRT-CERT-LST')
   @SectionIdPattern('CRT-CERT-xxx')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<CertificationEntry> certifications = [];
 
   /// Training materials and resources.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TrainingMaterials trainingMaterials = TrainingMaterials();
 
   /// Assessment and evaluation.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   TrainingAssessment assessment = TrainingAssessment();
 }
 

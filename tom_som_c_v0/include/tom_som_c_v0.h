@@ -4048,6 +4048,8 @@ void acceptance_criteria_summary_init(AcceptanceCriteriaSummary *self, SpecDocum
 void acceptance_criteria_summary_free(AcceptanceCriteriaSummary *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int acceptance_criteria_summary_can_have_content(const AcceptanceCriteriaSummary *self);
+char *acceptance_criteria_summary_content(const AcceptanceCriteriaSummary *self);
+void acceptance_criteria_summary_set_content(AcceptanceCriteriaSummary *self, const char *value);
 AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm acceptance_criteria_summary_acceptance_framework_content(const AcceptanceCriteriaSummary *self);
 // Acceptance criteria overview.
 // (skipped: acceptanceOverview has no target type)
@@ -4279,6 +4281,8 @@ void accessibility_init(Accessibility *self, SpecDocument *doc, const char *path
 void accessibility_free(Accessibility *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int accessibility_can_have_content(const Accessibility *self);
+char *accessibility_content(const Accessibility *self);
+void accessibility_set_content(Accessibility *self, const char *value);
 AccessibilityAccessibilityOverviewContentForm accessibility_accessibility_overview_content(const Accessibility *self);
 // Ownership and inclusive design philosophy.
 AccessibilityStrategyForm accessibility_strategy(const Accessibility *self);
@@ -4321,6 +4325,8 @@ void accessibility_checklist_init(AccessibilityChecklist *self, SpecDocument *do
 void accessibility_checklist_free(AccessibilityChecklist *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int accessibility_checklist_can_have_content(const AccessibilityChecklist *self);
+char *accessibility_checklist_content(const AccessibilityChecklist *self);
+void accessibility_checklist_set_content(AccessibilityChecklist *self, const char *value);
 AccessibilityChecklistChecklistOverviewContentForm accessibility_checklist_checklist_overview_content(const AccessibilityChecklist *self);
 // Accessibility checklist overview.
 // (skipped: checklistOverview has no target type)
@@ -4443,6 +4449,8 @@ void actor_entry_init(ActorEntry *self, SpecDocument *doc, const char *path);
 void actor_entry_free(ActorEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int actor_entry_can_have_content(const ActorEntry *self);
+char *actor_entry_content(const ActorEntry *self);
+void actor_entry_set_content(ActorEntry *self, const char *value);
 // Actor identification.
 ActorEntryIdentificationForm actor_entry_identification(const ActorEntry *self);
 // Actor characteristics.
@@ -4499,6 +4507,8 @@ void actor_relationship_diagram_init(ActorRelationshipDiagram *self, SpecDocumen
 void actor_relationship_diagram_free(ActorRelationshipDiagram *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int actor_relationship_diagram_can_have_content(const ActorRelationshipDiagram *self);
+char *actor_relationship_diagram_content(const ActorRelationshipDiagram *self);
+void actor_relationship_diagram_set_content(ActorRelationshipDiagram *self, const char *value);
 // Diagram overview.
 ActorRelationshipDiagramOverviewForm actor_relationship_diagram_overview(const ActorRelationshipDiagram *self);
 // Actor hierarchy diagram (generalization relationships).
@@ -4660,6 +4670,8 @@ void alerting_configuration_init(AlertingConfiguration *self, SpecDocument *doc,
 void alerting_configuration_free(AlertingConfiguration *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alerting_configuration_can_have_content(const AlertingConfiguration *self);
+char *alerting_configuration_content(const AlertingConfiguration *self);
+void alerting_configuration_set_content(AlertingConfiguration *self, const char *value);
 AlertingConfigurationAlertingOverviewForm alerting_configuration_alerting_overview(const AlertingConfiguration *self);
 // Alerting overview narrative.
 // (skipped: overviewNarrative has no target type)
@@ -5737,6 +5749,8 @@ void boundary_assumptions_init(BoundaryAssumptions *self, SpecDocument *doc, con
 void boundary_assumptions_free(BoundaryAssumptions *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int boundary_assumptions_can_have_content(const BoundaryAssumptions *self);
+char *boundary_assumptions_content(const BoundaryAssumptions *self);
+void boundary_assumptions_set_content(BoundaryAssumptions *self, const char *value);
 // Overview of assumption categories and validation approach.
 // (skipped: assumptionApproach has no target type)
 // Contains 0+× BoundaryAssumptionEntry.
@@ -5780,6 +5794,8 @@ void breakpoint_configuration_init(BreakpointConfiguration *self, SpecDocument *
 void breakpoint_configuration_free(BreakpointConfiguration *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int breakpoint_configuration_can_have_content(const BreakpointConfiguration *self);
+char *breakpoint_configuration_content(const BreakpointConfiguration *self);
+void breakpoint_configuration_set_content(BreakpointConfiguration *self, const char *value);
 BreakpointConfigurationBreakpointOverviewForm breakpoint_configuration_breakpoint_overview(const BreakpointConfiguration *self);
 // Breakpoint entries.
 // Returns the list view; element type: BreakpointEntry (construct from item paths).
@@ -5998,6 +6014,8 @@ void business_object_entry_init(BusinessObjectEntry *self, SpecDocument *doc, co
 void business_object_entry_free(BusinessObjectEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_object_entry_can_have_content(const BusinessObjectEntry *self);
+char *business_object_entry_content(const BusinessObjectEntry *self);
+void business_object_entry_set_content(BusinessObjectEntry *self, const char *value);
 BusinessObjectEntryIdentityForm business_object_entry_identity(const BusinessObjectEntry *self);
 BusinessObjectEntryDomainContextForm business_object_entry_domain_context(const BusinessObjectEntry *self);
 BusinessObjectEntryLifecycleSummaryForm business_object_entry_lifecycle_summary(const BusinessObjectEntry *self);
@@ -6099,6 +6117,8 @@ void business_process_entry_init(BusinessProcessEntry *self, SpecDocument *doc, 
 void business_process_entry_free(BusinessProcessEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_process_entry_can_have_content(const BusinessProcessEntry *self);
+char *business_process_entry_content(const BusinessProcessEntry *self);
+void business_process_entry_set_content(BusinessProcessEntry *self, const char *value);
 // Process identification.
 ProcessIdentification business_process_entry_identification(const BusinessProcessEntry *self);
 // Process characteristics.
@@ -6128,6 +6148,8 @@ void business_rule_entry_init(BusinessRuleEntry *self, SpecDocument *doc, const 
 void business_rule_entry_free(BusinessRuleEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_rule_entry_can_have_content(const BusinessRuleEntry *self);
+char *business_rule_entry_content(const BusinessRuleEntry *self);
+void business_rule_entry_set_content(BusinessRuleEntry *self, const char *value);
 BusinessRuleEntryIdentityForm business_rule_entry_identity(const BusinessRuleEntry *self);
 BusinessRuleEntryClassificationForm business_rule_entry_classification(const BusinessRuleEntry *self);
 BusinessRuleEntryRuleLogicForm business_rule_entry_rule_logic(const BusinessRuleEntry *self);
@@ -6413,6 +6435,8 @@ void change_readiness_assessment_init(ChangeReadinessAssessment *self, SpecDocum
 void change_readiness_assessment_free(ChangeReadinessAssessment *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_readiness_assessment_can_have_content(const ChangeReadinessAssessment *self);
+char *change_readiness_assessment_content(const ChangeReadinessAssessment *self);
+void change_readiness_assessment_set_content(ChangeReadinessAssessment *self, const char *value);
 // Overview of readiness assessment approach.
 ChangeReadinessAssessmentOverviewForm change_readiness_assessment_overview(const ChangeReadinessAssessment *self);
 // Readiness criteria per stakeholder group.
@@ -6453,6 +6477,8 @@ void changed_role_competencies_init(ChangedRoleCompetencies *self, SpecDocument 
 void changed_role_competencies_free(ChangedRoleCompetencies *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changed_role_competencies_can_have_content(const ChangedRoleCompetencies *self);
+char *changed_role_competencies_content(const ChangedRoleCompetencies *self);
+void changed_role_competencies_set_content(ChangedRoleCompetencies *self, const char *value);
 // New competencies required.
 // Returns the list view; element type: RoleCompetencyEntry (construct from item paths).
 SomList changed_role_competencies_new_competencies(const ChangedRoleCompetencies *self);
@@ -6474,6 +6500,8 @@ void changed_role_entry_init(ChangedRoleEntry *self, SpecDocument *doc, const ch
 void changed_role_entry_free(ChangedRoleEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changed_role_entry_can_have_content(const ChangedRoleEntry *self);
+char *changed_role_entry_content(const ChangedRoleEntry *self);
+void changed_role_entry_set_content(ChangedRoleEntry *self, const char *value);
 // Changed role identification.
 ChangedRoleIdentification changed_role_entry_identification(const ChangedRoleEntry *self);
 // Responsibility changes.
@@ -6505,6 +6533,8 @@ void changed_role_responsibilities_init(ChangedRoleResponsibilities *self, SpecD
 void changed_role_responsibilities_free(ChangedRoleResponsibilities *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changed_role_responsibilities_can_have_content(const ChangedRoleResponsibilities *self);
+char *changed_role_responsibilities_content(const ChangedRoleResponsibilities *self);
+void changed_role_responsibilities_set_content(ChangedRoleResponsibilities *self, const char *value);
 // Responsibilities being added.
 // Returns the list view; element type: ResponsibilityChangeEntry (construct from item paths).
 SomList changed_role_responsibilities_added_responsibilities(const ChangedRoleResponsibilities *self);
@@ -6539,6 +6569,8 @@ void changes_from_current_structure_init(ChangesFromCurrentStructure *self, Spec
 void changes_from_current_structure_free(ChangesFromCurrentStructure *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changes_from_current_structure_can_have_content(const ChangesFromCurrentStructure *self);
+char *changes_from_current_structure_content(const ChangesFromCurrentStructure *self);
+void changes_from_current_structure_set_content(ChangesFromCurrentStructure *self, const char *value);
 ChangesFromCurrentStructureOverviewContentForm changes_from_current_structure_overview_content(const ChangesFromCurrentStructure *self);
 // Detailed description of structural changes.
 // (skipped: changeNarrative has no target type)
@@ -7019,6 +7051,8 @@ void compatibility_characteristic_init(CompatibilityCharacteristic *self, SpecDo
 void compatibility_characteristic_free(CompatibilityCharacteristic *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compatibility_characteristic_can_have_content(const CompatibilityCharacteristic *self);
+char *compatibility_characteristic_content(const CompatibilityCharacteristic *self);
+void compatibility_characteristic_set_content(CompatibilityCharacteristic *self, const char *value);
 CompatibilityCharacteristicCompatibilityContentForm compatibility_characteristic_compatibility_content(const CompatibilityCharacteristic *self);
 // Compatibility overview.
 // (skipped: overview has no target type)
@@ -7081,6 +7115,8 @@ void competency_framework_init(CompetencyFramework *self, SpecDocument *doc, con
 void competency_framework_free(CompetencyFramework *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int competency_framework_can_have_content(const CompetencyFramework *self);
+char *competency_framework_content(const CompetencyFramework *self);
+void competency_framework_set_content(CompetencyFramework *self, const char *value);
 // Framework overview.
 CompetencyFrameworkOverviewForm competency_framework_overview(const CompetencyFramework *self);
 // Core competencies required across all roles.
@@ -7315,6 +7351,8 @@ void component_library_init(ComponentLibrary *self, SpecDocument *doc, const cha
 void component_library_free(ComponentLibrary *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_library_can_have_content(const ComponentLibrary *self);
+char *component_library_content(const ComponentLibrary *self);
+void component_library_set_content(ComponentLibrary *self, const char *value);
 // Returns the list view; element type: DesignFoundationEntry (construct from item paths).
 SomList component_library_design_foundations(const ComponentLibrary *self);
 // Color system.
@@ -7720,6 +7758,8 @@ void contextual_help_init(ContextualHelp *self, SpecDocument *doc, const char *p
 void contextual_help_free(ContextualHelp *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int contextual_help_can_have_content(const ContextualHelp *self);
+char *contextual_help_content(const ContextualHelp *self);
+void contextual_help_set_content(ContextualHelp *self, const char *value);
 ContextualHelpContextualHelpContentForm contextual_help_contextual_help_content(const ContextualHelp *self);
 // Inline help behavior.
 ContextualHelpInlineForm contextual_help_inline_(const ContextualHelp *self);
@@ -9229,6 +9269,8 @@ void data_attribute_entry_init(DataAttributeEntry *self, SpecDocument *doc, cons
 void data_attribute_entry_free(DataAttributeEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_attribute_entry_can_have_content(const DataAttributeEntry *self);
+char *data_attribute_entry_content(const DataAttributeEntry *self);
+void data_attribute_entry_set_content(DataAttributeEntry *self, const char *value);
 DataAttributeEntryIdentityForm data_attribute_entry_identity(const DataAttributeEntry *self);
 DataAttributeEntryDataTypeSpecForm data_attribute_entry_data_type_spec(const DataAttributeEntry *self);
 // Text-kind type options — a promoted `@OneOf` case (csra4).
@@ -9310,6 +9352,8 @@ void data_classification_init(DataClassification *self, SpecDocument *doc, const
 void data_classification_free(DataClassification *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_classification_can_have_content(const DataClassification *self);
+char *data_classification_content(const DataClassification *self);
+void data_classification_set_content(DataClassification *self, const char *value);
 DataClassificationOverviewForm data_classification_overview(const DataClassification *self);
 // Contains 0+× DataClassificationEntry.
 // Returns the list view; element type: DataClassificationEntry (construct from item paths).
@@ -9323,6 +9367,8 @@ void data_classification_entry_init(DataClassificationEntry *self, SpecDocument 
 void data_classification_entry_free(DataClassificationEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_classification_entry_can_have_content(const DataClassificationEntry *self);
+char *data_classification_entry_content(const DataClassificationEntry *self);
+void data_classification_entry_set_content(DataClassificationEntry *self, const char *value);
 DataClassificationEntryIdentityForm data_classification_entry_identity(const DataClassificationEntry *self);
 DataClassificationEntryStorageTransmissionForm data_classification_entry_storage_transmission(const DataClassificationEntry *self);
 DataClassificationEntryAccessControlForm data_classification_entry_access_control(const DataClassificationEntry *self);
@@ -9406,6 +9452,8 @@ void data_entity_entry_init(DataEntityEntry *self, SpecDocument *doc, const char
 void data_entity_entry_free(DataEntityEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_entity_entry_can_have_content(const DataEntityEntry *self);
+char *data_entity_entry_content(const DataEntityEntry *self);
+void data_entity_entry_set_content(DataEntityEntry *self, const char *value);
 DataEntityEntryIdentityForm data_entity_entry_identity(const DataEntityEntry *self);
 DataEntityEntryClassificationForm data_entity_entry_classification(const DataEntityEntry *self);
 DataEntityEntryLifecyclePolicyForm data_entity_entry_lifecycle_policy(const DataEntityEntry *self);
@@ -11082,6 +11130,8 @@ void documentation_quality_criteria_init(DocumentationQualityCriteria *self, Spe
 void documentation_quality_criteria_free(DocumentationQualityCriteria *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int documentation_quality_criteria_can_have_content(const DocumentationQualityCriteria *self);
+char *documentation_quality_criteria_content(const DocumentationQualityCriteria *self);
+void documentation_quality_criteria_set_content(DocumentationQualityCriteria *self, const char *value);
 DocumentationQualityCriteriaDocumentationOverviewContentForm documentation_quality_criteria_documentation_overview_content(const DocumentationQualityCriteria *self);
 // Documentation quality overview narrative.
 // (skipped: overview has no target type)
@@ -11530,6 +11580,8 @@ void entity_follow_up_entry_init(EntityFollowUpEntry *self, SpecDocument *doc, c
 void entity_follow_up_entry_free(EntityFollowUpEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entity_follow_up_entry_can_have_content(const EntityFollowUpEntry *self);
+char *entity_follow_up_entry_content(const EntityFollowUpEntry *self);
+void entity_follow_up_entry_set_content(EntityFollowUpEntry *self, const char *value);
 EntityFollowUpEntryEntityRefForm entity_follow_up_entry_entity_ref(const EntityFollowUpEntry *self);
 // Returns the list view; element type: VolumeMetricEntry (construct from item paths).
 SomList entity_follow_up_entry_volume_metrics(const EntityFollowUpEntry *self);
@@ -11558,6 +11610,8 @@ void entity_relationship_entry_init(EntityRelationshipEntry *self, SpecDocument 
 void entity_relationship_entry_free(EntityRelationshipEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entity_relationship_entry_can_have_content(const EntityRelationshipEntry *self);
+char *entity_relationship_entry_content(const EntityRelationshipEntry *self);
+void entity_relationship_entry_set_content(EntityRelationshipEntry *self, const char *value);
 EntityRelationshipEntryIdentityForm entity_relationship_entry_identity(const EntityRelationshipEntry *self);
 // Returns the list view; element type: ParticipantEntry (construct from item paths).
 SomList entity_relationship_entry_participants(const EntityRelationshipEntry *self);
@@ -11687,6 +11741,8 @@ void equipment_requirements_init(EquipmentRequirements *self, SpecDocument *doc,
 void equipment_requirements_free(EquipmentRequirements *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int equipment_requirements_can_have_content(const EquipmentRequirements *self);
+char *equipment_requirements_content(const EquipmentRequirements *self);
+void equipment_requirements_set_content(EquipmentRequirements *self, const char *value);
 // Equipment overview.
 EquipmentRequirementsOverviewForm equipment_requirements_overview(const EquipmentRequirements *self);
 // Primary computing equipment.
@@ -11773,6 +11829,8 @@ void error_handling_init(ErrorHandling *self, SpecDocument *doc, const char *pat
 void error_handling_free(ErrorHandling *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int error_handling_can_have_content(const ErrorHandling *self);
+char *error_handling_content(const ErrorHandling *self);
+void error_handling_set_content(ErrorHandling *self, const char *value);
 ErrorHandlingErrorPhilosophyContentForm error_handling_error_philosophy_content(const ErrorHandling *self);
 // Error categorization and display priority.
 ErrorHandlingClassificationForm error_handling_classification(const ErrorHandling *self);
@@ -11820,6 +11878,8 @@ void error_recovery_init(ErrorRecovery *self, SpecDocument *doc, const char *pat
 void error_recovery_free(ErrorRecovery *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int error_recovery_can_have_content(const ErrorRecovery *self);
+char *error_recovery_content(const ErrorRecovery *self);
+void error_recovery_set_content(ErrorRecovery *self, const char *value);
 ErrorRecoveryRecoveryMechanismsContentForm error_recovery_recovery_mechanisms_content(const ErrorRecovery *self);
 // Data preservation: draft auto-save settings.
 ErrorRecoveryDataPreservationForm error_recovery_data_preservation(const ErrorRecovery *self);
@@ -12248,6 +12308,8 @@ void external_interface_entry_init(ExternalInterfaceEntry *self, SpecDocument *d
 void external_interface_entry_free(ExternalInterfaceEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_interface_entry_can_have_content(const ExternalInterfaceEntry *self);
+char *external_interface_entry_content(const ExternalInterfaceEntry *self);
+void external_interface_entry_set_content(ExternalInterfaceEntry *self, const char *value);
 ExternalInterfaceEntryIdentificationContentForm external_interface_entry_identification_content(const ExternalInterfaceEntry *self);
 // Business purpose and value of this interface.
 InterfaceBusinessContext external_interface_entry_business_context(const ExternalInterfaceEntry *self);
@@ -12278,6 +12340,8 @@ void external_interfaces_init(ExternalInterfaces *self, SpecDocument *doc, const
 void external_interfaces_free(ExternalInterfaces *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_interfaces_can_have_content(const ExternalInterfaces *self);
+char *external_interfaces_content(const ExternalInterfaces *self);
+void external_interfaces_set_content(ExternalInterfaces *self, const char *value);
 // Summary of the integration landscape.
 // (skipped: integrationSummary has no target type)
 // Integration architecture approach.
@@ -12744,6 +12808,8 @@ void flexibility_characteristic_init(FlexibilityCharacteristic *self, SpecDocume
 void flexibility_characteristic_free(FlexibilityCharacteristic *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int flexibility_characteristic_can_have_content(const FlexibilityCharacteristic *self);
+char *flexibility_characteristic_content(const FlexibilityCharacteristic *self);
+void flexibility_characteristic_set_content(FlexibilityCharacteristic *self, const char *value);
 FlexibilityCharacteristicFlexibilityContentForm flexibility_characteristic_flexibility_content(const FlexibilityCharacteristic *self);
 // Flexibility overview.
 // (skipped: overview has no target type)
@@ -12833,6 +12899,8 @@ void function_model_init(FunctionModel *self, SpecDocument *doc, const char *pat
 void function_model_free(FunctionModel *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int function_model_can_have_content(const FunctionModel *self);
+char *function_model_content(const FunctionModel *self);
+void function_model_set_content(FunctionModel *self, const char *value);
 FunctionModelDecompositionOverviewForm function_model_decomposition_overview(const FunctionModel *self);
 FunctionModelMatrixOverviewForm function_model_matrix_overview(const FunctionModel *self);
 // 7.3.1. Function Decomposition — contains 0+× Function.
@@ -12940,6 +13008,8 @@ void functional_suitability_characteristic_init(FunctionalSuitabilityCharacteris
 void functional_suitability_characteristic_free(FunctionalSuitabilityCharacteristic *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int functional_suitability_characteristic_can_have_content(const FunctionalSuitabilityCharacteristic *self);
+char *functional_suitability_characteristic_content(const FunctionalSuitabilityCharacteristic *self);
+void functional_suitability_characteristic_set_content(FunctionalSuitabilityCharacteristic *self, const char *value);
 FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm functional_suitability_characteristic_functional_suitability_content(const FunctionalSuitabilityCharacteristic *self);
 // Functional suitability overview.
 // (skipped: overview has no target type)
@@ -13835,6 +13905,8 @@ void interaction_capability_characteristic_init(InteractionCapabilityCharacteris
 void interaction_capability_characteristic_free(InteractionCapabilityCharacteristic *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_capability_characteristic_can_have_content(const InteractionCapabilityCharacteristic *self);
+char *interaction_capability_characteristic_content(const InteractionCapabilityCharacteristic *self);
+void interaction_capability_characteristic_set_content(InteractionCapabilityCharacteristic *self, const char *value);
 InteractionCapabilityCharacteristicInteractionCapabilityContentForm interaction_capability_characteristic_interaction_capability_content(const InteractionCapabilityCharacteristic *self);
 // Interaction capability overview.
 // (skipped: overview has no target type)
@@ -13905,6 +13977,8 @@ void interaction_entry_init(InteractionEntry *self, SpecDocument *doc, const cha
 void interaction_entry_free(InteractionEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_entry_can_have_content(const InteractionEntry *self);
+char *interaction_entry_content(const InteractionEntry *self);
+void interaction_entry_set_content(InteractionEntry *self, const char *value);
 // Interaction identification (use case header).
 InteractionEntryIdentificationForm interaction_entry_identification(const InteractionEntry *self);
 // Use case scope and context (Cockburn style).
@@ -14362,6 +14436,8 @@ void job_descriptions_and_staffing_init(JobDescriptionsAndStaffing *self, SpecDo
 void job_descriptions_and_staffing_free(JobDescriptionsAndStaffing *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int job_descriptions_and_staffing_can_have_content(const JobDescriptionsAndStaffing *self);
+char *job_descriptions_and_staffing_content(const JobDescriptionsAndStaffing *self);
+void job_descriptions_and_staffing_set_content(JobDescriptionsAndStaffing *self, const char *value);
 // Overview of the job architecture and role design approach.
 JobDescriptionsAndStaffingOverviewForm job_descriptions_and_staffing_overview(const JobDescriptionsAndStaffing *self);
 // 5.2.1. New Roles — contains 0+× New Role.
@@ -14582,6 +14658,8 @@ void language_country_selection_init(LanguageCountrySelection *self, SpecDocumen
 void language_country_selection_free(LanguageCountrySelection *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int language_country_selection_can_have_content(const LanguageCountrySelection *self);
+char *language_country_selection_content(const LanguageCountrySelection *self);
+void language_country_selection_set_content(LanguageCountrySelection *self, const char *value);
 LanguageCountrySelectionLanguageSelectionContentForm language_country_selection_language_selection_content(const LanguageCountrySelection *self);
 // Default locale behavior.
 LanguageCountrySelectionDefaultsForm language_country_selection_defaults(const LanguageCountrySelection *self);
@@ -14775,6 +14853,8 @@ void localization_process_init(LocalizationProcess *self, SpecDocument *doc, con
 void localization_process_free(LocalizationProcess *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int localization_process_can_have_content(const LocalizationProcess *self);
+char *localization_process_content(const LocalizationProcess *self);
+void localization_process_set_content(LocalizationProcess *self, const char *value);
 LocalizationProcessLocalizationProcessContentForm localization_process_localization_process_content(const LocalizationProcess *self);
 // Review process.
 LocalizationProcessReviewForm localization_process_review(const LocalizationProcess *self);
@@ -14965,6 +15045,8 @@ void maintainability_characteristic_init(MaintainabilityCharacteristic *self, Sp
 void maintainability_characteristic_free(MaintainabilityCharacteristic *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int maintainability_characteristic_can_have_content(const MaintainabilityCharacteristic *self);
+char *maintainability_characteristic_content(const MaintainabilityCharacteristic *self);
+void maintainability_characteristic_set_content(MaintainabilityCharacteristic *self, const char *value);
 MaintainabilityCharacteristicMaintainabilityContentForm maintainability_characteristic_maintainability_content(const MaintainabilityCharacteristic *self);
 // Maintainability overview.
 // (skipped: overview has no target type)
@@ -15195,6 +15277,8 @@ void metrics_and_observability_init(MetricsAndObservability *self, SpecDocument 
 void metrics_and_observability_free(MetricsAndObservability *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int metrics_and_observability_can_have_content(const MetricsAndObservability *self);
+char *metrics_and_observability_content(const MetricsAndObservability *self);
+void metrics_and_observability_set_content(MetricsAndObservability *self, const char *value);
 MetricsAndObservabilityMetricsOverviewForm metrics_and_observability_metrics_overview(const MetricsAndObservability *self);
 // Observability overview narrative.
 // (skipped: overviewNarrative has no target type)
@@ -15296,6 +15380,8 @@ void migration_considerations_init(MigrationConsiderations *self, SpecDocument *
 void migration_considerations_free(MigrationConsiderations *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_considerations_can_have_content(const MigrationConsiderations *self);
+char *migration_considerations_content(const MigrationConsiderations *self);
+void migration_considerations_set_content(MigrationConsiderations *self, const char *value);
 MigrationConsiderationsStrategyContentForm migration_considerations_strategy_content(const MigrationConsiderations *self);
 // Detailed strategy narrative.
 // (skipped: strategyNarrative has no target type)
@@ -15517,6 +15603,8 @@ void migration_risks_init(MigrationRisks *self, SpecDocument *doc, const char *p
 void migration_risks_free(MigrationRisks *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_risks_can_have_content(const MigrationRisks *self);
+char *migration_risks_content(const MigrationRisks *self);
+void migration_risks_set_content(MigrationRisks *self, const char *value);
 MigrationRisksGovernanceContentForm migration_risks_governance_content(const MigrationRisks *self);
 // Governance and decision authority.
 MigrationRisksGovernanceForm migration_risks_governance(const MigrationRisks *self);
@@ -15668,6 +15756,8 @@ void monitoring_init(Monitoring *self, SpecDocument *doc, const char *path);
 void monitoring_free(Monitoring *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int monitoring_can_have_content(const Monitoring *self);
+char *monitoring_content(const Monitoring *self);
+void monitoring_set_content(Monitoring *self, const char *value);
 MonitoringMonitoringOverviewForm monitoring_monitoring_overview(const Monitoring *self);
 // Monitoring strategy narrative.
 // (skipped: overviewNarrative has no target type)
@@ -15725,6 +15815,8 @@ void monitoring_dashboards_init(MonitoringDashboards *self, SpecDocument *doc, c
 void monitoring_dashboards_free(MonitoringDashboards *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int monitoring_dashboards_can_have_content(const MonitoringDashboards *self);
+char *monitoring_dashboards_content(const MonitoringDashboards *self);
+void monitoring_dashboards_set_content(MonitoringDashboards *self, const char *value);
 MonitoringDashboardsDashboardOverviewForm monitoring_dashboards_dashboard_overview(const MonitoringDashboards *self);
 // Dashboard overview narrative.
 // (skipped: overviewNarrative has no target type)
@@ -15812,6 +15904,8 @@ void multi_language_support_init(MultiLanguageSupport *self, SpecDocument *doc, 
 void multi_language_support_free(MultiLanguageSupport *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int multi_language_support_can_have_content(const MultiLanguageSupport *self);
+char *multi_language_support_content(const MultiLanguageSupport *self);
+void multi_language_support_set_content(MultiLanguageSupport *self, const char *value);
 MultiLanguageSupportMultiLanguageOverviewForm multi_language_support_multi_language_overview(const MultiLanguageSupport *self);
 // Multi-language overview narrative.
 // (skipped: overviewNarrative has no target type)
@@ -15829,6 +15923,8 @@ void must_pass_criteria_init(MustPassCriteria *self, SpecDocument *doc, const ch
 void must_pass_criteria_free(MustPassCriteria *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int must_pass_criteria_can_have_content(const MustPassCriteria *self);
+char *must_pass_criteria_content(const MustPassCriteria *self);
+void must_pass_criteria_set_content(MustPassCriteria *self, const char *value);
 MustPassCriteriaMustPassOverviewContentForm must_pass_criteria_must_pass_overview_content(const MustPassCriteria *self);
 // Must-pass criteria overview.
 // (skipped: overview has no target type)
@@ -16152,6 +16248,8 @@ void new_organization_structure_init(NewOrganizationStructure *self, SpecDocumen
 void new_organization_structure_free(NewOrganizationStructure *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int new_organization_structure_can_have_content(const NewOrganizationStructure *self);
+char *new_organization_structure_content(const NewOrganizationStructure *self);
+void new_organization_structure_set_content(NewOrganizationStructure *self, const char *value);
 // Overview of the target organization structure.
 // (skipped: overview has no target type)
 // 5.1.1. Changes from Current Structure.
@@ -16168,6 +16266,8 @@ void new_role_entry_init(NewRoleEntry *self, SpecDocument *doc, const char *path
 void new_role_entry_free(NewRoleEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int new_role_entry_can_have_content(const NewRoleEntry *self);
+char *new_role_entry_content(const NewRoleEntry *self);
+void new_role_entry_set_content(NewRoleEntry *self, const char *value);
 // Role identification and overview.
 NewRoleEntryIdentificationForm new_role_entry_identification(const NewRoleEntry *self);
 // Role positioning in organization.
@@ -16204,6 +16304,8 @@ void new_role_responsibilities_init(NewRoleResponsibilities *self, SpecDocument 
 void new_role_responsibilities_free(NewRoleResponsibilities *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int new_role_responsibilities_can_have_content(const NewRoleResponsibilities *self);
+char *new_role_responsibilities_content(const NewRoleResponsibilities *self);
+void new_role_responsibilities_set_content(NewRoleResponsibilities *self, const char *value);
 // Primary responsibilities (key accountabilities).
 // Returns the list view; element type: ResponsibilityDetailEntry (construct from item paths).
 SomList new_role_responsibilities_primary_responsibilities(const NewRoleResponsibilities *self);
@@ -16320,6 +16422,8 @@ void onboarding_help_init(OnboardingHelp *self, SpecDocument *doc, const char *p
 void onboarding_help_free(OnboardingHelp *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int onboarding_help_can_have_content(const OnboardingHelp *self);
+char *onboarding_help_content(const OnboardingHelp *self);
+void onboarding_help_set_content(OnboardingHelp *self, const char *value);
 OnboardingHelpOnboardingContentForm onboarding_help_onboarding_content(const OnboardingHelp *self);
 // Feature tour settings.
 OnboardingHelpToursForm onboarding_help_tours(const OnboardingHelp *self);
@@ -16362,6 +16466,8 @@ void operating_environment_init(OperatingEnvironment *self, SpecDocument *doc, c
 void operating_environment_free(OperatingEnvironment *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int operating_environment_can_have_content(const OperatingEnvironment *self);
+char *operating_environment_content(const OperatingEnvironment *self);
+void operating_environment_set_content(OperatingEnvironment *self, const char *value);
 // Framework conditions overview.
 // (skipped: overview has no target type)
 // 4.6.1. Organizational Environment.
@@ -16567,6 +16673,8 @@ void organizational_environment_init(OrganizationalEnvironment *self, SpecDocume
 void organizational_environment_free(OrganizationalEnvironment *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_environment_can_have_content(const OrganizationalEnvironment *self);
+char *organizational_environment_content(const OrganizationalEnvironment *self);
+void organizational_environment_set_content(OrganizationalEnvironment *self, const char *value);
 OrganizationalEnvironmentOrganizationContentForm organizational_environment_organization_content(const OrganizationalEnvironment *self);
 // Organizational maturity indicators.
 OrganizationalEnvironmentMaturityForm organizational_environment_maturity(const OrganizationalEnvironment *self);
@@ -16606,6 +16714,8 @@ void organizational_framework_init(OrganizationalFramework *self, SpecDocument *
 void organizational_framework_free(OrganizationalFramework *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_framework_can_have_content(const OrganizationalFramework *self);
+char *organizational_framework_content(const OrganizationalFramework *self);
+void organizational_framework_set_content(OrganizationalFramework *self, const char *value);
 // Overview of organizational changes required for the new system.
 // (skipped: overview has no target type)
 // 5.1. New Organization Structure.
@@ -16672,6 +16782,8 @@ void organizational_transition_timeline_init(OrganizationalTransitionTimeline *s
 void organizational_transition_timeline_free(OrganizationalTransitionTimeline *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_transition_timeline_can_have_content(const OrganizationalTransitionTimeline *self);
+char *organizational_transition_timeline_content(const OrganizationalTransitionTimeline *self);
+void organizational_transition_timeline_set_content(OrganizationalTransitionTimeline *self, const char *value);
 // Overview of the transition approach and guiding principles.
 TransitionOverview organizational_transition_timeline_overview(const OrganizationalTransitionTimeline *self);
 // Transition phases with milestones and durations.
@@ -16734,6 +16846,8 @@ void out_of_scope_init(OutOfScope *self, SpecDocument *doc, const char *path);
 void out_of_scope_free(OutOfScope *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int out_of_scope_can_have_content(const OutOfScope *self);
+char *out_of_scope_content(const OutOfScope *self);
+void out_of_scope_set_content(OutOfScope *self, const char *value);
 // Overview of scope exclusion approach.
 // (skipped: scopePhilosophy has no target type)
 // Contains 0+× OutOfScopeEntry.
@@ -16982,6 +17096,8 @@ void performance_efficiency_characteristic_init(PerformanceEfficiencyCharacteris
 void performance_efficiency_characteristic_free(PerformanceEfficiencyCharacteristic *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int performance_efficiency_characteristic_can_have_content(const PerformanceEfficiencyCharacteristic *self);
+char *performance_efficiency_characteristic_content(const PerformanceEfficiencyCharacteristic *self);
+void performance_efficiency_characteristic_set_content(PerformanceEfficiencyCharacteristic *self, const char *value);
 PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm performance_efficiency_characteristic_performance_efficiency_content(const PerformanceEfficiencyCharacteristic *self);
 // Performance efficiency overview.
 // (skipped: overview has no target type)
@@ -17481,6 +17597,8 @@ void process_catalog_init(ProcessCatalog *self, SpecDocument *doc, const char *p
 void process_catalog_free(ProcessCatalog *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_catalog_can_have_content(const ProcessCatalog *self);
+char *process_catalog_content(const ProcessCatalog *self);
+void process_catalog_set_content(ProcessCatalog *self, const char *value);
 // Process catalog overview.
 ProcessCatalogOverviewForm process_catalog_overview(const ProcessCatalog *self);
 // Process classification scheme.
@@ -17519,6 +17637,8 @@ void process_controls_init(ProcessControls *self, SpecDocument *doc, const char 
 void process_controls_free(ProcessControls *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_controls_can_have_content(const ProcessControls *self);
+char *process_controls_content(const ProcessControls *self);
+void process_controls_set_content(ProcessControls *self, const char *value);
 // Controls overview.
 ProcessControlsOverviewForm process_controls_overview(const ProcessControls *self);
 // Contains 0+× process control.
@@ -17549,6 +17669,8 @@ void process_design_principles_init(ProcessDesignPrinciples *self, SpecDocument 
 void process_design_principles_free(ProcessDesignPrinciples *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_design_principles_can_have_content(const ProcessDesignPrinciples *self);
+char *process_design_principles_content(const ProcessDesignPrinciples *self);
+void process_design_principles_set_content(ProcessDesignPrinciples *self, const char *value);
 // Design principles overview.
 ProcessDesignPrinciplesOverviewForm process_design_principles_overview(const ProcessDesignPrinciples *self);
 // Contains 0+× Design Principle.
@@ -17592,6 +17714,8 @@ void process_exceptions_init(ProcessExceptions *self, SpecDocument *doc, const c
 void process_exceptions_free(ProcessExceptions *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_exceptions_can_have_content(const ProcessExceptions *self);
+char *process_exceptions_content(const ProcessExceptions *self);
+void process_exceptions_set_content(ProcessExceptions *self, const char *value);
 // Exceptions overview.
 ProcessExceptionsOverviewForm process_exceptions_overview(const ProcessExceptions *self);
 // Contains 0+× exception scenario.
@@ -17632,6 +17756,8 @@ void process_improvement_summary_init(ProcessImprovementSummary *self, SpecDocum
 void process_improvement_summary_free(ProcessImprovementSummary *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_improvement_summary_can_have_content(const ProcessImprovementSummary *self);
+char *process_improvement_summary_content(const ProcessImprovementSummary *self);
+void process_improvement_summary_set_content(ProcessImprovementSummary *self, const char *value);
 // Improvement overview.
 ProcessImprovementSummaryOverviewForm process_improvement_summary_overview(const ProcessImprovementSummary *self);
 // Contains 0+× improvement item.
@@ -17654,6 +17780,8 @@ void process_inputs_outputs_init(ProcessInputsOutputs *self, SpecDocument *doc, 
 void process_inputs_outputs_free(ProcessInputsOutputs *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_inputs_outputs_can_have_content(const ProcessInputsOutputs *self);
+char *process_inputs_outputs_content(const ProcessInputsOutputs *self);
+void process_inputs_outputs_set_content(ProcessInputsOutputs *self, const char *value);
 // Inputs overview.
 ProcessInputsOutputsOverviewForm process_inputs_outputs_overview(const ProcessInputsOutputs *self);
 // Contains 0+× process input.
@@ -17778,6 +17906,8 @@ void process_overview_diagram_init(ProcessOverviewDiagram *self, SpecDocument *d
 void process_overview_diagram_free(ProcessOverviewDiagram *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_overview_diagram_can_have_content(const ProcessOverviewDiagram *self);
+char *process_overview_diagram_content(const ProcessOverviewDiagram *self);
+void process_overview_diagram_set_content(ProcessOverviewDiagram *self, const char *value);
 // Diagram overview.
 ProcessOverviewDiagramOverviewForm process_overview_diagram_overview(const ProcessOverviewDiagram *self);
 // Main process landscape diagram.
@@ -17805,6 +17935,8 @@ void process_performance_init(ProcessPerformance *self, SpecDocument *doc, const
 void process_performance_free(ProcessPerformance *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_performance_can_have_content(const ProcessPerformance *self);
+char *process_performance_content(const ProcessPerformance *self);
+void process_performance_set_content(ProcessPerformance *self, const char *value);
 // Performance overview.
 ProcessPerformanceOverviewForm process_performance_overview(const ProcessPerformance *self);
 // Contains 0+× performance metric.
@@ -17863,6 +17995,8 @@ void process_roles_init(ProcessRoles *self, SpecDocument *doc, const char *path)
 void process_roles_free(ProcessRoles *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_roles_can_have_content(const ProcessRoles *self);
+char *process_roles_content(const ProcessRoles *self);
+void process_roles_set_content(ProcessRoles *self, const char *value);
 // Roles overview.
 ProcessRolesOverviewForm process_roles_overview(const ProcessRoles *self);
 // Contains 0+× process role.
@@ -17961,6 +18095,8 @@ void process_triggers_init(ProcessTriggers *self, SpecDocument *doc, const char 
 void process_triggers_free(ProcessTriggers *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_triggers_can_have_content(const ProcessTriggers *self);
+char *process_triggers_content(const ProcessTriggers *self);
+void process_triggers_set_content(ProcessTriggers *self, const char *value);
 // Main trigger overview.
 ProcessTriggersOverviewForm process_triggers_overview(const ProcessTriggers *self);
 // Contains 0+× process trigger.
@@ -17978,6 +18114,8 @@ void process_vision_init(ProcessVision *self, SpecDocument *doc, const char *pat
 void process_vision_free(ProcessVision *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_vision_can_have_content(const ProcessVision *self);
+char *process_vision_content(const ProcessVision *self);
+void process_vision_set_content(ProcessVision *self, const char *value);
 // Process vision overview.
 ProcessVisionOverviewForm process_vision_overview(const ProcessVision *self);
 // Vision narrative describing the target state.
@@ -18122,6 +18260,8 @@ void prototype_init(Prototype *self, SpecDocument *doc, const char *path);
 void prototype_free(Prototype *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_can_have_content(const Prototype *self);
+char *prototype_content(const Prototype *self);
+void prototype_set_content(Prototype *self, const char *value);
 PrototypePrototypeOverviewForm prototype_prototype_overview(const Prototype *self);
 // Prototype timing commitments.
 PrototypeTimelineForm prototype_timeline(const Prototype *self);
@@ -18156,6 +18296,8 @@ void prototype_feature_subset_init(PrototypeFeatureSubset *self, SpecDocument *d
 void prototype_feature_subset_free(PrototypeFeatureSubset *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_feature_subset_can_have_content(const PrototypeFeatureSubset *self);
+char *prototype_feature_subset_content(const PrototypeFeatureSubset *self);
+void prototype_feature_subset_set_content(PrototypeFeatureSubset *self, const char *value);
 PrototypeFeatureSubsetFeatureSubsetContentForm prototype_feature_subset_feature_subset_content(const PrototypeFeatureSubset *self);
 // Included and excluded feature scope.
 PrototypeFeatureSubsetScopeForm prototype_feature_subset_scope(const PrototypeFeatureSubset *self);
@@ -18183,6 +18325,8 @@ void prototype_goals_init(PrototypeGoals *self, SpecDocument *doc, const char *p
 void prototype_goals_free(PrototypeGoals *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_goals_can_have_content(const PrototypeGoals *self);
+char *prototype_goals_content(const PrototypeGoals *self);
+void prototype_goals_set_content(PrototypeGoals *self, const char *value);
 PrototypeGoalsGoalsContentForm prototype_goals_goals_content(const PrototypeGoals *self);
 // Risk reduction and assumption testing.
 PrototypeGoalsRiskProfileForm prototype_goals_risk_profile(const PrototypeGoals *self);
@@ -18202,6 +18346,8 @@ void prototype_type_init(PrototypeType *self, SpecDocument *doc, const char *pat
 void prototype_type_free(PrototypeType *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_type_can_have_content(const PrototypeType *self);
+char *prototype_type_content(const PrototypeType *self);
+void prototype_type_set_content(PrototypeType *self, const char *value);
 PrototypeTypePrototypeTypeOverviewForm prototype_type_prototype_type_overview(const PrototypeType *self);
 // 10.13.3.1. Reusable Prototype.
 ReusablePrototype prototype_type_reusable_prototype(const PrototypeType *self);
@@ -18271,6 +18417,8 @@ void quality_framework_init(QualityFramework *self, SpecDocument *doc, const cha
 void quality_framework_free(QualityFramework *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_framework_can_have_content(const QualityFramework *self);
+char *quality_framework_content(const QualityFramework *self);
+void quality_framework_set_content(QualityFramework *self, const char *value);
 QualityFrameworkFrameworkContentForm quality_framework_framework_content(const QualityFramework *self);
 // Quality objective structure and alignment.
 QualityFrameworkObjectivesForm quality_framework_objectives(const QualityFramework *self);
@@ -18365,6 +18513,8 @@ void quality_gate_checklist_init(QualityGateChecklist *self, SpecDocument *doc, 
 void quality_gate_checklist_free(QualityGateChecklist *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_gate_checklist_can_have_content(const QualityGateChecklist *self);
+char *quality_gate_checklist_content(const QualityGateChecklist *self);
+void quality_gate_checklist_set_content(QualityGateChecklist *self, const char *value);
 QualityGateChecklistChecklistOverviewContentForm quality_gate_checklist_checklist_overview_content(const QualityGateChecklist *self);
 // Quality gate checklist overview.
 // (skipped: overview has no target type)
@@ -18381,6 +18531,8 @@ void quality_prioritization_init(QualityPrioritization *self, SpecDocument *doc,
 void quality_prioritization_free(QualityPrioritization *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_prioritization_can_have_content(const QualityPrioritization *self);
+char *quality_prioritization_content(const QualityPrioritization *self);
+void quality_prioritization_set_content(QualityPrioritization *self, const char *value);
 QualityPrioritizationPrioritizationFrameworkContentForm quality_prioritization_prioritization_framework_content(const QualityPrioritization *self);
 // Prioritization approach overview.
 // (skipped: prioritizationOverview has no target type)
@@ -18692,6 +18844,8 @@ void reliability_characteristic_init(ReliabilityCharacteristic *self, SpecDocume
 void reliability_characteristic_free(ReliabilityCharacteristic *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reliability_characteristic_can_have_content(const ReliabilityCharacteristic *self);
+char *reliability_characteristic_content(const ReliabilityCharacteristic *self);
+void reliability_characteristic_set_content(ReliabilityCharacteristic *self, const char *value);
 ReliabilityCharacteristicReliabilityContentForm reliability_characteristic_reliability_content(const ReliabilityCharacteristic *self);
 // Reliability overview narrative.
 // (skipped: overview has no target type)
@@ -18744,6 +18898,8 @@ void replacement_inventory_init(ReplacementInventory *self, SpecDocument *doc, c
 void replacement_inventory_free(ReplacementInventory *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int replacement_inventory_can_have_content(const ReplacementInventory *self);
+char *replacement_inventory_content(const ReplacementInventory *self);
+void replacement_inventory_set_content(ReplacementInventory *self, const char *value);
 // Portfolio summary before listing individual systems.
 // (skipped: portfolioSummary has no target type)
 // Prioritization criteria for replacement sequencing.
@@ -19437,6 +19593,8 @@ void responsive_behavior_init(ResponsiveBehavior *self, SpecDocument *doc, const
 void responsive_behavior_free(ResponsiveBehavior *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsive_behavior_can_have_content(const ResponsiveBehavior *self);
+char *responsive_behavior_content(const ResponsiveBehavior *self);
+void responsive_behavior_set_content(ResponsiveBehavior *self, const char *value);
 ResponsiveBehaviorLayoutAdaptationForm responsive_behavior_layout_adaptation(const ResponsiveBehavior *self);
 // Navigation patterns per device class.
 ResponsiveBehaviorNavigationForm responsive_behavior_navigation(const ResponsiveBehavior *self);
@@ -19461,6 +19619,8 @@ void responsive_design_init(ResponsiveDesign *self, SpecDocument *doc, const cha
 void responsive_design_free(ResponsiveDesign *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsive_design_can_have_content(const ResponsiveDesign *self);
+char *responsive_design_content(const ResponsiveDesign *self);
+void responsive_design_set_content(ResponsiveDesign *self, const char *value);
 ResponsiveDesignResponsiveOverviewForm responsive_design_responsive_overview(const ResponsiveDesign *self);
 // Responsive design narrative.
 // (skipped: responsiveNarrative has no target type)
@@ -19589,6 +19749,8 @@ void reusable_prototype_init(ReusablePrototype *self, SpecDocument *doc, const c
 void reusable_prototype_free(ReusablePrototype *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reusable_prototype_can_have_content(const ReusablePrototype *self);
+char *reusable_prototype_content(const ReusablePrototype *self);
+void reusable_prototype_set_content(ReusablePrototype *self, const char *value);
 ReusablePrototypeReusableContentForm reusable_prototype_reusable_content(const ReusablePrototype *self);
 // Architecture alignment and refactoring expectations.
 ReusablePrototypeArchitectureForm reusable_prototype_architecture(const ReusablePrototype *self);
@@ -19679,6 +19841,8 @@ void risk_entry_init(RiskEntry *self, SpecDocument *doc, const char *path);
 void risk_entry_free(RiskEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risk_entry_can_have_content(const RiskEntry *self);
+char *risk_entry_content(const RiskEntry *self);
+void risk_entry_set_content(RiskEntry *self, const char *value);
 // Risk identification — unique identifier and basic description.
 RiskIdentification risk_entry_identification(const RiskEntry *self);
 // Risk analysis — probability, impact, and scoring.
@@ -19756,6 +19920,8 @@ void risks_and_assumptions_init(RisksAndAssumptions *self, SpecDocument *doc, co
 void risks_and_assumptions_free(RisksAndAssumptions *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risks_and_assumptions_can_have_content(const RisksAndAssumptions *self);
+char *risks_and_assumptions_content(const RisksAndAssumptions *self);
+void risks_and_assumptions_set_content(RisksAndAssumptions *self, const char *value);
 // Overview of the risk management approach for this project.
 RisksAndAssumptionsOverviewForm risks_and_assumptions_overview(const RisksAndAssumptions *self);
 // 4.7.1. Key Risks — contains 0+× Risk.
@@ -20155,6 +20321,8 @@ void scenario_entry_init(ScenarioEntry *self, SpecDocument *doc, const char *pat
 void scenario_entry_free(ScenarioEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int scenario_entry_can_have_content(const ScenarioEntry *self);
+char *scenario_entry_content(const ScenarioEntry *self);
+void scenario_entry_set_content(ScenarioEntry *self, const char *value);
 // Scenario identification.
 ScenarioEntryIdentificationForm scenario_entry_identification(const ScenarioEntry *self);
 // Scenario context.
@@ -20873,6 +21041,8 @@ void security_characteristic_init(SecurityCharacteristic *self, SpecDocument *do
 void security_characteristic_free(SecurityCharacteristic *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_characteristic_can_have_content(const SecurityCharacteristic *self);
+char *security_characteristic_content(const SecurityCharacteristic *self);
+void security_characteristic_set_content(SecurityCharacteristic *self, const char *value);
 SecurityCharacteristicSecurityContentForm security_characteristic_security_content(const SecurityCharacteristic *self);
 // Security overview.
 // (skipped: overview has no target type)
@@ -21713,6 +21883,8 @@ void sla_and_slo_monitoring_init(SlaAndSloMonitoring *self, SpecDocument *doc, c
 void sla_and_slo_monitoring_free(SlaAndSloMonitoring *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int sla_and_slo_monitoring_can_have_content(const SlaAndSloMonitoring *self);
+char *sla_and_slo_monitoring_content(const SlaAndSloMonitoring *self);
+void sla_and_slo_monitoring_set_content(SlaAndSloMonitoring *self, const char *value);
 SlaAndSloMonitoringSlaOverviewForm sla_and_slo_monitoring_sla_overview(const SlaAndSloMonitoring *self);
 // SLA/SLO overview narrative.
 // (skipped: overviewNarrative has no target type)
@@ -21892,6 +22064,8 @@ void staffing_plan_init(StaffingPlan *self, SpecDocument *doc, const char *path)
 void staffing_plan_free(StaffingPlan *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int staffing_plan_can_have_content(const StaffingPlan *self);
+char *staffing_plan_content(const StaffingPlan *self);
+void staffing_plan_set_content(StaffingPlan *self, const char *value);
 // Staffing plan overview.
 StaffingPlanOverviewForm staffing_plan_overview(const StaffingPlan *self);
 // Budget details.
@@ -22526,6 +22700,8 @@ void success_criteria_by_category_init(SuccessCriteriaByCategory *self, SpecDocu
 void success_criteria_by_category_free(SuccessCriteriaByCategory *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int success_criteria_by_category_can_have_content(const SuccessCriteriaByCategory *self);
+char *success_criteria_by_category_content(const SuccessCriteriaByCategory *self);
+void success_criteria_by_category_set_content(SuccessCriteriaByCategory *self, const char *value);
 // Business outcome criteria overview.
 char *success_criteria_by_category_business_criteria(const SuccessCriteriaByCategory *self);
 void success_criteria_by_category_set_business_criteria(SuccessCriteriaByCategory *self, const char *value);
@@ -22580,6 +22756,8 @@ void support_access_init(SupportAccess *self, SpecDocument *doc, const char *pat
 void support_access_free(SupportAccess *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int support_access_can_have_content(const SupportAccess *self);
+char *support_access_content(const SupportAccess *self);
+void support_access_set_content(SupportAccess *self, const char *value);
 SupportAccessSupportAccessContentForm support_access_support_access_content(const SupportAccess *self);
 // Help center configuration.
 SupportAccessHelpCenterForm support_access_help_center(const SupportAccess *self);
@@ -22644,6 +22822,8 @@ void system_boundaries_init(SystemBoundaries *self, SpecDocument *doc, const cha
 void system_boundaries_free(SystemBoundaries *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_boundaries_can_have_content(const SystemBoundaries *self);
+char *system_boundaries_content(const SystemBoundaries *self);
+void system_boundaries_set_content(SystemBoundaries *self, const char *value);
 // Overview of system boundaries and scope definition approach.
 // (skipped: overview has no target type)
 // 4.5.1. Interfaces to External Systems — contains 0+×.
@@ -22870,6 +23050,8 @@ void system_error_display_init(SystemErrorDisplay *self, SpecDocument *doc, cons
 void system_error_display_free(SystemErrorDisplay *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_error_display_can_have_content(const SystemErrorDisplay *self);
+char *system_error_display_content(const SystemErrorDisplay *self);
+void system_error_display_set_content(SystemErrorDisplay *self, const char *value);
 SystemErrorDisplaySystemErrorContentForm system_error_display_system_error_content(const SystemErrorDisplay *self);
 // Error type handling configuration.
 SystemErrorDisplayErrorTypesForm system_error_display_error_types(const SystemErrorDisplay *self);
@@ -23049,6 +23231,8 @@ void system_quality_goals_init(SystemQualityGoals *self, SpecDocument *doc, cons
 void system_quality_goals_free(SystemQualityGoals *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_quality_goals_can_have_content(const SystemQualityGoals *self);
+char *system_quality_goals_content(const SystemQualityGoals *self);
+void system_quality_goals_set_content(SystemQualityGoals *self, const char *value);
 SystemQualityGoalsGovernanceContentForm system_quality_goals_governance_content(const SystemQualityGoals *self);
 // Governance board and escalation details.
 SystemQualityGoalsGovernanceForm system_quality_goals_governance(const SystemQualityGoals *self);
@@ -23263,6 +23447,8 @@ void system_to_replace_entry_init(SystemToReplaceEntry *self, SpecDocument *doc,
 void system_to_replace_entry_free(SystemToReplaceEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_to_replace_entry_can_have_content(const SystemToReplaceEntry *self);
+char *system_to_replace_entry_content(const SystemToReplaceEntry *self);
+void system_to_replace_entry_set_content(SystemToReplaceEntry *self, const char *value);
 SystemToReplaceEntryIdentificationContentForm system_to_replace_entry_identification_content(const SystemToReplaceEntry *self);
 // Classification and ownership details.
 SystemToReplaceEntryProfileForm system_to_replace_entry_profile(const SystemToReplaceEntry *self);
@@ -23330,6 +23516,8 @@ void systems_to_replace_init(SystemsToReplace *self, SpecDocument *doc, const ch
 void systems_to_replace_free(SystemsToReplace *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int systems_to_replace_can_have_content(const SystemsToReplace *self);
+char *systems_to_replace_content(const SystemsToReplace *self);
+void systems_to_replace_set_content(SystemsToReplace *self, const char *value);
 // Overview of the systems replacement scope and strategy.
 // (skipped: overview has no target type)
 // 4.4.1. Replacement Inventory — contains 0+×.
@@ -23497,6 +23685,8 @@ void technical_environment_init(TechnicalEnvironment *self, SpecDocument *doc, c
 void technical_environment_free(TechnicalEnvironment *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_environment_can_have_content(const TechnicalEnvironment *self);
+char *technical_environment_content(const TechnicalEnvironment *self);
+void technical_environment_set_content(TechnicalEnvironment *self, const char *value);
 TechnicalEnvironmentTechnicalOverviewContentForm technical_environment_technical_overview_content(const TechnicalEnvironment *self);
 // Architecture governance context.
 TechnicalEnvironmentGovernanceForm technical_environment_governance(const TechnicalEnvironment *self);
@@ -23664,6 +23854,8 @@ void technical_infrastructure_init(TechnicalInfrastructure *self, SpecDocument *
 void technical_infrastructure_free(TechnicalInfrastructure *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_infrastructure_can_have_content(const TechnicalInfrastructure *self);
+char *technical_infrastructure_content(const TechnicalInfrastructure *self);
+void technical_infrastructure_set_content(TechnicalInfrastructure *self, const char *value);
 // Network connectivity requirements.
 TechnicalInfrastructureNetworkConnectivityForm technical_infrastructure_network_connectivity(const TechnicalInfrastructure *self);
 // Software requirements.
@@ -24013,6 +24205,8 @@ void throwaway_prototype_init(ThrowawayPrototype *self, SpecDocument *doc, const
 void throwaway_prototype_free(ThrowawayPrototype *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int throwaway_prototype_can_have_content(const ThrowawayPrototype *self);
+char *throwaway_prototype_content(const ThrowawayPrototype *self);
+void throwaway_prototype_set_content(ThrowawayPrototype *self, const char *value);
 ThrowawayPrototypeThrowawayContentForm throwaway_prototype_throwaway_content(const ThrowawayPrototype *self);
 // Findings and decisions captured from evaluation.
 ThrowawayPrototypeFindingsForm throwaway_prototype_findings(const ThrowawayPrototype *self);
@@ -24185,6 +24379,8 @@ void trade_off_decisions_init(TradeOffDecisions *self, SpecDocument *doc, const 
 void trade_off_decisions_free(TradeOffDecisions *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int trade_off_decisions_can_have_content(const TradeOffDecisions *self);
+char *trade_off_decisions_content(const TradeOffDecisions *self);
+void trade_off_decisions_set_content(TradeOffDecisions *self, const char *value);
 TradeOffDecisionsTradeOffGovernanceContentForm trade_off_decisions_trade_off_governance_content(const TradeOffDecisions *self);
 // Trade-off decisions overview.
 // (skipped: tradeOffOverview has no target type)
@@ -24220,6 +24416,8 @@ void training_deliverable_requirements_init(TrainingDeliverableRequirements *sel
 void training_deliverable_requirements_free(TrainingDeliverableRequirements *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_deliverable_requirements_can_have_content(const TrainingDeliverableRequirements *self);
+char *training_deliverable_requirements_content(const TrainingDeliverableRequirements *self);
+void training_deliverable_requirements_set_content(TrainingDeliverableRequirements *self, const char *value);
 TrainingDeliverableRequirementsTrainingContentForm training_deliverable_requirements_training_content(const TrainingDeliverableRequirements *self);
 // Training narrative.
 // (skipped: trainingNarrative has no target type)
@@ -24285,6 +24483,8 @@ void training_prototype_init(TrainingPrototype *self, SpecDocument *doc, const c
 void training_prototype_free(TrainingPrototype *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_prototype_can_have_content(const TrainingPrototype *self);
+char *training_prototype_content(const TrainingPrototype *self);
+void training_prototype_set_content(TrainingPrototype *self, const char *value);
 TrainingPrototypeTrainingContentForm training_prototype_training_content(const TrainingPrototype *self);
 // Code disposition and reimplementation planning.
 TrainingPrototypeDispositionForm training_prototype_disposition(const TrainingPrototype *self);
@@ -24302,6 +24502,8 @@ void training_requirements_init(TrainingRequirements *self, SpecDocument *doc, c
 void training_requirements_free(TrainingRequirements *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_requirements_can_have_content(const TrainingRequirements *self);
+char *training_requirements_content(const TrainingRequirements *self);
+void training_requirements_set_content(TrainingRequirements *self, const char *value);
 // Training overview and strategy.
 TrainingRequirementsOverviewForm training_requirements_overview(const TrainingRequirements *self);
 // Initial/onboarding training.
@@ -24343,6 +24545,8 @@ void transition_communication_plan_init(TransitionCommunicationPlan *self, SpecD
 void transition_communication_plan_free(TransitionCommunicationPlan *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_communication_plan_can_have_content(const TransitionCommunicationPlan *self);
+char *transition_communication_plan_content(const TransitionCommunicationPlan *self);
+void transition_communication_plan_set_content(TransitionCommunicationPlan *self, const char *value);
 // Communication strategy overview.
 TransitionCommunicationPlanStrategyForm transition_communication_plan_strategy(const TransitionCommunicationPlan *self);
 // Specific communication events/activities.
@@ -24414,6 +24618,8 @@ void transition_phase_entry_init(TransitionPhaseEntry *self, SpecDocument *doc, 
 void transition_phase_entry_free(TransitionPhaseEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_phase_entry_can_have_content(const TransitionPhaseEntry *self);
+char *transition_phase_entry_content(const TransitionPhaseEntry *self);
+void transition_phase_entry_set_content(TransitionPhaseEntry *self, const char *value);
 // Phase identification and timeline.
 TransitionPhaseIdentification transition_phase_entry_identification(const TransitionPhaseEntry *self);
 // Activities and deliverables for this phase.
@@ -24463,6 +24669,8 @@ void transition_success_metrics_init(TransitionSuccessMetrics *self, SpecDocumen
 void transition_success_metrics_free(TransitionSuccessMetrics *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_success_metrics_can_have_content(const TransitionSuccessMetrics *self);
+char *transition_success_metrics_content(const TransitionSuccessMetrics *self);
+void transition_success_metrics_set_content(TransitionSuccessMetrics *self, const char *value);
 // Metrics overview.
 TransitionSuccessMetricsOverviewForm transition_success_metrics_overview(const TransitionSuccessMetrics *self);
 // Specific success metrics.
@@ -24483,6 +24691,8 @@ void transition_support_structure_init(TransitionSupportStructure *self, SpecDoc
 void transition_support_structure_free(TransitionSupportStructure *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_support_structure_can_have_content(const TransitionSupportStructure *self);
+char *transition_support_structure_content(const TransitionSupportStructure *self);
+void transition_support_structure_set_content(TransitionSupportStructure *self, const char *value);
 // Support organization overview.
 TransitionSupportStructureOverviewForm transition_support_structure_overview(const TransitionSupportStructure *self);
 // Support resources available.
@@ -24500,6 +24710,8 @@ void translation_process_init(TranslationProcess *self, SpecDocument *doc, const
 void translation_process_free(TranslationProcess *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int translation_process_can_have_content(const TranslationProcess *self);
+char *translation_process_content(const TranslationProcess *self);
+void translation_process_set_content(TranslationProcess *self, const char *value);
 TranslationProcessTranslationProcessContentForm translation_process_translation_process_content(const TranslationProcess *self);
 // Translation workflow.
 TranslationProcessWorkflowForm translation_process_workflow(const TranslationProcess *self);
@@ -24523,6 +24735,8 @@ void translation_requirements_init(TranslationRequirements *self, SpecDocument *
 void translation_requirements_free(TranslationRequirements *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int translation_requirements_can_have_content(const TranslationRequirements *self);
+char *translation_requirements_content(const TranslationRequirements *self);
+void translation_requirements_set_content(TranslationRequirements *self, const char *value);
 TranslationRequirementsTranslationRequirementsContentForm translation_requirements_translation_requirements_content(const TranslationRequirements *self);
 // RTL and bidirectional support.
 TranslationRequirementsRtlForm translation_requirements_rtl(const TranslationRequirements *self);
@@ -24651,6 +24865,8 @@ void ui_component_entry_init(UiComponentEntry *self, SpecDocument *doc, const ch
 void ui_component_entry_free(UiComponentEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ui_component_entry_can_have_content(const UiComponentEntry *self);
+char *ui_component_entry_content(const UiComponentEntry *self);
+void ui_component_entry_set_content(UiComponentEntry *self, const char *value);
 UiComponentEntryIdentityForm ui_component_entry_identity(const UiComponentEntry *self);
 // Wrapper mapping and business purpose.
 UiComponentEntryPurposeProfileForm ui_component_entry_purpose_profile(const UiComponentEntry *self);
@@ -24705,6 +24921,8 @@ void ui_components_init(UiComponents *self, SpecDocument *doc, const char *path)
 void ui_components_free(UiComponents *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ui_components_can_have_content(const UiComponents *self);
+char *ui_components_content(const UiComponents *self);
+void ui_components_set_content(UiComponents *self, const char *value);
 UiComponentsComponentLibraryOverviewForm ui_components_component_library_overview(const UiComponents *self);
 // Visual language and brand alignment.
 UiComponentsVisualLanguageForm ui_components_visual_language(const UiComponents *self);
@@ -24875,6 +25093,8 @@ void user_assistance_init(UserAssistance *self, SpecDocument *doc, const char *p
 void user_assistance_free(UserAssistance *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_assistance_can_have_content(const UserAssistance *self);
+char *user_assistance_content(const UserAssistance *self);
+void user_assistance_set_content(UserAssistance *self, const char *value);
 UserAssistanceHelpOverviewContentForm user_assistance_help_overview_content(const UserAssistance *self);
 // Content stewardship and help affordances.
 UserAssistanceDeliveryForm user_assistance_delivery(const UserAssistance *self);
@@ -24991,6 +25211,8 @@ void user_documentation_requirements_init(UserDocumentationRequirements *self, S
 void user_documentation_requirements_free(UserDocumentationRequirements *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_documentation_requirements_can_have_content(const UserDocumentationRequirements *self);
+char *user_documentation_requirements_content(const UserDocumentationRequirements *self);
+void user_documentation_requirements_set_content(UserDocumentationRequirements *self, const char *value);
 UserDocumentationRequirementsDocumentationContentForm user_documentation_requirements_documentation_content(const UserDocumentationRequirements *self);
 // Documentation deliverables provided to users.
 UserDocumentationRequirementsDeliverablesForm user_documentation_requirements_deliverables(const UserDocumentationRequirements *self);
@@ -25395,6 +25617,8 @@ void validation_feedback_init(ValidationFeedback *self, SpecDocument *doc, const
 void validation_feedback_free(ValidationFeedback *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int validation_feedback_can_have_content(const ValidationFeedback *self);
+char *validation_feedback_content(const ValidationFeedback *self);
+void validation_feedback_set_content(ValidationFeedback *self, const char *value);
 ValidationFeedbackValidationDisplayContentForm validation_feedback_validation_display_content(const ValidationFeedback *self);
 // Display placement details.
 ValidationFeedbackPlacementForm validation_feedback_placement(const ValidationFeedback *self);
@@ -25564,6 +25788,8 @@ void wcag_compliance_init(WcagCompliance *self, SpecDocument *doc, const char *p
 void wcag_compliance_free(WcagCompliance *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int wcag_compliance_can_have_content(const WcagCompliance *self);
+char *wcag_compliance_content(const WcagCompliance *self);
+void wcag_compliance_set_content(WcagCompliance *self, const char *value);
 WcagComplianceWcagComplianceContentForm wcag_compliance_wcag_compliance_content(const WcagCompliance *self);
 // Operable principles.
 WcagComplianceOperableForm wcag_compliance_operable(const WcagCompliance *self);
@@ -25591,6 +25817,8 @@ void weighted_quality_matrix_init(WeightedQualityMatrix *self, SpecDocument *doc
 void weighted_quality_matrix_free(WeightedQualityMatrix *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int weighted_quality_matrix_can_have_content(const WeightedQualityMatrix *self);
+char *weighted_quality_matrix_content(const WeightedQualityMatrix *self);
+void weighted_quality_matrix_set_content(WeightedQualityMatrix *self, const char *value);
 WeightedQualityMatrixMatrixConfigContentForm weighted_quality_matrix_matrix_config_content(const WeightedQualityMatrix *self);
 // Weighted quality matrix narrative.
 // (skipped: matrixNarrative has no target type)
@@ -25739,6 +25967,8 @@ void workflow_step_system_init(WorkflowStepSystem *self, SpecDocument *doc, cons
 void workflow_step_system_free(WorkflowStepSystem *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_step_system_can_have_content(const WorkflowStepSystem *self);
+char *workflow_step_system_content(const WorkflowStepSystem *self);
+void workflow_step_system_set_content(WorkflowStepSystem *self, const char *value);
 char *workflow_step_system_name(const WorkflowStepSystem *self);
 void workflow_step_system_set_name(WorkflowStepSystem *self, const char *value);
 
@@ -25791,6 +26021,8 @@ void workplace_description_entry_init(WorkplaceDescriptionEntry *self, SpecDocum
 void workplace_description_entry_free(WorkplaceDescriptionEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workplace_description_entry_can_have_content(const WorkplaceDescriptionEntry *self);
+char *workplace_description_entry_content(const WorkplaceDescriptionEntry *self);
+void workplace_description_entry_set_content(WorkplaceDescriptionEntry *self, const char *value);
 // User category identification.
 WorkplaceDescriptionEntryUserCategoryForm workplace_description_entry_user_category(const WorkplaceDescriptionEntry *self);
 // Physical workplace layout and environment.

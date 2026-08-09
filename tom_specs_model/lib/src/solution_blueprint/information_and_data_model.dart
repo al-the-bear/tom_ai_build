@@ -352,6 +352,15 @@ core entity/attribute schema.
 )
 @SectionId('DMFUE')
 class EntityFollowUpEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this entity\'s follow-up facets — operational context '
+    'the volume, compliance, technical and migration lists below do not '
+    'capture.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ---------------------------------------------------------------------------
   // Entity reference (2 fields)
   // ---------------------------------------------------------------------------
@@ -364,7 +373,7 @@ class EntityFollowUpEntry extends DocSpecsSection {
       hint: 'Short alias of the referenced entity (e.g., CUST, ORD)',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? entityRef;
 
   // ---------------------------------------------------------------------------
@@ -380,7 +389,7 @@ class EntityFollowUpEntry extends DocSpecsSection {
   @SectionId('VOLUM-VOLU-LST')
   @SectionIdPattern('VOLUM-VOLU-xxx')
   @ContentHelp('Add one entry per volume metric.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<VolumeMetricEntry> volumeMetrics = [];
 
   // ---------------------------------------------------------------------------
@@ -396,7 +405,7 @@ class EntityFollowUpEntry extends DocSpecsSection {
   @SectionId('CRE-COMP-LST')
   @SectionIdPattern('CRE-COMP-xxx')
   @ContentHelp('Add one entry per compliance requirement.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ComplianceRequirementEntry> complianceRequirements = [];
 
   // ---------------------------------------------------------------------------
@@ -412,7 +421,7 @@ class EntityFollowUpEntry extends DocSpecsSection {
   @SectionId('TECHN-TECH-LST')
   @SectionIdPattern('TECHN-TECH-xxx')
   @ContentHelp('Add one entry per technical characteristic.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<TechnicalCharacteristicEntry> technicalCharacteristics = [];
 
   // ---------------------------------------------------------------------------
@@ -428,7 +437,7 @@ class EntityFollowUpEntry extends DocSpecsSection {
   @SectionId('MIGME-MIGR-LST')
   @SectionIdPattern('MIGME-MIGR-xxx')
   @ContentHelp('Add one entry per migration mapping.')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<MigrationMappingEntry> migrationMappings = [];
 }
 
@@ -447,6 +456,14 @@ class EntityFollowUpEntry extends DocSpecsSection {
 @SectionId('DAENT')
 @CodeSpecKind([CodeSpecPart.dataAccess])
 class DataEntityEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this data entity — what it represents in the business, '
+    'beyond the identity, attribute and key facets recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -485,7 +502,7 @@ class DataEntityEntry extends DocSpecsSection {
           'Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
@@ -531,7 +548,7 @@ class DataEntityEntry extends DocSpecsSection {
       hint: 'System of record or originating system for migration',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? classification;
 
   // ---------------------------------------------------------------------------
@@ -592,7 +609,7 @@ class DataEntityEntry extends DocSpecsSection {
       hint: 'How long audit records are kept',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? lifecyclePolicy;
 
   // ---------------------------------------------------------------------------
@@ -625,7 +642,7 @@ class DataEntityEntry extends DocSpecsSection {
       hint: 'Relationships that cross bounded context boundaries',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? relationshipSummary;
 
   /// Contains 0+× DataAttribute.
@@ -636,7 +653,7 @@ class DataEntityEntry extends DocSpecsSection {
   @SectionId('DAATT-ATTR-LST')
   @SectionIdPattern('DAATT-ATTR-xxx')
   @ContentHelp('Add one entry per data attribute.')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<DataAttributeEntry> attributes = [];
 
   /// Contains 0+× KeyAttribute.
@@ -650,7 +667,7 @@ class DataEntityEntry extends DocSpecsSection {
   @SectionId('KEATT-KEYA-LST')
   @SectionIdPattern('KEATT-KEYA-xxx')
   @ContentHelp('Add one entry per key attribute.')
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<KeyAttributeEntry> keyAttributes = [];
 
   /// Contains 0+× EntityIndex.
@@ -661,7 +678,7 @@ class DataEntityEntry extends DocSpecsSection {
   @SectionId('ENIDX-INDE-LST')
   @SectionIdPattern('ENIDX-INDE-xxx')
   @ContentHelp('Add one entry per entity index.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<EntityIndexEntry> indexes = [];
 
   /// Contains 0+× EntityConstraint.
@@ -672,7 +689,7 @@ class DataEntityEntry extends DocSpecsSection {
   @SectionId('ENCNS-CONS-LST')
   @SectionIdPattern('ENCNS-CONS-xxx')
   @ContentHelp('Add one entry per entity constraint.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<EntityConstraintEntry> constraints = [];
 }
 
@@ -702,6 +719,14 @@ class DataEntityEntry extends DocSpecsSection {
         'attribute becomes a file-reference column (csra10); display/label '
         'detail feeds CE-TX/CE-ST via DisplayPropertyEntry.')
 class DataAttributeEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this attribute — what it means and how it is used, '
+    'beyond the type, constraint and lineage facets recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -732,7 +757,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Comma-separated examples (e.g., "Draft, Confirmed, Shipped")',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
@@ -760,7 +785,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? dataTypeSpec;
 
   /// Text-kind type options — a promoted `@OneOf` case (csra4).
@@ -790,7 +815,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Character collation for text (e.g., utf8_general_ci)',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? textTypeOptions;
 
   /// Numeric-kind type options — a promoted `@OneOf` case (csra4).
@@ -816,7 +841,7 @@ class DataAttributeEntry extends DocSpecsSection {
     ),
     Field('scale', String, 'Scale', hint: 'Decimal places for numeric types'),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? numericTypeOptions;
 
   /// Temporal-kind type options — a promoted `@OneOf` case (csra4).
@@ -841,7 +866,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'For datetime: UTC | Local | WithOffset',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? temporalTypeOptions;
 
   /// Binary-kind type options — a promoted `@OneOf` case (csra4).
@@ -867,7 +892,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Maximum stored size in bytes',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? binaryTypeOptions;
 
   /// File-reference type options — a promoted `@OneOf` case (csra10).
@@ -941,7 +966,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Maximum accepted file size in bytes',
     ),
   ])
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   DocSpecsSection? fileReferenceOptions;
 
   /// Enumeration-kind type options — a promoted `@OneOf` case.
@@ -984,7 +1009,7 @@ class DataAttributeEntry extends DocSpecsSection {
       refersTo: ['DMENE.enumName'],
     ),
   ])
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   DocSpecsSection? enumerationTypeOptions;
 
   // ---------------------------------------------------------------------------
@@ -997,7 +1022,7 @@ class DataAttributeEntry extends DocSpecsSection {
   @SectionId('DATAA-CONS-LST')
   @SectionIdPattern('DATAA-CONS-xxx')
   @ContentHelp('Add one entry per attribute constraint.')
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<DataAttributeConstraintEntry> constraints = [];
 
   // ---------------------------------------------------------------------------
@@ -1030,7 +1055,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'How derived value is calculated',
     ),
   ])
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   DocSpecsSection? derivation;
 
   // ---------------------------------------------------------------------------
@@ -1069,7 +1094,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Change tracking: None | ValueChanges | FullHistory',
     ),
   ])
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   DocSpecsSection? securityClassification;
 
   // ---------------------------------------------------------------------------
@@ -1108,7 +1133,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Data quality checks (e.g., completeness, accuracy)',
     ),
   ])
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   DocSpecsSection? migrationLineage;
 
   // ---------------------------------------------------------------------------
@@ -1121,7 +1146,7 @@ class DataAttributeEntry extends DocSpecsSection {
   @SectionId('DISPL-DISP-LST')
   @SectionIdPattern('DISPL-DISP-xxx')
   @ContentHelp('Add one entry per display property.')
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   List<DisplayPropertyEntry> displayProperties = [];
 }
 
@@ -1525,6 +1550,14 @@ referential integrity rules, and navigation patterns.
 @CodeSpecKind([CodeSpecPart.dataAccess],
     note: 'Foreign-key / association between tables.')
 class EntityRelationshipEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this relationship — the business fact it records, beyond '
+    'the cardinality and referential-integrity facets below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ---------------------------------------------------------------------------
   // Relationship Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -1556,7 +1589,7 @@ class EntityRelationshipEntry extends DocSpecsSection {
       hint: 'ForeignKey | JunctionTable | Embedded | Reference',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
@@ -1569,7 +1602,7 @@ class EntityRelationshipEntry extends DocSpecsSection {
   @SectionId('PARTI-PART-LST')
   @SectionIdPattern('PARTI-PART-xxx')
   @ContentHelp('Add one entry per participating entity.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ParticipantEntry> participants = [];
 
   // ---------------------------------------------------------------------------
@@ -1614,7 +1647,7 @@ class EntityRelationshipEntry extends DocSpecsSection {
       hint: 'Maximum number of related target instances',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? cardinality;
 
   // ---------------------------------------------------------------------------
@@ -1659,7 +1692,7 @@ class EntityRelationshipEntry extends DocSpecsSection {
       hint: 'How orphaned records are handled: Prevent | Allow | AssignDefault',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? referentialIntegrity;
 
   // ---------------------------------------------------------------------------
@@ -1698,7 +1731,7 @@ class EntityRelationshipEntry extends DocSpecsSection {
       hint: 'Name of the relationship from the other side',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? navigation;
 
   // ---------------------------------------------------------------------------
@@ -1714,17 +1747,17 @@ class EntityRelationshipEntry extends DocSpecsSection {
   @SectionId('RELAT-RELA-LST')
   @SectionIdPattern('RELAT-RELA-xxx')
   @ContentHelp('Add one entry per relationship attribute.')
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<RelationshipAttributeEntry> relationshipAttributes = [];
 
   @SectionId('ENRLE-SOUR-REF')
   @Reference('sourceEntityName')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   DocSpecsSection? sourceEntityRef;
 
   @SectionId('ENRLE-TARG-REF')
   @Reference('targetEntityName')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   DocSpecsSection? targetEntityRef;
 }
 
@@ -1742,6 +1775,15 @@ class EntityRelationshipEntry extends DocSpecsSection {
     note: 'Data classification drives access restrictions → authorization; '
         'retention/handling policy is governance (non-codespecs).')
 class DataClassification extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the classification framework before the individual levels '
+    'below. Cover who classifies data and when a classification is '
+    'reviewed.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
   // ---------------------------------------------------------------------------
@@ -1773,7 +1815,7 @@ class DataClassification extends DocSpecsSection {
           'How often classifications are reviewed: Annually | Quarterly | OnChange',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? overview;
 
   /// Contains 0+× DataClassificationEntry.
@@ -1787,7 +1829,7 @@ class DataClassification extends DocSpecsSection {
   @SectionId('DCLSE-ITEM-LST')
   @SectionIdPattern('DCLSE-ITEM-xxx')
   @ContentHelp('Add one entry per data classification level.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<DataClassificationEntry> items = [];
 }
 
@@ -1804,6 +1846,14 @@ class DataClassification extends DocSpecsSection {
 @SectionId('DCLSE')
 @CodeSpecKind([CodeSpecPart.authorization])
 class DataClassificationEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this classification level — what kind of data belongs in '
+    'it, beyond the storage, access and retention rules below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ---------------------------------------------------------------------------
   // Classification Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -1836,7 +1886,7 @@ class DataClassificationEntry extends DocSpecsSection {
       hint: 'Examples of data at this classification',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
@@ -1876,7 +1926,7 @@ class DataClassificationEntry extends DocSpecsSection {
       hint: 'Special backup considerations',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? storageTransmission;
 
   // ---------------------------------------------------------------------------
@@ -1917,7 +1967,7 @@ class DataClassificationEntry extends DocSpecsSection {
           'How access is granted: SelfService | ManagerApproval | SecurityApproval',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? accessControl;
 
   // ---------------------------------------------------------------------------
@@ -1956,7 +2006,7 @@ class DataClassificationEntry extends DocSpecsSection {
       hint: 'Who approves disposal: Automatic | DataOwner | Legal',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? retentionDisposal;
 
   // ---------------------------------------------------------------------------
@@ -1989,7 +2039,7 @@ class DataClassificationEntry extends DocSpecsSection {
       hint: 'Applicable rights: Access | Rectification | Erasure | Portability',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? compliance;
 
   /// Contains 0+× HandlingRequirement.
@@ -2000,7 +2050,7 @@ class DataClassificationEntry extends DocSpecsSection {
   @SectionId('HNDRE-HAND-LST')
   @SectionIdPattern('HNDRE-HAND-xxx')
   @ContentHelp('Add one entry per handling requirement.')
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<HandlingRequirementEntry> handlingRequirements = [];
 
   /// Contains 0+× AccessRestriction.
@@ -2011,7 +2061,7 @@ class DataClassificationEntry extends DocSpecsSection {
   @SectionId('ACRSE-ACCE-LST')
   @SectionIdPattern('ACRSE-ACCE-xxx')
   @ContentHelp('Add one entry per access restriction.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<AccessRestrictionEntry> accessRestrictions = [];
 }
 
@@ -2198,6 +2248,14 @@ Domain-Driven Design patterns for rich domain modeling.
 @SectionId('BJOEN')
 @CodeSpecKind([CodeSpecPart.viewState])
 class BusinessObjectEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this business object — its role in the domain, beyond '
+    'the attribute, state, rule and operation facets recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ---------------------------------------------------------------------------
   // Core Identity (6 fields)
   // ---------------------------------------------------------------------------
@@ -2236,7 +2294,7 @@ class BusinessObjectEntry extends DocSpecsSection {
           'DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
@@ -2275,7 +2333,7 @@ class BusinessObjectEntry extends DocSpecsSection {
       hint: 'Key related business objects',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? domainContext;
 
   // ---------------------------------------------------------------------------
@@ -2315,7 +2373,7 @@ class BusinessObjectEntry extends DocSpecsSection {
       hint: 'System or process responsible for lifecycle management',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? lifecycleSummary;
 
   // ---------------------------------------------------------------------------
@@ -2328,7 +2386,7 @@ class BusinessObjectEntry extends DocSpecsSection {
   @SectionId('BEHAV-BEHA-LST')
   @SectionIdPattern('BEHAV-BEHA-xxx')
   @ContentHelp('Add one entry per behavior rule.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<BehaviorRuleEntry> behaviorRules = [];
 
   // ---------------------------------------------------------------------------
@@ -2368,7 +2426,7 @@ class BusinessObjectEntry extends DocSpecsSection {
           'What changes are tracked: None | StateChanges | AllChanges | FullHistory',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? ownership;
 
   // ---------------------------------------------------------------------------
@@ -2384,7 +2442,7 @@ class BusinessObjectEntry extends DocSpecsSection {
   @SectionId('INTEG-INTE-LST')
   @SectionIdPattern('INTEG-INTE-xxx')
   @ContentHelp('Add one entry per integration point.')
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<IntegrationPointEntry> integrationPoints = [];
 
   /// Contains 0+× BusinessObjectAttribute.
@@ -2395,7 +2453,7 @@ class BusinessObjectEntry extends DocSpecsSection {
   @SectionId('BIOBAT-ATTR-LST')
   @SectionIdPattern('BIOBAT-ATTR-xxx')
   @ContentHelp('Add one entry per business object attribute.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<BusinessObjectAttributeEntry> attributes = [];
 
   /// Contains 0+× ObjectState.
@@ -2405,7 +2463,7 @@ class BusinessObjectEntry extends DocSpecsSection {
   @SectionId('OBST-KEYS-LST')
   @SectionIdPattern('OBST-KEYS-xxx')
   @ContentHelp('Add one entry per object state.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<ObjectStateEntry> keyStates = [];
 
   /// Contains 0+× BusinessRuleReference.
@@ -2415,7 +2473,7 @@ class BusinessObjectEntry extends DocSpecsSection {
   @SectionId('BIRURE-KEYB-LST')
   @SectionIdPattern('BIRURE-KEYB-xxx')
   @ContentHelp('Add one entry per business rule reference.')
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<BusinessRuleReferenceEntry> keyBusinessRules = [];
 
   /// Contains 0+× LifecycleTransition.
@@ -2425,7 +2483,7 @@ class BusinessObjectEntry extends DocSpecsSection {
   @SectionId('LFTRS-LIFE-LST')
   @SectionIdPattern('LFTRS-LIFE-xxx')
   @ContentHelp('Add one entry per lifecycle transition.')
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   List<LifecycleTransitionEntry> lifecycleTransitions = [];
 
   /// Contains 0+× ObjectOperation.
@@ -2436,7 +2494,7 @@ class BusinessObjectEntry extends DocSpecsSection {
   @SectionId('OBOP-OPER-LST')
   @SectionIdPattern('OBOP-OPER-xxx')
   @ContentHelp('Add one entry per object operation.')
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   List<ObjectOperationEntry> operations = [];
 
   /// Contains 0+× ObjectInvariant.
@@ -2447,7 +2505,7 @@ class BusinessObjectEntry extends DocSpecsSection {
   @SectionId('OBINV-INVA-LST')
   @SectionIdPattern('OBINV-INVA-xxx')
   @ContentHelp('Add one entry per object invariant.')
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   List<ObjectInvariantEntry> invariants = [];
 }
 
@@ -3043,6 +3101,15 @@ class ObjectInvariantEntry extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.serviceUnit],
     note: 'Business function decomposition → logical service unit (codespecs_mapping.md §5.17).')
 class FunctionModel extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the function model before the decomposition, matrix and rule '
+    'lists below. Cover how deep the decomposition goes and how functions '
+    'are mapped onto data.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ---------------------------------------------------------------------------
   // Function Decomposition Overview (4 fields)
   // ---------------------------------------------------------------------------
@@ -3075,7 +3142,7 @@ class FunctionModel extends DocSpecsSection {
           'Criteria for breaking down: BusinessCapability | ProcessStep | OrganizationalUnit',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? decompositionOverview;
 
   // ---------------------------------------------------------------------------
@@ -3108,7 +3175,7 @@ class FunctionModel extends DocSpecsSection {
       hint: 'Which functions own which data',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? matrixOverview;
 
   /// 7.3.1. Function Decomposition — contains 0+× Function.
@@ -3119,7 +3186,7 @@ class FunctionModel extends DocSpecsSection {
   @SectionId('FUNCT-FUNC-LST')
   @SectionIdPattern('FUNCT-FUNC-xxx')
   @ContentHelp('Add one entry per function.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<FunctionEntry> functions = [];
 
   /// 7.3.2. Function-to-Data Matrix Entries — contains 0+× MatrixEntry.
@@ -3130,7 +3197,7 @@ class FunctionModel extends DocSpecsSection {
   @SectionId('FNDMX-MATR-LST')
   @SectionIdPattern('FNDMX-MATR-xxx')
   @ContentHelp('Add one entry per function/data matrix mapping.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<FunctionDataMatrixEntry> matrixEntries = [];
 
   /// 7.3.3. Business Rules — contains 1+× Business Rule.
@@ -3142,7 +3209,7 @@ class FunctionModel extends DocSpecsSection {
   @SectionIdPattern('BIRU-BUSI-xxx')
   @Min(1)
   @ContentHelp('Add one entry per business rule.')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<BusinessRuleEntry> businessRules = [];
 }
 
@@ -3360,6 +3427,14 @@ class FunctionDataMatrixEntry extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.validation],
     note: 'Business rule → validation (field/form rule).')
 class BusinessRuleEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Narrative for this business rule — the intent behind it, beyond the '
+    'logic, enforcement and governance facets recorded below.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ---------------------------------------------------------------------------
   // Rule Identity (5 fields)
   // ---------------------------------------------------------------------------
@@ -3384,7 +3459,7 @@ class BusinessRuleEntry extends DocSpecsSection {
       hint: 'Natural language statement from business perspective',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? identity;
 
   // ---------------------------------------------------------------------------
@@ -3425,7 +3500,7 @@ class BusinessRuleEntry extends DocSpecsSection {
           'Where rule originates: Regulation | Policy | Contract | BestPractice',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? classification;
 
   // ---------------------------------------------------------------------------
@@ -3464,7 +3539,7 @@ class BusinessRuleEntry extends DocSpecsSection {
       hint: 'Configurable values in the rule',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? ruleLogic;
 
   // ---------------------------------------------------------------------------
@@ -3506,7 +3581,7 @@ class BusinessRuleEntry extends DocSpecsSection {
           'How rule can be tested: UnitTestable | IntegrationRequired | ManualOnly',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? implementation;
 
   // ---------------------------------------------------------------------------
@@ -3539,7 +3614,7 @@ class BusinessRuleEntry extends DocSpecsSection {
       hint: 'How exceptions are escalated',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? exceptionHandling;
 
   // ---------------------------------------------------------------------------
@@ -3572,7 +3647,7 @@ class BusinessRuleEntry extends DocSpecsSection {
       hint: 'How often rule is reviewed: Annually | OnChange | Never',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? governance;
 
   /// Contains 0+× AffectedObject.
@@ -3582,7 +3657,7 @@ class BusinessRuleEntry extends DocSpecsSection {
   @SectionId('AFOB-AFFE-LST')
   @SectionIdPattern('AFOB-AFFE-xxx')
   @ContentHelp('Add one entry per affected object.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<AffectedObjectEntry> affectedObjects = [];
 
   /// Contains 0+× AffectedFunction.
@@ -3593,7 +3668,7 @@ class BusinessRuleEntry extends DocSpecsSection {
   @SectionId('AFFN-AFFE-LST')
   @SectionIdPattern('AFFN-AFFE-xxx')
   @ContentHelp('Add one entry per affected function.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<AffectedFunctionEntry> affectedFunctions = [];
 
   /// Contains 0+× RuleExample.
@@ -3603,7 +3678,7 @@ class BusinessRuleEntry extends DocSpecsSection {
   @SectionId('RULEXM-EXAM-LST')
   @SectionIdPattern('RULEXM-EXAM-xxx')
   @ContentHelp('Add one entry per rule example.')
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<RuleExampleEntry> examples = [];
 }
 

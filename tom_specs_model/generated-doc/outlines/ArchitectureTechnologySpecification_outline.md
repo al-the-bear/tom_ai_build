@@ -466,7 +466,7 @@
             selfService
       - maintenanceProcedures: `String`[]
     - `Monitoring`
-      - monitoringOverview, overviewNarrative @text
+      - content, monitoringOverview, overviewNarrative @text
       - healthChecksAndDiagnostics: `HealthChecksAndDiagnosticsSection`
         - content, overview @text
         - healthEndpoints: `HealthCheckEndpoints`
@@ -482,7 +482,7 @@
           - content @Form(databaseHealthCheck, databaseLatencyThreshold, databaseConnectionPoolHealth), cache, queue,
             external, thresholds
       - `AlertingConfiguration`
-        - alertingOverview, overviewNarrative @text
+        - content, alertingOverview, overviewNarrative @text
         - notificationChannels: `AlertNotificationChannels`
           - content @Form(pagingService, slackIntegration, teamsIntegration), delivery, routing, formatting
         - alertRules: `AlertRuleEntry`[]
@@ -495,7 +495,7 @@
           - content @Form(rotationSchedule, scheduleTimezone, primaryOnCallDuties, secondaryOnCallDuties), coverage,
             operations
       - `MetricsAndObservability`
-        - metricsOverview, overviewNarrative @text
+        - content, metricsOverview, overviewNarrative @text
         - applicationMetrics: `ApplicationMetricsSpec`
           - content @Form(requestRate, errorRate, requestDuration), resources, application, labels
         - infrastructureMetrics: `InfrastructureMetricsSpec`
@@ -507,13 +507,13 @@
         - customMetrics: `CustomMetricEntry`[]
           - content @Form(metricType, metricDescription, unit, labels, source, alertOnMetric, dashboardInclusion, notes)
       - dashboards: `MonitoringDashboards`
-        - dashboardOverview, overviewNarrative @text
+        - content, dashboardOverview, overviewNarrative @text
         - dashboards: `DashboardEntry`[]
           - content @Form(dashboardCategory, targetAudience), configuration, operations
         - dashboardTemplates: `DashboardTemplates`[]
           - content @Form(serviceTemplateLayout, serviceTemplateVariables, infraTemplateLayout, k8sTemplateLayout, databaseTemplateLayout, customTemplateProcess, templateVersioning, notes)
       - `SlaAndSloMonitoring`
-        - slaOverview, overviewNarrative @text
+        - content, slaOverview, overviewNarrative @text
         - slis: `ServiceLevelIndicators`
           - content @Form(availabilitySli, availabilityExclusions), performance, quality, measurement
         - slos: `SloEntry`[]
@@ -641,8 +641,8 @@
         - items: `ContingencyPlanEntry`[]
           - content @Form(triggerCondition), references, actions, responsibility, communication, testing
   - `TechnicalEnvironment`
-    - technicalOverviewContent, governance, standards, security, existingInfrastructure @text, networkTopology @text,
-      standardsOverview @text, integrationOverview @text
+    - content, technicalOverviewContent, governance, standards, security, existingInfrastructure @text,
+      networkTopology @text, standardsOverview @text, integrationOverview @text
     - network: `TechnicalEnvironmentNetwork`
       - content @Form(networkArchitecture, firewallPolicies, vpnRequirements, loadBalancingStandards, cdnStrategy),
         disasterRecovery @text
@@ -654,4 +654,4 @@
     - integrationConstraints: `IntegrationConstraintEntry`[]
       - content @Form(constraintDescription), details, scope, mitigation, compliance
   - `TranslationRequirements`
-    - translationRequirementsContent, rtl, formatting, variants, technical, requirementsNarrative @text
+    - content, translationRequirementsContent, rtl, formatting, variants, technical, requirementsNarrative @text

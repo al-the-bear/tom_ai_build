@@ -4,57 +4,57 @@
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
   - `ProcessVision`
-    - overview, visionNarrative @text, successCriteria
+    - content, overview, visionNarrative @text, successCriteria
     - expectedImprovements: `ExpectedImprovements`[]
       - content @Form(efficiencyGains, qualityImprovements, costReduction, automationRate, customerExperience, employeeExperience, complianceImprovement, visibilityGains, flexibilityGains, integrationBenefits)
   - designPrinciples: `ProcessDesignPrinciples`
-    - overview
+    - content, overview
     - principles: `ProcessDesignPrincipleEntry`[]
       - content @Form(category, statement, rationale, implications, examples, tradeoffs, priority, applicability)
   - `ProcessCatalog`
-    - overview, classification
+    - content, overview, classification
     - [1,] processes: `BusinessProcessEntry`[]
-      - processFlowPreview @mermaid-flow
+      - content, processFlowPreview @mermaid-flow
       - identification: `ProcessIdentification`
         - content @Form(processLevel), classification, definition, governance
       - characteristics: `ProcessCharacteristics`
         - content @Form(complexity, frequency, averageDuration, variability), operations, business
       - triggers: `ProcessTriggers`
-        - overview
+        - content, overview
         - triggers: `ProcessTriggerEntry`[]
           - content @Form(triggerType, triggerSource, triggerCondition, triggerData, priority, validationRules, frequency)
         - endEvents: `ProcessEndEventEntry`[]
           - content @Form(endEventType, outcome, probability, postCondition, notificationAction, followOnAction)
       - inputsOutputs: `ProcessInputsOutputs`
-        - overview
+        - content, overview
         - inputs: `ProcessInputEntry`[]
           - content @Form(inputType, source, format, required, validationRules, defaultValue, exampleValue, securityClassification)
         - outputs: `ProcessOutputEntry`[]
           - content @Form(outputType, destination, format, qualityStandard, timingRequirement, retentionPeriod, securityClassification, dependentProcesses)
       - roles: `ProcessRoles`
-        - overview
+        - content, overview
         - roles: `ProcessRoleEntry`[]
           - content @Form(raciType, responsibilities), execution, coordination
       - performance: `ProcessPerformance`
-        - overview
+        - content, overview
         - kpis: `ProcessKpiEntry`[]
           - content @Form(category, definition), measurement, operations
         - slas: `ProcessSlaEntry`[]
           - content @Form(serviceDescription, targetLevel, measurementMethod, reportingPeriod, penaltyClause, escalationProcedure, exclusions, reviewFrequency)
       - controls: `ProcessControls`
-        - overview
+        - content, overview
         - controls: `ProcessControlEntry`[]
           - content @Form(controlType, controlCategory), operation, verification
       - technology: `ProcessTechnology`
         - content @Form(primarySystem, supportingSystems, integrations, automationTools), information, experience
       - exceptions: `ProcessExceptions`
-        - overview
+        - content, overview
         - exceptions: `ProcessExceptionEntry`[]
           - content @Form(exceptionType, triggerCondition), assessment, response
   - `ProcessOverviewDiagram`
-    - overview, landscapeDiagram @mermaid-flow, hierarchyDiagram @mermaid-flow, valueChainDiagram @mermaid-flow
+    - content, overview, landscapeDiagram @mermaid-flow, hierarchyDiagram @mermaid-flow, valueChainDiagram @mermaid-flow
   - improvementSummary: `ProcessImprovementSummary`
-    - overview, businessCase
+    - content, overview, businessCase
     - improvements: `ProcessImprovementEntry`[]
       - content @Form(category, currentState), benefits, delivery
   - `ProcessRelationships`

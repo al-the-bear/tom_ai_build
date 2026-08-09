@@ -28551,6 +28551,15 @@ class SystemDiagnosticTools extends DocSpecsSection {
 )
 @SectionId('MONITO')
 class Monitoring extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the monitoring approach before the health-check, alerting, '
+    'metrics, dashboard and SLA subsections below. Cover what is monitored, '
+    'who watches it, and how a finding reaches an operator.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Monitoring Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -28620,7 +28629,7 @@ class Monitoring extends DocSpecsSection {
       hint: 'Monthly monitoring cost budget',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? monitoringOverview;
 
   /// Monitoring strategy narrative.
@@ -28628,28 +28637,28 @@ class Monitoring extends DocSpecsSection {
     'Executive summary of monitoring philosophy, tool '
     'selection rationale, and observability goals.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overviewNarrative = TextSection();
 
   /// 8.7.2.1. Health Checks and Diagnostics.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   HealthChecksAndDiagnosticsSection healthChecksAndDiagnostics =
       HealthChecksAndDiagnosticsSection();
 
   /// 8.7.2.2. Alerting Configuration.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   AlertingConfiguration alertingConfiguration = AlertingConfiguration();
 
   /// 8.7.2.3. Metrics and Observability.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   MetricsAndObservability metricsAndObservability = MetricsAndObservability();
 
   /// 8.7.2.4. Monitoring Dashboards.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   MonitoringDashboards dashboards = MonitoringDashboards();
 
   /// 8.7.2.5. SLA and SLO Monitoring.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   SlaAndSloMonitoring slaAndSloMonitoring = SlaAndSloMonitoring();
 }
 
@@ -28668,6 +28677,15 @@ class Monitoring extends DocSpecsSection {
 ], 'The full alerting configuration covering rules, channels, and escalation.')
 @SectionId('ALCO')
 class AlertingConfiguration extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the alerting approach before the channel, rule, escalation '
+    'and on-call subsections below. Cover what warrants an alert at all, '
+    'and the noise-versus-coverage balance the rules aim for.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Alerting Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -28731,15 +28749,15 @@ class AlertingConfiguration extends DocSpecsSection {
       hint: 'Removing outdated alert rules',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? alertingOverview;
 
   /// Alerting overview narrative.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overviewNarrative = TextSection();
 
   /// Notification channels.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   AlertNotificationChannels notificationChannels = AlertNotificationChannels();
 
   /// Alert rules catalog.
@@ -28749,11 +28767,11 @@ class AlertingConfiguration extends DocSpecsSection {
   @SectionId('ALERUL-ALER-LST')
   @SectionIdPattern('ALERUL-ALER-xxx')
   @ContentHelp('Add one entry per alert rule.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<AlertRuleEntry> alertRules = [];
 
   /// Escalation policies.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   AlertEscalationPolicies escalationPolicies = AlertEscalationPolicies();
 
   /// Alert suppression and maintenance windows.
@@ -28763,11 +28781,11 @@ class AlertingConfiguration extends DocSpecsSection {
   @SectionId('ALSURU-SUPP-LST')
   @SectionIdPattern('ALSURU-SUPP-xxx')
   @ContentHelp('Add one entry per suppression or maintenance window.')
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<AlertSuppressionRules> suppressionRules = [];
 
   /// On-call schedule.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   OnCallScheduleConfig onCallSchedule = OnCallScheduleConfig();
 }
 
@@ -29349,6 +29367,16 @@ class OnCallScheduleConfig extends DocSpecsSection {
 ], 'The overall metrics, tracing, and observability strategy for the system.')
 @SectionId('MEANOB')
 class MetricsAndObservability extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the observability approach before the application, '
+    'infrastructure, business and tracing subsections below. Cover which '
+    'questions the telemetry has to answer, and the retention and cost '
+    'trade-off behind it.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Metrics Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -29413,27 +29441,27 @@ class MetricsAndObservability extends DocSpecsSection {
       hint: 'Trace sampling percentage',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? metricsOverview;
 
   /// Observability overview narrative.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overviewNarrative = TextSection();
 
   /// Application metrics specification.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   ApplicationMetricsSpec applicationMetrics = ApplicationMetricsSpec();
 
   /// Infrastructure metrics specification.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   InfrastructureMetricsSpec infrastructureMetrics = InfrastructureMetricsSpec();
 
   /// Business metrics specification.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   BusinessMetricsSpec businessMetrics = BusinessMetricsSpec();
 
   /// Distributed tracing specification.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DistributedTracingSpec distributedTracing = DistributedTracingSpec();
 
   /// Custom metrics catalog.
@@ -29443,7 +29471,7 @@ class MetricsAndObservability extends DocSpecsSection {
   @SectionId('CUSMET-CUST-LST')
   @SectionIdPattern('CUSMET-CUST-xxx')
   @ContentHelp('Add one entry per custom metric.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<CustomMetricEntry> customMetrics = [];
 }
 
@@ -30041,6 +30069,15 @@ class CustomMetricEntry extends DocSpecsSection {
 )
 @SectionId('MODA')
 class MonitoringDashboards extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the dashboard landscape before the individual dashboards and '
+    'templates below. Cover who each dashboard is for and what decision it '
+    'supports.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('MODA-DASH')
   @Form([
     // Platform
@@ -30107,11 +30144,11 @@ class MonitoringDashboards extends DocSpecsSection {
       hint: 'Infra-level dashboards',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? dashboardOverview;
 
   /// Dashboard overview narrative.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overviewNarrative = TextSection();
 
   /// Dashboard catalog.
@@ -30121,7 +30158,7 @@ class MonitoringDashboards extends DocSpecsSection {
   @SectionId('DASENT-DASH-LST')
   @SectionIdPattern('DASENT-DASH-xxx')
   @ContentHelp('Add one entry per dashboard.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<DashboardEntry> dashboards = [];
 
   /// Dashboard template specifications.
@@ -30131,7 +30168,7 @@ class MonitoringDashboards extends DocSpecsSection {
   @SectionId('DATE-DASH-LST')
   @SectionIdPattern('DATE-DASH-xxx')
   @ContentHelp('Add one entry per dashboard template.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<DashboardTemplates> dashboardTemplates = [];
 }
 
@@ -30311,6 +30348,15 @@ class DashboardTemplates extends DocSpecsSection {
 )
 @SectionId('SASM')
 class SlaAndSloMonitoring extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the service-level regime before the SLI, SLO and '
+    'error-budget subsections below. Cover which agreements are contractual '
+    'and which are internal objectives.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('SASM-SLAO')
   @Form([
     // SLI/SLO framework
@@ -30366,15 +30412,15 @@ class SlaAndSloMonitoring extends DocSpecsSection {
       hint: 'Maintenance windows, force majeure',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? slaOverview;
 
   /// SLA/SLO overview narrative.
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overviewNarrative = TextSection();
 
   /// Service Level Indicators.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   ServiceLevelIndicators slis = ServiceLevelIndicators();
 
   /// SLO catalog.
@@ -30384,11 +30430,11 @@ class SlaAndSloMonitoring extends DocSpecsSection {
   @SectionId('SE-SLOS-LST')
   @SectionIdPattern('SE-SLOS-xxx')
   @ContentHelp('Add one entry per SLO.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<SloEntry> slos = [];
 
   /// Error budget tracking.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   ErrorBudgetTracking errorBudget = ErrorBudgetTracking();
 }
 

@@ -29,6 +29,15 @@ import 'delivery_scope_and_acceptance.dart';
 @Comment('Seeds → QAP')
 @MapsTo(D10QualityAcceptancePlan)
 class SystemQualityGoals extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the quality goals before the governance, per-characteristic '
+    'and acceptance subsections below. Cover which quality attributes '
+    'matter most for this system, and why.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('SYQG-GOVE')
   @Form([
     Field(
@@ -50,7 +59,7 @@ class SystemQualityGoals extends DocSpecsSection {
       hint: 'Role accountable for quality outcomes',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? governanceContent;
 
   /// Governance board and escalation details.
@@ -78,7 +87,7 @@ class SystemQualityGoals extends DocSpecsSection {
       hint: 'How quality issues escalate to leadership',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? governance;
 
   /// Baseline and target settings.
@@ -115,7 +124,7 @@ class SystemQualityGoals extends DocSpecsSection {
       hint: 'Low (zero defects), medium, high tolerance',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? baseline;
 
   /// Measurement and reporting approach.
@@ -155,7 +164,7 @@ class SystemQualityGoals extends DocSpecsSection {
       hint: 'How quality trends are tracked over time',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? measurement;
 
   /// Quality resources and enablement.
@@ -192,7 +201,7 @@ class SystemQualityGoals extends DocSpecsSection {
       hint: 'Training for team on quality practices',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? resources;
 
   /// Executive summary of quality goals and approach.
@@ -200,7 +209,7 @@ class SystemQualityGoals extends DocSpecsSection {
     'High-level overview of quality objectives, expected quality '
     'level, key quality risks, and approach summary.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection executiveSummary = TextSection();
 
   /// Quality vision and principles.
@@ -208,7 +217,7 @@ class SystemQualityGoals extends DocSpecsSection {
     'Quality vision statement, core principles guiding '
     'quality decisions, and non-negotiable quality standards.',
   )
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   TextSection qualityVision = TextSection();
 
   /// Quality assurance strategy.
@@ -216,7 +225,7 @@ class SystemQualityGoals extends DocSpecsSection {
     'Overall QA strategy: shift-left testing, continuous testing, '
     'test pyramid approach, verification vs validation approach.',
   )
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   TextSection qaStrategy = TextSection();
 
   /// Quality attribute interdependencies.
@@ -229,16 +238,16 @@ class SystemQualityGoals extends DocSpecsSection {
   @SectionId('SYQG-ATTR-LST')
   @SectionIdPattern('SYQG-ATTR-xxx')
   @ContentHelp('Add one entry per quality attribute interdependency.')
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<DocSpecsSection> attributeInterdependencies = [];
 
   /// Quality attribute priority radar.
   @ContentHelp('Visual showing relative importance of quality attributes.')
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   DiagramSection qualityRadar = DiagramSection();
 
   /// 11.1. Quality Framework.
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   QualityFramework framework = QualityFramework();
 
   // 11.2–11.9: the eight ISO/IEC 25010:2023 product-quality characteristics.
@@ -246,58 +255,58 @@ class SystemQualityGoals extends DocSpecsSection {
   // in L34C-8 and their attribute leaves re-homed under these characteristics.
 
   /// 11.2. Functional Suitability (ISO/IEC 25010:2023).
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   FunctionalSuitabilityCharacteristic functionalSuitability =
       FunctionalSuitabilityCharacteristic();
 
   /// 11.3. Performance Efficiency (ISO/IEC 25010:2023).
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   PerformanceEfficiencyCharacteristic performanceEfficiency =
       PerformanceEfficiencyCharacteristic();
 
   /// 11.4. Compatibility (ISO/IEC 25010:2023).
-  @SerializationOrder(13)
+  @SerializationOrder(14)
   CompatibilityCharacteristic compatibility = CompatibilityCharacteristic();
 
   /// 11.5. Interaction Capability (ISO/IEC 25010:2023; formerly Usability).
-  @SerializationOrder(14)
+  @SerializationOrder(15)
   InteractionCapabilityCharacteristic interactionCapability =
       InteractionCapabilityCharacteristic();
 
   /// 11.6. Reliability (ISO/IEC 25010:2023).
-  @SerializationOrder(15)
+  @SerializationOrder(16)
   ReliabilityCharacteristic reliability = ReliabilityCharacteristic();
 
   /// 11.7. Security (ISO/IEC 25010:2023).
-  @SerializationOrder(16)
+  @SerializationOrder(17)
   SecurityCharacteristic security = SecurityCharacteristic();
 
   /// 11.8. Maintainability (ISO/IEC 25010:2023).
-  @SerializationOrder(17)
+  @SerializationOrder(18)
   MaintainabilityCharacteristic maintainability =
       MaintainabilityCharacteristic();
 
   /// 11.9. Flexibility (ISO/IEC 25010:2023; absorbs the former Portability).
-  @SerializationOrder(18)
+  @SerializationOrder(19)
   FlexibilityCharacteristic flexibility = FlexibilityCharacteristic();
 
   /// 11.10. Documentation Quality (ISO/IEC 26514 documentation-deliverable
   /// annex — has no ISO/IEC 25010:2023 product-quality home; retained as a
   /// documentation-quality annex per L34C-8).
-  @SerializationOrder(19)
+  @SerializationOrder(20)
   DocumentationQualityCriteria documentationQuality =
       DocumentationQualityCriteria();
 
   /// 11.6. Quality Prioritization.
-  @SerializationOrder(20)
+  @SerializationOrder(21)
   QualityPrioritization prioritization = QualityPrioritization();
 
   /// 11.7. Acceptance Criteria Summary.
-  @SerializationOrder(21)
+  @SerializationOrder(22)
   AcceptanceCriteriaSummary acceptanceCriteria = AcceptanceCriteriaSummary();
 
   /// 11.8. Test Strategy..
-  @SerializationOrder(22)
+  @SerializationOrder(23)
   TestStrategy testStrategy = TestStrategy();
 }
 
@@ -314,6 +323,15 @@ class SystemQualityGoals extends DocSpecsSection {
 @SectionId('QLFWK')
 @DetailedIn(D10QualityAcceptancePlan)
 class QualityFramework extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the quality framework before the objective, category and '
+    'verification subsections below. Cover how quality work is organized '
+    'and governed.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Framework Configuration
   // ─────────────────────────────────────────────────────────────────────────
@@ -339,7 +357,7 @@ class QualityFramework extends DocSpecsSection {
       hint: 'How standard model is adapted for this project',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? frameworkContent;
 
   /// Quality objective structure and alignment.
@@ -367,7 +385,7 @@ class QualityFramework extends DocSpecsSection {
       hint: 'All objectives SMART, key objectives only',
     ),
   ])
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   DocSpecsSection? objectives;
 
   /// Trade-off priorities and decision authority.
@@ -404,7 +422,7 @@ class QualityFramework extends DocSpecsSection {
       hint: 'Who can authorize quality trade-offs',
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? tradeOffs;
 
   /// Verification and defect handling approach.
@@ -442,7 +460,7 @@ class QualityFramework extends DocSpecsSection {
       hint: 'P1-P5, urgent/high/medium/low',
     ),
   ])
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocSpecsSection? verification;
 
   /// 11.1.1. Quality Objectives Overview.
@@ -450,7 +468,7 @@ class QualityFramework extends DocSpecsSection {
     'Overall quality objectives: expected quality level, '
     'how quality will be measured, acceptable trade-offs.',
   )
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   TextSection qualityObjectivesOverview = TextSection();
 
   /// Quality objectives breakdown by category.
@@ -458,7 +476,7 @@ class QualityFramework extends DocSpecsSection {
     'Structured breakdown of objectives for each quality '
     'category with measurable targets.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection objectivesBreakdown = TextSection();
 
   /// 11.1.2. Quality Categories — contains 0+× QualityCategory.
@@ -471,7 +489,7 @@ class QualityFramework extends DocSpecsSection {
   @SectionId('QCATE-QUAL-LST')
   @SectionIdPattern('QCATE-QUAL-xxx')
   @ContentHelp('Add one entry per quality category.')
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   List<QualityCategoryEntry> qualityCategories = [];
 
   /// Quality dependencies map.
@@ -484,7 +502,7 @@ class QualityFramework extends DocSpecsSection {
   @SectionId('QLFWK-CATE-LST')
   @SectionIdPattern('QLFWK-CATE-xxx')
   @ContentHelp('Add one entry per category dependency.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<DocSpecsSection> categoryDependencies = [];
 }
 
@@ -671,6 +689,15 @@ class QualityCategoryEntry extends DocSpecsSection {
 @SectionId('FNSU')
 @DetailedIn(D10QualityAcceptancePlan)
 class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce functional suitability for this system before the '
+    'completeness and correctness subsections below. Cover what "the right '
+    'functions, done correctly" means here.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Functional Suitability Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -695,7 +722,7 @@ class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
       hint: 'Acceptable defect density, accuracy thresholds',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? functionalSuitabilityContent;
 
   /// Functional suitability overview.
@@ -703,15 +730,15 @@ class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
     'Executive summary of functional-suitability goals, '
     'coverage targets, and correctness metrics.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// 11.2.1. Functional Completeness.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   FunctionalCompleteness functionalCompleteness = FunctionalCompleteness();
 
   /// 11.2.2. Correctness.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   Correctness correctness = Correctness();
 }
 
@@ -730,6 +757,14 @@ class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
 @SectionId('INCP')
 @DetailedIn(D10QualityAcceptancePlan)
 class InteractionCapabilityCharacteristic extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce interaction capability for this system before the usability '
+    'subsection below. Cover the user groups whose experience sets the bar.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Interaction Capability Overview (migrated from the former user bucket)
   // ─────────────────────────────────────────────────────────────────────────
@@ -772,7 +807,7 @@ class InteractionCapabilityCharacteristic extends DocSpecsSection {
       hint: 'WCAG 2.1 AA, AAA, Section 508',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? interactionCapabilityContent;
 
   /// Interaction capability overview.
@@ -780,11 +815,11 @@ class InteractionCapabilityCharacteristic extends DocSpecsSection {
     'Executive summary of interaction-capability goals, '
     'target user experience, and key user-quality metrics.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// 11.5.1. Usability.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   Usability usability = Usability();
 }
 
@@ -1198,6 +1233,15 @@ class Correctness extends DocSpecsSection {
 @SectionId('PEEF')
 @DetailedIn(D10QualityAcceptancePlan)
 class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce performance efficiency for this system before the efficiency '
+    'subsection below. Cover the load profile the targets are stated '
+    'against.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Performance Efficiency Overview (migrated from the former technical bucket)
   // ─────────────────────────────────────────────────────────────────────────
@@ -1234,7 +1278,7 @@ class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
       hint: 'SOLID, DRY, KISS, YAGNI',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? performanceEfficiencyContent;
 
   /// Performance efficiency overview.
@@ -1242,11 +1286,11 @@ class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
     'Executive summary of performance-efficiency goals, '
     'architectural decisions, and key technical metrics.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// 11.3.1. Efficiency.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   Efficiency efficiency = Efficiency();
 }
 
@@ -1265,6 +1309,15 @@ class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
 @SectionId('CMPT')
 @DetailedIn(D10QualityAcceptancePlan)
 class CompatibilityCharacteristic extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce compatibility for this system before any co-existence and '
+    'interoperability detail below. Cover what the system must share an '
+    'environment or an interface with.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('CMPT-COMP')
   @Form([
     Field(
@@ -1280,12 +1333,12 @@ class CompatibilityCharacteristic extends DocSpecsSection {
       hint: 'Protocols/formats for exchanging and using information',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? compatibilityContent;
 
   /// Compatibility overview.
   @ContentHelp('Executive summary of co-existence and interoperability goals.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 }
 
@@ -1304,6 +1357,15 @@ class CompatibilityCharacteristic extends DocSpecsSection {
 @SectionId('FLXC')
 @DetailedIn(D10QualityAcceptancePlan)
 class FlexibilityCharacteristic extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce flexibility for this system before the adaptability and '
+    'portability subsections below. Cover the changes the system is '
+    'expected to absorb without redesign.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('FLXC-FLEX')
   @Form([
     Field(
@@ -1319,7 +1381,7 @@ class FlexibilityCharacteristic extends DocSpecsSection {
       hint: 'Target environments/platforms the product must run on',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? flexibilityContent;
 
   /// Flexibility overview.
@@ -1327,15 +1389,15 @@ class FlexibilityCharacteristic extends DocSpecsSection {
     'Executive summary of flexibility, adaptability and '
     'portability goals.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// 11.9.1. Flexibility (adaptability/scalability/extensibility).
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   Flexibility flexibility = Flexibility();
 
   /// 11.9.2. Portability.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   Portability portability = Portability();
 }
 
@@ -1353,6 +1415,15 @@ class FlexibilityCharacteristic extends DocSpecsSection {
 @SectionId('SECC')
 @DetailedIn(D10QualityAcceptancePlan)
 class SecurityCharacteristic extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the security quality expectations before the security and '
+    'IT-security-operations subsections below. Cover the threat model the '
+    'expectations answer to.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('SECC-SECU')
   @Form([
     Field(
@@ -1368,7 +1439,7 @@ class SecurityCharacteristic extends DocSpecsSection {
       hint: 'ISO 27001, SOC 2, GDPR, sector-specific',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? securityContent;
 
   /// Security overview.
@@ -1376,15 +1447,15 @@ class SecurityCharacteristic extends DocSpecsSection {
     'Executive summary of security goals, threat model, and '
     'compliance targets.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// 11.7.1. Security (product security attributes).
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   Security security = Security();
 
   /// 11.7.2. IT Security Operations.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   ItSecurityOperations itSecurityOperations = ItSecurityOperations();
 }
 
@@ -1402,6 +1473,14 @@ class SecurityCharacteristic extends DocSpecsSection {
 @SectionId('MNTC')
 @DetailedIn(D10QualityAcceptancePlan)
 class MaintainabilityCharacteristic extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce maintainability for this system before the maintainability '
+    'subsection below. Cover who will maintain it, and over what horizon.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('MNTC-MAIN')
   @Form([
     Field(
@@ -1417,16 +1496,16 @@ class MaintainabilityCharacteristic extends DocSpecsSection {
       hint: 'Complexity thresholds, test-coverage targets',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? maintainabilityContent;
 
   /// Maintainability overview.
   @ContentHelp('Executive summary of maintainability goals and standards.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// 11.8.1. Maintainability (product maintainability attributes).
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   Maintainability maintainability = Maintainability();
 }
 
@@ -2276,6 +2355,15 @@ class Reliability extends DocSpecsSection {
 @SectionId('RELC')
 @DetailedIn(D10QualityAcceptancePlan)
 class ReliabilityCharacteristic extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce reliability for this system before the availability, '
+    'service-level and monitoring subsections below. Cover the cost of '
+    'downtime that justifies the targets.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Reliability Overview (migrated from the former operations bucket)
   // ─────────────────────────────────────────────────────────────────────────
@@ -2318,7 +2406,7 @@ class ReliabilityCharacteristic extends DocSpecsSection {
       hint: 'Key ops tools and platforms',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? reliabilityContent;
 
   /// Reliability overview narrative.
@@ -2326,23 +2414,23 @@ class ReliabilityCharacteristic extends DocSpecsSection {
     'Executive summary of reliability and operational requirements, '
     'support model, and key operational metrics.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// 11.6.1. Reliability (product reliability attributes).
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   Reliability reliability = Reliability();
 
   /// 11.6.2. Availability.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   Availability availability = Availability();
 
   /// 11.6.3. Service Level Requirements.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   ServiceLevel serviceLevelRequirements = ServiceLevel();
 
   /// 11.6.4. Monitoring and Prevention.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   OperationalMonitoring monitoringAndPrevention = OperationalMonitoring();
 }
 
@@ -3107,6 +3195,15 @@ class ItSecurityOperations extends DocSpecsSection {
 @SectionId('DOQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
 class DocumentationQualityCriteria extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the documentation quality bar before the readability, '
+    'completeness, correctness and changeability subsections below. Cover '
+    'which deliverables the criteria apply to.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation Quality Overview
   // ─────────────────────────────────────────────────────────────────────────
@@ -3149,7 +3246,7 @@ class DocumentationQualityCriteria extends DocSpecsSection {
       hint: 'Continuous, per-release, scheduled',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? documentationOverviewContent;
 
   /// Documentation quality overview narrative.
@@ -3157,23 +3254,23 @@ class DocumentationQualityCriteria extends DocSpecsSection {
     'Executive summary of documentation goals, '
     'target audiences, and key documentation metrics.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// 11.5.1. Readability.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   Readability readability = Readability();
 
   /// 11.5.2. Completeness.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DocCompleteness completeness = DocCompleteness();
 
   /// 11.5.3. Correctness.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocCorrectness correctness = DocCorrectness();
 
   /// 11.5.4. Changeability.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocChangeability changeability = DocChangeability();
 }
 
@@ -3667,6 +3764,15 @@ class DocChangeability extends DocSpecsSection {
 @SectionId('QUPR')
 @DetailedIn(D10QualityAcceptancePlan)
 class QualityPrioritization extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce how quality attributes are ranked before the weighted-matrix '
+    'and trade-off subsections below. Cover who decides the ranking and how '
+    'a dispute is settled.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Prioritization Framework
   // ─────────────────────────────────────────────────────────────────────────
@@ -3709,7 +3815,7 @@ class QualityPrioritization extends DocSpecsSection {
       hint: 'Who resolves priority conflicts',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? prioritizationFrameworkContent;
 
   /// Prioritization approach overview.
@@ -3717,15 +3823,15 @@ class QualityPrioritization extends DocSpecsSection {
     'Overview of how quality attributes are prioritized, '
     'including stakeholder involvement and decision process.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection prioritizationOverview = TextSection();
 
   /// 11.6.1. Weighted Quality Matrix.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   WeightedQualityMatrix weightedQualityMatrix = WeightedQualityMatrix();
 
   /// 11.6.2. Trade-off Decisions.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   TradeOffDecisions tradeOffDecisions = TradeOffDecisions();
 }
 
@@ -3738,6 +3844,14 @@ class QualityPrioritization extends DocSpecsSection {
 )
 @SectionId('WEQUMA')
 class WeightedQualityMatrix extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the weighting scheme before the individual weights below. '
+    'Cover the scale used and how stakeholder input was gathered.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('WEQUMA-MATR')
   @Form([
     Field(
@@ -3771,7 +3885,7 @@ class WeightedQualityMatrix extends DocSpecsSection {
       hint: 'How weights are updated',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? matrixConfigContent;
 
   /// Weighted quality matrix narrative.
@@ -3779,7 +3893,7 @@ class WeightedQualityMatrix extends DocSpecsSection {
     'Description of weighted quality matrix including '
     'weights assigned to each attribute and rationale.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection matrixNarrative = TextSection();
 
   /// Quality attribute weight entries.
@@ -3792,12 +3906,12 @@ class WeightedQualityMatrix extends DocSpecsSection {
   @SectionId('QLWGT-WEIG-LST')
   @SectionIdPattern('QLWGT-WEIG-xxx')
   @ContentHelp('Add one entry per quality attribute weight.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<QualityWeightEntry> weights = [];
 
   /// Quality matrix visualization.
   @ContentHelp('Visual representation of quality attribute priorities.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   DiagramSection matrixVisualization = DiagramSection();
 }
 
@@ -3855,6 +3969,14 @@ class QualityWeightEntry extends DocSpecsSection {
 )
 @SectionId('TROFDE')
 class TradeOffDecisions extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the trade-off decisions before the individual items below. '
+    'Cover how a trade-off is raised, decided and revisited.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('TROFDE-TRAD')
   @Form([
     Field(
@@ -3882,7 +4004,7 @@ class TradeOffDecisions extends DocSpecsSection {
       hint: 'Process to reverse a trade-off decision',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? tradeOffGovernanceContent;
 
   /// Trade-off decisions overview.
@@ -3890,7 +4012,7 @@ class TradeOffDecisions extends DocSpecsSection {
     'Overview of major trade-off decisions and their impact '
     'on system quality and design choices.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection tradeOffOverview = TextSection();
 
   /// Contains 0+× TradeOffDecision.
@@ -3903,7 +4025,7 @@ class TradeOffDecisions extends DocSpecsSection {
   @SectionId('TODE-ITEM-LST')
   @SectionIdPattern('TODE-ITEM-xxx')
   @ContentHelp('Add one entry per trade-off decision.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<TradeOffDecisionEntry> items = [];
 }
 
@@ -4132,6 +4254,15 @@ class TradeOffDecisionEntry extends DocSpecsSection {
 @SectionId('ACCRSU')
 @DetailedIn(D10QualityAcceptancePlan)
 class AcceptanceCriteriaSummary extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the acceptance framework before the must-pass, quality-gate '
+    'and detailed-criteria subsections below. Cover who accepts, and on '
+    'what evidence.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   // ─────────────────────────────────────────────────────────────────────────
   // Acceptance Framework
   // ─────────────────────────────────────────────────────────────────────────
@@ -4180,7 +4311,7 @@ class AcceptanceCriteriaSummary extends DocSpecsSection {
       hint: 'What triggers rejection',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? acceptanceFrameworkContent;
 
   /// Acceptance criteria overview.
@@ -4188,15 +4319,15 @@ class AcceptanceCriteriaSummary extends DocSpecsSection {
     'Overview of acceptance process, key acceptance criteria, '
     'and acceptance governance.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection acceptanceOverview = TextSection();
 
   /// 11.7.1. Must-Pass Criteria.
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   MustPassCriteria mustPassCriteria = MustPassCriteria();
 
   /// 11.7.2. Quality Gate Checklist.
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   QualityGateChecklist qualityGateChecklist = QualityGateChecklist();
 
   /// Canonical, enumerated acceptance criteria (SR-54 explicit link).
@@ -4204,12 +4335,12 @@ class AcceptanceCriteriaSummary extends DocSpecsSection {
   /// The single source of truth for the full set of traceable acceptance
   /// criteria; this summary references — rather than duplicates — it. The same
   /// [AcceptanceCriteriaList] is the QAP-CRI seed under the acceptance plan.
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   AcceptanceCriteriaList detailedCriteria = AcceptanceCriteriaList();
 
   /// Acceptance test summary.
   @ContentHelp('Summary of acceptance test plan and expected outcomes.')
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   TextSection acceptanceTestSummary = TextSection();
 }
 
@@ -4224,6 +4355,14 @@ class AcceptanceCriteriaSummary extends DocSpecsSection {
 )
 @SectionId('MUPACR')
 class MustPassCriteria extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the must-pass criteria before the individual items below. '
+    'Cover what makes a criterion must-pass rather than merely desirable.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('MUPACR-MUST')
   @Form([
     Field(
@@ -4257,7 +4396,7 @@ class MustPassCriteria extends DocSpecsSection {
       hint: 'Who can grant waivers',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? mustPassOverviewContent;
 
   /// Must-pass criteria overview.
@@ -4265,7 +4404,7 @@ class MustPassCriteria extends DocSpecsSection {
     'Overview of must-pass criteria approach and '
     'rationale for selection.',
   )
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// Contains 0+× MustPassCriterion.
@@ -4278,7 +4417,7 @@ class MustPassCriteria extends DocSpecsSection {
   @SectionId('MSTPCR-ITEM-LST')
   @SectionIdPattern('MSTPCR-ITEM-xxx')
   @ContentHelp('Add one entry per must-pass criterion.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<MustPassCriterionEntry> items = [];
 }
 
@@ -4475,6 +4614,14 @@ class MustPassCriterionEntry extends DocSpecsSection {
 )
 @SectionId('QUGACH')
 class QualityGateChecklist extends DocSpecsSection {
+  @ContentHelp(
+    'Introduce the quality gates before the individual checklist items '
+    'below. Cover when each gate is run and who may waive one.',
+  )
+  @override
+  @SerializationOrder(0)
+  String? content;
+
   @SectionId('QUGACH-CHEC')
   @Form([
     Field(
@@ -4508,12 +4655,12 @@ class QualityGateChecklist extends DocSpecsSection {
       hint: 'When checklist is used',
     ),
   ])
-  @SerializationOrder(0)
+  @SerializationOrder(1)
   DocSpecsSection? checklistOverviewContent;
 
   /// Quality gate checklist overview.
   @ContentHelp('Overview of quality gate process and checklist usage.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   TextSection overview = TextSection();
 
   /// Contains 0+× QualityGateCheck.
@@ -4526,7 +4673,7 @@ class QualityGateChecklist extends DocSpecsSection {
   @SectionId('QGCHK-ITEM-LST')
   @SectionIdPattern('QGCHK-ITEM-xxx')
   @ContentHelp('Add one entry per quality gate check.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<QualityGateCheckEntry> items = [];
 }
 

@@ -52,6 +52,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm acceptanceFrameworkContent() {
       return new AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(doc, path + "/ACCRSU-ACCE");
     }
@@ -494,6 +508,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public AccessibilityAccessibilityOverviewContentForm accessibilityOverviewContent() {
       return new AccessibilityAccessibilityOverviewContentForm(doc, path + "/ACCESS-ACCE");
     }
@@ -568,6 +596,20 @@ public final class TomSomV0 {
   public static final class AccessibilityChecklist extends SomNode {
     public AccessibilityChecklist(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public AccessibilityChecklistChecklistOverviewContentForm checklistOverviewContent() {
@@ -790,6 +832,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Actor identification.
     public ActorEntryIdentificationForm identification() {
       return new ActorEntryIdentificationForm(doc, path + "/ACID");
@@ -886,6 +942,20 @@ public final class TomSomV0 {
   public static final class ActorRelationshipDiagram extends SomNode {
     public ActorRelationshipDiagram(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Diagram overview.
@@ -1173,6 +1243,20 @@ public final class TomSomV0 {
   public static final class AlertingConfiguration extends SomNode {
     public AlertingConfiguration(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public AlertingConfigurationAlertingOverviewForm alertingOverview() {
@@ -3147,6 +3231,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Overview of assumption categories and validation approach.
     // (skipped: assumptionApproach has no target type)
 
@@ -3218,6 +3316,20 @@ public final class TomSomV0 {
   public static final class BreakpointConfiguration extends SomNode {
     public BreakpointConfiguration(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public BreakpointConfigurationBreakpointOverviewForm breakpointOverview() {
@@ -3640,6 +3752,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public BusinessObjectEntryIdentityForm identity() {
       return new BusinessObjectEntryIdentityForm(doc, path + "/BJOEN-IDEN");
     }
@@ -3841,6 +3967,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Process identification.
     public ProcessIdentification identification() {
       return new ProcessIdentification(doc, path + "/identification");
@@ -3896,6 +4036,20 @@ public final class TomSomV0 {
   public static final class BusinessRuleEntry extends SomNode {
     public BusinessRuleEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public BusinessRuleEntryIdentityForm identity() {
@@ -4436,6 +4590,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Overview of readiness assessment approach.
     public ChangeReadinessAssessmentOverviewForm overview() {
       return new ChangeReadinessAssessmentOverviewForm(doc, path + "/CHREOV");
@@ -4500,6 +4668,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // New competencies required.
     public SomList<RoleCompetencyEntry> newCompetencies() {
       return new SomList<>(doc, path + "/ROLCP-NEWC-LST", (d, p) -> new RoleCompetencyEntry(d, p), "ROLCP-NEWC-xxx");
@@ -4528,6 +4710,20 @@ public final class TomSomV0 {
   public static final class ChangedRoleEntry extends SomNode {
     public ChangedRoleEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Changed role identification.
@@ -4588,6 +4784,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Responsibilities being added.
     public SomList<ResponsibilityChangeEntry> addedResponsibilities() {
       return new SomList<>(doc, path + "/RSPCH-ADDE-LST", (d, p) -> new ResponsibilityChangeEntry(d, p), "RSPCH-ADDE-xxx");
@@ -4638,6 +4848,20 @@ public final class TomSomV0 {
   public static final class ChangesFromCurrentStructure extends SomNode {
     public ChangesFromCurrentStructure(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public ChangesFromCurrentStructureOverviewContentForm overviewContent() {
@@ -5480,6 +5704,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public CompatibilityCharacteristicCompatibilityContentForm compatibilityContent() {
       return new CompatibilityCharacteristicCompatibilityContentForm(doc, path + "/CMPT-COMP");
     }
@@ -5585,6 +5823,20 @@ public final class TomSomV0 {
   public static final class CompetencyFramework extends SomNode {
     public CompetencyFramework(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Framework overview.
@@ -5992,6 +6244,20 @@ public final class TomSomV0 {
   public static final class ComponentLibrary extends SomNode {
     public ComponentLibrary(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public SomList<DesignFoundationEntry> designFoundations() {
@@ -6732,6 +6998,20 @@ public final class TomSomV0 {
   public static final class ContextualHelp extends SomNode {
     public ContextualHelp(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public ContextualHelpContextualHelpContentForm contextualHelpContent() {
@@ -9672,6 +9952,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public DataAttributeEntryIdentityForm identity() {
       return new DataAttributeEntryIdentityForm(doc, path + "/DAATT-IDEN");
     }
@@ -9790,6 +10084,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public DataClassificationOverviewForm overview() {
       return new DataClassificationOverviewForm(doc, path + "/DATCL-OVER");
     }
@@ -9806,6 +10114,20 @@ public final class TomSomV0 {
   public static final class DataClassificationEntry extends SomNode {
     public DataClassificationEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public DataClassificationEntryIdentityForm identity() {
@@ -9962,6 +10284,20 @@ public final class TomSomV0 {
   public static final class DataEntityEntry extends SomNode {
     public DataEntityEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public DataEntityEntryIdentityForm identity() {
@@ -13129,6 +13465,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public DocumentationQualityCriteriaDocumentationOverviewContentForm documentationOverviewContent() {
       return new DocumentationQualityCriteriaDocumentationOverviewContentForm(doc, path + "/DOQUCR-DOCU");
     }
@@ -13925,6 +14275,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public EntityFollowUpEntryEntityRefForm entityRef() {
       return new EntityFollowUpEntryEntityRefForm(doc, path + "/DMFUE-ENTI");
     }
@@ -13965,6 +14329,20 @@ public final class TomSomV0 {
   public static final class EntityRelationshipEntry extends SomNode {
     public EntityRelationshipEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public EntityRelationshipEntryIdentityForm identity() {
@@ -14220,6 +14598,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Equipment overview.
     public EquipmentRequirementsOverviewForm overview() {
       return new EquipmentRequirementsOverviewForm(doc, path + "/EQOV");
@@ -14347,6 +14739,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public ErrorHandlingErrorPhilosophyContentForm errorPhilosophyContent() {
       return new ErrorHandlingErrorPhilosophyContentForm(doc, path + "/ERHACO-ERRO");
     }
@@ -14434,6 +14840,20 @@ public final class TomSomV0 {
   public static final class ErrorRecovery extends SomNode {
     public ErrorRecovery(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public ErrorRecoveryRecoveryMechanismsContentForm recoveryMechanismsContent() {
@@ -15229,6 +15649,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public ExternalInterfaceEntryIdentificationContentForm identificationContent() {
       return new ExternalInterfaceEntryIdentificationContentForm(doc, path + "/EIE-IDEN");
     }
@@ -15284,6 +15718,20 @@ public final class TomSomV0 {
   public static final class ExternalInterfaces extends SomNode {
     public ExternalInterfaces(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Summary of the integration landscape.
@@ -16101,6 +16549,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public FlexibilityCharacteristicFlexibilityContentForm flexibilityContent() {
       return new FlexibilityCharacteristicFlexibilityContentForm(doc, path + "/FLXC-FLEX");
     }
@@ -16256,6 +16718,20 @@ public final class TomSomV0 {
   public static final class FunctionModel extends SomNode {
     public FunctionModel(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public FunctionModelDecompositionOverviewForm decompositionOverview() {
@@ -16444,6 +16920,20 @@ public final class TomSomV0 {
   public static final class FunctionalSuitabilityCharacteristic extends SomNode {
     public FunctionalSuitabilityCharacteristic(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm functionalSuitabilityContent() {
@@ -18069,6 +18559,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public InteractionCapabilityCharacteristicInteractionCapabilityContentForm interactionCapabilityContent() {
       return new InteractionCapabilityCharacteristicInteractionCapabilityContentForm(doc, path + "/INCP-INTE");
     }
@@ -18196,6 +18700,20 @@ public final class TomSomV0 {
   public static final class InteractionEntry extends SomNode {
     public InteractionEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Interaction identification (use case header).
@@ -19033,6 +19551,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Overview of the job architecture and role design approach.
     public JobDescriptionsAndStaffingOverviewForm overview() {
       return new JobDescriptionsAndStaffingOverviewForm(doc, path + "/JODEOV");
@@ -19396,6 +19928,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public LanguageCountrySelectionLanguageSelectionContentForm languageSelectionContent() {
       return new LanguageCountrySelectionLanguageSelectionContentForm(doc, path + "/LACOSE-LANG");
     }
@@ -19751,6 +20297,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public LocalizationProcessLocalizationProcessContentForm localizationProcessContent() {
       return new LocalizationProcessLocalizationProcessContentForm(doc, path + "/LOPR-LOCA");
     }
@@ -20077,6 +20637,20 @@ public final class TomSomV0 {
   public static final class MaintainabilityCharacteristic extends SomNode {
     public MaintainabilityCharacteristic(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public MaintainabilityCharacteristicMaintainabilityContentForm maintainabilityContent() {
@@ -20480,6 +21054,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public MetricsAndObservabilityMetricsOverviewForm metricsOverview() {
       return new MetricsAndObservabilityMetricsOverviewForm(doc, path + "/MEANOB-METR");
     }
@@ -20658,6 +21246,20 @@ public final class TomSomV0 {
   public static final class MigrationConsiderations extends SomNode {
     public MigrationConsiderations(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public MigrationConsiderationsStrategyContentForm strategyContent() {
@@ -21021,6 +21623,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public MigrationRisksGovernanceContentForm governanceContent() {
       return new MigrationRisksGovernanceContentForm(doc, path + "/MIRI-GOVE");
     }
@@ -21283,6 +21899,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public MonitoringMonitoringOverviewForm monitoringOverview() {
       return new MonitoringMonitoringOverviewForm(doc, path + "/MONITO-MONI");
     }
@@ -21399,6 +22029,20 @@ public final class TomSomV0 {
   public static final class MonitoringDashboards extends SomNode {
     public MonitoringDashboards(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public MonitoringDashboardsDashboardOverviewForm dashboardOverview() {
@@ -21544,6 +22188,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public MultiLanguageSupportMultiLanguageOverviewForm multiLanguageOverview() {
       return new MultiLanguageSupportMultiLanguageOverviewForm(doc, path + "/MLAR-MULT");
     }
@@ -21568,6 +22226,20 @@ public final class TomSomV0 {
   public static final class MustPassCriteria extends SomNode {
     public MustPassCriteria(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public MustPassCriteriaMustPassOverviewContentForm mustPassOverviewContent() {
@@ -22180,6 +22852,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Overview of the target organization structure.
     // (skipped: overview has no target type)
 
@@ -22201,6 +22887,20 @@ public final class TomSomV0 {
   public static final class NewRoleEntry extends SomNode {
     public NewRoleEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Role identification and overview.
@@ -22269,6 +22969,20 @@ public final class TomSomV0 {
   public static final class NewRoleResponsibilities extends SomNode {
     public NewRoleResponsibilities(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Primary responsibilities (key accountabilities).
@@ -22460,6 +23174,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public OnboardingHelpOnboardingContentForm onboardingContent() {
       return new OnboardingHelpOnboardingContentForm(doc, path + "/ONHE-ONBO");
     }
@@ -22533,6 +23261,20 @@ public final class TomSomV0 {
   public static final class OperatingEnvironment extends SomNode {
     public OperatingEnvironment(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Framework conditions overview.
@@ -22930,6 +23672,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public OrganizationalEnvironmentOrganizationContentForm organizationContent() {
       return new OrganizationalEnvironmentOrganizationContentForm(doc, path + "/OREN-ORGA");
     }
@@ -22989,6 +23745,20 @@ public final class TomSomV0 {
   public static final class OrganizationalFramework extends SomNode {
     public OrganizationalFramework(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Overview of organizational changes required for the new system.
@@ -23104,6 +23874,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Overview of the transition approach and guiding principles.
     public TransitionOverview overview() {
       return new TransitionOverview(doc, path + "/overview");
@@ -23206,6 +23990,20 @@ public final class TomSomV0 {
   public static final class OutOfScope extends SomNode {
     public OutOfScope(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Overview of scope exclusion approach.
@@ -23676,6 +24474,20 @@ public final class TomSomV0 {
   public static final class PerformanceEfficiencyCharacteristic extends SomNode {
     public PerformanceEfficiencyCharacteristic(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm performanceEfficiencyContent() {
@@ -24570,6 +25382,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Process catalog overview.
     public ProcessCatalogOverviewForm overview() {
       return new ProcessCatalogOverviewForm(doc, path + "/PCOVW");
@@ -24634,6 +25460,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Controls overview.
     public ProcessControlsOverviewForm overview() {
       return new ProcessControlsOverviewForm(doc, path + "/PRCOOV");
@@ -24673,6 +25513,20 @@ public final class TomSomV0 {
   public static final class ProcessDesignPrinciples extends SomNode {
     public ProcessDesignPrinciples(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Design principles overview.
@@ -24747,6 +25601,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Exceptions overview.
     public ProcessExceptionsOverviewForm overview() {
       return new ProcessExceptionsOverviewForm(doc, path + "/PREXOV");
@@ -24813,6 +25681,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Improvement overview.
     public ProcessImprovementSummaryOverviewForm overview() {
       return new ProcessImprovementSummaryOverviewForm(doc, path + "/IMOV");
@@ -24844,6 +25726,20 @@ public final class TomSomV0 {
   public static final class ProcessInputsOutputs extends SomNode {
     public ProcessInputsOutputs(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Inputs overview.
@@ -25078,6 +25974,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Diagram overview.
     public ProcessOverviewDiagramOverviewForm overview() {
       return new ProcessOverviewDiagramOverviewForm(doc, path + "/PRDIOV");
@@ -25123,6 +26033,20 @@ public final class TomSomV0 {
   public static final class ProcessPerformance extends SomNode {
     public ProcessPerformance(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Performance overview.
@@ -25219,6 +26143,20 @@ public final class TomSomV0 {
   public static final class ProcessRoles extends SomNode {
     public ProcessRoles(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Roles overview.
@@ -25384,6 +26322,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Main trigger overview.
     public ProcessTriggersOverviewForm overview() {
       return new ProcessTriggersOverviewForm(doc, path + "/TGOVW");
@@ -25406,6 +26358,20 @@ public final class TomSomV0 {
   public static final class ProcessVision extends SomNode {
     public ProcessVision(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Process vision overview.
@@ -25698,6 +26664,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public PrototypePrototypeOverviewForm prototypeOverview() {
       return new PrototypePrototypeOverviewForm(doc, path + "/PROTOT-PROT");
     }
@@ -25758,6 +26738,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public PrototypeFeatureSubsetFeatureSubsetContentForm featureSubsetContent() {
       return new PrototypeFeatureSubsetFeatureSubsetContentForm(doc, path + "/PRFESU-FEAT");
     }
@@ -25800,6 +26794,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public PrototypeGoalsGoalsContentForm goalsContent() {
       return new PrototypeGoalsGoalsContentForm(doc, path + "/PG-GOAL");
     }
@@ -25829,6 +26837,20 @@ public final class TomSomV0 {
   public static final class PrototypeType extends SomNode {
     public PrototypeType(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public PrototypeTypePrototypeTypeOverviewForm prototypeTypeOverview() {
@@ -25962,6 +26984,20 @@ public final class TomSomV0 {
   public static final class QualityFramework extends SomNode {
     public QualityFramework(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public QualityFrameworkFrameworkContentForm frameworkContent() {
@@ -26135,6 +27171,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public QualityGateChecklistChecklistOverviewContentForm checklistOverviewContent() {
       return new QualityGateChecklistChecklistOverviewContentForm(doc, path + "/QUGACH-CHEC");
     }
@@ -26155,6 +27205,20 @@ public final class TomSomV0 {
   public static final class QualityPrioritization extends SomNode {
     public QualityPrioritization(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public QualityPrioritizationPrioritizationFrameworkContentForm prioritizationFrameworkContent() {
@@ -26700,6 +27764,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public ReliabilityCharacteristicReliabilityContentForm reliabilityContent() {
       return new ReliabilityCharacteristicReliabilityContentForm(doc, path + "/RELC-RELI");
     }
@@ -26791,6 +27869,20 @@ public final class TomSomV0 {
   public static final class ReplacementInventory extends SomNode {
     public ReplacementInventory(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Portfolio summary before listing individual systems.
@@ -28040,6 +29132,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public ResponsiveBehaviorLayoutAdaptationForm layoutAdaptation() {
       return new ResponsiveBehaviorLayoutAdaptationForm(doc, path + "/REBE-LAYO");
     }
@@ -28080,6 +29186,20 @@ public final class TomSomV0 {
   public static final class ResponsiveDesign extends SomNode {
     public ResponsiveDesign(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public ResponsiveDesignResponsiveOverviewForm responsiveOverview() {
@@ -28290,6 +29410,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public ReusablePrototypeReusableContentForm reusableContent() {
       return new ReusablePrototypeReusableContentForm(doc, path + "/REUPRO-REUS");
     }
@@ -28444,6 +29578,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Risk identification — unique identifier and basic description.
     public RiskIdentification identification() {
       return new RiskIdentification(doc, path + "/identification");
@@ -28569,6 +29717,20 @@ public final class TomSomV0 {
   public static final class RisksAndAssumptions extends SomNode {
     public RisksAndAssumptions(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Overview of the risk management approach for this project.
@@ -29279,6 +30441,20 @@ public final class TomSomV0 {
   public static final class ScenarioEntry extends SomNode {
     public ScenarioEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Scenario identification.
@@ -30503,6 +31679,20 @@ public final class TomSomV0 {
   public static final class SecurityCharacteristic extends SomNode {
     public SecurityCharacteristic(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public SecurityCharacteristicSecurityContentForm securityContent() {
@@ -32020,6 +33210,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public SlaAndSloMonitoringSlaOverviewForm slaOverview() {
       return new SlaAndSloMonitoringSlaOverviewForm(doc, path + "/SASM-SLAO");
     }
@@ -32362,6 +33566,20 @@ public final class TomSomV0 {
   public static final class StaffingPlan extends SomNode {
     public StaffingPlan(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Staffing plan overview.
@@ -33497,6 +34715,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Business outcome criteria overview.
     public String businessCriteria() {
       String v = doc.content(path + "/SCBC-BUSI");
@@ -33607,6 +34839,20 @@ public final class TomSomV0 {
   public static final class SupportAccess extends SomNode {
     public SupportAccess(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public SupportAccessSupportAccessContentForm supportAccessContent() {
@@ -33725,6 +34971,20 @@ public final class TomSomV0 {
   public static final class SystemBoundaries extends SomNode {
     public SystemBoundaries(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Overview of system boundaries and scope definition approach.
@@ -34149,6 +35409,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public SystemErrorDisplaySystemErrorContentForm systemErrorContent() {
       return new SystemErrorDisplaySystemErrorContentForm(doc, path + "/SYERDI-SYST");
     }
@@ -34496,6 +35770,20 @@ public final class TomSomV0 {
   public static final class SystemQualityGoals extends SomNode {
     public SystemQualityGoals(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public SystemQualityGoalsGovernanceContentForm governanceContent() {
@@ -34911,6 +36199,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public SystemToReplaceEntryIdentificationContentForm identificationContent() {
       return new SystemToReplaceEntryIdentificationContentForm(doc, path + "/SYTORE-IDEN");
     }
@@ -35037,6 +36339,20 @@ public final class TomSomV0 {
   public static final class SystemsToReplace extends SomNode {
     public SystemsToReplace(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Overview of the systems replacement scope and strategy.
@@ -35305,6 +36621,20 @@ public final class TomSomV0 {
   public static final class TechnicalEnvironment extends SomNode {
     public TechnicalEnvironment(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public TechnicalEnvironmentTechnicalOverviewContentForm technicalOverviewContent() {
@@ -35627,6 +36957,20 @@ public final class TomSomV0 {
   public static final class TechnicalInfrastructure extends SomNode {
     public TechnicalInfrastructure(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Network connectivity requirements.
@@ -36280,6 +37624,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public ThrowawayPrototypeThrowawayContentForm throwawayContent() {
       return new ThrowawayPrototypeThrowawayContentForm(doc, path + "/THPR-THRO");
     }
@@ -36607,6 +37965,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public TradeOffDecisionsTradeOffGovernanceContentForm tradeOffGovernanceContent() {
       return new TradeOffDecisionsTradeOffGovernanceContentForm(doc, path + "/TROFDE-TRAD");
     }
@@ -36658,6 +38030,20 @@ public final class TomSomV0 {
   public static final class TrainingDeliverableRequirements extends SomNode {
     public TrainingDeliverableRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public TrainingDeliverableRequirementsTrainingContentForm trainingContent() {
@@ -36766,6 +38152,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public TrainingPrototypeTrainingContentForm trainingContent() {
       return new TrainingPrototypeTrainingContentForm(doc, path + "/TP-TRAI");
     }
@@ -36791,6 +38191,20 @@ public final class TomSomV0 {
   public static final class TrainingRequirements extends SomNode {
     public TrainingRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Training overview and strategy.
@@ -36855,6 +38269,20 @@ public final class TomSomV0 {
   public static final class TransitionCommunicationPlan extends SomNode {
     public TransitionCommunicationPlan(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // Communication strategy overview.
@@ -36971,6 +38399,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Phase identification and timeline.
     public TransitionPhaseIdentification identification() {
       return new TransitionPhaseIdentification(doc, path + "/identification");
@@ -37051,6 +38493,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Metrics overview.
     public TransitionSuccessMetricsOverviewForm overview() {
       return new TransitionSuccessMetricsOverviewForm(doc, path + "/TRMEOV");
@@ -37079,6 +38535,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     // Support organization overview.
     public TransitionSupportStructureOverviewForm overview() {
       return new TransitionSupportStructureOverviewForm(doc, path + "/TRSUOV");
@@ -37101,6 +38571,20 @@ public final class TomSomV0 {
   public static final class TranslationProcess extends SomNode {
     public TranslationProcess(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public TranslationProcessTranslationProcessContentForm translationProcessContent() {
@@ -37142,6 +38626,20 @@ public final class TomSomV0 {
   public static final class TranslationRequirements extends SomNode {
     public TranslationRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public TranslationRequirementsTranslationRequirementsContentForm translationRequirementsContent() {
@@ -37352,6 +38850,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public UiComponentEntryIdentityForm identity() {
       return new UiComponentEntryIdentityForm(doc, path + "/UICOM-IDEN");
     }
@@ -37464,6 +38976,20 @@ public final class TomSomV0 {
   public static final class UiComponents extends SomNode {
     public UiComponents(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public UiComponentsComponentLibraryOverviewForm componentLibraryOverview() {
@@ -37795,6 +39321,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public UserAssistanceHelpOverviewContentForm helpOverviewContent() {
       return new UserAssistanceHelpOverviewContentForm(doc, path + "/USAS-HELP");
     }
@@ -38007,6 +39547,20 @@ public final class TomSomV0 {
   public static final class UserDocumentationRequirements extends SomNode {
     public UserDocumentationRequirements(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public UserDocumentationRequirementsDocumentationContentForm documentationContent() {
@@ -38787,6 +40341,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public ValidationFeedbackValidationDisplayContentForm validationDisplayContent() {
       return new ValidationFeedbackValidationDisplayContentForm(doc, path + "/VAFE-VALI");
     }
@@ -39098,6 +40666,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public WcagComplianceWcagComplianceContentForm wcagComplianceContent() {
       return new WcagComplianceWcagComplianceContentForm(doc, path + "/WCCO-WCAG");
     }
@@ -39141,6 +40723,20 @@ public final class TomSomV0 {
   public static final class WeightedQualityMatrix extends SomNode {
     public WeightedQualityMatrix(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     public WeightedQualityMatrixMatrixConfigContentForm matrixConfigContent() {
@@ -39384,6 +40980,20 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
     public String name() {
       String v = doc.content(path + "/WOSTSY-NAME");
       return v == null ? "" : v;
@@ -39466,6 +41076,20 @@ public final class TomSomV0 {
   public static final class WorkplaceDescriptionEntry extends SomNode {
     public WorkplaceDescriptionEntry(SpecDocument doc, String path) {
       super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
     }
 
     // User category identification.

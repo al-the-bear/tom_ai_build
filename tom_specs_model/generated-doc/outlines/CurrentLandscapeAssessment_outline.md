@@ -78,7 +78,7 @@
           - steps: `WorkflowStepEntry`[]
             - content @Form(stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, isErrorProne, averageDuration)
             - systemsUsed: `WorkflowStepSystem`[]
-              - name
+              - content, name
             - inputs: `WorkflowInputEntry`[]
               - content @Form(inputType, source, format, isRequired, validationRules)
             - outputs: `WorkflowOutputEntry`[]
@@ -92,7 +92,7 @@
             - participatingSteps: `WorkflowStepEntry`[]
               - content @Form(stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, isErrorProne, averageDuration)
               - systemsUsed: `WorkflowStepSystem`[]
-                - name
+                - content, name
               - inputs: `WorkflowInputEntry`[]
                 - content @Form(inputType, source, format, isRequired, validationRules)
               - outputs: `WorkflowOutputEntry`[]
@@ -235,9 +235,9 @@
   - currentStateRisks: `CurrentStateRiskAssessment`
     - content
   - `ReplacementInventory`
-    - portfolioSummary @text, prioritizationCriteria @text
+    - content, portfolioSummary @text, prioritizationCriteria @text
     - systems: `SystemToReplaceEntry`[]
-      - identificationContent, profile, vendor
+      - content, identificationContent, profile, vendor
       - technicalAssessment: `SystemTechnicalAssessment`
         - content @Form(primaryTechnology, technologyVersion, databasePlatform, hostingEnvironment), platform,
           lifecycle, quality
@@ -281,13 +281,13 @@
           knowledgeTransferPlan @text
         - criticalKnowledgeAreas: `String`[]
   - `MigrationConsiderations`
-    - strategyContent, strategyNarrative @text, timeline @text, dataMapping @text, masterDataApproach @text,
+    - content, strategyContent, strategyNarrative @text, timeline @text, dataMapping @text, masterDataApproach @text,
       rollbackStrategy @text, goNoGosCriteria @text, communicationPlan @text
     - resources: `MigrationResources`
       - content @Form(migrationLead, technicalResources, businessResources, testingResources, vendorSupport, consultingSupport, contractorNeeds, migrationEnvironments, dataStorageNeeds, networkBandwidth),
         resourceTimeline @text
     - `MigrationRisks`
-      - governanceContent, governance, assessment, thresholds, reporting, riskOverview @text,
+      - content, governanceContent, governance, assessment, thresholds, reporting, riskOverview @text,
         assessmentMethodology @text, riskAggregation @text, riskMatrix @mermaid, riskTimeline @mermaid-gantt
       - riskCategories: `String`[]
       - riskBasedDecisions: `String`[]
