@@ -1091,7 +1091,7 @@ difference, so untouched documents stay byte-stable.
 Rule 4 bites on **a name-shaped form field holding the name of the list entry
 it sits in**. Most name-shaped fields hold something else and are perfectly
 legal, and the two look identical in source — so the boundary is drawn
-structurally, and the static tier draws it (§10.2 invariant 11).
+structurally, and the static tier draws it (§10.2 invariant 10).
 
 **Where the rule applies.** Only beneath a **list-entry class**: the element
 type of a complex list carrying `@SectionIdPattern`. Such a section's headline
@@ -1139,7 +1139,7 @@ headline carries it.
 ### 8.2 Why the id half of rule 4 is author-enforced
 
 Rule 4 gives a section's id the same single-slot treatment as its headline, but
-only the **name** half is checked statically (§10.2 invariant 11). The id half
+only the **name** half is checked statically (§10.2 invariant 10). The id half
 is left to the author. That is a decision taken on the model's own evidence, not
 an omission: the three discriminators that decide the name half do not transfer,
 and one of them is actively **inverted** here.
@@ -1202,8 +1202,7 @@ reach for each, and states the mapping semantics of each.
 **Cardinality & ordering:** `@Min`, `@Max`, `@Position`, `@ForEach`,
 `@AccessKey`.
 
-**Traceability:** `@MapsTo`, `@DetailedIn`, `@SecondLevelSectionId`, `@SeedFor`,
-`@StandardReferences`.
+**Traceability:** `@MapsTo`, `@DetailedIn`, `@SeedFor`, `@StandardReferences`.
 
 **CodeSpecs link:** `@CodeSpecKind(List<CodeSpecPart>)` — the general,
 type-level DocSpecs→CodeSpecs mapping on a SOM section class; and
@@ -1300,8 +1299,6 @@ The 12 Phase 3 documents derive from the SBP, and that derivation is encoded:
   section (the shallowest SBP class whose whole subtree flows to one document).
 - **`@DetailedIn`** records that an SBP section is elaborated in a downstream
   document; it must sit under an ancestor carrying `@MapsTo`.
-- **`@SecondLevelSectionId`** (reserved) derives second-level ids; it implies
-  `@DetailedIn`.
 
 ### 10.2 The mechanical structural invariants
 
@@ -1336,10 +1333,9 @@ The validator enforces the following structural invariants (implementation:
    completeness signal, so a model with a gap still validates. Every other
    invariant in this list is an error.
 5. **`@DetailedIn` ⇒ ancestor `@MapsTo`**.
-6. **`@SecondLevelSectionId` ⇒ `@DetailedIn`**.
-7. **Per-`@Document` detail-count budget** (7–15 top-level entries).
+6. **Per-`@Document` detail-count budget** (7–15 top-level entries).
    `@CodeSpecsProjection()` roots are exempt from *this check only* (§2.5).
-8. **Root-independent section-id resolution** — a class reachable from more than
+7. **Root-independent section-id resolution** — a class reachable from more than
    one `@Document` root must resolve to the same id from every root. Both id
    mechanisms are root-independent by construction (a class-level `@SectionId` is
    fixed; a `@SectionIdPattern` list-instance id derives from the *element*
@@ -1348,27 +1344,27 @@ The validator enforces the following structural invariants (implementation:
    case actually rejected is **structural-mode mixing**, i.e. a class reached
    both as the direct element of a `@SectionIdPattern` list *and* as a standalone
    complex section field (`@Reference` edges excluded).
-9. **§5.1 member-shape legality**, `@ContentType` compatibility, and **cycle
+8. **§5.1 member-shape legality**, `@ContentType` compatibility, and **cycle
    detection**.
-10. **The `refersTo` target contract** (§6.2) — target grammar, existence and
-    unambiguity of the named section id, the required/enumerated form-field slot
-    or the patterned-list element requirement for `@sectionId`, and
-    **co-reachability**: every target must be reachable together with its
-    referring class from at least one `@Document` root (§6.2.1). A non-`String`
-    reference field is a warning; the rest are errors.
-11. **No list entry restates its own headline** (§8 rule 4) — a name-shaped form
+9. **The `refersTo` target contract** (§6.2) — target grammar, existence and
+   unambiguity of the named section id, the required/enumerated form-field slot
+   or the patterned-list element requirement for `@sectionId`, and
+   **co-reachability**: every target must be reachable together with its
+   referring class from at least one `@Document` root (§6.2.1). A non-`String`
+   reference field is a warning; the rest are errors.
+10. **No list entry restates its own headline** (§8 rule 4) — a name-shaped form
     field beneath a list-entry class, whose stem is that entry's own subject, is
     an error unless it is a registry key or carries a `refersTo` of its own
     (§8.1). This is the half of rule 4 that source alone cannot show: a
     self-naming field and a legitimate one are written identically. The rule's
     **id** half is deliberately not checked — see below and §8.2.
-12. **`@CodeSpecKind` / `@FollowUpKind` mutual exclusion** — no class carries
+11. **`@CodeSpecKind` / `@FollowUpKind` mutual exclusion** — no class carries
     both. `@FollowUpKind` marks a subtree *root*, and `codespecs_mapping.md`
     §4.3 rules that only a section which must become a generation-projection
     root is hoisted out of a follow-up subtree; so a follow-up root is never
     itself generated, and a class claiming to be both is the one shape the
     CodeSpecs / follow-up split cannot express.
-13. **Per-part generation routing** — every *active* `CodeSpecPart` named by any
+12. **Per-part generation routing** — every *active* `CodeSpecPart` named by any
     `@CodeSpecKind` has at least one **bearer** reachable from a
     `@CodeSpecsProjection()` root. This is what makes a `@CodeSpecKind` *inside*
     a follow-up subtree harmless: the annotation records which part the
@@ -1380,7 +1376,7 @@ The validator enforces the following structural invariants (implementation:
     exempt — they have no generated surface, so they have no bearer to reach;
     a deferred part that *acquires* a bearer is a warning that the deferral
     entry has gone stale. A model with no projection root is silent.
-14. **Document reachability** — every class is reachable from at least one
+13. **Document reachability** — every class is reachable from at least one
     `@Document` root. The generator emits the whole class map, so an orphan is
     translated into all nine languages, registered in `spec_ops.g.dart` and
     described in nine metas, while no document can ever hold an instance of it.
@@ -1396,15 +1392,15 @@ The validator enforces the following structural invariants (implementation:
 be reachable from the generation projection."* The model has 65 counterexamples
 across six of its 18 follow-up roots, and `codespecs_mapping.md` §4.3 rules them
 legitimate — enforcing it would forbid a follow-up process from recording which
-part it produces material for. Invariants 12 and 13 are what that rule was
+part it produces material for. Invariants 11 and 12 are what that rule was
 reaching for, stated so that they hold.
 
 **Deliberately not an invariant:** *"no list entry restates its own section id"*
-— the **id** half of §8 rule 4, the counterpart of invariant 11. Unlike a name,
+— the **id** half of §8 rule 4, the counterpart of invariant 10. Unlike a name,
 an id-shaped field beneath a list entry has two honest readings — the document's
 numbering of the entry, and the identifier the specified system will carry — and
 they are written identically, distinguishable only by the prose of the label and
-hint. Widening invariant 11's `Name|Title|Label` shape test to `Id` would
+hint. Widening invariant 10's `Name|Title|Label` shape test to `Id` would
 therefore convict specification content along with duplication. §8.2 states the
 reasoning in full, including why the registry-key exemption is *inverted* for
 ids rather than merely insufficient. A test pins the decision, so the shape test

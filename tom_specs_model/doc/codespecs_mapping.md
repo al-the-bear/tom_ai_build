@@ -4493,7 +4493,7 @@ has to be hoisted out — and it holds at scale: 65 of the model's
 the 18 follow-up roots.
 
 What must hold instead is the pair of invariants the validator enforces
-(`tom_specs_model_rules.md` §10.2, invariants 12 and 13): **no section carries
+(`tom_specs_model_rules.md` §10.2, invariants 11 and 12): **no section carries
 both `@CodeSpecKind` and `@FollowUpKind`** — a follow-up root is never itself
 generated — and **every active part named by any `@CodeSpecKind` has at least
 one bearer reachable from D13**, so a part named from inside a follow-up subtree

@@ -1055,7 +1055,7 @@ void _validateStructuralInvariants(
       '$_invariants document reachability: $orphan is not reachable from any '
       '@Document root — it is generated into all nine languages but no '
       'document can hold it; give it a referring field or delete it '
-      '(tom_specs_model_rules.md §10.2 invariant 14)',
+      '(tom_specs_model_rules.md §10.2 invariant 13)',
     );
   }
 }
@@ -1066,17 +1066,17 @@ void _validateStructuralInvariants(
 final Set<String> _deferredParts =
     deferredCodeSpecParts.map((p) => p.toString()).toSet();
 
-/// Invariants 12 + 13 — the CodeSpecs / follow-up routing pair
+/// Invariants 11 + 12 — the CodeSpecs / follow-up routing pair
 /// (`tom_specs_model_rules.md` §10.2, `codespecs_mapping.md` §8.3).
 ///
-/// **12 — mutual exclusion.** No section carries both `@CodeSpecKind` and
+/// **11 — mutual exclusion.** No section carries both `@CodeSpecKind` and
 /// `@FollowUpKind`. `@FollowUpKind` marks a subtree *root*;
 /// `codespecs_mapping.md` §4.3 rules that only a section which must become a
 /// projection root has to be hoisted out of a follow-up subtree, so a follow-up
 /// root is never itself generated. A class carrying both claims to be both,
 /// which is the one shape the split cannot express.
 ///
-/// **13 — per-part coverage.** Every *active* part named by any `@CodeSpecKind`
+/// **12 — per-part coverage.** Every *active* part named by any `@CodeSpecKind`
 /// has at least one bearer reachable from the CodeSpecs generation projection.
 /// This is what makes a `@CodeSpecKind` inside a follow-up subtree harmless
 /// rather than a routing gap: CE-TX help copy is legitimately tagged under

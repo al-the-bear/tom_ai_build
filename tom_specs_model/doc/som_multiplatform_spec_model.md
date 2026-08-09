@@ -247,14 +247,14 @@ type, enum-ness and enum values, doc-comment, and render/section classification.
 
 **All information in every annotation** — on classes *and* members — is exported
 with its full argument map (named and positional) via `_exportAnnotations`; not a
-curated subset. This includes `@SectionId`, `@SectionIdPattern`,
-`@SecondLevelSectionId`, `@Document`, `@Form` (each form field's
-name/type/description/hint/required), `@Headline`, `@ContentType`,
-`@ContentHelp`, `@MapsTo`, `@DetailedIn`, `@Min`, `@Max`, `@MinLength`,
-`@MaxLength`, `@PatternCheck`, `@PatternCheckId`, `@AllowedTags`, `@Position`,
-`@Prefix`, `@Reference`, `@AccessKey`, `@ForEach`, `@MaxDepth`, `@SeedFor`,
-`@TextRequired`, `@ValidationPrompt`, `@Comment`, `@Unused`, and
-`@SerializationOrder`. The file is stamped with `modelVersion`,
+curated subset. This includes `@SectionId`, `@SectionIdPattern`, `@Document`,
+`@Form` (each form field's name/type/description/hint/required), `@Headline`,
+`@ContentType`, `@ContentHelp`, `@MapsTo`, `@DetailedIn`, `@StandardReferences`,
+`@OneOf`, `@Case`, `@CodeSpecKind`, `@FollowUpKind`, `@CodeSpecsProjection`,
+`@Min`, `@Max`, `@MinLength`, `@MaxLength`, `@PatternCheck`, `@PatternCheckId`,
+`@AllowedTags`, `@Position`, `@Prefix`, `@Reference`, `@AccessKey`, `@ForEach`,
+`@MaxDepth`, `@SeedFor`, `@TextRequired`, `@ValidationPrompt`, `@Comment`,
+`@Unused`, and `@SerializationOrder`. The file is stamped with `modelVersion`,
 `modelVersionLabel`, `containerRoot`, `classCount`, `rootCount`, and
 `metaSchemaVersion: 1`.
 
