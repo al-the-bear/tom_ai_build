@@ -1367,12 +1367,19 @@ languages.
   the ordered read-only view of those leaves — collapsing the recurring
   `add().content = …` pair. Scalar lists are out of scope by contract: their
   value is the item path itself, not a nested leaf.
-- **Container-only vs content-bearing is answerable.** `canHaveContent` is a
-  structural predicate on the `SomNode` base (default `false`, overridden by the
-  emitter on every content-bearing class), so "can this section hold text?" no
-  longer requires a compile-error probe. It is deliberately *not* a uniform
-  nullable `content`, which would have undone the non-null `.content` coalescing
-  above.
+- **"Does this node declare a `content` leaf?" is answerable.** `canHaveContent`
+  is a structural predicate on the `SomNode` base (default `false`, overridden
+  by the emitter on every class that declares the leaf), so the question no
+  longer requires a compile-error probe. Because `tom_specs_model_rules.md`
+  §10.2 requires `content: String?` on every section class — pure containers
+  included — the line it draws in the generated facades runs between a
+  **section** (always `true`) and a **non-section node**: a scalar list item,
+  whose value *is* its item path, inherits the `false` default. In the two
+  per-type-emission languages (C and Rust) there is no base node and no scalar
+  item type, so their generated facades emit only the `true` side; the `false`
+  branch lives in the emitter and is covered by those runtimes' own suites. The
+  predicate is deliberately *not* a uniform nullable `content`, which would have
+  undone the non-null `.content` coalescing above.
 
 **Navigating and exporting:**
 

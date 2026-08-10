@@ -4,14 +4,14 @@
 
 Exercises the runtime base directly (no golden facade needed) against local
 element facades — a content-bearing subclass that overrides the structural
-default and a container-only subclass that inherits it — mirroring the runtime's
-own fixture style and the Dart ``som_facade_test.dart`` ``canHaveContent`` group.
+default and a leafless subclass that inherits it — mirroring the runtime's own
+fixture style and the Dart ``som_facade_test.dart`` ``canHaveContent`` group.
 Proves:
 
-  * the ``SomNode`` base defaults ``can_have_content`` to ``False``
-    (container-only);
+  * the ``SomNode`` base defaults ``can_have_content`` to ``False`` (no
+    ``content`` leaf declared);
   * a content-bearing section overrides it to ``True``;
-  * a scalar list item inherits the container-only ``False`` default;
+  * a scalar list item inherits the ``False`` default;
   * it is structural, not state — independent of any stored value (mutating the
     document never changes the schema-level answer).
 
@@ -66,11 +66,12 @@ class _Metric(SomNode):
         return True
 
 
-class _Container(SomNode):
-    """A container-only section facade: it holds only child sections, no
-    ``content`` leaf, so it does **not** override
-    :attr:`SomNode.can_have_content` and inherits the ``False`` default (mirrors
-    a generated class such as ``SystemsToReplace``)."""
+class _LeaflessNode(SomNode):
+    """A node facade that declares no ``content`` leaf, so it does **not**
+    override :attr:`SomNode.can_have_content` and inherits the ``False``
+    default. In the generated facades this shape is a non-section node (a scalar
+    list item): every *section* class carries ``content`` per
+    ``tom_specs_model_rules.md`` §10.2."""
 
     @property
     def child(self) -> _Metric:
@@ -78,9 +79,9 @@ class _Container(SomNode):
 
 
 def test_base_defaults_false() -> None:
-    """The SomNode base defaults to False (container-only)."""
+    """The SomNode base defaults to False (no ``content`` leaf)."""
     doc = SpecDocument()
-    _check("base.default-false", _Container(doc, "PD00").can_have_content is False)
+    _check("base.default-false", _LeaflessNode(doc, "PD00").can_have_content is False)
 
 
 def test_content_bearing_overrides_true() -> None:
@@ -93,7 +94,7 @@ def test_content_bearing_overrides_true() -> None:
 
 
 def test_scalar_inherits_false() -> None:
-    """A scalar list item inherits the container-only False default."""
+    """A scalar list item inherits the False default."""
     doc = SpecDocument()
     _check(
         "scalar.inherit-false",
@@ -104,14 +105,14 @@ def test_scalar_inherits_false() -> None:
 def test_structural_not_state() -> None:
     """It is structural, not state — independent of any stored value."""
     doc = SpecDocument()
-    container = _Container(doc, "PD00")
+    leafless = _LeaflessNode(doc, "PD00")
     metric = _Metric(doc, "PD00/METR-ITEM-AB1")
     # Empty vs filled makes no difference to the schema-level answer.
-    _check("structural.container-empty", container.can_have_content is False)
+    _check("structural.leafless-empty", leafless.can_have_content is False)
     _check("structural.metric-empty", metric.can_have_content is True)
     metric.content = "filled"
     _check("structural.metric-filled", metric.can_have_content is True)
-    _check("structural.container-still-false", container.can_have_content is False)
+    _check("structural.leafless-still-false", leafless.can_have_content is False)
 
 
 def main() -> int:

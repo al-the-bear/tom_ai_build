@@ -255,9 +255,18 @@ fn has_content_matches_typed_content() {
 // --- structural content predicate (SOM §21) ------------------------------
 
 /// `can_have_content` is a **structural / schema** predicate baked onto every
-/// generated section type: `true` for a content-bearing type (one carrying the
-/// standard `content` text leaf) and `false` for a container-only type. It
-/// never probes the document — it describes the model, not the data.
+/// generated section type as a literal boolean: `true` for a type carrying the
+/// standard `content` text leaf. It never probes the document — it describes
+/// the model, not the data.
+///
+/// Since `tom_specs_model_rules.md` §10.2 requires `content: String?` on every
+/// section class, every generated Rust section type emits `true`. Rust has no
+/// base node default and `SomScalar` carries no `can_have_content` accessor, so
+/// — unlike the seven base-default languages — the v0 facade has no node on
+/// which the predicate reads `false`. The `false` branch survives only in the
+/// emitter (see `som_rust_emitter.dart`) and is exercised by the runtime's own
+/// hand-written fixtures; here the assertions pin the `true` side, which is
+/// what §10.2 makes universal.
 #[test]
 fn can_have_content_is_type_structural() {
     let sbp = D00SolutionBlueprint::new(new_doc(), "").unwrap();
@@ -271,12 +280,17 @@ fn can_have_content_is_type_structural() {
         "Goals is content-bearing"
     );
 
-    // `SystemsToReplace` is a container-only section (no `content` leaf).
+    // Every section type reports `true`, including a pure container:
+    // `SystemsToReplace` holds two child sections and no fields of its own, yet
+    // it still declares `content` (its `@ContentHelp` asks the author to
+    // introduce the replacement portfolio). Pins §10.2's universal-content rule
+    // at the generated facade — red the day a section class without `content`
+    // is reintroduced.
     assert!(
-        !sbp.introduction_and_scope()
+        sbp.introduction_and_scope()
             .systems_to_replace()
             .can_have_content(),
-        "SystemsToReplace is container-only"
+        "a pure container is still a section, so it declares `content` too"
     );
 }
 

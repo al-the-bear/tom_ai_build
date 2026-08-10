@@ -298,12 +298,17 @@ func TestAlignedAbsenceSemantics(t *testing.T) {
 // `content` text leaf?" without probing Content() and without looking at the
 // document.
 //
-// It is emitted per content-bearing type (shadowing the promoted
-// som.SomNode.CanHaveContent false default), so:
+// It is emitted per section type (shadowing the promoted
+// som.SomNode.CanHaveContent false default). Since tom_specs_model_rules.md
+// §10.2 requires `content: String?` on every section class, the line the
+// predicate draws in the generated facade runs between a **section** (always
+// true) and a **non-section node** — a scalar list item, whose value *is* its
+// item path. So:
 //   - the D00SolutionBlueprint root (which has a Content() leaf) → true;
-//   - IntroductionAndScope().Goals() (content-bearing) → true;
-//   - IntroductionAndScope().SystemsToReplace() (container-only, no `content`
-//     leaf — only child sections) → false;
+//   - IntroductionAndScope().Goals() (a section) → true;
+//   - IntroductionAndScope().SystemsToReplace() (a pure container, but still a
+//     section, so it declares `content` too) → true;
+//   - a *som.SomScalar list element (no nested `content` leaf) → false.
 //
 // and it is structural (schema) not state: filling / clearing the leaf never
 // changes the answer, unlike the generic HasContent / typed IsEmpty state
@@ -327,22 +332,33 @@ func TestCanHaveContent(t *testing.T) {
 		t.Errorf("Goals.CanHaveContent() = false, want true (content-bearing)")
 	}
 
-	// SystemsToReplace is container-only (only child sections, no `content` leaf)
-	// → inherits the promoted som.SomNode false default.
+	// Every section class reports true, including a pure container:
+	// SystemsToReplace holds two child sections and no fields of its own, yet it
+	// still declares `content` (its `@ContentHelp` asks the author to introduce
+	// the replacement portfolio). Pins §10.2's universal-content rule at the
+	// generated facade — red the day a section class without `content` returns.
 	systems := scope.SystemsToReplace()
-	if systems.CanHaveContent() {
-		t.Errorf("SystemsToReplace.CanHaveContent() = true, want false (container-only)")
+	if !systems.CanHaveContent() {
+		t.Errorf("SystemsToReplace.CanHaveContent() = false, want true (§10.2: every section declares `content`)")
+	}
+
+	// A scalar list element is a *som.SomScalar: its value *is* its item path, so
+	// it declares no `content` leaf and inherits the promoted som.SomNode false
+	// default. This is the whole of the predicate's surviving false side.
+	item := systems.MigrationConsiderations().EscalationProcedures().Add()
+	if item.CanHaveContent() {
+		t.Errorf("scalar list item CanHaveContent() = true, want false (no nested `content` leaf)")
 	}
 
 	// Structural, not state: filling the content leaf leaves the schema-level
-	// answer unchanged, and the container can never hold content regardless of
-	// its current (empty) state.
+	// answer unchanged, and a filled scalar item stays false.
 	goals.SetContent("filled")
 	if !goals.CanHaveContent() {
 		t.Errorf("filled Goals.CanHaveContent() = false, want true (structural, not state)")
 	}
-	if systems.CanHaveContent() {
-		t.Errorf("SystemsToReplace.CanHaveContent() must stay false regardless of state")
+	item.SetValue("Escalate to the migration board")
+	if item.CanHaveContent() {
+		t.Errorf("filled scalar item CanHaveContent() must stay false regardless of state")
 	}
 }
 

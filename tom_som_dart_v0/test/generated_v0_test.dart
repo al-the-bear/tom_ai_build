@@ -243,6 +243,13 @@ void main() {
     });
   });
 
+  // `canHaveContent` (SOM §21) asks of a *type*, never of a document: does this
+  // node declare the standard `content` text leaf? Since
+  // `tom_specs_model_rules.md` §10.2 requires `content: String?` on every
+  // section class, the line the predicate draws in the generated facade runs
+  // between a **section** (always true) and a **non-section node** — a scalar
+  // list item, which carries its value at its own item path and has no nested
+  // `content` leaf.
   group('canHaveContent structural content-slot predicate (SOM §21)', () {
     test('a content-bearing section reports true', () {
       final sbp = D00SolutionBlueprint(SpecDocument());
@@ -250,10 +257,25 @@ void main() {
       expect(sbp.introductionAndScope.goals.canHaveContent, isTrue);
     });
 
-    test('a container-only section reports false', () {
+    test('a scalar list item reports false', () {
       final sbp = D00SolutionBlueprint(SpecDocument());
-      // SystemsToReplace holds only child sections — no `content` leaf.
-      expect(sbp.introductionAndScope.systemsToReplace.canHaveContent, isFalse);
+      // A scalar list element is a `SomScalar`: its value *is* its item path,
+      // so it declares no `content` leaf and inherits the `SomNode` false
+      // default. This is the whole of the predicate's surviving false side.
+      final item = sbp.introductionAndScope.systemsToReplace
+          .migrationConsiderations.escalationProcedures
+          .add();
+      expect(item.canHaveContent, isFalse);
+    });
+
+    test('every section class reports true — including a pure container', () {
+      final sbp = D00SolutionBlueprint(SpecDocument());
+      // SystemsToReplace holds two child sections and no fields of its own, yet
+      // it still declares `content` (its `@ContentHelp` asks the author to
+      // introduce the replacement portfolio). Pins §10.2's universal-content
+      // rule at the generated facade: this goes red the day a section class
+      // without a `content` leaf is reintroduced.
+      expect(sbp.introductionAndScope.systemsToReplace.canHaveContent, isTrue);
     });
 
     test('the document root (which has content) reports true', () {
@@ -266,8 +288,12 @@ void main() {
       expect(goals.canHaveContent, isTrue);
       goals.content = 'Grow revenue';
       expect(goals.canHaveContent, isTrue);
-      // A filled container-only sibling still reports false.
-      expect(sbp.introductionAndScope.systemsToReplace.canHaveContent, isFalse);
+      // A filled scalar item still reports false.
+      final item = sbp.introductionAndScope.systemsToReplace
+          .migrationConsiderations.escalationProcedures
+          .add();
+      item.value = 'Escalate to the migration board';
+      expect(item.canHaveContent, isFalse);
     });
 
     test('canHaveContent==true iff the .content accessor is usable', () {

@@ -48,13 +48,14 @@ class SomNode {
    * both surfaces agree (SOM §21). Inherited by every generated section. */
   bool isEmpty() const { return !doc_.hasValuesUnder(path_); }
 
-  /* Whether this section TYPE declares the standard `content` text leaf — "*can*
-   * this section hold body text?" answered structurally, at the type level,
-   * WITHOUT probing the document (SOM §21). This is the base default: a
-   * container-only section (e.g. `SystemsToReplace`, which has no `content`
-   * leaf) inherits this `false`; a content-bearing section (e.g. `Goals`)
-   * overrides it to `true`. `virtual` so the per-type answer resolves
-   * polymorphically through a `SomNode` reference.
+  /* Whether this TYPE declares the standard `content` text leaf — "*can* this
+   * node hold body text?" answered structurally, at the type level, WITHOUT
+   * probing the document (SOM §21). This is the base default: a type that
+   * declares no `content` leaf — a `SomList` field view, for instance —
+   * inherits this `false`; every generated *section* class overrides it to
+   * `true`, since `tom_specs_model_rules.md` §10.2 requires `content: String?`
+   * on all of them, pure containers included. `virtual` so the per-type answer
+   * resolves polymorphically through a `SomNode` reference.
    *
    * It is deliberately distinct from the two STATE predicates: the generic
    * SpecDocument::hasContent answers "is a value present at this leaf *now*?"

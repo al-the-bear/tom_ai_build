@@ -355,9 +355,14 @@ function _arraysEqual(a: string[], b: string[]): boolean {
 }
 
 // SOM §21: canHaveContent — the STRUCTURAL / per-type predicate "does this
-// section TYPE declare the standard `content` text leaf?", answered without
-// probing `.content` and without ever looking at the document. Distinct from
-// the STATE predicates (`hasContent(path)` / `isEmpty`).
+// TYPE declare the standard `content` text leaf?", answered without probing
+// `.content` and without ever looking at the document. Distinct from the STATE
+// predicates (`hasContent(path)` / `isEmpty`).
+//
+// Since `tom_specs_model_rules.md` §10.2 requires `content: String?` on every
+// section class, the line it draws in the generated facade runs between a
+// section (always true) and a non-section node — a scalar list item, whose
+// value *is* its item path.
 function testCanHaveContent(): void {
   const doc = new SpecDocument();
   const sbp = new D00SolutionBlueprint(doc);
@@ -368,11 +373,20 @@ function testCanHaveContent(): void {
     sbp.introductionAndScope.goals.canHaveContent === true,
   );
 
-  // Container-only section (`SystemsToReplace` has no `content` leaf) →
-  // inherits the structural `false` default.
+  // A scalar list element is a SomScalar: no nested `content` leaf, so it
+  // inherits the structural `false` default — the whole of the false side.
+  const scalarItem = sbp.introductionAndScope.systemsToReplace
+    .migrationConsiderations.escalationProcedures.add();
+  check('canHaveContent.scalar-item-false', scalarItem.canHaveContent === false);
+
+  // Every section class reports true, including a pure container:
+  // `SystemsToReplace` holds two child sections and no fields of its own, yet
+  // still declares `content` (its `@ContentHelp` asks the author to introduce
+  // the replacement portfolio). Pins §10.2's universal-content rule at the
+  // generated facade — red the day a section class without `content` returns.
   check(
-    'canHaveContent.systemsToReplace-false',
-    sbp.introductionAndScope.systemsToReplace.canHaveContent === false,
+    'canHaveContent.systemsToReplace-true',
+    sbp.introductionAndScope.systemsToReplace.canHaveContent === true,
   );
 
   // The content-bearing document root itself overrides to true.
@@ -389,9 +403,10 @@ function testCanHaveContent(): void {
     'canHaveContent.after-write-unchanged',
     sbp.introductionAndScope.goals.canHaveContent === true,
   );
+  scalarItem.value = 'Escalate to the migration board';
   check(
-    'canHaveContent.container-independent-of-state',
-    sbp.introductionAndScope.systemsToReplace.canHaveContent === false,
+    'canHaveContent.scalar-independent-of-state',
+    scalarItem.canHaveContent === false,
   );
 }
 

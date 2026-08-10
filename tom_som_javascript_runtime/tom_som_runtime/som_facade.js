@@ -124,8 +124,11 @@ class SomNode {
    * hold body text?" (SOM §21). A **structural / schema** predicate answered
    * at the type level, without probing `.content`.
    *
-   * The base returns `false`; content-bearing generated subclasses (e.g.
-   * `Goals`) override it to `true`. It is deliberately distinct from the two
+   * The base returns `false` — the answer for a node type that declares no
+   * `content` leaf, such as a scalar list item whose value *is* its item path.
+   * Every generated **section** class overrides it to `true`, since
+   * `tom_specs_model_rules.md` §10.2 requires `content: String?` on all of
+   * them, pure containers included. It is deliberately distinct from the two
    * **state** predicates: {@link SpecDocument#hasContent} answers "is a value
    * present at this leaf *now*?" and {@link isEmpty} answers "is this subtree
    * empty *now*?". `canHaveContent` never looks at the document — it describes

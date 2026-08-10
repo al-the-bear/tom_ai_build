@@ -13,8 +13,8 @@
  *
  * The element facades below are minimal stand-ins shaped exactly like the
  * emitter output: a content-bearing class adds a typed `content` accessor and
- * overrides `canHaveContent` to `true`; a container-only class overrides nothing
- * and inherits the `false` default.
+ * overrides `canHaveContent` to `true`; a class declaring no `content` leaf
+ * overrides nothing and inherits the `false` default.
  */
 
 const { test } = require('node:test');
@@ -39,19 +39,20 @@ class ContentItem extends SomNode {
 }
 
 /**
- * A container-only section facade: it holds only child sections, no `content`
- * leaf, so it does **not** override `SomNode.canHaveContent` and inherits the
- * `false` default (mirrors a generated class such as `SystemsToReplace`).
+ * A node facade that declares no `content` leaf, so it does **not** override
+ * `SomNode.canHaveContent` and inherits the `false` default. In the generated
+ * facades this shape is a non-section node (a scalar list item): every *section*
+ * class carries `content` per `tom_specs_model_rules.md` §10.2.
  */
-class Container extends SomNode {
+class LeaflessNode extends SomNode {
   get child() {
     return new ContentItem(this.doc, `${this.path}/child`);
   }
 }
 
-test('the SomNode base defaults canHaveContent to false (container-only)', () => {
+test('the SomNode base defaults canHaveContent to false (no `content` leaf)', () => {
   const doc = new SpecDocument();
-  assert.strictEqual(new Container(doc, 'PD00').canHaveContent, false);
+  assert.strictEqual(new LeaflessNode(doc, 'PD00').canHaveContent, false);
 });
 
 test('a content-bearing section overrides canHaveContent to true', () => {
@@ -62,19 +63,19 @@ test('a content-bearing section overrides canHaveContent to true', () => {
   );
 });
 
-test('a scalar list item inherits the container-only false default', () => {
+test('a scalar list item inherits the false default', () => {
   const doc = new SpecDocument();
   assert.strictEqual(new SomScalar(doc, 'PD00/tags-1').canHaveContent, false);
 });
 
 test('canHaveContent is structural, not state — independent of any stored value', () => {
   const doc = new SpecDocument();
-  const container = new Container(doc, 'PD00');
+  const leafless = new LeaflessNode(doc, 'PD00');
   const item = new ContentItem(doc, 'PD00/METR-ITEM-AB1');
   // Empty vs filled makes no difference to the schema-level answer.
-  assert.strictEqual(container.canHaveContent, false);
+  assert.strictEqual(leafless.canHaveContent, false);
   assert.strictEqual(item.canHaveContent, true);
   item.content = 'filled';
   assert.strictEqual(item.canHaveContent, true);
-  assert.strictEqual(container.canHaveContent, false);
+  assert.strictEqual(leafless.canHaveContent, false);
 });

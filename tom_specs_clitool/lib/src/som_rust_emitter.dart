@@ -443,8 +443,11 @@ class SomRustEmitter {
       .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
   /// Emits the per-type `can_have_content` structural predicate (SOM §21),
-  /// returning the literal [value] — `true` for a content-bearing type, `false`
-  /// for a container-only one. Mirrors the per-type `editability_for` emission
+  /// returning the literal [value] — `true` for a type carrying a `content`
+  /// leaf, `false` for one that declares none. Since
+  /// `tom_specs_model_rules.md` §10.2 requires `content: String?` on every
+  /// section class, every emitted type currently takes the `true` branch.
+  /// Mirrors the per-type `editability_for` emission
   /// (SOM §21): Rust facades hold a `som::SomNode` but do not inherit from it,
   /// so the predicate is a compile-time constant baked onto each generated type
   /// rather than a base-node override.

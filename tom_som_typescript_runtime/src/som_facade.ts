@@ -63,10 +63,11 @@ export class SomNode {
    * i.e. whether the `.content` getter/setter exists on it (SOM §21).
    *
    * This is a **structural / schema** predicate: a compile-time constant of the
-   * section's type, answering "*can* this section hold body text?" without a
-   * probe of `.content`. Container-only sections (e.g. `SystemsToReplace`,
-   * which has no `content` leaf) inherit this `false` default; content-bearing
-   * sections (e.g. `Goals`) override it to `true`.
+   * node's type, answering "*can* this node hold body text?" without a probe of
+   * `.content`. A node type that declares no `content` leaf — a scalar list
+   * item, whose value *is* its item path — inherits this `false` default; every
+   * **section** class overrides it to `true`, since `tom_specs_model_rules.md`
+   * §10.2 requires `content: String?` on all of them, pure containers included.
    *
    * It is deliberately distinct from the two **state** predicates: the generic
    * {@link SpecDocument.hasContent} answers "is a value present at this leaf

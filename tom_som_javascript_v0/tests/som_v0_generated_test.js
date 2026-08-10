@@ -357,9 +357,13 @@ function testOneCallLoading() {
 }
 
 // SOM §21: the structural `canHaveContent` predicate — mirrors the Dart
-// reference suite. It answers "does this section TYPE declare the standard
-// `content` text leaf?" at the type level, without probing `.content` or the
-// document.
+// reference suite. It answers "does this TYPE declare the standard `content`
+// text leaf?" at the type level, without probing `.content` or the document.
+//
+// Since `tom_specs_model_rules.md` §10.2 requires `content: String?` on every
+// section class, the line it draws in the generated facade runs between a
+// section (always true) and a non-section node — a scalar list item, whose
+// value *is* its item path.
 function testCanHaveContent() {
   const sbp = new m.D00SolutionBlueprint(new SpecDocument());
 
@@ -370,10 +374,26 @@ function testCanHaveContent() {
     String(sbp.introductionAndScope.goals.canHaveContent),
   );
 
-  // SystemsToReplace holds only child sections — no `content` leaf.
+  // A scalar list element is a SomScalar: no nested `content` leaf, so it
+  // inherits the SomNode `false` default — the whole of the false side.
+  {
+    const item = sbp.introductionAndScope.systemsToReplace
+      .migrationConsiderations.escalationProcedures.add();
+    check(
+      'canHaveContent.scalar-item-false',
+      item.canHaveContent === false,
+      String(item.canHaveContent),
+    );
+  }
+
+  // Every section class reports true, including a pure container:
+  // SystemsToReplace holds two child sections and no fields of its own, yet
+  // still declares `content` (its `@ContentHelp` asks the author to introduce
+  // the replacement portfolio). Pins §10.2's universal-content rule at the
+  // generated facade — red the day a section class without `content` returns.
   check(
-    'canHaveContent.container-only-false',
-    sbp.introductionAndScope.systemsToReplace.canHaveContent === false,
+    'canHaveContent.pure-container-true',
+    sbp.introductionAndScope.systemsToReplace.canHaveContent === true,
     String(sbp.introductionAndScope.systemsToReplace.canHaveContent),
   );
 
@@ -390,10 +410,13 @@ function testCanHaveContent() {
     check('canHaveContent.structural.before', goals.canHaveContent === true);
     goals.content = 'Grow revenue';
     check('canHaveContent.structural.after', goals.canHaveContent === true);
-    // A filled container-only sibling still reports false.
+    // A filled scalar item still reports false.
+    const item = sbp.introductionAndScope.systemsToReplace
+      .migrationConsiderations.escalationProcedures.add();
+    item.value = 'Escalate to the migration board';
     check(
-      'canHaveContent.structural.sibling-false',
-      sbp.introductionAndScope.systemsToReplace.canHaveContent === false,
+      'canHaveContent.structural.filled-scalar-false',
+      item.canHaveContent === false,
     );
   }
 }

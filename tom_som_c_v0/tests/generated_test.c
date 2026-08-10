@@ -577,12 +577,18 @@ static void test_one_call_loading(void) {
 
 /* The per-type structural `can_have_content` predicate (SOM §21): every
  * generated type emits a `<type>_can_have_content` accessor returning the
- * literal answer to "does this section TYPE declare the standard `content` text
+ * literal answer to "does this TYPE declare the standard `content` text
  * leaf?" — WITHOUT probing the document (mirrors the `editability_for` /
- * `is_empty` per-type C emission). A content-bearing section (Goals) and
- * the content-bearing root (D00SolutionBlueprint) report 1; a container-only
- * section (SystemsToReplace, which has no `content` leaf) reports 0. Mirrors the
- * Dart `canHaveContent` structural checks. */
+ * `is_empty` per-type C emission).
+ *
+ * Since `tom_specs_model_rules.md` §10.2 requires `content: String?` on every
+ * section class, every generated C type emits 1. C has no base node helper and
+ * emits no scalar item type, so — unlike the seven base-default languages —
+ * the v0 facade has no type on which the predicate reads 0. The 0 branch
+ * survives only in the emitter (see `som_c_emitter.dart`) and is exercised by
+ * the runtime's own hand-written fixtures; here the assertions pin the 1 side,
+ * which is what §10.2 makes universal. Mirrors the Dart `canHaveContent`
+ * structural checks. */
 static void test_can_have_content(void) {
   SpecDocument doc;
   spec_document_init(&doc);
@@ -599,11 +605,15 @@ static void test_can_have_content(void) {
   ok(goals_can_have_content(&goals) == 1,
      "Goals can_have_content is true");
 
-  /* SystemsToReplace is container-only (no `content` leaf) → false. */
+  /* Every section type reports 1, including a pure container: SystemsToReplace
+   * holds two child sections and no fields of its own, yet it still declares
+   * `content` (its `@ContentHelp` asks the author to introduce the replacement
+   * portfolio). Pins §10.2's universal-content rule at the generated facade —
+   * red the day a section class without `content` is reintroduced. */
   SystemsToReplace systems;
   systems_to_replace_init(&systems, &doc, "SBP/systemsToReplace");
-  ok(systems_to_replace_can_have_content(&systems) == 0,
-     "SystemsToReplace can_have_content is false");
+  ok(systems_to_replace_can_have_content(&systems) == 1,
+     "pure-container SystemsToReplace can_have_content is true");
 
   /* Structural, never stateful: writing a value under Goals' content leaf does
    * not change the answer. */

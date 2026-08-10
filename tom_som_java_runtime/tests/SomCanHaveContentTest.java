@@ -7,14 +7,14 @@ import tom_som_runtime.SpecDocument;
 
 /**
  * Behavioural test for the structural {@link SomNode#canHaveContent} predicate
- * (SOM §21): "does this section TYPE declare the standard {@code content}
- * text leaf?" — a compile-time / per-type schema fact, answered WITHOUT probing
+ * (SOM §21): "does this TYPE declare the standard {@code content} text leaf?" —
+ * a compile-time / per-type schema fact, answered WITHOUT probing
  * {@code content()} and WITHOUT ever looking at the document.
  *
  * <p>The real subclasses are generated centrally (this test cannot run the
  * generator), so these stand-ins reproduce what the emitter produces: a
- * content-bearing section overrides the base default to {@code true}, while
- * scalar/container-only sections inherit the {@code false} default. It asserts
+ * content-bearing section overrides the base default to {@code true}, while a
+ * node type declaring no {@code content} leaf inherits it. It asserts
  * the base default, the content-bearing override, the inherited-false cases,
  * and — crucially — that the STATE predicates ({@code hasContent(path)} on the
  * document, {@code isEmpty()} on the node) stay independent of this STRUCTURAL
@@ -62,12 +62,13 @@ public final class SomCanHaveContentTest {
   }
 
   /**
-   * A container-only section facade: no {@code content} leaf, so it inherits the
-   * structural {@code false} default (what a class like {@code SystemsToReplace}
-   * does).
+   * A node facade declaring no {@code content} leaf, so it inherits the
+   * structural {@code false} default. In the generated facades this shape is a
+   * non-section node (a scalar list item): every <em>section</em> class carries
+   * {@code content} per {@code tom_specs_model_rules.md} §10.2.
    */
-  static final class ContainerOnly extends SomNode {
-    ContainerOnly(SpecDocument doc, String path) {
+  static final class Leafless extends SomNode {
+    Leafless(SpecDocument doc, String path) {
       super(doc, path);
     }
   }
@@ -94,11 +95,11 @@ public final class SomCanHaveContentTest {
       eq("SomScalar inherits false", scalar.canHaveContent(), false);
     }
 
-    // (d) A container-only section inherits the `false` default.
+    // (d) A node type with no `content` leaf inherits the `false` default.
     {
       SpecDocument doc = new SpecDocument();
-      ContainerOnly container = new ContainerOnly(doc, "root/systemsToReplace");
-      eq("container-only inherits false", container.canHaveContent(), false);
+      Leafless leafless = new Leafless(doc, "root/tags-1");
+      eq("leafless node inherits false", leafless.canHaveContent(), false);
     }
 
     // (e) Structural vs state independence: `canHaveContent` never looks at the
@@ -121,9 +122,9 @@ public final class SomCanHaveContentTest {
       eq("filled: doc.hasContent true", doc.hasContent(leaf), true);
       eq("filled: node isEmpty false", section.isEmpty(), false);
 
-      // A container-only section stays structurally false regardless of state.
-      ContainerOnly container = new ContainerOnly(doc, "root/goals");
-      eq("container over same path stays false", container.canHaveContent(), false);
+      // A leafless node stays structurally false regardless of state.
+      Leafless leafless = new Leafless(doc, "root/goals");
+      eq("leafless over same path stays false", leafless.canHaveContent(), false);
     }
 
     int total = passed + failed.size();

@@ -1,7 +1,7 @@
 //! `can_have_content` suite for the SOM §21 structural predicate.
 //!
-//! `can_have_content` answers "does this section **type** declare the standard
-//! `content` text leaf?" — can this section hold body text? — as a compile-time
+//! `can_have_content` answers "does this **type** declare the standard
+//! `content` text leaf?" — can this node hold body text? — as a compile-time
 //! constant of the type, **without probing the document**. It is deliberately
 //! distinct from the two state predicates: [`SpecDocument::has_content`] ("is a
 //! value present at this leaf *now*?") and [`SomNode::is_empty`] ("is this
@@ -10,7 +10,11 @@
 //! Rust facades hold a [`SomNode`] but do not inherit from it, so — mirroring
 //! the per-type `editability_for` emission (SOM §21) — the emitter bakes
 //! `can_have_content` onto **every** generated section type as a literal
-//! boolean (`true` for content-bearing types, `false` for container-only ones).
+//! boolean (`true` for a type carrying a `content` leaf, `false` for one that
+//! declares none). Since `tom_specs_model_rules.md` §10.2 requires
+//! `content: String?` on every section class, every generated section type
+//! emits `true`; the `false` literal below stands for the emitter's other
+//! branch, which no generated section reaches.
 //! The generated crate is regenerated centrally, so here we exercise two
 //! stand-in facades that reproduce the exact per-type emission the emitter
 //! produces, plus the invariant that the predicate never consults the document.
@@ -44,23 +48,23 @@ impl ContentBearingFacade {
     }
 }
 
-/// Stand-in for a **container-only** generated facade (e.g. `SystemsToReplace`):
-/// no `content` leaf, so the emitter emits `can_have_content` == `false`.
-struct ContainerOnlyFacade {
-    // Bound like every generated facade, though a container-only type's
+/// Stand-in for a generated facade that declares **no `content` leaf**, so the
+/// emitter emits `can_have_content` == `false`.
+struct LeaflessFacade {
+    // Bound like every generated facade, though a leafless type's
     // `can_have_content` never reads it (the predicate is purely structural).
     #[allow(dead_code)]
     node: SomNode,
 }
 
-impl ContainerOnlyFacade {
-    fn new(doc: DocRef, path: String) -> ContainerOnlyFacade {
-        ContainerOnlyFacade {
+impl LeaflessFacade {
+    fn new(doc: DocRef, path: String) -> LeaflessFacade {
+        LeaflessFacade {
             node: SomNode::new(doc, path),
         }
     }
 
-    /// The literal the emitter bakes onto a container-only type (SOM §21).
+    /// The literal the emitter bakes onto a type with no `content` leaf (SOM §21).
     fn can_have_content(&self) -> bool {
         false
     }
@@ -74,9 +78,9 @@ fn content_bearing_type_can_have_content() {
 }
 
 #[test]
-fn container_only_type_cannot_have_content() {
+fn leafless_type_cannot_have_content() {
     let doc = doc_ref(SpecDocument::new());
-    let facade = ContainerOnlyFacade::new(doc, "SBP/systemsToReplace".to_string());
+    let facade = LeaflessFacade::new(doc, "SBP/tags-1".to_string());
     assert!(!facade.can_have_content());
 }
 

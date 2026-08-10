@@ -56,11 +56,12 @@ class _Metric extends SomNode {
   bool get canHaveContent => true;
 }
 
-/// A container-only section facade: it holds only child sections, no `content`
-/// leaf, so it does **not** override [SomNode.canHaveContent] and inherits the
-/// `false` default (mirrors a generated class such as `SystemsToReplace`).
-class _Container extends SomNode {
-  _Container(super.doc, super.path);
+/// A node facade that declares no `content` leaf, so it does **not** override
+/// [SomNode.canHaveContent] and inherits the `false` default. In the generated
+/// facades this shape is a non-section node (a scalar list item): every
+/// *section* class carries `content` per `tom_specs_model_rules.md` §10.2.
+class _LeaflessNode extends SomNode {
+  _LeaflessNode(super.doc, super.path);
 
   _Item get child => _Item(doc, '$path/child');
 }
@@ -279,9 +280,9 @@ void main() {
   });
 
   group('canHaveContent (structural content-slot predicate, SOM §21)', () {
-    test('the SomNode base defaults to false (container-only)', () {
+    test('the SomNode base defaults to false (no `content` leaf)', () {
       final doc = SpecDocument();
-      expect(_Container(doc, 'PD00').canHaveContent, isFalse);
+      expect(_LeaflessNode(doc, 'PD00').canHaveContent, isFalse);
     });
 
     test('a content-bearing section overrides it to true', () {
@@ -289,21 +290,21 @@ void main() {
       expect(_Metric(doc, 'PD00/METR-ITEM-AB1').canHaveContent, isTrue);
     });
 
-    test('a scalar list item inherits the container-only false default', () {
+    test('a scalar list item inherits the false default', () {
       final doc = SpecDocument();
       expect(SomScalar(doc, 'PD00/tags-1').canHaveContent, isFalse);
     });
 
     test('it is structural, not state — independent of any stored value', () {
       final doc = SpecDocument();
-      final container = _Container(doc, 'PD00');
+      final leafless = _LeaflessNode(doc, 'PD00');
       final metric = _Metric(doc, 'PD00/METR-ITEM-AB1');
       // Empty vs filled makes no difference to the schema-level answer.
-      expect(container.canHaveContent, isFalse);
+      expect(leafless.canHaveContent, isFalse);
       expect(metric.canHaveContent, isTrue);
       metric.content = 'filled';
       expect(metric.canHaveContent, isTrue);
-      expect(container.canHaveContent, isFalse);
+      expect(leafless.canHaveContent, isFalse);
     });
   });
 

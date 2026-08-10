@@ -322,12 +322,16 @@ void testAlignedAbsence() {
 }
 
 // SOM §21: `canHaveContent()` is the structural per-type predicate — "does
-// this section TYPE declare the standard `content` text leaf?" — answered
-// without probing the document. Goals (which has a content leaf) and the root
-// report true; the container-only SystemsToReplace reports false. It is
-// structural: independent of whether content is written now (distinct from the
-// state predicates isEmpty()/hasContent()). Mirrors the Dart "canHaveContent
-// structural content-slot predicate" group.
+// this TYPE declare the standard `content` text leaf?" — answered without
+// probing the document. Since tom_specs_model_rules.md §10.2 requires
+// `content: String?` on every section class, the line the predicate draws in
+// the generated facade runs between a **section** (always true, whether or not
+// it also holds child sections) and a **non-section node** — here a
+// `som::SomList` field view, which carries no `content` leaf of its own and so
+// inherits the `som::SomNode` false default. It is structural: independent of
+// whether content is written now (distinct from the state predicates
+// isEmpty()/hasContent()). Mirrors the Dart "canHaveContent structural
+// content-slot predicate" group.
 void testCanHaveContent() {
   som::SpecDocument doc;
   tom_som_v0::D00SolutionBlueprint sbp(doc);
@@ -336,9 +340,25 @@ void testCanHaveContent() {
   ok(sbp.introductionAndScope().goals().canHaveContent(),
      "content-bearing Goals canHaveContent true");
 
-  // A container-only section (SystemsToReplace holds only child sections).
-  ok(!sbp.introductionAndScope().systemsToReplace().canHaveContent(),
-     "container-only SystemsToReplace canHaveContent false");
+  // Every section class reports true, including a pure container:
+  // SystemsToReplace holds two child sections and no fields of its own, yet it
+  // still declares `content` (its `@ContentHelp` asks the author to introduce
+  // the replacement portfolio). Pins §10.2's universal-content rule at the
+  // generated facade — red the day a section class without `content` returns.
+  ok(sbp.introductionAndScope().systemsToReplace().canHaveContent(),
+     "pure-container SystemsToReplace canHaveContent true");
+
+  // A list field view is not a section: it declares no `content` leaf and so
+  // inherits the som::SomNode false default. This is the whole of the
+  // predicate's surviving false side in the C++ facade, which emits no scalar
+  // item type.
+  {
+    som::SomList escalations = sbp.introductionAndScope()
+                                   .systemsToReplace()
+                                   .migrationConsiderations()
+                                   .escalationProcedures();
+    ok(!escalations.canHaveContent(), "list field view canHaveContent false");
+  }
 
   // The document root has a content leaf.
   ok(sbp.canHaveContent(), "root canHaveContent true");
@@ -349,8 +369,13 @@ void testCanHaveContent() {
     ok(goals.canHaveContent(), "Goals canHaveContent true (empty)");
     goals.setContent("Grow revenue");
     ok(goals.canHaveContent(), "Goals canHaveContent true (filled)");
-    ok(!sbp.introductionAndScope().systemsToReplace().canHaveContent(),
-       "SystemsToReplace still false after sibling filled");
+    som::SomList escalations = sbp.introductionAndScope()
+                                   .systemsToReplace()
+                                   .migrationConsiderations()
+                                   .escalationProcedures();
+    escalations.add();
+    ok(!escalations.canHaveContent(),
+       "list field view still false after an item is appended");
   }
 }
 

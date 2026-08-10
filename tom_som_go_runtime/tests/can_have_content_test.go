@@ -36,21 +36,21 @@ func (m metricNode) SetContent(v string) { m.Doc().SetContent(m.Path()+"/content
 // declares the `content` leaf (SOM §21).
 func (m metricNode) CanHaveContent() bool { return true }
 
-// containerNode is a container-only section facade fixture: it holds only child
-// sections, no `content` leaf, so it does NOT shadow CanHaveContent and inherits
-// the promoted SomNode false default (mirrors a generated class such as
-// SystemsToReplace).
-type containerNode struct {
+// leaflessNode is a facade fixture declaring no `content` leaf, so it does NOT
+// shadow CanHaveContent and inherits the promoted SomNode false default. In the
+// generated facades this shape is a non-section node (a scalar list item):
+// every *section* type carries `content` per tom_specs_model_rules.md §10.2.
+type leaflessNode struct {
 	som.SomNode
 }
 
 // TestCanHaveContentBaseDefaultsFalse: the embedded SomNode default (promoted to
-// a container-only section) is false.
+// a type that declares no `content` leaf) is false.
 func TestCanHaveContentBaseDefaultsFalse(t *testing.T) {
 	doc := som.NewSpecDocument()
-	c := containerNode{SomNode: som.NewSomNode(doc, "PD00")}
+	c := leaflessNode{SomNode: som.NewSomNode(doc, "PD00")}
 	if c.CanHaveContent() {
-		t.Fatalf("containerNode.CanHaveContent() = true, want false (container-only)")
+		t.Fatalf("leaflessNode.CanHaveContent() = true, want false (no `content` leaf)")
 	}
 }
 
@@ -73,8 +73,8 @@ func TestCanHaveContentBearingTrue(t *testing.T) {
 	}
 }
 
-// TestCanHaveContentScalarInheritsFalse: a scalar list item inherits the
-// container-only false default (SomScalar embeds SomNode, adds no override).
+// TestCanHaveContentScalarInheritsFalse: a scalar list item inherits the base
+// false default (SomScalar embeds SomNode, adds no override).
 func TestCanHaveContentScalarInheritsFalse(t *testing.T) {
 	doc := som.NewSpecDocument()
 	s := som.NewSomScalar(doc, "PD00/tags-1")
@@ -89,14 +89,15 @@ func TestCanHaveContentScalarInheritsFalse(t *testing.T) {
 // HasContent / IsEmpty.
 func TestCanHaveContentIsStructuralNotState(t *testing.T) {
 	doc := som.NewSpecDocument()
-	// Disjoint paths so the container's subtree stays genuinely empty even after
-	// the metric's content leaf is filled (IsEmpty checks HasValuesUnder(path)).
-	container := containerNode{SomNode: som.NewSomNode(doc, "CTR00")}
+	// Disjoint paths so the leafless node's subtree stays genuinely empty even
+	// after the metric's content leaf is filled (IsEmpty checks
+	// HasValuesUnder(path)).
+	leafless := leaflessNode{SomNode: som.NewSomNode(doc, "CTR00")}
 	metric := metricNode{SomNode: som.NewSomNode(doc, "PD00/METR-ITEM-AB1")}
 
 	// Empty vs filled makes no difference to the schema-level answer.
-	if container.CanHaveContent() {
-		t.Fatalf("empty container.CanHaveContent() = true, want false")
+	if leafless.CanHaveContent() {
+		t.Fatalf("empty leafless.CanHaveContent() = true, want false")
 	}
 	if !metric.CanHaveContent() {
 		t.Fatalf("empty metric.CanHaveContent() = false, want true")
@@ -107,24 +108,24 @@ func TestCanHaveContentIsStructuralNotState(t *testing.T) {
 	if !metric.CanHaveContent() {
 		t.Fatalf("filled metric.CanHaveContent() = false, want true (structural, not state)")
 	}
-	if container.CanHaveContent() {
-		t.Fatalf("container.CanHaveContent() = true, want false (structural, not state)")
+	if leafless.CanHaveContent() {
+		t.Fatalf("leafless.CanHaveContent() = true, want false (structural, not state)")
 	}
 
 	// Independence from the state predicates: the metric now HAS content (a
 	// value is present *now*) and is not empty, yet CanHaveContent (the schema
-	// answer) is the same true it was when empty. The container CAN never hold
-	// content though it is currently empty.
+	// answer) is the same true it was when empty. The leafless node CAN never
+	// hold content though it is currently empty.
 	if !doc.HasContent(metric.Path() + "/content") {
 		t.Fatalf("expected HasContent(metric/content) = true after SetContent")
 	}
 	if metric.IsEmpty() {
 		t.Fatalf("expected metric.IsEmpty() = false after SetContent")
 	}
-	if !container.IsEmpty() {
-		t.Fatalf("expected empty container.IsEmpty() = true")
+	if !leafless.IsEmpty() {
+		t.Fatalf("expected empty leafless.IsEmpty() = true")
 	}
-	if container.CanHaveContent() {
-		t.Fatalf("container CanHaveContent() must stay false regardless of IsEmpty state")
+	if leafless.CanHaveContent() {
+		t.Fatalf("leafless CanHaveContent() must stay false regardless of IsEmpty state")
 	}
 }

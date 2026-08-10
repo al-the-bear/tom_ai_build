@@ -68,11 +68,12 @@ class SomNode:
         (SOM §21).
 
         This is a **structural / schema** predicate: a per-type constant of the
-        section's type, answering "*can* this section hold body text?" without
-        probing ``.content`` at runtime. Container-only sections (e.g.
-        ``SystemsToReplace``, which has no ``content`` leaf) inherit this
-        ``False`` default; content-bearing sections (e.g. ``Goals``) override it
-        to ``True``.
+        node's type, answering "*can* this node hold body text?" without
+        probing ``.content`` at runtime. A node type that declares no
+        ``content`` leaf — a scalar list item, whose value *is* its item path —
+        inherits this ``False`` default; every **section** class overrides it to
+        ``True``, since ``tom_specs_model_rules.md`` §10.2 requires
+        ``content: String?`` on all of them, pure containers included.
 
         It is deliberately distinct from the two **state** predicates: the
         generic :meth:`SpecDocument.has_content` answers "is a value present at

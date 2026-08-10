@@ -2,15 +2,18 @@
  * the C port of the Dart `SomNode.canHaveContent` reference in
  * `tom_som_dart_runtime/lib/src/som_facade.dart`.
  *
- * `can_have_content` answers "does this section TYPE declare the standard
- * `content` text leaf?" — "can this section hold body text?" — WITHOUT probing
- * the document. C has no inheritance or method promotion, so (following the
+ * `can_have_content` answers "does this TYPE declare the standard `content`
+ * text leaf?" — "can this node hold body text?" — WITHOUT probing the
+ * document. C has no inheritance or method promotion, so (following the
  * `editability_for` and `is_empty` per-type C emission precedent)
  * the generated `tom_som_c_v0` emits a `<type>_can_have_content(const <Type>*)`
  * accessor for EVERY generated section type returning the literal answer:
  *   - 1 for a content-bearing type (one whose model class has a `content`
  *     content-kind field, e.g. `Goals`, the `D00SolutionBlueprint` root);
- *   - 0 for a container-only type (no `content` leaf, e.g. `SystemsToReplace`).
+ *   - 0 for a type that declares no `content` leaf. Since
+ *     `tom_specs_model_rules.md` §10.2 requires `content: String?` on every
+ *     section class, no generated type currently takes this branch; the
+ *     stand-in below is what keeps it covered.
  *
  * The facade cannot be regenerated in this task, so — exactly as
  * `facade_editability.c` reproduces the emitted root shape locally — this test
@@ -52,22 +55,22 @@ static int demo_content_bearing_can_have_content(const DemoContentBearing *self)
   return 1;
 }
 
-/* Container-only stand-in (mirrors `systems_to_replace_can_have_content`). */
-typedef struct { SomNode node; } DemoContainerOnly;
-static int demo_container_only_can_have_content(const DemoContainerOnly *self) {
+/* Stand-in for a type declaring no `content` leaf — the emitter's 0 branch. */
+typedef struct { SomNode node; } DemoLeafless;
+static int demo_leafless_can_have_content(const DemoLeafless *self) {
   (void)self;
   return 0;
 }
 
-/* The literal-return contract: content-bearing types yield 1, container-only
- * types yield 0. */
+/* The literal-return contract: types carrying a `content` leaf yield 1, types
+ * declaring none yield 0. */
 static void test_literal_answer(void) {
   DemoContentBearing bearing;
-  DemoContainerOnly container;
+  DemoLeafless leafless;
   CHECK(demo_content_bearing_can_have_content(&bearing) == 1,
         "content-bearing type reports 1");
-  CHECK(demo_container_only_can_have_content(&container) == 0,
-        "container-only type reports 0");
+  CHECK(demo_leafless_can_have_content(&leafless) == 0,
+        "leafless type reports 0");
 }
 
 /* Structural, not stateful: the answer is the type's compile-time property and
@@ -93,14 +96,14 @@ static void test_structural_not_stateful(void) {
         "content-bearing stays 1 after content is cleared");
   som_node_free(&bearing.node);
 
-  DemoContainerOnly container;
-  som_node_init(&container.node, &doc, "CON");
-  /* Even with a value nested beneath the container's path, it stays 0: the
+  DemoLeafless leafless;
+  som_node_init(&leafless.node, &doc, "CON");
+  /* Even with a value nested beneath the node's path, it stays 0: the
    * predicate describes the model, not the data. */
   spec_document_set_content(&doc, "CON/child/content", "nested");
-  CHECK(demo_container_only_can_have_content(&container) == 0,
-        "container-only stays 0 with nested values present");
-  som_node_free(&container.node);
+  CHECK(demo_leafless_can_have_content(&leafless) == 0,
+        "leafless type stays 0 with nested values present");
+  som_node_free(&leafless.node);
 
   spec_document_free(&doc);
 }

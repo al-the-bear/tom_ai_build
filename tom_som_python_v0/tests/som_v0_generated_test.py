@@ -216,26 +216,33 @@ def test_absence_semantics() -> None:
 
 def test_can_have_content() -> None:
     """SOM §21: the structural content-slot predicate ``can_have_content``
-    answers "does this section *type* declare the standard ``content`` leaf?"
-    without probing the document.
+    answers "does this *type* declare the standard ``content`` leaf?" without
+    probing the document.
 
-    The generated override lands centrally (this test is authored now, verified
-    after regeneration). It skips cleanly if the committed facade predates the
-    SOM §21 regeneration — detected by a content-bearing section still
-    inheriting the ``False`` base default.
+    Since ``tom_specs_model_rules.md`` §10.2 requires ``content: String?`` on
+    every section class, the line the predicate draws in the generated facade
+    runs between a **section** (always true) and a **non-section node** — a
+    scalar list item, whose value *is* its item path.
     """
     sbp = m.D00SolutionBlueprint(SpecDocument())
-    if sbp.introductionAndScope.goals.can_have_content is not True:
-        print("SKIP: facade predates can_have_content (SOM §21 not yet regenerated)")
-        return
 
     # A content-bearing section (Goals declares the standard `content` leaf).
     _check("chc.content-bearing-true",
            sbp.introductionAndScope.goals.can_have_content is True)
 
-    # A container-only section (SystemsToReplace holds only child sections).
-    _check("chc.container-only-false",
-           sbp.introductionAndScope.systemsToReplace.can_have_content is False)
+    # A scalar list element is a SomScalar: no nested `content` leaf, so it
+    # inherits the SomNode `False` default — the whole of the false side.
+    item = (sbp.introductionAndScope.systemsToReplace
+            .migrationConsiderations.escalationProcedures.add())
+    _check("chc.scalar-item-false", item.can_have_content is False)
+
+    # Every section class reports True, including a pure container:
+    # SystemsToReplace holds two child sections and no fields of its own, yet
+    # still declares `content` (its `@ContentHelp` asks the author to introduce
+    # the replacement portfolio). Pins §10.2's universal-content rule at the
+    # generated facade — red the day a section class without `content` returns.
+    _check("chc.pure-container-true",
+           sbp.introductionAndScope.systemsToReplace.can_have_content is True)
 
     # The document root itself declares a `content` leaf → True.
     _check("chc.root-true",
@@ -247,8 +254,11 @@ def test_can_have_content() -> None:
     _check("chc.structural.empty-true", goals.can_have_content is True)
     goals.content = "Grow revenue"
     _check("chc.structural.filled-true", goals.can_have_content is True)
-    _check("chc.structural.sibling-false",
-           sbp2.introductionAndScope.systemsToReplace.can_have_content is False)
+    item2 = (sbp2.introductionAndScope.systemsToReplace
+             .migrationConsiderations.escalationProcedures.add())
+    item2.value = "Escalate to the migration board"
+    _check("chc.structural.filled-scalar-false",
+           item2.can_have_content is False)
 
 
 def test_one_call_loading() -> None:

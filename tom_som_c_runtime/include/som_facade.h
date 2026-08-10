@@ -41,13 +41,16 @@ char *som_node_section_id(const SomNode *n);
  * (delegates to `spec_document_has_values_under`) (SOM §21). */
 int som_node_is_empty(const SomNode *n);
 /* `can_have_content` (SOM §21) — the per-TYPE structural predicate answering
- * "does this section type declare the standard `content` text leaf?", i.e. "can
- * this section hold body text?" — has **no base runtime helper**. C has no
+ * "does this type declare the standard `content` text leaf?", i.e. "can this
+ * node hold body text?" — has **no base runtime helper**. C has no
  * inheritance or method promotion, so (following the `editability_for`
  * and `is_empty` per-type C emission precedent) the generated
  * `tom_som_c_v0` emits a `<type>_can_have_content(const <Type>*)` accessor for
- * EVERY generated section type, returning the literal answer (1 for a
- * content-bearing type, 0 for a container-only one). It never looks at the
+ * EVERY generated section type, returning the literal answer (1 for a type
+ * carrying a `content` leaf, 0 for one that declares none). Since
+ * `tom_specs_model_rules.md` §10.2 requires `content: String?` on every section
+ * class, every generated type emits 1; the 0 branch remains for a type that
+ * declares no `content` leaf. It never looks at the
  * document — it describes the model, not the data — so it is deliberately
  * distinct from the STATE predicates `spec_document_has_content` ("is a value
  * present at this leaf now?") and `som_node_is_empty` ("is this subtree empty

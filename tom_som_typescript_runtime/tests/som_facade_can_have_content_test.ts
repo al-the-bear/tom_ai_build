@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 /**
  * Behavioural test for the structural {@link SomNode.canHaveContent} predicate
- * (SOM §21): "does this section TYPE declare the standard `content` text
- * leaf?" — a compile-time / per-type schema fact, answered WITHOUT probing
- * `.content` and WITHOUT ever looking at the document.
+ * (SOM §21): "does this TYPE declare the standard `content` text leaf?" — a
+ * compile-time / per-type schema fact, answered WITHOUT probing `.content` and
+ * WITHOUT ever looking at the document.
  *
  * The real subclasses are generated centrally (this test cannot run the
  * generator), so these stand-ins reproduce what the emitter produces: a
- * content-bearing section overrides the base default to `true`, while
- * scalar/container-only sections inherit the `false` default. It asserts the
+ * content-bearing section overrides the base default to `true`, while a node
+ * type declaring no `content` leaf inherits the `false` default. It asserts the
  * base default, the content-bearing override, the inherited-false cases, and
  * — crucially — that the STATE predicates (`hasContent(path)` on the document,
  * `isEmpty` on the node) stay independent of this STRUCTURAL predicate.
@@ -35,9 +35,11 @@ class _ContentBearing extends SomNode {
   }
 }
 
-// A container-only section facade: no `content` leaf, so it inherits the
-// structural `false` default (what a class like `SystemsToReplace` does).
-class _ContainerOnly extends SomNode {}
+// A node facade declaring no `content` leaf, so it inherits the structural
+// `false` default. In the generated facades this shape is a non-section node (a
+// scalar list item): every *section* class carries `content` per
+// `tom_specs_model_rules.md` §10.2.
+class _Leafless extends SomNode {}
 
 let _passed = 0;
 const _failed: string[] = [];
@@ -71,11 +73,11 @@ function _eq(name: string, actual: unknown, expected: unknown): void {
   _eq('SomScalar inherits false', scalar.canHaveContent, false);
 }
 
-// (d) A container-only section inherits the `false` default.
+// (d) A node type with no `content` leaf inherits the `false` default.
 {
   const doc = new SpecDocument();
-  const container = new _ContainerOnly(doc, 'root/systemsToReplace');
-  _eq('container-only inherits false', container.canHaveContent, false);
+  const leafless = new _Leafless(doc, 'root/tags-1');
+  _eq('leafless node inherits false', leafless.canHaveContent, false);
 }
 
 // (e) Structural vs state independence: `canHaveContent` never looks at the
@@ -98,9 +100,9 @@ function _eq(name: string, actual: unknown, expected: unknown): void {
   _eq('filled: doc.hasContent true', doc.hasContent(leaf), true);
   _eq('filled: node isEmpty false', section.isEmpty, false);
 
-  // A container-only section stays structurally false regardless of state.
-  const container = new _ContainerOnly(doc, 'root/goals');
-  _eq('container over same path stays false', container.canHaveContent, false);
+  // A leafless node stays structurally false regardless of state.
+  const leafless = new _Leafless(doc, 'root/goals');
+  _eq('leafless over same path stays false', leafless.canHaveContent, false);
 }
 
 if (_failed.length === 0) {

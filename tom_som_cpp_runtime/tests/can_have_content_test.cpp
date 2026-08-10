@@ -1,16 +1,16 @@
 /* Behavioural test for the structural `canHaveContent()` predicate (SOM §21):
- * "does this section TYPE declare the standard `content` text leaf?" — answered
- * at the type level, WITHOUT probing the document.
+ * "does this TYPE declare the standard `content` text leaf?" — answered at the
+ * type level, WITHOUT probing the document.
  *
  * `canHaveContent()` is a virtual member of the runtime base `som::SomNode`
- * returning the `false` default; the generated content-bearing facades override
- * it to `true`. The full generated model is not regenerated here (the generator
- * runs centrally), so this hand-writes the two facade shapes the emitter now
- * produces — a content-bearing section (override -> true) and a container-only
- * section (inherits -> false) — and pins:
+ * returning the `false` default; the generated section facades override it to
+ * `true`. The full generated model is not regenerated here (the generator runs
+ * centrally), so this hand-writes the two facade shapes the emitter produces —
+ * a section (override -> true) and a type declaring no `content` leaf
+ * (inherits -> false) — and pins:
  *   - the base default is false;
  *   - a content-bearing override reports true;
- *   - a container-only / scalar-only section inherits false;
+ *   - a type with no `content` leaf inherits false;
  *   - it is STRUCTURAL — independent of whether content is written now, and
  *     distinct from the state predicates isEmpty() / hasContent();
  *   - it resolves polymorphically through a som::SomNode& reference.
@@ -38,11 +38,13 @@ class ContentBearing : public som::SomNode {
   }
 };
 
-// A container-only section: no `content` leaf, so the emitter emits no override
-// and it inherits the base `false` default.
-class ContainerOnly : public som::SomNode {
+// A type declaring no `content` leaf, so the emitter emits no override and it
+// inherits the base `false` default. In the generated facades this shape is a
+// non-section node (a `som::SomList` field view): every *section* class carries
+// `content` per `tom_specs_model_rules.md` §10.2.
+class Leafless : public som::SomNode {
  public:
-  ContainerOnly(som::SpecDocument& doc, std::string path)
+  Leafless(som::SpecDocument& doc, std::string path)
       : som::SomNode(doc, std::move(path)) {}
 };
 
@@ -77,11 +79,11 @@ int main() {
           cb.canHaveContent() == true);
   }
 
-  // A container-only section inherits the false default (no override).
+  // A type with no `content` leaf inherits the false default (no override).
   {
-    ContainerOnly co(doc, "root/systemsToReplace");
-    check("container-only section inherits canHaveContent == false",
-          co.canHaveContent() == false);
+    Leafless lf(doc, "root/tags-1");
+    check("leafless type inherits canHaveContent == false",
+          lf.canHaveContent() == false);
   }
 
   // Structural, not state: canHaveContent is independent of whether the content
@@ -99,26 +101,26 @@ int main() {
           cb.isEmpty() == false);
   }
 
-  // A container-only section stays false even once a nested value fills it.
+  // A leafless node stays false even once a nested value fills it.
   {
-    ContainerOnly co(doc, "root/container2");
-    doc.setContent("root/container2/child/content", "x");
-    check("filled container-only section still canHaveContent == false",
-          co.canHaveContent() == false);
-    check("filled container-only section isEmpty() == false (state)",
-          co.isEmpty() == false);
+    Leafless lf(doc, "root/leafless2");
+    doc.setContent("root/leafless2/child/content", "x");
+    check("filled leafless node still canHaveContent == false",
+          lf.canHaveContent() == false);
+    check("filled leafless node isEmpty() == false (state)",
+          lf.isEmpty() == false);
   }
 
   // The predicate resolves polymorphically through a base reference.
   {
     ContentBearing cb(doc, "root/goals3");
-    ContainerOnly co(doc, "root/container3");
+    Leafless lf(doc, "root/leafless3");
     som::SomNode& cbRef = cb;
-    som::SomNode& coRef = co;
+    som::SomNode& lfRef = lf;
     check("polymorphic canHaveContent through base ref (content-bearing)",
           cbRef.canHaveContent() == true);
-    check("polymorphic canHaveContent through base ref (container-only)",
-          coRef.canHaveContent() == false);
+    check("polymorphic canHaveContent through base ref (leafless)",
+          lfRef.canHaveContent() == false);
   }
 
   if (g_failed == 0) {

@@ -107,11 +107,12 @@ public class SomNode {
    * (SOM §21).
    *
    * <p>This is a <b>structural / schema</b> predicate: a compile-time constant of
-   * the section's type, answering "<em>can</em> this section hold body text?"
-   * without a compile-error probe of {@code content()}. Container-only sections
-   * (e.g. {@code SystemsToReplace}, which has no {@code content} leaf) inherit
-   * this {@code false} default; content-bearing sections (e.g. {@code Goals})
-   * override it to {@code true}.
+   * the node's type, answering "<em>can</em> this node hold body text?" without
+   * a compile-error probe of {@code content()}. A node type that declares no
+   * {@code content} leaf — a scalar list item, whose value <em>is</em> its item
+   * path — inherits this {@code false} default; every <b>section</b> class
+   * overrides it to {@code true}, since {@code tom_specs_model_rules.md} §10.2
+   * requires {@code content: String?} on all of them, pure containers included.
    *
    * <p>It is deliberately distinct from the two <b>state</b> predicates: the
    * generic {@link SpecDocument#hasContent} answers "is a value present at this

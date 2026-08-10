@@ -37,6 +37,7 @@ import tom_som_runtime.SomMetaKind;
 import tom_som_runtime.SomMetaNode;
 import tom_som_runtime.SomMetaRef;
 import tom_som_runtime.SomMetaTree;
+import tom_som_runtime.SomScalar;
 import tom_som_runtime.SomVersionError;
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentYaml;
@@ -357,9 +358,15 @@ public final class GeneratedModelTest {
   }
 
   // SOM §21: the structural `canHaveContent()` per-type predicate — "does this
-  // section TYPE declare the standard `content` leaf?" — answered without
-  // probing `.content()` and without ever looking at the document. Distinct from
-  // the state predicates (`hasContent(path)` / `isEmpty()`).
+  // TYPE declare the standard `content` leaf?" — answered without probing
+  // `.content()` and without ever looking at the document. Distinct from the
+  // state predicates (`hasContent(path)` / `isEmpty()`).
+  //
+  // Since `tom_specs_model_rules.md` §10.2 requires `content: String?` on every
+  // section class, the line the predicate draws in the generated facade runs
+  // between a **section** (always true) and a **non-section node** — a scalar
+  // list item, which carries its value at its own item path and declares no
+  // nested `content` leaf.
   private static void testCanHaveContent() {
     SpecDocument doc = new SpecDocument();
     TomSomV0.D00SolutionBlueprint sbp = new TomSomV0.D00SolutionBlueprint(doc);
@@ -368,22 +375,32 @@ public final class GeneratedModelTest {
     check("canhavecontent.goals-true",
         sbp.introductionAndScope().goals().canHaveContent());
 
-    // A container-only section (SystemsToReplace holds only child sections).
-    check("canhavecontent.systemstoreplace-false",
-        !sbp.introductionAndScope().systemsToReplace().canHaveContent());
+    // A scalar list element is a SomScalar: its value *is* its item path, so it
+    // declares no `content` leaf and inherits the SomNode `false` default. This
+    // is the whole of the predicate's surviving false side.
+    SomScalar item = sbp.introductionAndScope().systemsToReplace()
+        .migrationConsiderations().escalationProcedures().add();
+    check("canhavecontent.scalar-item-false", !item.canHaveContent());
+
+    // Every section class reports true, including a pure container:
+    // SystemsToReplace holds two child sections and no fields of its own, yet it
+    // still declares `content` (its `@ContentHelp` asks the author to introduce
+    // the replacement portfolio). Pins §10.2's universal-content rule at the
+    // generated facade — red the day a section class without `content` returns.
+    check("canhavecontent.systemstoreplace-true",
+        sbp.introductionAndScope().systemsToReplace().canHaveContent());
 
     // The document root itself declares a `content` leaf → true.
     check("canhavecontent.root-true", sbp.canHaveContent());
 
     // Structural — independent of whether content is written. The content-bearing
-    // section stays true after a write, and the container-only sibling stays
-    // false regardless.
+    // section stays true after a write; a filled scalar item stays false.
     TomSomV0.Goals goals = sbp.introductionAndScope().goals();
     check("canhavecontent.structural-before", goals.canHaveContent());
     goals.content("Grow revenue");
     check("canhavecontent.structural-after", goals.canHaveContent());
-    check("canhavecontent.sibling-still-false",
-        !sbp.introductionAndScope().systemsToReplace().canHaveContent());
+    item.setValue("Escalate to the migration board");
+    check("canhavecontent.filled-scalar-false", !item.canHaveContent());
   }
 
   private static String readText(String path) {

@@ -96,15 +96,17 @@ func (n SomNode) SetCodeSpec(value string) { n.doc.SetCodeSpec(n.path, value) }
 // facade via the embedded SomNode. (SOM §21.)
 func (n SomNode) IsEmpty() bool { return !n.doc.HasValuesUnder(n.path) }
 
-// CanHaveContent reports whether this section *type* declares the standard
-// `content` text leaf — i.e. whether its typed facade carries a Content()
-// accessor (SOM §21).
+// CanHaveContent reports whether this *type* declares the standard `content`
+// text leaf — i.e. whether its typed facade carries a Content() accessor
+// (SOM §21).
 //
 // This is a structural / schema predicate: a per-type constant answering "*can*
-// this section hold body text?" without probing Content(). Container-only
-// sections (no `content` leaf) inherit this false default via the embedded
-// SomNode; content-bearing sections shadow it with a generated CanHaveContent()
-// returning true (the Go analogue of the Dart/TypeScript override).
+// this node hold body text?" without probing Content(). A type that declares no
+// `content` leaf — a scalar list item, whose value *is* its item path —
+// inherits this false default via the embedded SomNode; every generated
+// *section* type shadows it with a CanHaveContent() returning true, since
+// tom_specs_model_rules.md §10.2 requires `content: String?` on all of them,
+// pure containers included.
 //
 // It is deliberately distinct from the two state predicates: the generic
 // SpecDocument.HasContent answers "is a value present at this leaf *now*?" and

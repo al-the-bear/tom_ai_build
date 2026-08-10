@@ -424,13 +424,15 @@ class SomCEmitter {
           'const char *path);');
     }
     b.writeln('void ${plan.freeFn}($t *self);');
-    // SOM §21: a per-type structural predicate answering "does this section
-    // TYPE declare the standard `content` text leaf?" — "can this section hold
+    // SOM §21: a per-type structural predicate answering "does this TYPE
+    // declare the standard `content` text leaf?" — "can this node hold
     // body text?" — without probing the document. C has no inheritance or
     // method promotion, so (following the `editability_for` / `is_empty`
     // per-type C precedent) every generated type emits its own
-    // accessor returning the literal answer: 1 for content-bearing types, 0 for
-    // container-only ones. It is deliberately distinct from the STATE
+    // accessor returning the literal answer: 1 for a type carrying a `content`
+    // leaf, 0 for one that declares none. Since `tom_specs_model_rules.md`
+    // §10.2 requires `content: String?` on every section class, every emitted
+    // type currently takes the 1 branch. It is deliberately distinct from the STATE
     // predicates `spec_document_has_content` ("value present now?") and
     // `som_node_is_empty` ("subtree empty now?"): it describes the model, not
     // the data.
