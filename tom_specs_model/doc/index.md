@@ -143,7 +143,7 @@ generated language runtimes and two file formats.
 | Document | Authority for |
 |----------|---------------|
 | [tom_specs_editor_specification.md](tom_specs_editor_specification.md) | **The spec-authoring app** (`tom_forge/tom_specs_editor`) — the three Forge applications, the four-region layout, the document/structure/agent/config modules, the two access layers, canonical paths, schema generation and the undo model. |
-| [tom_specs_reviewer_specification.md](tom_specs_reviewer_specification.md) | **The object-model review app** (`tom_ai/ai_build/tom_specs_reviewer`) — browsing the exported class graph and recording structural observations keyed by structural path. Explicitly not an editor; the two apps share readers and nothing else. |
+| [tom_specs_reviewer_specification.md](tom_specs_reviewer_specification.md) | **The object-model review app** (`tom_ai/ai_build/tom_specs_reviewer`) — browsing the exported class graph and recording structural observations keyed by structural path. Explicitly not an editor; the two apps share the readers *and* the annotation display semantics, and diverge only in the paint. |
 | [llm_and_d4rt_tools.md](llm_and_d4rt_tools.md) | **The `tom_spec_engine` scripting plane** — the D4rt host and its `spec` / `files` / `memory` scopes, the controller-bound editing facade, grep-like search, the audited file facade, the tool surface and the two-tier memory. |
 | [llm_guidelines_specification.md](llm_guidelines_specification.md) | **The agent's context prompt** — what the in-editor agent is, and how it authors D4rt scripts that process a TomSpecs document. Its worked examples are executed verbatim by `tom_spec_engine`'s test suite. |
 

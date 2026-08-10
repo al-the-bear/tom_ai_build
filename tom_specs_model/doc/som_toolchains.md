@@ -23,13 +23,13 @@ below).
 | --- | --- | --- | --- | --- | --- |
 | **Dart** | Dart SDK | `3.11.4 (stable)` | **yes** (`tom_som_dart_v0`) | **builds + analyzes clean** | Dart SDK on `PATH` (fleet-managed) — the analyzer-backed tools need none, see "Dart host" |
 | **Python** | CPython | `3.12.3` | **yes** (`tom_som_python_v0`) | **compiles + imports against runtime** | system `python3` (apt, Ubuntu 24.04) |
-| **JavaScript** | Node.js | `22.22.3` (npm `10.9.8`) | **yes** (`tom_som_javascript_v0`) | **builds + runs generated `v0` ✓** (3079 classes load; behavioural + samples pass) | system `node`/`npm` |
-| **TypeScript** | `tsc` (project-local npm) | **pinned `6.0.3`** (Node 22.22.3 / npm 10.9.8) | **yes** (`tom_som_typescript_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | project-local `npm i -D typescript@6.0.3` |
-| **C** | GCC | `gcc 13.3.0` | **yes** (`tom_som_c_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | apt `build-essential` |
-| **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | **yes** (`tom_som_cpp_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | apt `build-essential` / `clang` |
-| **Java** | JDK | `javac 21.0.11` (JDK 21.0.11+10) | **yes** (`tom_som_java_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11) |
-| **Go** | Go toolchain | `1.26.4` (official tarball) | **yes** (`tom_som_go_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | official tarball → `~/.local/go` (per-user, sha256-verified; PATH from `.bashrc`/`.profile`) |
-| **Rust** | rustc / cargo | `1.96.0` (stable; rustfmt `1.9.0`) | **yes** (`tom_som_rust_v0`) | **builds + runs generated `v0` ✓** (3079 classes compile; behavioural + samples pass) | `rustup` (per-user, `~/.cargo`; `~/.cargo/env` sourced from `.bashrc`/`.profile`) |
+| **JavaScript** | Node.js | `22.22.3` (npm `10.9.8`) | **yes** (`tom_som_javascript_v0`) | **builds + runs generated `v0` ✓** (facade loads; behavioural + samples pass) | system `node`/`npm` |
+| **TypeScript** | `tsc` (project-local npm) | **pinned `6.0.3`** (Node 22.22.3 / npm 10.9.8) | **yes** (`tom_som_typescript_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | project-local `npm i -D typescript@6.0.3` |
+| **C** | GCC | `gcc 13.3.0` | **yes** (`tom_som_c_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | apt `build-essential` |
+| **C++** | GCC / Clang | `g++ 13.3.0`, `clang++ 18.1.3` | **yes** (`tom_som_cpp_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | apt `build-essential` / `clang` |
+| **Java** | JDK | `javac 21.0.11` (JDK 21.0.11+10) | **yes** (`tom_som_java_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | apt `openjdk-21-jdk-headless` (compiler only, no AWT/X11) |
+| **Go** | Go toolchain | `1.26.4` (official tarball) | **yes** (`tom_som_go_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | official tarball → `~/.local/go` (per-user, sha256-verified; PATH from `.bashrc`/`.profile`) |
+| **Rust** | rustc / cargo | `1.96.0` (stable; rustfmt `1.9.0`) | **yes** (`tom_som_rust_v0`) | **builds + runs generated `v0` ✓** (facade compiles; behavioural + samples pass) | `rustup` (per-user, `~/.cargo`; `~/.cargo/env` sourced from `.bashrc`/`.profile`) |
 
 ### Reading the matrix
 
@@ -45,6 +45,15 @@ below).
   ([`som_multiplatform_spec_model.md`](som_multiplatform_spec_model.md) §10).
   All nine exist (Dart, Python, Java, JavaScript, TypeScript, Go, Rust, C, C++);
   no language is emitter-pending.
+- **The facade size is one number, not nine.** Every emitter derives its facade
+  from the same meta tree and emits one typed declaration per SOM class, so the
+  nine `v0` facades are the same size by construction — **3983** typed
+  declarations each (Dart/Java/JS/TS/C++ classes, Go/Rust/C structs), beside a
+  smaller generated meta module. It is stated here once rather than per row
+  precisely because the per-row repetition is what went stale: nine copies of a
+  figure that can only ever have one value are eight chances to be wrong. Count
+  it off the facade file of any language — they must agree, and a disagreement
+  is a generator bug rather than a documentation one.
 
 ## Secondary host `mbp` (macOS arm64)
 

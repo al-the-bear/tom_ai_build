@@ -52,8 +52,9 @@ not a build artifact**. It is produced by
 sources via the Dart analyzer.
 
 Refreshing is a re-export of the current model, never a renumbering of it, so
-the snapshot is pinned at model version 9. That policy is carried by the named
-export target rather than by the caller:
+the snapshot's model **major** stays put across refreshes — the shipped asset
+carries model version 1, and only the build component of its label moves. That
+policy is carried by the named export target rather than by the caller:
 
 ```bash
 cd ../tom_specs_clitool
@@ -68,8 +69,13 @@ different stamps, is stated once in `tom_specs_model_meta_schema.md`,
 
 The snapshot stamp — model version and label, meta-schema version, class and
 root counts, container root — is recorded in the project README, so a refresh
-can be diffed against a baseline. Three tests pin that recorded baseline to the
-shipped asset, so it cannot drift into fiction unnoticed.
+can be diffed against a baseline. Four tests hold that baseline so it cannot
+drift into fiction unnoticed: three read the README against the shipped asset
+(the class and root counts with the container root, the stamp together with the
+refresh command that derives it, and the document-root table), and the fourth
+checks the asset against **itself** — that `modelVersion` really is the major of
+`modelVersionLabel`, which is how those two once disagreed with no second
+artifact present to notice.
 
 ### 2.2 The `CodeSpecPart` vocabulary
 
@@ -370,9 +376,10 @@ additions would cry wolf.
   renderer handles a hand-made shape and not the real one. A snapshot refresh
   therefore cannot make them wrong; only a renderer that stops covering the
   model can.
-- Three tests pin the README's recorded snapshot stamp to the asset, so a
-  refresh against a differently-sized model fails until the baseline is updated
-  with it.
+- Four tests hold the README's recorded snapshot stamp. Three pin it to the
+  asset, so a refresh against a differently-sized model fails until the baseline
+  is updated with it; the fourth pins the asset to itself, checking that its
+  `modelVersion` is the major of its `modelVersionLabel`.
 
 ## 9. Running
 

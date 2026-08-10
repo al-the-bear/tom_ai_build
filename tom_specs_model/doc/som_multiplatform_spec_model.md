@@ -247,16 +247,29 @@ type, enum-ness and enum values, doc-comment, and render/section classification.
 
 **All information in every annotation** — on classes *and* members — is exported
 with its full argument map (named and positional) via `_exportAnnotations`; not a
-curated subset. This includes `@SectionId`, `@SectionIdPattern`, `@Document`,
-`@Form` (each form field's name/type/description/hint/required), `@Headline`,
-`@ContentType`, `@ContentHelp`, `@MapsTo`, `@DetailedIn`, `@StandardReferences`,
-`@OneOf`, `@Case`, `@CodeSpecKind`, `@FollowUpKind`, `@CodeSpecsProjection`,
-`@Min`, `@Max`, `@MinLength`, `@MaxLength`, `@PatternCheck`, `@PatternCheckId`,
-`@AllowedTags`, `@Position`, `@Prefix`, `@Reference`, `@AccessKey`, `@ForEach`,
-`@MaxDepth`, `@TextRequired`, `@ValidationPrompt`, `@Comment`,
-`@Unused`, and `@SerializationOrder`. The file is stamped with `modelVersion`,
-`modelVersionLabel`, `containerRoot`, `classCount`, `rootCount`, and
-`metaSchemaVersion: 1`.
+curated subset — so the list below is the whole of `tom_specs_core`'s annotation
+catalogue rather than a selection from it: `@SectionId`, `@SectionIdPattern`,
+`@Document`, `@Form` (each form field's name/type/description/hint/required),
+`@Headline`, `@ContentType`, `@ContentHelp`, `@MapsTo`, `@DetailedIn`,
+`@StandardReferences`, `@OneOf`, `@Case`, `@CodeSpecKind`, `@FollowUpKind`,
+`@CodeSpecsProjection`, `@Min`, `@Max`, `@MinLength`, `@MaxLength`,
+`@PatternCheck`, `@PatternCheckId`, `@AllowedTags`, `@Position`, `@Prefix`,
+`@Reference`, `@AccessKey`, `@ForEach`, `@MaxDepth`, `@TextRequired`,
+`@ValidationPrompt`, `@Comment`, `@Unused`, and `@SerializationOrder`.
+
+A **given** meta file carries only the annotations the model actually applies,
+which is a strict subset — twenty of the thirty-three today. The other thirteen
+are the DocSpecs-schema constraints `@Max`, `@MinLength`, `@MaxLength`,
+`@PatternCheck`, `@PatternCheckId`, `@AllowedTags`, `@Position`, `@Prefix`,
+`@AccessKey`, `@ForEach`, `@MaxDepth`, `@TextRequired` and `@ValidationPrompt`.
+Each is wired end to end but placed on no model class yet, so it is exported the
+moment one carries it and appears in no meta until then — the reasoning is
+`tom_specs_model_rules.md` §9.4, and every annotation's binding is tabulated in
+`tom_specs_model_rules.md` §9.5. Reading the catalogue off a shipped meta
+therefore under-counts it by design, and is not the way to check this list.
+
+The file is stamped with `modelVersion`, `modelVersionLabel`, `containerRoot`,
+`classCount`, `rootCount`, and `metaSchemaVersion: 1`.
 
 The meta-data schema is documented in
 [`tom_specs_model_meta_schema.md`](tom_specs_model_meta_schema.md)
@@ -1124,8 +1137,15 @@ creation gate).
   [`tom_spec_engine`](../../tom_spec_engine) — deliberately
   **not** into the lean `tom_som_dart_runtime` / `tom_som_dart_v0` packages, which
   stay free of any `tom_d4rt` dependency. The `buildkit.yaml` `d4rtgen:` block
-  emits modules `som_runtime` (27 classes) and `som_v0` (5740 classes), with
-  barrels `lib/d4rt_bridges.b.dart` + `lib/dartscript.b.dart` (`TomSomBridge`). A
+  emits modules `som_runtime` (60 bridged classes) and `som_v0` (5754 — the 3983
+  typed facade classes plus the generated meta module), with barrels
+  `lib/d4rt_bridges.b.dart` + `lib/dartscript.b.dart` (`TomSomBridge`). Those two
+  figures move with every model change, so they are not the way to check the
+  bridges are current: `tom_spec_engine`'s `som_bridge_freshness_test` recomputes
+  a fingerprint of the two SOM packages' public surface against
+  `tool/som_surface.stamp.json` on every `dart test`, and catches an *additive*
+  staleness — SOM gains a class, the bridge still compiles — that a count read by
+  eye would not. A
   sandboxed script importing only the bridged packages drives the typed facade +
   generic runtime + a `SpecQueryEngine` query against a native
   `SpecDocument`/`SpecModel`; native code then sees its own objects carrying every

@@ -38,7 +38,7 @@ JavaScript, TypeScript, Go, Rust, C, and C++ — has a hand-written generic
 runtime (`tom_som_<lang>_runtime`) and a generated typed facade
 (`tom_som_<lang>_v0`). `generate_som` has a typed emitter + generator for each;
 none is skipped. All nine build and run their generated `v0` projects against
-3079 classes and 13 document roots (see
+3983 classes and 14 document roots (see
 [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md) for the per-language toolchain
 matrix). Dart and Python are the reference ports; the other seven were ported
 from them (quest decisions D32–D38).
@@ -164,7 +164,7 @@ still looks runnable.
 
 | Entry | Purpose | Re-run when |
 | --- | --- | --- |
-| `regenerate_outlines.sh` | The drift-proof batch entry point: renders all 16 committed outlines (`DocSpecsProject` + D00–D13, plus the compact `SolutionBlueprint`) into `tom_specs_model/generated-doc/outlines/`, then runs `check_todo_citations.dart` as a blocking gate under `set -e`. | Any model-shape change, and any documentation pass. Commit the diff. |
+| `regenerate_outlines.sh` | The drift-proof batch entry point: renders all 16 committed outlines (`DocSpecsProject` + D00–D13, plus the compact `SolutionBlueprint`) into `tom_specs_model/generated-doc/outlines/`, then runs **both** doc-folder citation gates — `check_todo_citations.dart` and `check_section_citations.dart` — as blocking steps under `set -e`. | Any model-shape change, and any documentation pass. Commit the diff. |
 | `split_sdk_summary.dart` | Turns `assets/sdk_summary.sum` into the committed `lib/src/sdk_summary/` chunk set that `analyzer_bootstrap.dart` loads — the only producer of it. Pairs with `bin/summaries.dart --sdk-only`, which builds the `.sum`. | The Dart SDK version moves (`tom_specs_model/doc/som_toolchains.md`, "Regenerating after an SDK change"). |
 | `model_surface.stamp.json` | Data, not a script: the model fingerprint a canonical `generate_som.dart` run writes, against which `test/model_freshness_test.dart` checks in the default suite. | Written by the generator; commit it with the regenerated packages. |
 | `todo_citation_vocabulary.txt` | Data, not a script: the token allowlist that keeps ordinary technical terms from colliding with the discovered todo-id shapes. A **token** list, never a path list. | A false positive appears — add the one token. |
@@ -269,9 +269,9 @@ Each target lands at `<output-base>/tom_som_<slug>_<version-label>`. For Dart:
 ```
 tom_som_dart_v0/
 ├── pubspec.yaml              # depends on tom_som_dart_runtime
-├── lib/tom_som_dart_v0.dart  # the typed facade (D00SolutionBlueprint + 3078 classes)
+├── lib/tom_som_dart_v0.dart  # the typed facade (D00SolutionBlueprint + 3982 classes)
 ├── meta/spec_model.meta.json # lossless meta-data: every class, member, annotation
-├── schemas/                  # 13 DocSpecs schema folders (one per document root)
+├── schemas/                  # 14 DocSpecs schema folders (one per document root)
 │   ├── solution-blueprint/ … └── transition-rollout-plan/
 ├── example/                  # hand-authored samples (a/b/c) — survives regen
 └── test/                     # hand-authored generated-tree suite — survives regen
@@ -428,9 +428,9 @@ three access paths visibly converge across every language.
 | Concern | State |
 | --- | --- |
 | Generator + config | Complete; `dart run bin/generate_som.dart`, idempotent. |
-| Dart runtime + `v0` | Complete (reference); 3079 classes, 13 roots. |
+| Dart runtime + `v0` | Complete (reference); 3983 classes, 14 roots. |
 | Python runtime + `v0` | Complete (reference port); camelCase accessors preserved. |
-| Java / JS / TS / Go / Rust / C / C++ runtime + `v0` | Complete — typed emitter + generic runtime for each; each builds and runs its `v0` project (3079 classes; see [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)). |
+| Java / JS / TS / Go / Rust / C / C++ runtime + `v0` | Complete — typed emitter + generic runtime for each; each builds and runs its `v0` project (3983 classes; see [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)). |
 
 The per-language project layout and emitter conventions this table reports on
 are specified in

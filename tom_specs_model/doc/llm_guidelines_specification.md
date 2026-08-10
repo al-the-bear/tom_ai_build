@@ -98,9 +98,13 @@ script.
 
 ## 4. The document scripting API (`spec` scope)
 
-The `spec` scope binds **one global**, `spec`, whose methods all operate on any
-section by its **section-id path** and land in the live change log. The complete
-surface is these eight methods:
+The `spec` scope binds **three globals** — `spec`, plus the read-only `model`
+(reflection) and `search` (query/grep), both of which appear only when the host
+supplies a provider for them (`llm_and_d4rt_tools.md` §4). The two read-only
+globals are covered in §10; this section is the writing surface.
+
+`spec`'s methods all operate on any section by its **section-id path** and land
+in the live change log. The complete surface is these eight methods:
 
 | Method | Returns | Purpose |
 | --- | --- | --- |
@@ -118,12 +122,14 @@ adding a child the model forbids (wrong kind, illegal section-id, bad
 cardinality) raises a scripting error *before* the tree is touched. There is no
 need to pre-check — wrap the call in `try`/`catch` and report the rejection (§6.2).
 
-**Reflection is not yet a script API.** The `tom_som` reflection / meta-model
-layer and the typed `tom_som_dart_v0` facade are **not** bound into the `spec`
-scope. To discover *what may exist where* before editing, use the author-time
-`model_get_section` / `model_children` / `model_search` MCP tools (§5); in a
-script, attempt `spec.addChild` and handle the rejection. This narrowing is
-recorded in §10.
+**Reflection is a script API, but this document does not yet teach it.** The
+`model` global reflects the meta-model (`classOf`, `sectionId`, `allowedChildren`,
+`annotations`, …) and `search` runs the grep-like cursor — both shipped, neither
+yet carried by a §6 worked example, so §10 states what they are without giving
+the surface. Until it does, the reliable route to *what may exist where* before
+editing stays the author-time `model_get_section` / `model_children` /
+`model_search` MCP tools (§5); in a script, attempt `spec.addChild` and handle
+the rejection.
 
 **The `main()` convention.** A script's `main()` may **return a value** (and may
 be `async`); the engine auto-awaits it and returns it to you as the script
@@ -277,28 +283,37 @@ with it — so do not assume capabilities beyond what the current context grants
 
 ---
 
-## 10. What the script scope does not expose
+## 10. What this document does not yet teach
 
 Every API name and signature in §3–§8 matches the **shipped** `tom_spec_engine`
 `spec` / `files` / `memory` scope bindings, and the §6 examples run verbatim in
 `tom_spec_engine/test/guidelines_examples_test.dart` — so the guidelines cannot
 drift from the engine without a test going red.
 
-Two capabilities a script author might reasonably reach for are **not script
-APIs**. Both are reachable, elsewhere:
+That gate covers what §3–§8 *state*; it cannot notice a binding they omit. Two
+capabilities are **shipped but not taught here**, so an agent working from this
+document alone should reach for the alternatives named below:
 
-1. **In-script reflection / typed facade.** A `model.classOf` /
-   `model.allowedChildren` / `model.annotations` layer and the typed
-   `tom_som_dart_v0` facade are **not** bound into the `spec` scope. Reflection
-   data is reachable through the author-time `model_get_section` /
-   `model_children` / `model_search` MCP tools. Inside a script, discover
-   structure by attempting `spec.addChild` — it validates against the object
-   model and throws — and by `listItems`.
-2. **In-script structural search cursor.** There is no `spec.search(...)`
-   lexical/structural cursor. The equivalent grep-like query lives in the
-   editor's `model_search` MCP tool; inside a script, use the `memory` scope's
-   `recall` / `recallPaths` plus plain Dart iteration over `listItems`.
+1. **In-script reflection (`model`).** `SpecModelApi` is bound as the `model`
+   global whenever the host supplies a model provider, giving `reflect`,
+   `resolves`, `kindOf`, `classOf`, `sectionId`, `mapsTo`, `detailedIn`,
+   `headline`, `allowedChildren` and `annotations` — all read-only, all by path.
+   Until §4/§5 carry that surface and §6 exercises it, prefer the author-time
+   `model_get_section` / `model_children` / `model_search` MCP tools, and inside
+   a script discover structure by attempting `spec.addChild` — it validates
+   against the object model and throws — and by `listItems`.
+2. **In-script structural search (`search`).** `SpecSearchApi` is bound as the
+   `search` global on the same terms, with `query(args)` and
+   `grep(pattern, {regex, caseInsensitive})` returning an edit-stable
+   `SpecSearchCursor` (`next`, `take`, `toList`, `count`). Same caveat: prefer
+   the editor's `model_search` MCP tool, or the `memory` scope's `recall` /
+   `recallPaths` plus plain Dart iteration, until the suite covers it.
 
-Promoting either to a script API means extending §4/§5 **and** adding tested
-examples to the §6 suite — the suite is what keeps this document honest, so a
-capability that is documented but not exercised there is not shipped.
+The typed `tom_som_dart_v0` facade is a third case, and a different one: it ships
+as the reusable `tom_som` bridged-library block, but the default `spec` scope does
+**not** register it, so a script sees it only where a host opts in.
+
+Teaching either of the two means extending §4/§5 **and** adding tested examples to
+the §6 suite — the suite is what keeps this document honest, so a capability
+documented but not exercised there is not yet something an agent should be told to
+rely on.
