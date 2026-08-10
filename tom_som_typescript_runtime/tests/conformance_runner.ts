@@ -425,6 +425,40 @@ function testMarkdownMemoryLanding(model: SpecModel): void {
   );
 }
 
+// The SOM §11.7 rejection protocol: nothing is silently dropped. Each case
+// asserts both halves together — the full `(line, reason, anchor, message)`
+// report *and* the document that still landed. A port that drops an unplaceable
+// block fails the first; one that reports it and abandons the rest of the parse
+// fails the second.
+function testMarkdownImportRejections(model: SpecModel): void {
+  for (const c of _readJson('markdown_import_cases.json').cases) {
+    const parsed = new SpecDocumentMarkdown(model, new SpecDocument()).parse(c.markdown);
+    const got = parsed.rejections.map((r) => ({
+      line: r.line,
+      reason: r.reason,
+      anchor: r.anchor === undefined ? null : r.anchor,
+      message: r.message,
+    }));
+    _check(
+      `md.reject[${c.name}].report`,
+      _deepEqual(got, c.rejections),
+      _jsonMismatch(got, c.rejections),
+    );
+    const landed = new SpecDocument();
+    landed.loadJson({
+      content: parsed.content,
+      forms: parsed.forms,
+      lists: parsed.lists,
+      headlines: parsed.headlines,
+    });
+    _check(
+      `md.reject[${c.name}].landed`,
+      _deepEqual(landed.toJson(), c.document),
+      _jsonMismatch(landed.toJson(), c.document),
+    );
+  }
+}
+
 function _throwsWith(name: string, fn: () => unknown, needles: string[]): void {
   try {
     fn();
@@ -1220,6 +1254,7 @@ export function main(): number {
   testMarkdownExport(model);
   testMarkdownRoundTrip(model);
   testMarkdownMemoryLanding(model);
+  testMarkdownImportRejections(model);
   testOneLineExport(model);
   testReflection(model);
   testValidation(model);

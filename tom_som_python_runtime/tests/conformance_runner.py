@@ -306,6 +306,39 @@ def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
            _json_mismatch(landed.to_json(), canonical))
 
 
+def test_markdown_import_rejections(model: SpecModel) -> None:
+    """The SOM §11.7 rejection protocol: nothing is silently dropped.
+
+    Each case asserts both halves together — the full ``(line, reason, anchor,
+    message)`` report *and* the document that still landed. A port that drops
+    an unplaceable block fails the first; one that reports it and abandons the
+    rest of the parse fails the second.
+    """
+    for case in _read_json("markdown_import_cases.json")["cases"]:
+        name = case["name"]
+        parsed = SpecDocumentMarkdown(model, SpecDocument()).parse(case["markdown"])
+        got = [
+            {
+                "line": r.line,
+                "reason": r.reason.value,
+                "anchor": r.anchor,
+                "message": r.message,
+            }
+            for r in parsed.rejections
+        ]
+        _check(f"md.reject[{name}].report", got == case["rejections"],
+               _json_mismatch(got, case["rejections"]))
+        landed = SpecDocument()
+        landed.load_json({
+            "content": parsed.content,
+            "forms": parsed.forms,
+            "lists": parsed.lists,
+            "headlines": parsed.headlines,
+        })
+        _check(f"md.reject[{name}].landed", landed.to_json() == case["document"],
+               _json_mismatch(landed.to_json(), case["document"]))
+
+
 def test_reflection(model: SpecModel) -> None:
     refl = SpecReflection(model)
     for case in _read_json("reflection_cases.json"):
@@ -969,6 +1002,7 @@ def main() -> int:
     test_markdown_export(model)
     test_markdown_round_trip(model)
     test_markdown_lands_in_shared_memory(model)
+    test_markdown_import_rejections(model)
     test_reflection(model)
     test_validation(model)
     test_operations()

@@ -856,8 +856,16 @@ Stored list-item ids are **not** among the losses: they round-trip through md
 
 `parse(md, metadataTree)` returns staged values keyed by runtime path plus a
 rejection list: `unknownSection`, `kindMismatch`, `orphanContent`,
-`missingValue`, `malformedHeading`. Nothing is silently dropped.
-`emit(parse(emit(doc)))` is byte-identical (modulo the idempotent blank-line
+`missingValue`, `malformedHeading`. Nothing is silently dropped: an unplaceable
+block is **reported and skipped**, and the rest of the document still imports.
+Each rejection carries its source line, the offending anchor (section path or id,
+absent when there is none), the reason and a human-readable message — pinned
+across the nine ports, together with the document that still landed, by
+`markdown_import_cases.json`. The message is part of the contract because a
+reason is one classification with several causes: `unknownSection` covers "no
+match at this position", "unresolvable parent" and "no such document root", and
+`orphanContent` covers both "before the root" and "before a form's first field
+label". `emit(parse(emit(doc)))` is byte-identical (modulo the idempotent blank-line
 collapse and the §11.6 transparency canonicalisations). Stored headlines are
 staged only when they differ from the effective default, keeping untouched
 documents byte-stable.

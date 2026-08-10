@@ -271,6 +271,21 @@ final List<CorpusGuardedEnum> _guarded = [
         'single definition the throwing check switches on, so a wrong '
         'classification is also a wrong refusal',
   ),
+  CorpusGuardedEnum(
+    enumName: 'SpecMarkdownRejectReason',
+    declared: _wire(SpecMarkdownRejectReason.values),
+    corpusFile: 'markdown_import_cases.json',
+    exercised: (c) => {
+      for (final k in ((c as Map<String, dynamic>)['cases'] as List)
+          .cast<Map<String, dynamic>>())
+        for (final r in (k['rejections'] as List).cast<Map<String, dynamic>>())
+          r['reason'] as String,
+    },
+    why: 'a §11.7 import rejection no port is ever asked to report — and the '
+        'failure that hides behind an unexercised reason is the one the '
+        'protocol exists to prevent: a port that *drops* the unplaceable block '
+        'instead of reporting it looks identical to one that never met it',
+  ),
 ];
 
 /// Every enum in `lib/` deliberately **not** in [_guarded], with why.
@@ -305,14 +320,6 @@ final List<ExemptEnum> _exempt = [
         'rather than serialized, so there is no token in the corpus to diff '
         'against; ECG4 pins the two enums constant-for-constant instead, which '
         'is the stronger statement — a constant added to either alone fails.',
-  ),
-  ExemptEnum(
-    enumName: 'SpecMarkdownRejectReason',
-    reason: ExemptionReason.noCorpusYet,
-    note: 'The §11.7 rejection protocol is implemented in all nine runtimes '
-        'and exercised by nothing — expected.md is an export golden, and the '
-        'corpus holds no import-rejection table. Closed by '
-        'tscompc5_ahiu-markdown-rejection-protocol-has-no-corpus.',
   ),
   ExemptEnum(
     enumName: 'SpecChipRole',

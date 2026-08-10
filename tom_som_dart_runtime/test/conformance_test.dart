@@ -45,6 +45,7 @@ void main() {
   final serializationOrderCase = _serializationOrderCase();
   final stampCases = _stampCases();
   final editabilityCases = _editabilityCases();
+  final markdownImportCases = _markdownImportCases();
   final docSpecsCases = _docSpecsCases();
   final patternCases = _patternCases();
   final queryCases = _queryCases(model, doc);
@@ -72,6 +73,8 @@ void main() {
         '${enc.convert(serializationOrderCase)}\n');
     write('stamp_cases.json', '${enc.convert(stampCases)}\n');
     write('editability_cases.json', '${enc.convert(editabilityCases)}\n');
+    write('markdown_import_cases.json',
+        '${enc.convert(markdownImportCases)}\n');
     write('docspecs_schema.yaml', _docSpecsSchemaYaml);
     write('docspecs_cases.json', '${enc.convert(docSpecsCases)}\n');
     write('pattern_cases.json', '${enc.convert(patternCases)}\n');
@@ -182,6 +185,49 @@ void main() {
               returnsNormally);
           expect(c['message'], isNull);
         }
+      });
+    }
+  });
+
+  // SOM §11.7: a Markdown import never silently drops a block. Every case
+  // asserts the rejection report *and* what still landed — see
+  // `_markdownImportCases` for why neither half is sufficient alone.
+  group('markdown_import_cases.json (the §11.7 rejection protocol)', () {
+    final onDisk = File('${corpusDir.path}/markdown_import_cases.json');
+    final table = update && !onDisk.existsSync()
+        ? markdownImportCases
+        : jsonDecode(onDisk.readAsStringSync()) as Map<String, dynamic>;
+
+    for (final raw in table['cases'] as List<dynamic>) {
+      final c = raw as Map<String, dynamic>;
+      test(c['name'] as String, () {
+        // Parsing is document-independent (headline staging compares against
+        // the *schema* default, never against the target document), so a fresh
+        // document keeps every case reproducible in isolation.
+        final parsed =
+            SpecDocumentMarkdown(model, SpecDocument()).parse(c['markdown'] as String);
+
+        final got = [
+          for (final r in parsed.rejections)
+            {
+              'line': r.line,
+              'reason': r.reason.name,
+              'anchor': r.anchor,
+              'message': r.message,
+            }
+        ];
+        expect(got, c['rejections'],
+            reason: 'rejection report must match §11.7 exactly, in order');
+
+        final landed = SpecDocument()
+          ..loadJson({
+            'content': parsed.content,
+            'forms': parsed.forms,
+            'lists': parsed.lists,
+            'headlines': parsed.headlines,
+          });
+        expect(landed.toJson(), c['document'],
+            reason: 'the blocks that were not rejected must still land');
       });
     }
   });
@@ -2240,6 +2286,361 @@ Map<String, dynamic> _editabilityCases() {
         generated: 'x.y',
         documentVersion: null,
         editability: 'editable',
+      ),
+    ],
+  };
+}
+
+/// The Markdown **import-rejection** corpus (SOM §11.7). Each case is a
+/// Markdown source plus two expectations that have to hold *together*:
+///
+///  * `rejections` — every block the importer could not place, in the order it
+///    reports them, pinned on the full `(line, reason, anchor, message)`. The
+///    message is pinned for the same reason the §21 version table pins it: a
+///    reason is one classification with several causes, and the message is
+///    where they separate. `unknownSection` alone has three causes (no match at
+///    this position, an unresolvable parent, no such document root) and
+///    `orphanContent` two (before the root, before a form's first field label);
+///    a table that pinned only the reason would let a port collapse them.
+///  * `document` — what *did* land, as the `toJson()` document map. This is the
+///    half that catches the failure §11.7 exists to prevent. A port that drops
+///    an unplaceable block silently fails `rejections`; a port that reports the
+///    block and then abandons the rest of the parse fails `document`. Neither
+///    assertion alone says "reported, **not** dropped, and the rest still
+///    landed" — only the pair does.
+///
+/// The document map is the same shape as `state.json`, so every port asserts it
+/// with the canonicalising comparison it already uses for the memory-landing
+/// test: stage → `loadJson` → `toJson`.
+///
+/// The sources are written against the committed model's `DEMO` root, using
+/// heading texts that match the schema defaults wherever a stored headline is
+/// not the point of the case — an incidental headline in the expected document
+/// would be noise a reader has to explain away.
+Map<String, dynamic> _markdownImportCases() {
+  // Each message is written once and reused, so a case cannot silently disagree
+  // with its neighbour about what the same rejection reads like.
+  const beforeRoot = 'text before the document root heading';
+  const noComment = 'heading carries no <!--[SECTION-ID]--> headline comment';
+  const orphanParent = 'section nested under an unresolvable parent';
+  const noRoot = 'no document root with this section id (known: DEMO, SIDE)';
+  const childUnderLeaf = 'child heading under a value-leaf or form section';
+  const noValue = 'no value text under this section heading';
+  const formOrphan = 'text in a @Form section before the first field label';
+  String noResolve(String parent) =>
+      'section id does not resolve against the schema tree at this position '
+      '(under "$parent")';
+
+  Map<String, dynamic> rej(
+          int line, String reason, String? anchor, String message) =>
+      {'line': line, 'reason': reason, 'anchor': anchor, 'message': message};
+
+  // The source is written as a line list so a case's expected line numbers can
+  // be read off its own literal — the whole table is about line numbers, and a
+  // triple-quoted blob would hide them.
+  Map<String, dynamic> c({
+    required String name,
+    required List<String> markdown,
+    required List<Map<String, dynamic>> rejections,
+    required Map<String, dynamic> document,
+  }) =>
+      {
+        'name': name,
+        'markdown': '${markdown.join('\n')}\n',
+        'rejections': rejections,
+        'document': document,
+      };
+
+  return {
+    'cases': [
+      c(
+        name: 'text before the document root is reported, and the rest of the '
+            'document still imports',
+        markdown: [
+          'Stray preamble.', //                                        1
+          '', //                                                       2
+          '# <!--[DEMO]--> Demo Document', //                          3
+          '', //                                                       4
+          '## <!--[TTL]--> Document Title', //                         5
+          '', //                                                       6
+          'Hello', //                                                  7
+        ],
+        rejections: [rej(1, 'orphanContent', null, beforeRoot)],
+        document: {
+          'content': {'DEMO/TTL': 'Hello'}
+        },
+      ),
+      // A block is reported *once*, at its heading — not once per body line.
+      // The body lines are the tempting second report, and a port that emits
+      // one per line passes a rejections-are-non-empty check but fails here.
+      c(
+        name: 'a heading with no headline comment is reported once, at the '
+            'heading, not once per swallowed body line',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[TTL]--> Document Title', //                         3
+          '', //                                                       4
+          'Hello', //                                                  5
+          '', //                                                       6
+          '## A Heading With No Comment', //                           7
+          '', //                                                       8
+          'body under the ignored heading', //                         9
+          'and a second body line', //                                10
+          '', //                                                      11
+          '## <!--[PRI]--> Priority', //                              12
+          '', //                                                      13
+          'high', //                                                  14
+        ],
+        rejections: [
+          rej(7, 'malformedHeading', 'A Heading With No Comment', noComment),
+        ],
+        document: {
+          'content': {'DEMO/PRI': 'high', 'DEMO/TTL': 'Hello'}
+        },
+      ),
+      c(
+        name: 'an id that does not resolve at its position is reported against '
+            'the parent path, and its siblings still import',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[TTL]--> Document Title', //                         3
+          '', //                                                       4
+          'Hello', //                                                  5
+          '', //                                                       6
+          '## <!--[NOSUCH]--> Not In The Schema', //                   7
+          '', //                                                       8
+          'dropped', //                                                9
+          '', //                                                      10
+          '## <!--[PRI]--> Priority', //                              11
+          '', //                                                      12
+          'high', //                                                  13
+        ],
+        rejections: [
+          rej(7, 'unknownSection', 'NOSUCH', noResolve('DEMO')),
+        ],
+        document: {
+          'content': {'DEMO/PRI': 'high', 'DEMO/TTL': 'Hello'}
+        },
+      ),
+      // The nesting case: an unresolvable parent must not swallow its children
+      // silently. Both the parent and the child are reported, with different
+      // messages — the child's names *why* it could not be placed.
+      c(
+        name: 'a section under an unresolvable parent is reported too, not '
+            'swallowed with it',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[NOSUCH]--> Not In The Schema', //                   3
+          '', //                                                       4
+          '### <!--[TTL]--> Document Title', //                        5
+          '', //                                                       6
+          'Hello', //                                                  7
+          '', //                                                       8
+          '## <!--[PRI]--> Priority', //                               9
+          '', //                                                      10
+          'high', //                                                  11
+        ],
+        rejections: [
+          rej(3, 'unknownSection', 'NOSUCH', noResolve('DEMO')),
+          rej(5, 'unknownSection', 'TTL', orphanParent),
+        ],
+        document: {
+          'content': {'DEMO/PRI': 'high'}
+        },
+      ),
+      // A wrong *root* is the one unknownSection that cannot name a parent
+      // path, so it names the roots that do exist instead. Nothing lands.
+      c(
+        name: 'a root id that is not a document root names the roots that are, '
+            'and nothing lands',
+        markdown: [
+          '<!-- docspec: demo-document/1.0 -->', //                     1
+          '# <!--[WRONGROOT]--> Wrong Root', //                         2
+          '', //                                                        3
+          '## <!--[TTL]--> Document Title', //                          4
+          '', //                                                        5
+          'Hello', //                                                   6
+        ],
+        rejections: [
+          rej(2, 'unknownSection', 'WRONGROOT', noRoot),
+          rej(4, 'unknownSection', 'TTL', orphanParent),
+        ],
+        document: const <String, dynamic>{},
+      ),
+      c(
+        name: 'a child heading under a value leaf is a kind mismatch, and the '
+            'leaf keeps its own value',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[TTL]--> Document Title', //                         3
+          '', //                                                       4
+          'Hello', //                                                  5
+          '', //                                                       6
+          '### <!--[STS]--> Status', //                                7
+          '', //                                                       8
+          'open', //                                                   9
+          '', //                                                      10
+          '## <!--[PRI]--> Priority', //                              11
+          '', //                                                      12
+          'high', //                                                  13
+        ],
+        rejections: [rej(7, 'kindMismatch', 'STS', childUnderLeaf)],
+        document: {
+          'content': {'DEMO/PRI': 'high', 'DEMO/TTL': 'Hello'}
+        },
+      ),
+      // `missingValue` is the one reason raised when a frame *closes*, not when
+      // a heading opens — so it is reported at the heading's line even though
+      // the parser only knows at the next heading. Its anchor is the resolved
+      // path, not the raw id: the section did resolve, it just carried nothing.
+      c(
+        name: 'a value-leaf heading with no body is a missing value, anchored '
+            'on the resolved path and reported at its own heading line',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[TTL]--> Document Title', //                         3
+          '', //                                                       4
+          'Hello', //                                                  5
+          '', //                                                       6
+          '## <!--[PRI]--> Priority', //                               7
+          '', //                                                       8
+          '## <!--[CNT]--> Count', //                                  9
+          '', //                                                      10
+          '3', //                                                     11
+        ],
+        rejections: [rej(7, 'missingValue', 'DEMO/PRI', noValue)],
+        document: {
+          'content': {'DEMO/CNT': '3', 'DEMO/TTL': 'Hello'}
+        },
+      ),
+      // The second `orphanContent` cause. `DET` is a `@Form`: prose before the
+      // first `Field:` label has no slot to land in. The fields that *do* carry
+      // labels still land, which is what separates "reported" from "aborted".
+      c(
+        name: 'text in a form section before the first field label is orphan '
+            'content, and the labelled fields still import',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[DET]--> Details & Contacts', //                     3
+          '', //                                                       4
+          'loose prose with no field label', //                        5
+          'Owner: Bob', //                                             6
+          'Contact: bob@example.com', //                               7
+        ],
+        rejections: [rej(5, 'orphanContent', 'DEMO/DET', formOrphan)],
+        document: {
+          'forms': {
+            'DEMO/DET': {'contact': 'bob@example.com', 'owner': 'Bob'}
+          },
+          'headlines': {'DEMO/DET': 'Details & Contacts'},
+        },
+      ),
+      // Inside a `-LST` container any heading id is a legal item (it becomes
+      // the item's stored id), so the list case has to nest one level deeper —
+      // under an *item* — to reach the resolver at all. The list membership
+      // still lands, and the sibling after the rejected block still resolves.
+      c(
+        name: 'an id that does not resolve under a list item is reported '
+            'against the item path, and the list still imports',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[TTL]--> Document Title', //                         3
+          '', //                                                       4
+          'Hello', //                                                  5
+          '', //                                                       6
+          '## <!--[items]--> Items', //                                7
+          '', //                                                       8
+          '### <!--[items-1]--> Task 1', //                            9
+          '', //                                                      10
+          'First', //                                                 11
+          '', //                                                      12
+          '#### <!--[BOGUS]--> Bogus', //                             13
+          '', //                                                      14
+          'dropped', //                                               15
+          '', //                                                      16
+          '#### <!--[STS]--> Status', //                              17
+          '', //                                                      18
+          'open', //                                                  19
+        ],
+        rejections: [
+          rej(13, 'unknownSection', 'BOGUS', noResolve('DEMO/items-1')),
+        ],
+        document: {
+          'content': {
+            'DEMO/TTL': 'Hello',
+            'DEMO/items-1/STS': 'open',
+            'DEMO/items-1/label': 'First',
+          },
+          'lists': {
+            'DEMO/items': {
+              'seq': 1,
+              'items': ['DEMO/items-1'],
+            }
+          },
+        },
+      ),
+      // The mixed case the protocol is really about: all five reasons in one
+      // document, coexisting with content, a form and their headline. It also
+      // pins the *report order*, which is not simply ascending by line —
+      // `missingValue` for `PRI` (line 17) is raised when `PRI`'s frame closes,
+      // i.e. while the parser is already looking at line 19.
+      c(
+        name: 'all five reasons in one document: every rejected block is '
+            'reported and everything else still lands',
+        markdown: [
+          'Stray preamble before the root.', //                        1
+          '', //                                                       2
+          '# <!--[DEMO]--> Demo Document', //                          3
+          '', //                                                       4
+          '## <!--[TTL]--> Document Title', //                         5
+          '', //                                                       6
+          'Hello', //                                                  7
+          '', //                                                       8
+          '### <!--[STS]--> Status', //                                9
+          '', //                                                      10
+          'open', //                                                  11
+          '', //                                                      12
+          '## An Unmarked Heading', //                                13
+          '', //                                                      14
+          'swallowed body', //                                        15
+          '', //                                                      16
+          '## <!--[PRI]--> Priority', //                              17
+          '', //                                                      18
+          '## <!--[NOSUCH]--> Not In The Schema', //                  19
+          '', //                                                      20
+          'dropped', //                                               21
+          '', //                                                      22
+          '## <!--[DET]--> Details & Contacts', //                    23
+          '', //                                                      24
+          'loose prose with no field label', //                       25
+          'Owner: Bob', //                                            26
+          '', //                                                      27
+          '## <!--[CNT]--> Count', //                                 28
+          '', //                                                      29
+          '3', //                                                     30
+        ],
+        rejections: [
+          rej(1, 'orphanContent', null, beforeRoot),
+          rej(9, 'kindMismatch', 'STS', childUnderLeaf),
+          rej(13, 'malformedHeading', 'An Unmarked Heading', noComment),
+          rej(17, 'missingValue', 'DEMO/PRI', noValue),
+          rej(19, 'unknownSection', 'NOSUCH', noResolve('DEMO')),
+          rej(25, 'orphanContent', 'DEMO/DET', formOrphan),
+        ],
+        document: {
+          'content': {'DEMO/CNT': '3', 'DEMO/TTL': 'Hello'},
+          'forms': {
+            'DEMO/DET': {'owner': 'Bob'}
+          },
+          'headlines': {'DEMO/DET': 'Details & Contacts'},
+        },
       ),
     ],
   };

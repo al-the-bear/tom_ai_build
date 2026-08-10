@@ -410,6 +410,44 @@ public final class ConformanceRunner {
     return out.toString();
   }
 
+  /**
+   * The SOM §11.7 rejection protocol: nothing is silently dropped. Each case asserts both halves
+   * together — the full {@code (line, reason, anchor, message)} report <em>and</em> the document
+   * that still landed. A port that drops an unplaceable block fails the first; one that reports it
+   * and abandons the rest of the parse fails the second.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testMarkdownImportRejections(SpecModel model) throws IOException {
+    Map<String, Object> table = readJsonObject("markdown_import_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      SpecMarkdownResult parsed =
+          new SpecDocumentMarkdown(model, new SpecDocument()).parse((String) c.get("markdown"));
+      List<Object> got = new ArrayList<>();
+      for (SpecMarkdownRejection rej : parsed.rejections) {
+        Map<String, Object> entry = new LinkedHashMap<>();
+        entry.put("line", Integer.valueOf(rej.line));
+        entry.put("reason", rej.reason.value);
+        entry.put("anchor", rej.anchor);
+        entry.put("message", rej.message);
+        got.add(entry);
+      }
+      Object wantRejections = c.get("rejections");
+      check(
+          "md.reject[" + name + "].report",
+          got.equals(wantRejections),
+          jsonMismatch(got, wantRejections));
+      SpecDocument landed = new SpecDocument();
+      landed.loadJson(parsed.toLoadJson());
+      Object wantDocument = c.get("document");
+      check(
+          "md.reject[" + name + "].landed",
+          landed.toJson().equals(wantDocument),
+          jsonMismatch(landed.toJson(), wantDocument));
+    }
+  }
+
   @SuppressWarnings("unchecked")
   private static void testReflection(SpecModel model) throws IOException {
     SpecReflection refl = new SpecReflection(model);
@@ -1352,6 +1390,7 @@ public final class ConformanceRunner {
     testMarkdownExport(model);
     testMarkdownRoundTrip(model);
     testMarkdownMemoryLanding(model);
+    testMarkdownImportRejections(model);
     testReflection(model);
     testValidation(model);
     testOperations();

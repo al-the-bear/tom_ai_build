@@ -198,6 +198,7 @@ func TestConformance(t *testing.T) {
 	testMarkdownExport(c, t, model)
 	testMarkdownRoundTrip(c, t, model)
 	testMarkdownMemoryLanding(c, t, model)
+	testMarkdownImportRejections(c, t, model)
 	testReflection(c, t, model)
 	testValidation(c, t, model)
 	testOperations(c, t)
@@ -526,6 +527,67 @@ func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
 	got := canonJSON(t, landed.ToJSON())
 	want := canonJSON(t, &canonical)
 	c.check("md.land.memory", got == want, "got "+got+" want "+want)
+}
+
+// markdownImportCaseTable mirrors corpus/markdown_import_cases.json — the SOM
+// §11.7 rejection protocol. `Anchor` is a pointer because the corpus spells "no
+// anchor" as JSON null while the Go port carries "" as that sentinel.
+type markdownImportCaseTable struct {
+	Cases []struct {
+		Name       string `json:"name"`
+		Markdown   string `json:"markdown"`
+		Rejections []struct {
+			Line    int     `json:"line"`
+			Reason  string  `json:"reason"`
+			Anchor  *string `json:"anchor"`
+			Message string  `json:"message"`
+		} `json:"rejections"`
+		Document som.DocumentJson `json:"document"`
+	} `json:"cases"`
+}
+
+// The SOM §11.7 rejection protocol: nothing is silently dropped. Each case
+// asserts both halves together — the full (line, reason, anchor, message)
+// report *and* the document that still landed. A port that drops an unplaceable
+// block fails the first; one that reports it and abandons the rest of the parse
+// fails the second.
+func testMarkdownImportRejections(c *checker, t *testing.T, model *som.SpecModel) {
+	var table markdownImportCaseTable
+	readJSON(t, "markdown_import_cases.json", &table)
+	for _, kase := range table.Cases {
+		name := kase.Name
+		parsed := som.NewSpecDocumentMarkdown(model, som.NewSpecDocument()).Parse(kase.Markdown)
+		c.check("md.reject["+name+"].count",
+			len(parsed.Rejections) == len(kase.Rejections),
+			rejDetail(parsed))
+		for i, want := range kase.Rejections {
+			if i >= len(parsed.Rejections) {
+				break
+			}
+			got := parsed.Rejections[i]
+			anchor := ""
+			if want.Anchor != nil {
+				anchor = *want.Anchor
+			}
+			tag := "md.reject[" + name + "][" + itoa(i) + "]"
+			c.check(tag+".line", got.Line == want.Line, itoa(got.Line))
+			c.check(tag+".reason", got.Reason == want.Reason, got.Reason)
+			c.check(tag+".anchor", got.Anchor == anchor, got.Anchor)
+			c.check(tag+".message", got.Message == want.Message, got.Message)
+		}
+		landed := som.NewSpecDocument()
+		landed.LoadJSON(&som.DocumentJson{
+			Content:   parsed.Content,
+			Forms:     parsed.Forms,
+			Lists:     parsed.Lists,
+			Headlines: parsed.Headlines,
+		})
+		want := kase.Document
+		gotJSON := canonJSON(t, landed.ToJSON())
+		wantJSON := canonJSON(t, &want)
+		c.check("md.reject["+name+"].landed", gotJSON == wantJSON,
+			"got "+gotJSON+" want "+wantJSON)
+	}
 }
 
 func rejDetail(r *som.SpecMarkdownResult) string {

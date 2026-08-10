@@ -288,6 +288,48 @@ anyway (C has no exceptions, Go returns errors, Rust returns a plain enum), so
 only the total form can be a nine-language contract. SOM §4.2/§21 now states the
 totality outright.
 
+#### …and so does the Markdown import-rejection protocol (SOM §11.7)
+
+`corpus/markdown_import_cases.json` pins what a Markdown import does with a
+block it **cannot** place. It arrived after the same trap as the tier above:
+`SpecMarkdownRejectReason` was declared in all nine runtimes and asked about by
+nothing, because `expected.md` is a byte-golden of a *successful* export and the
+three markdown tiers all assert `isClean()`. The failure that hid behind that is
+the worst one §11.7 exists to prevent — a port that silently **drops** an
+unplaceable block is indistinguishable from one that never met it.
+
+Each case is a Markdown source plus two expectations that have to hold
+*together*:
+
+- **`rejections`** — every block the importer could not place, in report order,
+  pinned on the full `(line, reason, anchor, message)`.
+- **`document`** — what *did* land, as the `toJson()` document map, compared the
+  way each port already compares the memory-landing tier: stage → `loadJson` →
+  `toJson` → canonical JSON.
+
+Three properties are deliberate:
+
+- **Neither half alone says what §11.7 requires.** A port that drops a block
+  fails `rejections`; a port that reports it and then abandons the rest of the
+  parse fails `document`. Only the pair states "reported, **not** dropped, and
+  the rest still landed", which is why every case carries both.
+- **The `message` is pinned**, for the same reason as the version tier: a reason
+  is one classification with several causes. `unknownSection` has three (no match
+  at this position, an unresolvable parent, no such document root) and
+  `orphanContent` two (before the root, before a form's first field label); a
+  table pinning only the reason would let a port collapse them.
+- **Cases are parsed against a fresh document.** Headline staging compares
+  against the *schema* default, never against the target document, so a parse is
+  document-independent and each case is reproducible in isolation.
+
+The ten cases cover each reason at least once, the two multi-cause reasons in
+each of their causes, a rejected block coexisting with imported ones in every
+case but the one where the root itself is unknown, and one document exercising
+all five reasons at once — which also pins the **report order**, not the same as
+ascending source order (a `missingValue` is raised once the parser has moved past
+the empty section's heading). All nine ports agreed on their first run; unlike
+the version tier, this one found no divergence.
+
 #### Proving a table is load-bearing: `tool/parity_gate.sh`
 
 Nine green suites do not show that nine runners read a table, and check counts

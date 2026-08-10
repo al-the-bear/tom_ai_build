@@ -158,6 +158,7 @@ fn conformance() {
     test_markdown_export(&mut c, &model);
     test_markdown_round_trip(&mut c, &model);
     test_markdown_memory_landing(&mut c, &model);
+    test_markdown_import_rejections(&mut c, &model);
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
     test_operations(&mut c);
@@ -492,6 +493,67 @@ fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
         got == want,
         &format!("got {} want {}", got, want),
     );
+}
+
+/// The SOM §11.7 rejection protocol: nothing is silently dropped. Each case
+/// asserts both halves together — the full `(line, reason, anchor, message)`
+/// report *and* the document that still landed. A port that drops an
+/// unplaceable block fails the first; one that reports it and abandons the rest
+/// of the parse fails the second. The corpus spells "no anchor" as JSON null;
+/// `str_or` maps that to "", which is exactly this port's no-anchor sentinel.
+fn test_markdown_import_rejections(c: &mut Checker, model: &SpecModel) {
+    let table = read_json("markdown_import_cases.json");
+    for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
+        let name = kase.str_or("name");
+        let doc = SpecDocument::new();
+        let parsed = SpecDocumentMarkdown::new(model, &doc).parse(&kase.str_or("markdown"));
+        let want_rejections = kase
+            .get("rejections")
+            .and_then(|v| v.as_array())
+            .unwrap_or(&[]);
+        c.check(
+            &format!("md.reject[{}].count", name),
+            parsed.rejections.len() == want_rejections.len(),
+            &rej_detail(&parsed),
+        );
+        for (i, want) in want_rejections.iter().enumerate() {
+            if i >= parsed.rejections.len() {
+                break;
+            }
+            let got = &parsed.rejections[i];
+            let tag = format!("md.reject[{}][{}]", name, i);
+            c.check(
+                &format!("{}.line", tag),
+                got.line as i64 == want.get("line").and_then(|v| v.as_i64()).unwrap_or(-1),
+                &got.line.to_string(),
+            );
+            c.check(
+                &format!("{}.reason", tag),
+                got.reason == want.str_or("reason"),
+                &got.reason,
+            );
+            c.check(
+                &format!("{}.anchor", tag),
+                got.anchor == want.str_or("anchor"),
+                &got.anchor,
+            );
+            c.check(
+                &format!("{}.message", tag),
+                got.message == want.str_or("message"),
+                &got.message,
+            );
+        }
+        let mut landed = SpecDocument::new();
+        landed.load_json(&parsed.to_document_json());
+        let got = landed.to_json().to_canonical_json();
+        let want = DocumentJson::from_json(kase.get("document").unwrap_or(&Json::Null))
+            .to_canonical_json();
+        c.check(
+            &format!("md.reject[{}].landed", name),
+            got == want,
+            &format!("got {} want {}", got, want),
+        );
+    }
 }
 
 fn rej_detail(r: &SpecMarkdownResult) -> String {

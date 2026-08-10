@@ -427,6 +427,55 @@ static void test_markdown_memory_landing(Checker& c, const som::SpecModel& model
   c.check("md.land.memory", got == want, "got " + got + " want " + want);
 }
 
+/* The SOM §11.7 rejection protocol: nothing is silently dropped. Each case
+ * asserts both halves together — the full `(line, reason, anchor, message)`
+ * report *and* the document that still landed. A port that drops an unplaceable
+ * block fails the first; one that reports it and abandons the rest of the parse
+ * fails the second. The corpus spells "no anchor" as JSON null; `jsonStrOr` maps
+ * that to "", which is exactly this port's no-anchor sentinel. */
+static void test_markdown_import_rejections(Checker& c, const som::SpecModel& model) {
+  som::JsonPtr table = read_json("markdown_import_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    std::string name = som::jsonStrOr(kase, "name");
+    som::SpecMarkdownResult result =
+        som::markdownParse(model, som::jsonStrOr(kase, "markdown"));
+
+    som::JsonRef wantRejections = som::jsonGet(kase, "rejections");
+    std::size_t wantN = som::jsonArrayLen(wantRejections);
+    c.check("md.reject[" + name + "].count", result.rejections.size() == wantN,
+            rej_str(result));
+    for (std::size_t j = 0; j < wantN && j < result.rejections.size(); j++) {
+      som::JsonRef want = som::jsonArrayAt(wantRejections, j);
+      const som::SpecMarkdownRejection& got = result.rejections[j];
+      const std::string tag =
+          "md.reject[" + name + "][" + std::to_string(j) + "].";
+      std::optional<long long> wantLine =
+          som::jsonAsI64(som::jsonGet(want, "line"));
+      c.check(tag + "line",
+              wantLine.has_value() &&
+                  static_cast<long long>(got.line) == *wantLine,
+              std::to_string(got.line));
+      c.check(tag + "reason", got.reason == som::jsonStrOr(want, "reason"),
+              got.reason);
+      c.check(tag + "anchor", got.anchor == som::jsonStrOr(want, "anchor"),
+              got.anchor);
+      c.check(tag + "message", got.message == som::jsonStrOr(want, "message"),
+              got.message);
+    }
+
+    som::SpecDocument landed;
+    landed.loadJson(result.document());
+    std::string got = som::documentJsonToCanonicalJson(landed.toJson());
+    std::string want = som::documentJsonToCanonicalJson(
+        som::documentJsonFromJson(som::jsonGet(kase, "document")));
+    c.check("md.reject[" + name + "].landed", got == want,
+            "got " + got + " want " + want);
+  }
+}
+
 static void test_reflection(Checker& c, const som::SpecModel& model) {
   som::SpecReflection refl(model);
   som::JsonPtr cases = read_json("reflection_cases.json");
@@ -1387,6 +1436,7 @@ int main(int argc, char** argv) {
   test_markdown_export(c, *model);
   test_markdown_round_trip(c, *model);
   test_markdown_memory_landing(c, *model);
+  test_markdown_import_rejections(c, *model);
   test_reflection(c, *model);
   test_validation(c, *model);
   test_operations(c);

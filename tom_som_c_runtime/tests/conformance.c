@@ -601,6 +601,73 @@ static void test_markdown_memory_landing(Checker *c, const SpecModel *model) {
   free(expected_md);
 }
 
+/* The SOM §11.7 rejection protocol: nothing is silently dropped. Each case
+ * asserts both halves together — the full `(line, reason, anchor, message)`
+ * report *and* the document that still landed. A port that drops an unplaceable
+ * block fails the first; one that reports it and abandons the rest of the parse
+ * fails the second. The corpus spells "no anchor" as JSON null; `som_json_str_or`
+ * maps that to "", which is exactly this port's no-anchor sentinel. */
+static void test_markdown_import_rejections(Checker *c, const SpecModel *model) {
+  SomJson *table = read_json("markdown_import_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(kase, "name");
+    const SomJson *want_rejections = som_json_get(kase, "rejections");
+    size_t want_n = som_json_array_len(want_rejections);
+    char label[256];
+    SpecMarkdownResult result;
+    spec_markdown_parse(model, som_json_str_or(kase, "markdown"), &result);
+
+    char *rs = rej_str(&result);
+    snprintf(label, sizeof(label), "md.reject[%s].count", name);
+    check(c, label, result.rejections_len == want_n, rs);
+    free(rs);
+    for (size_t j = 0; j < want_n && j < result.rejections_len; j++) {
+      const SomJson *want = som_json_array_at(want_rejections, j);
+      const SpecMarkdownRejection *got = &result.rejections[j];
+      long long want_line = -1;
+      char got_line[32];
+      som_json_as_i64(som_json_get(want, "line"), &want_line);
+      snprintf(got_line, sizeof(got_line), "%zu", got->line);
+      snprintf(label, sizeof(label), "md.reject[%s][%zu].line", name, j);
+      check(c, label, (long long)got->line == want_line, got_line);
+      snprintf(label, sizeof(label), "md.reject[%s][%zu].reason", name, j);
+      check(c, label, strcmp(got->reason, som_json_str_or(want, "reason")) == 0,
+            got->reason);
+      snprintf(label, sizeof(label), "md.reject[%s][%zu].anchor", name, j);
+      check(c, label, strcmp(got->anchor, som_json_str_or(want, "anchor")) == 0,
+            got->anchor);
+      snprintf(label, sizeof(label), "md.reject[%s][%zu].message", name, j);
+      check(c, label,
+            strcmp(got->message, som_json_str_or(want, "message")) == 0,
+            got->message);
+    }
+
+    SpecDocument landed;
+    spec_document_init(&landed);
+    spec_document_load_json(&landed, spec_markdown_result_document(&result));
+    DocumentJson dj;
+    spec_document_to_json(&landed, &dj);
+    DocumentJson wanted;
+    document_json_from_json(som_json_get(kase, "document"), &wanted);
+    char *got_json = document_json_to_canonical_json(&dj);
+    char *want_json = document_json_to_canonical_json(&wanted);
+    char detail[2048];
+    snprintf(detail, sizeof(detail), "got %s want %s", got_json, want_json);
+    snprintf(label, sizeof(label), "md.reject[%s].landed", name);
+    check(c, label, strcmp(got_json, want_json) == 0, detail);
+    free(got_json);
+    free(want_json);
+    document_json_free(&wanted);
+    document_json_free(&dj);
+    spec_document_free(&landed);
+    spec_markdown_result_free(&result);
+  }
+  som_json_free(table);
+}
+
 static void test_reflection(Checker *c, const SpecModel *model) {
   SpecReflection refl = spec_reflection_make(model);
   SomJson *cases = read_json("reflection_cases.json");
@@ -2034,6 +2101,7 @@ int main(int argc, char **argv) {
   test_markdown_export(&c, model);
   test_markdown_round_trip(&c, model);
   test_markdown_memory_landing(&c, model);
+  test_markdown_import_rejections(&c, model);
   test_reflection(&c, model);
   test_validation(&c, model);
   test_operations(&c);

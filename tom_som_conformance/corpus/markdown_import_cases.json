@@ -1,0 +1,241 @@
+{
+  "cases": [
+    {
+      "name": "text before the document root is reported, and the rest of the document still imports",
+      "markdown": "Stray preamble.\n\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n",
+      "rejections": [
+        {
+          "line": 1,
+          "reason": "orphanContent",
+          "anchor": null,
+          "message": "text before the document root heading"
+        }
+      ],
+      "document": {
+        "content": {
+          "DEMO/TTL": "Hello"
+        }
+      }
+    },
+    {
+      "name": "a heading with no headline comment is reported once, at the heading, not once per swallowed body line",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## A Heading With No Comment\n\nbody under the ignored heading\nand a second body line\n\n## <!--[PRI]--> Priority\n\nhigh\n",
+      "rejections": [
+        {
+          "line": 7,
+          "reason": "malformedHeading",
+          "anchor": "A Heading With No Comment",
+          "message": "heading carries no <!--[SECTION-ID]--> headline comment"
+        }
+      ],
+      "document": {
+        "content": {
+          "DEMO/PRI": "high",
+          "DEMO/TTL": "Hello"
+        }
+      }
+    },
+    {
+      "name": "an id that does not resolve at its position is reported against the parent path, and its siblings still import",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[NOSUCH]--> Not In The Schema\n\ndropped\n\n## <!--[PRI]--> Priority\n\nhigh\n",
+      "rejections": [
+        {
+          "line": 7,
+          "reason": "unknownSection",
+          "anchor": "NOSUCH",
+          "message": "section id does not resolve against the schema tree at this position (under \"DEMO\")"
+        }
+      ],
+      "document": {
+        "content": {
+          "DEMO/PRI": "high",
+          "DEMO/TTL": "Hello"
+        }
+      }
+    },
+    {
+      "name": "a section under an unresolvable parent is reported too, not swallowed with it",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[NOSUCH]--> Not In The Schema\n\n### <!--[TTL]--> Document Title\n\nHello\n\n## <!--[PRI]--> Priority\n\nhigh\n",
+      "rejections": [
+        {
+          "line": 3,
+          "reason": "unknownSection",
+          "anchor": "NOSUCH",
+          "message": "section id does not resolve against the schema tree at this position (under \"DEMO\")"
+        },
+        {
+          "line": 5,
+          "reason": "unknownSection",
+          "anchor": "TTL",
+          "message": "section nested under an unresolvable parent"
+        }
+      ],
+      "document": {
+        "content": {
+          "DEMO/PRI": "high"
+        }
+      }
+    },
+    {
+      "name": "a root id that is not a document root names the roots that are, and nothing lands",
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[WRONGROOT]--> Wrong Root\n\n## <!--[TTL]--> Document Title\n\nHello\n",
+      "rejections": [
+        {
+          "line": 2,
+          "reason": "unknownSection",
+          "anchor": "WRONGROOT",
+          "message": "no document root with this section id (known: DEMO, SIDE)"
+        },
+        {
+          "line": 4,
+          "reason": "unknownSection",
+          "anchor": "TTL",
+          "message": "section nested under an unresolvable parent"
+        }
+      ],
+      "document": {}
+    },
+    {
+      "name": "a child heading under a value leaf is a kind mismatch, and the leaf keeps its own value",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n### <!--[STS]--> Status\n\nopen\n\n## <!--[PRI]--> Priority\n\nhigh\n",
+      "rejections": [
+        {
+          "line": 7,
+          "reason": "kindMismatch",
+          "anchor": "STS",
+          "message": "child heading under a value-leaf or form section"
+        }
+      ],
+      "document": {
+        "content": {
+          "DEMO/PRI": "high",
+          "DEMO/TTL": "Hello"
+        }
+      }
+    },
+    {
+      "name": "a value-leaf heading with no body is a missing value, anchored on the resolved path and reported at its own heading line",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[PRI]--> Priority\n\n## <!--[CNT]--> Count\n\n3\n",
+      "rejections": [
+        {
+          "line": 7,
+          "reason": "missingValue",
+          "anchor": "DEMO/PRI",
+          "message": "no value text under this section heading"
+        }
+      ],
+      "document": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/TTL": "Hello"
+        }
+      }
+    },
+    {
+      "name": "text in a form section before the first field label is orphan content, and the labelled fields still import",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details & Contacts\n\nloose prose with no field label\nOwner: Bob\nContact: bob@example.com\n",
+      "rejections": [
+        {
+          "line": 5,
+          "reason": "orphanContent",
+          "anchor": "DEMO/DET",
+          "message": "text in a @Form section before the first field label"
+        }
+      ],
+      "document": {
+        "forms": {
+          "DEMO/DET": {
+            "contact": "bob@example.com",
+            "owner": "Bob"
+          }
+        },
+        "headlines": {
+          "DEMO/DET": "Details & Contacts"
+        }
+      }
+    },
+    {
+      "name": "an id that does not resolve under a list item is reported against the item path, and the list still imports",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[items]--> Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[BOGUS]--> Bogus\n\ndropped\n\n#### <!--[STS]--> Status\n\nopen\n",
+      "rejections": [
+        {
+          "line": 13,
+          "reason": "unknownSection",
+          "anchor": "BOGUS",
+          "message": "section id does not resolve against the schema tree at this position (under \"DEMO/items-1\")"
+        }
+      ],
+      "document": {
+        "content": {
+          "DEMO/TTL": "Hello",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-1/label": "First"
+        },
+        "lists": {
+          "DEMO/items": {
+            "seq": 1,
+            "items": [
+              "DEMO/items-1"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "all five reasons in one document: every rejected block is reported and everything else still lands",
+      "markdown": "Stray preamble before the root.\n\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n### <!--[STS]--> Status\n\nopen\n\n## An Unmarked Heading\n\nswallowed body\n\n## <!--[PRI]--> Priority\n\n## <!--[NOSUCH]--> Not In The Schema\n\ndropped\n\n## <!--[DET]--> Details & Contacts\n\nloose prose with no field label\nOwner: Bob\n\n## <!--[CNT]--> Count\n\n3\n",
+      "rejections": [
+        {
+          "line": 1,
+          "reason": "orphanContent",
+          "anchor": null,
+          "message": "text before the document root heading"
+        },
+        {
+          "line": 9,
+          "reason": "kindMismatch",
+          "anchor": "STS",
+          "message": "child heading under a value-leaf or form section"
+        },
+        {
+          "line": 13,
+          "reason": "malformedHeading",
+          "anchor": "An Unmarked Heading",
+          "message": "heading carries no <!--[SECTION-ID]--> headline comment"
+        },
+        {
+          "line": 17,
+          "reason": "missingValue",
+          "anchor": "DEMO/PRI",
+          "message": "no value text under this section heading"
+        },
+        {
+          "line": 19,
+          "reason": "unknownSection",
+          "anchor": "NOSUCH",
+          "message": "section id does not resolve against the schema tree at this position (under \"DEMO\")"
+        },
+        {
+          "line": 25,
+          "reason": "orphanContent",
+          "anchor": "DEMO/DET",
+          "message": "text in a @Form section before the first field label"
+        }
+      ],
+      "document": {
+        "content": {
+          "DEMO/CNT": "3",
+          "DEMO/TTL": "Hello"
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob"
+          }
+        },
+        "headlines": {
+          "DEMO/DET": "Details & Contacts"
+        }
+      }
+    }
+  ]
+}
