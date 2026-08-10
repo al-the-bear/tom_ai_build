@@ -1,4 +1,4 @@
-/// The twenty-four validator checks `codespecs_derivation_contract.md` §6 names.
+/// The thirty-one validator checks `codespecs_derivation_contract.md` §6 names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
 /// rule that defines it so a failure cites the rule rather than a symptom. The
@@ -483,6 +483,39 @@ class CsMissingAuthoredKeyCheck extends CodeSpecsCheck {
   }
 }
 
+/// Every generated body, once, with the declaration that reads best in a
+/// message about it.
+///
+/// A class declaration aggregates its methods' bodies — check 23 resolves the
+/// calls in a form-3b body through the class, not through the method — *and*
+/// each method is a declaration in its own right, so a body reached by walking
+/// [CodeSpecsValidationInput.declarations] is reached twice. The first reading
+/// wins because it is the class's, which is what makes the message say
+/// `OrderService.total` rather than `OrderService.total.total`.
+Iterable<({CsDeclaration declaration, CsMethodBody body})> csBodies(
+  CodeSpecsValidationInput input,
+) sync* {
+  final seen = <String>{};
+  for (final project in input.projects) {
+    for (final declaration in project.declarations) {
+      for (final body in declaration.bodies) {
+        if (!seen.add('${body.location}:${body.name}')) continue;
+        yield (declaration: declaration, body: body);
+      }
+    }
+  }
+}
+
+/// How to name [body] of [declaration] in a message.
+///
+/// A method reached through its class needs the method name appended; one
+/// reached as itself, or a top-level function, already carries it.
+String csBodyPath(CsDeclaration declaration, CsMethodBody body) {
+  final path = declaration.path;
+  if (path == body.name || path.endsWith('.${body.name}')) return path;
+  return '$path.${body.name}';
+}
+
 // ---------------------------------------------------------------------------
 // 5 — empty explication
 // ---------------------------------------------------------------------------
@@ -504,20 +537,18 @@ class CsEmptyExplicationCheck extends CodeSpecsCheck {
   @override
   List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
     final out = <CodeSpecsViolation>[];
-    for (final declaration in input.declarations) {
-      for (final body in declaration.bodies) {
-        if (body.shape != CsBodyShape.throwOnly) continue;
-        final message = body.thrownMessage;
-        if (message == null || message.trim().isNotEmpty) continue;
-        out.add(
-          fail(
-            '${declaration.path}.${body.name} throws with no explication — the '
-            'SOM description that is the stub body is empty (section(s) '
-            '${sectionsOf(declaration)})',
-            body.location,
-          ),
-        );
-      }
+    for (final (:declaration, :body) in csBodies(input)) {
+      if (body.shape != CsBodyShape.throwOnly) continue;
+      final message = body.thrownMessage;
+      if (message == null || message.trim().isNotEmpty) continue;
+      out.add(
+        fail(
+          '${csBodyPath(declaration, body)} throws with no explication — the '
+          'SOM description that is the stub body is empty (section(s) '
+          '${sectionsOf(declaration)})',
+          body.location,
+        ),
+      );
     }
     return out;
   }
@@ -528,6 +559,18 @@ class CsEmptyExplicationCheck extends CodeSpecsCheck {
 // ---------------------------------------------------------------------------
 
 /// §6 check 6.
+///
+/// §2.4 invariant 2 asks *could the generator have made this value up?*, not
+/// *does the body return?* — a form-3b body's last statement **is** a `return`
+/// (§2.4 B3), so returning is not the offence. The offence is returning
+/// something the generator composed: a literal, an arithmetic result, a string
+/// built out of the specification's words. A value that came out of a
+/// collaborator or substrate call was not made up, because nothing in the
+/// generator knows what it will be.
+///
+/// A `return` of a bare identifier is admitted exactly when that identifier
+/// names a `final` local the same body bound from a call — §2.4 kind 5 reads
+/// "produced by (1)–(3)", and kind 3 is that binding.
 class CsFabricatedValueCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsFabricatedValueCheck();
@@ -536,28 +579,53 @@ class CsFabricatedValueCheck extends CodeSpecsCheck {
   int get number => 6;
 
   @override
-  String get definedIn => '§2.4';
+  String get definedIn => '§2.4 invariant 2';
 
   @override
-  String get title => 'No generated stub returns a fabricated value';
+  String get title =>
+      'No generated body returns a fabricated value — a 3b return is admissible '
+      'only where the returned value came out of a collaborator or substrate '
+      'call';
 
   @override
   List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
     final out = <CodeSpecsViolation>[];
-    for (final declaration in input.declarations) {
-      for (final body in declaration.bodies) {
-        if (body.shape != CsBodyShape.returnsValue) continue;
+    for (final (:declaration, :body) in csBodies(input)) {
+      // A form-3a body is the throw and nothing else, so it has no return to
+      // judge; the empty body of an abstract member has none either.
+      if (!body.isPseudoImplementation) continue;
+      final fromCalls = _localsBoundFromCalls(body);
+      for (final statement in body.allStatements) {
+        if (statement.kind != CsStatementKind.returned) continue;
+        final value = statement.valueSource;
+        // `return;` returns nothing, so there is nothing to fabricate.
+        if (value == null) continue;
+        if (statement.call != null) continue;
+        final identifier = statement.valueIdentifier;
+        if (identifier != null && fromCalls.contains(identifier)) continue;
         out.add(
           fail(
-            '${declaration.path}.${body.name} returns a value — a stub has one '
-            'exit and it is the throw, so any returned value is fabricated',
-            body.location,
+            '${csBodyPath(declaration, body)} returns `$value`, which no '
+            'collaborator or substrate call produced — §2.4 invariant 2 asks '
+            'could the generator have made this value up, and of this value it '
+            'could',
+            statement.location,
           ),
         );
       }
     }
     return out;
   }
+
+  /// The names [body] binds `final` from a call — §2.4 kind 3.
+  Set<String> _localsBoundFromCalls(CsMethodBody body) => {
+        for (final statement in body.allStatements)
+          if (statement.kind == CsStatementKind.localBinding &&
+              statement.isFinal &&
+              statement.call != null &&
+              statement.boundName != null)
+            statement.boundName!,
+      };
 }
 
 // ---------------------------------------------------------------------------
@@ -1978,10 +2046,741 @@ class CsCollaboratorShapeCheck extends CodeSpecsCheck {
 }
 
 // ---------------------------------------------------------------------------
+// 25, 26, 27 — the emitted comments
+// ---------------------------------------------------------------------------
+
+/// Whether [declaration] is a form-3a or form-3b declaration — one that carries
+/// a generated body rather than only a signature.
+///
+/// §2.8 C2 P3 attaches its requirement to the *declaration*, not to the
+/// individual method, so the classification is made once over all its bodies:
+/// a declaration one of whose methods throws its explication (3a) or calls a
+/// collaborator (3b) is a form-3 declaration, and then **every** method of it
+/// carries a comment. A form-1/2/4 declaration carries none of this — its
+/// members are covered by P2 instead.
+bool _isFormThreeDeclaration(CodeSpecsValidationInput input, CsDeclaration d) {
+  if (!d.isTopLevel) return false;
+  for (final member in input.project(d.locus).declarations) {
+    if (member.owner != d.name) continue;
+    for (final body in member.bodies) {
+      if (body.shape == CsBodyShape.throwOnly) return true;
+      if (body.isPseudoImplementation) return true;
+    }
+  }
+  for (final body in d.bodies) {
+    if (body.shape == CsBodyShape.throwOnly) return true;
+    if (body.isPseudoImplementation) return true;
+  }
+  return false;
+}
+
+/// §6 check 25.
+///
+/// §2.8 C2's fourth position is the one whose absence the contract calls a
+/// **generation error** rather than a lapse of style, and the reason is what a
+/// form-3 method is *for*: the body says nothing (it throws, or it delegates),
+/// so the doc comment is the only place the specification's own words survive
+/// into the code Phase 6 implements. A method of a form-3 declaration with no
+/// comment is a step whose description was dropped between the SOM and the
+/// output — the seam is there, but nobody can see what it was supposed to do.
+///
+/// The abstract collaborator is held to the same rule for the same reason, and
+/// more sharply: every one of its methods is a contributing step and has no body
+/// at all.
+class CsMethodCommentCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsMethodCommentCheck();
+
+  @override
+  int get number => 25;
+
+  @override
+  String get definedIn => '§2.8 C2 P3, §3.0.1';
+
+  @override
+  String get title =>
+      'Every method of a form-3a or form-3b declaration, and every method of a '
+      '@CsCollaborator class, carries a doc comment';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final project in input.projects) {
+      final owners = <String, String>{};
+      for (final declaration in project.declarations) {
+        if (!declaration.isTopLevel) continue;
+        if (declaration.has('CsCollaborator')) {
+          owners[declaration.name] = 'a @CsCollaborator class';
+        } else if (_isFormThreeDeclaration(input, declaration)) {
+          owners[declaration.name] = 'a form-3 declaration';
+        }
+      }
+
+      for (final member in project.declarations) {
+        if (member.kind != CsDeclarationKind.method) continue;
+        final owner = member.owner;
+        if (owner == null) continue;
+        final why = owners[owner];
+        if (why == null) continue;
+        final comment = member.docComment;
+        if (comment != null && !comment.isEmpty) continue;
+        out.add(
+          fail(
+            '$owner.${member.name} carries no doc comment, and $owner is $why — '
+            'a form-3 method says nothing in its body, so the comment is the '
+            'only place its SOM description reaches the code',
+            member.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+}
+
+/// The number of `//` lines §2.7's banner is.
+const _csBannerLines = 3;
+
+/// §6 check 26.
+///
+/// §2.8 C6 gives the in-body comment position a value, and the value is
+/// *nothing*. It is the one C-rule that forbids rather than requires, and it
+/// exists because an in-body comment is where a generator starts explaining
+/// itself — "// TODO: implement", "// step 2 of 3", "// derived from CLA-4.2".
+/// Every one of those is either already in the doc comment (C2) or is generator
+/// commentary that no SOM section said, which C1 forbids as a source.
+///
+/// §2.7's three-line banner is the sole `//` an emitted file may hold, so the
+/// check counts it out rather than filtering all banner-position comments away:
+/// a fourth `//` above the imports is a comment that has crept in beside the
+/// banner, and is exactly as forbidden as one inside a body.
+class CsNoInBodyCommentCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsNoInBodyCommentCheck();
+
+  @override
+  int get number => 26;
+
+  @override
+  String get definedIn => '§2.8 C6, §2.7';
+
+  @override
+  String get title =>
+      'No generated file holds a non-documentation comment other than §2.7\'s '
+      'three-line banner';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final project in input.projects) {
+      for (final file in project.files) {
+        var banner = 0;
+        for (final comment in file.comments) {
+          if (comment.isDocumentation) continue;
+          if (comment.isBanner && banner < _csBannerLines) {
+            banner++;
+            continue;
+          }
+          out.add(
+            fail(
+              '${file.path} holds the comment `${comment.text.trim()}`; the only '
+              '`//` an emitted file carries is §2.7\'s $_csBannerLines-line '
+              'banner, and C6 gives every other position the value nothing',
+              comment.location,
+            ),
+          );
+        }
+      }
+    }
+    return out;
+  }
+}
+
+/// §6 check 27.
+///
+/// The three C4 shape rules a syntax pass can see. Each one is a way the same
+/// promise breaks: C4.1's trailing whitespace and C4.3's blank line are
+/// whitespace a second run may or may not reproduce, and C4.4's escapes decide
+/// whether dartdoc renders the specification's own words or silently eats them —
+/// an unescaped `[Order]` becomes a broken reference, an unescaped `<name>` an
+/// HTML tag that renders as nothing at all.
+///
+/// **What it leaves to the SOM side.** C4.2 (no re-wrapping, no truncation) and
+/// C1's source rules compare the emitted text against the SOM text it came from,
+/// which is not in the trio. Those are generator-side assertions; this check
+/// reads what a reader of the emitted file can see.
+class CsDocCommentShapeCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsDocCommentShapeCheck();
+
+  @override
+  int get number => 27;
+
+  @override
+  String get definedIn => '§2.8 C4';
+
+  @override
+  String get title =>
+      'A doc comment carries no trailing whitespace, sits immediately above the '
+      'first annotation with no blank line, and escapes `[`, `]` and `<` outside '
+      'fenced code blocks';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final declaration in input.declarations) {
+      final comment = declaration.docComment;
+      if (comment == null) continue;
+
+      for (final line in comment.lines) {
+        if (line.trimRight().length == line.length) continue;
+        out.add(
+          fail(
+            '${declaration.path} has a doc-comment line with trailing '
+            'whitespace (`$line`) — C4.1 emits one source line as one `/// ` '
+            'line and nothing after it',
+            comment.location,
+          ),
+        );
+      }
+
+      final next = declaration.firstAnnotationLine;
+      if (next != comment.endLine + 1) {
+        out.add(
+          fail(
+            '${declaration.path} has ${next - comment.endLine - 1} blank line(s) '
+            'between its doc comment and the first annotation — C4.3 puts the '
+            'block\'s last line immediately above it',
+            comment.location,
+          ),
+        );
+      }
+
+      var fenced = false;
+      for (final line in comment.text) {
+        if (line.trimLeft().startsWith('```')) {
+          fenced = !fenced;
+          continue;
+        }
+        if (fenced) continue;
+        final offender = _unescaped(line);
+        if (offender == null) continue;
+        out.add(
+          fail(
+            '${declaration.path} has an unescaped `$offender` in its doc comment '
+            '(`$line`) — C4.4 escapes `[` and `]` and writes `<` as `&lt;`, so '
+            'the specification\'s own words survive dartdoc',
+            comment.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+
+  /// The first character of [line] C4.4 requires escaped and which is not, or
+  /// `null` when every one of them is.
+  String? _unescaped(String line) {
+    for (var i = 0; i < line.length; i++) {
+      final char = line[i];
+      if (char == r'\') {
+        i++;
+        continue;
+      }
+      if (char == '[' || char == ']' || char == '<') return char;
+    }
+    return null;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 28, 29, 30 — the form-3b body
+// ---------------------------------------------------------------------------
+
+/// §6 check 28.
+///
+/// §2.4 lists five statement kinds a form-3b body may contain, and the list is
+/// closed for one reason: a body that stays inside it cannot compute anything.
+/// The excluded shapes are all ways of computing — a literal is a value the
+/// generator invented, arithmetic and string building are results derived in the
+/// body rather than obtained from a seam, and an unstated `try` is control flow
+/// no section asked for. Each of them would make the pseudo-implementation run
+/// to a result, which §2.4 invariant 4 forbids outright.
+///
+/// The `final` half of kind 3 is not decoration: a non-`final` local can be
+/// reassigned, and a body that reassigns is a body that computes. §2.4 B3 goes
+/// further for the collaborator specifically — this derivation binds nothing,
+/// it awaits or returns — so a binding of a *collaborator* call is a B3 breach
+/// even though kind 3 would admit the shape in general.
+class CsBodyStatementShapeCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsBodyStatementShapeCheck();
+
+  @override
+  int get number => 28;
+
+  @override
+  String get definedIn => '§2.4, §2.4 B3';
+
+  @override
+  String get title =>
+      'A form-3b body contains only the five §2.4 statement kinds, its local '
+      'bindings are final and initialised from a call, and it binds no '
+      'collaborator result';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final (:declaration, :body) in csBodies(input)) {
+      if (!body.isPseudoImplementation) continue;
+      final where = csBodyPath(declaration, body);
+      for (final statement in body.allStatements) {
+        switch (statement.kind) {
+          case CsStatementKind.other:
+            out.add(
+              fail(
+                '$where contains `${statement.source}`, which is none of the '
+                'five §2.4 statement kinds — a form-3b body obtains values, '
+                'it does not compute them',
+                statement.location,
+              ),
+            );
+          case CsStatementKind.thrown:
+            out.add(
+              fail(
+                '$where contains `${statement.source}`; a throw is the whole '
+                'of a form-3a body and never a statement of a 3b one',
+                statement.location,
+              ),
+            );
+          case CsStatementKind.localBinding:
+            if (!statement.isFinal) {
+              out.add(
+                fail(
+                  '$where binds `${statement.boundName}` without `final` — a '
+                  'reassignable local is a body that computes, and §2.4 kind '
+                  '3 binds a call result once',
+                  statement.location,
+                ),
+              );
+            } else if (statement.call == null) {
+              out.add(
+                fail(
+                  '$where binds `${statement.boundName}` from '
+                  '`${statement.valueSource}`, which is not a call — §2.4 '
+                  'kind 3 binds the result of kind 1 or kind 2 and of nothing '
+                  'else',
+                  statement.location,
+                ),
+              );
+            } else if (statement.call!.receiver == csCollaboratorField) {
+              out.add(
+                fail(
+                  '$where binds the result of '
+                  'collaborator.${statement.call!.method} — §2.4 B3 emits '
+                  '`await collaborator.<m>(…);` on every step but the last '
+                  'and `return collaborator.<m>(…)` on it, and no local '
+                  'binding at all',
+                  statement.location,
+                ),
+              );
+            }
+          case CsStatementKind.call:
+          case CsStatementKind.controlFlow:
+          case CsStatementKind.returned:
+            break;
+        }
+      }
+    }
+    return out;
+  }
+}
+
+/// §6 check 29.
+///
+/// §2.4 B4 turns a stated condition into a **guard method on the collaborator**
+/// rather than into an expression, and the reason is that the condition arrives
+/// as prose. A generator that emitted `if (order.total > limit)` would have
+/// parsed English into Dart and guessed at both the operands and the operator;
+/// a generator that emits `if (await collaborator.chargeOrderOverLimitApplies(…))`
+/// has moved the same sentence into a named seam, where Phase 6 reads the
+/// comment and implements it. The first is a guess that compiles, which is the
+/// worst kind.
+///
+/// **Repetition and multi-way choice.** §2.4 kind 4 permits `for` and `switch`,
+/// but B7 states that this derivation produces neither: no §3 entry names a
+/// structured surface that states repetition or a multi-way selection, so a
+/// `for` or a `switch` in a generated body came from somewhere other than the
+/// specification. The check moves when an entry names such a surface — the same
+/// stated bound as check 21's and check 23's.
+class CsBranchConditionCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsBranchConditionCheck();
+
+  @override
+  int get number => 29;
+
+  @override
+  String get definedIn => '§2.4 B4, §2.4 B7';
+
+  @override
+  String get title =>
+      'Every branch in a generated body is an `if` on a collaborator guard '
+      'call, never a composed expression, and no body repeats or selects '
+      'multi-way';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final (:declaration, :body) in csBodies(input)) {
+      if (!body.isPseudoImplementation) continue;
+      final where = csBodyPath(declaration, body);
+      for (final statement in body.allStatements) {
+        if (statement.kind != CsStatementKind.controlFlow) continue;
+        switch (statement.keyword) {
+          case 'block':
+            break;
+          case 'for':
+          case 'while':
+            out.add(
+              fail(
+                '$where repeats (`${statement.source}`) — §2.4 B7 states that '
+                'no §3 entry names a structured surface stating repetition, '
+                'so this derivation produces none',
+                statement.location,
+              ),
+            );
+          case 'switch':
+            out.add(
+              fail(
+                '$where selects multi-way (`${statement.source}`) — §2.4 B7 '
+                'states that no §3 entry names a structured surface stating a '
+                'multi-way choice, so this derivation produces none',
+                statement.location,
+              ),
+            );
+          case 'if':
+            final call = statement.call;
+            if (call != null &&
+                call.receiver == csCollaboratorField &&
+                call.method.endsWith(csGuardSuffix)) {
+              break;
+            }
+            out.add(
+              fail(
+                '$where branches on `${statement.valueSource}`, which is not a '
+                'collaborator guard call — §2.4 B4 makes a stated condition a '
+                '`…$csGuardSuffix` method on the collaborator rather than an '
+                'expression the generator parsed out of prose',
+                statement.location,
+              ),
+            );
+          default:
+            break;
+        }
+      }
+    }
+    return out;
+  }
+}
+
+/// The fixed suffix a §2.4 B4 guard method's name ends in.
+const csGuardSuffix = 'Applies';
+
+/// Where a collaborator call sits in the body that makes it.
+enum CsCallPosition {
+  /// The call is the body's `return` — §2.4 B3's last contributing step.
+  returned,
+
+  /// The call is a statement of its own — an earlier contributing step.
+  statement,
+
+  /// The call is a branch condition — a §2.4 B4 guard.
+  guard,
+
+  /// The call initialises a local binding, which §2.4 B3 does not emit; check
+  /// 28 owns that breach, so check 30 does not judge the signature.
+  binding,
+}
+
+/// One `collaborator.<m>(…)` call, with the body that makes it.
+typedef CsCollaboratorCall = ({
+  String collaborator,
+  String method,
+  CsCallPosition position,
+  CsDeclaration caller,
+  CsMethodBody body,
+  CsLocation location,
+});
+
+/// Every collaborator call across the trio, with the body that makes it.
+///
+/// The receiver spelling is the whole resolution mechanism: §3.0.1 point 2 fixes
+/// one `late final <Name>Collaborator collaborator;` field per declaration, so a
+/// syntax pass can name the collaborator a call reaches by reading that field's
+/// declared type.
+List<CsCollaboratorCall> csCollaboratorCalls(CodeSpecsValidationInput input) {
+  final out = <CsCollaboratorCall>[];
+  for (final project in input.projects) {
+    final fieldsByOwner = <String, CsDeclaration>{};
+    for (final declaration in project.declarations) {
+      if (declaration.kind != CsDeclarationKind.field) continue;
+      if (declaration.name != csCollaboratorField) continue;
+      final owner = declaration.owner;
+      if (owner != null) fieldsByOwner[owner] = declaration;
+    }
+
+    for (final declaration in project.declarations) {
+      if (!declaration.isTopLevel) continue;
+      if (declaration.has('CsCollaborator')) continue;
+      final collaborator = _typeHead(fieldsByOwner[declaration.name]?.declaredType);
+      if (collaborator == null) continue;
+
+      for (final member in project.declarations) {
+        if (member.owner != declaration.name) continue;
+        for (final body in member.bodies) {
+          for (final statement in body.allStatements) {
+            final call = statement.call;
+            if (call == null || call.receiver != csCollaboratorField) continue;
+            final position = switch (statement.kind) {
+              CsStatementKind.returned => CsCallPosition.returned,
+              CsStatementKind.call => CsCallPosition.statement,
+              CsStatementKind.controlFlow => CsCallPosition.guard,
+              CsStatementKind.localBinding => CsCallPosition.binding,
+              _ => null,
+            };
+            if (position == null) continue;
+            out.add((
+              collaborator: collaborator,
+              method: call.method,
+              position: position,
+              caller: declaration,
+              body: body,
+              location: call.location,
+            ));
+          }
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/// §6 check 30.
+///
+/// §3.0.1 point 2 derives a collaborator method's whole signature from the body
+/// that calls it — the parameters "name-for-name and type-for-type", the return
+/// type from the call's position — and a syntax pass can hold the generator to
+/// every part of it. The rule is not tidiness. A collaborator method exists so a
+/// step's behaviour can be *moved* out of the body without being *changed*; a
+/// parameter the caller does not have is an input the specification never named,
+/// and a missing one is an input the step needs and cannot reach. The return
+/// type says which of the three positions the call is in, so a mismatch means
+/// the generator emitted a step in a place its own derivation did not put it.
+///
+/// Where the check is silent: on a method it cannot find (check 23 reports the
+/// unresolved call) and on a call that binds a local (check 28 reports the
+/// binding, and a binding has no derived return type to compare).
+class CsCollaboratorSignatureCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsCollaboratorSignatureCheck();
+
+  @override
+  int get number => 30;
+
+  @override
+  String get definedIn => '§3.0.1, §2.4 B3, §2.4 B4';
+
+  @override
+  String get title =>
+      'A collaborator method repeats its calling body\'s parameters '
+      'name-for-name and type-for-type, and its return type follows the call\'s '
+      'position';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    final collaborators = _collaboratorClasses(input);
+
+    for (final call in csCollaboratorCalls(input)) {
+      if (call.position == CsCallPosition.binding) continue;
+      final owner = collaborators[call.collaborator];
+      if (owner == null) continue;
+      final method = _methodOf(input, owner, call.method);
+      if (method == null) continue;
+      final signature = method.bodies.isEmpty ? null : method.bodies.first;
+      if (signature == null) continue;
+      final where = '${call.collaborator}.${call.method}';
+
+      final declared = _spell(signature.parameters);
+      final expected = _spell(call.body.parameters);
+      if (declared != expected) {
+        out.add(
+          fail(
+            '$where declares ($declared) but '
+            '${call.caller.name}.${call.body.name} passes ($expected) — '
+            '§3.0.1 point 2 repeats the calling body\'s list name-for-name and '
+            'type-for-type, because a step that moved out of a body must not '
+            'change on the way',
+            method.location,
+          ),
+        );
+      }
+
+      final returned = signature.returnType?.trim();
+      final wanted = switch (call.position) {
+        CsCallPosition.returned => {call.body.returnType?.trim()},
+        CsCallPosition.statement => {'void', 'Future<void>'},
+        CsCallPosition.guard => {'bool', 'Future<bool>'},
+        CsCallPosition.binding => const <String?>{},
+      };
+      if (wanted.isEmpty || wanted.contains(returned)) continue;
+      final why = switch (call.position) {
+        CsCallPosition.returned =>
+          'the call is the body\'s return, so §2.4 B3 makes it the last '
+              'contributing step and §3.0.1 gives it the calling body\'s return '
+              'type',
+        CsCallPosition.statement =>
+          'the call is a statement, so §2.4 B3 makes it an earlier contributing '
+              'step, which produces no value',
+        CsCallPosition.guard =>
+          'the call is a branch condition, so §2.4 B4 makes it a guard',
+        CsCallPosition.binding => '',
+      };
+      out.add(
+        fail(
+          '$where returns ${returned ?? 'no declared type'} where '
+          '${wanted.map((t) => t ?? 'no declared type').join(' or ')} is '
+          'derived: $why',
+          method.location,
+        ),
+      );
+    }
+    return out;
+  }
+
+  /// The method [name] of collaborator [owner], or `null` when it declares none.
+  CsDeclaration? _methodOf(
+    CodeSpecsValidationInput input,
+    CsDeclaration owner,
+    String name,
+  ) {
+    for (final declaration in input.project(owner.locus).declarations) {
+      if (declaration.owner != owner.name) continue;
+      if (declaration.kind != CsDeclarationKind.method) continue;
+      if (declaration.name == name) return declaration;
+    }
+    return null;
+  }
+
+  /// The parameter list as one comparable string.
+  String _spell(List<CsParameter> parameters) =>
+      parameters.map((p) => p.toString()).join(', ');
+}
+
+// ---------------------------------------------------------------------------
+// 31 — determinism
+// ---------------------------------------------------------------------------
+
+/// §6 check 31.
+///
+/// The one check whose subject is two runs rather than one trio. §2.8 C5 and
+/// §2.1 N1 promise that regenerating over an unchanged document reproduces the
+/// output byte-for-byte, and nothing inside a single trio can witness that: a
+/// generator that iterates an unordered map, or stamps a time, or numbers a
+/// name from a counter that survives between runs, emits perfectly plausible
+/// output every time — it is only the *second* run that shows the difference.
+///
+/// tscomp17's derivation is where this stops being hypothetical. B1 orders a 3b
+/// body's statements by §2.1 N8 document order, and B4 names a guard method out
+/// of two headlines; both are derivations over collections, and both would still
+/// compile if the collection came back in another order. So the check diffs the
+/// two runs' file sets first (a name that changed is a naming derivation that is
+/// not a function of its input) and then their bytes.
+///
+/// The check needs a caller who ran the generator twice. When none did, it
+/// raises nothing — see `bin/validate_codespecs.dart`, which says so on stdout
+/// rather than letting a silent pass read as a verified one.
+class CsDeterminismCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsDeterminismCheck();
+
+  @override
+  int get number => 31;
+
+  @override
+  String get definedIn => '§2.8 C5, §2.1 N1';
+
+  @override
+  String get title =>
+      'Regenerating over an unchanged model reproduces the trio byte-for-byte';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final again = input.regeneration;
+    if (again == null) return const [];
+
+    final out = <CodeSpecsViolation>[];
+    for (final project in input.projects) {
+      final second = again.project(project.locus);
+      final first = {for (final file in project.files) file.path: file.source};
+      final repeat = {for (final file in second.files) file.path: file.source};
+
+      for (final path in first.keys.toList()..sort()) {
+        if (repeat.containsKey(path)) continue;
+        out.add(
+          fail(
+            '${project.locus.label}: $path was emitted by the first run and not '
+            'by the second — a file name that is not a function of the model is '
+            'a naming derivation that read something other than the model',
+          ),
+        );
+      }
+      for (final path in repeat.keys.toList()..sort()) {
+        if (first.containsKey(path)) continue;
+        out.add(
+          fail(
+            '${project.locus.label}: $path was emitted by the second run and '
+            'not by the first — the two runs read the same model and disagreed '
+            'about what to emit',
+          ),
+        );
+      }
+      for (final path in first.keys.toList()..sort()) {
+        final before = first[path];
+        final after = repeat[path];
+        if (after == null || before == after) continue;
+        out.add(
+          fail(
+            '${project.locus.label}: $path differs between the two runs '
+            '(${_firstDifference(before!, after)}) — §2.8 C5 reproduces every '
+            'byte, and a difference here is an ordering or a stamp that is not '
+            'derived from the model',
+          ),
+        );
+      }
+    }
+    return out;
+  }
+
+  /// Where two texts first diverge, in the vocabulary of a reader of the file.
+  String _firstDifference(String before, String after) {
+    final a = before.split('\n');
+    final b = after.split('\n');
+    for (var i = 0; i < a.length && i < b.length; i++) {
+      if (a[i] == b[i]) continue;
+      return 'line ${i + 1}: `${a[i].trim()}` became `${b[i].trim()}`';
+    }
+    return 'the second run emitted ${b.length} line(s) where the first emitted '
+        '${a.length}';
+  }
+}
+
+// ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The twenty-four checks, in §6 table order.
+/// The thirty-one checks, in §6 table order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   CsIdentifierCollisionCheck(),
   CsReferenceResolutionCheck(),
@@ -2007,4 +2806,11 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   CsColumnNotObservableCheck(),
   CsCollaboratorCallResolutionCheck(),
   CsCollaboratorShapeCheck(),
+  CsMethodCommentCheck(),
+  CsNoInBodyCommentCheck(),
+  CsDocCommentShapeCheck(),
+  CsBodyStatementShapeCheck(),
+  CsBranchConditionCheck(),
+  CsCollaboratorSignatureCheck(),
+  CsDeterminismCheck(),
 ];

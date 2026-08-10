@@ -1825,13 +1825,15 @@ rather than id strings.
 Each is named here so the generator implements them as a check rather than as a
 convention.
 
-**Where they run.** All twenty-four are implemented in
+**Where they run.** All thirty-one are implemented in
 `tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
 the analyzer, `cs_model` resolves it, `cs_checks` holds the checks,
 `codespecs_validator` drives them) and are invoked by
 `dart run bin/validate_codespecs.dart --shared … --client … --server …`, which
-exits non-zero on any violation. A check numbered below and not implemented
-there is a defect in one of the two.
+exits non-zero on any violation. The third column names each check's class in
+`cs_checks.dart`, so the correspondence is stated rather than inferred: a check
+numbered below with no class, or a class in the registry with no row, is a
+defect in one of the two.
 
 **Why none of them is a const-constructor `assert`.** Checks 8, 10, 14, 15, 16 and
 21 are per-instance constraints on a single annotation's arguments, so the obvious
@@ -1842,34 +1844,41 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generator's
-validation pass over the resolved annotation for **all** twenty-four.
+validation pass over the resolved annotation for **all** thirty-one.
 
-| # | Check | Defined in |
-|---|-------|------------|
-| 1 | Identifier collisions within a locus project **fail** generation, naming both section ids | §2.1 N4 |
-| 2 | Every `Cs*Ref` string resolves to a generated declaration | §2.1 N9 |
-| 3 | A missing designated name field / headline **fails**, naming the section | §2.1 N1 |
-| 4 | A missing authored key (message key, error code, setting key, operation name, route id) **fails** | §2.1 N5 |
-| 5 | A form-3a body with an empty SOM description **fails** | §2.4 |
-| 6 | No generated body returns a fabricated value — a 3b `return` is admissible only where the returned value came out of a collaborator or substrate call | §2.4 invariant 2 |
-| 7 | `@CodeSpec.source` equals the `@DocSpec` section-id set | §2.5 rule 4 |
-| 8 | Only the slots of a marker's declared kind are non-null (`@CsTrigger`, `@CsAuthorize`, `@CsJob`) | §2.3 |
-| 9 | Every mirrored enum matches its `tom_core` counterpart value-for-value | §5.3 |
-| 10 | `@CsText` with `role == error` has `category == errorCopy` | §3.1.3 |
-| 11 | The shared → {client, server} dependency arrow is never inverted | §2.2 |
-| 12 | A server handler's operation string equals its shared `CsOperationRef` | §3.4.2 |
-| 13 | Cumulative CE-MG DDL converges on the `@CsTable` / `@CsColumn` model | §3.3.5 |
-| 14 | `@CsValidation` never emits the non-declarable `compose` token | §3.2.2 |
-| 15 | `overridableBy` names a scope **strictly narrower** than the marker's own — `@CsUserSetting` may open only `device`, `@CsClientConfig` only `user`/`device`, `@CsServerConfig` any; `none` is always valid | §3.3.6, §5.3 |
-| 16 | A `@CsServerConfig(secret: true)` member has **no initialiser** — a secret declares presence and shape only, so a default is a credential in the source tree | §3.3.6 |
-| 17 | Every `TomNotificationChannelDeclaration.fallbackChannelId` resolves to a channel declared in the same catalogue | §3.2.9 |
-| 18 | Every `TomReportColumn.drillThroughRouteId` resolves to a CE-NV route declared in the **client** project | §3.3.9 |
-| 19 | A `@CsServerConfig(secret: true)` member's `@DocSpec` names **`SCSET`** — a secret is only ever authored on the declared path, so one traced to a fixed band means a credential slot was invented in a policy section | §3.3.6 |
-| 20 | Two `@CsServerConfig` members never claim the same setting key — derived and authored keys share one namespace, and neither shape can see the other while it is authored | §2.1 N10 |
-| 21 | A `CsGradedAccess` slot's `@CsAuthorize` is never itself `graded` — the graded depth is exactly one level | §3.4.3 |
-| 22 | A `@CsColumn` member is a plain Dart field — `T?` when optional, `late final T` when not — and **never** a `TomN*` or any other observable, which the shipped repository can read but cannot write | §3.3.2 |
-| 23 | Every call in a form-3b body resolves — to a method of the declaration's own `@CsCollaborator` class reached through its `collaborator` field, or to the substrate its entry's point 2 names — and every collaborator method is called by at least one body of its owning declaration | §2.4, §3.0.1 |
-| 24 | A `@CsCollaborator` class is `abstract`, declares only abstract methods, and has no field, constructor or static member | §3.0.1 |
+| # | Check | Defined in | Implemented by |
+|---|-------|------------|----------------|
+| 1 | Identifier collisions within a locus project **fail** generation, naming both section ids | §2.1 N4 | `CsIdentifierCollisionCheck` |
+| 2 | Every `Cs*Ref` string resolves to a generated declaration | §2.1 N9 | `CsReferenceResolutionCheck` |
+| 3 | A missing designated name field / headline **fails**, naming the section | §2.1 N1 | `CsMissingNameCheck` |
+| 4 | A missing authored key (message key, error code, setting key, operation name, route id) **fails** | §2.1 N5 | `CsMissingAuthoredKeyCheck` |
+| 5 | A form-3a body with an empty SOM description **fails** | §2.4 | `CsEmptyExplicationCheck` |
+| 6 | No generated body returns a fabricated value — a 3b `return` is admissible only where the returned value came out of a collaborator or substrate call | §2.4 invariant 2 | `CsFabricatedValueCheck` |
+| 7 | `@CodeSpec.source` equals the `@DocSpec` section-id set | §2.5 rule 4 | `CsBackLinkAgreementCheck` |
+| 8 | Only the slots of a marker's declared kind are non-null (`@CsTrigger`, `@CsAuthorize`, `@CsJob`) | §2.3 | `CsSlotExclusivityCheck` |
+| 9 | Every mirrored enum matches its `tom_core` counterpart value-for-value | §5.3 | `CsMirroredCatalogueCheck` |
+| 10 | `@CsText` with `role == error` has `category == errorCopy` | §3.1.3 | `CsErrorCopyCategoryCheck` |
+| 11 | The shared → {client, server} dependency arrow is never inverted | §2.2 | `CsLocusArrowCheck` |
+| 12 | A server handler's operation string equals its shared `CsOperationRef` | §3.4.2 | `CsOperationAgreementCheck` |
+| 13 | Cumulative CE-MG DDL converges on the `@CsTable` / `@CsColumn` model | §3.3.5 | `CsMigrationConvergenceCheck` |
+| 14 | `@CsValidation` never emits the non-declarable `compose` token | §3.2.2 | `CsComposeTokenCheck` |
+| 15 | `overridableBy` names a scope **strictly narrower** than the marker's own — `@CsUserSetting` may open only `device`, `@CsClientConfig` only `user`/`device`, `@CsServerConfig` any; `none` is always valid | §3.3.6, §5.3 | `CsOverridableScopeCheck` |
+| 16 | A `@CsServerConfig(secret: true)` member has **no initialiser** — a secret declares presence and shape only, so a default is a credential in the source tree | §3.3.6 | `CsSecretInitialiserCheck` |
+| 17 | Every `TomNotificationChannelDeclaration.fallbackChannelId` resolves to a channel declared in the same catalogue | §3.2.9 | `CsFallbackChannelCheck` |
+| 18 | Every `TomReportColumn.drillThroughRouteId` resolves to a CE-NV route declared in the **client** project | §3.3.9 | `CsDrillThroughRouteCheck` |
+| 19 | A `@CsServerConfig(secret: true)` member's `@DocSpec` names **`SCSET`** — a secret is only ever authored on the declared path, so one traced to a fixed band means a credential slot was invented in a policy section | §3.3.6 | `CsSecretIsDeclaredCheck` |
+| 20 | Two `@CsServerConfig` members never claim the same setting key — derived and authored keys share one namespace, and neither shape can see the other while it is authored | §2.1 N10 | `CsSettingKeyCollisionCheck` |
+| 21 | A `CsGradedAccess` slot's `@CsAuthorize` is never itself `graded` — the graded depth is exactly one level | §3.4.3 | `CsGradedDepthCheck` |
+| 22 | A `@CsColumn` member is a plain Dart field — `T?` when optional, `late final T` when not — and **never** a `TomN*` or any other observable, which the shipped repository can read but cannot write | §3.3.2 | `CsColumnNotObservableCheck` |
+| 23 | Every call in a form-3b body resolves — to a method of the declaration's own `@CsCollaborator` class reached through its `collaborator` field, or to the substrate its entry's point 2 names — and every collaborator method is called by at least one body of its owning declaration | §2.4, §3.0.1 | `CsCollaboratorCallResolutionCheck` |
+| 24 | A `@CsCollaborator` class is `abstract`, declares only abstract methods, and has no field, constructor or static member | §3.0.1 | `CsCollaboratorShapeCheck` |
+| 25 | Every method of a form-3a or form-3b declaration, and every method of a `@CsCollaborator` class, carries a doc comment — C2 calls its absence a **generation error**, not a lapse of style | §2.8 C2 P3, §3.0.1 | `CsMethodCommentCheck` |
+| 26 | No generated file holds a non-documentation comment other than §2.7's three-line banner | §2.8 C6, §2.7 | `CsNoInBodyCommentCheck` |
+| 27 | A doc comment carries no trailing whitespace, sits immediately above the first annotation with no blank line, and escapes `[`, `]` and `<` outside fenced code blocks | §2.8 C4 | `CsDocCommentShapeCheck` |
+| 28 | A form-3b body contains only the five §2.4 statement kinds; every local binding is `final` and initialised from a call, and none binds a collaborator result | §2.4, §2.4 B3 | `CsBodyStatementShapeCheck` |
+| 29 | Every branch in a generated body is an `if` on a `…Applies` collaborator guard call, never a composed expression, and no body repeats (`for`, `while`) or selects multi-way (`switch`) | §2.4 B4, §2.4 B7 | `CsBranchConditionCheck` |
+| 30 | A collaborator method repeats its calling body's parameters name-for-name and type-for-type, and its return type follows the call's position — the body's own on a `return`, `void`/`Future<void>` on an earlier step, `bool`/`Future<bool>` on a guard | §3.0.1, §2.4 B3, §2.4 B4 | `CsCollaboratorSignatureCheck` |
+| 31 | Two generation runs over one model produce the same file set and byte-identical contents | §2.8 C5, §2.1 N1 | `CsDeterminismCheck` |
 
 **Check 23 is the one that makes "compiles" checkable before a compiler sees
 it.** Its two halves fail in opposite directions and neither implies the other.
@@ -1946,3 +1955,49 @@ direction the generated dependency arrow forbids code from taking (§2.2 check
 server project ever depending on them. A dangling drill-through is likewise a
 defect to report rather than a failure to suffer — a column whose target does
 not resolve simply does not drill through.
+
+**Checks 25–27 guard the only place the specification's words survive.** A
+form-3 body says nothing — it throws, or it delegates — so the doc comment is
+where the SOM description reaches the code Phase 6 implements. That is why C2
+calls a missing method comment a **generation error** and not a lapse of style
+(check 25), and why C6 gives the in-body position the value *nothing* (check
+26): an in-body comment is either already in the doc comment or is generator
+commentary no section said, which C1 forbids as a source. §2.7 makes the
+three-line banner the sole `//` an emitted file may hold, so check 26 counts the
+banner out rather than filtering by position — a fourth `//` above the imports
+has crept in beside the banner and is as forbidden as one inside a body.
+
+**What the comment checks leave to the SOM side.** Check 27 enforces the three
+C4 rules a reader of the emitted file can see: C4.1's trailing whitespace,
+C4.3's blank line, and C4.4's escapes, which decide whether dartdoc renders the
+specification's own words or silently eats them — an unescaped `[Order]` becomes
+a broken reference, an unescaped `<name>` an HTML tag that renders as nothing.
+C4.2 (no re-wrapping, no truncation), C3's template and C1's source rules all
+compare emitted text against SOM text that is **not in the trio**, so they are
+generator-side assertions rather than trio checks. The division is the same one
+check 23 draws for the substrate half: a check reads what its input can show.
+
+**Check 29 carries §2.4 B7's bound, and states when it moves.** B4's guard is
+the point: a generator that emitted `if (order.total > limit)` would have parsed
+English into Dart and guessed at both operands and operator, where one that
+emits `if (await collaborator.chargeOverLimitApplies(…))` has moved the same
+sentence into a named seam for Phase 6 to implement. A guess that compiles is
+the worst kind. The repetition and multi-way arms are narrower than §2.4 kind 4,
+which permits `for` and `switch` in principle: B7 states that **no §3 entry**
+names a structured surface stating repetition or a multi-way selection, so this
+derivation produces neither, and one in a generated body came from somewhere
+other than the specification. The check moves when an entry names such a
+surface — the same stated bound as checks 21 and 23.
+
+**Check 31 needs two runs, and says so when it has one.** Determinism is a
+property of the *generator*, not of a trio, so the check takes a second trio via
+`--regenerated-shared/--regenerated-client/--regenerated-server` and compares
+file sets then bytes per locus. C5 promises byte-identical output, so whitespace
+counts; N1's naming derivations mean a file that changed name is a derivation
+that is not one. tscomp17's B-rules are the first in this contract where a
+non-deterministic implementation would still produce *plausible* output — a
+different statement order or a differently spelled guard name compiles and reads
+correctly — which is exactly the class of defect no other check can see. When
+no second run is supplied the check raises nothing and
+`validate_codespecs.dart` **writes that on stdout**: a silent pass would read as
+a verified one.

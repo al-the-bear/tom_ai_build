@@ -42,6 +42,21 @@ Future<void> main(List<String> arguments) async {
       help: 'Path to the tom_core source (file or directory) holding the '
           'mirrored counterparts, for the mirrored-catalogue check.',
     )
+    ..addOption(
+      'regenerated-shared',
+      help: 'Path to a second generation run\'s shared package, for the '
+          'determinism check (31). All three or none.',
+    )
+    ..addOption(
+      'regenerated-client',
+      help: 'Path to a second generation run\'s client package, for the '
+          'determinism check (31). All three or none.',
+    )
+    ..addOption(
+      'regenerated-server',
+      help: 'Path to a second generation run\'s server package, for the '
+          'determinism check (31). All three or none.',
+    )
     ..addFlag(
       'help',
       abbr: 'h',
@@ -64,6 +79,7 @@ Future<void> main(List<String> arguments) async {
     exit(0);
   }
 
+  final regeneration = _regeneration(results);
   final input = CodeSpecsValidationInput(
     shared: _project(CsLocus.shared, results.option('shared')!),
     client: _project(CsLocus.client, results.option('client')!),
@@ -73,7 +89,19 @@ Future<void> main(List<String> arguments) async {
       csSources: _dartSources(results.option('cs-vocabulary')),
       coreSources: _dartSources(results.option('core-source')),
     ),
+    regeneration: regeneration,
   );
+
+  // A check that cannot run says so. Determinism is a property of the
+  // *generator*, not of a trio, so with one run there is nothing to compare —
+  // and a silent pass would read as a verified one.
+  if (regeneration == null) {
+    stdout.writeln(
+      'codespecs: check 31 (determinism) not run — pass '
+      '--regenerated-shared/--regenerated-client/--regenerated-server pointing '
+      'at a second generation run over the same model.',
+    );
+  }
 
   final report = runCodeSpecsChecks(input);
   for (final line in report.lines) {
@@ -93,6 +121,31 @@ CsLocusProject _project(CsLocus locus, String path) {
     locus: locus,
     packageName: p.basename(root),
     root: root,
+  );
+}
+
+/// The second run's trio, or `null` when the caller performed none.
+///
+/// All three or none: two runs of one project and one of another compare
+/// nothing useful, and silently checking a third of the output would be worse
+/// than checking none of it.
+CodeSpecsRegeneration? _regeneration(ArgResults results) {
+  final shared = results.option('regenerated-shared');
+  final client = results.option('regenerated-client');
+  final server = results.option('regenerated-server');
+  final given = [shared, client, server].where((p) => p != null).length;
+  if (given == 0) return null;
+  if (given < 3) {
+    stderr.writeln(
+      'Error: --regenerated-shared, --regenerated-client and '
+      '--regenerated-server are given together or not at all.',
+    );
+    exit(2);
+  }
+  return CodeSpecsRegeneration(
+    shared: _project(CsLocus.shared, shared!),
+    client: _project(CsLocus.client, client!),
+    server: _project(CsLocus.server, server!),
   );
 }
 
@@ -137,7 +190,7 @@ void _printUsage(ArgParser parser) {
   );
   stdout.writeln();
   stdout.writeln(
-    'Enforces the twenty-four checks of codespecs_derivation_contract.md §6. '
+    'Enforces the thirty-one checks of codespecs_derivation_contract.md §6. '
     'Any violation fails: the exit code is 1 and every breach is written to '
     'stderr naming its check number and defining section.',
   );

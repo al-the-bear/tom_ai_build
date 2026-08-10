@@ -306,6 +306,121 @@ class CsCall {
   });
 }
 
+/// What kind of statement one line of a generated body is.
+///
+/// The five `codespecs_derivation_contract.md` §2.4 admits, plus the two shapes
+/// that are **not** among them and so have to be nameable in order to be
+/// rejected: [thrown] (a 3a body is a throw, a 3b body may not contain one) and
+/// [other] (everything the five do not cover — an assignment, a bare literal, a
+/// `try`, an arithmetic expression).
+enum CsStatementKind {
+  /// §2.4 kind 1 or 2 — a call on the collaborator or on a named substrate.
+  call,
+
+  /// §2.4 kind 3 — a `final` local binding of a call's result.
+  localBinding,
+
+  /// §2.4 kind 4 — `if` / `for` / `switch` / `while`.
+  controlFlow,
+
+  /// §2.4 kind 5 — a `return`.
+  returned,
+
+  /// A `throw`. The whole of a form-3a body; never a statement of a 3b one.
+  thrown,
+
+  /// Anything else, which §2.4 admits nowhere.
+  other,
+}
+
+/// One statement of a generated body.
+///
+/// Read as syntax, like everything else in this model: a statement is its kind,
+/// its source text, and — where it has one — the call its value comes out of.
+/// That last part is what lets the §2.4 invariant-2 check ask *could the
+/// generator have made this value up?* rather than *does the body return?*.
+class CsStatement {
+  /// Which of the §2.4 statement kinds this is.
+  final CsStatementKind kind;
+
+  /// The statement as written, whitespace-collapsed, so a message can quote it.
+  final String source;
+
+  /// The call the statement's value comes out of — the returned expression, the
+  /// binding's initialiser, the branch condition — unwrapped from any `await`.
+  /// `null` when the value expression is not a call.
+  final CsCall? call;
+
+  /// The bare identifier the value expression is, when it is one. A `return` of
+  /// a local bound earlier in the body reads as this.
+  final String? valueIdentifier;
+
+  /// The source text of the value expression, when the statement has one.
+  final String? valueSource;
+
+  /// The name a [CsStatementKind.localBinding] binds.
+  final String? boundName;
+
+  /// Whether a local binding is declared `final`.
+  final bool isFinal;
+
+  /// The statements inside a control-flow statement's blocks, in source order.
+  final List<CsStatement> nested;
+
+  /// Which control-flow construct a [CsStatementKind.controlFlow] statement is —
+  /// `if`, `for`, `while`, `switch`, or `block` for a bare nested block.
+  ///
+  /// Read from the syntax rather than sniffed back out of [source], because
+  /// §2.4 B7 distinguishes the constructs by name: `if` is derived, repetition
+  /// and multi-way choice are not.
+  final String? keyword;
+
+  /// Where the statement is written.
+  final CsLocation location;
+
+  /// Creates a statement.
+  const CsStatement({
+    required this.kind,
+    required this.source,
+    required this.location,
+    this.call,
+    this.valueIdentifier,
+    this.valueSource,
+    this.boundName,
+    this.isFinal = false,
+    this.nested = const [],
+    this.keyword,
+  });
+
+  /// This statement and every statement nested inside it, outermost first.
+  Iterable<CsStatement> get selfAndNested sync* {
+    yield this;
+    for (final statement in nested) {
+      yield* statement.selfAndNested;
+    }
+  }
+}
+
+/// One formal parameter of a generated method, as written.
+///
+/// Both halves are source text rather than resolved elements: §3.0.1 point 2
+/// requires a collaborator method to repeat its caller's list "name-for-name and
+/// type-for-type", and two spellings of the same type are a divergence that rule
+/// exists to catch.
+class CsParameter {
+  /// The parameter name.
+  final String name;
+
+  /// The declared type as written, or `null` when the parameter declares none.
+  final String? type;
+
+  /// Creates a parameter.
+  const CsParameter(this.name, [this.type]);
+
+  @override
+  String toString() => type == null ? name : '$type $name';
+}
+
 /// A method or accessor body of a generated declaration.
 class CsMethodBody {
   /// The method name.
@@ -316,6 +431,16 @@ class CsMethodBody {
 
   /// The call sites the body contains, in source order.
   final List<CsCall> calls;
+
+  /// The body's statements, in source order. Empty for a body-less method and
+  /// for a body shape the reader does not decompose.
+  final List<CsStatement> statements;
+
+  /// The declared formal parameters, in source order.
+  final List<CsParameter> parameters;
+
+  /// The declared return type as written, or `null` when there is none.
+  final String? returnType;
 
   /// The literal argument of the `throw`, when the body is a single throw of a
   /// constructor call with a string literal. `null` when unreadable.
@@ -336,10 +461,22 @@ class CsMethodBody {
     required this.shape,
     required this.location,
     this.calls = const [],
+    this.statements = const [],
+    this.parameters = const [],
+    this.returnType,
     this.thrownMessage,
     this.thrownType,
     this.isAsync = false,
   });
+
+  /// Every statement of the body, nested ones included.
+  Iterable<CsStatement> get allStatements =>
+      statements.expand((s) => s.selfAndNested);
+
+  /// Whether this body is a pseudo-implementation — §2.4's form 3b, which is
+  /// every body that is neither absent nor a lone `throw`.
+  bool get isPseudoImplementation =>
+      shape != CsBodyShape.none && shape != CsBodyShape.throwOnly;
 }
 
 /// What kind of Dart declaration a [CsDeclaration] stands for.
@@ -372,6 +509,63 @@ enum CsDeclarationKind {
 
   /// A constructor of a class.
   constructor,
+}
+
+/// A `///` documentation block, as written.
+///
+/// Kept as raw lines rather than as rendered text because
+/// `codespecs_derivation_contract.md` §2.8 C4 constrains the *emitted* lines —
+/// no trailing whitespace, escaped `\[`, `\]` and `&lt;` — and a normalised
+/// reading would erase exactly what that rule is about.
+class CsDocComment {
+  /// The comment lines as written, each including its leading `///`.
+  final List<String> lines;
+
+  /// Where the first line is.
+  final CsLocation location;
+
+  /// Creates a doc comment.
+  const CsDocComment(this.lines, this.location);
+
+  /// The 1-based line the block ends on.
+  int get endLine => location.line + lines.length - 1;
+
+  /// The comment text with each line's `///` marker removed.
+  List<String> get text => [
+        for (final line in lines)
+          line.startsWith('///') ? line.substring(3).trimLeft() : line,
+      ];
+
+  /// Whether the block says anything at all — a block of bare `///` markers
+  /// documents nothing.
+  bool get isEmpty => text.every((l) => l.trim().isEmpty);
+}
+
+/// One comment token of a generated file.
+///
+/// Read so §2.8 C6 — *the only `//` in a generated file is §2.7's banner* — is
+/// checkable. A doc comment is one of these too; [isDocumentation] is what tells
+/// the two apart.
+class CsComment {
+  /// The comment as written, including its marker.
+  final String text;
+
+  /// Whether it is a `///` doc comment.
+  final bool isDocumentation;
+
+  /// Whether it precedes the file's very first token — §2.7's banner position.
+  final bool isBanner;
+
+  /// Where the comment is.
+  final CsLocation location;
+
+  /// Creates a comment.
+  const CsComment({
+    required this.text,
+    required this.isDocumentation,
+    required this.isBanner,
+    required this.location,
+  });
 }
 
 /// A generated declaration — a top-level class/enum/variable, or a member of
@@ -418,6 +612,10 @@ class CsDeclaration {
   /// Whether a member is declared `static`.
   final bool isStatic;
 
+  /// The `///` block above the declaration, or `null` when there is none
+  /// (`codespecs_derivation_contract.md` §2.8 C2).
+  final CsDocComment? docComment;
+
   /// Where the declaration is written.
   final CsLocation location;
 
@@ -436,7 +634,21 @@ class CsDeclaration {
     this.bodies = const [],
     this.isAbstract = false,
     this.isStatic = false,
+    this.docComment,
   });
+
+  /// The line of the first annotation written on the declaration, or the
+  /// declaration's own line when it carries none — what §2.8 C4 rule 3 requires
+  /// a doc block to sit immediately above.
+  int get firstAnnotationLine {
+    var line = location.line;
+    for (final marker in markers) {
+      if (marker.location.line < line) line = marker.location.line;
+    }
+    final link = codeSpec;
+    if (link != null && link.location.line < line) line = link.location.line;
+    return line;
+  }
 
   /// Whether this is a top-level declaration.
   bool get isTopLevel => owner == null;
@@ -496,6 +708,14 @@ class CsFile {
   /// The file path as given to the reader.
   final String path;
 
+  /// The file's source text, verbatim.
+  ///
+  /// Kept because §2.8 C5's determinism promise is *byte-for-byte*: the check
+  /// that verifies it diffs two runs' text, and a diff of the resolved model
+  /// would miss exactly the reorderings and whitespace a non-deterministic
+  /// generator produces.
+  final String source;
+
   /// The `import` URIs the file declares.
   final List<String> imports;
 
@@ -505,12 +725,17 @@ class CsFile {
   /// The substrate constructions the file contains.
   final List<CsConstruction> constructions;
 
+  /// Every comment token in the file, in source order.
+  final List<CsComment> comments;
+
   /// Creates a file.
   const CsFile({
     required this.path,
+    required this.source,
     required this.imports,
     required this.declarations,
     required this.constructions,
+    this.comments = const [],
   });
 }
 
@@ -566,7 +791,40 @@ class CsEnumMirror {
   });
 }
 
-/// Everything the twenty-four checks read.
+/// A second generation run over the same spec model, for the determinism check.
+///
+/// The only §6 check whose subject is two trios rather than one: §2.8 C5 and
+/// §2.1 N1 promise that regenerating over an unchanged document reproduces the
+/// output byte-for-byte, and nothing in a *single* trio can witness that. The
+/// caller regenerates into a second tree and hands it over here; a caller that
+/// does not is the one caller who has not run check 31, which the CLI says out
+/// loud rather than passing silently.
+class CodeSpecsRegeneration {
+  /// The second run's shared project.
+  final CsLocusProject shared;
+
+  /// The second run's client project.
+  final CsLocusProject client;
+
+  /// The second run's server project.
+  final CsLocusProject server;
+
+  /// Creates a regeneration.
+  const CodeSpecsRegeneration({
+    required this.shared,
+    required this.client,
+    required this.server,
+  });
+
+  /// The project for [locus].
+  CsLocusProject project(CsLocus locus) => switch (locus) {
+        CsLocus.shared => shared,
+        CsLocus.client => client,
+        CsLocus.server => server,
+      };
+}
+
+/// Everything the thirty-one checks read.
 class CodeSpecsValidationInput {
   /// The shared project.
   final CsLocusProject shared;
@@ -584,6 +842,10 @@ class CodeSpecsValidationInput {
   /// The mirrored-catalogue pairs, for the mirror-completeness check.
   final List<CsEnumMirror> enumMirrors;
 
+  /// A second generation run over the same model, for the determinism check.
+  /// `null` when the caller performed none.
+  final CodeSpecsRegeneration? regeneration;
+
   /// Creates a validation input.
   const CodeSpecsValidationInput({
     required this.shared,
@@ -591,6 +853,7 @@ class CodeSpecsValidationInput {
     required this.server,
     this.migrations = const {},
     this.enumMirrors = const [],
+    this.regeneration,
   });
 
   /// The three projects, in emission order.

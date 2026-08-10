@@ -20,6 +20,7 @@ import 'dart:io' as io;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:path/path.dart' as p;
@@ -102,6 +103,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             offset: name.offset,
             bodies: _bodies(path, lines, members),
             isAbstract: member.abstractKeyword != null,
+            docComment: _docComment(path, lines, member.documentationComment),
           ),
         );
         declarations.addAll(
@@ -121,6 +123,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             kind: CsDeclarationKind.enumType,
             metadata: member.metadata,
             offset: name.offset,
+            docComment: _docComment(path, lines, member.documentationComment),
           ),
         );
       case MixinDeclaration():
@@ -134,6 +137,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             metadata: member.metadata,
             offset: member.name.offset,
             bodies: _bodies(path, lines, member.body.members),
+            docComment: _docComment(path, lines, member.documentationComment),
           ),
         );
       case TopLevelVariableDeclaration():
@@ -149,6 +153,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
               offset: variable.name.offset,
               hasInitialiser: variable.initializer != null,
               declaredType: member.variables.type?.toSource(),
+              docComment: _docComment(path, lines, member.documentationComment),
             ),
           );
           final construction = _constructionOf(
@@ -170,9 +175,16 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             metadata: member.metadata,
             offset: member.name.offset,
             bodies: [
-              _body(path, lines, member.name.lexeme,
-                  member.functionExpression.body),
+              _body(
+                path,
+                lines,
+                member.name.lexeme,
+                member.functionExpression.body,
+                parameters: member.functionExpression.parameters,
+                returnType: member.returnType,
+              ),
             ],
+            docComment: _docComment(path, lines, member.documentationComment),
           ),
         );
       default:
@@ -182,9 +194,50 @@ CsFile _readFile(CsLocus locus, String path, String source) {
 
   return CsFile(
     path: path,
+    source: source,
     imports: imports,
     declarations: declarations,
     constructions: constructions,
+    comments: _comments(path, lines, unit),
+  );
+}
+
+/// Every comment token in [unit], in source order.
+///
+/// The token stream rather than the AST: a comment inside a method body is
+/// attached to no node, and it is precisely the one §2.8 C6 forbids. A comment
+/// preceding the unit's **first** token is §2.7's banner position and is marked
+/// as such rather than being filtered out here — the model records, the check
+/// decides.
+List<CsComment> _comments(String path, LineInfo lines, CompilationUnit unit) {
+  final out = <CsComment>[];
+  final first = unit.beginToken;
+  for (var token = first; !token.isEof; token = token.next!) {
+    for (Token? comment = token.precedingComments;
+        comment != null;
+        comment = comment.next) {
+      out.add(
+        CsComment(
+          text: comment.lexeme,
+          isDocumentation: comment.lexeme.startsWith('///') ||
+              comment.lexeme.startsWith('/**'),
+          isBanner: identical(token, first),
+          location: _at(path, lines, comment.offset),
+        ),
+      );
+    }
+  }
+  return out;
+}
+
+/// The `///` block above a declaration, or `null` when there is none.
+CsDocComment? _docComment(String path, LineInfo lines, Comment? comment) {
+  if (comment == null) return null;
+  final tokens = comment.tokens;
+  if (tokens.isEmpty) return null;
+  return CsDocComment(
+    [for (final token in tokens) token.lexeme],
+    _at(path, lines, tokens.first.offset),
   );
 }
 
@@ -218,6 +271,7 @@ List<CsDeclaration> _classMembers(
               hasInitialiser: variable.initializer != null,
               declaredType: member.fields.type?.toSource(),
               isStatic: member.isStatic,
+              docComment: _docComment(path, lines, member.documentationComment),
             ),
           );
         }
@@ -232,8 +286,18 @@ List<CsDeclaration> _classMembers(
             owner: owner,
             metadata: member.metadata,
             offset: member.name.offset,
-            bodies: [_body(path, lines, member.name.lexeme, member.body)],
+            bodies: [
+              _body(
+                path,
+                lines,
+                member.name.lexeme,
+                member.body,
+                parameters: member.parameters,
+                returnType: member.returnType,
+              ),
+            ],
             isStatic: member.isStatic,
+            docComment: _docComment(path, lines, member.documentationComment),
           ),
         );
       // A constructor is read for its *presence*: check 24 rejects one on a
@@ -252,7 +316,16 @@ List<CsDeclaration> _classMembers(
             owner: owner,
             metadata: member.metadata,
             offset: (member.name ?? member.beginToken).offset,
-            bodies: [_body(path, lines, name, member.body)],
+            bodies: [
+              _body(
+                path,
+                lines,
+                name,
+                member.body,
+                parameters: member.parameters,
+              ),
+            ],
+            docComment: _docComment(path, lines, member.documentationComment),
           ),
         );
       default:
@@ -276,6 +349,7 @@ CsDeclaration _declaration({
   List<CsMethodBody> bodies = const [],
   bool isAbstract = false,
   bool isStatic = false,
+  CsDocComment? docComment,
 }) {
   final markers = <CsMarker>[];
   CsCodeSpecLink? codeSpec;
@@ -308,6 +382,7 @@ CsDeclaration _declaration({
     bodies: bodies,
     isAbstract: isAbstract,
     isStatic: isStatic,
+    docComment: docComment,
     location: _at(path, lines, offset),
   );
 }
@@ -360,7 +435,16 @@ List<CsMethodBody> _bodies(
   final out = <CsMethodBody>[];
   for (final member in members) {
     if (member is MethodDeclaration) {
-      out.add(_body(path, lines, member.name.lexeme, member.body));
+      out.add(
+        _body(
+          path,
+          lines,
+          member.name.lexeme,
+          member.body,
+          parameters: member.parameters,
+          returnType: member.returnType,
+        ),
+      );
     }
   }
   return out;
@@ -370,17 +454,23 @@ CsMethodBody _body(
   String path,
   LineInfo lines,
   String name,
-  FunctionBody body,
-) {
+  FunctionBody body, {
+  FormalParameterList? parameters,
+  TypeAnnotation? returnType,
+}) {
   final location = _at(path, lines, body.offset);
   final isAsync = body.isAsynchronous;
   final calls = _calls(path, lines, body);
+  final formals = _parameters(parameters);
+  final declaredReturn = returnType?.toSource();
 
   if (body is EmptyFunctionBody) {
     return CsMethodBody(
       name: name,
       shape: CsBodyShape.none,
       location: location,
+      parameters: formals,
+      returnType: declaredReturn,
       isAsync: isAsync,
     );
   }
@@ -390,13 +480,33 @@ CsMethodBody _body(
     // throw.
     final expression = body.expression;
     if (expression is ThrowExpression) {
-      return _throwBody(name, location, expression, isAsync: isAsync);
+      return _throwBody(
+        name,
+        location,
+        expression,
+        isAsync: isAsync,
+        parameters: formals,
+        returnType: declaredReturn,
+      );
     }
+    // An arrow body *is* a return, so it reads as one — which is what lets the
+    // invariant-2 check treat `=> 'Order'` and `return 'Order';` alike.
     return CsMethodBody(
       name: name,
       shape: CsBodyShape.returnsValue,
       location: location,
       calls: calls,
+      statements: [
+        _valueStatement(
+          path,
+          lines,
+          CsStatementKind.returned,
+          expression,
+          expression,
+        ),
+      ],
+      parameters: formals,
+      returnType: declaredReturn,
       isAsync: isAsync,
     );
   }
@@ -405,7 +515,14 @@ CsMethodBody _body(
     if (statements.length == 1 && statements.first is ExpressionStatement) {
       final expression = (statements.first as ExpressionStatement).expression;
       if (expression is ThrowExpression) {
-        return _throwBody(name, location, expression, isAsync: isAsync);
+        return _throwBody(
+          name,
+          location,
+          expression,
+          isAsync: isAsync,
+          parameters: formals,
+          returnType: declaredReturn,
+        );
       }
     }
     final returnsValue = statements.any(
@@ -416,6 +533,9 @@ CsMethodBody _body(
       shape: returnsValue ? CsBodyShape.returnsValue : CsBodyShape.other,
       location: location,
       calls: calls,
+      statements: _statements(path, lines, statements),
+      parameters: formals,
+      returnType: declaredReturn,
       isAsync: isAsync,
     );
   }
@@ -424,9 +544,216 @@ CsMethodBody _body(
     shape: CsBodyShape.other,
     location: location,
     calls: calls,
+    parameters: formals,
+    returnType: declaredReturn,
     isAsync: isAsync,
   );
 }
+
+/// The declared formal parameters of [parameters], in source order.
+///
+/// The declared type as written, not a resolved one — §3.0.1 point 2 wants the
+/// spelling, because two spellings of one type are the divergence it forbids.
+List<CsParameter> _parameters(FormalParameterList? parameters) {
+  if (parameters == null) return const [];
+  final out = <CsParameter>[];
+  for (final parameter in parameters.parameters) {
+    final normal = parameter is DefaultFormalParameter
+        ? parameter.parameter
+        : parameter;
+    final type = switch (normal) {
+      SimpleFormalParameter() => normal.type?.toSource(),
+      FieldFormalParameter() => normal.type?.toSource(),
+      SuperFormalParameter() => normal.type?.toSource(),
+      FunctionTypedFormalParameter() => normal.returnType?.toSource(),
+      _ => null,
+    };
+    out.add(CsParameter(normal.name?.lexeme ?? '', type));
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------------------
+// Statements
+// ---------------------------------------------------------------------------
+
+/// Decomposes [statements] into the §2.4 statement kinds.
+///
+/// Only the shapes §2.4 admits are named; everything else is
+/// [CsStatementKind.other], which is not a gap in the reading but the whole
+/// point of it — the check that rejects a statement §2.4 does not permit needs
+/// a name for "not one of the five".
+List<CsStatement> _statements(
+  String path,
+  LineInfo lines,
+  List<Statement> statements,
+) =>
+    [for (final statement in statements) _statement(path, lines, statement)];
+
+CsStatement _statement(String path, LineInfo lines, Statement statement) {
+  final location = _at(path, lines, statement.offset);
+  final source = _collapse(statement.toSource());
+
+  switch (statement) {
+    case ExpressionStatement():
+      final expression = statement.expression;
+      if (expression is ThrowExpression) {
+        return CsStatement(
+          kind: CsStatementKind.thrown,
+          source: source,
+          location: location,
+        );
+      }
+      if (_unwrapAwait(expression) is MethodInvocation) {
+        return _valueStatement(
+          path,
+          lines,
+          CsStatementKind.call,
+          statement,
+          expression,
+        );
+      }
+      return CsStatement(
+        kind: CsStatementKind.other,
+        source: source,
+        location: location,
+      );
+
+    case VariableDeclarationStatement():
+      final variables = statement.variables;
+      final first =
+          variables.variables.isEmpty ? null : variables.variables.first;
+      return _valueStatement(
+        path,
+        lines,
+        CsStatementKind.localBinding,
+        statement,
+        first?.initializer,
+        boundName: first?.name.lexeme,
+        isFinal: variables.isFinal,
+      );
+
+    case ReturnStatement():
+      return _valueStatement(
+        path,
+        lines,
+        CsStatementKind.returned,
+        statement,
+        statement.expression,
+      );
+
+    case IfStatement():
+      return _valueStatement(
+        path,
+        lines,
+        CsStatementKind.controlFlow,
+        statement,
+        statement.expression,
+        keyword: 'if',
+        nested: [
+          ..._blockOf(path, lines, statement.thenStatement),
+          ..._blockOf(path, lines, statement.elseStatement),
+        ],
+      );
+
+    case WhileStatement():
+      return _valueStatement(
+        path,
+        lines,
+        CsStatementKind.controlFlow,
+        statement,
+        statement.condition,
+        keyword: 'while',
+        nested: _blockOf(path, lines, statement.body),
+      );
+
+    case ForStatement():
+      return _valueStatement(
+        path,
+        lines,
+        CsStatementKind.controlFlow,
+        statement,
+        null,
+        keyword: 'for',
+        nested: _blockOf(path, lines, statement.body),
+      );
+
+    case SwitchStatement():
+      return _valueStatement(
+        path,
+        lines,
+        CsStatementKind.controlFlow,
+        statement,
+        null,
+        keyword: 'switch',
+        nested: [
+          for (final member in statement.members)
+            ..._statements(path, lines, member.statements),
+        ],
+      );
+
+    case Block():
+      return CsStatement(
+        kind: CsStatementKind.controlFlow,
+        source: source,
+        location: location,
+        keyword: 'block',
+        nested: _statements(path, lines, statement.statements),
+      );
+
+    default:
+      return CsStatement(
+        kind: CsStatementKind.other,
+        source: source,
+        location: location,
+      );
+  }
+}
+
+/// Builds a statement whose value expression is [value].
+CsStatement _valueStatement(
+  String path,
+  LineInfo lines,
+  CsStatementKind kind,
+  AstNode statement,
+  Expression? value, {
+  String? boundName,
+  bool isFinal = false,
+  List<CsStatement> nested = const [],
+  String? keyword,
+}) {
+  final unwrapped = value == null ? null : _unwrapAwait(value);
+  return CsStatement(
+    kind: kind,
+    source: _collapse(statement.toSource()),
+    location: _at(path, lines, statement.offset),
+    keyword: keyword,
+    call: unwrapped is MethodInvocation
+        ? CsCall(
+            receiver: unwrapped.target?.toSource(),
+            method: unwrapped.methodName.name,
+            location: _at(path, lines, unwrapped.offset),
+          )
+        : null,
+    valueIdentifier: unwrapped is SimpleIdentifier ? unwrapped.name : null,
+    valueSource: value?.toSource(),
+    boundName: boundName,
+    isFinal: isFinal,
+    nested: nested,
+  );
+}
+
+List<CsStatement> _blockOf(String path, LineInfo lines, Statement? statement) {
+  if (statement == null) return const [];
+  if (statement is Block) return _statements(path, lines, statement.statements);
+  return [_statement(path, lines, statement)];
+}
+
+Expression _unwrapAwait(Expression expression) =>
+    expression is AwaitExpression ? expression.expression : expression;
+
+String _collapse(String source) =>
+    source.replaceAll(RegExp(r'\s+'), ' ').trim();
 
 /// Every method invocation inside [body], in source order.
 ///
@@ -471,6 +798,8 @@ CsMethodBody _throwBody(
   CsLocation location,
   ThrowExpression expression, {
   required bool isAsync,
+  List<CsParameter> parameters = const [],
+  String? returnType,
 }) {
   final thrown = _value(expression.expression);
   if (thrown is! CsConstructionValue) {
@@ -478,6 +807,8 @@ CsMethodBody _throwBody(
       name: name,
       shape: CsBodyShape.throwOnly,
       location: location,
+      parameters: parameters,
+      returnType: returnType,
       isAsync: isAsync,
     );
   }
@@ -495,6 +826,8 @@ CsMethodBody _throwBody(
     location: location,
     thrownType: thrown.type,
     thrownMessage: message,
+    parameters: parameters,
+    returnType: returnType,
     isAsync: isAsync,
   );
 }

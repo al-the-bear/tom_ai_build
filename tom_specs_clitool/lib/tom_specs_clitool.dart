@@ -194,6 +194,12 @@ export 'src/codespecs/codespecs_validator.dart'
         runCodeSpecsChecks,
         assertCodeSpecsValid,
         readCsEnumMirrors;
+export 'src/codespecs/cs_check_table.dart'
+    show
+        CsCheckRow,
+        CsCheckTableCorrespondence,
+        parseCsCheckRows,
+        compareCsCheckTable;
 export 'src/packaging.dart'
     show
         ManifestFormat,
