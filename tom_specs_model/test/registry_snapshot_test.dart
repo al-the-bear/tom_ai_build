@@ -1,5 +1,8 @@
+import 'package:tom_specs_core/tom_specs_core.dart' show DocSpecsForm;
 import 'package:tom_specs_model/tom_specs_model.dart';
 import 'package:test/test.dart';
+
+import 'support/real_model_tree.dart';
 
 /// Exercises the generated `spec_ops.g.dart` registry (OE-2) end-to-end on the
 /// **real** 3000-class model — not the synthetic leaves of `serialization_test`.
@@ -34,11 +37,25 @@ void main() {
 
     test('toYaml serializes a content leaf reachable from the SBP root', () {
       final project = DocSpecsProject();
-      project.solutionBlueprint.documentControl.header.content =
-          'doc-id: SBP-DEMO';
+      project.solutionBlueprint.securityAndAccessModel.accessControl
+          .userManagement.content = 'user-management: authored-in-sbp';
 
-      final yaml = project.toYaml();
-      expect(yaml, contains('doc-id: SBP-DEMO'));
+      final yaml = project.toYaml(tree: treeFor('D00SolutionBlueprint'));
+      expect(yaml, contains('user-management: authored-in-sbp'));
+    });
+
+    test('toYaml serializes a @Form leaf as its named field values', () {
+      // `DocumentHeader.content` carries the `@Form`, so the header's body is a
+      // mapping of the six declared fields — never free text. Authoring it as
+      // text is what the projector refuses (see `serialization_test.dart`);
+      // this is the representable form of the same section.
+      final project = DocSpecsProject();
+      project.solutionBlueprint.documentControl.header.form =
+          DocSpecsForm(values: {'documentId': 'SBP-DEMO', 'version': '1.0'});
+
+      final yaml = project.toYaml(tree: treeFor('D00SolutionBlueprint'));
+      expect(yaml, contains('documentId:'));
+      expect(yaml, contains('SBP-DEMO'));
     });
 
     test('COW snapshot shares an unchanged tree but re-clones the edited path',

@@ -8,6 +8,8 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  tom_som_dart_runtime:
+    path: ../tom_som_dart_runtime
   tom_specs_core:
     path: ../tom_specs_core
 

@@ -15,6 +15,11 @@ import 'architecture_technology_specification/architecture_technology_specificat
 import 'interaction_scenarios/interaction_scenarios.dart';
 import 'experience_design_specification/experience_design_specification.dart';
 import 'codespecs_projection/codespecs_projection.dart';
+// `show`n rather than imported wholesale: the runtime barrel also exports a
+// `DocSpecsSection` of its own (the markdown DocSpecs parse tree, SOM §14),
+// which would collide with the `tom_specs_core` base class this extends.
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show SomMetaTree;
 import 'package:tom_specs_core/tom_specs_core.dart';
 
 /// Canonical container root for the whole TomSpecs object model (V2, N9).
@@ -130,20 +135,35 @@ class DocSpecsProject extends DocSpecsSection {
   /// projection roots are views over the same SBP sections, the Solution
   /// Blueprint tree contains every section exactly once, so the output never
   /// duplicates a subtree.
-  String toYaml() => SpecYaml.toYaml(solutionBlueprint);
+  ///
+  /// [tree] is the metadata tree of [D00SolutionBlueprint]; the output is the
+  /// hierarchical-v2 `*.docspecs.yaml` every SOM runtime reads (SOM §12).
+  String toYaml({required SomMetaTree tree, String? modelVersion}) =>
+      SpecYaml.toYaml(solutionBlueprint,
+          tree: tree, modelVersion: modelVersion);
 
   /// Per-root save. For [solutionBlueprint] this is the global [toYaml]; for a
   /// projection root it runs the connect pass first — re-pointing the
   /// projection's references onto the live Solution Blueprint sections
   /// (`tom_specs_editor_specification.md` §15.2) — then serializes it.
   ///
+  /// [tree] must be the metadata tree of [root] itself, since it is [root]'s
+  /// own file that is being written.
+  ///
   /// All thirteen projection roots carry a generated `connect` binding, so a
   /// per-root write always reflects current Solution Blueprint content (N11).
   /// The one child a binding deliberately leaves alone is the document
   /// [DocumentHeader]: each of the fourteen entry points is a document in its
   /// own right, with its own id, version and author.
-  String toYamlForRoot(Object root) {
-    if (identical(root, solutionBlueprint)) return toYaml();
-    return SpecYaml.toYamlForProjection(root, solutionBlueprint);
+  String toYamlForRoot(
+    Object root, {
+    required SomMetaTree tree,
+    String? modelVersion,
+  }) {
+    if (identical(root, solutionBlueprint)) {
+      return toYaml(tree: tree, modelVersion: modelVersion);
+    }
+    return SpecYaml.toYamlForProjection(root, solutionBlueprint,
+        tree: tree, modelVersion: modelVersion);
   }
 }

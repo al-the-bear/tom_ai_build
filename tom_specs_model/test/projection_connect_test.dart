@@ -13,6 +13,8 @@ library;
 import 'package:test/test.dart';
 import 'package:tom_specs_model/tom_specs_model.dart';
 
+import 'support/real_model_tree.dart';
+
 void main() {
   group('projection connect bindings (N11)', () {
     /// The thirteen projection roots: every entry point of the container
@@ -70,7 +72,8 @@ void main() {
       project.solutionBlueprint.securityAndAccessModel.accessControl
           .userManagement.content = 'user-management: authored-in-sbp';
 
-      final yaml = project.toYamlForRoot(project.securityAccessSpecification);
+      final yaml = project.toYamlForRoot(project.securityAccessSpecification,
+          tree: treeFor('D08SecurityAccessSpecification'));
 
       expect(yaml, contains('user-management: authored-in-sbp'),
           reason: 'a per-root write runs the connect pass first, so it '

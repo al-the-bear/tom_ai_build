@@ -11877,7 +11877,7 @@ class ResponsiveBehavior extends DocSpecsSection {
     ),
   ])
   @SerializationOrder(5)
-  String? contentReflow;
+  DocSpecsSection? contentReflow;
 
   /// Responsive behavior narrative.
   @ContentHelp(

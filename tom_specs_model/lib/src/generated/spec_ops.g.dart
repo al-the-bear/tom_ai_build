@@ -16582,6 +16582,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.navigation, (v) => n.navigation = v as DocSpecsSection?, label: 'navigation', sectionId: 'REBENA'),
         SpecSlot.node(() => n.visibility, (v) => n.visibility = v as DocSpecsSection?, label: 'visibility', sectionId: 'REBEVI'),
         SpecSlot.node(() => n.touch, (v) => n.touch = v as DocSpecsSection?, label: 'touch', sectionId: 'REBETO'),
+        SpecSlot.node(() => n.contentReflow, (v) => n.contentReflow = v as DocSpecsSection?, label: 'contentReflow', sectionId: 'REBECO'),
         SpecSlot.node(() => n.behaviorNarrative, (v) => n.behaviorNarrative = v as TextSection, label: 'behaviorNarrative'),
         SpecSlot.list(() => n.screenRules, (v) => n.screenRules = v.cast<ResponsiveScreenRuleEntry>(), label: 'screenRules', sectionId: 'RESPSR-SCRE-LST'),
       ];

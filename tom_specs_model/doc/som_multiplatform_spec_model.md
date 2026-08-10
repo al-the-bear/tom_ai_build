@@ -1047,6 +1047,29 @@ stable scalar styles). The shared conformance sample
 (`tom_som_conformance/samples/meridian_order_management.*`) round-trips in
 md, yaml, and the schema identically across all nine languages.
 
+### 12.8 One encoder, per language
+
+Everything a language writes in this format goes through that language's single
+`SpecDocumentYaml.encode`. In Dart there is a second *entry point* —
+`tom_specs_model`'s `SpecYaml`, which serializes a live object-model tree rather
+than a `SpecDocument` — but it is a **projector, not a second encoder**: it walks
+the object tree against the §7 metadata tree, binds each value onto the
+`SpecDocument` path it belongs at, and hands the result to `encode`. So the
+preamble, the `document:` wrapper, indexed list keys, sparseness, headlines,
+sibling order and the scalar-style fallback are decided in exactly one place.
+
+The two used to be independent derivations of this section and had drifted in
+six ways, each of which alone made a `SpecYaml` file unreadable by any runtime.
+What holds the merge is `tom_specs_model/test/real_model_round_trip_test.dart`:
+a fully populated `D00SolutionBlueprint` written by `SpecYaml`, parsed by
+`SpecDocumentYaml`, re-encoded, and compared byte-for-byte **and** path-for-path.
+
+A value the format has no home for is **refused, never dropped** — the projector
+throws `SpecYamlFormatException` naming the path. The one case the object model
+can currently hold and the format cannot is free text on a `@Form` section: a
+form's body is a mapping of its named fields, so unparsed text must be parsed
+into those fields first.
+
 ## 13. Schema generation (`*.docspecs-schema.yaml`)
 
 One DocSpecs schema per document root, generated from the §7 tree:
