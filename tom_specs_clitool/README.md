@@ -148,6 +148,7 @@ Related entrypoints in `bin/`:
 | `model_json.dart` | Export the resolved meta-data class graph alone. Refresh either **committed** asset with `--target editor` / `--target reviewer` — the target owns both the path and the version stamp, which the two assets pin differently (`tom_specs_model/doc/tom_specs_model_meta_schema.md`, "Refreshing the committed assets"). `--package` + `--output` is for ad-hoc exports elsewhere. |
 | `outliner.dart` | Render a class-tree outline of the model from any document root. |
 | `check_todo_citations.dart` | Check that every quest-todo id cited inline in `tom_specs_model/doc` still resolves to an **open** todo. Exits `1` on a citation of closed or non-existent work. Run by `tool/regenerate_outlines.sh` and by `test/todo_citations_test.dart` (see below). |
+| `check_section_citations.dart` | Resolve every `§` citation in `tom_specs_model/doc` against `index.md`'s citation convention — a bare `§N` means *this* document. Exits `1` on a citation that resolves to no heading. `--extra <file>` adds a file outside the folder (a project README that cites the doc set) to the same corpus. |
 | `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
 | `validate_codespecs.dart` | Run the `codespecs_derivation_contract.md` §6 checks over a generated CodeSpecs project trio. Takes `--shared` / `--client` / `--server`; exits `0` clean, `1` on any violation, `2` on bad usage. |
 | `docspecs_schema.dart` / `docspecs_yaml_schema.dart` | Emit the DocSpecs / YAML schemas. |
@@ -210,6 +211,46 @@ The check runs from two places, because a citation goes stale from two sides: a
 documentation pass trips it through `tool/regenerate_outlines.sh`, and a todo
 archive trips it through `test/todo_citations_test.dart`, which runs in the
 default `dart test`.
+
+**Doc-folder section citations.** The same documents cite each other's *sections*
+far more often than they cite todos, and `check_section_citations.dart` resolves
+those. `index.md` owns the convention; this is its decision procedure. A bare
+`§N` means **this** document — that carve-out is what makes the rule decidable at
+all, since intra-document self-reference is how the documents overwhelmingly
+cite. A document name overrides it in exactly four ways: standing in front of the
+citation (across a soft line wrap, and as the tail of a markdown link), standing
+behind it (`§N of <file>.md`), inherited within a run (`§N / §M / §K`), and
+document-map **table-row scope**. Every illustration here is written with
+metavariables: a real section number in an unqualified example would be read by
+the checker as a citation of a section of *this* README, which has none.
+
+Three things about it are deliberate:
+
+- **Resolution is exact.** `§N.M.K` resolves only against a heading `N.M.K`,
+  never through its parent. The relaxation was tried and hides real defects: it
+  excuses a hundred citations belonging to another document, and nothing a parser
+  can see separates those from the genuine case of a citation naming a numbered
+  *rule* inside a section. So such a citation says so in words — "rule 6 of
+  §N.M" — and a citation written as a section number has to be one.
+- **What counts as a citation is decided by the id's shape**, a dotted number or
+  an upper-case symbolic id (`PF-FLW-OVE`), not by an exception list. `§oneof`,
+  `§item` and the convention's own metavariable `§N` fall out for free, and a
+  document that coins a new section-type name is covered on the day it is
+  written.
+- **The two narrow clauses are narrow on purpose.** The run joiner admits only
+  separators and joining words, so a name mentioned two clauses back cannot vouch
+  for an unrelated citation; table-row scope fires only when the row's first cell
+  holds a document reference *and nothing else*, because a table that cites
+  another document in column one and its own sections in column two is not a
+  document map.
+
+Five verdicts come out — `self`, `crossDocument`, `dangling`, `wrongSection`,
+`unverifiable` — of which only `dangling` and `wrongSection` fail the run. A
+citation naming a document outside the scanned corpus is `unverifiable`, not a
+defect: the checker cannot see the file, which is not the same as the citation
+being wrong. `test/section_citations_test.dart` fixes the rule against
+hand-written fixtures; wiring the folder-wide run as a failing gate waits on the
+open citation repairs.
 
 ---
 
