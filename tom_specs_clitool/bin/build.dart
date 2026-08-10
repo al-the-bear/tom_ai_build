@@ -119,18 +119,18 @@ Future<void> main(List<String> arguments) async {
   // The reflection-free snapshot/serialization ops for every model class. It is
   // a committed source artifact inside the model package; regenerating it here
   // keeps it in lock-step with the model the build compiles and ships.
+  //
+  // The canonical producer is `bin/generate_som.dart`, which emits it alongside
+  // the nine language packages and stamps the model fingerprint that certifies
+  // it. This step is the app build's own belt-and-braces: it must not ship an
+  // editor whose registry is older than the model it bundles, whatever ran
+  // before it. Both go through `generateSpecOpsRegistry`, so there is one
+  // emitter and one output path.
   _step(2, 'generate spec_ops.g.dart (snapshot/serialization registry)');
-  await _run(
-    'dart',
-    [
-      'run',
-      p.join('bin', 'spec_ops.dart'),
-      '--package', modelDir,
-      '--output',
-      p.join(modelDir, 'lib', 'src', 'generated', 'spec_ops.g.dart'),
-    ],
-    cwd: clitoolRoot,
-  );
+  final specOps = await generateSpecOpsRegistry(modelPackagePath: modelDir);
+  stdout.writeln('  → ${specOps.classCount} classes, '
+      '${specOps.changed ? 'rewritten' : 'already current'}: '
+      '${specOps.outputPath}');
 
   // ── Step 3: spec_model.json, stamped (B2) ─────────────────────────────────
   // Written through the named `editor` target, which owns both the path and the

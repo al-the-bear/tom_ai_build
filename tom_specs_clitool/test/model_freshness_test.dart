@@ -1,8 +1,9 @@
-/// The freshness gate over the nine committed `tom_som_<slug>_v0` packages.
+/// The freshness gate over everything `bin/generate_som.dart` commits: the nine
+/// `tom_som_<slug>_v0` packages and the model package's own `spec_ops.g.dart`.
 ///
 /// Group 1 is the guard itself: it fails when `tom_specs_model` has moved since
-/// `bin/generate_som.dart` last ran, so a model edit cannot ship with the nine
-/// packages describing the previous model.
+/// `bin/generate_som.dart` last ran, so a model edit cannot ship with those
+/// artifacts describing the previous model.
 ///
 /// Group 2 proves the fingerprint moves for the *right* reasons. Without it the
 /// guard could be green forever by fingerprinting nothing — group 1 can only
@@ -56,9 +57,10 @@ void main() {
       );
       if (now.fingerprint == stamp!.fingerprint) return;
 
-      fail('tom_specs_model has changed since the tom_som_*_v0 packages were '
-          'generated, so all ${stamp.packages.length} of them — sources, '
-          'meta/spec_model.meta.json and the DocSpecs schemas — describe the '
+      fail('tom_specs_model has changed since it was last generated from, so '
+          'all ${stamp.packages.length} tom_som_*_v0 packages — sources, '
+          'meta/spec_model.meta.json and the DocSpecs schemas — plus the '
+          'spec_ops.g.dart registry in the model package describe the '
           'previous model.\n'
           '  files:        ${stamp.fileCount} -> ${now.fileCount}\n'
           '  declarations: ${stamp.declarationCount} -> '

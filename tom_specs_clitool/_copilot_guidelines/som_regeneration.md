@@ -1,4 +1,4 @@
-# Regenerating the nine `tom_som_<slug>_v0` packages
+# Regenerating what is generated out of `tom_specs_model`
 
 The TomSpecs object model is authored once, in `tom_specs_model`, and shipped in
 nine languages. Each `tom_som_<slug>_v0` package under `tom_ai/ai_build` is
@@ -7,7 +7,10 @@ nine languages. Each `tom_som_<slug>_v0` package under `tom_ai/ai_build` is
 Consumers never run the generator — the committed artefacts are the product.
 
 They are produced by `bin/generate_som.dart` from the `tom-spec-object-model`
-block in [`tom_som.yaml`](../tom_som.yaml).
+block in [`tom_som.yaml`](../tom_som.yaml). So is one further artefact that is
+not a language package: the `spec_ops.g.dart` registry, which is committed
+**inside `tom_specs_model` itself**. One command, one analyzer pass over one
+input, one stamp.
 
 ## Generated trees (do not hand-edit)
 
@@ -17,8 +20,30 @@ block in [`tom_som.yaml`](../tom_som.yaml).
 | `../tom_som_<slug>_v0/meta/spec_model.meta.json` | The lossless resolved class graph |
 | `../tom_som_<slug>_v0/schemas/` | One DocSpecs schema folder per `@Document` root |
 | `../tom_som_<slug>_v0/README.md`, `readme_howtointegrate.md`, manifest | Packaging, stamped with the model version |
+| `../tom_specs_model/lib/src/generated/spec_ops.g.dart` | The `SpecClassOps` registry — per model class its child slots, shallow clone and yaml scalar, plus the `connect:` binding of each projection root |
 
 Never edit them by hand. Change `tom_specs_model` and regenerate.
+
+### Why the registry is here and not in a chain of its own
+
+`spec_ops.g.dart` is generated from the same model by the same reader, so it goes
+stale for the same reason and at the same moment as the nine packages. Splitting
+it out is what let it fall behind: the editor's app build (`bin/build.dart`)
+regenerated it, and nothing else did, so anyone who changed the model and
+followed this document faithfully left it untouched.
+
+That is not hypothetical either. A campaign that gave 116 section classes the
+`tom_specs_model_rules.md` §5.2 `content: String?` override regenerated all nine
+languages and the D4rt bridges — and shipped all 116 with no
+`..content = n.content` in their `cloneShallow`, so a copy-on-write edit dropped
+the section's prose, and with no `yamlScalar` at all, so the prose did not
+serialize. The compiler cannot notice: the registry is a table of closures, and
+a missing entry is a missing *field*, not a missing symbol.
+
+`bin/build.dart` still regenerates it as its step 2 — an app build must not ship
+an editor whose registry is older than the model it bundles, whatever ran before
+it. Both go through `generateSpecOpsRegistry`, so there is one emitter and one
+output path.
 
 Hand-authored `test/`, `example/` and `examples/` directories are safe: the
 generator only *writes* the module, `meta/`, `schemas/` and the manifest — it
@@ -37,13 +62,27 @@ the rule is enforced rather than merely stated.
 ## How staleness is caught
 
 `dart test` in this package fails when `tom_specs_model` has moved since the
-committed packages were generated:
+committed artefacts were generated:
 
 | Piece | Role |
 |-------|------|
 | [`lib/src/model_freshness.dart`](../lib/src/model_freshness.dart) | Fingerprints the model source the generator reads |
-| `tool/model_surface.stamp.json` | The fingerprint the committed packages were generated from — written by `generate_som.dart`, committed alongside them |
+| `tool/model_surface.stamp.json` | The fingerprint the committed artefacts were generated from — written by `generate_som.dart`, committed alongside them |
 | [`test/model_freshness_test.dart`](../test/model_freshness_test.dart) | Recomputes the fingerprint and fails when it no longer matches the stamp |
+
+One stamp covers the registry as well as the nine packages, with no second
+mechanism: the fingerprint is taken over the model source, which is the
+registry's input too, and one command now produces both. The registry's own file
+is **not** in the fingerprinted set — `lib/src/generated/` is one of
+`ModelReader.excludedSrcDirs` — which is what makes it an output the stamp
+certifies rather than an input that would certify itself.
+
+A currency stamp cannot see whether the emitter, given a current model, actually
+emitted what it should. [`test/spec_ops_content_coverage_test.dart`](../test/spec_ops_content_coverage_test.dart)
+is the second net over the registry: every class the meta declares is
+registered, and every class that declares `content` carries it in both
+`cloneShallow` and `yamlScalar`. Both inputs are committed artefacts, so it runs
+without the analyzer.
 
 The failure names the delta (files, declarations) and tells you to regenerate.
 The check is part of the **default** suite — it costs about a second, so it needs
@@ -132,11 +171,15 @@ dart run bin/generate_som.dart
 ```
 
 It runs the `@SerializationOrder` restamp against `tom_specs_model` as its
-mandatory first step, emits every configured language, and — on success only —
-rewrites `tool/model_surface.stamp.json` with the model surface it generated
-from. **Commit the stamp together with the regenerated packages**; it is what the
-freshness check compares against, and a regeneration committed without it leaves
-the check failing.
+mandatory first step, regenerates `spec_ops.g.dart`, emits every configured
+language, and — on success only — rewrites `tool/model_surface.stamp.json` with
+the model surface it generated from. **Commit the stamp together with the
+regenerated artefacts**; it is what the freshness check compares against, and a
+regeneration committed without it leaves the check failing.
+
+The registry is emitted between the restamp and the languages, so the stamps it
+reads are the ones every language is then emitted from — and the run's own
+fingerprint, taken at the end, describes the model all of them came out of.
 
 The stamp is written **only for a canonical run**. Passing `--config`, `--model`
 or `--model-version` produces a tree a default re-run would not reproduce, so

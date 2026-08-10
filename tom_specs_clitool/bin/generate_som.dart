@@ -133,6 +133,26 @@ Future<void> main(List<String> arguments) async {
         '  - ${unstamped.join('\n  - ')}');
   }
 
+  // The `spec_ops.g.dart` registry is generated out of this same model, so it is
+  // produced by this same command. It is the third committed artifact read out
+  // of `tom_specs_model`, and the only one that lands *inside* the model
+  // package; generated separately it simply stopped being generated, and a
+  // registry that has fallen behind the model does not fail to compile — it
+  // fails to carry a field, silently. Emitted here, after the restamp and before
+  // the languages: both steps read the model with the same analyzer, so one
+  // command leaves the whole tree consistent and the fingerprint stamped at the
+  // end of this run certifies all of it.
+  final SpecOpsResult specOps;
+  try {
+    specOps = await generateSpecOpsRegistry(modelPackagePath: modelDir);
+  } on StateError catch (e) {
+    _fail('spec-ops registry generation failed: ${e.message}');
+  }
+  stdout.writeln('generate_som: spec-ops registry — '
+      '${specOps.classCount} classes, '
+      '${specOps.changed ? 'rewritten' : 'unchanged'} → '
+      '${p.relative(specOps.outputPath, from: modelDir)}');
+
   // The model version stamp drives the meta-data + schema version and the
   // idempotency-stable `generatedAt`.
   final stamp = _readStamp(modelDir);

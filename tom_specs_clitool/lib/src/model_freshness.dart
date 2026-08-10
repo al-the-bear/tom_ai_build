@@ -1,27 +1,38 @@
-/// Fingerprints `tom_specs_model` — the input the nine committed
-/// `tom_som_<slug>_v0` packages are generated from — so a model edit that was
+/// Fingerprints `tom_specs_model` — the input every committed artifact
+/// `bin/generate_som.dart` writes is generated from — so a model edit that was
 /// never followed by a regeneration fails a test instead of shipping.
+///
+/// That is the nine `tom_som_<slug>_v0` packages **and** the `spec_ops.g.dart`
+/// registry inside the model package itself (see `spec_ops_build.dart`). One
+/// command produces them from one analyzer pass over one input, so one
+/// fingerprint certifies them all.
 ///
 /// ## Why this exists
 ///
-/// The nine language packages are **generator output that is committed**:
-/// sources, `meta/spec_model.meta.json`, and 14 DocSpecs schemas each. Nothing
-/// verified that the committed output still described the model. Regeneration
-/// happened only when whoever changed `tom_specs_model` remembered to run
-/// `bin/generate_som.dart`, so a model change could merge with all nine packages
-/// describing the *previous* model and no test would go red.
+/// The generated artifacts are **generator output that is committed**: nine sets
+/// of sources, `meta/spec_model.meta.json` and 14 DocSpecs schemas, plus the
+/// registry. Nothing verified that the committed output still described the
+/// model. Regeneration happened only when whoever changed `tom_specs_model`
+/// remembered to run `bin/generate_som.dart`, so a model change could merge with
+/// all nine packages describing the *previous* model and no test would go red.
 ///
 /// That is not hypothetical. The packages were stale from the commit that routed
 /// CE-MG into Phase 3 until the next unrelated regeneration, which silently
 /// absorbed the catch-up — and in doing so made that later change's diff
 /// overstate what it had actually changed.
 ///
-/// ## Why the model source rather than the nine outputs
+/// ## Why the model source rather than the outputs
 ///
 /// The meta tree is generated **first** and every language derives from it, so
 /// one fingerprint over the model covers all nine — and the nine committed metas
 /// do in fact carry one identical substantive payload, which
 /// [ModelSurface.packages] plus the coverage guard keeps true.
+///
+/// It covers the registry for a plainer reason: the registry is emitted from the
+/// same [ModelReader] file set the fingerprint is taken over, by the same run.
+/// The registry's own file is *not* in that set — `lib/src/generated/` is one of
+/// [ModelReader.excludedSrcDirs] — which is what makes it an output the stamp
+/// certifies rather than an input that would certify itself.
 ///
 /// Fingerprinting the *outputs* would not work at all: `spec_model.meta.json` is
 /// generated **from** the model, so a stale package would happily match a stamp

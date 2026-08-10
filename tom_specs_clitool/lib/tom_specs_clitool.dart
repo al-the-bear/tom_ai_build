@@ -165,6 +165,12 @@ export 'src/som_c_generator.dart'
 export 'src/som_cpp_generator.dart'
     show generateSomCppProject, writeSomCppProject, SomCppGenerationResult;
 export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
+export 'src/spec_ops_build.dart'
+    show
+        specOpsPathSegments,
+        specOpsOutputFor,
+        SpecOpsResult,
+        generateSpecOpsRegistry;
 export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
 // The both-directions gate between tom_specs_core's annotation catalogue and
 // the DocSpecs schema surface: an annotation cannot be declared without a

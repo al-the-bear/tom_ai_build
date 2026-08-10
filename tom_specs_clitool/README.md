@@ -138,7 +138,12 @@ and `test/model_freshness_test.dart` fails in the **default** suite when the
 model has moved since. See
 [`_copilot_guidelines/som_regeneration.md`](_copilot_guidelines/som_regeneration.md)
 for what the fingerprint covers and what it deliberately ignores. Commit the
-stamp together with the regenerated packages.
+stamp together with the regenerated artefacts.
+
+The same run also regenerates `tom_specs_model`'s own
+`lib/src/generated/spec_ops.g.dart`, the `SpecClassOps` registry — it is
+generated from the same model by the same reader, so it goes stale at the same
+moment, and one stamp certifies both.
 
 Related entrypoints in `bin/`:
 
@@ -153,7 +158,7 @@ Related entrypoints in `bin/`:
 | `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
 | `validate_codespecs.dart` | Run the `codespecs_derivation_contract.md` §6 checks over a generated CodeSpecs project trio. Takes `--shared` / `--client` / `--server`; exits `0` clean, `1` on any violation, `2` on bad usage. |
 | `docspecs_schema.dart` / `docspecs_yaml_schema.dart` | Emit the DocSpecs / YAML schemas. |
-| `spec_ops.dart` | Model tooling (spec operations). |
+| `spec_ops.dart` | Regenerate `tom_specs_model/lib/src/generated/spec_ops.g.dart` — the `SpecClassOps` registry giving every model class its child slots, shallow clone and yaml scalar, plus each projection root's `connect:` binding. The **ad-hoc** entry point: `generate_som.dart` produces the registry as part of the canonical regeneration, so reach for this only to write it elsewhere (`--output`) or to refresh it alone without a nine-language run. |
 | `summaries.dart` | Build an analyzer `sdk_summary.sum` (and, with `--package`, a one-off grouped `packages.sum`) for a single consumer. This is **not** the producer of `tom_specs_editor`'s scoped summary asset set — that set has one generator, `tom_forge/tom_dart_editor_bundler`, which also emits the `summary_scopes.g.dart` helper naming its asset keys. Here it serves `--sdk-only` (see `split_sdk_summary.dart` below). |
 | `build.dart` | Build orchestration for the editor app. Its `--generate-summaries` step *invokes* the bundler against `tom_specs_editor/buildkit.yaml` rather than generating the asset set itself, so the assets and the paths the app asks for cannot disagree. |
 
