@@ -170,7 +170,7 @@ function testModelMeta(model) {
     const names = demo.fields.map((f) => f.name);
     _check(
       'model.Demo.fields',
-      _deepEqual(names, ['title', 'summary', 'priority', 'count', 'details', 'items', 'refs', 'cards', 'meta', 'control', 'notes', 'registry']),
+      _deepEqual(names, ['title', 'summary', 'priority', 'count', 'ratio', 'score', 'details', 'items', 'refs', 'cards', 'meta', 'control', 'notes', 'registry']),
       String(names),
     );
   }
@@ -491,6 +491,12 @@ function testEditor(model) {
     } else if (kind === 'value') {
       const got = ed.value(s.path);
       _check(`editor[${n}].value ${s.path}`, got === s.expect, String(got));
+    } else if (kind === 'valueThrows') {
+      _check(
+        `editor[${n}].valueThrows ${s.path}`,
+        _throws(() => ed.value(s.path)),
+        '',
+      );
     } else if (kind === 'setValueThrows') {
       _check(
         `editor[${n}].setValueThrows ${s.path}`,
@@ -508,6 +514,12 @@ function testEditor(model) {
     } else if (kind === 'formValue') {
       const got = ed.formValue(s.path, s.field);
       _check(`editor[${n}].formValue ${s.path}#${s.field}`, got === s.expect, String(got));
+    } else if (kind === 'formValueThrows') {
+      _check(
+        `editor[${n}].formValueThrows ${s.path}#${s.field}`,
+        _throws(() => ed.formValue(s.path, s.field)),
+        '',
+      );
     } else if (kind === 'setFormValueThrows') {
       _check(
         `editor[${n}].setFormValueThrows ${s.path}#${s.field}`,

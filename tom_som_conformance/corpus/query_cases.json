@@ -485,6 +485,22 @@
         "spans": []
       },
       {
+        "path": "DEMO/RTO",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/SCR",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/DET",
         "kind": "form",
         "classId": null,
@@ -633,6 +649,22 @@
         "kind": "scalar",
         "classId": null,
         "headline": "How many items are tracked.",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/RTO",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/SCR",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
         "snippet": null,
         "spans": []
       },
@@ -1276,6 +1308,22 @@
     },
     "matches": [
       {
+        "path": "DEMO/RTO",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/SCR",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/REG",
         "kind": "complex",
         "classId": "Registry",
@@ -1675,6 +1723,22 @@
         "kind": "scalar",
         "classId": null,
         "headline": "How many items are tracked.",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/RTO",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/SCR",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
         "snippet": null,
         "spans": []
       },

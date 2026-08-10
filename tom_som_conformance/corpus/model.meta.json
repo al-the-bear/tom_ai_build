@@ -70,6 +70,18 @@
           "doc": "How many items are tracked."
         },
         {
+          "name": "ratio",
+          "kind": "scalar",
+          "sectionId": "RTO",
+          "type": "double"
+        },
+        {
+          "name": "score",
+          "kind": "scalar",
+          "sectionId": "SCR",
+          "type": "num"
+        },
+        {
           "name": "details",
           "kind": "form",
           "sectionId": "DET",
@@ -94,6 +106,11 @@
               "name": "weight",
               "label": "Weight",
               "type": "double"
+            },
+            {
+              "name": "tally",
+              "label": "Tally",
+              "type": "num"
             },
             {
               "name": "active",

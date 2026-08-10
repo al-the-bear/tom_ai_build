@@ -155,15 +155,16 @@ static void test_model_meta(Checker& c, const som::SpecModel& model) {
   const som::SpecClass* demo = model.classNamed("Demo");
   c.check("model.Demo.found", demo != nullptr, "");
   if (demo != nullptr) {
-    const char* want[] = {"title",   "summary", "priority", "count",
-                          "details", "items",   "refs",     "cards",
-                          "meta",    "control", "notes",    "registry"};
-    bool ok = demo->fields.size() == 12;
+    const char* want[] = {"title", "summary",  "priority", "count",
+                          "ratio", "score",    "details",  "items",
+                          "refs",  "cards",    "meta",     "control",
+                          "notes", "registry"};
+    bool ok = demo->fields.size() == 14;
     std::string names;
     for (std::size_t i = 0; i < demo->fields.size(); i++) {
       if (i > 0) names.push_back(',');
       names += demo->fields[i].name;
-      if (ok && i < 12 && demo->fields[i].name != want[i]) ok = false;
+      if (ok && i < 14 && demo->fields[i].name != want[i]) ok = false;
     }
     c.check("model.Demo.fields", ok, names);
   }
@@ -703,6 +704,8 @@ static void test_editor(Checker& c, const som::SpecModel& model) {
     } else if (op == "setValueThrows") {
       som::SomValue v = json_value(som::jsonGet(s, "value"));
       expect_throws(c, tag + " " + path, [&] { ed.setValue(path, v); });
+    } else if (op == "valueThrows") {
+      expect_throws(c, tag + " " + path, [&] { ed.value(path); });
     } else if (op == "setContent") {
       // raw store write (bypasses the typed boundary)
       doc.setContent(path, som::jsonStrOr(s, "value"));
@@ -727,6 +730,9 @@ static void test_editor(Checker& c, const som::SpecModel& model) {
       som::SomValue v = json_value(som::jsonGet(s, "value"));
       expect_throws(c, tag + " " + path + "#" + field,
                     [&] { ed.setFormValue(path, field, v); });
+    } else if (op == "formValueThrows") {
+      expect_throws(c, tag + " " + path + "#" + field,
+                    [&] { ed.formValue(path, field); });
     } else if (op == "rawFormField") {
       const std::string* got = doc.formFieldOpt(path, field);
       const std::string* want = som::jsonAsStr(som::jsonGet(s, "expect"));

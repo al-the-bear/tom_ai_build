@@ -215,7 +215,7 @@ def test_model_meta(model: SpecModel) -> None:
         names = [f.name for f in demo.fields]
         _check(
             "model.Demo.fields",
-            names == ["title", "summary", "priority", "count", "details", "items", "refs", "cards", "meta", "control", "notes", "registry"],
+            names == ["title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs", "cards", "meta", "control", "notes", "registry"],
             str(names),
         )
 
@@ -398,6 +398,9 @@ def test_editor(model: SpecModel) -> None:
         elif kind == "value":
             _check(f"editor[{n}].value {s['path']}",
                    ed.value(s["path"]) == s["expect"], str(ed.value(s["path"])))
+        elif kind == "valueThrows":
+            _expect_raises(f"editor[{n}].valueThrows {s['path']}",
+                           lambda s=s: ed.value(s["path"]))
         elif kind == "setValueThrows":
             _expect_raises(f"editor[{n}].setValueThrows {s['path']}",
                            lambda s=s: ed.set_value(s["path"], s["value"]))
@@ -413,6 +416,10 @@ def test_editor(model: SpecModel) -> None:
             got = ed.form_value(s["path"], s["field"])
             _check(f"editor[{n}].formValue {s['path']}#{s['field']}",
                    got == s["expect"], str(got))
+        elif kind == "formValueThrows":
+            _expect_raises(
+                f"editor[{n}].formValueThrows {s['path']}#{s['field']}",
+                lambda s=s: ed.form_value(s["path"], s["field"]))
         elif kind == "setFormValueThrows":
             _expect_raises(
                 f"editor[{n}].setFormValueThrows {s['path']}#{s['field']}",

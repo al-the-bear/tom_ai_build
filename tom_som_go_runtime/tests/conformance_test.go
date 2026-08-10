@@ -228,7 +228,7 @@ func testModelMeta(c *checker, model *som.SpecModel) {
 		for _, f := range demo.Fields {
 			names = append(names, f.Name)
 		}
-		want := []string{"title", "summary", "priority", "count", "details", "items", "refs", "cards", "meta", "control", "notes", "registry"}
+		want := []string{"title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs", "cards", "meta", "control", "notes", "registry"}
 		c.check("model.Demo.fields", sliceEq(names, want), join(names))
 	}
 }
@@ -916,6 +916,9 @@ func testEditor(c *checker, t *testing.T, model *som.SpecModel) {
 			got, err := ed.Value(s.Path)
 			c.check(tag+" "+s.Path, err == nil && valueEq(got, jsonAny(t, s.Expect)),
 				str(got))
+		case "valueThrows":
+			_, err := ed.Value(s.Path)
+			c.check(tag+" "+s.Path, err != nil, "expected an error")
 		case "setValueThrows":
 			c.check(tag+" "+s.Path, ed.SetValue(s.Path, jsonAny(t, s.Value)) != nil,
 				"expected an error")
@@ -937,6 +940,9 @@ func testEditor(c *checker, t *testing.T, model *som.SpecModel) {
 			got, err := ed.FormValue(s.Path, s.Field)
 			c.check(tag+" "+s.Path+"#"+s.Field,
 				err == nil && valueEq(got, jsonAny(t, s.Expect)), str(got))
+		case "formValueThrows":
+			_, err := ed.FormValue(s.Path, s.Field)
+			c.check(tag+" "+s.Path+"#"+s.Field, err != nil, "expected an error")
 		case "setFormValueThrows":
 			c.check(tag+" "+s.Path+"#"+s.Field,
 				ed.SetFormValue(s.Path, s.Field, jsonAny(t, s.Value)) != nil,

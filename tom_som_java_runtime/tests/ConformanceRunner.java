@@ -144,8 +144,8 @@ public final class ConformanceRunner {
       }
       List<String> want =
           List.of(
-              "title", "summary", "priority", "count", "details", "items", "refs", "cards",
-              "meta", "control", "notes", "registry");
+              "title", "summary", "priority", "count", "ratio", "score", "details", "items",
+              "refs", "cards", "meta", "control", "notes", "registry");
       check("model.Demo.fields", names.equals(want), names.toString());
     }
   }
@@ -615,6 +615,9 @@ public final class ConformanceRunner {
         case "setValueThrows":
           check(at + path, raisesArgument(() -> ed.setValue(path, s.get("value"))), "");
           break;
+        case "valueThrows":
+          check(at + path, raisesArgument(() -> ed.value(path)), "");
+          break;
         case "setContent": // raw store write (bypasses the typed boundary)
           doc.setContent(path, (String) s.get("value"));
           break;
@@ -637,6 +640,9 @@ public final class ConformanceRunner {
               at + path + "#" + field,
               raisesArgument(() -> ed.setFormValue(path, field, s.get("value"))),
               "");
+          break;
+        case "formValueThrows":
+          check(at + path + "#" + field, raisesArgument(() -> ed.formValue(path, field)), "");
           break;
         case "rawFormField":
           check(

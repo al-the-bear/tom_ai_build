@@ -181,6 +181,8 @@ function testModelMeta(model: SpecModel): void {
         'summary',
         'priority',
         'count',
+        'ratio',
+        'score',
         'details',
         'items',
         'refs',
@@ -638,6 +640,10 @@ function testEditor(model: SpecModel): void {
       _expectThrows(`editor[${n}].setValueThrows ${s.path}`, () =>
         ed.setValue(s.path, s.value),
       );
+    } else if (kind === 'valueThrows') {
+      _expectThrows(`editor[${n}].valueThrows ${s.path}`, () =>
+        ed.value(s.path),
+      );
     } else if (kind === 'setContent') {
       // Raw store write: bypasses the typed boundary on purpose.
       doc.setContent(s.path, s.value);
@@ -657,6 +663,10 @@ function testEditor(model: SpecModel): void {
       _expectThrows(
         `editor[${n}].setFormValueThrows ${s.path}#${s.field}`,
         () => ed.setFormValue(s.path, s.field, s.value),
+      );
+    } else if (kind === 'formValueThrows') {
+      _expectThrows(`editor[${n}].formValueThrows ${s.path}#${s.field}`, () =>
+        ed.formValue(s.path, s.field),
       );
     } else if (kind === 'rawFormField') {
       const got = doc.formField(s.path, s.field);

@@ -98,7 +98,17 @@ public final class SpecTypedValues {
    */
   public static Number somParseNum(String raw) {
     Integer asInt = somParseInt(raw);
-    return asInt != null ? asInt : somParseDouble(raw);
+    // Why: deliberately not a ternary. `cond ? Integer : Double` is a Java
+    // conditional expression over two different boxed numeric types, so binary
+    // numeric promotion applies: BOTH arms are unboxed to `double` and the
+    // result re-boxed as `Double`. That would (a) throw NPE when the double
+    // parse legitimately returns null, and (b) silently widen an integral `7`
+    // to `7.0`, which `somFormatNum` would then write back as "7.0" instead of
+    // "7" — the exact single-numeric-type divergence this contract forbids.
+    if (asInt != null) {
+      return asInt;
+    }
+    return somParseDouble(raw);
   }
 
   /** Formats a {@code num} for the store; {@code null} becomes {@code ""} (clear, D4). */

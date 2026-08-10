@@ -192,8 +192,8 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
         // `cards` is the card list (CARD-LST) added by the Demo corpus's Card
         // class; `notes` is the fixture's one `section`-kind member.
         let want = [
-            "title", "summary", "priority", "count", "details", "items", "refs", "cards", "meta",
-            "control", "notes", "registry",
+            "title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs",
+            "cards", "meta", "control", "notes", "registry",
         ];
         c.check("model.Demo.fields", names == want, &names.join(","));
     }
@@ -867,6 +867,11 @@ fn test_editor(c: &mut Checker, model: &SpecModel) {
                 ed.set_value(&path, som_value_of(s.get("value"))).is_err(),
                 "did not error",
             ),
+            "valueThrows" => c.check(
+                &format!("{} {}", tag, path),
+                ed.value(&path).is_err(),
+                "did not error",
+            ),
             // Raw store write, bypassing the typed boundary.
             "setContent" => ed.document.set_content(&path, &s.str_or("value")),
             "rawContent" => {
@@ -897,6 +902,11 @@ fn test_editor(c: &mut Checker, model: &SpecModel) {
                 &format!("{} {}#{}", tag, path, field),
                 ed.set_form_value(&path, &field, som_value_of(s.get("value")))
                     .is_err(),
+                "did not error",
+            ),
+            "formValueThrows" => c.check(
+                &format!("{} {}#{}", tag, path, field),
+                ed.form_value(&path, &field).is_err(),
                 "did not error",
             ),
             "rawFormField" => {

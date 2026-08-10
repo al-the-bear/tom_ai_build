@@ -71,6 +71,151 @@
   },
   {
     "op": "setValue",
+    "path": "DEMO/RTO",
+    "value": 2.5
+  },
+  {
+    "op": "value",
+    "path": "DEMO/RTO",
+    "expect": 2.5
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/RTO",
+    "expect": "2.5"
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/RTO",
+    "value": 4
+  },
+  {
+    "op": "value",
+    "path": "DEMO/RTO",
+    "expect": 4.0
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/RTO",
+    "expect": "4.0"
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/RTO",
+    "value": "6"
+  },
+  {
+    "op": "value",
+    "path": "DEMO/RTO",
+    "expect": 6.0
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/RTO",
+    "expect": "6"
+  },
+  {
+    "op": "setValueThrows",
+    "path": "DEMO/RTO",
+    "value": true
+  },
+  {
+    "op": "setContent",
+    "path": "DEMO/RTO",
+    "value": "abc"
+  },
+  {
+    "op": "value",
+    "path": "DEMO/RTO",
+    "expect": null
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/RTO",
+    "value": null
+  },
+  {
+    "op": "value",
+    "path": "DEMO/RTO",
+    "expect": null
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/RTO",
+    "expect": null
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/SCR",
+    "value": 7
+  },
+  {
+    "op": "value",
+    "path": "DEMO/SCR",
+    "expect": 7
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/SCR",
+    "expect": "7"
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/SCR",
+    "value": 7.5
+  },
+  {
+    "op": "value",
+    "path": "DEMO/SCR",
+    "expect": 7.5
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/SCR",
+    "expect": "7.5"
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/SCR",
+    "value": "9"
+  },
+  {
+    "op": "value",
+    "path": "DEMO/SCR",
+    "expect": 9
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/SCR",
+    "expect": "9"
+  },
+  {
+    "op": "setValueThrows",
+    "path": "DEMO/SCR",
+    "value": true
+  },
+  {
+    "op": "setContent",
+    "path": "DEMO/SCR",
+    "value": "abc"
+  },
+  {
+    "op": "value",
+    "path": "DEMO/SCR",
+    "expect": null
+  },
+  {
+    "op": "setValue",
+    "path": "DEMO/SCR",
+    "value": null
+  },
+  {
+    "op": "rawContent",
+    "path": "DEMO/SCR",
+    "expect": null
+  },
+  {
+    "op": "setValue",
     "path": "DEMO/PRI",
     "value": "high"
   },
@@ -170,6 +315,18 @@
     "value": "x"
   },
   {
+    "op": "valueThrows",
+    "path": "DEMO/ghost"
+  },
+  {
+    "op": "valueThrows",
+    "path": "DEMO/items"
+  },
+  {
+    "op": "valueThrows",
+    "path": "DEMO/DET"
+  },
+  {
     "op": "formFieldNames",
     "path": "DEMO/DET",
     "expect": [
@@ -177,6 +334,7 @@
       "contact",
       "estimate",
       "weight",
+      "tally",
       "active",
       "priority"
     ]
@@ -184,6 +342,21 @@
   {
     "op": "formFieldNamesThrows",
     "path": "DEMO/CNT"
+  },
+  {
+    "op": "formValueThrows",
+    "path": "DEMO/ghost",
+    "field": "owner"
+  },
+  {
+    "op": "formValueThrows",
+    "path": "DEMO/CNT",
+    "field": "owner"
+  },
+  {
+    "op": "formValueThrows",
+    "path": "DEMO/DET",
+    "field": "bogus"
   },
   {
     "op": "setFormValue",
@@ -286,6 +459,66 @@
     "path": "DEMO/DET",
     "field": "weight",
     "expect": "2.0"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "value": 3
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "expect": 3
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "expect": "3"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "value": 3.25
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "expect": 3.25
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "expect": "3.25"
+  },
+  {
+    "op": "setFormValueThrows",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "value": true
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "value": null
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "expect": null
+  },
+  {
+    "op": "rawFormField",
+    "path": "DEMO/DET",
+    "field": "tally",
+    "expect": null
   },
   {
     "op": "setFormValue",

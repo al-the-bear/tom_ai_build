@@ -468,6 +468,9 @@ void main() {
         case 'value':
           expect(ed.value(s['path'] as String), s['expect'],
               reason: 'value ${s['path']}');
+        case 'valueThrows':
+          expect(() => ed.value(s['path'] as String), throwsArgumentError,
+              reason: 'valueThrows ${s['path']}');
         case 'setValueThrows':
           expect(() => ed.setValue(s['path'] as String, s['value']),
               throwsArgumentError,
@@ -483,6 +486,11 @@ void main() {
           expect(ed.formValue(s['path'] as String, s['field'] as String),
               s['expect'],
               reason: 'formValue ${s['path']}#${s['field']}');
+        case 'formValueThrows':
+          expect(
+              () => ed.formValue(s['path'] as String, s['field'] as String),
+              throwsArgumentError,
+              reason: 'formValueThrows ${s['path']}#${s['field']}');
         case 'setFormValueThrows':
           expect(
               () => ed.setFormValue(
@@ -878,8 +886,11 @@ SpecQuery _queryFromJson(Map<String, dynamic> j) => SpecQuery(
 /// field-kind matrix across all nine language runtimes, so it deliberately
 /// contains shapes that do NOT occur in the real `tom_specs_model` and must not
 /// be read as conventions to imitate:
-///   * `count` (kind `scalar`, type `int`) — the real model has ZERO non-String
-///     primitive leaves;
+///   * `count`/`ratio`/`score` (kind `scalar`, types `int`/`double`/`num`) — the
+///     real model has ZERO non-String primitive leaves. All three exist so the
+///     typed boundary is exercised on a value LEAF and not only through a form
+///     field: `SpecEditor` picks the converter in two independent places, so a
+///     port can wire a type into one and forget the other;
 ///   * id-less `content` leaves (e.g. `Item.label`, `Control.owner`) — real
 ///     content leaves carry a field- or class-level `@SectionId`;
 ///   * `Control` — a class with TWO `content` leaves; real classes have exactly
@@ -1003,6 +1014,31 @@ Map<String, dynamic> _buildMeta() => {
               'doc': 'How many items are tracked.',
             },
             {
+              // The `double` half of the numeric matrix as a CONTENT LEAF, not
+              // just a form field. `Details.weight` already exercises the
+              // double conversion through the form store, but the leaf path
+              // runs a different dispatch (`value`/`setValue` on a scalar
+              // node), and the rule that discriminates a single-numeric-type
+              // port — an integral double formats as `2.0`, never `2` — has to
+              // hold on both.
+              'name': 'ratio',
+              'kind': 'scalar',
+              'sectionId': 'RTO',
+              'type': 'double',
+            },
+            {
+              // `num` — the one conversion family in `spec_typed_values` that
+              // no member of this fixture used to declare, so `somParseNum` /
+              // `somFormatNum` were implemented nine times and asked nothing.
+              // It is the family most likely to diverge, because it is the one
+              // whose formatting depends on the *runtime value*: an integral
+              // num writes `7`, a fractional one `7.5`, from the same field.
+              'name': 'score',
+              'kind': 'scalar',
+              'sectionId': 'SCR',
+              'type': 'num',
+            },
+            {
               'name': 'details',
               'kind': 'form',
               'sectionId': 'DET',
@@ -1020,6 +1056,12 @@ Map<String, dynamic> _buildMeta() => {
                 // generic editor and the generated facades.
                 {'name': 'estimate', 'label': 'Estimate', 'type': 'int'},
                 {'name': 'weight', 'label': 'Weight', 'type': 'double'},
+                // The form half of the `num` family. The leaf half is
+                // `Demo.score`; both exist because the editor dispatches on
+                // type in two independent places (`value`/`formValue`), so a
+                // port that wires `num` into one and forgets the other passes
+                // a single-sided corpus.
+                {'name': 'tally', 'label': 'Tally', 'type': 'num'},
                 {'name': 'active', 'label': 'Active', 'type': 'bool'},
                 {
                   'name': 'priority',
@@ -1729,7 +1771,18 @@ List<Map<String, dynamic>> _operationsScript() => [
 /// typed reading, while `rawContent`/`rawFormField` pin the underlying
 /// plain-text store form (`FieldName: value`). Enum values travel as
 /// constant-name strings at this generic layer; out-of-domain names and
-/// dangling/non-leaf paths must raise the language's argument error.
+/// dangling/non-leaf paths must raise the language's argument error — on the
+/// READ side (`valueThrows`, `formValueThrows`, `formFieldNamesThrows`,
+/// `headlineThrows`) as strictly as on the write side, because a port that
+/// answers `null` for a path that does not exist is indistinguishable from a
+/// correct one on every non-throwing case.
+///
+/// All five conversion families of `spec_typed_values` are exercised here:
+/// `int` (`DEMO/CNT`, `Details.estimate`), `double` (`DEMO/RTO`,
+/// `Details.weight`), `num` (`DEMO/SCR`, `Details.tally`), `bool`
+/// (`Details.active`) and enum names (`DEMO/PRI`, `Details.priority`) — each
+/// through BOTH dispatches, the value leaf and the form field, since a port
+/// wires those separately.
 List<Map<String, dynamic>> _editorScript() => [
       // --- typed value leaves ------------------------------------------------
       {'op': 'setValue', 'path': 'DEMO/CNT', 'value': 3},
@@ -1747,6 +1800,48 @@ List<Map<String, dynamic>> _editorScript() => [
       {'op': 'setContent', 'path': 'DEMO/CNT', 'value': 'abc'},
       {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
       {'op': 'setContent', 'path': 'DEMO/CNT', 'value': ''},
+      // `double` LEAF (DEMO/RTO). `Details.weight` already covers the double
+      // conversion through the form store; this covers the other dispatch, and
+      // pins the rule that separates a faithful port from one that leans on its
+      // own number-to-string: an integral double writes `4.0`, never `4`.
+      {'op': 'setValue', 'path': 'DEMO/RTO', 'value': 2.5},
+      {'op': 'value', 'path': 'DEMO/RTO', 'expect': 2.5},
+      {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '2.5'},
+      {'op': 'setValue', 'path': 'DEMO/RTO', 'value': 4},
+      {'op': 'value', 'path': 'DEMO/RTO', 'expect': 4.0},
+      {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '4.0'},
+      // A String passes through VERBATIM even into a typed leaf, so the store
+      // keeps `6` — the formatter never runs. Reading it back still parses as a
+      // double, so `value` and `rawContent` legitimately disagree here.
+      {'op': 'setValue', 'path': 'DEMO/RTO', 'value': '6'},
+      {'op': 'value', 'path': 'DEMO/RTO', 'expect': 6.0},
+      {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '6'},
+      {'op': 'setValueThrows', 'path': 'DEMO/RTO', 'value': true},
+      {'op': 'setContent', 'path': 'DEMO/RTO', 'value': 'abc'},
+      {'op': 'value', 'path': 'DEMO/RTO', 'expect': null},
+      {'op': 'setValue', 'path': 'DEMO/RTO', 'value': null},
+      {'op': 'value', 'path': 'DEMO/RTO', 'expect': null},
+      {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': null},
+      // `num` LEAF (DEMO/SCR) — the family whose rendering depends on the
+      // *value*, not the declared type: the same field writes `7` for an
+      // integral value and `7.5` for a fractional one. That is the opposite of
+      // the `double` rule directly above, which is why both have to be here:
+      // a port that implements one formatter for "any number" fails exactly
+      // one of these two blocks whichever way it chose.
+      {'op': 'setValue', 'path': 'DEMO/SCR', 'value': 7},
+      {'op': 'value', 'path': 'DEMO/SCR', 'expect': 7},
+      {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '7'},
+      {'op': 'setValue', 'path': 'DEMO/SCR', 'value': 7.5},
+      {'op': 'value', 'path': 'DEMO/SCR', 'expect': 7.5},
+      {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '7.5'},
+      {'op': 'setValue', 'path': 'DEMO/SCR', 'value': '9'},
+      {'op': 'value', 'path': 'DEMO/SCR', 'expect': 9},
+      {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '9'},
+      {'op': 'setValueThrows', 'path': 'DEMO/SCR', 'value': true},
+      {'op': 'setContent', 'path': 'DEMO/SCR', 'value': 'abc'},
+      {'op': 'value', 'path': 'DEMO/SCR', 'expect': null},
+      {'op': 'setValue', 'path': 'DEMO/SCR', 'value': null},
+      {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': null},
       // Enum leaf: validated constant-name strings.
       {'op': 'setValue', 'path': 'DEMO/PRI', 'value': 'high'},
       {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
@@ -1770,10 +1865,23 @@ List<Map<String, dynamic>> _editorScript() => [
       {'op': 'setValueThrows', 'path': 'DEMO/items', 'value': 'x'},
       {'op': 'setValueThrows', 'path': 'DEMO/META', 'value': 'x'},
       {'op': 'setValueThrows', 'path': 'DEMO/DET', 'value': 'x'},
+      // The READ side of the same strictness. `value`/`formValue` resolve the
+      // path exactly as their write siblings do, and a port that made reads
+      // "forgiving" all the way down — returning null for a path that does not
+      // exist — would pass every other case in this file, because a null read
+      // is indistinguishable from an unset leaf. Only asking for the error
+      // separates "no value here" from "no such place".
+      {'op': 'valueThrows', 'path': 'DEMO/ghost'},
+      {'op': 'valueThrows', 'path': 'DEMO/items'},
+      {'op': 'valueThrows', 'path': 'DEMO/DET'},
       {'op': 'formFieldNames', 'path': 'DEMO/DET',
-        'expect': ['owner', 'contact', 'estimate', 'weight', 'active', 'priority']},
+        'expect': ['owner', 'contact', 'estimate', 'weight', 'tally', 'active',
+          'priority']},
       {'op': 'formFieldNamesThrows', 'path': 'DEMO/CNT'},
-      // --- typed form fields (int / double / bool / enum) --------------------
+      {'op': 'formValueThrows', 'path': 'DEMO/ghost', 'field': 'owner'},
+      {'op': 'formValueThrows', 'path': 'DEMO/CNT', 'field': 'owner'},
+      {'op': 'formValueThrows', 'path': 'DEMO/DET', 'field': 'bogus'},
+      // --- typed form fields (int / double / num / bool / enum) --------------
       {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'owner',
         'value': 'Bob'},
       {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'owner',
@@ -1806,6 +1914,28 @@ List<Map<String, dynamic>> _editorScript() => [
       {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'weight', 'expect': 2.0},
       {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'weight',
         'expect': '2.0'},
+      // The `num` form field. Same family as `DEMO/SCR` above, different
+      // dispatch: `formValue`/`setFormValue` pick the converter from the FORM
+      // FIELD's declared type, not from a resolved model node, so the two are
+      // separate code paths in every port.
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'tally', 'value': 3},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'tally', 'expect': 3},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'tally',
+        'expect': '3'},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'tally',
+        'value': 3.25},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'tally',
+        'expect': 3.25},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'tally',
+        'expect': '3.25'},
+      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'tally',
+        'value': true},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'tally',
+        'value': null},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'tally',
+        'expect': null},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'tally',
+        'expect': null},
       {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active',
         'value': true},
       {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active',

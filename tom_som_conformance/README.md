@@ -176,26 +176,51 @@ ordered script. Each step mutates one shared document built from
 runner must execute it start to finish against one document, and a case may not
 be reordered or run in isolation.
 
-The script's twenty-one ops divide into three groups: assertions
+The script's twenty-three ops divide into three groups: assertions
 (`value`, `rawContent`, `formValue`, `rawFormField`, `formFieldNames`,
 `headline`, `itemSectionId`, `hasValuesUnder`), mutations (`setValue`,
 `setContent`, `setFormValue`, `setHeadline`, `addListItem`, `removeListItem`,
 `clearSection`), and the `…Throws` variants that pin **which** inputs a runtime
 must reject rather than silently coerce. The distinction between the two write
-modes is the contract's core: reads are forgiving, writes are strict.
+modes is the contract's core: reads are forgiving, writes are strict — but
+"forgiving" is about *values*, not about *paths*, which is why the `…Throws`
+group covers both sides (`valueThrows` / `formValueThrows` /
+`formFieldNamesThrows` / `headlineThrows` as well as the four write variants).
 
-Two properties of the script exist to catch a specific class of port bug, and
-both were written deliberately rather than discovered:
+Every one of the five conversion families in `spec_typed_values` — `int`,
+`double`, `num`, `bool` and enum names — is exercised through **both** dispatches,
+the content leaf (`value` / `setValue`) and the form field (`formValue` /
+`setFormValue`), because a port wires those two separately and a single-sided
+table lets it wire one and forget the other.
+
+Four properties of the script exist to catch a specific class of port bug, and
+all four were written deliberately rather than discovered:
 
 - **The integral double.** `setFormValue weight 2` must leave the raw text
   `"2.0"`, never `"2"`. Languages with a single numeric type (JavaScript,
   TypeScript, Go's `interface{}` decode) will store `"2"` unless the port
   handles it, and every downstream serialization then diverges from Dart by one
   character in a place no golden reads.
+- **The `num` family is the integral double's opposite, on purpose.** The same
+  `num` field writes `7` for an integral value and `7.5` for a fractional one —
+  so a port that implements one "format any number" routine fails exactly one of
+  the two blocks, whichever way it chose. The pair is what makes the choice
+  visible; either block alone can be satisfied by the wrong rule.
 - **Verbatim string passthrough.** Writing the *string* `"12"` into an `int`
   field stores `"12"` and reads back `12`; writing `"not-a-bool"` into a `bool`
   field stores it verbatim and reads back nothing. A port that eagerly
   canonicalises on write passes every other case and fails these.
+- **A dangling path throws on read, too.** A port that answered `null` for a
+  path that does not exist would satisfy every non-throwing case in the file,
+  because a null read is indistinguishable from an unset leaf. Only asking for
+  the error separates "no value here" from "no such place".
+
+The `num` family arrived last, and paid for itself on the first run: it caught
+the Java port's `somParseNum` returning `Integer : Double` from a **conditional
+expression**, where Java's binary numeric promotion unboxes both arms to
+`double`. That threw on an unparsable string and silently widened an integral
+`7` to `7.0` — a defect that had shipped through every prior nine-way green run,
+because no case had ever declared a `num`.
 
 The trap has a second form here, worth stating because the enum-coverage guard
 cannot catch it: a table that exists but is **loaded by one runner** is no better

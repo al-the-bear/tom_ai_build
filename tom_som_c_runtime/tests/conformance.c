@@ -219,15 +219,16 @@ static void test_model_meta(Checker *c, const SpecModel *model) {
   check(c, "model.Demo.found", demo != NULL, "");
   if (demo != NULL) {
     const char *want[] = {"title", "summary", "priority", "count",
-                          "details", "items", "refs",     "cards",
-                          "meta",    "control", "notes",   "registry"};
-    int ok = demo->fields_len == 12;
+                          "ratio", "score",   "details",  "items",
+                          "refs",  "cards",   "meta",     "control",
+                          "notes", "registry"};
+    int ok = demo->fields_len == 14;
     SomBuf names;
     som_buf_init(&names);
     for (size_t i = 0; i < demo->fields_len; i++) {
       if (i > 0) som_buf_putc(&names, ',');
       som_buf_puts(&names, demo->fields[i].name);
-      if (ok && i < 12 && strcmp(demo->fields[i].name, want[i]) != 0) ok = 0;
+      if (ok && i < 14 && strcmp(demo->fields[i].name, want[i]) != 0) ok = 0;
     }
     char *joined = som_buf_take(&names);
     check(c, "model.Demo.fields", ok, joined);
@@ -875,6 +876,11 @@ static void test_editor(Checker *c, const SpecModel *model) {
       SomValue v = json_som_value(som_json_get(s, "value"));
       check_rejected(c, tag, spec_editor_set_value(&ed, path, &v, &err), err);
       som_value_free(&v);
+    } else if (strcmp(op, "valueThrows") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].valueThrows %s", i, path);
+      SomValue got = som_value_none();
+      check_rejected(c, tag, spec_editor_value(&ed, path, &got, &err), err);
+      som_value_free(&got);
     } else if (strcmp(op, "setContent") == 0) {
       /* raw store write — deliberately bypasses the typed boundary */
       spec_document_set_content(&doc, path, som_json_str_or(s, "value"));
@@ -907,6 +913,13 @@ static void test_editor(Checker *c, const SpecModel *model) {
                      spec_editor_set_form_value(&ed, path, field, &v, &err),
                      err);
       som_value_free(&v);
+    } else if (strcmp(op, "formValueThrows") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].formValueThrows %s#%s", i, path,
+               field);
+      SomValue got = som_value_none();
+      check_rejected(c, tag,
+                     spec_editor_form_value(&ed, path, field, &got, &err), err);
+      som_value_free(&got);
     } else if (strcmp(op, "rawFormField") == 0) {
       snprintf(tag, sizeof(tag), "editor[%zu].rawFormField %s#%s", i, path,
                field);

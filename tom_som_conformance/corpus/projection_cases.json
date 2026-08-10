@@ -67,6 +67,28 @@
     "hasValue": true
   },
   {
+    "path": "DEMO/RTO",
+    "kind": "scalar",
+    "classId": null,
+    "sectionId": "RTO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/SCR",
+    "kind": "scalar",
+    "classId": null,
+    "sectionId": "SCR",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
     "path": "DEMO/DET",
     "kind": "form",
     "classId": null,

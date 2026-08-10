@@ -494,14 +494,21 @@ language mirrors it:
 - `spec_typed_values.dart` — the ten parse/format helpers (`int`, `double`,
   `num`, `bool`, enum-name) that convert between a native value and the raw text
   a document stores. They are the *only* place the text form of a typed value is
-  decided, so the nine runtimes serialize identically — notably an integral
-  double formats as `2.0`, never `2`.
+  decided, so the nine runtimes serialize identically. Two rules carry the
+  weight, and they are **opposites**: an integral `double` formats as `2.0`,
+  never `2`; an integral `num` formats as `7`, and only a fractional one as
+  `7.5`. A `num` therefore renders from its *runtime value* and a `double` from
+  its *declared type* — a port with one shared number-to-string routine can
+  satisfy at most one of the two.
 - `spec_editor.dart` — `SpecEditor`, the generic meta-model-driven modification
   API (YRD7): typed `value`/`setValue`, form field access, headline, list-item
   add/remove and section clearing, over any path. Reads are forgiving
   (unparsable text → no value), writes are strict (a wrong-typed value or an
   out-of-domain enum name is an error), and enums travel as validated constant
-  *names* rather than enum values.
+  *names* rather than enum values. The forgiveness is about **values, not
+  paths**: a path that does not resolve, or resolves to the wrong kind of node,
+  is an error on the read side exactly as on the write side — answering "no
+  value" for "no such place" would make the two indistinguishable to a caller.
 - `spec_text_pattern.dart` — `SomTextPattern`, the **portable pattern subset**
   the query facility matches with (below). Hand-written in each language rather
   than delegated to the platform regex engine.
