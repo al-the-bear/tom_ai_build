@@ -224,6 +224,13 @@ exit criterion is unchanged either way: no generated body runs to a result the
 generator invented — a 3a body throws on entry, and a 3b body holds nothing of
 its own, only calls into declarations Phase 6 has yet to implement.
 
+The collaborator itself has a contract entry of its own —
+`codespecs_derivation_contract.md` §3.0.1 — because it is **generated, not
+assumed**: one abstract class per emitting declaration, its methods derived from
+that declaration's step list, injected as the declaration's one `collaborator`
+field, and carrying on each method's doc comment the behaviour narrative this
+section asks it to state.
+
 ## 4. Target element taxonomy
 
 The taxonomy has **26 active parts** spanning client, shared contract, server,
@@ -420,22 +427,27 @@ code needs **additional annotations** so the code carries the specification
 details *completely* — beyond what simple code can express (element kinds,
 maximum lengths, format restrictions, placement, schedules, grades, …).
 
-**Annotation authoring state.** 39 part markers exist in `tom_code_specs` today
-(41 classes, counting the two facet value classes `CsFileReference` and
-`CsGradedAccess`, which are annotation *arguments* rather than markers) — one
-per part, plus the several markers a part may own (CE-EL, CE-AC, CE-NV, CE-DB,
-CE-VA, CE-NT). The §4.3 deferred candidates deliberately have **no** annotation: a
-deferred part's `CodeSpecPart` value is reserved so a SOM section can already
-carry `@CodeSpecKind`, but the marker is authored only on promotion.
+**Annotation authoring state.** 39 part markers exist in `tom_code_specs` today —
+one per part, plus the several markers a part may own (CE-EL, CE-AC, CE-NV,
+CE-DB, CE-VA, CE-NT) — and one further marker, `@CsCollaborator`, which is **not
+a part**: it has no `CE-*` code and no `CodeSpecPart` value, and this catalogue
+gains no row for it, because a part is what a SOM section is realised *as* while
+a collaborator is what a realisation's body needs in order to compile
+(`codespecs_derivation_contract.md` §3.0). That is 40 markers and 42 classes,
+counting the two facet value classes `CsFileReference` and `CsGradedAccess`,
+which are annotation *arguments* rather than markers. The §4.3 deferred
+candidates deliberately have **no** annotation: a deferred part's `CodeSpecPart`
+value is reserved so a SOM section can already carry `@CodeSpecKind`, but the
+marker is authored only on promotion.
 
-**The family is a marker set *and* an attribute surface.** 24 of the 39 markers
-take arguments; the other 15 carry a single optional `note`, because everything
+**The family is a marker set *and* an attribute surface.** 24 of the 40 markers
+take arguments; the other 16 carry a single optional `note`, because everything
 their part authors is already carried by the annotated declaration itself or by
 a `tom_core` substrate constructor. Which attributes become constructor
 parameters and which stay on the declaration is decided by
 [codespecs_derivation_contract.md](codespecs_derivation_contract.md) §2.3's
 three tests, and its §5.1–§5.3 (not this document's) give the resulting constructor shape of every
-marker, the 15 that stay note-only, and the closed catalogues the arguments
+marker, the 16 that stay note-only, and the closed catalogues the arguments
 select from. Every example in this document is a **call that compiles**.
 
 Two parameter families the constructors consume ship beside the markers, and

@@ -12,10 +12,13 @@ implemented. Everything here is normative for the generator; where it decides
 something `codespecs_mapping.md` had left open, that document cites this one
 rather than restating it.
 
-**Scope.** One contract entry per active `Cs*` part marker — **39 markers**,
-plus the two facet value classes a marker carries (`CsFileReference` on
-`CsColumn`, `CsGradedAccess` on `CsAuthorize`), for **41 classes** in
-`tom_code_specs`. Deferred parts (§4.3) have no marker and therefore no entry.
+**Scope.** One contract entry per active `Cs*` part marker — **39 markers** —
+plus one for `@CsCollaborator` (§3.0.1), the one marker that is **not** a part:
+it marks no realisation of a SOM section, it marks the abstract collaborator a
+form-3b body calls. With the two facet value classes a marker carries
+(`CsFileReference` on `CsColumn`, `CsGradedAccess` on `CsAuthorize`) that is
+**40 markers and 42 classes** in `tom_code_specs`. Deferred parts
+(`codespecs_mapping.md` §4.3) have no marker and therefore no entry.
 
 **What this document decides.** It **decides** each annotation's argument shape.
 The shapes below are **authored** in `tom_code_specs` — the constructors, the
@@ -171,7 +174,7 @@ defect; it fails naming the offending section rather than relaxing the arrow.
 
 ### 2.3 What becomes an annotation argument
 
-The one rule that shapes all 39 constructors:
+The one rule that shapes all 40 constructors:
 
 > A spec-authorable attribute becomes a **constructor argument of the `Cs*`
 > annotation if and only if the generated Dart cannot already carry it.**
@@ -295,8 +298,8 @@ nothing else:
 2. A **call on the `tom_core`-family substrate the entry's own point 2 names** —
    `TomQueryBuilder` for §3.3.4. Never an unnamed framework class: if point 2
    does not name it, the body may not call it.
-3. A `final` **local binding** of (1)'s or (2)'s result, named per N2/N3 from the
-   step's designated name field.
+3. A `final` **local binding** of (1)'s or (2)'s result, named per N1–N3 over the
+   step's **headline** — a step section carries no name field (§3.0.1 point 4).
 4. **Control flow** — `if` / `for` / `switch` — derived from a condition the spec
    states. A condition the spec does not state may not be invented.
 5. A **`return`** of a value produced by (1)–(3).
@@ -325,8 +328,11 @@ that exist in the emitted trio, so where an entry names a collaborator it is par
 of what the generator emits — an abstract class whose methods carry the behaviour narrative
 on their doc comments (§2.8 P3) and no implementation. A 3b body that calls a
 class the generator did not emit is a generation error, not a forward
-declaration. Slice order constrains where it may sit: §4.4's no-forward-reference
-rule applies to the collaborator exactly as to any other emitted declaration.
+declaration. **§3.0.1 is its contract entry** — one collaborator per emitting
+top-level declaration, its methods derived from that declaration's step list, and
+the field its call sites resolve against. `codespecs_mapping.md` §4.4's
+no-forward-reference rule applies to it exactly as to any other emitted
+declaration, and §3.0 says how it is satisfied.
 
 #### Frames
 
@@ -597,7 +603,8 @@ has exactly the two shapes §2.4 defines — 3b's statements, or 3a's `throw`.
 ## 3. The contract entries
 
 Thirty-nine part markers plus one of the two facet value classes, grouped by
-generation slice (§4.4.3). `CsFileReference` has an entry of its own (§3.3.3)
+generation slice (`codespecs_mapping.md` §4.4.3), preceded by the one entry that
+belongs to no slice (§3.0). `CsFileReference` has an entry of its own (§3.3.3)
 because it is filled from a SOM subsection the annotated column does not name;
 `CsGradedAccess` has none because it is filled entirely inside `@CsAuthorize`'s
 graded arm, and is contracted there (§3.4.3). Slice 1–2 emit into `<app>_codespec_shared`, 3–4 and 7 into
@@ -610,6 +617,55 @@ CE-DB write path and the CE-API handler); it is entered once, at the earlier, an
 its Locus point names the other. And a part may emit an unmarked half in a later
 slice (CE-NT delivery, CE-UP server persistence); that half has no marker, so it
 has no entry, and again the Locus point carries it.
+
+### 3.0 Across every slice — the abstract collaborator
+
+`@CsCollaborator` has **no slice of its own**. Every form-3b body calls into an
+abstract collaborator (§2.4), and the generator emits that collaborator **in the
+same emission unit as the declaration whose bodies call it**, immediately before
+it — so `codespecs_mapping.md` §4.4's no-forward-reference rule is satisfied
+without a slice edge, and §4.4.4's partition invariant, which is *per emission
+unit*, is undisturbed.
+
+Four entries name a collaborator today: §3.4.4 (server), §3.5.5, §3.5.7 and
+§3.5.10 (client). §3.3.4 names none — `TomQueryBuilder` is the whole vocabulary
+its query bodies need — and a declaration whose 3b bodies all take §2.4's
+fallback to 3a emits none either, because there are then no calls for one to
+receive.
+
+It is also the one marker in this contract that is **not a part**. It has no
+`CE-*` code, no canonical id and no `CodeSpecPart` value, and
+`codespecs_mapping.md` §4.1's parts catalogue gains no row for it: a part is what
+a SOM section is realised *as*, and a collaborator is what a realisation's body
+needs in order to compile. It is a marker all the same, for two reasons that are
+not stylistic — §2.7 part 4 requires a `Cs*` marker on every generated top-level
+declaration, and §6's checks have to *find* collaborators, which a `Collaborator`
+name suffix would turn into load-bearing convention.
+
+#### 3.0.1 `@CsCollaborator` — the abstract collaborator a form-3b body calls
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | No section of its own: the **ordered step list** the calling entry's point 1 already names. One method per step that supplies **behaviour text** — what the *system* does. Per step section: `MNSST` → `systemResponse`, `SCNST` → `systemResponse`, `ALST` → `response`, `EXTST` → `response`, `LGFLS` → the step's own `content`. The **actor-side** fields (`MNSST.actorAction`, `SCNST.actor`/`action`, `ALST.action`, `EXTST.action`, `LGFLS.actor`) are never a behaviour source: they state what the user does, which is the step's trigger, not work the collaborator performs. A step with no behaviour text yields **no method and no statement** — it is an actor-only step, and there is nothing for Phase 6 to implement. That is also what §2.4's "empty step source" means concretely: a body all of whose steps are actor-only falls back to 3a, and a declaration all of whose bodies do emits no collaborator. The class's own contributing section is the step list's **container** section (`tom_specs_model_rules.md` §7.5), which is what §2.8 C2 P1 selects anyway. |
+| **2 Output** | An `abstract class` with **no superclass and no substrate** — one of only two declarations in this contract built on nothing (§5.2's `@CsEnum` is the other), and deliberately: `codespecs_mapping.md` §1.1 pillar (b) governs the classes a CodeSpec *instantiates*, and a collaborator is never instantiated in Phase 4. It holds one abstract method per contributing step and **nothing else** — no fields, no constructor, no statics, no implemented member. Coding **form 2**: an abstract method has no body at all, so §2.4's 3a/3b distinction does not reach it and "compiles, does not execute" is structural here rather than stated.<br>**Signatures.** *Parameters* — the calling body's own parameter list, repeated name-for-name and type-for-type. A step operates on what its caller was given; which parameters a given step reads is authored nowhere (`MNSST.dataInvolved` is prose), and a generator that guessed a subset would be inventing signature, which invariant 1 forbids. *Return type* — the calling body's return type on the **last** contributing step in N8 order, `void` (or `Future<void>`) on every earlier one; the last step is what the caller `return`s, which is how invariant 2 holds without a fabricated value. Where the calling body returns `void` / `Future<void>`, every method does and the body has no `return`. *Asynchrony* — `Future`-returning exactly when the calling body is (invariant 3); the caller `await`s each earlier call and `return`s the last one un-awaited, its future *being* the caller's result.<br>**Injection** — one field on the calling declaration:<br>`late final <Name>Collaborator collaborator;`<br>The name is the fixed word `collaborator`, not derived: there is exactly one per declaration, so there is nothing to distinguish, and deriving it would make the caller's call sites depend on the collaborator's name twice over. `late final` is §2.4's existing shape for a non-nullable field with no authored default, and it is what makes the "does not execute" claim land at the earliest possible point — the first 3b body to run throws on the unset field *before* it dispatches to an abstract method. The field carries **no doc comment and no `@DocSpec`** (§2.8 P2, §2.5 rule 5): it adds no section of its own.<br>**Not a constructor parameter, and not a locator.** The four declarations that carry 3b bodies sit on different `tom_core`-family substrates whose constructors the generator does not own (§3.4.4's `TomAuthenticationService`, §3.5.5's action controller), so a constructor parameter would have to thread through a superclass signature it cannot change, and a service locator would be a Phase-4 runtime the artifact is not allowed to have. A settable field is the one shape that works identically on all four; Phase 6 binds it wherever it builds the declaration. |
+| **3 Arguments** | None; `@CsCollaborator({String? note})`. §2.3 test **a**: the method set *is* the declaration. There is no substrate, so test **b** does not arise, and nothing reaches test **c**. It carries nothing and is emitted anyway, for the two reasons §3.0 gives. |
+| **4 Naming** | **Class** = the owning declaration's identifier + `Collaborator` (`CustomerActionControllerCollaborator`). Unique by construction — the owner's name is already unique in its locus under N4, and the suffix is fixed.<br>**Method** = camelCase of the **calling body's identifier**, then PascalCase of the **step's headline**, both through N2/N3: `saveCustomerCheckTheEditedValues`. N1 is unchanged and supplies each half. No step section carries a designated name field — `stepNumber` / `stepOrder` are *order*, and `tom_specs_model_rules.md` §10.2's entry-name restatement rule is precisely why a list entry has no name field beside its headline — so N1's second clause applies and the source is the step's **headline**. An unheadlined step therefore **fails** generation naming its section id, exactly as N1 already says of an unnamed section. The order token is deliberately not the source: it names nothing, and the behaviour text cannot be one either, since shortening a sentence to an identifier needs a truncation width, the generator constant §2.8 C4 rule 2 rules out for the same reason.<br>**The calling body's identifier is always present, not only on collision.** One collaborator serves *every* 3b body of its declaration — §3.5.7's three handling methods over one step list is the clearest case — so two bodies' steps can carry the same headline; and a qualifier applied only when a collision occurs would make an identifier a function of the rest of the document, which N1's pure-function rule forbids.<br>**N4 applies per collaborator class** for these methods rather than per project: two steps of one calling body that produce the same identifier fail generation, naming both step section ids.<br>**File** = N7 unchanged, under the **owning part's** canonical id so it lands beside its caller: `lib/src/action/customer_action_controller_collaborator.dart`. |
+| **5 Locus** | Always the owning declaration's project, **never `shared`**. A collaborator is not a contract between the two sides — it is the Phase-6 seam of one declaration's bodies — and a shared one would put a client's steps in the server's compile unit. §3.4.4's is `server`; §3.5.5's, §3.5.7's and §3.5.10's are `client`. |
+| **6 Cross-refs** | None, in either direction. It emits no `Cs*Ref` — nothing outside its owning declaration ever names a collaborator, so there is no edge for one to carry — and it cites none: its methods carry only the caller's own parameters, whose types it references exactly as the caller does (§2.6). §2.6's table gains no row. |
+| **7 Back-link** | Class: `@CodeSpec('<owning part canonical id>.<Name>', source: [...])` and `@DocSpec([DocRef('<step-list container section id>', 'supplies the step list this collaborator carries')])`. Each method: `@DocSpec([DocRef('<step section id>', 'supplies the behaviour this step states')])`. §2.5 rule 4 is unchanged — the class's `@CodeSpec.source` is the union across the class and its methods. |
+
+**A step section is consumed twice, by two declarations, and each says what it
+took.** The calling entry back-links the step from its own body (§3.5.5 and
+§3.5.7 point 7) because it took the step's **position in the sequence**; the
+collaborator method back-links it because it took the step's **behaviour**. Two
+edges out of one section is exactly what §2.5 rule 3's "describe the edge, not
+the section" exists to keep distinguishable — it is not two copies of one edge,
+and §2.5 rule 4 holds independently on each declaration.
+
+**Comments follow §2.8 unchanged.** P1 on the class comes from the container
+section through C1; P3 on each method comes from that step's behaviour field and
+is **fatal when absent** — which is the second reason a step with no behaviour
+text yields no method at all, rather than an undocumented one.
 
 ### 3.1 Slice 1 — shared const catalogues
 
@@ -1007,7 +1063,7 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `LoginFlowStepEntry` (`LGFLS`) for the flow; `UserAttributeEntry` (`USATE`) for which attributes are populated into which token half; `UserLifecycleTransitionEntry` (`ULTRE`) for the account state transitions; `MfaConfiguration` (`MC`) for the second-factor policy. |
-| **2 Output** | The app's `TomAuthenticationService` bound into `TomAuthenticationServer`, issuing `TomServerJwtToken` (`tom_core_server`), **form 1 + form 3b** — `LGFLS` is an ordered step list, which is 3b's trigger (§2.4): the flow method's body is a statement sequence over those steps, one call per step in `LGFLS` order, branching only on a condition a step states. A flow whose `LGFLS` is empty falls back to form 3a. The **CE-ID population** is part of this flow: it projects the §3.2.5 identity declaration into the public (`TomUser.attributes`) and encrypted (`TomPrincipal.currentContext`) halves, per each attribute's `placement`. CE-AU consumes CE-ID; it never redeclares it.<br>**`MC` emits a second marked declaration**: the deployment's `Tom2FAPolicy` binding, as a `TomRole2FAPolicy` instantiation. `mfaRequired` + `mfaEnforcementScope` become `requirementByRole` / `defaultRequirement` over `Tom2FARequirement {disabled, optional, required}`; `defaultSecondFactor` + `allowedSecondFactors` become the ordered `mechanisms` list, the default first; `enrollmentGracePeriod` becomes `graceLogins`. Form 1 — the constructor call is the whole declaration, so there is no stub body. `mfaRequired: No` emits no policy declaration at all: the framework default is `TomPrincipalFlag2FAPolicy`. |
+| **2 Output** | The app's `TomAuthenticationService` bound into `TomAuthenticationServer`, issuing `TomServerJwtToken` (`tom_core_server`), **form 1 + form 3b** — `LGFLS` is an ordered step list, which is 3b's trigger (§2.4): the flow method's body is a statement sequence over those steps, one call per step in `LGFLS` order, branching only on a condition a step states. Its abstract collaborator is emitted per §3.0.1, and the flow method resolves its calls against the `collaborator` field that entry injects. A flow whose `LGFLS` is empty falls back to form 3a. The **CE-ID population** is part of this flow: it projects the §3.2.5 identity declaration into the public (`TomUser.attributes`) and encrypted (`TomPrincipal.currentContext`) halves, per each attribute's `placement`. CE-AU consumes CE-ID; it never redeclares it.<br>**`MC` emits a second marked declaration**: the deployment's `Tom2FAPolicy` binding, as a `TomRole2FAPolicy` instantiation. `mfaRequired` + `mfaEnforcementScope` become `requirementByRole` / `defaultRequirement` over `Tom2FARequirement {disabled, optional, required}`; `defaultSecondFactor` + `allowedSecondFactors` become the ordered `mechanisms` list, the default first; `enrollmentGracePeriod` becomes `graceLogins`. Form 1 — the constructor call is the whole declaration, so there is no stub body. `mfaRequired: No` emits no policy declaration at all: the framework default is `TomPrincipalFlag2FAPolicy`. |
 | **3 Arguments** | None — `@CsAuth` stays note-only, on a different §2.3 ground per group. The **method/flow set** is test **a**: one marked declaration each, so the set of declarations *is* the enabled set. The **second-factor policy** is test **b**: requirement level, mechanism preference order and grace count are `TomRole2FAPolicy`'s own constructor parameters, which is why `MC` emits a further declaration rather than arguments on the first. Whether declining an enrolment offer is allowed is authorable **nowhere**: `TomAuthenticationServer` derives `twoFactorEnrolmentSkippable` as *optional-or-on-grace*, so a spec-authored flag would be recomputed and overwritten. |
 | **4 Naming** | PascalCase of `ATME`'s name field + `AuthenticationService`; the policy declaration is the app name + `TwoFactorPolicy`. |
 | **5 Locus** | `server`. |
@@ -1074,9 +1130,9 @@ unit, which is why they share a slice rather than an order.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ScreenActionEntry` (`SCRAC`), `ScreenElementAction` (`SCELAC`), and the ISC step entries `MNSST` / `ALST` / `EXTST` / `SCNST`. Consumed (§5.20): action id, owning controller, context requirement `TContext`. |
-| **2 Output** | A `TomAction` on a `TomActionController`, with `TomActionTransaction` / `TomActionContext` as needed (`tom_flutter_ui`) — **form 1 for the declaration, form 3b for `perform`**. The ISC step entries in point 1 are an ordered step list, so `perform`'s body is a statement sequence over them: one call per step in scenario order, `ALST` / `EXTST` steps becoming branches on the condition their step states (§2.4). An action with no contributing ISC step falls back to **form 3a** over `SCRAC`'s description. Declared as a named member, since N9 makes the **declaration name** the action's identity. |
+| **2 Output** | A `TomAction` on a `TomActionController`, with `TomActionTransaction` / `TomActionContext` as needed (`tom_flutter_ui`) — **form 1 for the declaration, form 3b for `perform`**. The ISC step entries in point 1 are an ordered step list, so `perform`'s body is a statement sequence over them: one call per step in scenario order, `ALST` / `EXTST` steps becoming branches on the condition their step states (§2.4). The calls go to the abstract collaborator of §3.0.1, which the owning controller injects as its one `collaborator` field. An action with no contributing ISC step falls back to **form 3a** over `SCRAC`'s description. Declared as a named member, since N9 makes the **declaration name** the action's identity. |
 | **3 Arguments** | None; `@CsAction({String? note})` unchanged. The action id is the declaration name (test **a**, and what `CsActionRef` resolves against); the owning controller is the declaration site; `TContext` is the generic. §5.20 marks undoable/`TUndo`, transaction grouping, authorization, copy and the server-bound edge as **N** — the first three are `TomAction`'s own surface, copy is CE-TX, and the server edge is derived from the trigger. |
-| **4 Naming** | camelCase of `SCRAC`'s action-id field. |
+| **4 Naming** | camelCase of `SCRAC`'s action-id field; the owning declaration is PascalCase of `SCRAC`'s owning-controller field + `ActionController`. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | Emits `CsActionRef`. Cites `CsCallRef` where the action is server-bound — **derived from the trigger**, never authored twice. |
 | **7 Back-link** | `@DocSpec([DocRef('SCRAC', 'supplies the action and its context requirement')])`, plus one `DocRef` per contributing ISC step. |
@@ -1098,9 +1154,9 @@ unit, which is why they share a slice rather than an order.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | The ISC step entries `MNSST` / `ALST` / `EXTST` / `SCNST`. Consumed (§5.3): the operation called, request assembly, response handling, error handling, call options. |
-| **2 Output** | A `TomServerEndpoint<T, R>` call over `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`), **form 1 + form 3b** — request assembly, response handling and error handling are methods whose bodies are statement sequences over the ISC steps that state them, one call per step in order (§2.4). A handling method with no contributing step falls back to **form 3a**. This is the middle hop of §5.3's chain: `@CsAction ──triggers──▶ @CsServerCall ──operation──▶ @CsEndpoint` (client / client / shared). |
+| **2 Output** | A `TomServerEndpoint<T, R>` call over `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`), **form 1 + form 3b** — request assembly, response handling and error handling are methods whose bodies are statement sequences over the ISC steps that state them, one call per step in order (§2.4). All three resolve against the **one** collaborator §3.0.1 emits for this declaration, which is why that entry qualifies every collaborator method with its calling body's name. A handling method with no contributing step falls back to **form 3a**. This is the middle hop of §5.3's chain: `@CsAction ──triggers──▶ @CsServerCall ──operation──▶ @CsEndpoint` (client / client / shared). |
 | **3 Arguments** | `operation` — **first positional, required** ← the `CsOperationRef` const of the shared operation it calls. It is the one edge the code cannot carry itself: the call site is client, the operation is shared, and nothing in the Dart declaration names the link. Call options are `TomServerCallSpecs`'s own surface (test **b**); the three handling steps are the methods (test **a**). |
-| **4 Naming** | camelCase of the operation name's last segment + `Call`. |
+| **4 Naming** | camelCase of the operation name's last segment + `Call`; its three bodies are `assembleRequest`, `handleResponse` and `handleError`, fixed names since the three roles are the entry's, not the spec's. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | `CsOperationRef` outbound; emits `CsCallRef` for the action edge. Cites `CsErrorCode` for each error it handles. |
 | **7 Back-link** | `@DocSpec([DocRef('MNSST', 'supplies the interaction step this call performs')])`, with the actual step section id substituted. |
@@ -1134,7 +1190,7 @@ unit, which is why they share a slice rather than an order.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `LoginFlowStepEntry` (`LGFLS`), read **per client** — §5.25 makes the login flow a per-client decision, so one client's flow is not another's. `MfaConfiguration` (`MC`) where the client must run a second factor. |
-| **2 Output** | The client's login flow over the `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>` triple (`tom_core_kernel`), **form 3b** — `LGFLS` is an ordered step list, so the flow body is a statement sequence over this client's steps, in order, branching only on a condition a step states (§2.4). A client whose `LGFLS` is empty falls back to **form 3a**.<br>Where `MC` enables a second factor, a **`Tom2FAFlowController` implementation** (`tom_core_flutter`) is emitted beside it, **form 3a** — its five moves (choose, confirm, skip, answer, cancel) over the client's own auth calls. 3a and not 3b: `MC` is a policy, not a step list, so the moves are declared and their behaviour stated, not sequenced. The panel itself is not emitted: `Tom2FAFlowPanel` owns the chooser, attempt counter, error line and skip affordance invariantly, and the skip affordance renders off `twoFactorEnrolmentSkippable` rather than off anything the spec declares. Per-mechanism UI is one `Tom2FAClientMechanism` registration each, emitted only for a mechanism `allowedSecondFactors` names that the framework does not already ship (`TomTotp2FAClientMechanism` is shipped). |
+| **2 Output** | The client's login flow over the `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>` triple (`tom_core_kernel`), **form 3b** — `LGFLS` is an ordered step list, so the flow body is a statement sequence over this client's steps, in order, branching only on a condition a step states (§2.4), calling the abstract collaborator §3.0.1 emits for this declaration. A client whose `LGFLS` is empty falls back to **form 3a**.<br>Where `MC` enables a second factor, a **`Tom2FAFlowController` implementation** (`tom_core_flutter`) is emitted beside it, **form 3a** — its five moves (choose, confirm, skip, answer, cancel) over the client's own auth calls. 3a and not 3b: `MC` is a policy, not a step list, so the moves are declared and their behaviour stated, not sequenced. The panel itself is not emitted: `Tom2FAFlowPanel` owns the chooser, attempt counter, error line and skip affordance invariantly, and the skip affordance renders off `twoFactorEnrolmentSkippable` rather than off anything the spec declares. Per-mechanism UI is one `Tom2FAClientMechanism` registration each, emitted only for a mechanism `allowedSecondFactors` names that the framework does not already ship (`TomTotp2FAClientMechanism` is shipped). |
 | **3 Arguments** | None (as §3.2.7 and §3.4.4). The controller carries no marker arguments either: its five moves are its method signatures (test **a**), and which mechanisms it may offer arrives on the wire in `availableTwoFactorMethods` rather than being authored a second time here. |
 | **4 Naming** | PascalCase of the client name + `LoginFlow`; the controller is the client name + `TwoFactorFlowController`. |
 | **5 Locus** | `client`. |
@@ -1364,14 +1420,144 @@ class Customer {
   allows none. Nothing here was written by the generator.
 - **The one ref const.** `ResourceKeys.customerPii` is a `CsResourceKeyRef`
   imported from shared. A rename in the CE-AZ catalogue is a compile break here,
-  which is the entire point of §5.23's typed references.
+  which is the entire point of `codespecs_mapping.md` §5.23's typed references.
+
+### 4.5 Second example — a form-3b body and its collaborator
+
+§4.1–§4.4 exercise the declarative rules on a part with no bodies at all. Form
+3b needs an illustration of its own, because it is the one place the generator
+emits a **second declaration in order to make the first one compile**.
+
+#### The input
+
+An ISC main scenario and the screen action that realises it, as the outliner
+renders them:
+
+```
+MainScenarioEntry <!--[ISC-021]--> Save an edited customer
+  content ............ "The clerk corrects a customer record and saves it."
+
+  MainScenarioStepEntry <!--[ISC-021-1]--> Clerk presses save
+    stepNumber ....... 1
+    actorAction ...... "Clerk presses Save."
+    systemResponse ... null      → actor-only step: no method, no statement
+  MainScenarioStepEntry <!--[ISC-021-2]--> Check the edited values
+    stepNumber ....... 2
+    systemResponse ... "The edited values are checked against the customer rules."
+  MainScenarioStepEntry <!--[ISC-021-3]--> Store the record
+    stepNumber ....... 3
+    systemResponse ... "The customer record is stored and the list is reloaded."
+
+ScreenActionEntry <!--[XDS-104]--> Save customer
+  actionId ........... "saveCustomer"
+  owningController ... "Customer"
+  description ........ "Saves the edited customer record."
+  contextType ........ CustomerViewModel
+```
+
+#### The derivation, rule by rule
+
+| Decision | Rule | Result |
+|----------|------|--------|
+| Which steps yield methods | §3.0.1 point 1 | steps 2 and 3. Step 1 states an actor action only, and an actor action is the step's trigger, not work the system performs |
+| Collaborator class name | §3.0.1 point 4 | `CustomerActionControllerCollaborator` — the owning declaration's identifier plus the fixed suffix |
+| Method names | §3.0.1 point 4, N1 | `saveCustomerCheckTheEditedValues`, `saveCustomerStoreTheRecord` — the calling body's identifier, then the step's **headline**; `stepNumber` is order, not name |
+| Method signatures | §3.0.1 point 2 | the calling body's own parameter list; `Future<void>` on both, because `saveCustomer` returns `Future<void>` and so no step returns a value |
+| Injection | §3.0.1 point 2 | `late final CustomerActionControllerCollaborator collaborator;` — no doc comment and no `@DocSpec`, per §2.8 P2 and §2.5 rule 5 |
+| Body statements | §2.4 statement kind 1 | one awaited collaborator call per contributing step, in `stepNumber` order |
+| Method doc comments | §2.8 P3 | `systemResponse` verbatim — and fatal when absent, which is the second reason step 1 yields no method rather than an undocumented one |
+| Back-links | §3.0.1 point 7 | both declarations cite `ISC-021-2` and `ISC-021-3`: the caller for the step's position in the sequence, the collaborator for its behaviour |
+| Locus and files | §3.0.1 point 5, N7 | `<app>_codespec_client/lib/src/action/customer_action_controller.dart` and `…_collaborator.dart` |
+
+#### The output
+
+`<app>_codespec_client/lib/src/action/customer_action_controller_collaborator.dart`,
+in full:
+
+```dart
+// GENERATED by tom_specs codespecs generator — do not edit.
+// Source document: interaction_scenarios.md (D05)
+// Spec model version: 1.4.0
+
+import 'package:tom_code_specs/tom_code_specs.dart';
+
+import '../view_state/customer_view_model.dart';
+
+/// The clerk corrects a customer record and saves it.
+@CodeSpec(
+  'action.CustomerActionControllerCollaborator',
+  source: ['ISC-021', 'ISC-021-2', 'ISC-021-3'],
+)
+@DocSpec([
+  DocRef('ISC-021', 'supplies the step list this collaborator carries'),
+])
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  /// The edited values are checked against the customer rules.
+  @DocSpec([
+    DocRef('ISC-021-2', 'supplies the behaviour this step states'),
+  ])
+  Future<void> saveCustomerCheckTheEditedValues(CustomerViewModel context);
+
+  /// The customer record is stored and the list is reloaded.
+  @DocSpec([
+    DocRef('ISC-021-3', 'supplies the behaviour this step states'),
+  ])
+  Future<void> saveCustomerStoreTheRecord(CustomerViewModel context);
+}
+```
+
+and, from `customer_action_controller.dart`, the injected field and the one
+form-3b body — the controller's `tom_flutter_ui` substrate members are §3.5.5's
+business and are left out here:
+
+```dart
+  late final CustomerActionControllerCollaborator collaborator;
+
+  /// Saves the edited customer record.
+  @DocSpec([
+    DocRef('XDS-104', 'supplies the action and its context requirement'),
+    DocRef('ISC-021-2', 'supplies the step this body performs, in sequence'),
+    DocRef('ISC-021-3', 'supplies the step this body performs, in sequence'),
+  ])
+  @CsAction()
+  Future<void> saveCustomer(CustomerViewModel context) async {
+    await collaborator.saveCustomerCheckTheEditedValues(context);
+    await collaborator.saveCustomerStoreTheRecord(context);
+  }
+```
+
+### 4.6 What the second example demonstrates
+
+- **The body resolves.** Every call names a method the generator emitted, in a
+  file the same project exports, through a field the same declaration holds.
+  Nothing is a forward declaration and nothing is assumed to exist — which is
+  the whole of what §2.4 asks of a 3b body.
+- **It compiles and still does not execute.** Two independent stops, in order:
+  the `late final` field is unset, so the first call throws before it dispatches;
+  and the method it would dispatch to is abstract. §2.4 invariant 4 holds
+  structurally here rather than by assertion.
+- **No fabricated value.** `saveCustomer` returns `Future<void>`, so the body
+  returns nothing and invariant 2 has nothing to catch. Where a calling body
+  *does* return a value — §3.5.7's `assembleRequest` — the last contributing
+  step's method carries that return type and the body ends
+  `return collaborator.<last>(…);`, un-awaited, because its future *is* the
+  caller's result.
+- **The narrative moved; it did not disappear.** Step 2's sentence is the
+  collaborator method's P3 doc comment, not an in-body comment (§2.8 C6). A
+  reader asking what the step does reads a declaration — and so does the
+  validator.
+- **One section, two edges.** `ISC-021-2` is back-linked twice with two
+  different descriptions: position from the caller, behaviour from the
+  collaborator. §2.5 rule 3's "describe the edge, not the section" is what keeps
+  the two legible as one section consumed twice rather than one edge duplicated.
 
 ---
 
 ## 5. Constructor-shape summary
 
-The 39 part markers, with the shape §3 decides for each — the shape each
-constructor in `tom_code_specs/lib/src/annotations/` carries. The `Cs*Ref` types
+The 39 part markers and `@CsCollaborator`, with the shape §3 decides for each —
+the shape each constructor in `tom_code_specs/lib/src/annotations/` carries. The `Cs*Ref` types
 they consume ship in `cross_part_refs.dart` and the closed catalogues in
 `vocabulary.dart`. Every marker keeps `String? note` as its final parameter and
 it is omitted below.
@@ -1405,23 +1591,26 @@ it is omitted below.
 | `@CsJob` | `{required CsJobTrigger trigger, String? cron, String? calendar, String? event, int maxRetries = 0, Duration? backoff, Duration? timeout, CsMessageKey? failureAlert, List<CsReportRef> targetReports = const []}` |
 | `@CsNotification` | `{required CsMessageKey body}` |
 
-### 5.2 Markers that stay note-only (15)
+### 5.2 Markers that stay note-only (16)
 
 `@CsEnum`, `@CsWidget`, `@CsForm`, `@CsAction`, `@CsRoute`, `@CsScreenFlow`,
 `@CsRepository`, `@CsIdentity`, `@CsAuth`, `@CsAudited`,
 `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`,
-`@CsReportParameter`.
+`@CsReportParameter`, `@CsCollaborator`.
 
 Each is note-only for a stated reason, not by omission: every attribute it might
 have carried is already held by the declaration (test **a**) or by a substrate
-constructor (test **b**). `@CsReport` is the clearest case — §5.28's 22-row
-surface is large, and *all* of it landed on `TomReportDefinition` and its
-dimension/measure members, leaving the marker nothing to hold.
+constructor (test **b**). `@CsReport` is the clearest case —
+`codespecs_mapping.md` §5.28's 22-row surface is large, and *all* of it landed on
+`TomReportDefinition` and its dimension/measure members, leaving the marker
+nothing to hold.
 
-`@CsEnum` is the opposite extreme and the only marker with **no substrate at
-all**: there is nothing on either side of the test, because a domain enum has no
-authored attribute of its own (§3.1.1, `codespecs_mapping.md` §4.1). It is
-note-only *and* generates a plain `enum` for the same reason.
+`@CsEnum` and `@CsCollaborator` are the opposite extreme, and the only two
+markers with **no substrate at all**: there is nothing on either side of the
+test. A domain enum has no authored attribute of its own (§3.1.1,
+`codespecs_mapping.md` §4.1) and a collaborator is a set of abstract methods and
+nothing else (§3.0.1), so both are note-only *and* generate a bare Dart
+declaration — a plain `enum`, a plain `abstract class` — for the same reason.
 
 ### 5.3 Value classes and closed enums `tom_code_specs` must add
 
@@ -1480,7 +1669,7 @@ rather than id strings.
 Each is named here so the generator implements them as a check rather than as a
 convention.
 
-**Where they run.** All twenty-two are implemented in
+**Where they run.** All twenty-four are implemented in
 `tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
 the analyzer, `cs_model` resolves it, `cs_checks` holds the checks,
 `codespecs_validator` drives them) and are invoked by
@@ -1497,7 +1686,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generator's
-validation pass over the resolved annotation for **all** twenty-two.
+validation pass over the resolved annotation for **all** twenty-four.
 
 | # | Check | Defined in |
 |---|-------|------------|
@@ -1523,6 +1712,29 @@ validation pass over the resolved annotation for **all** twenty-two.
 | 20 | Two `@CsServerConfig` members never claim the same setting key — derived and authored keys share one namespace, and neither shape can see the other while it is authored | §2.1 N10 |
 | 21 | A `CsGradedAccess` slot's `@CsAuthorize` is never itself `graded` — the graded depth is exactly one level | §3.4.3 |
 | 22 | A `@CsColumn` member is a plain Dart field — `T?` when optional, `late final T` when not — and **never** a `TomN*` or any other observable, which the shipped repository can read but cannot write | §3.3.2 |
+| 23 | Every call in a form-3b body resolves — to a method of the declaration's own `@CsCollaborator` class reached through its `collaborator` field, or to the substrate its entry's point 2 names — and every collaborator method is called by at least one body of its owning declaration | §2.4, §3.0.1 |
+| 24 | A `@CsCollaborator` class is `abstract`, declares only abstract methods, and has no field, constructor or static member | §3.0.1 |
+
+**Check 23 is the one that makes "compiles" checkable before a compiler sees
+it.** Its two halves fail in opposite directions and neither implies the other.
+A call that resolves to nothing is a body §2.4 forbade — the generator emitted a
+statement against a declaration it never wrote. A collaborator method nothing
+calls is the reverse defect: a step's behaviour was lifted out of the body and
+then dropped, so the specification is present in the output but no longer reached
+by it, and Phase 6 would implement a method that runs nowhere. Both are silent
+otherwise — the first only when the trio is compiled, the second never.
+
+**What it can see, and what it leaves to the compiler.** The validator is a
+*syntax* pass over a tree that has never been through `pub get` (`cs_reader`), so
+it enforces the **collaborator** half of the rule in both directions: a
+`collaborator.<m>(…)` call whose declaration carries no `collaborator` field, a
+field whose type names no emitted `@CsCollaborator` class, a call to a method
+that class does not declare, and a method of it no body calls. The **substrate**
+half — a call on the `tom_core`-family class an entry's point 2 names — needs the
+resolved element model, and a wrong one is a compile error in the emitted trio
+rather than a silent defect, so it is left where it is already caught. The
+division is deliberate: the check exists for the failures a compiler would only
+find later or not at all.
 
 **Check 21 is where the SOM's structural bound is re-imposed on the code.** On the
 SOM side a graded level takes a `GradedAccessLevelEntry`, whose kind enum has no

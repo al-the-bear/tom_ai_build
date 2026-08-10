@@ -1,4 +1,4 @@
-/// The twenty-two validator checks `codespecs_derivation_contract.md` §6 names.
+/// The twenty-four validator checks `codespecs_derivation_contract.md` §6 names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
 /// rule that defines it so a failure cites the rule rather than a symptom. The
@@ -1730,10 +1730,258 @@ class CsColumnNotObservableCheck extends CodeSpecsCheck {
 }
 
 // ---------------------------------------------------------------------------
+// 23, 24 — the abstract collaborator
+// ---------------------------------------------------------------------------
+
+/// The single field name a form-3b body reaches its collaborator through
+/// (`codespecs_derivation_contract.md` §3.0.1 point 2).
+///
+/// Fixed rather than derived: the injection is one
+/// `late final NameCollaborator collaborator;` field per declaration, so the
+/// receiver spelling in every 3b body is this word. That is what lets a *syntax*
+/// pass resolve the call at all.
+const csCollaboratorField = 'collaborator';
+
+/// The collaborator classes an [input] emits, by name.
+Map<String, CsDeclaration> _collaboratorClasses(
+  CodeSpecsValidationInput input,
+) =>
+    {
+      for (final declaration in input.declarations)
+        if (declaration.isTopLevel && declaration.has('CsCollaborator'))
+          declaration.name: declaration,
+    };
+
+/// The type name [source] declares, stripped of nullability, type arguments and
+/// any library prefix.
+String? _typeHead(String? source) {
+  if (source == null) return null;
+  var head = source.trim();
+  final angle = head.indexOf('<');
+  if (angle >= 0) head = head.substring(0, angle);
+  head = head.replaceAll('?', '').trim();
+  final dot = head.lastIndexOf('.');
+  if (dot >= 0) head = head.substring(dot + 1);
+  return head.isEmpty ? null : head;
+}
+
+/// §6 check 23.
+///
+/// The check that makes "compiles" checkable *before* a compiler sees it, and
+/// the two halves fail in opposite directions. A `collaborator.<m>(…)` that
+/// resolves to nothing is a body §2.4 forbade — the generator wrote a statement
+/// against a declaration it never emitted. A collaborator method nothing calls
+/// is the reverse: a step's behaviour was lifted out of the body and then
+/// dropped, so the specification survives in the output but is no longer reached
+/// by it, and Phase 6 would implement a method that runs nowhere.
+///
+/// **What it does not do.** The substrate half of the §6 row — a call on the
+/// `tom_core`-family class an entry's point 2 names — needs the resolved element
+/// model, which this pass deliberately does not have (`cs_reader`). A wrong
+/// substrate call is a compile error in the emitted trio; a wrong collaborator
+/// call is silent, or (the reverse half) never caught at all. The check covers
+/// exactly the failures a compiler would find late or not at all.
+class CsCollaboratorCallResolutionCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsCollaboratorCallResolutionCheck();
+
+  @override
+  int get number => 23;
+
+  @override
+  String get definedIn => '§2.4, §3.0.1';
+
+  @override
+  String get title =>
+      'Every collaborator call in a form-3b body resolves to a method of the '
+      'declaration\'s own @CsCollaborator class, and every collaborator method '
+      'is called by at least one body of its owning declaration';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    final collaborators = _collaboratorClasses(input);
+    // Method name → owning collaborator, so the reverse half can subtract what
+    // the forward half saw called.
+    final called = <String, Set<String>>{
+      for (final name in collaborators.keys) name: <String>{},
+    };
+
+    for (final project in input.projects) {
+      final fieldsByOwner = <String, CsDeclaration>{};
+      for (final declaration in project.declarations) {
+        if (declaration.kind != CsDeclarationKind.field) continue;
+        if (declaration.name != csCollaboratorField) continue;
+        final owner = declaration.owner;
+        if (owner != null) fieldsByOwner[owner] = declaration;
+      }
+
+      for (final declaration in project.declarations) {
+        if (!declaration.isTopLevel) continue;
+        if (declaration.has('CsCollaborator')) continue;
+        final field = fieldsByOwner[declaration.name];
+        final collaboratorName = _typeHead(field?.declaredType);
+        final collaborator = collaboratorName == null
+            ? null
+            : collaborators[collaboratorName];
+
+        for (final body in declaration.bodies) {
+          for (final call in body.calls) {
+            if (call.receiver != csCollaboratorField) continue;
+            if (field == null) {
+              out.add(
+                fail(
+                  '${declaration.name}.${body.name} calls '
+                  'collaborator.${call.method}, but ${declaration.name} '
+                  'declares no `late final <Name>Collaborator collaborator;` '
+                  'field — a form-3b body reaches its collaborator through that '
+                  'one field and through nothing else',
+                  call.location,
+                ),
+              );
+              continue;
+            }
+            if (collaborator == null) {
+              out.add(
+                fail(
+                  '${declaration.name}.collaborator is declared '
+                  '${field.declaredType ?? 'without a type'}, which names no '
+                  'emitted @CsCollaborator class, so '
+                  '${declaration.name}.${body.name} resolves against nothing',
+                  field.location,
+                ),
+              );
+              continue;
+            }
+            final methods = _abstractMethodsOf(input, collaborator);
+            if (!methods.contains(call.method)) {
+              out.add(
+                fail(
+                  '${declaration.name}.${body.name} calls '
+                  'collaborator.${call.method}, which '
+                  '${collaborator.name} does not declare',
+                  call.location,
+                ),
+              );
+              continue;
+            }
+            called[collaborator.name]!.add(call.method);
+          }
+        }
+      }
+    }
+
+    for (final collaborator in collaborators.values) {
+      final reached = called[collaborator.name] ?? const <String>{};
+      for (final method in _abstractMethodsOf(input, collaborator)) {
+        if (reached.contains(method)) continue;
+        out.add(
+          fail(
+            '${collaborator.name}.$method is declared but no body calls it — a '
+            'collaborator method is one contributing step of its owning '
+            'declaration, so an uncalled one is a step whose behaviour left the '
+            'body and was never reached again',
+            collaborator.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+
+  /// The abstract method names [collaborator] declares.
+  Set<String> _abstractMethodsOf(
+    CodeSpecsValidationInput input,
+    CsDeclaration collaborator,
+  ) =>
+      {
+        for (final declaration in input.project(collaborator.locus).declarations)
+          if (declaration.owner == collaborator.name &&
+              declaration.kind == CsDeclarationKind.method)
+            declaration.name,
+      };
+}
+
+/// §6 check 24.
+///
+/// A collaborator is the one generated declaration built on **nothing**
+/// (`codespecs_derivation_contract.md` §3.0.1 point 2, `@CsEnum` being the only
+/// other): an `abstract class` holding one abstract method per contributing step
+/// and not one member more. Every shape this rejects is a way of putting
+/// behaviour or state back into the seam Phase 6 is supposed to fill — an
+/// implemented method pre-empts the implementation, a field gives the seam state
+/// the specification never described, a constructor makes it constructible where
+/// it is only ever implemented, and a static member hides logic in a place no
+/// step maps to.
+class CsCollaboratorShapeCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsCollaboratorShapeCheck();
+
+  @override
+  int get number => 24;
+
+  @override
+  String get definedIn => '§3.0.1';
+
+  @override
+  String get title =>
+      'A @CsCollaborator class is abstract, declares only abstract methods, and '
+      'has no field, constructor or static member';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final project in input.projects) {
+      final collaborators = <String, CsDeclaration>{};
+      for (final declaration in project.declarations) {
+        if (!declaration.isTopLevel) continue;
+        if (!declaration.has('CsCollaborator')) continue;
+        collaborators[declaration.name] = declaration;
+        if (declaration.isAbstract) continue;
+        out.add(
+          fail(
+            '${declaration.name} carries @CsCollaborator but is not declared '
+            'abstract — a collaborator is implemented in Phase 6, never '
+            'instantiated by the generated code',
+            declaration.location,
+          ),
+        );
+      }
+
+      for (final member in project.declarations) {
+        final owner = member.owner;
+        if (owner == null) continue;
+        final collaborator = collaborators[owner];
+        if (collaborator == null) continue;
+        final offence = switch (member.kind) {
+          CsDeclarationKind.field => 'a field',
+          CsDeclarationKind.constructor => 'a constructor',
+          CsDeclarationKind.method when member.isStatic => 'a static member',
+          CsDeclarationKind.method
+              when member.bodies.any((b) => b.shape != CsBodyShape.none) =>
+            'an implemented method',
+          _ => null,
+        };
+        if (offence == null) continue;
+        out.add(
+          fail(
+            '$owner.${member.name} is $offence on a @CsCollaborator class, '
+            'which holds one abstract method per contributing step and nothing '
+            'else',
+            member.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The twenty-two checks, in §6 table order.
+/// The twenty-four checks, in §6 table order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   CsIdentifierCollisionCheck(),
   CsReferenceResolutionCheck(),
@@ -1757,4 +2005,6 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   CsSettingKeyCollisionCheck(),
   CsGradedDepthCheck(),
   CsColumnNotObservableCheck(),
+  CsCollaboratorCallResolutionCheck(),
+  CsCollaboratorShapeCheck(),
 ];

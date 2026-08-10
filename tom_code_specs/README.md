@@ -24,6 +24,7 @@ whose every element carries traceability annotations back to its source spec.
 | `@DocSpec([DocRef(sectionId, description), …])` | Code → doc back-trace on a CodeSpec class/member | `codespecs_mapping.md` §9.3 |
 | `DocRef(sectionId, description)` | One back-trace entry | `codespecs_mapping.md` §9.3 |
 | `Cs*` annotation family (no base classes) — 39 markers | The catalogue's part markers, in four files — see the table below | `codespecs_mapping.md` §4.1 |
+| `@CsCollaborator()` | The one marker that is **not** a part: the abstract collaborator a form-3b body calls | `codespecs_derivation_contract.md` §3.0.1 |
 | `Cs*Ref` typed cross-part references — 13 consts | Annotation *parameter* vocabulary: one const type per referenceable part | `codespecs_mapping.md` §5.23 |
 | The closed catalogues — 15 enums in `vocabulary.dart` | Annotation *parameter* vocabulary: the arms a marker's argument selects from | `codespecs_derivation_contract.md` §5.3 |
 
@@ -39,6 +40,15 @@ and CE-RP each have more than one).
 | `service_annotations.dart` | `@CsEndpoint`, `@CsServiceUnit`, `@CsTable`, `@CsColumn` *(with the `CsFileReference` facet)*, `@CsRepository`, `@CsAuthorize` *(with the `CsGradedAccess` facet)*, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server — CE-API, CE-SU, CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB, CE-LG; CE-NT (declarations shared, delivery server); CE-RP (definition server, result envelope + parameters shared) |
 | `contract_annotations.dart` | `@CsError`, `@CsEnum` | Shared — CE-ER, plus the `domainEnum` **member** kind |
 | `client_settings_annotations.dart` | `@CsClient`, `@CsClientConfig`, `@CsDeviceSetting`, `@CsUserSetting`, `@CsIdentity`, `@CsIdentityAttribute`, `@CsAuth` | Client app, the four owner-keyed config/settings scopes, identity and auth — CE-CL, CE-CC, CE-DS, CE-UP, CE-ID, CE-AU |
+
+`cs_collaborator.dart` sits beside those four and holds `@CsCollaborator`, which
+belongs to **no** part, locus or slice. It marks the abstract class a form-3b
+body calls: one per emitting declaration, holding one abstract method per
+contributing step and nothing else, reached through the declaration's single
+`late final … collaborator;` field. It is a marker rather than a naming
+convention because `codespecs_derivation_contract.md` §2.7 point 4 requires one
+on every generated top-level declaration and because the §6 checks have to find
+collaborators.
 
 The `codespecs_mapping.md` §4.3 **deferred** candidate — **CE-WF alone** —
 deliberately has **no marker**: a deferred part is mapping-only, so its
@@ -144,14 +154,15 @@ separately.
 
 ## Status
 
-`@CodeSpec`, `@DocSpec`/`DocRef`, the **39-marker `Cs*` family**, the **13-const
-`Cs*Ref` family** and the **15 closed catalogues** are declared — one marker (or
-marker group) for every active part in the `codespecs_mapping.md` §4.1
-catalogue, with no marker for a deferred one. `@CodeSpecKind` is list-valued.
+`@CodeSpec`, `@DocSpec`/`DocRef`, the **39-marker `Cs*` family** plus
+`@CsCollaborator`, the **13-const `Cs*Ref` family** and the **15 closed
+catalogues** are declared — one marker (or marker group) for every active part in
+the `codespecs_mapping.md` §4.1 catalogue, with no marker for a deferred one.
+`@CodeSpecKind` is list-valued.
 
-The family is a marker set **and** an attribute surface. **24 of the 39 markers
+The family is a marker set **and** an attribute surface. **24 of the 40 markers
 take arguments**, wired to `codespecs_mapping.md` §5's per-part spec-authorable
-surface; the other **15 carry a single optional `note`** — a design decision, not
+surface; the other **16 carry a single optional `note`** — a design decision, not
 an omission, because everything their part authors is already carried by the
 annotated declaration itself or by a `tom_core` substrate constructor. Which
 attributes become constructor parameters is decided by

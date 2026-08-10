@@ -137,7 +137,7 @@ void _printUsage(ArgParser parser) {
   );
   stdout.writeln();
   stdout.writeln(
-    'Enforces the twenty-two checks of codespecs_derivation_contract.md §6. '
+    'Enforces the twenty-four checks of codespecs_derivation_contract.md §6. '
     'Any violation fails: the exit code is 1 and every breach is written to '
     'stderr naming its check number and defining section.',
   );

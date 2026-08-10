@@ -279,6 +279,33 @@ enum CsBodyShape {
   other,
 }
 
+/// One call site inside a generated body.
+///
+/// Read as **source text**, not as a resolved element: the reader is a syntax
+/// pass (`cs_reader`), so a call is a receiver spelling plus a method name.
+/// That is exactly enough for the collaborator half of check 23 —
+/// `collaborator.<m>(…)` — and deliberately not enough for the substrate half,
+/// which the emitted trio's own compiler already catches
+/// (`codespecs_derivation_contract.md` §6).
+class CsCall {
+  /// The receiver as written (`collaborator`), or `null` for an unqualified
+  /// call.
+  final String? receiver;
+
+  /// The invoked method name.
+  final String method;
+
+  /// Where the call is written.
+  final CsLocation location;
+
+  /// Creates a call site.
+  const CsCall({
+    required this.method,
+    required this.location,
+    this.receiver,
+  });
+}
+
 /// A method or accessor body of a generated declaration.
 class CsMethodBody {
   /// The method name.
@@ -286,6 +313,9 @@ class CsMethodBody {
 
   /// What the body does.
   final CsBodyShape shape;
+
+  /// The call sites the body contains, in source order.
+  final List<CsCall> calls;
 
   /// The literal argument of the `throw`, when the body is a single throw of a
   /// constructor call with a string literal. `null` when unreadable.
@@ -305,10 +335,43 @@ class CsMethodBody {
     required this.name,
     required this.shape,
     required this.location,
+    this.calls = const [],
     this.thrownMessage,
     this.thrownType,
     this.isAsync = false,
   });
+}
+
+/// What kind of Dart declaration a [CsDeclaration] stands for.
+///
+/// Carried because several §6 checks turn on the *shape* of a declaration
+/// rather than on its markers — check 24 rejects a field, a constructor or a
+/// static member on a `@CsCollaborator` class, and a field and a body-less
+/// method are otherwise indistinguishable in this model.
+enum CsDeclarationKind {
+  /// A top-level `class`.
+  classType,
+
+  /// A top-level `enum`.
+  enumType,
+
+  /// A top-level `mixin`.
+  mixinType,
+
+  /// A top-level variable.
+  topLevelVariable,
+
+  /// A top-level function.
+  topLevelFunction,
+
+  /// An instance or static field of a class.
+  field,
+
+  /// A method, getter or setter of a class.
+  method,
+
+  /// A constructor of a class.
+  constructor,
 }
 
 /// A generated declaration — a top-level class/enum/variable, or a member of
@@ -346,6 +409,15 @@ class CsDeclaration {
   /// The method bodies this declaration declares.
   final List<CsMethodBody> bodies;
 
+  /// Which Dart declaration shape this is.
+  final CsDeclarationKind kind;
+
+  /// Whether a class carries the `abstract` keyword.
+  final bool isAbstract;
+
+  /// Whether a member is declared `static`.
+  final bool isStatic;
+
   /// Where the declaration is written.
   final CsLocation location;
 
@@ -355,12 +427,15 @@ class CsDeclaration {
     required this.name,
     required this.markers,
     required this.location,
+    required this.kind,
     this.owner,
     this.codeSpec,
     this.docSpec,
     this.hasInitialiser = false,
     this.declaredType,
     this.bodies = const [],
+    this.isAbstract = false,
+    this.isStatic = false,
   });
 
   /// Whether this is a top-level declaration.
@@ -491,7 +566,7 @@ class CsEnumMirror {
   });
 }
 
-/// Everything the twenty checks read.
+/// Everything the twenty-four checks read.
 class CodeSpecsValidationInput {
   /// The shared project.
   final CsLocusProject shared;

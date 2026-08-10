@@ -10,7 +10,7 @@
 //     nothing about whether it is usable where the part lives.
 //  2. **Surface** — that each of the 24 attribute-bearing markers carries its
 //     full `codespecs_derivation_contract.md` §5.1 argument set, and that the
-//     15 note-only markers carry nothing beyond `note`. This half is asserted in
+//     16 note-only markers carry nothing beyond `note`. This half is asserted in
 //     the test bodies, which const-construct the same full attribute sets.
 //
 // The note-only half is a design decision, not an omission:
@@ -222,6 +222,39 @@ class CustomerEditLayout {}
 @CsTrigger(kind: CsTriggerKind.condition, action: Actions.saveCustomer)
 @CodeSpec('AC-SAVE-CUSTOMER', source: ['ISC-SAVECUST'])
 class SaveCustomerAction {}
+
+/// The abstract collaborator a form-3b body calls
+/// (`codespecs_derivation_contract.md` §3.0.1). Not a part: no `CE-*` code and
+/// no `CodeSpecPart` value. One per emitting declaration, one abstract method
+/// per contributing step, and nothing else — no field, no constructor, no
+/// static, no implemented member.
+@CodeSpec(
+  'action.CustomerActionControllerCollaborator',
+  source: ['ISC-021', 'ISC-021-2', 'ISC-021-3'],
+)
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  /// The edited values are checked against the customer rules.
+  Future<void> saveCustomerCheckTheEditedValues(Object context);
+
+  /// The customer record is stored and the list is reloaded.
+  Future<void> saveCustomerStoreTheRecord(Object context);
+}
+
+/// The calling declaration: its 3b body holds nothing of its own, only calls
+/// through the single injected `collaborator` field — which is `late final`
+/// precisely so the first attempt to run the body fails before it can dispatch.
+@CodeSpec('AC-SAVE-CUSTOMER', source: ['XDS-104', 'ISC-021-2', 'ISC-021-3'])
+class CustomerActionController {
+  late final CustomerActionControllerCollaborator collaborator;
+
+  /// Saves the edited customer record.
+  @CsAction()
+  Future<void> saveCustomer(Object context) async {
+    await collaborator.saveCustomerCheckTheEditedValues(context);
+    await collaborator.saveCustomerStoreTheRecord(context);
+  }
+}
 
 /// CE-SC — the middle hop of `codespecs_mapping.md` §5.3's chain:
 /// `@CsAction ──triggers──▶ @CsServerCall ──operation──▶ @CsEndpoint`.
@@ -1240,7 +1273,7 @@ void main() {
     });
   });
 
-  // ── csrb4: the 15 note-only markers ───────────────────────────────────────
+  // ── csrb4: the 16 note-only markers ───────────────────────────────────────
 
   group('csrb4: the note-only markers carry nothing beyond note', () {
     // Pinning these is as load-bearing as pinning the 24: each is note-only
@@ -1276,6 +1309,14 @@ void main() {
     test('identity/auth: CsIdentity, CsAuth', () {
       expect(const CsIdentity().note, isNull);
       expect(const CsAuth(note: 'password + TOTP').note, 'password + TOTP');
+    });
+
+    test('not a part: CsCollaborator', () {
+      // The strongest note-only case in the family: the method set *is* the
+      // declaration (§2.3 test a), and there is no substrate for test b to
+      // reach — `@CsEnum` is the only other marker built on nothing.
+      expect(const CsCollaborator(note: 'Phase-6 seam').note, 'Phase-6 seam');
+      expect(const CsCollaborator().note, isNull);
     });
   });
 

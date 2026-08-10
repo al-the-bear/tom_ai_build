@@ -12,6 +12,11 @@
 /// - `client_settings_annotations.dart` — the client-application,
 ///   configuration/settings, identity and authentication group.
 ///
+/// Beside them sits `cs_collaborator.dart`, holding the one marker that is
+/// **not** a part: `@CsCollaborator` marks the abstract collaborator a form-3b
+/// body calls, which belongs to whichever declaration emitted it rather than to
+/// a locus or a slice (`codespecs_derivation_contract.md` §3.0).
+///
 /// It also exports the two files of annotation *parameter* vocabulary the
 /// markers are authored against — neither holds annotations of its own:
 ///
@@ -28,6 +33,7 @@ export 'client_settings_annotations.dart';
 export 'code_spec.dart';
 export 'contract_annotations.dart';
 export 'cross_part_refs.dart';
+export 'cs_collaborator.dart';
 export 'doc_spec.dart';
 export 'element_annotations.dart';
 export 'service_annotations.dart';

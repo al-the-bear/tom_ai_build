@@ -1,4 +1,4 @@
-/// Fixtures for the twenty-two `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the twenty-four `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -80,10 +80,10 @@ void _redGreen(
 
 void main() {
   group('§6 check catalogue', () {
-    test('names the twenty-two checks in table order', () {
+    test('names the twenty-four checks in table order', () {
       expect(
         codeSpecsChecks.map((c) => c.number),
-        [for (var i = 1; i <= 22; i++) i],
+        [for (var i = 1; i <= 24; i++) i],
       );
     });
 
@@ -1328,6 +1328,278 @@ class CustomerState {
     });
   });
 
+  group('23 — every collaborator call resolves (§2.4, §3.0.1)', () {
+    _redGreen(
+      23,
+      '§2.4, §3.0.1',
+      says: contains('does not declare'),
+      red: _input(
+        client: {
+          'lib/a.dart': '''
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  Future<void> saveCustomerCheckTheEditedValues(Object context);
+}
+
+@CsAction()
+class CustomerActionController {
+  late final CustomerActionControllerCollaborator collaborator;
+
+  Future<void> saveCustomer(Object context) async {
+    await collaborator.saveCustomerCheckTheEditedValues(context);
+    await collaborator.saveCustomerStoreTheRecord(context);
+  }
+}
+''',
+        },
+      ),
+      green: _input(
+        client: {
+          'lib/a.dart': '''
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  Future<void> saveCustomerCheckTheEditedValues(Object context);
+  Future<void> saveCustomerStoreTheRecord(Object context);
+}
+
+@CsAction()
+class CustomerActionController {
+  late final CustomerActionControllerCollaborator collaborator;
+
+  Future<void> saveCustomer(Object context) async {
+    await collaborator.saveCustomerCheckTheEditedValues(context);
+    await collaborator.saveCustomerStoreTheRecord(context);
+  }
+}
+''',
+        },
+      ),
+    );
+
+    test('a collaborator call with no collaborator field at all', () {
+      // The call resolves against nothing: §3.0.1 injects through one field, so
+      // a body that reaches for `collaborator` on a declaration that has none
+      // is a statement written against something never emitted.
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsAction()
+class CustomerActionController {
+  Future<void> saveCustomer(Object context) async {
+    await collaborator.saveCustomerStoreTheRecord(context);
+  }
+}
+''',
+        },
+      );
+      expect(_forCheck(23, input).first.message, contains('declares no'));
+    });
+
+    test('a collaborator field whose type names no emitted collaborator', () {
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsAction()
+class CustomerActionController {
+  late final CustomerActionControllerCollaborator collaborator;
+
+  Future<void> saveCustomer(Object context) async {
+    await collaborator.saveCustomerStoreTheRecord(context);
+  }
+}
+''',
+        },
+      );
+      expect(
+        _forCheck(23, input).first.message,
+        contains('names no emitted @CsCollaborator class'),
+      );
+    });
+
+    test('the reverse half: a collaborator method nothing calls', () {
+      // The defect the compiler never catches — a step whose behaviour was
+      // lifted out of the body and then dropped, leaving Phase 6 a method that
+      // runs nowhere.
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  Future<void> saveCustomerCheckTheEditedValues(Object context);
+  Future<void> saveCustomerStoreTheRecord(Object context);
+}
+
+@CsAction()
+class CustomerActionController {
+  late final CustomerActionControllerCollaborator collaborator;
+
+  Future<void> saveCustomer(Object context) async {
+    await collaborator.saveCustomerCheckTheEditedValues(context);
+  }
+}
+''',
+        },
+      );
+      expect(
+        _forCheck(23, input).single.message,
+        contains('saveCustomerStoreTheRecord is declared but no body calls it'),
+      );
+    });
+
+    test('a substrate call is left to the compiler, not to this check', () {
+      // The §6 division: a call on the `tom_core`-family substrate needs the
+      // resolved element model and is a compile error in the emitted trio
+      // anyway, so the syntax pass must have no opinion about it.
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsViewModel()
+class CustomerState {
+  Future<void> reload() async {
+    await repository.selectAll();
+  }
+}
+''',
+        },
+      );
+      expect(_forCheck(23, input), isEmpty);
+    });
+
+    test('a declaration whose 3b bodies all fell back to 3a emits none', () {
+      // §3.0: no calls, so no collaborator — and the check must not read the
+      // absence as a defect.
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsAction()
+class CustomerActionController {
+  Future<void> saveCustomer(Object context) async {
+    throw UnsupportedError('The customer record is saved.');
+  }
+}
+''',
+        },
+      );
+      expect(_forCheck(23, input), isEmpty);
+    });
+  });
+
+  group('24 — a collaborator holds abstract methods and nothing else (§3.0.1)',
+      () {
+    _redGreen(
+      24,
+      '§3.0.1',
+      says: contains('a field on a @CsCollaborator class'),
+      red: _input(
+        client: {
+          'lib/a.dart': '''
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  final Object cache = Object();
+
+  Future<void> saveCustomerStoreTheRecord(Object context);
+}
+''',
+        },
+      ),
+      green: _input(
+        client: {
+          'lib/a.dart': '''
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  Future<void> saveCustomerStoreTheRecord(Object context);
+}
+''',
+        },
+      ),
+    );
+
+    test('a non-abstract collaborator class', () {
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsCollaborator()
+class CustomerActionControllerCollaborator {
+  Future<void> saveCustomerStoreTheRecord(Object context) async {}
+}
+''',
+        },
+      );
+      expect(
+        _forCheck(24, input).map((v) => v.message).join('\n'),
+        contains('is not declared abstract'),
+      );
+    });
+
+    test('an implemented method pre-empts the Phase-6 implementation', () {
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  Future<void> saveCustomerStoreTheRecord(Object context) async {}
+}
+''',
+        },
+      );
+      expect(
+        _forCheck(24, input).single.message,
+        contains('an implemented method'),
+      );
+    });
+
+    test('a constructor makes the seam constructible', () {
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  CustomerActionControllerCollaborator();
+
+  Future<void> saveCustomerStoreTheRecord(Object context);
+}
+''',
+        },
+      );
+      expect(
+        _forCheck(24, input).single.message,
+        contains('a constructor'),
+      );
+    });
+
+    test('a static member hides logic no step maps to', () {
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsCollaborator()
+abstract class CustomerActionControllerCollaborator {
+  static Object build() => Object();
+
+  Future<void> saveCustomerStoreTheRecord(Object context);
+}
+''',
+        },
+      );
+      expect(
+        _forCheck(24, input).single.message,
+        contains('a static member'),
+      );
+    });
+
+    test('an ordinary abstract class without the marker is not this check', () {
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+abstract class Something {
+  final Object cache = Object();
+}
+''',
+        },
+      );
+      expect(_forCheck(24, input), isEmpty);
+    });
+  });
+
   group('the pass as a whole', () {
     CodeSpecsValidationInput cleanTrio() => _input(
           shared: {
@@ -1398,7 +1670,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 22 checks passed');
+      expect(report.summary, 'codespecs: 24 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -1430,7 +1702,7 @@ class Order {
       );
       final report = runCodeSpecsChecks(broken);
       expect(report.violations.map((v) => v.check), containsAll([4, 6]));
-      expect(report.summary, contains('across 2 of 22 checks'));
+      expect(report.summary, contains('across 2 of 24 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(report.lines.join('\n'), contains('codespecs check 6 [§2.4]'));
     });

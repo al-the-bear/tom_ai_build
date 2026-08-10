@@ -20,6 +20,7 @@ import 'dart:io' as io;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:path/path.dart' as p;
 
@@ -96,9 +97,11 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             path: path,
             lines: lines,
             name: name.lexeme,
+            kind: CsDeclarationKind.classType,
             metadata: member.metadata,
             offset: name.offset,
             bodies: _bodies(path, lines, members),
+            isAbstract: member.abstractKeyword != null,
           ),
         );
         declarations.addAll(
@@ -115,6 +118,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             path: path,
             lines: lines,
             name: name.lexeme,
+            kind: CsDeclarationKind.enumType,
             metadata: member.metadata,
             offset: name.offset,
           ),
@@ -126,6 +130,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             path: path,
             lines: lines,
             name: member.name.lexeme,
+            kind: CsDeclarationKind.mixinType,
             metadata: member.metadata,
             offset: member.name.offset,
             bodies: _bodies(path, lines, member.body.members),
@@ -139,6 +144,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
               path: path,
               lines: lines,
               name: variable.name.lexeme,
+              kind: CsDeclarationKind.topLevelVariable,
               metadata: member.metadata,
               offset: variable.name.offset,
               hasInitialiser: variable.initializer != null,
@@ -160,6 +166,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             path: path,
             lines: lines,
             name: member.name.lexeme,
+            kind: CsDeclarationKind.topLevelFunction,
             metadata: member.metadata,
             offset: member.name.offset,
             bodies: [
@@ -204,11 +211,13 @@ List<CsDeclaration> _classMembers(
               path: path,
               lines: lines,
               name: variable.name.lexeme,
+              kind: CsDeclarationKind.field,
               owner: owner,
               metadata: member.metadata,
               offset: variable.name.offset,
               hasInitialiser: variable.initializer != null,
               declaredType: member.fields.type?.toSource(),
+              isStatic: member.isStatic,
             ),
           );
         }
@@ -219,10 +228,31 @@ List<CsDeclaration> _classMembers(
             path: path,
             lines: lines,
             name: member.name.lexeme,
+            kind: CsDeclarationKind.method,
             owner: owner,
             metadata: member.metadata,
             offset: member.name.offset,
             bodies: [_body(path, lines, member.name.lexeme, member.body)],
+            isStatic: member.isStatic,
+          ),
+        );
+      // A constructor is read for its *presence*: check 24 rejects one on a
+      // `@CsCollaborator` class, which is otherwise invisible to a model that
+      // only records fields and methods. An unnamed constructor is recorded
+      // under the class name, matching how it is written.
+      case ConstructorDeclaration():
+        final name = member.name?.lexeme ?? owner;
+        out.add(
+          _declaration(
+            locus: locus,
+            path: path,
+            lines: lines,
+            name: name,
+            kind: CsDeclarationKind.constructor,
+            owner: owner,
+            metadata: member.metadata,
+            offset: (member.name ?? member.beginToken).offset,
+            bodies: [_body(path, lines, name, member.body)],
           ),
         );
       default:
@@ -237,12 +267,15 @@ CsDeclaration _declaration({
   required String path,
   required LineInfo lines,
   required String name,
+  required CsDeclarationKind kind,
   required NodeList<Annotation> metadata,
   required int offset,
   String? owner,
   bool hasInitialiser = false,
   String? declaredType,
   List<CsMethodBody> bodies = const [],
+  bool isAbstract = false,
+  bool isStatic = false,
 }) {
   final markers = <CsMarker>[];
   CsCodeSpecLink? codeSpec;
@@ -265,6 +298,7 @@ CsDeclaration _declaration({
   return CsDeclaration(
     locus: locus,
     name: name,
+    kind: kind,
     owner: owner,
     markers: markers,
     codeSpec: codeSpec,
@@ -272,6 +306,8 @@ CsDeclaration _declaration({
     hasInitialiser: hasInitialiser,
     declaredType: declaredType,
     bodies: bodies,
+    isAbstract: isAbstract,
+    isStatic: isStatic,
     location: _at(path, lines, offset),
   );
 }
@@ -338,6 +374,7 @@ CsMethodBody _body(
 ) {
   final location = _at(path, lines, body.offset);
   final isAsync = body.isAsynchronous;
+  final calls = _calls(path, lines, body);
 
   if (body is EmptyFunctionBody) {
     return CsMethodBody(
@@ -359,6 +396,7 @@ CsMethodBody _body(
       name: name,
       shape: CsBodyShape.returnsValue,
       location: location,
+      calls: calls,
       isAsync: isAsync,
     );
   }
@@ -377,6 +415,7 @@ CsMethodBody _body(
       name: name,
       shape: returnsValue ? CsBodyShape.returnsValue : CsBodyShape.other,
       location: location,
+      calls: calls,
       isAsync: isAsync,
     );
   }
@@ -384,8 +423,41 @@ CsMethodBody _body(
     name: name,
     shape: CsBodyShape.other,
     location: location,
+    calls: calls,
     isAsync: isAsync,
   );
+}
+
+/// Every method invocation inside [body], in source order.
+///
+/// Recursive rather than statement-level, because a form-3b call is routinely
+/// nested — inside an `await`, a `return`, or an argument list — and a
+/// statement-level scan would miss exactly the calls check 23 exists to
+/// resolve.
+List<CsCall> _calls(String path, LineInfo lines, FunctionBody body) {
+  final collector = _CallCollector(path, lines);
+  body.accept(collector);
+  return collector.calls;
+}
+
+class _CallCollector extends RecursiveAstVisitor<void> {
+  _CallCollector(this._path, this._lines);
+
+  final String _path;
+  final LineInfo _lines;
+  final calls = <CsCall>[];
+
+  @override
+  void visitMethodInvocation(MethodInvocation node) {
+    calls.add(
+      CsCall(
+        receiver: node.target?.toSource(),
+        method: node.methodName.name,
+        location: _at(_path, _lines, node.offset),
+      ),
+    );
+    super.visitMethodInvocation(node);
+  }
 }
 
 /// Classifies a body whose whole content is [expression].
