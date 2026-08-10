@@ -61,9 +61,41 @@ nine languages, where a longer form would not fit. Spell the file name out in
 full at least once per file where it reads naturally, then use the short form.
 
 Every other document is cited by **file name plus section** —
-`codespecs_mapping.md §9.2`, `tom_specs_model_rules.md §6.1`. A bare `§N` with
-no document in front of it is unresolvable and is always a defect: the reader
-cannot tell which of thirteen documents it means.
+`codespecs_mapping.md §9.2`, `tom_specs_model_rules.md §6.1`.
+
+**A bare `§N` means *this* document.** Only a reference that leaves its own
+document has to name one; within a document, `§N` is the section of the file you
+are reading. That is how these documents have always been written — the
+overwhelming majority of citations in the set are intra-document — and it is
+what makes the convention decidable: resolve the number against the current
+file's headings first, and reach for another document only when a document name
+governs the citation.
+
+A document name governs a citation in exactly four ways:
+
+1. **In front of it** — `` `codespecs_mapping.md` §9.2 ``, or `SOM §11.4`. The
+   name may sit on the previous line across a soft wrap, and it may be the tail
+   of a markdown link — `[llm_and_d4rt_tools.md](llm_and_d4rt_tools.md) §6`.
+2. **Behind it** — `§N of [\`llm_and_d4rt_tools.md\`](llm_and_d4rt_tools.md)`.
+3. **By inheritance within a run** — in `` `codespecs_mapping.md` §4.1 / §4.2 /
+   §4.3 ``, `(§N, §M)` or `§N–§M`, the name in front of the first citation
+   governs the rest. Only separators and joining words (`and`, `or`, `to`,
+   `through`) may stand between them; a sentence break ends the run.
+4. **By table-row scope** — in a document-map table whose first cell holds a
+   document reference *and nothing else*, that document governs every citation
+   in the row. A first cell that already mixes prose with a citation does not
+   scope the row.
+
+Resolution is **exact**: `§N.M.K` resolves only against a heading `N.M.K`, never
+against its parent `N.M` and never against a child of it. A number that names a
+numbered *rule* inside a section rather than a heading is not a citation —
+write "rule 6 of §N.M".
+
+`tom_specs_clitool`'s `bin/check_section_citations.dart` implements exactly this
+procedure, so any `§N` in the doc folder can be resolved without a human reading
+it. That is also why the illustrations above are written with metavariables
+wherever they show an *unqualified* citation: a real number there would be read
+by the checker as a citation of a section of `index.md`, which has none.
 
 Cite by **subject, not by number**. Section numbers move when a document is
 restructured, so a number carried mechanically from one document to another

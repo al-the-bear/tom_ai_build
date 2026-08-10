@@ -27,10 +27,12 @@ The shapes below are **authored** in `tom_code_specs` — the constructors, the
 select from (`lib/src/annotations/vocabulary.dart`) — so every annotation call
 written to this contract compiles.
 
-**Citing.** Sections of `som_multiplatform_spec_model.md` are cited as `SOM §N`;
-everything else by file name plus section — `codespecs_mapping.md §5.13`,
-`tom_specs_model_rules.md §6.1`. A bare `§N` in this document refers to *this*
-document.
+**Citing.** This document follows the doc set's citation convention
+(`index.md` "How to cite these documents") without exception: `SOM §N` for
+`som_multiplatform_spec_model.md`, file name plus section for every other
+document — `codespecs_mapping.md §5.13`, `tom_specs_model_rules.md §6.1` — and a
+bare `§N` for a section of this document. Being the heaviest self-citer in the
+set, it says so here; the rule is general.
 
 ---
 

@@ -57,6 +57,22 @@ export 'src/todo_citations.dart'
         CitationExemption,
         classifyMarkdown,
         checkDocFolder;
+// The decision procedure behind index.md's citation convention: a bare `§N`
+// means *this* document, so a citation resolves against its own file's headings
+// unless a document name stands in front of it.
+export 'src/section_citations.dart'
+    show
+        sectionIdPattern,
+        somDocument,
+        SectionHeading,
+        DocumentSections,
+        SectionCorpus,
+        SectionCitation,
+        SectionQualifierSource,
+        SectionCitationVerdict,
+        SectionCitationReport,
+        classifySectionCitations,
+        checkSectionCitations;
 export 'src/meta_tree.dart'
     show
         MetaTreeBuilder,
