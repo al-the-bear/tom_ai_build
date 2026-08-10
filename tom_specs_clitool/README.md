@@ -217,12 +217,14 @@ far more often than they cite todos, and `check_section_citations.dart` resolves
 those. `index.md` owns the convention; this is its decision procedure. A bare
 `§N` means **this** document — that carve-out is what makes the rule decidable at
 all, since intra-document self-reference is how the documents overwhelmingly
-cite. A document name overrides it in exactly four ways: standing in front of the
+cite. A document name overrides it in exactly five ways: standing in front of the
 citation (across a soft line wrap, and as the tail of a markdown link), standing
-behind it (`§N of <file>.md`), inherited within a run (`§N / §M / §K`), and
-document-map **table-row scope**. Every illustration here is written with
-metavariables: a real section number in an unqualified example would be read by
-the checker as a citation of a section of *this* README, which has none.
+behind it (`§N of <file>.md`), inherited within a run (`§N / §M / §K`),
+document-map **table-row scope**, and its transpose **table-column scope** — a
+column headed `` `<file>.md` § `` governs the numbers beneath it. Every
+illustration here is written with metavariables: a real section number in an
+unqualified example would be read by the checker as a citation of a section of
+*this* README, which has none.
 
 Three things about it are deliberate:
 
@@ -237,20 +239,26 @@ Three things about it are deliberate:
   `§item` and the convention's own metavariable `§N` fall out for free, and a
   document that coins a new section-type name is covered on the day it is
   written.
-- **The two narrow clauses are narrow on purpose.** The run joiner admits only
+- **The three narrow clauses are narrow on purpose.** The run joiner admits only
   separators and joining words, so a name mentioned two clauses back cannot vouch
   for an unrelated citation; table-row scope fires only when the row's first cell
   holds a document reference *and nothing else*, because a table that cites
   another document in column one and its own sections in column two is not a
-  document map.
+  document map; and a table-*column* header must carry a trailing `§`, which is
+  what makes it say the column holds sections rather than merely mention a file.
 
 Five verdicts come out — `self`, `crossDocument`, `dangling`, `wrongSection`,
 `unverifiable` — of which only `dangling` and `wrongSection` fail the run. A
 citation naming a document outside the scanned corpus is `unverifiable`, not a
 defect: the checker cannot see the file, which is not the same as the citation
-being wrong. `test/section_citations_test.dart` fixes the rule against
-hand-written fixtures; wiring the folder-wide run as a failing gate waits on the
-open citation repairs.
+being wrong.
+
+`test/section_citations_test.dart` fixes the rule against hand-written fixtures
+**and closes the gate**: its last test holds the live corpus at *zero*
+violations. The corpus is the doc folder plus the project READMEs that cite it
+(`defaultCitedReadmes`), which is also what `check_section_citations.dart` scans
+by default — so the command and the gate cover the same files, and neither list
+can drift from the other. Pass `--no-default-readmes` to scan the folder alone.
 
 ---
 

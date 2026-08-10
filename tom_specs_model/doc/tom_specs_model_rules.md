@@ -167,7 +167,7 @@ The SOM exists to serve a defined, gated creation process (authoritative:
 
 Roles, quality gates, iteration rules, tooling, the issue workflow, and the
 post-release upgrade cycle are all specified in `tom_specs_project_flow.md`
-(§PF-ROL, §PF-GAT, §PF-ITR, §PF-TOO, §PF-ISS, §PF-UPG).
+§PF-ROL, §PF-GAT, §PF-ITR, §PF-TOO, §PF-ISS and §PF-UPG.
 
 ### 2.5 The 12 Phase 3 document roots, plus the CodeSpecs projection
 

@@ -912,7 +912,7 @@ path segment is the bare `introductionAndScope`.
 | Form field value | literal field name | `approvedBy` |
 | Scalar/enum field | `<id> <fieldName>` when the field carries an id, else the field name | `reviewCount` |
 | Stored headline | literal key `headline`, emitted **first** in its section/form/list-item mapping | `headline` |
-| Stored `codeSpec` (`tom_specs_model_rules.md` §5.2) | literal key `codeSpec`, the comma-joined code-location list, emitted right after `headline` in its mapping (§12.3.6) | `codeSpec` |
+| Stored `codeSpec` (`tom_specs_model_rules.md` §5.2) | literal key `codeSpec`, the comma-joined code-location list, emitted right after `headline` in its mapping (§12.3 rule 6) | `codeSpec` |
 
 ### 12.3 Structure rules
 
@@ -950,7 +950,7 @@ key. Normative escaping:
    interchangeably.
 3. **Runs of 2+ blank lines collapse to one before serialization** — the
    deliberate, documented lossy normalization shared with the md emitter
-   (§11.3.5). Round-trip guarantees are stated "modulo empty-line dedup".
+   (§11.3 rule 5). Round-trip guarantees are stated "modulo empty-line dedup".
 4. Tabs are preserved verbatim.
 
 ### 12.5 Non-text values and the YAML 1.1/1.2 rule

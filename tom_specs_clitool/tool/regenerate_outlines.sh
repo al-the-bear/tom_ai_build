@@ -55,4 +55,10 @@ dart run bin/outliner.dart --package "$PKG" --root-type D00SolutionBlueprint \
 echo "→ todo citations in the doc folder"
 dart run bin/check_todo_citations.dart
 
+# The same reasoning for `§` section citations, which decay from either side
+# too: a citation written against the wrong number, or a restructure that moves
+# the heading out from under a citation nobody re-read.
+echo "→ section citations in the doc folder and its READMEs"
+dart run bin/check_section_citations.dart
+
 echo "Done. Review the diff under $OUT/ and commit."

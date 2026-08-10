@@ -71,7 +71,7 @@ what makes the convention decidable: resolve the number against the current
 file's headings first, and reach for another document only when a document name
 governs the citation.
 
-A document name governs a citation in exactly four ways:
+A document name governs a citation in exactly five ways:
 
 1. **In front of it** — `` `codespecs_mapping.md` §9.2 ``, or `SOM §11.4`. The
    name may sit on the previous line across a soft wrap, and it may be the tail
@@ -85,6 +85,14 @@ A document name governs a citation in exactly four ways:
    document reference *and nothing else*, that document governs every citation
    in the row. A first cell that already mixes prose with a citation does not
    scope the row.
+5. **By table-column scope** — the transpose of rule 4. In a table that indexes
+   a companion document section by section, the column may be headed with the
+   document and a bare `§` — `` | Area | Role | `llm_and_d4rt_tools.md` § | `` —
+   and every cell beneath that header carries only the number. The same "and
+   nothing else" guard applies, plus one addition: the trailing `§` is what
+   makes the header *say* the column holds sections rather than merely mention a
+   file, so a header without it scopes nothing. The scope covers its own column
+   only, and ends with the table.
 
 Resolution is **exact**: `§N.M.K` resolves only against a heading `N.M.K`, never
 against its parent `N.M` and never against a child of it. A number that names a

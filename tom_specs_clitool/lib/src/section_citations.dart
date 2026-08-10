@@ -23,9 +23,9 @@
 /// 4. A citation that resolves to no heading is a defect — and now a *findable*
 ///    one.
 ///
-/// ## The four ways a document name governs a citation
+/// ## The five ways a document name governs a citation
 ///
-/// All four are in use across the doc set. They are here because the documents
+/// All five are in use across the corpus. They are here because the documents
 /// read correctly with them and would read absurdly without them — not to widen
 /// the check's tolerance.
 ///
@@ -47,6 +47,14 @@
 ///   own serialization tables cite `tom_specs_model_rules.md §5.2` in column one
 ///   and their own sections in column two — is not a document map, and the row
 ///   scope must not fire on it.
+/// - **The table column.** The transpose of the row rule: a table that indexes a
+///   companion document section by section heads that column with the document,
+///   `` | Area | Role | `llm_and_d4rt_tools.md` § | ``, and every cell beneath it
+///   carries only the number. Same "and nothing else" guard, with one addition —
+///   the header cell may carry a bare `§`, and it is that sign which makes the
+///   header *say* the column holds sections rather than merely mention a file.
+///   Without this rule such a table has to repeat the document name once per row,
+///   which is the shape of defeat the self-reference carve-out already refused.
 ///
 /// The narrowness elsewhere is equally deliberate. A joiner set that swallowed
 /// prose would let a document name mentioned two clauses earlier vouch for a
@@ -131,8 +139,40 @@ final RegExp _trailingQualifier =
 final RegExp _documentOnlyCell = RegExp(
     r'^[\s`*_]*(?:\[[^\]]*\]\(\s*)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?[\s`*_]*$');
 
+/// A table **header** cell holding a document reference and nothing else but an
+/// optional bare `§` — `` `llm_and_d4rt_tools.md` § ``.
+///
+/// The trailing sign is what makes the header say "this column holds sections of
+/// that document" rather than merely mentioning it, so it is admitted here and
+/// nowhere else.
+final RegExp _documentColumnHeaderCell = RegExp(
+    r'^[\s`*_]*(?:\[[^\]]*\]\(\s*)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?'
+    r'[\s`*_]*§?[\s`*_]*$');
+
+/// The `|---|:--:|` row that turns the line above it into a header.
+final RegExp _tableDelimiterRow =
+    RegExp(r'^\s{0,3}\|(?:\s*:?-{2,}:?\s*\|)+\s*$');
+
 /// The document `SOM` abbreviates.
 const String somDocument = 'som_multiplatform_spec_model.md';
+
+/// The files outside the doc folder that cite it, container-root-relative.
+///
+/// A project README is the one place outside `tom_specs_model/doc` that cites
+/// the doc set by section, and it decays the same way — so the gate covers the
+/// READMEs too rather than only the folder that happens to hold the headings.
+///
+/// The list is enumerated rather than discovered: a sweep for "every README in
+/// the workspace" would pull in projects that neither cite nor are cited by
+/// TomSpecs, and their unrelated `§` usage would have to be exempted one by one.
+const defaultCitedReadmes = [
+  'tom_ai/ai_build/tom_code_specs/README.md',
+  'tom_ai/ai_build/tom_spec_engine/README.md',
+  'tom_ai/ai_build/tom_specs_clitool/README.md',
+  'tom_ai/ai_build/tom_specs_core/README.md',
+  'tom_ai/ai_build/tom_specs_model/README.md',
+  'tom_ai/core/tom_core_codespecs/README.md',
+];
 
 /// Text that joins two citations of one run rather than separating two thoughts.
 ///
@@ -280,6 +320,9 @@ enum SectionQualifierSource {
 
   /// Taken from the first cell of a document-map table row.
   tableRow,
+
+  /// Taken from the header cell of the column the citation sits in.
+  tableColumn,
 }
 
 /// What the resolver concluded about one citation.
@@ -429,6 +472,30 @@ String? _rowScope(String line) {
   return _documentOnlyCell.firstMatch(cells[1])?.group(1);
 }
 
+/// The document each column of a header row is about, keyed by column index.
+///
+/// Empty when no column names one, which is the ordinary case.
+Map<int, String> _columnScopes(String headerRow) {
+  final cells = headerRow.trim().split('|');
+  final scopes = <int, String>{};
+  for (var i = 1; i < cells.length - 1; i++) {
+    final document = _documentColumnHeaderCell.firstMatch(cells[i])?.group(1);
+    if (document != null) scopes[i] = document;
+  }
+  return scopes;
+}
+
+/// Which cell of [row] the character at [offset] falls in, 1-based to match the
+/// indices [_columnScopes] returns.
+int _columnAt(String row, int offset) {
+  final leading = row.length - row.trimLeft().length;
+  var column = 0;
+  for (var i = leading; i < offset && i < row.length; i++) {
+    if (row[i] == '|') column++;
+  }
+  return column;
+}
+
 /// Finds and resolves every `§` citation in [markdown].
 ///
 /// [path] names the file the citations are in — it decides what a bare citation
@@ -443,7 +510,21 @@ List<SectionCitation> classifySectionCitations(
       own ?? corpus[p.basename(path)] ?? DocumentSections.parse(markdown, path: path);
   final citations = <SectionCitation>[];
 
-  for (final block in _blocksOf(markdown.split('\n'))) {
+  final blocks = _blocksOf(markdown.split('\n'));
+  // The column scopes of the table currently being walked. A table row is its
+  // own block, so a header is recognised by the delimiter row that follows it,
+  // and any non-table block ends the table and clears the scopes.
+  var columnScopes = const <int, String>{};
+
+  for (var b = 0; b < blocks.length; b++) {
+    final block = blocks[b];
+    if (!_tableRow.hasMatch(block.text)) {
+      columnScopes = const {};
+    } else if (b + 1 < blocks.length &&
+        _tableDelimiterRow.hasMatch(blocks[b + 1].text)) {
+      columnScopes = _columnScopes(block.text);
+    }
+
     final rowScope = _rowScope(block.text);
 
     var previousEnd = -1;
@@ -474,6 +555,12 @@ List<SectionCitation> classifySectionCitations(
       } else if (rowScope != null) {
         document = rowScope;
         source = SectionQualifierSource.tableRow;
+      } else if (columnScopes.isNotEmpty) {
+        final scope = columnScopes[_columnAt(block.text, match.start)];
+        if (scope != null) {
+          document = scope;
+          source = SectionQualifierSource.tableColumn;
+        }
       }
 
       citations.add(SectionCitation(

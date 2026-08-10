@@ -184,7 +184,8 @@ list container) plus the slot on that entry which declares the id. The slot is
 either a **form field name**, when the entry carries an identifier the built
 system owns, or the literal **`@sectionId`**, when the entry's id is its stored
 section id and no form field restates it (`tom_specs_model_rules.md` §6.2 rule
-6 and §8 rule 4). The list form is a disjunction: a value is valid when it
+6 and `tom_specs_model_rules.md` §8 rule 4). The list form is a disjunction: a
+value is valid when it
 resolves in **any** one of the listed registries, which is how a field such as
 `SCTREN.outcomeReference` names both `SYERCO.errorCode` and `VMT.@sectionId`. A
 single field value may itself name several ids, written comma-separated; each

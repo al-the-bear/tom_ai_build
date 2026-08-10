@@ -7,8 +7,8 @@ CodeSpecs turns the Phase 3 specification documents (the DocSpecs, typed by the
 **SOM** — `tom_specs_model`) into a **skeletal, compilable Dart application**
 whose every element carries traceability annotations back to its source spec.
 
-> **This is a code framework, not a document model** — and (2026-07-19 revision)
-> it carries **annotations only, no base classes**. All CodeSpecs annotations
+> **This is a code framework, not a document model**, and it carries
+> **annotations only, no base classes**. All CodeSpecs annotations
 > use the `Cs*` prefix (`@CsForm`, `@CsTable`, `@CsEndpoint`, …); there is **no
 > `Ca*` prefix and no `Cs*` base class**. A CodeSpec is built on an existing
 > `tom_core`-family class marked by `Cs*` annotations; the concrete classes
@@ -47,8 +47,8 @@ body calls: one per emitting declaration, holding one abstract method per
 contributing step and nothing else, reached through the declaration's single
 `late final … collaborator;` field. It is a marker rather than a naming
 convention because `codespecs_derivation_contract.md` §2.7 point 4 requires one
-on every generated top-level declaration and because the §6 checks have to find
-collaborators.
+on every generated top-level declaration and because the
+`codespecs_derivation_contract.md` §6 checks have to find collaborators.
 
 The `codespecs_mapping.md` §4.3 **deferred** candidate — **CE-WF alone** —
 deliberately has **no marker**: a deferred part is mapping-only, so its
@@ -167,7 +167,8 @@ an omission, because everything their part authors is already carried by the
 annotated declaration itself or by a `tom_core` substrate constructor. Which
 attributes become constructor parameters is decided by
 `../tom_specs_model/doc/codespecs_derivation_contract.md` §2.3's three tests, and
-its §5.1–§5.3 give the resulting shape of every marker.
+`codespecs_derivation_contract.md` §5.1–§5.3 give the resulting shape of every
+marker.
 
 Two shaping rules run through the whole family. An argument is **required** iff
 no *fail-safe* default exists (`codespecs_mapping.md` §5.16: broadening a value's

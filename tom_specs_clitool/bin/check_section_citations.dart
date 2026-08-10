@@ -9,7 +9,11 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///
 ///   dart run bin/check_section_citations.dart
 ///   dart run bin/check_section_citations.dart --verbose
-///   dart run bin/check_section_citations.dart --extra ../tom_code_specs/README.md
+///   dart run bin/check_section_citations.dart --no-default-readmes
+///
+/// The project READMEs that cite the doc set ([defaultCitedReadmes]) are scanned
+/// by default, so the command and the gate test cover the same files without the
+/// list having to be repeated on a command line.
 ///
 /// A bare `§N` means *this* document, so it resolves against the headings of the
 /// file it is written in; a citation with a document name in front of it
@@ -26,8 +30,12 @@ Future<void> main(List<String> arguments) async {
     ..addMultiOption(
       'extra',
       help: 'Additional file to scan, resolved against the same corpus. '
-          'Repeatable — project READMEs cite the doc set too.',
+          'Repeatable. Defaults to the project READMEs that cite the doc set; '
+          'pass --no-default-readmes to scan the doc folder alone.',
     )
+    ..addFlag('default-readmes',
+        defaultsTo: true,
+        help: 'Also scan the project READMEs that cite the doc set.')
     ..addFlag('verbose', abbr: 'v',
         help: 'List every citation, not only the unresolved ones.',
         negatable: false)
@@ -60,6 +68,9 @@ Future<void> main(List<String> arguments) async {
     report = checkSectionCitations(
       docDir: docDir,
       extraFiles: [
+        if (results.flag('default-readmes'))
+          for (final readme in defaultCitedReadmes)
+            p.normalize(p.join(containerRoot, readme)),
         for (final path in results.multiOption('extra'))
           p.normalize(p.absolute(path)),
       ],

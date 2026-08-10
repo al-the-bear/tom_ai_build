@@ -8,12 +8,12 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// (`lib/src/section_citations.dart`).
 ///
 /// The convention's load-bearing clause is the self-reference carve-out: a bare
-/// `§N` means *this* document. The tests below fix that clause and the four ways
-/// a document name may override it, because each of the four was added against a
+/// `§N` means *this* document. The tests below fix that clause and the five ways
+/// a document name may override it, because each of the five was added against a
 /// real site in the doc set and each widens what the checker accepts — a widening
 /// nobody notices going wrong is a widening that eventually excuses a real
-/// defect. Two of them (the run and the table row) are therefore tested as much
-/// for where they **stop** as for where they fire.
+/// defect. Three of them (the run, the table row and the table column) are
+/// therefore tested as much for where they **stop** as for where they fire.
 ///
 /// Fixtures are hand-written, not drawn from the live corpus, so they keep
 /// testing the same thing after the documents move on. One test does read the
@@ -21,6 +21,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// many citations it grows.
 void main() {
   final clitoolRoot = Directory.current.path;
+  final containerRoot = p.normalize(p.join(clitoolRoot, '..', '..', '..'));
   final docDir = p.normalize(p.join(clitoolRoot, '..', 'tom_specs_model', 'doc'));
 
   /// A corpus of documents named `<name>` declaring `<ids>` as headings.
@@ -89,7 +90,7 @@ void main() {
     });
   });
 
-  group('SCC2: the four ways a document name governs a citation', () {
+  group('SCC2: the five ways a document name governs a citation', () {
     final corpus = corpusOf({
       'other.md': ['9.2', '4.1', '4.2', '4.3'],
       'som_multiplatform_spec_model.md': ['11.4'],
@@ -209,6 +210,91 @@ void main() {
       expect(citations.first.document, 'other.md');
       expect(citations[1].source, SectionQualifierSource.bare);
       expect(citations[1].verdict, SectionCitationVerdict.self);
+    });
+
+    test('a column headed by a document scopes the cells beneath it', () {
+      // The transpose of the row rule, written for a table that indexes a
+      // companion document section by section. Without it the table repeats a
+      // 21-character filename once per row.
+      final citations = classify(
+        '| Area | `other.md` § |\n'
+        '|------|--------------|\n'
+        '| Scripting | §4.1 |\n'
+        '| Search | §4.2 |',
+        corpus: corpus,
+      );
+
+      expect(citations, hasLength(2));
+      expect(citations.map((c) => c.source),
+          everyElement(SectionQualifierSource.tableColumn));
+      expect(citations.map((c) => c.document), everyElement('other.md'));
+      expect(citations.map((c) => c.verdict),
+          everyElement(SectionCitationVerdict.crossDocument));
+    });
+
+    test('only the headed column is scoped', () {
+      // The guard that keeps this rule from becoming a whole-table scope: a
+      // sibling column citing the table's own document must stay self.
+      final citations = classify(
+        '| Own | `other.md` § |\n'
+        '|-----|--------------|\n'
+        '| §7.7 | §4.1 |',
+        corpus: corpus,
+        ownSections: ['7.7'],
+      );
+
+      expect(citations, hasLength(2));
+      expect(citations.first.source, SectionQualifierSource.bare);
+      expect(citations.first.verdict, SectionCitationVerdict.self);
+      expect(citations[1].source, SectionQualifierSource.tableColumn);
+    });
+
+    test('a header cell that merely mentions a document does not scope it', () {
+      // The trailing `§` is what makes the header *say* the column holds
+      // sections. Without it the same "and nothing else" guard applies as to the
+      // row rule, so a header naming a document in passing scopes nothing.
+      final citations = classify(
+        '| Area | Where `other.md` says so |\n'
+        '|------|--------------------------|\n'
+        '| Scripting | §9.9 |',
+        corpus: corpus,
+      );
+
+      expect(citations.single.source, SectionQualifierSource.bare);
+      expect(citations.single.verdict, SectionCitationVerdict.dangling);
+    });
+
+    test('the column scope ends with the table', () {
+      // A table row is its own block, so the scope has to be carried across
+      // blocks explicitly — and dropped again the moment a non-table block
+      // arrives, or it reaches into unrelated prose below.
+      final citations = classify(
+        '| Area | `other.md` § |\n'
+        '|------|--------------|\n'
+        '| Scripting | §4.1 |\n'
+        '\n'
+        'Unrelated prose citing §9.9.',
+        corpus: corpus,
+      );
+
+      expect(citations, hasLength(2));
+      expect(citations.first.source, SectionQualifierSource.tableColumn);
+      expect(citations[1].source, SectionQualifierSource.bare);
+      expect(citations[1].verdict, SectionCitationVerdict.dangling);
+    });
+
+    test('a leading name in the cell still beats the column', () {
+      // Precedence: leading > trailing > run > row > column. The column is the
+      // weakest because it is the furthest from the citation.
+      final citations = classify(
+        '| Area | `other.md` § |\n'
+        '|------|--------------|\n'
+        '| Scripting | `third.md` §5.5 |',
+        corpus: corpusOf({'other.md': ['4.1'], 'third.md': ['5.5']}),
+      );
+
+      expect(citations.single.source, SectionQualifierSource.leading);
+      expect(citations.single.document, 'third.md');
     });
   });
 
@@ -333,6 +419,43 @@ void main() {
           .map((c) => c.describe(relativeTo: docDir));
 
       expect(offenders, isEmpty);
+    });
+
+    test('every § citation in the doc folder and its READMEs resolves', () {
+      // The gate proper, and the reason the checker exists. A `§` citation is
+      // the one cross-reference in these documents that decays in total silence:
+      // a section is renumbered, the citation still reads like a citation, and
+      // nothing but a resolver notices. So the corpus is held at zero
+      // violations rather than at "no new ones".
+      //
+      // The READMEs are in because they cite the doc set by section exactly as
+      // the documents do, and a reader following one does not care which side of
+      // the folder boundary it was written on.
+      final extras = [
+        for (final readme in defaultCitedReadmes)
+          p.normalize(p.join(containerRoot, readme)),
+      ];
+      final missing = extras.where((f) => !File(f).existsSync());
+      if (missing.isNotEmpty) {
+        markTestSkipped('cited READMEs are not checked out: $missing');
+        return;
+      }
+
+      final report = checkSectionCitations(docDir: docDir, extraFiles: extras);
+
+      expect(
+        report.violations.map((c) => c.describe(relativeTo: containerRoot)),
+        isEmpty,
+      );
+
+      // Anti-vacuity, on the scan rather than on the result: an empty folder or
+      // an unresolved corpus would pass the assertion above having checked
+      // nothing.
+      expect(report.files.length, greaterThan(defaultCitedReadmes.length));
+      expect(report.countOf(SectionCitationVerdict.crossDocument),
+          greaterThan(0),
+          reason: 'a corpus in which nothing cites anything else would make the '
+              'whole resolver vacuous');
     });
   });
 }

@@ -64,6 +64,7 @@ export 'src/section_citations.dart'
     show
         sectionIdPattern,
         somDocument,
+        defaultCitedReadmes,
         SectionHeading,
         DocumentSections,
         SectionCorpus,

@@ -231,8 +231,9 @@ that declaration's step list, injected as the declaration's one `collaborator`
 field, and carrying on each method's doc comment the behaviour narrative this
 section asks it to state.
 
-**How a step list becomes that sequence** is the same document's
-behaviour-to-body derivation (§2.4, rules B1–B8): document order is the statement
+**How a step list becomes that sequence** is that document's behaviour-to-body
+derivation, `codespecs_derivation_contract.md` §2.4 rules B1–B8: document order
+is the statement
 order, one contributing step is one call, and a branch the spec states becomes an
 `if` over a **guard method** on the same collaborator, so the condition is
 reached through the Phase-6 seam rather than parsed out of its prose. The rules
