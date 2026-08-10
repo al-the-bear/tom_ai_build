@@ -642,3 +642,95 @@ Full design and settled decisions in [`llm_and_d4rt_tools.md`](llm_and_d4rt_tool
 - **Memory / RAG:** the spec is indexed **per section** in two tiers — a fast structural/lexical index rebuilt **after every prompt with no LLM calls** (the always-current path) and an incremental `vec0` vector index for semantic recall. Tom Brain is now **embeddable** (bundles `vec0`), so memory runs **in-process** in the engine plane — no server-only packaging, no separate `vec0` provisioning. The editor links the engine via a **memory-free** `scripting.dart` façade today; wiring the embeddable memory into the editor is the remaining integration.
 - **Agent system:** the conversational agent **stays the Agent SDK** (§7); from `tom_brain` the design adopts the D4rt **procedure-host/scope** pattern and the embeddable `tom_brain_memory` (free-time/dream procedures **off**).
 - **Engine placement:** `tom_d4rt` and `tom_dart_editor` are both on `analyzer ^10`, so the pure-Dart `tom_spec_engine` links **in-process**; D4rt and the §8 tools call `SpecDocumentController` directly — no companion process, no reverse-RPC hop. That placement is also what makes live d4rt-flutter rendering (§13) possible.
+
+---
+
+## 22. Open-Ends Register (`OE-` ids)
+
+Like §2, this register is **referential and normative, not a record of past
+deliberation**. `OE-` ids are cited from shipped source — comments in `lib/` and
+`test/`, and notes in `pubspec.yaml` and `buildkit.yaml` — as durable handles on
+the seams, drop-in points and decisions the code cannot restate at every
+occurrence. "Fill the marked call site; that is `OE-3a`" is only useful if
+`OE-3a` can be looked up, and this table is where it is looked up. A citation
+that resolves to nothing promises a register that does not exist, so
+`tom_specs_clitool/bin/check_oe_citations.dart` fails on one rather than letting
+it pass unseen.
+
+**An id is allocated once and is never reused, renumbered or deleted.** It
+outlives its work: most of the ids the editor cites name seams that have long
+since shipped, and the comment at each seam is still why the id exists. A
+finished row therefore stays — removing it would re-break every citation that
+named it and would free the number for a second meaning.
+
+**Parse rule.** An id is *defined* by appearing as the first inline-code span of
+a table row in this section, and nowhere else. The checker has one place to read,
+and no row can be defined by accident somewhere else in the document.
+
+### `OE-` and `CS-` — two families, two jobs
+
+`deferred.tom_specs.md` tracks the editor's open work as `CS-` ids, and several
+items carry one of each. The two families are deliberately not merged, because
+they answer different questions and decay in opposite directions:
+
+| | `OE-` | `CS-` |
+| --- | --- | --- |
+| Names | a place in the code | an item of open work |
+| Lives in | this register | `_ai/quests/tom_specs/deferred.tom_specs.md` |
+| Cited from | source, `pubspec.yaml`, `buildkit.yaml` | quest bookkeeping only |
+| When the work lands | the row stays; its state becomes *shipped* | the entry is deleted |
+
+Collapsing them either way loses something real. Retiring `OE-` would strand
+every citation whose work has shipped — the majority — because a `CS-` entry is
+deleted on completion and there would be nothing left to resolve against.
+Retiring `CS-` would push an open-work backlog into a design document and make
+shipped code the place open work is tracked.
+
+So the register **names** the `CS-` counterpart where one exists and stops there.
+It does not restate what that entry says, and `deferred.tom_specs.md` does not
+restate what an id names: the register owns *what an id refers to*, the deferred
+file owns *what is still open about it*. One authority per fact.
+
+### The register
+
+**States.** *shipped* — the seam exists and the id survives as a code handle.
+*open* — work outstanding; the named `CS-` entry owns it. *closed* — no work
+follows, for the reason given. *superseded* — the premise no longer holds.
+
+| Id | What it names | State |
+| --- | --- | --- |
+| `OE-1` | The B1 embedded analyzer-summary pipeline (§17): the bundler, the declared summary scopes, and `SimpleSummaryBackedDartCodeEditor` over the loaded bundles. | shipped |
+| `OE-1a` | A committed home for the heavy `.sum` bundles, named as the `tom_binaries` L2 layer. | open — CS-15 |
+| `OE-1b` | Bundle coverage beyond the editor's own dependency closure. The `d4rt-flutter` scope in `buildkit.yaml` covers the d4rt-flutter runtime and `tom_flutter_ui`. | shipped |
+| `OE-1c` | Per-OS evidence that the bundles embed on Windows and macOS. | open — CS-22 |
+| `OE-2` | The reflection-free snapshot/serialize substrate: the `Type → SpecClassOps` registry, the `SpecNode`/`SpecProjection` fast path, and the generated `spec_ops.g.dart` that registers every model class without editing a model file. | shipped |
+| `OE-2a` | The per-root `connect` bindings that re-point a projection onto the live Solution Blueprint. `spec_ops.g.dart` carries one for every projection root. | shipped |
+| `OE-2b` | Multi-scalar YAML packing. A node still serializes through a single `yamlScalar`, so a class whose content is more than one scalar cannot round-trip it. | open |
+| `OE-2c` | The document controller backing onto the snapshot engine, so undo is true copy-on-write leaf sharing rather than a deep map copy. | open — CS-10 |
+| `OE-3` | §13 renderer fidelity: `SpecMarkdown` routes rich content to `tom_md_editor`'s preview panel and keeps the lightweight inline renderer for short prose; layout-typed content routes to its own field. | shipped |
+| `OE-3a` | The live `tom_d4rt_flutter` render at the layout field's marked one-call drop-in point. The analyzer split that once made the dependency un-takeable is gone — `tom_d4rt` and `tom_dart_editor` are both on `analyzer ^10`. | open — CS-20 |
+| `OE-4` | Extracting the HTTP LLM providers out of `tom_brain_substrate` into `tom_core_agentic`. | closed — every consumer is brain-domain, so the extraction would abstract for a single caller |
+| `OE-5` | Model-wide `SpecNode` / copy-on-write / `toYaml` adoption. | closed — subsumed by `OE-2` |
+| `OE-6` | The bridge relaying the full Agent SDK server→client push set to the owning CLI client, not just `log`. | shipped |
+| `OE-7` | The Stop affordance: a cooperative cancel token in the send engine that eagerly interrupts the query, so a user stop is neither a completion nor a failure. | shipped |
+| `OE-8` | The two *paused* reconnect phases (§6.1) presented as blocking modal dialogs, with the informational probing phase left inline. | shipped |
+| `OE-9` | The prompt queue and prompt trail as their own middle-panel columns (§5 Col 2 / Col 3) rather than stacked inside the chat view. | shipped |
+| `OE-10` | An agent turn bracketed as one undo group, keyed by the trail pair id so the change log and the trail share an identifier. | shipped |
+| `OE-11` | The shell's global undo/redo driven by the document's own stack through the editor-action protocol (§10), with no parallel entries pushed onto the shell's manager. | shipped |
+| `OE-12` | The `chat` and `file` host-context placeholder built-ins (§11.5), lenient-empty when the host supplies no provider. | shipped |
+| `OE-13` | The namespaced `guidelines` / `role` / `quest` placeholder prefixes, resolved against the VS Code extension's folder conventions. | shipped |
+| `OE-14` | The live placeholder preview and the profile picker, shared by the chat composer and the config editors. | shipped — CS-18 follows: routing the *selected* profile into the send config |
+| `OE-15` | A contextual help caption under every config-editor field, rendered by the generic scaffold rather than woven per factory. | shipped |
+| `OE-16` | The dedicated config rail — a left-panel launcher listing every config editor. | shipped |
+| `OE-17` | Empty-field chips rendered in document order: each contiguous run collapses at its own position instead of in one trailing row. | shipped |
+| `OE-18` | §14 cross-projection identity: the canonical path anchor, and the storage path that folds every projection route onto the Solution Blueprint master so an edit through a projection is the same value as an edit through the blueprint. Installed as the document's path normalizer and the review store's key mapper. | shipped |
+| `OE-19` | Markdown export/import through a testable file-IO seam, so a document can be written to and read from a chosen `*.md` path. | shipped — CS-13 follows: the §15.2 DocSpecs substrate coupling |
+| `OE-20` | List cardinality annotations mapped to the DocSpecs `min`/`max-count-in-document` constraints. | shipped |
+| `OE-21` | Patterned section ids mapped to a DocSpecs `pattern-check-id` regex, so a malformed list-element id fails validation. | shipped |
+| `OE-22` | From-scratch `flutter build windows` and `flutter build macos` evidence on the fleet hosts. Verification only — the orchestrator is cross-platform by construction. | open — CS-22 |
+| `OE-23` | The B1 summary bundles embedded by the build orchestrator. | closed — subsumed by `OE-1` |
+| `OE-24` | Standalone CodeSpecs and Implementation *document models*. | superseded — CodeSpecs is code only, and the DocSpecs↔CodeSpecs relationship is carried by the annotation link instead (`codespecs_mapping.md` §9) |
+| `OE-24a` | Merging those document models into the editor's `spec_model.json` and routing the phase-2 apps onto them. | superseded with `OE-24`; CS-14 owns what the phase-2 surfaces actually need |
+| `OE-25` | `tom_flutter_ui` covered by the summary bundle without the editor taking a Dart dependency on it. | shipped |
+| `OE-26` | The phase-2 applications carrying the same 4-region layout as DocSpecs, with each surface stating what it is and when it activates. Hosting the *live* DocSpecs surfaces there was rejected: the agent would edit the DocSpecs document from the wrong app. | shipped — CS-16 follows: live per-phase surfaces, once each app owns a document controller |
+| `OE-27` | Test isolation for the config editors under concurrent runs. | closed — stale premise; the file was isolated from the start and shares no path with any other suite |

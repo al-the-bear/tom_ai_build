@@ -149,6 +149,7 @@ Related entrypoints in `bin/`:
 | `outliner.dart` | Render a class-tree outline of the model from any document root. |
 | `check_todo_citations.dart` | Check that every quest-todo id cited inline in `tom_specs_model/doc` still resolves to an **open** todo. Exits `1` on a citation of closed or non-existent work. Run by `tool/regenerate_outlines.sh` and by `test/todo_citations_test.dart` (see below). |
 | `check_section_citations.dart` | Resolve every `§` citation in `tom_specs_model/doc` against `index.md`'s citation convention — a bare `§N` means *this* document. Exits `1` on a citation that resolves to no heading. `--extra <file>` adds a file outside the folder (a project README that cites the doc set) to the same corpus. |
+| `check_oe_citations.dart` | Resolve every `OE-` id cited in the editor project, the doc folder and the quest's bookkeeping against the Open-Ends Register (`tom_specs_editor_specification.md` §22). Exits `1` on a citation with no register row, and on a register that defines one id twice. `--root` / `--register` retarget it. |
 | `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
 | `validate_codespecs.dart` | Run the `codespecs_derivation_contract.md` §6 checks over a generated CodeSpecs project trio. Takes `--shared` / `--client` / `--server`; exits `0` clean, `1` on any violation, `2` on bad usage. |
 | `docspecs_schema.dart` / `docspecs_yaml_schema.dart` | Emit the DocSpecs / YAML schemas. |
@@ -164,7 +165,7 @@ still looks runnable.
 
 | Entry | Purpose | Re-run when |
 | --- | --- | --- |
-| `regenerate_outlines.sh` | The drift-proof batch entry point: renders all 16 committed outlines (`DocSpecsProject` + D00–D13, plus the compact `SolutionBlueprint`) into `tom_specs_model/generated-doc/outlines/`, then runs **both** doc-folder citation gates — `check_todo_citations.dart` and `check_section_citations.dart` — as blocking steps under `set -e`. | Any model-shape change, and any documentation pass. Commit the diff. |
+| `regenerate_outlines.sh` | The drift-proof batch entry point: renders all 16 committed outlines (`DocSpecsProject` + D00–D13, plus the compact `SolutionBlueprint`) into `tom_specs_model/generated-doc/outlines/`, then runs **all three** citation gates — `check_todo_citations.dart`, `check_section_citations.dart` and `check_oe_citations.dart` — as blocking steps under `set -e`. | Any model-shape change, and any documentation pass. Commit the diff. |
 | `split_sdk_summary.dart` | Turns `assets/sdk_summary.sum` into the committed `lib/src/sdk_summary/` chunk set that `analyzer_bootstrap.dart` loads — the only producer of it. Pairs with `bin/summaries.dart --sdk-only`, which builds the `.sum`. | The Dart SDK version moves (`tom_specs_model/doc/som_toolchains.md`, "Regenerating after an SDK change"). |
 | `model_surface.stamp.json` | Data, not a script: the model fingerprint a canonical `generate_som.dart` run writes, against which `test/model_freshness_test.dart` checks in the default suite. | Written by the generator; commit it with the regenerated packages. |
 | `todo_citation_vocabulary.txt` | Data, not a script: the token allowlist that keeps ordinary technical terms from colliding with the discovered todo-id shapes. A **token** list, never a path list. | A false positive appears — add the one token. |
@@ -259,6 +260,33 @@ violations. The corpus is the doc folder plus the project READMEs that cite it
 (`defaultCitedReadmes`), which is also what `check_section_citations.dart` scans
 by default — so the command and the gate cover the same files, and neither list
 can drift from the other. Pass `--no-default-readmes` to scan the folder alone.
+
+**`OE-` citations.** The third gate differs from the other two in where the
+*citing* side lives: `OE-` ids are cited from **shipped source** — comments in
+`tom_specs_editor`'s `lib/` and `test/`, notes in its `pubspec.yaml` and
+`buildkit.yaml` — as durable handles on seams and drop-in points, and they
+resolve against the Open-Ends Register in `tom_specs_editor_specification.md`
+§22. That register was once a pair of quest documents, and consolidating the
+editor specification deleted them without folding them in; 71 citations across
+16 ids went on resolving to nothing until someone tried one, and three
+`deferred.tom_specs.md` entries paid for it by restating in prose what an id
+meant. `check_oe_citations.dart` makes the next such deletion fail a build step.
+
+Two things about it are deliberate:
+
+- **A row *defines* its id by carrying it in the row's first inline-code span**,
+  and nowhere else. One place to read, and no id can be defined by accident in
+  running prose. In the register's own document that first token is therefore
+  suppressed as a citation — but every other mention in the file, including the
+  `OE-` a row's own prose cross-references, is checked normally.
+- **It runs in one direction only: cited → defined.** An id is allocated once
+  and never reused, so the register deliberately keeps rows nothing cites any
+  more — a retired row is what reserves its number. Checking the reverse
+  direction would turn that invariant into a failure.
+
+`test/oe_citations_test.dart` fixes the parse and match rules against fixtures
+**and closes the gate**: its last test holds the live corpus at zero violations
+over the same roots the command scans by default (`defaultCitingRoots`).
 
 ---
 

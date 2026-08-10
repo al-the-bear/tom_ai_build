@@ -74,6 +74,22 @@ export 'src/section_citations.dart'
         SectionCitationReport,
         classifySectionCitations,
         checkSectionCitations;
+// The gate over `OE-` citations: the editor cites open-ends ids from shipped
+// source, so a citation that resolves to no register row fails here rather than
+// promising a referent that does not exist. One direction only — see the
+// library doc.
+export 'src/oe_citations.dart'
+    show
+        oeIdPattern,
+        oeRegisterHeading,
+        oeRegisterDocument,
+        defaultCitingRoots,
+        OeRegister,
+        OeCitation,
+        OeCitationReport,
+        firstInlineCodeOf,
+        findOeCitations,
+        checkOeCitations;
 export 'src/meta_tree.dart'
     show
         MetaTreeBuilder,

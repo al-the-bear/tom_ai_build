@@ -37,6 +37,13 @@ says about the present, or only what it says about the past?**
   Deleting it makes the body unreadable, so it stays. It earns that by stating
   each decision in the present tense: *what the design is*, not *what was
   agreed when*.
+- An **open-ends register** whose ids are cited from *shipped source*
+  (`tom_specs_editor_specification.md` §22, cited as `OE-3a` and some seventy
+  others from the editor's `lib/`, `test/`, `pubspec.yaml` and `buildkit.yaml`)
+  is the same construct one level out: a row survives its work because the
+  comment at the seam still names it. It states what an id *refers to* in the
+  present tense and leaves what is still *open* about it to
+  `_ai/quests/tom_specs/deferred.tom_specs.md`.
 - A **`Done:` condition** on a plan step (`tom_specs_editor_specification.md`
   §20) is an **acceptance criterion**, not a claim that the step is finished.
   Which steps *are* finished is progress state and lives in
@@ -110,6 +117,13 @@ restructured, so a number carried mechanically from one document to another
 points at whatever heading now happens to hold that position. Confirm the target
 section says what the citation claims before writing it.
 
+**The rule is about resolution, not about `§`.** A citation of any kind that
+cannot be looked up promises a referent that does not exist. The corpus carries
+one other cited id family — `OE-<n>`, the open-ends ids the editor cites from its
+own source — and it resolves the same way, against the register in
+`tom_specs_editor_specification.md` §22, under the same kind of gate
+(`bin/check_oe_citations.dart`).
+
 ---
 
 ## The object model and how it is generated
@@ -142,7 +156,7 @@ generated language runtimes and two file formats.
 
 | Document | Authority for |
 |----------|---------------|
-| [tom_specs_editor_specification.md](tom_specs_editor_specification.md) | **The spec-authoring app** (`tom_forge/tom_specs_editor`) — the three Forge applications, the four-region layout, the document/structure/agent/config modules, the two access layers, canonical paths, schema generation and the undo model. |
+| [tom_specs_editor_specification.md](tom_specs_editor_specification.md) | **The spec-authoring app** (`tom_forge/tom_specs_editor`) — the three Forge applications, the four-region layout, the document/structure/agent/config modules, the two access layers, canonical paths, schema generation and the undo model. Carries the two referent registers the editor's code and body cite — decisions (§2) and open ends (§22). |
 | [tom_specs_reviewer_specification.md](tom_specs_reviewer_specification.md) | **The object-model review app** (`tom_ai/ai_build/tom_specs_reviewer`) — browsing the exported class graph and recording structural observations keyed by structural path. Explicitly not an editor; the two apps share the readers *and* the annotation display semantics, and diverge only in the paint. |
 | [llm_and_d4rt_tools.md](llm_and_d4rt_tools.md) | **The `tom_spec_engine` scripting plane** — the D4rt host and its `spec` / `files` / `memory` scopes, the controller-bound editing facade, grep-like search, the audited file facade, the tool surface and the two-tier memory. |
 | [llm_guidelines_specification.md](llm_guidelines_specification.md) | **The agent's context prompt** — what the in-editor agent is, and how it authors D4rt scripts that process a TomSpecs document. Its worked examples are executed verbatim by `tom_spec_engine`'s test suite. |

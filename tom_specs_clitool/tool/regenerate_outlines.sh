@@ -61,4 +61,11 @@ dart run bin/check_todo_citations.dart
 echo "→ section citations in the doc folder and its READMEs"
 dart run bin/check_section_citations.dart
 
+# And for `OE-` ids, whose citing side is shipped source rather than a document.
+# The register was once a pair of quest files that a consolidation deleted
+# without folding in, leaving 71 citations resolving to nothing; this makes the
+# next such deletion fail here instead of decaying unseen.
+echo "→ OE- citations in the editor, the doc folder and the quest files"
+dart run bin/check_oe_citations.dart
+
 echo "Done. Review the diff under $OUT/ and commit."
