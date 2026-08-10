@@ -216,7 +216,7 @@ final List<CorpusGuardedEnum> _guarded = [
           if (f['kind'] != null) f['kind'] as String,
     },
     waived: {
-      'section': 'tscompb4_ahiu-no-section-kind-field-in-the-conformance-'
+      'section': 'tscompc3_ahiu-no-section-kind-field-in-the-conformance-'
           'fixture',
     },
     why: 'a §7.1 field kind no port is ever asked to classify, so eight '
@@ -258,7 +258,7 @@ final List<CorpusGuardedEnum> _guarded = [
         if (k['kind'] != null) k['kind'] as String,
     },
     waived: {
-      'section': 'tscompb4_ahiu-no-section-kind-field-in-the-conformance-'
+      'section': 'tscompc3_ahiu-no-section-kind-field-in-the-conformance-'
           'fixture',
     },
     why: 'a resolution outcome no port is ever asked to produce, so eight path '
@@ -305,7 +305,7 @@ final List<ExemptEnum> _exempt = [
     note: 'The §4.2/§21 version check is implemented in all nine runtimes and '
         'asked about by no corpus file — stamp_cases.json pins decoding, not '
         'the version comparison. Closed by '
-        'tscompb5_ahiu-someditability-declared-nine-ways-with-no-corpus, which '
+        'tscompc4_ahiu-someditability-declared-nine-ways-with-no-corpus, which '
         'adds editability_cases.json and moves this entry into _guarded.',
   ),
   ExemptEnum(
@@ -314,7 +314,7 @@ final List<ExemptEnum> _exempt = [
     note: 'The §11.7 rejection protocol is implemented in all nine runtimes '
         'and exercised by nothing — expected.md is an export golden, and the '
         'corpus holds no import-rejection table. Closed by '
-        'tscompb6_ahiu-markdown-rejection-protocol-has-no-corpus.',
+        'tscompc5_ahiu-markdown-rejection-protocol-has-no-corpus.',
   ),
   ExemptEnum(
     enumName: 'SpecChipRole',
