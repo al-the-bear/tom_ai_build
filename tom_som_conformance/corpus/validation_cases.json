@@ -19,7 +19,8 @@
         "DEMO/items-1/STS": "open",
         "DEMO/items-1/label": "First",
         "DEMO/items-2/STS": "done",
-        "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks"
+        "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks",
+        "DEMO/notes/NOTE-BDY": "Section-kind body"
       },
       "forms": {
         "DEMO/CARD-LST-1/content": {

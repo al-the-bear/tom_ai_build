@@ -176,7 +176,7 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
     c.check("model.root.type", root.type_ == "Demo", &root.type_);
     c.check(
         "model.classCount",
-        model.classes.len() == 11,
+        model.classes.len() == 12,
         &model.classes.len().to_string(),
     );
     let demo = model.class_named("Demo");
@@ -184,10 +184,10 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
     if let Some(demo) = demo {
         let names: Vec<&str> = demo.fields.iter().map(|f| f.name.as_str()).collect();
         // `cards` is the card list (CARD-LST) added by the Demo corpus's Card
-        // class.
+        // class; `notes` is the fixture's one `section`-kind member.
         let want = [
             "title", "summary", "priority", "count", "details", "items", "refs", "cards", "meta",
-            "control", "registry",
+            "control", "notes", "registry",
         ];
         c.check("model.Demo.fields", names == want, &names.join(","));
     }

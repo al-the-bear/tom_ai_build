@@ -3,7 +3,7 @@
   "modelVersion": 1,
   "modelVersionLabel": "demo-1.0",
   "generatedAt": "2026-07-20T08:00:00.000000Z",
-  "classCount": 11,
+  "classCount": 12,
   "rootCount": 2,
   "roots": [
     {
@@ -152,6 +152,11 @@
           "name": "control",
           "kind": "complex",
           "type": "Control"
+        },
+        {
+          "name": "notes",
+          "kind": "section",
+          "type": "Notes"
         },
         {
           "name": "registry",
@@ -422,6 +427,25 @@
         {
           "name": "owner",
           "kind": "content"
+        }
+      ]
+    },
+    "Notes": {
+      "name": "Notes",
+      "sectionId": "NOTE",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "NOTE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "body",
+          "kind": "content",
+          "sectionId": "NOTE-BDY"
         }
       ]
     },

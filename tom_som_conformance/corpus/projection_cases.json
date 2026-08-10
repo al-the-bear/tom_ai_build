@@ -398,6 +398,30 @@
     "hasValue": true
   },
   {
+    "path": "DEMO/notes",
+    "kind": "section",
+    "classId": "Notes",
+    "sectionId": "NOTE",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/notes/NOTE-BDY",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "NOTE-BDY",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "Section-kind body"
+    ],
+    "hasValue": true
+  },
+  {
     "path": "DEMO/REG",
     "kind": "complex",
     "classId": "Registry",

@@ -149,20 +149,20 @@ static void test_model_meta(Checker& c, const som::SpecModel& model) {
   const som::SpecRoot& root = model.roots[0];
   c.check("model.root.sectionId", root.sectionId == "DEMO", root.sectionId);
   c.check("model.root.type", root.type == "Demo", root.type);
-  c.check("model.classCount", model.classesSize() == 11,
+  c.check("model.classCount", model.classesSize() == 12,
           std::to_string(model.classesSize()));
   const som::SpecClass* demo = model.classNamed("Demo");
   c.check("model.Demo.found", demo != nullptr, "");
   if (demo != nullptr) {
     const char* want[] = {"title",   "summary", "priority", "count",
                           "details", "items",   "refs",     "cards",
-                          "meta",    "control", "registry"};
-    bool ok = demo->fields.size() == 11;
+                          "meta",    "control", "notes",    "registry"};
+    bool ok = demo->fields.size() == 12;
     std::string names;
     for (std::size_t i = 0; i < demo->fields.size(); i++) {
       if (i > 0) names.push_back(',');
       names += demo->fields[i].name;
-      if (ok && i < 11 && demo->fields[i].name != want[i]) ok = false;
+      if (ok && i < 12 && demo->fields[i].name != want[i]) ok = false;
     }
     c.check("model.Demo.fields", ok, names);
   }

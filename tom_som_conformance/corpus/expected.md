@@ -100,3 +100,9 @@ ctrl-owner
 
 Controlled summary
 
+## <!--[NOTE]--> Notes
+
+### <!--[NOTE-BDY]--> Body
+
+Section-kind body
+

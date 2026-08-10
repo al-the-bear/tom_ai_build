@@ -809,10 +809,13 @@ SpecQuery _queryFromJson(Map<String, dynamic> j) => SpecQuery(
 /// fixture, see the `realistic (convention-conformant) model` group in
 /// `spec_document_yaml_test.dart`.
 ///
-/// The kind coverage: content (incl. a multi-line block-scalar value), enum,
-/// scalar, a two-field `@Form`, a `@Min`-constrained complex list, a nested
-/// complex section, and a (declared-but-unpopulated) scalar list for resolution
-/// coverage.
+/// The kind coverage is **total**: all seven §7.1 field kinds are declared —
+/// content (incl. a multi-line block-scalar value), enum, scalar, a two-field
+/// `@Form`, a `@Min`-constrained complex list, a nested complex section, a
+/// `section` member (`notes` → `Notes`), and a (declared-but-unpopulated)
+/// scalar list for resolution coverage. Totality is not decoration: a kind no
+/// case asks about is invisible rather than weakly covered, so eight ports
+/// could disagree about it while the harness reports nine-way parity.
 ///
 /// Both flavours of the SOM §11.2 `-LST` container rule are pinned: the `refs`
 /// scalar list carries a real `@SectionId`/`@SectionIdPattern`, so its container
@@ -838,7 +841,7 @@ Map<String, dynamic> _buildMeta() => {
       // class, so declaring one would be a lie. The present-`containerRoot`
       // path is covered by `stamp_cases.json` instead.
       'generatedAt': '2026-07-20T08:00:00.000000Z',
-      'classCount': 11,
+      'classCount': 12,
       'rootCount': 2,
       'roots': [
         {
@@ -1000,6 +1003,25 @@ Map<String, dynamic> _buildMeta() => {
               'name': 'control',
               'kind': 'complex',
               'type': 'Control'
+            },
+            {
+              // The §7.1 `section` kind — the seventh structural kind, and the
+              // one nothing else in the fixture declares. It matters more than
+              // its rarity suggests: `section` COLLAPSES into its target class
+              // exactly as `complex` does, so a port that classifies it as a
+              // leaf misresolves every path beneath it, and a port that omits
+              // it from the `sectionId ?? classSectionId` key rule (SOM §12.2)
+              // mis-keys the whole subtree.
+              //
+              // Deliberately id-less with a class-level `@SectionId` (`NOTE`),
+              // mirroring `control` above: that pins the class-id fallback for
+              // the *section* half of the section/complex rule, which `control`
+              // pins only for the complex half. Both halves now have a case, so
+              // a codec written for `complex` alone fails here rather than
+              // shipping.
+              'name': 'notes',
+              'kind': 'section',
+              'type': 'Notes'
             },
             {
               // csrf3: the two instance-tier checks — cross-registry
@@ -1245,6 +1267,24 @@ Map<String, dynamic> _buildMeta() => {
             {'name': 'owner', 'kind': 'content'},
           ],
         },
+        // The target of `Demo.notes`, the fixture's one `section`-kind member.
+        // Kept to a single content leaf on purpose: what the case has to pin is
+        // the KIND — that a section collapses and keys on its class id — not a
+        // new leaf shape. Its own id (`NOTE`) is what the id-less `notes` member
+        // falls back to.
+        'Notes': {
+          'name': 'Notes',
+          'sectionId': 'NOTE',
+          'annotations': [
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'NOTE'}
+            },
+          ],
+          'fields': [
+            {'name': 'body', 'kind': 'content', 'sectionId': 'NOTE-BDY'},
+          ],
+        },
         'Item': {
           'name': 'Item',
           // YRD4: class-level @Headline default — drives the item title stem
@@ -1370,6 +1410,11 @@ SpecDocument _buildDocument() {
   // keep their own content keys (`CTRL-SUM summary:` / bare `owner:`).
   d.setContent('DEMO/control/CTRL-SUM', 'Controlled summary');
   d.setContent('DEMO/control/owner', 'ctrl-owner');
+  // The `section`-kind member (`Notes`, class id `NOTE`, id-less field). It is
+  // POPULATED rather than declared-only so the md/yaml codecs are exercised on
+  // a section node too: the resolver and the codecs are separate risks, and a
+  // declared-but-empty member would have pinned only the first.
+  d.setContent('DEMO/notes/NOTE-BDY', 'Section-kind body');
   return d;
 }
 
@@ -1414,6 +1459,12 @@ List<Map<String, dynamic>> _reflectionCases(SpecModel model) {
     'DEMO/control',
     'DEMO/control/CTRL-SUM',
     'DEMO/control/owner',
+    // The `section` kind (§7.1): the node itself, and one leaf BENEATH it —
+    // the second case is the load-bearing one, because a port that fails to
+    // collapse a section into its target class resolves the parent correctly
+    // and everything under it not at all.
+    'DEMO/notes',
+    'DEMO/notes/NOTE-BDY',
     'DEMO/ghost',
     'DEMO/items-1/ghost',
     'WRONG',

@@ -179,6 +179,10 @@ def _build_document() -> SpecDocument:
     # A class-level-only section (`Control`, id `CTRL`).
     d.set_content("DEMO/control/CTRL-SUM", "Controlled summary")
     d.set_content("DEMO/control/owner", "ctrl-owner")
+    # The `section`-kind member (`Notes`, class id `NOTE`, id-less field): a
+    # section collapses into its target class exactly as a complex member does,
+    # and keys on the target class's id when the field carries none.
+    d.set_content("DEMO/notes/NOTE-BDY", "Section-kind body")
     return d
 
 
@@ -199,14 +203,14 @@ def test_model_meta(model: SpecModel) -> None:
     root = model.roots[0]
     _check("model.root.sectionId", root.section_id == "DEMO", str(root.section_id))
     _check("model.root.type", root.type == "Demo", root.type)
-    _check("model.classCount", len(model.classes) == 11, str(len(model.classes)))
+    _check("model.classCount", len(model.classes) == 12, str(len(model.classes)))
     demo = model.class_named("Demo")
     _check("model.Demo.found", demo is not None)
     if demo is not None:
         names = [f.name for f in demo.fields]
         _check(
             "model.Demo.fields",
-            names == ["title", "summary", "priority", "count", "details", "items", "refs", "cards", "meta", "control", "registry"],
+            names == ["title", "summary", "priority", "count", "details", "items", "refs", "cards", "meta", "control", "notes", "registry"],
             str(names),
         )
 

@@ -158,14 +158,14 @@ function testModelMeta(model) {
   const root = model.roots[0];
   _check('model.root.sectionId', root.sectionId === 'DEMO', String(root.sectionId));
   _check('model.root.type', root.type === 'Demo', root.type);
-  _check('model.classCount', model.classes.size === 11, String(model.classes.size));
+  _check('model.classCount', model.classes.size === 12, String(model.classes.size));
   const demo = model.classNamed('Demo');
   _check('model.Demo.found', demo !== null);
   if (demo !== null) {
     const names = demo.fields.map((f) => f.name);
     _check(
       'model.Demo.fields',
-      _deepEqual(names, ['title', 'summary', 'priority', 'count', 'details', 'items', 'refs', 'cards', 'meta', 'control', 'registry']),
+      _deepEqual(names, ['title', 'summary', 'priority', 'count', 'details', 'items', 'refs', 'cards', 'meta', 'control', 'notes', 'registry']),
       String(names),
     );
   }
@@ -733,6 +733,10 @@ function _buildFixtureDocument() {
   // A class-level-only section (`Control`, id `CTRL`).
   d.setContent('DEMO/control/CTRL-SUM', 'Controlled summary');
   d.setContent('DEMO/control/owner', 'ctrl-owner');
+  // The `section`-kind member (`Notes`, class id `NOTE`, id-less field): a
+  // section collapses into its target class exactly as a complex member does,
+  // and keys on the target class's id when the field carries none.
+  d.setContent('DEMO/notes/NOTE-BDY', 'Section-kind body');
   return d;
 }
 

@@ -176,6 +176,22 @@
     "isValueLeaf": true
   },
   {
+    "path": "DEMO/notes",
+    "resolves": true,
+    "kind": "section",
+    "field": "notes",
+    "targetClass": "Notes",
+    "isValueLeaf": false
+  },
+  {
+    "path": "DEMO/notes/NOTE-BDY",
+    "resolves": true,
+    "kind": "content",
+    "field": "body",
+    "targetClass": null,
+    "isValueLeaf": true
+  },
+  {
     "path": "DEMO/ghost",
     "resolves": false,
     "kind": null,

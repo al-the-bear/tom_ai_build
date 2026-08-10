@@ -215,10 +215,6 @@ final List<CorpusGuardedEnum> _guarded = [
             .cast<Map<String, dynamic>>())
           if (f['kind'] != null) f['kind'] as String,
     },
-    waived: {
-      'section': 'tscompc3_ahiu-no-section-kind-field-in-the-conformance-'
-          'fixture',
-    },
     why: 'a §7.1 field kind no port is ever asked to classify, so eight '
         'decoders could disagree about it undetected',
   ),
@@ -256,10 +252,6 @@ final List<CorpusGuardedEnum> _guarded = [
     exercised: (c) => {
       for (final k in (c as List).cast<Map<String, dynamic>>())
         if (k['kind'] != null) k['kind'] as String,
-    },
-    waived: {
-      'section': 'tscompc3_ahiu-no-section-kind-field-in-the-conformance-'
-          'fixture',
     },
     why: 'a resolution outcome no port is ever asked to produce, so eight path '
         'resolvers could disagree about it undetected',
@@ -396,6 +388,11 @@ void main() {
   });
 
   group('ECG3: no waiver outlives its cause [2026-08-09]', () {
+    // Currently DORMANT — [_guarded] holds no waiver, so this group emits no
+    // tests. That is the goal state, not a broken check: every registered
+    // constant has a corpus case. It revives by itself the moment a waiver is
+    // added, which is why the mechanism stays rather than being deleted along
+    // with its last user.
     for (final g in _guarded.where((g) => g.waived.isNotEmpty)) {
       test(g.enumName, () {
         final exercised = g.exercised(corpus(g.corpusFile));

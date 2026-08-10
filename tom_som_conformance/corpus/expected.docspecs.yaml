@@ -72,3 +72,6 @@ document:
         Controlled summary
       owner: |2-
         ctrl-owner
+    NOTE notes:
+      NOTE-BDY body: |2-
+        Section-kind body
