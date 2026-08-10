@@ -10,7 +10,7 @@ nine language APIs agree.
 | Path | Purpose |
 | ---- | ------- |
 | `samples/` | The shared specification sample (`meridian_order_management.docspecs.yaml` + `.md`), authored once through the Dart typed facade and loaded by every language. See `samples/README.md`. |
-| `corpus/` | Language-agnostic case tables (section-id, operations, validation, reflection, serialization-order, generation stamp, DocSpecs tier, editor tier) plus their expected outputs, consumed by each runtime's conformance runner. What keeps these tables *complete* is the enum-coverage guard — see below before adding a check to any runtime. |
+| `corpus/` | Language-agnostic case tables plus their expected outputs, consumed by each runtime's conformance runner. **Every tier has a `#### …and so does the <tier>` subsection below, and each one names its own tables** — the tiers are not listed here, because a list in two places is a list that goes stale in one of them (it did: the scripting tier and the version check were both added without this row noticing). What keeps the tables *complete* is the enum-coverage guard — see below before adding a check to any runtime. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand (see below). |
 | `tool/` | The two cross-language drivers: `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the eighteen test suites). |
 
