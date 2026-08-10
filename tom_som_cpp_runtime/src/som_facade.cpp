@@ -142,15 +142,12 @@ SomEditability somEditabilityFor(const std::string& generated,
   if (documentVersion.empty()) {
     return SomEditability::editable;
   }
-  // An unparseable *generated* version is a programmer error, not a document
-  // condition (mirrors the Dart reference's _SomVersion.parse, which throws).
+  // Total: an unparseable *generated* version is classified, not thrown. A
+  // classifier a caller must still wrap in try/catch gives that caller nothing
+  // over the throwing check it exists to replace (SOM §21).
   SomVersion gen = tryParseSomVersion(generated);
-  if (!gen.ok) {
-    throw SomVersionError("\"" + generated +
-                          "\" is not a valid major.minor version");
-  }
   SomVersion docv = tryParseSomVersion(documentVersion);
-  if (!docv.ok) {
+  if (!gen.ok || !docv.ok) {
     return SomEditability::invalidVersion;
   }
   if (docv.major != gen.major) {
@@ -168,6 +165,12 @@ void checkSomModelVersion(const std::string& generated,
     case SomEditability::editable:
       return;
     case SomEditability::invalidVersion:
+      // One outcome, two causes — the message is where they separate, so a
+      // malformed object-model constant does not masquerade as a bad document.
+      if (!tryParseSomVersion(generated).ok) {
+        throw SomVersionError("\"" + generated +
+                              "\" is not a valid major.minor version");
+      }
       throw SomVersionError("document model version \"" + documentVersion +
                             "\" is not a valid major.minor");
     case SomEditability::readOnlyCrossMajor: {

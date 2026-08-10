@@ -168,7 +168,10 @@ typedef enum {
   /* The document is same-major but a newer minor than the object model; an
    * older model must not edit a newer document. */
   SOM_EDITABILITY_REJECTED_NEWER_MINOR,
-  /* The document stamp is not a valid major.minor string. */
+  /* One of the two versions is not a valid major.minor string — usually the
+   * document stamp, but a malformed *generated* version lands here too. One
+   * outcome with two causes; the refusal message written by
+   * check_som_model_version is where they separate. */
   SOM_EDITABILITY_INVALID_VERSION
 } SomEditability;
 

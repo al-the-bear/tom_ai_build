@@ -11,6 +11,7 @@
  *   - Markdown export == expected.md (byte-for-byte);
  *   - Markdown parse -> memory -> export is clean + byte-stable;
  *   - the Markdown route lands the fixture in the same memory as the YAML route;
+ *   - the SOM §4.2/§21 editability contract (classification + refusal message);
  *   - reflection resolution cases;
  *   - validation cases;
  *   - the imperative operations script;
@@ -263,6 +264,56 @@ static void test_stamp(Checker& c, const som::SpecModel& model) {
       joined += gotWarnings[w];
     }
     c.check(prefix + "warnings", gotWarnings == wantWarnings, joined);
+  }
+}
+
+/* Maps a corpus token — spelled as the Dart constant name — to the C++ port's
+ * own spelling (which happens to coincide, the enum being lowerCamel). */
+static som::SomEditability editability_token(const std::string& token) {
+  if (token == "editable") return som::SomEditability::editable;
+  if (token == "readOnlyCrossMajor") {
+    return som::SomEditability::readOnlyCrossMajor;
+  }
+  if (token == "rejectedNewerMinor") {
+    return som::SomEditability::rejectedNewerMinor;
+  }
+  if (token == "invalidVersion") return som::SomEditability::invalidVersion;
+  std::fprintf(stderr, "unknown editability token: %s\n", token.c_str());
+  std::exit(2);
+}
+
+/* The SOM §4.2/§21 version check. The classifier and the check are one rule seen
+ * twice — `rejects` is just "the classification is not editable" — so asserting
+ * both is what makes a port that classifies right and refuses wrong fail. The
+ * message is pinned because `invalidVersion` is one outcome with two causes, and
+ * the message is where they separate. The corpus spells "no stamp" and "no
+ * refusal" as JSON null; `jsonStrOr` maps both to "" — for the stamp that is
+ * exactly the CS4-D2 sentinel this port's signature uses. */
+static void test_editability(Checker& c) {
+  som::JsonPtr table = read_json("editability_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    std::string name = som::jsonStrOr(kase, "name");
+    std::string generated = som::jsonStrOr(kase, "generated");
+    std::string documentVersion = som::jsonStrOr(kase, "documentVersion");
+    const std::string prefix = "editability[" + name + "].";
+
+    som::SomEditability want = editability_token(som::jsonStrOr(kase, "editability"));
+    c.check(prefix + "classification",
+            som::somEditabilityFor(generated, documentVersion) == want, "");
+
+    std::string raised;
+    try {
+      som::checkSomModelVersion(generated, documentVersion);
+    } catch (const som::SomVersionError& e) {
+      raised = e.what();
+    }
+    c.check(prefix + "rejects",
+            !raised.empty() == som::jsonBoolOr(kase, "rejects"), raised);
+    c.check(prefix + "message", raised == som::jsonStrOr(kase, "message"),
+            raised);
   }
 }
 
@@ -1329,6 +1380,7 @@ int main(int argc, char** argv) {
 
   test_model_meta(c, *model);
   test_stamp(c, *model);
+  test_editability(c);
   test_state_round_trip(c);
   test_yaml_encode(c, *tree);
   test_yaml_decode_round_trip(c, *tree);

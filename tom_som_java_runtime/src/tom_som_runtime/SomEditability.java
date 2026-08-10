@@ -30,6 +30,11 @@ public enum SomEditability {
    */
   REJECTED_NEWER_MINOR,
 
-  /** The document stamp is not a valid {@code major.minor} string. */
+  /**
+   * One of the two versions is not a valid {@code major.minor} string — usually
+   * the document stamp, but a malformed <em>generated</em> version lands here
+   * too. One outcome with two causes; the refusal message thrown by
+   * {@link SomFacade#checkModelVersion(String, String)} is where they separate.
+   */
   INVALID_VERSION,
 }

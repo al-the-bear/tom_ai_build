@@ -18,10 +18,13 @@ import tom_som_runtime.DocSpecsValidator;
 import tom_som_runtime.DocSpecsViolation;
 import tom_som_runtime.FormFieldSpec;
 import tom_som_runtime.Json;
+import tom_som_runtime.SomEditability;
+import tom_som_runtime.SomFacade;
 import tom_som_runtime.SomMetaBridge;
 import tom_som_runtime.SomMetaTree;
 import tom_som_runtime.SomPatternError;
 import tom_som_runtime.SomTextPattern;
+import tom_som_runtime.SomVersionError;
 import tom_som_runtime.SpecClass;
 import tom_som_runtime.SpecCreationCode;
 import tom_som_runtime.SpecCreationError;
@@ -242,6 +245,58 @@ public final class ConformanceRunner {
       String caseName, String key, boolean got, Map<String, Object> want) {
     check("stamp[" + caseName + "]." + key, got == Boolean.TRUE.equals(want.get(key)),
         got + " != " + want.get(key));
+  }
+
+  /**
+   * The SOM §4.2/§21 version contract: the classification and the refusal.
+   *
+   * <p>Both halves matter. {@code somEditabilityFor} is the single definition of
+   * the rules and {@code checkModelVersion} throws from it, so a port that
+   * classifies differently also throws differently — and a port that classifies
+   * right but throws out of the <em>classifier</em> has broken the one promise
+   * §21 makes about it.
+   *
+   * <p>Corpus tokens are spelled as the Dart constant names; Java's are
+   * SCREAMING_SNAKE, so the token is translated before comparing.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testEditability() throws IOException {
+    for (Object caseObj : (List<Object>) readJsonObject("editability_cases.json").get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      String generated = (String) c.get("generated");
+      String documentVersion = (String) c.get("documentVersion");
+      SomEditability want = editabilityToken((String) c.get("editability"));
+
+      SomEditability got = SomFacade.somEditabilityFor(generated, documentVersion);
+      check("editability[" + name + "].classification", got == want, got + " != " + want);
+
+      String raised = null;
+      try {
+        SomFacade.checkModelVersion(generated, documentVersion);
+      } catch (SomVersionError e) {
+        raised = e.getMessage();
+      }
+      check("editability[" + name + "].rejects",
+          (raised != null) == Boolean.TRUE.equals(c.get("rejects")), "raised=" + raised);
+      check("editability[" + name + "].message",
+          Objects.equals(raised, c.get("message")), raised + " != " + c.get("message"));
+    }
+  }
+
+  private static SomEditability editabilityToken(String token) {
+    switch (token) {
+      case "editable":
+        return SomEditability.EDITABLE;
+      case "readOnlyCrossMajor":
+        return SomEditability.READ_ONLY_CROSS_MAJOR;
+      case "rejectedNewerMinor":
+        return SomEditability.REJECTED_NEWER_MINOR;
+      case "invalidVersion":
+        return SomEditability.INVALID_VERSION;
+      default:
+        throw new IllegalArgumentException("unknown editability token: " + token);
+    }
   }
 
   private static void testStateRoundTrip() throws IOException {
@@ -1290,6 +1345,7 @@ public final class ConformanceRunner {
     SomMetaTree tree = SomMetaBridge.buildSomMetaTree(model, null);
     testModelMeta(model);
     testStamp(model);
+    testEditability();
     testStateRoundTrip();
     testYamlEncode(tree);
     testYamlDecodeRoundTrip(tree);

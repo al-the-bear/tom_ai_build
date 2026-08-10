@@ -256,6 +256,21 @@ final List<CorpusGuardedEnum> _guarded = [
     why: 'a resolution outcome no port is ever asked to produce, so eight path '
         'resolvers could disagree about it undetected',
   ),
+  CorpusGuardedEnum(
+    enumName: 'SomEditability',
+    declared: _wire(SomEditability.values),
+    corpusFile: 'editability_cases.json',
+    exercised: (c) => {
+      for (final k in ((c as Map<String, dynamic>)['cases'] as List)
+          .cast<Map<String, dynamic>>())
+        k['editability'] as String,
+    },
+    why: 'the §4.2/§21 verdict on whether a document may be edited at all — a '
+        'port that classifies `readOnlyCrossMajor` as `editable` corrupts a '
+        'document it was supposed to refuse, and `somEditabilityFor` is the '
+        'single definition the throwing check switches on, so a wrong '
+        'classification is also a wrong refusal',
+  ),
 ];
 
 /// Every enum in `lib/` deliberately **not** in [_guarded], with why.
@@ -290,15 +305,6 @@ final List<ExemptEnum> _exempt = [
         'rather than serialized, so there is no token in the corpus to diff '
         'against; ECG4 pins the two enums constant-for-constant instead, which '
         'is the stronger statement — a constant added to either alone fails.',
-  ),
-  ExemptEnum(
-    enumName: 'SomEditability',
-    reason: ExemptionReason.noCorpusYet,
-    note: 'The §4.2/§21 version check is implemented in all nine runtimes and '
-        'asked about by no corpus file — stamp_cases.json pins decoding, not '
-        'the version comparison. Closed by '
-        'tscompc4_ahiu-someditability-declared-nine-ways-with-no-corpus, which '
-        'adds editability_cases.json and moves this entry into _guarded.',
   ),
   ExemptEnum(
     enumName: 'SpecMarkdownRejectReason',

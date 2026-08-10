@@ -149,7 +149,13 @@ throws **`SomVersionException`** (Dart) / **`SomVersionError`** (the other
 languages) when:
 
 - an older facade is asked to edit a **newer same-major** document, or
-- the stamp is unparseable.
+- either version is unparseable.
+
+The last is **one outcome with two causes** — usually the document stamp, but a
+malformed *generated* constant lands there too. The refusal **message** is where
+they separate, so a broken object-model constant never masquerades as a bad
+document; the two messages are pinned across the nine ports by
+`editability_cases.json`.
 
 Editing rules:
 
@@ -161,7 +167,13 @@ Editing rules:
 
 `SomEditability` plus the pure classifier `somEditabilityFor(...)` is the single
 definition of these rules; the throwing constructor check delegates to it, so a
-read-only viewer branches on the result instead of catching the exception.
+read-only viewer branches on the result instead of catching the exception. The
+classifier is **total**: every input pair is classified, an unparseable
+`generated` included. A classifier the caller must still wrap in `try`/`catch`
+gives that caller nothing over the throwing check it exists to replace, and the
+throwing form is not expressible in all nine ports anyway — C has no exceptions,
+Go returns an error, Rust returns a plain enum — so only the total form can be a
+nine-language contract.
 
 The meta-data file additionally carries the integer model major (`modelVersion`)
 and a build label (`modelVersionLabel`) for the generic path.
@@ -1355,10 +1367,13 @@ languages.
   companion to `content(path)`. The typed section's `isEmpty` is subtree-wide.
   Together they close the typed-`''` vs generic-`null` divergence, so
   "is this section filled?" answers identically through both paths.
-- **Non-throwing editability.** `SomEditability` plus the pure
+- **Non-throwing editability.** `SomEditability` plus the pure, **total**
   `somEditabilityFor(...)` classifier is the single definition of the §4.2
   version rules; the throwing constructor check delegates to it. A read-only
-  viewer branches on the result instead of catching `SomVersionException`.
+  viewer branches on the result instead of catching `SomVersionException` —
+  including for an unparseable version, which is classified rather than thrown,
+  because a classifier that still throws has not replaced the check it exists to
+  replace.
 
 **Authoring:**
 

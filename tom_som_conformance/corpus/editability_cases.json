@@ -1,0 +1,116 @@
+{
+  "cases": [
+    {
+      "name": "a document at the model's own version is editable",
+      "generated": "2.3",
+      "documentVersion": "2.3",
+      "editability": "editable",
+      "rejects": false,
+      "message": null
+    },
+    {
+      "name": "an older minor of the same major is editable, and upgraded on edit",
+      "generated": "2.3",
+      "documentVersion": "2.1",
+      "editability": "editable",
+      "rejects": false,
+      "message": null
+    },
+    {
+      "name": "a newer minor of the same major is rejected",
+      "generated": "2.3",
+      "documentVersion": "2.4",
+      "editability": "rejectedNewerMinor",
+      "rejects": true,
+      "message": "document model version 2.4 is newer than the object model version 2.3; an older object model cannot edit a newer document"
+    },
+    {
+      "name": "a higher major is read-only, not rejected-newer",
+      "generated": "2.3",
+      "documentVersion": "3.0",
+      "editability": "readOnlyCrossMajor",
+      "rejects": true,
+      "message": "document major version 3 differs from the object model major version 2; cross-major documents are read-only"
+    },
+    {
+      "name": "a lower major is read-only too — cross-major is an identity, not an ordering",
+      "generated": "2.3",
+      "documentVersion": "1.9",
+      "editability": "readOnlyCrossMajor",
+      "rejects": true,
+      "message": "document major version 1 differs from the object model major version 2; cross-major documents are read-only"
+    },
+    {
+      "name": "an absent stamp is a brand-new document and is editable",
+      "generated": "2.3",
+      "documentVersion": null,
+      "editability": "editable",
+      "rejects": false,
+      "message": null
+    },
+    {
+      "name": "an empty stamp is the same never-stamped sentinel",
+      "generated": "2.3",
+      "documentVersion": "",
+      "editability": "editable",
+      "rejects": false,
+      "message": null
+    },
+    {
+      "name": "a single-component stamp is not a major.minor",
+      "generated": "2.3",
+      "documentVersion": "1",
+      "editability": "invalidVersion",
+      "rejects": true,
+      "message": "document model version \"1\" is not a valid major.minor"
+    },
+    {
+      "name": "a non-numeric minor is not a major.minor",
+      "generated": "2.3",
+      "documentVersion": "1.x",
+      "editability": "invalidVersion",
+      "rejects": true,
+      "message": "document model version \"1.x\" is not a valid major.minor"
+    },
+    {
+      "name": "a three-component stamp is not a major.minor either",
+      "generated": "2.3",
+      "documentVersion": "1.2.3",
+      "editability": "invalidVersion",
+      "rejects": true,
+      "message": "document model version \"1.2.3\" is not a valid major.minor"
+    },
+    {
+      "name": "minors compare numerically: 2.9 is older than 2.10",
+      "generated": "2.10",
+      "documentVersion": "2.9",
+      "editability": "editable",
+      "rejects": false,
+      "message": null
+    },
+    {
+      "name": "and in the rejecting direction: 2.10 is newer than 2.9",
+      "generated": "2.9",
+      "documentVersion": "2.10",
+      "editability": "rejectedNewerMinor",
+      "rejects": true,
+      "message": "document model version 2.10 is newer than the object model version 2.9; an older object model cannot edit a newer document"
+    },
+    {
+      "name": "an unparseable generated version is classified, not raised",
+      "generated": "x.y",
+      "documentVersion": "2.3",
+      "editability": "invalidVersion",
+      "rejects": true,
+      "message": "\"x.y\" is not a valid major.minor version"
+    },
+    {
+      "name": "an absent stamp is answered before generated is parsed at all",
+      "generated": "x.y",
+      "documentVersion": null,
+      "editability": "editable",
+      "rejects": false,
+      "message": null
+    }
+  ]
+}

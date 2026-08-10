@@ -356,7 +356,10 @@ class SomEditability(enum.Enum):
     #: older model must not edit a newer document.
     REJECTED_NEWER_MINOR = "rejected_newer_minor"
 
-    #: The document stamp is not a valid ``major.minor`` string.
+    #: One of the two versions is not a valid ``major.minor`` string — usually
+    #: the document stamp, but a malformed *generated* version lands here too.
+    #: The classification is one outcome with two causes; the refusal message
+    #: raised by :func:`check_som_model_version` is where they separate.
     INVALID_VERSION = "invalid_version"
 
 
@@ -371,12 +374,17 @@ def som_editability_for(
     This is the single definition of the version rules;
     :func:`check_som_model_version` raises based on the value returned here, so
     the two never diverge.
+
+    **Total.** Every input pair is classified, including an unparseable
+    ``generated`` — a classifier a caller must still wrap in ``try``/``except``
+    gives that caller nothing over the raising check it exists to replace, and
+    the raising form is not expressible in all nine ports anyway.
     """
     if not document_version:
         return SomEditability.EDITABLE
-    gen = _SomVersion.parse(generated)
+    gen = _SomVersion.try_parse(generated)
     doc = _SomVersion.try_parse(document_version)
-    if doc is None:
+    if gen is None or doc is None:
         return SomEditability.INVALID_VERSION
     if doc.major != gen.major:
         return SomEditability.READ_ONLY_CROSS_MAJOR
@@ -401,12 +409,20 @@ def check_som_model_version(generated: str, document_version: Optional[str]) -> 
       * a **different major** version is always rejected (cross-major is
         read/convert only, never in-place edit).
 
-    Raises :class:`SomVersionError` on any rejection or an unparseable stamp.
+    Raises :class:`SomVersionError` on any rejection, or when either version is
+    unparseable — with a distinct message for each, since a malformed object
+    model constant is a different fault from a malformed document stamp.
     """
     editability = som_editability_for(generated, document_version)
     if editability is SomEditability.EDITABLE:
         return
     if editability is SomEditability.INVALID_VERSION:
+        # One outcome, two causes — the message is where they separate, so a
+        # malformed object-model constant does not masquerade as a bad document.
+        if _SomVersion.try_parse(generated) is None:
+            raise SomVersionError(
+                f'"{generated}" is not a valid major.minor version'
+            )
         raise SomVersionError(
             f'document model version "{document_version}" is not a valid major.minor'
         )

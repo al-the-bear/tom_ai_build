@@ -13,6 +13,7 @@
 //!   - Markdown export == expected.md, parse round-trips byte-stable, and the
 //!     parsed values land the fixture memory (md.export / md.parse.* /
 //!     md.land.*);
+//!   - the SOM §4.2/§21 editability contract (classification + refusal message);
 //!   - reflection resolution cases;
 //!   - validation cases;
 //!   - the imperative operations script;
@@ -37,6 +38,9 @@ use tom_som_rust_runtime::spec_model::{
     SpecModel, DEFAULT_MAX_SNAPSHOT_AGE_SECONDS, SECONDS_PER_DAY,
 };
 use tom_som_rust_runtime::spec_node_creation::{check_add_node, SpecNodeCreator};
+use tom_som_rust_runtime::som_facade::{
+    check_som_model_version, som_editability_for, SomEditability,
+};
 use tom_som_rust_runtime::spec_query::{
     SpecQuery, SpecQueryCursor, SpecQueryEngine, SpecQueryMatch, SpecStateFilter,
 };
@@ -147,6 +151,7 @@ fn conformance() {
 
     test_model_meta(&mut c, &model);
     test_stamp(&mut c, &model);
+    test_editability(&mut c);
     test_state_round_trip(&mut c);
     test_yaml_encode(&mut c, &tree);
     test_yaml_decode_round_trip(&mut c, &tree);
@@ -306,6 +311,56 @@ fn test_stamp(c: &mut Checker, model: &SpecModel) {
             &format!("stamp[{}].warnings", name),
             got.warnings() == want_warnings,
             &got.warnings().join(" | "),
+        );
+    }
+}
+
+/// Maps a corpus token — spelled as the Dart constant name — to the Rust port's
+/// own spelling.
+fn editability_token(token: &str) -> SomEditability {
+    match token {
+        "editable" => SomEditability::Editable,
+        "readOnlyCrossMajor" => SomEditability::ReadOnlyCrossMajor,
+        "rejectedNewerMinor" => SomEditability::RejectedNewerMinor,
+        "invalidVersion" => SomEditability::InvalidVersion,
+        other => panic!("unknown editability token: {}", other),
+    }
+}
+
+/// The SOM §4.2/§21 version check. The classifier and the check are one rule
+/// seen twice — `rejects` is just "the classification is not editable" — so
+/// asserting both is what makes a port that classifies right and refuses wrong
+/// fail. The message is pinned because `invalidVersion` is one outcome with two
+/// causes, and the message is where they separate. The corpus spells "no stamp"
+/// and "no refusal" as JSON null; `str_or` maps both to "" — for the stamp that
+/// is exactly the CS4-D2 sentinel this port's non-nullable signature uses.
+fn test_editability(c: &mut Checker) {
+    let table = read_json("editability_cases.json");
+    for kase in table.get("cases").and_then(|v| v.as_array()).unwrap_or(&[]) {
+        let name = kase.str_or("name");
+        let generated = kase.str_or("generated");
+        let document_version = kase.str_or("documentVersion");
+        let want = editability_token(&kase.str_or("editability"));
+        let got = som_editability_for(&generated, &document_version);
+        c.check(
+            &format!("editability[{}].classification", name),
+            got == want,
+            &format!("{:?} != {:?}", got, want),
+        );
+
+        let raised = match check_som_model_version(&generated, &document_version) {
+            Ok(()) => String::new(),
+            Err(e) => e.message,
+        };
+        c.check(
+            &format!("editability[{}].rejects", name),
+            !raised.is_empty() == kase.bool_or("rejects"),
+            &raised,
+        );
+        c.check(
+            &format!("editability[{}].message", name),
+            raised == kase.str_or("message"),
+            &raised,
         );
     }
 }

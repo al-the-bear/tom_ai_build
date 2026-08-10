@@ -223,7 +223,10 @@ enum class SomEditability {
   /* The document is same-major but a newer minor than the object model; an
    * older model must not edit a newer document. */
   rejectedNewerMinor,
-  /* The document stamp is not a valid major.minor string. */
+  /* One of the two versions is not a valid major.minor string — usually the
+   * document stamp, but a malformed *generated* version lands here too. One
+   * outcome with two causes; the refusal message thrown by
+   * checkSomModelVersion is where they separate. */
   invalidVersion,
 };
 
@@ -233,7 +236,10 @@ enum class SomEditability {
  * brand-new, never-stamped document — and classifies as editable.
  *
  * This is the single definition of the version rules; checkSomModelVersion
- * throws based on the value returned here, so the two never diverge. */
+ * throws based on the value returned here, so the two never diverge.
+ *
+ * TOTAL: every input pair is classified, including an unparseable `generated`
+ * (invalidVersion). Nothing is thrown out of this function. */
 SomEditability somEditabilityFor(const std::string& generated,
                                  const std::string& documentVersion);
 

@@ -8,6 +8,7 @@
  *
  *   * model meta-data loads (root + class structure);
  *   * the generation stamp decodes and reaches the shared staleness verdict;
+ *   * the SOM §4.2/§21 editability classification and its refusal messages;
  *   * `state.json` loads and re-serialises identically;
  *   * YAML encode == `expected.docspecs.yaml` (byte-for-byte, hierarchical v2
  *     via the SomMetaTree built from the model meta-data);
@@ -36,9 +37,11 @@ import {
   DocSpecsValidator,
   DocSpecsViolationRule,
   MILLIS_PER_DAY,
+  SomEditability,
   SomMetaTree,
   SomPatternError,
   SomTextPattern,
+  SomVersionError,
   SpecCreationCode,
   SpecCreationError,
   SpecDocument,
@@ -54,6 +57,8 @@ import {
   SpecStateFilter,
   buildSomMetaTree,
   checkAddNode,
+  checkSomModelVersion,
+  somEditabilityFor,
   SpecReflection,
   SpecSectionIdCollision,
   SpecSerializationOrder,
@@ -270,6 +275,50 @@ function testStamp(model: SpecModel): void {
       `stamp[${name}].warnings`,
       _deepEqual(check.warnings, wc.warnings),
       `${JSON.stringify(check.warnings)} != ${JSON.stringify(wc.warnings)}`,
+    );
+  }
+}
+
+/**
+ * The SOM §4.2/§21 version contract: the classification and the refusal.
+ *
+ * Both halves matter. `somEditabilityFor` is the single definition of the rules
+ * and `checkSomModelVersion` throws from it, so a port that classifies
+ * differently also throws differently — and a port that classifies right but
+ * throws out of the *classifier* has broken the one promise §21 makes about it.
+ *
+ * The corpus spells each outcome as the Dart constant name; the TypeScript
+ * string enum uses the same camelCase spelling, so the token indexes it.
+ */
+function testEditability(): void {
+  for (const kase of _readJson('editability_cases.json').cases) {
+    const name: string = kase.name;
+    const want = (SomEditability as Record<string, SomEditability>)[
+      kase.editability as string
+    ];
+    const got = somEditabilityFor(kase.generated, kase.documentVersion);
+    _check(
+      `editability[${name}].classification`,
+      got === want,
+      `${got} != ${kase.editability}`,
+    );
+
+    let raised: string | null = null;
+    try {
+      checkSomModelVersion(kase.generated, kase.documentVersion);
+    } catch (e) {
+      if (!(e instanceof SomVersionError)) throw e;
+      raised = e.message;
+    }
+    _check(
+      `editability[${name}].rejects`,
+      (raised !== null) === kase.rejects,
+      `raised=${JSON.stringify(raised)}`,
+    );
+    _check(
+      `editability[${name}].message`,
+      raised === kase.message,
+      `${JSON.stringify(raised)} != ${JSON.stringify(kase.message)}`,
     );
   }
 }
@@ -1164,6 +1213,7 @@ export function main(): number {
   const tree = buildSomMetaTree(model);
   testModelMeta(model);
   testStamp(model);
+  testEditability();
   testStateRoundTrip();
   testYamlEncode(tree);
   testYamlDecodeRoundTrip(tree);

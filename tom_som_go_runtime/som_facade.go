@@ -349,8 +349,10 @@ const (
 	// minor than the object model; an older model must not edit a newer document.
 	SomEditabilityRejectedNewerMinor
 
-	// SomEditabilityInvalidVersion — the document stamp is not a valid major.minor
-	// string.
+	// SomEditabilityInvalidVersion — one of the two versions is not a valid
+	// major.minor string: usually the document stamp, but a malformed
+	// *generated* version lands here too. One outcome with two causes; the
+	// refusal message returned by CheckSomModelVersion is where they separate.
 	SomEditabilityInvalidVersion
 )
 

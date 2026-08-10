@@ -360,7 +360,12 @@ export enum SomEditability {
    */
   rejectedNewerMinor = 'rejectedNewerMinor',
 
-  /** The document stamp is not a valid `major.minor` string. */
+  /**
+   * One of the two versions is not a valid `major.minor` string — usually the
+   * document stamp, but a malformed *generated* version lands here too. One
+   * outcome with two causes; the refusal message thrown by
+   * {@link checkSomModelVersion} is where they separate.
+   */
   invalidVersion = 'invalidVersion',
 }
 
@@ -372,6 +377,11 @@ export enum SomEditability {
  *
  * This is the single definition of the version rules; {@link checkSomModelVersion}
  * throws based on the value returned here, so the two never diverge.
+ *
+ * **Total.** Every input pair is classified, including an unparseable
+ * `generated` — a classifier a caller must still wrap in `try`/`catch` gives
+ * that caller nothing over the throwing check it exists to replace, and the
+ * throwing form is not expressible in all nine ports anyway.
  */
 export function somEditabilityFor(
   generated: string,
@@ -380,9 +390,9 @@ export function somEditabilityFor(
   if (!documentVersion) {
     return SomEditability.editable;
   }
-  const gen = _SomVersion.parse(generated);
+  const gen = _SomVersion.tryParse(generated);
   const doc = _SomVersion.tryParse(documentVersion);
-  if (doc === null) {
+  if (gen === null || doc === null) {
     return SomEditability.invalidVersion;
   }
   if (doc.major !== gen.major) {
@@ -410,7 +420,9 @@ export function somEditabilityFor(
  *   * a **different major** version is always rejected (cross-major is
  *     read/convert only, never in-place edit).
  *
- * Throws {@link SomVersionError} on any rejection or an unparseable stamp.
+ * Throws {@link SomVersionError} on any rejection, or when either version is
+ * unparseable — with a distinct message for each, since a malformed object model
+ * constant is a different fault from a malformed document stamp.
  */
 export function checkSomModelVersion(
   generated: string,
@@ -420,6 +432,13 @@ export function checkSomModelVersion(
     case SomEditability.editable:
       return;
     case SomEditability.invalidVersion:
+      // One outcome, two causes — the message is where they separate, so a
+      // malformed object-model constant does not masquerade as a bad document.
+      if (_SomVersion.tryParse(generated) === null) {
+        throw new SomVersionError(
+          `"${generated}" is not a valid major.minor version`,
+        );
+      }
       throw new SomVersionError(
         `document model version "${documentVersion}" is not a valid major.minor`,
       );

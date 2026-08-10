@@ -7,6 +7,7 @@ golden byte-for-byte and matches every behavioural case:
 
   * model meta-data loads (root + class structure);
   * the generation stamp decodes and reaches the shared staleness verdict;
+  * the SOM §4.2/§21 editability classification and its refusal messages;
   * ``state.json`` loads and re-serialises identically;
   * YAML encode == ``expected.docspecs.yaml`` (byte-for-byte);
   * YAML decode → memory → encode is byte-stable + preserves the stamp;
@@ -46,8 +47,10 @@ from tom_som_runtime import (  # noqa: E402
     DocSpecsSchema,
     DocSpecsValidator,
     DocSpecsViolationRule,
+    SomEditability,
     SomPatternError,
     SomTextPattern,
+    SomVersionError,
     SpecCreationCode,
     SpecCreationError,
     SpecDocument,
@@ -64,6 +67,8 @@ from tom_som_runtime import (  # noqa: E402
     SpecStateFilter,
     build_som_meta_tree,
     check_add_node,
+    check_som_model_version,
+    som_editability_for,
     encode_two_letter_date,
     generate_list_item_section_id,
     validate_document,
@@ -631,6 +636,51 @@ def test_stamp(model: SpecModel) -> None:
         )
 
 
+#: Corpus tokens are spelled as the Dart constant names; each port maps them to
+#: its own spelling. Python's are SCREAMING_SNAKE.
+_EDITABILITY = {
+    "editable": SomEditability.EDITABLE,
+    "readOnlyCrossMajor": SomEditability.READ_ONLY_CROSS_MAJOR,
+    "rejectedNewerMinor": SomEditability.REJECTED_NEWER_MINOR,
+    "invalidVersion": SomEditability.INVALID_VERSION,
+}
+
+
+def test_editability() -> None:
+    """The SOM §4.2/§21 version contract: the classification and the refusal.
+
+    Both halves matter. ``som_editability_for`` is the single definition of the
+    rules and ``check_som_model_version`` raises from it, so a port that
+    classifies differently also raises differently — and a port that classifies
+    right but raises out of the *classifier* has broken the one promise §21
+    makes about it.
+    """
+    for case in _read_json("editability_cases.json")["cases"]:
+        name = case["name"]
+        generated = case["generated"]
+        document_version = case["documentVersion"]
+        want = _EDITABILITY[case["editability"]]
+
+        got = som_editability_for(generated, document_version)
+        _check(f"editability[{name}].classification", got is want, f"{got} != {want}")
+
+        try:
+            check_som_model_version(generated, document_version)
+            raised = None
+        except SomVersionError as e:
+            raised = e.message
+        _check(
+            f"editability[{name}].rejects",
+            (raised is not None) == case["rejects"],
+            f"raised={raised!r}",
+        )
+        _check(
+            f"editability[{name}].message",
+            raised == case["message"],
+            f"{raised!r} != {case['message']!r}",
+        )
+
+
 def test_docspecs() -> None:
     """The SOM §14 DocSpecs tier: one shared schema, one case per rule.
 
@@ -912,6 +962,7 @@ def main() -> int:
     tree = build_som_meta_tree(model)
     test_model_meta(model)
     test_stamp(model)
+    test_editability()
     test_state_round_trip()
     test_yaml_encode(tree)
     test_yaml_decode_round_trip(tree)

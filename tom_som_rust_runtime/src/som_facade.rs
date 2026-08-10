@@ -417,7 +417,10 @@ pub enum SomEditability {
     /// older model must not edit a newer document.
     RejectedNewerMinor,
 
-    /// The document stamp is not a valid `major.minor` string.
+    /// One of the two versions is not a valid `major.minor` string — usually the
+    /// document stamp, but a malformed *generated* version lands here too. One
+    /// outcome with two causes; the refusal message returned by
+    /// [`check_som_model_version`] is where they separate.
     InvalidVersion,
 }
 
@@ -466,11 +469,17 @@ pub fn som_editability_for(generated: &str, document_version: &str) -> SomEditab
 pub fn check_som_model_version(generated: &str, document_version: &str) -> Result<(), SomVersionError> {
     match som_editability_for(generated, document_version) {
         SomEditability::Editable => Ok(()),
+        // One outcome, two causes — the message is where they separate, so a
+        // malformed object-model constant does not masquerade as a bad document.
         SomEditability::InvalidVersion => Err(SomVersionError {
-            message: format!(
-                "document model version \"{}\" is not a valid major.minor",
-                document_version
-            ),
+            message: if try_parse_som_version(generated).is_none() {
+                format!("\"{}\" is not a valid major.minor version", generated)
+            } else {
+                format!(
+                    "document model version \"{}\" is not a valid major.minor",
+                    document_version
+                )
+            },
         }),
         SomEditability::ReadOnlyCrossMajor => {
             let gen = try_parse_som_version(generated).expect("cross-major implies parseable generated");

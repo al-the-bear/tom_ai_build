@@ -11,6 +11,7 @@
 //     (byte-for-byte);
 //   - YAML decode → memory equals state.json, and → encode is byte-stable +
 //     preserves the stamp;
+//   - the SOM §4.2/§21 editability contract (classification + refusal message);
 //   - reflection resolution cases;
 //   - validation cases;
 //   - the imperative operations script;
@@ -190,6 +191,7 @@ func TestConformance(t *testing.T) {
 
 	testModelMeta(c, model)
 	testStamp(c, t, model)
+	testEditability(c, t)
 	testStateRoundTrip(c, t)
 	testYamlEncode(c, t, tree)
 	testYamlDecodeRoundTrip(c, t, tree)
@@ -325,6 +327,73 @@ func testStamp(c *checker, t *testing.T, model *som.SpecModel) {
 		c.check("stamp["+name+"].isStale", got.IsStale() == wc.IsStale, "")
 		c.check("stamp["+name+"].warnings", sliceEq(got.Warnings(), wc.Warnings),
 			join(got.Warnings()))
+	}
+}
+
+// editabilityCaseTable mirrors corpus/editability_cases.json — the SOM §4.2/§21
+// version contract. `documentVersion` and `message` are pointers because the
+// corpus spells "no stamp" and "no refusal" as JSON null; Go's facade takes a
+// non-nullable string, so a nil stamp maps to "" (the CS4-D2 sentinel).
+type editabilityCaseTable struct {
+	Cases []struct {
+		Name            string  `json:"name"`
+		Generated       string  `json:"generated"`
+		DocumentVersion *string `json:"documentVersion"`
+		Editability     string  `json:"editability"`
+		Rejects         bool    `json:"rejects"`
+		Message         *string `json:"message"`
+	} `json:"cases"`
+}
+
+// editabilityToken maps a corpus token — spelled as the Dart constant name — to
+// the Go port's own spelling.
+func editabilityToken(t *testing.T, token string) som.SomEditability {
+	switch token {
+	case "editable":
+		return som.SomEditabilityEditable
+	case "readOnlyCrossMajor":
+		return som.SomEditabilityReadOnlyCrossMajor
+	case "rejectedNewerMinor":
+		return som.SomEditabilityRejectedNewerMinor
+	case "invalidVersion":
+		return som.SomEditabilityInvalidVersion
+	}
+	t.Fatalf("unknown editability token: %s", token)
+	return som.SomEditabilityEditable
+}
+
+// testEditability asserts the §4.2/§21 version check. The classifier and the
+// check are one rule seen twice — `rejects` is just "the classification is not
+// editable" — so asserting both is what makes a port that classifies right and
+// refuses wrong fail. The message is pinned because `invalidVersion` is one
+// outcome with two causes, and the message is where they separate.
+func testEditability(c *checker, t *testing.T) {
+	var table editabilityCaseTable
+	readJSON(t, "editability_cases.json", &table)
+	for _, kase := range table.Cases {
+		name := kase.Name
+		documentVersion := ""
+		if kase.DocumentVersion != nil {
+			documentVersion = *kase.DocumentVersion
+		}
+		want := editabilityToken(t, kase.Editability)
+		got := som.SomEditabilityFor(kase.Generated, documentVersion)
+		c.check("editability["+name+"].classification", got == want, itoa(int(got)))
+
+		raised := ""
+		if err := som.CheckSomModelVersion(kase.Generated, documentVersion); err != nil {
+			var ve *som.SomVersionError
+			if !errors.As(err, &ve) {
+				t.Fatalf("editability case %s: unexpected error type %T", name, err)
+			}
+			raised = ve.Message
+		}
+		c.check("editability["+name+"].rejects", (raised != "") == kase.Rejects, optName(raised))
+		wantMessage := ""
+		if kase.Message != nil {
+			wantMessage = *kase.Message
+		}
+		c.check("editability["+name+"].message", raised == wantMessage, optName(raised))
 	}
 }
 

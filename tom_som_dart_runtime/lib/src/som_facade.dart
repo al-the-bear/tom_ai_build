@@ -237,7 +237,10 @@ enum SomEditability {
   /// older model must not edit a newer document.
   rejectedNewerMinor,
 
-  /// The document stamp is not a valid `major.minor` string.
+  /// One of the two versions is not a valid `major.minor` string — usually the
+  /// document stamp, but a malformed *generated* version lands here too. The
+  /// classification is one outcome with two causes; the refusal message raised
+  /// by [checkSomModelVersion] is where they separate.
   invalidVersion,
 }
 
@@ -248,13 +251,19 @@ enum SomEditability {
 ///
 /// This is the single definition of the version rules; [checkSomModelVersion]
 /// throws based on the value returned here, so the two never diverge.
+///
+/// **Total.** Every input pair is classified, including an unparseable
+/// [generated] — a classifier a caller must still wrap in `try`/`catch` gives
+/// that caller nothing over the throwing check it exists to replace, and the
+/// throwing form is not expressible in all nine ports anyway (C has no
+/// exceptions, Go returns errors, Rust returns a plain enum).
 SomEditability somEditabilityFor(String generated, String? documentVersion) {
   if (documentVersion == null || documentVersion.isEmpty) {
     return SomEditability.editable;
   }
-  final gen = _SomVersion.parse(generated);
+  final gen = _SomVersion.tryParse(generated);
   final doc = _SomVersion.tryParse(documentVersion);
-  if (doc == null) return SomEditability.invalidVersion;
+  if (gen == null || doc == null) return SomEditability.invalidVersion;
   if (doc.major != gen.major) return SomEditability.readOnlyCrossMajor;
   if (doc.minor > gen.minor) return SomEditability.rejectedNewerMinor;
   return SomEditability.editable;
@@ -275,12 +284,20 @@ SomEditability somEditabilityFor(String generated, String? documentVersion) {
 ///   * a **different major** version is always rejected (cross-major is
 ///     read/convert only, never in-place edit).
 ///
-/// Throws [SomVersionException] on any rejection or an unparseable stamp.
+/// Throws [SomVersionException] on any rejection, or when either version is
+/// unparseable — with a distinct message for each, since a malformed object
+/// model constant is a different fault from a malformed document stamp.
 void checkSomModelVersion(String generated, String? documentVersion) {
   switch (somEditabilityFor(generated, documentVersion)) {
     case SomEditability.editable:
       return;
     case SomEditability.invalidVersion:
+      // One outcome, two causes — the message is where they separate, so a
+      // malformed object-model constant does not masquerade as a bad document.
+      if (_SomVersion.tryParse(generated) == null) {
+        throw SomVersionException(
+            '"$generated" is not a valid major.minor version');
+      }
       throw SomVersionException(
           'document model version "$documentVersion" is not a valid major.minor');
     case SomEditability.readOnlyCrossMajor:

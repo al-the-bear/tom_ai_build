@@ -70,14 +70,20 @@ public final class SomFacade {
    * <p>This is the single definition of the version rules;
    * {@link #checkModelVersion(String, String)} throws based on the value
    * returned here, so the two never diverge.
+   *
+   * <p><b>Total.</b> Every input pair is classified, including an unparseable
+   * {@code generated} — a classifier a caller must still wrap in
+   * {@code try}/{@code catch} gives that caller nothing over the throwing check
+   * it exists to replace, and the throwing form is not expressible in all nine
+   * ports anyway.
    */
   public static SomEditability somEditabilityFor(String generated, String documentVersion) {
     if (documentVersion == null || documentVersion.isEmpty()) {
       return SomEditability.EDITABLE;
     }
-    SomVersion gen = SomVersion.parse(generated);
+    SomVersion gen = SomVersion.tryParse(generated);
     SomVersion doc = SomVersion.tryParse(documentVersion);
-    if (doc == null) {
+    if (gen == null || doc == null) {
       return SomEditability.INVALID_VERSION;
     }
     if (doc.major != gen.major) {
@@ -105,13 +111,20 @@ public final class SomFacade {
    * <p>Throws based on {@link #somEditabilityFor(String, String)}, so the check
    * and the classification never diverge.
    *
-   * @throws SomVersionError on any rejection or an unparseable stamp.
+   * @throws SomVersionError on any rejection, or when either version is
+   *     unparseable — with a distinct message for each, since a malformed object
+   *     model constant is a different fault from a malformed document stamp.
    */
   public static void checkModelVersion(String generated, String documentVersion) {
     switch (somEditabilityFor(generated, documentVersion)) {
       case EDITABLE:
         return;
       case INVALID_VERSION:
+        // One outcome, two causes — the message is where they separate, so a
+        // malformed object-model constant does not masquerade as a bad document.
+        if (SomVersion.tryParse(generated) == null) {
+          throw new SomVersionError("\"" + generated + "\" is not a valid major.minor version");
+        }
         throw new SomVersionError(
             "document model version \"" + documentVersion + "\" is not a valid major.minor");
       case READ_ONLY_CROSS_MAJOR:
