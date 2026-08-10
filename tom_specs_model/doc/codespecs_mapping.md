@@ -27,9 +27,9 @@ This document is the **grounding reference** for the CodeSpecs derivation. It:
 7. defines the **bidirectional DocSpecs ↔ CodeSpecs link** (§9), and
 8. records the `code_spec` architecture principles (§12).
 
-### 1.1 General approach (four pillars)
+### 1.1 General approach (five pillars)
 
-Four pillars frame the CodeSpecs implementation. They are recorded here and in
+Five pillars frame the CodeSpecs implementation. They are recorded here and in
 `overview.tom_specs.md` (§ "Relationship to CodeSpecs") so both documents share
 one frame.
 
@@ -82,11 +82,119 @@ concrete class or member. DocSpecs keeps abstract, technology-neutral vocabulary
 CodeSpecs-specific detail is a **deeper level within** each mapped section. A
 section may name **several** kinds (§9.1).
 
-**(d) Wave-based execution model.** CodeSpecs work runs in waves; every wave that
-emits further todos ends with a "restructure new todos" closer that produces the
-next wave's execution list. The execution list is the `csra*` todo set in
-`todos.tom_specs.todo.yaml` (indexed in §10); the active wave and progress live
-in `progress.tom_specs.md`.
+**(d) Wave-based execution model.** The *quest's own* work — building the
+annotation framework, the mapping and the derivation contract — runs in waves;
+every wave that emits further todos ends with a "restructure new todos" closer
+that produces the next wave's execution list. The execution list is the open todo
+series in `todos.tom_specs.todo.yaml` (indexed in §10); the active wave and
+progress live in `progress.tom_specs.md`. This is the model for *building*
+CodeSpecs, not for *running* Phase 4 against a project — that is pillar (e), and
+the two have separate id families precisely so a reader never has to work out
+which tree a todo belongs to.
+
+**(e) CodeSpecs code is produced by a generator *and* an author, and the boundary
+between them is fixed.** Phase 4 is neither a compiler pass nor free authoring.
+A **generator** collects, per CodeSpecs area, everything in the specification
+document that maps to that area into a bounded, cited **extract**; a
+**prompt/agent** pass then writes the CodeSpecs code from that extract, guided by
+this document and by `codespecs_derivation_contract.md`. The generator makes no
+judgment; the agent makes every judgment natural-language input requires, and
+makes it against an input that is bounded and whose provenance is recorded. The
+split exists because the two halves fail differently: a mechanical rule applied
+to prose invents structure that is not there, and an author given a
+652-section document reads the wrong parts of it. §1.1.1 states the boundary as a
+rule, and fixes the three things every downstream step needs from it — what the
+extract is, where the extractor lives, and what ids the generated todo tree
+occupies.
+
+#### 1.1.1 The Phase-4 production contract
+
+**The boundary, as a rule rather than a preference.** The generator may **copy
+and index**. It may not summarise, rephrase, compose a sentence out of field
+values, or choose a name. Those are not new prohibitions invented here: they are
+exactly `codespecs_derivation_contract.md` §2.8 **C1**'s — *"No summarising, no
+rephrasing, no sentence assembled from field values, no model"* — and they bind
+the extract generator word for word, because an extract is the same kind of
+artifact a comment is: text that reads as specification and must therefore *be*
+specification. C1 is the single statement; this pillar only names the second
+party it binds. The consequence is checkable rather than trusted: every scalar in
+every extract must occur character-for-character in the source document, which is
+a test, not a review.
+
+The agent's side of the line is the complement, and is equally bounded — it may
+exercise judgment only where the derivation contract leaves a judgment open, and
+`codespecs_derivation_contract.md` is normative for it. Where the specification
+does not carry what a derivation needs, the outcome is neither an invention nor a
+silent omission: it is a `decision-needed` todo that pauses the queue (§1.1.1's
+id scheme below, and the tree design that uses it).
+
+**1 — The extract artifact.** Per area, **two files**: a YAML file that is the
+artifact of record, and a Markdown file rendered *from* that YAML for the agent
+to read.
+
+| | |
+|---|---|
+| **Location** | `<spec-root>/generated-doc/codespecs_extracts/` — the `generated-doc/<type>/` convention (`overview.tom_specs.md` Document Map), rooted at the folder that holds the specification document. For TomSpecs' own worked example that root is `tom_ai/ai_build/tom_specs_model/`; for a specified project it is that project's. |
+| **Names** | `<CE-CODE>.extract.yaml` and `<CE-CODE>.extract.md`, where `<CE-CODE>` is the §4.1 registry key verbatim — `CE-FM.extract.yaml`, `CE-API.extract.md`. The registry key is used because §4.1 fixes it as permanent: never reused, never renamed. |
+| **Entry** | Section id · class name · field name · the verbatim value · the `@CodeSpecKind` value that routed it here · source location. |
+| **Authority** | The YAML is the artifact of record; the Markdown is a *view* and is regenerated from it. Nothing reads the Markdown as input. |
+
+The YAML carries the authority because the whole value of an extract is that its
+provenance is machine-checkable — the (id, verbatim value) pair is the second
+side `codespecs_derivation_contract.md` §2.8 C4.2 needs to assert that an emitted
+comment line equals its source line. A Markdown-only extract is a second copy of
+the document with the provenance thrown away. The Markdown exists because the
+agent reads it far better than it reads YAML, and a rendered view cannot drift
+from a generated source.
+
+Routing is by `@CodeSpecKind`, which is **list-valued** (§9.1): a section feeding
+three areas appears, whole, in three extracts. Extracts are **not** deduplicated
+across areas — each area's prompt must be self-sufficient, and a cross-reference
+the reader has to follow is exactly the context-budget cost the extracts exist to
+remove.
+
+**2 — Where the extractor lives.** In the **language-specific SOM runtimes**, as
+a `spec_codespecs_extract` surface present in **all nine** — not in
+`tom_specs_clitool`. The extractor reads a filled specification document plus the
+`@CodeSpecKind` routing the meta already carries (§8.4), which is exactly the
+input every SOM runtime already resolves; making it a Dart-only tool would make
+Phase 4 a Dart-only phase, and the nine-language SOM exists so that a project
+specified in TomSpecs is not thereby a Dart project. It is therefore a
+nine-language surface under the ordinary discipline: a conformance corpus table
+that every runner loads, and the parity gate that proves all nine read it
+(`tom_som_conformance/tool/parity_gate.sh`). A vocabulary implemented nine ways
+and asked about by no corpus case is a vocabulary that can be wrong in agreement
+— the standing lesson this quest has paid for three times.
+
+**3 — The generated todo tree's id ranges.** The workspace queue iterates by id
+prefix, so the ranges are predetermined for the whole Phase-4 run rather than
+allocated as it goes. **Digits appear only at the end of an id**, and they are
+the iteration index — a prefix is therefore always a pure letter string, and
+`<prefix>*` always names a whole level or a whole area.
+
+| Level | Ids | One todo per | Prefix run |
+|-------|-----|--------------|------------|
+| **L0** — open questions | `csopen<n>` | unresolved specification ambiguity the quality gate surfaced; all `decision-needed` | `csopen*` |
+| **L1** — scaffolding | `csproj<n>` | the §4.2 project trio, its pubspecs and per-area folders | `csproj*` |
+| **L2** — per area | `csgen<n>` | active area, `<n>` its ordinal in the authoring order (§4.4) | `csgen*` |
+| **L3** — per specification element | `cs<area><n>` | extract entry, `<area>` the §4.1 CE code lower-cased | `csfm*`, `csapi*`, … |
+
+`csgen*` runs the whole phase in area order; `csgen7*`, being a pure prefix, runs
+area 7 alone; `csfm*` runs every CE-FM section todo. The CE codes are
+mutually non-prefixing and none of them is `open`, `proj` or `gen`, so every
+prefix in the table names exactly one level or one area. (`CE-API` is the one
+three-letter code; the scheme needs only *letters then digits*, so it absorbs it
+without a special case.) The date-code suffix still comes from
+`tomAi_generateIdPrefix` per the workspace rule — the id shape here is the part
+before it. Where two TomSpecs projects are worked in the same fleet-shared `_ai`
+layer at once, the whole family takes the project id as a further leading
+segment; the shape is unchanged and the digits still trail.
+
+L0 running first and to exhaustion is the mechanism by which an underspecified
+project stops the run instead of being guessed through: `CLAUDE.md` rules that
+`<prefix>*` iteration **refuses** a `decision-needed` todo and pauses the queue.
+That is why the quality gate is the starting prompt's first act rather than a
+review afterwards.
 
 ### 1.2 Neutral vocabulary and the attribute-surface convention
 
@@ -4908,6 +5016,11 @@ CodeSpecs follow-up series, `qr` for findings raised by a quest-refresh pass,
 completeness pass and its follow-ups. Each todo is self-contained, so this
 section is an index rather than a specification.
 
+The `cs*` ids of §1.1.1 item 3 are **not** in that set and never appear here:
+they belong to a Phase-4 run against a specified project, not to the quest that
+builds CodeSpecs. Pillar (d) keeps the two families apart precisely so this
+index cannot be confused with a run's execution list.
+
 Every part passes §4.4.4's readiness gate in all four modes: no emission is
 blocked, none is lossy, no skeleton compiles into an application that cannot
 run, and no named validator check is unable to run. Nothing here waits on a
@@ -4915,13 +5028,13 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Nine entries are open, in three groups. **Routing** — a
+active part COVERED. Ten entries are open, in three groups. **Routing** — a
 section that reaches no part at all, and a band split that follows no stated
 line. **Model** — five gaps the behaviour-to-body derivation exposed, each of
 which leaves something the specification states **not emitted** in the
 generated body, or a required argument with no section behind it.
-**Document** — the Phase-4 production model this document describes, and the
-procedure for running it.
+**Document** — the Phase-4 production model this document describes, the
+procedure for running it, and the todo tree that procedure instantiates.
 
 | Todo | Subject |
 |------|---------|
@@ -4932,8 +5045,9 @@ procedure for running it.
 | `tscompc14` | **No routing of an ISC step to a server call's three handling roles.** Nothing says whether a step's behaviour is request assembly, response handling or error handling, so `codespecs_derivation_contract.md` §3.5.7 is form 3a and all three bodies throw the same text. §5.3 already lists the three as CE-SC's consumed surface, so the surface is declared with no authoring home. |
 | `tscompc15` | **An optional login-flow step states no condition.** `LGFLS`'s `LFSEB.optional` and `conditionalTrigger` are independent fields, so `optional: Yes` with no trigger asserts skippability without saying when. B4 emits no guard for it, and the step runs unconditionally. |
 | `tscompc16` | **`@CsServiceUnit.rootAggregate` is required and no section supplies it.** §5.1 makes the owned aggregate the primary boundary criterion, and `codespecs_derivation_contract.md` §5.1 makes `rootAggregate` a **required** `Type` argument sourced from D03's entity/aggregate structure — which D03 does not carry: `DataEntityEntry` and `EntityRelationshipEntry` state entities and relationships, never aggregate membership or a root. The same guess would then be re-made for CE-DB's table ownership and for every CE-API operation's scope, with nothing making the three agree. Per §1.1's B8 rule the outcome is a field on the model, not a heuristic here. |
-| `tscompc17` | **The Phase-4 production model is described three ways.** This document, `codespecs_derivation_contract.md` and `tom_specs_project_flow.md` do not agree on what produces the CodeSpecs code — the settled model is a **generator that extracts the specification per area** plus **prompt/agent authoring** of the code from those extracts against §5's mapping rules. Both this document's framing and the contract's must name the two roles and the boundary between them. |
-| `tscompc20` | **Neither document states how a Phase-4 run is performed.** The run procedure — extract, then iterate the areas in §4.4's order, then per area iterate its extract entries — together with the generated file names and the todo id ranges, belongs in these two documents rather than in a quest todo. It carries the self-sufficiency rule with it: the emitted CodeSpecs code holds every specification fact it was derived from, in comments or annotations, so Phases 5 and 6 never reopen the document. |
+| `tscompc17` | **The Phase-4 production model is not described the same way everywhere.** §1.1 pillar (e) and §1.1.1 now state it — a **generator that extracts the specification per area** plus **prompt/agent authoring** of the code from those extracts against §5's mapping rules — but `codespecs_derivation_contract.md` still reads as pure mechanism and `tom_specs_project_flow.md` names no producer at all. This document's own 22 uses of "generator" outside §1.1 also predate the boundary and have to be read against it one by one. |
+| `tscompc20` | **Neither document states how a Phase-4 run is performed.** §1.1.1 fixes the contract — the extract artifact, the extractor's home and the four todo id ranges — but not the procedure: extract, then iterate the areas in §4.4's order, then per area iterate its extract entries, with the per-area prompt text in the derivation contract. It carries the self-sufficiency rule with it: the emitted CodeSpecs code holds every specification fact it was derived from, in comments or annotations, so Phases 5 and 6 never reopen the document. |
+| `tscompc23` | **The generated todo tree has ids but no design.** §1.1.1 item 3 fixes the four id levels (`csopen<n>` → `csproj<n>` → `csgen<n>` → `cs<area><n>`); what each rung generates, what an L2 todo must check before generating its L3 rung, and the criteria under which a generated todo is emitted `decision-needed` rather than `not-started` are unwritten. Two shapes are open with them: how an SCC's declare/wire pass pair is kept in one todo, and how a section routed to several areas is written once and cited from the others. |
 
 An open todo in those series whose subject is **not** a mapping question does
 not belong here even when the index is non-empty — a SOM validator capability
