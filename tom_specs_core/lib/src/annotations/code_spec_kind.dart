@@ -275,7 +275,8 @@ enum CodeSpecPart {
 /// `tom_core` class and no generated code (`codespecs_mapping.md` §4.3).
 ///
 /// Machine-readable rather than prose-only, because the generation-routing
-/// invariant (`tom_specs_model_rules.md` §10.2, invariant 12) needs it: every
+/// invariant (`tom_specs_model_rules.md` §10.2, invariant `PART-ROUTED`)
+/// needs it: every
 /// **active** part named by a `@CodeSpecKind` must have a bearer reachable from
 /// the CodeSpecs generation projection, or the part is a routing gap. A
 /// deferred part has no generated surface at all, so it has no bearer to reach

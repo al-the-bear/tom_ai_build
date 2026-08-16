@@ -1091,7 +1091,7 @@ difference, so untouched documents stay byte-stable.
 Rule 4 bites on **a name-shaped form field holding the name of the list entry
 it sits in**. Most name-shaped fields hold something else and are perfectly
 legal, and the two look identical in source — so the boundary is drawn
-structurally, and the static tier draws it (§10.2 invariant 10).
+structurally, and the static tier draws it (§10.2 invariant `NO-RESTATED-NAME`).
 
 **Where the rule applies.** Only beneath a **list-entry class**: the element
 type of a complex list carrying `@SectionIdPattern`. Such a section's headline
@@ -1139,7 +1139,8 @@ headline carries it.
 ### 8.2 Why the id half of rule 4 is author-enforced
 
 Rule 4 gives a section's id the same single-slot treatment as its headline, but
-only the **name** half is checked statically (§10.2 invariant 10). The id half
+only the **name** half is checked statically (§10.2 invariant
+`NO-RESTATED-NAME`). The id half
 is left to the author. That is a decision taken on the model's own evidence, not
 an omission: the three discriminators that decide the name half do not transfer,
 and one of them is actively **inverted** here.
@@ -1344,7 +1345,7 @@ The 12 Phase 3 documents derive from the SBP, and that derivation is encoded:
 
 ### 10.2 The mechanical structural invariants
 
-Two meta-rules govern this section:
+Three meta-rules govern this section:
 
 - **A structural rule lives in the validator, not only in a test.** Anything the
   model must satisfy structurally is implemented in
@@ -1356,36 +1357,48 @@ Two meta-rules govern this section:
   and the validator disagree, the validator is right and the prose is corrected.
   Rules stated in this document are statements about what the code enforces
   today, not aspirations for what it should enforce.
+- **An invariant is cited by its id, never by its list position.** Each entry
+  below opens with a short uppercase **invariant id** (`ID-UNIQUE`,
+  `PART-ROUTED`, …); every citation anywhere in the corpus names that id. The
+  id is **allocated once and never reused**: an invariant that is deleted takes
+  its id out of service, and a new invariant takes a fresh one rather than
+  inheriting a retired one. The list's ordinals are therefore free to move —
+  reordering, inserting or deleting an entry cannot silently re-point a
+  citation at a different rule, which is exactly what a renumbering did the one
+  time the invariants were cited by number.
 
 The validator enforces the following structural invariants (implementation:
 `tom_specs_clitool/lib/src/validator.dart`). All but one are in
-`validateStructuralInvariants()`; **invariant 8 is enforced in
+`validateStructuralInvariants()`; **invariant `MEMBER-SHAPE` is enforced in
 `validateModel()`** instead, because it is a per-class shape rule that needs no
 SBP tree and so must also run for the synthetic fixtures that have no
 `D00SolutionBlueprint`.
 
 Each check in the validator is tagged with the invariant it implements
-(`// --- Step N — §10.2 invariant M: … ---`), and a test
-(`validator_correspondence_test.dart`) reads both this list and those tags and
-fails if either side names something the other does not. So the two cannot drift
-apart in either direction — which is what makes the second meta-rule above
+(`// --- Step N — §10.2 invariant <ID>: … ---`), and a test
+(`invariant_correspondence_test.dart`) reads both this list and those tags and
+fails if either side names something the other does not. The same test resolves
+**every** `§10.2 invariant <ID>` citation in the corpus against this list, so a
+citation of an id that is not defined here is a failure rather than a dangling
+pointer. Together the two make the second and third meta-rules above
 enforceable rather than aspirational.
 
-1. `@SectionId` **global uniqueness** (class-level namespace) and **length** —
-   a class-level id is capped at 6 letters (§7.1). Container ids are exempt:
-   they are three-token compounds and carry a `-`.
-2. `@SectionIdPattern` uniqueness, container-id **type-consistency**,
-   **per-class uniqueness**, and container/pattern **pairing** (per §7.4).
-3. **`@SectionIdPattern` list-coverage** — every list field of section elements
-   carries the container/pattern pair; `@Reference` lists are the only
-   exemption.
-4. **`@SectionId` coverage** — every reachable class carries one, *except*
-   classes reached only through a `@SectionIdPattern` subtree (transitive
-   exemption). This one is reported as a **warning**, not an error: it is a
-   completeness signal, so a model with a gap still validates. Every other
-   invariant in this list is an error.
-5. **`@DetailedIn` ⇒ ancestor `@MapsTo`**.
-6. **Per-`@Document` detail presence** — a target document reached by no
+1. **`ID-UNIQUE`** — `@SectionId` **global uniqueness** (class-level namespace)
+   and **length** — a class-level id is capped at 6 letters (§7.1). Container
+   ids are exempt: they are three-token compounds and carry a `-`.
+2. **`PATTERN-PAIR`** — `@SectionIdPattern` uniqueness, container-id
+   **type-consistency**, **per-class uniqueness**, and container/pattern
+   **pairing** (per §7.4).
+3. **`PATTERN-COVER`** — **`@SectionIdPattern` list-coverage** — every list
+   field of section elements carries the container/pattern pair; `@Reference`
+   lists are the only exemption.
+4. **`ID-COVER`** — **`@SectionId` coverage** — every reachable class carries
+   one, *except* classes reached only through a `@SectionIdPattern` subtree
+   (transitive exemption). This one is reported as a **warning**, not an error:
+   it is a completeness signal, so a model with a gap still validates. Every
+   other invariant in this list is an error.
+5. **`DETAIL-ANCHOR`** — **`@DetailedIn` ⇒ ancestor `@MapsTo`**.
+6. **`DETAIL-PRESENT`** — **Per-`@Document` detail presence** — a target document reached by no
    `@DetailedIn` at all has nothing to project, so its root is an empty
    document. Reported as a **warning**: an in-progress root with its entries
    not yet wired up still generates. There is deliberately **no upper or lower
@@ -1393,7 +1406,7 @@ enforceable rather than aspirational.
    19 entries, because how many top-level sections a document wants is a
    property of its subject matter, not of the model's structure.
    `@CodeSpecsProjection()` roots are exempt from *this check only* (§2.5).
-7. **Root-independent section-id resolution** — a class reachable from more than
+7. **`ID-ROOT-FREE`** — **Root-independent section-id resolution** — a class reachable from more than
    one `@Document` root must resolve to the same id from every root. Both id
    mechanisms are root-independent by construction (a class-level `@SectionId` is
    fixed; a `@SectionIdPattern` list-instance id derives from the *element*
@@ -1402,28 +1415,29 @@ enforceable rather than aspirational.
    case actually rejected is **structural-mode mixing**, i.e. a class reached
    both as the direct element of a `@SectionIdPattern` list *and* as a standalone
    complex section field (`@Reference` edges excluded).
-8. **§5.1 member-shape legality**, `@ContentType` compatibility, and **cycle
-   detection**. The one invariant enforced in `validateModel()` rather than
-   `validateStructuralInvariants()` — see the note above the list.
-9. **The `refersTo` target contract** (§6.2) — target grammar, existence and
+8. **`MEMBER-SHAPE`** — **§5.1 member-shape legality**, `@ContentType`
+   compatibility, and **cycle detection**. The one invariant enforced in
+   `validateModel()` rather than `validateStructuralInvariants()` — see the
+   note above the list.
+9. **`REFERS-TO`** — **The `refersTo` target contract** (§6.2) — target grammar, existence and
    unambiguity of the named section id, the required/enumerated form-field slot
    or the patterned-list element requirement for `@sectionId`, and
    **co-reachability**: every target must be reachable together with its
    referring class from at least one `@Document` root (§6.2.1). A non-`String`
    reference field is a warning; the rest are errors.
-10. **No list entry restates its own headline** (§8 rule 4) — a name-shaped form
+10. **`NO-RESTATED-NAME`** — **No list entry restates its own headline** (§8 rule 4) — a name-shaped form
     field beneath a list-entry class, whose stem is that entry's own subject, is
     an error unless it is a registry key or carries a `refersTo` of its own
     (§8.1). This is the half of rule 4 that source alone cannot show: a
     self-naming field and a legitimate one are written identically. The rule's
     **id** half is deliberately not checked — see below and §8.2.
-11. **`@CodeSpecKind` / `@FollowUpKind` mutual exclusion** — no class carries
+11. **`KIND-EXCLUSIVE`** — **`@CodeSpecKind` / `@FollowUpKind` mutual exclusion** — no class carries
     both. `@FollowUpKind` marks a subtree *root*, and `codespecs_mapping.md`
     §4.3 rules that only a section which must become a generation-projection
     root is hoisted out of a follow-up subtree; so a follow-up root is never
     itself generated, and a class claiming to be both is the one shape the
     CodeSpecs / follow-up split cannot express.
-12. **Per-part generation routing** — every *active* `CodeSpecPart` named by any
+12. **`PART-ROUTED`** — **Per-part generation routing** — every *active* `CodeSpecPart` named by any
     `@CodeSpecKind` has at least one **bearer** reachable from a
     `@CodeSpecsProjection()` root. This is what makes a `@CodeSpecKind` *inside*
     a follow-up subtree harmless: the annotation records which part the
@@ -1435,7 +1449,7 @@ enforceable rather than aspirational.
     exempt — they have no generated surface, so they have no bearer to reach;
     a deferred part that *acquires* a bearer is a warning that the deferral
     entry has gone stale. A model with no projection root is silent.
-13. **Document reachability** — every class is reachable from at least one
+13. **`REACHABLE`** — **Document reachability** — every class is reachable from at least one
     `@Document` root. The generator emits the whole class map, so an orphan is
     translated into all nine languages, registered in `spec_ops.g.dart` and
     described in nine metas, while no document can ever hold an instance of it.
@@ -1446,7 +1460,7 @@ enforceable rather than aspirational.
     it walks *from* the roots, so an orphan is exactly what it never visits.
     Exported separately as `unreachableClasses()` for callers that want the set
     rather than the message.
-14. **Pure projection** (T2, N12) — every type a `@Document` root other than
+14. **`PURE-PROJECTION`** — **Pure projection** (T2, N12) — every type a `@Document` root other than
     `D00SolutionBlueprint` reaches is also reachable from `D00SolutionBlueprint`.
     The twelve Phase 3 roots and the generation projection are *views* over the
     single SBP tree, so a type only they reach is projection-local content with
@@ -1456,7 +1470,7 @@ enforceable rather than aspirational.
     live SBP instance — content with no SBP counterpart would have to be
     invented or dropped. The projection root class itself is excluded (it is the
     view, not content in it), as is the unannotated container root.
-15. **No collapsible wrapper** (§5.8 / TSMA4–TSMA5) — the dual of the TSMA1 /
+15. **`NO-WRAPPER`** — **No collapsible wrapper** (§5.8 / TSMA4–TSMA5) — the dual of the TSMA1 /
     TSMA2 leaf collapse. A class that is referenced by exactly one complex field
     (never as a list element), has exactly one subsection field, whose every
     other field is a bare `content` leaf, and which carries no `@Form`, no
@@ -1468,7 +1482,7 @@ enforceable rather than aspirational.
     sections and are not flagged. The model yields zero of these and a test
     holds it there, so the wrapper-collapse decision stays enforced rather than
     periodically re-surveyed.
-16. **`@OneOf` / `@Case` closed-choice groups** (`codespecs_mapping.md` §8.2) —
+16. **`CLOSED-CHOICE`** — **`@OneOf` / `@Case` closed-choice groups** (`codespecs_mapping.md` §8.2) —
     the discriminator named by `@OneOf` resolves to a `@Form` field of the
     container whose type is a model enum; every `@Case` value is a constant of
     that enum; every `@Case`-bound field is a complex subsection of the same
@@ -1488,15 +1502,16 @@ enforceable rather than aspirational.
 be reachable from the generation projection."* The model has 65 counterexamples
 across six of its 18 follow-up roots, and `codespecs_mapping.md` §4.3 rules them
 legitimate — enforcing it would forbid a follow-up process from recording which
-part it produces material for. Invariants 11 and 12 are what that rule was
-reaching for, stated so that they hold.
+part it produces material for. Invariants `KIND-EXCLUSIVE` and `PART-ROUTED`
+are what that rule was reaching for, stated so that they hold.
 
 **Deliberately not an invariant:** *"no list entry restates its own section id"*
-— the **id** half of §8 rule 4, the counterpart of invariant 10. Unlike a name,
+— the **id** half of §8 rule 4, the counterpart of invariant
+`NO-RESTATED-NAME`. Unlike a name,
 an id-shaped field beneath a list entry has two honest readings — the document's
 numbering of the entry, and the identifier the specified system will carry — and
 they are written identically, distinguishable only by the prose of the label and
-hint. Widening invariant 10's `Name|Title|Label` shape test to `Id` would
+hint. Widening invariant `NO-RESTATED-NAME`'s `Name|Title|Label` shape test to `Id` would
 therefore convict specification content along with duplication. §8.2 states the
 reasoning in full, including why the registry-key exemption is *inverted* for
 ids rather than merely insufficient. A test pins the decision, so the shape test

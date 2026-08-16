@@ -142,10 +142,7 @@ export 'src/som_python_generator.dart'
         writeSomPythonProject,
         SomPythonGenerationResult;
 export 'src/som_java_generator.dart'
-    show
-        generateSomJavaProject,
-        writeSomJavaProject,
-        SomJavaGenerationResult;
+    show generateSomJavaProject, writeSomJavaProject, SomJavaGenerationResult;
 export 'src/som_javascript_generator.dart'
     show
         generateSomJavaScriptProject,
@@ -202,16 +199,19 @@ export 'src/validator.dart'
         validateStructuralInvariants,
         sectionIdCoverageGaps,
         unreachableClasses;
-// The both-directions gate between §10.2's numbered invariant list and the
-// validator's checks: neither side can grow an entry the other does not know
-// about. See tom_specs_model_rules.md §10.2.
+// The both-directions gate between §10.2's invariant list and the validator's
+// checks — neither side can grow an entry the other does not know about — plus
+// the corpus scan that resolves every `§10.2 invariant <ID>` citation against
+// that list. See tom_specs_model_rules.md §10.2.
 export 'src/invariant_correspondence.dart'
     show
-        InvariantTag,
+        InvariantCitation,
         InvariantEntry,
         InvariantCorrespondence,
-        parseInvariantTags,
+        parseInvariantCitations,
         parseInvariantEntries,
+        readCitingCorpus,
+        defaultCitingPaths,
         compareInvariants,
         checkInvariantCorrespondence;
 // The codespecs_derivation_contract.md §6 validation pass over an emitted

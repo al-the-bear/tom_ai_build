@@ -4724,7 +4724,8 @@ has to be hoisted out — and it holds at scale: 65 of the model's
 the 18 follow-up roots.
 
 What must hold instead is the pair of invariants the validator enforces
-(`tom_specs_model_rules.md` §10.2, invariants 11 and 12): **no section carries
+(`tom_specs_model_rules.md` §10.2, invariants `KIND-EXCLUSIVE` and
+`PART-ROUTED`): **no section carries
 both `@CodeSpecKind` and `@FollowUpKind`** — a follow-up root is never itself
 generated — and **every active part named by any `@CodeSpecKind` has at least
 one bearer reachable from D13**, so a part named from inside a follow-up subtree
@@ -5038,7 +5039,7 @@ procedure for running it, and the todo tree that procedure instantiates.
 
 | Todo | Subject |
 |------|---------|
-| `tscompc10` | **226 reachable sections are routed nowhere.** Walking field types from the 13 spec roots reaches 652 classes: 149 carry `@CodeSpecKind`, 303 sit inside one of the 18 `@FollowUpKind` subtrees, and 226 carry a `@SectionId` and neither marker. `tom_specs_model_rules.md` §10.2 invariant 12 checks coverage part→section only, and its docstring declines the converse, so this is unguarded rather than accepted. Either each of the 226 gains a routing, or the ones that legitimately reach no code say so, and the converse invariant is added either way. |
+| `tscompc10` | **226 reachable sections are routed nowhere.** Walking field types from the 13 spec roots reaches 652 classes: 149 carry `@CodeSpecKind`, 303 sit inside one of the 18 `@FollowUpKind` subtrees, and 226 carry a `@SectionId` and neither marker. `tom_specs_model_rules.md` §10.2 invariant `PART-ROUTED` checks coverage part→section only, and its docstring declines the converse, so this is unguarded rather than accepted. Either each of the 226 gains a routing, or the ones that legitimately reach no code say so, and the converse invariant is added either way. |
 | `tscompc11` | **CE-CF projection membership.** 42 sections carry `serverConfiguration`; 18 are reachable from `D13CodeSpecsProjection` and 24 are not, and the split does not follow §5.5's declared/fixed line. The SAS encryption and key-management bands sit outside while the SAS API-security and audit-sink bands — fixed-key policy bands of the same character — sit inside. Either the projection gains them, or §5.5 states the exclusion ground the way the CE-API row states its own. §8.5's CE-CF verdict carries the split as a parenthetical until then. |
 | `tscompc12` | **CE-JB's work body is prose-only.** `SCJOB-WORK` states a job's whole behaviour in one prose field, so §4.1.1's structural selector puts CE-JB on form 3a while the parts that read an ISC or login-flow step list — CE-AC, CE-AU, CE-API's client half — reach 3b. Either `SCJOB-WORK` gains a step list and CE-JB flips to 3b, or §5.29 states why a job's work is the one indivisible unit. (CE-SC is 3a for a different reason — it has a step but no routing for it; that is `tscompc14`.) |
 | `tscompc13` | **ISC branch attachment is unstructured.** `EXTEN` and `ALFL` state `branchPoint` and `returnPoint` as free text, so neither where a branch attaches nor where control resumes can be derived. `codespecs_derivation_contract.md` B5 therefore emits every branch after the whole main sequence and B6 emits nothing for the return point. Both need a resolvable step reference, and `returnPoint` a closed resume/end choice. |

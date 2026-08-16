@@ -13,7 +13,8 @@
 /// `@MapsTo` pair on each subtree root is already spent on the Phase-3 document
 /// that shaped it. The projection instead references the CodeSpecs-relevant
 /// subtree roots directly; the `@CodeSpecsProjection()` marker exempts it from
-/// the detail-count check (`tom_specs_model_rules.md` §10.2, invariant 6). It
+/// the detail-count check (`tom_specs_model_rules.md` §10.2, invariant
+/// `DETAIL-PRESENT`). It
 /// still satisfies the pure-projection invariant: every type it reaches also
 /// lives in the D00SolutionBlueprint tree — it owns no content of its own.
 ///

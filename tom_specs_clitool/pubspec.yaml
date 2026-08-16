@@ -37,7 +37,7 @@ dependencies:
   tom_som_dart_runtime:
     path: ../tom_som_dart_runtime
   # The annotation library the model is written against. The validator reads
-  # `deferredCodeSpecParts` from it (invariant 12's exemption) rather than
+  # `deferredCodeSpecParts` from it (invariant PART-ROUTED's exemption) rather than
   # restating which CodeSpecs parts have no generated surface.
   tom_specs_core:
     path: ../tom_specs_core

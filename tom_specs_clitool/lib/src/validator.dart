@@ -55,8 +55,8 @@ const String _sectionIdSlot = '@sectionId';
   // `tom_specs_model_rules.md` §5.7 — find reachable types from root
   final reachable = _findReachableTypes(classes, rootTypeName);
 
-  // --- §10.2 invariant 8: member-shape legality, @ContentType compatibility,
-  // cycle detection. The one §10.2 invariant enforced here rather than in
+  // --- §10.2 invariant MEMBER-SHAPE: member-shape legality, @ContentType
+  // compatibility, cycle detection. The one §10.2 rule enforced here rather than in
   // [validateStructuralInvariants]: it is a per-class shape rule that needs no
   // SBP tree, so it runs for every root the generator is pointed at, including
   // the synthetic fixtures that have no `D00SolutionBlueprint`.
@@ -524,8 +524,9 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 2 — §10.2 invariants 1, 2, 4: @SectionId uniqueness/length,
-  // per-class + pattern consistency, coverage; collect traceability data ----
+  // --- Step 2 — §10.2 invariants ID-UNIQUE, PATTERN-PAIR, ID-COVER: -------
+  // @SectionId uniqueness/length, per-class + pattern consistency, coverage;
+  // collect traceability data ---------------------------------------------
 
   final sectionIdSeen = <String, String>{}; // id → className
   final mapsToByClass = <String, Set<String>>{}; // className → {docTypeName}
@@ -600,7 +601,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 2b — §10.2 invariant 2: field-level @SectionId ("-LST") --------
+  // --- Step 2b — §10.2 invariant PATTERN-PAIR: field-level @SectionId -----
   //
   // Container IDs follow `<elementId>-<FIELDSUFFIX>-LST`. Enforced invariants:
   //   (i)   type-consistency  — a container ID maps to exactly one element type.
@@ -710,7 +711,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 2c — §10.2 invariant 3: @SectionIdPattern list coverage --------
+  // --- Step 2c — §10.2 invariant PATTERN-COVER: @SectionIdPattern lists ---
   //
   // Every reachable `List<T>` field of section elements — a complex `T` or the
   // untyped `DocSpecsSection` — must carry @SectionIdPattern so its elements
@@ -739,7 +740,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 3 — §10.2 invariant 5: @DetailedIn ⇒ ancestor @MapsTo ----------
+  // --- Step 3 — §10.2 invariant DETAIL-ANCHOR: @DetailedIn ⇒ @MapsTo ------
 
   // Build a reverse-adjacency (parent) map for the SBP-reachable subgraph.
   // childType → set of parent class names that own a field of that type.
@@ -791,7 +792,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 4 — §10.2 invariant 6: per-@Document detail presence -----------
+  // --- Step 4 — §10.2 invariant DETAIL-PRESENT: per-@Document details -----
 
   for (final docClassName in documentClasses) {
     if (docClassName == sbpRoot) continue; // SBP is the root, not a target
@@ -816,7 +817,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 5 — §10.2 invariant 14: pure projection (T2, N12) --------------
+  // --- Step 5 — §10.2 invariant PURE-PROJECTION: (T2, N12) ----------------
   //
   // The twelve Phase 3 roots are `@Document(basedOn: [D00SolutionBlueprint])`
   // *projections*: they aggregate SBP00 sections and own no content of their own
@@ -846,7 +847,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- Step 6 — §10.2 invariant 15: collapsible-wrapper detection ----------
+  // --- Step 6 — §10.2 invariant NO-WRAPPER: collapsible wrappers ----------
   // `tom_specs_model_rules.md` §5.8 / TSMA4–TSMA5.
   //
   // The dual of the TSMA1/TSMA2 leaf collapse: a *single-subsection wrapper*
@@ -950,7 +951,7 @@ void _validateStructuralInvariants(
     );
   }
 
-  // --- Step 7 — §10.2 invariant 7: root-independent id resolution (dsa4) ---
+  // --- Step 7 — §10.2 invariant ID-ROOT-FREE: root-independent ids (dsa4) -
   //
   // A class reachable from more than one @Document root must resolve to the
   // SAME section id from every root. Both id mechanisms are root-independent by
@@ -1005,7 +1006,7 @@ void _validateStructuralInvariants(
     );
   }
 
-  // --- Step 8 — §10.2 invariant 16: @OneOf / @Case subsection groups --------
+  // --- Step 8 — §10.2 invariant CLOSED-CHOICE: @OneOf / @Case groups ------
   //
   // A container section that resolves to exactly one of a closed set of typed
   // alternatives carries `@OneOf(discriminator: '<formField>')`; each
@@ -1023,7 +1024,7 @@ void _validateStructuralInvariants(
   //   (vi)  no constant is both `noCase` and `@Case`-bound.
   _validateOneOfGroups(classes, reachable, errors, warnings);
 
-  // --- Step 9 — §10.2 invariant 9: cross-registry ids (`Field.refersTo`) ---
+  // --- Step 9 — §10.2 invariant REFERS-TO: cross-registry ids -------------
   //
   // A form field whose String value is an *id declared elsewhere* names its
   // target registry key(s) as `<SECTIONID>.<formFieldName>`. The static tier
@@ -1033,7 +1034,7 @@ void _validateStructuralInvariants(
   _validateReferenceTargets(
       classes, reachable, documentClasses, errors, warnings);
 
-  // --- Step 10 — §10.2 invariant 10: no entry restates its heading ---------
+  // --- Step 10 — §10.2 invariant NO-RESTATED-NAME: no restated heading ----
   //
   // A list-entry section's headline is per-instance free text (§8 rule 1), so
   // it is the entry's name. A form field holding that same name is a second
@@ -1041,7 +1042,8 @@ void _validateStructuralInvariants(
   // are structural, so nothing has to be remembered or annotated.
   _validateEntryNameFields(classes, reachable, errors);
 
-  // --- Step 11 — §10.2 invariants 11 + 12: CodeSpecs / follow-up routing ---
+  // --- Step 11 — §10.2 invariants KIND-EXCLUSIVE + PART-ROUTED: CodeSpecs /
+  // follow-up routing -----------------------------------------------------
   //
   // The CodeSpecs / follow-up split is decided by membership of the generation
   // projection, not by the presence of a `@CodeSpecKind`. A section inside a
@@ -1052,7 +1054,7 @@ void _validateStructuralInvariants(
   _validateCodeSpecKindRouting(
       classes, reachable, documentClasses, errors, warnings);
 
-  // --- Step 12 — §10.2 invariant 13: document reachability -----------------
+  // --- Step 12 — §10.2 invariant REACHABLE: document reachability ---------
   //
   // The SOM generator emits every class in the map, so a class no @Document
   // root reaches is generated into all nine languages, registered in
@@ -1064,7 +1066,7 @@ void _validateStructuralInvariants(
       '$_invariants document reachability: $orphan is not reachable from any '
       '@Document root — it is generated into all nine languages but no '
       'document can hold it; give it a referring field or delete it '
-      '(tom_specs_model_rules.md §10.2 invariant 13)',
+      '(tom_specs_model_rules.md §10.2 invariant REACHABLE)',
     );
   }
 }
@@ -1075,7 +1077,8 @@ void _validateStructuralInvariants(
 final Set<String> _deferredParts =
     deferredCodeSpecParts.map((p) => p.toString()).toSet();
 
-/// Invariants 11 + 12 — the CodeSpecs / follow-up routing pair
+/// Invariants `KIND-EXCLUSIVE` + `PART-ROUTED` — the CodeSpecs / follow-up
+/// routing pair
 /// (`tom_specs_model_rules.md` §10.2, `codespecs_mapping.md` §8.3).
 ///
 /// **11 — mutual exclusion.** No section carries both `@CodeSpecKind` and
@@ -1105,7 +1108,7 @@ void _validateCodeSpecKindRouting(
   List<String> errors,
   List<String> warnings,
 ) {
-  // --- Step 11a — §10.2 invariant 11: mutual exclusion ---------------------
+  // --- Step 11a — §10.2 invariant KIND-EXCLUSIVE: mutual exclusion --------
   for (final className in reachable) {
     final cls = classes[className];
     if (cls == null) continue;
@@ -1118,7 +1121,7 @@ void _validateCodeSpecKindRouting(
     );
   }
 
-  // --- Step 11b — §10.2 invariant 12: per-part coverage --------------------
+  // --- Step 11b — §10.2 invariant PART-ROUTED: per-part coverage ----------
   //
   // The projection roots are the `@Document` classes marked
   // `@CodeSpecsProjection()`. A model with none (a synthetic test model, or the

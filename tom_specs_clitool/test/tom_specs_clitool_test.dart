@@ -683,7 +683,8 @@ void main() {
     });
   });
 
-  group('unit: unreachableClasses (invariant 13 — document reachability)', () {
+  group('unit: unreachableClasses (invariant REACHABLE — document reachability)',
+      () {
     Map<String, ModelClass> withOrphan({required bool orphaned}) => {
           'DocSpecsProject': _cls('DocSpecsProject', const [], [
             _field('blueprint', 'D00SolutionBlueprint'),
