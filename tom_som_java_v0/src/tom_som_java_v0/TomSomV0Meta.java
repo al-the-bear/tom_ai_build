@@ -3334,13 +3334,24 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("flowType", "String", "Flow Type — alternative, exception, error", false, "One of alternative, exception, or error", 0),
-            new SomFormFieldMeta("branchPoint", "String", "Branch Point — step where flow branches", false, "Main-flow step number where this diverges", 1),
+            new SomFormFieldMeta("branchPoint", "String", "Branch Point — main-flow step", true, "The main-flow step this branch diverges at, as that step's section id (SCNST-STEP-…). The branch is taken instead of that step, so name the step the trigger condition is evaluated before — not the step before it, and not a restated step number.", 1, java.util.List.of(), java.util.List.of("SCNST.@sectionId")),
             new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition — when this occurs", false, "Condition that activates this flow", 2),
             new SomFormFieldMeta("description", "String", "Description — what happens", false, "Narrative of what happens in this flow", 3),
             new SomFormFieldMeta("outcome", "String", "Outcome — how flow ends", false, "The end state this flow reaches", 4),
-            new SomFormFieldMeta("returnPoint", "String", "Return Point — step to return to", false, "Main-flow step to resume at, if any", 5),
+            new SomFormFieldMeta("returnKind", "FlowReturnPoint", "Return Kind — resume the main flow, or end it", true, "Where control goes when this flow finishes — back to a named main-flow step, or nowhere because the scenario ends here", 5, java.util.List.of("resumeAtStep", "endFlow")),
             new SomFormFieldMeta("frequency", "String", "Frequency — how often this occurs", false, "How often this flow is expected to occur", 6),
             new SomFormFieldMeta("businessImpact", "String", "Business Impact — effect on business", false, "Business consequence of this flow", 7)));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("AlternativeFlowEntry", SomMetaKind.FORM, "String");
+        n.memberName = "resumePoint";
+        n.sectionId = "ALFL-RESU";
+        n.serializationOrder = 1;
+        n.docComment = "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-flow step control\nreturns to once this flow has run. The `endFlow` kind promotes nothing,\nbecause a flow that ends the scenario has no step to name — which is the\nwhole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("resumeStep", "String", "Resume Step", true, "The main-flow step control resumes at, as that step's section id (SCNST-STEP-…). That step and everything after it run again from here.", 0, java.util.List.of(), java.util.List.of("SCNST.@sectionId"))));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Cockburn — Writing Effective Use Cases: extensions & alternative flows", "BPMN 2.0 — sequence flow / activities (scenario steps)"), "connotation", "The main-flow step this alternative flow returns control to.")), new SomMetaExtra("Case", metaArgs("value", "FlowReturnPoint.resumeAtStep")));
         out.add(n);
       }
       {
@@ -3348,7 +3359,7 @@ public final class TomSomV0Meta {
         n.memberName = "steps";
         n.sectionId = "ALST-STEP-LST";
         n.sectionIdPattern = "ALST-STEP-xxx";
-        n.serializationOrder = 1;
+        n.serializationOrder = 2;
         n.contentHelp = "Add one entry per step of this alternative flow, in order.";
         n.docComment = "Contains 0+× Scenario Step.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BPMN 2.0 — sequence flow / activities (scenario steps)", "Gherkin / BDD — given-when-then scenario steps"), "connotation", "The ordered steps that make up this alternative flow, each pairing an action with its response.")));
@@ -3368,6 +3379,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomMetaRef resumePoint() {
+      return new SomMetaRef(tree, path + "/ALFL-RESU");
     }
 
     public SomListMetaRef<AlternativeStepEntryNav> steps() {
@@ -39226,14 +39241,25 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("branchPoint", "String", "Branch Point — step number", false, "Main-scenario step where this branch occurs", 0),
+            new SomFormFieldMeta("branchPoint", "String", "Branch Point — main-scenario step", true, "The main-scenario step this branch leaves from, as that step's section id (MNSST-STEP-…). The branch is taken instead of that step, so name the step the condition is evaluated before — not the step before it, and not a restated step number.", 0, java.util.List.of(), java.util.List.of("MNSST.@sectionId")),
             new SomFormFieldMeta("condition", "String", "Condition — when this extension triggers", false, "Condition under which the branch is taken", 1),
             new SomFormFieldMeta("extensionType", "String", "Extension Type — alternative, exception, error", false, "Classify: alternative, exception or error", 2),
             new SomFormFieldMeta("description", "String", "Description — what happens", false, "What happens along this extension path", 3),
             new SomFormFieldMeta("outcome", "String", "Outcome — how it ends", false, "Result reached when the branch completes", 4),
-            new SomFormFieldMeta("returnPoint", "String", "Return Point — step to return to, or end", false, "Main-scenario step to resume at, or \"end\"", 5),
+            new SomFormFieldMeta("returnKind", "FlowReturnPoint", "Return Kind — resume the scenario, or end it", true, "Where control goes when this branch finishes — back to a named main-scenario step, or nowhere because the use case ends here", 5, java.util.List.of("resumeAtStep", "endFlow")),
             new SomFormFieldMeta("frequency", "String", "Frequency — how often this occurs", false, "How often this branch is expected to occur", 6),
             new SomFormFieldMeta("severity", "String", "Severity — impact level (for exceptions)", false, "Impact level for exception/error branches", 7)));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ExtensionEntry", SomMetaKind.FORM, "String");
+        n.memberName = "resumePoint";
+        n.sectionId = "EXTEN-RESU";
+        n.serializationOrder = 1;
+        n.docComment = "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-scenario step control\nreturns to once the branch has run. The `endFlow` kind promotes nothing,\nbecause a branch that ends the use case has no step to name — which is\nthe whole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("resumeStep", "String", "Resume Step", true, "The main-scenario step control resumes at, as that step's section id (MNSST-STEP-…). That step and everything after it run again from here.", 0, java.util.List.of(), java.util.List.of("MNSST.@sectionId"))));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Cockburn — Writing Effective Use Cases: extensions", "UML 2.5.1 (ISO/IEC 19505) — use cases"), "connotation", "The main-scenario step this extension returns control to.")), new SomMetaExtra("Case", metaArgs("value", "FlowReturnPoint.resumeAtStep")));
         out.add(n);
       }
       {
@@ -39241,7 +39267,7 @@ public final class TomSomV0Meta {
         n.memberName = "steps";
         n.sectionId = "EXTST-STEP-LST";
         n.sectionIdPattern = "EXTST-STEP-xxx";
-        n.serializationOrder = 1;
+        n.serializationOrder = 2;
         n.contentHelp = "Add one entry per extension step.";
         n.docComment = "Extension steps — contains 0+× Scenario Step.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Cockburn — Writing Effective Use Cases: extensions"), "connotation", "The ordered steps that make up this extension flow.")));
@@ -39261,6 +39287,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomMetaRef resumePoint() {
+      return new SomMetaRef(tree, path + "/EXTEN-RESU");
     }
 
     public SomListMetaRef<ExtensionStepEntryNav> steps() {
@@ -52677,7 +52707,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Sequential step number within the flow", 0),
+            new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", 0),
             new SomFormFieldMeta("actorAction", "String", "Actor Action — what actor does", false, "What the actor does in this step", 1),
             new SomFormFieldMeta("systemResponse", "String", "System Response — what system does", false, "How the system responds to the action", 2),
             new SomFormFieldMeta("dataInvolved", "String", "Data Involved — data read/written", false, "Data read or written during the step", 3),
@@ -79007,7 +79037,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Sequential position of this step", 0),
+            new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Sequential position of this step. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", 0),
             new SomFormFieldMeta("actor", "String", "Actor — who performs this step", false, "The actor performing this step", 1),
             new SomFormFieldMeta("action", "String", "Action — what actor does", false, "The action the actor takes", 2),
             new SomFormFieldMeta("systemResponse", "String", "System Response — what system does", false, "How the system responds to the action", 3)));
@@ -107190,6 +107220,10 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
+    public SomMetaRef ALFL_RESU() {
+      return new SomMetaRef(tree, path + "/ALFL-RESU");
+    }
+
     public SomListMetaRef<AlternativeStepEntryId> ALST_STEP_LST() {
       return new SomListMetaRef<>(tree, path + "/ALST-STEP-LST", (t, p) -> new AlternativeStepEntryId(t, p));
     }
@@ -123404,6 +123438,10 @@ public final class TomSomV0Meta {
   public static final class ExtensionEntryId extends SomMetaRef {
     public ExtensionEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef EXTEN_RESU() {
+      return new SomMetaRef(tree, path + "/EXTEN-RESU");
     }
 
     public SomListMetaRef<ExtensionStepEntryId> EXTST_STEP_LST() {

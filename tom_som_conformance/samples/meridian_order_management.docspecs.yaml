@@ -858,7 +858,7 @@ document:
                       2a Credit limit exceeded
                     content:
                       branchPoint: |2-
-                        Step 2
+                        MNSST-STEP-2
                       condition: |2-
                         Customer credit limit would be exceeded
                       extensionType: |2-
@@ -867,10 +867,13 @@ document:
                         Validation detects the order exceeds the customer credit limit.
                       outcome: |2-
                         Order is placed on Hold for supervisor review (see UC-02).
-                      returnPoint: |2-
-                        Step 3 after release
+                      returnKind: |2-
+                        resumeAtStep
                       severity: |2-
                         High
+                    EXTEN-RESU resumePoint:
+                      resumeStep: |2-
+                        MNSST-STEP-3
                     EXTST-STEP-LST steps:
                       EXTST-STEP-1:
                         content:
@@ -885,7 +888,7 @@ document:
                       4a Insufficient stock
                     content:
                       branchPoint: |2-
-                        Step 4
+                        MNSST-STEP-4
                       condition: |2-
                         Insufficient stock for one or more lines
                       extensionType: |2-
@@ -894,10 +897,13 @@ document:
                         Reservation cannot be fully satisfied for a line.
                       outcome: |2-
                         The affected line is placed on Hold; other lines proceed.
-                      returnPoint: |2-
-                        Step 5 for satisfiable lines
+                      returnKind: |2-
+                        resumeAtStep
                       severity: |2-
                         Medium
+                    EXTEN-RESU resumePoint:
+                      resumeStep: |2-
+                        MNSST-STEP-5
                     EXTST-STEP-LST steps:
                       EXTST-STEP-1:
                         content:

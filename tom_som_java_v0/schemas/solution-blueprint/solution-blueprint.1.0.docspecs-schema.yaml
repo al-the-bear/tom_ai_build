@@ -6944,6 +6944,8 @@ section-types:
   exten-exte:
     prefix: EXTEN_EXTE_
     subsection-types:
+      exten-resu:
+        max-count: 1
       extst-step-lst:
         max-count: 1
     pattern-check-id:
@@ -8642,6 +8644,8 @@ section-types:
   alfl-alte:
     prefix: ALFL_ALTE_
     subsection-types:
+      alfl-resu:
+        max-count: 1
       alst-step-lst:
         max-count: 1
     pattern-check-id:
@@ -9319,6 +9323,10 @@ section-types:
     prefix: EXSYCOENIN
     format: exsycoenin-form
     description: Integration intent and exchanged information.
+  exten-resu:
+    prefix: EXTEN_RESU
+    format: exten-resu-form
+    description: "Resume point — a promoted `@OneOf` case."
   fest-stak:
     prefix: FEST_STAK_
     pattern-check-id:
@@ -10024,6 +10032,10 @@ section-types:
   alco-aler:
     prefix: ALCO_ALER
     format: alco-aler-form
+  alfl-resu:
+    prefix: ALFL_RESU
+    format: alfl-resu-form
+    description: "Resume point — a promoted `@OneOf` case."
   are-comp:
     prefix: ARE_COMP_
     pattern-check-id:
@@ -32538,6 +32550,11 @@ form-types:
         description: Limitations bounding how the use case may work
       - fieldname: relatedUseCases
         description: Use cases this one includes or extends
+  exten-resu-form:
+    fields:
+      - fieldname: resumeStep
+        required: true
+        description: "The main-scenario step control resumes at, as that step's section id (MNSST-STEP-…). That step and everything after it run again from here."
   inpe-form:
     fields:
       - fieldname: expectedFrequency
@@ -32666,6 +32683,11 @@ form-types:
         description: Expected time this step takes
       - fieldname: notes
         description: Additional clarifications for this step
+  alfl-resu-form:
+    fields:
+      - fieldname: resumeStep
+        required: true
+        description: "The main-flow step control resumes at, as that step's section id (SCNST-STEP-…). That step and everything after it run again from here."
   scda-form:
     fields:
       - fieldname: inputData

@@ -15,6 +15,30 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
+/// Where control goes when a branch flow finishes ([ExtensionEntry],
+/// [AlternativeFlowEntry]).
+///
+/// The discriminator enum for the branch flows' `@OneOf` group. A branch
+/// attaches to the flow it leaves at **two** points: where it diverges — its
+/// branch point, a reference — and where it rejoins, which is this choice. The
+/// two possibilities are not variants of one shape:
+///
+/// - [resumeAtStep] hands control back to a named step of the flow it left, so
+///   it needs that step's identity and binds a case subsection holding it.
+/// - [endFlow] hands control back to nobody: the branch is the end of the
+///   scenario. It carries no payload at all, so it binds no case and is
+///   declared `noCase`.
+///
+/// Before this enum both were one free-text field in which `"end"` and
+/// `"resume at step 4"` were the same `String` with nothing structural to tell
+/// them apart, and neither could be derived into code. The set is closed at
+/// two because a branch either rejoins somewhere nameable or it terminates;
+/// a third arm would be a control transfer the emitted body cannot express.
+enum FlowReturnPoint {
+  resumeAtStep,
+  endFlow,
+}
+
 // ---------------------------------------------------------------------------
 // 6.1 Business Process Descriptions
 // ---------------------------------------------------------------------------
@@ -4624,7 +4648,9 @@ class MainScenarioStepEntry extends DocSpecsSection {
       int,
       'Step Number',
       required: true,
-      hint: 'Sequential step number within the flow',
+      hint: 'Sequential step number within the flow. This is the number the '
+          'step is read by, not the handle it is referred to by: a branch '
+          'names the step it attaches to by section id.',
     ),
     Field(
       'actorAction',
@@ -4732,15 +4758,30 @@ class UseCaseExtensions extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.action],
   note:
-      'CE-AC — an extension is an alternate/exception action branch of the use case',
+      'CE-AC — an extension is an alternate/exception action branch of the use '
+      'case. branchPoint names the main-scenario step the branch is emitted '
+      'before; returnKind and its case subsection say where control goes when '
+      'the branch finishes (codespecs_derivation_contract.md B5/B6).',
+)
+@OneOf(
+  discriminator: 'returnKind',
+  noCase: [FlowReturnPoint.endFlow],
+  note: 'Branch return closed choice: an extension either resumes the main '
+      'scenario at a named step — which needs that step, so it binds a case — '
+      'or ends the use case, which needs nothing and binds none.',
 )
 class ExtensionEntry extends DocSpecsSection {
   @Form([
     Field(
       'branchPoint',
       String,
-      'Branch Point — step number',
-      hint: 'Main-scenario step where this branch occurs',
+      'Branch Point — main-scenario step',
+      required: true,
+      refersTo: ['MNSST.@sectionId'],
+      hint: 'The main-scenario step this branch leaves from, as that step\'s '
+          'section id (MNSST-STEP-…). The branch is taken instead of that '
+          'step, so name the step the condition is evaluated before — not the '
+          'step before it, and not a restated step number.',
     ),
     Field(
       'condition',
@@ -4767,10 +4808,12 @@ class ExtensionEntry extends DocSpecsSection {
       hint: 'Result reached when the branch completes',
     ),
     Field(
-      'returnPoint',
-      String,
-      'Return Point — step to return to, or end',
-      hint: 'Main-scenario step to resume at, or "end"',
+      'returnKind',
+      FlowReturnPoint,
+      'Return Kind — resume the scenario, or end it',
+      required: true,
+      hint: 'Where control goes when this branch finishes — back to a named '
+          'main-scenario step, or nowhere because the use case ends here',
     ),
     Field(
       'frequency',
@@ -4789,6 +4832,37 @@ class ExtensionEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// Resume point — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `resumeAtStep` kind: the main-scenario step control
+  /// returns to once the branch has run. The `endFlow` kind promotes nothing,
+  /// because a branch that ends the use case has no step to name — which is
+  /// the whole reason the two are a closed choice rather than one `String` in
+  /// which `"end"` and a step reference were indistinguishable.
+  @SectionId('EXTEN-RESU')
+  @StandardReferences(
+    [
+      'Cockburn — Writing Effective Use Cases: extensions',
+      'UML 2.5.1 (ISO/IEC 19505) — use cases',
+    ],
+    'The main-scenario step this extension returns control to.',
+  )
+  @Case(FlowReturnPoint.resumeAtStep)
+  @Form([
+    Field(
+      'resumeStep',
+      String,
+      'Resume Step',
+      required: true,
+      refersTo: ['MNSST.@sectionId'],
+      hint: 'The main-scenario step control resumes at, as that step\'s '
+          'section id (MNSST-STEP-…). That step and everything after it run '
+          'again from here.',
+    ),
+  ])
+  @SerializationOrder(1)
+  DocSpecsSection? resumePoint;
+
   /// Extension steps — contains 0+× Scenario Step.
   @StandardReferences([
     'Cockburn — Writing Effective Use Cases: extensions',
@@ -4796,7 +4870,7 @@ class ExtensionEntry extends DocSpecsSection {
   @SectionId('EXTST-STEP-LST')
   @SectionIdPattern('EXTST-STEP-xxx')
   @ContentHelp('Add one entry per extension step.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ExtensionStepEntry> steps = [];
 }
 
@@ -5475,7 +5549,9 @@ class ScenarioStepEntry extends DocSpecsSection {
       int,
       'Step Number',
       required: true,
-      hint: 'Sequential position of this step',
+      hint: 'Sequential position of this step. This is the number the step is '
+          'read by, not the handle it is referred to by: a branch names the '
+          'step it attaches to by section id.',
     ),
     Field(
       'actor',
@@ -5583,7 +5659,17 @@ class ScenarioStepEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.action],
   note:
-      'CE-AC — an alternative/exception flow is an action branch of the scenario',
+      'CE-AC — an alternative/exception flow is an action branch of the '
+      'scenario. branchPoint names the main-flow step the branch is emitted '
+      'before; returnKind and its case subsection say where control goes when '
+      'the branch finishes (codespecs_derivation_contract.md B5/B6).',
+)
+@OneOf(
+  discriminator: 'returnKind',
+  noCase: [FlowReturnPoint.endFlow],
+  note: 'Branch return closed choice: an alternative flow either resumes the '
+      'main flow at a named step — which needs that step, so it binds a case '
+      '— or ends the scenario, which needs nothing and binds none.',
 )
 class AlternativeFlowEntry extends DocSpecsSection {
   @Form([
@@ -5596,8 +5682,13 @@ class AlternativeFlowEntry extends DocSpecsSection {
     Field(
       'branchPoint',
       String,
-      'Branch Point — step where flow branches',
-      hint: 'Main-flow step number where this diverges',
+      'Branch Point — main-flow step',
+      required: true,
+      refersTo: ['SCNST.@sectionId'],
+      hint: 'The main-flow step this branch diverges at, as that step\'s '
+          'section id (SCNST-STEP-…). The branch is taken instead of that '
+          'step, so name the step the trigger condition is evaluated before — '
+          'not the step before it, and not a restated step number.',
     ),
     Field(
       'triggerCondition',
@@ -5618,10 +5709,12 @@ class AlternativeFlowEntry extends DocSpecsSection {
       hint: 'The end state this flow reaches',
     ),
     Field(
-      'returnPoint',
-      String,
-      'Return Point — step to return to',
-      hint: 'Main-flow step to resume at, if any',
+      'returnKind',
+      FlowReturnPoint,
+      'Return Kind — resume the main flow, or end it',
+      required: true,
+      hint: 'Where control goes when this flow finishes — back to a named '
+          'main-flow step, or nowhere because the scenario ends here',
     ),
     Field(
       'frequency',
@@ -5640,6 +5733,37 @@ class AlternativeFlowEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// Resume point — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `resumeAtStep` kind: the main-flow step control
+  /// returns to once this flow has run. The `endFlow` kind promotes nothing,
+  /// because a flow that ends the scenario has no step to name — which is the
+  /// whole reason the two are a closed choice rather than one `String` in
+  /// which `"end"` and a step reference were indistinguishable.
+  @SectionId('ALFL-RESU')
+  @StandardReferences(
+    [
+      'Cockburn — Writing Effective Use Cases: extensions & alternative flows',
+      'BPMN 2.0 — sequence flow / activities (scenario steps)',
+    ],
+    'The main-flow step this alternative flow returns control to.',
+  )
+  @Case(FlowReturnPoint.resumeAtStep)
+  @Form([
+    Field(
+      'resumeStep',
+      String,
+      'Resume Step',
+      required: true,
+      refersTo: ['SCNST.@sectionId'],
+      hint: 'The main-flow step control resumes at, as that step\'s section '
+          'id (SCNST-STEP-…). That step and everything after it run again '
+          'from here.',
+    ),
+  ])
+  @SerializationOrder(1)
+  DocSpecsSection? resumePoint;
+
   /// Contains 0+× Scenario Step.
   @StandardReferences(
     [
@@ -5652,7 +5776,7 @@ class AlternativeFlowEntry extends DocSpecsSection {
   @SectionId('ALST-STEP-LST')
   @SectionIdPattern('ALST-STEP-xxx')
   @ContentHelp('Add one entry per step of this alternative flow, in order.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<AlternativeStepEntry> steps = [];
 }
 

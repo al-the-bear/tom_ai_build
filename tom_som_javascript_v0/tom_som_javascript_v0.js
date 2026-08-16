@@ -1336,6 +1336,17 @@ class AlternativeFlowEntry extends SomNode {
     return new AlternativeFlowEntryContentForm(this.doc, this.path + "/content");
   }
 
+  // Resume point — a promoted `@OneOf` case.
+  //
+  // Present only for the `resumeAtStep` kind: the main-flow step control
+  // returns to once this flow has run. The `endFlow` kind promotes nothing,
+  // because a flow that ends the scenario has no step to name — which is the
+  // whole reason the two are a closed choice rather than one `String` in
+  // which `"end"` and a step reference were indistinguishable.
+  get resumePoint() {
+    return new AlternativeFlowEntryResumePointForm(this.doc, this.path + "/ALFL-RESU");
+  }
+
   // Contains 0+× Scenario Step.
   get steps() {
     return new SomList(this.doc, this.path + "/ALST-STEP-LST", (d, p) => new AlternativeStepEntry(d, p), "ALST-STEP-xxx");
@@ -15311,6 +15322,17 @@ class ExtensionEntry extends SomNode {
 
   get content() {
     return new ExtensionEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // Resume point — a promoted `@OneOf` case.
+  //
+  // Present only for the `resumeAtStep` kind: the main-scenario step control
+  // returns to once the branch has run. The `endFlow` kind promotes nothing,
+  // because a branch that ends the use case has no step to name — which is
+  // the whole reason the two are a closed choice rather than one `String` in
+  // which `"end"` and a step reference were indistinguishable.
+  get resumePoint() {
+    return new ExtensionEntryResumePointForm(this.doc, this.path + "/EXTEN-RESU");
   }
 
   // Extension steps — contains 0+× Scenario Step.
@@ -44927,12 +44949,12 @@ class AlternativeFlowEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "outcome", value);
   }
 
-  get returnPoint() {
-    return this.doc.formField(this.path, "returnPoint") || '';
+  get returnKind() {
+    return this.doc.formField(this.path, "returnKind") || '';
   }
 
-  set returnPoint(value) {
-    this.doc.setFormField(this.path, "returnPoint", value);
+  set returnKind(value) {
+    this.doc.setFormField(this.path, "returnKind", value);
   }
 
   get frequency() {
@@ -44949,6 +44971,33 @@ class AlternativeFlowEntryContentForm extends SomNode {
 
   set businessImpact(value) {
     this.doc.setFormField(this.path, "businessImpact", value);
+  }
+}
+
+// Generated section facade for the `resumePoint` @Form section: its own content text followed by one typed member per form field.
+class AlternativeFlowEntryResumePointForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get resumeStep() {
+    return this.doc.formField(this.path, "resumeStep") || '';
+  }
+
+  set resumeStep(value) {
+    this.doc.setFormField(this.path, "resumeStep", value);
   }
 }
 
@@ -88667,12 +88716,12 @@ class ExtensionEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "outcome", value);
   }
 
-  get returnPoint() {
-    return this.doc.formField(this.path, "returnPoint") || '';
+  get returnKind() {
+    return this.doc.formField(this.path, "returnKind") || '';
   }
 
-  set returnPoint(value) {
-    this.doc.setFormField(this.path, "returnPoint", value);
+  set returnKind(value) {
+    this.doc.setFormField(this.path, "returnKind", value);
   }
 
   get frequency() {
@@ -88689,6 +88738,33 @@ class ExtensionEntryContentForm extends SomNode {
 
   set severity(value) {
     this.doc.setFormField(this.path, "severity", value);
+  }
+}
+
+// Generated section facade for the `resumePoint` @Form section: its own content text followed by one typed member per form field.
+class ExtensionEntryResumePointForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get resumeStep() {
+    return this.doc.formField(this.path, "resumeStep") || '';
+  }
+
+  set resumeStep(value) {
+    this.doc.setFormField(this.path, "resumeStep", value);
   }
 }
 
@@ -182356,6 +182432,7 @@ module.exports = {
   AlertingRequirementsRoutingForm,
   AlertingRequirementsSuppressionForm,
   AlternativeFlowEntryContentForm,
+  AlternativeFlowEntryResumePointForm,
   AlternativeStepEntryContentForm,
   AnomalyDetectionPolicyContentForm,
   ApiCompatibilityEntryContentForm,
@@ -183239,6 +183316,7 @@ module.exports = {
   ExportTemplateEntryLayoutForm,
   ExportTemplateEntryMetadataForm,
   ExtensionEntryContentForm,
+  ExtensionEntryResumePointForm,
   ExtensionStepEntryContentForm,
   ExternalActorEntryContentForm,
   ExternalActorEntryContextForm,

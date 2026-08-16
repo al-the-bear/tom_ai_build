@@ -1340,6 +1340,7 @@ class AlertingRequirementsResponseForm;
 class AlertingRequirementsRoutingForm;
 class AlertingRequirementsSuppressionForm;
 class AlternativeFlowEntryContentForm;
+class AlternativeFlowEntryResumePointForm;
 class AlternativeStepEntryContentForm;
 class AnomalyDetectionPolicyContentForm;
 class ApiCompatibilityEntryContentForm;
@@ -2223,6 +2224,7 @@ class ExportTemplateEntryFormatForm;
 class ExportTemplateEntryLayoutForm;
 class ExportTemplateEntryMetadataForm;
 class ExtensionEntryContentForm;
+class ExtensionEntryResumePointForm;
 class ExtensionStepEntryContentForm;
 class ExternalActorEntryContentForm;
 class ExternalActorEntryContextForm;
@@ -4726,6 +4728,14 @@ class AlternativeFlowEntry : public som::SomNode {
  public:
   AlternativeFlowEntry(som::SpecDocument& doc, std::string path);
   AlternativeFlowEntryContentForm content() const;
+  // Resume point — a promoted `@OneOf` case.
+  //
+  // Present only for the `resumeAtStep` kind: the main-flow step control
+  // returns to once this flow has run. The `endFlow` kind promotes nothing,
+  // because a flow that ends the scenario has no step to name — which is the
+  // whole reason the two are a closed choice rather than one `String` in
+  // which `"end"` and a step reference were indistinguishable.
+  AlternativeFlowEntryResumePointForm resumePoint() const;
   // Contains 0+× Scenario Step.
   // Returns the list view; element type: AlternativeStepEntry (construct from item paths).
   som::SomList steps() const;
@@ -12527,6 +12537,14 @@ class ExtensionEntry : public som::SomNode {
  public:
   ExtensionEntry(som::SpecDocument& doc, std::string path);
   ExtensionEntryContentForm content() const;
+  // Resume point — a promoted `@OneOf` case.
+  //
+  // Present only for the `resumeAtStep` kind: the main-scenario step control
+  // returns to once the branch has run. The `endFlow` kind promotes nothing,
+  // because a branch that ends the use case has no step to name — which is
+  // the whole reason the two are a closed choice rather than one `String` in
+  // which `"end"` and a step reference were indistinguishable.
+  ExtensionEntryResumePointForm resumePoint() const;
   // Extension steps — contains 0+× Scenario Step.
   // Returns the list view; element type: ExtensionStepEntry (construct from item paths).
   som::SomList steps() const;
@@ -28286,12 +28304,24 @@ class AlternativeFlowEntryContentForm : public som::SomNode {
   void setDescription(const std::string& value);
   std::string outcome() const;
   void setOutcome(const std::string& value);
-  std::string returnPoint() const;
-  void setReturnPoint(const std::string& value);
+  std::string returnKind() const;
+  void setReturnKind(const std::string& value);
   std::string frequency() const;
   void setFrequency(const std::string& value);
   std::string businessImpact() const;
   void setBusinessImpact(const std::string& value);
+};
+
+// Generated section facade for the `resumePoint` @Form section: its own `content` text followed by one typed member per form field.
+class AlternativeFlowEntryResumePointForm : public som::SomNode {
+ public:
+  AlternativeFlowEntryResumePointForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string resumeStep() const;
+  void setResumeStep(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -43792,12 +43822,24 @@ class ExtensionEntryContentForm : public som::SomNode {
   void setDescription(const std::string& value);
   std::string outcome() const;
   void setOutcome(const std::string& value);
-  std::string returnPoint() const;
-  void setReturnPoint(const std::string& value);
+  std::string returnKind() const;
+  void setReturnKind(const std::string& value);
   std::string frequency() const;
   void setFrequency(const std::string& value);
   std::string severity() const;
   void setSeverity(const std::string& value);
+};
+
+// Generated section facade for the `resumePoint` @Form section: its own `content` text followed by one typed member per form field.
+class ExtensionEntryResumePointForm : public som::SomNode {
+ public:
+  ExtensionEntryResumePointForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string resumeStep() const;
+  void setResumeStep(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

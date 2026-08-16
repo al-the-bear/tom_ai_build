@@ -926,6 +926,7 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as AlternativeFlowEntry;
       return [
+        SpecSlot.node(() => n.resumePoint, (v) => n.resumePoint = v as DocSpecsSection?, label: 'resumePoint', sectionId: 'ALFL-RESU'),
         SpecSlot.list(() => n.steps, (v) => n.steps = v.cast<AlternativeStepEntry>(), label: 'steps', sectionId: 'ALST-STEP-LST'),
       ];
     },
@@ -933,6 +934,7 @@ void registerSpecOps() {
       final n = o as AlternativeFlowEntry;
       return AlternativeFlowEntry()
         ..content = n.content
+        ..resumePoint = n.resumePoint
         ..steps = n.steps;
     },
     yamlScalar: (o) => (o as AlternativeFlowEntry).content,
@@ -8636,6 +8638,7 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as ExtensionEntry;
       return [
+        SpecSlot.node(() => n.resumePoint, (v) => n.resumePoint = v as DocSpecsSection?, label: 'resumePoint', sectionId: 'EXTEN-RESU'),
         SpecSlot.list(() => n.steps, (v) => n.steps = v.cast<ExtensionStepEntry>(), label: 'steps', sectionId: 'EXTST-STEP-LST'),
       ];
     },
@@ -8643,6 +8646,7 @@ void registerSpecOps() {
       final n = o as ExtensionEntry;
       return ExtensionEntry()
         ..content = n.content
+        ..resumePoint = n.resumePoint
         ..steps = n.steps;
     },
     yamlScalar: (o) => (o as ExtensionEntry).content,

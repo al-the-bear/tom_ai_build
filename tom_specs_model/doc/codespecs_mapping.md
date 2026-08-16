@@ -4707,7 +4707,10 @@ and the instance-tier check resolve a discriminator in either position.
 
 A kind that carries no extra attributes binds no case, and the group says so in
 `@OneOf(noCase: [...])` — e.g. `DataAttributeKind.boolean`/`uuid`/`json`, the
-four `AuthorizationRequirementKind` presets, and `ScreenFieldKind.boolean`. The
+four `AuthorizationRequirementKind` presets, `ScreenFieldKind.boolean`, and
+`FlowReturnPoint.endFlow`, where the attribute-free arm is not a value kind but
+a control transfer: a branch that ends its scenario has no step to name, which
+is precisely why the pair is a closed choice rather than one `String`. The
 declaration is what makes the coverage warning meaningful: it separates a kind
 that was *examined and found attribute-free* from one whose case simply has not
 been written, so the remaining warnings are an inventory of unexamined kinds
@@ -5126,7 +5129,7 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Seven entries are open, in two groups. **Model** — four
+active part COVERED. Six entries are open, in two groups. **Model** — three
 gaps the behaviour-to-body derivation exposed, each of which leaves something
 the specification states **not emitted** in the generated body, or a required
 argument with no section behind it. **Document** — the Phase-4 production model
@@ -5135,7 +5138,6 @@ procedure instantiates.
 
 | Todo | Subject |
 |------|---------|
-| `tscompc13` | **ISC branch attachment is unstructured.** `EXTEN` and `ALFL` state `branchPoint` and `returnPoint` as free text, so neither where a branch attaches nor where control resumes can be derived. `codespecs_derivation_contract.md` B5 therefore emits every branch after the whole main sequence and B6 emits nothing for the return point. Both need a resolvable step reference, and `returnPoint` a closed resume/end choice. |
 | `tscompc14` | **No routing of an ISC step to a server call's three handling roles.** Nothing says whether a step's behaviour is request assembly, response handling or error handling, so `codespecs_derivation_contract.md` §3.5.7 is form 3a and all three bodies throw the same text. §5.3 already lists the three as CE-SC's consumed surface, so the surface is declared with no authoring home. |
 | `tscompc15` | **An optional login-flow step states no condition.** `LGFLS`'s `LFSEB.optional` and `conditionalTrigger` are independent fields, so `optional: Yes` with no trigger asserts skippability without saying when. B4 emits no guard for it, and the step runs unconditionally. |
 | `tscompc16` | **`@CsServiceUnit.rootAggregate` is required and no section supplies it.** §5.1 makes the owned aggregate the primary boundary criterion, and `codespecs_derivation_contract.md` §5.1 makes `rootAggregate` a **required** `Type` argument sourced from D03's entity/aggregate structure — which D03 does not carry: `DataEntityEntry` and `EntityRelationshipEntry` state entities and relationships, never aggregate membership or a root. The same guess would then be re-made for CE-DB's table ownership and for every CE-API operation's scope, with nothing making the three agree. Per §1.1's B8 rule the outcome is a field on the model, not a heuristic here. |

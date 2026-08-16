@@ -1588,6 +1588,13 @@ AlternativeFlowEntryContentForm alternative_flow_entry_content(const Alternative
   free(path);
   return out;
 }
+AlternativeFlowEntryResumePointForm alternative_flow_entry_resume_point(const AlternativeFlowEntry *self) {
+  char *path = spec_path_join(self->node.path, "ALFL-RESU");
+  AlternativeFlowEntryResumePointForm out;
+  alternative_flow_entry_resume_point_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 SomList alternative_flow_entry_steps(const AlternativeFlowEntry *self) {
   char *path = spec_path_join(self->node.path, "ALST-STEP-LST");
   SomList out;
@@ -18946,6 +18953,13 @@ ExtensionEntryContentForm extension_entry_content(const ExtensionEntry *self) {
   char *path = spec_path_join(self->node.path, "content");
   ExtensionEntryContentForm out;
   extension_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ExtensionEntryResumePointForm extension_entry_resume_point(const ExtensionEntry *self) {
+  char *path = spec_path_join(self->node.path, "EXTEN-RESU");
+  ExtensionEntryResumePointForm out;
+  extension_entry_resume_point_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -54076,12 +54090,12 @@ char *alternative_flow_entry_content_form_outcome(const AlternativeFlowEntryCont
 void alternative_flow_entry_content_form_set_outcome(AlternativeFlowEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "outcome", value);
 }
-char *alternative_flow_entry_content_form_return_point(const AlternativeFlowEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "returnPoint");
+char *alternative_flow_entry_content_form_return_kind(const AlternativeFlowEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "returnKind");
   return som_strdup(v != NULL ? v : "");
 }
-void alternative_flow_entry_content_form_set_return_point(AlternativeFlowEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "returnPoint", value);
+void alternative_flow_entry_content_form_set_return_kind(AlternativeFlowEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "returnKind", value);
 }
 char *alternative_flow_entry_content_form_frequency(const AlternativeFlowEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "frequency");
@@ -54096,6 +54110,27 @@ char *alternative_flow_entry_content_form_business_impact(const AlternativeFlowE
 }
 void alternative_flow_entry_content_form_set_business_impact(AlternativeFlowEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "businessImpact", value);
+}
+
+void alternative_flow_entry_resume_point_form_init(AlternativeFlowEntryResumePointForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void alternative_flow_entry_resume_point_form_free(AlternativeFlowEntryResumePointForm *self) {
+  som_node_free(&self->node);
+}
+char *alternative_flow_entry_resume_point_form_content(const AlternativeFlowEntryResumePointForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void alternative_flow_entry_resume_point_form_set_content(AlternativeFlowEntryResumePointForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *alternative_flow_entry_resume_point_form_resume_step(const AlternativeFlowEntryResumePointForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "resumeStep");
+  return som_strdup(v != NULL ? v : "");
+}
+void alternative_flow_entry_resume_point_form_set_resume_step(AlternativeFlowEntryResumePointForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "resumeStep", value);
 }
 
 void alternative_step_entry_content_form_init(AlternativeStepEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -89912,12 +89947,12 @@ char *extension_entry_content_form_outcome(const ExtensionEntryContentForm *self
 void extension_entry_content_form_set_outcome(ExtensionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "outcome", value);
 }
-char *extension_entry_content_form_return_point(const ExtensionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "returnPoint");
+char *extension_entry_content_form_return_kind(const ExtensionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "returnKind");
   return som_strdup(v != NULL ? v : "");
 }
-void extension_entry_content_form_set_return_point(ExtensionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "returnPoint", value);
+void extension_entry_content_form_set_return_kind(ExtensionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "returnKind", value);
 }
 char *extension_entry_content_form_frequency(const ExtensionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "frequency");
@@ -89932,6 +89967,27 @@ char *extension_entry_content_form_severity(const ExtensionEntryContentForm *sel
 }
 void extension_entry_content_form_set_severity(ExtensionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "severity", value);
+}
+
+void extension_entry_resume_point_form_init(ExtensionEntryResumePointForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void extension_entry_resume_point_form_free(ExtensionEntryResumePointForm *self) {
+  som_node_free(&self->node);
+}
+char *extension_entry_resume_point_form_content(const ExtensionEntryResumePointForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void extension_entry_resume_point_form_set_content(ExtensionEntryResumePointForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *extension_entry_resume_point_form_resume_step(const ExtensionEntryResumePointForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "resumeStep");
+  return som_strdup(v != NULL ? v : "");
+}
+void extension_entry_resume_point_form_set_resume_step(ExtensionEntryResumePointForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "resumeStep", value);
 }
 
 void extension_step_entry_content_form_init(ExtensionStepEntryContentForm *self, SpecDocument *doc, const char *path) {

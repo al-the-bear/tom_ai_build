@@ -1479,6 +1479,7 @@ static void meta_build_alerting_requirements_deduplication(SomMetaNode *n);
 static void meta_build_alerting_requirements_suppression(SomMetaNode *n);
 static void meta_build_alerting_requirements_response(SomMetaNode *n);
 static void meta_build_alternative_flow_entry_content(SomMetaNode *n);
+static void meta_build_alternative_flow_entry_resume_point(SomMetaNode *n);
 static void meta_build_alternative_flow_entry_steps(SomMetaNode *n);
 static void meta_build_alternative_flow_entry_steps_elem(SomMetaNode *n);
 static void meta_build_alternative_step_entry_content(SomMetaNode *n);
@@ -3419,6 +3420,7 @@ static void meta_build_export_template_entry_layout(SomMetaNode *n);
 static void meta_build_export_template_entry_metadata(SomMetaNode *n);
 static void meta_build_export_template_entry_access(SomMetaNode *n);
 static void meta_build_extension_entry_content(SomMetaNode *n);
+static void meta_build_extension_entry_resume_point(SomMetaNode *n);
 static void meta_build_extension_entry_steps(SomMetaNode *n);
 static void meta_build_extension_entry_steps_elem(SomMetaNode *n);
 static void meta_build_extension_step_entry_content(SomMetaNode *n);
@@ -16263,10 +16265,13 @@ static void meta_build_alternative_flow_entry_content(SomMetaNode *n) {
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("branchPoint");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Branch Point — step where flow branches");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Main-flow step number where this diverges");
+  n->form->fields[1].description = som_strdup("Branch Point — main-flow step");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The main-flow step this branch diverges at, as that step's section id (SCNST-STEP-…). The branch is taken instead of that step, so name the step the trigger condition is evaluated before — not the step before it, and not a restated step number.");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("SCNST.@sectionId");
   n->form->fields[2].name = som_strdup("triggerCondition");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Trigger Condition — when this occurs");
@@ -16285,12 +16290,16 @@ static void meta_build_alternative_flow_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("The end state this flow reaches");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("returnPoint");
-  n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Return Point — step to return to");
-  n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Main-flow step to resume at, if any");
+  n->form->fields[5].name = som_strdup("returnKind");
+  n->form->fields[5].type_name = som_strdup("FlowReturnPoint");
+  n->form->fields[5].description = som_strdup("Return Kind — resume the main flow, or end it");
+  n->form->fields[5].required = 1;
+  n->form->fields[5].hint = som_strdup("Where control goes when this flow finishes — back to a named main-flow step, or nowhere because the scenario ends here");
   n->form->fields[5].order = 5;
+  n->form->fields[5].enum_values_len = 2;
+  n->form->fields[5].enum_values = (char **)calloc(2, sizeof(char *));
+  n->form->fields[5].enum_values[0] = som_strdup("resumeAtStep");
+  n->form->fields[5].enum_values[1] = som_strdup("endFlow");
   n->form->fields[6].name = som_strdup("frequency");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Frequency — how often this occurs");
@@ -16304,6 +16313,34 @@ static void meta_build_alternative_flow_entry_content(SomMetaNode *n) {
   n->form->fields[7].hint = som_strdup("Business consequence of this flow");
   n->form->fields[7].order = 7;
 }
+static void meta_build_alternative_flow_entry_resume_point(SomMetaNode *n) {
+  meta_set(&n->class_name, "AlternativeFlowEntry");
+  meta_set(&n->member_name, "resumePoint");
+  meta_set(&n->section_id, "ALFL-RESU");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-flow step control\nreturns to once this flow has run. The `endFlow` kind promotes nothing,\nbecause a flow that ends the scenario has no step to name — which is the\nwhole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("resumeStep");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Resume Step");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The main-flow step control resumes at, as that step's section id (SCNST-STEP-…). That step and everything after it run again from here.");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCNST.@sectionId");
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: extensions & alternative flows\",\"BPMN 2.0 — sequence flow / activities (scenario steps)\"],\"connotation\":\"The main-flow step this alternative flow returns control to.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"FlowReturnPoint.resumeAtStep\"}", NULL);
+}
 static void meta_build_alternative_flow_entry_steps(SomMetaNode *n) {
   meta_set(&n->class_name, "AlternativeFlowEntry");
   meta_set(&n->member_name, "steps");
@@ -16312,7 +16349,7 @@ static void meta_build_alternative_flow_entry_steps(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AlternativeStepEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per step of this alternative flow, in order.");
   meta_set(&n->doc_comment, "Contains 0+× Scenario Step.");
   n->extra_len = 1;
@@ -62316,10 +62353,13 @@ static void meta_build_extension_entry_content(SomMetaNode *n) {
   n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("branchPoint");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Branch Point — step number");
-  n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Main-scenario step where this branch occurs");
+  n->form->fields[0].description = som_strdup("Branch Point — main-scenario step");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The main-scenario step this branch leaves from, as that step's section id (MNSST-STEP-…). The branch is taken instead of that step, so name the step the condition is evaluated before — not the step before it, and not a restated step number.");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("MNSST.@sectionId");
   n->form->fields[1].name = som_strdup("condition");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Condition — when this extension triggers");
@@ -62344,12 +62384,16 @@ static void meta_build_extension_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Result reached when the branch completes");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("returnPoint");
-  n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Return Point — step to return to, or end");
-  n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Main-scenario step to resume at, or \"end\"");
+  n->form->fields[5].name = som_strdup("returnKind");
+  n->form->fields[5].type_name = som_strdup("FlowReturnPoint");
+  n->form->fields[5].description = som_strdup("Return Kind — resume the scenario, or end it");
+  n->form->fields[5].required = 1;
+  n->form->fields[5].hint = som_strdup("Where control goes when this branch finishes — back to a named main-scenario step, or nowhere because the use case ends here");
   n->form->fields[5].order = 5;
+  n->form->fields[5].enum_values_len = 2;
+  n->form->fields[5].enum_values = (char **)calloc(2, sizeof(char *));
+  n->form->fields[5].enum_values[0] = som_strdup("resumeAtStep");
+  n->form->fields[5].enum_values[1] = som_strdup("endFlow");
   n->form->fields[6].name = som_strdup("frequency");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Frequency — how often this occurs");
@@ -62363,6 +62407,34 @@ static void meta_build_extension_entry_content(SomMetaNode *n) {
   n->form->fields[7].hint = som_strdup("Impact level for exception/error branches");
   n->form->fields[7].order = 7;
 }
+static void meta_build_extension_entry_resume_point(SomMetaNode *n) {
+  meta_set(&n->class_name, "ExtensionEntry");
+  meta_set(&n->member_name, "resumePoint");
+  meta_set(&n->section_id, "EXTEN-RESU");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-scenario step control\nreturns to once the branch has run. The `endFlow` kind promotes nothing,\nbecause a branch that ends the use case has no step to name — which is\nthe whole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("resumeStep");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Resume Step");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The main-scenario step control resumes at, as that step's section id (MNSST-STEP-…). That step and everything after it run again from here.");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("MNSST.@sectionId");
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: extensions\",\"UML 2.5.1 (ISO/IEC 19505) — use cases\"],\"connotation\":\"The main-scenario step this extension returns control to.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"FlowReturnPoint.resumeAtStep\"}", NULL);
+}
 static void meta_build_extension_entry_steps(SomMetaNode *n) {
   meta_set(&n->class_name, "ExtensionEntry");
   meta_set(&n->member_name, "steps");
@@ -62371,7 +62443,7 @@ static void meta_build_extension_entry_steps(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ExtensionStepEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per extension step.");
   meta_set(&n->doc_comment, "Extension steps — contains 0+× Scenario Step.");
   n->extra_len = 1;
@@ -80410,7 +80482,7 @@ static void meta_build_main_scenario_step_entry_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("int");
   n->form->fields[0].description = som_strdup("Step Number");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Sequential step number within the flow");
+  n->form->fields[0].hint = som_strdup("Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("actorAction");
   n->form->fields[1].type_name = som_strdup("String");
@@ -116761,7 +116833,7 @@ static void meta_build_scenario_step_entry_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("int");
   n->form->fields[0].description = som_strdup("Step Number");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Sequential position of this step");
+  n->form->fields[0].hint = som_strdup("Sequential position of this step. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("actor");
   n->form->fields[1].type_name = som_strdup("String");
@@ -155684,6 +155756,11 @@ static SomMetaNode **meta_children_alternative_flow_entry(SomStrList *stack, siz
     meta_push(&arr, len, &cap, n);
   }
   {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_alternative_flow_entry_resume_point(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_alternative_flow_entry_steps(ln);
     ln->element_node = meta_cx("AlternativeStepEntry", stack, meta_children_alternative_step_entry, meta_build_alternative_flow_entry_steps_elem);
@@ -165960,6 +166037,11 @@ static SomMetaNode **meta_children_extension_entry(SomStrList *stack, size_t *le
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_extension_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_extension_entry_resume_point(n);
     meta_push(&arr, len, &cap, n);
   }
   {
@@ -188534,6 +188616,13 @@ SomMetaRef alternative_flow_entry_nav_content(som_nav_alternative_flow_entry x) 
   free(path);
   return out;
 }
+SomMetaRef alternative_flow_entry_nav_resume_point(som_nav_alternative_flow_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "ALFL-RESU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef alternative_flow_entry_nav_steps(som_nav_alternative_flow_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ALST-STEP-LST");
@@ -200801,6 +200890,13 @@ som_nav_authorization_requirement_spec export_template_entry_nav_access(som_nav_
 SomMetaRef extension_entry_nav_content(som_nav_extension_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef extension_entry_nav_resume_point(som_nav_extension_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EXTEN-RESU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -223538,6 +223634,13 @@ SomMetaRef alert_rule_entry_id_arer(som_id_alert_rule_entry x) {
 SomMetaRef alert_rule_entry_id_areo(som_id_alert_rule_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "AREO");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef alternative_flow_entry_id_alfl_resu(som_id_alternative_flow_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "ALFL-RESU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -249117,6 +249220,13 @@ SomListMetaRef export_template_entry_id_azlvl_leve_lst(som_id_export_template_en
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
+  free(path);
+  return out;
+}
+SomMetaRef extension_entry_id_exten_resu(som_id_extension_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "EXTEN-RESU");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }

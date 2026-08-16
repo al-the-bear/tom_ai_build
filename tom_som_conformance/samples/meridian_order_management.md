@@ -689,13 +689,17 @@ BusinessRuleApplied: FR-04 five-minute confirmation
 
 ######### <!--[EXTEN-EXTE-1]--> 2a Credit limit exceeded
 
-BranchPoint: Step 2
+BranchPoint: MNSST-STEP-2
 Condition: Customer credit limit would be exceeded
 ExtensionType: Exception
 Description: Validation detects the order exceeds the customer credit limit.
 Outcome: Order is placed on Hold for supervisor review (see UC-02).
-ReturnPoint: Step 3 after release
+ReturnKind: resumeAtStep
 Severity: High
+
+########## <!--[EXTEN-RESU]--> Resume Point
+
+ResumeStep: MNSST-STEP-3
 
 ########## <!--[EXTST-STEP-LST]--> Steps
 
@@ -707,13 +711,17 @@ Response: Order appears in the Hold filter of the work list with reason "Credit 
 
 ######### <!--[EXTEN-EXTE-2]--> 4a Insufficient stock
 
-BranchPoint: Step 4
+BranchPoint: MNSST-STEP-4
 Condition: Insufficient stock for one or more lines
 ExtensionType: Exception
 Description: Reservation cannot be fully satisfied for a line.
 Outcome: The affected line is placed on Hold; other lines proceed.
-ReturnPoint: Step 5 for satisfiable lines
+ReturnKind: resumeAtStep
 Severity: Medium
+
+########## <!--[EXTEN-RESU]--> Resume Point
+
+ResumeStep: MNSST-STEP-5
 
 ########## <!--[EXTST-STEP-LST]--> Steps
 

@@ -829,13 +829,14 @@ transition so the work list and public tracking page stay current.''')
   final ex2a = uc1.extensions.extensions.add();
   ex2a.$headline = '2a Credit limit exceeded';
   ex2a.content
-    ..branchPoint = 'Step 2'
+    ..branchPoint = 'MNSST-STEP-2'
     ..condition = 'Customer credit limit would be exceeded'
     ..extensionType = 'Exception'
     ..description = 'Validation detects the order exceeds the customer credit limit.'
     ..outcome = 'Order is placed on Hold for supervisor review (see UC-02).'
-    ..returnPoint = 'Step 3 after release'
+    ..returnKind = FlowReturnPoint.resumeAtStep
     ..severity = 'High';
+  ex2a.resumePoint.resumeStep = 'MNSST-STEP-3';
   _extStep(ex2a.steps.add(), '2a.1',
       'System places the Order on Hold and emits OrderHeld.',
       'Order appears in the Hold filter of the work list with reason "Credit exceeded".');
@@ -843,13 +844,14 @@ transition so the work list and public tracking page stay current.''')
   final ex4a = uc1.extensions.extensions.add();
   ex4a.$headline = '4a Insufficient stock';
   ex4a.content
-    ..branchPoint = 'Step 4'
+    ..branchPoint = 'MNSST-STEP-4'
     ..condition = 'Insufficient stock for one or more lines'
     ..extensionType = 'Exception'
     ..description = 'Reservation cannot be fully satisfied for a line.'
     ..outcome = 'The affected line is placed on Hold; other lines proceed.'
-    ..returnPoint = 'Step 5 for satisfiable lines'
+    ..returnKind = FlowReturnPoint.resumeAtStep
     ..severity = 'Medium';
+  ex4a.resumePoint.resumeStep = 'MNSST-STEP-5';
   _extStep(ex4a.steps.add(), '4a.1',
       'System holds the unsatisfiable line and reserves the rest.',
       'The order is partially reserved; the held line is flagged for follow-up.');

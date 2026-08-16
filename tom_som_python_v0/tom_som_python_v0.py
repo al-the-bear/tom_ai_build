@@ -1264,6 +1264,17 @@ class AlternativeFlowEntry(SomNode):
     def content(self):
         return AlternativeFlowEntryContentForm(self.doc, f"{self.path}/content")
 
+    # Resume point — a promoted `@OneOf` case.
+    #
+    # Present only for the `resumeAtStep` kind: the main-flow step control
+    # returns to once this flow has run. The `endFlow` kind promotes nothing,
+    # because a flow that ends the scenario has no step to name — which is the
+    # whole reason the two are a closed choice rather than one `String` in
+    # which `"end"` and a step reference were indistinguishable.
+    @property
+    def resumePoint(self):
+        return AlternativeFlowEntryResumePointForm(self.doc, f"{self.path}/ALFL-RESU")
+
     # Contains 0+× Scenario Step.
     @property
     def steps(self):
@@ -14636,6 +14647,17 @@ class ExtensionEntry(SomNode):
     @property
     def content(self):
         return ExtensionEntryContentForm(self.doc, f"{self.path}/content")
+
+    # Resume point — a promoted `@OneOf` case.
+    #
+    # Present only for the `resumeAtStep` kind: the main-scenario step control
+    # returns to once the branch has run. The `endFlow` kind promotes nothing,
+    # because a branch that ends the use case has no step to name — which is
+    # the whole reason the two are a closed choice rather than one `String` in
+    # which `"end"` and a step reference were indistinguishable.
+    @property
+    def resumePoint(self):
+        return ExtensionEntryResumePointForm(self.doc, f"{self.path}/EXTEN-RESU")
 
     # Extension steps — contains 0+× Scenario Step.
     @property
@@ -42904,12 +42926,12 @@ class AlternativeFlowEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "outcome", value)
 
     @property
-    def returnPoint(self) -> str:
-        return self.doc.form_field(self.path, "returnPoint") or ""
+    def returnKind(self) -> str:
+        return self.doc.form_field(self.path, "returnKind") or ""
 
-    @returnPoint.setter
-    def returnPoint(self, value):
-        self.doc.set_form_field(self.path, "returnPoint", value)
+    @returnKind.setter
+    def returnKind(self, value):
+        self.doc.set_form_field(self.path, "returnKind", value)
 
     @property
     def frequency(self) -> str:
@@ -42926,6 +42948,31 @@ class AlternativeFlowEntryContentForm(SomNode):
     @businessImpact.setter
     def businessImpact(self, value):
         self.doc.set_form_field(self.path, "businessImpact", value)
+
+class AlternativeFlowEntryResumePointForm(SomNode):
+    """Generated section facade for the `resumePoint` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def resumeStep(self) -> str:
+        return self.doc.form_field(self.path, "resumeStep") or ""
+
+    @resumeStep.setter
+    def resumeStep(self, value):
+        self.doc.set_form_field(self.path, "resumeStep", value)
 
 class AlternativeStepEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -85148,12 +85195,12 @@ class ExtensionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "outcome", value)
 
     @property
-    def returnPoint(self) -> str:
-        return self.doc.form_field(self.path, "returnPoint") or ""
+    def returnKind(self) -> str:
+        return self.doc.form_field(self.path, "returnKind") or ""
 
-    @returnPoint.setter
-    def returnPoint(self, value):
-        self.doc.set_form_field(self.path, "returnPoint", value)
+    @returnKind.setter
+    def returnKind(self, value):
+        self.doc.set_form_field(self.path, "returnKind", value)
 
     @property
     def frequency(self) -> str:
@@ -85170,6 +85217,31 @@ class ExtensionEntryContentForm(SomNode):
     @severity.setter
     def severity(self, value):
         self.doc.set_form_field(self.path, "severity", value)
+
+class ExtensionEntryResumePointForm(SomNode):
+    """Generated section facade for the `resumePoint` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def resumeStep(self) -> str:
+        return self.doc.form_field(self.path, "resumeStep") or ""
+
+    @resumeStep.setter
+    def resumeStep(self, value):
+        self.doc.set_form_field(self.path, "resumeStep", value)
 
 class ExtensionStepEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

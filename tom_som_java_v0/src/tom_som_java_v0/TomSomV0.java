@@ -1333,6 +1333,17 @@ public final class TomSomV0 {
       return new AlternativeFlowEntryContentForm(doc, path + "/content");
     }
 
+    // Resume point — a promoted `@OneOf` case.
+    //
+    // Present only for the `resumeAtStep` kind: the main-flow step control
+    // returns to once this flow has run. The `endFlow` kind promotes nothing,
+    // because a flow that ends the scenario has no step to name — which is the
+    // whole reason the two are a closed choice rather than one `String` in
+    // which `"end"` and a step reference were indistinguishable.
+    public AlternativeFlowEntryResumePointForm resumePoint() {
+      return new AlternativeFlowEntryResumePointForm(doc, path + "/ALFL-RESU");
+    }
+
     // Contains 0+× Scenario Step.
     public SomList<AlternativeStepEntry> steps() {
       return new SomList<>(doc, path + "/ALST-STEP-LST", (d, p) -> new AlternativeStepEntry(d, p), "ALST-STEP-xxx");
@@ -15557,6 +15568,17 @@ public final class TomSomV0 {
 
     public ExtensionEntryContentForm content() {
       return new ExtensionEntryContentForm(doc, path + "/content");
+    }
+
+    // Resume point — a promoted `@OneOf` case.
+    //
+    // Present only for the `resumeAtStep` kind: the main-scenario step control
+    // returns to once the branch has run. The `endFlow` kind promotes nothing,
+    // because a branch that ends the use case has no step to name — which is
+    // the whole reason the two are a closed choice rather than one `String` in
+    // which `"end"` and a step reference were indistinguishable.
+    public ExtensionEntryResumePointForm resumePoint() {
+      return new ExtensionEntryResumePointForm(doc, path + "/EXTEN-RESU");
     }
 
     // Extension steps — contains 0+× Scenario Step.
@@ -45948,13 +45970,13 @@ public final class TomSomV0 {
       doc.setFormField(path, "outcome", value);
     }
 
-    public String returnPoint() {
-      String v = doc.formField(path, "returnPoint");
+    public String returnKind() {
+      String v = doc.formField(path, "returnKind");
       return v == null ? "" : v;
     }
 
-    public void returnPoint(String value) {
-      doc.setFormField(path, "returnPoint", value);
+    public void returnKind(String value) {
+      doc.setFormField(path, "returnKind", value);
     }
 
     public String frequency() {
@@ -45973,6 +45995,37 @@ public final class TomSomV0 {
 
     public void businessImpact(String value) {
       doc.setFormField(path, "businessImpact", value);
+    }
+  }
+
+  // Generated section facade for the `resumePoint` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AlternativeFlowEntryResumePointForm extends SomNode {
+    public AlternativeFlowEntryResumePointForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String resumeStep() {
+      String v = doc.formField(path, "resumeStep");
+      return v == null ? "" : v;
+    }
+
+    public void resumeStep(String value) {
+      doc.setFormField(path, "resumeStep", value);
     }
   }
 
@@ -95675,13 +95728,13 @@ public final class TomSomV0 {
       doc.setFormField(path, "outcome", value);
     }
 
-    public String returnPoint() {
-      String v = doc.formField(path, "returnPoint");
+    public String returnKind() {
+      String v = doc.formField(path, "returnKind");
       return v == null ? "" : v;
     }
 
-    public void returnPoint(String value) {
-      doc.setFormField(path, "returnPoint", value);
+    public void returnKind(String value) {
+      doc.setFormField(path, "returnKind", value);
     }
 
     public String frequency() {
@@ -95700,6 +95753,37 @@ public final class TomSomV0 {
 
     public void severity(String value) {
       doc.setFormField(path, "severity", value);
+    }
+  }
+
+  // Generated section facade for the `resumePoint` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ExtensionEntryResumePointForm extends SomNode {
+    public ExtensionEntryResumePointForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String resumeStep() {
+      String v = doc.formField(path, "resumeStep");
+      return v == null ? "" : v;
+    }
+
+    public void resumeStep(String value) {
+      doc.setFormField(path, "resumeStep", value);
     }
   }
 

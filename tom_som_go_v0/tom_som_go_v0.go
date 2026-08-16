@@ -1493,6 +1493,17 @@ func (x *AlternativeFlowEntry) Content() *AlternativeFlowEntryContentForm {
 	return NewAlternativeFlowEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
+// Resume point — a promoted `@OneOf` case.
+//
+// Present only for the `resumeAtStep` kind: the main-flow step control
+// returns to once this flow has run. The `endFlow` kind promotes nothing,
+// because a flow that ends the scenario has no step to name — which is the
+// whole reason the two are a closed choice rather than one `String` in
+// which `"end"` and a step reference were indistinguishable.
+func (x *AlternativeFlowEntry) ResumePoint() *AlternativeFlowEntryResumePointForm {
+	return NewAlternativeFlowEntryResumePointForm(x.Doc(), x.Path()+"/ALFL-RESU")
+}
+
 // Contains 0+× Scenario Step.
 func (x *AlternativeFlowEntry) Steps() *som.SomList[*AlternativeStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/ALST-STEP-LST", func(d *som.SpecDocument, p string) *AlternativeStepEntry {
@@ -17362,6 +17373,17 @@ func NewExtensionEntry(doc *som.SpecDocument, path string) *ExtensionEntry {
 
 func (x *ExtensionEntry) Content() *ExtensionEntryContentForm {
 	return NewExtensionEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// Resume point — a promoted `@OneOf` case.
+//
+// Present only for the `resumeAtStep` kind: the main-scenario step control
+// returns to once the branch has run. The `endFlow` kind promotes nothing,
+// because a branch that ends the use case has no step to name — which is
+// the whole reason the two are a closed choice rather than one `String` in
+// which `"end"` and a step reference were indistinguishable.
+func (x *ExtensionEntry) ResumePoint() *ExtensionEntryResumePointForm {
+	return NewExtensionEntryResumePointForm(x.Doc(), x.Path()+"/EXTEN-RESU")
 }
 
 // Extension steps — contains 0+× Scenario Step.
@@ -51271,12 +51293,12 @@ func (x *AlternativeFlowEntryContentForm) SetOutcome(value string) {
 	x.Doc().SetFormField(x.Path(), "outcome", value)
 }
 
-func (x *AlternativeFlowEntryContentForm) ReturnPoint() string {
-	return x.Doc().FormFieldOr(x.Path(), "returnPoint")
+func (x *AlternativeFlowEntryContentForm) ReturnKind() string {
+	return x.Doc().FormFieldOr(x.Path(), "returnKind")
 }
 
-func (x *AlternativeFlowEntryContentForm) SetReturnPoint(value string) {
-	x.Doc().SetFormField(x.Path(), "returnPoint", value)
+func (x *AlternativeFlowEntryContentForm) SetReturnKind(value string) {
+	x.Doc().SetFormField(x.Path(), "returnKind", value)
 }
 
 func (x *AlternativeFlowEntryContentForm) Frequency() string {
@@ -51293,6 +51315,40 @@ func (x *AlternativeFlowEntryContentForm) BusinessImpact() string {
 
 func (x *AlternativeFlowEntryContentForm) SetBusinessImpact(value string) {
 	x.Doc().SetFormField(x.Path(), "businessImpact", value)
+}
+
+// AlternativeFlowEntryResumePointForm is the generated section facade for the `resumePoint` @Form section: its own
+// content text followed by one typed member per form field.
+type AlternativeFlowEntryResumePointForm struct {
+	som.SomNode
+}
+
+// NewAlternativeFlowEntryResumePointForm binds a AlternativeFlowEntryResumePointForm facade to a document and a path.
+func NewAlternativeFlowEntryResumePointForm(doc *som.SpecDocument, path string) *AlternativeFlowEntryResumePointForm {
+	return &AlternativeFlowEntryResumePointForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AlternativeFlowEntryResumePointForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AlternativeFlowEntryResumePointForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AlternativeFlowEntryResumePointForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AlternativeFlowEntryResumePointForm) ResumeStep() string {
+	return x.Doc().FormFieldOr(x.Path(), "resumeStep")
+}
+
+func (x *AlternativeFlowEntryResumePointForm) SetResumeStep(value string) {
+	x.Doc().SetFormField(x.Path(), "resumeStep", value)
 }
 
 // AlternativeStepEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -104246,12 +104302,12 @@ func (x *ExtensionEntryContentForm) SetOutcome(value string) {
 	x.Doc().SetFormField(x.Path(), "outcome", value)
 }
 
-func (x *ExtensionEntryContentForm) ReturnPoint() string {
-	return x.Doc().FormFieldOr(x.Path(), "returnPoint")
+func (x *ExtensionEntryContentForm) ReturnKind() string {
+	return x.Doc().FormFieldOr(x.Path(), "returnKind")
 }
 
-func (x *ExtensionEntryContentForm) SetReturnPoint(value string) {
-	x.Doc().SetFormField(x.Path(), "returnPoint", value)
+func (x *ExtensionEntryContentForm) SetReturnKind(value string) {
+	x.Doc().SetFormField(x.Path(), "returnKind", value)
 }
 
 func (x *ExtensionEntryContentForm) Frequency() string {
@@ -104268,6 +104324,40 @@ func (x *ExtensionEntryContentForm) Severity() string {
 
 func (x *ExtensionEntryContentForm) SetSeverity(value string) {
 	x.Doc().SetFormField(x.Path(), "severity", value)
+}
+
+// ExtensionEntryResumePointForm is the generated section facade for the `resumePoint` @Form section: its own
+// content text followed by one typed member per form field.
+type ExtensionEntryResumePointForm struct {
+	som.SomNode
+}
+
+// NewExtensionEntryResumePointForm binds a ExtensionEntryResumePointForm facade to a document and a path.
+func NewExtensionEntryResumePointForm(doc *som.SpecDocument, path string) *ExtensionEntryResumePointForm {
+	return &ExtensionEntryResumePointForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ExtensionEntryResumePointForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ExtensionEntryResumePointForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ExtensionEntryResumePointForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ExtensionEntryResumePointForm) ResumeStep() string {
+	return x.Doc().FormFieldOr(x.Path(), "resumeStep")
+}
+
+func (x *ExtensionEntryResumePointForm) SetResumeStep(value string) {
+	x.Doc().SetFormField(x.Path(), "resumeStep", value)
 }
 
 // ExtensionStepEntryContentForm is the generated section facade for the `content` @Form section: its own

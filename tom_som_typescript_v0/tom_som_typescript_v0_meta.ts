@@ -1770,7 +1770,17 @@ function _mc_AlternativeFlowEntry(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "flowType", typeName: "String", description: "Flow Type — alternative, exception, error", hint: "One of alternative, exception, or error", order: 0}), new SomFormFieldMeta({name: "branchPoint", typeName: "String", description: "Branch Point — step where flow branches", hint: "Main-flow step number where this diverges", order: 1}), new SomFormFieldMeta({name: "triggerCondition", typeName: "String", description: "Trigger Condition — when this occurs", hint: "Condition that activates this flow", order: 2}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description — what happens", hint: "Narrative of what happens in this flow", order: 3}), new SomFormFieldMeta({name: "outcome", typeName: "String", description: "Outcome — how flow ends", hint: "The end state this flow reaches", order: 4}), new SomFormFieldMeta({name: "returnPoint", typeName: "String", description: "Return Point — step to return to", hint: "Main-flow step to resume at, if any", order: 5}), new SomFormFieldMeta({name: "frequency", typeName: "String", description: "Frequency — how often this occurs", hint: "How often this flow is expected to occur", order: 6}), new SomFormFieldMeta({name: "businessImpact", typeName: "String", description: "Business Impact — effect on business", hint: "Business consequence of this flow", order: 7})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "flowType", typeName: "String", description: "Flow Type — alternative, exception, error", hint: "One of alternative, exception, or error", order: 0}), new SomFormFieldMeta({name: "branchPoint", typeName: "String", description: "Branch Point — main-flow step", required: true, hint: "The main-flow step this branch diverges at, as that step's section id (SCNST-STEP-…). The branch is taken instead of that step, so name the step the trigger condition is evaluated before — not the step before it, and not a restated step number.", order: 1, refersTo: ["SCNST.@sectionId"]}), new SomFormFieldMeta({name: "triggerCondition", typeName: "String", description: "Trigger Condition — when this occurs", hint: "Condition that activates this flow", order: 2}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description — what happens", hint: "Narrative of what happens in this flow", order: 3}), new SomFormFieldMeta({name: "outcome", typeName: "String", description: "Outcome — how flow ends", hint: "The end state this flow reaches", order: 4}), new SomFormFieldMeta({name: "returnKind", typeName: "FlowReturnPoint", description: "Return Kind — resume the main flow, or end it", required: true, hint: "Where control goes when this flow finishes — back to a named main-flow step, or nowhere because the scenario ends here", order: 5, enumValues: ["resumeAtStep", "endFlow"]}), new SomFormFieldMeta({name: "frequency", typeName: "String", description: "Frequency — how often this occurs", hint: "How often this flow is expected to occur", order: 6}), new SomFormFieldMeta({name: "businessImpact", typeName: "String", description: "Business Impact — effect on business", hint: "Business consequence of this flow", order: 7})])}),
+     new SomMetaNode({
+      className: "AlternativeFlowEntry",
+      memberName: "resumePoint",
+      sectionId: "ALFL-RESU",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 1,
+      docComment: "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-flow step control\nreturns to once this flow has run. The `endFlow` kind promotes nothing,\nbecause a flow that ends the scenario has no step to name — which is the\nwhole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "resumeStep", typeName: "String", description: "Resume Step", required: true, hint: "The main-flow step control resumes at, as that step's section id (SCNST-STEP-…). That step and everything after it run again from here.", order: 0, refersTo: ["SCNST.@sectionId"]})]),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["Cockburn — Writing Effective Use Cases: extensions & alternative flows", "BPMN 2.0 — sequence flow / activities (scenario steps)"], "connotation": "The main-flow step this alternative flow returns control to."}), new SomMetaExtra("Case", {"value": "FlowReturnPoint.resumeAtStep"})]}),
      new SomMetaNode({
       className: "AlternativeFlowEntry",
       memberName: "steps",
@@ -1778,7 +1788,7 @@ function _mc_AlternativeFlowEntry(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "ALST-STEP-xxx",
       kind: SomMetaKind.LIST,
       typeName: "AlternativeStepEntry",
-      serializationOrder: 1,
+      serializationOrder: 2,
       contentHelp: "Add one entry per step of this alternative flow, in order.",
       docComment: "Contains 0+× Scenario Step.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["BPMN 2.0 — sequence flow / activities (scenario steps)", "Gherkin / BDD — given-when-then scenario steps"], "connotation": "The ordered steps that make up this alternative flow, each pairing an action with its response."})],
@@ -21503,7 +21513,17 @@ function _mc_ExtensionEntry(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "branchPoint", typeName: "String", description: "Branch Point — step number", hint: "Main-scenario step where this branch occurs", order: 0}), new SomFormFieldMeta({name: "condition", typeName: "String", description: "Condition — when this extension triggers", hint: "Condition under which the branch is taken", order: 1}), new SomFormFieldMeta({name: "extensionType", typeName: "String", description: "Extension Type — alternative, exception, error", hint: "Classify: alternative, exception or error", order: 2}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description — what happens", hint: "What happens along this extension path", order: 3}), new SomFormFieldMeta({name: "outcome", typeName: "String", description: "Outcome — how it ends", hint: "Result reached when the branch completes", order: 4}), new SomFormFieldMeta({name: "returnPoint", typeName: "String", description: "Return Point — step to return to, or end", hint: "Main-scenario step to resume at, or \"end\"", order: 5}), new SomFormFieldMeta({name: "frequency", typeName: "String", description: "Frequency — how often this occurs", hint: "How often this branch is expected to occur", order: 6}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity — impact level (for exceptions)", hint: "Impact level for exception/error branches", order: 7})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "branchPoint", typeName: "String", description: "Branch Point — main-scenario step", required: true, hint: "The main-scenario step this branch leaves from, as that step's section id (MNSST-STEP-…). The branch is taken instead of that step, so name the step the condition is evaluated before — not the step before it, and not a restated step number.", order: 0, refersTo: ["MNSST.@sectionId"]}), new SomFormFieldMeta({name: "condition", typeName: "String", description: "Condition — when this extension triggers", hint: "Condition under which the branch is taken", order: 1}), new SomFormFieldMeta({name: "extensionType", typeName: "String", description: "Extension Type — alternative, exception, error", hint: "Classify: alternative, exception or error", order: 2}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Description — what happens", hint: "What happens along this extension path", order: 3}), new SomFormFieldMeta({name: "outcome", typeName: "String", description: "Outcome — how it ends", hint: "Result reached when the branch completes", order: 4}), new SomFormFieldMeta({name: "returnKind", typeName: "FlowReturnPoint", description: "Return Kind — resume the scenario, or end it", required: true, hint: "Where control goes when this branch finishes — back to a named main-scenario step, or nowhere because the use case ends here", order: 5, enumValues: ["resumeAtStep", "endFlow"]}), new SomFormFieldMeta({name: "frequency", typeName: "String", description: "Frequency — how often this occurs", hint: "How often this branch is expected to occur", order: 6}), new SomFormFieldMeta({name: "severity", typeName: "String", description: "Severity — impact level (for exceptions)", hint: "Impact level for exception/error branches", order: 7})])}),
+     new SomMetaNode({
+      className: "ExtensionEntry",
+      memberName: "resumePoint",
+      sectionId: "EXTEN-RESU",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 1,
+      docComment: "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-scenario step control\nreturns to once the branch has run. The `endFlow` kind promotes nothing,\nbecause a branch that ends the use case has no step to name — which is\nthe whole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "resumeStep", typeName: "String", description: "Resume Step", required: true, hint: "The main-scenario step control resumes at, as that step's section id (MNSST-STEP-…). That step and everything after it run again from here.", order: 0, refersTo: ["MNSST.@sectionId"]})]),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["Cockburn — Writing Effective Use Cases: extensions", "UML 2.5.1 (ISO/IEC 19505) — use cases"], "connotation": "The main-scenario step this extension returns control to."}), new SomMetaExtra("Case", {"value": "FlowReturnPoint.resumeAtStep"})]}),
      new SomMetaNode({
       className: "ExtensionEntry",
       memberName: "steps",
@@ -21511,7 +21531,7 @@ function _mc_ExtensionEntry(s: Set<string>): SomMetaNode[] {
       sectionIdPattern: "EXTST-STEP-xxx",
       kind: SomMetaKind.LIST,
       typeName: "ExtensionStepEntry",
-      serializationOrder: 1,
+      serializationOrder: 2,
       contentHelp: "Add one entry per extension step.",
       docComment: "Extension steps — contains 0+× Scenario Step.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["Cockburn — Writing Effective Use Cases: extensions"], "connotation": "The ordered steps that make up this extension flow."})],
@@ -28548,7 +28568,7 @@ function _mc_MainScenarioStepEntry(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "stepNumber", typeName: "int", description: "Step Number", required: true, hint: "Sequential step number within the flow", order: 0}), new SomFormFieldMeta({name: "actorAction", typeName: "String", description: "Actor Action — what actor does", hint: "What the actor does in this step", order: 1}), new SomFormFieldMeta({name: "systemResponse", typeName: "String", description: "System Response — what system does", hint: "How the system responds to the action", order: 2}), new SomFormFieldMeta({name: "dataInvolved", typeName: "String", description: "Data Involved — data read/written", hint: "Data read or written during the step", order: 3}), new SomFormFieldMeta({name: "businessRuleApplied", typeName: "String", description: "Business Rule Applied — BR-xxx reference", hint: "BR-xxx rule enforced at this step", order: 4}), new SomFormFieldMeta({name: "uiElementUsed", typeName: "String", description: "UI Element Used — screen/component", hint: "Screen or component the actor interacts with", order: 5}), new SomFormFieldMeta({name: "validationPerformed", typeName: "String", description: "Validation Performed — checks done", hint: "Validations run during this step", order: 6}), new SomFormFieldMeta({name: "expectedDuration", typeName: "String", description: "Expected Duration — time for this step", hint: "Expected time to complete this step", order: 7})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "stepNumber", typeName: "int", description: "Step Number", required: true, hint: "Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", order: 0}), new SomFormFieldMeta({name: "actorAction", typeName: "String", description: "Actor Action — what actor does", hint: "What the actor does in this step", order: 1}), new SomFormFieldMeta({name: "systemResponse", typeName: "String", description: "System Response — what system does", hint: "How the system responds to the action", order: 2}), new SomFormFieldMeta({name: "dataInvolved", typeName: "String", description: "Data Involved — data read/written", hint: "Data read or written during the step", order: 3}), new SomFormFieldMeta({name: "businessRuleApplied", typeName: "String", description: "Business Rule Applied — BR-xxx reference", hint: "BR-xxx rule enforced at this step", order: 4}), new SomFormFieldMeta({name: "uiElementUsed", typeName: "String", description: "UI Element Used — screen/component", hint: "Screen or component the actor interacts with", order: 5}), new SomFormFieldMeta({name: "validationPerformed", typeName: "String", description: "Validation Performed — checks done", hint: "Validations run during this step", order: 6}), new SomFormFieldMeta({name: "expectedDuration", typeName: "String", description: "Expected Duration — time for this step", hint: "Expected time to complete this step", order: 7})])}),
   ];
 }
 
@@ -42074,7 +42094,7 @@ function _mc_ScenarioStepEntry(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "stepNumber", typeName: "int", description: "Step Number", required: true, hint: "Sequential position of this step", order: 0}), new SomFormFieldMeta({name: "actor", typeName: "String", description: "Actor — who performs this step", hint: "The actor performing this step", order: 1}), new SomFormFieldMeta({name: "action", typeName: "String", description: "Action — what actor does", hint: "The action the actor takes", order: 2}), new SomFormFieldMeta({name: "systemResponse", typeName: "String", description: "System Response — what system does", hint: "How the system responds to the action", order: 3})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "stepNumber", typeName: "int", description: "Step Number", required: true, hint: "Sequential position of this step. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", order: 0}), new SomFormFieldMeta({name: "actor", typeName: "String", description: "Actor — who performs this step", hint: "The actor performing this step", order: 1}), new SomFormFieldMeta({name: "action", typeName: "String", description: "Action — what actor does", hint: "The action the actor takes", order: 2}), new SomFormFieldMeta({name: "systemResponse", typeName: "String", description: "System Response — what system does", hint: "How the system responds to the action", order: 3})])}),
      new SomMetaNode({
       className: "ScenarioStepEntry",
       memberName: "context",
@@ -57767,6 +57787,10 @@ export class AlternativeFlowEntry$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
 
+  get resumePoint(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/ALFL-RESU");
+  }
+
   get steps(): SomListMetaRef<AlternativeStepEntry$Nav> {
     return new SomListMetaRef(this.tree, this.path + "/ALST-STEP-LST", (t: SomMetaTree, p: string) => new AlternativeStepEntry$Nav(t, p));
   }
@@ -67167,6 +67191,10 @@ export class ExportTemplateEntry$Nav extends SomMetaRef {
 export class ExtensionEntry$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get resumePoint(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/EXTEN-RESU");
   }
 
   get steps(): SomListMetaRef<ExtensionStepEntry$Nav> {
@@ -85175,6 +85203,10 @@ export class AlertSuppressionRules$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class AlternativeFlowEntry$Id extends SomMetaRef {
+  get ALFL_RESU(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/ALFL-RESU");
+  }
+
   get ALST_STEP_LST(): SomListMetaRef<AlternativeStepEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/ALST-STEP-LST", (t: SomMetaTree, p: string) => new AlternativeStepEntry$Id(t, p));
   }
@@ -100656,6 +100688,10 @@ export class ExportTemplateEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class ExtensionEntry$Id extends SomMetaRef {
+  get EXTEN_RESU(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/EXTEN-RESU");
+  }
+
   get EXTST_STEP_LST(): SomListMetaRef<ExtensionStepEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/EXTST-STEP-LST", (t: SomMetaTree, p: string) => new ExtensionStepEntry$Id(t, p));
   }

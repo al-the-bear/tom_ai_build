@@ -402,20 +402,46 @@ the behaviour method of the same headline. **A branch whose condition text is
 empty fails generation**, naming the flow's section id: §2.8 C2 P3 is fatal when
 absent, and an undocumented guard is a branch the generator would be inventing.
 
-**B5 — where a branch goes.** A branch flow's block is emitted **after** the
-whole main-step sequence, in the branch list's own N8 order. It is *not* emitted
-at the step its `branchPoint` names: `branchPoint` is free text that would have
-to be matched against another free-text field to find its target, and that is the
-parse B1 already refuses. The stated branch point rides the guard method's doc
-comment, where the Phase-6 author reads it. A `LGFLS` or `SCJOST` step's own
-condition raises no placement question — the step is wrapped where it stands.
-`SCJOST` has no branch *flow* at all, only per-step conditions, so B5 and B6 do
-not arise for a job body: every statement it emits sits in the one sequence.
+**B5 — a branch is emitted at the step it branches from.** `EXTEN.branchPoint`
+and `ALFL.branchPoint` are **section-id references** — `MNSST.@sectionId` and
+`SCNST.@sectionId` respectively — so the step a branch attaches to is *resolved*,
+never matched: the generator already holds every step section by id, and the
+reference either names one of them or fails the `tom_specs_model_rules.md` §10.2
+invariant `REFERS-TO` before any code is emitted. The block is emitted **immediately before** the statement that
+step contributes, because the branch is taken *instead of* that step and
+everything after it.
 
-**B6 — a branch block holds its own flow's steps, by B1–B3, and nothing else.**
-Control falls out of the block into whatever follows it. `outcome` and
-`returnPoint` are not emitted: both are free text, and "resume at step 4" and
-"end" are the same `String` with nothing structural to tell them apart.
+Placement is therefore fully determined and needs no tie-break of its own:
+several branches naming the same step keep the branch list's N8 order among
+themselves, and a branch naming a step that contributes no statement — B2's
+actor-only step — is emitted at the position that step would have occupied, so
+the emitted order still follows the step list. A `LGFLS` or `SCJOST` step's own
+condition raises no placement question at all: the step is wrapped where it
+stands. `SCJOST` has no branch *flow*, only per-step conditions, so B5 and B6 do
+not arise for a job body — every statement it emits sits in the one sequence.
+
+**B6 — a branch block holds its own flow's steps and then states where control
+goes.** The steps come from B1–B3. What follows them is `returnKind`, the
+`FlowReturnPoint` closed choice, and it decides the block's last statement:
+
+- **`endFlow`** — the branch is the end of the scenario, so the block ends
+  `return;` where the calling body returns `void` / `Future<void>`, and
+  `return collaborator.<last>(…);` where it returns a value, the last
+  contributing step's call supplying it exactly as in B3. Control does not fall
+  through into the main steps the branch replaced, which is what the spec says
+  and what the old free-text field could not.
+- **`resumeAtStep`** — control rejoins the main sequence at the step
+  `EXTEN-RESU.resumeStep` / `ALFL-RESU.resumeStep` names, itself a resolved
+  section-id reference. Where that step is the branch's own successor — the
+  ordinary case, and the one a Cockburn extension usually states — the block
+  simply ends and control falls through, so nothing is emitted for it. Where it
+  names an **earlier** step, the resumption is a backward transfer the emitted
+  body cannot express without a loop B7 forbids: that is a generation error
+  naming both section ids, not a silently dropped statement.
+
+`outcome` stays unemitted. It is prose describing the end state, not a control
+transfer, and `returnKind` now carries the control transfer it used to be
+conflated with.
 
 **B7 — no repetition and no multi-way choice.** `for` and `switch`, which §2.4
 statement kind 4 permits, are not produced by this derivation: no step section
@@ -429,15 +455,17 @@ source that is a single prose field — §3.4.2's `SVOPE.purpose`, §3.7.1's
 list, so §2.4's selector puts it
 in 3a and none of B1–B7 applies. Where the derivation *needs* a structure the SOM
 does not carry, the honest outcome is a field on the model, never a heuristic
-here. **`SCJOST` is what that outcome looks like.** A job's work was prose only,
-and the sentence "what the job does, step by step" was an instruction to the
-author that the model gave nowhere to obey; the resolution was to add the step
-list, not to teach this derivation to read sentences. The three cases still
-stated as **not emitted** — B5's placement, B6's return point and §3.5.7's
-per-role step routing — are the ones whose field the model does not yet carry,
-and each stays that way until it does. B4 is the one case that resolves without
-one, and only because a stated condition already has somewhere to go: a
-documented seam is precisely what Phase 6 implements.
+here. **`SCJOST` is what that outcome looks like**, and so are `branchPoint` and
+`returnKind`. A job's work was prose only, and the sentence "what the job does,
+step by step" was an instruction to the author that the model gave nowhere to
+obey; a branch's two attachment points were free text in which a step reference
+and the word `"end"` were the same `String`. In both cases the resolution was to
+give the model the structure — a step list, a section-id reference, a closed
+choice — not to teach this derivation to read sentences. §3.5.7's per-role step
+routing is the one case still stated as **not emitted**, and it stays that way
+until its field exists. B4 is the one case that resolves without one, and only
+because a stated condition already has somewhere to go: a documented seam is
+precisely what Phase 6 implements.
 
 #### Frames
 
@@ -1576,10 +1604,10 @@ MainScenarioEntry <!--[ISC-021]--> Save an edited customer
 
   UseCaseExtensions <!--[ISC-021-X]-->
     ExtensionEntry <!--[ISC-021-X1]--> Customer is on credit hold
-      branchPoint .... "2"
+      branchPoint .... "ISC-021-2"      → the step this is taken instead of
       condition ...... "The customer is on credit hold."
       extensionType .. "exception"
-      returnPoint .... "end"
+      returnKind ..... endFlow          → no resume subsection: the use case ends
 
       ExtensionStepEntry <!--[ISC-021-X1-1]--> Refuse the save
         stepNumber ... "2a1"
@@ -1605,8 +1633,8 @@ ScreenActionEntry <!--[XDS-104]--> Save customer
 | Statement order | B1 | the step list's document order. `stepNumber` is not read — it agrees here, and `2a1` on the extension step shows why it could not be relied on |
 | Body statements | B2, B3 | one awaited collaborator call per contributing step; no `return`, because the body returns `Future<void>` |
 | The branch | B4 | `ISC-021-X1`'s `condition` becomes the guard `saveCustomerCustomerIsOnCreditHoldApplies` — the calling body's identifier, the **flow entry's** headline, the fixed `Applies` — returning `Future<bool>` because `saveCustomer` is asynchronous. The condition text is its doc comment, not an expression the generator parsed |
-| Where the branch sits | B5 | after the main sequence. `branchPoint: "2"` is not read: matching it to a step would be a parse of authored text |
-| What the branch omits | B6 | `returnPoint: "end"` emits nothing — control falls out of the `if`, and `"end"` and `"resume at 2"` are the same `String` with nothing to tell them apart |
+| Where the branch sits | B5 | immediately before step 2's statement. `branchPoint: "ISC-021-2"` is a `MNSST.@sectionId` reference, so the step is resolved rather than matched — and the branch is taken *instead of* that step, so it precedes it |
+| How the branch ends | B6 | `returnKind: endFlow` ends the block `return;` — `saveCustomer` returns `Future<void>`, so there is no value to carry out. Control does not fall through into the two steps the branch replaced, which is what the extension states |
 | Method doc comments | §2.8 P3 | `systemResponse` / `response` / `condition` verbatim — and fatal when absent, which is the second reason step 1 yields no method rather than an undocumented one |
 | Back-links | §3.0.1 point 7 | both declarations cite `ISC-021-2`, `ISC-021-3` and `ISC-021-X1-1`: the caller for each step's position in the sequence, the collaborator for its behaviour. `ISC-021-X1` is cited by the guard for its condition, and by the caller for the branch it placed |
 | Locus and files | §3.0.1 point 5, N7 | `<app>_codespec_client/lib/src/action/customer_action_controller.dart` and `…_collaborator.dart` |
@@ -1680,11 +1708,12 @@ business and are left out here:
   ])
   @CsAction()
   Future<void> saveCustomer(CustomerViewModel context) async {
-    await collaborator.saveCustomerCheckTheEditedValues(context);
-    await collaborator.saveCustomerStoreTheRecord(context);
     if (await collaborator.saveCustomerCustomerIsOnCreditHoldApplies(context)) {
       await collaborator.saveCustomerRefuseTheSave(context);
+      return;
     }
+    await collaborator.saveCustomerCheckTheEditedValues(context);
+    await collaborator.saveCustomerStoreTheRecord(context);
   }
 ```
 
@@ -1705,15 +1734,15 @@ business and are left out here:
   future *is* the caller's result. The `if` condition is the same rule seen once
   more: the `bool` came out of a call, not out of a literal, so there is nothing
   in this body the generator could have made up.
-- **The branch is the spec's, not the generator's.** `saveCustomer` branches
-  because `ISC-021-X1` states a condition, and the condition itself was never
-  read as an expression — B4 turned it into one more method with one more doc
-  comment. Two of the extension's fields, `branchPoint` and `returnPoint`, are
-  visibly *not* in the output: they say where the block belongs and where control
-  goes afterwards, and both are free text with no structure to derive placement
-  from. That absence is the honest reading of the spec as it stands, not an
-  oversight — B5 and B6 say so, and the guard's doc comment is where a Phase-6
-  author finds what was left out.
+- **The branch is the spec's, not the generator's — and so is where it sits.**
+  `saveCustomer` branches because `ISC-021-X1` states a condition, and the
+  condition itself was never read as an expression: B4 turned it into one more
+  method with one more doc comment. Its *attachment* comes from the spec by the
+  same discipline. `branchPoint` resolves to `ISC-021-2` and puts the block
+  before that step's statement (B5); `returnKind: endFlow` ends it `return;`
+  (B6). Neither is parsed, and neither is a default the generator chose — the
+  emitted control flow is the one the extension states, which is exactly what
+  a section-id reference and a closed choice buy over two free-text fields.
 - **The narrative moved; it did not disappear.** Step 2's sentence is the
   collaborator method's P3 doc comment, not an in-body comment (§2.8 C6). A
   reader asking what the step does reads a declaration — and so does the

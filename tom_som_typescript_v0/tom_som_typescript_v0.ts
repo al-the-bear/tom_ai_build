@@ -1295,6 +1295,17 @@ export class AlternativeFlowEntry extends SomNode {
     return new AlternativeFlowEntryContentForm(this.doc, this.path + "/content");
   }
 
+  // Resume point — a promoted `@OneOf` case.
+  //
+  // Present only for the `resumeAtStep` kind: the main-flow step control
+  // returns to once this flow has run. The `endFlow` kind promotes nothing,
+  // because a flow that ends the scenario has no step to name — which is the
+  // whole reason the two are a closed choice rather than one `String` in
+  // which `"end"` and a step reference were indistinguishable.
+  get resumePoint(): AlternativeFlowEntryResumePointForm {
+    return new AlternativeFlowEntryResumePointForm(this.doc, this.path + "/ALFL-RESU");
+  }
+
   // Contains 0+× Scenario Step.
   get steps(): SomList<AlternativeStepEntry> {
     return new SomList(this.doc, this.path + "/ALST-STEP-LST", (d: SpecDocument, p: string) => new AlternativeStepEntry(d, p), "ALST-STEP-xxx");
@@ -15094,6 +15105,17 @@ export class ExtensionEntry extends SomNode {
 
   get content(): ExtensionEntryContentForm {
     return new ExtensionEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // Resume point — a promoted `@OneOf` case.
+  //
+  // Present only for the `resumeAtStep` kind: the main-scenario step control
+  // returns to once the branch has run. The `endFlow` kind promotes nothing,
+  // because a branch that ends the use case has no step to name — which is
+  // the whole reason the two are a closed choice rather than one `String` in
+  // which `"end"` and a step reference were indistinguishable.
+  get resumePoint(): ExtensionEntryResumePointForm {
+    return new ExtensionEntryResumePointForm(this.doc, this.path + "/EXTEN-RESU");
   }
 
   // Extension steps — contains 0+× Scenario Step.
@@ -44252,12 +44274,12 @@ export class AlternativeFlowEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "outcome", value);
   }
 
-  get returnPoint(): string {
-    return this.doc.formField(this.path, "returnPoint") || '';
+  get returnKind(): string {
+    return this.doc.formField(this.path, "returnKind") || '';
   }
 
-  set returnPoint(value: string) {
-    this.doc.setFormField(this.path, "returnPoint", value);
+  set returnKind(value: string) {
+    this.doc.setFormField(this.path, "returnKind", value);
   }
 
   get frequency(): string {
@@ -44274,6 +44296,33 @@ export class AlternativeFlowEntryContentForm extends SomNode {
 
   set businessImpact(value: string) {
     this.doc.setFormField(this.path, "businessImpact", value);
+  }
+}
+
+// Generated section facade for the `resumePoint` @Form section: its own content text followed by one typed member per form field.
+export class AlternativeFlowEntryResumePointForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get resumeStep(): string {
+    return this.doc.formField(this.path, "resumeStep") || '';
+  }
+
+  set resumeStep(value: string) {
+    this.doc.setFormField(this.path, "resumeStep", value);
   }
 }
 
@@ -87992,12 +88041,12 @@ export class ExtensionEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "outcome", value);
   }
 
-  get returnPoint(): string {
-    return this.doc.formField(this.path, "returnPoint") || '';
+  get returnKind(): string {
+    return this.doc.formField(this.path, "returnKind") || '';
   }
 
-  set returnPoint(value: string) {
-    this.doc.setFormField(this.path, "returnPoint", value);
+  set returnKind(value: string) {
+    this.doc.setFormField(this.path, "returnKind", value);
   }
 
   get frequency(): string {
@@ -88014,6 +88063,33 @@ export class ExtensionEntryContentForm extends SomNode {
 
   set severity(value: string) {
     this.doc.setFormField(this.path, "severity", value);
+  }
+}
+
+// Generated section facade for the `resumePoint` @Form section: its own content text followed by one typed member per form field.
+export class ExtensionEntryResumePointForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get resumeStep(): string {
+    return this.doc.formField(this.path, "resumeStep") || '';
+  }
+
+  set resumeStep(value: string) {
+    this.doc.setFormField(this.path, "resumeStep", value);
   }
 }
 

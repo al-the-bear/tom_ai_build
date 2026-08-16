@@ -2649,6 +2649,8 @@ section-types:
   exten-exte:
     prefix: EXTEN_EXTE_
     subsection-types:
+      exten-resu:
+        max-count: 1
       extst-step-lst:
         max-count: 1
     pattern-check-id:
@@ -3208,6 +3210,8 @@ section-types:
   alfl-alte:
     prefix: ALFL_ALTE_
     subsection-types:
+      alfl-resu:
+        max-count: 1
       alst-step-lst:
         max-count: 1
     pattern-check-id:
@@ -3525,6 +3529,10 @@ section-types:
       pattern: ^EPNT-ENTR-.+$
       error-message: IDs of this section must match EPNT-ENTR-xxx
     description: Add one entry per entry point.
+  exten-resu:
+    prefix: EXTEN_RESU
+    format: exten-resu-form
+    description: "Resume point — a promoted `@OneOf` case."
   inen-inte:
     prefix: INEN_INTE_
     subsection-types:
@@ -3709,6 +3717,10 @@ section-types:
   alco-aler:
     prefix: ALCO_ALER
     format: alco-aler-form
+  alfl-resu:
+    prefix: ALFL_RESU
+    format: alfl-resu-form
+    description: "Resume point — a promoted `@OneOf` case."
   bce-boun:
     prefix: BCE_BOUN_
     subsection-types:
@@ -23241,6 +23253,11 @@ form-types:
         description: Limitations bounding how the use case may work
       - fieldname: relatedUseCases
         description: Use cases this one includes or extends
+  exten-resu-form:
+    fields:
+      - fieldname: resumeStep
+        required: true
+        description: "The main-scenario step control resumes at, as that step's section id (MNSST-STEP-…). That step and everything after it run again from here."
   inpe-form:
     fields:
       - fieldname: expectedFrequency
@@ -23369,6 +23386,11 @@ form-types:
         description: Expected time this step takes
       - fieldname: notes
         description: Additional clarifications for this step
+  alfl-resu-form:
+    fields:
+      - fieldname: resumeStep
+        required: true
+        description: "The main-flow step control resumes at, as that step's section id (SCNST-STEP-…). That step and everything after it run again from here."
   scda-form:
     fields:
       - fieldname: inputData

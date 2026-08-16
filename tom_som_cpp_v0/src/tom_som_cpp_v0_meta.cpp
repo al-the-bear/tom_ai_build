@@ -4020,13 +4020,29 @@ void buildAlternativeFlowEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"flowType", "String", "Flow Type — alternative, exception, error", false, "One of alternative, exception, or error", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"branchPoint", "String", "Branch Point — step where flow branches", false, "Main-flow step number where this diverges", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"branchPoint", "String", "Branch Point — main-flow step", true, "The main-flow step this branch diverges at, as that step's section id (SCNST-STEP-…). The branch is taken instead of that step, so name the step the trigger condition is evaluated before — not the step before it, and not a restated step number.", 1, std::vector<std::string>{}, std::vector<std::string>{"SCNST.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition — when this occurs", false, "Condition that activates this flow", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — what happens", false, "Narrative of what happens in this flow", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "String", "Outcome — how flow ends", false, "The end state this flow reaches", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"returnPoint", "String", "Return Point — step to return to", false, "Main-flow step to resume at, if any", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"returnKind", "FlowReturnPoint", "Return Kind — resume the main flow, or end it", true, "Where control goes when this flow finishes — back to a named main-flow step, or nowhere because the scenario ends here", 5, std::vector<std::string>{"resumeAtStep", "endFlow"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — how often this occurs", false, "How often this flow is expected to occur", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"businessImpact", "String", "Business Impact — effect on business", false, "Business consequence of this flow", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "AlternativeFlowEntry";
+    (*n).memberName = "resumePoint";
+    (*n).sectionId = "ALFL-RESU";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 1;
+    (*n).docComment = "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-flow step control\nreturns to once this flow has run. The `endFlow` kind promotes nothing,\nbecause a flow that ends the scenario has no step to name — which is the\nwhole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resumeStep", "String", "Resume Step", true, "The main-flow step control resumes at, as that step's section id (SCNST-STEP-…). That step and everything after it run again from here.", 0, std::vector<std::string>{}, std::vector<std::string>{"SCNST.@sectionId"}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: extensions & alternative flows\",\"BPMN 2.0 — sequence flow / activities (scenario steps)\"],\"connotation\":\"The main-flow step this alternative flow returns control to.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"FlowReturnPoint.resumeAtStep\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -4038,7 +4054,7 @@ void buildAlternativeFlowEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "AlternativeStepEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
+    (*ln).serializationOrder = 2;
     (*ln).contentHelp = "Add one entry per step of this alternative flow, in order.";
     (*ln).docComment = "Contains 0+× Scenario Step.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BPMN 2.0 — sequence flow / activities (scenario steps)\",\"Gherkin / BDD — given-when-then scenario steps\"],\"connotation\":\"The ordered steps that make up this alternative flow, each pairing an action with its response.\"}", nullptr)});
@@ -35120,14 +35136,30 @@ void buildExtensionEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"branchPoint", "String", "Branch Point — step number", false, "Main-scenario step where this branch occurs", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"branchPoint", "String", "Branch Point — main-scenario step", true, "The main-scenario step this branch leaves from, as that step's section id (MNSST-STEP-…). The branch is taken instead of that step, so name the step the condition is evaluated before — not the step before it, and not a restated step number.", 0, std::vector<std::string>{}, std::vector<std::string>{"MNSST.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"condition", "String", "Condition — when this extension triggers", false, "Condition under which the branch is taken", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"extensionType", "String", "Extension Type — alternative, exception, error", false, "Classify: alternative, exception or error", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — what happens", false, "What happens along this extension path", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "String", "Outcome — how it ends", false, "Result reached when the branch completes", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"returnPoint", "String", "Return Point — step to return to, or end", false, "Main-scenario step to resume at, or \"end\"", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"returnKind", "FlowReturnPoint", "Return Kind — resume the scenario, or end it", true, "Where control goes when this branch finishes — back to a named main-scenario step, or nowhere because the use case ends here", 5, std::vector<std::string>{"resumeAtStep", "endFlow"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — how often this occurs", false, "How often this branch is expected to occur", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity — impact level (for exceptions)", false, "Impact level for exception/error branches", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ExtensionEntry";
+    (*n).memberName = "resumePoint";
+    (*n).sectionId = "EXTEN-RESU";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 1;
+    (*n).docComment = "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-scenario step control\nreturns to once the branch has run. The `endFlow` kind promotes nothing,\nbecause a branch that ends the use case has no step to name — which is\nthe whole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resumeStep", "String", "Resume Step", true, "The main-scenario step control resumes at, as that step's section id (MNSST-STEP-…). That step and everything after it run again from here.", 0, std::vector<std::string>{}, std::vector<std::string>{"MNSST.@sectionId"}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: extensions\",\"UML 2.5.1 (ISO/IEC 19505) — use cases\"],\"connotation\":\"The main-scenario step this extension returns control to.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"FlowReturnPoint.resumeAtStep\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -35139,7 +35171,7 @@ void buildExtensionEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ExtensionStepEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
+    (*ln).serializationOrder = 2;
     (*ln).contentHelp = "Add one entry per extension step.";
     (*ln).docComment = "Extension steps — contains 0+× Scenario Step.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: extensions\"],\"connotation\":\"The ordered steps that make up this extension flow.\"}", nullptr)});
@@ -46483,7 +46515,7 @@ void buildMainScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepNumber", "int", "Step Number", true, "Sequential step number within the flow", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepNumber", "int", "Step Number", true, "Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actorAction", "String", "Actor Action — what actor does", false, "What the actor does in this step", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemResponse", "String", "System Response — what system does", false, "How the system responds to the action", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataInvolved", "String", "Data Involved — data read/written", false, "Data read or written during the step", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -68712,7 +68744,7 @@ void buildScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepNumber", "int", "Step Number", true, "Sequential position of this step", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepNumber", "int", "Step Number", true, "Sequential position of this step. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actor", "String", "Actor — who performs this step", false, "The actor performing this step", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"action", "String", "Action — what actor does", false, "The action the actor takes", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemResponse", "String", "System Response — what system does", false, "How the system responds to the action", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -96649,6 +96681,9 @@ som::SomMetaRef navAlertingRequirements_response(NavAlertingRequirements x) {
 som::SomMetaRef navAlternativeFlowEntry_content(NavAlternativeFlowEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
+som::SomMetaRef navAlternativeFlowEntry_resumePoint(NavAlternativeFlowEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ALFL-RESU"));
+}
 som::SomListMetaRef navAlternativeFlowEntry_steps(NavAlternativeFlowEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ALST-STEP-LST"), metaNavFactoryAlternativeStepEntry);
 }
@@ -101907,6 +101942,9 @@ NavAuthorizationRequirementSpec navExportTemplateEntry_access(NavExportTemplateE
 }
 som::SomMetaRef navExtensionEntry_content(NavExtensionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navExtensionEntry_resumePoint(NavExtensionEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXTEN-RESU"));
 }
 som::SomListMetaRef navExtensionEntry_steps(NavExtensionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXTST-STEP-LST"), metaNavFactoryExtensionStepEntry);
@@ -111652,6 +111690,9 @@ som::SomMetaRef idAlertRuleEntry_ARER(IdAlertRuleEntry x) {
 }
 som::SomMetaRef idAlertRuleEntry_AREO(IdAlertRuleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AREO"));
+}
+som::SomMetaRef idAlternativeFlowEntry_ALFL_RESU(IdAlternativeFlowEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ALFL-RESU"));
 }
 som::SomListMetaRef idAlternativeFlowEntry_ALST_STEP_LST(IdAlternativeFlowEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ALST-STEP-LST"), metaIdFactoryAlternativeStepEntry);
@@ -122614,6 +122655,9 @@ som::SomMetaRef idExportTemplateEntry_AZREQ_CUST(IdExportTemplateEntry x) {
 }
 som::SomListMetaRef idExportTemplateEntry_AZLVL_LEVE_LST(IdExportTemplateEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
+}
+som::SomMetaRef idExtensionEntry_EXTEN_RESU(IdExtensionEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXTEN-RESU"));
 }
 som::SomListMetaRef idExtensionEntry_EXTST_STEP_LST(IdExtensionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXTST-STEP-LST"), metaIdFactoryExtensionStepEntry);

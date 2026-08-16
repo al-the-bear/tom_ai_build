@@ -1832,6 +1832,17 @@ impl AlternativeFlowEntry {
         AlternativeFlowEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
+    /// Resume point — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `resumeAtStep` kind: the main-flow step control
+    /// returns to once this flow has run. The `endFlow` kind promotes nothing,
+    /// because a flow that ends the scenario has no step to name — which is the
+    /// whole reason the two are a closed choice rather than one `String` in
+    /// which `"end"` and a step reference were indistinguishable.
+    pub fn resume_point(&self) -> AlternativeFlowEntryResumePointForm {
+        AlternativeFlowEntryResumePointForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ALFL-RESU"))
+    }
+
     /// Contains 0+× Scenario Step.
     pub fn steps(&self) -> som::SomList<AlternativeStepEntry> {
         som::SomList::new(
@@ -20882,6 +20893,17 @@ impl ExtensionEntry {
 
     pub fn content(&self) -> ExtensionEntryContentForm {
         ExtensionEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// Resume point — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `resumeAtStep` kind: the main-scenario step control
+    /// returns to once the branch has run. The `endFlow` kind promotes nothing,
+    /// because a branch that ends the use case has no step to name — which is
+    /// the whole reason the two are a closed choice rather than one `String` in
+    /// which `"end"` and a step reference were indistinguishable.
+    pub fn resume_point(&self) -> ExtensionEntryResumePointForm {
+        ExtensionEntryResumePointForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EXTEN-RESU"))
     }
 
     /// Extension steps — contains 0+× Scenario Step.
@@ -62095,13 +62117,13 @@ impl AlternativeFlowEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "outcome", value);
     }
 
-    pub fn return_point(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "returnPoint")
+    pub fn return_kind(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "returnKind")
     }
 
-    pub fn set_return_point(&self, value: &str) {
+    pub fn set_return_kind(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "returnPoint", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "returnKind", value);
     }
 
     pub fn frequency(&self) -> String {
@@ -62120,6 +62142,45 @@ impl AlternativeFlowEntryContentForm {
     pub fn set_business_impact(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "businessImpact", value);
+    }
+}
+
+/// AlternativeFlowEntryResumePointForm is the generated section facade for the `resumePoint` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AlternativeFlowEntryResumePointForm {
+    pub node: som::SomNode,
+}
+
+impl AlternativeFlowEntryResumePointForm {
+    /// Binds a AlternativeFlowEntryResumePointForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AlternativeFlowEntryResumePointForm {
+        AlternativeFlowEntryResumePointForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn resume_step(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resumeStep")
+    }
+
+    pub fn set_resume_step(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resumeStep", value);
     }
 }
 
@@ -119145,13 +119206,13 @@ impl ExtensionEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "outcome", value);
     }
 
-    pub fn return_point(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "returnPoint")
+    pub fn return_kind(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "returnKind")
     }
 
-    pub fn set_return_point(&self, value: &str) {
+    pub fn set_return_kind(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "returnPoint", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "returnKind", value);
     }
 
     pub fn frequency(&self) -> String {
@@ -119170,6 +119231,45 @@ impl ExtensionEntryContentForm {
     pub fn set_severity(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+    }
+}
+
+/// ExtensionEntryResumePointForm is the generated section facade for the `resumePoint` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ExtensionEntryResumePointForm {
+    pub node: som::SomNode,
+}
+
+impl ExtensionEntryResumePointForm {
+    /// Binds a ExtensionEntryResumePointForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExtensionEntryResumePointForm {
+        ExtensionEntryResumePointForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn resume_step(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resumeStep")
+    }
+
+    pub fn set_resume_step(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resumeStep", value);
     }
 }
 

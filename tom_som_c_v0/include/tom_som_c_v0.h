@@ -1366,6 +1366,7 @@ typedef struct { SomNode node; } AlertingRequirementsResponseForm;
 typedef struct { SomNode node; } AlertingRequirementsRoutingForm;
 typedef struct { SomNode node; } AlertingRequirementsSuppressionForm;
 typedef struct { SomNode node; } AlternativeFlowEntryContentForm;
+typedef struct { SomNode node; } AlternativeFlowEntryResumePointForm;
 typedef struct { SomNode node; } AlternativeStepEntryContentForm;
 typedef struct { SomNode node; } AnomalyDetectionPolicyContentForm;
 typedef struct { SomNode node; } ApiCompatibilityEntryContentForm;
@@ -2249,6 +2250,7 @@ typedef struct { SomNode node; } ExportTemplateEntryFormatForm;
 typedef struct { SomNode node; } ExportTemplateEntryLayoutForm;
 typedef struct { SomNode node; } ExportTemplateEntryMetadataForm;
 typedef struct { SomNode node; } ExtensionEntryContentForm;
+typedef struct { SomNode node; } ExtensionEntryResumePointForm;
 typedef struct { SomNode node; } ExtensionStepEntryContentForm;
 typedef struct { SomNode node; } ExternalActorEntryContentForm;
 typedef struct { SomNode node; } ExternalActorEntryContextForm;
@@ -4713,6 +4715,14 @@ void alternative_flow_entry_free(AlternativeFlowEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alternative_flow_entry_can_have_content(const AlternativeFlowEntry *self);
 AlternativeFlowEntryContentForm alternative_flow_entry_content(const AlternativeFlowEntry *self);
+// Resume point — a promoted `@OneOf` case.
+//
+// Present only for the `resumeAtStep` kind: the main-flow step control
+// returns to once this flow has run. The `endFlow` kind promotes nothing,
+// because a flow that ends the scenario has no step to name — which is the
+// whole reason the two are a closed choice rather than one `String` in
+// which `"end"` and a step reference were indistinguishable.
+AlternativeFlowEntryResumePointForm alternative_flow_entry_resume_point(const AlternativeFlowEntry *self);
 // Contains 0+× Scenario Step.
 // Returns the list view; element type: AlternativeStepEntry (construct from item paths).
 SomList alternative_flow_entry_steps(const AlternativeFlowEntry *self);
@@ -12274,6 +12284,14 @@ void extension_entry_free(ExtensionEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int extension_entry_can_have_content(const ExtensionEntry *self);
 ExtensionEntryContentForm extension_entry_content(const ExtensionEntry *self);
+// Resume point — a promoted `@OneOf` case.
+//
+// Present only for the `resumeAtStep` kind: the main-scenario step control
+// returns to once the branch has run. The `endFlow` kind promotes nothing,
+// because a branch that ends the use case has no step to name — which is
+// the whole reason the two are a closed choice rather than one `String` in
+// which `"end"` and a step reference were indistinguishable.
+ExtensionEntryResumePointForm extension_entry_resume_point(const ExtensionEntry *self);
 // Extension steps — contains 0+× Scenario Step.
 // Returns the list view; element type: ExtensionStepEntry (construct from item paths).
 SomList extension_entry_steps(const ExtensionEntry *self);
@@ -27345,12 +27363,21 @@ char *alternative_flow_entry_content_form_description(const AlternativeFlowEntry
 void alternative_flow_entry_content_form_set_description(AlternativeFlowEntryContentForm *self, const char *value);
 char *alternative_flow_entry_content_form_outcome(const AlternativeFlowEntryContentForm *self);
 void alternative_flow_entry_content_form_set_outcome(AlternativeFlowEntryContentForm *self, const char *value);
-char *alternative_flow_entry_content_form_return_point(const AlternativeFlowEntryContentForm *self);
-void alternative_flow_entry_content_form_set_return_point(AlternativeFlowEntryContentForm *self, const char *value);
+char *alternative_flow_entry_content_form_return_kind(const AlternativeFlowEntryContentForm *self);
+void alternative_flow_entry_content_form_set_return_kind(AlternativeFlowEntryContentForm *self, const char *value);
 char *alternative_flow_entry_content_form_frequency(const AlternativeFlowEntryContentForm *self);
 void alternative_flow_entry_content_form_set_frequency(AlternativeFlowEntryContentForm *self, const char *value);
 char *alternative_flow_entry_content_form_business_impact(const AlternativeFlowEntryContentForm *self);
 void alternative_flow_entry_content_form_set_business_impact(AlternativeFlowEntryContentForm *self, const char *value);
+
+// AlternativeFlowEntryResumePointForm is the generated section facade for the `resumePoint` @Form section: its own `content` text followed by one typed member per form field.
+void alternative_flow_entry_resume_point_form_init(AlternativeFlowEntryResumePointForm *self, SpecDocument *doc, const char *path);
+void alternative_flow_entry_resume_point_form_free(AlternativeFlowEntryResumePointForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *alternative_flow_entry_resume_point_form_content(const AlternativeFlowEntryResumePointForm *self);
+void alternative_flow_entry_resume_point_form_set_content(AlternativeFlowEntryResumePointForm *self, const char *value);
+char *alternative_flow_entry_resume_point_form_resume_step(const AlternativeFlowEntryResumePointForm *self);
+void alternative_flow_entry_resume_point_form_set_resume_step(AlternativeFlowEntryResumePointForm *self, const char *value);
 
 // AlternativeStepEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void alternative_step_entry_content_form_init(AlternativeStepEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -40202,12 +40229,21 @@ char *extension_entry_content_form_description(const ExtensionEntryContentForm *
 void extension_entry_content_form_set_description(ExtensionEntryContentForm *self, const char *value);
 char *extension_entry_content_form_outcome(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_outcome(ExtensionEntryContentForm *self, const char *value);
-char *extension_entry_content_form_return_point(const ExtensionEntryContentForm *self);
-void extension_entry_content_form_set_return_point(ExtensionEntryContentForm *self, const char *value);
+char *extension_entry_content_form_return_kind(const ExtensionEntryContentForm *self);
+void extension_entry_content_form_set_return_kind(ExtensionEntryContentForm *self, const char *value);
 char *extension_entry_content_form_frequency(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_frequency(ExtensionEntryContentForm *self, const char *value);
 char *extension_entry_content_form_severity(const ExtensionEntryContentForm *self);
 void extension_entry_content_form_set_severity(ExtensionEntryContentForm *self, const char *value);
+
+// ExtensionEntryResumePointForm is the generated section facade for the `resumePoint` @Form section: its own `content` text followed by one typed member per form field.
+void extension_entry_resume_point_form_init(ExtensionEntryResumePointForm *self, SpecDocument *doc, const char *path);
+void extension_entry_resume_point_form_free(ExtensionEntryResumePointForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *extension_entry_resume_point_form_content(const ExtensionEntryResumePointForm *self);
+void extension_entry_resume_point_form_set_content(ExtensionEntryResumePointForm *self, const char *value);
+char *extension_entry_resume_point_form_resume_step(const ExtensionEntryResumePointForm *self);
+void extension_entry_resume_point_form_set_resume_step(ExtensionEntryResumePointForm *self, const char *value);
 
 // ExtensionStepEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void extension_step_entry_content_form_init(ExtensionStepEntryContentForm *self, SpecDocument *doc, const char *path);

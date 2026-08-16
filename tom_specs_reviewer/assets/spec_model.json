@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T17:24:41.592311Z",
+  "generatedAt": "2026-08-16T17:52:25.312348Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
@@ -8893,7 +8893,17 @@
             "kinds": [
               "CodeSpecPart.action"
             ],
-            "note": "CE-AC — an alternative/exception flow is an action branch of the scenario"
+            "note": "CE-AC — an alternative/exception flow is an action branch of the scenario. branchPoint names the main-flow step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6)."
+          }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "returnKind",
+            "noCase": [
+              "FlowReturnPoint.endFlow"
+            ],
+            "note": "Branch return closed choice: an alternative flow either resumes the main flow at a named step — which needs that step, so it binds a case — or ends the scenario, which needs nothing and binds none."
           }
         }
       ],
@@ -8926,10 +8936,13 @@
             },
             {
               "name": "branchPoint",
-              "label": "Branch Point — step where flow branches",
-              "hint": "Main-flow step number where this diverges",
+              "label": "Branch Point — main-flow step",
+              "hint": "The main-flow step this branch diverges at, as that step's section id (SCNST-STEP-…). The branch is taken instead of that step, so name the step the trigger condition is evaluated before — not the step before it, and not a restated step number.",
               "type": "String",
-              "required": false
+              "required": true,
+              "refersTo": [
+                "SCNST.@sectionId"
+              ]
             },
             {
               "name": "triggerCondition",
@@ -8953,11 +8966,15 @@
               "required": false
             },
             {
-              "name": "returnPoint",
-              "label": "Return Point — step to return to",
-              "hint": "Main-flow step to resume at, if any",
-              "type": "String",
-              "required": false
+              "name": "returnKind",
+              "label": "Return Kind — resume the main flow, or end it",
+              "hint": "Where control goes when this flow finishes — back to a named main-flow step, or nowhere because the scenario ends here",
+              "type": "FlowReturnPoint",
+              "required": true,
+              "enumValues": [
+                "resumeAtStep",
+                "endFlow"
+              ]
             },
             {
               "name": "frequency",
@@ -8976,6 +8993,68 @@
           ]
         },
         {
+          "name": "resumePoint",
+          "kind": "form",
+          "doc": "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-flow step control\nreturns to once this flow has run. The `endFlow` kind promotes nothing,\nbecause a flow that ends the scenario has no step to name — which is the\nwhole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.",
+          "sectionId": "ALFL-RESU",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: extensions & alternative flows",
+              "BPMN 2.0 — sequence flow / activities (scenario steps)"
+            ],
+            "connotation": "The main-flow step this alternative flow returns control to."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "ALFL-RESU"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: extensions & alternative flows",
+                  "BPMN 2.0 — sequence flow / activities (scenario steps)"
+                ],
+                "connotation": "The main-flow step this alternative flow returns control to."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "FlowReturnPoint.resumeAtStep"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "resumeStep",
+              "label": "Resume Step",
+              "hint": "The main-flow step control resumes at, as that step's section id (SCNST-STEP-…). That step and everything after it run again from here.",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "SCNST.@sectionId"
+              ]
+            }
+          ]
+        },
+        {
           "name": "steps",
           "kind": "list",
           "doc": "Contains 0+× Scenario Step.",
@@ -8989,7 +9068,7 @@
             ],
             "connotation": "The ordered steps that make up this alternative flow, each pairing an action with its response."
           },
-          "serializationOrder": 1,
+          "serializationOrder": 2,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -9022,7 +9101,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 1
+                "order": 2
               }
             }
           ],
@@ -102175,7 +102254,17 @@
             "kinds": [
               "CodeSpecPart.action"
             ],
-            "note": "CE-AC — an extension is an alternate/exception action branch of the use case"
+            "note": "CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6)."
+          }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "returnKind",
+            "noCase": [
+              "FlowReturnPoint.endFlow"
+            ],
+            "note": "Branch return closed choice: an extension either resumes the main scenario at a named step — which needs that step, so it binds a case — or ends the use case, which needs nothing and binds none."
           }
         }
       ],
@@ -102201,10 +102290,13 @@
           "formFields": [
             {
               "name": "branchPoint",
-              "label": "Branch Point — step number",
-              "hint": "Main-scenario step where this branch occurs",
+              "label": "Branch Point — main-scenario step",
+              "hint": "The main-scenario step this branch leaves from, as that step's section id (MNSST-STEP-…). The branch is taken instead of that step, so name the step the condition is evaluated before — not the step before it, and not a restated step number.",
               "type": "String",
-              "required": false
+              "required": true,
+              "refersTo": [
+                "MNSST.@sectionId"
+              ]
             },
             {
               "name": "condition",
@@ -102235,11 +102327,15 @@
               "required": false
             },
             {
-              "name": "returnPoint",
-              "label": "Return Point — step to return to, or end",
-              "hint": "Main-scenario step to resume at, or \"end\"",
-              "type": "String",
-              "required": false
+              "name": "returnKind",
+              "label": "Return Kind — resume the scenario, or end it",
+              "hint": "Where control goes when this branch finishes — back to a named main-scenario step, or nowhere because the use case ends here",
+              "type": "FlowReturnPoint",
+              "required": true,
+              "enumValues": [
+                "resumeAtStep",
+                "endFlow"
+              ]
             },
             {
               "name": "frequency",
@@ -102258,6 +102354,68 @@
           ]
         },
         {
+          "name": "resumePoint",
+          "kind": "form",
+          "doc": "Resume point — a promoted `@OneOf` case.\n\nPresent only for the `resumeAtStep` kind: the main-scenario step control\nreturns to once the branch has run. The `endFlow` kind promotes nothing,\nbecause a branch that ends the use case has no step to name — which is\nthe whole reason the two are a closed choice rather than one `String` in\nwhich `\"end\"` and a step reference were indistinguishable.",
+          "sectionId": "EXTEN-RESU",
+          "standardReferences": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: extensions",
+              "UML 2.5.1 (ISO/IEC 19505) — use cases"
+            ],
+            "connotation": "The main-scenario step this extension returns control to."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "EXTEN-RESU"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Cockburn — Writing Effective Use Cases: extensions",
+                  "UML 2.5.1 (ISO/IEC 19505) — use cases"
+                ],
+                "connotation": "The main-scenario step this extension returns control to."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "FlowReturnPoint.resumeAtStep"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "resumeStep",
+              "label": "Resume Step",
+              "hint": "The main-scenario step control resumes at, as that step's section id (MNSST-STEP-…). That step and everything after it run again from here.",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "MNSST.@sectionId"
+              ]
+            }
+          ]
+        },
+        {
           "name": "steps",
           "kind": "list",
           "doc": "Extension steps — contains 0+× Scenario Step.",
@@ -102270,7 +102428,7 @@
             ],
             "connotation": "The ordered steps that make up this extension flow."
           },
-          "serializationOrder": 1,
+          "serializationOrder": 2,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -102302,7 +102460,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 1
+                "order": 2
               }
             }
           ],
@@ -139255,7 +139413,7 @@
             {
               "name": "stepNumber",
               "label": "Step Number",
-              "hint": "Sequential step number within the flow",
+              "hint": "Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.",
               "type": "int",
               "required": true
             },
@@ -213196,7 +213354,7 @@
             {
               "name": "stepNumber",
               "label": "Step Number",
-              "hint": "Sequential position of this step",
+              "hint": "Sequential position of this step. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.",
               "type": "int",
               "required": true
             },

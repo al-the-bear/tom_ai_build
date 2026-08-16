@@ -633,6 +633,9 @@ AlternativeFlowEntry::AlternativeFlowEntry(som::SpecDocument& doc, std::string p
 AlternativeFlowEntryContentForm AlternativeFlowEntry::content() const {
   return AlternativeFlowEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
+AlternativeFlowEntryResumePointForm AlternativeFlowEntry::resumePoint() const {
+  return AlternativeFlowEntryResumePointForm(doc(), som::joinPath(path(), "ALFL-RESU"));
+}
 som::SomList AlternativeFlowEntry::steps() const {
   return som::SomList(doc(), som::joinPath(path(), "ALST-STEP-LST"), "ALST-STEP-xxx");
 }
@@ -7735,6 +7738,9 @@ ExtensionEntry::ExtensionEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ExtensionEntryContentForm ExtensionEntry::content() const {
   return ExtensionEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+ExtensionEntryResumePointForm ExtensionEntry::resumePoint() const {
+  return ExtensionEntryResumePointForm(doc(), som::joinPath(path(), "EXTEN-RESU"));
 }
 som::SomList ExtensionEntry::steps() const {
   return som::SomList(doc(), som::joinPath(path(), "EXTST-STEP-LST"), "EXTST-STEP-xxx");
@@ -22962,11 +22968,11 @@ std::string AlternativeFlowEntryContentForm::outcome() const {
 void AlternativeFlowEntryContentForm::setOutcome(const std::string& value) {
   doc().setFormField(path(), "outcome", value);
 }
-std::string AlternativeFlowEntryContentForm::returnPoint() const {
-  return doc().formField(path(), "returnPoint");
+std::string AlternativeFlowEntryContentForm::returnKind() const {
+  return doc().formField(path(), "returnKind");
 }
-void AlternativeFlowEntryContentForm::setReturnPoint(const std::string& value) {
-  doc().setFormField(path(), "returnPoint", value);
+void AlternativeFlowEntryContentForm::setReturnKind(const std::string& value) {
+  doc().setFormField(path(), "returnKind", value);
 }
 std::string AlternativeFlowEntryContentForm::frequency() const {
   return doc().formField(path(), "frequency");
@@ -22979,6 +22985,21 @@ std::string AlternativeFlowEntryContentForm::businessImpact() const {
 }
 void AlternativeFlowEntryContentForm::setBusinessImpact(const std::string& value) {
   doc().setFormField(path(), "businessImpact", value);
+}
+
+AlternativeFlowEntryResumePointForm::AlternativeFlowEntryResumePointForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AlternativeFlowEntryResumePointForm::content() const {
+  return doc().content(path());
+}
+void AlternativeFlowEntryResumePointForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AlternativeFlowEntryResumePointForm::resumeStep() const {
+  return doc().formField(path(), "resumeStep");
+}
+void AlternativeFlowEntryResumePointForm::setResumeStep(const std::string& value) {
+  doc().setFormField(path(), "resumeStep", value);
 }
 
 AlternativeStepEntryContentForm::AlternativeStepEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -51455,11 +51476,11 @@ std::string ExtensionEntryContentForm::outcome() const {
 void ExtensionEntryContentForm::setOutcome(const std::string& value) {
   doc().setFormField(path(), "outcome", value);
 }
-std::string ExtensionEntryContentForm::returnPoint() const {
-  return doc().formField(path(), "returnPoint");
+std::string ExtensionEntryContentForm::returnKind() const {
+  return doc().formField(path(), "returnKind");
 }
-void ExtensionEntryContentForm::setReturnPoint(const std::string& value) {
-  doc().setFormField(path(), "returnPoint", value);
+void ExtensionEntryContentForm::setReturnKind(const std::string& value) {
+  doc().setFormField(path(), "returnKind", value);
 }
 std::string ExtensionEntryContentForm::frequency() const {
   return doc().formField(path(), "frequency");
@@ -51472,6 +51493,21 @@ std::string ExtensionEntryContentForm::severity() const {
 }
 void ExtensionEntryContentForm::setSeverity(const std::string& value) {
   doc().setFormField(path(), "severity", value);
+}
+
+ExtensionEntryResumePointForm::ExtensionEntryResumePointForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ExtensionEntryResumePointForm::content() const {
+  return doc().content(path());
+}
+void ExtensionEntryResumePointForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ExtensionEntryResumePointForm::resumeStep() const {
+  return doc().formField(path(), "resumeStep");
+}
+void ExtensionEntryResumePointForm::setResumeStep(const std::string& value) {
+  doc().setFormField(path(), "resumeStep", value);
 }
 
 ExtensionStepEntryContentForm::ExtensionStepEntryContentForm(som::SpecDocument& doc, std::string path)

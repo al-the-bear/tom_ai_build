@@ -111,6 +111,21 @@ ExportFieldKind? _parseExportFieldKind(String? token) {
   return null;
 }
 
+/// Generated enum for `FlowReturnPoint` values.
+enum FlowReturnPoint {
+  resumeAtStep,
+  endFlow;
+}
+
+/// Parses a stored token into a [FlowReturnPoint], or `null`.
+FlowReturnPoint? _parseFlowReturnPoint(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in FlowReturnPoint.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `GradedAccessLevel` values.
 enum GradedAccessLevel {
   full,
@@ -1184,6 +1199,15 @@ class AlternativeFlowEntry extends SomNode {
   AlternativeFlowEntry(super.doc, super.path);
 
   AlternativeFlowEntryContentForm get content => AlternativeFlowEntryContentForm(doc, '$path/content');
+
+  /// Resume point — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `resumeAtStep` kind: the main-flow step control
+  /// returns to once this flow has run. The `endFlow` kind promotes nothing,
+  /// because a flow that ends the scenario has no step to name — which is the
+  /// whole reason the two are a closed choice rather than one `String` in
+  /// which `"end"` and a step reference were indistinguishable.
+  AlternativeFlowEntryResumePointForm get resumePoint => AlternativeFlowEntryResumePointForm(doc, '$path/ALFL-RESU');
 
   /// Contains 0+× Scenario Step.
   SomList<AlternativeStepEntry> get steps => SomList<AlternativeStepEntry>(doc, '$path/ALST-STEP-LST', (d, p) => AlternativeStepEntry(d, p), pattern: 'ALST-STEP-xxx');
@@ -10156,6 +10180,15 @@ class ExtensionEntry extends SomNode {
   ExtensionEntry(super.doc, super.path);
 
   ExtensionEntryContentForm get content => ExtensionEntryContentForm(doc, '$path/content');
+
+  /// Resume point — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `resumeAtStep` kind: the main-scenario step control
+  /// returns to once the branch has run. The `endFlow` kind promotes nothing,
+  /// because a branch that ends the use case has no step to name — which is
+  /// the whole reason the two are a closed choice rather than one `String` in
+  /// which `"end"` and a step reference were indistinguishable.
+  ExtensionEntryResumePointForm get resumePoint => ExtensionEntryResumePointForm(doc, '$path/EXTEN-RESU');
 
   /// Extension steps — contains 0+× Scenario Step.
   SomList<ExtensionStepEntry> get steps => SomList<ExtensionStepEntry>(doc, '$path/EXTST-STEP-LST', (d, p) => ExtensionStepEntry(d, p), pattern: 'EXTST-STEP-xxx');
@@ -28167,14 +28200,30 @@ class AlternativeFlowEntryContentForm extends SomNode {
   String get outcome => doc.formField(path, 'outcome') ?? '';
   set outcome(String value) => doc.setFormField(path, 'outcome', value);
 
-  String get returnPoint => doc.formField(path, 'returnPoint') ?? '';
-  set returnPoint(String value) => doc.setFormField(path, 'returnPoint', value);
+  FlowReturnPoint? get returnKind => _parseFlowReturnPoint(doc.formField(path, 'returnKind'));
+  set returnKind(FlowReturnPoint? value) => doc.setFormField(path, 'returnKind', value?.name ?? '');
 
   String get frequency => doc.formField(path, 'frequency') ?? '';
   set frequency(String value) => doc.setFormField(path, 'frequency', value);
 
   String get businessImpact => doc.formField(path, 'businessImpact') ?? '';
   set businessImpact(String value) => doc.setFormField(path, 'businessImpact', value);
+}
+
+/// Generated section facade for the `resumePoint` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AlternativeFlowEntryResumePointForm extends SomNode {
+  AlternativeFlowEntryResumePointForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get resumeStep => doc.formField(path, 'resumeStep') ?? '';
+  set resumeStep(String value) => doc.setFormField(path, 'resumeStep', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -49660,14 +49709,30 @@ class ExtensionEntryContentForm extends SomNode {
   String get outcome => doc.formField(path, 'outcome') ?? '';
   set outcome(String value) => doc.setFormField(path, 'outcome', value);
 
-  String get returnPoint => doc.formField(path, 'returnPoint') ?? '';
-  set returnPoint(String value) => doc.setFormField(path, 'returnPoint', value);
+  FlowReturnPoint? get returnKind => _parseFlowReturnPoint(doc.formField(path, 'returnKind'));
+  set returnKind(FlowReturnPoint? value) => doc.setFormField(path, 'returnKind', value?.name ?? '');
 
   String get frequency => doc.formField(path, 'frequency') ?? '';
   set frequency(String value) => doc.setFormField(path, 'frequency', value);
 
   String get severity => doc.formField(path, 'severity') ?? '';
   set severity(String value) => doc.setFormField(path, 'severity', value);
+}
+
+/// Generated section facade for the `resumePoint` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ExtensionEntryResumePointForm extends SomNode {
+  ExtensionEntryResumePointForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get resumeStep => doc.formField(path, 'resumeStep') ?? '';
+  set resumeStep(String value) => doc.setFormField(path, 'resumeStep', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
