@@ -38,7 +38,7 @@ JavaScript, TypeScript, Go, Rust, C, and C++ — has a hand-written generic
 runtime (`tom_som_<lang>_runtime`) and a generated typed facade
 (`tom_som_<lang>_v0`). `generate_som` has a typed emitter + generator for each;
 none is skipped. All nine build and run their generated `v0` projects against
-3983 classes and 14 document roots (see
+3989 classes and 14 document roots (see
 [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md) for the per-language toolchain
 matrix). Dart and Python are the reference ports; the other seven were ported
 from them (quest decisions D32–D38).
@@ -302,7 +302,7 @@ Each target lands at `<output-base>/tom_som_<slug>_<version-label>`. For Dart:
 ```
 tom_som_dart_v0/
 ├── pubspec.yaml              # depends on tom_som_dart_runtime
-├── lib/tom_som_dart_v0.dart  # the typed facade (D00SolutionBlueprint + 3982 classes)
+├── lib/tom_som_dart_v0.dart  # the typed facade (D00SolutionBlueprint + 3988 classes)
 ├── meta/spec_model.meta.json # lossless meta-data: every class, member, annotation
 ├── schemas/                  # 14 DocSpecs schema folders (one per document root)
 │   ├── solution-blueprint/ … └── transition-rollout-plan/
@@ -461,9 +461,9 @@ three access paths visibly converge across every language.
 | Concern | State |
 | --- | --- |
 | Generator + config | Complete; `dart run bin/generate_som.dart`, idempotent. |
-| Dart runtime + `v0` | Complete (reference); 3983 classes, 14 roots. |
+| Dart runtime + `v0` | Complete (reference); 3989 classes, 14 roots. |
 | Python runtime + `v0` | Complete (reference port); camelCase accessors preserved. |
-| Java / JS / TS / Go / Rust / C / C++ runtime + `v0` | Complete — typed emitter + generic runtime for each; each builds and runs its `v0` project (3983 classes; see [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)). |
+| Java / JS / TS / Go / Rust / C / C++ runtime + `v0` | Complete — typed emitter + generic runtime for each; each builds and runs its `v0` project (3989 classes; see [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)). |
 
 The per-language project layout and emitter conventions this table reports on
 are specified in

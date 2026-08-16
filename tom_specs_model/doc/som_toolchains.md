@@ -47,7 +47,7 @@ below).
   no language is emitter-pending.
 - **The facade size is one number, not nine.** Every emitter derives its facade
   from the same meta tree and emits one typed declaration per SOM class, so the
-  nine `v0` facades are the same size by construction — **3983** typed
+  nine `v0` facades are the same size by construction — **3989** typed
   declarations each (Dart/Java/JS/TS/C++ classes, Go/Rust/C structs), beside a
   smaller generated meta module. It is stated here once rather than per row
   precisely because the per-row repetition is what went stale: nine copies of a

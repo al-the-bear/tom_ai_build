@@ -1224,7 +1224,7 @@ creation gate).
   [`tom_spec_engine`](../../tom_spec_engine) — deliberately
   **not** into the lean `tom_som_dart_runtime` / `tom_som_dart_v0` packages, which
   stay free of any `tom_d4rt` dependency. The `buildkit.yaml` `d4rtgen:` block
-  emits modules `som_runtime` (60 bridged classes) and `som_v0` (5754 — the 3983
+  emits modules `som_runtime` (63 bridged classes) and `som_v0` (5764 — the 3989
   typed facade classes plus the generated meta module), with barrels
   `lib/d4rt_bridges.b.dart` + `lib/dartscript.b.dart` (`TomSomBridge`). Those two
   figures move with every model change, so they are not the way to check the
