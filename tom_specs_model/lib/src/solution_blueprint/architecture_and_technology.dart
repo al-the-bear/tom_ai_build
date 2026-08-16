@@ -64,6 +64,11 @@ the security and access model.
   'Captures the technical framework: platform, language, architecture style and design patterns that found and constrain the target system.',
 )
 @SectionId('TECH')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'chapter node over the eight technical requirement bands below',
+)
 class TechnicalFrameworkConcept extends DocSpecsSection {
   @ContentHelp('''
 Provide an executive summary of the technical framework approach.
@@ -157,6 +162,11 @@ OWASP guidelines, IEEE 1471 architectural description.
   'Defines the foundational technical requirements — platform and language, architecture style, and design patterns and standards — that govern all development.',
 )
 @SectionId('BTREQ')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over platform, architecture style and design standards',
+)
 class BasicTechnicalRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of basic technical requirements and key decisions.
@@ -236,6 +246,12 @@ foundation and constrain future development options.
   'Specifies the platform targets, programming languages, frameworks, build toolchain and deployment configurations that form the technical foundation.',
 )
 @SectionId('PLLNG')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'target platforms, languages, toolchains and runtimes are provisioning '
+      'decisions, not generated code',
+)
 class PlatformAndLanguage extends DocSpecsSection {
   @ContentHelp('''
 Provide a strategic overview of platform and technology selections.
@@ -1689,6 +1705,12 @@ scalability, team structure, and operational complexity.
   'The overall architecture style and structural organization chosen for the system.',
 )
 @SectionId('AS')
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'the architecture narrative is documented; the code-bearing sections '
+      'inside carry their own CodeSpecs routing',
+)
 class ArchitectureStyle extends DocSpecsSection {
   @ContentHelp('''
 Provide the architectural vision and primary style selection rationale.
@@ -2039,6 +2061,11 @@ class ArchitecturePrincipleEntry extends DocSpecsSection {
   'C4 model — software architecture diagrams',
 ], 'How system components are organized and how their boundaries are defined.')
 @SectionId('COOR')
+@CodeSpecKind(
+  [CodeSpecPart.serviceUnit],
+  note:
+      'how components are organized into service units',
+)
 class ComponentOrganization extends DocSpecsSection {
   @Form([
     Field(
@@ -2379,6 +2406,11 @@ class ArchitectureComponentEntry extends DocSpecsSection {
   'ISO/IEC/IEEE 42010 — architecture description',
 ], 'The communication patterns and protocols used between components.')
 @SectionId('COMPAT')
+@CodeSpecKind(
+  [CodeSpecPart.serverCall],
+  note:
+      'the call patterns between client and server components',
+)
 class CommunicationPatterns extends DocSpecsSection {
   @Form([
     Field(
@@ -2547,6 +2579,11 @@ class CommunicationPatterns extends DocSpecsSection {
   'The data strategy, ownership model, and governance that shape the data architecture.',
 )
 @SectionId('DAAR')
+@CodeSpecKind(
+  [CodeSpecPart.dataAccess],
+  note:
+      'the data architecture behind the data-access layer',
+)
 class DataArchitecture extends DocSpecsSection {
   @Form([
     Field(
@@ -2926,6 +2963,11 @@ class ScalabilityArchitecture extends DocSpecsSection {
   'The integration strategy, patterns, and API management for external systems.',
 )
 @SectionId('INAR')
+@CodeSpecKind(
+  [CodeSpecPart.serverApi],
+  note:
+      'the integration surface exposed and consumed as server APIs',
+)
 class IntegrationArchitecture extends DocSpecsSection {
   @Form([
     Field(
@@ -3522,6 +3564,12 @@ quality, maintainability, and team productivity.
   'Defines the design patterns, coding standards, development conventions, and industry standards the implementation must follow.',
 )
 @SectionId('DPAS')
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'patterns, coding standards and conventions are development '
+      'documentation',
+)
 class DesignPatternsAndStandards extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the design patterns and standards approach.
@@ -4643,6 +4691,11 @@ class DocumentationStandards extends DocSpecsSection {
   'Defines the error-handling philosophy, fail-fast approach, and graceful-degradation standards.',
 )
 @SectionId('ERHAST')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'the error-handling standard the result envelope implements',
+)
 class ErrorHandlingStandards extends DocSpecsSection {
   @Form([
     Field(
@@ -5052,6 +5105,11 @@ SOLID principles, Twelve-Factor App methodology.
   'Defines the software architecture, development environment, and component-reuse requirements.',
 )
 @SectionId('SDR')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over layering, development environment and reuse',
+)
 class SoftwareDesignRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of software design approach and key decisions.
@@ -5133,6 +5191,12 @@ enable independent development and testing.
   'Captures the overall software layering approach and module structure of the system.',
 )
 @SectionId('LAMS')
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'layer, module and package structure is documented; it constrains code '
+      'layout rather than generating it',
+)
 class LayeringAndModuleStructure extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the layering and modularization strategy.
@@ -6897,6 +6961,11 @@ ensures consistent quality across the team.
   'Describes the development environment including required IDEs, build tools, version control, CI/CD, and workflow.',
 )
 @SectionId('DEEN')
+@FollowUpKind(
+  [FollowUpProcess.ops, FollowUpProcess.trn],
+  note:
+      'IDE, build, CI/CD and onboarding setup drive tooling and enablement',
+)
 class DevelopmentEnvironment extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the development environment philosophy.
@@ -9013,6 +9082,11 @@ consistency, and accelerates development.
   'Captures the overall strategy for creating, cataloguing, and governing reusable components across the system.',
 )
 @SectionId('RCS')
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'the reuse catalogue and its governance are documentation',
+)
 class ReusableComponentsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the reusability strategy and component library.
@@ -9434,6 +9508,11 @@ class SharedLibraryComponentEntry extends DocSpecsSection {
   'Captures a reusable UI widget or pattern, its category, and its purpose within the design system.',
 )
 @SectionId('RUCE')
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'one reusable UI component',
+)
 class ReusableUiComponentEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10496,6 +10575,11 @@ often requires alignment with established platforms and protocols.
   'Captures requirements for standard, third-party, and commercial software and their compatibility with existing infrastructure.',
 )
 @SectionId('SSR')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over compatibility and standards compliance',
+)
 class StandardSoftwareRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of standard software requirements approach.
@@ -10572,6 +10656,12 @@ avoids costly surprises during deployment.
   'Captures the compatibility requirements with existing OS, browsers, databases, enterprise and legacy systems, and third-party software.',
 )
 @SectionId('CRS')
+@FollowUpKind(
+  [FollowUpProcess.ops, FollowUpProcess.cmp],
+  note:
+      'OS, browser, database and third-party compatibility drives the support '
+      'matrix',
+)
 class CompatibilityRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of compatibility requirements and testing strategy.
@@ -11325,6 +11415,11 @@ class EnterpriseSystemCompatibilityEntry extends DocSpecsSection {
   'Describes an API or protocol and version range the system must remain compatible with.',
 )
 @SectionId('APCP')
+@CodeSpecKind(
+  [CodeSpecPart.serverApi],
+  note:
+      'one API compatibility requirement on a server operation',
+)
 class ApiCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12436,6 +12531,11 @@ is often mandatory for enterprise and regulated industries.
   'Describes the IT, industry, regulatory, security, accessibility, and quality standards the system must comply with.',
 )
 @SectionId('STCOSE')
+@FollowUpKind(
+  [FollowUpProcess.cmp, FollowUpProcess.doc],
+  note:
+      'standards and regulatory compliance with its evidence',
+)
 class StandardsComplianceSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of standards compliance strategy and roadmap.
@@ -14206,6 +14306,11 @@ and operational complexity.
   'Captures the hardware infrastructure requirements for servers, clients, and network.',
 )
 @SectionId('HR')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over server, client and network requirements',
+)
 class HardwareRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of hardware strategy and infrastructure approach.
@@ -14291,6 +14396,12 @@ performance, cost, and reliability.
   'Captures the overall server infrastructure requirements: compute, storage, scaling, and high availability.',
 )
 @SectionId('SRS')
+@FollowUpKind(
+  [FollowUpProcess.ops, FollowUpProcess.cap],
+  note:
+      'server environments, roles and sizing drive provisioning and capacity '
+      'planning',
+)
 class ServerRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of server infrastructure strategy.
@@ -15839,6 +15950,12 @@ define the user experience boundary conditions.
   'Describes the end-user client requirements across browsers, desktop, mobile, display, network, hardware, accessibility, and security.',
 )
 @SectionId('CLRESE')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node; the client entries and the three settings scopes are '
+      'routed individually',
+)
 class ClientRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of client requirements and support strategy.
@@ -16156,6 +16273,11 @@ the shape and the policy.
   'Declares one client configuration setting: its key, value type, default, and which narrower scopes may shadow it.',
 )
 @SectionId('CCSET')
+@CodeSpecKind(
+  [CodeSpecPart.clientConfiguration],
+  note:
+      'one client configuration setting',
+)
 class ClientConfigurationSettingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16276,6 +16398,11 @@ policy and the reasoning for the device scope.
   'Declares one device setting: its key, value type and default.',
 )
 @SectionId('DSSET')
+@CodeSpecKind(
+  [CodeSpecPart.deviceSettings],
+  note:
+      'one device setting',
+)
 class DeviceSettingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16376,6 +16503,11 @@ policy, and to how the settings are re-materialised at sign-in.
   'Declares one user setting: its key, value type, default, and whether a per-device value may shadow it.',
 )
 @SectionId('USSET')
+@CodeSpecKind(
+  [CodeSpecPart.userSettings],
+  note:
+      'one user setting',
+)
 class UserSettingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16422,6 +16554,11 @@ class UserSettingEntry extends DocSpecsSection {
   'Describes a single browser requirement entry across support, features, testing, and known issues.',
 )
 @SectionId('BROREQ')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'browser support required of the web client',
+)
 class BrowserRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16580,6 +16717,11 @@ class BrowserRequirementEntry extends DocSpecsSection {
   'Describes a single desktop operating-system requirement entry across support, hardware, software, and testing.',
 )
 @SectionId('DEOSRE')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'desktop OS support required of the client',
+)
 class DesktopOsRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16715,6 +16857,11 @@ class DesktopOsRequirementEntry extends DocSpecsSection {
   'Describes a single mobile-platform requirement entry across support, device coverage, hardware, and capabilities.',
 )
 @SectionId('MODERE')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'mobile device support required of the client',
+)
 class MobileDeviceRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16863,6 +17010,11 @@ class MobileDeviceRequirementEntry extends DocSpecsSection {
   'Describes the client display and screen requirements across resolution, layout, scaling, color, and multi-display support.',
 )
 @SectionId('DIRE')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'display sizes and densities the client must support',
+)
 class DisplayRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17004,6 +17156,11 @@ class DisplayRequirements extends DocSpecsSection {
   'Describes the client-side network requirements across bandwidth, latency, connection type, protocols, and proxy/firewall.',
 )
 @SectionId('CLNERE')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'network conditions the client must operate under',
+)
 class ClientNetworkRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17154,6 +17311,11 @@ class ClientNetworkRequirements extends DocSpecsSection {
   'Describes the minimum client hardware requirements across CPU, memory, storage, graphics, and peripherals.',
 )
 @SectionId('CLHARE')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'client hardware minimums',
+)
 class ClientHardwareRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17290,6 +17452,11 @@ class ClientHardwareRequirements extends DocSpecsSection {
   'Describes the accessibility requirements the end-user client must satisfy across visual, motor, cognitive support, and conformance standards.',
 )
 @SectionId('CLACRE')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'accessibility the client must provide',
+)
 class ClientAccessibilityRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17437,6 +17604,11 @@ class ClientAccessibilityRequirements extends DocSpecsSection {
   'Describes the Progressive Web App requirements the browser client must satisfy across manifest, icons, installation, offline, and updates.',
 )
 @SectionId('PWRE')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'progressive-web-app capabilities of the client',
+)
 class PwaRequirements extends DocSpecsSection {
   @Form([
     Field('pwaEnabled', bool, 'PWA Enabled', hint: 'PWA functionality enabled'),
@@ -17560,6 +17732,11 @@ class PwaRequirements extends DocSpecsSection {
   'Describes the native mobile app requirements the client must satisfy across distribution, stores, SDK versions, performance, and deep-linking.',
 )
 @SectionId('NAAPRE')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'native packaging and capabilities of the client',
+)
 class NativeAppRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17685,6 +17862,11 @@ class NativeAppRequirements extends DocSpecsSection {
   'Describes the security requirements the end-user client must satisfy across storage, authentication, device, network, and code protection.',
 )
 @SectionId('CLSERE')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'client-side security the client must enforce',
+)
 class ClientSecurityRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17880,6 +18062,12 @@ underpins system performance and reliability.
   'Captures the network infrastructure requirements: architecture, bandwidth, latency, availability, and security.',
 )
 @SectionId('NRS')
+@FollowUpKind(
+  [FollowUpProcess.ops, FollowUpProcess.cap],
+  note:
+      'network topology, bandwidth and latency drive provisioning and '
+      'capacity planning',
+)
 class NetworkRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of network strategy and architecture.
@@ -19517,6 +19705,11 @@ restate it here.
   'Captures the operational requirements for running and maintaining the system in production.',
 )
 @SectionId('OPRE')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over backup, deployment, monitoring and maintenance',
+)
 class OperationsRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of operational philosophy and key requirements.
@@ -19607,6 +19800,12 @@ protection is critical for business continuity and compliance.
   'Describes the overall backup, recovery, and disaster recovery strategy for the system.',
 )
 @SectionId('BARS')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'backup policy, RPO/RTO, recovery and disaster procedures are '
+      'operational',
+)
 class BackupAndRecoverySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of backup and recovery strategy.
@@ -20892,6 +21091,11 @@ procedures. Reliable deployments enable fast iteration and reduce risk.
   'Describes the overall deployment strategy for releasing the system, including pipeline, release strategy, and rollback.',
 )
 @SectionId('DSS')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'deployment model, environments, release and rollback are operational',
+)
 class DeploymentStrategySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of deployment strategy and pipeline.
@@ -22389,6 +22593,12 @@ Effective monitoring enables rapid issue detection and resolution.
   'Describes the monitoring, alerting, logging, and observability requirements for the system.',
 )
 @SectionId('MAAS')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'monitoring infrastructure, alerting, dashboards and incident '
+      'management',
+)
 class MonitoringAndAlertingSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of monitoring and observability strategy.
@@ -23951,6 +24161,11 @@ disruption while enabling necessary system updates.
   'Describes the maintenance window requirements for the system, including scheduling, communication, and change management.',
 )
 @SectionId('MWS')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'maintenance policy, windows and change management are operational',
+)
 class MaintenanceWindowsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of maintenance strategy and policies.
@@ -24869,6 +25084,11 @@ security, and integration capabilities.
 - Idempotency and retry handling
 ''')
 @SectionId('COMREQ')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over protocols and external connectivity',
+)
 class CommunicationRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of communication architecture and strategy.
@@ -24945,6 +25165,12 @@ Standardized protocols ensure interoperability and security.
   'Specifies the communication protocols, security standards, and API conventions the system uses.',
 )
 @SectionId('PASS')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'transport protocols, TLS and certificates are operational; the '
+      'API-level sections inside carry their own CodeSpecs routing',
+)
 class ProtocolsAndStandardsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of protocol and standards approach.
@@ -25343,6 +25569,11 @@ class CertificateManagement extends DocSpecsSection {
   'OpenAPI Specification — REST API description',
 ], 'Defines the overall API versioning scheme, format, and current version.')
 @SectionId('APVEST')
+@CodeSpecKind(
+  [CodeSpecPart.serverApi],
+  note:
+      'how server APIs are versioned',
+)
 class ApiVersioningStrategy extends DocSpecsSection {
   @Form([
     // Scheme
@@ -25920,6 +26151,11 @@ require careful security and reliability considerations.
   'Describes the external connectivity the system integrates with, including partners, cloud services, and third-party APIs.',
 )
 @SectionId('ECS')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'partner connections, cloud integrations and resilience are operational',
+)
 class ExternalConnectivitySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of external connectivity landscape.
@@ -27031,6 +27267,11 @@ observability is owned by SBP.8.5 `OperationsRequirements`.
 Google SRE practices, Azure operational best practices.
 ''')
 @SectionId('SOAM')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over system operation, monitoring and capacity',
+)
 class SystemOperationAndMonitoring extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of operational approach and responsibilities.
@@ -27108,6 +27349,11 @@ improve system reliability.
   'System operation covers the day-to-day administration, maintenance, and user management the running system requires.',
 )
 @SectionId('SO')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the administration requirements',
+)
 class SystemOperation extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of system operation approach.
@@ -27194,6 +27440,13 @@ tools reduce operational burden and error rates.
   'Administration requirements define the admin interfaces, configuration management, and user provisioning the system needs.',
 )
 @SectionId('ARS')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'administration tooling and provisioning are operational; the '
+      'configuration and job sections inside carry their own CodeSpecs '
+      'routing',
+)
 class AdministrationRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of administration requirements.
@@ -27680,6 +27933,11 @@ class SystemConfigurationManagement extends DocSpecsSection {
   'Declares one server configuration setting: its key, value type, default, deployment source aliases, secret marking, and which narrower scopes may shadow it.',
 )
 @SectionId('SCSET')
+@CodeSpecKind(
+  [CodeSpecPart.serverConfiguration],
+  note:
+      'one server configuration setting',
+)
 class ServerConfigurationSettingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -27915,6 +28173,11 @@ class UserProvisioningTools extends DocSpecsSection {
   'Batch job management specifies how scheduled and background jobs are defined and operated.',
 )
 @SectionId('BAJOMA')
+@CodeSpecKind(
+  [CodeSpecPart.backgroundJob],
+  note:
+      'the batch jobs the system runs and how they are managed',
+)
 class BatchJobManagement extends DocSpecsSection {
   @ContentHelp('''
 Describe the ground rules every scheduled job runs under.
@@ -28550,6 +28813,12 @@ class SystemDiagnosticTools extends DocSpecsSection {
   'The overall monitoring approach spanning health, alerting, and observability.',
 )
 @SectionId('MONITO')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'health checks, alerting configuration, metrics, dashboards and SLO '
+      'monitoring are operational',
+)
 class Monitoring extends DocSpecsSection {
   @ContentHelp(
     'Introduce the monitoring approach before the health-check, alerting, '
@@ -31631,6 +31900,12 @@ prevents performance degradation and outages.
 - Stakeholder reporting
 ''')
 @SectionId('CPS')
+@FollowUpKind(
+  [FollowUpProcess.cap],
+  note:
+      'growth projections, peak load and scaling thresholds are capacity '
+      'planning',
+)
 class CapacityPlanningSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of capacity planning approach.
@@ -32631,6 +32906,11 @@ requirements and standards*. The identity and access-control **model**
 CIS Controls, OWASP ASVS, SOC 2 Trust Criteria.
 ''')
 @SectionId('TSR')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over security standards, privacy and audit',
+)
 class TechnicalSecurityRequirements extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of security approach and governance.
@@ -32718,6 +32998,11 @@ Following established standards reduces security risk systematically.
 - Postmortem process
 ''')
 @SectionId('ISSS')
+@FollowUpKind(
+  [FollowUpProcess.cmp, FollowUpProcess.ops],
+  note:
+      'security standards, hardening and vulnerability management',
+)
 class ItSecurityStandardsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of IT security standards approach.
@@ -33729,6 +34014,11 @@ Privacy compliance is mandatory in most jurisdictions.
 - Privacy-preserving technologies
 ''')
 @SectionId('DPAPS')
+@FollowUpKind(
+  [FollowUpProcess.cmp],
+  note:
+      'privacy regulation, residency, consent and data-subject rights',
+)
 class DataProtectionAndPrivacySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of data protection and privacy strategy.
@@ -35139,6 +35429,11 @@ validates security controls and identifies weaknesses.
 - Compliance as code
 ''')
 @SectionId('SARS')
+@FollowUpKind(
+  [FollowUpProcess.cmp, FollowUpProcess.acc],
+  note:
+      'penetration testing, audit schedule and certification evidence',
+)
 class SecurityAuditRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of security audit strategy.
@@ -36353,6 +36648,11 @@ class SecurityAuditEntry extends DocSpecsSection {
 )
 @SectionId('SYARSP')
 @DetailedIn(D06ArchitectureTechnologySpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'the consolidated architecture specification document',
+)
 class SystemArchitectureSpec extends DocSpecsSection {
   @ContentHelp('''
 System-level architecture description: layering, package structure,

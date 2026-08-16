@@ -163,6 +163,36 @@ class KindLink {
 
 }
 
+/// The third routing verdict: `@NoArtifact(NoArtifactReason, {note})` — the
+/// section feeds neither a CodeSpecs part nor a follow-up process
+/// (`codespecs_mapping.md` §8.3).
+///
+/// Single-valued where [KindLink] is a list, and the asymmetry is the point: a
+/// section can feed several parts or several processes at once, but it is
+/// unrouted for exactly one reason. That reason is what makes the absence of
+/// the other two markers readable as a decision rather than an omission, which
+/// is what `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` checks.
+class NoArtifactLink {
+  /// The `NoArtifactReason` code name with its type prefix stripped —
+  /// `container`, not `NoArtifactReason.container`. One of `container`,
+  /// `overview`, `view`.
+  final String reason;
+
+  /// The annotation's free-text `note`. On an `overview` this customarily names
+  /// the routed section that states the material normatively.
+  final String? note;
+
+  const NoArtifactLink({required this.reason, this.note});
+
+  /// Reads the verdict out of [annotation].
+  factory NoArtifactLink.fromAnnotation(SpecAnnotation annotation) =>
+      NoArtifactLink(
+        reason: _stripEnumPrefix(
+            annotation.argument('reason')?.toString() ?? 'container'),
+        note: annotation.argument('note') as String?,
+      );
+}
+
 /// `CodeSpecPart.validation` → `validation`. A name already given bare is
 /// returned unchanged, so readers do not depend on how the exporter chose to
 /// spell the enum constant. Splitting on the last dot rather than a fixed
@@ -264,6 +294,14 @@ mixin AnnotatedSpecNode {
   /// annotation — which downstream process(es) this subtree feeds instead of
   /// becoming CodeSpecs code (codespecs_mapping.md §8.3).
   KindLink? get followUpKind => _link('FollowUpKind', 'processes');
+
+  /// The `@NoArtifact` verdict, or `null` when this node carries no such
+  /// annotation — the recorded decision that the section produces nothing
+  /// downstream (`codespecs_mapping.md` §8.3).
+  NoArtifactLink? get noArtifact {
+    final a = annotation('NoArtifact');
+    return a == null ? null : NoArtifactLink.fromAnnotation(a);
+  }
 
   KindLink? _link(String name, String listArgument) {
     final a = annotation(name);

@@ -81,23 +81,54 @@ void main() {
     });
   });
 
+  group('noArtifactChips', () {
+    test('AD24: an undeclared @NoArtifact produces no chip at all '
+        '[2026-08-16] (OK)', () {
+      expect(noArtifactChips(null), isEmpty);
+    });
+
+    test('AD25: the verdict names its reason and defaults an explanation '
+        '[2026-08-16] (OK)', () {
+      final chips = noArtifactChips(const NoArtifactLink(reason: 'overview'));
+      expect(chips.single.label, 'na:overview');
+      expect(chips.single.role, SpecChipRole.noArtifact);
+      expect(chips.single.tooltip, contains('overview'));
+    });
+
+    test('AD26: the annotation note wins over the default explanation '
+        '[2026-08-16] (OK)', () {
+      final chips = noArtifactChips(
+          const NoArtifactLink(reason: 'container', note: 'children route'));
+      expect(chips.single.tooltip, 'children route');
+    });
+  });
+
   group('kindChips', () {
     test('AD8: a follow-up-tagged node is never also marked unmapped '
         '[2026-07-28] (OK)', () {
-      final chips = kindChips(null, const KindLink(kinds: ['doc']));
+      final chips = kindChips(null, const KindLink(kinds: ['doc']), null);
       expect(chips.map((c) => c.label), ['fu:doc']);
       expect(chips.any((c) => c.role == SpecChipRole.codeSpecUnmapped), isFalse);
     });
 
     test('AD9: follow-up chips precede CodeSpecs chips [2026-07-28] (OK)', () {
       final chips = kindChips(
-          const KindLink(kinds: ['form']), const KindLink(kinds: ['doc']));
+          const KindLink(kinds: ['form']), const KindLink(kinds: ['doc']), null);
       expect(chips.map((c) => c.label), ['fu:doc', 'cs:form']);
     });
 
     test('AD10: an untagged node keeps its open question [2026-07-28] (OK)',
         () {
-      expect(kindChips(null, null).single.role, SpecChipRole.codeSpecUnmapped);
+      expect(kindChips(null, null, null).single.role,
+          SpecChipRole.codeSpecUnmapped);
+    });
+
+    test('AD27: a @NoArtifact node is never also marked unmapped — the third '
+        'verdict is a decision, not a gap [2026-08-16] (OK)', () {
+      final chips =
+          kindChips(null, null, const NoArtifactLink(reason: 'container'));
+      expect(chips.map((c) => c.label), ['na:container']);
+      expect(chips.any((c) => c.role == SpecChipRole.codeSpecUnmapped), isFalse);
     });
   });
 

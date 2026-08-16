@@ -178,6 +178,11 @@ enum ScreenFlowOutcome {
 )
 @SectionId('XID')
 @Comment('Seeds → XDS')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'chapter node over the experience CodeSpecs and reports',
+)
 class ExperienceAndInterfaceDesign extends DocSpecsSection {
   @ContentHelp('''
 Provide an executive overview of the User Interface Design, establishing the
@@ -269,6 +274,11 @@ to pixel-perfect designs with exact typography and spacing.
   'model, with their sections, columns, charts, filters and distribution.',
 )
 @SectionId('REDF')
+@CodeSpecKind(
+  [CodeSpecPart.reporting],
+  note:
+      'the report definitions',
+)
 class ReportDefinitions extends DocSpecsSection {
   @ContentType('description', 'Summarize the report definitions: which reports '
       'exist, what each projects over the domain model, and how they are '
@@ -308,6 +318,12 @@ class ReportDefinitions extends DocSpecsSection {
   'alignment, error handling, responsive design, and the UI component library.',
 )
 @SectionId('XCS')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node; screens, navigation and design foundations are routed '
+      'individually',
+)
 class ExperienceCodeSpecs extends DocSpecsSection {
   @ContentType('description', 'Summarize the CodeSpecs UI-generation subtree: '
       'screens, navigation, error handling, responsive design, and components.')
@@ -1219,6 +1235,11 @@ class PersonaScenarioEntry extends DocSpecsSection {
 @SectionId('SCRDZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the screen inventory and its entries',
+)
 class ScreenDescriptions extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Descriptions (10.2)
@@ -1273,6 +1294,12 @@ Each screen should have enough detail to generate:
   'The complete catalogue of application screens with each screen fully described.',
 )
 @SectionId('SCRINV')
+@CodeSpecKind(
+  [CodeSpecPart.layout, CodeSpecPart.navigation],
+  note:
+      'the inventory of screens: each entry is a layout and a navigation '
+      'destination',
+)
 class ScreenInventory extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Inventory (10.2.1)
@@ -1577,6 +1604,11 @@ class ScreenEntry extends DocSpecsSection {
   'The container that holds the logical zones grouping related elements within a screen.',
 )
 @SectionId('SCSE')
+@CodeSpecKind(
+  [CodeSpecPart.layout],
+  note:
+      'the section structure of a screen',
+)
 class ScreenSections extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Sections (10.2.1.n.1)
@@ -2636,6 +2668,11 @@ class ElementValidationRuleEntry extends DocSpecsSection {
   'The set of top-level actions available on the screen through the toolbar, app bar, or FAB.',
 )
 @SectionId('SCAC')
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note:
+      'the actions offered by a screen',
+)
 class ScreenActions extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Actions (10.2.1.n.2)
@@ -2838,6 +2875,11 @@ class ScreenActionEntry extends DocSpecsSection {
   'ISO 9241-161:2016 — visual user-interface elements and their states',
 ], 'The set of visual and behavioral states the screen can present to the user.')
 @SectionId('SCST')
+@CodeSpecKind(
+  [CodeSpecPart.viewState],
+  note:
+      'the states a screen can be in',
+)
 class ScreenStates extends DocSpecsSection {
   @ContentHelp('''
 ## Screen States (10.2.1.n.3)
@@ -2953,6 +2995,11 @@ class ScreenStateEntry extends DocSpecsSection {
   'A single user category describing how screen content varies for one class of users.',
 )
 @SectionId('SUCE')
+@CodeSpecKind(
+  [CodeSpecPart.authorization, CodeSpecPart.viewState],
+  note:
+      'what a user category may see and do on a screen',
+)
 class ScreenUserCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3084,6 +3131,12 @@ class ScreenResponsiveRuleEntry extends DocSpecsSection {
   'The overall organization of content and navigation that relates screens to one another across the application.',
 )
 @SectionId('IA')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'site map, content hierarchy, navigation structure and global entry '
+      'points',
+)
 class InformationArchitecture extends DocSpecsSection {
   @ContentHelp('''
 ## Information Architecture (10.2.2)
@@ -3153,6 +3206,11 @@ Overall content organization and navigation structure.
 @SectionId('SCFLST')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'the flows between screens',
+)
 class ScreenFlowStructure extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Flow Structure (10.3)
@@ -3212,6 +3270,11 @@ Screen flow drives:
   'The registry of application routes, the placement of forms on them, and the action-triggered transitions between them.',
 )
 @SectionId('SCRTMP')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'the screen-to-route mapping',
+)
 class ScreenRouteMap extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Route Map (10.3.3)
@@ -3469,6 +3532,11 @@ class ScreenTransitionEntry extends DocSpecsSection {
   'The comprehensive navigation structure covering primary, secondary, utility, and contextual navigation, deep linking, and guards.',
 )
 @SectionId('NAMO')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'the navigation model as a whole',
+)
 class NavigationModel extends DocSpecsSection {
   @ContentHelp('''
 ## Navigation Model (10.3.1)
@@ -3622,6 +3690,11 @@ class NavigationOverview extends DocSpecsSection {
   'The full navigation tree of groups and items forming the application navigation structure.',
 )
 @SectionId('NAHI')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'the primary navigation hierarchy',
+)
 class NavigationHierarchy extends DocSpecsSection {
   @ContentHelp('''
 ## Navigation Hierarchy (10.3.1.2)
@@ -4198,6 +4271,11 @@ class PrimaryNavigation extends DocSpecsSection {
   'The secondary-navigation configuration providing in-page tab bars and segmented controls.',
 )
 @SectionId('SENA')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'secondary navigation surfaces',
+)
 class SecondaryNavigation extends DocSpecsSection {
   @ContentHelp('''
 ## Secondary Navigation (10.3.1.4)
@@ -4436,6 +4514,11 @@ class TabItemEntry extends DocSpecsSection {
   'The utility-navigation configuration for always-visible entry points such as help, settings, and the user menu.',
 )
 @SectionId('UTNA')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'utility navigation surfaces',
+)
 class UtilityNavigation extends DocSpecsSection {
   @ContentHelp('''
 ## Utility Navigation (10.3.1.5)
@@ -4845,6 +4928,11 @@ Breadcrumbs, back navigation, related links.
   'The deep-linking configuration for external entry points, URL patterns, and shareable links.',
 )
 @SectionId('DELI')
+@CodeSpecKind(
+  [CodeSpecPart.navigation],
+  note:
+      'deep-link routes into the application',
+)
 class DeepLinking extends DocSpecsSection {
   @ContentHelp('''
 ## Deep Linking (10.3.1.7)
@@ -4972,6 +5060,11 @@ class DeepLinkPatternEntry extends DocSpecsSection {
   'The navigation-guard configuration that protects routes for unsaved changes, authentication, and permissions.',
 )
 @SectionId('NAGU')
+@CodeSpecKind(
+  [CodeSpecPart.navigation, CodeSpecPart.authorization],
+  note:
+      'guards gate a route on an authorization decision',
+)
 class NavigationGuards extends DocSpecsSection {
   @ContentHelp('''
 ## Navigation Guards (10.3.1.8)
@@ -12439,6 +12532,11 @@ class ComponentLibrary extends DocSpecsSection {
   'A colour palette describing the colour set, variants, and contrast guidance used across the interface.',
 )
 @SectionId('COPA')
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'one palette colour',
+)
 class ColorPaletteEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12495,6 +12593,11 @@ class ColorPaletteEntry extends DocSpecsSection {
   'A single typography style describing font, size, weight, and spacing for a text role.',
 )
 @SectionId('TYST')
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'one typography style',
+)
 class TypographyStyleEntry extends DocSpecsSection {
   @Form([
     Field('fontFamily', String, 'Font Family', hint: 'Typeface family name'),
@@ -12595,6 +12698,11 @@ class ComponentFamilyEntry extends DocSpecsSection {
   'ISO/IEC 25010:2023 — grouping related components as a family supports modularity and reuse',
 ], 'A reference identifying one component that belongs to a component family.')
 @SectionId('FAMREF')
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'a reference to a component family member',
+)
 class FamilyComponentRef extends DocSpecsSection {
   @Form([
     Field(
@@ -16333,6 +16441,11 @@ comparison, and narrative-flow views.
   'A single design-foundation entry recording a colour, font, and spacing choice for the interface.',
 )
 @SectionId('DESIG')
+@CodeSpecKind(
+  [CodeSpecPart.screenElement],
+  note:
+      'a design foundation shared by screen elements',
+)
 class DesignFoundationEntry extends DocSpecsSection {
   @Form([
     Field(

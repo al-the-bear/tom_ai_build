@@ -252,7 +252,7 @@ Every annotation the export emits reaches the screen:
 | --- | --- | --- |
 | Identity and headline | `@Document`, `@SectionId`, `@SectionIdPattern`, `@Headline` | Root rail; grey badges on the row; quoted secondary label |
 | Shape | `@Form`, `@ContentType`, `@Min`, `@ContentHelp` | Form panel under the row; the row's type label; the row's doc line |
-| Hand-offs and taxonomies | `@MapsTo`, `@DetailedIn`, `@CodeSpecKind`, `@FollowUpKind`, `@CodeSpecsProjection` | `maps→` / `detail→` chips (also the cut anchors); part and process chips; projection badge |
+| Hand-offs and taxonomies | `@MapsTo`, `@DetailedIn`, `@CodeSpecKind`, `@FollowUpKind`, `@NoArtifact`, `@CodeSpecsProjection` | `maps→` / `detail→` chips (also the cut anchors); part, process and `na:` verdict chips; projection badge |
 | Closed choices | `@OneOf`, `@Case` | The choice group node with discriminator coverage; `case:` chips on the alternatives |
 | Markers, notes, provenance | `@Unused`, `@Comment`, `@Reference`, `@StandardReferences`, `@SerializationOrder` | Struck-through label plus `unused` chip; inline `←` note; a collapsed `refs` panel; `#n` badge behind the toolbar toggle |
 
@@ -269,24 +269,31 @@ to read.
 
 ### 5.3 The destination chip row
 
-`@CodeSpecKind` and `@FollowUpKind` are rendered together, because they
-interact. A node tagged for a follow-up process **has** been classified, so it
-must not also carry the `cs?` "not yet mapped" marker — that would state the
-opposite and send a reviewer chasing a CodeSpecs mapping that by construction
-cannot exist.
+The three routing verdicts — `@CodeSpecKind`, `@FollowUpKind` and
+`@NoArtifact` (`codespecs_mapping.md` §8.3) — are rendered together, because
+they interact. A node carrying either of the latter two **has** been
+classified, so it must not also carry the `cs?` "not yet mapped" marker — that
+would state the opposite and send a reviewer chasing a routing that by
+construction is already settled.
 
-The two are deliberately asymmetric:
+They are deliberately asymmetric:
 
 - `@CodeSpecKind` renders **three states** — mapped, explicitly mapped to
   nothing, and undeclared. The third is exactly the open question a structural
   reviewer is hunting for; leaving it blank would hide it among the mapped ones.
 - `@FollowUpKind` has **no "not declared" chip**. The overwhelming majority of
   the model is CodeSpecs-bound, so a `fu?` on every node would be noise.
+- `@NoArtifact` renders a single `na:<reason>` chip and likewise has no
+  "not declared" state — its absence is what the other two answer. Its reason
+  is what makes the row readable as a decision rather than an omission, which
+  is the same distinction `tom_specs_model_rules.md` §10.2 invariant
+  `ROUTE-TOTAL` enforces in the model.
 
-Both links are list-valued — one section can become several parts, or feed
-several processes — so every code gets its own chip rather than a joined string.
-Case chips come first on a field row, because they say *whether the row applies
-at all*, which is a stronger statement than where its subtree is headed.
+The first two links are list-valued — one section can become several parts, or
+feed several processes — so every code gets its own chip rather than a joined
+string; the third is single-valued, because a section is unrouted for one
+reason. Case chips come first on a field row, because they say *whether the row
+applies at all*, which is a stronger statement than where its subtree is headed.
 
 ### 5.4 Navigation
 

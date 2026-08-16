@@ -21,6 +21,7 @@ export 'max_depth.dart';
 export 'max_length.dart';
 export 'min.dart';
 export 'min_length.dart';
+export 'no_artifact.dart';
 export 'one_of.dart';
 export 'pattern_check.dart';
 export 'pattern_check_id.dart';

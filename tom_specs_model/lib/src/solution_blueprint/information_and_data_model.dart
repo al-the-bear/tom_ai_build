@@ -128,6 +128,12 @@ enum MigrationArtifactKind {
 @SectionId('INDM')
 @Comment('Seeds → IFM')
 @MapsTo(D03InformationModel)
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'chapter node; its children are routed individually because they feed '
+      'different parts',
+)
 class InformationAndDataModel extends DocSpecsSection {
   @ContentHelp('''
 Conceptual overview of the business data the system manages. This chapter
@@ -2081,6 +2087,11 @@ class DataClassificationEntry extends DocSpecsSection {
   'A single handling requirement (processing, storage, transmission, display, disposal) with its rationale and enforcement.',
 )
 @SectionId('HNDRE')
+@CodeSpecKind(
+  [CodeSpecPart.authorization],
+  note:
+      'one handling requirement constraining access to classified data',
+)
 class HandlingRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4271,6 +4282,11 @@ class TechnicalCharacteristicEntry extends DocSpecsSection {
   'The two ends of a relationship: the source and target entities and the role each plays.',
 )
 @SectionId('PARTI')
+@CodeSpecKind(
+  [CodeSpecPart.dataAccess],
+  note:
+      'one participant in a data relationship',
+)
 class ParticipantEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4476,6 +4492,11 @@ legacy systems stay in the migration-mapping sections (MIGME).
   'A named data source / schema pair that migration artifacts are filed under and applied to.',
 )
 @SectionId('MIGTG')
+@CodeSpecKind(
+  [CodeSpecPart.schemaMigration],
+  note:
+      'one migration target schema',
+)
 class MigrationTargetEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4532,6 +4553,11 @@ class MigrationTargetEntry extends DocSpecsSection {
       'definition subsection — a baseline schema definition, a reference-data '
       'definition, or a schema change. Each kind authors a different thing, so '
       'every kind binds a case.',
+)
+@CodeSpecKind(
+  [CodeSpecPart.schemaMigration],
+  note:
+      'one step of a schema migration',
 )
 class SchemaMigrationStepEntry extends DocSpecsSection {
   @ContentHelp('''
@@ -4754,6 +4780,11 @@ Author the further change as a new entry with the next version.
   'The registry of domain enums (closed value sets): each enum with its named, backed values — the `domainEnum` home and the closed-choice discriminator source.',
 )
 @SectionId('DOMEN')
+@CodeSpecKind(
+  [CodeSpecPart.domainEnum],
+  note:
+      'the registry of domain enums',
+)
 class DomainEnumRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the domain enums — the closed value sets the data model relies on
@@ -4861,6 +4892,11 @@ class DomainEnumEntry extends DocSpecsSection {
   'A single domain-enum member: its stable value id, backing value, and copy-key reference.',
 )
 @SectionId('DMEVA')
+@CodeSpecKind(
+  [CodeSpecPart.domainEnum],
+  note:
+      'one value of a domain enum',
+)
 class DomainEnumValueEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4925,6 +4961,11 @@ class DomainEnumValueEntry extends DocSpecsSection {
   'The registry of shared application error codes referenced by validation rules (CE-VA), the Result envelope (CE-ER), and error copy (CE-TX).',
 )
 @SectionId('ERCRG')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'the registry of error codes',
+)
 class ErrorCodeRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the shared application error codes. Add one entry per code; each
@@ -5120,6 +5161,11 @@ class ResultEnvelope extends DocSpecsSection {
   'A single field-level error detail: the offending field path, an error-code reference, and an optional default message.',
 )
 @SectionId('RSFDE')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'one field detail carried by a result envelope',
+)
 class ResultFieldDetailEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5186,6 +5232,11 @@ class ResultFieldDetailEntry extends DocSpecsSection {
   'The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes.',
 )
 @SectionId('MSGKR')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'the registry of message keys',
+)
 class MessageKeyRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the user-facing copy as message keys. Add one entry per key; each key
@@ -5296,6 +5347,11 @@ class MessageKeyEntry extends DocSpecsSection {
   'A single locale variant: a BCP-47 locale tag and the copy for that locale.',
 )
 @SectionId('MSGLV')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'one locale variant of a message key',
+)
 class MessageLocaleVariantEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5356,6 +5412,11 @@ class MessageLocaleVariantEntry extends DocSpecsSection {
   "The registry of the application's own server operations (CE-API): each with its operation name, request and response members, primary written data entity, and authorization requirement.",
 )
 @SectionId('SVOPR')
+@CodeSpecKind(
+  [CodeSpecPart.serverApi],
+  note:
+      'the registry of server operations',
+)
 class ServerOperationRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the operations the system itself answers. Add one entry per

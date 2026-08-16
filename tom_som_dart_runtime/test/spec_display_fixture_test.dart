@@ -88,4 +88,17 @@ void main() {
     expect(refs.standardReferences?.connotation, kShowcaseConnotation);
     expect(refs.standardReferences?.standards, contains(kShowcaseStandard));
   });
+
+  test('DF8: the fixture carries the third routing verdict, and that row does '
+      'not also read as unmapped', () {
+    final labels = expectedShowcaseChipLabels(model);
+    expect(labels, contains('na:overview'));
+
+    final doc = model.classNamed('ShowcaseDoc')!;
+    final overview = doc.fields.firstWhere((f) => f.name == 'chapterOverview');
+    expect(overview.noArtifact?.note, kShowcaseNoArtifactNote);
+    // `cs?` would say "nobody got round to routing this", which is the one
+    // thing `@NoArtifact` exists to deny.
+    expect(fieldChips(overview).map((c) => c.label), ['na:overview']);
+  });
 }

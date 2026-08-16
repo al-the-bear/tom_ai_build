@@ -19,6 +19,11 @@ import '../document_stubs.dart';
 @SectionId('SAAM')
 @Comment('Seeds → SAS')
 @MapsTo(D08SecurityAccessSpecification)
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'chapter node over access control, audit and the security follow-ups',
+)
 class SecurityAndAccessModel extends DocSpecsSection {
   @ContentHelp('''
 Provide a high-level overview of the application's security architecture for
@@ -80,6 +85,12 @@ access and authorization concerns.
   'protection, authorization, and the role matrix.',
 )
 @SectionId('ACCM')
+@CodeSpecKind(
+  [CodeSpecPart.authorization, CodeSpecPart.authentication, CodeSpecPart.identity],
+  note:
+      'the access-control chapter as a whole: users, identification, resource '
+      'protection, authorization and the role matrix',
+)
 class AccessControlModel extends DocSpecsSection {
   @ContentType('description', 'Summarize the access-control model: identities, '
       'authentication, resource protection, authorization, and roles.')

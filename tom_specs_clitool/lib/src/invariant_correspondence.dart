@@ -1,4 +1,4 @@
-/// The gate over `tom_specs_model_rules.md` §10.2 — the sixteen mechanical
+/// The gate over `tom_specs_model_rules.md` §10.2 — the seventeen mechanical
 /// structural invariants — and everything that cites them.
 ///
 /// §10.2 states three meta-rules: a structural rule lives in the validator, not

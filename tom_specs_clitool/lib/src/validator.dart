@@ -1042,15 +1042,16 @@ void _validateStructuralInvariants(
   // are structural, so nothing has to be remembered or annotated.
   _validateEntryNameFields(classes, reachable, errors);
 
-  // --- Step 11 — §10.2 invariants KIND-EXCLUSIVE + PART-ROUTED: CodeSpecs /
-  // follow-up routing -----------------------------------------------------
+  // --- Step 11 — §10.2 invariants KIND-EXCLUSIVE + PART-ROUTED +
+  // ROUTE-TOTAL: CodeSpecs / follow-up routing ----------------------------
   //
   // The CodeSpecs / follow-up split is decided by membership of the generation
   // projection, not by the presence of a `@CodeSpecKind`. A section inside a
   // follow-up subtree may carry one — it records which part its *material*
   // belongs to, and the material reaches generation through a
-  // projection-reachable bearer of that same part. Two invariants keep that
-  // sound.
+  // projection-reachable bearer of that same part. Three invariants keep that
+  // sound: the three verdicts are exclusive, every part named has a generated
+  // bearer, and every section carries a verdict.
   _validateCodeSpecKindRouting(
       classes, reachable, documentClasses, errors, warnings);
 
@@ -1077,18 +1078,31 @@ void _validateStructuralInvariants(
 final Set<String> _deferredParts =
     deferredCodeSpecParts.map((p) => p.toString()).toSet();
 
-/// Invariants `KIND-EXCLUSIVE` + `PART-ROUTED` — the CodeSpecs / follow-up
-/// routing pair
+/// The three routing verdicts, in the order a failure message reads best.
+///
+/// A section feeds CodeSpecs parts, or a downstream follow-up process, or
+/// nothing — the trio is exhaustive by construction, which is what lets
+/// `ROUTE-TOTAL` treat "carries none of them" as an omission.
+const List<String> _routingVerdicts = [
+  'CodeSpecKind',
+  'FollowUpKind',
+  'NoArtifact',
+];
+
+/// Invariants `KIND-EXCLUSIVE` + `PART-ROUTED` + `ROUTE-TOTAL` — the CodeSpecs
+/// / follow-up routing group
 /// (`tom_specs_model_rules.md` §10.2, `codespecs_mapping.md` §8.3).
 ///
-/// **11 — mutual exclusion.** No section carries both `@CodeSpecKind` and
-/// `@FollowUpKind`. `@FollowUpKind` marks a subtree *root*;
-/// `codespecs_mapping.md` §4.3 rules that only a section which must become a
-/// projection root has to be hoisted out of a follow-up subtree, so a follow-up
-/// root is never itself generated. A class carrying both claims to be both,
-/// which is the one shape the split cannot express.
+/// **11a — mutual exclusion.** No section carries more than one of the three
+/// routing verdicts `@CodeSpecKind`, `@FollowUpKind` and `@NoArtifact`.
+/// `@FollowUpKind` marks a subtree *root*; `codespecs_mapping.md` §4.3 rules
+/// that only a section which must become a projection root has to be hoisted
+/// out of a follow-up subtree, so a follow-up root is never itself generated.
+/// `@NoArtifact` says the section feeds nothing at all. A class carrying two of
+/// the three claims to be two things at once, which is the one shape the split
+/// cannot express.
 ///
-/// **12 — per-part coverage.** Every *active* part named by any `@CodeSpecKind`
+/// **11b — per-part coverage.** Every *active* part named by any `@CodeSpecKind`
 /// has at least one bearer reachable from the CodeSpecs generation projection.
 /// This is what makes a `@CodeSpecKind` inside a follow-up subtree harmless
 /// rather than a routing gap: CE-TX help copy is legitimately tagged under
@@ -1096,6 +1110,20 @@ final Set<String> _deferredParts =
 /// the projection does reach, bears CE-TX. A part named only from unreachable
 /// sections has no such bearer — its material would be specified and never
 /// generated. Deferred parts are exempt by construction ([_deferredParts]).
+///
+/// **11c — routing totality.** The converse of 11b: every `@SectionId`-carrying
+/// class reachable from a specification root carries a verdict — a
+/// `@CodeSpecKind`, a `@NoArtifact`, or membership of some `@FollowUpKind`
+/// subtree. 11b checks that nothing *claimed* goes ungenerated; 11c checks that
+/// nothing is *silently* left out. That matters because the Phase-4 extract
+/// generator walks `@CodeSpecKind` to decide what lands in which area's
+/// extract: a section routed nowhere is a section the agent writing that area
+/// never sees, and before this check the two cases — "decided to feed nothing"
+/// and "nobody got round to it" — were indistinguishable. `@NoArtifact` is what
+/// makes them distinguishable, so totality is checkable.
+///
+/// The `@Document` roots are exempt structurally: a document root is the
+/// document, not a section of it, and it has no content of its own to route.
 ///
 /// Deliberately **not** enforced: "a `@CodeSpecKind`-bearing class must itself
 /// be reachable from the projection". The model has 65 counterexamples and
@@ -1112,12 +1140,43 @@ void _validateCodeSpecKindRouting(
   for (final className in reachable) {
     final cls = classes[className];
     if (cls == null) continue;
-    if (cls.getAnnotation('CodeSpecKind') == null) continue;
-    if (cls.getAnnotation('FollowUpKind') == null) continue;
+    final carried = [
+      for (final marker in _routingVerdicts)
+        if (cls.getAnnotation(marker) != null) '@$marker',
+    ];
+    if (carried.length < 2) continue;
     errors.add(
-      '$_invariants CodeSpecs/follow-up exclusion: $className carries both '
-      '@CodeSpecKind and @FollowUpKind — a follow-up subtree root is never '
-      'itself generated (codespecs_mapping.md §8.3)',
+      '$_invariants CodeSpecs/follow-up exclusion: $className carries '
+      '${carried.join(" and ")} — a section feeds CodeSpecs, or a follow-up '
+      'process, or nothing, but never two of the three '
+      '(codespecs_mapping.md §8.3)',
+    );
+  }
+
+  // --- Step 11c — §10.2 invariant ROUTE-TOTAL: routing totality -----------
+  //
+  // Placed before 11b because 11b returns early on a model with no generation
+  // projection, and totality is meaningful without one.
+  final followUpCovered = <String>{};
+  for (final className in reachable) {
+    if (classes[className]?.getAnnotation('FollowUpKind') == null) continue;
+    followUpCovered.addAll(_findReachableTypes(classes, className));
+  }
+  for (final className in reachable.toList()..sort()) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    if (cls.getAnnotation('SectionId') == null) continue;
+    if (documentClasses.contains(className)) continue;
+    if (cls.getAnnotation('CodeSpecKind') != null) continue;
+    if (cls.getAnnotation('NoArtifact') != null) continue;
+    if (followUpCovered.contains(className)) continue;
+    errors.add(
+      '$_invariants routing totality: $className carries @SectionId but no '
+      'routing verdict — give it a @CodeSpecKind naming every part it may '
+      'feed, bring it under a @FollowUpKind subtree, or mark it '
+      '@NoArtifact(...) to record that it deliberately feeds nothing; a '
+      'section routed nowhere is one the Phase-4 extract generator never '
+      'shows to any area (codespecs_mapping.md §8.3)',
     );
   }
 

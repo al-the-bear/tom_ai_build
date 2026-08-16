@@ -18,6 +18,8 @@
 ///   * `@CodeSpecKind` is three-state — mapped, mapped to nothing, undeclared —
 ///     and all three are rendered ([codeSpecKindChips]);
 ///   * `@FollowUpKind` has no "undeclared" marker ([followUpKindChips]);
+///   * a node carrying the `@NoArtifact` verdict is likewise already
+///     classified, so it too suppresses "not yet mapped" ([noArtifactChips]);
 ///   * on a row that merges a field with the class it instantiates, the
 ///     field's annotation wins ([SpecRowExtras.of]);
 ///   * a closed choice reports its coverage against the discriminator's full
@@ -102,6 +104,7 @@ const Set<String> kRenderedAnnotations = {
   'DetailedIn', // `detail→` chip
   'CodeSpecKind', // part chips
   'FollowUpKind', // process chips
+  'NoArtifact', // the "feeds nothing" verdict chip
   'CodeSpecsProjection', // projection chip
   // Closed choices.
   'OneOf', // the choice group node
@@ -140,6 +143,10 @@ enum SpecChipRole {
 
   /// `@FollowUpKind` present but empty.
   followUpNone,
+
+  /// `@NoArtifact` — the recorded decision that this section produces nothing
+  /// downstream.
+  noArtifact,
 
   /// The root of a `@CodeSpecsProjection` document.
   projection,
@@ -211,17 +218,29 @@ const SpecChip referencesChip = SpecChip(
 
 /// The chips stating where a node's subject matter is headed.
 ///
-/// The model splits that subject matter in two (`codespecs_mapping.md` §8.3):
-/// subtrees realised as CodeSpecs code, tagged `@CodeSpecKind`
-/// (codespecs_mapping.md §9.1), and subtrees that feed a downstream *process* —
-/// documentation, training, migration, … — tagged `@FollowUpKind`. Both are
-/// produced by one function because they interact: a node tagged for a
-/// follow-up process **has** been classified, so it must not also carry the
-/// "not yet mapped" marker, which would state the opposite and send a reviewer
-/// chasing a CodeSpecs mapping that by construction cannot exist.
-List<SpecChip> kindChips(KindLink? codeSpec, KindLink? followUp) => [
+/// The model routes that subject matter three ways (`codespecs_mapping.md`
+/// §8.3): subtrees realised as CodeSpecs code, tagged `@CodeSpecKind`
+/// (codespecs_mapping.md §9.1); subtrees that feed a downstream *process* —
+/// documentation, training, migration, … — tagged `@FollowUpKind`; and sections
+/// that deliberately feed nothing, tagged `@NoArtifact`. All three are produced
+/// by one function because they interact: a node carrying either of the latter
+/// two **has** been classified, so it must not also carry the "not yet mapped"
+/// marker, which would state the opposite and send a reviewer chasing a
+/// CodeSpecs mapping that by construction cannot exist.
+///
+/// [noArtifact] is a required positional rather than an optional one so a
+/// surface cannot quietly stop rendering the third verdict — the omission would
+/// otherwise compile, and show 24 decided sections as open questions.
+List<SpecChip> kindChips(
+  KindLink? codeSpec,
+  KindLink? followUp,
+  NoArtifactLink? noArtifact,
+) =>
+    [
       ...followUpKindChips(followUp),
-      ...codeSpecKindChips(codeSpec, suppressUnmapped: followUp != null),
+      ...noArtifactChips(noArtifact),
+      ...codeSpecKindChips(codeSpec,
+          suppressUnmapped: followUp != null || noArtifact != null),
     ];
 
 /// The `@CodeSpecKind` chips for [link].
@@ -277,6 +296,25 @@ List<SpecChip> followUpKindChips(KindLink? link) {
   ];
 }
 
+/// The `@NoArtifact` verdict chip for [link].
+///
+/// One chip, never absent-marked: like `@FollowUpKind` there is no "undeclared"
+/// state to render, because a section without the verdict is covered by one of
+/// the other two — that is what `ROUTE-TOTAL` guarantees. The reason travels on
+/// the chip rather than only in the tooltip, since `container`, `overview` and
+/// `view` are read differently by a reviewer: a container is structural, an
+/// overview is prose that may drift from what it summarises, and a view is
+/// derived.
+List<SpecChip> noArtifactChips(NoArtifactLink? link) {
+  if (link == null) return const [];
+  return [
+    SpecChip('na:${link.reason}', SpecChipRole.noArtifact,
+        tooltip: link.note ??
+            'No downstream artifact — recorded as ${link.reason}, not left '
+                'unrouted'),
+  ];
+}
+
 /// One chip per discriminator value [field] is bound to by `@Case`.
 ///
 /// One chip *per value* rather than one listing them all, matching the `cs:` /
@@ -296,7 +334,7 @@ List<SpecChip> caseChips(SpecField field) => [
 /// the one a reviewer scanning a choice group is reading for.
 List<SpecChip> fieldChips(SpecField field) => [
       ...caseChips(field),
-      ...kindChips(field.codeSpecKind, field.followUpKind),
+      ...kindChips(field.codeSpecKind, field.followUpKind, field.noArtifact),
     ];
 
 /// The chips a closed-choice group header carries: how much of the

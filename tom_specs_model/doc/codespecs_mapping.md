@@ -4708,9 +4708,15 @@ point**. The model is therefore divided as high up as possible into
 - **purely-follow-up subtrees** — every reachable section is delivered by a
   non-generation process.
 
-**The split is decided by projection membership, not by the presence of a
-`@CodeSpecKind`.** A subtree is CodeSpecs iff it is reachable from
-`D13CodeSpecsProjection`; the follow-up roots are the ones that are not. Inside
+**Two different questions, two different mechanisms.** *What generation walks* is
+decided by projection membership: a subtree is CodeSpecs iff it is reachable from
+`D13CodeSpecsProjection`, and the follow-up roots are the ones that are not.
+*What each generated area is shown* is decided by the routing verdicts below: the
+Phase-4 extract generator (§1.1.1) collects, per area, the sections routed to
+that area by `@CodeSpecKind`. The first answers "does this subtree go to Phase 4
+at all"; the second answers "which area's extract does this section land in". A
+section can sit inside the projection and still be invisible to every area — that
+is exactly the failure `ROUTE-TOTAL` below exists to make impossible. Inside
 a follow-up subtree, individual sections **may still carry a `@CodeSpecKind`** —
 that annotation records which part the section's *material* belongs to, and is
 how the follow-up process knows what it is producing material for. It does not
@@ -4719,19 +4725,53 @@ D13-reachable **bearer** of the same part (CE-TX help copy through the shared
 `MessageKeyRegistry`, CE-CF encryption policy through `TechnicalFrameworkConcept`
 / `AuditAndLogging`), never through the follow-up subtree itself. This is §4.3's
 ruling stated structurally — only a section that must become a *projection root*
-has to be hoisted out — and it holds at scale: 65 of the model's
-`@CodeSpecKind`-bearing sections sit inside a follow-up subtree, across six of
-the 18 follow-up roots.
+has to be hoisted out — and it holds at scale: 64 of the model's
+`@CodeSpecKind`-bearing sections sit inside a follow-up subtree, across 13 of
+the 45 follow-up roots.
 
-What must hold instead is the pair of invariants the validator enforces
-(`tom_specs_model_rules.md` §10.2, invariants `KIND-EXCLUSIVE` and
-`PART-ROUTED`): **no section carries
-both `@CodeSpecKind` and `@FollowUpKind`** — a follow-up root is never itself
-generated — and **every active part named by any `@CodeSpecKind` has at least
-one bearer reachable from D13**, so a part named from inside a follow-up subtree
-is never a routing gap. The single permanently deferred part, CE-WF, is exempt
-from the second by construction: it has no generated surface, so it has no
-bearer to reach.
+**The three routing verdicts.** Every section is routed by exactly one of three
+markers, and the trio is exhaustive by construction:
+
+| Verdict | Marker | Means |
+|---------|--------|-------|
+| feeds code | `@CodeSpecKind(List<CodeSpecPart>)` | the section's content is shown to every named area's extract |
+| feeds a process | `@FollowUpKind(List<FollowUpProcess>)` on a subtree root | the section is delivered by a non-generation process |
+| feeds nothing | `@NoArtifact(NoArtifactReason)` | the section deliberately produces no downstream artifact |
+
+`@NoArtifact` (`tom_specs_core`) is the marker that makes the absence of the
+other two *readable as a decision* rather than as an omission. Its reason is a
+closed three: `container` — a chapter node whose children are routed
+individually; `overview` — prose introducing sections that carry the facts
+themselves; `view` — a diagram or traceability rendering of content stated
+elsewhere. It carries the same optional `note` as the other two, and rides in the
+generic `extra` bag of the cross-language meta exactly as `@CodeSpecKind` does
+(§8.4), so all nine runtimes carry it without a slot.
+
+**Coverage is two-directional, and both directions are checked.** Three
+invariants the validator enforces (`tom_specs_model_rules.md` §10.2) hold the
+routing together:
+
+- `KIND-EXCLUSIVE` — **no section carries more than one of the three verdicts.**
+  A follow-up root is never itself generated, and a section that feeds nothing
+  cannot also feed something.
+- `PART-ROUTED` — **part → section:** every active part named by any
+  `@CodeSpecKind` has at least one bearer reachable from D13, so a part named
+  from inside a follow-up subtree is never a routing gap. The single permanently
+  deferred part, CE-WF, is exempt by construction: it has no generated surface,
+  so it has no bearer to reach.
+- `ROUTE-TOTAL` — **section → part (the converse):** every `@SectionId`-carrying
+  class reachable from a specification root carries a verdict — a
+  `@CodeSpecKind`, a `@NoArtifact`, or membership of some `@FollowUpKind`
+  subtree. `PART-ROUTED` says nothing *claimed* goes ungenerated; `ROUTE-TOTAL`
+  says nothing is *silently* left out. It is load-bearing for Phase 4: the
+  extract generator walks `@CodeSpecKind` to decide what lands in which area's
+  extract, so a section routed nowhere is a section the agent writing that area
+  never sees. The `@Document` roots are exempt structurally — a root is the
+  document, not a section of it, and has no content of its own to route.
+
+Before `@NoArtifact` existed the second direction was not expressible: "decided
+to feed nothing" and "nobody got round to it" were written identically, so a
+missing marker could not be read as a defect.
 
 **Top-level verdict.** `D00SolutionBlueprint` has 15 top-level sections
 (SBP.1–SBP.9, SBP.11–SBP.15; SBP.10 is unused). **Eight split cleanly at the top**
@@ -4747,7 +4787,7 @@ phase** (Phase 5), not Phase-4 code generation.
 
 **Follow-up taxonomy.** Every follow-up subtree is tagged with the process that
 delivers it, via `@FollowUpKind(List<FollowUpProcess>)` (`tom_specs_core`) —
-list-valued and applied to subtree roots, mirroring `@CodeSpecKind`. Eight codes
+list-valued and applied to subtree roots, mirroring `@CodeSpecKind`. Nine codes
 cover the surface today; the enum is **extensible**:
 
 | Code | Follow-up process | Typical content |
@@ -4760,6 +4800,7 @@ cover the surface today; the enum is **extensible**:
 | **CMP** | Compliance & regulatory | compliance framework, data-classification obligations |
 | **MIG** | Migration & transition | data-migration mapping, rollout, cutover |
 | **L10N** | Localization / translation | message translation, locale content authoring |
+| **ACC** | Acceptance & audit evidence | end-to-end acceptance scenarios, security-audit evidence (Phase 5, not Phase 4) |
 
 These are **process tags, not new model types**. Each follow-up subtree carries
 one so the downstream process can select its slice.
@@ -4834,6 +4875,14 @@ and the value is a self-describing `CodeSpecPart.*` list already legible in
 runtime shape, the meta schema and the conformance goldens for zero consumer
 benefit. The `extra` treatment is exactly the intended design for annotations
 "carried for completeness but not structurally consumed."
+
+The same holds for the other two routing verdicts. `@FollowUpKind` and
+`@NoArtifact` (§8.3) are likewise unslotted and ride in `extra` with their value
+and `note` intact, so adding `@NoArtifact` to the model changed no emitter — it
+required a regeneration and nothing more. All three verdicts are therefore
+readable in all nine languages by the same `extra` lookup, which is what lets a
+non-Dart runtime answer "what is this section routed to" without a slot per
+verdict.
 
 ### 8.5 SOM coverage verdict — every part's authoring home
 
@@ -5029,9 +5078,9 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Ten entries are open, in three groups. **Routing** — a
-section that reaches no part at all, and a band split that follows no stated
-line. **Model** — five gaps the behaviour-to-body derivation exposed, each of
+active part COVERED. Nine entries are open, in three groups. **Routing** — a
+band split that follows no stated line. **Model** — five gaps the
+behaviour-to-body derivation exposed, each of
 which leaves something the specification states **not emitted** in the
 generated body, or a required argument with no section behind it.
 **Document** — the Phase-4 production model this document describes, the
@@ -5039,7 +5088,6 @@ procedure for running it, and the todo tree that procedure instantiates.
 
 | Todo | Subject |
 |------|---------|
-| `tscompc10` | **226 reachable sections are routed nowhere.** Walking field types from the 13 spec roots reaches 652 classes: 149 carry `@CodeSpecKind`, 303 sit inside one of the 18 `@FollowUpKind` subtrees, and 226 carry a `@SectionId` and neither marker. `tom_specs_model_rules.md` §10.2 invariant `PART-ROUTED` checks coverage part→section only, and its docstring declines the converse, so this is unguarded rather than accepted. Either each of the 226 gains a routing, or the ones that legitimately reach no code say so, and the converse invariant is added either way. |
 | `tscompc11` | **CE-CF projection membership.** 42 sections carry `serverConfiguration`; 18 are reachable from `D13CodeSpecsProjection` and 24 are not, and the split does not follow §5.5's declared/fixed line. The SAS encryption and key-management bands sit outside while the SAS API-security and audit-sink bands — fixed-key policy bands of the same character — sit inside. Either the projection gains them, or §5.5 states the exclusion ground the way the CE-API row states its own. §8.5's CE-CF verdict carries the split as a parenthetical until then. |
 | `tscompc12` | **CE-JB's work body is prose-only.** `SCJOB-WORK` states a job's whole behaviour in one prose field, so §4.1.1's structural selector puts CE-JB on form 3a while the parts that read an ISC or login-flow step list — CE-AC, CE-AU, CE-API's client half — reach 3b. Either `SCJOB-WORK` gains a step list and CE-JB flips to 3b, or §5.29 states why a job's work is the one indivisible unit. (CE-SC is 3a for a different reason — it has a step but no routing for it; that is `tscompc14`.) |
 | `tscompc13` | **ISC branch attachment is unstructured.** `EXTEN` and `ALFL` state `branchPoint` and `returnPoint` as free text, so neither where a branch attaches nor where control resumes can be derived. `codespecs_derivation_contract.md` B5 therefore emits every branch after the whole main sequence and B6 emits nothing for the return point. Both need a resolvable step reference, and `returnPoint` a closed resume/end choice. |

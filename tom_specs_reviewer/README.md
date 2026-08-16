@@ -102,8 +102,9 @@ passing unseen.
 - **Shape** — `@Form` (the form panel under the row), `@ContentType` and `@Min`
   (the row's type label), `@ContentHelp` (the row's doc line).
 - **Hand-offs and taxonomies** — `@MapsTo` and `@DetailedIn` (`maps→` /
-  `detail→` chips, and the anchors the two cut toggles act on), `@CodeSpecKind`
-  and `@FollowUpKind` (part / process chips), `@CodeSpecsProjection` (the
+  `detail→` chips, and the anchors the two cut toggles act on), the three
+  routing verdicts `@CodeSpecKind`, `@FollowUpKind` and `@NoArtifact`
+  (part / process / `na:<reason>` chips), `@CodeSpecsProjection` (the
   projection badge).
 - **Closed choices** — `@OneOf` (the choice group node) and `@Case` (`case:`
   chips on its alternatives).

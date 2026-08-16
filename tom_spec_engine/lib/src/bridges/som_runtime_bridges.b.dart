@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 20 files
-// Generated: 2026-08-10T19:27:12.615305
+// Generated: 2026-08-16T18:32:53.371434
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -76,6 +76,7 @@ class SomRuntimeBridge {
       _createSpecAnnotationBridge(),
       _createFormFieldSpecBridge(),
       _createKindLinkBridge(),
+      _createNoArtifactLinkBridge(),
       _createStandardReferencesBridge(),
       _createSpecFieldBridge(),
       _createOneOfGroupBridge(),
@@ -147,6 +148,7 @@ class SomRuntimeBridge {
       'SpecAnnotation': _createSpecAnnotationBridge,
       'FormFieldSpec': _createFormFieldSpecBridge,
       'KindLink': _createKindLinkBridge,
+      'NoArtifactLink': _createNoArtifactLinkBridge,
       'StandardReferences': _createStandardReferencesBridge,
       'SpecField': _createSpecFieldBridge,
       'OneOfGroup': _createOneOfGroupBridge,
@@ -217,6 +219,7 @@ class SomRuntimeBridge {
       'SpecAnnotation': $tom_som_dart_runtime_11.SpecAnnotation,
       'FormFieldSpec': $tom_som_dart_runtime_11.FormFieldSpec,
       'KindLink': $tom_som_dart_runtime_11.KindLink,
+      'NoArtifactLink': $tom_som_dart_runtime_11.NoArtifactLink,
       'StandardReferences': $tom_som_dart_runtime_11.StandardReferences,
       'SpecField': $tom_som_dart_runtime_11.SpecField,
       'OneOfGroup': $tom_som_dart_runtime_11.OneOfGroup,
@@ -288,6 +291,7 @@ class SomRuntimeBridge {
       'SpecAnnotation': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'FormFieldSpec': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'KindLink': 'package:tom_som_dart_runtime/src/spec_model.dart',
+      'NoArtifactLink': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'StandardReferences': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'SpecField': 'package:tom_som_dart_runtime/src/spec_model.dart',
       'OneOfGroup': 'package:tom_som_dart_runtime/src/spec_model.dart',
@@ -621,10 +625,11 @@ class SomRuntimeBridge {
         return $tom_som_dart_runtime_1.bindDocSpecsMarkdown(model, document, text);
       },
       'kindChips': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'kindChips');
+        D4.requireMinArgs(positional, 3, 'kindChips');
         final codeSpec = D4.getRequiredArg<$tom_som_dart_runtime_11.KindLink?>(positional, 0, 'codeSpec', 'kindChips');
         final followUp = D4.getRequiredArg<$tom_som_dart_runtime_11.KindLink?>(positional, 1, 'followUp', 'kindChips');
-        return $tom_som_dart_runtime_3.kindChips(codeSpec, followUp);
+        final noArtifact = D4.getRequiredArg<$tom_som_dart_runtime_11.NoArtifactLink?>(positional, 2, 'noArtifact', 'kindChips');
+        return $tom_som_dart_runtime_3.kindChips(codeSpec, followUp, noArtifact);
       },
       'codeSpecKindChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'codeSpecKindChips');
@@ -636,6 +641,11 @@ class SomRuntimeBridge {
         D4.requireMinArgs(positional, 1, 'followUpKindChips');
         final link = D4.getRequiredArg<$tom_som_dart_runtime_11.KindLink?>(positional, 0, 'link', 'followUpKindChips');
         return $tom_som_dart_runtime_3.followUpKindChips(link);
+      },
+      'noArtifactChips': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'noArtifactChips');
+        final link = D4.getRequiredArg<$tom_som_dart_runtime_11.NoArtifactLink?>(positional, 0, 'link', 'noArtifactChips');
+        return $tom_som_dart_runtime_3.noArtifactChips(link);
       },
       'caseChips': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'caseChips');
@@ -820,6 +830,7 @@ class SomRuntimeBridge {
       'kindChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'codeSpecKindChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'followUpKindChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
+      'noArtifactChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'caseChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'fieldChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
       'oneOfChips': 'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
@@ -858,9 +869,10 @@ class SomRuntimeBridge {
     return {
       'docSpecsIdTransform': 'String docSpecsIdTransform(String id)',
       'bindDocSpecsMarkdown': 'SpecMarkdownResult bindDocSpecsMarkdown(SpecModel model, SpecDocument document, String text)',
-      'kindChips': 'List<SpecChip> kindChips(KindLink? codeSpec, KindLink? followUp)',
+      'kindChips': 'List<SpecChip> kindChips(KindLink? codeSpec, KindLink? followUp, NoArtifactLink? noArtifact)',
       'codeSpecKindChips': 'List<SpecChip> codeSpecKindChips(KindLink? link, {bool suppressUnmapped = false})',
       'followUpKindChips': 'List<SpecChip> followUpKindChips(KindLink? link)',
+      'noArtifactChips': 'List<SpecChip> noArtifactChips(NoArtifactLink? link)',
       'caseChips': 'List<SpecChip> caseChips(SpecField field)',
       'fieldChips': 'List<SpecChip> fieldChips(SpecField field)',
       'oneOfChips': 'List<SpecChip> oneOfChips(OneOfGroup group)',
@@ -3199,6 +3211,42 @@ BridgedClass _createKindLinkBridge() {
 }
 
 // =============================================================================
+// NoArtifactLink Bridge
+// =============================================================================
+
+BridgedClass _createNoArtifactLinkBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_11.NoArtifactLink,
+    name: 'NoArtifactLink',
+    isAssignable: (v) => v is $tom_som_dart_runtime_11.NoArtifactLink,
+    constructors: {
+      '': (visitor, positional, named) {
+        final reason = D4.getRequiredNamedArg<String>(named, 'reason', 'NoArtifactLink');
+        final note = D4.getOptionalNamedArg<String?>(named, 'note');
+        return $tom_som_dart_runtime_11.NoArtifactLink(reason: reason, note: note);
+      },
+      'fromAnnotation': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 1, 'NoArtifactLink');
+        final annotation = D4.getRequiredArg<$tom_som_dart_runtime_11.SpecAnnotation>(positional, 0, 'annotation', 'NoArtifactLink');
+        return $tom_som_dart_runtime_11.NoArtifactLink.fromAnnotation(annotation);
+      },
+    },
+    getters: {
+      'reason': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.NoArtifactLink>(target, 'NoArtifactLink').reason,
+      'note': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.NoArtifactLink>(target, 'NoArtifactLink').note,
+    },
+    constructorSignatures: {
+      '': 'const NoArtifactLink({required String reason, String? note})',
+      'fromAnnotation': 'factory NoArtifactLink.fromAnnotation(SpecAnnotation annotation)',
+    },
+    getterSignatures: {
+      'reason': 'String get reason',
+      'note': 'String? get note',
+    },
+  );
+}
+
+// =============================================================================
 // StandardReferences Bridge
 // =============================================================================
 
@@ -3317,6 +3365,7 @@ BridgedClass _createSpecFieldBridge() {
       'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.SpecField>(target, 'SpecField').hasReferences,
       'codeSpecKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.SpecField>(target, 'SpecField').codeSpecKind,
       'followUpKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.SpecField>(target, 'SpecField').followUpKind,
+      'noArtifact': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.SpecField>(target, 'SpecField').noArtifact,
     },
     methods: {
       'annotation': (visitor, target, positional, named, typeArgs) {
@@ -3376,6 +3425,7 @@ BridgedClass _createSpecFieldBridge() {
       'hasReferences': 'bool get hasReferences',
       'codeSpecKind': 'KindLink? get codeSpecKind',
       'followUpKind': 'KindLink? get followUpKind',
+      'noArtifact': 'NoArtifactLink? get noArtifact',
     },
   );
 }
@@ -3483,6 +3533,7 @@ BridgedClass _createSpecClassBridge() {
       'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.SpecClass>(target, 'SpecClass').hasReferences,
       'codeSpecKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.SpecClass>(target, 'SpecClass').codeSpecKind,
       'followUpKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.SpecClass>(target, 'SpecClass').followUpKind,
+      'noArtifact': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.SpecClass>(target, 'SpecClass').noArtifact,
     },
     methods: {
       'fieldNamed': (visitor, target, positional, named, typeArgs) {
@@ -3546,6 +3597,7 @@ BridgedClass _createSpecClassBridge() {
       'hasReferences': 'bool get hasReferences',
       'codeSpecKind': 'KindLink? get codeSpecKind',
       'followUpKind': 'KindLink? get followUpKind',
+      'noArtifact': 'NoArtifactLink? get noArtifact',
     },
   );
 }
@@ -3780,6 +3832,7 @@ BridgedClass _createAnnotatedSpecNodeBridge() {
       'hasReferences': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').hasReferences,
       'codeSpecKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').codeSpecKind,
       'followUpKind': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').followUpKind,
+      'noArtifact': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.AnnotatedSpecNode>(target, 'AnnotatedSpecNode').noArtifact,
     },
     methods: {
       'annotation': (visitor, target, positional, named, typeArgs) {
@@ -3815,6 +3868,7 @@ BridgedClass _createAnnotatedSpecNodeBridge() {
       'hasReferences': 'bool get hasReferences',
       'codeSpecKind': 'KindLink? get codeSpecKind',
       'followUpKind': 'KindLink? get followUpKind',
+      'noArtifact': 'NoArtifactLink? get noArtifact',
     },
   );
 }

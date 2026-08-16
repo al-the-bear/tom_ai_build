@@ -47,11 +47,18 @@ const String kShowcaseConnotation = 'What the showcase section means.';
 /// A standard named in the fixture's `@StandardReferences`.
 const String kShowcaseStandard = 'ISO 42001 §6.1';
 
+/// The `@NoArtifact` note the fixture puts on its overview section — an
+/// `overview` verdict customarily names the routed section that states the
+/// material normatively.
+const String kShowcaseNoArtifactNote = 'Introduces the items below; every fact '
+    'is stated in SHW-ITM.N.';
+
 /// A class graph exercising every annotation the display layer renders.
 ///
 /// One root, `ShowcaseDoc`, marked `@CodeSpecsProjection` so the projection
 /// marker has a home. Its fields spread the three `@CodeSpecKind` states, both
-/// `@FollowUpKind` states, `@Unused`, `@Comment`, `@Headline`, `@Reference`,
+/// `@FollowUpKind` states, the `@NoArtifact` verdict, `@Unused`, `@Comment`,
+/// `@Headline`, `@Reference`,
 /// `@StandardReferences`, `@SectionIdPattern` and `@SerializationOrder` across
 /// separate rows so no row's rendering can mask another's.
 Map<String, dynamic> kAnnotationShowcaseJson() => {
@@ -186,6 +193,23 @@ Map<String, dynamic> kAnnotationShowcaseJson() => {
                 {
                   'name': 'FollowUpKind',
                   'arguments': {'processes': <String>[]},
+                },
+              ],
+            },
+            {
+              // The third routing verdict: decided to produce nothing, which
+              // is why the row must not also state `cs?`.
+              'name': 'chapterOverview',
+              'kind': 'scalar',
+              'type': 'String',
+              'sectionId': 'SHW-OVW',
+              'annotations': [
+                {
+                  'name': 'NoArtifact',
+                  'arguments': {
+                    'reason': 'NoArtifactReason.overview',
+                    'note': kShowcaseNoArtifactNote,
+                  },
                 },
               ],
             },
@@ -338,7 +362,7 @@ Set<String> expectedShowcaseChipLabels(SpecModel model) {
     if (cls.hasReferences) labels.add(referencesChip.label);
     final group = cls.oneOf;
     if (group != null) addAll(oneOfChips(group));
-    addAll(kindChips(cls.codeSpecKind, cls.followUpKind));
+    addAll(kindChips(cls.codeSpecKind, cls.followUpKind, cls.noArtifact));
     for (final field in cls.fields) {
       if (field.isUnused) labels.add(unusedChip.label);
       if (field.hasReferences) labels.add(referencesChip.label);

@@ -341,6 +341,13 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     note: 'The follow-up counterpart of `@CodeSpecKind`; same reason.',
   ),
   DocSpecsAnnotationBinding(
+    'NoArtifact',
+    modelOnly: ModelOnlyReason.traceability,
+    note: 'The third routing verdict — records that a section feeds neither '
+        'CodeSpecs nor a follow-up process. A statement about downstream '
+        'artifacts, not about the document.',
+  ),
+  DocSpecsAnnotationBinding(
     'CodeSpecsProjection',
     modelOnly: ModelOnlyReason.generation,
     note: 'Marks a `@Document` root as the CodeSpecs generation projection, '

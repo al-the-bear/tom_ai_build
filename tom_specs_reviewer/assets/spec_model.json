@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T16:26:24.605800Z",
+  "generatedAt": "2026-08-16T16:28:12.579521Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
@@ -1782,6 +1782,17 @@
           "name": "SectionId",
           "arguments": {
             "id": "ACCM"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization",
+              "CodeSpecPart.authentication",
+              "CodeSpecPart.identity"
+            ],
+            "note": "the access-control chapter as a whole: users, identification, resource protection, authorization and the role matrix"
           }
         }
       ],
@@ -4447,6 +4458,16 @@
           "arguments": {
             "id": "ACTCHA"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.trn",
+              "FollowUpProcess.org"
+            ],
+            "note": "domain knowledge, IT proficiency and usage profile drive enablement and org design, not code"
+          }
         }
       ],
       "fields": [
@@ -4677,6 +4698,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "ACEN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ],
+            "note": "an actor is the subject of authorization: its permissions seed the role matrix"
           }
         }
       ],
@@ -5151,6 +5181,15 @@
           "arguments": {
             "id": "ACGO"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org"
+            ],
+            "note": "summary, user and subfunction goals with their success measures drive process design"
+          }
         }
       ],
       "fields": [
@@ -5268,6 +5307,13 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D05InteractionScenarios"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.overview",
+            "note": "introduces the actor entries below; every actor fact is in ACEN"
           }
         }
       ],
@@ -5683,6 +5729,13 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D05InteractionScenarios"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.view",
+            "note": "a diagram over generalization and collaboration relationships already declared on the actor entries"
           }
         }
       ],
@@ -6159,6 +6212,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "ARS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "administration tooling and provisioning are operational; the configuration and job sections inside carry their own CodeSpecs routing"
           }
         }
       ],
@@ -9456,6 +9518,15 @@
           "arguments": {
             "id": "APCP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi"
+            ],
+            "note": "one API compatibility requirement on a server operation"
+          }
         }
       ],
       "fields": [
@@ -10304,6 +10375,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "APVEST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi"
+            ],
+            "note": "how server APIs are versioned"
           }
         }
       ],
@@ -13428,6 +13508,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "AS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "the architecture narrative is documented; the code-bearing sections inside carry their own CodeSpecs routing"
           }
         }
       ],
@@ -17765,6 +17854,15 @@
           "arguments": {
             "id": "BARS"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "backup policy, RPO/RTO, recovery and disaster procedures are operational"
+          }
         }
       ],
       "fields": [
@@ -20358,6 +20456,13 @@
           "arguments": {
             "id": "BTREQ"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over platform, architecture style and design standards"
+          }
         }
       ],
       "fields": [
@@ -20455,6 +20560,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "BAJOMA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.backgroundJob"
+            ],
+            "note": "the batch jobs the system runs and how they are managed"
           }
         }
       ],
@@ -22540,6 +22654,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "BROREQ"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "browser support required of the web client"
           }
         }
       ],
@@ -27720,6 +27843,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "CPS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cap"
+            ],
+            "note": "growth projections, peak load and scaling thresholds are capacity planning"
           }
         }
       ],
@@ -34101,6 +34233,15 @@
           "arguments": {
             "id": "CLACRE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "accessibility the client must provide"
+          }
         }
       ],
       "fields": [
@@ -34698,6 +34839,15 @@
           "arguments": {
             "id": "CCSET"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.clientConfiguration"
+            ],
+            "note": "one client configuration setting"
+          }
         }
       ],
       "fields": [
@@ -34788,6 +34938,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "CLHARE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "client hardware minimums"
           }
         }
       ],
@@ -35139,6 +35298,15 @@
           "arguments": {
             "id": "CLNERE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "network conditions the client must operate under"
+          }
         }
       ],
       "fields": [
@@ -35488,6 +35656,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "CLRESE"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node; the client entries and the three settings scopes are routed individually"
           }
         }
       ],
@@ -35917,6 +36092,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "CLSERE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "client-side security the client must enforce"
           }
         }
       ],
@@ -38452,6 +38636,15 @@
           "arguments": {
             "id": "COPA"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "one palette colour"
+          }
         }
       ],
       "fields": [
@@ -39500,6 +39693,15 @@
           "arguments": {
             "id": "COMPAT"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverCall"
+            ],
+            "note": "the call patterns between client and server components"
+          }
         }
       ],
       "fields": [
@@ -39932,6 +40134,13 @@
           "arguments": {
             "id": "COMREQ"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over protocols and external connectivity"
+          }
         }
       ],
       "fields": [
@@ -40354,6 +40563,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "CRS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops",
+              "FollowUpProcess.cmp"
+            ],
+            "note": "OS, browser, database and third-party compatibility drives the support matrix"
           }
         }
       ],
@@ -45510,6 +45729,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "COOR"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "how components are organized into service units"
           }
         }
       ],
@@ -60344,6 +60572,15 @@
           "arguments": {
             "id": "DAAR"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ],
+            "note": "the data architecture behind the data-access layer"
+          }
         }
       ],
       "fields": [
@@ -68236,6 +68473,15 @@
           "arguments": {
             "id": "DPAPS"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp"
+            ],
+            "note": "privacy regulation, residency, consent and data-subject rights"
+          }
         }
       ],
       "fields": [
@@ -74171,6 +74417,15 @@
           "arguments": {
             "id": "DELI"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "deep-link routes into the application"
+          }
         }
       ],
       "fields": [
@@ -79053,6 +79308,15 @@
           "arguments": {
             "id": "DSS"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "deployment model, environments, release and rollback are operational"
+          }
         }
       ],
       "fields": [
@@ -80080,6 +80344,15 @@
           "arguments": {
             "id": "DESIG"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "a design foundation shared by screen elements"
+          }
         }
       ],
       "fields": [
@@ -80778,6 +81051,15 @@
           "arguments": {
             "id": "DPAS"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "patterns, coding standards and conventions are development documentation"
+          }
         }
       ],
       "fields": [
@@ -81461,6 +81743,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "DEOSRE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "desktop OS support required of the client"
           }
         }
       ],
@@ -82690,6 +82981,16 @@
           "arguments": {
             "id": "DEEN"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops",
+              "FollowUpProcess.trn"
+            ],
+            "note": "IDE, build, CI/CD and onboarding setup drive tooling and enablement"
+          }
         }
       ],
       "fields": [
@@ -83361,6 +83662,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "DSSET"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.deviceSettings"
+            ],
+            "note": "one device setting"
           }
         }
       ],
@@ -84183,6 +84493,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "DIRE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "display sizes and densities the client must support"
           }
         }
       ],
@@ -89073,6 +89392,15 @@
           "arguments": {
             "id": "DOMEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.domainEnum"
+            ],
+            "note": "the registry of domain enums"
+          }
         }
       ],
       "fields": [
@@ -89177,6 +89505,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "DMEVA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.domainEnum"
+            ],
+            "note": "one value of a domain enum"
           }
         }
       ],
@@ -91632,6 +91969,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D05InteractionScenarios"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "feeds the quality/acceptance test strategy and the Phase 5 test derivation step"
           }
         }
       ],
@@ -96060,6 +96406,15 @@
           "arguments": {
             "id": "ERCRG"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "the registry of error codes"
+          }
         }
       ],
       "fields": [
@@ -96620,6 +96975,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "ERHAST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "the error-handling standard the result envelope implements"
           }
         }
       ],
@@ -99350,6 +99714,13 @@
           "arguments": {
             "text": "Seeds → XDS"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "chapter node over the experience CodeSpecs and reports"
+          }
         }
       ],
       "fields": [
@@ -99477,6 +99848,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "XCS"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node; screens, navigation and design foundations are routed individually"
           }
         }
       ],
@@ -102398,6 +102776,15 @@
           "arguments": {
             "id": "ECS"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "partner connections, cloud integrations and resilience are operational"
+          }
         }
       ],
       "fields": [
@@ -104802,6 +105189,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "FAMREF"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "a reference to a component family member"
           }
         }
       ],
@@ -114944,6 +115340,15 @@
           "arguments": {
             "id": "HNDRE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ],
+            "note": "one handling requirement constraining access to classified data"
+          }
         }
       ],
       "fields": [
@@ -115052,6 +115457,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "HR"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over server, client and network requirements"
           }
         }
       ],
@@ -119900,6 +120312,13 @@
           "arguments": {
             "documentClass": "D03InformationModel"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "chapter node; its children are routed individually because they feed different parts"
+          }
         }
       ],
       "fields": [
@@ -120102,6 +120521,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "IA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "site map, content hierarchy, navigation structure and global entry points"
           }
         }
       ],
@@ -122400,6 +122828,15 @@
           "arguments": {
             "id": "INAR"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi"
+            ],
+            "note": "the integration surface exposed and consumed as server APIs"
+          }
         }
       ],
       "fields": [
@@ -123984,6 +124421,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D05InteractionScenarios"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "each catalogued interaction seeds a client action"
           }
         }
       ],
@@ -131071,6 +131517,16 @@
           "arguments": {
             "id": "ISSS"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp",
+              "FollowUpProcess.ops"
+            ],
+            "note": "security standards, hardening and vulnerability management"
+          }
         }
       ],
       "fields": [
@@ -133503,6 +133959,15 @@
           "arguments": {
             "documentClass": "D05InteractionScenarios"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "scenario steps seed client actions"
+          }
         }
       ],
       "fields": [
@@ -134604,6 +135069,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "LAMS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "layer, module and package structure is documented; it constrains code layout rather than generating it"
           }
         }
       ],
@@ -138823,6 +139297,17 @@
           "arguments": {
             "id": "MASUSC"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action",
+              "CodeSpecPart.serverCall",
+              "CodeSpecPart.navigation"
+            ],
+            "note": "the happy path: user actions, the server calls they make and the navigation between screens"
+          }
         }
       ],
       "fields": [
@@ -140838,6 +141323,15 @@
           "arguments": {
             "id": "MWS"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "maintenance policy, windows and change management are operational"
+          }
         }
       ],
       "fields": [
@@ -142035,6 +142529,15 @@
           "arguments": {
             "id": "MSGKR"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "the registry of message keys"
+          }
         }
       ],
       "fields": [
@@ -142139,6 +142642,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "MSGLV"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "one locale variant of a message key"
           }
         }
       ],
@@ -147855,6 +148367,15 @@
           "arguments": {
             "id": "MIGTG"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.schemaMigration"
+            ],
+            "note": "one migration target schema"
+          }
         }
       ],
       "fields": [
@@ -148444,6 +148965,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "MODERE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "mobile device support required of the client"
           }
         }
       ],
@@ -149562,6 +150092,15 @@
           "arguments": {
             "id": "MONITO"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "health checks, alerting configuration, metrics, dashboards and SLO monitoring are operational"
+          }
         }
       ],
       "fields": [
@@ -149819,6 +150358,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "MAAS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "monitoring infrastructure, alerting, dashboards and incident management"
           }
         }
       ],
@@ -152193,6 +152741,15 @@
           "arguments": {
             "id": "NAAPRE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "native packaging and capabilities of the client"
+          }
         }
       ],
       "fields": [
@@ -153100,6 +153657,16 @@
           "arguments": {
             "id": "NAGU"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation",
+              "CodeSpecPart.authorization"
+            ],
+            "note": "guards gate a route on an authorization decision"
+          }
         }
       ],
       "fields": [
@@ -153224,6 +153791,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "NAHI"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "the primary navigation hierarchy"
           }
         }
       ],
@@ -153800,6 +154376,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "NAMO"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "the navigation model as a whole"
           }
         }
       ],
@@ -155143,6 +155728,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "NRS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops",
+              "FollowUpProcess.cap"
+            ],
+            "note": "network topology, bandwidth and latency drive provisioning and capacity planning"
           }
         }
       ],
@@ -160473,6 +161068,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "OPRE"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over backup, deployment, monitoring and maintenance"
           }
         }
       ],
@@ -166172,6 +166774,15 @@
           "arguments": {
             "id": "PARTI"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ],
+            "note": "one participant in a data relationship"
+          }
         }
       ],
       "fields": [
@@ -170745,6 +171356,15 @@
           "arguments": {
             "id": "PLLNG"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "target platforms, languages, toolchains and runtimes are provisioning decisions, not generated code"
+          }
         }
       ],
       "fields": [
@@ -171479,6 +172099,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "POANGU"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "success and minimal guarantees constrain what an action must leave true"
           }
         }
       ],
@@ -180493,6 +181122,13 @@
           "arguments": {
             "documentClass": "D05InteractionScenarios"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "chapter node; actors, interactions and scenarios are routed individually"
+          }
         }
       ],
       "fields": [
@@ -180696,6 +181332,13 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D05InteractionScenarios"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.overview",
+            "note": "frames scope, actor focus and notation; every fact is stated by the actor and interaction entries below"
           }
         }
       ],
@@ -183015,6 +183658,15 @@
           "arguments": {
             "id": "PASS"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "transport protocols, TLS and certificates are operational; the API-level sections inside carry their own CodeSpecs routing"
+          }
         }
       ],
       "fields": [
@@ -184622,6 +185274,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "PWRE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "progressive-web-app capabilities of the client"
           }
         }
       ],
@@ -193935,6 +194596,15 @@
           "arguments": {
             "id": "REDF"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.reporting"
+            ],
+            "note": "the report definitions"
+          }
         }
       ],
       "fields": [
@@ -199531,6 +200201,13 @@
           "arguments": {
             "id": "REQS"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "chapter node over the requirements follow-up subtree"
+          }
         }
       ],
       "fields": [
@@ -202724,6 +203401,15 @@
           "arguments": {
             "id": "RSFDE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.errorResult"
+            ],
+            "note": "one field detail carried by a result envelope"
+          }
         }
       ],
       "fields": [
@@ -203409,6 +204095,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "RCS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "the reuse catalogue and its governance are documentation"
           }
         }
       ],
@@ -204106,6 +204801,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "RUCE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "one reusable UI component"
           }
         }
       ],
@@ -213489,6 +214193,15 @@
             "noCase": [],
             "note": "Migration artifact-kind closed choice: the kind selects its promoted definition subsection — a baseline schema definition, a reference-data definition, or a schema change. Each kind authors a different thing, so every kind binds a case."
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.schemaMigration"
+            ],
+            "note": "one step of a schema migration"
+          }
         }
       ],
       "fields": [
@@ -214700,6 +215413,15 @@
           "arguments": {
             "id": "SCAC"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "the actions offered by a screen"
+          }
         }
       ],
       "fields": [
@@ -214948,6 +215670,13 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the screen inventory and its entries"
           }
         }
       ],
@@ -218270,6 +218999,15 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "the flows between screens"
+          }
         }
       ],
       "fields": [
@@ -218368,6 +219106,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "SCRINV"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout",
+              "CodeSpecPart.navigation"
+            ],
+            "note": "the inventory of screens: each entry is a layout and a navigation destination"
           }
         }
       ],
@@ -218688,6 +219436,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SCRTMP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "the screen-to-route mapping"
           }
         }
       ],
@@ -219197,6 +219954,15 @@
           "arguments": {
             "id": "SCSE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.layout"
+            ],
+            "note": "the section structure of a screen"
+          }
         }
       ],
       "fields": [
@@ -219423,6 +220189,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SCST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ],
+            "note": "the states a screen can be in"
           }
         }
       ],
@@ -219657,6 +220432,16 @@
           "arguments": {
             "id": "SUCE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization",
+              "CodeSpecPart.viewState"
+            ],
+            "note": "what a user category may see and do on a screen"
+          }
         }
       ],
       "fields": [
@@ -219723,6 +220508,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SENA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "secondary navigation surfaces"
           }
         }
       ],
@@ -220224,6 +221018,13 @@
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "chapter node over access control, audit and the security follow-ups"
+          }
         }
       ],
       "fields": [
@@ -220627,6 +221428,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "SARS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp",
+              "FollowUpProcess.acc"
+            ],
+            "note": "penetration testing, audit schedule and certification evidence"
           }
         }
       ],
@@ -225171,6 +225982,15 @@
           "arguments": {
             "id": "SCSET"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "one server configuration setting"
+          }
         }
       ],
       "fields": [
@@ -225946,6 +226766,15 @@
           "arguments": {
             "id": "SVOPR"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi"
+            ],
+            "note": "the registry of server operations"
+          }
         }
       ],
       "fields": [
@@ -226415,6 +227244,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "SRS"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops",
+              "FollowUpProcess.cap"
+            ],
+            "note": "server environments, roles and sizing drive provisioning and capacity planning"
           }
         }
       ],
@@ -232309,6 +233148,13 @@
           "arguments": {
             "id": "SDR"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over layering, development environment and reuse"
+          }
         }
       ],
       "fields": [
@@ -232746,6 +233592,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "SOAT"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "chapter node over the technical framework concept and its follow-up"
           }
         }
       ],
@@ -240535,6 +241388,15 @@
           "arguments": {
             "id": "STANIN"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org"
+            ],
+            "note": "stakeholder interests drive governance, not code"
+          }
         }
       ],
       "fields": [
@@ -240644,6 +241506,13 @@
           "arguments": {
             "id": "SSR"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over compatibility and standards compliance"
+          }
         }
       ],
       "fields": [
@@ -240733,6 +241602,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "STCOSE"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp",
+              "FollowUpProcess.doc"
+            ],
+            "note": "standards and regulatory compliance with its evidence"
           }
         }
       ],
@@ -244370,6 +245249,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "the consolidated architecture specification document"
           }
         }
       ],
@@ -249632,6 +250520,13 @@
           "arguments": {
             "id": "SO"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the administration requirements"
+          }
         }
       ],
       "fields": [
@@ -249767,6 +250662,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "SOAM"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over system operation, monitoring and capacity"
           }
         }
       ],
@@ -254285,6 +255187,13 @@
           "arguments": {
             "id": "TOMC"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "chapter node over the organization concept and the process steps"
+          }
         }
       ],
       "fields": [
@@ -256692,6 +257601,13 @@
           "arguments": {
             "id": "TECH"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "chapter node over the eight technical requirement bands below"
+          }
         }
       ],
       "fields": [
@@ -258958,6 +259874,13 @@
           "arguments": {
             "id": "TSR"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over security standards, privacy and audit"
+          }
         }
       ],
       "fields": [
@@ -259055,6 +259978,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "TEDAVA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action",
+              "CodeSpecPart.layout"
+            ],
+            "note": "data, technology, channel and accessibility variations of a step"
           }
         }
       ],
@@ -271850,6 +272783,15 @@
           "arguments": {
             "id": "TYST"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.screenElement"
+            ],
+            "note": "one typography style"
+          }
         }
       ],
       "fields": [
@@ -274878,6 +275820,15 @@
           "arguments": {
             "id": "USCAEX"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.action"
+            ],
+            "note": "alternate and exception flows seed further actions"
+          }
         }
       ],
       "fields": [
@@ -275003,6 +275954,13 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D05InteractionScenarios"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.view",
+            "note": "a traceability matrix over use-case and requirement ids declared elsewhere"
           }
         }
       ],
@@ -281135,6 +282093,15 @@
           "arguments": {
             "id": "USSET"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.userSettings"
+            ],
+            "note": "one user setting"
+          }
         }
       ],
       "fields": [
@@ -281772,6 +282739,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "UTNA"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.navigation"
+            ],
+            "note": "utility navigation surfaces"
           }
         }
       ],

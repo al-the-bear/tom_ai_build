@@ -44,6 +44,11 @@ import 'experience_and_interface_design.dart'
   'information-for-use, training) are grouped under the follow-up subtree.',
 )
 @SectionId('REQS')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'chapter node over the requirements follow-up subtree',
+)
 class Requirements extends DocSpecsSection {
   @ContentType('description', 'Summarize the functional and non-functional '
       'requirement landscape; seeds the Requirements Specification (RSP).')

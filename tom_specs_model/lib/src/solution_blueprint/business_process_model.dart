@@ -2706,6 +2706,12 @@ class ProcessRelationshipEntry extends DocSpecsSection {
 @SectionId('PSAAI')
 @Comment('Seeds → ISC')
 @MapsTo(D05InteractionScenarios)
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'chapter node; actors, interactions and scenarios are routed '
+      'individually',
+)
 class ProcessStepsAndActorInteractions extends DocSpecsSection {
   @ContentHelp('''
 Key process steps with their actor interactions. Each interaction will be
@@ -2781,6 +2787,12 @@ postconditions in the ISC (Interaction Scenarios) document.
 )
 @SectionId('PRSTOV')
 @DetailedIn(D05InteractionScenarios)
+@NoArtifact(
+  NoArtifactReason.overview,
+  note:
+      'frames scope, actor focus and notation; every fact is stated by the '
+      'actor and interaction entries below',
+)
 class ProcessStepsOverview extends DocSpecsSection {
   @Form([
     Field(
@@ -2848,6 +2860,12 @@ class ProcessStepsOverview extends DocSpecsSection {
 )
 @SectionId('ACREDI')
 @DetailedIn(D05InteractionScenarios)
+@NoArtifact(
+  NoArtifactReason.view,
+  note:
+      'a diagram over generalization and collaboration relationships already '
+      'declared on the actor entries',
+)
 class ActorRelationshipDiagram extends DocSpecsSection {
   @ContentHelp(
     'Introduce the actor landscape before the hierarchy and actor-system '
@@ -3036,6 +3054,12 @@ process recovery.
 )
 @SectionId('ETETS')
 @DetailedIn(D05InteractionScenarios)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'feeds the quality/acceptance test strategy and the Phase 5 test '
+      'derivation step',
+)
 class EndToEndTestScenario extends DocSpecsSection {
   @ContentHelp('''
 End-to-end test scenarios derived from use cases and key user journeys.
@@ -3073,6 +3097,11 @@ Feeds BQP test strategy and the Phase 5 test derivation step.
 )
 @SectionId('ACOV')
 @DetailedIn(D05InteractionScenarios)
+@NoArtifact(
+  NoArtifactReason.overview,
+  note:
+      'introduces the actor entries below; every actor fact is in ACEN',
+)
 class ActorOverview extends DocSpecsSection {
   @ContentHelp('''
 Actors represent roles that interact with the system. Following UML actor
@@ -3228,6 +3257,12 @@ modeling conventions with Cockburn-style goal and scope annotations.
   'characteristics, goals, permissions, technology and interactions.',
 )
 @SectionId('ACEN')
+@CodeSpecKind(
+  [CodeSpecPart.authorization],
+  note:
+      'an actor is the subject of authorization: its permissions seed the '
+      'role matrix',
+)
 class ActorEntry extends DocSpecsSection {
   @ContentHelp(
     'Narrative for this actor — their working context, motivation and '
@@ -3459,6 +3494,12 @@ class ActorEntry extends DocSpecsSection {
   'engage with the system.',
 )
 @SectionId('ACTCHA')
+@FollowUpKind(
+  [FollowUpProcess.trn, FollowUpProcess.org],
+  note:
+      'domain knowledge, IT proficiency and usage profile drive enablement '
+      'and org design, not code',
+)
 class ActorCharacteristics extends DocSpecsSection {
   @Form([
     Field(
@@ -3580,6 +3621,12 @@ class ActorCharacteristics extends DocSpecsSection {
   'their success measures and motivations.',
 )
 @SectionId('ACGO')
+@FollowUpKind(
+  [FollowUpProcess.org],
+  note:
+      'summary, user and subfunction goals with their success measures drive '
+      'process design',
+)
 class ActorGoals extends DocSpecsSection {
   @Form([
     Field(
@@ -3726,6 +3773,11 @@ class ActorPermissions extends DocSpecsSection {
 )
 @SectionId('INCA')
 @DetailedIn(D05InteractionScenarios)
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note:
+      'each catalogued interaction seeds a client action',
+)
 class InteractionCatalog extends DocSpecsSection {
   @ContentHelp('''
 Container for key interaction descriptions. Each interaction seeds a use case
@@ -4317,6 +4369,11 @@ class InteractionEntry extends DocSpecsSection {
   'system to protect.',
 )
 @SectionId('STANIN')
+@FollowUpKind(
+  [FollowUpProcess.org],
+  note:
+      'stakeholder interests drive governance, not code',
+)
 class StakeholdersAndInterests extends DocSpecsSection {
   @Form([
     Field(
@@ -4436,6 +4493,12 @@ class PreconditionsAndTriggers extends DocSpecsSection {
   'system and data state after the interaction.',
 )
 @SectionId('POANGU')
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note:
+      'success and minimal guarantees constrain what an action must leave '
+      'true',
+)
 class PostconditionsAndGuarantees extends DocSpecsSection {
   @Form([
     Field(
@@ -4496,6 +4559,12 @@ class PostconditionsAndGuarantees extends DocSpecsSection {
   'reaches its goal without deviation.',
 )
 @SectionId('MASUSC')
+@CodeSpecKind(
+  [CodeSpecPart.action, CodeSpecPart.serverCall, CodeSpecPart.navigation],
+  note:
+      'the happy path: user actions, the server calls they make and the '
+      'navigation between screens',
+)
 class MainSuccessScenario extends DocSpecsSection {
   @Form([
     Field(
@@ -4615,6 +4684,11 @@ class MainScenarioStepEntry extends DocSpecsSection {
   'success scenario.',
 )
 @SectionId('USCAEX')
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note:
+      'alternate and exception flows seed further actions',
+)
 class UseCaseExtensions extends DocSpecsSection {
   @Form([
     Field(
@@ -4777,6 +4851,11 @@ class ExtensionStepEntry extends DocSpecsSection {
   'which the same interaction may run.',
 )
 @SectionId('TEDAVA')
+@CodeSpecKind(
+  [CodeSpecPart.action, CodeSpecPart.layout],
+  note:
+      'data, technology, channel and accessibility variations of a step',
+)
 class TechnologyDataVariations extends DocSpecsSection {
   @Form([
     Field(
@@ -4970,6 +5049,11 @@ class InteractionBusinessRules extends DocSpecsSection {
 )
 @SectionId('KESC')
 @DetailedIn(D05InteractionScenarios)
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note:
+      'scenario steps seed client actions',
+)
 class KeyScenarios extends DocSpecsSection {
   @ContentHelp('''
 End-to-end scenario descriptions showing how users achieve business goals
@@ -5662,6 +5746,12 @@ How each business process is measured for success once in production.
 )
 @SectionId('USCATR')
 @DetailedIn(D05InteractionScenarios)
+@NoArtifact(
+  NoArtifactReason.view,
+  note:
+      'a traceability matrix over use-case and requirement ids declared '
+      'elsewhere',
+)
 class UseCaseTraceability extends DocSpecsSection {
   @ContentHelp('''
 Traceability matrix linking use cases to requirements, processes, and

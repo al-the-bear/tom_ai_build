@@ -32,6 +32,11 @@ import 'business_process_model.dart';
   'processes will work once the solution is in place.',
 )
 @SectionId('TOMC')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'chapter node over the organization concept and the process steps',
+)
 class TargetOperatingModel extends DocSpecsSection {
   @Unused()
   @override

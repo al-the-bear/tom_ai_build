@@ -30,6 +30,11 @@ import 'components_and_dependencies.dart';
   'follow-up subtree).',
 )
 @SectionId('SOAT')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'chapter node over the technical framework concept and its follow-up',
+)
 class SolutionArchitectureAndTechnology extends DocSpecsSection {
   @Unused()
   @override

@@ -1431,12 +1431,14 @@ enforceable rather than aspirational.
     (§8.1). This is the half of rule 4 that source alone cannot show: a
     self-naming field and a legitimate one are written identically. The rule's
     **id** half is deliberately not checked — see below and §8.2.
-11. **`KIND-EXCLUSIVE`** — **`@CodeSpecKind` / `@FollowUpKind` mutual exclusion** — no class carries
-    both. `@FollowUpKind` marks a subtree *root*, and `codespecs_mapping.md`
+11. **`KIND-EXCLUSIVE`** — **Routing-verdict mutual exclusion** — no class carries
+    more than one of `@CodeSpecKind`, `@FollowUpKind` and `@NoArtifact`.
+    `@FollowUpKind` marks a subtree *root*, and `codespecs_mapping.md`
     §4.3 rules that only a section which must become a generation-projection
     root is hoisted out of a follow-up subtree; so a follow-up root is never
-    itself generated, and a class claiming to be both is the one shape the
-    CodeSpecs / follow-up split cannot express.
+    itself generated. `@NoArtifact` says the section feeds nothing at all. A
+    class claiming two of the three is the one shape the CodeSpecs / follow-up
+    split cannot express.
 12. **`PART-ROUTED`** — **Per-part generation routing** — every *active* `CodeSpecPart` named by any
     `@CodeSpecKind` has at least one **bearer** reachable from a
     `@CodeSpecsProjection()` root. This is what makes a `@CodeSpecKind` *inside*
@@ -1497,13 +1499,27 @@ enforceable rather than aspirational.
     `noCase`, an attribute-free kind and a forgotten one are indistinguishable
     and the coverage warning has to fire for both, which is how the model came
     to carry six standing warnings that every reader had to re-derive as benign.
+17. **`ROUTE-TOTAL`** — **Routing totality** (`codespecs_mapping.md` §8.3) — every
+    `@SectionId`-carrying class reachable from a specification root carries a
+    routing verdict: a `@CodeSpecKind`, a `@NoArtifact`, or membership of some
+    `@FollowUpKind` subtree. This is the converse of `PART-ROUTED`, and the two
+    together are what make the mapping *two-directional*: `PART-ROUTED` says
+    nothing claimed goes ungenerated, `ROUTE-TOTAL` says nothing is silently
+    left out. It is load-bearing for Phase 4 — the extract generator walks
+    `@CodeSpecKind` to decide what lands in which area's extract, so a section
+    routed nowhere is a section the agent writing that area never sees. Before
+    `@NoArtifact` existed the check was not expressible: "decided to feed
+    nothing" and "nobody got round to it" were written identically, so the
+    absence of a marker could not be read as a defect. The `@Document` roots
+    are exempt structurally — a root is the document, not a section of it, and
+    has no content of its own to route.
 
 **Deliberately not an invariant:** *"a `@CodeSpecKind`-bearing class must itself
-be reachable from the generation projection."* The model has 65 counterexamples
-across six of its 18 follow-up roots, and `codespecs_mapping.md` §4.3 rules them
+be reachable from the generation projection."* The model has 64 counterexamples
+across 13 of its 45 follow-up roots, and `codespecs_mapping.md` §4.3 rules them
 legitimate — enforcing it would forbid a follow-up process from recording which
-part it produces material for. Invariants `KIND-EXCLUSIVE` and `PART-ROUTED`
-are what that rule was reaching for, stated so that they hold.
+part it produces material for. Invariants `KIND-EXCLUSIVE`, `PART-ROUTED` and
+`ROUTE-TOTAL` are what that rule was reaching for, stated so that they hold.
 
 **Deliberately not an invariant:** *"no list entry restates its own section id"*
 — the **id** half of §8 rule 4, the counterpart of invariant
