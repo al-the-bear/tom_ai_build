@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "spec_paths.h"
+#include "spec_serialization_order.h"
 
 #define K_ASTERISK 0x2A /* * */
 #define K_SLASH 0x2F    /* / */
@@ -192,12 +193,13 @@ static const char *headline_of(const SpecQueryEngine *e,
  * leaf, scalar list item, every form field), then the node's headline.
  *
  * Form fields are walked in the model's **declaration order**, not the
- * document's storage order. The Dart reference iterates the document's own
- * (insertion-ordered) map; this runtime keeps its stores byte-sorted for
- * codec stability, so following the store would reorder the index. Declaration
- * order is what the corpus records and is the only order every port can agree
- * on. Any field held by the document but absent from the model follows,
- * byte-sorted, so nothing stored goes unindexed. */
+ * document's storage order (SOM §9, "Form-field order"). This runtime keeps its
+ * stores byte-sorted for codec stability and the reference's is
+ * insertion-ordered, so following either would make the snippet a property of
+ * the runtime rather than of the document. The order comes from the model,
+ * through the module's single answer to "in what order do this form's fields
+ * go". Any field held by the document but absent from the model follows,
+ * sorted, so nothing stored goes unindexed. */
 static void searchable_strings(const SpecQueryEngine *e,
                                const SpecResolution *r, SomStrList *out) {
   som_strlist_init(out);
@@ -213,31 +215,18 @@ static void searchable_strings(const SpecQueryEngine *e,
   } else if (strcmp(r->kind, SPEC_NODE_KIND_FORM) == 0) {
     SomStrList stored;
     spec_document_form_field_names(e->document, path, &stored);
-    SomStrList seen;
-    som_strlist_init(&seen);
-    if (r->field != NULL) {
-      size_t i;
-      for (i = 0; i < r->field->form_fields_len; i++) {
-        const char *name = r->field->form_fields[i].name;
-        const char *value = spec_document_form_field(e->document, path, name);
-        som_strlist_push_copy(&seen, name);
-        if (value != NULL) {
-          som_strlist_push_copy(out, value);
-        }
-      }
-    }
+    SpecSerializationOrder order = spec_serialization_order_make(e->model);
+    SomStrList ordered;
+    spec_serialization_order_form_fields(&order, path, &stored, &ordered);
     size_t i;
-    for (i = 0; i < stored.len; i++) {
-      if (som_strlist_contains(&seen, stored.items[i])) {
-        continue;
-      }
+    for (i = 0; i < ordered.len; i++) {
       const char *value =
-          spec_document_form_field(e->document, path, stored.items[i]);
+          spec_document_form_field(e->document, path, ordered.items[i]);
       if (value != NULL) {
         som_strlist_push_copy(out, value);
       }
     }
-    som_strlist_free(&seen);
+    som_strlist_free(&ordered);
     som_strlist_free(&stored);
   }
   /* Container nodes (root / complex / section / list / complex list item) carry

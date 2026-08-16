@@ -908,13 +908,13 @@ function testDocSpecs(): void {
  * The §9 fixture document, built imperatively — the port of the Dart
  * reference's `_buildDocument()`.
  *
- * It is **not** loaded from `state.json`, and it cannot be: a form node's
- * `searchableStrings` are its form-field values in **insertion** order
- * (`SpecDocument.formFieldNames`), and `state.json` serialises form maps with
- * *sorted* keys. Reloading it would index `DEMO/DET` as
- * `active, contact, estimate, owner, priority, weight` where the corpus pins
- * `owner, contact, estimate, weight, active, priority`. So the fixture is
- * rebuilt in the same order the reference wrote it;
+ * It is **not** loaded from `state.json`, and that is the point: `toJson`
+ * sorts every store, so a reloaded document would hold `DEMO/DET` in
+ * alphabetical order and a port that iterated the store would look right for
+ * the wrong reason. Form fields are emitted in **model-declaration** order
+ * (SOM §9, "Form-field order"), so the populate order below is deliberately
+ * neither declaration order nor alphabetical — a port that follows its store
+ * picks a different snippet and fails `projection_cases.json`.
  * {@link testQueryFixtureMatchesState} pins that the rebuild is otherwise the
  * committed state.
  */
@@ -924,12 +924,13 @@ function _buildFixtureDocument(): SpecDocument {
   d.setContent('DEMO/SUM', 'Line one\nLine two\n\nLine four');
   d.setContent('DEMO/PRI', 'high');
   d.setContent('DEMO/CNT', '3');
-  d.setFormField('DEMO/DET', 'owner', 'Bob');
-  d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
-  d.setFormField('DEMO/DET', 'estimate', '8');
-  d.setFormField('DEMO/DET', 'weight', '2.5');
-  d.setFormField('DEMO/DET', 'active', 'true');
+  // Scrambled on purpose — see the doc comment. Do not "tidy" into order.
   d.setFormField('DEMO/DET', 'priority', 'high');
+  d.setFormField('DEMO/DET', 'weight', '2.5');
+  d.setFormField('DEMO/DET', 'owner', 'Bob');
+  d.setFormField('DEMO/DET', 'active', 'true');
+  d.setFormField('DEMO/DET', 'estimate', '8');
+  d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
   const i1 = d.addListItem('DEMO/items');
   d.setContent(`${i1}/label`, 'First');
   d.setContent(`${i1}/STS`, 'open');

@@ -31,6 +31,7 @@ import { SpecClass, SpecField, SpecFieldKind, SpecModel } from './spec_model';
 import { specPathJoin, specPathSegments, splitListItemSegment } from './spec_paths';
 import { SpecNodeKind, SpecReflection, SpecResolution } from './spec_reflection';
 import type { SpecNodeKindValue } from './spec_reflection';
+import { SpecSerializationOrder } from './spec_serialization_order';
 import { SomTextPattern, SpecMatchSpan } from './spec_text_pattern';
 
 /** Whether a node currently holds a value, used by the `state` dimension. */
@@ -271,10 +272,14 @@ export class SpecQueryEngine {
 
   private _reflection: SpecReflection;
 
+  /** Model-declaration ordering for form fields — see `_searchableStrings`. */
+  private _order: SpecSerializationOrder;
+
   constructor(model: SpecModel, document: SpecDocument) {
     this.model = model;
     this.document = document;
     this._reflection = new SpecReflection(model);
+    this._order = new SpecSerializationOrder(model);
   }
 
   /**
@@ -539,6 +544,14 @@ export class SpecQueryEngine {
    * The strings a `text` query searches at `resolution`: stored values first
    * (content leaf, scalar list item, every form field), then the node's
    * headline.
+   *
+   * Form fields are yielded in **model declaration order** (SOM §9,
+   * "Form-field order"), never in the document's storage order, via
+   * `SpecSerializationOrder.orderFormFields`. The order is observable: it
+   * decides which string a `text` query reports as its snippet, and it is
+   * pinned verbatim by `projection_cases.json`. A field the document holds but
+   * the model does not declare is still yielded — dropping a stored value from
+   * a text search would hide it — but last and sorted.
    */
   private *_searchableStrings(resolution: SpecResolution): Generator<string> {
     const path = resolution.path;
@@ -554,7 +567,10 @@ export class SpecQueryEngine {
         break;
       }
       case SpecNodeKind.FORM:
-        for (const name of this.document.formFieldNames(path)) {
+        for (const name of this._order.orderFormFields(
+          path,
+          this.document.formFieldNames(path),
+        )) {
           const value = this.document.formField(path, name);
           if (value !== null) {
             yield value;

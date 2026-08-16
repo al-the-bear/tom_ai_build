@@ -2,6 +2,7 @@
 #include "spec_query.hpp"
 
 #include "spec_paths.hpp"
+#include "spec_serialization_order.hpp"
 
 namespace som {
 namespace {
@@ -284,36 +285,17 @@ std::vector<std::string> SpecQueryEngine::searchableStrings(
       out.push_back(*value);
     }
   } else if (r.kind == kSpecNodeKindForm) {
-    /* Dart iterates `document.formFieldNames(path)`, whose order is the order
-     * the author called `setFormField` in. C++'s store is a byte-sorted
-     * std::map, so reproducing that literally would reorder the snippets. The
-     * *model* carries the only order that is a property of the document rather
-     * than of how it happened to be built — the field's declaration order — and
-     * that is what the corpus records, so it is what is replayed here. Stored
-     * names the model does not declare keep their (byte-sorted) store order at
-     * the end, since nothing else orders them. */
-    std::vector<std::string> stored = document_->formFieldNames(path);
-    std::vector<bool> taken(stored.size(), false);
-    if (r.field != nullptr) {
-      for (const FormFieldSpec& spec : r.field->formFields) {
-        for (std::size_t i = 0; i < stored.size(); i++) {
-          if (taken[i] || stored[i] != spec.name) {
-            continue;
-          }
-          taken[i] = true;
-          const std::string* value = document_->formFieldOpt(path, stored[i]);
-          if (value != nullptr) {
-            out.push_back(*value);
-          }
-          break;
-        }
-      }
-    }
-    for (std::size_t i = 0; i < stored.size(); i++) {
-      if (taken[i]) {
-        continue;
-      }
-      const std::string* value = document_->formFieldOpt(path, stored[i]);
+    /* Model declaration order, not store order — SOM §9, "Form-field order".
+     * The store here is a byte-sorted std::map, and the reference's is
+     * insertion-ordered, so following either would make the snippet a property
+     * of the runtime rather than of the document. The order comes from the
+     * model, through the package's single answer to "in what order do this
+     * form's fields go" — the borrowing wrapper is free to build here. Names
+     * the model does not declare follow, sorted. */
+    const SpecSerializationOrder order(*model_);
+    for (const std::string& name :
+         order.orderFormFields(path, document_->formFieldNames(path))) {
+      const std::string* value = document_->formFieldOpt(path, name);
       if (value != nullptr) {
         out.push_back(*value);
       }

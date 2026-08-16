@@ -31,6 +31,7 @@
 const { SpecFieldKind } = require('./spec_model');
 const { specPathJoin, specPathSegments, splitListItemSegment } = require('./spec_paths');
 const { SpecNodeKind, SpecReflection } = require('./spec_reflection');
+const { SpecSerializationOrder } = require('./spec_serialization_order');
 const { SomTextPattern } = require('./spec_text_pattern');
 
 /** Whether a node currently holds a value, used by the `state` dimension. */
@@ -219,6 +220,8 @@ class SpecQueryEngine {
     /** The live document whose values are searched. */
     this.document = document;
     this._reflection = new SpecReflection(model);
+    /** Model-declaration ordering for form fields — see `_searchableStrings`. */
+    this._order = new SpecSerializationOrder(model);
   }
 
   /**
@@ -500,6 +503,14 @@ class SpecQueryEngine {
    * (content leaf, scalar list item, every form field), then the node's
    * headline.
    *
+   * Form fields are yielded in **model declaration order** (SOM §9,
+   * "Form-field order"), never in the document's storage order, via
+   * `SpecSerializationOrder.orderFormFields`. The order is observable: it
+   * decides which string a `text` query reports as its snippet, and it is
+   * pinned verbatim by `projection_cases.json`. A field the document holds but
+   * the model does not declare is still yielded — dropping a stored value from
+   * a text search would hide it — but last and sorted.
+   *
    * @param {import('./spec_reflection').SpecResolution} resolution
    * @returns {Generator<string>}
    */
@@ -517,7 +528,10 @@ class SpecQueryEngine {
         break;
       }
       case SpecNodeKind.FORM:
-        for (const name of this.document.formFieldNames(path)) {
+        for (const name of this._order.orderFormFields(
+          path,
+          this.document.formFieldNames(path),
+        )) {
           const value = this.document.formField(path, name);
           if (value !== null) {
             yield value;

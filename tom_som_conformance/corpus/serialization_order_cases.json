@@ -66,11 +66,15 @@
   ],
   "formPath": "DEMO/HEAD",
   "formFields": [
+    "zzz",
     "author",
+    "aaa",
     "title"
   ],
   "expectedFormOrder": [
     "title",
-    "author"
+    "author",
+    "aaa",
+    "zzz"
   ]
 }

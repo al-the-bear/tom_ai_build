@@ -37,6 +37,7 @@ from .spec_document import SpecDocument
 from .spec_model import SpecClass, SpecFieldKind, SpecModel
 from .spec_paths import spec_path_join, spec_path_segments, split_list_item_segment
 from .spec_reflection import SpecNodeKind, SpecReflection, SpecResolution
+from .spec_serialization_order import SpecSerializationOrder
 from .spec_text_pattern import SomTextPattern, SpecMatchSpan
 
 
@@ -166,6 +167,9 @@ class SpecQueryEngine:
         #: The live document whose values are searched.
         self.document = document
         self._reflection = SpecReflection(model)
+        #: Model-declaration ordering for form fields — see
+        #: :meth:`_searchable_strings`.
+        self._order = SpecSerializationOrder(model)
 
     def query(self, query: SpecQuery) -> "SpecQueryCursor":
         """Builds a cursor over the nodes matching *query*. The structural
@@ -373,7 +377,16 @@ class SpecQueryEngine:
     def _searchable_strings(self, resolution: SpecResolution) -> Iterator[str]:
         """The strings a ``text`` query searches at *resolution*: stored values
         first (content leaf, scalar list item, every form field), then the node's
-        headline."""
+        headline.
+
+        Form fields are yielded in **model declaration order** (SOM §9,
+        "Form-field order"), never in the document's storage order, via
+        :meth:`SpecSerializationOrder.order_form_fields`. The order is
+        observable: it decides which string a ``text`` query reports as its
+        snippet, and it is pinned verbatim by ``projection_cases.json``. A field
+        the document holds but the model does not declare is still yielded —
+        dropping a stored value from a text search would hide it — but last and
+        sorted."""
         path = resolution.path
         if resolution.kind in (
             SpecNodeKind.CONTENT,
@@ -385,7 +398,9 @@ class SpecQueryEngine:
             if value is not None:
                 yield value
         elif resolution.kind == SpecNodeKind.FORM:
-            for name in list(self.document.form_field_names(path)):
+            for name in self._order.order_form_fields(
+                path, self.document.form_field_names(path)
+            ):
                 value = self.document.form_field(path, name)
                 if value is not None:
                     yield value

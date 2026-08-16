@@ -28,6 +28,7 @@ import 'spec_document.dart';
 import 'spec_model.dart';
 import 'spec_paths.dart';
 import 'spec_reflection.dart';
+import 'spec_serialization_order.dart';
 import 'spec_text_pattern.dart';
 
 /// Whether a node currently holds a value, used by the `state` dimension.
@@ -206,8 +207,12 @@ class SpecQueryEngine {
 
   final SpecReflection _reflection;
 
+  /// Model-declaration ordering for form fields — see [_searchableStrings].
+  final SpecSerializationOrder _order;
+
   SpecQueryEngine({required this.model, required this.document})
-      : _reflection = SpecReflection(model);
+      : _reflection = SpecReflection(model),
+        _order = SpecSerializationOrder(model);
 
   /// Builds a cursor over the nodes matching [query]. The structural candidate
   /// set is computed now (document order); value-dependent filters and path
@@ -410,14 +415,12 @@ class SpecQueryEngine {
   /// (content leaf, scalar list item, every form field), then the node's
   /// headline.
   ///
-  /// Form fields are yielded in **model declaration order**, never in the
-  /// document's storage order. The order is observable — it decides which
-  /// string a `text` query reports as its snippet, and it is pinned verbatim by
-  /// `projection_cases.json` — so it has to be a property of the model, which
-  /// all nine runtimes hold identically. Storage order is not: the same
-  /// document reaches memory field-by-field when it is authored but
-  /// alphabetically when it is loaded from `state.json`, which would make the
-  /// projection depend on how the document arrived.
+  /// Form fields are yielded in **model declaration order** (SOM §9,
+  /// "Form-field order"), never in the document's storage order, via
+  /// [SpecSerializationOrder.orderFormFields] — the one implementation of that
+  /// rule on this side of the runtime. The order is observable: it decides
+  /// which string a `text` query reports as its snippet, and it is pinned
+  /// verbatim by `projection_cases.json`.
   ///
   /// A field the document holds but the model does not declare is still
   /// yielded — dropping a stored value from a text search would hide it — but
@@ -433,7 +436,8 @@ class SpecQueryEngine {
         final value = document.content(path);
         if (value != null) yield value;
       case SpecNodeKind.form:
-        for (final name in _formFieldOrder(resolution)) {
+        for (final name
+            in _order.orderFormFields(path, document.formFieldNames(path))) {
           final value = document.formField(path, name);
           if (value != null) yield value;
         }
@@ -446,25 +450,6 @@ class SpecQueryEngine {
     }
     final headline = _headlineOf(resolution);
     if (headline != null) yield headline;
-  }
-
-  /// The form-field names at [resolution], model-declared ones first in
-  /// declaration order, then any the document holds but the model does not
-  /// declare, sorted. See [_searchableStrings] for why the order is fixed here
-  /// rather than taken from the document.
-  Iterable<String> _formFieldOrder(SpecResolution resolution) sync* {
-    final declared = resolution.field?.formFields ?? const <FormFieldSpec>[];
-    final seen = <String>{};
-    for (final ff in declared) {
-      seen.add(ff.name);
-      yield ff.name;
-    }
-    final extra = document
-        .formFieldNames(resolution.path)
-        .where((n) => !seen.contains(n))
-        .toList()
-      ..sort();
-    yield* extra;
   }
 
   SomTextPattern _patternFor(SpecQuery query) => query.regex

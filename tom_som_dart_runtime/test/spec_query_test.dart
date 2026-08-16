@@ -271,11 +271,12 @@ void main() {
   });
 
   group('form-field order is the model\'s, not the document\'s', () {
-    // The order is observable — it decides the snippet a text query reports,
-    // and `projection_cases.json` pins it verbatim across nine runtimes. Taking
-    // it from the document would make it depend on how the document arrived:
-    // authored field-by-field it is insertion order, loaded from `state.json`
-    // it is alphabetical. Only the model is the same everywhere.
+    // SOM §9, "Form-field order". The order is observable — it decides the
+    // snippet a text query reports, and `projection_cases.json` pins it
+    // verbatim across nine runtimes. Taking it from the document would make it
+    // depend on how the document arrived: authored field-by-field it is
+    // insertion order, loaded from `state.json` it is alphabetical. Only the
+    // model is the same everywhere.
     test('a form populated in reverse still projects in declaration order', () {
       final reversed = SpecDocument();
       reversed.setFormField('PD00/PD00-OWN', 'role', 'Product Owner');

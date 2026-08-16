@@ -50,10 +50,14 @@ public final class SpecQueryEngine {
 
   private final SpecReflection reflection;
 
+  /** Model-declaration ordering for form fields — see {@code searchableStrings}. */
+  private final SpecSerializationOrder order;
+
   public SpecQueryEngine(SpecModel model, SpecDocument document) {
     this.model = model;
     this.document = document;
     this.reflection = new SpecReflection(model);
+    this.order = new SpecSerializationOrder(model);
   }
 
   /**
@@ -297,6 +301,14 @@ public final class SpecQueryEngine {
    * The strings a {@code text} query searches at {@code resolution}: stored values
    * first (content leaf, scalar list item, every form field), then the node's
    * headline.
+   *
+   * <p>Form fields are yielded in <b>model declaration order</b> (SOM §9,
+   * "Form-field order"), never in the document's storage order, via
+   * {@link SpecSerializationOrder#orderFormFields}. The order is observable: it
+   * decides which string a {@code text} query reports as its snippet, and it is
+   * pinned verbatim by {@code projection_cases.json}. A field the document holds
+   * but the model does not declare is still yielded — dropping a stored value
+   * from a text search would hide it — but last and sorted.
    */
   private List<String> searchableStrings(SpecResolution resolution) {
     List<String> out = new ArrayList<>();
@@ -313,7 +325,7 @@ public final class SpecQueryEngine {
         break;
       }
       case FORM:
-        for (String name : document.formFieldNames(path)) {
+        for (String name : order.orderFormFields(path, document.formFieldNames(path))) {
           String value = document.formField(path, name);
           if (value != null) {
             out.add(value);

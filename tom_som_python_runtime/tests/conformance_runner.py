@@ -132,25 +132,28 @@ def _build_document() -> SpecDocument:
     the Dart harness's ``_buildDocument()``.
 
     Built through the public mutation API rather than loaded from
-    ``state.json``, because the two agree as *stores* but not as *orders*: a
-    reloaded document iterates each form's fields in the file's sorted key
-    order, whereas the built one keeps the author's insertion order — and both
-    ``SpecNodeProjection.searchable_strings`` and the snippet a text query
-    reports are order-sensitive. ``test_build_document_matches_state`` pins the
-    two together so this transcription cannot drift from the corpus.
+    ``state.json`` so that the store's own order is *wrong* in a detectable
+    way. Form fields are emitted in model-declaration order (SOM §9,
+    "Form-field order"), so the populate order below is deliberately neither
+    that nor the file's sorted order: a port that iterated the store would pick
+    a different snippet and fail ``projection_cases.json``, which is exactly
+    what this fixture exists to catch. ``test_build_document_matches_state``
+    pins the built document against the corpus store, so the transcription
+    cannot drift.
     """
     d = SpecDocument()
     d.set_content("DEMO/TTL", "Hello")
     d.set_content("DEMO/SUM", "Line one\nLine two\n\nLine four")
     d.set_content("DEMO/PRI", "high")
     d.set_content("DEMO/CNT", "3")
-    d.set_form_field("DEMO/DET", "owner", "Bob")
-    d.set_form_field("DEMO/DET", "contact", "bob@example.com")
+    # Scrambled on purpose — see the docstring. Do not "tidy" into order.
     # YRD7: typed form-field values in their canonical plain-text store form.
-    d.set_form_field("DEMO/DET", "estimate", "8")
-    d.set_form_field("DEMO/DET", "weight", "2.5")
-    d.set_form_field("DEMO/DET", "active", "true")
     d.set_form_field("DEMO/DET", "priority", "high")
+    d.set_form_field("DEMO/DET", "weight", "2.5")
+    d.set_form_field("DEMO/DET", "owner", "Bob")
+    d.set_form_field("DEMO/DET", "active", "true")
+    d.set_form_field("DEMO/DET", "estimate", "8")
+    d.set_form_field("DEMO/DET", "contact", "bob@example.com")
     i1 = d.add_list_item("DEMO/items")
     d.set_content(f"{i1}/label", "First")
     d.set_content(f"{i1}/STS", "open")

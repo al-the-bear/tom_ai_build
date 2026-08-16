@@ -28,7 +28,7 @@
 //!
 //! ## Rust deviations from the reference
 //!
-//! Three, all forced by the language and none of them semantic:
+//! Two, both forced by the language and neither of them semantic:
 //!
 //!   * **The cursor does not hold the engine.** Dart's cursor keeps a reference
 //!     to the engine and re-reads the *mutating* document through it; Rust
@@ -43,13 +43,14 @@
 //!     and `section_id_prefix: Some("")` are meaningful queries distinct from
 //!     unset — and the corpus contract is explicitly that an absent key means
 //!     "dimension unset", never a default that happens to match.
-//!   * **Form-field values are read in model-declaration order.** The reference
-//!     iterates `SpecDocument.formFieldNames`, which in Dart is insertion
-//!     ordered; this crate's store is a `BTreeMap`, so the same call yields
-//!     alphabetical order and `searchable_strings` would report a different
-//!     sequence. Declaration order is the one order every runtime can agree on
-//!     from the model alone, so the walk goes through
-//!     [`SpecSerializationOrder::order_form_fields`].
+//!
+//! One rule is worth naming here even though it is **not** a deviation:
+//! form-field values are read in **model-declaration order** (SOM §9,
+//! "Form-field order"), never in the store's. It bites hardest in this crate,
+//! whose store is a `BTreeMap`: `form_field_names` yields alphabetical order, so
+//! a walk that followed it would report a different snippet sequence from every
+//! other runtime for the same values. The walk goes through
+//! [`SpecSerializationOrder::order_form_fields`].
 //!
 //! Compiling a pattern can fail, so [`SpecQueryEngine::query`] returns
 //! `Result<_, SomPatternError>` where the Dart reference throws.
@@ -564,7 +565,7 @@ impl<'d, 'm> SpecQueryEngine<'d, 'm> {
             }
             SPEC_NODE_KIND_FORM => {
                 // Model-declaration order, not store order — see the module
-                // comment's third deviation.
+                // comment's form-field note.
                 let stored = self.document.form_field_names(path);
                 for name in self.order.order_form_fields(path, &stored) {
                     if let Some(value) = self.document.form_field(path, &name) {

@@ -512,6 +512,10 @@ language mirrors it:
 - `spec_text_pattern.dart` — `SomTextPattern`, the **portable pattern subset**
   the query facility matches with (below). Hand-written in each language rather
   than delegated to the platform regex engine.
+- `spec_serialization_order.dart` — `SpecSerializationOrder`, the model-aware
+  orderings: `orderKey`/`orderPaths` put a class's members in
+  `@SerializationOrder` order, and `orderFormFields` puts a form's fields in
+  declaration order (below).
 - `spec_query.dart` — the query facility (§15).
 - `spec_node_creation.dart` — the constrained-creation gate (§15).
 
@@ -523,6 +527,42 @@ graph (`tom_specs_editor_specification.md` §4.4). They stay dependency-free of
 any UI framework like the rest of the runtime, but they are **not part of the
 mirrored surface**: no other language ships them, because no other language has
 a renderer to keep aligned.
+
+### Form-field order
+
+**A `@Form`'s fields are emitted in model declaration order**, at every site that
+emits an order: the md form block (§11.4), the yaml form mapping (§12), and the
+query tier's snippet projection (below). Fields the document holds but the model
+does not declare follow, **sorted** — so an undeclared field cannot make the
+order arbitrary either.
+
+The order has to be **chosen**, never inherited from the store.
+`SpecDocument.formFieldNames` is an unordered snapshot of the live form map:
+insertion order in the runtimes whose map preserves it, byte order in those that
+sort, and a deliberately randomised order in Go. An emitter that iterates it
+therefore reports an order that depends on **how the document arrived** rather
+than on what it holds — the same document reaches memory field-by-field when it
+is authored, but alphabetically when it is loaded from a saved state. The
+declaration is the only ordering all nine runtimes hold identically, and it is
+observable: it decides which string a `text` query reports as its snippet, and
+which line comes first in an exported form block.
+
+One rule, two implementations per runtime, because the two tiers walk different
+substrates: the codecs order by `SomFormMeta.fields` (the metadata tree, §7) and
+the query tier by `SpecSerializationOrder.orderFormFields` (the reflection model,
+above). Both are declaration order because both read the same declaration.
+
+`toJson` is the one deliberate exception, and it is not a counter-example: it is
+a **persistence** shape whose only ordering requirement is a stable diff, so it
+sorts every store alphabetically, form fields included. It is read back through
+the model, never by a reader for whom field order is content.
+
+What happens to an *undeclared* stored field beyond its position is each
+format's own business, and the three answers differ by design: yaml refuses the
+document (§12.8 — a value the model cannot place is an error, never a silent
+drop), md omits it (its walk is meta-driven and never enumerates the store), and
+the query tier projects it, because dropping a stored value from a text search
+would hide it from the one facility whose job is to find it.
 
 ### The query tier
 
@@ -562,15 +602,11 @@ field's doc comment, then the class's, then the root description. A runtime that
 stops at the first two answers identically on every populated document and
 differently on an empty one.
 
-**Form fields project in model declaration order.** The order is observable — it
-decides which string a text query reports as its snippet — so it has to be a
-property of the model, which all nine runtimes hold identically. Storage order is
-not: the same document reaches memory field-by-field when authored but
-alphabetically when loaded from a saved state, which would make the projection
-depend on how the document arrived. A field the document holds but the model
-does not declare is still projected (dropping a stored value from a text search
-would hide it) but **last and sorted**, so an undeclared field cannot make the
-order arbitrary either.
+**Form fields project in model declaration order** — the shared rule above,
+reached here through `SpecSerializationOrder.orderFormFields`. It matters at this
+tier because the projection order decides which string a `text` query reports as
+its snippet: a runtime that iterated the store would answer the same query with a
+different snippet on a document that holds exactly the same values.
 
 ### The instance tier
 
@@ -791,9 +827,9 @@ ApprovedBy: Programme Sponsor
 ReviewCount: 3
 ```
 
-1. One `FieldName: value` group per populated field, in `@Form` order; the
-   label is the field name with the first letter upper-cased; parse matching
-   is case-insensitive.
+1. One `FieldName: value` group per populated field, in **model declaration
+   order** (§9, "Form-field order"); the label is the field name with the first
+   letter upper-cased; parse matching is case-insensitive.
 2. Multi-line values run until the next `Fieldname:` line or the section end.
 3. A value line that would mis-split as a field label is prefixed with a
    single space on emit (DocSpecs trims leading whitespace — lossless).
@@ -958,7 +994,8 @@ path segment is the bare `introductionAndScope`.
 
 1. **Nesting = structure.** Children are nested mappings under their key.
 2. **Sibling order** is `@SerializationOrder` order (list items by sequence);
-   emission is sparse.
+   emission is sparse. A form's field sub-keys are not siblings in that sense —
+   they follow **model declaration order** (§9, "Form-field order").
 3. **Values** are YAML scalars per §12.4/§12.5.
 4. The tree carries no paths; the runtime reconstructs paths by walking keys
    against the metadata tree. A key that does not match the tree at its

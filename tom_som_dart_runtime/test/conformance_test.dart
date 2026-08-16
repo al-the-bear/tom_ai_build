@@ -1472,16 +1472,26 @@ SpecDocument _buildDocument() {
   d.setContent('DEMO/SUM', 'Line one\nLine two\n\nLine four');
   d.setContent('DEMO/PRI', 'high');
   d.setContent('DEMO/CNT', '3');
-  d.setFormField('DEMO/DET', 'owner', 'Bob');
-  d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
+  // The *populate* order here is deliberately neither the model's declaration
+  // order (owner, contact, estimate, weight, tally, active, priority) nor
+  // alphabetical (active, contact, estimate, owner, priority, weight). Keeping
+  // the three distinct is the fixture's only defence against a runtime that
+  // emits a form in whatever order its store happens to hold: the md/yaml
+  // goldens and `projection_cases.json` pin declaration order, `state.json`
+  // pins alphabetical, and a port that iterates its store now agrees with
+  // neither. When the three coincided, four ports read the store and passed.
+  // See SOM §9, "Form-field order". Do not "tidy" this back into order.
+  //
   // YRD7: typed form-field values in their canonical plain-text store form —
   // exactly the strings somFormatInt(8) / somFormatDouble(2.5) /
   // somFormatBool(true) / somFormatEnumName('high', …) produce, so the yaml/md
   // goldens pin the typed fields' serialization as ordinary `FieldName: value`.
-  d.setFormField('DEMO/DET', 'estimate', '8');
-  d.setFormField('DEMO/DET', 'weight', '2.5');
-  d.setFormField('DEMO/DET', 'active', 'true');
   d.setFormField('DEMO/DET', 'priority', 'high');
+  d.setFormField('DEMO/DET', 'weight', '2.5');
+  d.setFormField('DEMO/DET', 'owner', 'Bob');
+  d.setFormField('DEMO/DET', 'active', 'true');
+  d.setFormField('DEMO/DET', 'estimate', '8');
+  d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
   final i1 = d.addListItem('DEMO/items');
   d.setContent('$i1/label', 'First');
   d.setContent('$i1/STS', 'open');
@@ -2975,7 +2985,12 @@ Map<String, dynamic> _serializationOrderCase() {
   final model = SpecModel.fromJson(meta);
   final order = SpecSerializationOrder(model);
   const contentPaths = ['DEMO/ALPHA', 'DEMO/MID', 'DEMO/ZETA'];
-  const formFields = ['author', 'title'];
+  // Declared out of declaration order, and interleaved with two names the
+  // model does not declare: one case exercises both halves of the rule —
+  // declared fields by position, undeclared ones after and alphabetically
+  // (SOM §9, "Form-field order"). Without the undeclared pair, a port that
+  // simply dropped what it could not place would pass.
+  const formFields = ['zzz', 'author', 'aaa', 'title'];
   return {
     'model': meta,
     'contentPaths': contentPaths,

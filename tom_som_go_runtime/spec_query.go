@@ -428,15 +428,14 @@ func (e *SpecQueryEngine) matchText(
 // stored values first (content leaf, scalar list item, every form field), then
 // the node's headline.
 //
-// Form fields are emitted in the order the model **declares** them. The
-// reference reads them in the document's own insertion order, which Go cannot
-// reproduce — its maps have no insertion order and iterate in a randomised one —
-// so the order comes from the meta-model instead, via the package's existing
-// answer to "in what order do this form's fields go"
-// (SpecSerializationOrder.OrderFormFields). That is also the order the reference
-// actually produces, because a document's fields are written in declaration
-// order; making it explicit is what keeps this port's snippet selection (first
-// hit wins) and its projected searchableStrings deterministic run to run.
+// Form fields are emitted in the order the model **declares** them (SOM §9,
+// "Form-field order"), never in the document's storage order, via the package's
+// single answer to "in what order do this form's fields go"
+// (SpecSerializationOrder.OrderFormFields). Go could not follow the store even
+// if the rule allowed it — its maps iterate in a deliberately randomised order —
+// so this is the port where taking the order from the model is not merely the
+// rule but the only option, and it is what keeps snippet selection (first hit
+// wins) deterministic run to run.
 func (e *SpecQueryEngine) searchableStrings(resolution *SpecResolution) []string {
 	out := []string{}
 	path := resolution.Path
