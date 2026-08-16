@@ -374,6 +374,22 @@ ScreenPresentationMode? _parseScreenPresentationMode(String? token) {
   return null;
 }
 
+/// Generated enum for `ServerCallRole` values.
+enum ServerCallRole {
+  assembleRequest,
+  handleResponse,
+  handleError;
+}
+
+/// Parses a stored token into a [ServerCallRole], or `null`.
+ServerCallRole? _parseServerCallRole(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ServerCallRole.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `UserAttributePlacement` values.
 enum UserAttributePlacement {
   public,
@@ -1218,6 +1234,8 @@ class AlternativeStepEntry extends SomNode {
   AlternativeStepEntry(super.doc, super.path);
 
   AlternativeStepEntryContentForm get content => AlternativeStepEntryContentForm(doc, '$path/content');
+
+  SomList<ServerCallStepEntry> get serverCallSteps => SomList<ServerCallStepEntry>(doc, '$path/SVCST-STEP-LST', (d, p) => ServerCallStepEntry(d, p), pattern: 'SVCST-STEP-xxx');
 }
 
 /// Anomaly detection policy (form).
@@ -10199,6 +10217,8 @@ class ExtensionStepEntry extends SomNode {
   ExtensionStepEntry(super.doc, super.path);
 
   ExtensionStepEntryContentForm get content => ExtensionStepEntryContentForm(doc, '$path/content');
+
+  SomList<ServerCallStepEntry> get serverCallSteps => SomList<ServerCallStepEntry>(doc, '$path/SVCST-STEP-LST', (d, p) => ServerCallStepEntry(d, p), pattern: 'SVCST-STEP-xxx');
 }
 
 /// An external actor entry (form).
@@ -13366,6 +13386,8 @@ class MainScenarioStepEntry extends SomNode {
   MainScenarioStepEntry(super.doc, super.path);
 
   MainScenarioStepEntryContentForm get content => MainScenarioStepEntryContentForm(doc, '$path/content');
+
+  SomList<ServerCallStepEntry> get serverCallSteps => SomList<ServerCallStepEntry>(doc, '$path/SVCST-STEP-LST', (d, p) => ServerCallStepEntry(d, p), pattern: 'SVCST-STEP-xxx');
 }
 
 /// Main success scenario (basic flow).
@@ -19519,6 +19541,8 @@ class ScenarioStepEntry extends SomNode {
 
   /// Branching, timing, and notes.
   ScenarioStepEntryExecutionForm get execution => ScenarioStepEntryExecutionForm(doc, '$path/SCSTENEX');
+
+  SomList<ServerCallStepEntry> get serverCallSteps => SomList<ServerCallStepEntry>(doc, '$path/SVCST-STEP-LST', (d, p) => ServerCallStepEntry(d, p), pattern: 'SVCST-STEP-xxx');
 }
 
 /// A single scheduled job (form + trigger case + work definition + failure
@@ -20710,6 +20734,39 @@ class SensitiveDataEncryption extends SomNode {
 
   /// 9.5.3. Key Management.
   KeyManagement get keyManagement => KeyManagement(doc, '$path/keyManagement');
+}
+
+/// One step of a server call's handling, in one of its three roles.
+/// 
+/// A step that reaches the server states the call in one sentence — *submits
+/// the order to the ordering service* — but the code that performs it is three
+/// separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
+/// assembled before the wire, a successful response is applied after it, and a
+/// failure is surfaced instead. This entry is where each of those is stated,
+/// and [role] is the field that says which. Without it a generator would have
+/// to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
+/// three bodies could only throw the same text.
+/// 
+/// The steps hang off the interaction step that issues the call (`MNSST`,
+/// `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
+/// *is* that step's reach across the boundary. Leaving the list empty leaves
+/// the call's bodies as they were — an unstated role falls back to form 3a over
+/// the issuing step's own behaviour text (§2.4).
+/// 
+/// **No step number.** The list position *is* the order
+/// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+/// step's own order field), and each role's steps are read in document order
+/// within the list.
+/// 
+/// **[condition] is a precondition, not a case label.** It becomes a guard on
+/// the step's statement (§2.4 B4). It is not the way an error code is turned
+/// into user-visible wording: B7 forbids the `switch` that would need, and the
+/// message a code maps to belongs in the CE-TX message-key registry
+/// (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+class ServerCallStepEntry extends SomNode {
+  ServerCallStepEntry(super.doc, super.path);
+
+  ServerCallStepEntryContentForm get content => ServerCallStepEntryContentForm(doc, '$path/content');
 }
 
 /// A single declared server / system configuration setting (CE-CF).
@@ -79453,6 +79510,28 @@ class SelfRegistrationPolicyVerificationForm extends SomNode {
 
   String get phoneVerificationMethod => doc.formField(path, 'phoneVerificationMethod') ?? '';
   set phoneVerificationMethod(String value) => doc.setFormField(path, 'phoneVerificationMethod', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ServerCallStepEntryContentForm extends SomNode {
+  ServerCallStepEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  ServerCallRole? get role => _parseServerCallRole(doc.formField(path, 'role'));
+  set role(ServerCallRole? value) => doc.setFormField(path, 'role', value?.name ?? '');
+
+  String get systemAction => doc.formField(path, 'systemAction') ?? '';
+  set systemAction(String value) => doc.setFormField(path, 'systemAction', value);
+
+  String get condition => doc.formField(path, 'condition') ?? '';
+  set condition(String value) => doc.setFormField(path, 'condition', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:

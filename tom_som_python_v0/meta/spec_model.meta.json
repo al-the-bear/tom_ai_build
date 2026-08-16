@@ -3,7 +3,7 @@
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
-  "classCount": 1253,
+  "classCount": 1254,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -9199,6 +9199,42 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "serverCallSteps",
+          "kind": "list",
+          "help": "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.",
+          "sectionId": "SVCST-STEP-LST",
+          "sectionIdPattern": "SVCST-STEP-xxx",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVCST-STEP-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SVCST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ServerCallStepEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -102551,6 +102587,42 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "serverCallSteps",
+          "kind": "list",
+          "help": "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.",
+          "sectionId": "SVCST-STEP-LST",
+          "sectionIdPattern": "SVCST-STEP-xxx",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVCST-STEP-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SVCST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ServerCallStepEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -139467,6 +139539,42 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "serverCallSteps",
+          "kind": "list",
+          "help": "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.",
+          "sectionId": "SVCST-STEP-LST",
+          "sectionIdPattern": "SVCST-STEP-xxx",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVCST-STEP-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SVCST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ServerCallStepEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -213521,6 +213629,42 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "serverCallSteps",
+          "kind": "list",
+          "help": "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.",
+          "sectionId": "SVCST-STEP-LST",
+          "sectionIdPattern": "SVCST-STEP-xxx",
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVCST-STEP-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SVCST-STEP-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "elementType": "ServerCallStepEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -226287,6 +226431,101 @@
             }
           ],
           "type": "KeyManagement"
+        }
+      ]
+    },
+    "ServerCallStepEntry": {
+      "name": "ServerCallStepEntry",
+      "sectionId": "SVCST",
+      "doc": "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.",
+      "standardReferences": {
+        "standards": [
+          "Cockburn — Writing Effective Use Cases: main success scenario",
+          "RFC 9110 — HTTP semantics: request, successful response, error response"
+        ],
+        "connotation": "One step of a server call's handling — which of the three handling roles it belongs to, what happens in it, and the condition it happens under."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Cockburn — Writing Effective Use Cases: main success scenario",
+              "RFC 9110 — HTTP semantics: request, successful response, error response"
+            ],
+            "connotation": "One step of a server call's handling — which of the three handling roles it belongs to, what happens in it, and the condition it happens under."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SVCST"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverCall"
+            ],
+            "note": "CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "help": "Say which of the three handling roles this step belongs to, then what happens in it, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Say which of the three handling roles this step belongs to, then what happens in it, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "role",
+              "label": "Role",
+              "hint": "Which of the call's three handling roles this step belongs to: assembleRequest (before the call), handleResponse (after a successful one) or handleError (after a failed one).",
+              "type": "ServerCallRole",
+              "required": true,
+              "enumValues": [
+                "assembleRequest",
+                "handleResponse",
+                "handleError"
+              ]
+            },
+            {
+              "name": "systemAction",
+              "label": "System Action",
+              "hint": "What happens in this step — one action, stated as what happens rather than how it is coded. Nothing outside the system acts here: assembling, applying and surfacing are system work throughout.",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "condition",
+              "label": "Condition",
+              "hint": "The condition under which this step runs, if it is not unconditional (e.g. only when the customer has a stored address). Leave empty for a step that always runs.",
+              "type": "String",
+              "required": false
+            }
+          ]
         }
       ]
     },

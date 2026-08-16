@@ -1620,6 +1620,13 @@ AlternativeStepEntryContentForm alternative_step_entry_content(const Alternative
   free(path);
   return out;
 }
+SomList alternative_step_entry_server_call_steps(const AlternativeStepEntry *self) {
+  char *path = spec_path_join(self->node.path, "SVCST-STEP-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SVCST-STEP-xxx");
+  free(path);
+  return out;
+}
 
 void anomaly_detection_policy_init(AnomalyDetectionPolicy *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -18988,6 +18995,13 @@ ExtensionStepEntryContentForm extension_step_entry_content(const ExtensionStepEn
   free(path);
   return out;
 }
+SomList extension_step_entry_server_call_steps(const ExtensionStepEntry *self) {
+  char *path = spec_path_join(self->node.path, "SVCST-STEP-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SVCST-STEP-xxx");
+  free(path);
+  return out;
+}
 
 void external_actor_entry_init(ExternalActorEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -25301,6 +25315,13 @@ MainScenarioStepEntryContentForm main_scenario_step_entry_content(const MainScen
   char *path = spec_path_join(self->node.path, "content");
   MainScenarioStepEntryContentForm out;
   main_scenario_step_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList main_scenario_step_entry_server_call_steps(const MainScenarioStepEntry *self) {
+  char *path = spec_path_join(self->node.path, "SVCST-STEP-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SVCST-STEP-xxx");
   free(path);
   return out;
 }
@@ -37678,6 +37699,13 @@ ScenarioStepEntryExecutionForm scenario_step_entry_execution(const ScenarioStepE
   free(path);
   return out;
 }
+SomList scenario_step_entry_server_call_steps(const ScenarioStepEntry *self) {
+  char *path = spec_path_join(self->node.path, "SVCST-STEP-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SVCST-STEP-xxx");
+  free(path);
+  return out;
+}
 
 void scheduled_job_entry_init(ScheduledJobEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -39756,6 +39784,24 @@ KeyManagement sensitive_data_encryption_key_management(const SensitiveDataEncryp
   char *path = spec_path_join(self->node.path, "keyManagement");
   KeyManagement out;
   key_management_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void server_call_step_entry_init(ServerCallStepEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void server_call_step_entry_free(ServerCallStepEntry *self) {
+  som_node_free(&self->node);
+}
+int server_call_step_entry_can_have_content(const ServerCallStepEntry *self) {
+  (void)self;
+  return 0;
+}
+ServerCallStepEntryContentForm server_call_step_entry_content(const ServerCallStepEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ServerCallStepEntryContentForm out;
+  server_call_step_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -140236,6 +140282,41 @@ char *self_registration_policy_verification_form_phone_verification_method(const
 }
 void self_registration_policy_verification_form_set_phone_verification_method(SelfRegistrationPolicyVerificationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "phoneVerificationMethod", value);
+}
+
+void server_call_step_entry_content_form_init(ServerCallStepEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void server_call_step_entry_content_form_free(ServerCallStepEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *server_call_step_entry_content_form_content(const ServerCallStepEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void server_call_step_entry_content_form_set_content(ServerCallStepEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *server_call_step_entry_content_form_role(const ServerCallStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "role");
+  return som_strdup(v != NULL ? v : "");
+}
+void server_call_step_entry_content_form_set_role(ServerCallStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "role", value);
+}
+char *server_call_step_entry_content_form_system_action(const ServerCallStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemAction");
+  return som_strdup(v != NULL ? v : "");
+}
+void server_call_step_entry_content_form_set_system_action(ServerCallStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "systemAction", value);
+}
+char *server_call_step_entry_content_form_condition(const ServerCallStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "condition");
+  return som_strdup(v != NULL ? v : "");
+}
+void server_call_step_entry_content_form_set_condition(ServerCallStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "condition", value);
 }
 
 void server_configuration_setting_entry_content_form_init(ServerConfigurationSettingEntryContentForm *self, SpecDocument *doc, const char *path) {

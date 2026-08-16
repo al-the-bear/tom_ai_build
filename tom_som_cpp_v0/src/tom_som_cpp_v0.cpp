@@ -645,6 +645,9 @@ AlternativeStepEntry::AlternativeStepEntry(som::SpecDocument& doc, std::string p
 AlternativeStepEntryContentForm AlternativeStepEntry::content() const {
   return AlternativeStepEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
+som::SomList AlternativeStepEntry::serverCallSteps() const {
+  return som::SomList(doc(), som::joinPath(path(), "SVCST-STEP-LST"), "SVCST-STEP-xxx");
+}
 
 AnomalyDetectionPolicy::AnomalyDetectionPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -7751,6 +7754,9 @@ ExtensionStepEntry::ExtensionStepEntry(som::SpecDocument& doc, std::string path)
 ExtensionStepEntryContentForm ExtensionStepEntry::content() const {
   return ExtensionStepEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
+som::SomList ExtensionStepEntry::serverCallSteps() const {
+  return som::SomList(doc(), som::joinPath(path(), "SVCST-STEP-LST"), "SVCST-STEP-xxx");
+}
 
 ExternalActorEntry::ExternalActorEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -10222,6 +10228,9 @@ MainScenarioStepEntry::MainScenarioStepEntry(som::SpecDocument& doc, std::string
     : som::SomNode(doc, std::move(path)) {}
 MainScenarioStepEntryContentForm MainScenarioStepEntry::content() const {
   return MainScenarioStepEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList MainScenarioStepEntry::serverCallSteps() const {
+  return som::SomList(doc(), som::joinPath(path(), "SVCST-STEP-LST"), "SVCST-STEP-xxx");
 }
 
 MainSuccessScenario::MainSuccessScenario(som::SpecDocument& doc, std::string path)
@@ -15083,6 +15092,9 @@ ScenarioStepEntryContextForm ScenarioStepEntry::context() const {
 ScenarioStepEntryExecutionForm ScenarioStepEntry::execution() const {
   return ScenarioStepEntryExecutionForm(doc(), som::joinPath(path(), "SCSTENEX"));
 }
+som::SomList ScenarioStepEntry::serverCallSteps() const {
+  return som::SomList(doc(), som::joinPath(path(), "SVCST-STEP-LST"), "SVCST-STEP-xxx");
+}
 
 ScheduledJobEntry::ScheduledJobEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -15901,6 +15913,12 @@ EncryptionInTransit SensitiveDataEncryption::encryptionInTransit() const {
 }
 KeyManagement SensitiveDataEncryption::keyManagement() const {
   return KeyManagement(doc(), som::joinPath(path(), "keyManagement"));
+}
+
+ServerCallStepEntry::ServerCallStepEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ServerCallStepEntryContentForm ServerCallStepEntry::content() const {
+  return ServerCallStepEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ServerConfigurationSettingEntry::ServerConfigurationSettingEntry(som::SpecDocument& doc, std::string path)
@@ -91442,6 +91460,33 @@ std::string SelfRegistrationPolicyVerificationForm::phoneVerificationMethod() co
 }
 void SelfRegistrationPolicyVerificationForm::setPhoneVerificationMethod(const std::string& value) {
   doc().setFormField(path(), "phoneVerificationMethod", value);
+}
+
+ServerCallStepEntryContentForm::ServerCallStepEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ServerCallStepEntryContentForm::content() const {
+  return doc().content(path());
+}
+void ServerCallStepEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ServerCallStepEntryContentForm::role() const {
+  return doc().formField(path(), "role");
+}
+void ServerCallStepEntryContentForm::setRole(const std::string& value) {
+  doc().setFormField(path(), "role", value);
+}
+std::string ServerCallStepEntryContentForm::systemAction() const {
+  return doc().formField(path(), "systemAction");
+}
+void ServerCallStepEntryContentForm::setSystemAction(const std::string& value) {
+  doc().setFormField(path(), "systemAction", value);
+}
+std::string ServerCallStepEntryContentForm::condition() const {
+  return doc().formField(path(), "condition");
+}
+void ServerCallStepEntryContentForm::setCondition(const std::string& value) {
+  doc().setFormField(path(), "condition", value);
 }
 
 ServerConfigurationSettingEntryContentForm::ServerConfigurationSettingEntryContentForm(som::SpecDocument& doc, std::string path)

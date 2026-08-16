@@ -1875,6 +1875,15 @@ impl AlternativeStepEntry {
     pub fn content(&self) -> AlternativeStepEntryContentForm {
         AlternativeStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
+
+    pub fn server_call_steps(&self) -> som::SomList<ServerCallStepEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SVCST-STEP-LST"),
+            Box::new(ServerCallStepEntry::new),
+            "SVCST-STEP-xxx".to_string(),
+        )
+    }
 }
 
 /// Anomaly detection policy (form).
@@ -20938,6 +20947,15 @@ impl ExtensionStepEntry {
     pub fn content(&self) -> ExtensionStepEntryContentForm {
         ExtensionStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
+
+    pub fn server_call_steps(&self) -> som::SomList<ServerCallStepEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SVCST-STEP-LST"),
+            Box::new(ServerCallStepEntry::new),
+            "SVCST-STEP-xxx".to_string(),
+        )
+    }
 }
 
 /// An external actor entry (form).
@@ -28064,6 +28082,15 @@ impl MainScenarioStepEntry {
 
     pub fn content(&self) -> MainScenarioStepEntryContentForm {
         MainScenarioStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn server_call_steps(&self) -> som::SomList<ServerCallStepEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SVCST-STEP-LST"),
+            Box::new(ServerCallStepEntry::new),
+            "SVCST-STEP-xxx".to_string(),
+        )
     }
 }
 
@@ -42080,6 +42107,15 @@ impl ScenarioStepEntry {
     pub fn execution(&self) -> ScenarioStepEntryExecutionForm {
         ScenarioStepEntryExecutionForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCSTENEX"))
     }
+
+    pub fn server_call_steps(&self) -> som::SomList<ServerCallStepEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SVCST-STEP-LST"),
+            Box::new(ServerCallStepEntry::new),
+            "SVCST-STEP-xxx".to_string(),
+        )
+    }
 }
 
 /// A single scheduled job (form + trigger case + work definition + failure
@@ -44546,6 +44582,55 @@ impl SensitiveDataEncryption {
     /// 9.5.3. Key Management.
     pub fn key_management(&self) -> KeyManagement {
         KeyManagement::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyManagement"))
+    }
+}
+
+/// One step of a server call's handling, in one of its three roles.
+///
+/// A step that reaches the server states the call in one sentence — *submits
+/// the order to the ordering service* — but the code that performs it is three
+/// separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
+/// assembled before the wire, a successful response is applied after it, and a
+/// failure is surfaced instead. This entry is where each of those is stated,
+/// and [role] is the field that says which. Without it a generator would have
+/// to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
+/// three bodies could only throw the same text.
+///
+/// The steps hang off the interaction step that issues the call (`MNSST`,
+/// `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
+/// *is* that step's reach across the boundary. Leaving the list empty leaves
+/// the call's bodies as they were — an unstated role falls back to form 3a over
+/// the issuing step's own behaviour text (§2.4).
+///
+/// **No step number.** The list position *is* the order
+/// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+/// step's own order field), and each role's steps are read in document order
+/// within the list.
+///
+/// **[condition] is a precondition, not a case label.** It becomes a guard on
+/// the step's statement (§2.4 B4). It is not the way an error code is turned
+/// into user-visible wording: B7 forbids the `switch` that would need, and the
+/// message a code maps to belongs in the CE-TX message-key registry
+/// (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+pub struct ServerCallStepEntry {
+    pub node: som::SomNode,
+}
+
+impl ServerCallStepEntry {
+    /// Binds a ServerCallStepEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerCallStepEntry {
+        ServerCallStepEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ServerCallStepEntryContentForm {
+        ServerCallStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -198396,6 +198481,63 @@ impl SelfRegistrationPolicyVerificationForm {
     pub fn set_phone_verification_method(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "phoneVerificationMethod", value);
+    }
+}
+
+/// ServerCallStepEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ServerCallStepEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ServerCallStepEntryContentForm {
+    /// Binds a ServerCallStepEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerCallStepEntryContentForm {
+        ServerCallStepEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn role(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "role")
+    }
+
+    pub fn set_role(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "role", value);
+    }
+
+    pub fn system_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "systemAction")
+    }
+
+    pub fn set_system_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "systemAction", value);
+    }
+
+    pub fn condition(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "condition")
+    }
+
+    pub fn set_condition(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "condition", value);
     }
 }
 

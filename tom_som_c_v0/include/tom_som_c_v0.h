@@ -1021,6 +1021,7 @@ typedef struct { SomNode node; } SecurityTestingAutomation;
 typedef struct { SomNode node; } SelfRegistrationPolicy;
 typedef struct { SomNode node; } SelfServiceAccountManagement;
 typedef struct { SomNode node; } SensitiveDataEncryption;
+typedef struct { SomNode node; } ServerCallStepEntry;
 typedef struct { SomNode node; } ServerConfigurationSettingEntry;
 typedef struct { SomNode node; } ServerEnvironmentEntry;
 typedef struct { SomNode node; } ServerOperationEntry;
@@ -3435,6 +3436,7 @@ typedef struct { SomNode node; } SelfRegistrationPolicyContentForm;
 typedef struct { SomNode node; } SelfRegistrationPolicyFieldsForm;
 typedef struct { SomNode node; } SelfRegistrationPolicySecurityForm;
 typedef struct { SomNode node; } SelfRegistrationPolicyVerificationForm;
+typedef struct { SomNode node; } ServerCallStepEntryContentForm;
 typedef struct { SomNode node; } ServerConfigurationSettingEntryContentForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryAccessForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryContentForm;
@@ -4734,6 +4736,8 @@ void alternative_step_entry_free(AlternativeStepEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alternative_step_entry_can_have_content(const AlternativeStepEntry *self);
 AlternativeStepEntryContentForm alternative_step_entry_content(const AlternativeStepEntry *self);
+// Returns the list view; element type: ServerCallStepEntry (construct from item paths).
+SomList alternative_step_entry_server_call_steps(const AlternativeStepEntry *self);
 
 // Anomaly detection policy (form).
 //
@@ -12303,6 +12307,8 @@ void extension_step_entry_free(ExtensionStepEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int extension_step_entry_can_have_content(const ExtensionStepEntry *self);
 ExtensionStepEntryContentForm extension_step_entry_content(const ExtensionStepEntry *self);
+// Returns the list view; element type: ServerCallStepEntry (construct from item paths).
+SomList extension_step_entry_server_call_steps(const ExtensionStepEntry *self);
 
 // An external actor entry (form).
 // Binds a ExternalActorEntry facade to a document and a path (path copied).
@@ -15067,6 +15073,8 @@ void main_scenario_step_entry_free(MainScenarioStepEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int main_scenario_step_entry_can_have_content(const MainScenarioStepEntry *self);
 MainScenarioStepEntryContentForm main_scenario_step_entry_content(const MainScenarioStepEntry *self);
+// Returns the list view; element type: ServerCallStepEntry (construct from item paths).
+SomList main_scenario_step_entry_server_call_steps(const MainScenarioStepEntry *self);
 
 // Main success scenario (basic flow).
 // Binds a MainSuccessScenario facade to a document and a path (path copied).
@@ -20413,6 +20421,8 @@ ScenarioStepEntryContentForm scenario_step_entry_content(const ScenarioStepEntry
 ScenarioStepEntryContextForm scenario_step_entry_context(const ScenarioStepEntry *self);
 // Branching, timing, and notes.
 ScenarioStepEntryExecutionForm scenario_step_entry_execution(const ScenarioStepEntry *self);
+// Returns the list view; element type: ServerCallStepEntry (construct from item paths).
+SomList scenario_step_entry_server_call_steps(const ScenarioStepEntry *self);
 
 // A single scheduled job (form + trigger case + work definition + failure
 // policy).
@@ -21463,6 +21473,40 @@ EncryptionAtRest sensitive_data_encryption_encryption_at_rest(const SensitiveDat
 EncryptionInTransit sensitive_data_encryption_encryption_in_transit(const SensitiveDataEncryption *self);
 // 9.5.3. Key Management.
 KeyManagement sensitive_data_encryption_key_management(const SensitiveDataEncryption *self);
+
+// One step of a server call's handling, in one of its three roles.
+//
+// A step that reaches the server states the call in one sentence — *submits
+// the order to the ordering service* — but the code that performs it is three
+// separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
+// assembled before the wire, a successful response is applied after it, and a
+// failure is surfaced instead. This entry is where each of those is stated,
+// and [role] is the field that says which. Without it a generator would have
+// to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
+// three bodies could only throw the same text.
+//
+// The steps hang off the interaction step that issues the call (`MNSST`,
+// `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
+// *is* that step's reach across the boundary. Leaving the list empty leaves
+// the call's bodies as they were — an unstated role falls back to form 3a over
+// the issuing step's own behaviour text (§2.4).
+//
+// **No step number.** The list position *is* the order
+// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+// step's own order field), and each role's steps are read in document order
+// within the list.
+//
+// **[condition] is a precondition, not a case label.** It becomes a guard on
+// the step's statement (§2.4 B4). It is not the way an error code is turned
+// into user-visible wording: B7 forbids the `switch` that would need, and the
+// message a code maps to belongs in the CE-TX message-key registry
+// (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+// Binds a ServerCallStepEntry facade to a document and a path (path copied).
+void server_call_step_entry_init(ServerCallStepEntry *self, SpecDocument *doc, const char *path);
+void server_call_step_entry_free(ServerCallStepEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int server_call_step_entry_can_have_content(const ServerCallStepEntry *self);
+ServerCallStepEntryContentForm server_call_step_entry_content(const ServerCallStepEntry *self);
 
 // A single declared server / system configuration setting (CE-CF).
 //
@@ -58084,6 +58128,19 @@ char *self_registration_policy_verification_form_phone_verification_required(con
 void self_registration_policy_verification_form_set_phone_verification_required(SelfRegistrationPolicyVerificationForm *self, const char *value);
 char *self_registration_policy_verification_form_phone_verification_method(const SelfRegistrationPolicyVerificationForm *self);
 void self_registration_policy_verification_form_set_phone_verification_method(SelfRegistrationPolicyVerificationForm *self, const char *value);
+
+// ServerCallStepEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void server_call_step_entry_content_form_init(ServerCallStepEntryContentForm *self, SpecDocument *doc, const char *path);
+void server_call_step_entry_content_form_free(ServerCallStepEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *server_call_step_entry_content_form_content(const ServerCallStepEntryContentForm *self);
+void server_call_step_entry_content_form_set_content(ServerCallStepEntryContentForm *self, const char *value);
+char *server_call_step_entry_content_form_role(const ServerCallStepEntryContentForm *self);
+void server_call_step_entry_content_form_set_role(ServerCallStepEntryContentForm *self, const char *value);
+char *server_call_step_entry_content_form_system_action(const ServerCallStepEntryContentForm *self);
+void server_call_step_entry_content_form_set_system_action(ServerCallStepEntryContentForm *self, const char *value);
+char *server_call_step_entry_content_form_condition(const ServerCallStepEntryContentForm *self);
+void server_call_step_entry_content_form_set_condition(ServerCallStepEntryContentForm *self, const char *value);
 
 // ServerConfigurationSettingEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void server_configuration_setting_entry_content_form_init(ServerConfigurationSettingEntryContentForm *self, SpecDocument *doc, const char *path);

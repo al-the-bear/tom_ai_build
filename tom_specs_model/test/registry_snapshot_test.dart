@@ -23,7 +23,7 @@ import 'support/real_model_tree.dart';
 /// a class that reached all nine generated languages without anyone looking at
 /// it. When a model change moves this number, the number moves with it in the
 /// same commit; that edit is the record that the growth was intended.
-const int expectedRegisteredSpecClasses = 1263;
+const int expectedRegisteredSpecClasses = 1264;
 
 void main() {
   group('registry-backed engine on the real model (OE-2)', () {

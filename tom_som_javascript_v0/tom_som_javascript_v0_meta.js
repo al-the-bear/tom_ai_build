@@ -1803,6 +1803,16 @@ function _mc_AlternativeStepEntry(s) {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "stepNumber", typeName: "String", description: "Step Number", hint: "Sequential position within the alternative flow", order: 0}), new SomFormFieldMeta({name: "action", typeName: "String", description: "Action", hint: "The action taken in this step", order: 1}), new SomFormFieldMeta({name: "response", typeName: "String", description: "Response", hint: "How the system responds to the action", order: 2}), new SomFormFieldMeta({name: "expectedResult", typeName: "String", description: "Expected Result", hint: "The observable outcome after the step", order: 3})])}),
+     new SomMetaNode({
+      className: "AlternativeStepEntry",
+      memberName: "serverCallSteps",
+      sectionId: "SVCST-STEP-LST",
+      sectionIdPattern: "SVCST-STEP-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ServerCallStepEntry",
+      serializationOrder: 1,
+      contentHelp: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.",
+      elementNode: _cx("ServerCallStepEntry", s, _mc_ServerCallStepEntry, (r, c) => new SomMetaNode({className: "ServerCallStepEntry", classSectionId: "SVCST", kind: SomMetaKind.COMPLEX, typeName: "ServerCallStepEntry", docComment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.", classDocComment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.", recursive: r, children: c}))}),
   ];
 }
 
@@ -21546,6 +21556,16 @@ function _mc_ExtensionStepEntry(s) {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "stepNumber", typeName: "String", description: "Step Number (e.g., 3a1)", hint: "Extension step id such as 3a1", order: 0}), new SomFormFieldMeta({name: "action", typeName: "String", description: "Action", hint: "What the actor does in this extension step", order: 1}), new SomFormFieldMeta({name: "response", typeName: "String", description: "Response", hint: "How the system responds in this step", order: 2})])}),
+     new SomMetaNode({
+      className: "ExtensionStepEntry",
+      memberName: "serverCallSteps",
+      sectionId: "SVCST-STEP-LST",
+      sectionIdPattern: "SVCST-STEP-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ServerCallStepEntry",
+      serializationOrder: 1,
+      contentHelp: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.",
+      elementNode: _cx("ServerCallStepEntry", s, _mc_ServerCallStepEntry, (r, c) => new SomMetaNode({className: "ServerCallStepEntry", classSectionId: "SVCST", kind: SomMetaKind.COMPLEX, typeName: "ServerCallStepEntry", docComment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.", classDocComment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.", recursive: r, children: c}))}),
   ];
 }
 
@@ -28567,6 +28587,16 @@ function _mc_MainScenarioStepEntry(s) {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "stepNumber", typeName: "int", description: "Step Number", required: true, hint: "Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", order: 0}), new SomFormFieldMeta({name: "actorAction", typeName: "String", description: "Actor Action — what actor does", hint: "What the actor does in this step", order: 1}), new SomFormFieldMeta({name: "systemResponse", typeName: "String", description: "System Response — what system does", hint: "How the system responds to the action", order: 2}), new SomFormFieldMeta({name: "dataInvolved", typeName: "String", description: "Data Involved — data read/written", hint: "Data read or written during the step", order: 3}), new SomFormFieldMeta({name: "businessRuleApplied", typeName: "String", description: "Business Rule Applied — BR-xxx reference", hint: "BR-xxx rule enforced at this step", order: 4}), new SomFormFieldMeta({name: "uiElementUsed", typeName: "String", description: "UI Element Used — screen/component", hint: "Screen or component the actor interacts with", order: 5}), new SomFormFieldMeta({name: "validationPerformed", typeName: "String", description: "Validation Performed — checks done", hint: "Validations run during this step", order: 6}), new SomFormFieldMeta({name: "expectedDuration", typeName: "String", description: "Expected Duration — time for this step", hint: "Expected time to complete this step", order: 7})])}),
+     new SomMetaNode({
+      className: "MainScenarioStepEntry",
+      memberName: "serverCallSteps",
+      sectionId: "SVCST-STEP-LST",
+      sectionIdPattern: "SVCST-STEP-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ServerCallStepEntry",
+      serializationOrder: 1,
+      contentHelp: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.",
+      elementNode: _cx("ServerCallStepEntry", s, _mc_ServerCallStepEntry, (r, c) => new SomMetaNode({className: "ServerCallStepEntry", classSectionId: "SVCST", kind: SomMetaKind.COMPLEX, typeName: "ServerCallStepEntry", docComment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.", classDocComment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.", recursive: r, children: c}))}),
   ];
 }
 
@@ -42113,6 +42143,16 @@ function _mc_ScenarioStepEntry(s) {
       docComment: "Branching, timing, and notes.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "decisionPoint", typeName: "String", description: "Decision Point — if branching occurs here", hint: "Condition under which the flow branches here", order: 0}), new SomFormFieldMeta({name: "timing", typeName: "String", description: "Timing — expected duration", hint: "Expected time this step takes", order: 1}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes — clarifications", hint: "Additional clarifications for this step", order: 2})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["BPMN 2.0 — sequence flow / activities (scenario steps)", "Cockburn — Writing Effective Use Cases: extensions & alternative flows"], "connotation": "Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes."})]}),
+     new SomMetaNode({
+      className: "ScenarioStepEntry",
+      memberName: "serverCallSteps",
+      sectionId: "SVCST-STEP-LST",
+      sectionIdPattern: "SVCST-STEP-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ServerCallStepEntry",
+      serializationOrder: 3,
+      contentHelp: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.",
+      elementNode: _cx("ServerCallStepEntry", s, _mc_ServerCallStepEntry, (r, c) => new SomMetaNode({className: "ServerCallStepEntry", classSectionId: "SVCST", kind: SomMetaKind.COMPLEX, typeName: "ServerCallStepEntry", docComment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.", classDocComment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.", recursive: r, children: c}))}),
   ];
 }
 
@@ -44480,6 +44520,19 @@ function _mc_SensitiveDataEncryption(s) {
         classDocComment: "9.5.3. Key Management.\n\nDefines cryptographic key management policies covering the full key\nlifecycle: generation, storage, rotation, escrow/backup, and compromise\nrecovery. Aligns with OWASP Key Management Cheat Sheet and\nNIST SP 800-57 (Recommendation for Key Management).",
         recursive: r,
         children: c})),
+  ];
+}
+
+function _mc_ServerCallStepEntry(s) {
+  return [
+     new SomMetaNode({
+      className: "ServerCallStepEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "Say which of the three handling roles this step belongs to, then what happens in it, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "role", typeName: "ServerCallRole", description: "Role", required: true, hint: "Which of the call's three handling roles this step belongs to: assembleRequest (before the call), handleResponse (after a successful one) or handleError (after a failed one).", order: 0, enumValues: ["assembleRequest", "handleResponse", "handleError"]}), new SomFormFieldMeta({name: "systemAction", typeName: "String", description: "System Action", required: true, hint: "What happens in this step — one action, stated as what happens rather than how it is coded. Nothing outside the system acts here: assembling, applying and surfacing are system work throughout.", order: 1}), new SomFormFieldMeta({name: "condition", typeName: "String", description: "Condition", hint: "The condition under which this step runs, if it is not unconditional (e.g. only when the customer has a stored address). Leave empty for a step that always runs.", order: 2})])}),
   ];
 }
 
@@ -57802,6 +57855,10 @@ class AlternativeStepEntry$Nav extends SomMetaRef {
   get content() {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
+
+  get serverCallSteps() {
+    return new SomListMetaRef(this.tree, this.path + "/SVCST-STEP-LST", (t, p) => new ServerCallStepEntry$Nav(t, p));
+  }
 }
 
 // Dot-notation accessors of `AnomalyDetectionPolicy` (SOM §8). Every getter is one
@@ -67208,6 +67265,10 @@ class ExtensionStepEntry$Nav extends SomMetaRef {
   get content() {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
+
+  get serverCallSteps() {
+    return new SomListMetaRef(this.tree, this.path + "/SVCST-STEP-LST", (t, p) => new ServerCallStepEntry$Nav(t, p));
+  }
 }
 
 // Dot-notation accessors of `ExternalActorEntry` (SOM §8). Every getter is one
@@ -70771,6 +70832,10 @@ class LoginFlowStepEntry$Nav extends SomMetaRef {
 class MainScenarioStepEntry$Nav extends SomMetaRef {
   get content() {
     return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get serverCallSteps() {
+    return new SomListMetaRef(this.tree, this.path + "/SVCST-STEP-LST", (t, p) => new ServerCallStepEntry$Nav(t, p));
   }
 }
 
@@ -77692,6 +77757,10 @@ class ScenarioStepEntry$Nav extends SomMetaRef {
   get execution() {
     return new SomMetaRef(this.tree, this.path + "/SCSTENEX");
   }
+
+  get serverCallSteps() {
+    return new SomListMetaRef(this.tree, this.path + "/SVCST-STEP-LST", (t, p) => new ServerCallStepEntry$Nav(t, p));
+  }
 }
 
 // Dot-notation accessors of `ScheduledJobEntry` (SOM §8). Every getter is one
@@ -78855,6 +78924,16 @@ class SensitiveDataEncryption$Nav extends SomMetaRef {
 
   get keyManagement() {
     return new KeyManagement$Nav(this.tree, this.path + "/keyManagement");
+  }
+}
+
+// Dot-notation accessors of `ServerCallStepEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+class ServerCallStepEntry$Nav extends SomMetaRef {
+  get content() {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -85214,6 +85293,9 @@ class AlternativeFlowEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class AlternativeStepEntry$Id extends SomMetaRef {
+  get SVCST_STEP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/SVCST-STEP-LST", (t, p) => new ServerCallStepEntry$Id(t, p));
+  }
 }
 
 // ID-tree accessors of `ApiCompatibilityEntry` (SOM §8): getters named by section id
@@ -100699,6 +100781,9 @@ class ExtensionEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class ExtensionStepEntry$Id extends SomMetaRef {
+  get SVCST_STEP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/SVCST-STEP-LST", (t, p) => new ServerCallStepEntry$Id(t, p));
+  }
 }
 
 // ID-tree accessors of `ExternalActorEntry` (SOM §8): getters named by section id
@@ -101799,6 +101884,9 @@ class LoginFlowStepEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 class MainScenarioStepEntry$Id extends SomMetaRef {
+  get SVCST_STEP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/SVCST-STEP-LST", (t, p) => new ServerCallStepEntry$Id(t, p));
+  }
 }
 
 // ID-tree accessors of `MaintenanceDependencyEntry` (SOM §8): getters named by section id
@@ -103866,6 +103954,10 @@ class ScenarioStepEntry$Id extends SomMetaRef {
   get SCSTENEX() {
     return new SomMetaRef(this.tree, this.path + "/SCSTENEX");
   }
+
+  get SVCST_STEP_LST() {
+    return new SomListMetaRef(this.tree, this.path + "/SVCST-STEP-LST", (t, p) => new ServerCallStepEntry$Id(t, p));
+  }
 }
 
 // ID-tree accessors of `ScheduledJobEntry` (SOM §8): getters named by section id
@@ -104316,6 +104408,12 @@ class SecurityStandardEntry$Id extends SomMetaRef {
   get SSEV() {
     return new SomMetaRef(this.tree, this.path + "/SSEV");
   }
+}
+
+// ID-tree accessors of `ServerCallStepEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+class ServerCallStepEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `ServerConfigurationSettingEntry` (SOM §8): getters named by section id
@@ -107564,6 +107662,7 @@ module.exports = {
   SelfRegistrationPolicy$Nav,
   SelfServiceAccountManagement$Nav,
   SensitiveDataEncryption$Nav,
+  ServerCallStepEntry$Nav,
   ServerConfigurationSettingEntry$Nav,
   ServerEnvironmentEntry$Nav,
   ServerOperationEntry$Nav,
@@ -108243,6 +108342,7 @@ module.exports = {
   SecurityRequirementEntry$Id,
   SecurityStandardComplianceEntry$Id,
   SecurityStandardEntry$Id,
+  ServerCallStepEntry$Id,
   ServerConfigurationSettingEntry$Id,
   ServerEnvironmentEntry$Id,
   ServerOperationEntry$Id,

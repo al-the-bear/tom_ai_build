@@ -1145,6 +1145,8 @@
               - content @Form(scenarioSummary, estimatedDuration, stepCount)
               - [1,] steps: `MainScenarioStepEntry`[]
                 - content @Form(stepNumber, actorAction, systemResponse, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
+                - serverCallSteps: `ServerCallStepEntry`[]
+                  - content @Form(role, systemAction, condition)
             - extensions: `UseCaseExtensions`
               - content @Form(extensionSummary, extensionCount)
               - extensions: `ExtensionEntry`[]
@@ -1152,6 +1154,8 @@
                   resumePoint
                 - steps: `ExtensionStepEntry`[]
                   - content @Form(stepNumber, action, response)
+                  - serverCallSteps: `ServerCallStepEntry`[]
+                    - content @Form(role, systemAction, condition)
             - variations: `TechnologyDataVariations`[]
               - content @Form(dataVariations, technologyVariations, channelVariations, localizationVariations, accessibilityVariations, offlineVariations)
             - uiPreview: `UIRequirementsPreview`
@@ -1165,11 +1169,15 @@
             - content, identification, context, scenarioData, timing, validation
             - [1,] steps: `ScenarioStepEntry`[]
               - content @Form(stepNumber, actor, action, systemResponse), context, execution
+              - serverCallSteps: `ServerCallStepEntry`[]
+                - content @Form(role, systemAction, condition)
             - alternativeFlows: `AlternativeFlowEntry`[]
               - content @Form(flowType, branchPoint, triggerCondition, description, outcome, returnKind, frequency, businessImpact),
                 resumePoint
               - steps: `AlternativeStepEntry`[]
                 - content @Form(stepNumber, action, response, expectedResult)
+                - serverCallSteps: `ServerCallStepEntry`[]
+                  - content @Form(role, systemAction, condition)
         - `ActorRelationshipDiagram`
           - content, overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
         - endToEndTestScenarios: `EndToEndTestScenario`[]
@@ -4965,6 +4973,8 @@
           - content @Form(scenarioSummary, estimatedDuration, stepCount)
           - [1,] steps: `MainScenarioStepEntry`[]
             - content @Form(stepNumber, actorAction, systemResponse, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
+            - serverCallSteps: `ServerCallStepEntry`[]
+              - content @Form(role, systemAction, condition)
         - extensions: `UseCaseExtensions`
           - content @Form(extensionSummary, extensionCount)
           - extensions: `ExtensionEntry`[]
@@ -4972,6 +4982,8 @@
               resumePoint
             - steps: `ExtensionStepEntry`[]
               - content @Form(stepNumber, action, response)
+              - serverCallSteps: `ServerCallStepEntry`[]
+                - content @Form(role, systemAction, condition)
         - variations: `TechnologyDataVariations`[]
           - content @Form(dataVariations, technologyVariations, channelVariations, localizationVariations, accessibilityVariations, offlineVariations)
         - uiPreview: `UIRequirementsPreview`
@@ -4985,11 +4997,15 @@
         - content, identification, context, scenarioData, timing, validation
         - [1,] steps: `ScenarioStepEntry`[]
           - content @Form(stepNumber, actor, action, systemResponse), context, execution
+          - serverCallSteps: `ServerCallStepEntry`[]
+            - content @Form(role, systemAction, condition)
         - alternativeFlows: `AlternativeFlowEntry`[]
           - content @Form(flowType, branchPoint, triggerCondition, description, outcome, returnKind, frequency, businessImpact),
             resumePoint
           - steps: `AlternativeStepEntry`[]
             - content @Form(stepNumber, action, response, expectedResult)
+            - serverCallSteps: `ServerCallStepEntry`[]
+              - content @Form(role, systemAction, condition)
     - `ActorRelationshipDiagram`
       - content, overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
     - endToEndTestScenarios: `EndToEndTestScenario`[]
@@ -6451,6 +6467,8 @@
             - content @Form(scenarioSummary, estimatedDuration, stepCount)
             - [1,] steps: `MainScenarioStepEntry`[]
               - content @Form(stepNumber, actorAction, systemResponse, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
+              - serverCallSteps: `ServerCallStepEntry`[]
+                - content @Form(role, systemAction, condition)
           - extensions: `UseCaseExtensions`
             - content @Form(extensionSummary, extensionCount)
             - extensions: `ExtensionEntry`[]
@@ -6458,6 +6476,8 @@
                 resumePoint
               - steps: `ExtensionStepEntry`[]
                 - content @Form(stepNumber, action, response)
+                - serverCallSteps: `ServerCallStepEntry`[]
+                  - content @Form(role, systemAction, condition)
           - variations: `TechnologyDataVariations`[]
             - content @Form(dataVariations, technologyVariations, channelVariations, localizationVariations, accessibilityVariations, offlineVariations)
           - uiPreview: `UIRequirementsPreview`
@@ -6471,11 +6491,15 @@
           - content, identification, context, scenarioData, timing, validation
           - [1,] steps: `ScenarioStepEntry`[]
             - content @Form(stepNumber, actor, action, systemResponse), context, execution
+            - serverCallSteps: `ServerCallStepEntry`[]
+              - content @Form(role, systemAction, condition)
           - alternativeFlows: `AlternativeFlowEntry`[]
             - content @Form(flowType, branchPoint, triggerCondition, description, outcome, returnKind, frequency, businessImpact),
               resumePoint
             - steps: `AlternativeStepEntry`[]
               - content @Form(stepNumber, action, response, expectedResult)
+              - serverCallSteps: `ServerCallStepEntry`[]
+                - content @Form(role, systemAction, condition)
       - `ActorRelationshipDiagram`
         - content, overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
       - endToEndTestScenarios: `EndToEndTestScenario`[]

@@ -577,9 +577,17 @@ fn meta_children_alternative_flow_entry(s: &mut HashSet<String>) -> Vec<Rc<som::
     ]
 }
 
-fn meta_children_alternative_step_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_alternative_step_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "AlternativeStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "stepNumber".to_string(), type_name: "String".to_string(), description: "Step Number".to_string(), required: false, hint: "Sequential position within the alternative flow".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "action".to_string(), type_name: "String".to_string(), description: "Action".to_string(), required: false, hint: "The action taken in this step".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "response".to_string(), type_name: "String".to_string(), description: "Response".to_string(), required: false, hint: "How the system responds to the action".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "expectedResult".to_string(), type_name: "String".to_string(), description: "Expected Result".to_string(), required: false, hint: "The observable outcome after the step".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "AlternativeStepEntry".to_string(), member_name: "serverCallSteps".to_string(), section_id: "SVCST-STEP-LST".to_string(), section_id_pattern: "SVCST-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerCallStepEntry".to_string(), serialization_order: Some(1), content_help: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ServerCallStepEntry", s, meta_children_server_call_step_entry, |r, c| som::SomMetaNode {
+                class_name: "ServerCallStepEntry".to_string(), class_section_id: "SVCST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerCallStepEntry".to_string(), doc_comment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.".to_string(), class_doc_comment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -6862,9 +6870,17 @@ fn meta_children_extension_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
     ]
 }
 
-fn meta_children_extension_step_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_extension_step_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ExtensionStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "stepNumber".to_string(), type_name: "String".to_string(), description: "Step Number (e.g., 3a1)".to_string(), required: false, hint: "Extension step id such as 3a1".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "action".to_string(), type_name: "String".to_string(), description: "Action".to_string(), required: false, hint: "What the actor does in this extension step".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "response".to_string(), type_name: "String".to_string(), description: "Response".to_string(), required: false, hint: "How the system responds in this step".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "ExtensionStepEntry".to_string(), member_name: "serverCallSteps".to_string(), section_id: "SVCST-STEP-LST".to_string(), section_id_pattern: "SVCST-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerCallStepEntry".to_string(), serialization_order: Some(1), content_help: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ServerCallStepEntry", s, meta_children_server_call_step_entry, |r, c| som::SomMetaNode {
+                class_name: "ServerCallStepEntry".to_string(), class_section_id: "SVCST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerCallStepEntry".to_string(), doc_comment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.".to_string(), class_doc_comment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -9071,9 +9087,17 @@ fn meta_children_login_flow_step_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::
     ]
 }
 
-fn meta_children_main_scenario_step_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_main_scenario_step_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "MainScenarioStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "stepNumber".to_string(), type_name: "int".to_string(), description: "Step Number".to_string(), required: true, hint: "Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "actorAction".to_string(), type_name: "String".to_string(), description: "Actor Action — what actor does".to_string(), required: false, hint: "What the actor does in this step".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "systemResponse".to_string(), type_name: "String".to_string(), description: "System Response — what system does".to_string(), required: false, hint: "How the system responds to the action".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataInvolved".to_string(), type_name: "String".to_string(), description: "Data Involved — data read/written".to_string(), required: false, hint: "Data read or written during the step".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "businessRuleApplied".to_string(), type_name: "String".to_string(), description: "Business Rule Applied — BR-xxx reference".to_string(), required: false, hint: "BR-xxx rule enforced at this step".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "uiElementUsed".to_string(), type_name: "String".to_string(), description: "UI Element Used — screen/component".to_string(), required: false, hint: "Screen or component the actor interacts with".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "validationPerformed".to_string(), type_name: "String".to_string(), description: "Validation Performed — checks done".to_string(), required: false, hint: "Validations run during this step".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "expectedDuration".to_string(), type_name: "String".to_string(), description: "Expected Duration — time for this step".to_string(), required: false, hint: "Expected time to complete this step".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "MainScenarioStepEntry".to_string(), member_name: "serverCallSteps".to_string(), section_id: "SVCST-STEP-LST".to_string(), section_id_pattern: "SVCST-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerCallStepEntry".to_string(), serialization_order: Some(1), content_help: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ServerCallStepEntry", s, meta_children_server_call_step_entry, |r, c| som::SomMetaNode {
+                class_name: "ServerCallStepEntry".to_string(), class_section_id: "SVCST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerCallStepEntry".to_string(), doc_comment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.".to_string(), class_doc_comment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -13394,11 +13418,19 @@ fn meta_children_scenario_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaN
     ]
 }
 
-fn meta_children_scenario_step_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_scenario_step_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ScenarioStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "stepNumber".to_string(), type_name: "int".to_string(), description: "Step Number".to_string(), required: true, hint: "Sequential position of this step. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "actor".to_string(), type_name: "String".to_string(), description: "Actor — who performs this step".to_string(), required: false, hint: "The actor performing this step".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "action".to_string(), type_name: "String".to_string(), description: "Action — what actor does".to_string(), required: false, hint: "The action the actor takes".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "systemResponse".to_string(), type_name: "String".to_string(), description: "System Response — what system does".to_string(), required: false, hint: "How the system responds to the action".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScenarioStepEntry".to_string(), member_name: "context".to_string(), section_id: "SSEC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Expected outcome and referenced artifacts.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "expectedResult".to_string(), type_name: "String".to_string(), description: "Expected Result — observable outcome".to_string(), required: false, hint: "The observable outcome after the step".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "interactionReference".to_string(), type_name: "String".to_string(), description: "Interaction Reference — INT-xxx if detailed".to_string(), required: false, hint: "INT-xxx interaction detailing this step".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataInvolved".to_string(), type_name: "String".to_string(), description: "Data Involved — input/output data".to_string(), required: false, hint: "Data read or written during the step".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "uiElement".to_string(), type_name: "String".to_string(), description: "UI Element — screen/component used".to_string(), required: false, hint: "Screen or component the actor uses".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Gherkin / BDD — given-when-then scenario steps".to_string()), som::Json::Str("BPMN 2.0 — sequence flow / activities (scenario steps)".to_string())])), ("connotation".to_string(), som::Json::Str("Records the expected result of a scenario step and the artifacts, data, and UI elements it references.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScenarioStepEntry".to_string(), member_name: "execution".to_string(), section_id: "SCSTENEX".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Branching, timing, and notes.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "decisionPoint".to_string(), type_name: "String".to_string(), description: "Decision Point — if branching occurs here".to_string(), required: false, hint: "Condition under which the flow branches here".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "timing".to_string(), type_name: "String".to_string(), description: "Timing — expected duration".to_string(), required: false, hint: "Expected time this step takes".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes — clarifications".to_string(), required: false, hint: "Additional clarifications for this step".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BPMN 2.0 — sequence flow / activities (scenario steps)".to_string()), som::Json::Str("Cockburn — Writing Effective Use Cases: extensions & alternative flows".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes.".to_string()))] }], ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "ScenarioStepEntry".to_string(), member_name: "serverCallSteps".to_string(), section_id: "SVCST-STEP-LST".to_string(), section_id_pattern: "SVCST-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerCallStepEntry".to_string(), serialization_order: Some(3), content_help: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ServerCallStepEntry", s, meta_children_server_call_step_entry, |r, c| som::SomMetaNode {
+                class_name: "ServerCallStepEntry".to_string(), class_section_id: "SVCST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerCallStepEntry".to_string(), doc_comment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.".to_string(), class_doc_comment: "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -14157,6 +14189,12 @@ fn meta_children_sensitive_data_encryption(s: &mut HashSet<String>) -> Vec<Rc<so
             class_name: "KeyManagement".to_string(), member_name: "keyManagement".to_string(), class_section_id: "KEMA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "KeyManagement".to_string(), serialization_order: Some(3), doc_comment: "9.5.3. Key Management.".to_string(), class_doc_comment: "9.5.3. Key Management.\n\nDefines cryptographic key management policies covering the full key\nlifecycle: generation, storage, rotation, escrow/backup, and compromise\nrecovery. Aligns with OWASP Key Management Cheat Sheet and\nNIST SP 800-57 (Recommendation for Key Management).".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+    ]
+}
+
+fn meta_children_server_call_step_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ServerCallStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "Say which of the three handling roles this step belongs to, then what happens in it, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "role".to_string(), type_name: "ServerCallRole".to_string(), description: "Role".to_string(), required: true, hint: "Which of the call's three handling roles this step belongs to: assembleRequest (before the call), handleResponse (after a successful one) or handleError (after a failed one).".to_string(), order: 0, enum_values: vec!["assembleRequest".to_string(), "handleResponse".to_string(), "handleError".to_string()], refers_to: vec![] }, som::SomFormFieldMeta { name: "systemAction".to_string(), type_name: "String".to_string(), description: "System Action".to_string(), required: true, hint: "What happens in this step — one action, stated as what happens rather than how it is coded. Nothing outside the system acts here: assembling, applying and surfacing are system work throughout.".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "condition".to_string(), type_name: "String".to_string(), description: "Condition".to_string(), required: false, hint: "The condition under which this step runs, if it is not unconditional (e.g. only when the customer has a stored address). Leave empty for a step that always runs.".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -19894,6 +19932,10 @@ impl<'a> AlternativeStepEntryNav<'a> {
 
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn server_call_steps(&self) -> som::SomListMetaRef<'a, ServerCallStepEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVCST-STEP-LST"), ServerCallStepEntryNav::new)
     }
 }
 
@@ -37470,6 +37512,10 @@ impl<'a> ExtensionStepEntryNav<'a> {
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
+
+    pub fn server_call_steps(&self) -> som::SomListMetaRef<'a, ServerCallStepEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVCST-STEP-LST"), ServerCallStepEntryNav::new)
+    }
 }
 
 /// ExternalActorEntryNav holds the dot-notation accessors of `ExternalActorEntry` (SOM §8).
@@ -44561,6 +44607,10 @@ impl<'a> MainScenarioStepEntryNav<'a> {
 
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn server_call_steps(&self) -> som::SomListMetaRef<'a, ServerCallStepEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVCST-STEP-LST"), ServerCallStepEntryNav::new)
     }
 }
 
@@ -58412,6 +58462,10 @@ impl<'a> ScenarioStepEntryNav<'a> {
     pub fn execution(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCSTENEX"))
     }
+
+    pub fn server_call_steps(&self) -> som::SomListMetaRef<'a, ServerCallStepEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVCST-STEP-LST"), ServerCallStepEntryNav::new)
+    }
 }
 
 /// ScheduledJobEntryNav holds the dot-notation accessors of `ScheduledJobEntry` (SOM §8).
@@ -60667,6 +60721,37 @@ impl<'a> SensitiveDataEncryptionNav<'a> {
 
     pub fn key_management(&self) -> KeyManagementNav<'a> {
         KeyManagementNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "keyManagement"))
+    }
+}
+
+/// ServerCallStepEntryNav holds the dot-notation accessors of `ServerCallStepEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ServerCallStepEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ServerCallStepEntryNav<'a> {
+    /// Binds a ServerCallStepEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ServerCallStepEntryNav<'a> {
+        ServerCallStepEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -73044,6 +73129,10 @@ impl<'a> AlternativeStepEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn SVCST_STEP_LST(&self) -> som::SomListMetaRef<'a, ServerCallStepEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVCST-STEP-LST"), ServerCallStepEntryId::new)
     }
 }
 
@@ -91825,6 +91914,10 @@ impl<'a> ExtensionStepEntryId<'a> {
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
     }
+
+    pub fn SVCST_STEP_LST(&self) -> som::SomListMetaRef<'a, ServerCallStepEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVCST-STEP-LST"), ServerCallStepEntryId::new)
+    }
 }
 
 /// ExternalActorEntryId holds the ID-tree accessors of `ExternalActorEntry` (SOM §8):
@@ -94258,6 +94351,10 @@ impl<'a> MainScenarioStepEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn SVCST_STEP_LST(&self) -> som::SomListMetaRef<'a, ServerCallStepEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVCST-STEP-LST"), ServerCallStepEntryId::new)
     }
 }
 
@@ -99311,6 +99408,10 @@ impl<'a> ScenarioStepEntryId<'a> {
     pub fn SCSTENEX(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCSTENEX"))
     }
+
+    pub fn SVCST_STEP_LST(&self) -> som::SomListMetaRef<'a, ServerCallStepEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVCST-STEP-LST"), ServerCallStepEntryId::new)
+    }
 }
 
 /// ScheduledJobEntryId holds the ID-tree accessors of `ScheduledJobEntry` (SOM §8):
@@ -100192,6 +100293,32 @@ impl<'a> SecurityStandardEntryId<'a> {
 
     pub fn SSEV(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SSEV"))
+    }
+}
+
+/// ServerCallStepEntryId holds the ID-tree accessors of `ServerCallStepEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ServerCallStepEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ServerCallStepEntryId<'a> {
+    /// Binds a ServerCallStepEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ServerCallStepEntryId<'a> {
+        ServerCallStepEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
     }
 }
 

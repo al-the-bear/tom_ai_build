@@ -39,6 +39,28 @@ enum FlowReturnPoint {
   endFlow,
 }
 
+/// Which handling role of a server call a [ServerCallStepEntry] states.
+///
+/// A CodeSpecs server call (`codespecs_derivation_contract.md` §3.5.7) emits
+/// three methods, and the three are not phases of one body: assembling the
+/// request happens before the wire, applying the response after a successful
+/// one, and surfacing an error after a failed one. Each therefore needs its own
+/// ordered steps, and this is the field that says which set a step belongs to.
+///
+/// The three values are deliberately spelled as the three **fixed method
+/// names** of §3.5.7 point 4 — `assembleRequest`, `handleResponse`,
+/// `handleError`. The routing word and the emitted name are the same token, so
+/// they cannot drift apart: renaming one is renaming the other.
+///
+/// The set is closed at three because those are the whole of a call's
+/// handling. A fourth arm would have to name a moment that is neither before
+/// the call nor after one of its two outcomes.
+enum ServerCallRole {
+  assembleRequest,
+  handleResponse,
+  handleError,
+}
+
 // ---------------------------------------------------------------------------
 // 6.1 Business Process Descriptions
 // ---------------------------------------------------------------------------
@@ -4698,6 +4720,102 @@ class MainScenarioStepEntry extends DocSpecsSection {
   @override
   @SerializationOrder(0)
   String? content;
+
+  @SectionId('SVCST-STEP-LST')
+  @SectionIdPattern('SVCST-STEP-xxx')
+  @ContentHelp('Fill this in only where the step reaches the server. Add one '
+      'entry per thing that has to happen to assemble the request, to apply '
+      'the response, or to surface an error — in the order it happens, each '
+      'entry saying which of the three it belongs to.')
+  @SerializationOrder(1)
+  List<ServerCallStepEntry> serverCallSteps = [];
+}
+
+/// One step of a server call's handling, in one of its three roles.
+///
+/// A step that reaches the server states the call in one sentence — *submits
+/// the order to the ordering service* — but the code that performs it is three
+/// separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
+/// assembled before the wire, a successful response is applied after it, and a
+/// failure is surfaced instead. This entry is where each of those is stated,
+/// and [role] is the field that says which. Without it a generator would have
+/// to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
+/// three bodies could only throw the same text.
+///
+/// The steps hang off the interaction step that issues the call (`MNSST`,
+/// `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
+/// *is* that step's reach across the boundary. Leaving the list empty leaves
+/// the call's bodies as they were — an unstated role falls back to form 3a over
+/// the issuing step's own behaviour text (§2.4).
+///
+/// **No step number.** The list position *is* the order
+/// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+/// step's own order field), and each role's steps are read in document order
+/// within the list.
+///
+/// **[condition] is a precondition, not a case label.** It becomes a guard on
+/// the step's statement (§2.4 B4). It is not the way an error code is turned
+/// into user-visible wording: B7 forbids the `switch` that would need, and the
+/// message a code maps to belongs in the CE-TX message-key registry
+/// (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: main success scenario',
+    'RFC 9110 — HTTP semantics: request, successful response, error response',
+  ],
+  'One step of a server call\'s handling — which of the three handling roles it '
+  'belongs to, what happens in it, and the condition it happens under.',
+)
+@SectionId('SVCST')
+@CodeSpecKind(
+  [CodeSpecPart.serverCall],
+  note:
+      'CE-SC — one step of one of the call\'s three method bodies. The role '
+      'field routes it to assembleRequest, handleResponse or handleError, '
+      'which is what makes those bodies form 3b '
+      '(codespecs_derivation_contract.md §2.4): within a role, each step '
+      'contributes one collaborator method and one statement in list order, '
+      'and a stated condition becomes a guard method (B4). It routes to the '
+      'same part as the interaction step that owns it — a step is not a '
+      'declaration of its own, it is part of one call.',
+)
+class ServerCallStepEntry extends DocSpecsSection {
+  @ContentHelp('Say which of the three handling roles this step belongs to, '
+      'then what happens in it, as one action. Give the step a headline that '
+      'names that action — it is what the generated method is named after. '
+      'Fill in Condition only where the step is conditional; a step with no '
+      'condition always runs.')
+  @Form([
+    Field(
+      'role',
+      ServerCallRole,
+      'Role',
+      required: true,
+      hint: 'Which of the call\'s three handling roles this step belongs to: '
+          'assembleRequest (before the call), handleResponse (after a '
+          'successful one) or handleError (after a failed one).',
+    ),
+    Field(
+      'systemAction',
+      String,
+      'System Action',
+      required: true,
+      hint: 'What happens in this step — one action, stated as what happens '
+          'rather than how it is coded. Nothing outside the system acts here: '
+          'assembling, applying and surfacing are system work throughout.',
+    ),
+    Field(
+      'condition',
+      String,
+      'Condition',
+      hint: 'The condition under which this step runs, if it is not '
+          'unconditional (e.g. only when the customer has a stored address). '
+          'Leave empty for a step that always runs.',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// Use case extensions (alternative and exception flows).
@@ -4913,6 +5031,15 @@ class ExtensionStepEntry extends DocSpecsSection {
   @override
   @SerializationOrder(0)
   String? content;
+
+  @SectionId('SVCST-STEP-LST')
+  @SectionIdPattern('SVCST-STEP-xxx')
+  @ContentHelp('Fill this in only where the step reaches the server. Add one '
+      'entry per thing that has to happen to assemble the request, to apply '
+      'the response, or to surface an error — in the order it happens, each '
+      'entry saying which of the three it belongs to.')
+  @SerializationOrder(1)
+  List<ServerCallStepEntry> serverCallSteps = [];
 }
 
 /// Technology and data variations.
@@ -5645,6 +5772,15 @@ class ScenarioStepEntry extends DocSpecsSection {
   ])
   @SerializationOrder(2)
   DocSpecsSection? execution;
+
+  @SectionId('SVCST-STEP-LST')
+  @SectionIdPattern('SVCST-STEP-xxx')
+  @ContentHelp('Fill this in only where the step reaches the server. Add one '
+      'entry per thing that has to happen to assemble the request, to apply '
+      'the response, or to surface an error — in the order it happens, each '
+      'entry saying which of the three it belongs to.')
+  @SerializationOrder(3)
+  List<ServerCallStepEntry> serverCallSteps = [];
 }
 
 /// An alternative flow entry.
@@ -5819,6 +5955,15 @@ class AlternativeStepEntry extends DocSpecsSection {
   @override
   @SerializationOrder(0)
   String? content;
+
+  @SectionId('SVCST-STEP-LST')
+  @SectionIdPattern('SVCST-STEP-xxx')
+  @ContentHelp('Fill this in only where the step reaches the server. Add one '
+      'entry per thing that has to happen to assemble the request, to apply '
+      'the response, or to surface an error — in the order it happens, each '
+      'entry saying which of the three it belongs to.')
+  @SerializationOrder(1)
+  List<ServerCallStepEntry> serverCallSteps = [];
 }
 
 // ---------------------------------------------------------------------------

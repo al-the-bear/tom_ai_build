@@ -1362,6 +1362,10 @@ class AlternativeStepEntry extends SomNode {
   get content() {
     return new AlternativeStepEntryContentForm(this.doc, this.path + "/content");
   }
+
+  get serverCallSteps() {
+    return new SomList(this.doc, this.path + "/SVCST-STEP-LST", (d, p) => new ServerCallStepEntry(d, p), "SVCST-STEP-xxx");
+  }
 }
 
 // Anomaly detection policy (form).
@@ -15350,6 +15354,10 @@ class ExtensionStepEntry extends SomNode {
   get content() {
     return new ExtensionStepEntryContentForm(this.doc, this.path + "/content");
   }
+
+  get serverCallSteps() {
+    return new SomList(this.doc, this.path + "/SVCST-STEP-LST", (d, p) => new ServerCallStepEntry(d, p), "SVCST-STEP-xxx");
+  }
 }
 
 // An external actor entry (form).
@@ -20372,6 +20380,10 @@ class MainScenarioStepEntry extends SomNode {
 
   get content() {
     return new MainScenarioStepEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  get serverCallSteps() {
+    return new SomList(this.doc, this.path + "/SVCST-STEP-LST", (d, p) => new ServerCallStepEntry(d, p), "SVCST-STEP-xxx");
   }
 }
 
@@ -30213,6 +30225,10 @@ class ScenarioStepEntry extends SomNode {
   get execution() {
     return new ScenarioStepEntryExecutionForm(this.doc, this.path + "/SCSTENEX");
   }
+
+  get serverCallSteps() {
+    return new SomList(this.doc, this.path + "/SVCST-STEP-LST", (d, p) => new ServerCallStepEntry(d, p), "SVCST-STEP-xxx");
+  }
 }
 
 // A single scheduled job (form + trigger case + work definition + failure
@@ -32009,6 +32025,43 @@ class SensitiveDataEncryption extends SomNode {
   // 9.5.3. Key Management.
   get keyManagement() {
     return new KeyManagement(this.doc, this.path + "/keyManagement");
+  }
+}
+
+// One step of a server call's handling, in one of its three roles.
+//
+// A step that reaches the server states the call in one sentence — *submits
+// the order to the ordering service* — but the code that performs it is three
+// separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
+// assembled before the wire, a successful response is applied after it, and a
+// failure is surfaced instead. This entry is where each of those is stated,
+// and [role] is the field that says which. Without it a generator would have
+// to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
+// three bodies could only throw the same text.
+//
+// The steps hang off the interaction step that issues the call (`MNSST`,
+// `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
+// *is* that step's reach across the boundary. Leaving the list empty leaves
+// the call's bodies as they were — an unstated role falls back to form 3a over
+// the issuing step's own behaviour text (§2.4).
+//
+// **No step number.** The list position *is* the order
+// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+// step's own order field), and each role's steps are read in document order
+// within the list.
+//
+// **[condition] is a precondition, not a case label.** It becomes a guard on
+// the step's statement (§2.4 B4). It is not the way an error code is turned
+// into user-visible wording: B7 forbids the `switch` that would need, and the
+// message a code maps to belongs in the CE-TX message-key registry
+// (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+class ServerCallStepEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get content() {
+    return new ServerCallStepEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -149784,6 +149837,49 @@ class SelfRegistrationPolicyVerificationForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class ServerCallStepEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get role() {
+    return this.doc.formField(this.path, "role") || '';
+  }
+
+  set role(value) {
+    this.doc.setFormField(this.path, "role", value);
+  }
+
+  get systemAction() {
+    return this.doc.formField(this.path, "systemAction") || '';
+  }
+
+  set systemAction(value) {
+    this.doc.setFormField(this.path, "systemAction", value);
+  }
+
+  get condition() {
+    return this.doc.formField(this.path, "condition") || '';
+  }
+
+  set condition(value) {
+    this.doc.setFormField(this.path, "condition", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class ServerConfigurationSettingEntryContentForm extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -182087,6 +182183,7 @@ module.exports = {
   SelfRegistrationPolicy,
   SelfServiceAccountManagement,
   SensitiveDataEncryption,
+  ServerCallStepEntry,
   ServerConfigurationSettingEntry,
   ServerEnvironmentEntry,
   ServerOperationEntry,
@@ -184501,6 +184598,7 @@ module.exports = {
   SelfRegistrationPolicyFieldsForm,
   SelfRegistrationPolicySecurityForm,
   SelfRegistrationPolicyVerificationForm,
+  ServerCallStepEntryContentForm,
   ServerConfigurationSettingEntryContentForm,
   ServerEnvironmentEntryAccessForm,
   ServerEnvironmentEntryContentForm,

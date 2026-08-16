@@ -1041,6 +1041,7 @@ static SomMetaNode **meta_children_security_testing_automation(SomStrList *stack
 static SomMetaNode **meta_children_self_registration_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_self_service_account_management(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_sensitive_data_encryption(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_server_call_step_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_server_configuration_setting_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_server_environment_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_server_operation_entry(SomStrList *stack, size_t *len);
@@ -1483,6 +1484,8 @@ static void meta_build_alternative_flow_entry_resume_point(SomMetaNode *n);
 static void meta_build_alternative_flow_entry_steps(SomMetaNode *n);
 static void meta_build_alternative_flow_entry_steps_elem(SomMetaNode *n);
 static void meta_build_alternative_step_entry_content(SomMetaNode *n);
+static void meta_build_alternative_step_entry_server_call_steps(SomMetaNode *n);
+static void meta_build_alternative_step_entry_server_call_steps_elem(SomMetaNode *n);
 static void meta_build_anomaly_detection_policy_content(SomMetaNode *n);
 static void meta_build_anomaly_detection_policy_notes(SomMetaNode *n);
 static void meta_build_api_abuse_protection_content(SomMetaNode *n);
@@ -3424,6 +3427,8 @@ static void meta_build_extension_entry_resume_point(SomMetaNode *n);
 static void meta_build_extension_entry_steps(SomMetaNode *n);
 static void meta_build_extension_entry_steps_elem(SomMetaNode *n);
 static void meta_build_extension_step_entry_content(SomMetaNode *n);
+static void meta_build_extension_step_entry_server_call_steps(SomMetaNode *n);
+static void meta_build_extension_step_entry_server_call_steps_elem(SomMetaNode *n);
 static void meta_build_external_actor_entry_content(SomMetaNode *n);
 static void meta_build_external_actor_entry_interaction(SomMetaNode *n);
 static void meta_build_external_actor_entry_context(SomMetaNode *n);
@@ -4124,6 +4129,8 @@ static void meta_build_login_flow_step_entry_validation(SomMetaNode *n);
 static void meta_build_login_flow_step_entry_behavior(SomMetaNode *n);
 static void meta_build_login_flow_step_entry_protocol(SomMetaNode *n);
 static void meta_build_main_scenario_step_entry_content(SomMetaNode *n);
+static void meta_build_main_scenario_step_entry_server_call_steps(SomMetaNode *n);
+static void meta_build_main_scenario_step_entry_server_call_steps_elem(SomMetaNode *n);
 static void meta_build_main_success_scenario_content(SomMetaNode *n);
 static void meta_build_main_success_scenario_steps(SomMetaNode *n);
 static void meta_build_main_success_scenario_steps_elem(SomMetaNode *n);
@@ -5500,6 +5507,8 @@ static void meta_build_scenario_entry_validation(SomMetaNode *n);
 static void meta_build_scenario_step_entry_content(SomMetaNode *n);
 static void meta_build_scenario_step_entry_context(SomMetaNode *n);
 static void meta_build_scenario_step_entry_execution(SomMetaNode *n);
+static void meta_build_scenario_step_entry_server_call_steps(SomMetaNode *n);
+static void meta_build_scenario_step_entry_server_call_steps_elem(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_content(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_cron_trigger(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_calendar_trigger(SomMetaNode *n);
@@ -5737,6 +5746,7 @@ static void meta_build_sensitive_data_encryption_content(SomMetaNode *n);
 static void meta_build_sensitive_data_encryption_encryption_at_rest(SomMetaNode *n);
 static void meta_build_sensitive_data_encryption_encryption_in_transit(SomMetaNode *n);
 static void meta_build_sensitive_data_encryption_key_management(SomMetaNode *n);
+static void meta_build_server_call_step_entry_content(SomMetaNode *n);
 static void meta_build_server_configuration_setting_entry_content(SomMetaNode *n);
 static void meta_build_server_environment_entry_content(SomMetaNode *n);
 static void meta_build_server_environment_entry_location(SomMetaNode *n);
@@ -8977,6 +8987,11 @@ static void *meta_nav_factory_security_standard_entry(const SomMetaTree *tree, c
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_server_call_step_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_server_call_step_entry *r = (som_nav_server_call_step_entry *)malloc(sizeof(som_nav_server_call_step_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_server_configuration_setting_entry(const SomMetaTree *tree, const char *path) {
   som_nav_server_configuration_setting_entry *r = (som_nav_server_configuration_setting_entry *)malloc(sizeof(som_nav_server_configuration_setting_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11494,6 +11509,11 @@ static void *meta_id_factory_security_standard_compliance_entry(const SomMetaTre
 }
 static void *meta_id_factory_security_standard_entry(const SomMetaTree *tree, const char *path) {
   som_id_security_standard_entry *r = (som_id_security_standard_entry *)malloc(sizeof(som_id_security_standard_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_server_call_step_entry(const SomMetaTree *tree, const char *path) {
+  som_id_server_call_step_entry *r = (som_id_server_call_step_entry *)malloc(sizeof(som_id_server_call_step_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -16399,6 +16419,25 @@ static void meta_build_alternative_step_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("The observable outcome after the step");
   n->form->fields[3].order = 3;
+}
+static void meta_build_alternative_step_entry_server_call_steps(SomMetaNode *n) {
+  meta_set(&n->class_name, "AlternativeStepEntry");
+  meta_set(&n->member_name, "serverCallSteps");
+  meta_set(&n->section_id, "SVCST-STEP-LST");
+  meta_set(&n->section_id_pattern, "SVCST-STEP-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ServerCallStepEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.");
+}
+static void meta_build_alternative_step_entry_server_call_steps_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerCallStepEntry");
+  meta_set(&n->class_section_id, "SVCST");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerCallStepEntry");
+  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
 }
 static void meta_build_anomaly_detection_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AnomalyDetectionPolicy");
@@ -62488,6 +62527,25 @@ static void meta_build_extension_step_entry_content(SomMetaNode *n) {
   n->form->fields[2].hint = som_strdup("How the system responds in this step");
   n->form->fields[2].order = 2;
 }
+static void meta_build_extension_step_entry_server_call_steps(SomMetaNode *n) {
+  meta_set(&n->class_name, "ExtensionStepEntry");
+  meta_set(&n->member_name, "serverCallSteps");
+  meta_set(&n->section_id, "SVCST-STEP-LST");
+  meta_set(&n->section_id_pattern, "SVCST-STEP-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ServerCallStepEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.");
+}
+static void meta_build_extension_step_entry_server_call_steps_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerCallStepEntry");
+  meta_set(&n->class_section_id, "SVCST");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerCallStepEntry");
+  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+}
 static void meta_build_external_actor_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalActorEntry");
   meta_set(&n->member_name, "content");
@@ -80526,6 +80584,25 @@ static void meta_build_main_scenario_step_entry_content(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Expected time to complete this step");
   n->form->fields[7].order = 7;
+}
+static void meta_build_main_scenario_step_entry_server_call_steps(SomMetaNode *n) {
+  meta_set(&n->class_name, "MainScenarioStepEntry");
+  meta_set(&n->member_name, "serverCallSteps");
+  meta_set(&n->section_id, "SVCST-STEP-LST");
+  meta_set(&n->section_id_pattern, "SVCST-STEP-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ServerCallStepEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.");
+}
+static void meta_build_main_scenario_step_entry_server_call_steps_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerCallStepEntry");
+  meta_set(&n->class_section_id, "SVCST");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerCallStepEntry");
+  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
 }
 static void meta_build_main_success_scenario_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MainSuccessScenario");
@@ -116930,6 +117007,25 @@ static void meta_build_scenario_step_entry_execution(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BPMN 2.0 — sequence flow / activities (scenario steps)\",\"Cockburn — Writing Effective Use Cases: extensions & alternative flows\"],\"connotation\":\"Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes.\"}", NULL);
 }
+static void meta_build_scenario_step_entry_server_call_steps(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScenarioStepEntry");
+  meta_set(&n->member_name, "serverCallSteps");
+  meta_set(&n->section_id, "SVCST-STEP-LST");
+  meta_set(&n->section_id_pattern, "SVCST-STEP-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ServerCallStepEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->content_help, "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.");
+}
+static void meta_build_scenario_step_entry_server_call_steps_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerCallStepEntry");
+  meta_set(&n->class_section_id, "SVCST");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerCallStepEntry");
+  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+}
 static void meta_build_scheduled_job_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScheduledJobEntry");
   meta_set(&n->member_name, "content");
@@ -122978,6 +123074,41 @@ static void meta_build_sensitive_data_encryption_key_management(SomMetaNode *n) 
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "9.5.3. Key Management.");
   meta_set(&n->class_doc_comment, "9.5.3. Key Management.\n\nDefines cryptographic key management policies covering the full key\nlifecycle: generation, storage, rotation, escrow/backup, and compromise\nrecovery. Aligns with OWASP Key Management Cheat Sheet and\nNIST SP 800-57 (Recommendation for Key Management).");
+}
+static void meta_build_server_call_step_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerCallStepEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "Say which of the three handling roles this step belongs to, then what happens in it, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("role");
+  n->form->fields[0].type_name = som_strdup("ServerCallRole");
+  n->form->fields[0].description = som_strdup("Role");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Which of the call's three handling roles this step belongs to: assembleRequest (before the call), handleResponse (after a successful one) or handleError (after a failed one).");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 3;
+  n->form->fields[0].enum_values = (char **)calloc(3, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("assembleRequest");
+  n->form->fields[0].enum_values[1] = som_strdup("handleResponse");
+  n->form->fields[0].enum_values[2] = som_strdup("handleError");
+  n->form->fields[1].name = som_strdup("systemAction");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("System Action");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("What happens in this step — one action, stated as what happens rather than how it is coded. Nothing outside the system acts here: assembling, applying and surfacing are system work throughout.");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("condition");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Condition");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The condition under which this step runs, if it is not unconditional (e.g. only when the customer has a stored address). Leave empty for a step that always runs.");
+  n->form->fields[2].order = 2;
 }
 static void meta_build_server_configuration_setting_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerConfigurationSettingEntry");
@@ -155770,7 +155901,6 @@ static SomMetaNode **meta_children_alternative_flow_entry(SomStrList *stack, siz
 }
 
 static SomMetaNode **meta_children_alternative_step_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -155778,6 +155908,12 @@ static SomMetaNode **meta_children_alternative_step_entry(SomStrList *stack, siz
     SomMetaNode *n = som_meta_node_new();
     meta_build_alternative_step_entry_content(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_alternative_step_entry_server_call_steps(ln);
+    ln->element_node = meta_cx("ServerCallStepEntry", stack, meta_children_server_call_step_entry, meta_build_alternative_step_entry_server_call_steps_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -166054,7 +166190,6 @@ static SomMetaNode **meta_children_extension_entry(SomStrList *stack, size_t *le
 }
 
 static SomMetaNode **meta_children_extension_step_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -166062,6 +166197,12 @@ static SomMetaNode **meta_children_extension_step_entry(SomStrList *stack, size_
     SomMetaNode *n = som_meta_node_new();
     meta_build_extension_step_entry_content(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_extension_step_entry_server_call_steps(ln);
+    ln->element_node = meta_cx("ServerCallStepEntry", stack, meta_children_server_call_step_entry, meta_build_extension_step_entry_server_call_steps_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -170187,7 +170328,6 @@ static SomMetaNode **meta_children_login_flow_step_entry(SomStrList *stack, size
 }
 
 static SomMetaNode **meta_children_main_scenario_step_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -170195,6 +170335,12 @@ static SomMetaNode **meta_children_main_scenario_step_entry(SomStrList *stack, s
     SomMetaNode *n = som_meta_node_new();
     meta_build_main_scenario_step_entry_content(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_main_scenario_step_entry_server_call_steps(ln);
+    ln->element_node = meta_cx("ServerCallStepEntry", stack, meta_children_server_call_step_entry, meta_build_main_scenario_step_entry_server_call_steps_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -178402,7 +178548,6 @@ static SomMetaNode **meta_children_scenario_entry(SomStrList *stack, size_t *len
 }
 
 static SomMetaNode **meta_children_scenario_step_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -178420,6 +178565,12 @@ static SomMetaNode **meta_children_scenario_step_entry(SomStrList *stack, size_t
     SomMetaNode *n = som_meta_node_new();
     meta_build_scenario_step_entry_execution(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_scenario_step_entry_server_call_steps(ln);
+    ln->element_node = meta_cx("ServerCallStepEntry", stack, meta_children_server_call_step_entry, meta_build_scenario_step_entry_server_call_steps_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -179745,6 +179896,19 @@ static SomMetaNode **meta_children_sensitive_data_encryption(SomStrList *stack, 
   meta_push(&arr, len, &cap, meta_cx("EncryptionAtRest", stack, meta_children_encryption_at_rest, meta_build_sensitive_data_encryption_encryption_at_rest));
   meta_push(&arr, len, &cap, meta_cx("EncryptionInTransit", stack, meta_children_encryption_in_transit, meta_build_sensitive_data_encryption_encryption_in_transit));
   meta_push(&arr, len, &cap, meta_cx("KeyManagement", stack, meta_children_key_management, meta_build_sensitive_data_encryption_key_management));
+  return arr;
+}
+
+static SomMetaNode **meta_children_server_call_step_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_server_call_step_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -188634,6 +188798,13 @@ SomMetaRef alternative_step_entry_nav_content(som_nav_alternative_step_entry x) 
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef alternative_step_entry_nav_server_call_steps(som_nav_alternative_step_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVCST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_server_call_step_entry);
   free(path);
   return out;
 }
@@ -200915,6 +201086,13 @@ SomMetaRef extension_step_entry_nav_content(som_nav_extension_step_entry x) {
   free(path);
   return out;
 }
+SomListMetaRef extension_step_entry_nav_server_call_steps(som_nav_extension_step_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVCST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_server_call_step_entry);
+  free(path);
+  return out;
+}
 SomMetaRef external_actor_entry_nav_content(som_nav_external_actor_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -205385,6 +205563,13 @@ SomMetaRef main_scenario_step_entry_nav_content(som_nav_main_scenario_step_entry
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef main_scenario_step_entry_nav_server_call_steps(som_nav_main_scenario_step_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVCST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_server_call_step_entry);
   free(path);
   return out;
 }
@@ -214033,6 +214218,13 @@ SomMetaRef scenario_step_entry_nav_execution(som_nav_scenario_step_entry x) {
   free(path);
   return out;
 }
+SomListMetaRef scenario_step_entry_nav_server_call_steps(som_nav_scenario_step_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVCST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_server_call_step_entry);
+  free(path);
+  return out;
+}
 SomMetaRef scheduled_job_entry_nav_content(som_nav_scheduled_job_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -215521,6 +215713,13 @@ som_nav_key_management sensitive_data_encryption_nav_key_management(som_nav_sens
   som_nav_key_management out;
   char *path = spec_path_join(x.ref.path, "keyManagement");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef server_call_step_entry_nav_content(som_nav_server_call_step_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -223649,6 +223848,13 @@ SomListMetaRef alternative_flow_entry_id_alst_step_lst(som_id_alternative_flow_e
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "ALST-STEP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_alternative_step_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef alternative_step_entry_id_svcst_step_lst(som_id_alternative_step_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVCST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_call_step_entry);
   free(path);
   return out;
 }
@@ -249237,6 +249443,13 @@ SomListMetaRef extension_entry_id_extst_step_lst(som_id_extension_entry x) {
   free(path);
   return out;
 }
+SomListMetaRef extension_step_entry_id_svcst_step_lst(som_id_extension_step_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVCST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_call_step_entry);
+  free(path);
+  return out;
+}
 SomMetaRef external_actor_entry_id_eaei(som_id_external_actor_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "EAEI");
@@ -250536,6 +250749,13 @@ SomMetaRef login_flow_step_entry_id_lfsep(som_id_login_flow_step_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "LFSEP");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef main_scenario_step_entry_id_svcst_step_lst(som_id_main_scenario_step_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVCST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_call_step_entry);
   free(path);
   return out;
 }
@@ -252734,6 +252954,13 @@ SomMetaRef scenario_step_entry_id_scstenex(som_id_scenario_step_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCSTENEX");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef scenario_step_entry_id_svcst_step_lst(som_id_scenario_step_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVCST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_call_step_entry);
   free(path);
   return out;
 }

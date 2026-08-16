@@ -995,6 +995,7 @@ class SecurityTestingAutomation;
 class SelfRegistrationPolicy;
 class SelfServiceAccountManagement;
 class SensitiveDataEncryption;
+class ServerCallStepEntry;
 class ServerConfigurationSettingEntry;
 class ServerEnvironmentEntry;
 class ServerOperationEntry;
@@ -3409,6 +3410,7 @@ class SelfRegistrationPolicyContentForm;
 class SelfRegistrationPolicyFieldsForm;
 class SelfRegistrationPolicySecurityForm;
 class SelfRegistrationPolicyVerificationForm;
+class ServerCallStepEntryContentForm;
 class ServerConfigurationSettingEntryContentForm;
 class ServerEnvironmentEntryAccessForm;
 class ServerEnvironmentEntryContentForm;
@@ -4746,6 +4748,8 @@ class AlternativeStepEntry : public som::SomNode {
  public:
   AlternativeStepEntry(som::SpecDocument& doc, std::string path);
   AlternativeStepEntryContentForm content() const;
+  // Returns the list view; element type: ServerCallStepEntry (construct from item paths).
+  som::SomList serverCallSteps() const;
 };
 
 // Anomaly detection policy (form).
@@ -12555,6 +12559,8 @@ class ExtensionStepEntry : public som::SomNode {
  public:
   ExtensionStepEntry(som::SpecDocument& doc, std::string path);
   ExtensionStepEntryContentForm content() const;
+  // Returns the list view; element type: ServerCallStepEntry (construct from item paths).
+  som::SomList serverCallSteps() const;
 };
 
 // An external actor entry (form).
@@ -15375,6 +15381,8 @@ class MainScenarioStepEntry : public som::SomNode {
  public:
   MainScenarioStepEntry(som::SpecDocument& doc, std::string path);
   MainScenarioStepEntryContentForm content() const;
+  // Returns the list view; element type: ServerCallStepEntry (construct from item paths).
+  som::SomList serverCallSteps() const;
 };
 
 // Main success scenario (basic flow).
@@ -20903,6 +20911,8 @@ class ScenarioStepEntry : public som::SomNode {
   ScenarioStepEntryContextForm context() const;
   // Branching, timing, and notes.
   ScenarioStepEntryExecutionForm execution() const;
+  // Returns the list view; element type: ServerCallStepEntry (construct from item paths).
+  som::SomList serverCallSteps() const;
 };
 
 // A single scheduled job (form + trigger case + work definition + failure
@@ -21977,6 +21987,39 @@ class SensitiveDataEncryption : public som::SomNode {
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
+};
+
+// One step of a server call's handling, in one of its three roles.
+//
+// A step that reaches the server states the call in one sentence — *submits
+// the order to the ordering service* — but the code that performs it is three
+// separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
+// assembled before the wire, a successful response is applied after it, and a
+// failure is surfaced instead. This entry is where each of those is stated,
+// and [role] is the field that says which. Without it a generator would have
+// to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
+// three bodies could only throw the same text.
+//
+// The steps hang off the interaction step that issues the call (`MNSST`,
+// `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
+// *is* that step's reach across the boundary. Leaving the list empty leaves
+// the call's bodies as they were — an unstated role falls back to form 3a over
+// the issuing step's own behaviour text (§2.4).
+//
+// **No step number.** The list position *is* the order
+// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+// step's own order field), and each role's steps are read in document order
+// within the list.
+//
+// **[condition] is a precondition, not a case label.** It becomes a guard on
+// the step's statement (§2.4 B4). It is not the way an error code is turned
+// into user-visible wording: B7 forbids the `switch` that would need, and the
+// message a code maps to belongs in the CE-TX message-key registry
+// (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+class ServerCallStepEntry : public som::SomNode {
+ public:
+  ServerCallStepEntry(som::SpecDocument& doc, std::string path);
+  ServerCallStepEntryContentForm content() const;
 };
 
 // A single declared server / system configuration setting (CE-CF).
@@ -65232,6 +65275,22 @@ class SelfRegistrationPolicyVerificationForm : public som::SomNode {
   void setPhoneVerificationRequired(const std::string& value);
   std::string phoneVerificationMethod() const;
   void setPhoneVerificationMethod(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ServerCallStepEntryContentForm : public som::SomNode {
+ public:
+  ServerCallStepEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string role() const;
+  void setRole(const std::string& value);
+  std::string systemAction() const;
+  void setSystemAction(const std::string& value);
+  std::string condition() const;
+  void setCondition(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

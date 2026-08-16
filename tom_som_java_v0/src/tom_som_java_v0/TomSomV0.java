@@ -1359,6 +1359,10 @@ public final class TomSomV0 {
     public AlternativeStepEntryContentForm content() {
       return new AlternativeStepEntryContentForm(doc, path + "/content");
     }
+
+    public SomList<ServerCallStepEntry> serverCallSteps() {
+      return new SomList<>(doc, path + "/SVCST-STEP-LST", (d, p) -> new ServerCallStepEntry(d, p), "SVCST-STEP-xxx");
+    }
   }
 
   // Anomaly detection policy (form).
@@ -15596,6 +15600,10 @@ public final class TomSomV0 {
     public ExtensionStepEntryContentForm content() {
       return new ExtensionStepEntryContentForm(doc, path + "/content");
     }
+
+    public SomList<ServerCallStepEntry> serverCallSteps() {
+      return new SomList<>(doc, path + "/SVCST-STEP-LST", (d, p) -> new ServerCallStepEntry(d, p), "SVCST-STEP-xxx");
+    }
   }
 
   // An external actor entry (form).
@@ -20646,6 +20654,10 @@ public final class TomSomV0 {
 
     public MainScenarioStepEntryContentForm content() {
       return new MainScenarioStepEntryContentForm(doc, path + "/content");
+    }
+
+    public SomList<ServerCallStepEntry> serverCallSteps() {
+      return new SomList<>(doc, path + "/SVCST-STEP-LST", (d, p) -> new ServerCallStepEntry(d, p), "SVCST-STEP-xxx");
     }
   }
 
@@ -30582,6 +30594,10 @@ public final class TomSomV0 {
     public ScenarioStepEntryExecutionForm execution() {
       return new ScenarioStepEntryExecutionForm(doc, path + "/SCSTENEX");
     }
+
+    public SomList<ServerCallStepEntry> serverCallSteps() {
+      return new SomList<>(doc, path + "/SVCST-STEP-LST", (d, p) -> new ServerCallStepEntry(d, p), "SVCST-STEP-xxx");
+    }
   }
 
   // A single scheduled job (form + trigger case + work definition + failure
@@ -32394,6 +32410,43 @@ public final class TomSomV0 {
     // 9.5.3. Key Management.
     public KeyManagement keyManagement() {
       return new KeyManagement(doc, path + "/keyManagement");
+    }
+  }
+
+  // One step of a server call's handling, in one of its three roles.
+  //
+  // A step that reaches the server states the call in one sentence — *submits
+  // the order to the ordering service* — but the code that performs it is three
+  // separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
+  // assembled before the wire, a successful response is applied after it, and a
+  // failure is surfaced instead. This entry is where each of those is stated,
+  // and [role] is the field that says which. Without it a generator would have
+  // to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
+  // three bodies could only throw the same text.
+  //
+  // The steps hang off the interaction step that issues the call (`MNSST`,
+  // `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
+  // *is* that step's reach across the boundary. Leaving the list empty leaves
+  // the call's bodies as they were — an unstated role falls back to form 3a over
+  // the issuing step's own behaviour text (§2.4).
+  //
+  // **No step number.** The list position *is* the order
+  // (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+  // step's own order field), and each role's steps are read in document order
+  // within the list.
+  //
+  // **[condition] is a precondition, not a case label.** It becomes a guard on
+  // the step's statement (§2.4 B4). It is not the way an error code is turned
+  // into user-visible wording: B7 forbids the `switch` that would need, and the
+  // message a code maps to belongs in the CE-TX message-key registry
+  // (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+  public static final class ServerCallStepEntry extends SomNode {
+    public ServerCallStepEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ServerCallStepEntryContentForm content() {
+      return new ServerCallStepEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -165127,6 +165180,55 @@ public final class TomSomV0 {
 
     public void phoneVerificationMethod(String value) {
       doc.setFormField(path, "phoneVerificationMethod", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ServerCallStepEntryContentForm extends SomNode {
+    public ServerCallStepEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String role() {
+      String v = doc.formField(path, "role");
+      return v == null ? "" : v;
+    }
+
+    public void role(String value) {
+      doc.setFormField(path, "role", value);
+    }
+
+    public String systemAction() {
+      String v = doc.formField(path, "systemAction");
+      return v == null ? "" : v;
+    }
+
+    public void systemAction(String value) {
+      doc.setFormField(path, "systemAction", value);
+    }
+
+    public String condition() {
+      String v = doc.formField(path, "condition");
+      return v == null ? "" : v;
+    }
+
+    public void condition(String value) {
+      doc.setFormField(path, "condition", value);
     }
   }
 

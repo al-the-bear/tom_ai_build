@@ -2793,6 +2793,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Sub-stages and Milestones — contains 0+× SubStage.
+  svcst-step-lst:
+    prefix: SVCST_STEP_LST
+    subsection-types:
+      svcst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to."
   svope-oper-lst:
     prefix: SVOPE_OPER_LST
     subsection-types:
@@ -6954,6 +6962,9 @@ section-types:
     description: Add one entry per extension flow.
   extst-step:
     prefix: EXTST_STEP_
+    subsection-types:
+      svcst-step-lst:
+        max-count: 1
     pattern-check-id:
       pattern: ^EXTST-STEP-.+$
       error-message: IDs of this section must match EXTST-STEP-xxx
@@ -7294,6 +7305,9 @@ section-types:
     description: Add one entry per maintenance dependency.
   mnsst-step:
     prefix: MNSST_STEP_
+    subsection-types:
+      svcst-step-lst:
+        max-count: 1
     pattern-check-id:
       pattern: ^MNSST-STEP-.+$
       error-message: IDs of this section must match MNSST-STEP-xxx
@@ -8023,6 +8037,8 @@ section-types:
         max-count: 1
       scstenex:
         max-count: 1
+      svcst-step-lst:
+        max-count: 1
     pattern-check-id:
       pattern: ^SCNST-STEP-.+$
       error-message: IDs of this section must match SCNST-STEP-xxx
@@ -8250,6 +8266,12 @@ section-types:
       pattern: ^SUSST-SUBS-.+$
       error-message: IDs of this section must match SUSST-SUBS-xxx
     description: A sub-stage or milestone entry (form).
+  svcst-step:
+    prefix: SVCST_STEP_
+    pattern-check-id:
+      pattern: ^SVCST-STEP-.+$
+      error-message: IDs of this section must match SVCST-STEP-xxx
+    description: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to."
   svope-oper:
     prefix: SVOPE_OPER_
     subsection-types:
@@ -8654,6 +8676,9 @@ section-types:
     description: Add one entry per alternative or exception flow.
   alst-step:
     prefix: ALST_STEP_
+    subsection-types:
+      svcst-step-lst:
+        max-count: 1
     pattern-check-id:
       pattern: ^ALST-STEP-.+$
       error-message: IDs of this section must match ALST-STEP-xxx

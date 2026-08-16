@@ -1289,6 +1289,10 @@ class AlternativeStepEntry(SomNode):
     def content(self):
         return AlternativeStepEntryContentForm(self.doc, f"{self.path}/content")
 
+    @property
+    def serverCallSteps(self):
+        return SomList(self.doc, f"{self.path}/SVCST-STEP-LST", lambda d, p: ServerCallStepEntry(d, p), pattern="SVCST-STEP-xxx")
+
 class AnomalyDetectionPolicy(SomNode):
     """Anomaly detection policy (form).
     
@@ -14673,6 +14677,10 @@ class ExtensionStepEntry(SomNode):
     def content(self):
         return ExtensionStepEntryContentForm(self.doc, f"{self.path}/content")
 
+    @property
+    def serverCallSteps(self):
+        return SomList(self.doc, f"{self.path}/SVCST-STEP-LST", lambda d, p: ServerCallStepEntry(d, p), pattern="SVCST-STEP-xxx")
+
 class ExternalActorEntry(SomNode):
     """An external actor entry (form)."""
     def __init__(self, doc, path):
@@ -19448,6 +19456,10 @@ class MainScenarioStepEntry(SomNode):
     @property
     def content(self):
         return MainScenarioStepEntryContentForm(self.doc, f"{self.path}/content")
+
+    @property
+    def serverCallSteps(self):
+        return SomList(self.doc, f"{self.path}/SVCST-STEP-LST", lambda d, p: ServerCallStepEntry(d, p), pattern="SVCST-STEP-xxx")
 
 class MainSuccessScenario(SomNode):
     """Main success scenario (basic flow)."""
@@ -28785,6 +28797,10 @@ class ScenarioStepEntry(SomNode):
     def execution(self):
         return ScenarioStepEntryExecutionForm(self.doc, f"{self.path}/SCSTENEX")
 
+    @property
+    def serverCallSteps(self):
+        return SomList(self.doc, f"{self.path}/SVCST-STEP-LST", lambda d, p: ServerCallStepEntry(d, p), pattern="SVCST-STEP-xxx")
+
 class ScheduledJobEntry(SomNode):
     """A single scheduled job (form + trigger case + work definition + failure
     policy).
@@ -30513,6 +30529,42 @@ class SensitiveDataEncryption(SomNode):
     @property
     def keyManagement(self):
         return KeyManagement(self.doc, f"{self.path}/keyManagement")
+
+class ServerCallStepEntry(SomNode):
+    """One step of a server call's handling, in one of its three roles.
+    
+    A step that reaches the server states the call in one sentence — *submits
+    the order to the ordering service* — but the code that performs it is three
+    separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
+    assembled before the wire, a successful response is applied after it, and a
+    failure is surfaced instead. This entry is where each of those is stated,
+    and [role] is the field that says which. Without it a generator would have
+    to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
+    three bodies could only throw the same text.
+    
+    The steps hang off the interaction step that issues the call (`MNSST`,
+    `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
+    *is* that step's reach across the boundary. Leaving the list empty leaves
+    the call's bodies as they were — an unstated role falls back to form 3a over
+    the issuing step's own behaviour text (§2.4).
+    
+    **No step number.** The list position *is* the order
+    (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+    step's own order field), and each role's steps are read in document order
+    within the list.
+    
+    **[condition] is a precondition, not a case label.** It becomes a guard on
+    the step's statement (§2.4 B4). It is not the way an error code is turned
+    into user-visible wording: B7 forbids the `switch` that would need, and the
+    message a code maps to belongs in the CE-TX message-key registry
+    (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ServerCallStepEntryContentForm(self.doc, f"{self.path}/content")
 
 class ServerConfigurationSettingEntry(SomNode):
     """A single declared server / system configuration setting (CE-CF).
@@ -144489,6 +144541,47 @@ class SelfRegistrationPolicyVerificationForm(SomNode):
     @phoneVerificationMethod.setter
     def phoneVerificationMethod(self, value):
         self.doc.set_form_field(self.path, "phoneVerificationMethod", value)
+
+class ServerCallStepEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def role(self) -> str:
+        return self.doc.form_field(self.path, "role") or ""
+
+    @role.setter
+    def role(self, value):
+        self.doc.set_form_field(self.path, "role", value)
+
+    @property
+    def systemAction(self) -> str:
+        return self.doc.form_field(self.path, "systemAction") or ""
+
+    @systemAction.setter
+    def systemAction(self, value):
+        self.doc.set_form_field(self.path, "systemAction", value)
+
+    @property
+    def condition(self) -> str:
+        return self.doc.form_field(self.path, "condition") or ""
+
+    @condition.setter
+    def condition(self, value):
+        self.doc.set_form_field(self.path, "condition", value)
 
 class ServerConfigurationSettingEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

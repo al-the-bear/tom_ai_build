@@ -1525,6 +1525,12 @@ func (x *AlternativeStepEntry) Content() *AlternativeStepEntryContentForm {
 	return NewAlternativeStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
+func (x *AlternativeStepEntry) ServerCallSteps() *som.SomList[*ServerCallStepEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SVCST-STEP-LST", func(d *som.SpecDocument, p string) *ServerCallStepEntry {
+		return NewServerCallStepEntry(d, p)
+	}, "SVCST-STEP-xxx")
+}
+
 // Anomaly detection policy (form).
 //
 // Defines automated anomaly detection and alerting.
@@ -17407,6 +17413,12 @@ func (x *ExtensionStepEntry) Content() *ExtensionStepEntryContentForm {
 	return NewExtensionStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
+func (x *ExtensionStepEntry) ServerCallSteps() *som.SomList[*ServerCallStepEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SVCST-STEP-LST", func(d *som.SpecDocument, p string) *ServerCallStepEntry {
+		return NewServerCallStepEntry(d, p)
+	}, "SVCST-STEP-xxx")
+}
+
 // An external actor entry (form).
 type ExternalActorEntry struct {
 	som.SomNode
@@ -23090,6 +23102,12 @@ func NewMainScenarioStepEntry(doc *som.SpecDocument, path string) *MainScenarioS
 
 func (x *MainScenarioStepEntry) Content() *MainScenarioStepEntryContentForm {
 	return NewMainScenarioStepEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+func (x *MainScenarioStepEntry) ServerCallSteps() *som.SomList[*ServerCallStepEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SVCST-STEP-LST", func(d *som.SpecDocument, p string) *ServerCallStepEntry {
+		return NewServerCallStepEntry(d, p)
+	}, "SVCST-STEP-xxx")
 }
 
 // Main success scenario (basic flow).
@@ -34306,6 +34324,12 @@ func (x *ScenarioStepEntry) Execution() *ScenarioStepEntryExecutionForm {
 	return NewScenarioStepEntryExecutionForm(x.Doc(), x.Path()+"/SCSTENEX")
 }
 
+func (x *ScenarioStepEntry) ServerCallSteps() *som.SomList[*ServerCallStepEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SVCST-STEP-LST", func(d *som.SpecDocument, p string) *ServerCallStepEntry {
+		return NewServerCallStepEntry(d, p)
+	}, "SVCST-STEP-xxx")
+}
+
 // A single scheduled job (form + trigger case + work definition + failure
 // policy).
 //
@@ -36323,6 +36347,46 @@ func (x *SensitiveDataEncryption) EncryptionInTransit() *EncryptionInTransit {
 // 9.5.3. Key Management.
 func (x *SensitiveDataEncryption) KeyManagement() *KeyManagement {
 	return NewKeyManagement(x.Doc(), x.Path()+"/keyManagement")
+}
+
+// One step of a server call's handling, in one of its three roles.
+//
+// A step that reaches the server states the call in one sentence — *submits
+// the order to the ordering service* — but the code that performs it is three
+// separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
+// assembled before the wire, a successful response is applied after it, and a
+// failure is surfaced instead. This entry is where each of those is stated,
+// and [role] is the field that says which. Without it a generator would have
+// to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
+// three bodies could only throw the same text.
+//
+// The steps hang off the interaction step that issues the call (`MNSST`,
+// `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
+// *is* that step's reach across the boundary. Leaving the list empty leaves
+// the call's bodies as they were — an unstated role falls back to form 3a over
+// the issuing step's own behaviour text (§2.4).
+//
+// **No step number.** The list position *is* the order
+// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+// step's own order field), and each role's steps are read in document order
+// within the list.
+//
+// **[condition] is a precondition, not a case label.** It becomes a guard on
+// the step's statement (§2.4 B4). It is not the way an error code is turned
+// into user-visible wording: B7 forbids the `switch` that would need, and the
+// message a code maps to belongs in the CE-TX message-key registry
+// (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+type ServerCallStepEntry struct {
+	som.SomNode
+}
+
+// NewServerCallStepEntry binds a ServerCallStepEntry facade to a document and a path.
+func NewServerCallStepEntry(doc *som.SpecDocument, path string) *ServerCallStepEntry {
+	return &ServerCallStepEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ServerCallStepEntry) Content() *ServerCallStepEntryContentForm {
+	return NewServerCallStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // A single declared server / system configuration setting (CE-CF).
@@ -177273,6 +177337,56 @@ func (x *SelfRegistrationPolicyVerificationForm) PhoneVerificationMethod() strin
 
 func (x *SelfRegistrationPolicyVerificationForm) SetPhoneVerificationMethod(value string) {
 	x.Doc().SetFormField(x.Path(), "phoneVerificationMethod", value)
+}
+
+// ServerCallStepEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ServerCallStepEntryContentForm struct {
+	som.SomNode
+}
+
+// NewServerCallStepEntryContentForm binds a ServerCallStepEntryContentForm facade to a document and a path.
+func NewServerCallStepEntryContentForm(doc *som.SpecDocument, path string) *ServerCallStepEntryContentForm {
+	return &ServerCallStepEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ServerCallStepEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ServerCallStepEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ServerCallStepEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ServerCallStepEntryContentForm) Role() string {
+	return x.Doc().FormFieldOr(x.Path(), "role")
+}
+
+func (x *ServerCallStepEntryContentForm) SetRole(value string) {
+	x.Doc().SetFormField(x.Path(), "role", value)
+}
+
+func (x *ServerCallStepEntryContentForm) SystemAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "systemAction")
+}
+
+func (x *ServerCallStepEntryContentForm) SetSystemAction(value string) {
+	x.Doc().SetFormField(x.Path(), "systemAction", value)
+}
+
+func (x *ServerCallStepEntryContentForm) Condition() string {
+	return x.Doc().FormFieldOr(x.Path(), "condition")
+}
+
+func (x *ServerCallStepEntryContentForm) SetCondition(value string) {
+	x.Doc().SetFormField(x.Path(), "condition", value)
 }
 
 // ServerConfigurationSettingEntryContentForm is the generated section facade for the `content` @Form section: its own

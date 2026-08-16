@@ -40,7 +40,7 @@ Expected stamp after a clean refresh:
 | --- | --- |
 | `modelVersion` / `modelVersionLabel` | `1` / `1.0.0+3.50e0102` |
 | `metaSchemaVersion` | `1` |
-| `classCount` | 1253 |
+| `classCount` | 1254 |
 | `rootCount` | 14 |
 | `containerRoot` | `DocSpecsProject` |
 

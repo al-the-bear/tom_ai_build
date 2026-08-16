@@ -940,11 +940,17 @@ void registerSpecOps() {
     yamlScalar: (o) => (o as AlternativeFlowEntry).content,
   ));
   SpecRegistry.register(AlternativeStepEntry, SpecClassOps(
-    slots: (o) => const [],
+    slots: (o) {
+      final n = o as AlternativeStepEntry;
+      return [
+        SpecSlot.list(() => n.serverCallSteps, (v) => n.serverCallSteps = v.cast<ServerCallStepEntry>(), label: 'serverCallSteps', sectionId: 'SVCST-STEP-LST'),
+      ];
+    },
     cloneShallow: (o) {
       final n = o as AlternativeStepEntry;
       return AlternativeStepEntry()
-        ..content = n.content;
+        ..content = n.content
+        ..serverCallSteps = n.serverCallSteps;
     },
     yamlScalar: (o) => (o as AlternativeStepEntry).content,
   ));
@@ -8652,11 +8658,17 @@ void registerSpecOps() {
     yamlScalar: (o) => (o as ExtensionEntry).content,
   ));
   SpecRegistry.register(ExtensionStepEntry, SpecClassOps(
-    slots: (o) => const [],
+    slots: (o) {
+      final n = o as ExtensionStepEntry;
+      return [
+        SpecSlot.list(() => n.serverCallSteps, (v) => n.serverCallSteps = v.cast<ServerCallStepEntry>(), label: 'serverCallSteps', sectionId: 'SVCST-STEP-LST'),
+      ];
+    },
     cloneShallow: (o) {
       final n = o as ExtensionStepEntry;
       return ExtensionStepEntry()
-        ..content = n.content;
+        ..content = n.content
+        ..serverCallSteps = n.serverCallSteps;
     },
     yamlScalar: (o) => (o as ExtensionStepEntry).content,
   ));
@@ -11634,11 +11646,17 @@ void registerSpecOps() {
     yamlScalar: (o) => (o as LoginFlowStepEntry).content,
   ));
   SpecRegistry.register(MainScenarioStepEntry, SpecClassOps(
-    slots: (o) => const [],
+    slots: (o) {
+      final n = o as MainScenarioStepEntry;
+      return [
+        SpecSlot.list(() => n.serverCallSteps, (v) => n.serverCallSteps = v.cast<ServerCallStepEntry>(), label: 'serverCallSteps', sectionId: 'SVCST-STEP-LST'),
+      ];
+    },
     cloneShallow: (o) {
       final n = o as MainScenarioStepEntry;
       return MainScenarioStepEntry()
-        ..content = n.content;
+        ..content = n.content
+        ..serverCallSteps = n.serverCallSteps;
     },
     yamlScalar: (o) => (o as MainScenarioStepEntry).content,
   ));
@@ -17375,6 +17393,7 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.context, (v) => n.context = v as DocSpecsSection?, label: 'context', sectionId: 'SSEC'),
         SpecSlot.node(() => n.execution, (v) => n.execution = v as DocSpecsSection?, label: 'execution', sectionId: 'SCSTENEX'),
+        SpecSlot.list(() => n.serverCallSteps, (v) => n.serverCallSteps = v.cast<ServerCallStepEntry>(), label: 'serverCallSteps', sectionId: 'SVCST-STEP-LST'),
       ];
     },
     cloneShallow: (o) {
@@ -17382,7 +17401,8 @@ void registerSpecOps() {
       return ScenarioStepEntry()
         ..content = n.content
         ..context = n.context
-        ..execution = n.execution;
+        ..execution = n.execution
+        ..serverCallSteps = n.serverCallSteps;
     },
     yamlScalar: (o) => (o as ScenarioStepEntry).content,
   ));
@@ -18347,6 +18367,15 @@ void registerSpecOps() {
         ..keyManagement = n.keyManagement;
     },
     yamlScalar: (o) => (o as SensitiveDataEncryption).content,
+  ));
+  SpecRegistry.register(ServerCallStepEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ServerCallStepEntry;
+      return ServerCallStepEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ServerCallStepEntry).content,
   ));
   SpecRegistry.register(ServerConfigurationSettingEntry, SpecClassOps(
     slots: (o) => const [],
