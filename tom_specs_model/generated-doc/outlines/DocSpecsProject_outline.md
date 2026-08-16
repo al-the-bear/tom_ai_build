@@ -6288,6 +6288,49 @@
         - logRetention: `LogRetentionPolicy`
           - content @Form(minimumRetention, maximumRetention, retentionByCategory, archivalPolicy, disposalMethod, legalHold),
             notes @text
+    - `SensitiveDataEncryption` ← (locus: server — CE-CF)
+      - content
+      - `EncryptionAtRest`
+        - content, encryptionAtRestNotes @text
+        - encryptionPolicy: `EncryptionAtRestPolicy`
+          - content, encryptionAtRestPolicyDetails @text
+        - encryptedDataCategories: `EncryptedDataCategoryEntry`[]
+          - content @Form(dataClassification, encryptionApproach, algorithmOverride, encryptedFields, tokenizationUsed, dataRetentionDays, notes)
+        - databaseEncryption: `DatabaseEncryptionPolicy`
+          - content, databaseEncryptionDetails @text
+        - fileStorageEncryption: `FileStorageEncryptionPolicy`
+          - content, fileStorageEncryptionDetails @text
+        - backupEncryption: `BackupEncryptionPolicy`
+          - content, backupEncryptionDetails @text
+      - `EncryptionInTransit`
+        - content, encryptionInTransitNotes @text
+        - `TlsProtocolPolicy`
+          - content, tlsProtocolPolicyDetails @text
+        - certificateManagement: `CertificateManagementPolicy`
+          - content, certificateManagementDetails @text
+        - communicationChannels: `CommunicationChannelEncryptionEntry`[]
+          - content @Form(channelType, tlsRequired, minimumTlsVersionOverride, mutualTlsRequired, certificatePinning, pinningStrategy, notes)
+        - `MutualTlsPolicy`
+          - content, mutualTlsPolicyDetails @text
+        - `TransportSecurityPolicy`
+          - content, transportSecurityPolicyDetails @text
+      - `KeyManagement`
+        - content, notes @text
+        - `KeyGenerationPolicy`
+          - content @Form(generationMethod, cryptographicModuleCompliance, randomNumberGenerator, minimumKeyStrength, approvedAlgorithms, keyPurposeSeparation, quantumReadinessStrategy),
+            notes @text
+        - `KeyStoragePolicy`
+          - content @Form(storageMethod, keyEncryptionKeyPolicy, plaintextKeyProhibition, integrityProtection, accessControl, memoryProtection, trustStorePolicy),
+            notes @text
+        - `KeyRotationPolicy`
+          - content @Form(rotationSchedule, automaticRotation, rotationTriggers, gracePeriod, keyVersioning, distributionMethod),
+            notes @text
+        - `KeyEscrowAndBackupPolicy`
+          - content @Form(escrowEnabled, escrowProvider, escrowScope, backupEncryption, backupStorageLocation, backupFrequency),
+            notes @text
+        - `KeyCompromiseRecoveryPolicy`
+          - content @Form(compromiseDetection, notificationProcedure, recoveryPersonnel, rekeyingMethod, revocationProcess, keyInventoryMaintenance, impactAssessment, compromiseRecoveryPlanReference),
+            notes @text
     - `ReportDefinitions` ← (locus: server — CE-RP)
       - content @description
       - reports: `ReportEntry`[]
@@ -6319,6 +6362,34 @@
           - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
         - recipients: `ReportRecipientEntry`[]
           - content @Form(recipientId, recipientType, recipientReference), context, delivery, lifecycle
+    - `PrintAndExportLayout` ← (locus: server — CE-CF)
+      - content @Form(printStrategy, defaultPaperSize, defaultOrientation), pageSetup, branding, watermark,
+        headerFooter, archive
+      - exportFormats: `ExportFormatEntry`[]
+        - content @Form(formatType), identity, fileFormat, delimiter, dataFormat, security, output, audit
+        - sizeSettings: `ExportSizeSettings`[]
+          - content @Form(maxRows, splitLargeFiles, splitThreshold)
+        - access: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`[]
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
+        - fieldMappings: `ExportFieldMappingEntry`[]
+          - content @Form(mappingId, sourceField, targetFieldName), formatting, numericOutput, temporalOutput,
+            booleanOutput, enumerationOutput, textOutput, transformation, inclusion, layout
+      - exportTemplates: `ExportTemplateEntry`[]
+        - content @Form(baseFormatType), format, fields, layout, metadata
+        - access: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`[]
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
     - `SchemaVersioningAndMigration` ← (locus: server — CE-MG)
       - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
       - migrationTargets: `MigrationTargetEntry`[]

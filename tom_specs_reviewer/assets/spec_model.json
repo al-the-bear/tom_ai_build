@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T16:28:12.579521Z",
+  "generatedAt": "2026-08-16T16:57:08.863834Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
@@ -59543,7 +59543,7 @@
         {
           "name": "auditAndLogging",
           "kind": "complex",
-          "doc": "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.",
+          "doc": "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is `ComplianceReporting` under\n`SecurityOperationsFollowUp`, and is deliberately unreachable from here.",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -59562,10 +59562,31 @@
           "type": "AuditAndLogging"
         },
         {
+          "name": "sensitiveDataEncryption",
+          "kind": "complex",
+          "doc": "Sensitive-data encryption and key management — CE-CF cryptographic\nsettings.\n\nReached **into** `SecurityOperationsFollowUp` rather than through it: that\nroot is tagged OPS for `ComplianceReporting`, and this sibling was swept\nalong by the split rather than placed there on a criterion. It is a pure\nCE-CF band — encryption at rest (database / file-storage / backup\npolicies and the encrypted-data category list), encryption in transit\n(TLS protocol, certificate management, mTLS, transport policy and the\nper-channel entries) and the key lifecycle under `KeyManagement`\n(generation, storage, rotation, escrow-and-backup, compromise recovery).\n\nIt belongs here because §5.5's own substrate names its material:\n`TomBaseServerConfiguration` declares TLS material and signing keys as\ntyped fields, so a TLS minimum version is a server-configuration value in\nexactly the sense `@CsServerConfig` generates. Its projected siblings\nsettle it — `StorageEncryptionPolicy` under `AccessControlModel` and\n`LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of\nthe same shape, and no criterion separates them from these.",
+          "serializationOrder": 11,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server — CE-CF"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 11
+              }
+            }
+          ],
+          "type": "SensitiveDataEncryption"
+        },
+        {
           "name": "reportDefinitions",
           "kind": "complex",
-          "doc": "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.",
-          "serializationOrder": 11,
+          "doc": "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF, not CE-RP, and are\nthe sibling entry below.",
+          "serializationOrder": 12,
           "annotations": [
             {
               "name": "Comment",
@@ -59576,17 +59597,38 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 11
+                "order": 12
               }
             }
           ],
           "type": "ReportDefinitions"
         },
         {
+          "name": "printAndExportLayout",
+          "kind": "complex",
+          "doc": "Print and export layout — CE-CF renderer settings.\n\nReached **into** `ExperienceDesignFollowUp` for the same reason as\n`sensitiveDataEncryption` above: that root is tagged DOC for the design\nvision, wireframes and user-assistance children, and this band is not one\nof them. It is the environment-wide print and export configuration — print\nstrategy, paper size, orientation, page setup, branding, watermark,\nheader/footer and archive policy, plus the export format, size, field-\nmapping and template catalogue.\n\nIts own `@CodeSpecKind` note appeals to the CE-LG boundary between an\naudit *declaration* and its *sink* — and the sink half, `AuditLogFormat`,\nis projected two entries up. A renderer's deployment settings sit on the\nsame side of that boundary, so this entry is what makes the appeal true.\nIt sits beside `reportDefinitions` because that is the projection the\nrenderer renders.",
+          "serializationOrder": 13,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server — CE-CF"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 13
+              }
+            }
+          ],
+          "type": "PrintAndExportLayout"
+        },
+        {
           "name": "schemaVersioningAndMigration",
           "kind": "complex",
           "doc": "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.",
-          "serializationOrder": 12,
+          "serializationOrder": 14,
           "annotations": [
             {
               "name": "Comment",
@@ -59597,7 +59639,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 12
+                "order": 14
               }
             }
           ],
@@ -59607,7 +59649,7 @@
           "name": "serverOperationRegistry",
           "kind": "complex",
           "doc": "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.",
-          "serializationOrder": 13,
+          "serializationOrder": 15,
           "annotations": [
             {
               "name": "Comment",
@@ -59618,7 +59660,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 13
+                "order": 15
               }
             }
           ],
@@ -59628,7 +59670,7 @@
           "name": "processStepsAndActorInteractions",
           "kind": "complex",
           "doc": "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
-          "serializationOrder": 14,
+          "serializationOrder": 16,
           "annotations": [
             {
               "name": "Comment",
@@ -59639,7 +59681,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 14
+                "order": 16
               }
             }
           ],
@@ -59649,7 +59691,7 @@
           "name": "experienceCodeSpecs",
           "kind": "complex",
           "doc": "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
-          "serializationOrder": 15,
+          "serializationOrder": 17,
           "annotations": [
             {
               "name": "Comment",
@@ -59660,7 +59702,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 15
+                "order": 17
               }
             }
           ],
@@ -99976,14 +100018,14 @@
     "ExperienceDesignFollowUp": {
       "name": "ExperienceDesignFollowUp",
       "sectionId": "XDFU",
-      "doc": "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). The root carries no `@CodeSpecKind`, so it is not a generation\nprojection root and nothing under it is reachable from\n`D13CodeSpecsProjection`. Sections *inside* it may still carry one —\n`UserAssistance` and its `ContextualHelp` are tagged CE-TX — recording which\npart their material belongs to; that material reaches generation through a\nD13-reachable bearer of the same part (for CE-TX, the shared\n`MessageKeyRegistry`), never through this subtree (`codespecs_mapping.md`\n§4.3). Accessibility's operational (OPS) facet is a secondary concern\nrefined by the follow-up taxonomy pass.",
+      "doc": "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, user assistance, accessibility, prototype, wireframes & mockups),\nnot CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root carries\nno `@CodeSpecKind`, so it is not itself a generation projection root.\nAccessibility's operational (OPS) facet is a secondary concern refined by\nthe follow-up taxonomy pass.\n\n**Two kinds of `@CodeSpecKind` sit under this root, and they resolve\ndifferently.** `UserAssistance` and its `ContextualHelp` are tagged CE-TX to\nrecord which part their material belongs to; the material itself reaches\ngeneration through a D13-reachable **bearer** of the same part — the shared\n`MessageKeyRegistry`, where the help copy is authored as message keys — so\nthe section stays behind this root. `printLayout` has no such bearer: it is\na pure CE-CF band of renderer settings nothing else declares, so\n`D13CodeSpecsProjection` reaches `PrintAndExportLayout` directly, past this\nroot. The test is whether a projected section already carries the material,\nnot which root the section happens to sit under.",
       "standardReferences": {
         "standards": [
           "ISO 9241-210:2019 — human-centred design for interactive systems",
           "ISO/IEC/IEEE 26514 — designing and developing user documentation",
           "W3C WCAG 2.2 — accessibility"
         ],
-        "connotation": "The DOC design follow-up: design vision, print / export layout, user assistance, accessibility, prototype, and wireframes & mockups."
+        "connotation": "The DOC design follow-up: design vision, user assistance, accessibility, prototype, and wireframes & mockups, grouped with the print / export layout settings the printed and exported artefacts are rendered by."
       },
       "annotations": [
         {
@@ -99994,7 +100036,7 @@
               "ISO/IEC/IEEE 26514 — designing and developing user documentation",
               "W3C WCAG 2.2 — accessibility"
             ],
-            "connotation": "The DOC design follow-up: design vision, print / export layout, user assistance, accessibility, prototype, and wireframes & mockups."
+            "connotation": "The DOC design follow-up: design vision, user assistance, accessibility, prototype, and wireframes & mockups, grouped with the print / export layout settings the printed and exported artefacts are rendered by."
           }
         },
         {
@@ -223537,13 +223579,13 @@
     "SecurityOperationsFollowUp": {
       "name": "SecurityOperationsFollowUp",
       "sectionId": "SCOF",
-      "doc": "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). The root\ncarries no `@CodeSpecKind`, so it is not a generation projection root and\nnothing under it is reachable from `D13CodeSpecsProjection`. The encryption\npolicies *inside* it are nonetheless tagged CE-CF, recording which part\ntheir material belongs to; that material reaches generation through the\nD13-reachable CE-CF bearers (`TechnicalFrameworkConcept`,\n`AuditAndLogging`), never through this subtree (`codespecs_mapping.md`\n§4.3).\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.",
+      "doc": "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** — the\nroutines run *against* the audit log — rather than CodeSpecs-generated\nbehaviour (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not itself a generation projection root.\n\n**The root is not the boundary here.** Its `encryption` child is a pure\nCE-CF band — encryption at rest, encryption in transit and the key\nlifecycle are settings the server reads, and §5.5's substrate\n(`TomBaseServerConfiguration`) names TLS material and signing keys as typed\nfields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`\ndirectly, past this root. Placing it here rather than beside the other SAS\nCE-CF bands is a grouping of subject matter, not a routing verdict, and the\nprojection's membership follows the part.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —\nand what the OPS tag is for — is `ComplianceReporting`: periodic access\nreview, privilege-usage reporting, anomaly detection and regulatory audit\nsupport are processes people run, not code a generator emits.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging",
           "NIST SP 800-57 — key management"
         ],
-        "connotation": "The OPS follow-up: sensitive-data encryption (key management) and the reporting / review routines run against the audit log, consumed operationally rather than generated."
+        "connotation": "The OPS follow-up: the reporting / review routines run against the audit log, consumed operationally rather than generated, grouped with the sensitive-data encryption and key-management settings they govern."
       },
       "annotations": [
         {
@@ -223553,7 +223595,7 @@
               "ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging",
               "NIST SP 800-57 — key management"
             ],
-            "connotation": "The OPS follow-up: sensitive-data encryption (key management) and the reporting / review routines run against the audit log, consumed operationally rather than generated."
+            "connotation": "The OPS follow-up: the reporting / review routines run against the audit log, consumed operationally rather than generated, grouped with the sensitive-data encryption and key-management settings they govern."
           }
         },
         {

@@ -67,6 +67,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on."
+  cochen-comm-lst:
+    prefix: COCHEN_COMM_LST
+    subsection-types:
+      cochen-comm:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per communication channel.
   comsta-stat-lst:
     prefix: COMSTA_STAT_LST
     subsection-types:
@@ -131,6 +139,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per validation rule.
+  endaca-encr-lst:
+    prefix: ENDACA_ENCR_LST
+    subsection-types:
+      endaca-encr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per encrypted data category.
   enrefe-enti-lst:
     prefix: ENREFE_ENTI_LST
     subsection-types:
@@ -147,6 +163,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per enterprise system.
+  exfima-fiel-lst:
+    prefix: EXFIMA_FIEL_LST
+    subsection-types:
+      exfima-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export field mapping.
   expaco-part-lst:
     prefix: EXPACO_PART_LST
     subsection-types:
@@ -163,6 +187,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per operational contact.
+  exsise-size-lst:
+    prefix: EXSISE_SIZE_LST
+    subsection-types:
+      exsise-size:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per size-and-splitting setting.
   famref-comp-lst:
     prefix: FAMREF_COMP_LST
     subsection-types:
@@ -1408,6 +1440,12 @@ section-types:
       pattern: ^CLIAPP-CLIE-.+$
       error-message: IDs of this section must match CLIAPP-CLIE-xxx
     description: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on."
+  cochen-comm:
+    prefix: COCHEN_COMM_
+    pattern-check-id:
+      pattern: ^COCHEN-COMM-.+$
+      error-message: IDs of this section must match COCHEN-COMM-xxx
+    description: Add one entry per communication channel.
   comsta-stat:
     prefix: COMSTA_STAT_
     subsection-types:
@@ -1526,12 +1564,26 @@ section-types:
       pattern: ^DEPTAR-DEPL-.+$
       error-message: IDs of this section must match DEPTAR-DEPL-xxx
     description: Add one entry per deployment target.
+  efe-expo-lst:
+    prefix: EFE_EXPO_LST
+    subsection-types:
+      efe-expo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export format.
   elvaru-vali:
     prefix: ELVARU_VALI_
     pattern-check-id:
       pattern: ^ELVARU-VALI-.+$
       error-message: IDs of this section must match ELVARU-VALI-xxx
     description: Add one entry per validation rule.
+  endaca-encr:
+    prefix: ENDACA_ENCR_
+    pattern-check-id:
+      pattern: ^ENDACA-ENCR-.+$
+      error-message: IDs of this section must match ENDACA-ENCR-xxx
+    description: Add one entry per encrypted data category.
   enrefe-enti:
     prefix: ENREFE_ENTI_
     pattern-check-id:
@@ -1562,6 +1614,39 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per entitlement.
+  ete-expo-lst:
+    prefix: ETE_EXPO_LST
+    subsection-types:
+      ete-expo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export template.
+  exfima-fiel:
+    prefix: EXFIMA_FIEL_
+    subsection-types:
+      efmef:
+        max-count: 1
+      efmefn:
+        max-count: 1
+      efmefd:
+        max-count: 1
+      efmefb:
+        max-count: 1
+      efmefe:
+        max-count: 1
+      efmeft:
+        max-count: 1
+      efmet:
+        max-count: 1
+      efmei:
+        max-count: 1
+      efmel:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^EXFIMA-FIEL-.+$
+      error-message: IDs of this section must match EXFIMA-FIEL-xxx
+    description: Add one entry per export field mapping.
   expaco-part:
     prefix: EXPACO_PART_
     subsection-types:
@@ -1587,6 +1672,12 @@ section-types:
       pattern: ^EXPAOP-OPER-.+$
       error-message: IDs of this section must match EXPAOP-OPER-xxx
     description: Add one entry per operational contact.
+  exsise-size:
+    prefix: EXSISE_SIZE_
+    pattern-check-id:
+      pattern: ^EXSISE-SIZE-.+$
+      error-message: IDs of this section must match EXSISE-SIZE-xxx
+    description: Add one entry per size-and-splitting setting.
   famref-comp:
     prefix: FAMREF_COMP_
     pattern-check-id:
@@ -3690,6 +3781,33 @@ section-types:
       pattern: ^DEE-ENVI-.+$
       error-message: IDs of this section must match DEE-ENVI-xxx
     description: Add one entry per deployment environment.
+  efe-expo:
+    prefix: EFE_EXPO_
+    subsection-types:
+      exid:
+        max-count: 1
+      exfifo:
+        max-count: 1
+      exde:
+        max-count: 1
+      exdafo:
+        max-count: 1
+      exsise-size-lst:
+        max-count: 1
+      exse:
+        max-count: 1
+      exou:
+        max-count: 1
+      exac:
+        max-count: 1
+      azreq:
+        max-count: 1
+      exfima-fiel-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^EFE-EXPO-.+$
+      error-message: IDs of this section must match EFE-EXPO-xxx
+    description: Add one entry per export format.
   ent-enti:
     prefix: ENT_ENTI_
     subsection-types:
@@ -3706,6 +3824,23 @@ section-types:
       error-message: IDs of this section must match ERRE-RECO-xxx
     format: erre-reco-form
     description: Add one entry per recovery flow.
+  ete-expo:
+    prefix: ETE_EXPO_
+    subsection-types:
+      etef:
+        max-count: 1
+      exteenfi:
+        max-count: 1
+      etel:
+        max-count: 1
+      etea:
+        max-count: 1
+      azreq:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ETE-EXPO-.+$
+      error-message: IDs of this section must match ETE-EXPO-xxx
+    description: Add one entry per export template.
   ire-ider:
     prefix: IRE_IDER_
     subsection-types:
@@ -4157,6 +4292,10 @@ section-types:
     prefix: EXNEREPA
     format: exnerepa-form
     description: Third-party connectivity.
+  exteenfi:
+    prefix: EXTEENFI
+    format: exteenfi-form
+    description: Field and filter settings.
   femoende:
     prefix: FEMOENDE
     format: femoende-form
@@ -4586,6 +4725,10 @@ section-types:
       bdce:
         max-count: 1
     description: Data classification for backup purposes.
+  baenpo:
+    prefix: BAENPO
+    format: baenpo-form
+    description: Backup Encryption Policy.
   bainne:
     prefix: BAINNE
     format: bainne-form
@@ -4696,6 +4839,10 @@ section-types:
     prefix: CEMAMO
     format: cemamo-form
     description: Monitoring rules.
+  cemapo:
+    prefix: CEMAPO
+    format: cemapo-form
+    description: Certificate Management Policy.
   cemast:
     prefix: CEMAST
     format: cemast-form
@@ -5149,6 +5296,10 @@ section-types:
     prefix: DAENOP
     format: daenop-form
     description: Alert ownership and notes.
+  daenpo:
+    prefix: DAENPO
+    format: daenpo-form
+    description: Database Encryption Policy.
   dafoco:
     prefix: DAFOCO
     subsection-types:
@@ -5445,6 +5596,26 @@ section-types:
     prefix: DOSTVE
     format: dostve-form
     description: Changelog and versioning requirements.
+  efmefb:
+    prefix: EFMEFB
+    format: efmefb-form
+    description: "Boolean-kind output format — a promoted `@OneOf` case (csra4)."
+  efmefd:
+    prefix: EFMEFD
+    format: efmefd-form
+    description: "Temporal-kind output format — a promoted `@OneOf` case (csra4)."
+  efmefe:
+    prefix: EFMEFE
+    format: efmefe-form
+    description: "Enumeration-kind output format — a promoted `@OneOf` case (csra4)."
+  efmefn:
+    prefix: EFMEFN
+    format: efmefn-form
+    description: "Numeric-kind output format — a promoted `@OneOf` case (csra4)."
+  efmeft:
+    prefix: EFMEFT
+    format: efmeft-form
+    description: "Text-kind output format — a promoted `@OneOf` case (csra4)."
   emmapr:
     prefix: EMMAPR
     subsection-types:
@@ -5455,6 +5626,34 @@ section-types:
       empe:
         max-count: 1
     description: Emergency maintenance procedures.
+  enatre:
+    prefix: ENATRE
+    subsection-types:
+      earp:
+        max-count: 1
+      endaca-encr-lst:
+        max-count: 1
+      daenpo:
+        max-count: 1
+      fsep:
+        max-count: 1
+      baenpo:
+        max-count: 1
+    description: 9.5.1. Encryption At Rest.
+  enintr:
+    prefix: ENINTR
+    subsection-types:
+      tlprpo:
+        max-count: 1
+      cemapo:
+        max-count: 1
+      cochen-comm-lst:
+        max-count: 1
+      mutlpo:
+        max-count: 1
+      trsepo:
+        max-count: 1
+    description: 9.5.2. Encryption In Transit.
   enmaco:
     prefix: ENMACO
     format: enmaco-form
@@ -5534,6 +5733,14 @@ section-types:
   evatpo:
     prefix: EVATPO
     description: Event Attribute Policy.
+  exdafo:
+    prefix: EXDAFO
+    format: exdafo-form
+    description: Data formatting.
+  exfifo:
+    prefix: EXFIFO
+    format: exfifo-form
+    description: File format settings.
   exnere:
     prefix: EXNERE
     subsection-types:
@@ -5740,6 +5947,15 @@ section-types:
       isha:
         max-count: 1
     description: Infrastructure security hardening.
+  kegepo:
+    prefix: KEGEPO
+    description: Key Generation Policy.
+  keropo:
+    prefix: KEROPO
+    description: Key Rotation Policy.
+  kestpo:
+    prefix: KESTPO
+    description: Key Storage Policy.
   lacoru:
     prefix: LACORU
     subsection-types:
@@ -5934,6 +6150,10 @@ section-types:
       movestco:
         max-count: 1
     description: Module versioning and compatibility strategy.
+  mutlpo:
+    prefix: MUTLPO
+    format: mutlpo-form
+    description: Mutual TLS Policy.
   naapre:
     prefix: NAAPRE
     subsection-types:
@@ -6078,6 +6298,18 @@ section-types:
       pcre:
         max-count: 1
     description: Protocol compliance requirements.
+  prlaar:
+    prefix: PRLAAR
+    format: prlaar-form
+    description: Archive and batch settings.
+  prlabr:
+    prefix: PRLABR
+    format: prlabr-form
+    description: Branding configuration.
+  prlawa:
+    prefix: PRLAWA
+    format: prlawa-form
+    description: Watermark and confidentiality.
   prnadr:
     prefix: PRNADR
     format: prnadr-form
@@ -6444,6 +6676,16 @@ section-types:
       scrm:
         max-count: 1
     description: Security certification and compliance framework needs.
+  sedaen:
+    prefix: SEDAEN
+    subsection-types:
+      enatre:
+        max-count: 1
+      enintr:
+        max-count: 1
+      kema:
+        max-count: 1
+    description: Sensitive-data encryption and key management — CE-CF cryptographic
   sedeli:
     prefix: SEDELI
     subsection-types:
@@ -6679,6 +6921,10 @@ section-types:
     prefix: TESTTO
     format: testto-form
     description: Testing tools and CI integration.
+  tlprpo:
+    prefix: TLPRPO
+    format: tlprpo-form
+    description: TLS Protocol Policy.
   tlreco:
     prefix: TLRECO
     format: tlreco-form
@@ -6699,6 +6945,10 @@ section-types:
     prefix: TRCARU
     format: trcaru-form
     description: Runbook and remediation support.
+  trsepo:
+    prefix: TRSEPO
+    format: trsepo-form
+    description: HSTS and Transport Security Policy.
   uicocu:
     prefix: UICOCU
     format: uicocu-form
@@ -7068,6 +7318,22 @@ section-types:
     prefix: DTIAC
     format: dtiac-form
     description: Infrastructure-as-code strategy.
+  efmef:
+    prefix: EFMEF
+    format: efmef-form
+    description: Ordering and formatting settings.
+  efmei:
+    prefix: EFMEI
+    format: efmei-form
+    description: Inclusion and defaults.
+  efmel:
+    prefix: EFMEL
+    format: efmel-form
+    description: Fixed-width and quoting rules.
+  efmet:
+    prefix: EFMET
+    format: efmet-form
+    description: Transformation rules.
   ehsuc:
     prefix: EHSUC
     format: ehsuc-form
@@ -7260,6 +7526,9 @@ section-types:
     prefix: ISCET
     format: iscet-form
     description: Compliance timeline.
+  keabp:
+    prefix: KEABP
+    description: Key Escrow and Backup Policy.
   keagn:
     prefix: KEAGN
     format: keagn-form
@@ -9317,6 +9586,10 @@ section-types:
     prefix: DTSS
     format: dtss-form
     description: Sampling strategy.
+  earp:
+    prefix: EARP
+    format: earp-form
+    description: Encryption At Rest Policy.
   ebtg:
     prefix: EBTG
     format: ebtg-form
@@ -9443,6 +9716,38 @@ section-types:
     prefix: ERSH
     format: ersh-form
     description: Session handling configuration.
+  etea:
+    prefix: ETEA
+    format: etea-form
+    description: Access and metadata.
+  etef:
+    prefix: ETEF
+    format: etef-form
+    description: Format configuration.
+  etel:
+    prefix: ETEL
+    format: etel-form
+    description: Layout configuration.
+  exac:
+    prefix: EXAC
+    format: exac-form
+    description: Access and audit.
+  exde:
+    prefix: EXDE
+    format: exde-form
+    description: Delimiter and quoting.
+  exid:
+    prefix: EXID
+    format: exid-form
+    description: Identity and data source.
+  exou:
+    prefix: EXOU
+    format: exou-form
+    description: Output and scheduling.
+  exse:
+    prefix: EXSE
+    format: exse-form
+    description: Security settings.
   facp:
     prefix: FACP
     format: facp-form
@@ -9495,6 +9800,10 @@ section-types:
     prefix: FMES
     format: fmes-form
     description: Structural scope.
+  fsep:
+    prefix: FSEP
+    format: fsep-form
+    description: File and Storage Encryption Policy.
   fuvp:
     prefix: FUVP
     format: fuvp-form
@@ -9792,6 +10101,23 @@ section-types:
     prefix: IVPW
     format: ivpw-form
     description: Workflow and approval settings.
+  kcrp:
+    prefix: KCRP
+    description: Key Compromise and Recovery Policy.
+  kema:
+    prefix: KEMA
+    subsection-types:
+      kegepo:
+        max-count: 1
+      kestpo:
+        max-count: 1
+      keropo:
+        max-count: 1
+      keabp:
+        max-count: 1
+      kcrp:
+        max-count: 1
+    description: 9.5.3. Key Management.
   kesc:
     prefix: KESC
     subsection-types:
@@ -10422,6 +10748,10 @@ section-types:
     prefix: PJES
     format: pjes-form
     description: Job steps.
+  plhf:
+    prefix: PLHF
+    format: plhf-form
+    description: Header and footer settings.
   plpc:
     prefix: PLPC
     format: plpc-form
@@ -10430,6 +10760,10 @@ section-types:
     prefix: PLPM
     format: plpm-form
     description: Peak metrics.
+  plps:
+    prefix: PLPS
+    format: plps-form
+    description: Page margins and setup.
   plpt:
     prefix: PLPT
     format: plpt-form
@@ -10462,6 +10796,24 @@ section-types:
     prefix: PRCT
     format: prct-form
     description: Cross-border transfer controls.
+  prla:
+    prefix: PRLA
+    subsection-types:
+      plps:
+        max-count: 1
+      prlabr:
+        max-count: 1
+      prlawa:
+        max-count: 1
+      plhf:
+        max-count: 1
+      prlaar:
+        max-count: 1
+      efe-expo-lst:
+        max-count: 1
+      ete-expo-lst:
+        max-count: 1
+    description: Print and export layout — CE-CF renderer settings.
   prna:
     prefix: PRNA
     subsection-types:
@@ -21762,6 +22114,165 @@ form-types:
         description: "None | PerTenant | SharedWithValidation | InvalidateOnSwitch — how authorization decisions are cached with respect to tenant context to prevent cross-tenant cache leakage"
       - fieldname: notes
         description: Additional tenant boundary enforcement notes
+  earp-form:
+    fields:
+      - fieldname: defaultAlgorithm
+        required: true
+        description: "AES-256 | AES-128 | ChaCha20 | 3DES | Other — symmetric encryption algorithm used as the default for data at rest (AES-256 recommended per OWASP/NIST)"
+      - fieldname: defaultKeyLength
+        required: true
+        description: "128 | 192 | 256 — minimum key length in bits for symmetric encryption (256-bit recommended for sensitive data)"
+      - fieldname: cipherMode
+        description: "GCM | CCM | CTR | CBC | XTS — block cipher mode of operation (GCM or CCM recommended for authenticated encryption; XTS for full-disk encryption)"
+      - fieldname: encryptionLayer
+        description: "Application | Database | Filesystem | Hardware | Multiple — at which architectural layer encryption is primarily applied (multiple = defense-in-depth across layers)"
+      - fieldname: fieldLevelEncryption
+        description: "Yes | No — whether individual sensitive fields (e.g. SSN, credit card) are encrypted at the application level beyond database/disk encryption"
+      - fieldname: transparentDataEncryption
+        description: "Yes | No — whether TDE (Transparent Data Encryption) is used at the database engine level (e.g. SQL Server TDE, Oracle TDE, PostgreSQL pgcrypto)"
+      - fieldname: fullDiskEncryption
+        description: "Yes | No — whether full-disk or volume-level encryption is required (e.g. LUKS, BitLocker, AWS EBS encryption)"
+      - fieldname: minimizeSensitiveStorage
+        description: "Yes | No — whether the system actively minimizes storage of sensitive data (e.g. tokenization, truncation, avoiding unnecessary PII retention)"
+      - fieldname: complianceFramework
+        description: "FIPS-140-2 | PCI-DSS | HIPAA | GDPR | SOC2 | None — regulatory or compliance framework dictating encryption requirements"
+      - fieldname: notes
+        description: Additional encryption at rest policy notes
+  daenpo-form:
+    fields:
+      - fieldname: databaseEncryptionMethod
+        required: true
+        description: "TDE | ColumnLevel | CellLevel | ApplicationLayer | None — method of encrypting data within the database"
+      - fieldname: encryptedColumnStrategy
+        description: "Deterministic | Randomized | Homomorphic | Envelope — how individual columns are encrypted (deterministic allows equality search; randomized provides stronger security)"
+      - fieldname: indexOnEncryptedColumns
+        description: "Yes | No — whether indexes are maintained on encrypted columns (requires deterministic encryption or specialized schemes)"
+      - fieldname: searchOnEncryptedData
+        description: "None | DeterministicMatch | BlindIndex | Searchable Encryption | DecryptThenSearch — strategy for querying encrypted data without full decryption"
+      - fieldname: connectionEncryption
+        description: "Yes | No — whether database connections use TLS/SSL for data in transit to/from the database"
+      - fieldname: databaseEngine
+        description: "PostgreSQL | MySQL | SQLServer | Oracle | MongoDB | Other — target database engine (encryption capabilities vary by engine)"
+      - fieldname: notes
+        description: Additional database encryption notes
+  fsep-form:
+    fields:
+      - fieldname: fileEncryptionMethod
+        required: true
+        description: "FileLevel | VolumeLevel | ObjectLevel | ClientSide | ServerSide | None — how files and blobs are encrypted at rest"
+      - fieldname: cloudStorageEncryption
+        description: "SSE-S3 | SSE-KMS | SSE-C | AzureSSE | GCS-CMEK | None — cloud provider server-side encryption method if applicable"
+      - fieldname: clientSideEncryption
+        description: "Yes | No — whether files are encrypted before upload (client-side encryption for defense-in-depth)"
+      - fieldname: encryptedFileFormats
+        description: "Comma-separated list of file types that must be encrypted (e.g. PDF, XLSX, CSV, backup dumps, log archives)"
+      - fieldname: localDeviceEncryption
+        description: "Yes | No — whether local device storage (mobile, desktop) must be encrypted for cached or offline data"
+      - fieldname: temporaryFileEncryption
+        description: "Yes | No — whether temporary files and caches must be encrypted (prevents data leakage through temp files)"
+      - fieldname: notes
+        description: Additional file and storage encryption notes
+  baenpo-form:
+    fields:
+      - fieldname: backupEncryptionRequired
+        required: true
+        description: "Yes | No — whether all backups (database, file, system) must be encrypted"
+      - fieldname: backupEncryptionMethod
+        description: "SameAsSource | SeparateKey | EnvelopeEncryption | CloudProviderManaged — how backup data is encrypted (SameAsSource = same keys as live data)"
+      - fieldname: separateBackupKeys
+        description: "Yes | No — whether backups use separate encryption keys from production data (recommended for key rotation independence)"
+      - fieldname: backupKeyRotation
+        description: "OnEveryBackup | Monthly | Quarterly | Annual | OnKeyChange — how often backup encryption keys are rotated"
+      - fieldname: encryptedBackupVerification
+        description: "Yes | No — whether backup integrity and encryption are periodically verified through test restores"
+      - fieldname: offSiteBackupEncryption
+        description: "Yes | No — whether off-site or disaster recovery backups have additional encryption requirements"
+      - fieldname: notes
+        description: Additional backup encryption notes
+  tlprpo-form:
+    fields:
+      - fieldname: minimumTlsVersion
+        required: true
+        description: "TLS1.2 | TLS1.3 — minimum acceptable TLS version (TLS 1.3 recommended; TLS 1.0/1.1 are deprecated and should not be used; PCI DSS forbids TLS 1.0)"
+      - fieldname: preferredTlsVersion
+        description: "TLS1.3 | TLS1.2 — preferred TLS version for new connections (TLS 1.3 provides improved security and performance)"
+      - fieldname: allowedCipherSuites
+        description: "Comma-separated cipher suite names or categories (e.g. TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256; disable NULL, Anonymous, EXPORT, DES, RC4 ciphers)"
+      - fieldname: preferAuthenticatedEncryption
+        description: "Yes | No — whether GCM/CCM authenticated cipher modes are preferred over CBC (recommended: Yes)"
+      - fieldname: dhGroups
+        description: "Comma-separated DH groups for key exchange (e.g. x25519, prime256v1, ffdhe3072; per RFC 7919)"
+      - fieldname: tlsCompressionDisabled
+        description: "Yes | No — whether TLS compression is disabled to prevent CRIME/BREACH attacks (recommended: Yes)"
+      - fieldname: sessionResumption
+        description: "Tickets | SessionID | None — TLS session resumption mechanism (tickets recommended for TLS 1.3; session IDs for TLS 1.2)"
+      - fieldname: complianceFramework
+        description: "FIPS-140-2 | PCI-DSS | HIPAA | NIST-800-52 | None — regulatory framework dictating TLS requirements"
+      - fieldname: notes
+        description: Additional TLS protocol policy notes
+  cemapo-form:
+    fields:
+      - fieldname: certificateAuthority
+        required: true
+        description: "LetsEncrypt | DigiCert | GlobalSign | InternalCA | Other — certificate authority used for issuing TLS certificates"
+      - fieldname: validationType
+        description: "DV | OV | EV — Domain Validated, Organization Validated, or Extended Validation (DV is sufficient for most applications; EV provides no additional browser security benefits)"
+      - fieldname: minimumKeyLength
+        description: "2048 | 3072 | 4096 — minimum RSA key length in bits for certificates (2048 minimum per NIST; 3072+ recommended)"
+      - fieldname: keyType
+        description: "RSA | ECDSA | Ed25519 — certificate key type (ECDSA with P-256/P-384 or Ed25519 preferred for performance; RSA for broadest compatibility)"
+      - fieldname: hashingAlgorithm
+        description: "SHA-256 | SHA-384 | SHA-512 — certificate hashing algorithm (SHA-256 minimum; MD5 and SHA-1 must not be used)"
+      - fieldname: wildcardCertificatePolicy
+        description: "Allowed | Restricted | Prohibited — policy on wildcard certificates (* certs; use with caution per OWASP — violates least privilege principle)"
+      - fieldname: certificateLifetimeDays
+        description: "Maximum certificate validity in days (e.g. 90 for LetsEncrypt auto-renewal, 365 for annual, 730 for 2-year)"
+      - fieldname: automatedRenewal
+        description: "Yes | No — whether certificates are automatically renewed via ACME or similar protocol before expiration"
+      - fieldname: certificateTransparency
+        description: "Yes | No — whether certificates are logged in Certificate Transparency logs for public auditability"
+      - fieldname: caaRecords
+        description: "Yes | No — whether CAA DNS records restrict which CAs can issue certificates for the domain"
+      - fieldname: notes
+        description: Additional certificate management notes
+  mutlpo-form:
+    fields:
+      - fieldname: mtlsEnabled
+        required: true
+        description: "Yes | No — whether mutual TLS is used anywhere in the system (client certificates for authentication)"
+      - fieldname: mtlsScope
+        description: "AllServices | InternalOnly | HighValueAPIs | SpecificEndpoints — which communication paths require mTLS"
+      - fieldname: clientCertificateIssuance
+        description: "InternalCA | ExternalCA | SelfSigned | Automated — how client certificates are issued and distributed"
+      - fieldname: revocationChecking
+        description: "CRL | OCSP | OCSPStapling | None — how certificate revocation status is verified"
+      - fieldname: fallbackOnMtlsFailure
+        description: "Reject | FallbackToTLS | DegradeWithWarning — behavior when mTLS handshake fails (Reject recommended for high-security channels)"
+      - fieldname: clientCertificateRotation
+        description: "Automated | Manual | OnExpiry — how client certificates are rotated"
+      - fieldname: notes
+        description: Additional mutual TLS policy notes
+  trsepo-form:
+    fields:
+      - fieldname: hstsEnabled
+        required: true
+        description: "Yes | No — whether HTTP Strict Transport Security header is sent to force browsers to use HTTPS"
+      - fieldname: hstsMaxAgeDays
+        description: HSTS max-age value in days (e.g. 365 = 1 year; 730 = 2 years; must be sufficiently long to prevent downgrade)
+      - fieldname: hstsIncludeSubdomains
+        description: "Yes | No — whether HSTS applies to all subdomains (recommended: Yes when all subdomains support HTTPS)"
+      - fieldname: hstsPreload
+        description: "Yes | No — whether the domain is submitted to the HSTS preload list (hardcoded into browsers; requires includeSubDomains and long max-age)"
+      - fieldname: httpToHttpsRedirect
+        description: "Yes | No — whether HTTP requests are permanently redirected (301) to HTTPS"
+      - fieldname: secureCookieFlag
+        description: "Yes | No — whether all cookies are marked with Secure flag (browsers only send them over HTTPS)"
+      - fieldname: preventMixedContent
+        description: "Yes | No — whether loading of non-TLS resources from TLS pages is blocked"
+      - fieldname: sensitiveDataCaching
+        description: "NoCache | NoStore | Private | Default — cache-control headers for responses containing sensitive data (NoStore recommended per OWASP)"
+      - fieldname: notes
+        description: Additional transport security policy notes
   reid-form:
     fields:
       - fieldname: description
@@ -22290,6 +22801,242 @@ form-types:
         description: Date this recipient is added
       - fieldname: effectiveTo
         description: Date this recipient is removed; empty = indefinite
+      - fieldname: notes
+        description: Design notes
+  plps-form:
+    fields:
+      - fieldname: defaultMarginTop
+        description: "Top margin, e.g. 20mm"
+      - fieldname: defaultMarginBottom
+        description: "Bottom margin, e.g. 20mm"
+      - fieldname: defaultMarginLeft
+        description: "Left margin, e.g. 15mm"
+      - fieldname: defaultMarginRight
+        description: "Right margin, e.g. 15mm"
+  prlabr-form:
+    fields:
+      - fieldname: brandingLogoResource
+        description: Resource key or path for company logo
+      - fieldname: brandingColorPrimary
+        description: "Primary brand color, e.g. #003366"
+      - fieldname: brandingColorSecondary
+        description: Secondary brand color for subheadings
+      - fieldname: brandingFontFamily
+        description: "Font family, e.g. Helvetica, Arial"
+      - fieldname: brandingFontSizeBase
+        description: "Base font size, e.g. 10pt"
+  prlawa-form:
+    fields:
+      - fieldname: watermarkText
+        description: "Text watermark, e.g. DRAFT, CONFIDENTIAL"
+      - fieldname: watermarkImageResource
+        description: Resource key for image watermark
+      - fieldname: watermarkOpacity
+        description: "Watermark opacity, e.g. 0.1"
+      - fieldname: confidentialityMarking
+        description: Internal / Confidential / Public
+      - fieldname: confidentialityPosition
+        description: Header / Footer / Both / Watermark
+  plhf-form:
+    fields:
+      - fieldname: defaultHeaderContent
+        description: "Header template, e.g. {logo} {reportTitle} {date}"
+      - fieldname: defaultFooterContent
+        description: "Footer template, e.g. {companyName} — Page {page}/{pages}"
+      - fieldname: defaultDateFormat
+        description: "Date format, e.g. dd.MM.yyyy"
+      - fieldname: defaultNumberFormat
+        description: "Number format, e.g. #,##0.00"
+      - fieldname: defaultCurrencyFormat
+        description: "Currency format, e.g. €#,##0.00"
+      - fieldname: defaultTimezone
+        description: "Timezone, e.g. Europe/Berlin"
+      - fieldname: defaultLocale
+        description: "Locale, e.g. de-DE"
+  prlaar-form:
+    fields:
+      - fieldname: archivePolicy
+        description: None / 30-days / 1-year / Permanent
+      - fieldname: reportNamingConvention
+        description: "File naming pattern, e.g. {reportId}_{date}_{version}"
+      - fieldname: batchGenerationSupport
+        description: Yes / No — support batch report generation
+      - fieldname: maxConcurrentReports
+        description: Maximum concurrent reports
+  exid-form:
+    fields:
+      - fieldname: description
+        description: Business purpose of this export
+      - fieldname: relatedDataEntities
+        description: IFM entity references included in export
+      - fieldname: dataSource
+        description: Data source or query reference
+      - fieldname: dataScope
+        description: Scope of exported data
+  exfifo-form:
+    fields:
+      - fieldname: fileNamingPattern
+        description: "Output filename pattern, e.g. orders_{date}.csv"
+      - fieldname: encoding
+        description: UTF-8 / UTF-16 / ISO-8859-1 / ASCII
+      - fieldname: lineEnding
+        description: CRLF / LF / CR
+  exde-form:
+    fields:
+      - fieldname: delimiter
+        description: "Column delimiter: Comma / Semicolon / Tab / Pipe"
+      - fieldname: quoteCharacter
+        description: Field quote character
+      - fieldname: headerRow
+        description: Yes / No — include column header row
+      - fieldname: headerStyle
+        description: Display-Labels / Field-Names / Custom-Mapping
+  exdafo-form:
+    fields:
+      - fieldname: dateFormat
+        description: "Date format, e.g. yyyy-MM-dd / ISO-8601"
+      - fieldname: numberFormat
+        description: Locale-default / US / EU / Raw
+      - fieldname: decimalSeparator
+        description: ". or ,"
+      - fieldname: currencyFormat
+        description: Symbol-prefix / Code-suffix / Raw-number
+      - fieldname: booleanTrueValue
+        description: "String value for true, e.g. 1, true, Yes"
+      - fieldname: booleanFalseValue
+        description: "String value for false, e.g. 0, false, No"
+      - fieldname: nullHandling
+        description: Empty-string / Null-literal / Custom-value
+  exse-form:
+    fields:
+      - fieldname: compressionFormat
+        description: None / ZIP / GZIP / BZIP2
+      - fieldname: encryptionEnabled
+        description: Yes / No
+      - fieldname: encryptionMethod
+        description: AES-256 / Password-Protected-ZIP / PGP / None
+  exou-form:
+    fields:
+      - fieldname: outputDestination
+        description: Download / File-Share / S3 / SFTP / API / Email
+      - fieldname: outputPath
+        description: Path or URL for destination
+      - fieldname: schedulingEnabled
+        description: Yes / No — can this export be scheduled
+      - fieldname: schedulingExpression
+        description: Cron-like expression for automated export
+  exac-form:
+    fields:
+      - fieldname: auditLogging
+        description: Yes / No — log export executions
+      - fieldname: previewAvailable
+        description: Yes / No — allow user to preview
+      - fieldname: notes
+        description: Design notes
+  efmef-form:
+    fields:
+      - fieldname: displayOrder
+        description: Position in the export output (column order)
+      - fieldname: dataType
+        description: The field value type — selects the promoted output subsection.
+  efmefn-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Numeric output format, e.g. #,##0.00"
+      - fieldname: decimalSeparator
+        description: "Character used as the decimal mark, e.g. . or ,"
+  efmefd-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Temporal output format, e.g. dd.MM.yyyy"
+      - fieldname: timezoneHandling
+        description: UTC / Local / With-Offset
+  efmefb-form:
+    fields:
+      - fieldname: trueLiteral
+        description: "Emitted for true, e.g. true / Y / 1"
+      - fieldname: falseLiteral
+        description: "Emitted for false, e.g. false / N / 0"
+  efmefe-form:
+    fields:
+      - fieldname: emittedForm
+        description: Value-Id / Display-Label / Numeric-Ordinal
+      - fieldname: unmappedValueBehavior
+        description: Emit-Raw / Emit-Empty / Fail-Export
+  efmeft-form:
+    fields:
+      - fieldname: maxLength
+        description: Truncate output to this character length
+      - fieldname: padding
+        description: None / Left-Pad / Right-Pad for fixed-width output
+  efmet-form:
+    fields:
+      - fieldname: transformationRule
+        description: "Value transformation: None / Uppercase / Lowercase / Trim / Truncate(n) / Map / Concatenate / Calculate / Custom"
+      - fieldname: transformationExpression
+        description: "Expression for transform, e.g. firstName + lastName"
+      - fieldname: valueMapping
+        description: "Value substitution map, e.g. ACTIVE→A, INACTIVE→I"
+  efmei-form:
+    fields:
+      - fieldname: defaultValue
+        description: Value to use when source is null/empty
+      - fieldname: includeInExport
+        description: Yes / No / Conditional
+      - fieldname: inclusionCondition
+        description: Condition for conditional inclusion
+  efmel-form:
+    fields:
+      - fieldname: paddingChar
+        description: "For fixed-width: padding character, e.g. space or 0"
+      - fieldname: paddingDirection
+        description: Left / Right for fixed-width formats
+      - fieldname: fixedWidth
+        description: Column width for fixed-width format exports
+      - fieldname: quoteAlways
+        description: Yes / No — always quote this field in CSV
+      - fieldname: notes
+        description: Design notes
+  etef-form:
+    fields:
+      - fieldname: description
+        description: Purpose and use cases for this template
+      - fieldname: encoding
+        description: Default encoding for this template
+      - fieldname: delimiter
+        description: Default delimiter
+      - fieldname: headerRow
+        description: Yes / No
+      - fieldname: dateFormat
+        description: Default date format
+      - fieldname: numberFormat
+        description: Default number format
+  exteenfi-form:
+    fields:
+      - fieldname: fieldSet
+        description: Comma-separated field names included in this template
+      - fieldname: defaultFilters
+        description: "Pre-applied filters, e.g. status=active"
+      - fieldname: defaultSortField
+        description: Default sort column
+      - fieldname: defaultSortDirection
+        description: Ascending / Descending
+  etel-form:
+    fields:
+      - fieldname: headerConfig
+        description: Header content template for PDF/Excel exports
+      - fieldname: footerConfig
+        description: Footer content template for PDF/Excel exports
+      - fieldname: brandingOverride
+        description: Template-specific branding (for PDF)
+      - fieldname: compressionFormat
+        description: None / ZIP / GZIP
+  etea-form:
+    fields:
+      - fieldname: reusableAcrossReports
+        description: Yes / No — can this template be used by multiple reports/exports
+      - fieldname: version
+        description: "Template version, e.g. 1.0"
       - fieldname: notes
         description: Design notes
   scmst-base-form:
@@ -23748,8 +24495,14 @@ document:
     auanlo:
       section-type: auanlo
       optional: true
+    sedaen:
+      section-type: sedaen
+      optional: true
     redf:
       section-type: redf
+      optional: true
+    prla:
+      section-type: prla
       optional: true
     schmg:
       section-type: schmg

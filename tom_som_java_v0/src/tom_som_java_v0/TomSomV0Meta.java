@@ -23845,8 +23845,21 @@ public final class TomSomV0Meta {
         n.classSectionId = "AUANLO";
         n.serializationOrder = 10;
         n.comment = "locus: server — CE-LG/CE-CF";
-        n.docComment = "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.";
+        n.docComment = "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is `ComplianceReporting` under\n`SecurityOperationsFollowUp`, and is deliberately unreachable from here.";
         n.classDocComment = "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.";
+        n.detailedIn = "D08SecurityAccessSpecification";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      out.add(metaCx("SensitiveDataEncryption", s, SensitiveDataEncryptionNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("SensitiveDataEncryption", SomMetaKind.COMPLEX, "SensitiveDataEncryption");
+        n.memberName = "sensitiveDataEncryption";
+        n.classSectionId = "SEDAEN";
+        n.serializationOrder = 11;
+        n.comment = "locus: server — CE-CF";
+        n.docComment = "Sensitive-data encryption and key management — CE-CF cryptographic\nsettings.\n\nReached **into** `SecurityOperationsFollowUp` rather than through it: that\nroot is tagged OPS for `ComplianceReporting`, and this sibling was swept\nalong by the split rather than placed there on a criterion. It is a pure\nCE-CF band — encryption at rest (database / file-storage / backup\npolicies and the encrypted-data category list), encryption in transit\n(TLS protocol, certificate management, mTLS, transport policy and the\nper-channel entries) and the key lifecycle under `KeyManagement`\n(generation, storage, rotation, escrow-and-backup, compromise recovery).\n\nIt belongs here because §5.5's own substrate names its material:\n`TomBaseServerConfiguration` declares TLS material and signing keys as\ntyped fields, so a TLS minimum version is a server-configuration value in\nexactly the sense `@CsServerConfig` generates. Its projected siblings\nsettle it — `StorageEncryptionPolicy` under `AccessControlModel` and\n`LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of\nthe same shape, and no criterion separates them from these.";
+        n.classDocComment = "9.5. Sensitive Data Encryption.";
         n.detailedIn = "D08SecurityAccessSpecification";
         n.recursive = r;
         n.children = c;
@@ -23856,10 +23869,24 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ReportDefinitions", SomMetaKind.COMPLEX, "ReportDefinitions");
         n.memberName = "reportDefinitions";
         n.classSectionId = "REDF";
-        n.serializationOrder = 11;
+        n.serializationOrder = 12;
         n.comment = "locus: server — CE-RP";
-        n.docComment = "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.";
+        n.docComment = "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF, not CE-RP, and are\nthe sibling entry below.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      out.add(metaCx("PrintAndExportLayout", s, PrintAndExportLayoutNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("PrintAndExportLayout", SomMetaKind.COMPLEX, "PrintAndExportLayout");
+        n.memberName = "printAndExportLayout";
+        n.classSectionId = "PRLA";
+        n.serializationOrder = 13;
+        n.comment = "locus: server — CE-CF";
+        n.docComment = "Print and export layout — CE-CF renderer settings.\n\nReached **into** `ExperienceDesignFollowUp` for the same reason as\n`sensitiveDataEncryption` above: that root is tagged DOC for the design\nvision, wireframes and user-assistance children, and this band is not one\nof them. It is the environment-wide print and export configuration — print\nstrategy, paper size, orientation, page setup, branding, watermark,\nheader/footer and archive policy, plus the export format, size, field-\nmapping and template catalogue.\n\nIts own `@CodeSpecKind` note appeals to the CE-LG boundary between an\naudit *declaration* and its *sink* — and the sink half, `AuditLogFormat`,\nis projected two entries up. A renderer's deployment settings sit on the\nsame side of that boundary, so this entry is what makes the appeal true.\nIt sits beside `reportDefinitions` because that is the projection the\nrenderer renders.";
+        n.classDocComment = "10.4. Print Layout.";
+        n.mapsTo = "D09ExperienceDesignSpecification";
+        n.detailedIn = "D09ExperienceDesignSpecification";
         n.recursive = r;
         n.children = c;
         return n;
@@ -23868,7 +23895,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("SchemaVersioningAndMigration", SomMetaKind.COMPLEX, "SchemaVersioningAndMigration");
         n.memberName = "schemaVersioningAndMigration";
         n.classSectionId = "SCHMG";
-        n.serializationOrder = 12;
+        n.serializationOrder = 14;
         n.comment = "locus: server — CE-MG";
         n.docComment = "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.";
         n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.";
@@ -23880,7 +23907,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ServerOperationRegistry", SomMetaKind.COMPLEX, "ServerOperationRegistry");
         n.memberName = "serverOperationRegistry";
         n.classSectionId = "SVOPR";
-        n.serializationOrder = 13;
+        n.serializationOrder = 15;
         n.comment = "locus: shared(CE-API contract)+server(CE-API operations)";
         n.docComment = "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.";
         n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
@@ -23892,7 +23919,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ProcessStepsAndActorInteractions", SomMetaKind.COMPLEX, "ProcessStepsAndActorInteractions");
         n.memberName = "processStepsAndActorInteractions";
         n.classSectionId = "PSAAI";
-        n.serializationOrder = 14;
+        n.serializationOrder = 16;
         n.comment = "locus: server(CE-SU)+client(CE-SC)";
         n.docComment = "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.";
         n.classDocComment = "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.";
@@ -23905,7 +23932,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExperienceCodeSpecs", SomMetaKind.COMPLEX, "ExperienceCodeSpecs");
         n.memberName = "experienceCodeSpecs";
         n.classSectionId = "XCS";
-        n.serializationOrder = 15;
+        n.serializationOrder = 17;
         n.comment = "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER";
         n.docComment = "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.";
@@ -23960,8 +23987,16 @@ public final class TomSomV0Meta {
       return new AuditAndLoggingNav(tree, path + "/auditAndLogging");
     }
 
+    public SensitiveDataEncryptionNav sensitiveDataEncryption() {
+      return new SensitiveDataEncryptionNav(tree, path + "/sensitiveDataEncryption");
+    }
+
     public ReportDefinitionsNav reportDefinitions() {
       return new ReportDefinitionsNav(tree, path + "/reportDefinitions");
+    }
+
+    public PrintAndExportLayoutNav printAndExportLayout() {
+      return new PrintAndExportLayoutNav(tree, path + "/printAndExportLayout");
     }
 
     public SchemaVersioningAndMigrationNav schemaVersioningAndMigration() {
@@ -38274,7 +38309,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "XDFU";
         n.serializationOrder = 3;
         n.docComment = "10.3. Experience Design — DOC follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). The root carries no `@CodeSpecKind`, so it is not a generation\nprojection root and nothing under it is reachable from\n`D13CodeSpecsProjection`. Sections *inside* it may still carry one —\n`UserAssistance` and its `ContextualHelp` are tagged CE-TX — recording which\npart their material belongs to; that material reaches generation through a\nD13-reachable bearer of the same part (for CE-TX, the shared\n`MessageKeyRegistry`), never through this subtree (`codespecs_mapping.md`\n§4.3). Accessibility's operational (OPS) facet is a secondary concern\nrefined by the follow-up taxonomy pass.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, user assistance, accessibility, prototype, wireframes & mockups),\nnot CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root carries\nno `@CodeSpecKind`, so it is not itself a generation projection root.\nAccessibility's operational (OPS) facet is a secondary concern refined by\nthe follow-up taxonomy pass.\n\n**Two kinds of `@CodeSpecKind` sit under this root, and they resolve\ndifferently.** `UserAssistance` and its `ContextualHelp` are tagged CE-TX to\nrecord which part their material belongs to; the material itself reaches\ngeneration through a D13-reachable **bearer** of the same part — the shared\n`MessageKeyRegistry`, where the help copy is authored as message keys — so\nthe section stays behind this root. `printLayout` has no such bearer: it is\na pure CE-CF band of renderer settings nothing else declares, so\n`D13CodeSpecsProjection` reaches `PrintAndExportLayout` directly, past this\nroot. The test is whether a projected section already carries the material,\nnot which root the section happens to sit under.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -81540,7 +81575,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SCOF";
         n.serializationOrder = 3;
         n.docComment = "9.3. Security Operations — OPS follow-up subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). The root\ncarries no `@CodeSpecKind`, so it is not a generation projection root and\nnothing under it is reachable from `D13CodeSpecsProjection`. The encryption\npolicies *inside* it are nonetheless tagged CE-CF, recording which part\ntheir material belongs to; that material reaches generation through the\nD13-reachable CE-CF bearers (`TechnicalFrameworkConcept`,\n`AuditAndLogging`), never through this subtree (`codespecs_mapping.md`\n§4.3).\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.";
+        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** — the\nroutines run *against* the audit log — rather than CodeSpecs-generated\nbehaviour (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not itself a generation projection root.\n\n**The root is not the boundary here.** Its `encryption` child is a pure\nCE-CF band — encryption at rest, encryption in transit and the key\nlifecycle are settings the server reads, and §5.5's substrate\n(`TomBaseServerConfiguration`) names TLS material and signing keys as typed\nfields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`\ndirectly, past this root. Placing it here rather than beside the other SAS\nCE-CF bands is a grouping of subject matter, not a routing verdict, and the\nprojection's membership follows the part.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —\nand what the OPS tag is for — is `ComplianceReporting`: periodic access\nreview, privilege-usage reporting, anomaly detection and regulatory audit\nsupport are processes people run, not code a generator emits.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -121468,8 +121503,44 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/auditAndLogging/securityEvents/SEVT-CUST-LST", (t, p) -> new SecurityEventEntryId(t, p));
     }
 
+    public SomListMetaRef<EncryptedDataCategoryEntryId> ENDACA_ENCR_LST() {
+      return new SomListMetaRef<>(tree, path + "/sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST", (t, p) -> new EncryptedDataCategoryEntryId(t, p));
+    }
+
+    public SomListMetaRef<CommunicationChannelEncryptionEntryId> COCHEN_COMM_LST() {
+      return new SomListMetaRef<>(tree, path + "/sensitiveDataEncryption/encryptionInTransit/COCHEN-COMM-LST", (t, p) -> new CommunicationChannelEncryptionEntryId(t, p));
+    }
+
     public SomListMetaRef<ReportEntryId> REPENT_REPO_LST() {
       return new SomListMetaRef<>(tree, path + "/reportDefinitions/REPENT-REPO-LST", (t, p) -> new ReportEntryId(t, p));
+    }
+
+    public SomMetaRef PLPS() {
+      return new SomMetaRef(tree, path + "/printAndExportLayout/PLPS");
+    }
+
+    public SomMetaRef PRLABR() {
+      return new SomMetaRef(tree, path + "/printAndExportLayout/PRLABR");
+    }
+
+    public SomMetaRef PRLAWA() {
+      return new SomMetaRef(tree, path + "/printAndExportLayout/PRLAWA");
+    }
+
+    public SomMetaRef PLHF() {
+      return new SomMetaRef(tree, path + "/printAndExportLayout/PLHF");
+    }
+
+    public SomMetaRef PRLAAR() {
+      return new SomMetaRef(tree, path + "/printAndExportLayout/PRLAAR");
+    }
+
+    public SomListMetaRef<ExportFormatEntryId> EFE_EXPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/printAndExportLayout/EFE-EXPO-LST", (t, p) -> new ExportFormatEntryId(t, p));
+    }
+
+    public SomListMetaRef<ExportTemplateEntryId> ETE_EXPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/printAndExportLayout/ETE-EXPO-LST", (t, p) -> new ExportTemplateEntryId(t, p));
     }
 
     public SomListMetaRef<MigrationTargetEntryId> MIGTG_TARG_LST() {

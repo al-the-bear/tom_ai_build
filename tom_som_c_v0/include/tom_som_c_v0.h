@@ -9125,9 +9125,29 @@ AccessControlModel d13_code_specs_projection_access_control(const D13CodeSpecsPr
 // beside the framework's `@TomAudited`), CE-CF configures the sink that
 // receives it (`AuditLogFormat`, realised as `@CsServerConfig`). The
 // operational half — the review, reporting and anomaly-detection routines
-// run against the log — is a follow-up subtree under
-// `SecurityOperationsFollowUp` and is deliberately unreachable from here.
+// run against the log — is `ComplianceReporting` under
+// `SecurityOperationsFollowUp`, and is deliberately unreachable from here.
 AuditAndLogging d13_code_specs_projection_audit_and_logging(const D13CodeSpecsProjection *self);
+// Sensitive-data encryption and key management — CE-CF cryptographic
+// settings.
+//
+// Reached **into** `SecurityOperationsFollowUp` rather than through it: that
+// root is tagged OPS for `ComplianceReporting`, and this sibling was swept
+// along by the split rather than placed there on a criterion. It is a pure
+// CE-CF band — encryption at rest (database / file-storage / backup
+// policies and the encrypted-data category list), encryption in transit
+// (TLS protocol, certificate management, mTLS, transport policy and the
+// per-channel entries) and the key lifecycle under `KeyManagement`
+// (generation, storage, rotation, escrow-and-backup, compromise recovery).
+//
+// It belongs here because §5.5's own substrate names its material:
+// `TomBaseServerConfiguration` declares TLS material and signing keys as
+// typed fields, so a TLS minimum version is a server-configuration value in
+// exactly the sense `@CsServerConfig` generates. Its projected siblings
+// settle it — `StorageEncryptionPolicy` under `AccessControlModel` and
+// `LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of
+// the same shape, and no criterion separates them from these.
+SensitiveDataEncryption d13_code_specs_projection_sensitive_data_encryption(const D13CodeSpecsProjection *self);
 // Report definitions — CE-RP grouped projections over the domain model.
 //
 // The definition is where the report runs, so the subtree's locus is the
@@ -9135,9 +9155,26 @@ AuditAndLogging d13_code_specs_projection_audit_and_logging(const D13CodeSpecsPr
 // client reads — is **derived from this same subtree** rather than authored
 // in a second SOM section, so it needs no separate shared-locus entry; the
 // generic `ResultEnvelope` above covers the CE-ER contract it rides on. The
-// environment-wide print and export *settings* are CE-CF and live in
-// `PrintAndExportLayout`, deliberately unreachable from here.
+// environment-wide print and export *settings* are CE-CF, not CE-RP, and are
+// the sibling entry below.
 ReportDefinitions d13_code_specs_projection_report_definitions(const D13CodeSpecsProjection *self);
+// Print and export layout — CE-CF renderer settings.
+//
+// Reached **into** `ExperienceDesignFollowUp` for the same reason as
+// `sensitiveDataEncryption` above: that root is tagged DOC for the design
+// vision, wireframes and user-assistance children, and this band is not one
+// of them. It is the environment-wide print and export configuration — print
+// strategy, paper size, orientation, page setup, branding, watermark,
+// header/footer and archive policy, plus the export format, size, field-
+// mapping and template catalogue.
+//
+// Its own `@CodeSpecKind` note appeals to the CE-LG boundary between an
+// audit *declaration* and its *sink* — and the sink half, `AuditLogFormat`,
+// is projected two entries up. A renderer's deployment settings sit on the
+// same side of that boundary, so this entry is what makes the appeal true.
+// It sits beside `reportDefinitions` because that is the projection the
+// renderer renders.
+PrintAndExportLayout d13_code_specs_projection_print_and_export_layout(const D13CodeSpecsProjection *self);
 // Schema versioning and migration — CE-MG migration artifacts.
 //
 // The artifacts ship with the server project because that is where the
@@ -12067,17 +12104,22 @@ UiComponents experience_code_specs_ui_components(const ExperienceCodeSpecs *self
 // SBP.13 Experience & Interface Design — design DOC follow-up subtree.
 //
 // Groups the design / documentation concerns that are **follow-up** (design
-// vision, print & export layout, user assistance, accessibility, prototype,
-// wireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`
-// §8.3). The root carries no `@CodeSpecKind`, so it is not a generation
-// projection root and nothing under it is reachable from
-// `D13CodeSpecsProjection`. Sections *inside* it may still carry one —
-// `UserAssistance` and its `ContextualHelp` are tagged CE-TX — recording which
-// part their material belongs to; that material reaches generation through a
-// D13-reachable bearer of the same part (for CE-TX, the shared
-// `MessageKeyRegistry`), never through this subtree (`codespecs_mapping.md`
-// §4.3). Accessibility's operational (OPS) facet is a secondary concern
-// refined by the follow-up taxonomy pass.
+// vision, user assistance, accessibility, prototype, wireframes & mockups),
+// not CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root carries
+// no `@CodeSpecKind`, so it is not itself a generation projection root.
+// Accessibility's operational (OPS) facet is a secondary concern refined by
+// the follow-up taxonomy pass.
+//
+// **Two kinds of `@CodeSpecKind` sit under this root, and they resolve
+// differently.** `UserAssistance` and its `ContextualHelp` are tagged CE-TX to
+// record which part their material belongs to; the material itself reaches
+// generation through a D13-reachable **bearer** of the same part — the shared
+// `MessageKeyRegistry`, where the help copy is authored as message keys — so
+// the section stays behind this root. `printLayout` has no such bearer: it is
+// a pure CE-CF band of renderer settings nothing else declares, so
+// `D13CodeSpecsProjection` reaches `PrintAndExportLayout` directly, past this
+// root. The test is whether a projected section already carries the material,
+// not which root the section happens to sit under.
 // Binds a ExperienceDesignFollowUp facade to a document and a path (path copied).
 void experience_design_follow_up_init(ExperienceDesignFollowUp *self, SpecDocument *doc, const char *path);
 void experience_design_follow_up_free(ExperienceDesignFollowUp *self);
@@ -21178,23 +21220,26 @@ SomList security_events_definition_custom_events(const SecurityEventsDefinition 
 
 // SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
 //
-// Groups the operational security concerns that are **follow-up** (key
-// management and the routines run *against* the audit log), not
-// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). The root
-// carries no `@CodeSpecKind`, so it is not a generation projection root and
-// nothing under it is reachable from `D13CodeSpecsProjection`. The encryption
-// policies *inside* it are nonetheless tagged CE-CF, recording which part
-// their material belongs to; that material reaches generation through the
-// D13-reachable CE-CF bearers (`TechnicalFrameworkConcept`,
-// `AuditAndLogging`), never through this subtree (`codespecs_mapping.md`
-// §4.3).
+// Groups the operational security concerns that are **follow-up** — the
+// routines run *against* the audit log — rather than CodeSpecs-generated
+// behaviour (`codespecs_mapping.md` §8.3). The root carries no
+// `@CodeSpecKind`, so it is not itself a generation projection root.
+//
+// **The root is not the boundary here.** Its `encryption` child is a pure
+// CE-CF band — encryption at rest, encryption in transit and the key
+// lifecycle are settings the server reads, and §5.5's substrate
+// (`TomBaseServerConfiguration`) names TLS material and signing keys as typed
+// fields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`
+// directly, past this root. Placing it here rather than beside the other SAS
+// CE-CF bands is a grouping of subject matter, not a routing verdict, and the
+// projection's membership follows the part.
 //
 // The audit log's *declarations* are not here: which events are auditable and
 // how the sink is configured are the CE-LG / CE-CF bands, which live in the
-// sibling `AuditAndLogging` CodeSpecs subtree. What remains operational is
-// `ComplianceReporting` — periodic access review, privilege-usage reporting,
-// anomaly detection and regulatory audit support are processes people run, not
-// code a generator emits.
+// sibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —
+// and what the OPS tag is for — is `ComplianceReporting`: periodic access
+// review, privilege-usage reporting, anomaly detection and regulatory audit
+// support are processes people run, not code a generator emits.
 // Binds a SecurityOperationsFollowUp facade to a document and a path (path copied).
 void security_operations_follow_up_init(SecurityOperationsFollowUp *self, SpecDocument *doc, const char *path);
 void security_operations_follow_up_free(SecurityOperationsFollowUp *self);

@@ -1069,9 +1069,15 @@ Two boundaries are easy to draw in the wrong place:
 - **A `@CodeSpecKind` section inside a `@FollowUpKind` subtree is not itself a
   defect.** `PRLA` still sits under `ExperienceDesignFollowUp`
   (`@FollowUpKind([doc])`), as `UserAssistance` and `MultiLanguageSupport` do
-  under theirs. Only a section that must become a **projection root** has to be
-  hoisted out, because only then does the follow-up content become reachable
-  from the generation input.
+  under theirs. What matters is whether the section must become a **projection
+  root** — only then does it have to be reachable from the generation input —
+  and *where it sits in the SBP tree is not what decides that*. `PRLA` is the
+  case in point: it became a projection root, reached **past** its follow-up
+  parent rather than hoisted out from under it, because the parent is a grouping
+  of subject matter and the projection's membership follows the part (§8.3).
+  Hoisting is one way to make a section reachable; reaching past a root cut one
+  level too high is the other, and it is the right one when the root's remaining
+  children are genuinely process-delivered.
 
 ### 4.4 Generation slices — the per-slice `tom_core` capability contract
 
@@ -1794,13 +1800,19 @@ discriminator is about authoring, not about runtime. The cross-scope source
 **precedence** — which source wins when the same logical key is expressible at
 more than one scope — is §5.16.
 
-**18 of the 42 are inside `D13CodeSpecsProjection`** — the declared section and
-17 of the fixed bands (CM, the ATS feature-flag band, and the SAS API-security,
-file-and-storage-security and audit-sink families). The other 24 — the SAS
-encryption (13) and key-management (6) families and D09's PRLA band (5) — are
-authorable but unprojected, so generation does not read them. That split cuts
-across bands of one character rather than along the declared/fixed line, and
-resolving it is `tscompc11` (§10).
+**All 42 are inside `D13CodeSpecsProjection`**, so every section an author can
+fill in is a section generation reads. Two of them are reached *past* a
+`@FollowUpKind` root — the SAS encryption and key-management families (19
+sections) under `SecurityOperationsFollowUp`, and D09's PRLA band (8) under
+`ExperienceDesignFollowUp` — because each is a pure CE-CF band that was swept
+into a follow-up root cut one level too high, not placed there on a criterion
+(§8.3). §5.5's own substrate settles it: `TomBaseServerConfiguration` declares
+TLS material and signing keys as typed fields, so a TLS minimum version or a key
+rotation interval is a server-configuration value in exactly the sense
+`@CsServerConfig` generates, and the projected siblings of these bands —
+`StorageEncryptionPolicy` under `AccessControlModel`, `LogRetentionPolicy` under
+`AuditAndLogging` — are fixed-key policy bands of identical shape that no
+criterion separates from them.
 
 ### 5.6 CE-API / CE-SU / CE-AZ server API, service-unit & authorization model
 
@@ -4545,7 +4557,7 @@ document order, in slice 3.
 | CE-API, CE-ER, CE-SU | **D07 IFS**; **D06 ATS**; **D05 ISC** | Operations + request/response; service-unit grouping from architecture + process cohesion. |
 | CE-AZ, CE-AU, CE-ID | **D08 SAS** | Roles/permissions per operation (CE-AZ); auth/credential/session flow (CE-AU); identity-attribute extensions from the USMGT family (CE-ID). |
 | CE-DB, CE-ST | **D03 IMO** rich classes | Tables, columns, view-models, DAOs; domain enums are generated as member declarations of their owning part from DOMEN/DMENE + OBST (§4.1 member-kind rule). |
-| CE-CF | **D06 ATS**; **D08 SAS** | **Server/system** configuration only. |
+| CE-CF | **D06 ATS**; **D08 SAS**; **D09 XDS** | **Server/system** configuration only. ATS carries the declared list and the CM / feature-flag bands, SAS the security, audit-sink, encryption and key-management bands, XDS the `PrintAndExportLayout` renderer settings (§5.5). |
 | CE-CC, CE-DS, CE-UP, CE-CL | **D06 ATS** (`ClientApplicationEntry` CLIAPP, under `ClientRequirementsSection` CLRESE, alongside the CE-CC / CE-DS / CE-UP declaration lists); **D09 XDS** (preferences surfaced in UI, and the routes and screens a client cites); **D02 TOM** (roles → whose settings) | Client apps + per-machine client config + device settings + user settings. |
 | CE-RP | **D09 XDS** (report definition family, under `ReportDefinitions`); **D03 IMO** (source data) | Report definitions — the grouped projection, its output columns and charts, its parameters and its delivery channels (§5.28). The sibling print/export *settings* under `PrintAndExportLayout` are CE-CF, not CE-RP. |
 | CE-JB | **D06 ATS** (`ScheduledJobEntry` SCJOB, under `BatchJobManagement` BAJOMA) | Background/scheduled jobs from the architecture's operational model, one entry per job; targets cite IMO entities and CE-RP reports (§5.29). |
@@ -4719,15 +4731,24 @@ section can sit inside the projection and still be invisible to every area — t
 is exactly the failure `ROUTE-TOTAL` below exists to make impossible. Inside
 a follow-up subtree, individual sections **may still carry a `@CodeSpecKind`** —
 that annotation records which part the section's *material* belongs to, and is
-how the follow-up process knows what it is producing material for. It does not
-make the section generated: the material reaches generation through a
-D13-reachable **bearer** of the same part (CE-TX help copy through the shared
-`MessageKeyRegistry`, CE-CF encryption policy through `TechnicalFrameworkConcept`
-/ `AuditAndLogging`), never through the follow-up subtree itself. This is §4.3's
-ruling stated structurally — only a section that must become a *projection root*
-has to be hoisted out — and it holds at scale: 64 of the model's
-`@CodeSpecKind`-bearing sections sit inside a follow-up subtree, across 13 of
-the 45 follow-up roots.
+how the follow-up process knows what it is producing material for. The
+annotation does not by itself make the section generated. It holds at scale: 64
+of the model's `@CodeSpecKind`-bearing sections sit inside a follow-up subtree,
+across 13 of the 45 follow-up roots.
+
+**A `@CodeSpecKind` under a follow-up root resolves one of two ways, and which
+one is a structural fact, not a judgement.** Either the projection reaches the
+section anyway — 41 of the 64 — because the follow-up root is itself nested
+inside a projected subtree, or because the projection reaches *past* the root to
+a pure band beneath it (§4.3's ruling stated structurally: only a section that
+must become a *projection root* has to be hoisted out, and a root cut one level
+too high is reached past rather than re-cut). Or the projection does not reach
+it — the other 23 — and then the material reaches generation through a
+D13-reachable **bearer** of the same part: CE-TX help copy through the shared
+`MessageKeyRegistry` is the pattern, and text is 10 of the 23. A bearer is a
+projected section that *already carries the same material*, not merely one of
+the same part; where no such section exists, reaching past the root is the
+answer and a bearer is not.
 
 **The three routing verdicts.** Every section is routed by exactly one of three
 markers, and the trio is exhaustive by construction:
@@ -4747,9 +4768,9 @@ elsewhere. It carries the same optional `note` as the other two, and rides in th
 generic `extra` bag of the cross-language meta exactly as `@CodeSpecKind` does
 (§8.4), so all nine runtimes carry it without a slot.
 
-**Coverage is two-directional, and both directions are checked.** Three
-invariants the validator enforces (`tom_specs_model_rules.md` §10.2) hold the
-routing together:
+**Coverage is two-directional, and both directions are checked.** The
+`tom_specs_model_rules.md` §10.2 invariants `KIND-EXCLUSIVE`, `PART-ROUTED` and
+`ROUTE-TOTAL` hold the routing together, and the validator enforces all three:
 
 - `KIND-EXCLUSIVE` — **no section carries more than one of the three verdicts.**
   A follow-up root is never itself generated, and a section that feeds nothing
@@ -4814,8 +4835,8 @@ are grouped into one subtree and the rest hoisted into tagged follow-up subtrees
 | SBP.8 IFM | `DataModel` (entity/attribute core) | per-entity facets: Volume→CAP, Compliance→CMP, Technical→CAP, Migration→MIG, erDiagram→DOC |
 | SBP.9 RSP | functional requirements + the CE-VA/CE-ER-bearing NFRs (consumed as a *seed*) | L10N/DOC/TRN NFR sub-areas |
 | SBP.11 ATS | `TechnicalFrameworkConcept` (CE-CF configuration facets) | architecture/component narrative → DOC |
-| SBP.12 SAS | `AccessControlModel` (userMgmt / auth / resourceProtection / authorization / roleMatrix) **and** `AuditAndLogging` (the CE-LG event declarations + the CE-CF sink settings) | encryption + audit reporting/review (`ComplianceReporting`) → OPS/CMP, compliance framework → CMP |
-| SBP.13 XDS | `ExperienceCodeSpecs` (screens / screenFlow / errorHandling / responsive / uiComponents / dataStructureAlignment) | design, doc and L10N children |
+| SBP.12 SAS | `AccessControlModel` (userMgmt / auth / resourceProtection / authorization / roleMatrix), `AuditAndLogging` (the CE-LG event declarations + the CE-CF sink settings) **and** `SensitiveDataEncryption` (encryption at rest / in transit + `KeyManagement`, reached past the OPS root) | audit reporting/review (`ComplianceReporting`) → OPS, compliance framework → CMP |
+| SBP.13 XDS | `ExperienceCodeSpecs` (screens / screenFlow / errorHandling / responsive / uiComponents / dataStructureAlignment) **and** `PrintAndExportLayout` (the CE-CF renderer settings, reached past the DOC root) | design, doc and L10N children |
 
 **Constraints any further re-homing must honour:**
 
@@ -4838,16 +4859,27 @@ are grouped into one subtree and the rest hoisted into tagged follow-up subtrees
 concrete input the Phase-4 generator consumes end-to-end is
 **`D13CodeSpecsProjection`** (`@SectionId('CGP')`, in
 `tom_specs_model/lib/src/codespecs_projection/codespecs_projection.dart`) — a
-flat `@Document(basedOn: [D00SolutionBlueprint])` referencing the **twelve
+flat `@Document(basedOn: [D00SolutionBlueprint])` referencing the **sixteen
 isolated subtree roots directly**, with no container classes, grouped into
 shared → server → client locus bands by `@Comment('locus: …')`:
 
 | Locus | Roots |
 |-------|-------|
 | shared | `DomainEnumRegistry`, `ErrorCodeRegistry`, `ResultEnvelope`, `MessageKeyRegistry`, `NotificationModel` |
-| server | `DataModel`, `TechnicalFrameworkConcept`, `AccessControlModel`, `AuditAndLogging`, `ReportDefinitions` |
-| server + client | `ProcessStepsAndActorInteractions` |
+| server | `DataModel`, `AccessControlModel`, `AuditAndLogging`, `SensitiveDataEncryption`, `ReportDefinitions`, `PrintAndExportLayout`, `SchemaVersioningAndMigration` |
+| shared + server | `ServerOperationRegistry` |
+| server + client | `TechnicalFrameworkConcept`, `ProcessStepsAndActorInteractions` |
 | client | `ExperienceCodeSpecs` |
+
+**Membership follows the part, not the parent.** A root is here because the
+subtree it names is purely `@CodeSpecKind`-bearing — not because of where the
+follow-up splits happened to cut. Two of them, `SensitiveDataEncryption` and
+`PrintAndExportLayout`, are therefore reached *into* a `@FollowUpKind` root to
+pick a pure CE-CF band out of it, leaving that root's genuinely
+process-delivered siblings behind. That is the split rule applied, not weakened:
+a subtree mixing generated and non-generated content is a split point, and
+reaching past the root is how the projection expresses the split where the root
+was cut one level too high.
 
 It is `@CodeSpecKind`-driven rather than `@DetailedIn`-driven, so it carries the
 `@CodeSpecsProjection()` marker (`tom_specs_core`), which exempts it from the
@@ -4929,7 +4961,7 @@ parts §4.4.3's slices.
 | CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | `@CsRoute` · `@CsScreenFlow` | COVERED (screen-flow half verified) |
 | CE-AZ | `authorization` | The requirement itself is `AuthorizationRequirementSpec` AZREQ → `GradedAuthorizationRequirement` AZGRD → `GradedAccessLevelEntry` AZLVL — one reusable closed choice covering all ten §5.15 arms, embedded at each modifier site (`SVOPE.authorization`; the XDS `access` members on screen, screen element, navigation group/item, tab, utility navigation/menu, deep link, report, export format/template). The **catalogues** it cites stay `RoleMatrix` ROMA · `RolePermissionEntry` ROLPER · `EntitlementEntry` ENT (46 sections, all projected) | `@CsAuthorize` (the `CsGradedAccess` facet is filled within it, not by an entry of its own) | COVERED |
 | CE-ER | `errorResult` | `ErrorCodeEntry` ERCEN (the `ErrorCodeRegistry` root) · `ResultEnvelope` RSLTE | `@CsError` | COVERED |
-| CE-CF | `serverConfiguration` | 42 marked sections in two shapes (§5.5). **Declared** (1): `SystemConfigurationManagement` SYCOMA over its open list `ServerConfigurationSettingEntry` SCSET (`settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy`) — the only place a key is invented and the only place a secret is declarable, and both authorable and projected. **Fixed** (41): the bands whose form fields each name one setting the model already knows. 17 of those are projected — `ConfigurationManagement` CM, the ATS feature-flag band, and the SAS API-security / file-and-storage-security / audit-sink families; the remaining 24 (the SAS encryption and key-management families, and D09's `PrintAndExportLayout` PRLA band) are authorable but sit outside the projection | `@CsServerConfig` | COVERED (the declared path is generable; 24 fixed bands are authorable-only) |
+| CE-CF | `serverConfiguration` | 42 marked sections in two shapes (§5.5). **Declared** (1): `SystemConfigurationManagement` SYCOMA over its open list `ServerConfigurationSettingEntry` SCSET (`settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy`) — the only place a key is invented and the only place a secret is declarable, and both authorable and projected. **Fixed** (41): the bands whose form fields each name one setting the model already knows — `ConfigurationManagement` CM, the ATS feature-flag band, the SAS API-security / file-and-storage-security / audit-sink / encryption / key-management families, and D09's `PrintAndExportLayout` PRLA band. All 42 are projected; the encryption and PRLA bands are reached past a `@FollowUpKind` root that was cut one level too high (§5.5, §8.3) | `@CsServerConfig` | COVERED |
 | CE-CC | `clientConfiguration` | `ClientConfigurationSettingEntry` CCSET — the declaration list under `ClientConfiguration` CLICON (`settingKey` · `valueType` · `defaultValue` · `overridableBy`) | `@CsClientConfig` | COVERED |
 | CE-DS | `deviceSettings` | `DeviceSettingEntry` DSSET — the declaration list under `DeviceSettings` DEVSET (`settingKey` · `valueType` · `defaultValue`; no `overridableBy` — CE-DS is the narrowest scope, so it has nothing below it to open) | `@CsDeviceSetting` | COVERED |
 | CE-UP | `userSettings` | `UserSettingEntry` USSET — the declaration list under `UserSettings` USRSET (`settingKey` · `valueType` · `defaultValue` · `overridableBy`). `LanguageCountrySelection` LACOSE stays the language/country **picker UX** and carries no `@CodeSpecKind`: the preference it edits is declared in USRSET | `@CsUserSetting` | COVERED |
@@ -5078,17 +5110,15 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Nine entries are open, in three groups. **Routing** — a
-band split that follows no stated line. **Model** — five gaps the
-behaviour-to-body derivation exposed, each of
-which leaves something the specification states **not emitted** in the
-generated body, or a required argument with no section behind it.
-**Document** — the Phase-4 production model this document describes, the
-procedure for running it, and the todo tree that procedure instantiates.
+active part COVERED. Eight entries are open, in two groups. **Model** — five
+gaps the behaviour-to-body derivation exposed, each of which leaves something
+the specification states **not emitted** in the generated body, or a required
+argument with no section behind it. **Document** — the Phase-4 production model
+this document describes, the procedure for running it, and the todo tree that
+procedure instantiates.
 
 | Todo | Subject |
 |------|---------|
-| `tscompc11` | **CE-CF projection membership.** 42 sections carry `serverConfiguration`; 18 are reachable from `D13CodeSpecsProjection` and 24 are not, and the split does not follow §5.5's declared/fixed line. The SAS encryption and key-management bands sit outside while the SAS API-security and audit-sink bands — fixed-key policy bands of the same character — sit inside. Either the projection gains them, or §5.5 states the exclusion ground the way the CE-API row states its own. §8.5's CE-CF verdict carries the split as a parenthetical until then. |
 | `tscompc12` | **CE-JB's work body is prose-only.** `SCJOB-WORK` states a job's whole behaviour in one prose field, so §4.1.1's structural selector puts CE-JB on form 3a while the parts that read an ISC or login-flow step list — CE-AC, CE-AU, CE-API's client half — reach 3b. Either `SCJOB-WORK` gains a step list and CE-JB flips to 3b, or §5.29 states why a job's work is the one indivisible unit. (CE-SC is 3a for a different reason — it has a step but no routing for it; that is `tscompc14`.) |
 | `tscompc13` | **ISC branch attachment is unstructured.** `EXTEN` and `ALFL` state `branchPoint` and `returnPoint` as free text, so neither where a branch attaches nor where control resumes can be derived. `codespecs_derivation_contract.md` B5 therefore emits every branch after the whole main sequence and B6 emits nothing for the return point. Both need a resolvable step reference, and `returnPoint` a closed resume/end choice. |
 | `tscompc14` | **No routing of an ISC step to a server call's three handling roles.** Nothing says whether a step's behaviour is request assembly, response handling or error handling, so `codespecs_derivation_contract.md` §3.5.7 is form 3a and all three bodies throw the same text. §5.3 already lists the three as CE-SC's consumed surface, so the surface is declared with no authoring home. |

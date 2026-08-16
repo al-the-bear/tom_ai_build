@@ -359,25 +359,31 @@ class ExperienceCodeSpecs extends DocSpecsSection {
 /// SBP.13 Experience & Interface Design — design DOC follow-up subtree.
 ///
 /// Groups the design / documentation concerns that are **follow-up** (design
-/// vision, print & export layout, user assistance, accessibility, prototype,
-/// wireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`
-/// §8.3). The root carries no `@CodeSpecKind`, so it is not a generation
-/// projection root and nothing under it is reachable from
-/// `D13CodeSpecsProjection`. Sections *inside* it may still carry one —
-/// `UserAssistance` and its `ContextualHelp` are tagged CE-TX — recording which
-/// part their material belongs to; that material reaches generation through a
-/// D13-reachable bearer of the same part (for CE-TX, the shared
-/// `MessageKeyRegistry`), never through this subtree (`codespecs_mapping.md`
-/// §4.3). Accessibility's operational (OPS) facet is a secondary concern
-/// refined by the follow-up taxonomy pass.
+/// vision, user assistance, accessibility, prototype, wireframes & mockups),
+/// not CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root carries
+/// no `@CodeSpecKind`, so it is not itself a generation projection root.
+/// Accessibility's operational (OPS) facet is a secondary concern refined by
+/// the follow-up taxonomy pass.
+///
+/// **Two kinds of `@CodeSpecKind` sit under this root, and they resolve
+/// differently.** `UserAssistance` and its `ContextualHelp` are tagged CE-TX to
+/// record which part their material belongs to; the material itself reaches
+/// generation through a D13-reachable **bearer** of the same part — the shared
+/// `MessageKeyRegistry`, where the help copy is authored as message keys — so
+/// the section stays behind this root. `printLayout` has no such bearer: it is
+/// a pure CE-CF band of renderer settings nothing else declares, so
+/// `D13CodeSpecsProjection` reaches `PrintAndExportLayout` directly, past this
+/// root. The test is whether a projected section already carries the material,
+/// not which root the section happens to sit under.
 @StandardReferences(
   [
     'ISO 9241-210:2019 — human-centred design for interactive systems',
     'ISO/IEC/IEEE 26514 — designing and developing user documentation',
     'W3C WCAG 2.2 — accessibility',
   ],
-  'The DOC design follow-up: design vision, print / export layout, user '
-  'assistance, accessibility, prototype, and wireframes & mockups.',
+  'The DOC design follow-up: design vision, user assistance, accessibility, '
+  'prototype, and wireframes & mockups, grouped with the print / export '
+  'layout settings the printed and exported artefacts are rendered by.',
 )
 @FollowUpKind([FollowUpProcess.doc])
 @SectionId('XDFU')

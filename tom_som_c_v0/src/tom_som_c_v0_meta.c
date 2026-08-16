@@ -2616,7 +2616,9 @@ static void meta_build_d13_code_specs_projection_data_model(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_technical_framework(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_access_control(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_audit_and_logging(SomMetaNode *n);
+static void meta_build_d13_code_specs_projection_sensitive_data_encryption(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_report_definitions(SomMetaNode *n);
+static void meta_build_d13_code_specs_projection_print_and_export_layout(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_schema_versioning_and_migration(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_server_operation_registry(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n);
@@ -41350,8 +41352,21 @@ static void meta_build_d13_code_specs_projection_audit_and_logging(SomMetaNode *
   n->has_serialization_order = 1;
   n->serialization_order = 10;
   meta_set(&n->comment, "locus: server — CE-LG/CE-CF");
-  meta_set(&n->doc_comment, "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.");
+  meta_set(&n->doc_comment, "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is `ComplianceReporting` under\n`SecurityOperationsFollowUp`, and is deliberately unreachable from here.");
   meta_set(&n->class_doc_comment, "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.");
+  meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
+}
+static void meta_build_d13_code_specs_projection_sensitive_data_encryption(SomMetaNode *n) {
+  meta_set(&n->class_name, "SensitiveDataEncryption");
+  meta_set(&n->member_name, "sensitiveDataEncryption");
+  meta_set(&n->class_section_id, "SEDAEN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "SensitiveDataEncryption");
+  n->has_serialization_order = 1;
+  n->serialization_order = 11;
+  meta_set(&n->comment, "locus: server — CE-CF");
+  meta_set(&n->doc_comment, "Sensitive-data encryption and key management — CE-CF cryptographic\nsettings.\n\nReached **into** `SecurityOperationsFollowUp` rather than through it: that\nroot is tagged OPS for `ComplianceReporting`, and this sibling was swept\nalong by the split rather than placed there on a criterion. It is a pure\nCE-CF band — encryption at rest (database / file-storage / backup\npolicies and the encrypted-data category list), encryption in transit\n(TLS protocol, certificate management, mTLS, transport policy and the\nper-channel entries) and the key lifecycle under `KeyManagement`\n(generation, storage, rotation, escrow-and-backup, compromise recovery).\n\nIt belongs here because §5.5's own substrate names its material:\n`TomBaseServerConfiguration` declares TLS material and signing keys as\ntyped fields, so a TLS minimum version is a server-configuration value in\nexactly the sense `@CsServerConfig` generates. Its projected siblings\nsettle it — `StorageEncryptionPolicy` under `AccessControlModel` and\n`LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of\nthe same shape, and no criterion separates them from these.");
+  meta_set(&n->class_doc_comment, "9.5. Sensitive Data Encryption.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
 }
 static void meta_build_d13_code_specs_projection_report_definitions(SomMetaNode *n) {
@@ -41361,10 +41376,24 @@ static void meta_build_d13_code_specs_projection_report_definitions(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReportDefinitions");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->comment, "locus: server — CE-RP");
-  meta_set(&n->doc_comment, "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.");
+  meta_set(&n->doc_comment, "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF, not CE-RP, and are\nthe sibling entry below.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).");
+}
+static void meta_build_d13_code_specs_projection_print_and_export_layout(SomMetaNode *n) {
+  meta_set(&n->class_name, "PrintAndExportLayout");
+  meta_set(&n->member_name, "printAndExportLayout");
+  meta_set(&n->class_section_id, "PRLA");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "PrintAndExportLayout");
+  n->has_serialization_order = 1;
+  n->serialization_order = 13;
+  meta_set(&n->comment, "locus: server — CE-CF");
+  meta_set(&n->doc_comment, "Print and export layout — CE-CF renderer settings.\n\nReached **into** `ExperienceDesignFollowUp` for the same reason as\n`sensitiveDataEncryption` above: that root is tagged DOC for the design\nvision, wireframes and user-assistance children, and this band is not one\nof them. It is the environment-wide print and export configuration — print\nstrategy, paper size, orientation, page setup, branding, watermark,\nheader/footer and archive policy, plus the export format, size, field-\nmapping and template catalogue.\n\nIts own `@CodeSpecKind` note appeals to the CE-LG boundary between an\naudit *declaration* and its *sink* — and the sink half, `AuditLogFormat`,\nis projected two entries up. A renderer's deployment settings sit on the\nsame side of that boundary, so this entry is what makes the appeal true.\nIt sits beside `reportDefinitions` because that is the projection the\nrenderer renders.");
+  meta_set(&n->class_doc_comment, "10.4. Print Layout.");
+  meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
+  meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
 }
 static void meta_build_d13_code_specs_projection_schema_versioning_and_migration(SomMetaNode *n) {
   meta_set(&n->class_name, "SchemaVersioningAndMigration");
@@ -41373,7 +41402,7 @@ static void meta_build_d13_code_specs_projection_schema_versioning_and_migration
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SchemaVersioningAndMigration");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 14;
   meta_set(&n->comment, "locus: server — CE-MG");
   meta_set(&n->doc_comment, "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.");
   meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.");
@@ -41385,7 +41414,7 @@ static void meta_build_d13_code_specs_projection_server_operation_registry(SomMe
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ServerOperationRegistry");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 15;
   meta_set(&n->comment, "locus: shared(CE-API contract)+server(CE-API operations)");
   meta_set(&n->doc_comment, "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.");
   meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
@@ -41397,7 +41426,7 @@ static void meta_build_d13_code_specs_projection_process_steps_and_actor_interac
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessStepsAndActorInteractions");
   n->has_serialization_order = 1;
-  n->serialization_order = 14;
+  n->serialization_order = 16;
   meta_set(&n->comment, "locus: server(CE-SU)+client(CE-SC)");
   meta_set(&n->doc_comment, "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.");
   meta_set(&n->class_doc_comment, "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.");
@@ -41410,7 +41439,7 @@ static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExperienceCodeSpecs");
   n->has_serialization_order = 1;
-  n->serialization_order = 15;
+  n->serialization_order = 17;
   meta_set(&n->comment, "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER");
   meta_set(&n->doc_comment, "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.");
@@ -61105,7 +61134,7 @@ static void meta_build_experience_and_interface_design_design_follow_up(SomMetaN
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "10.3. Experience Design — DOC follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). The root carries no `@CodeSpecKind`, so it is not a generation\nprojection root and nothing under it is reachable from\n`D13CodeSpecsProjection`. Sections *inside* it may still carry one —\n`UserAssistance` and its `ContextualHelp` are tagged CE-TX — recording which\npart their material belongs to; that material reaches generation through a\nD13-reachable bearer of the same part (for CE-TX, the shared\n`MessageKeyRegistry`), never through this subtree (`codespecs_mapping.md`\n§4.3). Accessibility's operational (OPS) facet is a secondary concern\nrefined by the follow-up taxonomy pass.");
+  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, user assistance, accessibility, prototype, wireframes & mockups),\nnot CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root carries\nno `@CodeSpecKind`, so it is not itself a generation projection root.\nAccessibility's operational (OPS) facet is a secondary concern refined by\nthe follow-up taxonomy pass.\n\n**Two kinds of `@CodeSpecKind` sit under this root, and they resolve\ndifferently.** `UserAssistance` and its `ContextualHelp` are tagged CE-TX to\nrecord which part their material belongs to; the material itself reaches\ngeneration through a D13-reachable **bearer** of the same part — the shared\n`MessageKeyRegistry`, where the help copy is authored as message keys — so\nthe section stays behind this root. `printLayout` has no such bearer: it is\na pure CE-CF band of renderer settings nothing else declares, so\n`D13CodeSpecsProjection` reaches `PrintAndExportLayout` directly, past this\nroot. The test is whether a projected section already carries the material,\nnot which root the section happens to sit under.");
 }
 static void meta_build_experience_and_interface_design_localization_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "ExperienceLocalizationFollowUp");
@@ -120461,7 +120490,7 @@ static void meta_build_security_and_access_model_security_operations(SomMetaNode
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "9.3. Security Operations — OPS follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). The root\ncarries no `@CodeSpecKind`, so it is not a generation projection root and\nnothing under it is reachable from `D13CodeSpecsProjection`. The encryption\npolicies *inside* it are nonetheless tagged CE-CF, recording which part\ntheir material belongs to; that material reaches generation through the\nD13-reachable CE-CF bearers (`TechnicalFrameworkConcept`,\n`AuditAndLogging`), never through this subtree (`codespecs_mapping.md`\n§4.3).\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.");
+  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** — the\nroutines run *against* the audit log — rather than CodeSpecs-generated\nbehaviour (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not itself a generation projection root.\n\n**The root is not the boundary here.** Its `encryption` child is a pure\nCE-CF band — encryption at rest, encryption in transit and the key\nlifecycle are settings the server reads, and §5.5's substrate\n(`TomBaseServerConfiguration`) names TLS material and signing keys as typed\nfields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`\ndirectly, past this root. Placing it here rather than beside the other SAS\nCE-CF bands is a grouping of subject matter, not a routing verdict, and the\nprojection's membership follows the part.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —\nand what the OPS tag is for — is `ComplianceReporting`: periodic access\nreview, privilege-usage reporting, anomaly detection and regulatory audit\nsupport are processes people run, not code a generator emits.");
 }
 static void meta_build_security_and_access_model_compliance(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityComplianceFollowUp");
@@ -161284,7 +161313,9 @@ static SomMetaNode **meta_children_d13_code_specs_projection(SomStrList *stack, 
   meta_push(&arr, len, &cap, meta_cx("TechnicalFrameworkConcept", stack, meta_children_technical_framework_concept, meta_build_d13_code_specs_projection_technical_framework));
   meta_push(&arr, len, &cap, meta_cx("AccessControlModel", stack, meta_children_access_control_model, meta_build_d13_code_specs_projection_access_control));
   meta_push(&arr, len, &cap, meta_cx("AuditAndLogging", stack, meta_children_audit_and_logging, meta_build_d13_code_specs_projection_audit_and_logging));
+  meta_push(&arr, len, &cap, meta_cx("SensitiveDataEncryption", stack, meta_children_sensitive_data_encryption, meta_build_d13_code_specs_projection_sensitive_data_encryption));
   meta_push(&arr, len, &cap, meta_cx("ReportDefinitions", stack, meta_children_report_definitions, meta_build_d13_code_specs_projection_report_definitions));
+  meta_push(&arr, len, &cap, meta_cx("PrintAndExportLayout", stack, meta_children_print_and_export_layout, meta_build_d13_code_specs_projection_print_and_export_layout));
   meta_push(&arr, len, &cap, meta_cx("SchemaVersioningAndMigration", stack, meta_children_schema_versioning_and_migration, meta_build_d13_code_specs_projection_schema_versioning_and_migration));
   meta_push(&arr, len, &cap, meta_cx("ServerOperationRegistry", stack, meta_children_server_operation_registry, meta_build_d13_code_specs_projection_server_operation_registry));
   meta_push(&arr, len, &cap, meta_cx("ProcessStepsAndActorInteractions", stack, meta_children_process_steps_and_actor_interactions, meta_build_d13_code_specs_projection_process_steps_and_actor_interactions));
@@ -195605,9 +195636,23 @@ som_nav_audit_and_logging d13_code_specs_projection_nav_audit_and_logging(som_na
   free(path);
   return out;
 }
+som_nav_sensitive_data_encryption d13_code_specs_projection_nav_sensitive_data_encryption(som_nav_d13_code_specs_projection x) {
+  som_nav_sensitive_data_encryption out;
+  char *path = spec_path_join(x.ref.path, "sensitiveDataEncryption");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_report_definitions d13_code_specs_projection_nav_report_definitions(som_nav_d13_code_specs_projection x) {
   som_nav_report_definitions out;
   char *path = spec_path_join(x.ref.path, "reportDefinitions");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_print_and_export_layout d13_code_specs_projection_nav_print_and_export_layout(som_nav_d13_code_specs_projection x) {
+  som_nav_print_and_export_layout out;
+  char *path = spec_path_join(x.ref.path, "printAndExportLayout");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -247007,10 +247052,73 @@ SomListMetaRef d13_code_specs_projection_id_sevt_cust_lst(som_id_d13_code_specs_
   free(path);
   return out;
 }
+SomListMetaRef d13_code_specs_projection_id_endaca_encr_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_encrypted_data_category_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_cochen_comm_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "sensitiveDataEncryption/encryptionInTransit/COCHEN-COMM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_communication_channel_encryption_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d13_code_specs_projection_id_repent_repo_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "reportDefinitions/REPENT-REPO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_entry);
+  free(path);
+  return out;
+}
+SomMetaRef d13_code_specs_projection_id_plps(som_id_d13_code_specs_projection x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "printAndExportLayout/PLPS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d13_code_specs_projection_id_prlabr(som_id_d13_code_specs_projection x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "printAndExportLayout/PRLABR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d13_code_specs_projection_id_prlawa(som_id_d13_code_specs_projection x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "printAndExportLayout/PRLAWA");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d13_code_specs_projection_id_plhf(som_id_d13_code_specs_projection x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "printAndExportLayout/PLHF");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef d13_code_specs_projection_id_prlaar(som_id_d13_code_specs_projection x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "printAndExportLayout/PRLAAR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_efe_expo_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "printAndExportLayout/EFE-EXPO-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_export_format_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_ete_expo_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "printAndExportLayout/ETE-EXPO-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_export_template_entry);
   free(path);
   return out;
 }

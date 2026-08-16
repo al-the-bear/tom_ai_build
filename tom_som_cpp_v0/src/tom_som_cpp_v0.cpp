@@ -4892,8 +4892,14 @@ AccessControlModel D13CodeSpecsProjection::accessControl() const {
 AuditAndLogging D13CodeSpecsProjection::auditAndLogging() const {
   return AuditAndLogging(doc(), som::joinPath(path(), "auditAndLogging"));
 }
+SensitiveDataEncryption D13CodeSpecsProjection::sensitiveDataEncryption() const {
+  return SensitiveDataEncryption(doc(), som::joinPath(path(), "sensitiveDataEncryption"));
+}
 ReportDefinitions D13CodeSpecsProjection::reportDefinitions() const {
   return ReportDefinitions(doc(), som::joinPath(path(), "reportDefinitions"));
+}
+PrintAndExportLayout D13CodeSpecsProjection::printAndExportLayout() const {
+  return PrintAndExportLayout(doc(), som::joinPath(path(), "printAndExportLayout"));
 }
 SchemaVersioningAndMigration D13CodeSpecsProjection::schemaVersioningAndMigration() const {
   return SchemaVersioningAndMigration(doc(), som::joinPath(path(), "schemaVersioningAndMigration"));

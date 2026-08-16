@@ -1,12 +1,23 @@
 /// D13 — CodeSpecs Generation Projection.
 ///
 /// The Phase-4 CodeSpecs generation input: an `@Document` projection —
-/// analogous to the D01–D12 Phase-3 projections — that reaches **only** the
-/// isolated CodeSpecs subtrees carved out by the Band-F follow-up splits
-/// (csmc1..csmc5) and the earlier TOM/IFM splits. Where D01–D12 are the
-/// *document* projections over the Solution Blueprint, D13 is the *code*
-/// projection: the concrete set of SBP sections the Phase-4 generator consumes
-/// to emit skeletal `Cs*`-annotated Dart.
+/// analogous to the D01–D12 Phase-3 projections — that reaches the isolated
+/// CodeSpecs subtrees carved out by the Band-F follow-up splits (csmc1..csmc5)
+/// and the earlier TOM/IFM splits. Where D01–D12 are the *document* projections
+/// over the Solution Blueprint, D13 is the *code* projection: the concrete set
+/// of SBP sections the Phase-4 generator consumes to emit skeletal
+/// `Cs*`-annotated Dart.
+///
+/// **Membership follows the part, not the parent.** An entry is here because
+/// the subtree it names is purely `@CodeSpecKind`-bearing — not because of
+/// where the follow-up splits happened to cut. Two entries below
+/// (`sensitiveDataEncryption`, `printAndExportLayout`) therefore reach *into* a
+/// `@FollowUpKind` root to pick a pure CE-CF band out of it, leaving its
+/// genuinely process-delivered siblings behind. That is not a weakening of the
+/// §8.3 split: the split's own rule is that a subtree mixing generated and
+/// non-generated content is a split point, and reaching past the root is how
+/// this projection expresses the split where the root was cut one level too
+/// high.
 ///
 /// **`@CodeSpecKind`-driven, not `@DetailedIn`-driven.** No SBP section carries
 /// `@DetailedIn(D13CodeSpecsProjection)` — the single-valued `@DetailedIn` /
@@ -152,11 +163,34 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// beside the framework's `@TomAudited`), CE-CF configures the sink that
   /// receives it (`AuditLogFormat`, realised as `@CsServerConfig`). The
   /// operational half — the review, reporting and anomaly-detection routines
-  /// run against the log — is a follow-up subtree under
-  /// `SecurityOperationsFollowUp` and is deliberately unreachable from here.
+  /// run against the log — is `ComplianceReporting` under
+  /// `SecurityOperationsFollowUp`, and is deliberately unreachable from here.
   @Comment('locus: server — CE-LG/CE-CF')
   @SerializationOrder(10)
   AuditAndLogging auditAndLogging = AuditAndLogging();
+
+  /// Sensitive-data encryption and key management — CE-CF cryptographic
+  /// settings.
+  ///
+  /// Reached **into** `SecurityOperationsFollowUp` rather than through it: that
+  /// root is tagged OPS for `ComplianceReporting`, and this sibling was swept
+  /// along by the split rather than placed there on a criterion. It is a pure
+  /// CE-CF band — encryption at rest (database / file-storage / backup
+  /// policies and the encrypted-data category list), encryption in transit
+  /// (TLS protocol, certificate management, mTLS, transport policy and the
+  /// per-channel entries) and the key lifecycle under `KeyManagement`
+  /// (generation, storage, rotation, escrow-and-backup, compromise recovery).
+  ///
+  /// It belongs here because §5.5's own substrate names its material:
+  /// `TomBaseServerConfiguration` declares TLS material and signing keys as
+  /// typed fields, so a TLS minimum version is a server-configuration value in
+  /// exactly the sense `@CsServerConfig` generates. Its projected siblings
+  /// settle it — `StorageEncryptionPolicy` under `AccessControlModel` and
+  /// `LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of
+  /// the same shape, and no criterion separates them from these.
+  @Comment('locus: server — CE-CF')
+  @SerializationOrder(11)
+  SensitiveDataEncryption sensitiveDataEncryption = SensitiveDataEncryption();
 
   /// Report definitions — CE-RP grouped projections over the domain model.
   ///
@@ -165,11 +199,31 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// client reads — is **derived from this same subtree** rather than authored
   /// in a second SOM section, so it needs no separate shared-locus entry; the
   /// generic `ResultEnvelope` above covers the CE-ER contract it rides on. The
-  /// environment-wide print and export *settings* are CE-CF and live in
-  /// `PrintAndExportLayout`, deliberately unreachable from here.
+  /// environment-wide print and export *settings* are CE-CF, not CE-RP, and are
+  /// the sibling entry below.
   @Comment('locus: server — CE-RP')
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   ReportDefinitions reportDefinitions = ReportDefinitions();
+
+  /// Print and export layout — CE-CF renderer settings.
+  ///
+  /// Reached **into** `ExperienceDesignFollowUp` for the same reason as
+  /// `sensitiveDataEncryption` above: that root is tagged DOC for the design
+  /// vision, wireframes and user-assistance children, and this band is not one
+  /// of them. It is the environment-wide print and export configuration — print
+  /// strategy, paper size, orientation, page setup, branding, watermark,
+  /// header/footer and archive policy, plus the export format, size, field-
+  /// mapping and template catalogue.
+  ///
+  /// Its own `@CodeSpecKind` note appeals to the CE-LG boundary between an
+  /// audit *declaration* and its *sink* — and the sink half, `AuditLogFormat`,
+  /// is projected two entries up. A renderer's deployment settings sit on the
+  /// same side of that boundary, so this entry is what makes the appeal true.
+  /// It sits beside `reportDefinitions` because that is the projection the
+  /// renderer renders.
+  @Comment('locus: server — CE-CF')
+  @SerializationOrder(13)
+  PrintAndExportLayout printAndExportLayout = PrintAndExportLayout();
 
   /// Schema versioning and migration — CE-MG migration artifacts.
   ///
@@ -185,7 +239,7 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// effect of a schema's artifacts must converge on the CE-DB model that entry
   /// generates, and that convergence is a validator check over both.
   @Comment('locus: server — CE-MG')
-  @SerializationOrder(12)
+  @SerializationOrder(14)
   SchemaVersioningAndMigration schemaVersioningAndMigration =
       SchemaVersioningAndMigration();
 
@@ -206,7 +260,7 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// reachable from this projection: it describes third-party interfaces the
   /// system talks to, not the surface the system generates.
   @Comment('locus: shared(CE-API contract)+server(CE-API operations)')
-  @SerializationOrder(13)
+  @SerializationOrder(15)
   ServerOperationRegistry serverOperationRegistry = ServerOperationRegistry();
 
   // ─── Locus: SERVER + CLIENT span ─────────────────────────────────────────
@@ -214,7 +268,7 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   /// interaction; a single subtree whose parts split across both loci.
   @Comment('locus: server(CE-SU)+client(CE-SC)')
-  @SerializationOrder(14)
+  @SerializationOrder(16)
   ProcessStepsAndActorInteractions processStepsAndActorInteractions =
       ProcessStepsAndActorInteractions();
 
@@ -222,6 +276,6 @@ class D13CodeSpecsProjection extends DocSpecsSection {
 
   /// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
   @Comment('locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER')
-  @SerializationOrder(15)
+  @SerializationOrder(17)
   ExperienceCodeSpecs experienceCodeSpecs = ExperienceCodeSpecs();
 }

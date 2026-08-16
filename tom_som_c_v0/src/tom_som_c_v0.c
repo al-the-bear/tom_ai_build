@@ -11777,10 +11777,24 @@ AuditAndLogging d13_code_specs_projection_audit_and_logging(const D13CodeSpecsPr
   free(path);
   return out;
 }
+SensitiveDataEncryption d13_code_specs_projection_sensitive_data_encryption(const D13CodeSpecsProjection *self) {
+  char *path = spec_path_join(self->node.path, "sensitiveDataEncryption");
+  SensitiveDataEncryption out;
+  sensitive_data_encryption_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 ReportDefinitions d13_code_specs_projection_report_definitions(const D13CodeSpecsProjection *self) {
   char *path = spec_path_join(self->node.path, "reportDefinitions");
   ReportDefinitions out;
   report_definitions_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+PrintAndExportLayout d13_code_specs_projection_print_and_export_layout(const D13CodeSpecsProjection *self) {
+  char *path = spec_path_join(self->node.path, "printAndExportLayout");
+  PrintAndExportLayout out;
+  print_and_export_layout_init(&out, self->node.doc, path);
   free(path);
   return out;
 }

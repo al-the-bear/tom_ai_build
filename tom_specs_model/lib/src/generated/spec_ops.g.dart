@@ -5356,7 +5356,9 @@ void registerSpecOps() {
         SpecSlot.node(() => n.technicalFramework, (v) => n.technicalFramework = v as TechnicalFrameworkConcept, label: 'technicalFramework', sectionId: 'TECH'),
         SpecSlot.node(() => n.accessControl, (v) => n.accessControl = v as AccessControlModel, label: 'accessControl', sectionId: 'ACCM'),
         SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging', sectionId: 'AUANLO'),
+        SpecSlot.node(() => n.sensitiveDataEncryption, (v) => n.sensitiveDataEncryption = v as SensitiveDataEncryption, label: 'sensitiveDataEncryption', sectionId: 'SEDAEN'),
         SpecSlot.node(() => n.reportDefinitions, (v) => n.reportDefinitions = v as ReportDefinitions, label: 'reportDefinitions', sectionId: 'REDF'),
+        SpecSlot.node(() => n.printAndExportLayout, (v) => n.printAndExportLayout = v as PrintAndExportLayout, label: 'printAndExportLayout', sectionId: 'PRLA'),
         SpecSlot.node(() => n.schemaVersioningAndMigration, (v) => n.schemaVersioningAndMigration = v as SchemaVersioningAndMigration, label: 'schemaVersioningAndMigration', sectionId: 'SCHMG'),
         SpecSlot.node(() => n.serverOperationRegistry, (v) => n.serverOperationRegistry = v as ServerOperationRegistry, label: 'serverOperationRegistry', sectionId: 'SVOPR'),
         SpecSlot.node(() => n.processStepsAndActorInteractions, (v) => n.processStepsAndActorInteractions = v as ProcessStepsAndActorInteractions, label: 'processStepsAndActorInteractions', sectionId: 'PSAAI'),
@@ -5377,7 +5379,9 @@ void registerSpecOps() {
         ..technicalFramework = n.technicalFramework
         ..accessControl = n.accessControl
         ..auditAndLogging = n.auditAndLogging
+        ..sensitiveDataEncryption = n.sensitiveDataEncryption
         ..reportDefinitions = n.reportDefinitions
+        ..printAndExportLayout = n.printAndExportLayout
         ..schemaVersioningAndMigration = n.schemaVersioningAndMigration
         ..serverOperationRegistry = n.serverOperationRegistry
         ..processStepsAndActorInteractions = n.processStepsAndActorInteractions
@@ -5396,7 +5400,9 @@ void registerSpecOps() {
       n.technicalFramework = b.solutionArchitectureAndTechnology.technicalFramework;
       n.accessControl = b.securityAndAccessModel.accessControl;
       n.auditAndLogging = b.securityAndAccessModel.auditAndLogging;
+      n.sensitiveDataEncryption = b.securityAndAccessModel.securityOperations.encryption;
       n.reportDefinitions = b.experienceAndInterfaceDesign.reportDefinitions;
+      n.printAndExportLayout = b.experienceAndInterfaceDesign.designFollowUp.printLayout;
       n.schemaVersioningAndMigration = b.informationAndDataModel.schemaVersioningAndMigration;
       n.serverOperationRegistry = b.informationAndDataModel.serverOperationRegistry;
       n.processStepsAndActorInteractions = b.targetOperatingModelConcept.processStepsAndActorInteractions;

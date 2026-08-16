@@ -122,31 +122,34 @@ class AccessControlModel extends DocSpecsSection {
 
 /// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
 ///
-/// Groups the operational security concerns that are **follow-up** (key
-/// management and the routines run *against* the audit log), not
-/// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). The root
-/// carries no `@CodeSpecKind`, so it is not a generation projection root and
-/// nothing under it is reachable from `D13CodeSpecsProjection`. The encryption
-/// policies *inside* it are nonetheless tagged CE-CF, recording which part
-/// their material belongs to; that material reaches generation through the
-/// D13-reachable CE-CF bearers (`TechnicalFrameworkConcept`,
-/// `AuditAndLogging`), never through this subtree (`codespecs_mapping.md`
-/// §4.3).
+/// Groups the operational security concerns that are **follow-up** — the
+/// routines run *against* the audit log — rather than CodeSpecs-generated
+/// behaviour (`codespecs_mapping.md` §8.3). The root carries no
+/// `@CodeSpecKind`, so it is not itself a generation projection root.
+///
+/// **The root is not the boundary here.** Its `encryption` child is a pure
+/// CE-CF band — encryption at rest, encryption in transit and the key
+/// lifecycle are settings the server reads, and §5.5's substrate
+/// (`TomBaseServerConfiguration`) names TLS material and signing keys as typed
+/// fields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`
+/// directly, past this root. Placing it here rather than beside the other SAS
+/// CE-CF bands is a grouping of subject matter, not a routing verdict, and the
+/// projection's membership follows the part.
 ///
 /// The audit log's *declarations* are not here: which events are auditable and
 /// how the sink is configured are the CE-LG / CE-CF bands, which live in the
-/// sibling `AuditAndLogging` CodeSpecs subtree. What remains operational is
-/// `ComplianceReporting` — periodic access review, privilege-usage reporting,
-/// anomaly detection and regulatory audit support are processes people run, not
-/// code a generator emits.
+/// sibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —
+/// and what the OPS tag is for — is `ComplianceReporting`: periodic access
+/// review, privilege-usage reporting, anomaly detection and regulatory audit
+/// support are processes people run, not code a generator emits.
 @StandardReferences(
   [
     'ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging',
     'NIST SP 800-57 — key management',
   ],
-  'The OPS follow-up: sensitive-data encryption (key management) and the '
-  'reporting / review routines run against the audit log, consumed '
-  'operationally rather than generated.',
+  'The OPS follow-up: the reporting / review routines run against the audit '
+  'log, consumed operationally rather than generated, grouped with the '
+  'sensitive-data encryption and key-management settings they govern.',
 )
 @FollowUpKind([FollowUpProcess.ops])
 @SectionId('SCOF')
