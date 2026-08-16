@@ -15053,6 +15053,22 @@ void login_flow_configuration_set_content(LoginFlowConfiguration *self, const ch
 // Defines an individual step in the authentication flow sequence,
 // allowing detailed specification of each stage from initial request
 // to authenticated session.
+//
+// **A step is conditional exactly when it states a condition.** `LFSEB`
+// carries one field for that — `conditionalTrigger` — and no separate
+// skippability flag. A step that states a trigger runs only when the trigger
+// holds, which is the same fact as "this step can be skipped"; a step that
+// states none always runs. A second, boolean field would be a second source
+// for that one fact, and the disagreement it admits has a direction:
+// *skippable, no trigger* asserts the step is sometimes skipped without saying
+// when, and `codespecs_derivation_contract.md` §2.4 B4 — which reifies the
+// stated condition as a guard method and never parses it — would have nothing
+// to emit, so the step would generate unconditionally, the opposite of what
+// the specification claims. One field cannot say that.
+//
+// This is the same shape as `SCJOST.condition`, `EXTEN.condition` and
+// `AlternativeFlowEntry.triggerCondition`: none of them carries a boolean
+// beside the condition either.
 // Binds a LoginFlowStepEntry facade to a document and a path (path copied).
 void login_flow_step_entry_init(LoginFlowStepEntry *self, SpecDocument *doc, const char *path);
 void login_flow_step_entry_free(LoginFlowStepEntry *self);
@@ -15061,7 +15077,7 @@ int login_flow_step_entry_can_have_content(const LoginFlowStepEntry *self);
 LoginFlowStepEntryContentForm login_flow_step_entry_content(const LoginFlowStepEntry *self);
 // Inputs and validation behavior.
 LoginFlowStepEntryValidationForm login_flow_step_entry_validation(const LoginFlowStepEntry *self);
-// Outcomes and optional execution rules.
+// Outcomes and conditional execution.
 LoginFlowStepEntryBehaviorForm login_flow_step_entry_behavior(const LoginFlowStepEntry *self);
 // Protocol-level and descriptive details.
 LoginFlowStepEntryProtocolForm login_flow_step_entry_protocol(const LoginFlowStepEntry *self);
@@ -45610,8 +45626,6 @@ char *login_flow_step_entry_behavior_form_success_outcome(const LoginFlowStepEnt
 void login_flow_step_entry_behavior_form_set_success_outcome(LoginFlowStepEntryBehaviorForm *self, const char *value);
 char *login_flow_step_entry_behavior_form_failure_outcome(const LoginFlowStepEntryBehaviorForm *self);
 void login_flow_step_entry_behavior_form_set_failure_outcome(LoginFlowStepEntryBehaviorForm *self, const char *value);
-char *login_flow_step_entry_behavior_form_optional(const LoginFlowStepEntryBehaviorForm *self);
-void login_flow_step_entry_behavior_form_set_optional(LoginFlowStepEntryBehaviorForm *self, const char *value);
 char *login_flow_step_entry_behavior_form_conditional_trigger(const LoginFlowStepEntryBehaviorForm *self);
 void login_flow_step_entry_behavior_form_set_conditional_trigger(LoginFlowStepEntryBehaviorForm *self, const char *value);
 

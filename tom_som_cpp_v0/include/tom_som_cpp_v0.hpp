@@ -15364,13 +15364,29 @@ class LoginFlowConfiguration : public som::SomNode {
 // Defines an individual step in the authentication flow sequence,
 // allowing detailed specification of each stage from initial request
 // to authenticated session.
+//
+// **A step is conditional exactly when it states a condition.** `LFSEB`
+// carries one field for that — `conditionalTrigger` — and no separate
+// skippability flag. A step that states a trigger runs only when the trigger
+// holds, which is the same fact as "this step can be skipped"; a step that
+// states none always runs. A second, boolean field would be a second source
+// for that one fact, and the disagreement it admits has a direction:
+// *skippable, no trigger* asserts the step is sometimes skipped without saying
+// when, and `codespecs_derivation_contract.md` §2.4 B4 — which reifies the
+// stated condition as a guard method and never parses it — would have nothing
+// to emit, so the step would generate unconditionally, the opposite of what
+// the specification claims. One field cannot say that.
+//
+// This is the same shape as `SCJOST.condition`, `EXTEN.condition` and
+// `AlternativeFlowEntry.triggerCondition`: none of them carries a boolean
+// beside the condition either.
 class LoginFlowStepEntry : public som::SomNode {
  public:
   LoginFlowStepEntry(som::SpecDocument& doc, std::string path);
   LoginFlowStepEntryContentForm content() const;
   // Inputs and validation behavior.
   LoginFlowStepEntryValidationForm validation() const;
-  // Outcomes and optional execution rules.
+  // Outcomes and conditional execution.
   LoginFlowStepEntryBehaviorForm behavior() const;
   // Protocol-level and descriptive details.
   LoginFlowStepEntryProtocolForm protocol() const;
@@ -50285,8 +50301,6 @@ class LoginFlowStepEntryBehaviorForm : public som::SomNode {
   void setSuccessOutcome(const std::string& value);
   std::string failureOutcome() const;
   void setFailureOutcome(const std::string& value);
-  std::string optional() const;
-  void setOptional(const std::string& value);
   std::string conditionalTrigger() const;
   void setConditionalTrigger(const std::string& value);
 };

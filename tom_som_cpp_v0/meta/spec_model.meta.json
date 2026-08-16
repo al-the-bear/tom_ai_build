@@ -139142,7 +139142,7 @@
     "LoginFlowStepEntry": {
       "name": "LoginFlowStepEntry",
       "sectionId": "LGFLS",
-      "doc": "A login flow step entry (form).\n\nDefines an individual step in the authentication flow sequence,\nallowing detailed specification of each stage from initial request\nto authenticated session.",
+      "doc": "A login flow step entry (form).\n\nDefines an individual step in the authentication flow sequence,\nallowing detailed specification of each stage from initial request\nto authenticated session.\n\n**A step is conditional exactly when it states a condition.** `LFSEB`\ncarries one field for that — `conditionalTrigger` — and no separate\nskippability flag. A step that states a trigger runs only when the trigger\nholds, which is the same fact as \"this step can be skipped\"; a step that\nstates none always runs. A second, boolean field would be a second source\nfor that one fact, and the disagreement it admits has a direction:\n*skippable, no trigger* asserts the step is sometimes skipped without saying\nwhen, and `codespecs_derivation_contract.md` §2.4 B4 — which reifies the\nstated condition as a guard method and never parses it — would have nothing\nto emit, so the step would generate unconditionally, the opposite of what\nthe specification claims. One field cannot say that.\n\nThis is the same shape as `SCJOST.condition`, `EXTEN.condition` and\n`AlternativeFlowEntry.triggerCondition`: none of them carries a boolean\nbeside the condition either.",
       "standardReferences": {
         "standards": [
           "NIST SP 800-63B — authentication and authenticator lifecycle",
@@ -139289,7 +139289,8 @@
         {
           "name": "behavior",
           "kind": "form",
-          "doc": "Outcomes and optional execution rules.",
+          "doc": "Outcomes and conditional execution.",
+          "help": "State what happens when the step succeeds and when it fails. Fill in Conditional Trigger only where the step is conditional; a step with no trigger always runs, and a step that states one runs only when it holds — which is also what makes the step skippable.",
           "sectionId": "LFSEB",
           "standardReferences": {
             "standards": [
@@ -139314,6 +139315,12 @@
                   "OWASP ASVS V2 — authentication verification requirements"
                 ],
                 "connotation": "Describes the success and failure outcomes and conditional execution rules of a login flow step."
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "State what happens when the step succeeds and when it fails. Fill in Conditional Trigger only where the step is conditional; a step with no trigger always runs, and a step that states one runs only when it holds — which is also what makes the step skippable."
               }
             },
             {
@@ -139345,16 +139352,9 @@
               "required": false
             },
             {
-              "name": "optional",
-              "label": "Optional",
-              "hint": "Yes | No — whether this step can be skipped",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "conditionalTrigger",
               "label": "Conditional Trigger",
-              "hint": "Condition under which this step is activated (e.g., MFA required, new device)",
+              "hint": "The condition under which this step runs, if it is not unconditional (e.g. MFA required, new device). Leave empty for a step that always runs; a step that states a trigger is by that fact the one that can be skipped.",
               "type": "String",
               "required": false
             }

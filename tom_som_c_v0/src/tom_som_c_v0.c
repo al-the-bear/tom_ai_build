@@ -104926,13 +104926,6 @@ char *login_flow_step_entry_behavior_form_failure_outcome(const LoginFlowStepEnt
 void login_flow_step_entry_behavior_form_set_failure_outcome(LoginFlowStepEntryBehaviorForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "failureOutcome", value);
 }
-char *login_flow_step_entry_behavior_form_optional(const LoginFlowStepEntryBehaviorForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "optional");
-  return som_strdup(v != NULL ? v : "");
-}
-void login_flow_step_entry_behavior_form_set_optional(LoginFlowStepEntryBehaviorForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "optional", value);
-}
 char *login_flow_step_entry_behavior_form_conditional_trigger(const LoginFlowStepEntryBehaviorForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "conditionalTrigger");
   return som_strdup(v != NULL ? v : "");

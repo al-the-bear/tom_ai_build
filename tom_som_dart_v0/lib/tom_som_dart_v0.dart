@@ -13366,6 +13366,22 @@ class LoginFlowConfiguration extends SomNode {
 /// Defines an individual step in the authentication flow sequence,
 /// allowing detailed specification of each stage from initial request
 /// to authenticated session.
+/// 
+/// **A step is conditional exactly when it states a condition.** `LFSEB`
+/// carries one field for that — `conditionalTrigger` — and no separate
+/// skippability flag. A step that states a trigger runs only when the trigger
+/// holds, which is the same fact as "this step can be skipped"; a step that
+/// states none always runs. A second, boolean field would be a second source
+/// for that one fact, and the disagreement it admits has a direction:
+/// *skippable, no trigger* asserts the step is sometimes skipped without saying
+/// when, and `codespecs_derivation_contract.md` §2.4 B4 — which reifies the
+/// stated condition as a guard method and never parses it — would have nothing
+/// to emit, so the step would generate unconditionally, the opposite of what
+/// the specification claims. One field cannot say that.
+/// 
+/// This is the same shape as `SCJOST.condition`, `EXTEN.condition` and
+/// `AlternativeFlowEntry.triggerCondition`: none of them carries a boolean
+/// beside the condition either.
 class LoginFlowStepEntry extends SomNode {
   LoginFlowStepEntry(super.doc, super.path);
 
@@ -13374,7 +13390,7 @@ class LoginFlowStepEntry extends SomNode {
   /// Inputs and validation behavior.
   LoginFlowStepEntryValidationForm get validation => LoginFlowStepEntryValidationForm(doc, '$path/LFSEV');
 
-  /// Outcomes and optional execution rules.
+  /// Outcomes and conditional execution.
   LoginFlowStepEntryBehaviorForm get behavior => LoginFlowStepEntryBehaviorForm(doc, '$path/LFSEB');
 
   /// Protocol-level and descriptive details.
@@ -58673,9 +58689,6 @@ class LoginFlowStepEntryBehaviorForm extends SomNode {
 
   String get failureOutcome => doc.formField(path, 'failureOutcome') ?? '';
   set failureOutcome(String value) => doc.setFormField(path, 'failureOutcome', value);
-
-  String get optional => doc.formField(path, 'optional') ?? '';
-  set optional(String value) => doc.setFormField(path, 'optional', value);
 
   String get conditionalTrigger => doc.formField(path, 'conditionalTrigger') ?? '';
   set conditionalTrigger(String value) => doc.setFormField(path, 'conditionalTrigger', value);

@@ -19330,8 +19330,8 @@ static void meta_build_authentication_flow_login_flow_steps_elem(SomMetaNode *n)
   meta_set(&n->class_section_id, "LGFLS");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "LoginFlowStepEntry");
-  meta_set(&n->doc_comment, "A login flow step entry (form).\n\nDefines an individual step in the authentication flow sequence,\nallowing detailed specification of each stage from initial request\nto authenticated session.");
-  meta_set(&n->class_doc_comment, "A login flow step entry (form).\n\nDefines an individual step in the authentication flow sequence,\nallowing detailed specification of each stage from initial request\nto authenticated session.");
+  meta_set(&n->doc_comment, "A login flow step entry (form).\n\nDefines an individual step in the authentication flow sequence,\nallowing detailed specification of each stage from initial request\nto authenticated session.\n\n**A step is conditional exactly when it states a condition.** `LFSEB`\ncarries one field for that — `conditionalTrigger` — and no separate\nskippability flag. A step that states a trigger runs only when the trigger\nholds, which is the same fact as \"this step can be skipped\"; a step that\nstates none always runs. A second, boolean field would be a second source\nfor that one fact, and the disagreement it admits has a direction:\n*skippable, no trigger* asserts the step is sometimes skipped without saying\nwhen, and `codespecs_derivation_contract.md` §2.4 B4 — which reifies the\nstated condition as a guard method and never parses it — would have nothing\nto emit, so the step would generate unconditionally, the opposite of what\nthe specification claims. One field cannot say that.\n\nThis is the same shape as `SCJOST.condition`, `EXTEN.condition` and\n`AlternativeFlowEntry.triggerCondition`: none of them carries a boolean\nbeside the condition either.");
+  meta_set(&n->class_doc_comment, "A login flow step entry (form).\n\nDefines an individual step in the authentication flow sequence,\nallowing detailed specification of each stage from initial request\nto authenticated session.\n\n**A step is conditional exactly when it states a condition.** `LFSEB`\ncarries one field for that — `conditionalTrigger` — and no separate\nskippability flag. A step that states a trigger runs only when the trigger\nholds, which is the same fact as \"this step can be skipped\"; a step that\nstates none always runs. A second, boolean field would be a second source\nfor that one fact, and the disagreement it admits has a direction:\n*skippable, no trigger* asserts the step is sometimes skipped without saying\nwhen, and `codespecs_derivation_contract.md` §2.4 B4 — which reifies the\nstated condition as a guard method and never parses it — would have nothing\nto emit, so the step would generate unconditionally, the opposite of what\nthe specification claims. One field cannot say that.\n\nThis is the same shape as `SCJOST.condition`, `EXTEN.condition` and\n`AlternativeFlowEntry.triggerCondition`: none of them carries a boolean\nbeside the condition either.");
 }
 static void meta_build_authentication_method_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthenticationMethodEntry");
@@ -80464,10 +80464,11 @@ static void meta_build_login_flow_step_entry_behavior(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "Outcomes and optional execution rules.");
+  meta_set(&n->content_help, "State what happens when the step succeeds and when it fails. Fill in Conditional Trigger only where the step is conditional; a step with no trigger always runs, and a step that states one runs only when it holds — which is also what makes the step skippable.");
+  meta_set(&n->doc_comment, "Outcomes and conditional execution.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("successOutcome");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Success Outcome");
@@ -80480,18 +80481,12 @@ static void meta_build_login_flow_step_entry_behavior(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("RetryWithError | Lockout | RedirectToError | AbortFlow — outcome on failure");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("optional");
+  n->form->fields[2].name = som_strdup("conditionalTrigger");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Optional");
+  n->form->fields[2].description = som_strdup("Conditional Trigger");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Yes | No — whether this step can be skipped");
+  n->form->fields[2].hint = som_strdup("The condition under which this step runs, if it is not unconditional (e.g. MFA required, new device). Leave empty for a step that always runs; a step that states a trigger is by that fact the one that can be skipped.");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("conditionalTrigger");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Conditional Trigger");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Condition under which this step is activated (e.g., MFA required, new device)");
-  n->form->fields[3].order = 3;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");

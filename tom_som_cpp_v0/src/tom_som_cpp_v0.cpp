@@ -63353,12 +63353,6 @@ std::string LoginFlowStepEntryBehaviorForm::failureOutcome() const {
 void LoginFlowStepEntryBehaviorForm::setFailureOutcome(const std::string& value) {
   doc().setFormField(path(), "failureOutcome", value);
 }
-std::string LoginFlowStepEntryBehaviorForm::optional() const {
-  return doc().formField(path(), "optional");
-}
-void LoginFlowStepEntryBehaviorForm::setOptional(const std::string& value) {
-  doc().setFormField(path(), "optional", value);
-}
 std::string LoginFlowStepEntryBehaviorForm::conditionalTrigger() const {
   return doc().formField(path(), "conditionalTrigger");
 }

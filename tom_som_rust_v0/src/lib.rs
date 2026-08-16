@@ -28025,6 +28025,22 @@ impl LoginFlowConfiguration {
 /// Defines an individual step in the authentication flow sequence,
 /// allowing detailed specification of each stage from initial request
 /// to authenticated session.
+///
+/// **A step is conditional exactly when it states a condition.** `LFSEB`
+/// carries one field for that — `conditionalTrigger` — and no separate
+/// skippability flag. A step that states a trigger runs only when the trigger
+/// holds, which is the same fact as "this step can be skipped"; a step that
+/// states none always runs. A second, boolean field would be a second source
+/// for that one fact, and the disagreement it admits has a direction:
+/// *skippable, no trigger* asserts the step is sometimes skipped without saying
+/// when, and `codespecs_derivation_contract.md` §2.4 B4 — which reifies the
+/// stated condition as a guard method and never parses it — would have nothing
+/// to emit, so the step would generate unconditionally, the opposite of what
+/// the specification claims. One field cannot say that.
+///
+/// This is the same shape as `SCJOST.condition`, `EXTEN.condition` and
+/// `AlternativeFlowEntry.triggerCondition`: none of them carries a boolean
+/// beside the condition either.
 pub struct LoginFlowStepEntry {
     pub node: som::SomNode,
 }
@@ -28051,7 +28067,7 @@ impl LoginFlowStepEntry {
         LoginFlowStepEntryValidationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "LFSEV"))
     }
 
-    /// Outcomes and optional execution rules.
+    /// Outcomes and conditional execution.
     pub fn behavior(&self) -> LoginFlowStepEntryBehaviorForm {
         LoginFlowStepEntryBehaviorForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "LFSEB"))
     }
@@ -142944,15 +142960,6 @@ impl LoginFlowStepEntryBehaviorForm {
     pub fn set_failure_outcome(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "failureOutcome", value);
-    }
-
-    pub fn optional(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "optional")
-    }
-
-    pub fn set_optional(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "optional", value);
     }
 
     pub fn conditional_trigger(&self) -> String {

@@ -23062,6 +23062,22 @@ func (x *LoginFlowConfiguration) SetContent(value string) {
 // Defines an individual step in the authentication flow sequence,
 // allowing detailed specification of each stage from initial request
 // to authenticated session.
+//
+// **A step is conditional exactly when it states a condition.** `LFSEB`
+// carries one field for that — `conditionalTrigger` — and no separate
+// skippability flag. A step that states a trigger runs only when the trigger
+// holds, which is the same fact as "this step can be skipped"; a step that
+// states none always runs. A second, boolean field would be a second source
+// for that one fact, and the disagreement it admits has a direction:
+// *skippable, no trigger* asserts the step is sometimes skipped without saying
+// when, and `codespecs_derivation_contract.md` §2.4 B4 — which reifies the
+// stated condition as a guard method and never parses it — would have nothing
+// to emit, so the step would generate unconditionally, the opposite of what
+// the specification claims. One field cannot say that.
+//
+// This is the same shape as `SCJOST.condition`, `EXTEN.condition` and
+// `AlternativeFlowEntry.triggerCondition`: none of them carries a boolean
+// beside the condition either.
 type LoginFlowStepEntry struct {
 	som.SomNode
 }
@@ -23080,7 +23096,7 @@ func (x *LoginFlowStepEntry) Validation() *LoginFlowStepEntryValidationForm {
 	return NewLoginFlowStepEntryValidationForm(x.Doc(), x.Path()+"/LFSEV")
 }
 
-// Outcomes and optional execution rules.
+// Outcomes and conditional execution.
 func (x *LoginFlowStepEntry) Behavior() *LoginFlowStepEntryBehaviorForm {
 	return NewLoginFlowStepEntryBehaviorForm(x.Doc(), x.Path()+"/LFSEB")
 }
@@ -126138,14 +126154,6 @@ func (x *LoginFlowStepEntryBehaviorForm) FailureOutcome() string {
 
 func (x *LoginFlowStepEntryBehaviorForm) SetFailureOutcome(value string) {
 	x.Doc().SetFormField(x.Path(), "failureOutcome", value)
-}
-
-func (x *LoginFlowStepEntryBehaviorForm) Optional() string {
-	return x.Doc().FormFieldOr(x.Path(), "optional")
-}
-
-func (x *LoginFlowStepEntryBehaviorForm) SetOptional(value string) {
-	x.Doc().SetFormField(x.Path(), "optional", value)
 }
 
 func (x *LoginFlowStepEntryBehaviorForm) ConditionalTrigger() string {

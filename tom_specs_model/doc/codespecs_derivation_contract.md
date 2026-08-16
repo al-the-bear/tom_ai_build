@@ -409,6 +409,22 @@ the behaviour method of the same headline. **A branch whose condition text is
 empty fails generation**, naming the flow's section id: §2.8 C2 P3 is fatal when
 absent, and an undocumented guard is a branch the generator would be inventing.
 
+**Conditionality is read off the condition field and nothing else.** For the two
+*flow* entries an empty condition is the fatal case just described — an `EXTEN`
+or `ALFL` exists in order to be taken conditionally, so a flow that states no
+condition states nothing. For the two *step* entries it is the ordinary case:
+`LGFLS` and `SCJOST` steps are unconditional by default, and an empty
+`LFSEB.conditionalTrigger` / `condition` simply emits no guard, which is what an
+unconditional step means. No second field participates in either direction, and
+none exists to. A step is skippable *because* it is conditional, so a `Yes | No`
+skippability flag beside the condition would be a second source for one fact —
+§2.3's first test — and it would have exactly one authorable disagreement:
+*skippable, condition empty*. That combination asserts the step is sometimes
+skipped while giving this rule nothing to emit, so the step would be generated
+**unconditionally**, the opposite of what the specification claims, and silently,
+because an absent condition is not a missing value a checker can report. One
+field cannot say that.
+
 **B5 — a branch is emitted at the step it branches from.** `EXTEN.branchPoint`
 and `ALFL.branchPoint` are **section-id references** — `MNSST.@sectionId` and
 `SCNST.@sectionId` respectively — so the step a branch attaches to is *resolved*,

@@ -4833,6 +4833,22 @@ class StepUpAuthenticationPolicy extends DocSpecsSection {
 /// Defines an individual step in the authentication flow sequence,
 /// allowing detailed specification of each stage from initial request
 /// to authenticated session.
+///
+/// **A step is conditional exactly when it states a condition.** `LFSEB`
+/// carries one field for that — `conditionalTrigger` — and no separate
+/// skippability flag. A step that states a trigger runs only when the trigger
+/// holds, which is the same fact as "this step can be skipped"; a step that
+/// states none always runs. A second, boolean field would be a second source
+/// for that one fact, and the disagreement it admits has a direction:
+/// *skippable, no trigger* asserts the step is sometimes skipped without saying
+/// when, and `codespecs_derivation_contract.md` §2.4 B4 — which reifies the
+/// stated condition as a guard method and never parses it — would have nothing
+/// to emit, so the step would generate unconditionally, the opposite of what
+/// the specification claims. One field cannot say that.
+///
+/// This is the same shape as `SCJOST.condition`, `EXTEN.condition` and
+/// `AlternativeFlowEntry.triggerCondition`: none of them carries a boolean
+/// beside the condition either.
 @StandardReferences(
   [
     'NIST SP 800-63B — authentication and authenticator lifecycle',
@@ -4903,7 +4919,7 @@ class LoginFlowStepEntry extends DocSpecsSection {
   @SerializationOrder(1)
   DocSpecsSection? validation;
 
-  /// Outcomes and optional execution rules.
+  /// Outcomes and conditional execution.
   @SectionId('LFSEB')
   @StandardReferences(
     [
@@ -4912,6 +4928,10 @@ class LoginFlowStepEntry extends DocSpecsSection {
     ],
     'Describes the success and failure outcomes and conditional execution rules of a login flow step.',
   )
+  @ContentHelp('State what happens when the step succeeds and when it fails. '
+      'Fill in Conditional Trigger only where the step is conditional; a step '
+      'with no trigger always runs, and a step that states one runs only when '
+      'it holds — which is also what makes the step skippable.')
   @Form([
     Field(
       'successOutcome',
@@ -4928,17 +4948,13 @@ class LoginFlowStepEntry extends DocSpecsSection {
           'RetryWithError | Lockout | RedirectToError | AbortFlow — outcome on failure',
     ),
     Field(
-      'optional',
-      String,
-      'Optional',
-      hint: 'Yes | No — whether this step can be skipped',
-    ),
-    Field(
       'conditionalTrigger',
       String,
       'Conditional Trigger',
-      hint:
-          'Condition under which this step is activated (e.g., MFA required, new device)',
+      hint: 'The condition under which this step runs, if it is not '
+          'unconditional (e.g. MFA required, new device). Leave empty for a '
+          'step that always runs; a step that states a trigger is by that fact '
+          'the one that can be skipped.',
     ),
   ])
   @SerializationOrder(2)

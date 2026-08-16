@@ -17701,7 +17701,7 @@ section-types:
   lfseb:
     prefix: LFSEB
     format: lfseb-form
-    description: Outcomes and optional execution rules.
+    description: "State what happens when the step succeeds and when it fails. Fill in Conditional Trigger only where the step is conditional; a step with no trigger always runs, and a step that states one runs only when it holds — which is also what makes the step skippable."
   lfsep:
     prefix: LFSEP
     format: lfsep-form
@@ -41753,10 +41753,8 @@ form-types:
         description: "NextStep | TokenIssued | SessionCreated | RedirectToApp — outcome on success"
       - fieldname: failureOutcome
         description: "RetryWithError | Lockout | RedirectToError | AbortFlow — outcome on failure"
-      - fieldname: optional
-        description: "Yes | No — whether this step can be skipped"
       - fieldname: conditionalTrigger
-        description: "Condition under which this step is activated (e.g., MFA required, new device)"
+        description: "The condition under which this step runs, if it is not unconditional (e.g. MFA required, new device). Leave empty for a step that always runs; a step that states a trigger is by that fact the one that can be skipped."
   lfsep-form:
     fields:
       - fieldname: protocolMessage

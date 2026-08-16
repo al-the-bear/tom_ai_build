@@ -5147,7 +5147,7 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Six entries are open, in two groups. **Model** — three
+active part COVERED. Five entries are open, in two groups. **Model** — two
 gaps the behaviour-to-body derivation exposed, each of which leaves something
 the specification states **not emitted** in the generated body, or a required
 argument with no section behind it. **Document** — the Phase-4 production model
@@ -5156,7 +5156,6 @@ procedure instantiates.
 
 | Todo | Subject |
 |------|---------|
-| `tscompc15` | **An optional login-flow step states no condition.** `LGFLS`'s `LFSEB.optional` and `conditionalTrigger` are independent fields, so `optional: Yes` with no trigger asserts skippability without saying when. B4 emits no guard for it, and the step runs unconditionally. |
 | `tscompc16` | **`@CsServiceUnit.rootAggregate` is required and no section supplies it.** §5.1 makes the owned aggregate the primary boundary criterion, and `codespecs_derivation_contract.md` §5.1 makes `rootAggregate` a **required** `Type` argument sourced from D03's entity/aggregate structure — which D03 does not carry: `DataEntityEntry` and `EntityRelationshipEntry` state entities and relationships, never aggregate membership or a root. The same guess would then be re-made for CE-DB's table ownership and for every CE-API operation's scope, with nothing making the three agree. Per §1.1's B8 rule the outcome is a field on the model, not a heuristic here. |
 | `tscompc17` | **The Phase-4 production model is not described the same way everywhere.** §1.1 pillar (e) and §1.1.1 now state it — a **generator that extracts the specification per area** plus **prompt/agent authoring** of the code from those extracts against §5's mapping rules — but `codespecs_derivation_contract.md` still reads as pure mechanism and `tom_specs_project_flow.md` names no producer at all. This document's own 22 uses of "generator" outside §1.1 also predate the boundary and have to be read against it one by one. |
 | `tscompc20` | **Neither document states how a Phase-4 run is performed.** §1.1.1 fixes the contract — the extract artifact, the extractor's home and the four todo id ranges — but not the procedure: extract, then iterate the areas in §4.4's order, then per area iterate its extract entries, with the per-area prompt text in the derivation contract. It carries the self-sufficiency rule with it: the emitted CodeSpecs code holds every specification fact it was derived from, in comments or annotations, so Phases 5 and 6 never reopen the document. |
