@@ -15095,8 +15095,17 @@ ScheduledJobEntryEventTriggerForm ScheduledJobEntry::eventTrigger() const {
 ScheduledJobEntryWorkDefinitionForm ScheduledJobEntry::workDefinition() const {
   return ScheduledJobEntryWorkDefinitionForm(doc(), som::joinPath(path(), "SCJOB-WORK"));
 }
+som::SomList ScheduledJobEntry::workSteps() const {
+  return som::SomList(doc(), som::joinPath(path(), "SCJOST-WORK-LST"), "SCJOST-WORK-xxx");
+}
 ScheduledJobEntryFailurePolicyForm ScheduledJobEntry::failurePolicy() const {
   return ScheduledJobEntryFailurePolicyForm(doc(), som::joinPath(path(), "SCJOB-FAIL"));
+}
+
+ScheduledJobStepEntry::ScheduledJobStepEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ScheduledJobStepEntryContentForm ScheduledJobStepEntry::content() const {
+  return ScheduledJobStepEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ScheduledMaintenancePolicy::ScheduledMaintenancePolicy(som::SpecDocument& doc, std::string path)
@@ -87926,6 +87935,27 @@ std::string ScheduledJobEntryWorkDefinitionForm::targetReports() const {
 }
 void ScheduledJobEntryWorkDefinitionForm::setTargetReports(const std::string& value) {
   doc().setFormField(path(), "targetReports", value);
+}
+
+ScheduledJobStepEntryContentForm::ScheduledJobStepEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScheduledJobStepEntryContentForm::content() const {
+  return doc().content(path());
+}
+void ScheduledJobStepEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScheduledJobStepEntryContentForm::systemAction() const {
+  return doc().formField(path(), "systemAction");
+}
+void ScheduledJobStepEntryContentForm::setSystemAction(const std::string& value) {
+  doc().setFormField(path(), "systemAction", value);
+}
+std::string ScheduledJobStepEntryContentForm::condition() const {
+  return doc().formField(path(), "condition");
+}
+void ScheduledJobStepEntryContentForm::setCondition(const std::string& value) {
+  doc().setFormField(path(), "condition", value);
 }
 
 ScheduledMaintenancePolicyApprovalForm::ScheduledMaintenancePolicyApprovalForm(som::SpecDocument& doc, std::string path)

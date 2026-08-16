@@ -1812,6 +1812,8 @@
                 - scheduledJobs: `ScheduledJobEntry`[]
                   - content @Form(purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
                     calendarTrigger, eventTrigger, workDefinition, failurePolicy
+                  - workSteps: `ScheduledJobStepEntry`[]
+                    - content @Form(systemAction, condition)
               - diagnosticTools: `SystemDiagnosticTools`
                 - content @Form(remoteDebugging, profiling, threadDumpCapability, heapDumpCapability), tracing, logs,
                   selfService
@@ -4734,6 +4736,8 @@
             - scheduledJobs: `ScheduledJobEntry`[]
               - content @Form(purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
                 calendarTrigger, eventTrigger, workDefinition, failurePolicy
+              - workSteps: `ScheduledJobStepEntry`[]
+                - content @Form(systemAction, condition)
           - diagnosticTools: `SystemDiagnosticTools`
             - content @Form(remoteDebugging, profiling, threadDumpCapability, heapDumpCapability), tracing, logs,
               selfService
@@ -5877,6 +5881,8 @@
               - scheduledJobs: `ScheduledJobEntry`[]
                 - content @Form(purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
                   calendarTrigger, eventTrigger, workDefinition, failurePolicy
+                - workSteps: `ScheduledJobStepEntry`[]
+                  - content @Form(systemAction, condition)
             - diagnosticTools: `SystemDiagnosticTools`
               - content @Form(remoteDebugging, profiling, threadDumpCapability, heapDumpCapability), tracing, logs,
                 selfService

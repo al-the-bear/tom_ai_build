@@ -28408,8 +28408,10 @@ subsections below carry the defaults those declarations inherit.
       'failureAlert; enabled, environments and the target set ride the '
       'TomJobDeclaration envelope; the owning service unit is derived from '
       'primaryDataEntity. The work body is compilable pseudo-code over a '
-      'later-injected abstract service and is written in the CodeSpec, not '
-      'here (codespecs_mapping.md §5.29).',
+      'later-injected abstract collaborator and is written in the CodeSpec, '
+      'not here — form 3b over the SCJOST step list, falling back to 3a on '
+      'SCJOB-WORK.workSummary where a job lists no steps '
+      '(codespecs_mapping.md §5.29).',
 )
 @OneOf(
   discriminator: 'triggerKind',
@@ -28570,6 +28572,11 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
   /// written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
   /// section says what that body must achieve and over which data, in enough
   /// detail that it can be written from here without a second conversation.
+  ///
+  /// **The sequence is not stated here.** `workSummary` is the one-paragraph
+  /// intent — what the job achieves and why it is worth running. The order the
+  /// work happens in belongs to [workSteps], which holds it as addressable
+  /// entries rather than as sentences inside a paragraph.
   @SectionId('SCJOB-WORK')
   @StandardReferences(
     [
@@ -28578,18 +28585,17 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
     ],
     'What the job does and which entities and reports it acts on.',
   )
-  @ContentHelp('Describe what the job does, in order, as prose an implementer '
-      'can work from. Do not write code here — the work body is written in the '
-      'CodeSpec; what this section owes it is a complete statement of intent '
-      'and of the data the work touches.')
+  @ContentHelp('State what the job achieves and over which data. Do not write '
+      'the sequence here — the ordered steps go in Work Steps below, one entry '
+      'each — and do not write code: the work body is written in the CodeSpec.')
   @Form([
     Field(
       'workSummary',
       String,
       'Work Summary',
       required: true,
-      hint: 'What the job does, step by step, in prose — the intent the work '
-          'body must realise',
+      hint: 'What the job achieves, in one paragraph — the intent the work '
+          'body must realise. The sequence goes in Work Steps.',
     ),
     Field(
       'readEntities',
@@ -28617,6 +28623,34 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
   ])
   @SerializationOrder(4)
   DocSpecsSection? workDefinition;
+
+  /// The ordered steps the work runs in — one entry per step.
+  ///
+  /// This is the structure `SCJOB-WORK` cannot carry. `workSummary` says what
+  /// the job achieves; these entries say in what order it gets there, as
+  /// sections that can be addressed, conditioned and traced one at a time. It
+  /// is the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**
+  /// work body from — one statement per step, in list order, each a call on the
+  /// job's abstract collaborator.
+  ///
+  /// **Optional, and empty is a real answer.** A job whose work is genuinely
+  /// one action lists no steps, and §2.4's fallback then emits the form-3a body
+  /// from `workSummary` exactly as before. The list is how a job that *is*
+  /// multi-step stops having to say so in a sentence.
+  @StandardReferences(
+    [
+      'Cockburn — Writing Effective Use Cases: numbered step sequences',
+      'Google SRE — eliminating toil and operational procedures',
+    ],
+    'The ordered steps a background job performs its work in.',
+  )
+  @SectionId('SCJOST-WORK-LST')
+  @SectionIdPattern('SCJOST-WORK-xxx')
+  @ContentHelp('Add one entry per step of the work, in the order it runs. '
+      'Leave the list empty for a job whose work is a single action — the Work '
+      'Summary then stands alone.')
+  @SerializationOrder(5)
+  List<ScheduledJobStepEntry> workSteps = [];
 
   /// This job's departures from the system-wide execution policy.
   ///
@@ -28664,8 +28698,70 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
           'the message; the deployment names where it is delivered.',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? failurePolicy;
+}
+
+/// One step of a background job's work.
+///
+/// A job has no actor: nothing outside it starts a step, so every step is
+/// system behaviour throughout. That is why the entry carries a single
+/// behaviour field, `systemAction`, where an interaction step (`MNSST`,
+/// `LGFLS`) has to separate what the actor does from what the system does.
+///
+/// **No step number.** The list position *is* the order
+/// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+/// step's own order field), so a number here would be a second statement of the
+/// same fact — and the one that can disagree with it. The steps that do carry
+/// one carry it for history, not for use.
+///
+/// **No per-step data or policy fields.** The entities the work reads and
+/// writes are stated once on `SCJOB-WORK`, and retry, backoff and timeout once
+/// on `SCJOB-FAIL`; both are properties of the run, not of a step within it.
+@StandardReferences(
+  [
+    'Cockburn — Writing Effective Use Cases: main success scenario',
+    'Google SRE — eliminating toil and operational procedures',
+  ],
+  'One step of a background job\'s work — what the job does at this point in the sequence, and the condition it does it under.',
+)
+@SectionId('SCJOST')
+@CodeSpecKind(
+  [CodeSpecPart.backgroundJob],
+  note:
+      'CE-JB — one step of the job work body. The step list is what makes the '
+      'body form 3b (codespecs_derivation_contract.md §2.4): each step with '
+      'systemAction contributes one collaborator method and one statement, in '
+      'list order, and a stated condition becomes a guard method (B4). It '
+      'routes to the same part as its owning SCJOB entry — a step is not a '
+      'declaration of its own, it is part of one job.',
+)
+class ScheduledJobStepEntry extends DocSpecsSection {
+  @ContentHelp('Say what the job does at this point in the sequence, as one '
+      'action. Give the step a headline that names that action — it is what '
+      'the generated method is named after. Fill in Condition only where the '
+      'step is conditional; a step with no condition always runs.')
+  @Form([
+    Field(
+      'systemAction',
+      String,
+      'System Action',
+      required: true,
+      hint: 'What the job does in this step — one action, stated as what '
+          'happens rather than how it is coded',
+    ),
+    Field(
+      'condition',
+      String,
+      'Condition',
+      hint: 'The condition under which this step runs, if it is not '
+          'unconditional (e.g. only when the previous run left unsettled '
+          'records). Leave empty for a step that always runs.',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// System diagnostic tools.

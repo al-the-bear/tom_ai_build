@@ -970,6 +970,7 @@ typedef struct { SomNode node; } ScalingTriggersAndThresholds;
 typedef struct { SomNode node; } ScenarioEntry;
 typedef struct { SomNode node; } ScenarioStepEntry;
 typedef struct { SomNode node; } ScheduledJobEntry;
+typedef struct { SomNode node; } ScheduledJobStepEntry;
 typedef struct { SomNode node; } ScheduledMaintenancePolicy;
 typedef struct { SomNode node; } SchemaMigrationStepEntry;
 typedef struct { SomNode node; } SchemaVersioningAndMigration;
@@ -3319,6 +3320,7 @@ typedef struct { SomNode node; } ScheduledJobEntryCronTriggerForm;
 typedef struct { SomNode node; } ScheduledJobEntryEventTriggerForm;
 typedef struct { SomNode node; } ScheduledJobEntryFailurePolicyForm;
 typedef struct { SomNode node; } ScheduledJobEntryWorkDefinitionForm;
+typedef struct { SomNode node; } ScheduledJobStepEntryContentForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyApprovalForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyContentForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyDurationForm;
@@ -20452,13 +20454,56 @@ ScheduledJobEntryEventTriggerForm scheduled_job_entry_event_trigger(const Schedu
 // written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
 // section says what that body must achieve and over which data, in enough
 // detail that it can be written from here without a second conversation.
+//
+// **The sequence is not stated here.** `workSummary` is the one-paragraph
+// intent — what the job achieves and why it is worth running. The order the
+// work happens in belongs to [workSteps], which holds it as addressable
+// entries rather than as sentences inside a paragraph.
 ScheduledJobEntryWorkDefinitionForm scheduled_job_entry_work_definition(const ScheduledJobEntry *self);
+// The ordered steps the work runs in — one entry per step.
+//
+// This is the structure `SCJOB-WORK` cannot carry. `workSummary` says what
+// the job achieves; these entries say in what order it gets there, as
+// sections that can be addressed, conditioned and traced one at a time. It
+// is the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**
+// work body from — one statement per step, in list order, each a call on the
+// job's abstract collaborator.
+//
+// **Optional, and empty is a real answer.** A job whose work is genuinely
+// one action lists no steps, and §2.4's fallback then emits the form-3a body
+// from `workSummary` exactly as before. The list is how a job that *is*
+// multi-step stops having to say so in a sentence.
+// Returns the list view; element type: ScheduledJobStepEntry (construct from item paths).
+SomList scheduled_job_entry_work_steps(const ScheduledJobEntry *self);
 // This job's departures from the system-wide execution policy.
 //
 // Every field is an override. Left empty, the job inherits the Execution
 // Controls (BJME) default; the policy stays the rule and the entry is the
 // exception.
 ScheduledJobEntryFailurePolicyForm scheduled_job_entry_failure_policy(const ScheduledJobEntry *self);
+
+// One step of a background job's work.
+//
+// A job has no actor: nothing outside it starts a step, so every step is
+// system behaviour throughout. That is why the entry carries a single
+// behaviour field, `systemAction`, where an interaction step (`MNSST`,
+// `LGFLS`) has to separate what the actor does from what the system does.
+//
+// **No step number.** The list position *is* the order
+// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+// step's own order field), so a number here would be a second statement of the
+// same fact — and the one that can disagree with it. The steps that do carry
+// one carry it for history, not for use.
+//
+// **No per-step data or policy fields.** The entities the work reads and
+// writes are stated once on `SCJOB-WORK`, and retry, backoff and timeout once
+// on `SCJOB-FAIL`; both are properties of the run, not of a step within it.
+// Binds a ScheduledJobStepEntry facade to a document and a path (path copied).
+void scheduled_job_step_entry_init(ScheduledJobStepEntry *self, SpecDocument *doc, const char *path);
+void scheduled_job_step_entry_free(ScheduledJobStepEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int scheduled_job_step_entry_can_have_content(const ScheduledJobStepEntry *self);
+ScheduledJobStepEntryContentForm scheduled_job_step_entry_content(const ScheduledJobStepEntry *self);
 
 // Scheduled maintenance policy.
 // Binds a ScheduledMaintenancePolicy facade to a document and a path (path copied).
@@ -56404,6 +56449,17 @@ char *scheduled_job_entry_work_definition_form_written_entities(const ScheduledJ
 void scheduled_job_entry_work_definition_form_set_written_entities(ScheduledJobEntryWorkDefinitionForm *self, const char *value);
 char *scheduled_job_entry_work_definition_form_target_reports(const ScheduledJobEntryWorkDefinitionForm *self);
 void scheduled_job_entry_work_definition_form_set_target_reports(ScheduledJobEntryWorkDefinitionForm *self, const char *value);
+
+// ScheduledJobStepEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void scheduled_job_step_entry_content_form_init(ScheduledJobStepEntryContentForm *self, SpecDocument *doc, const char *path);
+void scheduled_job_step_entry_content_form_free(ScheduledJobStepEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *scheduled_job_step_entry_content_form_content(const ScheduledJobStepEntryContentForm *self);
+void scheduled_job_step_entry_content_form_set_content(ScheduledJobStepEntryContentForm *self, const char *value);
+char *scheduled_job_step_entry_content_form_system_action(const ScheduledJobStepEntryContentForm *self);
+void scheduled_job_step_entry_content_form_set_system_action(ScheduledJobStepEntryContentForm *self, const char *value);
+char *scheduled_job_step_entry_content_form_condition(const ScheduledJobStepEntryContentForm *self);
+void scheduled_job_step_entry_content_form_set_condition(ScheduledJobStepEntryContentForm *self, const char *value);
 
 // ScheduledMaintenancePolicyApprovalForm is the generated section facade for the `approval` @Form section: its own `content` text followed by one typed member per form field.
 void scheduled_maintenance_policy_approval_form_init(ScheduledMaintenancePolicyApprovalForm *self, SpecDocument *doc, const char *path);

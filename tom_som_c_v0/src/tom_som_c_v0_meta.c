@@ -990,6 +990,7 @@ static SomMetaNode **meta_children_scaling_triggers_and_thresholds(SomStrList *s
 static SomMetaNode **meta_children_scenario_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scenario_step_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scheduled_job_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_scheduled_job_step_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scheduled_maintenance_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_schema_migration_step_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_schema_versioning_and_migration(SomStrList *stack, size_t *len);
@@ -5502,7 +5503,10 @@ static void meta_build_scheduled_job_entry_cron_trigger(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_calendar_trigger(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_event_trigger(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_work_definition(SomMetaNode *n);
+static void meta_build_scheduled_job_entry_work_steps(SomMetaNode *n);
+static void meta_build_scheduled_job_entry_work_steps_elem(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_failure_policy(SomMetaNode *n);
+static void meta_build_scheduled_job_step_entry_content(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_content(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_scheduling(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_duration(SomMetaNode *n);
@@ -8871,6 +8875,11 @@ static void *meta_nav_factory_scheduled_job_entry(const SomMetaTree *tree, const
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_scheduled_job_step_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_scheduled_job_step_entry *r = (som_nav_scheduled_job_step_entry *)malloc(sizeof(som_nav_scheduled_job_step_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_schema_migration_step_entry(const SomMetaTree *tree, const char *path) {
   som_nav_schema_migration_step_entry *r = (som_nav_schema_migration_step_entry *)malloc(sizeof(som_nav_schema_migration_step_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11383,6 +11392,11 @@ static void *meta_id_factory_scenario_step_entry(const SomMetaTree *tree, const 
 }
 static void *meta_id_factory_scheduled_job_entry(const SomMetaTree *tree, const char *path) {
   som_id_scheduled_job_entry *r = (som_id_scheduled_job_entry *)malloc(sizeof(som_id_scheduled_job_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_scheduled_job_step_entry(const SomMetaTree *tree, const char *path) {
+  som_id_scheduled_job_step_entry *r = (som_id_scheduled_job_step_entry *)malloc(sizeof(som_id_scheduled_job_step_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -116983,8 +116997,8 @@ static void meta_build_scheduled_job_entry_work_definition(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
-  meta_set(&n->content_help, "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches.");
-  meta_set(&n->doc_comment, "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.");
+  meta_set(&n->content_help, "State what the job achieves and over which data. Do not write the sequence here — the ordered steps go in Work Steps below, one entry each — and do not write code: the work body is written in the CodeSpec.");
+  meta_set(&n->doc_comment, "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.\n\n**The sequence is not stated here.** `workSummary` is the one-paragraph\nintent — what the job achieves and why it is worth running. The order the\nwork happens in belongs to [workSteps], which holds it as addressable\nentries rather than as sentences inside a paragraph.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -116992,7 +117006,7 @@ static void meta_build_scheduled_job_entry_work_definition(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Work Summary");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("What the job does, step by step, in prose — the intent the work body must realise");
+  n->form->fields[0].hint = som_strdup("What the job achieves, in one paragraph — the intent the work body must realise. The sequence goes in Work Steps.");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("readEntities");
   n->form->fields[1].type_name = som_strdup("String");
@@ -117026,6 +117040,30 @@ static void meta_build_scheduled_job_entry_work_definition(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 — requirements specification\",\"DAMA-DMBOK2 — data management body of knowledge\"],\"connotation\":\"What the job does and which entities and reports it acts on.\"}", NULL);
 }
+static void meta_build_scheduled_job_entry_work_steps(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobEntry");
+  meta_set(&n->member_name, "workSteps");
+  meta_set(&n->section_id, "SCJOST-WORK-LST");
+  meta_set(&n->section_id_pattern, "SCJOST-WORK-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ScheduledJobStepEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->content_help, "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone.");
+  meta_set(&n->doc_comment, "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**\nwork body from — one statement per step, in list order, each a call on the\njob's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and §2.4's fallback then emits the form-3a body\nfrom `workSummary` exactly as before. The list is how a job that *is*\nmulti-step stops having to say so in a sentence.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: numbered step sequences\",\"Google SRE — eliminating toil and operational procedures\"],\"connotation\":\"The ordered steps a background job performs its work in.\"}", NULL);
+}
+static void meta_build_scheduled_job_entry_work_steps_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobStepEntry");
+  meta_set(&n->class_section_id, "SCJOST");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ScheduledJobStepEntry");
+  meta_set(&n->doc_comment, "One step of a background job's work.\n\nA job has no actor: nothing outside it starts a step, so every step is\nsystem behaviour throughout. That is why the entry carries a single\nbehaviour field, `systemAction`, where an interaction step (`MNSST`,\n`LGFLS`) has to separate what the actor does from what the system does.\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), so a number here would be a second statement of the\nsame fact — and the one that can disagree with it. The steps that do carry\none carry it for history, not for use.\n\n**No per-step data or policy fields.** The entities the work reads and\nwrites are stated once on `SCJOB-WORK`, and retry, backoff and timeout once\non `SCJOB-FAIL`; both are properties of the run, not of a step within it.");
+  meta_set(&n->class_doc_comment, "One step of a background job's work.\n\nA job has no actor: nothing outside it starts a step, so every step is\nsystem behaviour throughout. That is why the entry carries a single\nbehaviour field, `systemAction`, where an interaction step (`MNSST`,\n`LGFLS`) has to separate what the actor does from what the system does.\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), so a number here would be a second statement of the\nsame fact — and the one that can disagree with it. The steps that do carry\none carry it for history, not for use.\n\n**No per-step data or policy fields.** The entities the work reads and\nwrites are stated once on `SCJOB-WORK`, and retry, backoff and timeout once\non `SCJOB-FAIL`; both are properties of the run, not of a step within it.");
+}
 static void meta_build_scheduled_job_entry_failure_policy(SomMetaNode *n) {
   meta_set(&n->class_name, "ScheduledJobEntry");
   meta_set(&n->member_name, "failurePolicy");
@@ -117033,7 +117071,7 @@ static void meta_build_scheduled_job_entry_failure_policy(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.");
   meta_set(&n->doc_comment, "This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
@@ -117070,6 +117108,30 @@ static void meta_build_scheduled_job_entry_failure_policy(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Google SRE — handling overload, retries and cascading failure\",\"AWS Well-Architected — reliability (failure management)\"],\"connotation\":\"This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy.\"}", NULL);
+}
+static void meta_build_scheduled_job_step_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobStepEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "Say what the job does at this point in the sequence, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("systemAction");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("System Action");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("What the job does in this step — one action, stated as what happens rather than how it is coded");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("condition");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Condition");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The condition under which this step runs, if it is not unconditional (e.g. only when the previous run left unsettled records). Leave empty for a step that always runs.");
+  n->form->fields[1].order = 1;
 }
 static void meta_build_scheduled_maintenance_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScheduledMaintenancePolicy");
@@ -178281,7 +178343,6 @@ static SomMetaNode **meta_children_scenario_step_entry(SomStrList *stack, size_t
 }
 
 static SomMetaNode **meta_children_scheduled_job_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -178311,8 +178372,27 @@ static SomMetaNode **meta_children_scheduled_job_entry(SomStrList *stack, size_t
     meta_push(&arr, len, &cap, n);
   }
   {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_scheduled_job_entry_work_steps(ln);
+    ln->element_node = meta_cx("ScheduledJobStepEntry", stack, meta_children_scheduled_job_step_entry, meta_build_scheduled_job_entry_work_steps_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  {
     SomMetaNode *n = som_meta_node_new();
     meta_build_scheduled_job_entry_failure_policy(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_scheduled_job_step_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_scheduled_job_step_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -213892,9 +213972,23 @@ SomMetaRef scheduled_job_entry_nav_work_definition(som_nav_scheduled_job_entry x
   free(path);
   return out;
 }
+SomListMetaRef scheduled_job_entry_nav_work_steps(som_nav_scheduled_job_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOST-WORK-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_scheduled_job_step_entry);
+  free(path);
+  return out;
+}
 SomMetaRef scheduled_job_entry_nav_failure_policy(som_nav_scheduled_job_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCJOB-FAIL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_step_entry_nav_content(som_nav_scheduled_job_step_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -252558,6 +252652,13 @@ SomMetaRef scheduled_job_entry_id_scjob_work(som_id_scheduled_job_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCJOB-WORK");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef scheduled_job_entry_id_scjost_work_lst(som_id_scheduled_job_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOST-WORK-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_scheduled_job_step_entry);
   free(path);
   return out;
 }

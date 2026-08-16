@@ -34358,8 +34358,32 @@ func (x *ScheduledJobEntry) EventTrigger() *ScheduledJobEntryEventTriggerForm {
 // written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
 // section says what that body must achieve and over which data, in enough
 // detail that it can be written from here without a second conversation.
+//
+// **The sequence is not stated here.** `workSummary` is the one-paragraph
+// intent — what the job achieves and why it is worth running. The order the
+// work happens in belongs to [workSteps], which holds it as addressable
+// entries rather than as sentences inside a paragraph.
 func (x *ScheduledJobEntry) WorkDefinition() *ScheduledJobEntryWorkDefinitionForm {
 	return NewScheduledJobEntryWorkDefinitionForm(x.Doc(), x.Path()+"/SCJOB-WORK")
+}
+
+// The ordered steps the work runs in — one entry per step.
+//
+// This is the structure `SCJOB-WORK` cannot carry. `workSummary` says what
+// the job achieves; these entries say in what order it gets there, as
+// sections that can be addressed, conditioned and traced one at a time. It
+// is the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**
+// work body from — one statement per step, in list order, each a call on the
+// job's abstract collaborator.
+//
+// **Optional, and empty is a real answer.** A job whose work is genuinely
+// one action lists no steps, and §2.4's fallback then emits the form-3a body
+// from `workSummary` exactly as before. The list is how a job that *is*
+// multi-step stops having to say so in a sentence.
+func (x *ScheduledJobEntry) WorkSteps() *som.SomList[*ScheduledJobStepEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SCJOST-WORK-LST", func(d *som.SpecDocument, p string) *ScheduledJobStepEntry {
+		return NewScheduledJobStepEntry(d, p)
+	}, "SCJOST-WORK-xxx")
 }
 
 // This job's departures from the system-wide execution policy.
@@ -34369,6 +34393,35 @@ func (x *ScheduledJobEntry) WorkDefinition() *ScheduledJobEntryWorkDefinitionFor
 // exception.
 func (x *ScheduledJobEntry) FailurePolicy() *ScheduledJobEntryFailurePolicyForm {
 	return NewScheduledJobEntryFailurePolicyForm(x.Doc(), x.Path()+"/SCJOB-FAIL")
+}
+
+// One step of a background job's work.
+//
+// A job has no actor: nothing outside it starts a step, so every step is
+// system behaviour throughout. That is why the entry carries a single
+// behaviour field, `systemAction`, where an interaction step (`MNSST`,
+// `LGFLS`) has to separate what the actor does from what the system does.
+//
+// **No step number.** The list position *is* the order
+// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+// step's own order field), so a number here would be a second statement of the
+// same fact — and the one that can disagree with it. The steps that do carry
+// one carry it for history, not for use.
+//
+// **No per-step data or policy fields.** The entities the work reads and
+// writes are stated once on `SCJOB-WORK`, and retry, backoff and timeout once
+// on `SCJOB-FAIL`; both are properties of the run, not of a step within it.
+type ScheduledJobStepEntry struct {
+	som.SomNode
+}
+
+// NewScheduledJobStepEntry binds a ScheduledJobStepEntry facade to a document and a path.
+func NewScheduledJobStepEntry(doc *som.SpecDocument, path string) *ScheduledJobStepEntry {
+	return &ScheduledJobStepEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ScheduledJobStepEntry) Content() *ScheduledJobStepEntryContentForm {
+	return NewScheduledJobStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Scheduled maintenance policy.
@@ -170771,6 +170824,48 @@ func (x *ScheduledJobEntryWorkDefinitionForm) TargetReports() string {
 
 func (x *ScheduledJobEntryWorkDefinitionForm) SetTargetReports(value string) {
 	x.Doc().SetFormField(x.Path(), "targetReports", value)
+}
+
+// ScheduledJobStepEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ScheduledJobStepEntryContentForm struct {
+	som.SomNode
+}
+
+// NewScheduledJobStepEntryContentForm binds a ScheduledJobStepEntryContentForm facade to a document and a path.
+func NewScheduledJobStepEntryContentForm(doc *som.SpecDocument, path string) *ScheduledJobStepEntryContentForm {
+	return &ScheduledJobStepEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScheduledJobStepEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScheduledJobStepEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScheduledJobStepEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScheduledJobStepEntryContentForm) SystemAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "systemAction")
+}
+
+func (x *ScheduledJobStepEntryContentForm) SetSystemAction(value string) {
+	x.Doc().SetFormField(x.Path(), "systemAction", value)
+}
+
+func (x *ScheduledJobStepEntryContentForm) Condition() string {
+	return x.Doc().FormFieldOr(x.Path(), "condition")
+}
+
+func (x *ScheduledJobStepEntryContentForm) SetCondition(value string) {
+	x.Doc().SetFormField(x.Path(), "condition", value)
 }
 
 // ScheduledMaintenancePolicyApprovalForm is the generated section facade for the `approval` @Form section: its own

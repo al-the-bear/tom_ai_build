@@ -17390,6 +17390,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.calendarTrigger, (v) => n.calendarTrigger = v as DocSpecsSection?, label: 'calendarTrigger', sectionId: 'SCJOB-CAL'),
         SpecSlot.node(() => n.eventTrigger, (v) => n.eventTrigger = v as DocSpecsSection?, label: 'eventTrigger', sectionId: 'SCJOB-EVNT'),
         SpecSlot.node(() => n.workDefinition, (v) => n.workDefinition = v as DocSpecsSection?, label: 'workDefinition', sectionId: 'SCJOB-WORK'),
+        SpecSlot.list(() => n.workSteps, (v) => n.workSteps = v.cast<ScheduledJobStepEntry>(), label: 'workSteps', sectionId: 'SCJOST-WORK-LST'),
         SpecSlot.node(() => n.failurePolicy, (v) => n.failurePolicy = v as DocSpecsSection?, label: 'failurePolicy', sectionId: 'SCJOB-FAIL'),
       ];
     },
@@ -17401,9 +17402,19 @@ void registerSpecOps() {
         ..calendarTrigger = n.calendarTrigger
         ..eventTrigger = n.eventTrigger
         ..workDefinition = n.workDefinition
+        ..workSteps = n.workSteps
         ..failurePolicy = n.failurePolicy;
     },
     yamlScalar: (o) => (o as ScheduledJobEntry).content,
+  ));
+  SpecRegistry.register(ScheduledJobStepEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ScheduledJobStepEntry;
+      return ScheduledJobStepEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ScheduledJobStepEntry).content,
   ));
   SpecRegistry.register(ScheduledMaintenancePolicy, SpecClassOps(
     slots: (o) {

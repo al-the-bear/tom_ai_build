@@ -37710,10 +37710,35 @@ ScheduledJobEntryWorkDefinitionForm scheduled_job_entry_work_definition(const Sc
   free(path);
   return out;
 }
+SomList scheduled_job_entry_work_steps(const ScheduledJobEntry *self) {
+  char *path = spec_path_join(self->node.path, "SCJOST-WORK-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SCJOST-WORK-xxx");
+  free(path);
+  return out;
+}
 ScheduledJobEntryFailurePolicyForm scheduled_job_entry_failure_policy(const ScheduledJobEntry *self) {
   char *path = spec_path_join(self->node.path, "SCJOB-FAIL");
   ScheduledJobEntryFailurePolicyForm out;
   scheduled_job_entry_failure_policy_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void scheduled_job_step_entry_init(ScheduledJobStepEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void scheduled_job_step_entry_free(ScheduledJobStepEntry *self) {
+  som_node_free(&self->node);
+}
+int scheduled_job_step_entry_can_have_content(const ScheduledJobStepEntry *self) {
+  (void)self;
+  return 0;
+}
+ScheduledJobStepEntryContentForm scheduled_job_step_entry_content(const ScheduledJobStepEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ScheduledJobStepEntryContentForm out;
+  scheduled_job_step_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -135733,6 +135758,34 @@ char *scheduled_job_entry_work_definition_form_target_reports(const ScheduledJob
 }
 void scheduled_job_entry_work_definition_form_set_target_reports(ScheduledJobEntryWorkDefinitionForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "targetReports", value);
+}
+
+void scheduled_job_step_entry_content_form_init(ScheduledJobStepEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void scheduled_job_step_entry_content_form_free(ScheduledJobStepEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *scheduled_job_step_entry_content_form_content(const ScheduledJobStepEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void scheduled_job_step_entry_content_form_set_content(ScheduledJobStepEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *scheduled_job_step_entry_content_form_system_action(const ScheduledJobStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemAction");
+  return som_strdup(v != NULL ? v : "");
+}
+void scheduled_job_step_entry_content_form_set_system_action(ScheduledJobStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "systemAction", value);
+}
+char *scheduled_job_step_entry_content_form_condition(const ScheduledJobStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "condition");
+  return som_strdup(v != NULL ? v : "");
+}
+void scheduled_job_step_entry_content_form_set_condition(ScheduledJobStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "condition", value);
 }
 
 void scheduled_maintenance_policy_approval_form_init(ScheduledMaintenancePolicyApprovalForm *self, SpecDocument *doc, const char *path) {

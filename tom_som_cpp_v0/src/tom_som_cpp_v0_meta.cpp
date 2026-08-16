@@ -968,6 +968,7 @@ void buildScalingTriggersAndThresholdsChildren(som::SomMetaNode& parent, std::ve
 void buildScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScheduledJobEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildScheduledJobStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildScheduledMaintenancePolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSchemaMigrationStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildSchemaVersioningAndMigrationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -68755,7 +68756,6 @@ void buildScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<std::s
 }
 
 void buildScheduledJobEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ScheduledJobEntry";
@@ -68831,15 +68831,40 @@ void buildScheduledJobEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 4;
-    (*n).contentHelp = "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches.";
-    (*n).docComment = "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.";
+    (*n).contentHelp = "State what the job achieves and over which data. Do not write the sequence here — the ordered steps go in Work Steps below, one entry each — and do not write code: the work body is written in the CodeSpec.";
+    (*n).docComment = "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.\n\n**The sequence is not stated here.** `workSummary` is the one-paragraph\nintent — what the job achieves and why it is worth running. The order the\nwork happens in belongs to [workSteps], which holds it as addressable\nentries rather than as sentences inside a paragraph.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"workSummary", "String", "Work Summary", true, "What the job does, step by step, in prose — the intent the work body must realise", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"workSummary", "String", "Work Summary", true, "What the job achieves, in one paragraph — the intent the work body must realise. The sequence goes in Work Steps.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"readEntities", "String", "Read Entities", false, "The Data Model entities the job reads", 1, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"writtenEntities", "String", "Written Entities", false, "The Data Model entities the job writes, including the primary one", 2, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetReports", "String", "Target Reports", false, "The reports this job produces, where the work is a report run — report section ids (REPENT-REPO-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"REPENT.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 — requirements specification\",\"DAMA-DMBOK2 — data management body of knowledge\"],\"connotation\":\"What the job does and which entities and reports it acts on.\"}", nullptr)});
     parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ScheduledJobEntry";
+    (*ln).memberName = "workSteps";
+    (*ln).sectionId = "SCJOST-WORK-LST";
+    (*ln).sectionIdPattern = "SCJOST-WORK-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ScheduledJobStepEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 5;
+    (*ln).contentHelp = "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone.";
+    (*ln).docComment = "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**\nwork body from — one statement per step, in list order, each a call on the\njob's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and §2.4's fallback then emits the form-3a body\nfrom `workSummary` exactly as before. The list is how a job that *is*\nmulti-step stops having to say so in a sentence.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: numbered step sequences\",\"Google SRE — eliminating toil and operational procedures\"],\"connotation\":\"The ordered steps a background job performs its work in.\"}", nullptr)});
+    ln->elementNode = metaCx("ScheduledJobStepEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ScheduledJobStepEntry";
+        n.classSectionId = "SCJOST";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ScheduledJobStepEntry";
+        n.docComment = "One step of a background job's work.\n\nA job has no actor: nothing outside it starts a step, so every step is\nsystem behaviour throughout. That is why the entry carries a single\nbehaviour field, `systemAction`, where an interaction step (`MNSST`,\n`LGFLS`) has to separate what the actor does from what the system does.\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), so a number here would be a second statement of the\nsame fact — and the one that can disagree with it. The steps that do carry\none carry it for history, not for use.\n\n**No per-step data or policy fields.** The entities the work reads and\nwrites are stated once on `SCJOB-WORK`, and retry, backoff and timeout once\non `SCJOB-FAIL`; both are properties of the run, not of a step within it.";
+        n.classDocComment = "One step of a background job's work.\n\nA job has no actor: nothing outside it starts a step, so every step is\nsystem behaviour throughout. That is why the entry carries a single\nbehaviour field, `systemAction`, where an interaction step (`MNSST`,\n`LGFLS`) has to separate what the actor does from what the system does.\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), so a number here would be a second statement of the\nsame fact — and the one that can disagree with it. The steps that do carry\none carry it for history, not for use.\n\n**No per-step data or policy fields.** The entities the work reads and\nwrites are stated once on `SCJOB-WORK`, and retry, backoff and timeout once\non `SCJOB-FAIL`; both are properties of the run, not of a step within it.";
+      },
+      buildScheduledJobStepEntryChildren);
+    parent.addChild(std::move(ln));
   }
   {
     auto n = std::make_unique<som::SomMetaNode>();
@@ -68849,7 +68874,7 @@ void buildScheduledJobEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 5;
+    (*n).serializationOrder = 6;
     (*n).contentHelp = "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.";
     (*n).docComment = "This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.";
     (*n).form = som::SomFormMeta{};
@@ -68858,6 +68883,24 @@ void buildScheduledJobEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"timeout", "String", "Timeout", false, "How long a single run may take before it is abandoned, if not the default", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"failureAlertMessage", "String", "Failure Alert Message", false, "The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.", 3, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Google SRE — handling overload, retries and cascading failure\",\"AWS Well-Architected — reliability (failure management)\"],\"connotation\":\"This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildScheduledJobStepEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ScheduledJobStepEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentHelp = "Say what the job does at this point in the sequence, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"systemAction", "String", "System Action", true, "What the job does in this step — one action, stated as what happens rather than how it is coded", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"condition", "String", "Condition", false, "The condition under which this step runs, if it is not unconditional (e.g. only when the previous run left unsettled records). Leave empty for a step that always runs.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -93825,6 +93868,9 @@ void* metaNavFactoryScenarioStepEntry(const som::SomMetaTree* tree, const std::s
 void* metaNavFactoryScheduledJobEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavScheduledJobEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryScheduledJobStepEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavScheduledJobStepEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactorySchemaMigrationStepEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavSchemaMigrationStepEntry{som::SomMetaRef(tree, path)};
 }
@@ -95333,6 +95379,9 @@ void* metaIdFactoryScenarioStepEntry(const som::SomMetaTree* tree, const std::st
 }
 void* metaIdFactoryScheduledJobEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdScheduledJobEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryScheduledJobStepEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdScheduledJobStepEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactorySchemaMigrationStepEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdSchemaMigrationStepEntry{som::SomMetaRef(tree, path)};
@@ -107502,8 +107551,14 @@ som::SomMetaRef navScheduledJobEntry_eventTrigger(NavScheduledJobEntry x) {
 som::SomMetaRef navScheduledJobEntry_workDefinition(NavScheduledJobEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCJOB-WORK"));
 }
+som::SomListMetaRef navScheduledJobEntry_workSteps(NavScheduledJobEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCJOST-WORK-LST"), metaNavFactoryScheduledJobStepEntry);
+}
 som::SomMetaRef navScheduledJobEntry_failurePolicy(NavScheduledJobEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCJOB-FAIL"));
+}
+som::SomMetaRef navScheduledJobStepEntry_content(NavScheduledJobStepEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navScheduledMaintenancePolicy_content(NavScheduledMaintenancePolicy x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -124074,6 +124129,9 @@ som::SomMetaRef idScheduledJobEntry_SCJOB_EVNT(IdScheduledJobEntry x) {
 }
 som::SomMetaRef idScheduledJobEntry_SCJOB_WORK(IdScheduledJobEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCJOB-WORK"));
+}
+som::SomListMetaRef idScheduledJobEntry_SCJOST_WORK_LST(IdScheduledJobEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCJOST-WORK-LST"), metaIdFactoryScheduledJobStepEntry);
 }
 som::SomMetaRef idScheduledJobEntry_SCJOB_FAIL(IdScheduledJobEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCJOB-FAIL"));

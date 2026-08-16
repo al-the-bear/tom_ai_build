@@ -42145,21 +42145,46 @@ function _mc_ScheduledJobEntry(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 4,
-      contentHelp: "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches.",
-      docComment: "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "workSummary", typeName: "String", description: "Work Summary", required: true, hint: "What the job does, step by step, in prose — the intent the work body must realise", order: 0}), new SomFormFieldMeta({name: "readEntities", typeName: "String", description: "Read Entities", hint: "The Data Model entities the job reads", order: 1, refersTo: ["DAENT.entityName"]}), new SomFormFieldMeta({name: "writtenEntities", typeName: "String", description: "Written Entities", hint: "The Data Model entities the job writes, including the primary one", order: 2, refersTo: ["DAENT.entityName"]}), new SomFormFieldMeta({name: "targetReports", typeName: "String", description: "Target Reports", hint: "The reports this job produces, where the work is a report run — report section ids (REPENT-REPO-…), comma-separated", order: 3, refersTo: ["REPENT.@sectionId"]})]),
+      contentHelp: "State what the job achieves and over which data. Do not write the sequence here — the ordered steps go in Work Steps below, one entry each — and do not write code: the work body is written in the CodeSpec.",
+      docComment: "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.\n\n**The sequence is not stated here.** `workSummary` is the one-paragraph\nintent — what the job achieves and why it is worth running. The order the\nwork happens in belongs to [workSteps], which holds it as addressable\nentries rather than as sentences inside a paragraph.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "workSummary", typeName: "String", description: "Work Summary", required: true, hint: "What the job achieves, in one paragraph — the intent the work body must realise. The sequence goes in Work Steps.", order: 0}), new SomFormFieldMeta({name: "readEntities", typeName: "String", description: "Read Entities", hint: "The Data Model entities the job reads", order: 1, refersTo: ["DAENT.entityName"]}), new SomFormFieldMeta({name: "writtenEntities", typeName: "String", description: "Written Entities", hint: "The Data Model entities the job writes, including the primary one", order: 2, refersTo: ["DAENT.entityName"]}), new SomFormFieldMeta({name: "targetReports", typeName: "String", description: "Target Reports", hint: "The reports this job produces, where the work is a report run — report section ids (REPENT-REPO-…), comma-separated", order: 3, refersTo: ["REPENT.@sectionId"]})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 29148:2018 — requirements specification", "DAMA-DMBOK2 — data management body of knowledge"], "connotation": "What the job does and which entities and reports it acts on."})]}),
+     new SomMetaNode({
+      className: "ScheduledJobEntry",
+      memberName: "workSteps",
+      sectionId: "SCJOST-WORK-LST",
+      sectionIdPattern: "SCJOST-WORK-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ScheduledJobStepEntry",
+      serializationOrder: 5,
+      contentHelp: "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone.",
+      docComment: "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**\nwork body from — one statement per step, in list order, each a call on the\njob's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and §2.4's fallback then emits the form-3a body\nfrom `workSummary` exactly as before. The list is how a job that *is*\nmulti-step stops having to say so in a sentence.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["Cockburn — Writing Effective Use Cases: numbered step sequences", "Google SRE — eliminating toil and operational procedures"], "connotation": "The ordered steps a background job performs its work in."})],
+      elementNode: _cx("ScheduledJobStepEntry", s, _mc_ScheduledJobStepEntry, (r, c) => new SomMetaNode({className: "ScheduledJobStepEntry", classSectionId: "SCJOST", kind: SomMetaKind.COMPLEX, typeName: "ScheduledJobStepEntry", docComment: "One step of a background job's work.\n\nA job has no actor: nothing outside it starts a step, so every step is\nsystem behaviour throughout. That is why the entry carries a single\nbehaviour field, `systemAction`, where an interaction step (`MNSST`,\n`LGFLS`) has to separate what the actor does from what the system does.\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), so a number here would be a second statement of the\nsame fact — and the one that can disagree with it. The steps that do carry\none carry it for history, not for use.\n\n**No per-step data or policy fields.** The entities the work reads and\nwrites are stated once on `SCJOB-WORK`, and retry, backoff and timeout once\non `SCJOB-FAIL`; both are properties of the run, not of a step within it.", classDocComment: "One step of a background job's work.\n\nA job has no actor: nothing outside it starts a step, so every step is\nsystem behaviour throughout. That is why the entry carries a single\nbehaviour field, `systemAction`, where an interaction step (`MNSST`,\n`LGFLS`) has to separate what the actor does from what the system does.\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), so a number here would be a second statement of the\nsame fact — and the one that can disagree with it. The steps that do carry\none carry it for history, not for use.\n\n**No per-step data or policy fields.** The entities the work reads and\nwrites are stated once on `SCJOB-WORK`, and retry, backoff and timeout once\non `SCJOB-FAIL`; both are properties of the run, not of a step within it.", recursive: r, children: c}))}),
      new SomMetaNode({
       className: "ScheduledJobEntry",
       memberName: "failurePolicy",
       sectionId: "SCJOB-FAIL",
       kind: SomMetaKind.FORM,
       typeName: "String",
-      serializationOrder: 5,
+      serializationOrder: 6,
       contentHelp: "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.",
       docComment: "This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "maxRetries", typeName: "int", description: "Maximum Retries", hint: "How many times a failed run is retried, if not the default", order: 0}), new SomFormFieldMeta({name: "retryBackoff", typeName: "String", description: "Retry Backoff", hint: "The delay before the first retry and how it grows, if not the default", order: 1}), new SomFormFieldMeta({name: "timeout", typeName: "String", description: "Timeout", hint: "How long a single run may take before it is abandoned, if not the default", order: 2}), new SomFormFieldMeta({name: "failureAlertMessage", typeName: "String", description: "Failure Alert Message", hint: "The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.", order: 3, refersTo: ["MSGKE.key"]})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["Google SRE — handling overload, retries and cascading failure", "AWS Well-Architected — reliability (failure management)"], "connotation": "This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy."})]}),
+  ];
+}
+
+function _mc_ScheduledJobStepEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ScheduledJobStepEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "Say what the job does at this point in the sequence, as one action. Give the step a headline that names that action — it is what the generated method is named after. Fill in Condition only where the step is conditional; a step with no condition always runs.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "systemAction", typeName: "String", description: "System Action", required: true, hint: "What the job does in this step — one action, stated as what happens rather than how it is coded", order: 0}), new SomFormFieldMeta({name: "condition", typeName: "String", description: "Condition", hint: "The condition under which this step runs, if it is not unconditional (e.g. only when the previous run left unsettled records). Leave empty for a step that always runs.", order: 1})])}),
   ];
 }
 
@@ -77668,8 +77693,22 @@ export class ScheduledJobEntry$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/SCJOB-WORK");
   }
 
+  get workSteps(): SomListMetaRef<ScheduledJobStepEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/SCJOST-WORK-LST", (t: SomMetaTree, p: string) => new ScheduledJobStepEntry$Nav(t, p));
+  }
+
   get failurePolicy(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/SCJOB-FAIL");
+  }
+}
+
+// Dot-notation accessors of `ScheduledJobStepEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ScheduledJobStepEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -103815,9 +103854,19 @@ export class ScheduledJobEntry$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/SCJOB-WORK");
   }
 
+  get SCJOST_WORK_LST(): SomListMetaRef<ScheduledJobStepEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/SCJOST-WORK-LST", (t: SomMetaTree, p: string) => new ScheduledJobStepEntry$Id(t, p));
+  }
+
   get SCJOB_FAIL(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/SCJOB-FAIL");
   }
+}
+
+// ID-tree accessors of `ScheduledJobStepEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class ScheduledJobStepEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `SchemaMigrationStepEntry` (SOM §8): getters named by section id

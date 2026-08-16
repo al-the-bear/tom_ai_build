@@ -29780,8 +29780,30 @@ export class ScheduledJobEntry extends SomNode {
   // written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
   // section says what that body must achieve and over which data, in enough
   // detail that it can be written from here without a second conversation.
+  //
+  // **The sequence is not stated here.** `workSummary` is the one-paragraph
+  // intent — what the job achieves and why it is worth running. The order the
+  // work happens in belongs to [workSteps], which holds it as addressable
+  // entries rather than as sentences inside a paragraph.
   get workDefinition(): ScheduledJobEntryWorkDefinitionForm {
     return new ScheduledJobEntryWorkDefinitionForm(this.doc, this.path + "/SCJOB-WORK");
+  }
+
+  // The ordered steps the work runs in — one entry per step.
+  //
+  // This is the structure `SCJOB-WORK` cannot carry. `workSummary` says what
+  // the job achieves; these entries say in what order it gets there, as
+  // sections that can be addressed, conditioned and traced one at a time. It
+  // is the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**
+  // work body from — one statement per step, in list order, each a call on the
+  // job's abstract collaborator.
+  //
+  // **Optional, and empty is a real answer.** A job whose work is genuinely
+  // one action lists no steps, and §2.4's fallback then emits the form-3a body
+  // from `workSummary` exactly as before. The list is how a job that *is*
+  // multi-step stops having to say so in a sentence.
+  get workSteps(): SomList<ScheduledJobStepEntry> {
+    return new SomList(this.doc, this.path + "/SCJOST-WORK-LST", (d: SpecDocument, p: string) => new ScheduledJobStepEntry(d, p), "SCJOST-WORK-xxx");
   }
 
   // This job's departures from the system-wide execution policy.
@@ -29791,6 +29813,32 @@ export class ScheduledJobEntry extends SomNode {
   // exception.
   get failurePolicy(): ScheduledJobEntryFailurePolicyForm {
     return new ScheduledJobEntryFailurePolicyForm(this.doc, this.path + "/SCJOB-FAIL");
+  }
+}
+
+// One step of a background job's work.
+//
+// A job has no actor: nothing outside it starts a step, so every step is
+// system behaviour throughout. That is why the entry carries a single
+// behaviour field, `systemAction`, where an interaction step (`MNSST`,
+// `LGFLS`) has to separate what the actor does from what the system does.
+//
+// **No step number.** The list position *is* the order
+// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+// step's own order field), so a number here would be a second statement of the
+// same fact — and the one that can disagree with it. The steps that do carry
+// one carry it for history, not for use.
+//
+// **No per-step data or policy fields.** The entities the work reads and
+// writes are stated once on `SCJOB-WORK`, and retry, backoff and timeout once
+// on `SCJOB-FAIL`; both are properties of the run, not of a step within it.
+export class ScheduledJobStepEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ScheduledJobStepEntryContentForm {
+    return new ScheduledJobStepEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -143587,6 +143635,41 @@ export class ScheduledJobEntryWorkDefinitionForm extends SomNode {
 
   set targetReports(value: string) {
     this.doc.setFormField(this.path, "targetReports", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ScheduledJobStepEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get systemAction(): string {
+    return this.doc.formField(this.path, "systemAction") || '';
+  }
+
+  set systemAction(value: string) {
+    this.doc.setFormField(this.path, "systemAction", value);
+  }
+
+  get condition(): string {
+    return this.doc.formField(this.path, "condition") || '';
+  }
+
+  set condition(value: string) {
+    this.doc.setFormField(this.path, "condition", value);
   }
 }
 

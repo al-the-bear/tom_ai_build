@@ -475,6 +475,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per responsibility reference.
+  scjost-work-lst:
+    prefix: SCJOST_WORK_LST
+    subsection-types:
+      scjost-work:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone."
   screru-resp-lst:
     prefix: SCRERU_RESP_LST
     subsection-types:
@@ -2195,6 +2203,12 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per security audit requirement.
+  scjost-work:
+    prefix: SCJOST_WORK_
+    pattern-check-id:
+      pattern: ^SCJOST-WORK-.+$
+      error-message: IDs of this section must match SCJOST-WORK-xxx
+    description: "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone."
   screru-resp:
     prefix: SCRERU_RESP_
     pattern-check-id:
@@ -3596,6 +3610,8 @@ section-types:
         max-count: 1
       scjob-work:
         max-count: 1
+      scjost-work-lst:
+        max-count: 1
       scjob-fail:
         max-count: 1
     pattern-check-id:
@@ -3605,7 +3621,7 @@ section-types:
   scjob-work:
     prefix: SCJOB_WORK
     format: scjob-work-form
-    description: "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches."
+    description: "State what the job achieves and over which data. Do not write the sequence here — the ordered steps go in Work Steps below, one entry each — and do not write code: the work body is written in the CodeSpec."
   scmst-base:
     prefix: SCMST_BASE
     format: scmst-base-form
@@ -18570,7 +18586,7 @@ form-types:
     fields:
       - fieldname: workSummary
         required: true
-        description: "What the job does, step by step, in prose — the intent the work body must realise"
+        description: "What the job achieves, in one paragraph — the intent the work body must realise. The sequence goes in Work Steps."
       - fieldname: readEntities
         description: The Data Model entities the job reads
       - fieldname: writtenEntities

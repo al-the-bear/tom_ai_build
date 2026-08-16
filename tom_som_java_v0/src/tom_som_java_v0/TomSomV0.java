@@ -30632,8 +30632,30 @@ public final class TomSomV0 {
     // written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
     // section says what that body must achieve and over which data, in enough
     // detail that it can be written from here without a second conversation.
+    //
+    // **The sequence is not stated here.** `workSummary` is the one-paragraph
+    // intent — what the job achieves and why it is worth running. The order the
+    // work happens in belongs to [workSteps], which holds it as addressable
+    // entries rather than as sentences inside a paragraph.
     public ScheduledJobEntryWorkDefinitionForm workDefinition() {
       return new ScheduledJobEntryWorkDefinitionForm(doc, path + "/SCJOB-WORK");
+    }
+
+    // The ordered steps the work runs in — one entry per step.
+    //
+    // This is the structure `SCJOB-WORK` cannot carry. `workSummary` says what
+    // the job achieves; these entries say in what order it gets there, as
+    // sections that can be addressed, conditioned and traced one at a time. It
+    // is the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**
+    // work body from — one statement per step, in list order, each a call on the
+    // job's abstract collaborator.
+    //
+    // **Optional, and empty is a real answer.** A job whose work is genuinely
+    // one action lists no steps, and §2.4's fallback then emits the form-3a body
+    // from `workSummary` exactly as before. The list is how a job that *is*
+    // multi-step stops having to say so in a sentence.
+    public SomList<ScheduledJobStepEntry> workSteps() {
+      return new SomList<>(doc, path + "/SCJOST-WORK-LST", (d, p) -> new ScheduledJobStepEntry(d, p), "SCJOST-WORK-xxx");
     }
 
     // This job's departures from the system-wide execution policy.
@@ -30643,6 +30665,32 @@ public final class TomSomV0 {
     // exception.
     public ScheduledJobEntryFailurePolicyForm failurePolicy() {
       return new ScheduledJobEntryFailurePolicyForm(doc, path + "/SCJOB-FAIL");
+    }
+  }
+
+  // One step of a background job's work.
+  //
+  // A job has no actor: nothing outside it starts a step, so every step is
+  // system behaviour throughout. That is why the entry carries a single
+  // behaviour field, `systemAction`, where an interaction step (`MNSST`,
+  // `LGFLS`) has to separate what the actor does from what the system does.
+  //
+  // **No step number.** The list position *is* the order
+  // (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
+  // step's own order field), so a number here would be a second statement of the
+  // same fact — and the one that can disagree with it. The steps that do carry
+  // one carry it for history, not for use.
+  //
+  // **No per-step data or policy fields.** The entities the work reads and
+  // writes are stated once on `SCJOB-WORK`, and retry, backoff and timeout once
+  // on `SCJOB-FAIL`; both are properties of the run, not of a step within it.
+  public static final class ScheduledJobStepEntry extends SomNode {
+    public ScheduledJobStepEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ScheduledJobStepEntryContentForm content() {
+      return new ScheduledJobStepEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -158858,6 +158906,46 @@ public final class TomSomV0 {
 
     public void targetReports(String value) {
       doc.setFormField(path, "targetReports", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScheduledJobStepEntryContentForm extends SomNode {
+    public ScheduledJobStepEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String systemAction() {
+      String v = doc.formField(path, "systemAction");
+      return v == null ? "" : v;
+    }
+
+    public void systemAction(String value) {
+      doc.setFormField(path, "systemAction", value);
+    }
+
+    public String condition() {
+      String v = doc.formField(path, "condition");
+      return v == null ? "" : v;
+    }
+
+    public void condition(String value) {
+      doc.setFormField(path, "condition", value);
     }
   }
 
