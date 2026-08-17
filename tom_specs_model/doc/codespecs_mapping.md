@@ -224,6 +224,17 @@ The id ranges the four todo levels occupy — `csopen<n>`, `csproj<n>`,
 `csgen<n>`, `cs<area><n>` — and the prefix-iteration properties that make them
 runnable are §1.1.1 item 3's.
 
+**Stage 0 is carried by one text**, and it is not the authoring prompt:
+[`codespecs_prompt.md`](codespecs_prompt.md) holds the **starting prompt**, whose
+first act is the quality gate that decides whether the run may begin — a
+mechanical tier, then a per-area verdict of `sufficient` / `not applicable` /
+`insufficient` whose failure output names the section that should have carried
+each missing input. It creates the L0 todos of this stage and the L1/L2 rungs
+stages 2 and 3 will consume, and it writes no code. The two Phase-4 prompts
+partition the phase cleanly: the starting prompt produces todos and no code,
+[`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §2.9's
+authoring prompt produces code and no todos.
+
 **Stages 3 and 4 are nested, not consecutive.** Stage 3 is the walk over steps
 and stage 4 is what one step consists of; a run does not finish every step and
 then start on elements. This is why the L2 todo is the unit a prompt pass

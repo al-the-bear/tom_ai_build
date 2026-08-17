@@ -832,6 +832,13 @@ the text that carries one `csgen<n>` pass. It lives here rather than in the
 mapping document by the same split that put the procedure there — a procedure is
 grounding, and the text that produces code is derivation.
 
+**This is one of Phase 4's two prompts, and the other one is not here.**
+[`codespecs_prompt.md`](codespecs_prompt.md) holds the *starting* prompt, which
+gates the run and creates its todo tree. The two partition the phase without
+overlap: that one produces todos and no code, this one produces code and no
+todos. A `csgen<n>` todo exists because the starting prompt created it; this
+prompt is what that todo is then handed.
+
 **One prompt, thirty-one instantiations — not thirty-one prompts.** The steps
 differ only in their *inputs*: which extracts, which entries, which project,
 whether the step is a component. Everything else — the naming rules, the locus

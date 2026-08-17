@@ -342,6 +342,19 @@ one open. The split exists because the two halves fail differently: a mechanical
 rule applied to prose invents structure that is not there, and an author handed
 the whole specification reads the wrong parts of it.
 
+**Phase 4 has a gate at its start as well as at its end.** G4 below reviews the
+output; the **starting prompt** ([`codespecs_prompt.md`](codespecs_prompt.md))
+reviews the input, as its own first act and before any todo is created. It runs a
+mechanical tier — the document is complete against its schema *and* valid under
+the runtime instance-tier validator, the routing is total, every required
+annotation argument has a populated source — and then asks, per CodeSpecs area,
+whether that area's extract alone suffices to author it, answering `sufficient`,
+`not applicable` or `insufficient` with the section named that should have
+carried each missing input. The reason it sits before Phase 4 rather than inside
+G4 is that a specification with holes does not produce code with holes: it
+produces code with *inventions*, and by G4 the invention is already something
+Phase 5 could derive tests from.
+
 **Where the specification does not carry what a derivation needs**, the outcome
 is neither an invention nor a silent omission: it is a `decision-needed` todo
 that pauses the run. The generated todo tree has four levels — open questions,
