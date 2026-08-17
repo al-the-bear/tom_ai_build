@@ -239,6 +239,17 @@ export 'src/codespecs/cs_check_table.dart'
         CsCheckTableCorrespondence,
         parseCsCheckRows,
         compareCsCheckTable;
+// The Phase-4 area catalogue — codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6
+// transcribed into the input `spec_codespecs_extract` reads in all nine
+// runtimes.
+export 'src/codespecs/areas_catalog.dart'
+    show
+        AreasCatalog,
+        AreasCatalogException,
+        buildAreasCatalog,
+        writeAreasCatalog,
+        kSliceCites,
+        kAuthoringSliceOrder;
 export 'src/packaging.dart'
     show
         ManifestFormat,

@@ -50,6 +50,7 @@ void main() {
   final patternCases = _patternCases();
   final queryCases = _queryCases(model, doc);
   final projectionCases = _projectionCases(model, doc);
+  final codeSpecsExtractCases = _codeSpecsExtractCases(model, doc);
   final cursorScript = _cursorScript(model);
   final nodeCreationCases = _nodeCreationCases(model);
   final nodeCreationScript = _nodeCreationScript(model);
@@ -80,6 +81,8 @@ void main() {
     write('pattern_cases.json', '${enc.convert(patternCases)}\n');
     write('query_cases.json', '${enc.convert(queryCases)}\n');
     write('projection_cases.json', '${enc.convert(projectionCases)}\n');
+    write('codespecs_extract_cases.json',
+        '${enc.convert(codeSpecsExtractCases)}\n');
     write('cursor_cases.json', '${enc.convert(cursorScript)}\n');
     write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
     write('node_creation_script.json',
@@ -771,6 +774,143 @@ void main() {
     expect(got, jsonDecode(read('projection_cases.json')));
   });
 
+  group('codespecs_extract_cases.json (the Phase-4 extract generator)', () {
+    // Declared, not deferred: the error cases need one test each at declaration
+    // time. Under UPDATE_CORPUS the committed file may not exist yet (setUpAll
+    // has not run), so the freshly built table stands in for that one run.
+    final onDisk = File('${corpusDir.path}/codespecs_extract_cases.json');
+    final table = update && !onDisk.existsSync()
+        ? codeSpecsExtractCases
+        : jsonDecode(onDisk.readAsStringSync()) as Map<String, dynamic>;
+
+    final extractor = CodeSpecsExtractor(
+      model: model,
+      document: doc,
+      catalog: CodeSpecsAreaCatalog.fromJson(
+          (table['catalog'] as Map).cast<String, dynamic>()),
+    );
+
+    test('the routing verdicts reproduce the committed diagnostic', () {
+      final got = [
+        for (final r in extractor.routings())
+          {
+            'path': r.path,
+            'className': r.className,
+            'verdict': r.verdict.name,
+            'values': r.values,
+            'note': r.note,
+            'declaredAt': r.declaredAt,
+          },
+      ];
+      expect(got, table['routings']);
+    });
+
+    test('the extracts reproduce the committed goldens byte for byte', () {
+      final got = [
+        for (final x in extractor.extractAll())
+          {
+            'area': x.area.code,
+            'canonicalId': x.area.canonicalId,
+            'part': x.area.kindValue,
+            'documentRoot': x.documentRoot,
+            'fileStem': x.fileStem,
+            'projects': x.projects,
+            'citableParts': x.citableParts,
+            'entries': [
+              for (final e in x.entries)
+                {
+                  'sectionId': e.sectionId,
+                  'path': e.path,
+                  'className': e.className,
+                  'fieldName': e.fieldName,
+                  'formField': e.formField,
+                  'routedBy': e.routedBy,
+                  'routedAt': e.routedAt,
+                  'routingNote': e.routingNote,
+                  'value': e.value,
+                },
+            ],
+            'yaml': x.toYaml(),
+            'markdown': x.toMarkdown(),
+          },
+      ];
+      expect(got, table['extracts']);
+    });
+
+    test('every emitted value occurs verbatim in the source document', () {
+      // The guard `codespecs_derivation_contract.md` §2.8 C1 rests on, carried
+      // in the corpus rather than left to each port's own conscience: the
+      // generator may copy and index, it may not compose. Membership, not
+      // substring — that is what makes "verbatim" mean verbatim rather than
+      // "derived from".
+      final stored = <String>{
+        ...(state['content'] as Map).values.cast<String>(),
+        for (final section in (state['forms'] as Map).values)
+          ...(section as Map).values.cast<String>(),
+      };
+      expect(stored, isNotEmpty);
+      for (final x in (table['extracts'] as List).cast<Map<String, dynamic>>()) {
+        for (final e in (x['entries'] as List).cast<Map<String, dynamic>>()) {
+          expect(stored, contains(e['value']),
+              reason: '${x['area']} ${e['path']} was not copied from the '
+                  'document');
+        }
+      }
+    });
+
+    test('a @FollowUpKind subtree contributes to no extract', () {
+      // `Control` is populated, and populated distinctively, so its absence
+      // cannot be an accident of an empty section.
+      final emitted = <String>[
+        for (final x in (table['extracts'] as List).cast<Map<String, dynamic>>())
+          for (final e in (x['entries'] as List).cast<Map<String, dynamic>>())
+            e['value'] as String,
+      ];
+      expect(emitted, isNot(contains('Controlled summary')));
+      expect(emitted, isNot(contains('ctrl-owner')));
+      // …and neither does a @NoArtifact section's own leaf.
+      expect(emitted, isNot(contains('alice')));
+    });
+
+    for (final raw in (table['errorCases'] as List).cast<Map<String, dynamic>>()) {
+      final c = raw;
+      test(c['name'] as String, () {
+        final errModel =
+            SpecModel.fromJson((c['model'] as Map).cast<String, dynamic>());
+        // The error case carries its own model and state rather than mutating
+        // the shared fixture: `model.meta.json` is a VALID model by
+        // construction (§10.2 `ROUTE-TOTAL` holds over it), and a port in a
+        // language without cheap structural editing should not have to break it
+        // to run this case. `state` is the ordinary `state.json` shape, so
+        // every runtime already has the loader.
+        final errDoc = SpecDocument()
+          ..loadJson((c['state'] as Map).cast<String, dynamic>());
+        final errExtractor = CodeSpecsExtractor(
+          model: errModel,
+          document: errDoc,
+          catalog: CodeSpecsAreaCatalog.fromJson(
+              (table['catalog'] as Map).cast<String, dynamic>()),
+        );
+        final want = (c['expect'] as Map).cast<String, dynamic>();
+        expect(
+          () => errExtractor.extractAll(),
+          throwsA(isA<CodeSpecsExtractError>()
+              .having((e) => e.path, 'path', want['path'])
+              .having((e) => e.className, 'className', want['className'])
+              .having((e) => e.message, 'message',
+                  contains(want['messageContains']))),
+        );
+        expect(
+          errExtractor
+              .routings()
+              .where((r) => r.path == want['path'])
+              .map((r) => r.verdict.name),
+          [want['routingVerdict']],
+        );
+      });
+    }
+  });
+
   test('cursor script replays with the committed results', () {
     final steps = (jsonDecode(read('cursor_cases.json')) as List)
         .cast<Map<String, dynamic>>();
@@ -974,6 +1114,23 @@ Map<String, dynamic> _buildMeta() => {
               'name': 'SectionId',
               'arguments': {'id': 'DEMO'}
             },
+            // The §8.3 routing verdict. Every class in this fixture carries
+            // exactly one of the three (`@CodeSpecKind` / `@FollowUpKind` /
+            // `@NoArtifact`) except `Sidecar`, which is a bare `@Document` root
+            // and structurally exempt — that is what makes the fixture a VALID
+            // model under `tom_specs_model_rules.md` §10.2 `ROUTE-TOTAL`, and
+            // what lets `codespecs_extract_cases.json` run against the shared
+            // model rather than carrying an inline one.
+            //
+            // `Demo` is deliberately MULTI-VALUED: the same leaf must appear,
+            // whole and undeduplicated, in both areas' extracts.
+            {
+              'name': 'CodeSpecKind',
+              'arguments': {
+                'kinds': ['CodeSpecPart.form', 'CodeSpecPart.viewState'],
+                'note': 'the demo capture screen and its view state',
+              }
+            },
           ],
           'fields': [
             {
@@ -1000,6 +1157,18 @@ Map<String, dynamic> _buildMeta() => {
               'sectionId': 'PRI',
               'enumType': 'Priority',
               'enumValues': ['low', 'high'],
+              // A FIELD-LEVEL `@CodeSpecKind`, overriding `Demo`'s class-level
+              // one for this member alone: PRI reaches `navigation` and neither
+              // of the class's two areas. Without a case, a port that only ever
+              // reads the class annotation passes.
+              'annotations': [
+                {
+                  'name': 'CodeSpecKind',
+                  'arguments': {
+                    'kinds': ['CodeSpecPart.navigation'],
+                  }
+                }
+              ],
             },
             {
               'name': 'count',
@@ -1174,6 +1343,12 @@ Map<String, dynamic> _buildMeta() => {
               'name': 'SectionId',
               'arguments': {'id': 'REG'}
             },
+            // `container` — the walk must DESCEND into it (its children carry
+            // their own verdicts) while contributing nothing of its own.
+            {
+              'name': 'NoArtifact',
+              'arguments': {'reason': 'NoArtifactReason.container'}
+            },
           ],
           'fields': [
             {
@@ -1208,6 +1383,12 @@ Map<String, dynamic> _buildMeta() => {
               'name': 'SectionId',
               'arguments': {'id': 'RGE'}
             },
+            {
+              'name': 'CodeSpecKind',
+              'arguments': {
+                'kinds': ['CodeSpecPart.dataAccess'],
+              }
+            },
           ],
           'fields': [
             {
@@ -1228,6 +1409,12 @@ Map<String, dynamic> _buildMeta() => {
             {
               'name': 'SectionId',
               'arguments': {'id': 'RGL'}
+            },
+            {
+              'name': 'CodeSpecKind',
+              'arguments': {
+                'kinds': ['CodeSpecPart.dataAccess'],
+              }
             },
           ],
           'fields': [
@@ -1272,6 +1459,10 @@ Map<String, dynamic> _buildMeta() => {
             {
               'name': 'OneOf',
               'arguments': {'discriminator': 'kind'}
+            },
+            {
+              'name': 'NoArtifact',
+              'arguments': {'reason': 'NoArtifactReason.container'}
             },
           ],
           'fields': [
@@ -1338,6 +1529,14 @@ Map<String, dynamic> _buildMeta() => {
         },
         'ChoicePart': {
           'name': 'ChoicePart',
+          'annotations': [
+            {
+              'name': 'CodeSpecKind',
+              'arguments': {
+                'kinds': ['CodeSpecPart.text'],
+              }
+            },
+          ],
           'fields': [
             {'name': 'note', 'kind': 'content'},
           ],
@@ -1345,6 +1544,11 @@ Map<String, dynamic> _buildMeta() => {
         'Sidecar': {
           'name': 'Sidecar',
           'sectionId': 'SIDE',
+          // Deliberately carries NO routing verdict: a bare `@Document` root is
+          // structurally exempt from `ROUTE-TOTAL` (a root is the document, not
+          // a section of it). It is the fixture's only unannotated class, so a
+          // port that treats "no verdict" as an unconditional hard error fails
+          // here rather than only on a real specification.
           'annotations': [
             {
               'name': 'Document',
@@ -1381,6 +1585,17 @@ Map<String, dynamic> _buildMeta() => {
               'name': 'SectionId',
               'arguments': {'id': 'CTRL'}
             },
+            // The fixture's `@FollowUpKind` subtree. `Control` is POPULATED by
+            // `_buildDocument` ('Controlled summary' / 'ctrl-owner'), so its
+            // absence from every extract is an assertion rather than an
+            // accident of an empty section.
+            {
+              'name': 'FollowUpKind',
+              'arguments': {
+                'processes': ['FollowUpProcess.doc'],
+                'note': 'delivered as operator documentation, not as code',
+              }
+            },
           ],
           'fields': [
             // `summary` keeps a field-level content key (`CTRL-SUM summary:`);
@@ -1402,6 +1617,12 @@ Map<String, dynamic> _buildMeta() => {
               'name': 'SectionId',
               'arguments': {'id': 'NOTE'}
             },
+            {
+              'name': 'CodeSpecKind',
+              'arguments': {
+                'kinds': ['CodeSpecPart.text'],
+              }
+            },
           ],
           'fields': [
             {'name': 'body', 'kind': 'content', 'sectionId': 'NOTE-BDY'},
@@ -1412,6 +1633,14 @@ Map<String, dynamic> _buildMeta() => {
           // YRD4: class-level @Headline default — drives the item title stem
           // ('Task 1', 'Task 2') instead of itemTitleStem('Item').
           'headline': 'Task',
+          'annotations': [
+            {
+              'name': 'CodeSpecKind',
+              'arguments': {
+                'kinds': ['CodeSpecPart.form'],
+              }
+            },
+          ],
           'fields': [
             // Deliberately id-less: the transparent body-region member.
             {'name': 'label', 'kind': 'content'},
@@ -1438,6 +1667,14 @@ Map<String, dynamic> _buildMeta() => {
           'mapsTo': 'CS00-CARD',
           'detailedIn': 'BP00-CARDS',
           'doc': 'A card entry.',
+          'annotations': [
+            {
+              'name': 'CodeSpecKind',
+              'arguments': {
+                'kinds': ['CodeSpecPart.viewState'],
+              }
+            },
+          ],
           'fields': [
             {
               // The section's OWN form (transparent, id-less `content` member).
@@ -1451,6 +1688,16 @@ Map<String, dynamic> _buildMeta() => {
         },
         'Meta': {
           'name': 'Meta',
+          // The second `@NoArtifact` reason, and the one whose suppression is
+          // OBSERVABLE: unlike `Registry`/`Choice`, `Meta` is populated
+          // ('alice', the four tags), so a port that emits an unrouted class's
+          // own leaves fails here.
+          'annotations': [
+            {
+              'name': 'NoArtifact',
+              'arguments': {'reason': 'NoArtifactReason.overview'}
+            },
+          ],
           'fields': [
             {'name': 'owner', 'kind': 'content', 'sectionId': 'OWNR'},
             {
@@ -3454,6 +3701,265 @@ List<Map<String, dynamic>> _projectionCases(SpecModel model, SpecDocument doc) {
         'hasValue': p.hasValue,
       },
   ];
+}
+
+/// The fixture's CodeSpecs area catalogue — the machine-readable form of
+/// `codespecs_mapping.md` §4.1 + §4.4.3 + §4.4.6, cut down to the six areas the
+/// fixture's routing verdicts name.
+///
+/// The `CE-*` codes, canonical ids, `@CodeSpecKind` values, `Cs*` annotations
+/// and "Built on" cells are the **real** §4.1 rows, and the seven slices are the
+/// real §4.4.3 table with its real citation edges: the catalogue is an *input*
+/// to the extractor, so a synthetic one would pin the plumbing while leaving the
+/// vocabulary — the half a port can get wrong in nine identical ways — unpinned.
+/// What is cut down is only *how many* rows, never what a row says.
+Map<String, dynamic> _codeSpecsCatalogJson() => {
+      'source': 'codespecs_mapping.md §4.1 + §4.4.3 + §4.4.6',
+      'slices': [
+        {
+          'number': 1,
+          'title': 'Shared const catalogues',
+          'project': '<app>_codespec_shared',
+          'cites': <int>[],
+        },
+        {
+          'number': 2,
+          'title': 'Shared contract',
+          'project': '<app>_codespec_shared',
+          'cites': [1],
+        },
+        {
+          'number': 3,
+          'title': 'Server persistence & configuration',
+          'project': '<app>_codespec_server',
+          'cites': [1, 2],
+        },
+        {
+          'number': 4,
+          'title': 'Server behaviour',
+          'project': '<app>_codespec_server',
+          'cites': [1, 2, 3],
+        },
+        {
+          'number': 5,
+          'title': 'Client interaction core',
+          'project': '<app>_codespec_client',
+          'cites': [1, 2],
+        },
+        {
+          'number': 6,
+          'title': 'Client presentation & shell',
+          'project': '<app>_codespec_client',
+          'cites': [1, 5],
+        },
+        {
+          'number': 7,
+          'title': 'Server operational',
+          'project': '<app>_codespec_server',
+          'cites': [3, 4],
+        },
+      ],
+      // In §4.1 catalogue order, which §4.4.6 rule 2 uses as its tie-break and
+      // which the extractor emits its extracts in.
+      'areas': [
+        {
+          'code': 'CE-FM',
+          'canonicalId': 'Form',
+          'part': 'form',
+          'annotations': ['@CsForm'],
+          'builtOn': '`TomForm`, `TomFormChildContainer` (`tom_flutter_ui`)',
+          'attributeSurface': 'codespecs_mapping.md §5.7.2',
+          'slices': [5],
+          'authoringSteps': [23],
+        },
+        {
+          'code': 'CE-TX',
+          'canonicalId': 'Text',
+          'part': 'text',
+          'annotations': ['@CsText'],
+          'builtOn': '`TomText` (`tom_flutter_ui`) + `TomTextResourceProvider` '
+              '(`tom_core_kernel`); message/i18n-key model `TomMessageKey` / '
+              '`TomMessageKeyRegistry` (`tom_core_codespecs`)',
+          'attributeSurface': 'codespecs_mapping.md §5.8, §5.21',
+          // The fixture's one LOCUS-SPLIT area: SCC-A keys in slice 1, the copy
+          // in slice 5. It is what makes `projects` a list rather than a field.
+          'slices': [1, 5],
+          'authoringSteps': [2, 24],
+        },
+        {
+          'code': 'CE-DB',
+          'canonicalId': 'DataAccess',
+          'part': 'dataAccess',
+          'annotations': ['@CsTable', '@CsColumn', '@CsRepository'],
+          'builtOn': 'Tom persistence model + repository (`tom_core_server`)',
+          'attributeSurface': 'codespecs_mapping.md §5.13',
+          'slices': [3],
+          'authoringSteps': [10],
+        },
+        {
+          'code': 'CE-ST',
+          'canonicalId': 'ViewState',
+          'part': 'viewState',
+          'annotations': ['@CsViewModel'],
+          'builtOn': '`TomObservable` / `TomObject` (`tom_core_kernel`)',
+          'attributeSurface': 'codespecs_mapping.md §5.4',
+          'slices': [5],
+          'authoringSteps': [23],
+        },
+        {
+          'code': 'CE-NV',
+          'canonicalId': 'Navigation',
+          'part': 'navigation',
+          'annotations': ['@CsRoute', '@CsScreenFlow'],
+          'builtOn': '`TomPageRoute` (`tom_flutter_ui`); route-id + screen-flow '
+              'model (`tom_core_codespecs`)',
+          'attributeSurface': 'codespecs_mapping.md §5.11',
+          'slices': [5],
+          'authoringSteps': [23],
+        },
+        {
+          // Deliberately entry-free: nothing in the fixture routes to it. An
+          // area with no content still gets an extract, because "the
+          // specification says nothing about this" is a finding the authoring
+          // agent must be shown rather than a file that fails to appear.
+          'code': 'CE-ER',
+          'canonicalId': 'ErrorResult',
+          'part': 'errorResult',
+          'annotations': ['@CsError'],
+          'builtOn': '`TomResult<T>` / `TomErrorResult` (`tom_core_kernel`)',
+          'attributeSurface': 'codespecs_mapping.md §7',
+          'slices': [1],
+          'authoringSteps': [2],
+        },
+      ],
+    };
+
+/// The Phase-4 extract generator (`codespecs_mapping.md` §1.1.1) — the machine
+/// half that turns a filled document into one bounded, cited extract per
+/// CodeSpecs area.
+///
+/// Four things are pinned, because four things are what the surface exists to
+/// get right: a section routed to several areas appears in all of them
+/// undeduplicated, a `@FollowUpKind` subtree appears in none, a section routed
+/// nowhere is a hard error rather than a silent skip, and every scalar emitted
+/// occurs character-for-character in its source. The last is the one that keeps
+/// the generator on its side of the `codespecs_derivation_contract.md` §2.8
+/// **C1** line, so it is carried as its own table rather than left to a reader.
+Map<String, dynamic> _codeSpecsExtractCases(
+    SpecModel model, SpecDocument doc) {
+  final catalogJson = _codeSpecsCatalogJson();
+  final catalog = CodeSpecsAreaCatalog.fromJson(catalogJson);
+  final extractor =
+      CodeSpecsExtractor(model: model, document: doc, catalog: catalog);
+
+  Map<String, dynamic> entryJson(CodeSpecsExtractEntry e) => {
+        'sectionId': e.sectionId,
+        'path': e.path,
+        'className': e.className,
+        'fieldName': e.fieldName,
+        'formField': e.formField,
+        'routedBy': e.routedBy,
+        'routedAt': e.routedAt,
+        'routingNote': e.routingNote,
+        'value': e.value,
+      };
+
+  return {
+    'catalog': catalogJson,
+    // The `routings` diagnostic: which verdict each walked class carried and
+    // where the marker sat. Pinned separately from the extracts because a port
+    // can route right and emit wrong, or the reverse, and a single table cannot
+    // tell those two apart.
+    'routings': [
+      for (final r in extractor.routings())
+        {
+          'path': r.path,
+          'className': r.className,
+          'verdict': r.verdict.name,
+          'values': r.values,
+          'note': r.note,
+          'declaredAt': r.declaredAt,
+        },
+    ],
+    'extracts': [
+      for (final x in extractor.extractAll())
+        {
+          'area': x.area.code,
+          'canonicalId': x.area.canonicalId,
+          'part': x.area.kindValue,
+          'documentRoot': x.documentRoot,
+          'fileStem': x.fileStem,
+          // Derived from the slice graph rather than authored on the area, so
+          // a port that transcribes the catalogue but not the derivation fails
+          // here — CE-TX is the case that discriminates, spanning two slices
+          // in two different projects.
+          'projects': x.projects,
+          'citableParts': x.citableParts,
+          'entries': [for (final e in x.entries) entryJson(e)],
+          // The two emitted artifacts, byte for byte: the YAML is the artifact
+          // of record and the Markdown is the view rendered from it.
+          'yaml': x.toYaml(),
+          'markdown': x.toMarkdown(),
+        },
+    ],
+    // The `ROUTE-TOTAL` hard error. It carries its OWN model rather than
+    // mutating the shared one — the shared `model.meta.json` is a valid model
+    // by construction (every class carries a verdict), and a port in a language
+    // without cheap structural editing should not have to break it to run this
+    // case. The document is empty: the walk descends into a complex member
+    // whether or not it holds a value, which is exactly why an unrouted section
+    // cannot hide behind being unpopulated.
+    'errorCases': [
+      {
+        'name': 'a section carrying none of the three verdicts is a hard error',
+        'model': {
+          'metaSchemaVersion': 1,
+          'modelVersion': 1,
+          'roots': [
+            {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'}
+          ],
+          'classes': {
+            'Root': {
+              'name': 'Root',
+              'sectionId': 'ROOT',
+              'annotations': [
+                {
+                  'name': 'Document',
+                  'arguments': {'title': 'Root'}
+                },
+              ],
+              'fields': [
+                {
+                  'name': 'orphan',
+                  'kind': 'complex',
+                  'sectionId': 'ORP',
+                  'type': 'Orphan'
+                },
+              ],
+            },
+            'Orphan': {
+              'name': 'Orphan',
+              'sectionId': 'ORP',
+              'fields': [
+                {'name': 'body', 'kind': 'content', 'sectionId': 'ORP-BDY'},
+              ],
+            },
+          },
+        },
+        'state': <String, dynamic>{},
+        'expect': {
+          'path': 'ROOT/ORP',
+          'className': 'Orphan',
+          // The message is prose and deliberately unpinned; the invariant id it
+          // must name is the contract.
+          'messageContains': 'ROUTE-TOTAL',
+          // The non-throwing diagnostic reports the same node instead of
+          // throwing, so both halves of the surface are covered by one case.
+          'routingVerdict': 'unrouted',
+        },
+      },
+    ],
+  };
 }
 
 /// Cursor semantics that a result *table* cannot express: partial consumption

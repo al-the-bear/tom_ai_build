@@ -16,7 +16,7 @@ void main() {
       // `Order` carries @CodeSpecKind([form, viewState]) — the same value must
       // appear whole in both extracts, undeduplicated.
       final inForm = byCode['CE-FM']!.entries.where((e) => e.path == 'ORD/TTL');
-      final inView = byCode['CE-VS']!.entries.where((e) => e.path == 'ORD/TTL');
+      final inView = byCode['CE-ST']!.entries.where((e) => e.path == 'ORD/TTL');
       expect(inForm, hasLength(1));
       expect(inView, hasLength(1));
       expect(inForm.single.value, 'Place an order');
@@ -29,7 +29,7 @@ void main() {
       final extracts = _extractor().extractAll();
       expect(
         extracts.map((e) => e.area.code),
-        ['CE-FM', 'CE-VS', 'CE-TX', 'CE-ER'],
+        ['CE-FM', 'CE-ST', 'CE-TX', 'CE-ER'],
       );
       // CE-ER is in the catalogue but nothing in this document routes to it.
       // An area with no content still gets an extract: "no requirement stated"
@@ -151,9 +151,9 @@ void main() {
         catalog.citableAreaCodes(catalog.byCode('CE-FM')!),
         ['CE-TX', 'CE-ER'],
       );
-      // CE-VS is slice 5, which cites 2 and so reaches 1 transitively.
+      // CE-ST is slice 5, which cites 2 and so reaches 1 transitively.
       expect(
-        catalog.citableAreaCodes(catalog.byCode('CE-VS')!),
+        catalog.citableAreaCodes(catalog.byCode('CE-ST')!),
         ['CE-FM', 'CE-TX', 'CE-ER'],
       );
       // Slice 1 cites no other slice, so CE-TX reaches only its own slice —
@@ -346,14 +346,23 @@ SpecDocument _document() {
 }
 
 /// Four areas over three slices, so `citableAreaCodes` has a graph to walk.
+///
+/// The `CE-*` codes, canonical ids and kind values are the real registry keys
+/// (they are permanent, so inventing one here would put a key in circulation
+/// that means nothing); the slice numbers and authoring steps are a cut-down
+/// synthetic graph, not §4.4.3's.
 CodeSpecsAreaCatalog _catalog() => const CodeSpecsAreaCatalog(
       source: 'codespecs_mapping.md §4.1 (test fixture)',
       slices: [
-        CodeSpecsSlice(number: 1, title: 'Text', project: 'shared'),
         CodeSpecsSlice(
-            number: 2, title: 'Forms', project: 'shared', cites: [1]),
+            number: 1, title: 'Shared const catalogues', project: 'shared'),
         CodeSpecsSlice(
-            number: 5, title: 'Client', project: 'client', cites: [2]),
+            number: 2, title: 'Shared contract', project: 'shared', cites: [1]),
+        CodeSpecsSlice(
+            number: 5,
+            title: 'Client interaction core',
+            project: 'client',
+            cites: [2]),
       ],
       areas: [
         CodeSpecsArea(
@@ -362,32 +371,29 @@ CodeSpecsAreaCatalog _catalog() => const CodeSpecsAreaCatalog(
           part: 'form',
           annotations: ['@CsForm'],
           builtOn: 'TomForm',
-          attributeSurface: 'codespecs_mapping.md §5.2',
+          attributeSurface: 'codespecs_mapping.md §5.7.2',
           slices: [2],
           authoringSteps: [4],
-          project: 'shared',
         ),
         CodeSpecsArea(
-          code: 'CE-VS',
+          code: 'CE-ST',
           canonicalId: 'ViewState',
           part: 'viewState',
-          annotations: ['@CsViewState'],
-          builtOn: 'TomViewState',
-          attributeSurface: 'codespecs_mapping.md §5.9',
+          annotations: ['@CsViewModel'],
+          builtOn: 'TomObservable',
+          attributeSurface: 'codespecs_mapping.md §5.4',
           slices: [5],
           authoringSteps: [21],
-          project: 'client',
         ),
         CodeSpecsArea(
           code: 'CE-TX',
           canonicalId: 'Text',
           part: 'text',
           annotations: ['@CsText'],
-          builtOn: 'TomTextCatalog',
-          attributeSurface: 'codespecs_mapping.md §5.4',
+          builtOn: 'TomText',
+          attributeSurface: 'codespecs_mapping.md §5.21',
           slices: [1],
           authoringSteps: [1],
-          project: 'shared',
         ),
         CodeSpecsArea(
           code: 'CE-ER',
@@ -395,10 +401,9 @@ CodeSpecsAreaCatalog _catalog() => const CodeSpecsAreaCatalog(
           part: 'errorResult',
           annotations: ['@CsError'],
           builtOn: 'TomResult',
-          attributeSurface: 'codespecs_mapping.md §5.14',
+          attributeSurface: 'codespecs_mapping.md §7',
           slices: [1],
           authoringSteps: [2],
-          project: 'shared',
         ),
       ],
     );

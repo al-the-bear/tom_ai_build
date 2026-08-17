@@ -286,6 +286,31 @@ final List<CorpusGuardedEnum> _guarded = [
         'protocol exists to prevent: a port that *drops* the unplaceable block '
         'instead of reporting it looks identical to one that never met it',
   ),
+  CorpusGuardedEnum(
+    enumName: 'CodeSpecsRoutingVerdict',
+    declared: _wire(CodeSpecsRoutingVerdict.values),
+    corpusFile: 'codespecs_extract_cases.json',
+    // Two tables, because the vocabulary is genuinely split across them: the
+    // four verdicts a well-formed section can carry are the `routings` rows,
+    // while `unrouted` is by construction never a row — a section that reaches
+    // it is the ROUTE-TOTAL failure, so its only home is an error case.
+    exercised: (c) => {
+      for (final r in ((c as Map<String, dynamic>)['routings'] as List)
+          .cast<Map<String, dynamic>>())
+        r['verdict'] as String,
+      for (final e in (c['errorCases'] as List).cast<Map<String, dynamic>>())
+        if ((e['expect'] as Map<String, dynamic>)['routingVerdict']
+            case final String v)
+          v,
+    },
+    why: 'the §8.3 routing verdict that decides whether a section reaches the '
+        'Phase-4 extract at all — and the two failures it hides are opposite '
+        'and both silent: a port that misreads `feedsProcess` as `feedsCode` '
+        'puts follow-up prose in front of the authoring agent as if it were '
+        'specification, while one that never produces `unrouted` accepts a '
+        'section no verdict covers, quietly dropping it instead of failing '
+        'ROUTE-TOTAL',
+  ),
 ];
 
 /// Every enum in `lib/` deliberately **not** in [_guarded], with why.

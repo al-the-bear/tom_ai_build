@@ -5156,14 +5156,19 @@ emitters. All nine emitters (`dart`/`typescript`/`javascript`/`python`/`java`/
 with both `kinds` (list) and `note` intact.
 
 It gets **no dedicated slot**, deliberately. A slot is warranted only when a
-cross-language meta *consumer* navigates the annotation structurally —
-`mapsTo`/`detailedIn` are followed as cross-phase *references* by tooling and
-editors. Nothing navigates `@CodeSpecKind`: CodeSpecs generation is Dart-only,
-and the value is a self-describing `CodeSpecPart.*` list already legible in
-`extra`. Promoting it would touch all nine emitters, the shared `SomMetaNode`
-runtime shape, the meta schema and the conformance goldens for zero consumer
-benefit. The `extra` treatment is exactly the intended design for annotations
-"carried for completeness but not structurally consumed."
+cross-language meta *consumer* navigates the annotation **structurally** —
+`mapsTo`/`detailedIn` are followed as cross-phase *references* into other nodes
+by tooling and editors, so a consumer needs them resolved rather than spelled.
+`@CodeSpecKind` has a consumer in all nine languages — the §1.1.1 extract
+generator, `spec_codespecs_extract`, which is a runtime surface precisely so
+that Phase 4 is not a Dart-only phase — but that consumer **reads it as a
+value**, not as a reference: it matches a self-describing `CodeSpecPart.*` token
+against the area catalogue. Reading a value by annotation name off `extra` is
+the same one-line lookup in every runtime, and it is what all three verdicts
+already share. Promoting it would touch all nine emitters, the shared
+`SomMetaNode` runtime shape, the meta schema and the conformance goldens without
+making that lookup simpler anywhere. The `extra` treatment is exactly the
+intended design for annotations carried whole and consumed by value.
 
 The same holds for the other two routing verdicts. `@FollowUpKind` and
 `@NoArtifact` (§8.3) are likewise unslotted and ride in `extra` with their value

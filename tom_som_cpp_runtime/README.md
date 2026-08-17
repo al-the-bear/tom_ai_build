@@ -27,6 +27,7 @@ codecs rely on it).
 | `spec_text_pattern.cpp` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`std::regex` is a different grammar with locale-sensitive folding). |
 | `spec_query.cpp` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.cpp` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator::add`) — a document may only grow in ways the model permits. |
+| `spec_codespecs_extract.cpp` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`, `CodeSpecsExtract`) — routes annotated nodes to areas and emits the byte-stable per-area YAML/Markdown extracts. |
 | `spec_document_yaml.cpp` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.cpp` | Meta-data-driven Markdown import/export codec (SOM §8 DocScanner route). |
 | `som_facade.cpp` | Editing-facade base types (`SomNode`, `SomList`, `joinPath`, `checkSomModelVersion`) for the generated `tom_som_cpp_v0`. |
@@ -83,8 +84,10 @@ make unittest        # builds + runs the standalone unit tests
 The conformance harness (`tests/conformance.cpp`) loads the language-agnostic
 corpus (`../tom_som_conformance/corpus`) and reproduces the same checks as every
 other port — model meta, `state.json` round-trip, YAML encode/decode, Markdown
-export/parse/landing, reflection, validation, and the imperative operations
-script. Exit 0 == all green; it prints `OK: N checks passed`.
+export/parse/landing, reflection, validation, the imperative operations script,
+and the Phase-4 CodeSpecs extract tier (routing verdicts, the per-area extracts
+and their YAML/Markdown goldens, ROUTE-TOTAL refusals). Exit 0 == all green; it
+prints `OK: N checks passed`.
 
 The corpus directory can be overridden:
 

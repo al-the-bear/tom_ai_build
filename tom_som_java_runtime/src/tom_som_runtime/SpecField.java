@@ -119,11 +119,32 @@ public final class SpecField {
   }
 
   public SpecAnnotation annotation(String name) {
-    for (SpecAnnotation a : annotations) {
-      if (a.name.equals(name)) {
-        return a;
-      }
-    }
-    return null;
+    return SpecAnnotations.named(annotations, name);
+  }
+
+  /**
+   * Whether the annotation named {@code name} is present. For argumentless
+   * markers, presence is the whole statement.
+   */
+  public boolean hasAnnotation(String name) {
+    return SpecAnnotations.has(annotations, name);
+  }
+
+  /**
+   * The {@code @CodeSpecKind} link, or {@code null} when unannotated. A
+   * field-level link overrides its class's routing for that field alone.
+   */
+  public KindLink codeSpecKind() {
+    return SpecAnnotations.codeSpecKind(annotations);
+  }
+
+  /** The {@code @FollowUpKind} link, or {@code null} when unannotated. */
+  public KindLink followUpKind() {
+    return SpecAnnotations.followUpKind(annotations);
+  }
+
+  /** The {@code @NoArtifact} verdict, or {@code null} when unannotated. */
+  public NoArtifactLink noArtifact() {
+    return SpecAnnotations.noArtifact(annotations);
   }
 }

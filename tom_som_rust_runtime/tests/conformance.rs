@@ -21,13 +21,18 @@
 //!   - the SOM §9 search tier: the portable text-pattern subset, the query /
 //!     projection surfaces, the lazy cursor over a mutating document, and the
 //!     meta-model-validated node-creation gate;
+//!   - the Phase-4 CodeSpecs tier: the routing diagnostic, the per-area extracts
+//!     with their YAML/Markdown goldens, the "copied, never composed" guard, and
+//!     the `ROUTE-TOTAL` error cases;
 //!   - the SOM §14 DocSpecs tier (one case per violation rule).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
 
+use std::collections::HashSet;
 use std::path::PathBuf;
 
 use tom_som_rust_runtime::json::Json;
+use tom_som_rust_runtime::spec_codespecs_extract::{CodeSpecsAreaCatalog, CodeSpecsExtractor};
 use tom_som_rust_runtime::spec_document::{DocumentJson, SpecDocument};
 use tom_som_rust_runtime::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownResult};
 use tom_som_rust_runtime::spec_document_yaml::{decode_yaml, encode_yaml};
@@ -168,6 +173,7 @@ fn conformance() {
     test_text_pattern(&mut c);
     test_query(&mut c, &model);
     test_projection(&mut c, &model);
+    test_codespecs_extract(&mut c, &model);
     test_cursor_script(&mut c, &model);
     test_node_creation_cases(&mut c, &model);
     test_node_creation_script(&mut c, &model);
@@ -1384,6 +1390,290 @@ fn test_projection(c: &mut Checker, model: &SpecModel) {
             &format!("{}.hasValue", tag),
             Some(p.has_value) == expected.get("hasValue").and_then(|v| v.as_bool()),
             &p.has_value.to_string(),
+        );
+    }
+}
+
+/// The Phase-4 CodeSpecs extract generator: the routing diagnostic, the emitted
+/// extracts (including their YAML and Markdown goldens), the "copied, never
+/// composed" guard, and the `ROUTE-TOTAL` error cases.
+fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
+    let table = read_json("codespecs_extract_cases.json");
+    let catalog = CodeSpecsAreaCatalog::from_json(
+        table.get("catalog").expect("codespecs_extract_cases has a catalog"),
+    );
+    let state = DocumentJson::from_json(&read_json("state.json"));
+    let doc = doc_from_state(&state);
+    let extractor = CodeSpecsExtractor::for_model(&doc, model, catalog.clone());
+
+    // 1. the routing verdicts reproduce the committed diagnostic.
+    let got = extractor.routings();
+    let want = table
+        .get("routings")
+        .and_then(|v| v.as_array())
+        .expect("codespecs_extract_cases.routings is a list");
+    c.check(
+        "codespecs.routings.len",
+        got.len() == want.len(),
+        &format!("{} != {}", got.len(), want.len()),
+    );
+    for (i, expected) in want.iter().enumerate() {
+        let Some(r) = got.get(i) else { break };
+        let tag = format!("codespecs.routing[{}] {}", i, expected.str_or("path"));
+        c.check(&format!("{}.path", tag), r.path == expected.str_or("path"), &r.path);
+        c.check(
+            &format!("{}.className", tag),
+            r.class_name == expected.str_or("className"),
+            &r.class_name,
+        );
+        c.check(
+            &format!("{}.verdict", tag),
+            r.verdict.name() == expected.str_or("verdict"),
+            r.verdict.name(),
+        );
+        let want_values = str_list(expected.get("values"));
+        c.check(
+            &format!("{}.values", tag),
+            r.values == want_values,
+            &format!("{:?} != {:?}", r.values, want_values),
+        );
+        let want_note = opt_str(expected.get("note"));
+        c.check(
+            &format!("{}.note", tag),
+            r.note == want_note,
+            &format!("{:?} != {:?}", r.note, want_note),
+        );
+        c.check(
+            &format!("{}.declaredAt", tag),
+            r.declared_at == expected.str_or("declaredAt"),
+            &r.declared_at,
+        );
+    }
+
+    // 2. the extracts reproduce the committed goldens byte for byte.
+    let extracts = match extractor.extract_all() {
+        Ok(x) => x,
+        Err(e) => {
+            c.check("codespecs.extractAll", false, &e.to_string());
+            return;
+        }
+    };
+    let want_extracts = table
+        .get("extracts")
+        .and_then(|v| v.as_array())
+        .expect("codespecs_extract_cases.extracts is a list");
+    c.check(
+        "codespecs.extracts.len",
+        extracts.len() == want_extracts.len(),
+        &format!("{} != {}", extracts.len(), want_extracts.len()),
+    );
+    for (i, expected) in want_extracts.iter().enumerate() {
+        let Some(x) = extracts.get(i) else { break };
+        let tag = format!("codespecs.extract[{}]", expected.str_or("area"));
+        c.check(&format!("{}.area", tag), x.area.code == expected.str_or("area"), &x.area.code);
+        c.check(
+            &format!("{}.canonicalId", tag),
+            x.area.canonical_id == expected.str_or("canonicalId"),
+            &x.area.canonical_id,
+        );
+        c.check(
+            &format!("{}.part", tag),
+            x.area.kind_value() == expected.str_or("part"),
+            &x.area.kind_value(),
+        );
+        c.check(
+            &format!("{}.documentRoot", tag),
+            x.document_root == expected.str_or("documentRoot"),
+            &x.document_root,
+        );
+        c.check(
+            &format!("{}.fileStem", tag),
+            x.file_stem() == expected.str_or("fileStem"),
+            &x.file_stem(),
+        );
+        let want_projects = str_list(expected.get("projects"));
+        c.check(
+            &format!("{}.projects", tag),
+            x.projects == want_projects,
+            &format!("{:?} != {:?}", x.projects, want_projects),
+        );
+        let want_citable = str_list(expected.get("citableParts"));
+        c.check(
+            &format!("{}.citableParts", tag),
+            x.citable_parts == want_citable,
+            &format!("{:?} != {:?}", x.citable_parts, want_citable),
+        );
+
+        let want_entries = expected
+            .get("entries")
+            .and_then(|v| v.as_array())
+            .unwrap_or(&[]);
+        c.check(
+            &format!("{}.entries.len", tag),
+            x.entries.len() == want_entries.len(),
+            &format!("{} != {}", x.entries.len(), want_entries.len()),
+        );
+        for (n, we) in want_entries.iter().enumerate() {
+            let Some(e) = x.entries.get(n) else { break };
+            let etag = format!("{}.entry[{}]", tag, n);
+            c.check(
+                &format!("{}.sectionId", etag),
+                e.section_id == we.str_or("sectionId"),
+                &e.section_id,
+            );
+            c.check(&format!("{}.path", etag), e.path == we.str_or("path"), &e.path);
+            c.check(
+                &format!("{}.className", etag),
+                e.class_name == we.str_or("className"),
+                &e.class_name,
+            );
+            c.check(
+                &format!("{}.fieldName", etag),
+                e.field_name == we.str_or("fieldName"),
+                &e.field_name,
+            );
+            let want_form_field = opt_str(we.get("formField"));
+            c.check(
+                &format!("{}.formField", etag),
+                e.form_field == want_form_field,
+                &format!("{:?} != {:?}", e.form_field, want_form_field),
+            );
+            c.check(
+                &format!("{}.routedBy", etag),
+                e.routed_by == we.str_or("routedBy"),
+                &e.routed_by,
+            );
+            c.check(
+                &format!("{}.routedAt", etag),
+                e.routed_at == we.str_or("routedAt"),
+                &e.routed_at,
+            );
+            let want_note = opt_str(we.get("routingNote"));
+            c.check(
+                &format!("{}.routingNote", etag),
+                e.routing_note == want_note,
+                &format!("{:?} != {:?}", e.routing_note, want_note),
+            );
+            c.check(
+                &format!("{}.value", etag),
+                e.value == we.str_or("value"),
+                &format!("{:?} != {:?}", e.value, we.str_or("value")),
+            );
+        }
+
+        let want_yaml = expected.str_or("yaml");
+        c.check(
+            &format!("{}.yaml", tag),
+            x.to_yaml() == want_yaml,
+            &byte_diff("yaml", &x.to_yaml(), &want_yaml),
+        );
+        let want_markdown = expected.str_or("markdown");
+        c.check(
+            &format!("{}.markdown", tag),
+            x.to_markdown() == want_markdown,
+            &byte_diff("markdown", &x.to_markdown(), &want_markdown),
+        );
+    }
+
+    // 3. every emitted value occurs verbatim in the source document.
+    //
+    // The guard `codespecs_derivation_contract.md` §2.8 C1 rests on, carried in
+    // the corpus rather than left to each port's own conscience: the generator
+    // may copy and index, it may not compose. Membership, not substring — that
+    // is what makes "verbatim" mean verbatim rather than "derived from".
+    let mut stored: HashSet<&str> = HashSet::new();
+    for v in state.content.values() {
+        stored.insert(v.as_str());
+    }
+    for section in state.forms.values() {
+        for v in section.values() {
+            stored.insert(v.as_str());
+        }
+    }
+    c.check("codespecs.stored.nonEmpty", !stored.is_empty(), "");
+    for x in &extracts {
+        for e in &x.entries {
+            c.check(
+                &format!("codespecs.copied[{}] {}", x.area.code, e.path),
+                stored.contains(e.value.as_str()),
+                "was not copied from the document",
+            );
+        }
+    }
+
+    // 4. a @FollowUpKind subtree contributes to no extract.
+    //
+    // `Control` is populated, and populated distinctively, so its absence cannot
+    // be an accident of an empty section. `alice` covers the second half: a
+    // @NoArtifact section's own leaf contributes nothing either.
+    let emitted: Vec<&str> = extracts
+        .iter()
+        .flat_map(|x| x.entries.iter().map(|e| e.value.as_str()))
+        .collect();
+    for absent in ["Controlled summary", "ctrl-owner", "alice"] {
+        c.check(
+            &format!("codespecs.excluded[{}]", absent),
+            !emitted.contains(&absent),
+            "reached an extract",
+        );
+    }
+
+    // 5. the ROUTE-TOTAL error cases: `extract_all` fails, `routings` reports.
+    let error_cases = table
+        .get("errorCases")
+        .and_then(|v| v.as_array())
+        .expect("codespecs_extract_cases.errorCases is a list");
+    for ec in error_cases {
+        let name = ec.str_or("name");
+        // The error case carries its own model and state rather than mutating the
+        // shared fixture: `model.meta.json` is a VALID model by construction
+        // (§10.2 `ROUTE-TOTAL` holds over it), and a port in a language without
+        // cheap structural editing should not have to break it to run this case.
+        let err_model = SpecModel::from_json(ec.get("model").expect("error case has a model"));
+        let err_state = match ec.get("state") {
+            Some(s) => DocumentJson::from_json(s),
+            None => DocumentJson::default(),
+        };
+        let err_doc = doc_from_state(&err_state);
+        let err_extractor = CodeSpecsExtractor::for_model(&err_doc, &err_model, catalog.clone());
+        let want = ec.get("expect").expect("error case has an expectation");
+
+        match err_extractor.extract_all() {
+            Ok(_) => c.check(
+                &format!("codespecs.error[{}].raised", name),
+                false,
+                "extract_all succeeded",
+            ),
+            Err(e) => {
+                c.check(
+                    &format!("codespecs.error[{}].path", name),
+                    e.path == want.str_or("path"),
+                    &e.path,
+                );
+                c.check(
+                    &format!("codespecs.error[{}].className", name),
+                    e.class_name == want.str_or("className"),
+                    &e.class_name,
+                );
+                c.check(
+                    &format!("codespecs.error[{}].message", name),
+                    e.message.contains(&want.str_or("messageContains")),
+                    &e.message,
+                );
+            }
+        }
+
+        let verdicts: Vec<&str> = err_extractor
+            .routings()
+            .iter()
+            .filter(|r| r.path == want.str_or("path"))
+            .map(|r| r.verdict.name())
+            .collect();
+        let want_verdicts = vec![want.str_or("routingVerdict")];
+        c.check(
+            &format!("codespecs.error[{}].routingVerdict", name),
+            verdicts == want_verdicts,
+            &format!("{:?} != {:?}", verdicts, want_verdicts),
         );
     }
 }

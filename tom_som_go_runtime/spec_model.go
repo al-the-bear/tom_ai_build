@@ -63,6 +63,125 @@ func (a *SpecAnnotation) Argument(key string) interface{} {
 	return a.Arguments[key]
 }
 
+// KindLink is a list-valued taxonomy annotation: a set of enum codes plus an
+// optional explanatory note.
+//
+// The model states where a subtree is headed with two such annotations, which
+// share this shape exactly — `@CodeSpecKind(List<CodeSpecPart>, {note})` names
+// the CodeSpecs part(s) a section type must be realised as
+// (`codespecs_mapping.md` §9.1/§9.5), and
+// `@FollowUpKind(List<FollowUpProcess>, {note})` names the downstream
+// *process(es)* a non-code subtree feeds (codespecs_mapping.md §8.3). One reader
+// serves both; which annotation a link came from is expressed by which accessor
+// produced it.
+//
+// Obtaining a link at all means the annotation is present. That matters: a node
+// with no link (a nil *KindLink) has not been classified yet, whereas a link
+// with empty Kinds is a recorded decision that the section belongs to no member
+// of that taxonomy. The two are different statements, so they are a nil pointer
+// and an empty slice rather than one nullable list.
+type KindLink struct {
+	// Kinds are the enum code names with their type prefix stripped —
+	// `validation`, not `CodeSpecPart.validation`; `doc`, not
+	// `FollowUpProcess.doc`.
+	//
+	// Both annotations are list-valued because one section can be realised as
+	// several parts, or feed several processes; consumers must handle all of
+	// them, not just the first.
+	Kinds []string
+	// Note is the annotation's free-text `note`, explaining the classification;
+	// "" when it carries none (this package's usual absent-string convention).
+	Note string
+}
+
+// NoArtifactLink is the third routing verdict: `@NoArtifact(NoArtifactReason,
+// {note})` — the section feeds neither a CodeSpecs part nor a follow-up process
+// (`codespecs_mapping.md` §8.3).
+//
+// Single-valued where KindLink is a list, and the asymmetry is the point: a
+// section can feed several parts or several processes at once, but it is
+// unrouted for exactly one reason. That reason is what makes the absence of the
+// other two markers readable as a decision rather than an omission, which is
+// what `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` checks.
+type NoArtifactLink struct {
+	// Reason is the `NoArtifactReason` code name with its type prefix stripped —
+	// `container`, not `NoArtifactReason.container`. One of `container`,
+	// `overview`, `view`.
+	Reason string
+	// Note is the annotation's free-text `note`, "" when it carries none. On an
+	// `overview` this customarily names the routed section that states the
+	// material normatively.
+	Note string
+}
+
+// --- shared annotation reading ----------------------------------------------
+//
+// The reference keeps these lookups in one `mixin AnnotatedSpecNode` shared by
+// its class and field nodes. Go has no mixins, so the bodies live here as
+// package functions over the annotation slice and SpecClass / SpecField each
+// expose them as one-line methods — the same "defined once" property, spelled
+// the way the rest of this package already spells shared behaviour.
+
+// annotationNamed returns the annotation named name, or nil when absent.
+func annotationNamed(annotations []*SpecAnnotation, name string) *SpecAnnotation {
+	for _, a := range annotations {
+		if a.Name == name {
+			return a
+		}
+	}
+	return nil
+}
+
+// kindLinkFrom reads a KindLink out of the annotation named name, taking the
+// code list from the argument named listArgument — `kinds` for `@CodeSpecKind`,
+// `processes` for `@FollowUpKind`. Returns nil when the node carries no such
+// annotation (see KindLink for why absent and empty differ).
+func kindLinkFrom(annotations []*SpecAnnotation, name, listArgument string) *KindLink {
+	a := annotationNamed(annotations, name)
+	if a == nil {
+		return nil
+	}
+	kinds := []string{}
+	if raw, ok := a.Argument(listArgument).([]interface{}); ok {
+		for _, k := range raw {
+			if k == nil {
+				continue
+			}
+			kinds = append(kinds, StripEnumPrefix(bridgeStr(k)))
+		}
+	}
+	return &KindLink{Kinds: kinds, Note: bridgeStr(a.Argument("note"))}
+}
+
+// noArtifactLinkFrom reads the `@NoArtifact` verdict, or nil when the node
+// carries no such annotation. An annotation with no `reason` argument reads as
+// `container`, the reference's default.
+func noArtifactLinkFrom(annotations []*SpecAnnotation) *NoArtifactLink {
+	a := annotationNamed(annotations, "NoArtifact")
+	if a == nil {
+		return nil
+	}
+	reason := "container"
+	if raw := a.Argument("reason"); raw != nil {
+		reason = bridgeStr(raw)
+	}
+	return &NoArtifactLink{
+		Reason: StripEnumPrefix(reason),
+		Note:   bridgeStr(a.Argument("note")),
+	}
+}
+
+// StripEnumPrefix turns `CodeSpecPart.validation` into `validation`. A name
+// already given bare is returned unchanged, so readers do not depend on how the
+// exporter chose to spell the enum constant. Splitting on the last dot rather
+// than a fixed prefix keeps this working for any code enum the model adds.
+func StripEnumPrefix(raw string) string {
+	if dot := strings.LastIndex(raw, "."); dot >= 0 {
+		return raw[dot+1:]
+	}
+	return raw
+}
+
 // FormFieldSpec is a single form field within a @Form content section.
 type FormFieldSpec struct {
 	Name     string `json:"name"`
@@ -114,12 +233,34 @@ func (f *SpecField) IsExpandable() bool {
 
 // Annotation returns the named annotation on this field, or nil.
 func (f *SpecField) Annotation(name string) *SpecAnnotation {
-	for _, a := range f.Annotations {
-		if a.Name == name {
-			return a
-		}
-	}
-	return nil
+	return annotationNamed(f.Annotations, name)
+}
+
+// HasAnnotation reports whether the annotation named name is present on this
+// field. For markers that carry no arguments, presence *is* the whole statement.
+func (f *SpecField) HasAnnotation(name string) bool {
+	return f.Annotation(name) != nil
+}
+
+// CodeSpecKind returns the `@CodeSpecKind` link, or nil when this field carries
+// no such annotation. A field-level link overrides its class's routing for that
+// field alone.
+func (f *SpecField) CodeSpecKind() *KindLink {
+	return kindLinkFrom(f.Annotations, "CodeSpecKind", "kinds")
+}
+
+// FollowUpKind returns the `@FollowUpKind` link, or nil when this field carries
+// no such annotation — which downstream process(es) this subtree feeds instead
+// of becoming CodeSpecs code (codespecs_mapping.md §8.3).
+func (f *SpecField) FollowUpKind() *KindLink {
+	return kindLinkFrom(f.Annotations, "FollowUpKind", "processes")
+}
+
+// NoArtifact returns the `@NoArtifact` verdict, or nil when this field carries
+// no such annotation — the recorded decision that the section produces nothing
+// downstream (`codespecs_mapping.md` §8.3).
+func (f *SpecField) NoArtifact() *NoArtifactLink {
+	return noArtifactLinkFrom(f.Annotations)
 }
 
 // SpecClass is a model class with its fields.
@@ -150,12 +291,33 @@ func (c *SpecClass) FieldNamed(name string) *SpecField {
 
 // Annotation returns the named annotation on this class, or nil.
 func (c *SpecClass) Annotation(name string) *SpecAnnotation {
-	for _, a := range c.Annotations {
-		if a.Name == name {
-			return a
-		}
-	}
-	return nil
+	return annotationNamed(c.Annotations, name)
+}
+
+// HasAnnotation reports whether the annotation named name is present on this
+// class. For markers that carry no arguments, presence *is* the whole statement.
+func (c *SpecClass) HasAnnotation(name string) bool {
+	return c.Annotation(name) != nil
+}
+
+// CodeSpecKind returns the `@CodeSpecKind` link, or nil when this class carries
+// no such annotation. See KindLink for why absent and empty differ.
+func (c *SpecClass) CodeSpecKind() *KindLink {
+	return kindLinkFrom(c.Annotations, "CodeSpecKind", "kinds")
+}
+
+// FollowUpKind returns the `@FollowUpKind` link, or nil when this class carries
+// no such annotation — which downstream process(es) this subtree feeds instead
+// of becoming CodeSpecs code (codespecs_mapping.md §8.3).
+func (c *SpecClass) FollowUpKind() *KindLink {
+	return kindLinkFrom(c.Annotations, "FollowUpKind", "processes")
+}
+
+// NoArtifact returns the `@NoArtifact` verdict, or nil when this class carries
+// no such annotation — the recorded decision that the section produces nothing
+// downstream (`codespecs_mapping.md` §8.3).
+func (c *SpecClass) NoArtifact() *NoArtifactLink {
+	return noArtifactLinkFrom(c.Annotations)
 }
 
 // SpecRoot is a document root (a class carrying @Document).

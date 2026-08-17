@@ -1,0 +1,543 @@
+{
+  "source": "codespecs_mapping.md §4.1 (parts catalogue) + §4.4.3 (emission slices) + §4.4.6 (authoring order)",
+  "slices": [
+    {
+      "number": 1,
+      "title": "Shared const catalogues",
+      "project": "<app>_codespec_shared",
+      "cites": []
+    },
+    {
+      "number": 2,
+      "title": "Shared contract",
+      "project": "<app>_codespec_shared",
+      "cites": [
+        1
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Server persistence & configuration",
+      "project": "<app>_codespec_server",
+      "cites": [
+        1,
+        2
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Server behaviour",
+      "project": "<app>_codespec_server",
+      "cites": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Client interaction core",
+      "project": "<app>_codespec_client",
+      "cites": [
+        1,
+        2
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Client presentation & shell",
+      "project": "<app>_codespec_client",
+      "cites": [
+        1,
+        5
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Server operational",
+      "project": "<app>_codespec_server",
+      "cites": [
+        3,
+        4
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "code": "CE-EL",
+      "canonicalId": "ScreenElement",
+      "part": "screenElement",
+      "annotations": [
+        "CsElement",
+        "CsWidget"
+      ],
+      "builtOn": "`TomScreenElementsProvider` + the `Tom*` element/widget family (`tom_flutter_ui`); **reuse, no gap** — the element kinds are the existing `Tom*` widgets (§5.7.1, §5.18)",
+      "attributeSurface": "§5.7, §5.7.1, §5.18",
+      "slices": [
+        5
+      ],
+      "authoringSteps": [
+        23
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-FM",
+      "canonicalId": "Form",
+      "part": "form",
+      "annotations": [
+        "CsForm"
+      ],
+      "builtOn": "`TomForm`, `TomFormChildContainer` (`tom_flutter_ui`)",
+      "attributeSurface": "§5.7, §5.7.2",
+      "slices": [
+        5
+      ],
+      "authoringSteps": [
+        23
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-LO",
+      "canonicalId": "Layout",
+      "part": "layout",
+      "annotations": [
+        "CsLayout"
+      ],
+      "builtOn": "`AclContainer` / `AclRow` / `AclComponent` (`tom_flutter_ui`); node model `TomLayoutModel` / `TomLayoutNode` / `TomLayoutOverrideDelta` (`tom_core_codespecs`) → **gap** (§5.2, §5.12)",
+      "attributeSurface": "§5.2, §5.12, §5.22",
+      "slices": [
+        6
+      ],
+      "authoringSteps": [
+        27
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-TX",
+      "canonicalId": "Text",
+      "part": "text",
+      "annotations": [
+        "CsText"
+      ],
+      "builtOn": "`TomText` (`tom_flutter_ui`) + `TomTextResourceProvider` (`tom_core_kernel`); message/i18n-key model `TomMessageKey` / `TomMessageKeyRegistry` (`tom_core_codespecs`) → **gap** (§5.8, §5.21)",
+      "attributeSurface": "§5.8, §5.21",
+      "slices": [
+        1,
+        5
+      ],
+      "authoringSteps": [
+        2,
+        24
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-VA",
+      "canonicalId": "Validation",
+      "part": "validation",
+      "annotations": [
+        "CsValidation",
+        "CsFieldRule",
+        "CsFormRule"
+      ],
+      "builtOn": "`Validators` (`tom_flutter_ui`); **no gap** — provided as **Dart validation methods** (standalone validator classes or methods on the `TomForm` subclass), the §3 first-level-implementation latitude (§5.9, §5.19)",
+      "attributeSurface": "§5.9, §5.19, §3",
+      "slices": [
+        2
+      ],
+      "authoringSteps": [
+        4
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-AC",
+      "canonicalId": "Action",
+      "part": "action",
+      "annotations": [
+        "CsAction",
+        "CsTrigger"
+      ],
+      "builtOn": "`TomAction` / `TomActionController` / `TomActionTrigger` (`tom_flutter_ui`); **no gap** — full action implementation reused (§5.10, §5.20). The closed 5-kind trigger taxonomy rides `@CsTrigger` as a documented classification, not a class",
+      "attributeSurface": "§5.10, §5.20",
+      "slices": [
+        5
+      ],
+      "authoringSteps": [
+        23
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-SC",
+      "canonicalId": "ServerCall",
+      "part": "serverCall",
+      "annotations": [
+        "CsServerCall"
+      ],
+      "builtOn": "`TomServerEndpoint<T,R>` + `TomServerCall` / `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`, §5.3)",
+      "attributeSurface": "§5.3, §5.14",
+      "slices": [
+        5
+      ],
+      "authoringSteps": [
+        23
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-API",
+      "canonicalId": "ServerApi",
+      "part": "serverApi",
+      "annotations": [
+        "CsEndpoint"
+      ],
+      "builtOn": "`TomApi` / `TomApiEndpoint<R,Q>` / `TomRemoteApis` (`tom_core_kernel`) + `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`) (§5.6.1)",
+      "attributeSurface": "§5.6, §5.6.1, §5.14",
+      "slices": [
+        2,
+        4
+      ],
+      "authoringSteps": [
+        5,
+        18
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-SU",
+      "canonicalId": "ServiceUnit",
+      "part": "serviceUnit",
+      "annotations": [
+        "CsServiceUnit"
+      ],
+      "builtOn": "**no gap** — ordinary **(abstract) classes** clustering the server API into functional-group *closures*, carrying the `tom_core_server` server-API mapping annotations (`@tomService` / `TomApiImplementation`) (§5.1, §5.6.2)",
+      "attributeSurface": "§5.1, §5.6, §5.6.2, §5.17",
+      "slices": [
+        4
+      ],
+      "authoringSteps": [
+        18
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-DB",
+      "canonicalId": "DataAccess",
+      "part": "dataAccess",
+      "annotations": [
+        "CsTable",
+        "CsColumn",
+        "CsRepository"
+      ],
+      "builtOn": "Tom persistence model + repository (`tom_core_server`)",
+      "attributeSurface": "§5.13",
+      "slices": [
+        3
+      ],
+      "authoringSteps": [
+        10
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-ST",
+      "canonicalId": "ViewState",
+      "part": "viewState",
+      "annotations": [
+        "CsViewModel"
+      ],
+      "builtOn": "`TomObservable` / `TomObject` (`tom_core_kernel`)",
+      "attributeSurface": "§5.4",
+      "slices": [
+        5
+      ],
+      "authoringSteps": [
+        23
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-NV",
+      "canonicalId": "Navigation",
+      "part": "navigation",
+      "annotations": [
+        "CsRoute",
+        "CsScreenFlow"
+      ],
+      "builtOn": "`TomPageRoute` (`tom_flutter_ui`); route-id + **screen-flow** model `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge` / `TomRouteRegistry` (`tom_core_codespecs`; screen↔form assignment as *replace* / *popup overlay*; action-triggered, conditional targets) → **gap** (§5.11)",
+      "attributeSurface": "§5.11",
+      "slices": [
+        5
+      ],
+      "authoringSteps": [
+        23
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-AZ",
+      "canonicalId": "Authorization",
+      "part": "authorization",
+      "annotations": [
+        "CsAuthorize"
+      ],
+      "builtOn": "`TomAccessControl*` hierarchy + `TomPrincipal` (`tom_core_kernel`); enforcement `checkAccess` / graded auth (`tom_core_server`) (§5.6.3, §5.15)",
+      "attributeSurface": "§5.6, §5.6.3, §5.15",
+      "slices": [
+        1,
+        4,
+        5
+      ],
+      "authoringSteps": [
+        3,
+        19,
+        25
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-ER",
+      "canonicalId": "ErrorResult",
+      "part": "errorResult",
+      "annotations": [
+        "CsError"
+      ],
+      "builtOn": "`TomResult<T>` / `TomErrorResult` (`tom_core_kernel`) (§7)",
+      "attributeSurface": "§5.21, §7",
+      "slices": [
+        1
+      ],
+      "authoringSteps": [
+        2
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-CF",
+      "canonicalId": "ServerConfiguration",
+      "part": "serverConfiguration",
+      "annotations": [
+        "CsServerConfig"
+      ],
+      "builtOn": "`TomBaseServerConfiguration` + `TomServerConfigResourceProvider` (`tom_core_server`) (§5.5, §5.16)",
+      "attributeSurface": "§5.5, §5.16",
+      "slices": [
+        3
+      ],
+      "authoringSteps": [
+        11
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-CC",
+      "canonicalId": "ClientConfiguration",
+      "part": "clientConfiguration",
+      "annotations": [
+        "CsClientConfig"
+      ],
+      "builtOn": "`TomBaseClientConfiguration` + `TomSetting<T>` + `TomClientConfigurationStore` (`tom_core_flutter`); baseline layer `TomConfigResourceProvider` (`tom_core_kernel`) (§5.16)",
+      "attributeSurface": "§5.16",
+      "slices": [
+        6
+      ],
+      "authoringSteps": [
+        28
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-UP",
+      "canonicalId": "UserSettings",
+      "part": "userSettings",
+      "annotations": [
+        "CsUserSetting"
+      ],
+      "builtOn": "`TomUserPreferences` + `TomUserPreferenceRepository` + `TomUserPreferencesServer` (`tom_core_server`) and `TomUserPreferencesClient` (`tom_core_flutter`), both over `tomUserPreferencesApi` + `TomUserPreferenceDto` + `TomUserPreferenceCodec` (`tom_core_kernel`) (§5.16)",
+      "attributeSurface": "§5.16",
+      "slices": [
+        6,
+        7
+      ],
+      "authoringSteps": [
+        21,
+        29
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-DS",
+      "canonicalId": "DeviceSettings",
+      "part": "deviceSettings",
+      "annotations": [
+        "CsDeviceSetting"
+      ],
+      "builtOn": "`TomDevicePreferences` + `TomStoredDevicePreferences` over a per-platform `TomDevicePreferenceStore` (`tom_core_flutter`); the user half of the scope rides the store's `location` (§5.16, §11)",
+      "attributeSurface": "§5.16, §11",
+      "slices": [
+        6
+      ],
+      "authoringSteps": [
+        30
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-CL",
+      "canonicalId": "Client",
+      "part": "client",
+      "annotations": [
+        "CsClient"
+      ],
+      "builtOn": "`TomClientApplication` (`tom_core_codespecs`)",
+      "attributeSurface": "§5",
+      "slices": [
+        6
+      ],
+      "authoringSteps": [
+        31
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-AU",
+      "canonicalId": "Authentication",
+      "part": "authentication",
+      "annotations": [
+        "CsAuth"
+      ],
+      "builtOn": "`TomAuthenticationServer` + `TomAuthenticationService` (`tom_core_server`); `TomBearerAuthentication` / `TomClientJwtToken` / wire types (`tom_core_kernel`); login endpoint triple client-side",
+      "attributeSurface": "§5.25",
+      "slices": [
+        2,
+        4,
+        5
+      ],
+      "authoringSteps": [
+        7,
+        16,
+        26
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-ID",
+      "canonicalId": "Identity",
+      "part": "identity",
+      "annotations": [
+        "CsIdentity",
+        "CsIdentityAttribute"
+      ],
+      "builtOn": "`TomUser` / `TomPrincipal` (`tom_core_kernel`); **reuse — no new class** — the profile extension is an **ordinary class**, directly reusable and carried as **JSON via reflection** in the user profile (§5.24)",
+      "attributeSurface": "§5.24",
+      "slices": [
+        2,
+        4
+      ],
+      "authoringSteps": [
+        6,
+        15
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-MG",
+      "canonicalId": "SchemaMigration",
+      "part": "schemaMigration",
+      "annotations": [
+        "CsMigration"
+      ],
+      "builtOn": "`TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`) (§5.27)",
+      "attributeSurface": "§5.27",
+      "slices": [
+        3
+      ],
+      "authoringSteps": [
+        12
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-JB",
+      "canonicalId": "BackgroundJob",
+      "part": "backgroundJob",
+      "annotations": [
+        "CsJob"
+      ],
+      "builtOn": "`TomJobBase` over the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate, `TomJobDefinition` / `TomSchedule` / `TomScheduler` / `TomJobStore` / `TomLeaseLock` / `TomJobDispatcher` (`tom_core_kernel`, `tombase/scheduling/`) — **the whole runtime half is reused**; `TomJobDeclaration` (`tom_core_codespecs`) → **narrow gap** for the deployment-and-ownership envelope only. The work body is **form 3b** over the `SCJOST` work-step list, falling back to 3a on the prose work intent where a job lists no steps (§5.29)",
+      "attributeSurface": "§5.29",
+      "slices": [
+        7
+      ],
+      "authoringSteps": [
+        22
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-LG",
+      "canonicalId": "AuditLog",
+      "part": "auditLog",
+      "annotations": [
+        "CsAudited"
+      ],
+      "builtOn": "`TomAuditTrail` / `TomAuditRecord` / `TomAuditSink` + the `@TomAudited` declaration (`tom_core_server` `audit`); **reuse, no gap** — the trail records automatically at the endpoint and repository chokepoints, and the spec authors only the declared half (§4.3)",
+      "attributeSurface": "§4.3",
+      "slices": [
+        3,
+        4
+      ],
+      "authoringSteps": [
+        13,
+        20
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-NT",
+      "canonicalId": "Notification",
+      "part": "notification",
+      "annotations": [
+        "CsNotification",
+        "CsNotificationChannel"
+      ],
+      "builtOn": "`TomNotificationType` / `TomNotificationChannelDeclaration` / `TomNotificationPreferences` / `TomNotificationCatalog` (`tom_core_codespecs`) → **gap** for the choosing layer, over `TomMessage` / `TomMessageRouter` / `TomMessageOutbox` (`tom_core_server` `messaging`) for delivery (§4.3)",
+      "attributeSurface": "§4.3",
+      "slices": [
+        2,
+        4
+      ],
+      "authoringSteps": [
+        8,
+        17
+      ],
+      "active": true
+    },
+    {
+      "code": "CE-RP",
+      "canonicalId": "Reporting",
+      "part": "reporting",
+      "annotations": [
+        "CsReport",
+        "CsReportColumn",
+        "CsReportChart",
+        "CsReportParameter"
+      ],
+      "builtOn": "`TomReportDefinition` / `TomReportResult` (+ dimension / measure / column / parameter / chart) (`tom_core_codespecs`) → **gap** for the grouped projection and the shared result envelope, over `TomGroupedSelect` / `TomAggregate` (`tom_core_server` `object_persistence`) for execution and `TomTabularResult` + the CSV/XLSX/PDF renderers (`tom_core_server` `export`) for rendering (§5.28)",
+      "attributeSurface": "§5.28",
+      "slices": [
+        2,
+        3
+      ],
+      "authoringSteps": [
+        9,
+        14
+      ],
+      "active": true
+    }
+  ]
+}

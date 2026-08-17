@@ -518,6 +518,16 @@ language mirrors it:
   declaration order (below).
 - `spec_query.dart` — the query facility (§15).
 - `spec_node_creation.dart` — the constrained-creation gate (§15).
+- `spec_codespecs_extract.dart` — the Phase-4 **extract generator**: it reads a
+  filled document's `@CodeSpecKind` routing and emits one extract per active
+  CodeSpecs area, each carrying the area's own context beside its content
+  (`codespecs_mapping.md` §1.1.1). It is mirrored in all nine languages for the
+  same reason the rest of this surface is — a Dart-only extractor would make
+  Phase 4 a Dart-only phase, and the SOM exists so that a project specified in
+  TomSpecs is not thereby a Dart project. It **copies and indexes but never
+  composes**: `codespecs_derivation_contract.md` §2.8 C1 binds it, and every
+  runtime's conformance run checks the prohibition rather than trusting it, by
+  asserting each emitted value is a value the document stores.
 
 The Dart runtime additionally carries **`spec_annotation_display.dart`** and the
 test-only `spec_display_fixture.dart`: the theme-free *display semantics* of the

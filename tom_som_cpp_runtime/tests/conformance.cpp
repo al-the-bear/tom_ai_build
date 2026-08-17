@@ -19,6 +19,8 @@
  *   - the SOM §14 DocSpecs tier (one case per violation rule);
  *   - the SOM §9 text-pattern subset (match spans + compile rejections);
  *   - the SOM §9 query surface, flat node projection and lazy cursor;
+ *   - the Phase-4 CodeSpecs extract generator (routing verdicts, the per-area
+ *     extracts and their YAML/Markdown goldens, ROUTE-TOTAL refusals);
  *   - llm_and_d4rt_tools.md §5 constrained node creation (checks + script).
  *
  * The corpus directory is argv[1], defaulting to
@@ -1265,6 +1267,224 @@ static void test_projection(Checker& c, const som::SpecModel& model) {
   }
 }
 
+/* The Phase-4 CodeSpecs specification-extract generator
+ * (`codespecs_mapping.md` §1.1.1): the routing diagnostic, the per-area extract
+ * goldens (including the YAML and Markdown artifacts byte for byte), and the two
+ * guards that keep the generator a copier rather than an author. */
+static void test_codespecs_extract(Checker& c, const som::SpecModel& model) {
+  som::SpecDocument doc = fresh_document();
+  som::JsonPtr table = read_json("codespecs_extract_cases.json");
+  som::JsonRef catalogJson = som::jsonGet(table, "catalog");
+  som::CodeSpecsExtractor extractor(
+      model, doc, som::CodeSpecsAreaCatalog::fromJson(catalogJson));
+
+  // 1. The routing verdicts reproduce the committed diagnostic.
+  som::JsonRef wantRoutings = som::jsonGet(table, "routings");
+  std::vector<som::CodeSpecsRouting> gotRoutings = extractor.routings();
+  std::size_t rn = som::jsonArrayLen(wantRoutings);
+  c.check("codeSpecsExtract.routings.count", gotRoutings.size() == rn,
+          std::to_string(gotRoutings.size()) + " != " + std::to_string(rn));
+  std::size_t rlimit = gotRoutings.size() < rn ? gotRoutings.size() : rn;
+  for (std::size_t i = 0; i < rlimit; i++) {
+    som::JsonRef w = som::jsonArrayAt(wantRoutings, i);
+    const som::CodeSpecsRouting& r = gotRoutings[i];
+    std::string tag = "codeSpecsExtract.routings[" + std::to_string(i) + "] " +
+                      r.path;
+    c.check(tag + ".path", r.path == som::jsonStrOr(w, "path"),
+            r.path + " != " + som::jsonStrOr(w, "path"));
+    c.check(tag + ".className", r.className == som::jsonStrOr(w, "className"),
+            r.className);
+    std::string verdict = som::codeSpecsRoutingVerdictName(r.verdict);
+    c.check(tag + ".verdict", verdict == som::jsonStrOr(w, "verdict"),
+            verdict + " != " + som::jsonStrOr(w, "verdict"));
+    std::vector<std::string> wantValues =
+        json_str_list(som::jsonGet(w, "values"));
+    c.check(tag + ".values", r.values == wantValues,
+            join(r.values) + " != " + join(wantValues));
+    c.check(tag + ".note",
+            opt_text(r.note) == json_opt_text(som::jsonGet(w, "note")),
+            opt_text(r.note));
+    c.check(tag + ".declaredAt", r.declaredAt == som::jsonStrOr(w, "declaredAt"),
+            r.declaredAt);
+  }
+
+  // 2. The extracts reproduce the committed goldens byte for byte.
+  som::JsonRef wantExtracts = som::jsonGet(table, "extracts");
+  std::vector<som::CodeSpecsExtract> gotExtracts = extractor.extractAll();
+  std::size_t xn = som::jsonArrayLen(wantExtracts);
+  c.check("codeSpecsExtract.extracts.count", gotExtracts.size() == xn,
+          std::to_string(gotExtracts.size()) + " != " + std::to_string(xn));
+  std::size_t xlimit = gotExtracts.size() < xn ? gotExtracts.size() : xn;
+  for (std::size_t i = 0; i < xlimit; i++) {
+    som::JsonRef w = som::jsonArrayAt(wantExtracts, i);
+    const som::CodeSpecsExtract& x = gotExtracts[i];
+    std::string tag = "codeSpecsExtract[" + x.area.code + "]";
+
+    c.check(tag + ".area", x.area.code == som::jsonStrOr(w, "area"),
+            x.area.code + " != " + som::jsonStrOr(w, "area"));
+    c.check(tag + ".canonicalId",
+            x.area.canonicalId == som::jsonStrOr(w, "canonicalId"),
+            x.area.canonicalId);
+    c.check(tag + ".part", x.area.kindValue() == som::jsonStrOr(w, "part"),
+            x.area.kindValue());
+    c.check(tag + ".documentRoot",
+            x.documentRoot == som::jsonStrOr(w, "documentRoot"),
+            x.documentRoot);
+    c.check(tag + ".fileStem", x.fileStem() == som::jsonStrOr(w, "fileStem"),
+            x.fileStem());
+    std::vector<std::string> wantProjects =
+        json_str_list(som::jsonGet(w, "projects"));
+    c.check(tag + ".projects", x.projects == wantProjects,
+            join(x.projects) + " != " + join(wantProjects));
+    std::vector<std::string> wantCitable =
+        json_str_list(som::jsonGet(w, "citableParts"));
+    c.check(tag + ".citableParts", x.citableParts == wantCitable,
+            join(x.citableParts) + " != " + join(wantCitable));
+
+    som::JsonRef wantEntries = som::jsonGet(w, "entries");
+    std::size_t en = som::jsonArrayLen(wantEntries);
+    c.check(tag + ".entries.count", x.entries.size() == en,
+            std::to_string(x.entries.size()) + " != " + std::to_string(en));
+    std::size_t elimit = x.entries.size() < en ? x.entries.size() : en;
+    for (std::size_t j = 0; j < elimit; j++) {
+      som::JsonRef we = som::jsonArrayAt(wantEntries, j);
+      const som::CodeSpecsExtractEntry& e = x.entries[j];
+      std::string etag = tag + ".entries[" + std::to_string(j) + "]";
+      c.check(etag + ".sectionId", e.sectionId == som::jsonStrOr(we, "sectionId"),
+              e.sectionId + " != " + som::jsonStrOr(we, "sectionId"));
+      c.check(etag + ".path", e.path == som::jsonStrOr(we, "path"),
+              e.path + " != " + som::jsonStrOr(we, "path"));
+      c.check(etag + ".className", e.className == som::jsonStrOr(we, "className"),
+              e.className);
+      c.check(etag + ".fieldName", e.fieldName == som::jsonStrOr(we, "fieldName"),
+              e.fieldName);
+      c.check(etag + ".formField",
+              opt_text(e.formField) ==
+                  json_opt_text(som::jsonGet(we, "formField")),
+              opt_text(e.formField));
+      c.check(etag + ".routedBy", e.routedBy == som::jsonStrOr(we, "routedBy"),
+              e.routedBy);
+      c.check(etag + ".routedAt", e.routedAt == som::jsonStrOr(we, "routedAt"),
+              e.routedAt);
+      c.check(etag + ".routingNote",
+              opt_text(e.routingNote) ==
+                  json_opt_text(som::jsonGet(we, "routingNote")),
+              opt_text(e.routingNote));
+      c.check(etag + ".value", e.value == som::jsonStrOr(we, "value"), e.value);
+    }
+
+    std::string gotYaml = x.toYaml();
+    std::string wantYaml = som::jsonStrOr(w, "yaml");
+    c.check(tag + ".yaml", gotYaml == wantYaml,
+            byte_diff(tag + ".yaml", gotYaml, wantYaml));
+    std::string gotMd = x.toMarkdown();
+    std::string wantMd = som::jsonStrOr(w, "markdown");
+    c.check(tag + ".markdown", gotMd == wantMd,
+            byte_diff(tag + ".markdown", gotMd, wantMd));
+  }
+
+  // 3. Every emitted value occurs verbatim in the source document — the guard
+  // `codespecs_derivation_contract.md` §2.8 C1 rests on, carried in the corpus
+  // rather than left to each port's own conscience: the generator may copy and
+  // index, it may not compose. Membership, not substring — that is what makes
+  // "verbatim" mean verbatim rather than "derived from".
+  som::JsonPtr state = read_json("state.json");
+  std::set<std::string> stored;
+  som::JsonRef content = som::jsonGet(state, "content");
+  if (content != nullptr && content->type == som::JsonType::Object) {
+    for (const auto& member : content->object) {
+      const std::string* s = som::jsonAsStr(member.second);
+      if (s != nullptr) stored.insert(*s);
+    }
+  }
+  som::JsonRef forms = som::jsonGet(state, "forms");
+  if (forms != nullptr && forms->type == som::JsonType::Object) {
+    for (const auto& section : forms->object) {
+      if (section.second == nullptr ||
+          section.second->type != som::JsonType::Object) {
+        continue;
+      }
+      for (const auto& field : section.second->object) {
+        const std::string* s = som::jsonAsStr(field.second);
+        if (s != nullptr) stored.insert(*s);
+      }
+    }
+  }
+  c.check("codeSpecsExtract.storedValues", !stored.empty(),
+          std::to_string(stored.size()));
+
+  // 4. A @FollowUpKind subtree contributes to no extract. `Control` is
+  // populated, and populated distinctively, so its absence cannot be an accident
+  // of an empty section; `alice` is a @NoArtifact section's own leaf.
+  static const char* kUnroutable[] = {"Controlled summary", "ctrl-owner",
+                                      "alice"};
+  std::set<std::string> emitted;
+  for (std::size_t i = 0; i < xn; i++) {
+    som::JsonRef w = som::jsonArrayAt(wantExtracts, i);
+    std::string area = som::jsonStrOr(w, "area");
+    som::JsonRef entries = som::jsonGet(w, "entries");
+    std::size_t en = som::jsonArrayLen(entries);
+    for (std::size_t j = 0; j < en; j++) {
+      som::JsonRef e = som::jsonArrayAt(entries, j);
+      std::string value = som::jsonStrOr(e, "value");
+      emitted.insert(value);
+      c.check("codeSpecsExtract.verbatim " + area + " " +
+                  som::jsonStrOr(e, "path"),
+              stored.count(value) != 0, value);
+    }
+  }
+  for (const char* value : kUnroutable) {
+    c.check(std::string("codeSpecsExtract.notRouted ") + value,
+            emitted.count(value) == 0, value);
+  }
+
+  // 5. The error cases: a section routed nowhere is a hard failure of extraction
+  // and a reported `unrouted` verdict of the diagnostic. Each case carries its
+  // own model and (empty) state rather than mutating the shared fixture —
+  // `model.meta.json` is a VALID model by construction (§10.2 ROUTE-TOTAL holds
+  // over it) and a port should not have to break it to run this case.
+  som::JsonRef errorCases = som::jsonGet(table, "errorCases");
+  std::size_t cn = som::jsonArrayLen(errorCases);
+  for (std::size_t i = 0; i < cn; i++) {
+    som::JsonRef k = som::jsonArrayAt(errorCases, i);
+    std::string tag = "codeSpecsExtract.error[" + som::jsonStrOr(k, "name") + "]";
+    auto errModel = som::SpecModel::fromJson(som::jsonGet(k, "model"));
+    if (errModel == nullptr) {
+      c.check(tag + ".model", false, "model did not load");
+      continue;
+    }
+    som::SpecDocument errDoc =
+        doc_from_state(som::documentJsonFromJson(som::jsonGet(k, "state")));
+    som::CodeSpecsExtractor errExtractor(
+        *errModel, errDoc, som::CodeSpecsAreaCatalog::fromJson(catalogJson));
+
+    som::JsonRef want = som::jsonGet(k, "expect");
+    std::string wantPath = som::jsonStrOr(want, "path");
+    try {
+      errExtractor.extractAll();
+      c.check(tag, false, "did not throw");
+    } catch (const som::CodeSpecsExtractError& e) {
+      c.check(tag + ".path", e.path() == wantPath, e.path() + " != " + wantPath);
+      c.check(tag + ".className",
+              e.className() == som::jsonStrOr(want, "className"),
+              e.className());
+      std::string contains = som::jsonStrOr(want, "messageContains");
+      c.check(tag + ".message",
+              e.message().find(contains) != std::string::npos, e.message());
+    }
+
+    // The diagnostic reports the same node instead of failing over it.
+    std::vector<std::string> verdicts;
+    for (const som::CodeSpecsRouting& r : errExtractor.routings()) {
+      if (r.path == wantPath) {
+        verdicts.emplace_back(som::codeSpecsRoutingVerdictName(r.verdict));
+      }
+    }
+    std::vector<std::string> wantVerdicts{som::jsonStrOr(want, "routingVerdict")};
+    c.check(tag + ".routingVerdict", verdicts == wantVerdicts, join(verdicts));
+  }
+}
+
 /* The cursor's laziness and its view of a **mutating** document: the script
  * removes a list item between opening a cursor and draining it, and the removed
  * item must not surface. */
@@ -1453,6 +1673,7 @@ int main(int argc, char** argv) {
   test_text_pattern(c);
   test_query(c, *model);
   test_projection(c, *model);
+  test_codespecs_extract(c, *model);
   test_cursor(c, *model);
   test_node_creation_cases(c, *model);
   test_node_creation_script(c, *model);

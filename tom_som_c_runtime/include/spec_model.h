@@ -39,6 +39,104 @@ typedef struct {
 /* Returns the argument value for `key` on `ann`, or NULL. */
 const SomJson *spec_annotation_argument(const SpecAnnotation *ann, const char *key);
 
+/* ---- annotation lookups shared by classes and fields --------------------- */
+
+/* Classes and fields both carry a `SpecAnnotationList`, and the same questions
+ * are asked of both. C has no mixin, so the shared behaviour of the Dart
+ * reference's `AnnotatedSpecNode` is written once as functions **over the
+ * annotation array** — `cls->annotations` / `field->annotations` — rather than
+ * duplicated per node type. */
+
+/* Returns the annotation named `name`, or NULL when absent. */
+const SpecAnnotation *spec_annotations_named(const SpecAnnotationList *l,
+                                             const char *name);
+
+/* Reports whether the annotation named `name` is present. For markers that
+ * carry no arguments, presence *is* the whole statement. */
+int spec_annotations_have(const SpecAnnotationList *l, const char *name);
+
+/* `CodeSpecPart.validation` → `validation`. A name already given bare is
+ * returned unchanged, so readers do not depend on how the exporter chose to
+ * spell the enum constant. Splitting on the last dot rather than a fixed prefix
+ * keeps this working for any code enum the model adds. Returns a **borrowed**
+ * pointer into `raw` ("" when `raw` is NULL). */
+const char *spec_strip_enum_prefix(const char *raw);
+
+/* A list-valued taxonomy annotation: a set of enum codes plus an optional
+ * explanatory note.
+ *
+ * The model states where a subtree is headed with two such annotations, which
+ * share this shape exactly — `@CodeSpecKind(List<CodeSpecPart>, {note})` names
+ * the CodeSpecs part(s) a section type must be realised as
+ * (`codespecs_mapping.md` §9.1/§9.5), and
+ * `@FollowUpKind(List<FollowUpProcess>, {note})` names the downstream
+ * *process(es)* a non-code subtree feeds (`codespecs_mapping.md` §8.3). One
+ * reader serves both; which annotation a link came from is expressed by which
+ * function produced it.
+ *
+ * Obtaining a link at all means the annotation is present. That matters: a node
+ * with no link has not been classified yet, whereas a link with empty `kinds`
+ * is a recorded decision that the section belongs to no member of that
+ * taxonomy. The two are different statements, which is why the readers below
+ * return 1/0 for presence instead of an empty list for both. */
+typedef struct {
+  /* The enum code names with their type prefix stripped — `validation`, not
+   * `CodeSpecPart.validation`; `doc`, not `FollowUpProcess.doc`.
+   *
+   * Both annotations are list-valued because one section can be realised as
+   * several parts, or feed several processes; consumers must handle all of
+   * them, not just the first. */
+  SomStrList kinds;
+  /* The annotation's free-text `note`, explaining the classification; NULL when
+   * it carries none (distinct from a note authored as ""). */
+  char *note;
+} SpecKindLink;
+
+/* Frees the owned members of `*l`. Safe on a zeroed struct. */
+void spec_kind_link_free(SpecKindLink *l);
+
+/* The third routing verdict: `@NoArtifact(NoArtifactReason, {note})` — the
+ * section feeds neither a CodeSpecs part nor a follow-up process
+ * (`codespecs_mapping.md` §8.3).
+ *
+ * Single-valued where `SpecKindLink` is a list, and the asymmetry is the point:
+ * a section can feed several parts or several processes at once, but it is
+ * unrouted for exactly one reason. That reason is what makes the absence of the
+ * other two markers readable as a decision rather than an omission, which is
+ * what `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` checks. */
+typedef struct {
+  /* The `NoArtifactReason` code name with its type prefix stripped —
+   * `container`, not `NoArtifactReason.container`. One of `container`,
+   * `overview`, `view`; `container` when the argument is absent. Owned. */
+  char *reason;
+  /* The annotation's free-text `note`. On an `overview` this customarily names
+   * the routed section that states the material normatively. NULL when absent. */
+  char *note;
+} SpecNoArtifactLink;
+
+/* Frees the owned members of `*l`. Safe on a zeroed struct. */
+void spec_no_artifact_link_free(SpecNoArtifactLink *l);
+
+/* The `@CodeSpecKind` link — which CodeSpecs part(s) this node must be realised
+ * as. Its list argument is named `kinds`. Returns 1 and fills `*out` (release
+ * with `spec_kind_link_free`) when the annotation is present, 0 when it is
+ * absent, leaving `*out` untouched. */
+int spec_annotations_code_spec_kind(const SpecAnnotationList *l,
+                                    SpecKindLink *out);
+
+/* The `@FollowUpKind` link — which downstream process(es) this subtree feeds
+ * instead of becoming CodeSpecs code (`codespecs_mapping.md` §8.3). Its list
+ * argument is named `processes`, not `kinds`. Same return contract as
+ * `spec_annotations_code_spec_kind`. */
+int spec_annotations_follow_up_kind(const SpecAnnotationList *l,
+                                    SpecKindLink *out);
+
+/* The `@NoArtifact` verdict — the recorded decision that the section produces
+ * nothing downstream. Returns 1 and fills `*out` (release with
+ * `spec_no_artifact_link_free`) when present, 0 when absent. */
+int spec_annotations_no_artifact(const SpecAnnotationList *l,
+                                 SpecNoArtifactLink *out);
+
 typedef struct {
   char *name;
   char *label;

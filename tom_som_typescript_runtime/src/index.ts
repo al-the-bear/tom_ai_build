@@ -36,6 +36,8 @@ export {
   SpecRoot,
   SpecModel,
   SpecModelStampCheck,
+  KindLink,
+  NoArtifactLink,
   MILLIS_PER_DAY,
   DEFAULT_MAX_SNAPSHOT_AGE_MS,
   parseStampTimestamp,
@@ -108,6 +110,24 @@ export {
   SpecNodeCreator,
 } from './spec_node_creation';
 export type { SpecCreationCodeValue } from './spec_node_creation';
+
+// Phase-4 CodeSpecs specification extract generator (codespecs_mapping.md §1.1.1)
+export {
+  K_CODE_SPECS_EXTRACT_FORMAT,
+  K_CODE_SPEC_KIND_ANNOTATION,
+  K_FOLLOW_UP_KIND_ANNOTATION,
+  K_NO_ARTIFACT_ANNOTATION,
+  CodeSpecsRoutingVerdict,
+  CodeSpecsRouting,
+  CodeSpecsExtractEntry,
+  CodeSpecsSlice,
+  CodeSpecsArea,
+  CodeSpecsAreaCatalog,
+  CodeSpecsExtract,
+  CodeSpecsExtractError,
+  CodeSpecsExtractor,
+} from './spec_codespecs_extract';
+export type { CodeSpecsRoutingVerdictValue } from './spec_codespecs_extract';
 
 // validator
 export {

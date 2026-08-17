@@ -55,6 +55,183 @@ class SpecAnnotation {
   }
 }
 
+/**
+ * `CodeSpecPart.validation` → `validation`. A name already given bare is
+ * returned unchanged, so readers do not depend on how the exporter chose to
+ * spell the enum constant. Splitting on the last dot rather than a fixed prefix
+ * keeps this working for any code enum the model adds.
+ *
+ * @param {string} raw
+ * @returns {string}
+ */
+function _stripEnumPrefix(raw) {
+  const dot = raw.lastIndexOf('.');
+  return dot < 0 ? raw : raw.slice(dot + 1);
+}
+
+/**
+ * A list-valued taxonomy annotation: a set of enum codes plus an optional
+ * explanatory note.
+ *
+ * The model states where a subtree is headed with two such annotations, which
+ * share this shape exactly — `@CodeSpecKind(List<CodeSpecPart>, {note})` names
+ * the CodeSpecs part(s) a section type must be realised as
+ * (`codespecs_mapping.md` §9.1/§9.5), and
+ * `@FollowUpKind(List<FollowUpProcess>, {note})` names the downstream
+ * *process(es)* a non-code subtree feeds (`codespecs_mapping.md` §8.3). One
+ * reader serves both; which annotation a link came from is expressed by which
+ * accessor produced it.
+ *
+ * Obtaining a link at all means the annotation is present. That matters: a node
+ * with no link has not been classified yet, whereas a link with empty
+ * {@link KindLink#kinds} is a recorded decision that the section belongs to no
+ * member of that taxonomy. The two are different statements, so they are
+ * different values rather than one nullable list.
+ */
+class KindLink {
+  constructor({ kinds = [], note = null } = {}) {
+    /**
+     * The enum code names with their type prefix stripped — `validation`, not
+     * `CodeSpecPart.validation`; `doc`, not `FollowUpProcess.doc`.
+     *
+     * Both annotations are list-valued because one section can be realised as
+     * several parts, or feed several processes; consumers must handle all of
+     * them, not just the first.
+     * @type {string[]}
+     */
+    this.kinds = kinds;
+    /** The annotation's free-text `note`, explaining the classification.
+     * @type {?string} */
+    this.note = note;
+  }
+
+  /**
+   * Reads a link out of `annotation`, taking the code list from the argument
+   * named `listArgument` — `kinds` for `@CodeSpecKind`, `processes` for
+   * `@FollowUpKind`.
+   *
+   * @param {SpecAnnotation} annotation
+   * @param {{listArgument: string}} options
+   * @returns {KindLink}
+   */
+  static fromAnnotation(annotation, { listArgument }) {
+    const raw = annotation.argument(listArgument);
+    return new KindLink({
+      kinds: Array.isArray(raw)
+        ? raw.filter((k) => k != null).map((k) => _stripEnumPrefix(String(k)))
+        : [],
+      note: annotation.argument('note') != null ? annotation.argument('note') : null,
+    });
+  }
+}
+
+/**
+ * The third routing verdict: `@NoArtifact(NoArtifactReason, {note})` — the
+ * section feeds neither a CodeSpecs part nor a follow-up process
+ * (`codespecs_mapping.md` §8.3).
+ *
+ * Single-valued where {@link KindLink} is a list, and the asymmetry is the
+ * point: a section can feed several parts or several processes at once, but it
+ * is unrouted for exactly one reason. That reason is what makes the absence of
+ * the other two markers readable as a decision rather than an omission, which is
+ * what `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` checks.
+ */
+class NoArtifactLink {
+  constructor({ reason, note = null }) {
+    /**
+     * The `NoArtifactReason` code name with its type prefix stripped —
+     * `container`, not `NoArtifactReason.container`. One of `container`,
+     * `overview`, `view`.
+     * @type {string}
+     */
+    this.reason = reason;
+    /** The annotation's free-text `note`. On an `overview` this customarily
+     * names the routed section that states the material normatively.
+     * @type {?string} */
+    this.note = note;
+  }
+
+  /**
+   * Reads the verdict out of `annotation`.
+   *
+   * @param {SpecAnnotation} annotation
+   * @returns {NoArtifactLink}
+   */
+  static fromAnnotation(annotation) {
+    const reason = annotation.argument('reason');
+    return new NoArtifactLink({
+      reason: _stripEnumPrefix(reason != null ? String(reason) : 'container'),
+      note: annotation.argument('note') != null ? annotation.argument('note') : null,
+    });
+  }
+}
+
+/**
+ * Shared behaviour of the two model nodes that carry annotations — classes and
+ * fields. Dart states it as a mixin; JavaScript has no mixin keyword, so the
+ * members are declared once here and installed on both prototypes with
+ * {@link Object.defineProperties}. Either way the annotation lookups are
+ * defined once instead of per node type.
+ *
+ * Descriptors rather than an object literal so the getters survive the copy and
+ * stay non-enumerable — an instance must serialise as its own data, not as its
+ * derived views.
+ */
+const _ANNOTATED_SPEC_NODE = {
+  /**
+   * Whether the annotation named `name` is present. For markers that carry no
+   * arguments, presence *is* the whole statement.
+   */
+  hasAnnotation: {
+    value: function hasAnnotation(name) {
+      return this.annotation(name) !== null;
+    },
+  },
+
+  /** The `@CodeSpecKind` link, or `null` when this node carries no such
+   * annotation. See {@link KindLink} for why absent and empty differ. */
+  codeSpecKind: {
+    get: function codeSpecKind() {
+      return _kindLink(this, 'CodeSpecKind', 'kinds');
+    },
+  },
+
+  /** The `@FollowUpKind` link, or `null` when this node carries no such
+   * annotation — which downstream process(es) this subtree feeds instead of
+   * becoming CodeSpecs code (`codespecs_mapping.md` §8.3). */
+  followUpKind: {
+    get: function followUpKind() {
+      return _kindLink(this, 'FollowUpKind', 'processes');
+    },
+  },
+
+  /** The `@NoArtifact` verdict, or `null` when this node carries no such
+   * annotation — the recorded decision that the section produces nothing
+   * downstream (`codespecs_mapping.md` §8.3). */
+  noArtifact: {
+    get: function noArtifact() {
+      const a = this.annotation('NoArtifact');
+      return a === null ? null : NoArtifactLink.fromAnnotation(a);
+    },
+  },
+};
+
+/**
+ * The `@CodeSpecKind` / `@FollowUpKind` reader both accessors share. Both
+ * annotations ride the generic annotation bag (SOM §5.3) rather than a
+ * dedicated meta slot, so they are looked up by name; only the name of their
+ * list argument differs.
+ *
+ * @param {SpecField|SpecClass} node
+ * @param {string} name
+ * @param {string} listArgument
+ * @returns {?KindLink}
+ */
+function _kindLink(node, name, listArgument) {
+  const a = node.annotation(name);
+  return a === null ? null : KindLink.fromAnnotation(a, { listArgument });
+}
+
 /** A single form field within a `@Form` content section. */
 class FormFieldSpec {
   constructor({
@@ -198,6 +375,11 @@ class SpecClass {
     return this.annotations.find((a) => a.name === name) || null;
   }
 }
+
+// The two annotation-carrying node types share one reader — see
+// `_ANNOTATED_SPEC_NODE`.
+Object.defineProperties(SpecField.prototype, _ANNOTATED_SPEC_NODE);
+Object.defineProperties(SpecClass.prototype, _ANNOTATED_SPEC_NODE);
 
 /** A document root (a class carrying `@Document`). */
 class SpecRoot {
@@ -587,6 +769,8 @@ module.exports = {
   SpecFieldKind,
   parseFieldKind,
   SpecAnnotation,
+  KindLink,
+  NoArtifactLink,
   FormFieldSpec,
   SpecField,
   SpecClass,

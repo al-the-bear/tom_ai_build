@@ -16,6 +16,7 @@
 pub mod docspecs_validator;
 pub mod json;
 pub mod som_facade;
+pub mod spec_codespecs_extract;
 pub mod spec_document;
 pub mod spec_document_markdown;
 pub mod spec_document_yaml;
@@ -55,6 +56,12 @@ pub use som_facade::{
     check_som_model_version, doc_ref, som_editability_for, DocRef, SomEditability, SomList,
     SomNode, SomScalar, SomVersionError,
 };
+pub use spec_codespecs_extract::{
+    CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsExtract, CodeSpecsExtractEntry,
+    CodeSpecsExtractError, CodeSpecsExtractor, CodeSpecsRouting, CodeSpecsRoutingVerdict,
+    CodeSpecsSlice, CODE_SPECS_EXTRACT_FORMAT, CODE_SPEC_KIND_ANNOTATION,
+    FOLLOW_UP_KIND_ANNOTATION, NO_ARTIFACT_ANNOTATION,
+};
 pub use spec_document::{DocumentJson, ListJson, SpecDocument};
 pub use spec_document_markdown::{
     spec_markdown_form_label, spec_markdown_item_title_stem, spec_markdown_kebab_case,
@@ -77,8 +84,9 @@ pub use spec_meta::{
 pub use spec_meta_bridge::build_som_meta_tree;
 pub use spec_meta_diff::som_meta_node_diff;
 pub use spec_model::{
-    parse_field_kind, parse_stamp_timestamp, som_model_version_string, FormFieldSpec,
-    SpecAnnotation, SpecClass, SpecField, SpecModel, SpecModelStampCheck, SpecRoot,
+    annotation_named, code_spec_kind, follow_up_kind, no_artifact, parse_field_kind,
+    parse_stamp_timestamp, som_model_version_string, strip_enum_prefix, FormFieldSpec, KindLink,
+    NoArtifactLink, SpecAnnotation, SpecClass, SpecField, SpecModel, SpecModelStampCheck, SpecRoot,
     DEFAULT_MAX_SNAPSHOT_AGE_SECONDS, SECONDS_PER_DAY,
 };
 pub use spec_node_creation::{

@@ -35,6 +35,21 @@ from .docspecs_validator import (
     bind_docspecs_markdown,
     doc_specs_id_transform,
 )
+from .spec_codespecs_extract import (
+    K_CODE_SPECS_EXTRACT_FORMAT,
+    K_CODE_SPEC_KIND_ANNOTATION,
+    K_FOLLOW_UP_KIND_ANNOTATION,
+    K_NO_ARTIFACT_ANNOTATION,
+    CodeSpecsArea,
+    CodeSpecsAreaCatalog,
+    CodeSpecsExtract,
+    CodeSpecsExtractEntry,
+    CodeSpecsExtractError,
+    CodeSpecsExtractor,
+    CodeSpecsRouting,
+    CodeSpecsRoutingVerdict,
+    CodeSpecsSlice,
+)
 from .spec_document import SpecDocument
 from .spec_section_id import (
     K_SECTION_ID_SLOT,
@@ -75,7 +90,10 @@ from .spec_meta_bridge import build_som_meta_tree
 from .spec_meta_diff import som_meta_node_diff
 from .spec_model import (
     DEFAULT_MAX_SNAPSHOT_AGE,
+    AnnotatedSpecNode,
     FormFieldSpec,
+    KindLink,
+    NoArtifactLink,
     SpecAnnotation,
     SpecClass,
     SpecField,
@@ -139,6 +157,16 @@ from .spec_validator import (
 
 __all__ = [
     "DEFAULT_MAX_SNAPSHOT_AGE",
+    "AnnotatedSpecNode",
+    "CodeSpecsArea",
+    "CodeSpecsAreaCatalog",
+    "CodeSpecsExtract",
+    "CodeSpecsExtractEntry",
+    "CodeSpecsExtractError",
+    "CodeSpecsExtractor",
+    "CodeSpecsRouting",
+    "CodeSpecsRoutingVerdict",
+    "CodeSpecsSlice",
     "DocSpecsDocument",
     "DocSpecsDocumentSection",
     "DocSpecsFormField",
@@ -153,9 +181,15 @@ __all__ = [
     "DocSpecsViolationRule",
     "FORMAT_VERSION",
     "FormFieldSpec",
+    "K_CODE_SPECS_EXTRACT_FORMAT",
+    "K_CODE_SPEC_KIND_ANNOTATION",
+    "K_FOLLOW_UP_KIND_ANNOTATION",
+    "K_NO_ARTIFACT_ANNOTATION",
     "K_SECTION_ID_SLOT",
+    "KindLink",
     "ListItemSegment",
     "MarkdownFenceTracker",
+    "NoArtifactLink",
     "SPEC_PATH_SEPARATOR",
     "SomContentTypeMeta",
     "SomDocMeta",

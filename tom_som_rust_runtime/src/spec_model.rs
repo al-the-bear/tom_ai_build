@@ -54,6 +54,163 @@ impl SpecAnnotation {
     }
 }
 
+/// A list-valued taxonomy annotation: a set of enum codes plus an optional
+/// explanatory note.
+///
+/// The model states where a subtree is headed with two such annotations, which
+/// share this shape exactly — `@CodeSpecKind(List<CodeSpecPart>, {note})` names
+/// the CodeSpecs part(s) a section type must be realised as
+/// (`codespecs_mapping.md` §9.1/§9.5), and
+/// `@FollowUpKind(List<FollowUpProcess>, {note})` names the downstream
+/// *process(es)* a non-code subtree feeds (`codespecs_mapping.md` §8.3). One
+/// reader serves both; which annotation a link came from is expressed by which
+/// accessor produced it.
+///
+/// Obtaining a link at all means the annotation is present. That matters: a node
+/// with no link has not been classified yet, whereas a link with empty
+/// [`Self::kinds`] is a recorded decision that the section belongs to no member
+/// of that taxonomy. The two are different statements, so they are different
+/// values rather than one empty list.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct KindLink {
+    /// The enum code names with their type prefix stripped — `validation`, not
+    /// `CodeSpecPart.validation`; `doc`, not `FollowUpProcess.doc`.
+    ///
+    /// Both annotations are list-valued because one section can be realised as
+    /// several parts, or feed several processes; consumers must handle all of
+    /// them, not just the first.
+    pub kinds: Vec<String>,
+
+    /// The annotation's free-text `note`, explaining the classification.
+    pub note: Option<String>,
+}
+
+impl KindLink {
+    /// Reads a link out of `annotation`, taking the code list from the argument
+    /// named `list_argument` — `kinds` for `@CodeSpecKind`, `processes` for
+    /// `@FollowUpKind`.
+    pub fn from_annotation(annotation: &SpecAnnotation, list_argument: &str) -> KindLink {
+        let kinds = match annotation.argument(list_argument) {
+            Some(Json::Array(items)) => items
+                .iter()
+                .filter_map(annotation_value_text)
+                .map(|v| strip_enum_prefix(&v))
+                .collect(),
+            _ => Vec::new(),
+        };
+        KindLink {
+            kinds,
+            note: annotation_note(annotation),
+        }
+    }
+}
+
+/// The third routing verdict: `@NoArtifact(NoArtifactReason, {note})` — the
+/// section feeds neither a CodeSpecs part nor a follow-up process
+/// (`codespecs_mapping.md` §8.3).
+///
+/// Single-valued where [`KindLink`] is a list, and the asymmetry is the point: a
+/// section can feed several parts or several processes at once, but it is
+/// unrouted for exactly one reason. That reason is what makes the absence of the
+/// other two markers readable as a decision rather than an omission, which is
+/// what `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` checks.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NoArtifactLink {
+    /// The `NoArtifactReason` code name with its type prefix stripped —
+    /// `container`, not `NoArtifactReason.container`. One of `container`,
+    /// `overview`, `view`.
+    pub reason: String,
+
+    /// The annotation's free-text `note`. On an `overview` this customarily
+    /// names the routed section that states the material normatively.
+    pub note: Option<String>,
+}
+
+impl NoArtifactLink {
+    /// Reads the verdict out of `annotation`.
+    pub fn from_annotation(annotation: &SpecAnnotation) -> NoArtifactLink {
+        let reason = annotation
+            .argument("reason")
+            .and_then(annotation_value_text)
+            .unwrap_or_else(|| "container".to_string());
+        NoArtifactLink {
+            reason: strip_enum_prefix(&reason),
+            note: annotation_note(annotation),
+        }
+    }
+}
+
+/// `CodeSpecPart.validation` → `validation`. A name already given bare is
+/// returned unchanged, so readers do not depend on how the exporter chose to
+/// spell the enum constant. Splitting on the last dot rather than a fixed prefix
+/// keeps this working for any code enum the model adds.
+pub fn strip_enum_prefix(raw: &str) -> String {
+    match raw.rfind('.') {
+        Some(dot) => raw[dot + 1..].to_string(),
+        None => raw.to_string(),
+    }
+}
+
+/// The textual form of an annotation argument value, or `None` for a JSON
+/// `null` — the Dart reference's `k.toString()` over a non-null element.
+///
+/// Composite values (arrays, objects) carry no enum code and are skipped: the
+/// exporter only ever writes scalars into these argument slots.
+fn annotation_value_text(v: &Json) -> Option<String> {
+    match v {
+        Json::Str(s) => Some(s.clone()),
+        Json::Int(n) => Some(n.to_string()),
+        Json::Float(f) => Some(f.to_string()),
+        Json::Bool(b) => Some(b.to_string()),
+        _ => None,
+    }
+}
+
+/// The annotation's `note` argument, or `None` when it carries none.
+fn annotation_note(annotation: &SpecAnnotation) -> Option<String> {
+    annotation
+        .argument("note")
+        .and_then(|v| v.as_str())
+        .map(|s| s.to_string())
+}
+
+/// The annotation named `name` in `annotations`, or `None`.
+///
+/// The three routing markers all ride the generic annotation bag rather than a
+/// dedicated meta slot (`codespecs_mapping.md` §8.4), so they are looked up by
+/// name. Free functions over the annotation slice rather than a trait: classes
+/// and fields already share their annotation reads that way
+/// ([`SpecClass::annotation`] / [`SpecField::annotation`]), and one reader for
+/// both is what stops the two node kinds drifting apart.
+pub fn annotation_named<'a>(
+    annotations: &'a [SpecAnnotation],
+    name: &str,
+) -> Option<&'a SpecAnnotation> {
+    annotations.iter().find(|a| a.name == name)
+}
+
+/// The `@CodeSpecKind` link in `annotations`, or `None` when absent. See
+/// [`KindLink`] for why absent and empty differ.
+pub fn code_spec_kind(annotations: &[SpecAnnotation]) -> Option<KindLink> {
+    annotation_named(annotations, "CodeSpecKind").map(|a| KindLink::from_annotation(a, "kinds"))
+}
+
+/// The `@FollowUpKind` link in `annotations`, or `None` when absent — which
+/// downstream process(es) this subtree feeds instead of becoming CodeSpecs code
+/// (`codespecs_mapping.md` §8.3).
+///
+/// Note the argument name: `@FollowUpKind`'s list is `processes`, not `kinds`.
+pub fn follow_up_kind(annotations: &[SpecAnnotation]) -> Option<KindLink> {
+    annotation_named(annotations, "FollowUpKind").map(|a| KindLink::from_annotation(a, "processes"))
+}
+
+/// The `@NoArtifact` verdict in `annotations`, or `None` when absent — the
+/// recorded decision that the section produces nothing downstream
+/// (`codespecs_mapping.md` §8.3).
+pub fn no_artifact(annotations: &[SpecAnnotation]) -> Option<NoArtifactLink> {
+    annotation_named(annotations, "NoArtifact").map(NoArtifactLink::from_annotation)
+}
+
 /// A single form field within a `@Form` content section.
 #[derive(Debug, Clone)]
 pub struct FormFieldSpec {
@@ -108,7 +265,28 @@ impl SpecField {
 
     /// Returns the named annotation on this field, or `None`.
     pub fn annotation(&self, name: &str) -> Option<&SpecAnnotation> {
-        self.annotations.iter().find(|a| a.name == name)
+        annotation_named(&self.annotations, name)
+    }
+
+    /// Reports whether the named annotation is present. For markers that carry
+    /// no arguments, presence *is* the whole statement.
+    pub fn has_annotation(&self, name: &str) -> bool {
+        self.annotation(name).is_some()
+    }
+
+    /// The field-level `@CodeSpecKind` link, or `None` — see [`code_spec_kind`].
+    pub fn code_spec_kind(&self) -> Option<KindLink> {
+        code_spec_kind(&self.annotations)
+    }
+
+    /// The field-level `@FollowUpKind` link, or `None` — see [`follow_up_kind`].
+    pub fn follow_up_kind(&self) -> Option<KindLink> {
+        follow_up_kind(&self.annotations)
+    }
+
+    /// The field-level `@NoArtifact` verdict, or `None` — see [`no_artifact`].
+    pub fn no_artifact(&self) -> Option<NoArtifactLink> {
+        no_artifact(&self.annotations)
     }
 }
 
@@ -137,7 +315,29 @@ impl SpecClass {
 
     /// Returns the named annotation on this class, or `None`.
     pub fn annotation(&self, name: &str) -> Option<&SpecAnnotation> {
-        self.annotations.iter().find(|a| a.name == name)
+        annotation_named(&self.annotations, name)
+    }
+
+    /// Reports whether the named annotation is present. For markers that carry
+    /// no arguments, presence *is* the whole statement.
+    pub fn has_annotation(&self, name: &str) -> bool {
+        self.annotation(name).is_some()
+    }
+
+    /// The class-level `@CodeSpecKind` link, or `None` — see [`code_spec_kind`].
+    pub fn code_spec_kind(&self) -> Option<KindLink> {
+        code_spec_kind(&self.annotations)
+    }
+
+    /// The class-level `@FollowUpKind` link, or `None` — see
+    /// [`follow_up_kind`].
+    pub fn follow_up_kind(&self) -> Option<KindLink> {
+        follow_up_kind(&self.annotations)
+    }
+
+    /// The class-level `@NoArtifact` verdict, or `None` — see [`no_artifact`].
+    pub fn no_artifact(&self) -> Option<NoArtifactLink> {
+        no_artifact(&self.annotations)
     }
 }
 

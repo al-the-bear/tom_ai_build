@@ -46,6 +46,7 @@ plus a hand-rolled JSON reader that the Rust standard library does not provide:
 | `spec_text_pattern.rs` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (std ships no regex, and the `regex` crate would be both a dependency this crate does not take and a different grammar). |
 | `spec_query.rs` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.rs` | The constrained node-creation gate (`check_add_node`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
+| `spec_codespecs_extract.rs` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — one verbatim, provenance-carrying extract per CodeSpecs area. |
 | `spec_document_yaml.rs` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.rs` | Meta-data-driven Markdown import/export codec. |
 | `som_facade.rs` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_rust_v0`. |
@@ -101,7 +102,9 @@ cases as the Dart/Python/Java/JavaScript/TypeScript/Go runners: model meta-data
 load, `state.json` round-trip, YAML encode/decode, Markdown export/round-trip,
 the **Markdown→memory landing** check (the `md.land.*` shared contract — parsing
 `expected.md` lands the same memory as the YAML route), reflection resolution,
-validation, and the imperative operations script.
+validation, the imperative operations script, and the **Phase-4 CodeSpecs tier**
+(the routing diagnostic, the per-area extracts with their YAML/Markdown goldens,
+the "copied, never composed" guard and the `ROUTE-TOTAL` error cases).
 
 ## Consumed by `tom_som_rust_v0`
 

@@ -115,6 +115,141 @@ export class FormFieldSpec {
   }
 }
 
+/**
+ * `CodeSpecPart.validation` → `validation`. A name already given bare is
+ * returned unchanged, so readers do not depend on how the exporter chose to
+ * spell the enum constant. Splitting on the last dot rather than a fixed prefix
+ * keeps this working for any code enum the model adds.
+ */
+function stripEnumPrefix(raw: string): string {
+  const dot = raw.lastIndexOf('.');
+  return dot < 0 ? raw : raw.slice(dot + 1);
+}
+
+/**
+ * A list-valued taxonomy annotation: a set of enum codes plus an optional
+ * explanatory note.
+ *
+ * The model states where a subtree is headed with two such annotations, which
+ * share this shape exactly — `@CodeSpecKind(List<CodeSpecPart>, {note})` names
+ * the CodeSpecs part(s) a section type must be realised as
+ * (`codespecs_mapping.md` §9.1/§9.5), and
+ * `@FollowUpKind(List<FollowUpProcess>, {note})` names the downstream
+ * *process(es)* a non-code subtree feeds (`codespecs_mapping.md` §8.3). One
+ * reader serves both; which annotation a link came from is expressed by which
+ * accessor produced it.
+ *
+ * Obtaining a link at all means the annotation is present. That matters: a node
+ * with no link has not been classified yet, whereas a link with empty
+ * {@link kinds} is a recorded decision that the section belongs to no member of
+ * that taxonomy. The two are different statements, so they are different values
+ * rather than one nullable list.
+ */
+export class KindLink {
+  /**
+   * The enum code names with their type prefix stripped — `validation`, not
+   * `CodeSpecPart.validation`; `doc`, not `FollowUpProcess.doc`.
+   *
+   * Both annotations are list-valued because one section can be realised as
+   * several parts, or feed several processes; consumers must handle all of
+   * them, not just the first.
+   */
+  kinds: string[];
+
+  /** The annotation's free-text `note`, explaining the classification. */
+  note: string | null;
+
+  constructor(props: { kinds?: string[]; note?: string | null }) {
+    this.kinds = props.kinds || [];
+    this.note = props.note != null ? props.note : null;
+  }
+
+  /**
+   * Reads a link out of `annotation`, taking the code list from the argument
+   * named `listArgument` — `kinds` for `@CodeSpecKind`, `processes` for
+   * `@FollowUpKind`.
+   */
+  static fromAnnotation(
+    annotation: SpecAnnotation,
+    listArgument: string,
+  ): KindLink {
+    const raw = annotation.argument(listArgument);
+    const note = annotation.argument('note');
+    return new KindLink({
+      kinds: Array.isArray(raw)
+        ? raw
+            .filter((k) => k != null)
+            .map((k) => stripEnumPrefix(String(k)))
+        : [],
+      note: typeof note === 'string' ? note : null,
+    });
+  }
+}
+
+/**
+ * The third routing verdict: `@NoArtifact(NoArtifactReason, {note})` — the
+ * section feeds neither a CodeSpecs part nor a follow-up process
+ * (`codespecs_mapping.md` §8.3).
+ *
+ * Single-valued where {@link KindLink} is a list, and the asymmetry is the
+ * point: a section can feed several parts or several processes at once, but it
+ * is unrouted for exactly one reason. That reason is what makes the absence of
+ * the other two markers readable as a decision rather than an omission, which
+ * is what `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` checks.
+ */
+export class NoArtifactLink {
+  /**
+   * The `NoArtifactReason` code name with its type prefix stripped —
+   * `container`, not `NoArtifactReason.container`. One of `container`,
+   * `overview`, `view`.
+   */
+  reason: string;
+
+  /**
+   * The annotation's free-text `note`. On an `overview` this customarily names
+   * the routed section that states the material normatively.
+   */
+  note: string | null;
+
+  constructor(props: { reason: string; note?: string | null }) {
+    this.reason = props.reason;
+    this.note = props.note != null ? props.note : null;
+  }
+
+  /** Reads the verdict out of `annotation`. */
+  static fromAnnotation(annotation: SpecAnnotation): NoArtifactLink {
+    const reason = annotation.argument('reason');
+    const note = annotation.argument('note');
+    return new NoArtifactLink({
+      reason: stripEnumPrefix(reason != null ? String(reason) : 'container'),
+      note: typeof note === 'string' ? note : null,
+    });
+  }
+}
+
+/**
+ * The `@CodeSpecKind` / `@FollowUpKind` link carried by `annotations`, or
+ * `null` when the node carries no such annotation.
+ *
+ * Shared by {@link SpecField} and {@link SpecClass} — the two model nodes that
+ * carry annotations — so the lookup is defined once rather than per node type
+ * (the Dart reference's `AnnotatedSpecNode` mixin).
+ */
+function kindLinkOf(
+  annotations: SpecAnnotation[],
+  name: string,
+  listArgument: string,
+): KindLink | null {
+  const a = annotations.find((x) => x.name === name);
+  return a === undefined ? null : KindLink.fromAnnotation(a, listArgument);
+}
+
+/** The `@NoArtifact` verdict carried by `annotations`, or `null`. */
+function noArtifactLinkOf(annotations: SpecAnnotation[]): NoArtifactLink | null {
+  const a = annotations.find((x) => x.name === 'NoArtifact');
+  return a === undefined ? null : NoArtifactLink.fromAnnotation(a);
+}
+
 /** A single field of a {@link SpecClass}. */
 export class SpecField {
   name: string;
@@ -218,6 +353,41 @@ export class SpecField {
   annotation(name: string): SpecAnnotation | null {
     return this.annotations.find((a) => a.name === name) || null;
   }
+
+  /**
+   * Whether the annotation named `name` is present. For markers that carry no
+   * arguments, presence *is* the whole statement.
+   */
+  hasAnnotation(name: string): boolean {
+    return this.annotation(name) !== null;
+  }
+
+  /**
+   * The `@CodeSpecKind` link, or `null` when this node carries no such
+   * annotation. A field-level link overrides its class's routing for that field
+   * alone. See {@link KindLink} for why absent and empty differ.
+   */
+  get codeSpecKind(): KindLink | null {
+    return kindLinkOf(this.annotations, 'CodeSpecKind', 'kinds');
+  }
+
+  /**
+   * The `@FollowUpKind` link, or `null` when this node carries no such
+   * annotation — which downstream process(es) this subtree feeds instead of
+   * becoming CodeSpecs code (`codespecs_mapping.md` §8.3).
+   */
+  get followUpKind(): KindLink | null {
+    return kindLinkOf(this.annotations, 'FollowUpKind', 'processes');
+  }
+
+  /**
+   * The `@NoArtifact` verdict, or `null` when this node carries no such
+   * annotation — the recorded decision that the section produces nothing
+   * downstream (`codespecs_mapping.md` §8.3).
+   */
+  get noArtifact(): NoArtifactLink | null {
+    return noArtifactLinkOf(this.annotations);
+  }
 }
 
 /** A model class with its fields. */
@@ -278,6 +448,40 @@ export class SpecClass {
 
   annotation(name: string): SpecAnnotation | null {
     return this.annotations.find((a) => a.name === name) || null;
+  }
+
+  /**
+   * Whether the annotation named `name` is present. For markers that carry no
+   * arguments, presence *is* the whole statement.
+   */
+  hasAnnotation(name: string): boolean {
+    return this.annotation(name) !== null;
+  }
+
+  /**
+   * The `@CodeSpecKind` link, or `null` when this node carries no such
+   * annotation. See {@link KindLink} for why absent and empty differ.
+   */
+  get codeSpecKind(): KindLink | null {
+    return kindLinkOf(this.annotations, 'CodeSpecKind', 'kinds');
+  }
+
+  /**
+   * The `@FollowUpKind` link, or `null` when this node carries no such
+   * annotation — which downstream process(es) this subtree feeds instead of
+   * becoming CodeSpecs code (`codespecs_mapping.md` §8.3).
+   */
+  get followUpKind(): KindLink | null {
+    return kindLinkOf(this.annotations, 'FollowUpKind', 'processes');
+  }
+
+  /**
+   * The `@NoArtifact` verdict, or `null` when this node carries no such
+   * annotation — the recorded decision that the section produces nothing
+   * downstream (`codespecs_mapping.md` §8.3).
+   */
+  get noArtifact(): NoArtifactLink | null {
+    return noArtifactLinkOf(this.annotations);
   }
 }
 

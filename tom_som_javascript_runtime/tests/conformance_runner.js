@@ -23,6 +23,9 @@
  *   * the SOM §9 query tier — the portable text-pattern subset, the query /
  *     projection tables, the scripted cursor session, and the constrained
  *     node-creation gate (probe table + stateful script);
+ *   * the Phase-4 CodeSpecs extract tier — routing verdicts, the per-area extract
+ *     goldens (YAML + Markdown, byte-for-byte), the "copied, never composed"
+ *     guard and the `ROUTE-TOTAL` error cases;
  *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule).
  *
  * Run with: `node tests/conformance_runner.js`. Exit code 0 == all green.
@@ -46,6 +49,9 @@ const {
   SomPatternError,
   SomTextPattern,
   SomVersionError,
+  CodeSpecsAreaCatalog,
+  CodeSpecsExtractError,
+  CodeSpecsExtractor,
   SpecCreationError,
   SpecDocument,
   SpecDocumentMarkdown,
@@ -996,6 +1002,174 @@ function testProjection(model, doc) {
 }
 
 /**
+ * The Phase-4 CodeSpecs extract generator: the routing verdicts, the per-area
+ * extracts (including the YAML and Markdown goldens byte for byte), the two
+ * standing guards — every value copied rather than composed, and a
+ * `@FollowUpKind` subtree contributing nothing — and the `ROUTE-TOTAL` error
+ * cases.
+ *
+ * @param {SpecModel} model
+ * @param {SpecDocument} doc
+ */
+function testCodeSpecsExtract(model, doc) {
+  const table = _readJson('codespecs_extract_cases.json');
+  const extractor = new CodeSpecsExtractor({
+    model,
+    document: doc,
+    catalog: CodeSpecsAreaCatalog.fromJson(table.catalog),
+  });
+
+  const routings = extractor.routings().map((r) => ({
+    path: r.path,
+    className: r.className,
+    verdict: r.verdict,
+    values: r.values,
+    note: r.note,
+    declaredAt: r.declaredAt,
+  }));
+  _check(
+    'codespecs.routings',
+    _deepEqual(routings, table.routings),
+    _jsonMismatch(routings, table.routings),
+  );
+
+  const extracts = extractor.extractAll().map((x) => ({
+    area: x.area.code,
+    canonicalId: x.area.canonicalId,
+    part: x.area.kindValue,
+    documentRoot: x.documentRoot,
+    fileStem: x.fileStem,
+    projects: x.projects,
+    citableParts: x.citableParts,
+    entries: x.entries.map((e) => ({
+      sectionId: e.sectionId,
+      path: e.path,
+      className: e.className,
+      fieldName: e.fieldName,
+      formField: e.formField,
+      routedBy: e.routedBy,
+      routedAt: e.routedAt,
+      routingNote: e.routingNote,
+      value: e.value,
+    })),
+    yaml: x.toYaml(),
+    markdown: x.toMarkdown(),
+  }));
+  _check(
+    'codespecs.extracts',
+    _deepEqual(extracts, table.extracts),
+    _jsonMismatch(extracts, table.extracts),
+  );
+  // The goldens are strings, so name the first differing line rather than
+  // dumping two whole artifacts when a port drifts on emission.
+  for (let i = 0; i < Math.min(extracts.length, table.extracts.length); i++) {
+    const area = table.extracts[i].area;
+    _check(
+      `codespecs.extract[${area}].yaml`,
+      extracts[i].yaml === table.extracts[i].yaml,
+      _byteDiff('yaml', extracts[i].yaml, table.extracts[i].yaml),
+    );
+    _check(
+      `codespecs.extract[${area}].markdown`,
+      extracts[i].markdown === table.extracts[i].markdown,
+      _byteDiff('markdown', extracts[i].markdown, table.extracts[i].markdown),
+    );
+  }
+
+  // The guard `codespecs_derivation_contract.md` §2.8 C1 rests on, carried in
+  // the corpus rather than left to each port's own conscience: the generator may
+  // copy and index, it may not compose. Membership, not substring — that is what
+  // makes "verbatim" mean verbatim rather than "derived from".
+  const state = _readJson('state.json');
+  const stored = new Set(Object.values(state.content));
+  for (const section of Object.values(state.forms)) {
+    for (const v of Object.values(section)) {
+      stored.add(v);
+    }
+  }
+  _check('codespecs.stored.nonEmpty', stored.size > 0, String(stored.size));
+  for (const x of table.extracts) {
+    for (const e of x.entries) {
+      _check(
+        `codespecs.verbatim[${x.area} ${e.path}]`,
+        stored.has(e.value),
+        'was not copied from the document',
+      );
+    }
+  }
+
+  // `Control` is populated, and populated distinctively, so its absence cannot
+  // be an accident of an empty section.
+  const emitted = [];
+  for (const x of table.extracts) {
+    for (const e of x.entries) {
+      emitted.push(e.value);
+    }
+  }
+  for (const forbidden of ['Controlled summary', 'ctrl-owner', 'alice']) {
+    // …the last of which is a @NoArtifact section's own leaf.
+    _check(
+      `codespecs.excluded[${forbidden}]`,
+      !emitted.includes(forbidden),
+      'reached an extract',
+    );
+  }
+
+  for (const c of table.errorCases) {
+    // The error case carries its own model and state rather than mutating the
+    // shared fixture: `model.meta.json` is a VALID model by construction (§10.2
+    // `ROUTE-TOTAL` holds over it), and a port in a language without cheap
+    // structural editing should not have to break it to run this case. `state`
+    // is the ordinary `state.json` shape, so every runtime already has the
+    // loader.
+    const errExtractor = new CodeSpecsExtractor({
+      model: SpecModel.fromJson(c.model),
+      document: _documentFromState(c.state),
+      catalog: CodeSpecsAreaCatalog.fromJson(table.catalog),
+    });
+    const want = c.expect;
+    let thrown = null;
+    try {
+      errExtractor.extractAll();
+    } catch (err) {
+      thrown = err;
+    }
+    _check(
+      `codespecs.error[${c.name}].thrown`,
+      thrown instanceof CodeSpecsExtractError,
+      String(thrown),
+    );
+    if (thrown instanceof CodeSpecsExtractError) {
+      _check(
+        `codespecs.error[${c.name}].path`,
+        thrown.path === want.path,
+        `${thrown.path} != ${want.path}`,
+      );
+      _check(
+        `codespecs.error[${c.name}].className`,
+        thrown.className === want.className,
+        `${thrown.className} != ${want.className}`,
+      );
+      _check(
+        `codespecs.error[${c.name}].message`,
+        thrown.message.includes(want.messageContains),
+        thrown.message,
+      );
+    }
+    // …and the diagnostic reports the same node instead of throwing.
+    const verdicts = errExtractor
+      .routings()
+      .filter((r) => r.path === want.path)
+      .map((r) => r.verdict);
+    _check(
+      `codespecs.error[${c.name}].routingVerdict`,
+      _deepEqual(verdicts, [want.routingVerdict]),
+      _jsonMismatch(verdicts, [want.routingVerdict]),
+    );
+  }
+}
+
+/**
  * The scripted cursor session: laziness (`take`/`next`/`toList` consume,
  * `count` peeks) plus stability — an item removed *after* the cursor was opened
  * is skipped, not returned.
@@ -1148,6 +1322,7 @@ function main() {
   testPatterns();
   testQueries(model, fixture);
   testProjection(model, fixture);
+  testCodeSpecsExtract(model, fixture);
   testCursorScript(model);
   testNodeCreation(model);
   testNodeCreationScript(model);

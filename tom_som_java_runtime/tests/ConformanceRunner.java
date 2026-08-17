@@ -13,6 +13,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import tom_som_runtime.CodeSpecsAreaCatalog;
+import tom_som_runtime.CodeSpecsExtract;
+import tom_som_runtime.CodeSpecsExtractEntry;
+import tom_som_runtime.CodeSpecsExtractError;
+import tom_som_runtime.CodeSpecsExtractor;
+import tom_som_runtime.CodeSpecsRouting;
 import tom_som_runtime.DocSpecsSchema;
 import tom_som_runtime.DocSpecsValidator;
 import tom_som_runtime.DocSpecsViolation;
@@ -61,6 +67,14 @@ import tom_som_runtime.SpecYamlContents;
  * port of {@code tests/conformance_runner.py}. JUnit is unavailable on the build
  * host (no Maven/Gradle/JUnit jar), so this is a dependency-free {@code main()}
  * that asserts every golden byte-for-byte and exits 0 on success, 1 on failure.
+ *
+ * <p>The tiers, in the order {@link #main} runs them: the model meta and its
+ * generation stamp, the SOM §4.2 version contract, the state round-trip, the
+ * YAML and Markdown codecs (export, re-import, memory landing, rejections), the
+ * reflection / validation / operations / editor surfaces, section ids,
+ * serialization order, the DocSpecs schema tier, and the SOM §9 tier — patterns,
+ * queries, projection, the <b>Phase-4 CodeSpecs extract generator</b>, the cursor
+ * script and node creation.
  *
  * <p>Run with: {@code java -cp <out>:<tests> ConformanceRunner <corpusDir>}.
  */
@@ -1213,6 +1227,175 @@ public final class ConformanceRunner {
   }
 
   /**
+   * The Phase-4 CodeSpecs extract generator ({@code codespecs_mapping.md}
+   * §1.1.1): the routing verdicts, the per-area extracts with their YAML and
+   * Markdown artifacts, the copy-don't-compose guard, the {@code @FollowUpKind}
+   * exclusion, and the {@code ROUTE-TOTAL} error cases.
+   *
+   * <p>The catalogue rides in the corpus rather than in this runtime: it is the
+   * machine-readable form of {@code codespecs_mapping.md} §4.1/§4.4.3/§4.4.6,
+   * authored once and read by all nine ports.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testCodeSpecsExtract(SpecModel model) throws IOException {
+    Map<String, Object> table = readJsonObject("codespecs_extract_cases.json");
+    CodeSpecsAreaCatalog catalog =
+        CodeSpecsAreaCatalog.fromJson((Map<String, Object>) table.get("catalog"));
+    CodeSpecsExtractor extractor = new CodeSpecsExtractor(model, buildDocument(), catalog);
+
+    // 1. The routing diagnostic — every class node the walk reaches, in order.
+    List<Object> gotRoutings = new ArrayList<>();
+    for (CodeSpecsRouting r : extractor.routings()) {
+      Map<String, Object> o = new LinkedHashMap<>();
+      o.put("path", r.path);
+      o.put("className", r.className);
+      o.put("verdict", r.verdict.value);
+      o.put("values", new ArrayList<Object>(r.values));
+      o.put("note", r.note);
+      o.put("declaredAt", r.declaredAt);
+      gotRoutings.add(o);
+    }
+    Object wantRoutings = table.get("routings");
+    check(
+        "codeSpecs.routings",
+        gotRoutings.equals(wantRoutings),
+        jsonMismatch(gotRoutings, wantRoutings));
+
+    // 2. The extracts, byte for byte — the record, then the two artifacts (kept
+    // separate only so a divergence reports a line number instead of 8 KB of
+    // YAML).
+    List<CodeSpecsExtract> extracts = extractor.extractAll();
+    List<Object> wantExtracts = (List<Object>) table.get("extracts");
+    check(
+        "codeSpecs.extracts.count",
+        extracts.size() == wantExtracts.size(),
+        extracts.size() + " != " + wantExtracts.size());
+    for (int i = 0; i < Math.min(extracts.size(), wantExtracts.size()); i++) {
+      CodeSpecsExtract x = extracts.get(i);
+      Map<String, Object> want = (Map<String, Object>) wantExtracts.get(i);
+      String at = "codeSpecs.extract[" + x.area.code + "]";
+      Map<String, Object> got = new LinkedHashMap<>();
+      got.put("area", x.area.code);
+      got.put("canonicalId", x.area.canonicalId);
+      got.put("part", x.area.kindValue());
+      got.put("documentRoot", x.documentRoot);
+      got.put("fileStem", x.fileStem());
+      got.put("projects", new ArrayList<Object>(x.projects));
+      got.put("citableParts", new ArrayList<Object>(x.citableParts));
+      List<Object> gotEntries = new ArrayList<>();
+      for (CodeSpecsExtractEntry e : x.entries) {
+        Map<String, Object> o = new LinkedHashMap<>();
+        o.put("sectionId", e.sectionId);
+        o.put("path", e.path);
+        o.put("className", e.className);
+        o.put("fieldName", e.fieldName);
+        o.put("formField", e.formField);
+        o.put("routedBy", e.routedBy);
+        o.put("routedAt", e.routedAt);
+        o.put("routingNote", e.routingNote);
+        o.put("value", e.value);
+        gotEntries.add(o);
+      }
+      got.put("entries", gotEntries);
+      Map<String, Object> wantRecord = new LinkedHashMap<>(want);
+      wantRecord.remove("yaml");
+      wantRecord.remove("markdown");
+      check(at, got.equals(wantRecord), jsonMismatch(got, wantRecord));
+      check(
+          at + ".yaml",
+          x.toYaml().equals(want.get("yaml")),
+          byteDiff(at + ".yaml", x.toYaml(), (String) want.get("yaml")));
+      check(
+          at + ".markdown",
+          x.toMarkdown().equals(want.get("markdown")),
+          byteDiff(at + ".markdown", x.toMarkdown(), (String) want.get("markdown")));
+    }
+
+    // 3. The guard `codespecs_derivation_contract.md` §2.8 C1 rests on, carried
+    // in the corpus rather than left to each port's own conscience: the
+    // generator may copy and index, it may not compose. Membership, not
+    // substring — that is what makes "verbatim" mean verbatim rather than
+    // "derived from".
+    Map<String, Object> state = readJsonObject("state.json");
+    Set<String> stored = new LinkedHashSet<>();
+    for (Object v : ((Map<String, Object>) state.get("content")).values()) {
+      stored.add((String) v);
+    }
+    for (Object section : ((Map<String, Object>) state.get("forms")).values()) {
+      for (Object v : ((Map<String, Object>) section).values()) {
+        stored.add((String) v);
+      }
+    }
+    check("codeSpecs.storedValues", !stored.isEmpty(), "no stored value in state.json");
+    List<String> emitted = new ArrayList<>();
+    for (Object xObj : wantExtracts) {
+      Map<String, Object> x = (Map<String, Object>) xObj;
+      for (Object eObj : (List<Object>) x.get("entries")) {
+        Map<String, Object> e = (Map<String, Object>) eObj;
+        String value = (String) e.get("value");
+        emitted.add(value);
+        check(
+            "codeSpecs.verbatim[" + x.get("area") + " " + e.get("path") + "]",
+            stored.contains(value),
+            "was not copied from the document");
+      }
+    }
+
+    // 4. `Control` is populated, and populated distinctively, so its absence
+    // cannot be an accident of an empty section.
+    check("codeSpecs.followUp.summary", !emitted.contains("Controlled summary"), "");
+    check("codeSpecs.followUp.owner", !emitted.contains("ctrl-owner"), "");
+    // …and neither does a @NoArtifact section's own leaf.
+    check("codeSpecs.noArtifact.leaf", !emitted.contains("alice"), "");
+
+    // 5. `ROUTE-TOTAL`: a section routed nowhere fails `extractAll()` loudly and
+    // is *reported* — not thrown on — by `routings()`.
+    //
+    // Each error case carries its own model and state rather than mutating the
+    // shared fixture: `model.meta.json` is a VALID model by construction (§10.2
+    // `ROUTE-TOTAL` holds over it), and a port should not have to break it to
+    // run this case. `state` is the ordinary `state.json` shape, so every
+    // runtime already has the loader.
+    for (Object caseObj : (List<Object>) table.get("errorCases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      SpecModel errModel = SpecModel.fromJson((Map<String, Object>) c.get("model"));
+      SpecDocument errDoc = documentFromState((Map<String, Object>) c.get("state"));
+      CodeSpecsExtractor errExtractor = new CodeSpecsExtractor(errModel, errDoc, catalog);
+      Map<String, Object> want = (Map<String, Object>) c.get("expect");
+      String at = "codeSpecs.error[" + name + "]";
+
+      CodeSpecsExtractError err = null;
+      try {
+        errExtractor.extractAll();
+      } catch (CodeSpecsExtractError e) {
+        err = e;
+      }
+      check(at + ".throws", err != null, "extractAll() succeeded");
+      if (err != null) {
+        check(at + ".path", Objects.equals(err.path, want.get("path")), err.path);
+        check(
+            at + ".className",
+            Objects.equals(err.className, want.get("className")),
+            err.className);
+        check(
+            at + ".message",
+            err.getMessage().contains((String) want.get("messageContains")),
+            err.getMessage());
+      }
+      List<String> verdicts = new ArrayList<>();
+      for (CodeSpecsRouting r : errExtractor.routings()) {
+        if (r.path.equals(want.get("path"))) {
+          verdicts.add(r.verdict.value);
+        }
+      }
+      List<Object> wantVerdicts = new ArrayList<>();
+      wantVerdicts.add(want.get("routingVerdict"));
+      check(at + ".routing", verdicts.equals(wantVerdicts), verdicts + " != " + wantVerdicts);
+    }
+  }
+
+  /**
    * SOM §9: a scripted cursor session over a freshly built document. The
    * {@code removeListItem} step mutates the document mid-iteration — the cursor
    * must skip the now-dead candidate rather than return it, which is the whole
@@ -1412,6 +1595,7 @@ public final class ConformanceRunner {
     testPatterns();
     testQueries(model);
     testProjection(model);
+    testCodeSpecsExtract(model);
     testCursorScript(model);
     testNodeCreationCases(model);
     testNodeCreationCoverage();

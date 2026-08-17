@@ -35,6 +35,16 @@
           "arguments": {
             "id": "DEMO"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.form",
+              "CodeSpecPart.viewState"
+            ],
+            "note": "the demo capture screen and its view state"
+          }
         }
       ],
       "fields": [
@@ -60,6 +70,16 @@
           "enumValues": [
             "low",
             "high"
+          ],
+          "annotations": [
+            {
+              "name": "CodeSpecKind",
+              "arguments": {
+                "kinds": [
+                  "CodeSpecPart.navigation"
+                ]
+              }
+            }
           ]
         },
         {
@@ -192,6 +212,12 @@
           "arguments": {
             "id": "REG"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container"
+          }
         }
       ],
       "fields": [
@@ -228,6 +254,14 @@
           "arguments": {
             "id": "RGE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
+          }
         }
       ],
       "fields": [
@@ -258,6 +292,14 @@
           "name": "SectionId",
           "arguments": {
             "id": "RGL"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
           }
         }
       ],
@@ -310,6 +352,12 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "kind"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container"
           }
         }
       ],
@@ -382,6 +430,16 @@
     },
     "ChoicePart": {
       "name": "ChoicePart",
+      "annotations": [
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ]
+          }
+        }
+      ],
       "fields": [
         {
           "name": "note",
@@ -433,6 +491,15 @@
           "arguments": {
             "id": "CTRL"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "delivered as operator documentation, not as code"
+          }
         }
       ],
       "fields": [
@@ -456,6 +523,14 @@
           "arguments": {
             "id": "NOTE"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ]
+          }
         }
       ],
       "fields": [
@@ -469,6 +544,16 @@
     "Item": {
       "name": "Item",
       "headline": "Task",
+      "annotations": [
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.form"
+            ]
+          }
+        }
+      ],
       "fields": [
         {
           "name": "label",
@@ -491,6 +576,16 @@
       "mapsTo": "CS00-CARD",
       "detailedIn": "BP00-CARDS",
       "doc": "A card entry.",
+      "annotations": [
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.viewState"
+            ]
+          }
+        }
+      ],
       "fields": [
         {
           "name": "content",
@@ -507,6 +602,14 @@
     },
     "Meta": {
       "name": "Meta",
+      "annotations": [
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.overview"
+          }
+        }
+      ],
       "fields": [
         {
           "name": "owner",

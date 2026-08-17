@@ -21,6 +21,9 @@ golden byte-for-byte and matches every behavioural case:
   * the SOM §9 portable text-pattern subset (match spans + compile rejections);
   * the spec_query surface (queries, cursor count, the flat node projection,
     and a scripted cursor session that mutates the document mid-iteration);
+  * the Phase-4 CodeSpecs extract generator (routing verdicts, the YAML +
+    Markdown extract goldens, the verbatim-copy guard and the ``ROUTE-TOTAL``
+    error cases);
   * constrained node creation (the stateless gate probes and a mutation
     script).
 
@@ -44,6 +47,9 @@ sys.path.insert(0, _PKG_ROOT)
 
 from tom_som_runtime import (  # noqa: E402
     DEFAULT_MAX_SNAPSHOT_AGE,
+    CodeSpecsAreaCatalog,
+    CodeSpecsExtractError,
+    CodeSpecsExtractor,
     DocSpecsSchema,
     DocSpecsValidator,
     DocSpecsViolationRule,
@@ -882,6 +888,134 @@ def test_projection(model: SpecModel) -> None:
     _check("projection.walk", got == want, _json_mismatch(got, want))
 
 
+def test_codespecs_extract(model: SpecModel) -> None:
+    """The Phase-4 extract generator: the routing diagnostic, the per-area
+    YAML/Markdown goldens, and the two guards that make "verbatim" checkable
+    rather than trusted.
+
+    The third and fourth blocks are the interesting ones. Every emitted value
+    must be a member of the set of strings the document *stores* — membership,
+    not substring, which is what stops a port composing a value out of two
+    (`codespecs_derivation_contract.md` §2.8 C1). And a ``@FollowUpKind``
+    subtree must contribute nothing at all, asserted against a section that is
+    populated distinctively so its absence cannot be an accident of an empty
+    section.
+    """
+    table = _read_json("codespecs_extract_cases.json")
+    catalog = CodeSpecsAreaCatalog.from_json(table["catalog"])
+    extractor = CodeSpecsExtractor(
+        model=model, document=_build_document(), catalog=catalog
+    )
+
+    got = [
+        {
+            "path": r.path,
+            "className": r.class_name,
+            "verdict": r.verdict.value,
+            "values": r.values,
+            "note": r.note,
+            "declaredAt": r.declared_at,
+        }
+        for r in extractor.routings()
+    ]
+    _check("codespecs.routings", got == table["routings"],
+           _json_mismatch(got, table["routings"]))
+
+    extracts = extractor.extract_all()
+    want_extracts = table["extracts"]
+    _check("codespecs.extracts.count", len(extracts) == len(want_extracts),
+           f"{len(extracts)} != {len(want_extracts)}")
+    for x, want in zip(extracts, want_extracts):
+        name = want["area"]
+        shape = {
+            "area": x.area.code,
+            "canonicalId": x.area.canonical_id,
+            "part": x.area.kind_value,
+            "documentRoot": x.document_root,
+            "fileStem": x.file_stem,
+            "projects": x.projects,
+            "citableParts": x.citable_parts,
+            "entries": [
+                {
+                    "sectionId": e.section_id,
+                    "path": e.path,
+                    "className": e.class_name,
+                    "fieldName": e.field_name,
+                    "formField": e.form_field,
+                    "routedBy": e.routed_by,
+                    "routedAt": e.routed_at,
+                    "routingNote": e.routing_note,
+                    "value": e.value,
+                }
+                for e in x.entries
+            ],
+        }
+        want_shape = {k: v for k, v in want.items() if k not in ("yaml", "markdown")}
+        _check(f"codespecs.extract[{name}].shape", shape == want_shape,
+               _json_mismatch(shape, want_shape))
+        _check(f"codespecs.extract[{name}].yaml", x.to_yaml() == want["yaml"],
+               _byte_diff("yaml", x.to_yaml(), want["yaml"]))
+        _check(f"codespecs.extract[{name}].markdown",
+               x.to_markdown() == want["markdown"],
+               _byte_diff("markdown", x.to_markdown(), want["markdown"]))
+
+    state = _read_json("state.json")
+    stored = set(state["content"].values())
+    for section in state["forms"].values():
+        stored.update(section.values())
+    _check("codespecs.storedNotEmpty", bool(stored))
+    composed = [
+        f"{x['area']} {e['path']}"
+        for x in want_extracts
+        for e in x["entries"]
+        if e["value"] not in stored
+    ]
+    _check("codespecs.verbatim", not composed,
+           f"not copied from the document: {composed}")
+
+    emitted = [e["value"] for x in want_extracts for e in x["entries"]]
+    for excluded in ("Controlled summary", "ctrl-owner", "alice"):
+        _check(f"codespecs.excluded[{excluded}]", excluded not in emitted,
+               "reached an extract")
+
+    for case in table["errorCases"]:
+        name = case["name"]
+        # The error case carries its own model and state rather than mutating
+        # the shared fixture: `model.meta.json` is a VALID model by construction
+        # (§10.2 ROUTE-TOTAL holds over it). `state` is the ordinary state.json
+        # shape, so every runtime already has the loader.
+        err_doc = SpecDocument()
+        err_doc.load_json(case["state"])
+        err_extractor = CodeSpecsExtractor(
+            model=SpecModel.from_json(case["model"]),
+            document=err_doc,
+            catalog=catalog,
+        )
+        want = case["expect"]
+        try:
+            err_extractor.extract_all()
+            raised = None
+        except CodeSpecsExtractError as e:
+            raised = e
+        _check(f"codespecs.error[{name}].raises", raised is not None,
+               "did not raise")
+        if raised is not None:
+            _check(f"codespecs.error[{name}].path", raised.path == want["path"],
+                   raised.path)
+            _check(f"codespecs.error[{name}].className",
+                   raised.class_name == want["className"], raised.class_name)
+            _check(f"codespecs.error[{name}].message",
+                   want["messageContains"] in raised.message, raised.message)
+        # …and the diagnostic reports the same node instead of throwing.
+        verdicts = [
+            r.verdict.value
+            for r in err_extractor.routings()
+            if r.path == want["path"]
+        ]
+        _check(f"codespecs.error[{name}].routingVerdict",
+               verdicts == [want["routingVerdict"]], str(verdicts))
+
+
 def test_cursor(model: SpecModel) -> None:
     """A scripted cursor session over a freshly built document.
 
@@ -1024,6 +1158,7 @@ def main() -> int:
     test_pattern()
     test_query(model)
     test_projection(model)
+    test_codespecs_extract(model)
     test_cursor(model)
     test_node_creation(model)
     test_node_creation_script(model)

@@ -21,6 +21,87 @@ JsonRef SpecAnnotation::argument(const std::string& key) const {
   return jsonGet(arguments, key);
 }
 
+std::string specStripEnumPrefix(const std::string& raw) {
+  std::size_t dot = raw.rfind('.');
+  return dot == std::string::npos ? raw : raw.substr(dot + 1);
+}
+
+const SpecAnnotation* specAnnotationNamed(
+    const std::vector<SpecAnnotation>& annotations, const std::string& name) {
+  for (const SpecAnnotation& a : annotations) {
+    if (a.name == name) {
+      return &a;
+    }
+  }
+  return nullptr;
+}
+
+bool specHasAnnotation(const std::vector<SpecAnnotation>& annotations,
+                       const std::string& name) {
+  return specAnnotationNamed(annotations, name) != nullptr;
+}
+
+namespace {
+
+/* The annotation's `note` argument, unset when absent — so "carries no note"
+ * stays distinguishable from "carries an empty one". */
+std::optional<std::string> annotationNote(const SpecAnnotation& a) {
+  const std::string* s = jsonAsStr(a.argument("note"));
+  return s != nullptr ? std::optional<std::string>(*s) : std::nullopt;
+}
+
+/* Reads a KindLink out of `a`, taking the code list from the argument named
+ * `listArgument` — `kinds` for `@CodeSpecKind`, `processes` for
+ * `@FollowUpKind`. A non-string element contributes nothing, the same way
+ * strListFromJson treats the model's other string arrays. */
+KindLink kindLinkFromAnnotation(const SpecAnnotation& a,
+                                const char* listArgument) {
+  KindLink out;
+  JsonRef raw = a.argument(listArgument);
+  std::size_t n = jsonArrayLen(raw);
+  for (std::size_t i = 0; i < n; i++) {
+    const std::string* k = jsonAsStr(jsonArrayAt(raw, i));
+    if (k != nullptr) {
+      out.kinds.push_back(specStripEnumPrefix(*k));
+    }
+  }
+  out.note = annotationNote(a);
+  return out;
+}
+
+}  // namespace
+
+std::optional<KindLink> specCodeSpecKind(
+    const std::vector<SpecAnnotation>& annotations) {
+  const SpecAnnotation* a = specAnnotationNamed(annotations, "CodeSpecKind");
+  if (a == nullptr) {
+    return std::nullopt;
+  }
+  return kindLinkFromAnnotation(*a, "kinds");
+}
+
+std::optional<KindLink> specFollowUpKind(
+    const std::vector<SpecAnnotation>& annotations) {
+  const SpecAnnotation* a = specAnnotationNamed(annotations, "FollowUpKind");
+  if (a == nullptr) {
+    return std::nullopt;
+  }
+  return kindLinkFromAnnotation(*a, "processes");
+}
+
+std::optional<NoArtifactLink> specNoArtifact(
+    const std::vector<SpecAnnotation>& annotations) {
+  const SpecAnnotation* a = specAnnotationNamed(annotations, "NoArtifact");
+  if (a == nullptr) {
+    return std::nullopt;
+  }
+  NoArtifactLink out;
+  const std::string* reason = jsonAsStr(a->argument("reason"));
+  out.reason = specStripEnumPrefix(reason != nullptr ? *reason : "container");
+  out.note = annotationNote(*a);
+  return out;
+}
+
 namespace {
 
 bool versionIsSpace(char c) {

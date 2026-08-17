@@ -19,6 +19,8 @@
  *   - the SOM §14 DocSpecs tier (one case per violation rule);
  *   - the portable text-pattern subset (SOM §9);
  *   - the lexical/structural query, its cursor and the node projection;
+ *   - the Phase-4 CodeSpecs extract generator (routing verdicts, the YAML and
+ *     Markdown goldens, the verbatim-copy guard and the ROUTE-TOTAL errors);
  *   - the meta-model-validated node-creation gate and its creator.
  *
  * The corpus directory is argv[1], defaulting to
@@ -1834,6 +1836,359 @@ static void test_projection(Checker *c, const SpecModel *model) {
   spec_document_free(&doc);
 }
 
+/* Every value the fixture document stores — the `content` map plus each `forms`
+ * section's fields — collected into one list to test membership against. Read
+ * off `state.json` rather than off the loaded document so the extract is checked
+ * against the corpus, not against the same code path that produced it. */
+static void stored_values(const SomJson *state, SomStrList *out) {
+  som_strlist_init(out);
+  const SomJson *content = som_json_get(state, "content");
+  if (content != NULL && content->type == SOM_JSON_OBJECT) {
+    for (size_t i = 0; i < content->as.object.len; i++) {
+      const char *s = som_json_as_str(content->as.object.members[i].value);
+      if (s != NULL) {
+        som_strlist_push_copy(out, s);
+      }
+    }
+  }
+  const SomJson *forms = som_json_get(state, "forms");
+  if (forms != NULL && forms->type == SOM_JSON_OBJECT) {
+    for (size_t i = 0; i < forms->as.object.len; i++) {
+      const SomJson *section = forms->as.object.members[i].value;
+      if (section == NULL || section->type != SOM_JSON_OBJECT) {
+        continue;
+      }
+      for (size_t f = 0; f < section->as.object.len; f++) {
+        const char *s = som_json_as_str(section->as.object.members[f].value);
+        if (s != NULL) {
+          som_strlist_push_copy(out, s);
+        }
+      }
+    }
+  }
+}
+
+/* Whether any entry of any committed extract carries `value` verbatim. */
+static int any_extract_emits(const SomJson *extracts, const char *value) {
+  for (size_t i = 0; i < som_json_array_len(extracts); i++) {
+    const SomJson *entries =
+        som_json_get(som_json_array_at(extracts, i), "entries");
+    for (size_t e = 0; e < som_json_array_len(entries); e++) {
+      const char *got =
+          som_json_str_or(som_json_array_at(entries, e), "value");
+      if (strcmp(got, value) == 0) {
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
+
+/* The Phase-4 CodeSpecs extract generator (`codespecs_mapping.md` §1.1.1): the
+ * routing diagnostic, the goldens byte for byte, the `codespecs_derivation
+ * _contract.md` §2.8 C1 verbatim guard, the `@FollowUpKind` exclusion, and the
+ * `ROUTE-TOTAL` error cases. */
+static void test_codespecs_extract(Checker *c, const SpecModel *model) {
+  SpecDocument doc;
+  fresh_document(&doc);
+  SomJson *table = read_json("codespecs_extract_cases.json");
+  CodeSpecsAreaCatalog catalog;
+  spec_codespecs_area_catalog_from_json(som_json_get(table, "catalog"),
+                                        &catalog);
+  CodeSpecsExtractor ex = spec_codespecs_extractor_make(model, &doc, &catalog);
+
+  /* 1. the routing verdicts reproduce the committed diagnostic. */
+  const SomJson *want_routings = som_json_get(table, "routings");
+  size_t routing_n = som_json_array_len(want_routings);
+  CodeSpecsRoutingList routings;
+  spec_codespecs_extractor_routings(&ex, &routings);
+  {
+    char detail[128];
+    snprintf(detail, sizeof(detail), "%zu != %zu", routings.len, routing_n);
+    check(c, "codespecs.routings.count", routings.len == routing_n, detail);
+  }
+  size_t routing_limit = routings.len < routing_n ? routings.len : routing_n;
+  for (size_t i = 0; i < routing_limit; i++) {
+    const CodeSpecsRouting *r = &routings.items[i];
+    const SomJson *w = som_json_array_at(want_routings, i);
+    char tag[640], t[704], detail[2048];
+    snprintf(tag, sizeof(tag), "codespecs.routing[%zu] %s", i, r->path);
+
+    struct {
+      const char *field;
+      const char *got;
+      const char *want;
+    } strs[] = {
+        {"path", r->path, som_json_str_or(w, "path")},
+        {"className", r->class_name, som_json_str_or(w, "className")},
+        {"verdict", spec_codespecs_verdict_name(r->verdict),
+         som_json_str_or(w, "verdict")},
+        {"note", opt_text(r->note), json_opt_text(som_json_get(w, "note"))},
+        {"declaredAt", r->declared_at, som_json_str_or(w, "declaredAt")},
+    };
+    for (size_t f = 0; f < sizeof(strs) / sizeof(strs[0]); f++) {
+      snprintf(t, sizeof(t), "%s.%s", tag, strs[f].field);
+      snprintf(detail, sizeof(detail), "%s != %s", strs[f].got, strs[f].want);
+      check(c, t, strcmp(strs[f].got, strs[f].want) == 0, detail);
+    }
+
+    SomStrList want_values;
+    json_str_list(som_json_get(w, "values"), &want_values);
+    char *gj = som_strlist_join(&r->values, " ~ ");
+    char *wj = som_strlist_join(&want_values, " ~ ");
+    snprintf(t, sizeof(t), "%s.values", tag);
+    snprintf(detail, sizeof(detail), "%s != %s", gj, wj);
+    check(c, t, strlist_eq(&r->values, &want_values), detail);
+    free(gj);
+    free(wj);
+    som_strlist_free(&want_values);
+  }
+  spec_codespecs_routing_list_free(&routings);
+
+  /* 2. the extracts reproduce the committed goldens byte for byte. */
+  const SomJson *want_extracts = som_json_get(table, "extracts");
+  size_t extract_n = som_json_array_len(want_extracts);
+  CodeSpecsExtractList extracts;
+  CodeSpecsExtractError err;
+  spec_codespecs_extract_error_init(&err);
+  int extracted = spec_codespecs_extractor_extract_all(&ex, &extracts, &err);
+  {
+    char *msg = spec_codespecs_extract_error_string(&err);
+    check(c, "codespecs.extractAll.succeeds", extracted, msg);
+    free(msg);
+    char detail[128];
+    snprintf(detail, sizeof(detail), "%zu != %zu", extracts.len, extract_n);
+    check(c, "codespecs.extracts.count", extracts.len == extract_n, detail);
+  }
+  spec_codespecs_extract_error_free(&err);
+
+  size_t extract_limit = extracts.len < extract_n ? extracts.len : extract_n;
+  for (size_t i = 0; i < extract_limit; i++) {
+    const CodeSpecsExtract *x = &extracts.items[i];
+    const SomJson *w = som_json_array_at(want_extracts, i);
+    char tag[256], t[384], detail[2048];
+    snprintf(tag, sizeof(tag), "codespecs.extract[%s]", x->area->code);
+
+    char *part = spec_codespecs_area_kind_value(x->area);
+    char *stem = spec_codespecs_extract_file_stem(x);
+    struct {
+      const char *field;
+      const char *got;
+      const char *want;
+    } strs[] = {
+        {"area", x->area->code, som_json_str_or(w, "area")},
+        {"canonicalId", x->area->canonical_id,
+         som_json_str_or(w, "canonicalId")},
+        {"part", part, som_json_str_or(w, "part")},
+        {"documentRoot", x->document_root, som_json_str_or(w, "documentRoot")},
+        {"fileStem", stem, som_json_str_or(w, "fileStem")},
+    };
+    for (size_t f = 0; f < sizeof(strs) / sizeof(strs[0]); f++) {
+      snprintf(t, sizeof(t), "%s.%s", tag, strs[f].field);
+      snprintf(detail, sizeof(detail), "%s != %s", strs[f].got, strs[f].want);
+      check(c, t, strcmp(strs[f].got, strs[f].want) == 0, detail);
+    }
+    free(part);
+    free(stem);
+
+    struct {
+      const char *field;
+      const SomStrList *got;
+    } lists[] = {
+        {"projects", &x->projects},
+        {"citableParts", &x->citable_parts},
+    };
+    for (size_t f = 0; f < sizeof(lists) / sizeof(lists[0]); f++) {
+      SomStrList want_list;
+      json_str_list(som_json_get(w, lists[f].field), &want_list);
+      char *gj = som_strlist_join(lists[f].got, " ~ ");
+      char *wj = som_strlist_join(&want_list, " ~ ");
+      snprintf(t, sizeof(t), "%s.%s", tag, lists[f].field);
+      snprintf(detail, sizeof(detail), "%s != %s", gj, wj);
+      check(c, t, strlist_eq(lists[f].got, &want_list), detail);
+      free(gj);
+      free(wj);
+      som_strlist_free(&want_list);
+    }
+
+    const SomJson *want_entries = som_json_get(w, "entries");
+    size_t entry_n = som_json_array_len(want_entries);
+    snprintf(t, sizeof(t), "%s.entries.count", tag);
+    snprintf(detail, sizeof(detail), "%zu != %zu", x->entries_len, entry_n);
+    check(c, t, x->entries_len == entry_n, detail);
+    size_t entry_limit = x->entries_len < entry_n ? x->entries_len : entry_n;
+    for (size_t k = 0; k < entry_limit; k++) {
+      const CodeSpecsExtractEntry *e = &x->entries[k];
+      const SomJson *we = som_json_array_at(want_entries, k);
+      char etag[640];
+      snprintf(etag, sizeof(etag), "%s.entry[%zu] %s", tag, k, e->path);
+      struct {
+        const char *field;
+        const char *got;
+        const char *want;
+      } efs[] = {
+          {"sectionId", e->section_id, som_json_str_or(we, "sectionId")},
+          {"path", e->path, som_json_str_or(we, "path")},
+          {"className", e->class_name, som_json_str_or(we, "className")},
+          {"fieldName", e->field_name, som_json_str_or(we, "fieldName")},
+          {"formField", opt_text(e->form_field),
+           json_opt_text(som_json_get(we, "formField"))},
+          {"routedBy", e->routed_by, som_json_str_or(we, "routedBy")},
+          {"routedAt", e->routed_at, som_json_str_or(we, "routedAt")},
+          {"routingNote", opt_text(e->routing_note),
+           json_opt_text(som_json_get(we, "routingNote"))},
+          {"value", e->value, som_json_str_or(we, "value")},
+      };
+      for (size_t f = 0; f < sizeof(efs) / sizeof(efs[0]); f++) {
+        char et[768];
+        snprintf(et, sizeof(et), "%s.%s", etag, efs[f].field);
+        snprintf(detail, sizeof(detail), "%s != %s", efs[f].got, efs[f].want);
+        check(c, et, strcmp(efs[f].got, efs[f].want) == 0, detail);
+      }
+    }
+
+    char *yaml = spec_codespecs_extract_to_yaml(x);
+    char *markdown = spec_codespecs_extract_to_markdown(x);
+    struct {
+      const char *field;
+      char *got;
+    } blobs[] = {{"yaml", yaml}, {"markdown", markdown}};
+    for (size_t f = 0; f < sizeof(blobs) / sizeof(blobs[0]); f++) {
+      snprintf(t, sizeof(t), "%s.%s", tag, blobs[f].field);
+      const char *expected = som_json_str_or(w, blobs[f].field);
+      char *diff = byte_diff(t, blobs[f].got, expected);
+      check(c, t, strcmp(blobs[f].got, expected) == 0, diff);
+      free(diff);
+    }
+    free(yaml);
+    free(markdown);
+  }
+  spec_codespecs_extract_list_free(&extracts);
+
+  /* 3. every emitted value occurs verbatim in the source document.
+   *
+   * The guard `codespecs_derivation_contract.md` §2.8 C1 rests on, carried in
+   * the corpus rather than left to each port's own conscience: the generator may
+   * copy and index, it may not compose. Membership, not substring — that is what
+   * makes "verbatim" mean verbatim rather than "derived from". */
+  SomJson *state = read_json("state.json");
+  SomStrList stored;
+  stored_values(state, &stored);
+  check(c, "codespecs.verbatim.storedValues", stored.len > 0, "no stored values");
+  for (size_t i = 0; i < extract_n; i++) {
+    const SomJson *w = som_json_array_at(want_extracts, i);
+    const char *area = som_json_str_or(w, "area");
+    const SomJson *entries = som_json_get(w, "entries");
+    for (size_t k = 0; k < som_json_array_len(entries); k++) {
+      const SomJson *e = som_json_array_at(entries, k);
+      const char *value = som_json_str_or(e, "value");
+      char t[768];
+      snprintf(t, sizeof(t), "codespecs.verbatim %s %s", area,
+               som_json_str_or(e, "path"));
+      check(c, t, som_strlist_contains(&stored, value), value);
+    }
+  }
+  som_strlist_free(&stored);
+  som_json_free(state);
+
+  /* 4. a @FollowUpKind subtree contributes to no extract. `Control` is
+   * populated, and populated distinctively, so its absence cannot be an accident
+   * of an empty section. `alice` covers the other half: a @NoArtifact section's
+   * own leaf. */
+  {
+    const char *absent[] = {"Controlled summary", "ctrl-owner", "alice"};
+    for (size_t i = 0; i < sizeof(absent) / sizeof(absent[0]); i++) {
+      char t[256];
+      snprintf(t, sizeof(t), "codespecs.excluded \"%s\"", absent[i]);
+      check(c, t, !any_extract_emits(want_extracts, absent[i]), "was emitted");
+    }
+  }
+
+  /* 5. the `ROUTE-TOTAL` error cases.
+   *
+   * Each case carries its own model and state rather than mutating the shared
+   * fixture: `model.meta.json` is a VALID model by construction (§10.2
+   * `ROUTE-TOTAL` holds over it), and a port should not have to break it to run
+   * this case. `state` is the ordinary `state.json` shape, so the loader is
+   * already at hand. */
+  const SomJson *error_cases = som_json_get(table, "errorCases");
+  for (size_t i = 0; i < som_json_array_len(error_cases); i++) {
+    const SomJson *ec = som_json_array_at(error_cases, i);
+    const SomJson *want = som_json_get(ec, "expect");
+    const char *want_path = som_json_str_or(want, "path");
+    char tag[512];
+    snprintf(tag, sizeof(tag), "codespecs.errorCase[%s]",
+             som_json_str_or(ec, "name"));
+
+    /* The model borrows its annotation arguments from `table`, which outlives
+     * this scope. */
+    SpecModel *err_model = spec_model_from_json(som_json_get(ec, "model"));
+    char t[640];
+    snprintf(t, sizeof(t), "%s.model", tag);
+    check(c, t, err_model != NULL, "model did not load");
+    if (err_model == NULL) {
+      continue;
+    }
+    SpecDocument err_doc;
+    DocumentJson err_state;
+    document_json_from_json(som_json_get(ec, "state"), &err_state);
+    doc_from_state(&err_doc, &err_state);
+    document_json_free(&err_state);
+    CodeSpecsExtractor err_ex =
+        spec_codespecs_extractor_make(err_model, &err_doc, &catalog);
+
+    CodeSpecsExtractList out;
+    CodeSpecsExtractError got;
+    spec_codespecs_extract_error_init(&got);
+    int ok = spec_codespecs_extractor_extract_all(&err_ex, &out, &got);
+    snprintf(t, sizeof(t), "%s.fails", tag);
+    check(c, t, !ok && got.failed, ok ? "extraction succeeded" : "no error");
+    if (!ok && got.failed) {
+      snprintf(t, sizeof(t), "%s.path", tag);
+      check(c, t, strcmp(got.path, want_path) == 0, got.path);
+      snprintf(t, sizeof(t), "%s.className", tag);
+      check(c, t, strcmp(got.class_name, som_json_str_or(want, "className")) == 0,
+            got.class_name);
+      snprintf(t, sizeof(t), "%s.message", tag);
+      check(c, t,
+            strstr(got.message, som_json_str_or(want, "messageContains")) !=
+                NULL,
+            got.message);
+    }
+    spec_codespecs_extract_error_free(&got);
+    spec_codespecs_extract_list_free(&out);
+
+    /* …and the diagnostic reports it rather than failing on it. */
+    CodeSpecsRoutingList err_routings;
+    spec_codespecs_extractor_routings(&err_ex, &err_routings);
+    SomStrList verdicts;
+    som_strlist_init(&verdicts);
+    for (size_t k = 0; k < err_routings.len; k++) {
+      if (strcmp(err_routings.items[k].path, want_path) == 0) {
+        som_strlist_push_copy(
+            &verdicts, spec_codespecs_verdict_name(err_routings.items[k].verdict));
+      }
+    }
+    char *joined = som_strlist_join(&verdicts, " ~ ");
+    snprintf(t, sizeof(t), "%s.routingVerdict", tag);
+    check(c, t,
+          verdicts.len == 1 &&
+              strcmp(verdicts.items[0],
+                     som_json_str_or(want, "routingVerdict")) == 0,
+          joined);
+    free(joined);
+    som_strlist_free(&verdicts);
+    spec_codespecs_routing_list_free(&err_routings);
+
+    spec_document_free(&err_doc);
+    spec_model_free(err_model);
+  }
+
+  spec_codespecs_area_catalog_free(&catalog);
+  som_json_free(table);
+  spec_document_free(&doc);
+}
+
 /* The cursor's laziness and its view of a **mutating** document: the script
  * removes a list item between opening a cursor and draining it, and the removed
  * item must not surface. */
@@ -2125,6 +2480,7 @@ int main(int argc, char **argv) {
   test_text_pattern(&c);
   test_query(&c, model);
   test_projection(&c, model);
+  test_codespecs_extract(&c, model);
   test_cursor(&c, model);
   test_node_creation_cases(&c, model);
   test_node_creation_script(&c, model);

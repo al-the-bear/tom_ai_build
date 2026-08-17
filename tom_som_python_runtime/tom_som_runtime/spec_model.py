@@ -94,8 +94,156 @@ class FormFieldSpec:
         )
 
 
+def _strip_enum_prefix(raw: str) -> str:
+    """``CodeSpecPart.validation`` → ``validation``. A name already given bare
+    is returned unchanged, so readers do not depend on how the exporter chose
+    to spell the enum constant. Splitting on the last dot rather than a fixed
+    prefix keeps this working for any code enum the model adds."""
+    dot = raw.rfind(".")
+    return raw if dot < 0 else raw[dot + 1 :]
+
+
 @dataclass(frozen=True)
-class SpecField:
+class KindLink:
+    """A list-valued taxonomy annotation: a set of enum codes plus an optional
+    explanatory note.
+
+    The model states where a subtree is headed with two such annotations, which
+    share this shape exactly — ``@CodeSpecKind(List<CodeSpecPart>, {note})``
+    names the CodeSpecs part(s) a section type must be realised as
+    (`codespecs_mapping.md` §9.1/§9.5), and
+    ``@FollowUpKind(List<FollowUpProcess>, {note})`` names the downstream
+    *process(es)* a non-code subtree feeds (`codespecs_mapping.md` §8.3). One
+    reader serves both; which annotation a link came from is expressed by which
+    accessor produced it.
+
+    Obtaining a link at all means the annotation is present. That matters: a
+    node with no link has not been classified yet, whereas a link with empty
+    :attr:`kinds` is a recorded decision that the section belongs to no member
+    of that taxonomy. The two are different statements, so they are different
+    values rather than one nullable list."""
+
+    #: The enum code names with their type prefix stripped — ``validation``,
+    #: not ``CodeSpecPart.validation``; ``doc``, not ``FollowUpProcess.doc``.
+    #:
+    #: Both annotations are list-valued because one section can be realised as
+    #: several parts, or feed several processes; consumers must handle all of
+    #: them, not just the first.
+    kinds: list[str] = field(default_factory=list)
+    #: The annotation's free-text ``note``, explaining the classification.
+    note: Optional[str] = None
+
+    @staticmethod
+    def from_annotation(
+        annotation: SpecAnnotation, list_argument: str
+    ) -> "KindLink":
+        """Reads a link out of *annotation*, taking the code list from the
+        argument named *list_argument* — ``kinds`` for ``@CodeSpecKind``,
+        ``processes`` for ``@FollowUpKind``."""
+        raw = annotation.argument(list_argument)
+        return KindLink(
+            kinds=(
+                [_strip_enum_prefix(str(k)) for k in raw if k is not None]
+                if isinstance(raw, list)
+                else []
+            ),
+            note=annotation.argument("note"),
+        )
+
+
+@dataclass(frozen=True)
+class NoArtifactLink:
+    """The third routing verdict: ``@NoArtifact(NoArtifactReason, {note})`` —
+    the section feeds neither a CodeSpecs part nor a follow-up process
+    (`codespecs_mapping.md` §8.3).
+
+    Single-valued where :class:`KindLink` is a list, and the asymmetry is the
+    point: a section can feed several parts or several processes at once, but
+    it is unrouted for exactly one reason. That reason is what makes the
+    absence of the other two markers readable as a decision rather than an
+    omission, which is what `tom_specs_model_rules.md` §10.2 invariant
+    ``ROUTE-TOTAL`` checks."""
+
+    #: The ``NoArtifactReason`` code name with its type prefix stripped —
+    #: ``container``, not ``NoArtifactReason.container``. One of ``container``,
+    #: ``overview``, ``view``.
+    reason: str
+    #: The annotation's free-text ``note``. On an ``overview`` this customarily
+    #: names the routed section that states the material normatively.
+    note: Optional[str] = None
+
+    @staticmethod
+    def from_annotation(annotation: SpecAnnotation) -> "NoArtifactLink":
+        """Reads the verdict out of *annotation*."""
+        raw = annotation.argument("reason")
+        return NoArtifactLink(
+            reason=_strip_enum_prefix("container" if raw is None else str(raw)),
+            note=annotation.argument("note"),
+        )
+
+
+class AnnotatedSpecNode:
+    """Shared behaviour of the two model nodes that carry annotations —
+    classes and fields. Keeps the annotation lookups defined once instead of
+    per node type.
+
+    Mixed into the two frozen dataclasses below, each of which supplies the
+    ``annotations`` list this reads."""
+
+    #: The lossless annotation list captured on this node (SOM §5.3). Supplied
+    #: by the concrete node.
+    annotations: list[SpecAnnotation]
+
+    def annotation(self, name: str) -> Optional[SpecAnnotation]:
+        """The annotation named *name*, or ``None`` when absent."""
+        for a in self.annotations:
+            if a.name == name:
+                return a
+        return None
+
+    def annotations_named(self, name: str) -> list[SpecAnnotation]:
+        """Every annotation named *name*, in source order — empty when absent.
+
+        Distinct from :meth:`annotation` because some annotations are
+        *repeatable*: ``@Case`` is applied once per discriminator value, so a
+        single field can carry several. Reading only the first would silently
+        drop the rest."""
+        return [a for a in self.annotations if a.name == name]
+
+    def has_annotation(self, name: str) -> bool:
+        """Whether the annotation named *name* is present. For markers that
+        carry no arguments, presence *is* the whole statement."""
+        return self.annotation(name) is not None
+
+    @property
+    def code_spec_kind(self) -> Optional[KindLink]:
+        """The ``@CodeSpecKind`` link, or ``None`` when this node carries no
+        such annotation. See :class:`KindLink` for why absent and empty
+        differ."""
+        return self._link("CodeSpecKind", "kinds")
+
+    @property
+    def follow_up_kind(self) -> Optional[KindLink]:
+        """The ``@FollowUpKind`` link, or ``None`` when this node carries no
+        such annotation — which downstream process(es) this subtree feeds
+        instead of becoming CodeSpecs code (`codespecs_mapping.md` §8.3)."""
+        return self._link("FollowUpKind", "processes")
+
+    @property
+    def no_artifact(self) -> Optional[NoArtifactLink]:
+        """The ``@NoArtifact`` verdict, or ``None`` when this node carries no
+        such annotation — the recorded decision that the section produces
+        nothing downstream (`codespecs_mapping.md` §8.3)."""
+        a = self.annotation("NoArtifact")
+        return None if a is None else NoArtifactLink.from_annotation(a)
+
+    def _link(self, name: str, list_argument: str) -> Optional[KindLink]:
+        a = self.annotation(name)
+        return None if a is None else KindLink.from_annotation(a, list_argument)
+
+
+@dataclass(frozen=True)
+class SpecField(AnnotatedSpecNode):
     """A single field of a :class:`SpecClass`."""
 
     name: str
@@ -150,15 +298,9 @@ class SpecField:
         """Whether expanding this field reveals further tree nodes."""
         return self.kind in (SpecFieldKind.LIST, SpecFieldKind.COMPLEX)
 
-    def annotation(self, name: str) -> Optional[SpecAnnotation]:
-        for a in self.annotations:
-            if a.name == name:
-                return a
-        return None
-
 
 @dataclass(frozen=True)
-class SpecClass:
+class SpecClass(AnnotatedSpecNode):
     """A model class with its fields."""
 
     name: str
@@ -192,12 +334,6 @@ class SpecClass:
         for f in self.fields:
             if f.name == name:
                 return f
-        return None
-
-    def annotation(self, name: str) -> Optional[SpecAnnotation]:
-        for a in self.annotations:
-            if a.name == name:
-                return a
         return None
 
 

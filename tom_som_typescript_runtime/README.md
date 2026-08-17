@@ -43,6 +43,7 @@ modules under `src/`:
 | `spec_text_pattern.ts` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`RegExp` is the ECMAScript grammar, which accepts far more than the subset and would let a pattern that only works here into the corpus). |
 | `spec_query.ts` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.ts` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
+| `spec_codespecs_extract.ts` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per CodeSpecs area, every value `@CodeSpecKind` routes there, verbatim and with provenance. |
 | `spec_document_yaml.ts` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.ts` | Meta-data-driven Markdown import/export codec. |
 | `som_facade.ts` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_typescript_v0`. |
@@ -81,7 +82,9 @@ the Dart/Python/Java/JavaScript runners: model meta-data load, `state.json`
 round-trip, YAML encode/decode, Markdown export/round-trip, the
 **Markdown→memory landing** check (the `md.land.*` shared contract — parsing
 `expected.md` lands the same memory as the YAML route), reflection resolution,
-validation, and the imperative operations script.
+validation, the imperative operations script, and the **Phase-4 CodeSpecs
+extract** tier (routing verdicts, the per-area extracts with their YAML and
+Markdown goldens, and the `ROUTE-TOTAL` error cases).
 
 ## Consumed by `tom_som_typescript_v0`
 

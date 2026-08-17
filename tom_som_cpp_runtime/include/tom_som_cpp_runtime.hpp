@@ -28,6 +28,7 @@
 #include "spec_text_pattern.hpp"
 #include "spec_query.hpp"
 #include "spec_node_creation.hpp"
+#include "spec_codespecs_extract.hpp"
 #include "spec_validator.hpp"
 #include "yaml.hpp"
 #include "spec_document_yaml.hpp"

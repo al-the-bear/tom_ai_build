@@ -240,9 +240,6 @@ class CodeSpecsArea {
   /// The §4.4.6 authoring step(s) that write the area.
   final List<int> authoringSteps;
 
-  /// The §4.2 project the area's code lands in.
-  final String project;
-
   /// Whether the part is active. A deferred part (§4.3) holds a reserved
   /// `CodeSpecPart` value but has no generated surface, so it gets no extract.
   final bool active;
@@ -256,7 +253,6 @@ class CodeSpecsArea {
     this.attributeSurface = '',
     this.slices = const [],
     this.authoringSteps = const [],
-    this.project = '',
     this.active = true,
   });
 
@@ -269,7 +265,6 @@ class CodeSpecsArea {
         attributeSurface: j['attributeSurface'] as String? ?? '',
         slices: _intList(j['slices']),
         authoringSteps: _intList(j['authoringSteps']),
-        project: j['project'] as String? ?? '',
         active: j['active'] as bool? ?? true,
       );
 
@@ -348,6 +343,23 @@ class CodeSpecsAreaCatalog {
     return null;
   }
 
+  /// The §4.2 projects [area]'s code lands in, in slice order.
+  ///
+  /// Derived from the area's slices rather than authored on the area: §4.4.3
+  /// already fixes one project per slice, so a per-area project column would be
+  /// a second place for the same fact to be stated — and the areas that would
+  /// need it are exactly the locus-split ones, where getting it wrong is
+  /// easiest.
+  List<String> projectsFor(CodeSpecsArea area) {
+    final out = <String>[];
+    for (final n in area.slices) {
+      final project = sliceNumbered(n)?.project;
+      if (project == null || project.isEmpty || out.contains(project)) continue;
+      out.add(project);
+    }
+    return out;
+  }
+
   /// The area codes [area] may cite — every other active area whose emission
   /// units sit in a slice [area]'s slices reach, following §4.4.3's edges
   /// transitively. Within-slice citation is legal, so an area's own slices are
@@ -394,6 +406,9 @@ class CodeSpecsExtract {
   /// The area codes this area may cite (§4.4.3), for the agent's prompt.
   final List<String> citableParts;
 
+  /// The §4.2 projects the area's code lands in (§4.4.3, via the slices).
+  final List<String> projects;
+
   /// The routed entries, in SOM document order.
   final List<CodeSpecsExtractEntry> entries;
 
@@ -402,6 +417,7 @@ class CodeSpecsExtract {
     required this.documentRoot,
     this.catalogSource = '',
     this.citableParts = const [],
+    this.projects = const [],
     this.entries = const [],
   });
 
@@ -428,7 +444,7 @@ class CodeSpecsExtract {
     b.writeln('    attributeSurface: ${_yamlString(area.attributeSurface)}');
     b.writeln('    slices: ${_yamlIntList(area.slices)}');
     b.writeln('    authoringSteps: ${_yamlIntList(area.authoringSteps)}');
-    b.writeln('    project: ${_yamlString(area.project)}');
+    b.writeln('    projects: ${_yamlStringList(projects)}');
     b.writeln('    citableParts: ${_yamlStringList(citableParts)}');
     b.writeln('  document:');
     b.writeln('    root: ${_yamlString(documentRoot)}');
@@ -476,7 +492,7 @@ class CodeSpecsExtract {
     b.writeln('| Attribute surface | ${_mdCell(area.attributeSurface)} |');
     b.writeln('| Slice(s) | ${_mdIntList(area.slices)} |');
     b.writeln('| Authoring step(s) | ${_mdIntList(area.authoringSteps)} |');
-    b.writeln('| Project | `${area.project}` |');
+    b.writeln('| Project(s) | ${_mdCodeList(projects)} |');
     b.writeln('| May cite | ${_mdCodeList(citableParts)} |');
     b.writeln('| Catalogue source | ${_mdCell(catalogSource)} |');
     b.writeln();
@@ -587,6 +603,7 @@ class CodeSpecsExtractor {
         catalogSource: catalog.source,
         documentRoot: root,
         citableParts: catalog.citableAreaCodes(area),
+        projects: catalog.projectsFor(area),
         entries: entries
             .where((e) => e.areaCode == area.code)
             .toList(growable: false),

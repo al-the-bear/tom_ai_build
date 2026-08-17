@@ -24,6 +24,106 @@ const SomJson *spec_annotation_argument(const SpecAnnotation *ann, const char *k
   return som_json_get(ann->arguments, key);
 }
 
+/* ---- annotation lookups shared by classes and fields --------------------- */
+
+const SpecAnnotation *spec_annotations_named(const SpecAnnotationList *l,
+                                             const char *name) {
+  if (l == NULL || name == NULL) {
+    return NULL;
+  }
+  for (size_t i = 0; i < l->len; i++) {
+    if (strcmp(l->items[i].name, name) == 0) {
+      return &l->items[i];
+    }
+  }
+  return NULL;
+}
+
+int spec_annotations_have(const SpecAnnotationList *l, const char *name) {
+  return spec_annotations_named(l, name) != NULL;
+}
+
+const char *spec_strip_enum_prefix(const char *raw) {
+  if (raw == NULL) {
+    return "";
+  }
+  const char *dot = strrchr(raw, '.');
+  return dot == NULL ? raw : dot + 1;
+}
+
+void spec_kind_link_free(SpecKindLink *l) {
+  if (l == NULL) {
+    return;
+  }
+  som_strlist_free(&l->kinds);
+  free(l->note);
+  l->note = NULL;
+}
+
+void spec_no_artifact_link_free(SpecNoArtifactLink *l) {
+  if (l == NULL) {
+    return;
+  }
+  free(l->reason);
+  l->reason = NULL;
+  free(l->note);
+  l->note = NULL;
+}
+
+/* Copies the annotation's `note` argument, or NULL when it carries none — the C
+ * stand-in for the other ports' `String?`, so a note authored as "" stays
+ * distinguishable from no note at all. */
+static char *note_argument(const SpecAnnotation *ann) {
+  const char *note = som_json_as_str(spec_annotation_argument(ann, "note"));
+  return note == NULL ? NULL : som_strdup(note);
+}
+
+/* Reads a `SpecKindLink` out of the annotation named `name`, taking the code
+ * list from the argument named `list_argument` — `kinds` for `@CodeSpecKind`,
+ * `processes` for `@FollowUpKind`. The two annotations differ in that one name
+ * only, which is exactly why they are read here rather than at each call site. */
+static int read_kind_link(const SpecAnnotationList *l, const char *name,
+                          const char *list_argument, SpecKindLink *out) {
+  const SpecAnnotation *ann = spec_annotations_named(l, name);
+  if (ann == NULL) {
+    return 0;
+  }
+  som_strlist_init(&out->kinds);
+  const SomJson *raw = spec_annotation_argument(ann, list_argument);
+  size_t n = som_json_array_len(raw);
+  for (size_t i = 0; i < n; i++) {
+    const char *k = som_json_as_str(som_json_array_at(raw, i));
+    if (k != NULL) {
+      som_strlist_push_copy(&out->kinds, spec_strip_enum_prefix(k));
+    }
+  }
+  out->note = note_argument(ann);
+  return 1;
+}
+
+int spec_annotations_code_spec_kind(const SpecAnnotationList *l,
+                                    SpecKindLink *out) {
+  return read_kind_link(l, "CodeSpecKind", "kinds", out);
+}
+
+int spec_annotations_follow_up_kind(const SpecAnnotationList *l,
+                                    SpecKindLink *out) {
+  return read_kind_link(l, "FollowUpKind", "processes", out);
+}
+
+int spec_annotations_no_artifact(const SpecAnnotationList *l,
+                                 SpecNoArtifactLink *out) {
+  const SpecAnnotation *ann = spec_annotations_named(l, "NoArtifact");
+  if (ann == NULL) {
+    return 0;
+  }
+  const char *reason = som_json_as_str(spec_annotation_argument(ann, "reason"));
+  out->reason =
+      som_strdup(spec_strip_enum_prefix(reason == NULL ? "container" : reason));
+  out->note = note_argument(ann);
+  return 1;
+}
+
 int spec_field_is_expandable(const SpecField *f) {
   return strcmp(f->kind, SPEC_FIELD_KIND_LIST) == 0 ||
          strcmp(f->kind, SPEC_FIELD_KIND_COMPLEX) == 0;

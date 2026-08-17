@@ -48,6 +48,96 @@ struct SpecAnnotation {
   JsonRef argument(const std::string& key) const;
 };
 
+/* A list-valued taxonomy annotation: a set of enum codes plus an optional
+ * explanatory note.
+ *
+ * The model states where a subtree is headed with two such annotations, which
+ * share this shape exactly — `@CodeSpecKind(List<CodeSpecPart>, {note})` names
+ * the CodeSpecs part(s) a section type must be realised as
+ * (`codespecs_mapping.md` §9.1/§9.5), and
+ * `@FollowUpKind(List<FollowUpProcess>, {note})` names the downstream
+ * *process(es)* a non-code subtree feeds (`codespecs_mapping.md` §8.3). One
+ * reader serves both; which annotation a link came from is expressed by which
+ * accessor produced it.
+ *
+ * Obtaining a link at all means the annotation is present — which is why the
+ * accessors return std::optional. That matters: a node with no link has not been
+ * classified yet, whereas a link with an empty `kinds` is a recorded decision
+ * that the section belongs to no member of that taxonomy. The two are different
+ * statements, so they are different values rather than one empty vector. */
+struct KindLink {
+  /* The enum code names with their type prefix stripped — `validation`, not
+   * `CodeSpecPart.validation`; `doc`, not `FollowUpProcess.doc`.
+   *
+   * Both annotations are list-valued because one section can be realised as
+   * several parts, or feed several processes; consumers must handle all of
+   * them, not just the first. */
+  std::vector<std::string> kinds;
+  /* The annotation's free-text `note`, unset when it carries none. */
+  std::optional<std::string> note;
+};
+
+/* The third routing verdict: `@NoArtifact(NoArtifactReason, {note})` — the
+ * section feeds neither a CodeSpecs part nor a follow-up process
+ * (`codespecs_mapping.md` §8.3).
+ *
+ * Single-valued where KindLink is a list, and the asymmetry is the point: a
+ * section can feed several parts or several processes at once, but it is
+ * unrouted for exactly one reason. That reason is what makes the absence of the
+ * other two markers readable as a decision rather than an omission, which is
+ * what `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` checks. */
+struct NoArtifactLink {
+  /* The `NoArtifactReason` code name with its type prefix stripped —
+   * `container`, not `NoArtifactReason.container`. One of `container`,
+   * `overview`, `view`. */
+  std::string reason;
+  /* The annotation's free-text `note`, unset when it carries none. On an
+   * `overview` this customarily names the routed section that states the
+   * material normatively. */
+  std::optional<std::string> note;
+};
+
+/* `CodeSpecPart.validation` → `validation`. A name already given bare is
+ * returned unchanged, so readers do not depend on how the exporter chose to
+ * spell the enum constant. Splitting on the last dot rather than a fixed prefix
+ * keeps this working for any code enum the model adds. */
+std::string specStripEnumPrefix(const std::string& raw);
+
+/* ---- the annotation bag -------------------------------------------------
+ *
+ * The lookups below are the shared behaviour of the two model nodes that carry
+ * annotations — classes and fields (the Dart reference's `AnnotatedSpecNode`
+ * mixin). They are free functions over the annotation vector rather than
+ * members duplicated on both structs, matching how the rest of this port reads
+ * annotations. */
+
+/* Returns the annotation named `name`, or null when absent. */
+const SpecAnnotation* specAnnotationNamed(
+    const std::vector<SpecAnnotation>& annotations, const std::string& name);
+
+/* Whether the annotation named `name` is present. For markers that carry no
+ * arguments, presence *is* the whole statement. */
+bool specHasAnnotation(const std::vector<SpecAnnotation>& annotations,
+                       const std::string& name);
+
+/* The `@CodeSpecKind` link, unset when the node carries no such annotation.
+ * Its list argument is named `kinds`. See KindLink for why absent and empty
+ * differ. */
+std::optional<KindLink> specCodeSpecKind(
+    const std::vector<SpecAnnotation>& annotations);
+
+/* The `@FollowUpKind` link, unset when the node carries no such annotation —
+ * which downstream process(es) this subtree feeds instead of becoming CodeSpecs
+ * code (`codespecs_mapping.md` §8.3). Its list argument is named `processes`. */
+std::optional<KindLink> specFollowUpKind(
+    const std::vector<SpecAnnotation>& annotations);
+
+/* The `@NoArtifact` verdict, unset when the node carries no such annotation —
+ * the recorded decision that the section produces nothing downstream
+ * (`codespecs_mapping.md` §8.3). Its single argument is named `reason`. */
+std::optional<NoArtifactLink> specNoArtifact(
+    const std::vector<SpecAnnotation>& annotations);
+
 struct FormFieldSpec {
   std::string name;
   std::string label;

@@ -43,6 +43,7 @@ The package `tom_som_runtime` mirrors the eight portable runtime modules:
 | `spec_text_pattern.js` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`RegExp` is the ECMAScript grammar, which accepts far more than the subset and would let a pattern that only works here into the corpus). |
 | `spec_query.js` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.js` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
+| `spec_codespecs_extract.js` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per area, every value `@CodeSpecKind` routes there, verbatim and with provenance. |
 | `spec_document_yaml.js` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (SOM §11). |
 | `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (SOM §14). |

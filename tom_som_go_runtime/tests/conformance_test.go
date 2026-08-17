@@ -19,6 +19,8 @@
 //   - the SOM §14 DocSpecs tier (one case per violation rule);
 //   - the portable text-pattern subset (match spans + compile rejections);
 //   - the query surface (match lists, cursor laziness, the projection walk);
+//   - the Phase-4 CodeSpecs extract generator (routing verdicts, the per-area
+//     YAML/Markdown goldens, the verbatim-copy guard, `ROUTE-TOTAL`);
 //   - the constrained node-creation gate (per-code rejections + the script).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
@@ -29,6 +31,7 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -209,6 +212,7 @@ func TestConformance(t *testing.T) {
 	testPattern(c, t)
 	testQuery(c, t, model)
 	testProjection(c, t, model)
+	testCodeSpecsExtract(c, t, model)
 	testCursor(c, t, model)
 	testNodeCreation(c, t, model)
 	testNodeCreationScript(c, t, model)
@@ -1371,6 +1375,235 @@ func testProjection(c *checker, t *testing.T, model *som.SpecModel) {
 		c.check("projection.single.dangling",
 			engine.ProjectNode("NOPE/nope") == nil, "expected nil for a dangling path")
 	}
+}
+
+// codeSpecsExtractTable mirrors corpus/codespecs_extract_cases.json — the
+// Phase-4 extract contract. `catalog` and `model` stay raw because they are fed
+// straight back to the runtime's own decoders, which is the point: the runner
+// must exercise the loaders every consumer uses, not a second reading of the
+// same bytes.
+type codeSpecsExtractTable struct {
+	Catalog    json.RawMessage        `json:"catalog"`
+	Routings   json.RawMessage        `json:"routings"`
+	Extracts   []codeSpecsExtractWant `json:"extracts"`
+	ErrorCases []codeSpecsErrorCase   `json:"errorCases"`
+}
+
+type codeSpecsExtractWant struct {
+	Area         string          `json:"area"`
+	CanonicalID  string          `json:"canonicalId"`
+	Part         string          `json:"part"`
+	DocumentRoot string          `json:"documentRoot"`
+	FileStem     string          `json:"fileStem"`
+	Projects     []string        `json:"projects"`
+	CitableParts []string        `json:"citableParts"`
+	Entries      json.RawMessage `json:"entries"`
+	Yaml         string          `json:"yaml"`
+	Markdown     string          `json:"markdown"`
+}
+
+type codeSpecsErrorCase struct {
+	Name   string           `json:"name"`
+	Model  json.RawMessage  `json:"model"`
+	State  som.DocumentJson `json:"state"`
+	Expect struct {
+		Path            string `json:"path"`
+		ClassName       string `json:"className"`
+		MessageContains string `json:"messageContains"`
+		RoutingVerdict  string `json:"routingVerdict"`
+	} `json:"expect"`
+}
+
+// testCodeSpecsExtract replays the Phase-4 extract generator: the routing
+// verdicts, the per-area extracts (record + the two goldens, byte for byte), the
+// verbatim-copy guard `codespecs_derivation_contract.md` §2.8 C1 rests on, the
+// exclusion of a @FollowUpKind subtree, and the `ROUTE-TOTAL` error cases.
+func testCodeSpecsExtract(c *checker, t *testing.T, model *som.SpecModel) {
+	var table codeSpecsExtractTable
+	readJSON(t, "codespecs_extract_cases.json", &table)
+
+	catalog, err := som.CodeSpecsAreaCatalogFromJSON(table.Catalog)
+	if err != nil {
+		t.Fatalf("load codespecs catalog: %v", err)
+	}
+	extractor := som.NewCodeSpecsExtractor(model, freshDoc(t), catalog)
+
+	// 1. The verdicts reproduce the committed diagnostic.
+	gotRoutings := []map[string]any{}
+	for _, r := range extractor.Routings() {
+		gotRoutings = append(gotRoutings, map[string]any{
+			"path":       r.Path,
+			"className":  r.ClassName,
+			"verdict":    r.Verdict,
+			"values":     r.Values,
+			"note":       nullable(r.Note),
+			"declaredAt": r.DeclaredAt,
+		})
+	}
+	var wantRoutings []map[string]any
+	if err := json.Unmarshal(table.Routings, &wantRoutings); err != nil {
+		t.Fatalf("decode codespecs routings: %v", err)
+	}
+	gotJSON, wantJSON := canonJSON(t, gotRoutings), canonJSON(t, wantRoutings)
+	c.check("codespecs.routings", gotJSON == wantJSON, gotJSON+" != "+wantJSON)
+
+	// 2. The extracts reproduce the committed goldens byte for byte.
+	extracts, err := extractor.ExtractAll()
+	if err != nil {
+		c.check("codespecs.extractAll", false, err.Error())
+		return
+	}
+	c.check("codespecs.extracts.count", len(extracts) == len(table.Extracts),
+		itoa(len(extracts))+" != "+itoa(len(table.Extracts)))
+	for i, want := range table.Extracts {
+		if i >= len(extracts) {
+			break
+		}
+		x := extracts[i]
+		tag := "codespecs.extract[" + want.Area + "]"
+		got := map[string]any{
+			"area":         x.Area.Code,
+			"canonicalId":  x.Area.CanonicalID,
+			"part":         x.Area.KindValue(),
+			"documentRoot": x.DocumentRoot,
+			"fileStem":     x.FileStem(),
+			"projects":     x.Projects,
+			"citableParts": x.CitableParts,
+		}
+		wantHead := map[string]any{
+			"area":         want.Area,
+			"canonicalId":  want.CanonicalID,
+			"part":         want.Part,
+			"documentRoot": want.DocumentRoot,
+			"fileStem":     want.FileStem,
+			"projects":     want.Projects,
+			"citableParts": want.CitableParts,
+		}
+		gotJSON, wantJSON = canonJSON(t, got), canonJSON(t, wantHead)
+		c.check(tag, gotJSON == wantJSON, gotJSON+" != "+wantJSON)
+
+		gotEntries := []map[string]any{}
+		for _, e := range x.Entries {
+			gotEntries = append(gotEntries, codeSpecsEntryRecord(e))
+		}
+		var wantEntries []map[string]any
+		if err := json.Unmarshal(want.Entries, &wantEntries); err != nil {
+			t.Fatalf("decode %s entries: %v", want.Area, err)
+		}
+		if wantEntries == nil {
+			wantEntries = []map[string]any{}
+		}
+		gotJSON, wantJSON = canonJSON(t, gotEntries), canonJSON(t, wantEntries)
+		c.check(tag+".entries", gotJSON == wantJSON, gotJSON+" != "+wantJSON)
+
+		c.check(tag+".yaml", x.ToYaml() == want.Yaml,
+			byteDiff(tag+".yaml", x.ToYaml(), want.Yaml))
+		c.check(tag+".markdown", x.ToMarkdown() == want.Markdown,
+			byteDiff(tag+".markdown", x.ToMarkdown(), want.Markdown))
+	}
+
+	// 3. Every emitted value occurs verbatim in the source document. The guard
+	//    `codespecs_derivation_contract.md` §2.8 C1 rests on, carried in the
+	//    corpus rather than left to each port's own conscience: the generator may
+	//    copy and index, it may not compose. Membership, not substring — that is
+	//    what makes "verbatim" mean verbatim rather than "derived from".
+	var state som.DocumentJson
+	readJSON(t, "state.json", &state)
+	stored := map[string]bool{}
+	for _, v := range state.Content {
+		stored[v] = true
+	}
+	for _, section := range state.Forms {
+		for _, v := range section {
+			stored[v] = true
+		}
+	}
+	c.check("codespecs.stored.nonEmpty", len(stored) > 0, "")
+	for _, x := range extracts {
+		for _, e := range x.Entries {
+			c.check("codespecs.verbatim["+x.Area.Code+" "+e.Path+"]", stored[e.Value],
+				quote(e.Value)+" was not copied from the document")
+		}
+	}
+
+	// 4. A @FollowUpKind subtree contributes to no extract. `Control` is
+	//    populated, and populated distinctively, so its absence cannot be an
+	//    accident of an empty section. `alice` covers the other half: a
+	//    @NoArtifact section's own leaf does not contribute either.
+	for _, excluded := range []string{"Controlled summary", "ctrl-owner", "alice"} {
+		emitted := false
+		for _, x := range extracts {
+			for _, e := range x.Entries {
+				if e.Value == excluded {
+					emitted = true
+				}
+			}
+		}
+		c.check("codespecs.excluded["+excluded+"]", !emitted,
+			"routed into an extract it must not reach")
+	}
+
+	// 5. `ROUTE-TOTAL`: a section carrying none of the three verdicts is a hard
+	//    error for ExtractAll and a reported verdict for Routings.
+	//
+	//    Each case carries its own model and state rather than mutating the
+	//    shared fixture: `model.meta.json` is a VALID model by construction
+	//    (§10.2 holds over it), and a port should not have to break it to run
+	//    this case. `state` is the ordinary `state.json` shape, so every runtime
+	//    already has the loader.
+	for _, cc := range table.ErrorCases {
+		tag := "codespecs.error[" + cc.Name + "]"
+		errModel, err := som.SpecModelFromJSON(cc.Model)
+		if err != nil {
+			c.check(tag+".model", false, err.Error())
+			continue
+		}
+		state := cc.State
+		errExtractor := som.NewCodeSpecsExtractor(errModel, docFromState(&state), catalog)
+
+		_, err = errExtractor.ExtractAll()
+		var bad *som.CodeSpecsExtractError
+		if !errors.As(err, &bad) {
+			c.check(tag, false, "expected a CodeSpecsExtractError, got "+errString(err))
+			continue
+		}
+		c.check(tag+".path", bad.Path == cc.Expect.Path, bad.Path)
+		c.check(tag+".className", bad.ClassName == cc.Expect.ClassName, bad.ClassName)
+		c.check(tag+".message", strings.Contains(bad.Message, cc.Expect.MessageContains),
+			bad.Message)
+
+		// Routings reports the same node instead of failing — that is what a
+		// diagnostic is for.
+		verdicts := []string{}
+		for _, r := range errExtractor.Routings() {
+			if r.Path == cc.Expect.Path {
+				verdicts = append(verdicts, r.Verdict)
+			}
+		}
+		c.check(tag+".routing",
+			sliceEq(verdicts, []string{cc.Expect.RoutingVerdict}), join(verdicts))
+	}
+}
+
+func codeSpecsEntryRecord(e som.CodeSpecsExtractEntry) map[string]any {
+	return map[string]any{
+		"sectionId":   e.SectionID,
+		"path":        e.Path,
+		"className":   e.ClassName,
+		"fieldName":   e.FieldName,
+		"formField":   nullable(e.FormField),
+		"routedBy":    e.RoutedBy,
+		"routedAt":    e.RoutedAt,
+		"routingNote": nullable(e.RoutingNote),
+		"value":       e.Value,
+	}
+}
+
+func errString(err error) string {
+	if err == nil {
+		return "<nil>"
+	}
+	return err.Error()
 }
 
 type cursorStep struct {

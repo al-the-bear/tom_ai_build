@@ -43,6 +43,8 @@ The package `tom_som_runtime` mirrors the portable runtime modules:
 | `SpecDocumentMarkdown` | Meta-data-driven Markdown import/export codec. |
 | `SomNode`, `SomScalar`, `SomList`, `SomFacade` | Editing-facade base types for the generated `tom_som_java_v0`. |
 | `SomEditability`, `SomVersionError` | SOM §4.2 version-check outcome enum (non-throwing `SomFacade.somEditabilityFor`) and its throwing error. |
+| `SpecAnnotations`, `KindLink`, `NoArtifactLink` | The annotation lookups shared by `SpecClass` and `SpecField`, including the three routing verdicts of `codespecs_mapping.md` §8.3 (`@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact`). |
+| `CodeSpecsExtractor`, `CodeSpecsExtract`, `CodeSpecsAreaCatalog`, `CodeSpecsArea`, `CodeSpecsSlice`, `CodeSpecsRouting`, `CodeSpecsExtractEntry`, `CodeSpecsExtractError` | The Phase-4 CodeSpecs specification-extract generator: per area, every value the document routes there — verbatim, with provenance — plus its YAML and Markdown artifacts. |
 
 It holds **no document values of its own** and contains **no generated typed
 classes** — those belong to the per-language `tom_som_<lang>_v0` packages.
@@ -66,7 +68,8 @@ is validated against the exact same goldens every other port uses:
 
 This compiles the runtime + runner and asserts byte-for-byte equality of the YAML
 and Markdown encodings, the document round-trips, the Markdown→memory landing,
-and the reflection / validation / operations behaviour (prints `OK: N checks passed`, exit 0 on
+the reflection / validation / operations behaviour, and the Phase-4 CodeSpecs
+extracts (prints `OK: N checks passed`, exit 0 on
 success).
 
 ## Requirements

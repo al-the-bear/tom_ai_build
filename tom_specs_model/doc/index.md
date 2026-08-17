@@ -179,6 +179,7 @@ leave a stale copy sitting among the hand-written docs.
 | Folder | Contents | Regenerate with |
 |--------|----------|-----------------|
 | [../generated-doc/outlines/](../generated-doc/outlines/index.md) | One outline per document root (D00–D13) plus the whole-model `DocSpecsProject` outline and a compact `SolutionBlueprint` outline, rendered from the live Dart model | `tom_specs_clitool/tool/regenerate_outlines.sh` |
+| `../generated-doc/codespecs/` | `codespecs_areas.json` — the 26-area CodeSpecs catalogue transcribed from `codespecs_mapping.md` §4.1 + §4.4.3 + §4.4.6, and the input all nine runtimes' `spec_codespecs_extract` reads | `tom_specs_clitool/bin/codespecs_areas.dart` |
 
 Never edit anything under `generated-doc/` by hand — re-run the generator and
 commit the diff.
