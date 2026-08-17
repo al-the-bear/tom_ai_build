@@ -243,14 +243,14 @@ generation time*, in four columns:
 |--------|---------|
 | **Attribute** | The spec-authorable attribute, named neutrally. |
 | **`tom_core` source** | The concrete constructor parameter / field / annotation member it maps to, with the class it comes from. |
-| **Req?** | **Y** = a spec MUST supply it · **N** = optional · **D** = derived (computed by the generator, never authored). |
+| **Req?** | **Y** = a spec MUST supply it · **N** = optional · **D** = derived (computed during derivation, never authored). |
 | **Neutral DocSpecs term** | The glossary term above that the DocSpecs author works in. Never a Dart type. |
 
 **Spec-authorable vs framework-internal.** The `tom_core` classes carry many
 members that are *runtime wiring*, not specification input — `focusNode`,
 `uiStateController`, `authorizer`, `clientFactory`, middleware handlers,
 reflection handles (`InstanceMirror`/`MethodMirror`), `Completer`/abort triggers,
-listenables. These are **excluded by rule**: the generator supplies them, a spec
+listenables. These are **excluded by rule**: the framework supplies them, a spec
 never authors them. Across every part the spec-authorable surface is a small
 fraction of the class's members — which is what makes pillar (c) hold: DocSpecs
 stays neutral *and* thin.
@@ -285,12 +285,12 @@ follow-up split and review decisions are all sections of this file. Remaining
 work is tracked as `csra*` quest todos (§10), not in prose.
 
 Exactly one CodeSpecs subject lives elsewhere: **what code comes out**. The
-per-`Cs*`-annotation derivation contract — the exact Dart the generator emits,
+per-`Cs*`-annotation derivation contract — the exact Dart Phase 4 emits,
 the deterministic naming rules, each annotation's argument shape and the
 validator checks — is
 [codespecs_derivation_contract.md](codespecs_derivation_contract.md), which is
 the authority for all of it. This document says *which SOM section feeds which
-part*; that one says *what the generator writes*.
+part*; that one says *what is written*.
 
 ## 3. CodeSpecs in one paragraph
 
@@ -327,9 +327,9 @@ into **3a**, whose entire body is `throw UnsupportedError('<explication>')`, and
 **3b**, the pseudo-implementation described here; it fixes 3b's admissible
 statements; and it makes the choice between them structural — 3b where the
 contributing SOM section carries an ordered step list, 3a where the specification
-is prose, so that no generator invents a sequence out of a sentence. The Phase-4
-exit criterion is unchanged either way: no generated body runs to a result the
-generator invented — a 3a body throws on entry, and a 3b body holds nothing of
+is prose, so that no sequence is invented out of a sentence. The Phase-4
+exit criterion is unchanged either way: no generated body runs to a result
+Phase 4 invented — a 3a body throws on entry, and a 3b body holds nothing of
 its own, only calls into declarations Phase 6 has yet to implement.
 
 The collaborator itself has a contract entry of its own —
@@ -496,7 +496,7 @@ surface — pillar (a)/(b)):
   like every other label — §1.2 consequence 1 names domain-enum value labels
   explicitly, and §5.21 fixes the shape, which is the **derived** one keyed off
   the value rather than a catalogue entry (§5.18); the **description** is the
-  doc comment the generator writes above the enum and above each constant
+  doc comment emitted above the enum and above each constant
   (`codespecs_derivation_contract.md` §3.1.1); and a **default value** belongs
   to the enum-typed member that has one — a CE-DB column, a CE-CF/CE-CC/CE-DS/
   CE-UP setting, a CE-ST field — never to the enum, since two members of the
@@ -876,7 +876,7 @@ text field. The structured sections around them (`ProcessCharacteristics`,
 
 Nothing in D02 carries a step identity, a transition guard, a machine-readable
 wait condition or a compensation binding. There is **no authored artefact a
-generator could read**. A promoted CE-WF would have to invent its own input,
+derivation could read**. A promoted CE-WF would have to invent its own input,
 which inverts the direction CodeSpecs works in (§8.1: the CodeSpecs surface is
 bounded by what the SOM authors). D02 describes processes *for humans to
 implement*; it does not declare them for a machine to execute.
@@ -952,7 +952,7 @@ hold:
 1. a driving system specifies a process with a **durable wait** — human approval
    or timer — whose state must survive a server restart;
 2. DEPRWO (or a successor section) is given a **machine-readable step/transition
-   shape**, so a generator has an authored input instead of prose and a diagram;
+   shape**, so the derivation has an authored input instead of prose and a diagram;
 3. that process needs **compensation across steps** that the CE-DB transaction
    boundary cannot cover.
 
@@ -967,7 +967,7 @@ availability alone would have admitted CE-WF, which fails the test below.
 
 **The test is §8.1's: does the SOM author a machine-readable input for this
 part?** The CodeSpecs surface is bounded by what the SOM actually authors. A part
-whose only SOM input is prose has nothing a generator can read, and promoting it
+whose only SOM input is prose has nothing a derivation can read, and promoting it
 would force CodeSpecs to *invent* its input — inverting the direction the whole
 method works in. That is the test §4.3.1 already used to settle CE-WF; applying
 it to the other two makes the three outcomes one rule instead of three opinions.
@@ -1039,7 +1039,7 @@ retention period is only meaningful against the event set it retains, and
 The third band is the only one that leaves. It moved to
 `SecurityOperationsFollowUp` (`SCOF`), where the audit *operations* already
 belonged — everything in it is a routine run against an existing log rather than
-a declaration a generator can read. D08 reaches it directly, since SAS still
+a declaration the derivation can read. D08 reaches it directly, since SAS still
 owns the content.
 
 **CE-RP's home needed the same treatment**, on a different boundary. Its home
@@ -1095,7 +1095,7 @@ Slice order is derived from the **authored** cross-part reference edges — the
 §5.23 `Cs*Ref` const citations, the `Type`-literal citations, and the
 containment/binding edges the §5.x sections fix. **Derived** back-references
 (§5.10/§5.18 element→action hooks; §5.17 CE-SU owned-entity/operation sets) are
-computed by the generator from the authored edge and impose no ordering of their
+computed from the authored edge and impose no ordering of their
 own beyond the authored direction.
 
 | Referrer | Referent | Edge | Source |
@@ -1154,7 +1154,7 @@ halves cite in one direction only — delivery resolves the declarations, never 
 reverse — and they are separate emission units per §4.4.2's corollary, so the edge
 is across slices rather than within a component. **CE-RP ↔ CE-JB is not a cycle**:
 only CE-JB → CE-RP is authored (`CsReportRef`); the definition merely *names* its
-schedule, and per §5.17 a derived back-name is computed by the generator and
+schedule, and per §5.17 a derived back-name is computed during derivation and
 carries no ordering of its own.
 
 **Validated property: no SCC spans two §4.2 projects.** This matters, because the
@@ -1256,7 +1256,7 @@ parts §4.4.2's corollary splits by locus, plus annotation-only CE-LG, each occu
 two or three slices. What must hold is that **every active part appears in at
 least one slice, and every emission unit — a part, or one locus-half of a split
 part, or a marker together with its host — appears in exactly one.** That is the
-property a generator walking this table needs, and it is what the recomputation
+property anything walking this table needs, and it is what the recomputation
 above verifies.
 
 #### 4.4.4 The slice readiness gate
@@ -1291,8 +1291,8 @@ therefore classified:
 
 **Critical-path consequence.** The `Cs*` annotation family with its constructors,
 the §5.23 `Cs*Ref` types and the `tom_core_codespecs` gap classes have all
-landed, so **every slice is emission-clear, with no exception**: a generator can
-write each skeleton, and no declared attribute is dropped on the way. The last
+landed, so **every slice is emission-clear, with no exception**: each skeleton can be
+written, and no declared attribute is dropped on the way. The last
 lossy one — a `choice` / `multiChoice` element's per-value copy — resolves
 through the text-resource provider now that slice 5 emits a bundle-labelled
 source class instead of a literal option list (§5.18).
@@ -3150,7 +3150,7 @@ alpha-permitted, design-token-constrained — are all constraints on *which valu
 are acceptable*, which is the definition of a **CE-VA** rule. This is the §5.18
 desugaring boundary that also governs `minSelections`/`maxSelections`, and it is
 stated for the same reason: the surface form is kept because it lets the
-generator emit the pattern rule and the swatch without the author restating
+derivation emit the pattern rule and the swatch without the author restating
 them, while the realisation stays inside the eleven kinds.
 
 The **requirement-side** field vocabulary (D04 RSP, `ScreenFieldKind`) names no
@@ -4253,7 +4253,7 @@ vocabulary); the question each target answers is what it should be instead.
 | Target | Carrier | Why |
 |--------|---------|-----|
 | Source entity | `TomReportDefinition.sourceEntity`, a **`Type` literal** | An entity is already a Dart type, so §5.23 gives it no ref const by design — citing the class makes a renamed entity a compile error, which a string could never be. A `Type` needs only `dart:core`, so the gap package keeps its dependency-freedom. Same resolution as `TomJobDeclaration.readEntities` (§5.29). |
-| Schedule | `TomReportDefinition.scheduleExpression`, a **verbatim recurrence expression** | **Not a reference at all.** The report-schedule section authors a cron-like expression, a time zone and a window — no job id anywhere — and §5.29 states the CE-JB job is *realised from* that schedule rather than named by a second entry. A job-id field would invite exactly that second source, and would point at a declaration the generator has not written yet. The schedule's remaining authored detail lowers onto the derived job's own `TomJobDefinition`. |
+| Schedule | `TomReportDefinition.scheduleExpression`, a **verbatim recurrence expression** | **Not a reference at all.** The report-schedule section authors a cron-like expression, a time zone and a window — no job id anywhere — and §5.29 states the CE-JB job is *realised from* that schedule rather than named by a second entry. A job-id field would invite exactly that second source, and would point at a declaration nothing has written yet. The schedule's remaining authored detail lowers onto the derived job's own `TomJobDefinition`. |
 | Authorization | **`@CsAuthorize` beside `@CsReport`** | §5.15 already carries authorization at field level on a CE-DB column, a CE-EL/CE-FM field, a CE-AC action and a CE-NV destination — riding its host part rather than becoming one. A report is the same case. The security section authors an access level and a permitted-role list, which are exactly `CsAuthRequirement` and a typed `CsRoleRef` list, so the edge is compile-checked and `@CsReport` stays note-only. |
 | Drill-through | `TomReportColumn.drillThroughRouteId`, an **open id string** + validator check | §5.23's locus rule bars a **server**-owned definition from citing a **client**-owned route. This is the one target where a typed ref is genuinely unavailable — and it is *unlike* the four §5.23 exemptions, which are exempt because their referent is not a Dart declaration. A route is one, so the compile-time guarantee is lost to locus and has to be **replaced**: `codespecs_derivation_contract.md` §6 check 18, the same substitution check 17 makes for a notification channel's fallback. |
 
@@ -4313,7 +4313,7 @@ a column the report does not project.
 #### Charts — declared here, rendered by whoever can
 
 Charts are **spec-authorable**: the SOM authors chart type, axes and series as
-structured fields, so a generator has something to read. Chart *rendering* is
+structured fields, so the derivation has something to read. Chart *rendering* is
 **implementation-owned** and, unlike the tabular output, is not universally
 available — the client draws charts natively, CSV and XLSX cannot express one at
 all, and only PDF among the export formats could.
@@ -4459,7 +4459,7 @@ second layer:
   `BJMJT` is deliberately prose and not a form. A form of fixed
   category slots is an inventory grouped by category, so it would be a second
   place to state which jobs exist and could disagree with `SCJOB` — which is
-  the layer the generator reads. `BJMJT` carries no `@CodeSpecKind` and
+  the layer the extract generator reads. `BJMJT` carries no `@CodeSpecKind` and
   generates nothing; it earns its place as orientation, not as data.
 - **Declaration** — `SCJOB-JOB-LST`, a repeated `ScheduledJobEntry` (`SCJOB`),
   one entry per job. *A job that is not listed here does not exist*, however
@@ -4915,7 +4915,7 @@ are grouped into one subtree and the rest hoisted into tagged follow-up subtrees
   targets.
 
 **The generation projection.** Once the CodeSpecs subtrees are isolated, the
-concrete input the Phase-4 generator consumes end-to-end is
+concrete input the Phase-4 extract generator consumes end-to-end is
 **`D13CodeSpecsProjection`** (`@SectionId('CGP')`, in
 `tom_specs_model/lib/src/codespecs_projection/codespecs_projection.dart`) — a
 flat `@Document(basedOn: [D00SolutionBlueprint])` referencing the **sixteen
@@ -4991,7 +4991,7 @@ ways:
   cannot express its attributes is *not* an authoring home.
 - **Generable** — that section is reachable from **`D13CodeSpecsProjection`**
   (§8.3), the concrete input Phase-4 generation consumes. An authorable section
-  outside the projection is authored into a document the generator never reads.
+  outside the projection is authored into a document the extract generator never reads.
 
 A part is **COVERED** only when both hold.
 
@@ -5169,18 +5169,17 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Five entries are open, in two groups. **Model** — two gaps
+active part COVERED. Four entries are open, in two groups. **Model** — two gaps
 standing behind a **required** marker argument: one argument resolves against no
 registry key, the other against no authored citation at all, so in both cases the
 value reaching the generated code is a spelling or a guess rather than a
-reference. **Document** — the Phase-4 production model this document describes,
-the procedure for running it, and the todo tree that procedure instantiates.
+reference. **Document** — the procedure for running the §1.1 pillar (e)
+production model, and the todo tree that procedure instantiates.
 
 | Todo | Subject |
 |------|---------|
 | `tscompd1_ahqi` | **`@CsServiceUnit.boundedContext` is required and resolves against no registry key.** §5.1 rule 3 makes the bounded context the outer bound, and `codespecs_derivation_contract.md` §3.4.1 makes `boundedContext` a **required** verbatim argument read from `DAENT-CLAS.boundedContext` — a free-text field, because `BoundedContextEntry` (`BCE`) declares no name: its only required form field is `domainArea`, a description of the domain rather than an identifier, and `BCE.@sectionId` yields `BCE-BOUN-001` rather than a context name. So two entities can name the same context in two spellings and produce two caps, and a `refersTo` target cannot be written until `BCE` carries a key. |
 | `tscompd2_ahpu` | **CE-SC's operation edge is resolved from prose.** §5.3's "The operation edge is resolved, not authored" records that no SOM member cites `ServerOperationEntry.operationName`, so `CsOperationRef` is matched against the SVOPR registry by reading an ISC step's `systemResponse` wording — the inference B8 forbids, standing behind the one **required** argument of `@CsServerCall`. The authored shape already exists beside it: CE-NV's `ScreenActionEntry.behavior.navigateTo` cites `SCRTEN.routeId`. |
-| `tscompc17` | **The Phase-4 production model is not described the same way everywhere.** §1.1 pillar (e) and §1.1.1 now state it — a **generator that extracts the specification per area** plus **prompt/agent authoring** of the code from those extracts against §5's mapping rules — but `codespecs_derivation_contract.md` still reads as pure mechanism and `tom_specs_project_flow.md` names no producer at all. This document's own 22 uses of "generator" outside §1.1 also predate the boundary and have to be read against it one by one. |
 | `tscompc20` | **Neither document states how a Phase-4 run is performed.** §1.1.1 fixes the contract — the extract artifact, the extractor's home and the four todo id ranges — but not the procedure: extract, then iterate the areas in §4.4's order, then per area iterate its extract entries, with the per-area prompt text in the derivation contract. It carries the self-sufficiency rule with it: the emitted CodeSpecs code holds every specification fact it was derived from, in comments or annotations, so Phases 5 and 6 never reopen the document. |
 | `tscompc23` | **The generated todo tree has ids but no design.** §1.1.1 item 3 fixes the four id levels (`csopen<n>` → `csproj<n>` → `csgen<n>` → `cs<area><n>`); what each rung generates, what an L2 todo must check before generating its L3 rung, and the criteria under which a generated todo is emitted `decision-needed` rather than `not-started` are unwritten. Two shapes are open with them: how an SCC's declare/wire pass pair is kept in one todo, and how a section routed to several areas is written once and cited from the others. |
 
@@ -5289,6 +5288,6 @@ are integral to it:
 > [codespecs_derivation_contract.md](codespecs_derivation_contract.md), which is
 > **the authority for what code comes out**. This document is the derivation
 > *map* — which SOM section feeds which part; that one is the derivation
-> *contract* — the exact Dart the generator emits, the deterministic naming
+> *contract* — the exact Dart Phase 4 emits, the deterministic naming
 > rules, each annotation's argument shape, and the validator checks. Where the
 > two appear to disagree about emitted code, the derivation contract wins.

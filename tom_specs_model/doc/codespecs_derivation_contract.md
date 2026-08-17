@@ -1,16 +1,21 @@
 # CodeSpecs Derivation Contract
 
-**Quest:** tom_specs · **Status:** normative for the Phase-4 generator
+**Quest:** tom_specs · **Status:** normative for both Phase-4 roles — the
+extract generator and the authoring agent
 
 **Authority for: what code comes out.** `codespecs_mapping.md` §8 gives the
 derivation *map* — which SOM section feeds which CodeSpecs part. This document
 gives the derivation *contract*: for every active `Cs*` annotation, the exact
-Dart a generator emits, argument by argument, name by name, file by file.
+Dart that lands in the trio, argument by argument, name by name, file by file.
 
-It is the last specification piece before Phase 4 (CodeSpecs generation) can be
-implemented. Everything here is normative for the generator; where it decides
-something `codespecs_mapping.md` had left open, that document cites this one
-rather than restating it.
+It is the last specification piece before Phase 4 can be run. Phase 4 has two
+producers — `codespecs_mapping.md` §1.1 pillar (e) — and this document is
+normative for **both**: it fixes what the authoring agent must write and what the
+generation-time validator must accept. §2.0 says which of the two owns what.
+Being unmechanised makes no clause here advisory; a derivation an agent performs
+by hand is bound by exactly the text a program would have been. Where this
+document decides something `codespecs_mapping.md` had left open, that document
+cites this one rather than restating it.
 
 **Scope.** One contract entry per active `Cs*` part marker — **39 markers** —
 plus one for `@CsCollaborator` (§3.0.1), the one marker that is **not** a part:
@@ -51,7 +56,7 @@ Every entry answers the same seven points, in the same order.
 | **7** | **Back-link** | The `@DocSpec([DocRef(sectionId, description), …])` emitted on the element (`codespecs_mapping.md` §9.3). |
 
 Entries are grouped by **generation slice** (`codespecs_mapping.md` §4.4.3), so
-reading top to bottom is reading the order a generator emits in: nothing in an
+reading top to bottom is reading the order the trio is written in: nothing in an
 entry references a part that has not already been emitted by an earlier entry.
 
 ---
@@ -60,11 +65,59 @@ entry references a part that has not already been emitted by an earlier entry.
 
 These hold for every entry. An entry states only what it adds or overrides.
 
+### 2.0 Who produces this code
+
+`codespecs_mapping.md` §1.1, §1.1.1 split Phase-4 production between two parties
+(pillar (e)) and fix the boundary between them. This contract uses their names
+throughout, and they are not interchangeable:
+
+| Role | Does | Bound by |
+|------|------|----------|
+| **The extract generator** | Collects, per CodeSpecs area, every SOM field the `@CodeSpecKind` routing sends there into a bounded, cited **extract** — copying and indexing, never summarising, rephrasing, composing or naming | `codespecs_mapping.md` §1.1.1; the same §2.8 C1 prohibitions this document already states |
+| **The authoring agent** | Writes the CodeSpecs Dart from that extract — every declaration, name, argument, comment and body in §3 | This whole document |
+
+**The extract generator emits no Dart.** Every "emits", "writes" and "fails" in
+§2–§5 is the authoring agent's, and every judgement §3 leaves open is the
+agent's to take. That is why this contract is written as tightly as it is: an
+author is the one producer that *can* invent, so each rule below says not only
+what to write but what may not be reached for instead.
+
+**Three defined terms**, used with these meanings and no other:
+
+- **Generation** — the act of producing the trio, whichever role performs the
+  step. "Generation slice", "generation order" and "regeneration" are about the
+  work, not the worker.
+- **A generation error** — the derivation has no admissible output. The agent
+  **must not write the declaration**; it files a `csopen<n>` `decision-needed`
+  todo naming the section id, which pauses the queue (`codespecs_mapping.md`
+  §1.1.1 item 3). The validator independently rejects any trio containing one, so
+  the failure is caught whether or not the agent noticed it.
+- **The generation-time validator** — `validate_codespecs.dart` and the §6
+  checks. It is a program, and it is the only mechanised half of the authoring
+  side: it reads what the agent wrote and rejects what this contract forbids.
+
+**Determinism is therefore an obligation, not a mechanism.** §2.1's naming rules
+are pure functions of SOM content and §2.8's comments are verbatim copies
+precisely so that the output *is* determined even though a judging author
+produces it. §6 check 31 is how a departure is detected rather than trusted: two
+runs over one model must be byte-identical. An agent that improved a name has
+broken the contract in the one way no compiler would notice.
+
+**Neither role owns a body form.** §2.4's 3a and 3b are both written by the
+agent — the extract generator reaches neither. The seam 3a marks is a different
+one: it is where **the agent stops and Phase 6 continues**, because the SOM
+carried prose and prose states no statements. 3b is the complementary case — an
+ordered step list makes the body derivable, so the agent writes it out and the
+seam moves down to the abstract collaborator's methods, which is where Phase 6
+picks it up instead. Which of the two an entry uses is fixed by §2.4 as a
+structural test on the input; it is never the agent's choice, and this is the
+one place that is said.
+
 ### 2.1 Identifier derivation (deterministic naming)
 
 The same spec must produce the same code in every session, on every machine.
 That requires the name to be a **pure function of the SOM content** — no
-counters, no clocks, no dictionaries, no generator state.
+counters, no clocks, no dictionaries, no state carried between elements.
 
 **N1 — the source string.** Each entry names a **designated name field**: the
 SOM field whose value names the thing (`DataEntityEntry.entityName`,
@@ -84,7 +137,7 @@ section is a spec defect, not a naming problem.
 
 **N3 — casing.** Each token is **lowercased in full, then its first character
 uppercased**. No acronym dictionary: `ID` → `Id`, `HTTP` → `Http`. A dictionary
-would be a hidden, mutable generator input and would break N-determinism the
+would be a hidden, mutable input and would break N-determinism the
 first time someone edited it.
 
 - **PascalCase** = the cased tokens concatenated.
@@ -170,7 +223,7 @@ span two projects (CE-UP shape/persistence, CE-ID declaration/population, CE-AU
 wire types/client flow/server flow); each has one entry per locus half, and the
 entry says which half it is.
 
-The **shared → {client, server}** dependency arrow is absolute. A generator that
+The **shared → {client, server}** dependency arrow is absolute. An agent that
 would have to emit a client-project reference from a shared file has hit a spec
 defect; it fails naming the offending section rather than relaxing the arrow.
 
@@ -260,6 +313,10 @@ The Phase-4 artifact is a specification, and *executing* it is not an operation
 it supports; `UnimplementedError` would read as a body someone forgot to write
 rather than one that is deliberately not there yet.
 
+Both shapes are written by the authoring agent; what separates them is where
+Phase 6 picks the work up, not who produced them. §2.0 says that once and this
+section does not restate it.
+
 #### Form 3a — declared, not implemented
 
 The entire body of the method is:
@@ -332,11 +389,11 @@ behaviour is being executed that Phase 6 was going to author. Where an entry
 permits a substrate call under statement kind 2, its point 2 must name a
 substrate for which that holds.
 
-**The collaborator is generated, not assumed.** A 3b body may only call methods
+**The collaborator is emitted, not assumed.** A 3b body may only call methods
 that exist in the emitted trio, so where an entry names a collaborator it is part
-of what the generator emits — an abstract class whose methods carry the behaviour narrative
+of what the agent writes — an abstract class whose methods carry the behaviour narrative
 on their doc comments (§2.8 P3) and no implementation. A 3b body that calls a
-class the generator did not emit is a generation error, not a forward
+class the agent did not write is a generation error, not a forward
 declaration. **§3.0.1 is its contract entry** — one collaborator per emitting
 top-level declaration, its methods derived from that declaration's step list, and
 the field its call sites resolve against. `codespecs_mapping.md` §4.4's
@@ -348,7 +405,7 @@ declaration, and §3.0 says how it is satisfied.
 3b says what a body **may** contain. This says what it **does** contain: the
 input is an ordered list of SOM step sections, the output is the statement
 sequence, and the mapping between them is structural throughout. Eight rules,
-and nothing else — a generator that finds it needs a ninth has hit a gap in the
+and nothing else — an agent that finds it needs a ninth has hit a gap in the
 model, and the gap is filed against the model rather than closed by a heuristic.
 
 **B1 — order is document order.** The statements follow the step list in **N8
@@ -376,7 +433,7 @@ body returns a value and `await collaborator.<m>(…);` where it returns `void` 
 `Future<void>` — §3.0.1 point 2's return-type rule, seen from the call site. No
 `final` local binding is emitted by this derivation: a collaborator method takes
 the caller's parameters verbatim, so no step consumes another step's result, and
-a binding nothing reads would be a use the generator invented. §2.4's statement
+a binding nothing reads would be a use the agent invented. §2.4's statement
 kind 3 stays available to entries that name a substrate whose calls do
 compose — §3.3.4's query composition is the only one today.
 
@@ -407,7 +464,7 @@ condition sits on the step itself. `Applies` comes from this contract rather tha
 is identical for every instance, and it is what keeps a guard from colliding with
 the behaviour method of the same headline. **A branch whose condition text is
 empty fails generation**, naming the flow's section id: §2.8 C2 P3 is fatal when
-absent, and an undocumented guard is a branch the generator would be inventing.
+absent, and an undocumented guard is a branch the agent would be inventing.
 
 **Conditionality is read off the condition field and nothing else.** For the two
 *flow* entries an empty condition is the fatal case just described — an `EXTEN`
@@ -428,7 +485,7 @@ field cannot say that.
 **B5 — a branch is emitted at the step it branches from.** `EXTEN.branchPoint`
 and `ALFL.branchPoint` are **section-id references** — `MNSST.@sectionId` and
 `SCNST.@sectionId` respectively — so the step a branch attaches to is *resolved*,
-never matched: the generator already holds every step section by id, and the
+never matched: the extract already holds every step section by id, and the
 reference either names one of them or fails the `tom_specs_model_rules.md` §10.2
 invariant `REFERS-TO` before any code is emitted. The block is emitted **immediately before** the statement that
 step contributes, because the branch is taken *instead of* that step and
@@ -514,12 +571,12 @@ Four invariants make "compiles but does not execute" checkable rather than
 aspirational. They hold for both shapes unless stated:
 
 1. **Real signatures.** Return types, parameter types and generics are the
-   specified ones. Nothing is `dynamic` because the generator did not know.
-2. **No fabricated values.** No value in a body is one the generator invented —
+   specified ones. Nothing is `dynamic` because the agent did not know.
+2. **No fabricated values.** No value in a body is one the agent invented —
    no `null`, no `''`, no `const []`, no literal standing in for a result. A 3a
    body's only exit is the `throw`; a 3b body may `return`, but only a value
-   that came out of a collaborator or substrate call. The test is *could the
-   generator have made this value up?*, not *does the body return?*.
+   that came out of a collaborator or substrate call. The test is *could this
+   value have been made up?*, not *does the body return?*.
 3. **Async is declared, not faked.** An asynchronous operation declares
    `Future<T>` / `Stream<T>`. A 3a body still throws; a 3b body `await`s its
    collaborator calls. Neither is ever `async` with a synthetic completed
@@ -610,8 +667,8 @@ static const login = CsOperationRef('login');
 
 Every emitted file has the same five-part shape, in this order:
 
-1. A generated-file banner — three `//` lines naming the generator, the source
-   document and the spec-model version, and **no timestamp** (a timestamp would
+1. A generated-file banner — three `//` lines naming the phase that produced the
+   file, the source document and the spec-model version, and **no timestamp** (a timestamp would
    defeat N8's byte-identical regeneration). This is the **only** `//` comment in
    the file; §2.8 C6 rules out every other one.
 2. Imports: `package:tom_code_specs/tom_code_specs.dart`, the `tom_core`-family
@@ -635,9 +692,12 @@ source is §2.3 test (a) applied to prose.
 
 A specification reaches code three ways: as **constructs** (each entry's point
 2), as **annotation arguments** (§2.3), and as **comments**. The third is as much
-a derivation as the other two. A comment a generator composes for itself is prose
-no author wrote and no `@DocSpec` back-link covers — it reads like specification
-and is not, which is worse than no comment at all. So the rules below are
+a derivation as the other two. A comment the agent composes for itself is prose
+no author of the specification wrote and no `@DocSpec` back-link covers — it reads
+like specification and is not, which is worse than no comment at all. It is also
+the derivation where an authoring agent is most tempted and least detectable,
+which is why C1 states its prohibitions as a closed list rather than as taste. So
+the rules below are
 universal, and an entry may name *which* SOM field is a comment's source, exactly
 as it names a designated name field for N1 — never *whether* a comment is emitted
 or how it is shaped.
@@ -655,7 +715,7 @@ Either half may be absent; a section with neither yields no comment. What is
 
 - **`@ContentHelp` text and `@Form` field hints.** They tell an *author* what to
   write in a slot; they describe the slot, not the specified thing
-  (`tom_specs_model_rules.md` §5.6). A generator reaching for them ships
+  (`tom_specs_model_rules.md` §5.6). An agent reaching for them ships
   authoring instructions as documentation. `codespecs_mapping.md` §8's document
   map does list them as a CE-TX source — that is model-authored *copy* feeding a
   message key, a different consumer, and it is not licence to read them here.
@@ -664,9 +724,15 @@ Either half may be absent; a section with neither yields no comment. What is
 - **Non-`Form` `@ContentType` content** (`DDL`, `SQL`, `Dart`, `Mermaid`, …).
   That content is an artifact, not a description of one; where an entry consumes
   it, its point 1 says what it becomes.
-- **Anything the generator composes.** No summarising, no rephrasing, no
+- **Anything the agent composes.** No summarising, no rephrasing, no
   sentence assembled from field values, no model. C3's one template is the only
   generated prose in the entire output.
+
+These four prohibitions bind the **extract generator** as well, word for word:
+`codespecs_mapping.md` §1.1.1 names it as C1's second subject rather than
+restating it. An extract and a comment are the same kind of artifact — text that
+reads as specification and must therefore *be* specification — and one rule with
+two subjects cannot drift the way two rules would.
 
 **C2 — the four positions.**
 
@@ -703,7 +769,7 @@ requires the abstract collaborator's methods to carry detailed behaviour
 doc-comments; P3 is where that requirement is discharged, from the collaborator
 method's own contributing section.
 
-**C3 — declarations that have no section.** A holder the generator creates by
+**C3 — declarations that have no section.** A holder the agent creates by
 *grouping* — a catalogue file (N7), a per-client config holder — has no section
 of its own only when the grouping key is not itself a section. Usually it is:
 the list container is a real section with its own id and content
@@ -723,7 +789,7 @@ the output.
    or `///` alone where the line is empty. No emitted line carries trailing
    whitespace.
 2. **No re-wrapping and no truncation.** The source's line structure is preserved
-   exactly. A wrap width would be a generator constant, and the first time anyone
+   exactly. A wrap width would be a constant this contract does not state, and the first time anyone
    tuned it every file in the tree would re-diff with no spec change; worse, a
    naive wrap destroys the markdown the text is written in — lists, tables and
    fenced blocks do not survive it.
@@ -781,7 +847,7 @@ has no entry, and again the Locus point carries it.
 ### 3.0 Across every slice — the abstract collaborator
 
 `@CsCollaborator` has **no slice of its own**. Every form-3b body calls into an
-abstract collaborator (§2.4), and the generator emits that collaborator **in the
+abstract collaborator (§2.4), and the agent emits that collaborator **in the
 same emission unit as the declaration whose bodies call it**, immediately before
 it — so `codespecs_mapping.md` §4.4's no-forward-reference rule is satisfied
 without a slice edge, and `codespecs_mapping.md` §4.4.4's partition invariant, which is *per emission
@@ -810,9 +876,9 @@ name suffix would turn into load-bearing convention.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | No section of its own: the **ordered step list** the calling entry's point 1 already names — or, where the entry emits several bodies from several sources, all of them (§3.5.7's three role-routed sublists of one `SVCST` list are one collaborator's methods, not three collaborators). One method per step that supplies **behaviour text** — what the *system* does. Per step section: `MNSST` → `systemResponse`, `SCNST` → `systemResponse`, `ALST` → `response`, `EXTST` → `response`, `LGFLS` → `LFSEP.description`, `SCJOST` → `systemAction`, `SVCST` → `systemAction`. `LGFLS`'s is a subsection field and not the step's own `content` because that `content` is a `@Form` — `stepOrder`, `stepType`, `actor` — and so carries no prose at all; `LFSEP.description` is the one field of the step that states what happens in it. The **actor-side** fields (`MNSST.actorAction`, `SCNST.actor`/`action`, `ALST.action`, `EXTST.action`, `LGFLS.actor`) are never a behaviour source: they state what the user does, which is the step's trigger, not work the collaborator performs. `SCJOST` and `SVCST` have no such field to exclude, and that is the point of their shape: a job runs off the request thread and a server call's three roles are assembling, applying and surfacing, so in neither does anything outside the system act within a step — which is why their one behaviour field is `required` where every other step section's is optional, and why a `SCJOST` or `SVCST` step never yields "no method". A step with no behaviour text yields **no method and no statement** — it is an actor-only step, and there is nothing for Phase 6 to implement. That is also what §2.4's "empty step source" means concretely: a body all of whose steps are actor-only falls back to 3a, and a declaration all of whose bodies do emits no collaborator. The class's own contributing section is the step list's **container** section (`tom_specs_model_rules.md` §7.5), which is what §2.8 C2 P1 selects anyway. |
-| **2 Output** | An `abstract class` with **no superclass and no substrate** — one of only two declarations in this contract built on nothing (§5.2's `@CsEnum` is the other), and deliberately: `codespecs_mapping.md` §1.1 pillar (b) governs the classes a CodeSpec *instantiates*, and a collaborator is never instantiated in Phase 4. It holds one abstract method per contributing step and **nothing else** — no fields, no constructor, no statics, no implemented member. Coding **form 2**: an abstract method has no body at all, so §2.4's 3a/3b distinction does not reach it and "compiles, does not execute" is structural here rather than stated.<br>**Signatures.** *Parameters* — the calling body's own parameter list, repeated name-for-name and type-for-type. A step operates on what its caller was given; which parameters a given step reads is authored nowhere (`MNSST.dataInvolved` is prose), and a generator that guessed a subset would be inventing signature, which invariant 1 forbids. *Return type* — the calling body's return type on the **last** contributing step in N8 order, `void` (or `Future<void>`) on every earlier one; the last step is what the caller `return`s, which is how invariant 2 holds without a fabricated value. Where the calling body returns `void` / `Future<void>`, every method does and the body has no `return`. *Asynchrony* — `Future`-returning exactly when the calling body is (invariant 3); the caller `await`s each earlier call and `return`s the last one un-awaited, its future *being* the caller's result.<br>**Injection** — one field on the calling declaration:<br>`late final <Name>Collaborator collaborator;`<br>The name is the fixed word `collaborator`, not derived: there is exactly one per declaration, so there is nothing to distinguish, and deriving it would make the caller's call sites depend on the collaborator's name twice over. `late final` is §2.4's existing shape for a non-nullable field with no authored default, and it is what makes the "does not execute" claim land at the earliest possible point — the first 3b body to run throws on the unset field *before* it dispatches to an abstract method. The field carries **no doc comment and no `@DocSpec`** (§2.8 P2, §2.5 rule 5): it adds no section of its own.<br>**Not a constructor parameter, and not a locator.** The five declarations that carry 3b bodies sit on different `tom_core`-family substrates whose constructors the generator does not own (§3.4.4's `TomAuthenticationService`, §3.5.5's action controller, §3.7.1's `TomJobBase`), so a constructor parameter would have to thread through a superclass signature it cannot change, and a service locator would be a Phase-4 runtime the artifact is not allowed to have. A settable field is the one shape that works identically on all five; Phase 6 binds it wherever it builds the declaration. |
+| **2 Output** | An `abstract class` with **no superclass and no substrate** — one of only two declarations in this contract built on nothing (§5.2's `@CsEnum` is the other), and deliberately: `codespecs_mapping.md` §1.1 pillar (b) governs the classes a CodeSpec *instantiates*, and a collaborator is never instantiated in Phase 4. It holds one abstract method per contributing step and **nothing else** — no fields, no constructor, no statics, no implemented member. Coding **form 2**: an abstract method has no body at all, so §2.4's 3a/3b distinction does not reach it and "compiles, does not execute" is structural here rather than stated.<br>**Signatures.** *Parameters* — the calling body's own parameter list, repeated name-for-name and type-for-type. A step operates on what its caller was given; which parameters a given step reads is authored nowhere (`MNSST.dataInvolved` is prose), and an agent that guessed a subset would be inventing signature, which invariant 1 forbids. *Return type* — the calling body's return type on the **last** contributing step in N8 order, `void` (or `Future<void>`) on every earlier one; the last step is what the caller `return`s, which is how invariant 2 holds without a fabricated value. Where the calling body returns `void` / `Future<void>`, every method does and the body has no `return`. *Asynchrony* — `Future`-returning exactly when the calling body is (invariant 3); the caller `await`s each earlier call and `return`s the last one un-awaited, its future *being* the caller's result.<br>**Injection** — one field on the calling declaration:<br>`late final <Name>Collaborator collaborator;`<br>The name is the fixed word `collaborator`, not derived: there is exactly one per declaration, so there is nothing to distinguish, and deriving it would make the caller's call sites depend on the collaborator's name twice over. `late final` is §2.4's existing shape for a non-nullable field with no authored default, and it is what makes the "does not execute" claim land at the earliest possible point — the first 3b body to run throws on the unset field *before* it dispatches to an abstract method. The field carries **no doc comment and no `@DocSpec`** (§2.8 P2, §2.5 rule 5): it adds no section of its own.<br>**Not a constructor parameter, and not a locator.** The five declarations that carry 3b bodies sit on different `tom_core`-family substrates whose constructors Phase 4 does not own (§3.4.4's `TomAuthenticationService`, §3.5.5's action controller, §3.7.1's `TomJobBase`), so a constructor parameter would have to thread through a superclass signature it cannot change, and a service locator would be a Phase-4 runtime the artifact is not allowed to have. A settable field is the one shape that works identically on all five; Phase 6 binds it wherever it builds the declaration. |
 | **3 Arguments** | None; `@CsCollaborator({String? note})`. §2.3 test **a**: the method set *is* the declaration. There is no substrate, so test **b** does not arise, and nothing reaches test **c**. It carries nothing and is emitted anyway, for the two reasons §3.0 gives. |
-| **4 Naming** | **Class** = the owning declaration's identifier + `Collaborator` (`CustomerActionControllerCollaborator`). Unique by construction — the owner's name is already unique in its locus under N4, and the suffix is fixed.<br>**Method** = camelCase of the **calling body's identifier**, then PascalCase of the **step's headline**, both through N2/N3: `saveCustomerCheckTheEditedValues`. N1 is unchanged and supplies each half. No step section carries a designated name field — `stepNumber` / `stepOrder` are *order*, and `tom_specs_model_rules.md` §10.2's entry-name restatement rule is precisely why a list entry has no name field beside its headline — so N1's second clause applies and the source is the step's **headline**. An unheadlined step therefore **fails** generation naming its section id, exactly as N1 already says of an unnamed section. The order token is deliberately not the source: it names nothing, and the behaviour text cannot be one either, since shortening a sentence to an identifier needs a truncation width, the generator constant §2.8 C4 rule 2 rules out for the same reason.<br>**The calling body's identifier is always present, not only on collision.** One collaborator serves *every* 3b body of its declaration — §3.5.5's is the clearest case, where one action controller carries a `@CsAction` body per screen action and all of them share it — so two bodies' steps can carry the same headline; and a qualifier applied only when a collision occurs would make an identifier a function of the rest of the document, which N1's pure-function rule forbids. §2.4's B4 adds the one further method kind, a **guard**, under the same two-part name plus a fixed `Applies`.<br>**N4 applies per collaborator class** for these methods rather than per project: two steps of one calling body that produce the same identifier fail generation, naming both step section ids.<br>**File** = N7 unchanged, under the **owning part's** canonical id so it lands beside its caller: `lib/src/action/customer_action_controller_collaborator.dart`. |
+| **4 Naming** | **Class** = the owning declaration's identifier + `Collaborator` (`CustomerActionControllerCollaborator`). Unique by construction — the owner's name is already unique in its locus under N4, and the suffix is fixed.<br>**Method** = camelCase of the **calling body's identifier**, then PascalCase of the **step's headline**, both through N2/N3: `saveCustomerCheckTheEditedValues`. N1 is unchanged and supplies each half. No step section carries a designated name field — `stepNumber` / `stepOrder` are *order*, and `tom_specs_model_rules.md` §10.2's entry-name restatement rule is precisely why a list entry has no name field beside its headline — so N1's second clause applies and the source is the step's **headline**. An unheadlined step therefore **fails** generation naming its section id, exactly as N1 already says of an unnamed section. The order token is deliberately not the source: it names nothing, and the behaviour text cannot be one either, since shortening a sentence to an identifier needs a truncation width, the unstated constant §2.8 C4 rule 2 rules out for the same reason.<br>**The calling body's identifier is always present, not only on collision.** One collaborator serves *every* 3b body of its declaration — §3.5.5's is the clearest case, where one action controller carries a `@CsAction` body per screen action and all of them share it — so two bodies' steps can carry the same headline; and a qualifier applied only when a collision occurs would make an identifier a function of the rest of the document, which N1's pure-function rule forbids. §2.4's B4 adds the one further method kind, a **guard**, under the same two-part name plus a fixed `Applies`.<br>**N4 applies per collaborator class** for these methods rather than per project: two steps of one calling body that produce the same identifier fail generation, naming both step section ids.<br>**File** = N7 unchanged, under the **owning part's** canonical id so it lands beside its caller: `lib/src/action/customer_action_controller_collaborator.dart`. |
 | **5 Locus** | Always the owning declaration's project, **never `shared`**. A collaborator is not a contract between the two sides — it is the Phase-6 seam of one declaration's bodies — and a shared one would put a client's steps in the server's compile unit. §3.4.4's and §3.7.1's are `server`; §3.5.5's and §3.5.10's are `client`. |
 | **6 Cross-refs** | None, in either direction. It emits no `Cs*Ref` — nothing outside its owning declaration ever names a collaborator, so there is no edge for one to carry — and it cites none: its methods carry only the caller's own parameters, whose types it references exactly as the caller does (§2.6). §2.6's table gains no row. |
 | **7 Back-link** | Class: `@CodeSpec('<owning part canonical id>.<Name>', source: [...])` and `@DocSpec([DocRef('<step-list container section id>', 'supplies the step list this collaborator carries')])`. Each method: `@DocSpec([DocRef('<step section id>', 'supplies the behaviour this step states')])`. §2.5 rule 4 is unchanged — the class's `@CodeSpec.source` is the union across the class and its methods. |
@@ -895,7 +961,7 @@ Cites slice 1 only.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ServerOperationEntry` (`SVOPE`) under the `ServerOperationRegistry` (`SVOPR`) — the application's own operation surface. Consumed: `operationName`, and the `ServerOperationMemberEntry` (`SVOPM`) lists that make up the request and response shapes. `InterfaceOperationEntry` (`IOE`) is **not** an input here: it describes a foreign contract and carries `serverCall` only (`codespecs_mapping.md` §8.5). |
-| **2 Output** | Two things in shared: (i) the **operation-ref catalogue** — one `static const CsOperationRef` per operation; (ii) the **request/response DTOs** — form-2 plain annotated model classes. The endpoint declaration itself is built on `TomApiEndpoint<R,Q>` within a `TomApi` (`tom_core_kernel`), with `R` the response type and `Q` the request type. The response type **is** `TomResult<T>` (`codespecs_mapping.md` §7); a generator that emits a bare `T` has violated the server contract. |
+| **2 Output** | Two things in shared: (i) the **operation-ref catalogue** — one `static const CsOperationRef` per operation; (ii) the **request/response DTOs** — form-2 plain annotated model classes. The endpoint declaration itself is built on `TomApiEndpoint<R,Q>` within a `TomApi` (`tom_core_kernel`), with `R` the response type and `Q` the request type. The response type **is** `TomResult<T>` (`codespecs_mapping.md` §7); an agent that emits a bare `T` has violated the server contract. |
 | **3 Arguments** | `operation` — **first positional, required** ← `SVOPE.operationName`, **verbatim** (N5). `codespecs_mapping.md` §5.14 drops the HTTP method (fixed POST) and the error-response type (5xx only) as spec inputs, and `SVOPE` authors neither, so neither is an argument. `descriptionKey` → CE-TX (not an argument); `SVOPE.authorization` — the embedded `AZREQ` choice — → the `@CsAuthorize` modifier (§3.4.3). |
 | **4 Naming** | Catalogue = `<Document>Operations`; member = N5 over the operation name. DTOs = PascalCase of the operation name + `Request` / `Response`. |
 | **5 Locus** | `shared` (§4.2: request/response types **and** the operation-ref catalogue). The handler half is §3.4.2, server. |
@@ -908,7 +974,7 @@ Cites slice 1 only.
 |-------|----------|
 | **1 Input** | `ElementValidationRuleEntry` (`ELVARU`), `DataAttributeConstraintEntry` (`DATAA`), `IntegrityConstraints` (`INCO`). Consumed: which of the ten standard rules apply, and each rule's arguments. |
 | **2 Output** | **No declaration of its own** for the standard rules — the marker rides the field it constrains, carrying the `codespecs_mapping.md` §5.19 declaration string. Built on `Validators` (`tom_flutter_ui`), whose named rules the string selects. A shared rule *library* class also carries a plain `@CsValidation()`. |
-| **3 Arguments** | `rules` — **first positional, optional** (`''`), the `codespecs_mapping.md` §5.19 comma-separated grammar: `<name>` / `<name>:<arg>` / `<name>:<arg1>:<arg2>`, e.g. `'required, minLength:8, pattern:^[A-Z]'`. Rule names are the nine declarable tokens; `compose` is **not** declarable (`codespecs_mapping.md` §5.19) and a generator that emits it has produced an invalid string. Argument values are verbatim from the SOM constraint. Empty on a library holder. |
+| **3 Arguments** | `rules` — **first positional, optional** (`''`), the `codespecs_mapping.md` §5.19 comma-separated grammar: `<name>` / `<name>:<arg>` / `<name>:<arg1>:<arg2>`, e.g. `'required, minLength:8, pattern:^[A-Z]'`. Rule names are the nine declarable tokens; `compose` is **not** declarable (`codespecs_mapping.md` §5.19) and an agent that emits it has produced an invalid string. Argument values are verbatim from the SOM constraint. Empty on a library holder. |
 | **4 Naming** | No identifier — the marker sits on an existing field. A shared rule library is named `<Document>Rules`. |
 | **5 Locus** | `shared` where the same rule constrains a shared DTO; otherwise `client` with the field it rides (§4.2 lists "shared CE-VA rules"). |
 | **6 Cross-refs** | None from the string itself; the error key of a standard rule is derived per `codespecs_mapping.md` §5.21. |
@@ -1022,7 +1088,7 @@ Never cites the client.
 |-------|----------|
 | **1 Input** | `DataEntityEntry` (`DAENT`), with `EntityRelationshipEntry` (`ENRLE`) supplying relationship columns. Consumed at entity level (`codespecs_mapping.md` §5.13): entity name, table, datasource, schema, identity attribute, row-scope rule. |
 | **2 Output** | A **persistent entity class** built on the Tom persistence model (`tom_core_server`), form 1. Its stored fields are `@CsColumn`-marked members (§3.3.2). The row-scope rule is emitted as the framework's own `@TomDbScope`, carried alongside — the same "framework annotation beside the marker" pattern CE-LG and CE-SU use. |
-| **3 Arguments** | `table` — **first positional, required** ← `DAENT`'s table field, **verbatim** (a physical table name is not derived; a generator that slugified it could rename a table under a running system). `datasource` / `schema` ← the corresponding `DAENT` fields, verbatim, `null` meaning the deployment default. The identity attribute is **not** an argument — it is the member carrying the framework's identity annotation (test **a**). |
+| **3 Arguments** | `table` — **first positional, required** ← `DAENT`'s table field, **verbatim** (a physical table name is not derived; an agent that slugified it could rename a table under a running system). `datasource` / `schema` ← the corresponding `DAENT` fields, verbatim, `null` meaning the deployment default. The identity attribute is **not** an argument — it is the member carrying the framework's identity annotation (test **a**). |
 | **4 Naming** | Class = PascalCase of `DAENT`'s entity-name field — **not** of the table name; the table is a storage fact and the class is the domain name. N6 applies. |
 | **5 Locus** | `server` — CE-DB is server-only (§4.2), which is also why a rendering attribute cannot be declared on a column (`codespecs_mapping.md` §5.13.1). |
 | **6 Cross-refs** | Relationship columns reference other entities by **`Type` literal**, never a ref const (`codespecs_mapping.md` §5.23). Domain enums by plain type. |
@@ -1205,7 +1271,7 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `DataEntityEntry` (`DAENT`) — the unit set and its boundary. Consumed (`codespecs_mapping.md` §5.17): `DAENT-CLAS.aggregateRoot`, `DAENT-CLAS.serviceUnitAggregate`, `DAENT-CLAS.boundedContext`, and `DAENT-IDEN.entityName` as the value all three resolve against. `ArchitectureComponentEntry` (`ARCM`) is a **secondary** input supplying the component narrative only — `codespecs_mapping.md` §8.5 records it as COVERED but **weak**, and nothing in this entry is derived from it. |
-| **2 Output** | An **ordinary abstract class** carrying the framework's own `@tomService` / `TomApiImplementation` (`tom_core_server`) beside the marker — `codespecs_mapping.md` §5.6.2 records CE-SU as reuse with *no new class*. It **co-emits the CE-API handler methods** (§3.4.2), which is why slice 4 emits both together. **One class per distinct effective aggregate**, where an entity's effective aggregate is `DAENT-CLAS.serviceUnitAggregate` if set and `DAENT-CLAS.aggregateRoot` otherwise (`codespecs_mapping.md` §5.1) — so the unit set is a group-by over authored strings, and the generator never decides how many units exist. Its derived ownership lists — owned entities, repositories, operations — are materialised as `Type` literals and `CsOperationRef` consts, never re-authored: an entity is owned by the unit of its effective aggregate, and an operation by the unit of `SVOPE.primaryDataEntity`'s entity. |
+| **2 Output** | An **ordinary abstract class** carrying the framework's own `@tomService` / `TomApiImplementation` (`tom_core_server`) beside the marker — `codespecs_mapping.md` §5.6.2 records CE-SU as reuse with *no new class*. It **co-emits the CE-API handler methods** (§3.4.2), which is why slice 4 emits both together. **One class per distinct effective aggregate**, where an entity's effective aggregate is `DAENT-CLAS.serviceUnitAggregate` if set and `DAENT-CLAS.aggregateRoot` otherwise (`codespecs_mapping.md` §5.1) — so the unit set is a group-by over authored strings, and nothing in Phase 4 decides how many units exist. Its derived ownership lists — owned entities, repositories, operations — are materialised as `Type` literals and `CsOperationRef` consts, never re-authored: an entity is owned by the unit of its effective aggregate, and an operation by the unit of `SVOPE.primaryDataEntity`'s entity. |
 | **3 Arguments** | `rootAggregate` (**required**) ← the unit's effective aggregate, as a **`Type` literal** — the CE-DB entity class (§3.3.1) generated for the `DAENT` whose `entityName` equals it. `boundedContext` (**required**) ← `DAENT-CLAS.boundedContext` of that root entity, verbatim. Both are read off named fields; neither is inferred from lifecycle prose or relationship cardinality, per §2.4 **B8**. The unit id is **not** an argument — it is the class name (test **a**), fixed by §5.1 as `<RootAggregate>Service`. The process-cohesion adjustment is marked **D** (derived) in `codespecs_mapping.md` §5.17: it is authored in the SOM but reaches the code as *which* unit an entity landed in, not as a field on the marker. |
 | **4 Naming** | PascalCase of the root aggregate's `DAENT-IDEN.entityName` + `Service`, per §5.1 — **not** of `ARCM`'s headline, so two documents naming the same aggregate cannot produce two unit names. N6 applies. |
 | **5 Locus** | `server`. |
@@ -1217,7 +1283,7 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 | Point | Contract |
 |-------|----------|
 | **1 Input** | The same `ServerOperationEntry` (`SVOPE`) as §3.2.1 — one section, two loci. Consumed here: `purpose` (the operation's behaviour, which becomes the stub explication), `primaryDataEntity` (which service unit the handler lands on — it names a `DAENT-IDEN.entityName`, and that entity's effective aggregate *is* the unit, §3.4.1, so the placement is two field reads and no judgment) and `errorCodes` (the `CsErrorCode` cross-refs below). |
-| **2 Output** | A **handler method on the §3.4.1 service unit**, **form 3a**: real signature `Future<TomResult<T>> <op>(<Request> request)`, body `throw UnsupportedError('<behaviour description>')`. 3a and not 3b because `SVOPE.purpose` is prose — the operation states *what* it does, and the SOM gives no ordered steps for *how*; the flow that reaches this handler is authored in ISC, on the client side (§3.5.5, §3.5.7). Routed by `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`). All operations are POST and only 5xx are transport errors (`codespecs_mapping.md` §7); a generator emitting a non-POST verb or a 4xx contract has violated it. |
+| **2 Output** | A **handler method on the §3.4.1 service unit**, **form 3a**: real signature `Future<TomResult<T>> <op>(<Request> request)`, body `throw UnsupportedError('<behaviour description>')`. 3a and not 3b because `SVOPE.purpose` is prose — the operation states *what* it does, and the SOM gives no ordered steps for *how*; the flow that reaches this handler is authored in ISC, on the client side (§3.5.5, §3.5.7). Routed by `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`). All operations are POST and only 5xx are transport errors (`codespecs_mapping.md` §7); an agent emitting a non-POST verb or a 4xx contract has violated it. |
 | **3 Arguments** | `operation` — first positional, required, **the identical verbatim string** as the shared half's `CsOperationRef` (§3.2.1). A validator asserts the two match; they are one operation named once. |
 | **4 Naming** | Method = camelCase of the operation name's last dotted segment (`customer.save` → `save`) — the unit already supplies the `customer` half, and repeating it would give `CustomerService.customerSave`. |
 | **5 Locus** | `server` (§4.2: handlers). |
@@ -1469,7 +1535,7 @@ positions a declarative part can carry, and the no-fabricated-values stub rule.
 ### 4.1 The input
 
 Two SOM sections in the D06 information model. Shown as the outliner renders
-them, with the field values the generator reads:
+them, with the field values the derivation reads:
 
 ```
 DataEntityEntry <!--[IMO-014]--> Customer
@@ -1527,7 +1593,7 @@ DataEntityEntry <!--[IMO-014]--> Customer
 `<app>_codespec_server/lib/src/data_access/customer.dart`:
 
 ```dart
-// GENERATED by tom_specs codespecs generator — do not edit.
+// GENERATED by TomSpecs Phase 4 (CodeSpecs) — do not edit.
 // Source document: information_model.md (D06)
 // Spec model version: 1.4.0
 
@@ -1579,7 +1645,7 @@ class Customer {
 ### 4.4 What the example demonstrates
 
 - **Determinism.** Every identifier traces to a named SOM field through N1–N3.
-  Re-running the generator over an unchanged document reproduces this file
+  Re-running Phase 4 over an unchanged document reproduces this file
   byte-for-byte — there is no timestamp in the banner and no counter anywhere.
 - **No duplication.** `String` appears once (the declaration), `'customer'`
   appears once (the annotation), `'contracts'` appears once (the facet). Each of
@@ -1595,7 +1661,7 @@ class Customer {
   class doc comment is §2.8 P1 over `IMO-014`'s `description` + `content`;
   `name`'s is P2 over `IMO-014-a`'s `description`. `signedContract` has no
   comment because its section supplies no text, and the body has none because C6
-  allows none. Nothing here was written by the generator.
+  allows none. No sentence here was composed rather than copied.
 - **The one ref const.** `ResourceKeys.customerPii` is a `CsResourceKeyRef`
   imported from shared. A rename in the CE-AZ catalogue is a compile break here,
   which is the entire point of `codespecs_mapping.md` §5.23's typed references.
@@ -1603,7 +1669,7 @@ class Customer {
 ### 4.5 Second example — a form-3b body and its collaborator
 
 §4.1–§4.4 exercise the declarative rules on a part with no bodies at all. Form
-3b needs an illustration of its own, because it is the one place the generator
+3b needs an illustration of its own, because it is the one place Phase 4
 emits a **second declaration in order to make the first one compile**.
 
 #### The input
@@ -1656,7 +1722,7 @@ ScreenActionEntry <!--[XDS-104]--> Save customer
 | Injection | §3.0.1 point 2 | `late final CustomerActionControllerCollaborator collaborator;` — no doc comment and no `@DocSpec`, per §2.8 P2 and §2.5 rule 5 |
 | Statement order | B1 | the step list's document order. `stepNumber` is not read — it agrees here, and `2a1` on the extension step shows why it could not be relied on |
 | Body statements | B2, B3 | one awaited collaborator call per contributing step; no `return`, because the body returns `Future<void>` |
-| The branch | B4 | `ISC-021-X1`'s `condition` becomes the guard `saveCustomerCustomerIsOnCreditHoldApplies` — the calling body's identifier, the **flow entry's** headline, the fixed `Applies` — returning `Future<bool>` because `saveCustomer` is asynchronous. The condition text is its doc comment, not an expression the generator parsed |
+| The branch | B4 | `ISC-021-X1`'s `condition` becomes the guard `saveCustomerCustomerIsOnCreditHoldApplies` — the calling body's identifier, the **flow entry's** headline, the fixed `Applies` — returning `Future<bool>` because `saveCustomer` is asynchronous. The condition text is its doc comment, not an expression anyone parsed |
 | Where the branch sits | B5 | immediately before step 2's statement. `branchPoint: "ISC-021-2"` is a `MNSST.@sectionId` reference, so the step is resolved rather than matched — and the branch is taken *instead of* that step, so it precedes it |
 | How the branch ends | B6 | `returnKind: endFlow` ends the block `return;` — `saveCustomer` returns `Future<void>`, so there is no value to carry out. Control does not fall through into the two steps the branch replaced, which is what the extension states |
 | Method doc comments | §2.8 P3 | `systemResponse` / `response` / `condition` verbatim — and fatal when absent, which is the second reason step 1 yields no method rather than an undocumented one |
@@ -1669,7 +1735,7 @@ ScreenActionEntry <!--[XDS-104]--> Save customer
 in full:
 
 ```dart
-// GENERATED by tom_specs codespecs generator — do not edit.
+// GENERATED by TomSpecs Phase 4 (CodeSpecs) — do not edit.
 // Source document: interaction_scenarios.md (D05)
 // Spec model version: 1.4.0
 
@@ -1743,7 +1809,7 @@ business and are left out here:
 
 ### 4.6 What the second example demonstrates
 
-- **The body resolves.** Every call names a method the generator emitted, in a
+- **The body resolves.** Every call names a method the same run emitted, in a
   file the same project exports, through a field the same declaration holds.
   Nothing is a forward declaration and nothing is assumed to exist — which is
   the whole of what §2.4 asks of a 3b body.
@@ -1757,14 +1823,14 @@ business and are left out here:
   type and ends the body `return collaborator.<last>(…);`, un-awaited, because its
   future *is* the caller's result. The `if` condition is the same rule seen once
   more: the `bool` came out of a call, not out of a literal, so there is nothing
-  in this body the generator could have made up.
-- **The branch is the spec's, not the generator's — and so is where it sits.**
+  in this body that could have been made up.
+- **The branch is the spec's, not the author's — and so is where it sits.**
   `saveCustomer` branches because `ISC-021-X1` states a condition, and the
   condition itself was never read as an expression: B4 turned it into one more
   method with one more doc comment. Its *attachment* comes from the spec by the
   same discipline. `branchPoint` resolves to `ISC-021-2` and puts the block
   before that step's statement (B5); `returnKind: endFlow` ends it `return;`
-  (B6). Neither is parsed, and neither is a default the generator chose — the
+  (B6). Neither is parsed, and neither is a default the agent chose — the
   emitted control flow is the one the extension states, which is exactly what
   a section-id reference and a closed choice buy over two free-text fields.
 - **The narrative moved; it did not disappear.** Step 2's sentence is the
@@ -1876,7 +1942,7 @@ A named validator check (§6 check 9) asserts each mirror is complete: a
 not a silent divergence. The check ranges over the rows whose Mirrors cell names
 a `tom_core` type. A row whose Mirrors cell names a `codespecs_mapping.md`
 section instead has nothing to mirror — its completeness is held by the SOM
-section it lowers from, and the generator fails on an unmapped SOM constant
+section it lowers from, and generation fails on an unmapped SOM constant
 rather than on a missing enum value.
 
 ### 5.4 Reference types this contract consumes
@@ -1890,8 +1956,9 @@ rather than id strings.
 
 ## 6. Validator checks this contract creates
 
-Each is named here so the generator implements them as a check rather than as a
-convention.
+Each is named here so the toolchain implements it as a check rather than as a
+convention. They are the mechanised half of the authoring side (§2.0): the agent
+writes the trio, and this program decides whether what it wrote is admissible.
 
 **Where they run.** All thirty-one are implemented in
 `tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
@@ -1911,8 +1978,8 @@ compile-time error, but it does **not** const-evaluate an **annotation**. A
 violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
-which is worse than no guard, so the enforcement point is the generator's
-validation pass over the resolved annotation for **all** thirty-one.
+which is worse than no guard, so the enforcement point is the generation-time
+validator's pass over the resolved annotation for **all** thirty-one.
 
 | # | Check | Defined in | Implemented by |
 |---|-------|------------|----------------|
@@ -1950,7 +2017,7 @@ validation pass over the resolved annotation for **all** thirty-one.
 
 **Check 23 is the one that makes "compiles" checkable before a compiler sees
 it.** Its two halves fail in opposite directions and neither implies the other.
-A call that resolves to nothing is a body §2.4 forbade — the generator emitted a
+A call that resolves to nothing is a body §2.4 forbade — the agent emitted a
 statement against a declaration it never wrote. A collaborator method nothing
 calls is the reverse defect: a step's behaviour was lifted out of the body and
 then dropped, so the specification is present in the output but no longer reached
@@ -1974,7 +2041,7 @@ SOM side a graded level takes a `GradedAccessLevelEntry`, whose kind enum has no
 `graded` constant, so nesting a second grading is **unauthorable** — the type forbids
 it. On the code side `CsGradedAccess`'s three slots are each a `@CsAuthorize`, which
 *does* have a `graded` arm, so the same nesting is expressible in hand-written
-CodeSpecs even though no generator run can produce it. Without this check the two
+CodeSpecs even though no Phase-4 run can produce it. Without this check the two
 sides would diverge exactly where the SOM was deliberately made strict, and the
 divergence would surface as a runtime access decision rather than a generation error.
 The bound is not arbitrary: a graded requirement resolves to one of four **terminal**
@@ -2029,7 +2096,7 @@ form-3 body says nothing — it throws, or it delegates — so the doc comment i
 where the SOM description reaches the code Phase 6 implements. That is why C2
 calls a missing method comment a **generation error** and not a lapse of style
 (check 25), and why C6 gives the in-body position the value *nothing* (check
-26): an in-body comment is either already in the doc comment or is generator
+26): an in-body comment is either already in the doc comment or is authorial
 commentary no section said, which C1 forbids as a source. §2.7 makes the
 three-line banner the sole `//` an emitted file may hold, so check 26 counts the
 banner out rather than filtering by position — a fourth `//` above the imports
@@ -2042,11 +2109,11 @@ specification's own words or silently eats them — an unescaped `[Order]` becom
 a broken reference, an unescaped `<name>` an HTML tag that renders as nothing.
 C4.2 (no re-wrapping, no truncation), C3's template and C1's source rules all
 compare emitted text against SOM text that is **not in the trio**, so they are
-generator-side assertions rather than trio checks. The division is the same one
+assertions against the extract rather than trio checks. The division is the same one
 check 23 draws for the substrate half: a check reads what its input can show.
 
 **Check 29 carries §2.4 B7's bound, and states when it moves.** B4's guard is
-the point: a generator that emitted `if (order.total > limit)` would have parsed
+the point: an agent that emitted `if (order.total > limit)` would have parsed
 English into Dart and guessed at both operands and operator, where one that
 emits `if (await collaborator.chargeOverLimitApplies(…))` has moved the same
 sentence into a named seam for Phase 6 to implement. A guess that compiles is
@@ -2058,12 +2125,12 @@ other than the specification. The check moves when an entry names such a
 surface — the same stated bound as checks 21 and 23.
 
 **Check 31 needs two runs, and says so when it has one.** Determinism is a
-property of the *generator*, not of a trio, so the check takes a second trio via
+property of the *production*, not of a trio, so the check takes a second trio via
 `--regenerated-shared/--regenerated-client/--regenerated-server` and compares
 file sets then bytes per locus. C5 promises byte-identical output, so whitespace
 counts; N1's naming derivations mean a file that changed name is a derivation
-that is not one. tscomp17's B-rules are the first in this contract where a
-non-deterministic implementation would still produce *plausible* output — a
+that is not one. §2.4's B-rules are the first in this contract where a
+non-deterministic producer would still emit *plausible* output — a
 different statement order or a differently spelled guard name compiles and reads
 correctly — which is exactly the class of defect no other check can see. When
 no second run is supplied the check raises nothing and

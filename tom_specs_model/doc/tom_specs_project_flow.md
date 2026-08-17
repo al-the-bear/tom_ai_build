@@ -325,6 +325,30 @@ model and no `Cs*` base classes. Every class a CodeSpec instantiates comes from
 | Errors and messages | Error-result and message-key CodeSpecs |
 | Authorization | Authorization CodeSpecs derived from `SAS` |
 
+**How the code is produced.** Phase 4 is neither a compiler pass nor free
+authoring. It runs in **two passes with a fixed boundary** between them
+([`codespecs_mapping.md`](codespecs_mapping.md) §1.1, §1.1.1 — pillar (e) and
+the production contract it fixes):
+
+| Pass | Performed by | Produces |
+|------|--------------|----------|
+| **1 · Extract** | The **extract generator** — a `spec_codespecs_extract` surface present in all nine SOM runtimes, so Phase 4 is not a Dart-only phase | One bounded, cited **extract** per CodeSpecs area, holding every SOM field the section's `@CodeSpecKind` routes there, verbatim and with its provenance: `<CE-CODE>.extract.yaml` (the artifact of record) plus a rendered `.extract.md`, under `<spec-root>/generated-doc/codespecs_extracts/` |
+| **2 · Author** | The **authoring agent** — a prompt pass per area, working from that area's extract alone | The CodeSpecs Dart, written against [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md), which is normative for it |
+
+The generator may copy and index; it may not summarise, rephrase, compose a
+sentence out of field values, or choose a name. The agent makes every judgement
+natural-language input requires, and only where the derivation contract leaves
+one open. The split exists because the two halves fail differently: a mechanical
+rule applied to prose invents structure that is not there, and an author handed
+the whole specification reads the wrong parts of it.
+
+**Where the specification does not carry what a derivation needs**, the outcome
+is neither an invention nor a silent omission: it is a `decision-needed` todo
+that pauses the run. The generated todo tree has four levels — open questions,
+scaffolding, per area, per specification element — and the open questions run
+first and to exhaustion, which is the mechanism by which an underspecified
+project stops Phase 4 instead of being guessed through.
+
 **Output — three generated projects**, split by deployment locus:
 
 | Project | Holds |
@@ -336,6 +360,15 @@ model and no `Cs*` base classes. Every class a CodeSpec instantiates comes from
 **Gate G4** — human review by **software engineers**, with strong AI and script
 support: coverage of every specification section, absence of ambiguity markers,
 validity of cross-references, and implementability.
+
+Because pass 2 has a judging producer, G4 reviews **the boundary as well as the
+output**: that the extract copied rather than composed, that the trio obeys the
+derivation contract, that it is what the contract determines rather than what an
+author preferred, and that no open question was closed by an assumption in the
+code instead of an answer in the specification. All four are mechanised — see
+PF-GAT-G4 for the criteria and their check methods. What is left to the human
+reviewer is the judgement no tool can make: whether the skeleton is a *faithful*
+reading of the specification, and whether it is implementable.
 
 ### PF-PHA-P5 Phase 5 — Test Derivation
 
@@ -695,6 +728,14 @@ documents and reports four classes of defect:
 | Validations declared | Content check | Every field constraint from `RSP` / `IFM` has a validation rule |
 | Authorization declared | Content check | Every `SAS` rule maps to an authorization CodeSpec |
 | Implementable | Feasibility review | Each CodeSpec has an unambiguous class/method/property shape |
+| Extracts are verbatim | Extract check | Every scalar in every area extract occurs character-for-character in the source document — pass 1 copied and indexed, it did not compose |
+| Derivation contract satisfied | `validate_codespecs.dart` | No violation of the `codespecs_derivation_contract.md` §6 checks: no invented name, composed comment, fabricated value, unresolved reference or forbidden statement |
+| Output is determined, not preferred | `validate_codespecs.dart` (two runs) | Two production runs over one model yield the same file set and byte-identical contents |
+| Open questions closed in the specification | Todo review | No `decision-needed` todo of the run's open-question level is left standing, and each was closed by an answer in the specification rather than an assumption in the code |
+
+The last four are what PF-PHA-P4's two-pass production model makes checkable:
+pass 1 is verified by comparing extracts against their source, pass 2 by the
+validator and by the determinism the derivation contract obliges it to.
 
 ### PF-GAT-G5 G5 — Test Suite Derived
 
@@ -1272,10 +1313,11 @@ on that model.
 | **`tom_specs_editor`** | `tom_forge/tom_specs_editor` | The authoring application — the primary human/AI workbench for Phases 2–6 |
 | `tom_specs_model` | `tom_ai/ai_build/tom_specs_model` | The specification object model: typed classes for all 14 document roots |
 | `tom_specs_core` | `tom_ai/ai_build/tom_specs_core` | The annotation library the model is built from — section IDs, forms, content help, `@MapsTo` / `@DetailedIn`, `@CodeSpecKind` |
-| `tom_specs_clitool` | `tom_ai/ai_build/tom_specs_clitool` | Model outliner, structural validator, and the JSON export the editor consumes |
+| `tom_specs_clitool` | `tom_ai/ai_build/tom_specs_clitool` | Model outliner, structural validator, the JSON export the editor consumes, and the Phase-4 CodeSpecs validator (`bin/validate_codespecs.dart`) behind Gate G4 |
 | `tom_specs_reviewer` | `tom_ai/ai_build/tom_specs_reviewer` | Structural review of the object model itself — a methodology tool, not a project tool |
 | `tom_code_specs` | `tom_ai/ai_build/tom_code_specs` | The CodeSpecs annotation framework — the `Cs*` family plus the `@DocSpec` back-trace |
 | `tom_core_codespecs` | `tom_ai/core/tom_core_codespecs` | Gap-filler classes CodeSpecs needs that `tom_core` does not yet provide |
+| **Extract generator** (`spec_codespecs_extract`) | The nine `tom_som_*_v0` runtimes | Phase 4's first pass: routes each specification section by `@CodeSpecKind` into the per-area extract the authoring agent works from. A surface of every runtime, not a Dart tool, so a project specified in TomSpecs is not thereby a Dart project |
 | `tom_doc_specs` / `tom_doc_scanner` | `tom_ai/ai_build/` | DocSpecs schema assets and the markdown parser behind import/export |
 | `testkit` | `tom_ai/devops/tom_test_kit` | Test execution and baseline tracking for Phases 5–7 |
 | `Tom Deploy` | `tom_ai/devops/tom_deploy` | Deployment for Phases 7–8 |
@@ -1305,7 +1347,10 @@ applications behind a toolbar switcher, each with the same four-region layout �
 
 The CodeSpecs and Implementation applications render the real phase content —
 purpose, inputs, produced artifacts, components, exit criteria — rather than
-empty placeholders. Their own model-driven editors are the next build-out step.
+empty placeholders. Their own working surfaces are the next build-out step
+(PF-TOO-ROA); for CodeSpecs that is a **run** surface over extracts and emitted
+code, not an editor over a document model, because Phase 4 has no document model
+of its own.
 
 **Modules.**
 
@@ -1358,8 +1403,13 @@ documents, a schema, or nine generated language runtimes.
 
 The tooling gap that remains is the back half of the flow. In order:
 
-1. **CodeSpecs application** — a model-driven editor over the CodeSpecs object
-   model, replacing the phase-aware surface
+1. **CodeSpecs application** — a Phase-4 run surface, replacing the phase-aware
+   one: drive the extract generator, show each area's extract beside the code
+   written from it, and work the generated todo tree with its open questions
+   held in view. Deliberately **not** a model-driven editor over a CodeSpecs
+   object model — there is none to edit. CodeSpecs is annotated `tom_core`
+   classes and the extracts they are derived from, so the thing to build is a
+   run surface over those two artifacts
 2. **Implementation application** — the same for the implementation phase,
    including the test-derivation view
 3. **Acceptance and business testing** — running the `QAP` programme from the
