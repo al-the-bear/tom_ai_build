@@ -728,6 +728,7 @@ documents and reports four classes of defect:
 | Validations declared | Content check | Every field constraint from `RSP` / `IFM` has a validation rule |
 | Authorization declared | Content check | Every `SAS` rule maps to an authorization CodeSpec |
 | Implementable | Feasibility review | Each CodeSpec has an unambiguous class/method/property shape |
+| Trio is self-sufficient | Extract ↔ trio comparison | Every fact in every area extract is carried by the trio — as an annotation argument, a doc comment or a body — so Phases 5 and 6 read code, not documents (`codespecs_mapping.md` §9.6) |
 | Extracts are verbatim | Extract check | Every scalar in every area extract occurs character-for-character in the source document — pass 1 copied and indexed, it did not compose |
 | Derivation contract satisfied | `validate_codespecs.dart` | No violation of the `codespecs_derivation_contract.md` §6 checks: no invented name, composed comment, fabricated value, unresolved reference or forbidden statement |
 | Output is determined, not preferred | `validate_codespecs.dart` (two runs) | Two production runs over one model yield the same file set and byte-identical contents |

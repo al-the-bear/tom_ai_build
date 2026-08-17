@@ -199,6 +199,75 @@ project stops the run instead of being guessed through: `CLAUDE.md` rules that
 That is why the quality gate is the starting prompt's first act rather than a
 review afterwards.
 
+#### 1.1.2 The Phase-4 run procedure
+
+§1.1.1 fixes the **contract** — what an extract is, where the extractor lives,
+and what ids the generated todo tree occupies. A contract is not a procedure,
+and this subsection is the procedure: the order in which one run performs those
+things against one specified project. Nothing here restates §1.1.1. The extract
+names and location, and the four id ranges, are **cited** from it, because a
+second copy of them in the same document is a second thing to keep current and
+the first to go stale.
+
+**Six stages, each one's output the next one's input.**
+
+| # | Stage | Produces | Ordered by |
+|---|-------|----------|------------|
+| **0** | **Open questions** — read the specification against the derivation contract's required inputs and record every place it does not carry what a derivation needs | one L0 todo per unresolved ambiguity, all `decision-needed` | — |
+| **1** | **Extract** — run the `spec_codespecs_extract` surface of whichever SOM runtime the project uses, over the filled Phase-3 document set | one extract pair per **active** part (§4.1's 26), at the location §1.1.1 item 1 fixes | §4.1 |
+| **2** | **Scaffold** — create the §4.2 project trio, its pubspecs and its per-area folders | one L1 todo per scaffolding unit | §4.2 |
+| **3** | **Author, per step** — walk the thirty-one authoring steps | one L2 todo per step; the step's generated files | §4.4.6 |
+| **4** | **Author, per element** — *inside* a step, walk that step's extract entries | one L3 todo per (section, area) pair | §4.4.8 |
+| **5** | **Validate** — run `validate_codespecs.dart` over the trio, and a second time over a regenerated trio | a pass/fail verdict on the [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §6 checks | §6 |
+
+The id ranges the four todo levels occupy — `csopen<n>`, `csproj<n>`,
+`csgen<n>`, `cs<area><n>` — and the prefix-iteration properties that make them
+runnable are §1.1.1 item 3's.
+
+**Stages 3 and 4 are nested, not consecutive.** Stage 3 is the walk over steps
+and stage 4 is what one step consists of; a run does not finish every step and
+then start on elements. This is why the L2 todo is the unit a prompt pass
+occupies and the L3 todo is the unit of work inside it.
+
+**What a step is given.** One extract per **area the step covers** — usually
+one, two where §4.4.6 records a step as spanning parts (step 18 authors CE-SU
+co-emitting the CE-API handler half, so it reads both extracts), six for
+SCC-B. A step never reads a document, and never reads an extract belonging to an
+area it does not cover: that bound is the whole reason the extracts are not
+deduplicated across areas (§1.1.1 item 1). The prompt that carries a step is
+[`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §2.9,
+instantiated from the step's row in §4.4.6 — the procedure is grounding and
+lives here, the text that produces code is derivation and lives there.
+
+**A component step is one todo, run in two passes.** Where §4.4.6's step is an
+SCC — step 2 and step 23 — §4.4.7's declare-then-wire pass pair happens **inside**
+the single L2 todo, never as two. The component does not compile between the
+passes, so a run that stopped there would stop in a state no gate can accept.
+
+**What stops the run.** Stage 0 runs first and to exhaustion because
+`CLAUDE.md`'s queue semantics make a `decision-needed` todo **refuse** to run
+and pause the queue. The same mechanism applies mid-run: a generation error
+discovered in stage 3 or 4
+([`codespecs_derivation_contract.md`](codespecs_derivation_contract.md) §2.0)
+files a new L0 todo and the declaration is **not written**. An underspecified
+project therefore halts Phase 4 at the point of the gap, rather than being
+guessed through and discovered in Phase 6.
+
+**What the run is finished against.** Stage 5's validator decides admissibility
+of what was written; **§9.6's self-sufficiency rule** decides whether it carries
+what it was written from. The two are independent — a trio can pass every §6
+check while having silently dropped half of a description — and the project-flow
+gate G4 (`tom_specs_project_flow.md` §PF-GAT-G4) is where both are reviewed
+together with the judgement neither can make.
+
+**Re-running.** A specification change is answered by re-running the affected
+stages, not by editing the trio: [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md)
+§2.1, §2.8 — N8's derived names and C5's verbatim comments — make regeneration
+byte-identical over an unchanged document,
+so a diff in a regenerated trio is exactly the specification's diff. Hand-editing
+generated code destroys that property silently, which is why §6 check 31 compares
+two runs rather than trusting one.
+
 ### 1.2 Neutral vocabulary and the attribute-surface convention
 
 Pillar (c) is only enforceable if the neutral vocabulary is a **closed set**. The
@@ -5351,6 +5420,96 @@ join key, traceability and gap analysis become set operations in both directions
 `tom_code_specs` depends on `tom_specs_core` and re-exports `CodeSpecKind` +
 `CodeSpecPart`, so a CodeSpecs author has a single import.
 
+### 9.6 Self-sufficiency — the trio carries what it was derived from
+
+The link §9.1–§9.5 describes is a **trace**, not a channel: it says which section
+a declaration came from, not what that section said. On its own it would leave
+every downstream reader one dereference away from the code — open the document,
+find `IMO-014`, read what the code does not carry. The rule below closes that
+gap, and it is a requirement of Phase 4 in the same sense the §4.4.4 readiness
+gate is, not a quality aspiration attached to it.
+
+**The rule.** When Phase 4 completes, the generated trio (§4.2) carries **every
+specification fact its parts were routed from**. Phases 5 and 6 read the code;
+they do not reopen the Phase-3 documents. A test derived in Phase 5 is derived
+from a declaration, its annotations and its doc comments; an implementation
+written in Phase 6 fills a body whose behaviour is already stated above and
+inside it.
+
+**Why it is a requirement and not a nicety.** Phase 5 and Phase 6 are the two
+phases with the widest fan-out — many test cases and many implementations per
+declaration — and they are the two most often run by a party who did not attend
+Phase 3. If either has to consult the document, three things follow: the
+specification acquires a second reading with no gate over it, the code and the
+document can disagree with nothing detecting it, and a declaration whose
+description never made it into the trio looks exactly like one whose section had
+nothing more to say. Requiring the trio to be closed under its own inputs turns
+all three into one checkable question asked once, at G4
+(`tom_specs_project_flow.md` §PF-GAT-G4), rather than into three silent failures
+discovered late.
+
+**What carries what.** The rule is discharged by carriers that already exist —
+it adds no new construct, it states which existing ones are *obliged* to be
+complete.
+
+| Kind of specification content | Carrier | Fixed by |
+|---|---|---|
+| **A structured fact** — an enumerable, a scalar, an id, a reference to another part | An **annotation argument** on the marker | §5.23's typed `Cs*Ref` family; `codespecs_derivation_contract.md` §2.3, §2.6 |
+| **Prose saying what a thing is** — a description of an entity, an attribute, a client | A **doc comment** at P1 (declaration) or P2 (member), verbatim from the section's designated description field and its `content` | `codespecs_derivation_contract.md` §2.8 C1, C2, C4 |
+| **Prose that becomes behaviour** — a step, a rule, a flow | A **P3 method doc comment**, plus the body: form 3a's `throw UnsupportedError('<explication>')` renders that same text as a string; form 3b's statements *are* the text, with narrative on the abstract collaborator's P3 comments | `codespecs_derivation_contract.md` §2.4, §3.0.1, §2.8 C2/C6 |
+| **An authored artifact** — DDL, SQL, a diagram | The construct the part's entry names in its point 1 | `codespecs_derivation_contract.md` §3 |
+| **Provenance** — which section, and what was taken from it | `@CodeSpec` (identity + flat source set) and `@DocSpec` (per-section edge) | §9.3 |
+
+Two properties of that table are what make the rule bite rather than restate
+good intentions. First, **P3's absence is a generation error**: a method whose
+behaviour text is missing does not compile into a silently empty specification,
+it stops the run. Second, **nothing on it is composed** — C1's prohibitions mean
+each carrier holds the author's text or an author's value, so "carries the fact"
+and "carries the fact *faithfully*" are the same claim.
+
+**The bound: routed, not all.** The rule ranges over exactly the sections
+`@CodeSpecKind` routes to a part. A section carrying `@FollowUpKind` or
+`@NoArtifact` (§8.3) is outside it by construction — there is no part for it to
+be carried by, and demanding otherwise would ask the trio to hold organisational
+and migration content it has no shape for. This bound is decidable rather than
+argued: `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` makes the three
+verdicts a total partition of the SOM, so "everything routed" names a computable
+set and its complement is enumerable too.
+
+**How the rule is decided.** Three comparisons, none of them a reading:
+
+1. **Nothing routed is missing.** The set of routed section ids, set-differenced
+   against the union of `@CodeSpec.source` over the trio, is the set of sections
+   that reached no code. §8.5's per-part verdict is this operation at part
+   granularity; the rule needs it at section-instance granularity against one
+   project.
+2. **Nothing carried is invented.** Every comment and every verbatim argument
+   occurs character-for-character in its source section — the identical test
+   §1.1.1 item 1 places on the extract, applied to the second artifact produced
+   from it.
+3. **Nothing routed is empty.** A declaration whose section had a description
+   but carries no comment has lost it; a method with no behaviour text was never
+   specified at all.
+
+**Two of the three need the extract, and that is a property of the rule, not an
+implementation choice.** A pass over the generated trio alone cannot separate a
+complete transfer from a partial one, because nothing in the output states what
+was supposed to be in it — the code is the answer, and comparisons 1 and 2 need
+the question. The extract is that second side: it enumerates, bounded and
+verbatim, exactly what a step was given, so both comparisons become set and
+string operations over two files instead of a search through a document set.
+Comparison 3 is the exception — it is **output-local**, decidable from the trio
+alone, and `codespecs_derivation_contract.md` §6 already mechanises its
+behaviour half (a form-3a body with an empty description, and a method of a
+form-3a, form-3b or collaborator class with no doc comment, both fail
+generation).
+
+What §9.6 owns is the **requirement**; `codespecs_derivation_contract.md` §6
+owns what a program decides about it. The division matters because a validator
+can only check completeness against a rule that says the trio is supposed to be
+complete — the checks are not self-justifying, and this is the statement they
+answer to.
+
 ## 10. Open work
 
 Anything outstanding against this document is tracked as a **quest todo** in
@@ -5372,18 +5531,16 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Four entries are open, in two groups. **Model** — two gaps
+active part COVERED. Three entries are open, in two groups. **Model** — two gaps
 standing behind a **required** marker argument: one argument resolves against no
 registry key, the other against no authored citation at all, so in both cases the
 value reaching the generated code is a spelling or a guess rather than a
-reference. **Document** — the procedure for running the §1.1 pillar (e)
-production model, and the todo tree that procedure instantiates.
+reference. **Document** — the todo tree that §1.1.2's procedure instantiates.
 
 | Todo | Subject |
 |------|---------|
 | `tscompd1_ahqi` | **`@CsServiceUnit.boundedContext` is required and resolves against no registry key.** §5.1 rule 3 makes the bounded context the outer bound, and `codespecs_derivation_contract.md` §3.4.1 makes `boundedContext` a **required** verbatim argument read from `DAENT-CLAS.boundedContext` — a free-text field, because `BoundedContextEntry` (`BCE`) declares no name: its only required form field is `domainArea`, a description of the domain rather than an identifier, and `BCE.@sectionId` yields `BCE-BOUN-001` rather than a context name. So two entities can name the same context in two spellings and produce two caps, and a `refersTo` target cannot be written until `BCE` carries a key. |
 | `tscompd2_ahpu` | **CE-SC's operation edge is resolved from prose.** §5.3's "The operation edge is resolved, not authored" records that no SOM member cites `ServerOperationEntry.operationName`, so `CsOperationRef` is matched against the SVOPR registry by reading an ISC step's `systemResponse` wording — the inference B8 forbids, standing behind the one **required** argument of `@CsServerCall`. The authored shape already exists beside it: CE-NV's `ScreenActionEntry.behavior.navigateTo` cites `SCRTEN.routeId`. |
-| `tscompc20` | **Neither document states how a Phase-4 run is performed.** §1.1.1 fixes the contract — the extract artifact, the extractor's home and the four todo id ranges — but not the procedure: extract, then walk §4.4.6's thirty-one authoring steps in order, then per step iterate its extract entries in §4.4.8's order, with the per-step prompt text in the derivation contract. It carries the self-sufficiency rule with it: the emitted CodeSpecs code holds every specification fact it was derived from, in comments or annotations, so Phases 5 and 6 never reopen the document. |
 | `tscompc23` | **The generated todo tree has ids but no design.** §1.1.1 item 3 fixes the four id levels (`csopen<n>` → `csproj<n>` → `csgen<n>` → `cs<area><n>`); what each rung generates, what an L2 todo must check before generating its L3 rung, and the criteria under which a generated todo is emitted `decision-needed` rather than `not-started` are unwritten. The tree's *shape* around them is fixed — §4.4.6 supplies the L2 ordinals, §4.4.7 holds an SCC's declare/wire pass pair inside one L2 todo, and §4.4.8 fixes the L3 unit as a (section, area) pair with its numbering — so what is open is what each rung **contains**, not how the rungs are cut. |
 
 An open todo in those series whose subject is **not** a mapping question does

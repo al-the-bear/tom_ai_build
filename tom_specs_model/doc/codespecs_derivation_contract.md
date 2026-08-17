@@ -824,6 +824,121 @@ validator can both see, rather than a comment neither can. This is the rule
 keeps a form-3b body a specification rather than an essay, and it is why a body
 has exactly the two shapes §2.4 defines — 3b's statements, or 3a's `throw`.
 
+### 2.9 The authoring prompt
+
+§2.0 says who writes the code; `codespecs_mapping.md` §1.1.2 says in what order a
+run reaches them. This section is what an **authoring step** is actually handed:
+the text that carries one `csgen<n>` pass. It lives here rather than in the
+mapping document by the same split that put the procedure there — a procedure is
+grounding, and the text that produces code is derivation.
+
+**One prompt, thirty-one instantiations — not thirty-one prompts.** The steps
+differ only in their *inputs*: which extracts, which entries, which project,
+whether the step is a component. Everything else — the naming rules, the locus
+rule, the argument tests, the body forms, the comment rules, the file shape, the
+stop condition — is universal, and §2 already states it once. Thirty-one hand
+written prompts would be thirty-one copies of §2 that drift apart silently, and
+the drift would show up as inconsistent *generated code*, which is the most
+expensive place to discover it. The same argument rules out a prompt per
+contract entry: §1's seven points already **are** an entry's per-element inputs,
+so a per-entry prompt would restate §3 rather than add to it.
+
+**The instantiation is mechanical.** Every placeholder is read off a table this
+design already fixes; none is composed.
+
+| Placeholder | Bound from | Which is |
+|---|---|---|
+| `<TODO>` | the step's `csgen<n>` id | `codespecs_mapping.md` §1.1.1 item 3 |
+| `<STEP>` | the step's number and emission-unit name | `codespecs_mapping.md` §4.4.6, one row |
+| `<PARTS>` | the `CE-*` codes that row's emission unit covers | same row |
+| `<EXTRACTS>` | one extract path per part in `<PARTS>` | `codespecs_mapping.md` §1.1.1 item 1 fixes name and location |
+| `<ENTRIES>` | the §3 entry numbers for the markers those parts emit | §3, via `codespecs_mapping.md` §8.5's walk index |
+| `<LOCUS>` | the project(s) of `codespecs_mapping.md` §4.2 the step writes into | §2.2 |
+| `<COMPONENT>` | the component's pass-2 deferral row — **present only for steps 2 and 23** | `codespecs_mapping.md` §4.4.7 |
+
+A step that is not a component omits the `<COMPONENT>` block entirely; it is the
+prompt's only conditional part. An instantiation that adds a sentence of its own
+has created a second contract, and §6 check 31 will not catch it — so the
+instantiation is a substitution and nothing else.
+
+**The prompt.**
+
+```text
+You are the authoring agent for CodeSpecs step <STEP>, todo <TODO>.
+
+READ — and read nothing else:
+  - The extracts for this step: <EXTRACTS>. They contain, verbatim, every
+    specification fact routed to <PARTS>. They are your only source of
+    specification content.
+  - codespecs_derivation_contract.md §2 (universal rules) and entries <ENTRIES>.
+  - The files earlier steps generated, to resolve cross-references and to reuse
+    the names they already fixed.
+  Do NOT open the Phase-3 specification documents. If a fact you need is not in
+  an extract, it was not routed here, and reaching for it would write into
+  <PARTS> something another step owns.
+
+WRITE into <LOCUS>:
+  - Walk this step's extract entries in the order codespecs_mapping.md §4.4.8
+    fixes — SOM document order (§2.1 N8) across all of this step's parts
+    together, not one part after another. One entry is one L3 todo.
+  - For each entry, follow its §3 contract entry's seven points: input, output
+    shape, argument derivation, naming, locus, cross-references, back-link.
+  - Names come from §2.1 N1–N10. They are computed from the specification text,
+    never chosen.
+  - Annotation arguments are decided by §2.3's three tests, from the closed
+    catalogues and the typed reference family (§2.6, §5.4).
+  - Bodies take exactly one of the two shapes §2.4 defines — form 3a's
+    `throw UnsupportedError(<explication>)`, or form 3b's statements plus the
+    abstract collaborator §3.0.1 requires. §2.4 decides which from the input;
+    you do not.
+  - Every declaration carries @CodeSpec then @DocSpec then its Cs* marker
+    (§2.5), and every file has §2.7's five-part shape.
+  - Comments are governed by §2.8: C1's sources, C2's four positions, C4's
+    shape. Copy the specification's text; do not write a sentence of your own.
+
+<COMPONENT>
+This step is a strongly connected component. Author it in the two passes
+codespecs_mapping.md §4.4.7 fixes, inside this one todo:
+  Pass 1 — declare every member of the component, filling every reference to an
+           earlier step but leaving intra-component reference slots unwritten.
+  Pass 2 — fill those slots: <COMPONENT>.
+The component does not compile between the passes. Do not end the step in
+between.
+</COMPONENT>
+
+STOP when a derivation has no admissible output (§2.0's "generation error"):
+  Do NOT write the declaration, and do not substitute a placeholder for the
+  missing fact. File a csopen<n> quest todo with status decision-needed, naming
+  the section id and what the derivation required, then continue with the next
+  entry. A paused step is recoverable; an invented fact is not.
+
+NEVER:
+  - Summarise, rephrase, compose a sentence from field values, or choose a name
+    (§2.8 C1). These four are the whole of what you may not do with text.
+  - "Improve" a derived name, key or ordering. §6 check 31 compares two runs;
+    a better name breaks the contract in the one way no compiler notices.
+  - Write a reference to a declaration a later step will emit (the
+    no-forward-reference rule of codespecs_mapping.md §4.4.3) — except an
+    intra-component slot in pass 1 above,
+    which is left empty rather than forward-referenced.
+  - Leave a TODO, TBD or FIXME anywhere in the output. The mechanism for
+    "unresolved" is a csopen<n> todo, not a comment.
+
+HAND BACK:
+  - The list of files written, by locus project.
+  - The csopen<n> todos filed, if any, with their section ids.
+  - The L3 todos of this step, each marked completed or left open against a
+    csopen<n>.
+```
+
+**What the prompt deliberately does not carry.** It states no naming rule, no
+catalogue and no body shape inline — it cites them. A prompt that inlined §2
+would be a fourth place the rules live (this contract, the validator, the
+generated code, the prompt), and the validator would then be checking the
+contract while the agent followed the prompt. Citing keeps one authority per
+rule, which is the property §6 depends on to be a check rather than a second
+opinion.
+
 ---
 
 ## 3. The contract entries
