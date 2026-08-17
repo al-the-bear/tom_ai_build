@@ -49,7 +49,7 @@ class CsError {
 /// `tom_core_codespecs` and no enhanced-enum member, because a domain enum has
 /// no authored attribute of its own to carry: the value token is the constant's
 /// own identifier, the value label is CE-TX copy in the message-key registry
-/// (`codespecs_mapping.md` §1.2 consequence 1, §5.21), the description is the
+/// (`codespecs_mapping.md` §5.21, §1.2 consequence 1), the description is the
 /// generated doc comment, and a default value belongs to the enum-typed member
 /// rather than to the enum (`codespecs_mapping.md` §4.1,
 /// `codespecs_derivation_contract.md` §3.1.1).

@@ -66,8 +66,8 @@ class CsServiceUnit {
 
   /// The outer bound the unit sits inside, verbatim.
   ///
-  /// **Required** — it is the second half of the §5.1 boundary criterion, and a
-  /// unit with no named context has no stated bound.
+  /// **Required** — it is the second half of the `codespecs_mapping.md` §5.1
+  /// boundary criterion, and a unit with no named context has no stated bound.
   final String boundedContext;
 
   /// Optional part-specific note.
@@ -253,7 +253,8 @@ class CsRepository {
 /// `TomAuthState` values, so it is a *tree* rather than a scalar: each slot
 /// carries the requirement a principal must satisfy to reach that access level.
 ///
-/// Slots hold a whole [CsAuthorize] because §5.15 defines them as recursion into
+/// Slots hold a whole [CsAuthorize] because `codespecs_mapping.md` §5.15
+/// defines them as recursion into
 /// the other requirement kinds — a role set for `full`, a resource key for
 /// `read`, and so on. Reusing the annotation type rather than declaring a
 /// parallel "requirement" value class is what keeps the two from drifting.
@@ -361,10 +362,12 @@ class CsAuthorize {
 
 /// CE-CF — server configuration (per-server settings).
 ///
-/// Note: CE-CF is narrowed to *server* configuration under the 2026-07-19
-/// revision (`codespecs_mapping.md` §0). Client configuration, user settings,
-/// the client element itself, and authentication are separate parts introduced
-/// by csm2r5 (CE-CC / CE-UP / CE-CL / CE-AU) and are not part of this file.
+/// CE-CF is **server** configuration only — it never carries user or
+/// client-machine settings. It is one of the four config/settings scopes
+/// (`codespecs_mapping.md` §11), and the scope key alone decides where a value
+/// lives: the other three — CE-CC (client app + machine), CE-DS (user +
+/// device), CE-UP (user, server-persisted) — are client-side parts and are not
+/// in this file.
 class CsServerConfig {
   /// The setting key, verbatim.
   ///
@@ -386,8 +389,8 @@ class CsServerConfig {
   /// The declaration states the setting's **presence and shape**; the content is
   /// supplied out of band by deployment tooling and is never written into a
   /// specification (`codespecs_mapping.md` §5.16). The marking is what lets
-  /// §12 production-stripping and the deployment tooling find these settings
-  /// mechanically instead of by naming convention.
+  /// `codespecs_mapping.md` §12 production-stripping and the deployment tooling
+  /// find these settings mechanically instead of by naming convention.
   final bool secret;
 
   /// Which narrower scope, if any, may shadow this key.
@@ -552,12 +555,14 @@ class CsJob {
 
   /// The CE-RP reports this job produces, where the work is a report run.
   ///
-  /// Half of §5.29 scope part 3; the other half — the CE-DB entities the job
-  /// reads and writes — rides `TomJobDeclaration.readEntities` /
-  /// `.writtenEntities` as `Type` literals, since entities are already Dart
-  /// types and `codespecs_mapping.md` §5.23 gives them no ref const by design.
+  /// Half of `codespecs_mapping.md` §5.29 scope part 3; the other half — the
+  /// CE-DB entities the job reads and writes — rides
+  /// `TomJobDeclaration.readEntities` / `.writtenEntities` as `Type` literals,
+  /// since entities are already Dart types and `codespecs_mapping.md` §5.23
+  /// gives them no ref const by design.
   ///
-  /// **Reports are cited here rather than on the declaration** because §5.23
+  /// **Reports are cited here rather than on the declaration** because
+  /// `codespecs_mapping.md` §5.23
   /// places the `Cs*Ref` family in the annotation *parameter* vocabulary, which
   /// is exactly where [failureAlert]'s [CsMessageKey] already sits. Putting a
   /// ref const on a `tom_core`-family class instead would make it the outlier —
@@ -680,19 +685,23 @@ class CsNotificationChannel {
 /// result envelope and the parameter shape are **shared**. Every label is a
 /// `CsText` message key, never inline text.
 ///
-/// **Note-only, and its cross-part edges are carried elsewhere.** §5.28's
+/// **Note-only, and its cross-part edges are carried elsewhere.**
+/// `codespecs_mapping.md` §5.28's
 /// attribute surface maps onto `TomReportDefinition`'s constructor, so nothing
 /// is left for an argument to hold — including the outbound references:
 ///
 /// - the **source entity** is a `Type` literal on the definition, since an
-///   entity is already a Dart type and §5.23 gives it no ref const;
+///   entity is already a Dart type and `codespecs_mapping.md` §5.23 gives it no
+///   ref const;
 /// - the **schedule** is a recurrence expression on the definition, not a job
-///   reference — §5.29 realises the CE-JB job *from* it;
-/// - **authorization** rides a [CsAuthorize] **beside this marker**, per §5.15's
+///   reference — `codespecs_mapping.md` §5.29 realises the CE-JB job *from* it;
+/// - **authorization** rides a [CsAuthorize] **beside this marker**, per
+///   `codespecs_mapping.md` §5.15's
 ///   field-level rule: the report's access level and permitted roles are
 ///   exactly that annotation's requirement kind and its typed `CsRoleRef` list;
 /// - the **drill-through** target is an open route id string on the column, the
-///   one edge §5.23's locus rule permanently denies a typed ref.
+///   one edge `codespecs_mapping.md` §5.23's locus rule permanently denies a
+///   typed ref.
 class CsReport {
   /// Optional part-specific note.
   final String? note;
@@ -713,7 +722,8 @@ class CsReport {
 /// data model, a report column part of one report's output.
 ///
 /// Its **drill-through** target stays an open route id string on
-/// `TomReportColumn` rather than becoming a [CsRouteRef]: §5.23's locus rule
+/// `TomReportColumn` rather than becoming a [CsRouteRef]:
+/// `codespecs_mapping.md` §5.23's locus rule
 /// bars a server-owned definition from citing a client-owned route. That is a
 /// lost compile-time edge rather than an absent one, so
 /// `codespecs_derivation_contract.md` §6 check 18 replaces it.

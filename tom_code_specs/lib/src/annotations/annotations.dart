@@ -2,7 +2,8 @@
 ///
 /// A CodeSpec is an ordinary class **built on** an existing `tom_core`-family
 /// class and marked by these annotations — the framework carries **annotations
-/// only, no base classes** (`codespecs_mapping.md` §0). This barrel exports the
+/// only, no base classes** (`codespecs_mapping.md` §1.1 pillar (a)). This
+/// barrel exports the
 /// identity/trace annotations ([CodeSpec], `@DocSpec`/`DocRef`) and the four
 /// part-marker families:
 ///

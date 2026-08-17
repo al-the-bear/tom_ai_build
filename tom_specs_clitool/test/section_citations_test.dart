@@ -458,4 +458,208 @@ void main() {
               'whole resolver vacuous');
     });
   });
+
+  group('SCC6: Dart doc-comments are held to the same convention', () {
+    test('a doc comment is lifted to markdown, and code is not', () {
+      const source = '''
+/// Cites `x.md` §1.
+class A {
+  // A plain comment mentioning §2 is not documentation.
+  final String s = 'a literal §3';
+}
+
+/// Cites `x.md` §4.
+class B {}
+''';
+
+      final lifted = dartDocComments(source);
+
+      // Line numbers survive, because a violation is reported at one.
+      expect(lifted.split('\n').length, source.split('\n').length);
+      expect(lifted.split('\n')[0], 'Cites `x.md` §1.');
+      expect(lifted.split('\n')[6], 'Cites `x.md` §4.');
+
+      // Only `///` carries documentation. A `//` comment is a note to the next
+      // maintainer and a string literal is data; neither is read by a reader
+      // following a citation, so neither is held to the convention.
+      expect(lifted, isNot(contains('§2')));
+      expect(lifted, isNot(contains('§3')));
+    });
+
+    test('the lookback crosses a `///` wrap, as it does a soft wrap', () {
+      // The reason lifting beats scanning the raw file: doc comments wrap, and
+      // the document name lands on the line above its `§`. Scanning raw text
+      // would see a bare citation and call a correct line dangling.
+      const source = '''
+/// The framework carries annotations only (`codespecs_mapping.md`
+/// §1.1 pillar (a)).
+class A {}
+''';
+
+      final citations = classifySectionCitations(
+        dartDocComments(source),
+        path: '/pkg/lib/a.dart',
+        corpus: corpusOf({
+          'codespecs_mapping.md': ['1.1'],
+        }),
+        own: DocumentSections.parse('', path: '/pkg/lib/a.dart'),
+      );
+
+      expect(citations, hasLength(1));
+      expect(citations.single.document, 'codespecs_mapping.md');
+      expect(citations.single.source, SectionQualifierSource.leading);
+      expect(citations.single.verdict, SectionCitationVerdict.crossDocument);
+      expect(citations.single.line, 2);
+    });
+
+    test('a bare citation in a source file is dangling, always', () {
+      // A Dart file declares no sections, so the self-reference carve-out has
+      // nothing to resolve against: every citation in source must name its
+      // document. This is what makes `§0` catchable at all.
+      const source = '''
+/// The framework carries annotations only (§0).
+class A {}
+''';
+
+      final citations = classifySectionCitations(
+        dartDocComments(source),
+        path: '/pkg/lib/a.dart',
+        corpus: corpusOf({
+          'codespecs_mapping.md': ['1.1'],
+        }),
+        own: DocumentSections.parse('', path: '/pkg/lib/a.dart'),
+      );
+
+      expect(citations.single.verdict, SectionCitationVerdict.dangling);
+    });
+
+    test('every § citation in the CodeSpecs source packages resolves', () {
+      // The gate this group exists for. The doc-folder gate above reads `.md`
+      // only, which is why four `codespecs_mapping.md §0` citations sat in the
+      // annotation packages unnoticed while the doc folder was clean — and a
+      // package's doc comments are the first thing a reader of that package
+      // sees, so they decay in exactly the same silence.
+      final roots = [
+        for (final root in defaultCitedSourceRoots)
+          p.normalize(p.join(containerRoot, root)),
+      ];
+      final missing = roots.where((d) => !Directory(d).existsSync());
+      if (missing.isNotEmpty) {
+        markTestSkipped('CodeSpecs source packages are not checked out: '
+            '$missing');
+        return;
+      }
+
+      final sources = [for (final root in roots) ...listDartSources(root)];
+      final report = checkSectionCitations(docDir: docDir, extraSources: sources);
+
+      expect(
+        report.violations
+            .where((c) => p.extension(c.file) == '.dart')
+            .map((c) => c.describe(relativeTo: containerRoot)),
+        isEmpty,
+      );
+
+      // Anti-vacuity: a root that resolved to nothing, or sources that cite
+      // nothing, would pass the assertion above having checked nothing.
+      expect(sources, isNotEmpty);
+      expect(
+        report.citations.where((c) => p.extension(c.file) == '.dart'),
+        isNotEmpty,
+      );
+    });
+  });
+
+  group('SCC7: citations of public standards are not citations of this set',
+      () {
+    test('a standard designator qualifies the citation that follows it', () {
+      final citations = classify(
+        'The suite maps onto ISO/IEC/IEEE 29148 §6 front matter.',
+        corpus: corpusOf({'own.md': ['6']}),
+        ownSections: ['6'],
+      );
+
+      expect(citations, hasLength(1));
+      expect(citations.single.document, 'ISO/IEC/IEEE 29148');
+      expect(
+          citations.single.source, SectionQualifierSource.externalStandard);
+      expect(citations.single.verdict, SectionCitationVerdict.unverifiable);
+    });
+
+    test('without the rule the citation would pass as a correct self-reference',
+        () {
+      // Why this rule is not a tolerance widening but a defect fix. The citing
+      // document declares a §6 of its own, so reading the ISO citation as bare
+      // resolved it — silently, to the wrong document. A false alarm is
+      // findable; this was not.
+      final citations = classify(
+        'ISO/IEC/IEEE 29148 §6 front matter, and §6 of this document.',
+        corpus: corpusOf({'own.md': ['6']}),
+        ownSections: ['6'],
+      );
+
+      expect(citations, hasLength(2));
+      expect(citations.first.verdict, SectionCitationVerdict.unverifiable);
+      // The second is a genuine self-reference and must stay one: the rule
+      // qualifies the citation the designator stands before, not the sentence.
+      expect(citations.last.verdict, SectionCitationVerdict.self);
+    });
+
+    test('a bare body name does not qualify — the standard number is required',
+        () {
+      // `ISO §4` names no standard. Admitting it would let the mere mention of
+      // an organisation vouch for a citation, which is the silent
+      // mis-resolution the convention exists to prevent.
+      final citations = classify(
+        'Nothing in ISO §4 applies here.',
+        corpus: corpusOf({'own.md': ['9']}),
+        ownSections: ['9'],
+      );
+
+      expect(citations.single.source, SectionQualifierSource.bare);
+      expect(citations.single.verdict, SectionCitationVerdict.dangling);
+    });
+
+    test('an unrecognised body does not qualify', () {
+      // The body list is closed. Keying on the shape "capitals then a number"
+      // instead would let a CodeSpecs part code do the qualifying.
+      final citations = classify(
+        'The part CE-ER 5 §4 is not a standard.',
+        corpus: corpusOf({'own.md': ['9']}),
+        ownSections: ['9'],
+      );
+
+      expect(citations.single.source, SectionQualifierSource.bare);
+      expect(citations.single.verdict, SectionCitationVerdict.dangling);
+    });
+
+    test('a run inherits the designator, as it inherits a document name', () {
+      final citations = classify(
+        'See ISO/IEC 25010:2023 §4.2, §4.3.',
+        corpus: corpusOf({'own.md': ['4.2']}),
+        ownSections: ['4.2'],
+      );
+
+      expect(citations, hasLength(2));
+      expect(citations.last.source, SectionQualifierSource.run);
+      expect(citations.last.document, 'ISO/IEC 25010:2023');
+      // Notably `§4.2` does exist in the citing document — inheritance is what
+      // stops the second member of an external run resolving locally too.
+      expect(citations.first.verdict, SectionCitationVerdict.unverifiable);
+      expect(citations.last.verdict, SectionCitationVerdict.unverifiable);
+    });
+
+    test('a TomSpecs document name still wins over an adjacent designator', () {
+      // Ordering matters: `.md` adjacency is checked first, so a designator
+      // earlier in the line cannot capture a properly qualified citation.
+      final citations = classify(
+        'Derived from ISO 9241 and stated in `x.md` §2.',
+        corpus: corpusOf({'x.md': ['2']}),
+      );
+
+      expect(citations.single.source, SectionQualifierSource.leading);
+      expect(citations.single.document, 'x.md');
+      expect(citations.single.verdict, SectionCitationVerdict.crossDocument);
+    });
+  });
 }

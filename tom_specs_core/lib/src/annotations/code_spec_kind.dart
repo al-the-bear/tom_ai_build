@@ -60,17 +60,13 @@ class CodeSpecKind {
 /// 1. `@CodeSpecKind([CodeSpecPart.x])` — the type-level mapping declared here;
 /// 2. the `@Cs<Id>` annotation that marks a CodeSpec class as realising the
 ///    part (in `tom_code_specs`) — the framework carries **annotations only, no
-///    base classes** (`codespecs_mapping.md` §0). A CodeSpec is an ordinary
-///    class built on an existing `tom_core`-family class and enriched by that
-///    marker.
+///    base classes** (`codespecs_mapping.md` §1.1 pillar (a)). A CodeSpec is an
+///    ordinary class built on an existing `tom_core`-family class and enriched
+///    by that marker.
 ///
 /// The cross-cutting **CE-TR (Traceability)** part is intentionally **absent**:
 /// traceability is not a mappable kind — it rides on every element via
 /// `@CodeSpec`/`@DocSpec`, so no section type ever maps *to* it.
-///
-/// Two parts still have open *modeling* questions (their ids are final):
-/// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
-/// csm-2-2). Those do not affect this enum's values.
 ///
 /// The enum holds **28 values**: the **26 active parts**
 /// (`codespecs_mapping.md` §4.1), the **member kind [domainEnum]**, and the **1

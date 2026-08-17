@@ -6,9 +6,10 @@
 /// document model**: the former `tom_code_specs` package that modelled Phase 4
 /// as a DocSpec was deleted (see `codespecs_mapping.md` §1/§1.1).
 ///
-/// The framework carries **annotations only — no base classes and no `Ca*`
-/// prefix** (2026-07-19 revision, `codespecs_mapping.md` §0). A CodeSpec is an
-/// ordinary class **built on** an existing `tom_core`-family class
+/// The framework carries **annotations only — no base classes**, and every
+/// annotation uses the **`Cs*` prefix** (`codespecs_mapping.md` §1.1 pillar
+/// (a)). A CodeSpec is an ordinary class **built on** an existing
+/// `tom_core`-family class
 /// (`tom_core_kernel` / `_flutter` / `_server` / `_d4rt` / `tom_flutter_ui`)
 /// and *marked* by these `Cs*` annotations ([CsForm], [CsTable], [CsEndpoint],
 /// …) together with the identity/trace annotations [CodeSpec] and `@DocSpec`.

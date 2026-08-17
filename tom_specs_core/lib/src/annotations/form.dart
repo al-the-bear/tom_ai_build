@@ -62,7 +62,8 @@ class Field {
   /// storage slot per value). Without `@sectionId` those registries would be
   /// unreachable, and every reference to a requirement id would stay
   /// unenforceable. The target still names the **entry class** (`'FRE'`), never
-  /// the `-LST` container or the pattern itself, so §6.2 rule 2 is unchanged.
+  /// the `-LST` container or the pattern itself, so `tom_specs_model_rules.md`
+  /// §6.2 rule 2 is unchanged.
   /// `@` is a reserved namespace: any other `@`-prefixed slot is a hard error
   /// rather than a silently unresolvable target.
   ///

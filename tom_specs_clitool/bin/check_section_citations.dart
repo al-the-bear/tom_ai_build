@@ -11,9 +11,10 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///   dart run bin/check_section_citations.dart --verbose
 ///   dart run bin/check_section_citations.dart --no-default-readmes
 ///
-/// The project READMEs that cite the doc set ([defaultCitedReadmes]) are scanned
-/// by default, so the command and the gate test cover the same files without the
-/// list having to be repeated on a command line.
+/// The project READMEs that cite the doc set ([defaultCitedReadmes]) and the
+/// doc comments of the CodeSpecs source packages ([defaultCitedSourceRoots]) are
+/// scanned by default, so the command and the gate test cover the same files
+/// without the lists having to be repeated on a command line.
 ///
 /// A bare `§N` means *this* document, so it resolves against the headings of the
 /// file it is written in; a citation with a document name in front of it
@@ -36,6 +37,15 @@ Future<void> main(List<String> arguments) async {
     ..addFlag('default-readmes',
         defaultsTo: true,
         help: 'Also scan the project READMEs that cite the doc set.')
+    ..addMultiOption(
+      'source',
+      help: 'Additional Dart file — or a directory of them — whose `///` '
+          'comments are scanned. Repeatable. Defaults to the CodeSpecs source '
+          'packages; pass --no-default-sources to scan markdown alone.',
+    )
+    ..addFlag('default-sources',
+        defaultsTo: true,
+        help: 'Also scan the doc comments of the CodeSpecs source packages.')
     ..addFlag('verbose', abbr: 'v',
         help: 'List every citation, not only the unresolved ones.',
         negatable: false)
@@ -73,6 +83,22 @@ Future<void> main(List<String> arguments) async {
             p.normalize(p.join(containerRoot, readme)),
         for (final path in results.multiOption('extra'))
           p.normalize(p.absolute(path)),
+      ],
+      extraSources: [
+        if (results.flag('default-sources'))
+          for (final root in defaultCitedSourceRoots)
+            ...listDartSources(p.normalize(p.join(containerRoot, root))),
+        // A `--source` may name a file or a directory. Expanding a directory
+        // here rather than rejecting it keeps the option the same shape as
+        // [defaultCitedSourceRoots], and stops a directory argument from
+        // silently scanning nothing.
+        for (final path in results.multiOption('source'))
+          ...(() {
+            final resolved = p.normalize(p.absolute(path));
+            return Directory(resolved).existsSync()
+                ? listDartSources(resolved)
+                : [resolved];
+          })(),
       ],
     );
   } on ArgumentError catch (e) {

@@ -61,6 +61,26 @@
 /// citation, which is exactly the silent mis-resolution the rule exists to
 /// prevent.
 ///
+/// ## Citations that are not of this doc set
+///
+/// `§` is not a TomSpecs sign. The doc set traces its structure to public
+/// standards and cites their clauses in their own notation —
+/// `ISO/IEC/IEEE 29148 §6`, `ISO/IEC 25010:2023 §4.2` — and a rule that knew
+/// nothing of them read those as bare and resolved them against the citing
+/// document. That is worse than a false alarm: `tom_specs_model_rules.md` cites
+/// ISO 29148 §6 and itself declares a §6, so the citation was passing as a
+/// *correct* self-reference while pointing a reader at the wrong document
+/// entirely.
+///
+/// So a citation governed by a **standard designator** — a recognised issuing
+/// body, or several slash-joined, followed by the standard's number
+/// ([_standardsBodies]) — is qualified by that designator and reported
+/// [SectionCitationVerdict.unverifiable], the verdict that already means "named
+/// a document this checker cannot see". The body list is closed and short: these
+/// are standards organisations, admitting one is a deliberate edit, and keying
+/// on a shape instead would let any pair of capitals followed by a number vouch
+/// for a citation.
+///
 /// ## Resolution is exact
 ///
 /// An id resolves when a heading **declares** it — not when an ancestor or a
@@ -131,6 +151,40 @@ final RegExp _listItem = RegExp(r'^\s*(?:[-*+]|\d+[.)])\s');
 final RegExp _leadingQualifier =
     RegExp(r'(?:([A-Za-z0-9_.-]+\.md)|\bSOM)[`*_)\]\s ]*$');
 
+/// The standards bodies whose clause citations the doc set makes.
+///
+/// Closed, and deliberately so — a standards organisation is a named thing, and
+/// admitting one is an edit reviewed as such. The alternative, keying on the
+/// shape "capitals then a number", would let `CE-ER 5` qualify a citation.
+const _standardsBodies = [
+  'ISO',
+  'IEC',
+  'IEEE',
+  'ITU',
+  'RFC',
+  'W3C',
+  'WCAG',
+  'NIST',
+  'OWASP',
+  'OMG',
+  'ANSI',
+  'ETSI',
+  'DIN',
+  'BSI',
+];
+
+/// A public-standard designator standing immediately before a `§` —
+/// `ISO/IEC/IEEE 29148 §6`, `RFC 7519 §4.1`.
+///
+/// The number is required. Without it `ISO §4` would match, and a bare body name
+/// is a mention of an organisation rather than a citation of one of its
+/// standards.
+final RegExp _externalStandardQualifier = RegExp(
+  '\\b((?:${_standardsBodies.join('|')})'
+  '(?:/(?:${_standardsBodies.join('|')}))*'
+  '[  ]+[0-9][0-9A-Za-z:._-]*)[`*_\\s ]*\$',
+);
+
 /// A document name standing just after a citation — `§11 of `x.md``.
 final RegExp _trailingQualifier =
     RegExp(r'^[\s ]+(?:of|in)[\s ]+[`*_(\[]*([A-Za-z0-9_.-]+\.md)');
@@ -173,6 +227,69 @@ const defaultCitedReadmes = [
   'tom_ai/ai_build/tom_specs_model/README.md',
   'tom_ai/core/tom_core_codespecs/README.md',
 ];
+
+/// The source trees whose doc comments cite the doc set, container-root-relative.
+///
+/// A package's doc comments are the first thing a reader of that package sees,
+/// and they cite the doc set by section exactly as the documents do — so they
+/// decay in exactly the same silence. A gate that read `.md` alone would hold
+/// the documents to the convention and leave the source that cites them
+/// unchecked, which is the half a reader meets first.
+///
+/// **Roots are enumerated; files beneath them are discovered.** The two halves
+/// answer different risks. Enumerating the roots keeps the gate's subject
+/// coherent — these are the packages the CodeSpecs framework is *made of*, and a
+/// workspace-wide sweep for Dart files would pull in projects whose unrelated
+/// `§` usage would need exempting one by one. Discovering the files beneath them
+/// means a new annotation file is covered the day it is added, rather than the
+/// day someone remembers to list it.
+const defaultCitedSourceRoots = [
+  'tom_ai/ai_build/tom_code_specs/lib',
+  'tom_ai/ai_build/tom_specs_core/lib',
+  'tom_ai/core/tom_core_codespecs/lib',
+];
+
+/// Every `.dart` file under [root], recursively, in path order.
+List<String> listDartSources(String root) {
+  final dir = Directory(root);
+  if (!dir.existsSync()) return const [];
+  return dir
+      .listSync(recursive: true)
+      .whereType<File>()
+      .map((f) => f.path)
+      .where((path) => p.extension(path) == '.dart')
+      .toList()
+    ..sort();
+}
+
+/// Lifts the `///` doc comments of [source] out of the Dart around them.
+///
+/// A Dart doc comment *is* markdown, so the resolver needs no second set of
+/// rules — it needs the markdown handed to it without the `///`. Two properties
+/// make the lift worth doing rather than scanning the raw file:
+///
+/// - **Line count is preserved**, so a violation is still reported at the line a
+///   reader will open.
+/// - **Non-doc lines become empty**, which does two jobs at once. It keeps `§`
+///   inside a `//` note or a string literal out of the scan — neither is read by
+///   a reader following a citation — and it makes each declaration's doc comment
+///   its own block, so the lookback for a document name cannot reach back past
+///   the declaration above.
+///
+/// Without the lift, a citation whose document name wrapped onto the previous
+/// line would read as bare: the lookback crosses a soft wrap but not a `///`.
+/// Only `///` is lifted; these packages document with it exclusively, and a
+/// `/** */` block would need brace tracking to no benefit.
+String dartDocComments(String source) {
+  final lines = source.split('\n');
+  return [
+    for (final line in lines)
+      _docLine.firstMatch(line)?.group(1) ?? '',
+  ].join('\n');
+}
+
+/// A `///` documentation line, capturing what follows the marker.
+final RegExp _docLine = RegExp(r'^\s*///[ \t]?(.*)$');
 
 /// Text that joins two citations of one run rather than separating two thoughts.
 ///
@@ -311,6 +428,10 @@ enum SectionQualifierSource {
 
   /// A document name stands immediately before it, possibly across a soft wrap.
   leading,
+
+  /// A public-standard designator stands immediately before it — the citation is
+  /// of a standard's clause, not of a document in this set.
+  externalStandard,
 
   /// The name follows it: `§11 of `llm_and_d4rt_tools.md``.
   trailing,
@@ -539,11 +660,15 @@ List<SectionCitation> classifySectionCitations(
       var viaShortForm = false;
 
       final leading = _leadingQualifier.firstMatch(before);
+      final external = _externalStandardQualifier.firstMatch(before);
       final trailing = _trailingQualifier.firstMatch(after);
       if (leading != null) {
         document = leading.group(1) ?? somDocument;
         viaShortForm = leading.group(1) == null;
         source = SectionQualifierSource.leading;
+      } else if (external != null) {
+        document = external.group(1)!.replaceAll(RegExp(r'[  ]+'), ' ');
+        source = SectionQualifierSource.externalStandard;
       } else if (trailing != null) {
         document = trailing.group(1);
         source = SectionQualifierSource.trailing;
@@ -633,10 +758,15 @@ class SectionCitationReport {
 
 /// Resolves the citations of every `*.md` directly inside [docDir], against the
 /// documents in that same folder.
+///
+/// [extraFiles] are markdown outside the folder — project READMEs. [extraSources]
+/// are Dart files, whose `///` comments are lifted by [dartDocComments] before
+/// they are resolved.
 SectionCitationReport checkSectionCitations({
   required String docDir,
   SectionCorpus? corpus,
   Iterable<String> extraFiles = const [],
+  Iterable<String> extraSources = const [],
 }) {
   final resolved = corpus ?? SectionCorpus.loadFolder(docDir);
   final citations = <SectionCitation>[];
@@ -663,6 +793,22 @@ SectionCitationReport checkSectionCitations({
       file.readAsStringSync(),
       path: path,
       corpus: resolved,
+    ));
+  }
+
+  // Source files carry citations in their doc comments. `own` is stated
+  // empty rather than inferred: a Dart file declares no sections, so the
+  // self-reference carve-out has nothing to resolve against and every citation
+  // in source must name its document.
+  for (final path in extraSources) {
+    final file = File(path);
+    if (!file.existsSync()) continue;
+    files.add(path);
+    citations.addAll(classifySectionCitations(
+      dartDocComments(file.readAsStringSync()),
+      path: path,
+      corpus: resolved,
+      own: DocumentSections(path: path, name: p.basename(path), byId: const {}),
     ));
   }
 

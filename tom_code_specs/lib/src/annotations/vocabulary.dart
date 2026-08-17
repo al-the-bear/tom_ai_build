@@ -199,7 +199,8 @@ enum CsLifecyclePhase {
 /// What a CE-AZ authorization requirement demands
 /// (`codespecs_mapping.md` §5.15).
 ///
-/// One closed enum folding together §5.15's **six attribute-bearing requirement
+/// One closed enum folding together `codespecs_mapping.md` §5.15's **six
+/// attribute-bearing requirement
 /// kinds** ([role], [group], [entitlement], [resourceKey], [custom], [graded])
 /// and its **four attribute-less presets** ([none], [public], [authenticated],
 /// [guest]). The presets carry no payload because the kind *is* the whole

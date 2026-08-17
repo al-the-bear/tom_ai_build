@@ -72,7 +72,8 @@ class CsLayout {
   /// **Required, first positional, verbatim.** It is the one thing the ACL
   /// substrate genuinely lacks: `codespecs_mapping.md` §4.1 records the layout
   /// *node model* as a gap, the `Acl*` classes carry no id of their own, and the
-  /// whole §5.22 override-delta grammar addresses nodes by id.
+  /// whole `codespecs_mapping.md` §5.22 override-delta grammar addresses nodes
+  /// by id.
   ///
   /// Container kind is **not** an argument — it is which `Acl*` class is
   /// instantiated; slot hints are `AclComponent` properties.

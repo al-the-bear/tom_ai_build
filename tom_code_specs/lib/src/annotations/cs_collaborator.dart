@@ -22,20 +22,23 @@ library;
 /// there is no forward reference. It holds one abstract method per contributing
 /// step of that declaration's step list and nothing else — no field, no
 /// constructor, no static, no implemented member — and each method carries on
-/// its doc comment the behaviour the step states (§2.8 P3, fatal when absent).
+/// its doc comment the behaviour the step states
+/// (`codespecs_derivation_contract.md` §2.8 P3, fatal when absent).
 /// The calling declaration reaches it through one field:
 ///
 /// ```dart
 /// late final CustomerActionControllerCollaborator collaborator;
 /// ```
 ///
-/// **Note-only**, and for the strongest of the §2.3 reasons: the method set *is*
+/// **Note-only**, and for the strongest of the
+/// `codespecs_derivation_contract.md` §2.3 reasons: the method set *is*
 /// the declaration (test **a**), and there is no substrate for test **b** to
 /// reach — a collaborator is one of only two declarations in the contract built
 /// on nothing, `@CsEnum` being the other. It is emitted as a marker all the same,
-/// because §2.7 point 4 requires a `Cs*` marker on every generated top-level
-/// declaration and because the §6 checks have to *find* collaborators, which a
-/// name suffix would turn into load-bearing convention.
+/// because `codespecs_derivation_contract.md` §2.7 point 4 requires a `Cs*`
+/// marker on every generated top-level declaration and because the
+/// `codespecs_derivation_contract.md` §6 checks have to *find* collaborators,
+/// which a name suffix would turn into load-bearing convention.
 class CsCollaborator {
   /// Optional note.
   final String? note;
