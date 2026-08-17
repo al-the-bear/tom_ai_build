@@ -347,7 +347,10 @@ is neither an invention nor a silent omission: it is a `decision-needed` todo
 that pauses the run. The generated todo tree has four levels — open questions,
 scaffolding, per authoring step, per specification element — and the open questions run
 first and to exhaustion, which is the mechanism by which an underspecified
-project stops Phase 4 instead of being guessed through.
+project stops Phase 4 instead of being guessed through. Each level's generation
+rule, and the criteria under which a generated todo is born blocked rather than
+runnable, are [`codespecs_mapping.md`](codespecs_mapping.md) §1.1.3's; the run
+procedure that instantiates them is §1.1.2 of `codespecs_mapping.md`.
 
 **Output — three generated projects**, split by deployment locus:
 
