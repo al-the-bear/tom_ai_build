@@ -850,7 +850,7 @@ has no entry, and again the Locus point carries it.
 abstract collaborator (§2.4), and the agent emits that collaborator **in the
 same emission unit as the declaration whose bodies call it**, immediately before
 it — so `codespecs_mapping.md` §4.4's no-forward-reference rule is satisfied
-without a slice edge, and `codespecs_mapping.md` §4.4.4's partition invariant, which is *per emission
+without a slice edge, and `codespecs_mapping.md` §4.4.3's partition invariant, which is *per emission
 unit*, is undisturbed.
 
 Five entries name a collaborator today: §3.4.4 and §3.7.1 (server), §3.5.5,
@@ -914,7 +914,10 @@ other.
 ### 3.1 Slice 1 — shared const catalogues
 
 Nothing here references another part; every `Cs*Ref` catalogue bottoms out in
-this slice.
+this slice. One pair inside it does reference each other: `codespecs_mapping.md`
+§4.4.1, §4.4.7 make CE-ER and the CE-TX message keys **SCC-A** and author it in
+two passes — the codes and the keys first, the `messageKey` and `errorCode`
+consts that join them second.
 
 #### 3.1.1 `@CsEnum` — domain enum (member kind, not a part)
 
@@ -1317,9 +1320,12 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 ### 3.5 Slice 5 — client interaction core
 
 Cites slices 1 and 2 **and never 3 or 4**: the client project depends on shared
-only. The six parts CE-ST, CE-EL, CE-FM, CE-AC, CE-SC, CE-NV form `codespecs_mapping.md` §4.4.2's
+only. The six parts CE-ST, CE-EL, CE-FM, CE-AC, CE-SC, CE-NV form `codespecs_mapping.md` §4.4.1's
 **SCC-B** — they reference each other cyclically and are therefore emitted as one
-unit, which is why they share a slice rather than an order.
+unit, which is why they share a slice rather than an order. An agent authoring
+them writes the component in the two passes of `codespecs_mapping.md` §4.4.7 —
+every declaration first, the intra-component `Cs*Ref` consts second — because a
+component admits no order in which each reference follows its referent.
 
 #### 3.5.1 `@CsViewModel` — CE-ST view state
 

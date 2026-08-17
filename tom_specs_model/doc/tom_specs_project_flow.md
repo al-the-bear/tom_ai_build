@@ -333,7 +333,7 @@ the production contract it fixes):
 | Pass | Performed by | Produces |
 |------|--------------|----------|
 | **1 · Extract** | The **extract generator** — a `spec_codespecs_extract` surface present in all nine SOM runtimes, so Phase 4 is not a Dart-only phase | One bounded, cited **extract** per CodeSpecs area, holding every SOM field the section's `@CodeSpecKind` routes there, verbatim and with its provenance: `<CE-CODE>.extract.yaml` (the artifact of record) plus a rendered `.extract.md`, under `<spec-root>/generated-doc/codespecs_extracts/` |
-| **2 · Author** | The **authoring agent** — a prompt pass per area, working from that area's extract alone | The CodeSpecs Dart, written against [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md), which is normative for it |
+| **2 · Author** | The **authoring agent** — one prompt pass per **authoring step**, working from that step's extract(s) alone and walking the thirty-one steps in [`codespecs_mapping.md`](codespecs_mapping.md) §4.4.6's order, so nothing is written before what it cites | The CodeSpecs Dart, written against [`codespecs_derivation_contract.md`](codespecs_derivation_contract.md), which is normative for it |
 
 The generator may copy and index; it may not summarise, rephrase, compose a
 sentence out of field values, or choose a name. The agent makes every judgement
@@ -345,7 +345,7 @@ the whole specification reads the wrong parts of it.
 **Where the specification does not carry what a derivation needs**, the outcome
 is neither an invention nor a silent omission: it is a `decision-needed` todo
 that pauses the run. The generated todo tree has four levels — open questions,
-scaffolding, per area, per specification element — and the open questions run
+scaffolding, per authoring step, per specification element — and the open questions run
 first and to exhaustion, which is the mechanism by which an underspecified
 project stops Phase 4 instead of being guessed through.
 

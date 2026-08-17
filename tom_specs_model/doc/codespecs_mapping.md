@@ -176,11 +176,14 @@ the iteration index — a prefix is therefore always a pure letter string, and
 |-------|-----|--------------|------------|
 | **L0** — open questions | `csopen<n>` | unresolved specification ambiguity the quality gate surfaced; all `decision-needed` | `csopen*` |
 | **L1** — scaffolding | `csproj<n>` | the §4.2 project trio, its pubspecs and per-area folders | `csproj*` |
-| **L2** — per area | `csgen<n>` | active area, `<n>` its ordinal in the authoring order (§4.4) | `csgen*` |
-| **L3** — per specification element | `cs<area><n>` | extract entry, `<area>` the §4.1 CE code lower-cased | `csfm*`, `csapi*`, … |
+| **L2** — per authoring step | `csgen<n>` | authoring step — one emission unit, or a whole strongly connected component, or a co-emitted pair — `<n>` its ordinal in §4.4.6's thirty-one-step order. A step spanning more than one part reads one extract per part | `csgen*` |
+| **L3** — per specification element | `cs<area><n>` | extract entry — a (section, area) pair — `<area>` the §4.1 CE code lower-cased, `<n>` allocated per §4.4.8 | `csfm*`, `csapi*`, … |
 
-`csgen*` runs the whole phase in area order; `csgen7*`, being a pure prefix, runs
-area 7 alone; `csfm*` runs every CE-FM section todo. The CE codes are
+`csgen*` runs the whole phase in authoring order; `csgen7*`, being a pure prefix,
+runs step 7 alone; `csfm*` runs every CE-FM section todo, in the order §4.4.8
+fixes. A step is the unit rather than an area because an area is not always a
+thing that can be authored in one act — six of them are one strongly connected
+component (§4.4.7) and nine are split by locus across steps. The CE codes are
 mutually non-prefixing and none of them is `open`, `proj` or `gen`, so every
 prefix in the table names exactly one level or one area. (`CE-API` is the one
 three-letter code; the scheme needs only *letters then digits*, so it absorbs it
@@ -1347,6 +1350,201 @@ shell → operational — does follow the edges; it is the granularity that a
 topic-first reading misjudges. The client tier does not decompose, and locus
 overrides subject matter for the two shared-locus parts (CE-ID, CE-AU) and the
 one server-locus part (CE-DB) above.
+
+#### 4.4.6 The authoring order
+
+§4.4.3 orders **emission**: it says what must already be in the compiler's world
+for a slice's code to compile, and it is written for a producer that holds a
+whole slice at once. §1.1.1 pillar (e) puts a second producer in front of that
+one — an **authoring agent**, one prompt pass at a time, holding one area's
+extract. That producer needs a **total order it can walk**, and the slice table
+does not give it one: within a slice nothing is ordered, and within an SCC
+nothing *can* be by construction (§4.4.2). This subsection supplies the total
+order. It is **derived** from §4.4.3, not stated beside it — the two rules below
+take the slice table and the §4.4.1 edge graph as their only inputs, so a change
+to either changes the authoring order rather than silently disagreeing with it.
+
+**The unit is the emission unit, and a component is one step.** §4.4.3 fixes that
+the slice invariant holds *per emission unit* — a part, one locus-half of a split
+part, or a marker together with its host. An **authoring step** is one emission
+unit, with two collapses: an SCC is one step (its members cannot be ordered, so
+they are authored together by §4.4.7), and units §4.4.3 records as **co-emitted**
+are one step (CE-SU with the CE-API handler methods it carries). Steps are
+numbered 1–31 across the whole run; the number is the ordinal §1.1.1's `csgen<n>`
+carries.
+
+**Rule 1 — the slices are serialised 1, 2, 3, 4, 7, 5, 6.** §4.4.3 leaves 3–4–7
+and 5–6 free to interleave, both hanging off 1–2. They are serialised
+server-chain-first for two reasons. Each project's work stays **contiguous**, so
+a run can stop cleanly after step 22 with a complete shared + server pair and a
+client project that has not been started, rather than with three half-projects.
+And the shared contract is exercised by a real consumer (slice 4's handlers)
+**before** the client is written against it, so a contract defect surfaces while
+the cheaper half is in flight. Any other topological order of the slices is
+legal by §4.4.2; this one is the fixed choice, so that the ordinals are stable.
+
+**Rule 2 — within a slice, topological order tie-broken by §4.1 catalogue
+position.** Repeatedly take the lowest-catalogue-position unit whose within-slice
+predecessors are all already authored. The inputs:
+
+- **Edges** are §4.4.1's authored edges restricted to units in the slice, plus
+  the within-slice edges §4.4.3's own slice cells state (slice 4's *service units
+  cite the notification delivery they raise*), plus §4.4.2's two structural
+  edges: a marker follows its host, and a locus-half follows nothing but its own
+  citations.
+- **Position** is the row index of the part in §4.1's 26-row catalogue — the one
+  ordering this document already fixes as authoritative and permanent (`CE` is
+  never reused or renamed). A **component** takes the position of its
+  earliest-listed member; the member kind `domainEnum` is not in the catalogue
+  and takes position 0, which is what §4.4.3 means by "rides slice 1 because
+  everything else cites it".
+
+The tie-break is deliberately *not* a new ordering: §4.1's catalogue and
+[codespecs_derivation_contract.md](codespecs_derivation_contract.md) §2.1 N8's
+document order are the only two orders this design has, and this one reuses the
+first because its elements are parts, not sections. §4.4.8 reuses the second
+because its elements are sections.
+
+**The 31 steps.**
+
+| # | Authoring step (emission unit) | Slice | Placed by |
+|---|--------------------------------|-------|-----------|
+| **1** | Domain enums (`@CsEnum`) | 1 | position 0 |
+| **2** | **SCC-A** — CE-ER codes + CE-TX message keys (§4.4.7) | 1 | CE-TX (4) |
+| **3** | CE-AZ role + resource-key catalogues | 1 | CE-AZ (13) |
+| **4** | CE-VA shared rules | 2 | CE-VA (5) |
+| **5** | CE-API operation catalogue + request/response DTOs | 2 | CE-API (8) |
+| **6** | CE-ID identity-extension declaration | 2 | CE-ID (21) |
+| **7** | CE-AU shared wire/token types | 2 | edge: consumes the CE-ID declaration (§5.24) |
+| **8** | CE-NT type + channel declarations | 2 | CE-NT (25) |
+| **9** | CE-RP result envelope + parameter shapes | 2 | CE-RP (26) |
+| **10** | CE-DB entities/columns/repositories | 3 | CE-DB (10) |
+| **11** | CE-CF server configuration | 3 | CE-CF (15) |
+| **12** | CE-MG migration artifact tree | 3 | CE-MG (22) |
+| **13** | CE-LG over the CE-DB write path | 3 | marker follows host (step 10) |
+| **14** | CE-RP report definitions + column/chart members | 3 | edge: source entity `Type` literal → CE-DB (§5.28) |
+| **15** | CE-ID attribute population | 4 | CE-ID (21) |
+| **16** | CE-AU server flow | 4 | edge: CE-AU → CE-ID (§5.24) |
+| **17** | CE-NT delivery — routing + outbox | 4 | edge: the service units that raise it cite it (§4.4.3) |
+| **18** | CE-SU units **co-emitting** the CE-API handler methods | 4 | CE-API (8), after step 17 |
+| **19** | Operation-level CE-AZ | 4 | marker follows host (step 18) |
+| **20** | CE-LG over the CE-API handler | 4 | marker follows host (step 18) |
+| **21** | CE-UP server-side typed access | 7 | CE-UP (17) |
+| **22** | CE-JB job definitions + work-body skeletons | 7 | CE-JB (23) |
+| **23** | **SCC-B** — CE-ST + CE-EL + CE-FM + CE-AC + CE-SC + CE-NV (§4.4.7) | 5 | CE-EL (1) |
+| **24** | CE-TX copy | 5 | CE-TX (4) |
+| **25** | Field-level CE-AZ (`authorizer`) | 5 | marker follows host (CE-EL, step 23) |
+| **26** | CE-AU client login flow | 5 | CE-AU (20) |
+| **27** | CE-LO layout trees | 6 | CE-LO (3) |
+| **28** | CE-CC client configuration | 6 | CE-CC (16) |
+| **29** | CE-UP client shape | 6 | CE-UP (17) |
+| **30** | CE-DS device settings | 6 | CE-DS (18) |
+| **31** | CE-CL client application | 6 | CE-CL (19) |
+
+**Coverage — all twenty-six active parts, recomputed against §4.1 rather than
+read off the slice table.** Once: CE-LO (27), CE-VA (4), CE-SU (18), CE-DB (10),
+CE-CF (11), CE-CC (28), CE-DS (30), CE-CL (31), CE-MG (12), CE-JB (22), and the
+six SCC-B members CE-EL / CE-FM / CE-AC / CE-SC / CE-ST / CE-NV (23). Twice or
+three times, per §4.4.2's locus and marker splits: CE-ER (2), CE-TX (2, 24),
+CE-API (5, 18), CE-AZ (3, 19, 25), CE-UP (21, 29), CE-AU (7, 16, 26), CE-ID
+(6, 15), CE-NT (8, 17), CE-RP (9, 14), CE-LG (13, 20). That is 26, plus step 1's
+`domainEnum`, which is a member kind and not a part.
+
+**Three steps a slice-only reading would place differently**, each decided by an
+edge rather than by the tie-break:
+
+- **17 before 18.** CE-NT delivery is authored before the service units, because
+  a unit that raises a notification cites it — the same edge that keeps delivery
+  out of slice 7 (§4.4.3). Catalogue position would have put CE-SU first.
+- **6 before 7, and 15 before 16.** CE-ID precedes CE-AU in both loci, because
+  CE-AU consumes the identity extension (§5.24). Catalogue position (CE-AU 20,
+  CE-ID 21) would have inverted both.
+- **14 last in slice 3.** The CE-RP definition follows CE-DB by a `Type`-literal
+  citation, and follows CE-MG and CE-LG only by position — which is why its step
+  moves if the catalogue does, and steps 10–14's *relative* correctness does not
+  depend on that.
+
+#### 4.4.7 Authoring a strongly connected component — declare, then wire
+
+Two steps above are components rather than single units: **step 2 (SCC-A)** and
+**step 23 (SCC-B)**. Inside a component there is no order — that is what makes it
+a component — and §4.4.2 rejects the stub that would manufacture one. An emitter
+resolves this implicitly by holding the whole component in memory and writing it
+in one act; an authoring agent cannot. The procedure is that implicit act made
+explicit, in **two passes over the component**:
+
+- **Pass 1 — declare.** Emit every declaration in the component: its identity
+  const in the owning catalogue class (§5.23), its `tom_core`-family superclass,
+  and its members. Cross-part references **to earlier steps are written
+  normally** — their referents exist — so a CE-SC operation citation
+  (`CsOperationRef`, step 5), a label `CsMessageKey` (step 2) and a
+  `CsRoleRef` / `CsResourceKeyRef` (step 3) are all filled in pass 1. Only
+  **intra-component** reference slots are left unwritten.
+- **Pass 2 — wire.** Fill the intra-component slots, now that every referent in
+  the component has been declared exactly once.
+
+What each component defers to pass 2:
+
+| Component | Deferred to pass 2 |
+|-----------|--------------------|
+| **SCC-A** | `@CsError`'s `messageKey` (`CsMessageKey` → CE-TX) and the CE-TX error-copy entry's `errorCode` (`CsErrorCode` → CE-ER) |
+| **SCC-B** | `CsCallRef` (CE-AC → CE-SC), `CsActionRef` (CE-NV screen flow → CE-AC), `CsRouteRef` (CE-SC response handling and CE-AC navigation outcome → CE-NV), `CsElementRef` (CE-ST binding target, `@CsTrigger` source element), `CsFormRef` (CE-EL *FormHost*, CE-ST binding target, CE-NV form→screen assignment) |
+
+**Why this and not the alternatives.** It keeps §4.4.2 literally true rather than
+approximately: at the end of pass 1 the component contains **no intra-component
+references at all**, so no reference precedes its referent at any moment. And it
+authors each referenceable identity **exactly once** — the invariant §5.23 and
+§5.3 make load-bearing, and the one a forward-declaration stub breaks. Authoring
+the component as a single undivided act is the other correct answer and is
+rejected only on context budget: SCC-B is six parts and the largest step in the
+run.
+
+**Two consequences that bind the todo tree.** The component **does not compile
+between the passes**, so the pass pair is **one** §1.1.1 `csgen<n>` todo, never
+two — a step that ends between the passes ends in a state no gate can accept.
+And pass 2 is **checkable rather than trusted**: after it, every `Cs*Ref` in the
+component resolves to a generated declaration, which is
+[codespecs_derivation_contract.md](codespecs_derivation_contract.md) §6 check 2
+(`CsReferenceResolutionCheck`) — a check the trio already runs, applied to the
+component instead of to the finished project.
+
+#### 4.4.8 From authoring steps to section todos
+
+§4.4.6 orders **steps**; §1.1.1's L3 orders **specification elements**. The two
+are different granularities and the mapping between them has to be stated,
+because `@CodeSpecKind` is list-valued (§9.1): one SOM section can feed several
+areas, and those areas can sit in different steps.
+
+**The L3 unit is an extract entry, and an extract entry is a (section, area)
+pair.** Routing is per area, so a section routed to three areas contributes to
+three extracts (§1.1.1) and yields three L3 todos — not one todo that spans three
+areas. This is what makes the area prefix (`csfm*`, `csapi*`) name a coherent set
+of work rather than an arbitrary slice of it.
+
+**Within a step, entries run in SOM document order.** The order is
+[codespecs_derivation_contract.md](codespecs_derivation_contract.md) §2.1 N8's —
+the order the contributing sections appear in the document, depth-first — taken
+across **all** of the step's parts together rather than per part, so a step that
+reads two extracts (step 18: CE-SU and the CE-API handler half) interleaves them
+by document position. Reusing N8 here is the point: the emitted members of a
+class are already in that order, so a step's todos and its output run the same
+way, and no second ordering has to be kept consistent with the first. Where two
+entries share a document position — one section routed to two areas of the same
+step — the tie-break is the areas' §4.1 catalogue position, the same tie-break
+§4.4.6 uses.
+
+**A split area's entries are split with it.** A section routed to an area whose
+emission units sit in different steps yields **one L3 todo per unit that emits
+something for it**: an operation section yields a catalogue todo in step 5 and a
+handler todo in step 18. Neither todo is complete on its own, and neither is
+blocked by the other beyond the step order that already separates them.
+
+**Ordinals are allocated contiguously per step, in step order.** An area's `<n>`
+therefore runs 1..k over the area's *first* step's entries, then continues over
+its next step's — so `csapi*` iterates the contract half before the handler half
+without the prefix having to know that CE-API is split, and no two todos of an
+area collide. Nothing here is chosen at allocation time: given §4.4.6's step
+table and the document, the whole L3 numbering is determined.
 
 ## 5. Gap analysis — taxonomy vs existing coverage
 
@@ -4588,7 +4786,7 @@ exactly one home:
 | Which SOM documents does the part's specification live in? | the **document map** below |
 | Where does the walk **enter** — which projection root, registry or declaration list? | **§8.5**, the "Authoring home" column |
 | Which **repeating entry class** is iterated, and which of its fields and subsections are consumed? | `codespecs_derivation_contract.md` §3, point 1 (**Input**) of each entry named in **§8.5**'s "Derivation entries" column |
-| In what **order**? | *Within* a part: `codespecs_derivation_contract.md` §2.1 rule **N8** — SOM document order, depth-first, so a regeneration over an unchanged spec is byte-identical. *Across* parts: **§4.4.3**'s seven topologically ordered slices |
+| In what **order**? | *Within* a part: `codespecs_derivation_contract.md` §2.1 rule **N8** — SOM document order, depth-first, so a regeneration over an unchanged spec is byte-identical. *Across* parts: **§4.4.3**'s seven topologically ordered slices for emission, and **§4.4.6**'s thirty-one authoring steps — the total order derived from them — for authoring |
 
 The map is therefore two-layered. This section places each part in the document
 landscape and names, per part, where its walk is written down; the walk itself is
@@ -5180,8 +5378,8 @@ production model, and the todo tree that procedure instantiates.
 |------|---------|
 | `tscompd1_ahqi` | **`@CsServiceUnit.boundedContext` is required and resolves against no registry key.** §5.1 rule 3 makes the bounded context the outer bound, and `codespecs_derivation_contract.md` §3.4.1 makes `boundedContext` a **required** verbatim argument read from `DAENT-CLAS.boundedContext` — a free-text field, because `BoundedContextEntry` (`BCE`) declares no name: its only required form field is `domainArea`, a description of the domain rather than an identifier, and `BCE.@sectionId` yields `BCE-BOUN-001` rather than a context name. So two entities can name the same context in two spellings and produce two caps, and a `refersTo` target cannot be written until `BCE` carries a key. |
 | `tscompd2_ahpu` | **CE-SC's operation edge is resolved from prose.** §5.3's "The operation edge is resolved, not authored" records that no SOM member cites `ServerOperationEntry.operationName`, so `CsOperationRef` is matched against the SVOPR registry by reading an ISC step's `systemResponse` wording — the inference B8 forbids, standing behind the one **required** argument of `@CsServerCall`. The authored shape already exists beside it: CE-NV's `ScreenActionEntry.behavior.navigateTo` cites `SCRTEN.routeId`. |
-| `tscompc20` | **Neither document states how a Phase-4 run is performed.** §1.1.1 fixes the contract — the extract artifact, the extractor's home and the four todo id ranges — but not the procedure: extract, then iterate the areas in §4.4's order, then per area iterate its extract entries, with the per-area prompt text in the derivation contract. It carries the self-sufficiency rule with it: the emitted CodeSpecs code holds every specification fact it was derived from, in comments or annotations, so Phases 5 and 6 never reopen the document. |
-| `tscompc23` | **The generated todo tree has ids but no design.** §1.1.1 item 3 fixes the four id levels (`csopen<n>` → `csproj<n>` → `csgen<n>` → `cs<area><n>`); what each rung generates, what an L2 todo must check before generating its L3 rung, and the criteria under which a generated todo is emitted `decision-needed` rather than `not-started` are unwritten. Two shapes are open with them: how an SCC's declare/wire pass pair is kept in one todo, and how a section routed to several areas is written once and cited from the others. |
+| `tscompc20` | **Neither document states how a Phase-4 run is performed.** §1.1.1 fixes the contract — the extract artifact, the extractor's home and the four todo id ranges — but not the procedure: extract, then walk §4.4.6's thirty-one authoring steps in order, then per step iterate its extract entries in §4.4.8's order, with the per-step prompt text in the derivation contract. It carries the self-sufficiency rule with it: the emitted CodeSpecs code holds every specification fact it was derived from, in comments or annotations, so Phases 5 and 6 never reopen the document. |
+| `tscompc23` | **The generated todo tree has ids but no design.** §1.1.1 item 3 fixes the four id levels (`csopen<n>` → `csproj<n>` → `csgen<n>` → `cs<area><n>`); what each rung generates, what an L2 todo must check before generating its L3 rung, and the criteria under which a generated todo is emitted `decision-needed` rather than `not-started` are unwritten. The tree's *shape* around them is fixed — §4.4.6 supplies the L2 ordinals, §4.4.7 holds an SCC's declare/wire pass pair inside one L2 todo, and §4.4.8 fixes the L3 unit as a (section, area) pair with its numbering — so what is open is what each rung **contains**, not how the rungs are cut. |
 
 An open todo in those series whose subject is **not** a mapping question does
 not belong here even when the index is non-empty — a SOM validator capability
