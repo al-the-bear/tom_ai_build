@@ -5677,11 +5677,14 @@ set and its complement is enumerable too.
    against the union of `@CodeSpec.source` over the trio, is the set of sections
    that reached no code. §8.5's per-part verdict is this operation at part
    granularity; the rule needs it at section-instance granularity against one
-   project.
+   project. `codespecs_derivation_contract.md` §6 check 35 is exactly this
+   difference, with the extract standing for the routed set; its converse —
+   a back-link naming a section no area routed, which is a defect of the trace
+   rather than of the transfer — is check 36.
 2. **Nothing carried is invented.** Every comment and every verbatim argument
    occurs character-for-character in its source section — the identical test
    §1.1.1 item 1 places on the extract, applied to the second artifact produced
-   from it.
+   from it. `codespecs_derivation_contract.md` §6 checks 32 and 34.
 3. **Nothing routed is empty.** A declaration whose section had a description
    but carries no comment has lost it; a method with no behaviour text was never
    specified at all.
@@ -5703,7 +5706,9 @@ What §9.6 owns is the **requirement**; `codespecs_derivation_contract.md` §6
 owns what a program decides about it. The division matters because a validator
 can only check completeness against a rule that says the trio is supposed to be
 complete — the checks are not self-justifying, and this is the statement they
-answer to.
+answer to. It is also why two rows of §6's table cite a section of *this*
+document rather than of the contract: checks 35 and 36 are the only two whose
+rule is stated here.
 
 ## 10. Open work
 

@@ -1,4 +1,4 @@
-/// Fixtures for the thirty-four `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the thirty-six `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -7,7 +7,7 @@
 /// for the rule rather than for the shape of the fixture.
 ///
 /// The fixtures are in-memory Dart sources: the validator reads syntax, so a
-/// fixture needs no package resolution and no filesystem. Checks 32–34 read a
+/// fixture needs no package resolution and no filesystem. Checks 32–36 read a
 /// second input, so their fixtures are a pair — a trio and the extract it claims
 /// to have been written from.
 library;
@@ -155,10 +155,10 @@ void _redGreen(
 
 void main() {
   group('§6 check catalogue', () {
-    test('names the thirty-four checks in table order', () {
+    test('names the thirty-six checks in table order', () {
       expect(
         codeSpecsChecks.map((c) => c.number),
-        [for (var i = 1; i <= 34; i++) i],
+        [for (var i = 1; i <= 36; i++) i],
       );
     });
 
@@ -2769,6 +2769,200 @@ enum CustomerState {
     });
   });
 
+  group('35 — extract coverage (§9.6 of codespecs_mapping.md)', () {
+    _redGreen(
+      35,
+      '§9.6 of codespecs_mapping.md',
+      says: contains('reached no code'),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+@CodeSpec('dataAccess.Customer', source: ['IMO-014'])
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+@CsTable('customer')
+class Customer {
+  @CsColumn(column: 'cust_name', length: 80)
+  late final String name;
+}
+''',
+        },
+        extracts: _extract([
+          ..._customerEntries,
+          ('DATAA', 'maxLength', '80'),
+        ]),
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+@CodeSpec('dataAccess.Customer', source: ['IMO-014'])
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+@CsTable('customer')
+class Customer {
+  @DocSpec([DocRef('DATAA', 'supplies the maximum length')])
+  @CsColumn(column: 'cust_name', length: 80)
+  late final String name;
+}
+''',
+        },
+        extracts: _extract([
+          ..._customerEntries,
+          ('DATAA', 'maxLength', '80'),
+        ]),
+      ),
+    );
+
+    test('with no extracts there is no left-hand set, so it raises nothing', () {
+      final input = _input(
+        server: {'lib/a.dart': "@CsTable('customer') class Customer {}"},
+      );
+      expect(_forCheck(35, input), isEmpty);
+    });
+
+    test('a section with nine values is one gap, not nine', () {
+      final input = _input(
+        server: {'lib/a.dart': 'class Customer {}'},
+        extracts: _extract([
+          for (var i = 0; i < 9; i++) ('IMO-014', 'field$i', 'value $i'),
+        ]),
+      );
+      final raised = _forCheck(35, input);
+      expect(raised, hasLength(1));
+      expect(raised.single.message, contains('routes 9 value(s) of IMO-014'));
+    });
+
+    test('the gap names the fields, so it is actionable rather than a count',
+        () {
+      final input = _input(
+        server: {'lib/a.dart': 'class Customer {}'},
+        extracts: _extract(_customerEntries),
+      );
+      expect(
+        _forCheck(35, input).single.message,
+        allOf(
+          contains('CE-DB'),
+          contains('DataEntityEntry.description'),
+          contains('DataEntityEntry.content'),
+        ),
+      );
+    });
+
+    test('@CodeSpec.source alone covers a section — check 7 owns the drift', () {
+      final input = _input(
+        server: {
+          'lib/a.dart': "@CodeSpec('dataAccess.Customer', source: ['IMO-014']) "
+              'class Customer {}',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(35, input), isEmpty);
+      expect(_forCheck(7, input), isNotEmpty);
+    });
+
+    test('a truncated area fails the pass rather than warning', () {
+      // The completeness half of §9.6 made operational: an area whose extract
+      // holds three sections and whose generated code carries one is exactly
+      // the failure a trio-only pass cannot see.
+      final truncated = _input(
+        server: {
+          'lib/a.dart': '''
+@CodeSpec('dataAccess.Customer', source: ['IMO-014'])
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+@CsTable('customer')
+class Customer {}
+''',
+        },
+        extracts: _extract([
+          ..._customerEntries,
+          ('IMO-014-a', 'attributeName', 'name'),
+          ('IMO-014-b', 'attributeName', 'signedContract'),
+        ]),
+      );
+      expect(
+        () => assertCodeSpecsValid(truncated),
+        throwsA(isA<CodeSpecsValidationException>()),
+      );
+      expect(
+        _forCheck(35, truncated).map((v) => v.message).join('\n'),
+        allOf(contains('IMO-014-a'), contains('IMO-014-b')),
+      );
+    });
+  });
+
+  group('36 — a back-link resolves (§9.6 of codespecs_mapping.md)', () {
+    _redGreen(
+      36,
+      '§9.6 of codespecs_mapping.md',
+      says: contains('which no extract holds'),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+@CodeSpec('dataAccess.Customer', source: ['IMO-014', 'IMO-991'])
+@DocSpec([
+  DocRef('IMO-014', 'supplies the entity'),
+  DocRef('IMO-991', 'supplies a section no area routed'),
+])
+@CsTable('customer')
+class Customer {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+@CodeSpec('dataAccess.Customer', source: ['IMO-014'])
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+@CsTable('customer')
+class Customer {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      ),
+    );
+
+    test('with no extracts there is nothing to resolve against', () {
+      final input = _input(
+        server: {
+          'lib/a.dart': "@DocSpec([DocRef('SBP.9.9', 'nowhere')]) "
+              'class Customer {}',
+        },
+      );
+      expect(_forCheck(36, input), isEmpty);
+    });
+
+    test('one declaration naming an id in both back-links reports it once', () {
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CodeSpec('dataAccess.Customer', source: ['IMO-991'])
+@DocSpec([DocRef('IMO-991', 'supplies a section no area routed')])
+class Customer {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(36, input), hasLength(1));
+    });
+
+    test('it accounts for the section check 32 declines to judge', () {
+      // Check 32 skips a section it has no text for, on the grounds that it
+      // cannot hold a comment against text it does not hold. This is where
+      // that skip is reported — once, and by the rule it actually breaks.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+/// Prose that occurs in no specification anywhere.
+@DocSpec([DocRef('SBP.9.9', 'a section no area routed')])
+class Order {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(32, input), isEmpty);
+      expect(_forCheck(36, input), hasLength(1));
+    });
+  });
+
   group('the §4 worked example', () {
     // The example is the contract's own demonstration that the rules compose,
     // so it is the fixture that has to pass every comment check: a rule the
@@ -2867,6 +3061,18 @@ class Customer {
     test('no line is a re-wrap and no value is cut short (34)', () {
       expect(_forCheck(34, workedExample()), isEmpty);
     });
+
+    // The two transfer checks against the same fixture. They are the assertion
+    // that the derivation rules the example demonstrates *elicit* every fact the
+    // extract carries: a check that failed here would be a rule that never asked
+    // for something the extract supplied, and the fix would be the rule.
+    test('every extracted section reaches the code (35)', () {
+      expect(_forCheck(35, workedExample()), isEmpty);
+    });
+
+    test('every back-link resolves against an extract (36)', () {
+      expect(_forCheck(36, workedExample()), isEmpty);
+    });
   });
 
   group('the pass as a whole', () {
@@ -2941,7 +3147,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 34 checks passed');
+      expect(report.summary, 'codespecs: 36 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -2974,7 +3180,7 @@ class Order {
       );
       final report = runCodeSpecsChecks(broken);
       expect(report.violations.map((v) => v.check), containsAll([4, 6]));
-      expect(report.summary, contains('across 2 of 34 checks'));
+      expect(report.summary, contains('across 2 of 36 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(
         report.lines.join('\n'),

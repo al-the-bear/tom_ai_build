@@ -2081,7 +2081,7 @@ Each is named here so the toolchain implements it as a check rather than as a
 convention. They are the mechanised half of the authoring side (§2.0): the agent
 writes the trio, and this program decides whether what it wrote is admissible.
 
-**Where they run.** All thirty-four are implemented in
+**Where they run.** All thirty-six are implemented in
 `tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
 the analyzer, `cs_model` resolves it, `cs_extract` reads the per-area extracts,
 `cs_checks` holds the checks, `codespecs_validator` drives them) and are invoked
@@ -2097,13 +2097,25 @@ trio alone and ask whether it is internally coherent. Four questions cannot be
 answered that way, and each brings its own corroborating input: the CE-MG
 migrations (check 13), the `tom_core` catalogues a marker's vocabulary mirrors
 (check 9), a second generation run (check 31), and the **extracts** — what the
-agent was *given* (`codespecs_mapping.md` §1.1.1), which is what checks 32–34
-hold the emitted doc comments against. A comment claims to carry specification
-text, and only the extract holds that text; no reading of the output alone can
-tell a copied sentence from a composed one. Every corroborating input is
-optional at the CLI, and when one is absent its checks raise nothing and
-`validate_codespecs.dart` **writes that on stdout**, for the reason spelled out
-under check 31: a silent pass would read as a verified one.
+agent was *given* (`codespecs_mapping.md` §1.1.1), which is what checks 32–36
+read. A comment claims to carry specification text, and only the extract holds
+that text; no reading of the output alone can tell a copied sentence from a
+composed one, nor a complete transfer from a partial one. Every corroborating
+input is optional at the CLI, and when one is absent its checks raise nothing
+and `validate_codespecs.dart` **writes that on stdout**, for the reason spelled
+out under check 31: a silent pass would read as a verified one.
+
+**The extract is given whole or not at all.** The other three corroborating
+inputs are each self-describing — a migration set, a catalogue pair, a second
+trio — and a partial one is either obviously partial or refused outright, which
+is why check 31 takes all three regenerated packages or none. The extract tree
+is not: a directory holding four of an area's twenty-six extracts parses
+perfectly and simply describes a smaller run. That matters for check 35 alone,
+whose left-hand set *is* the extract tree — understate it and the check passes
+over a gap it could not see. So the trio and the extract tree are compared as
+the two artifacts of one run, which is what they are (`codespecs_mapping.md`
+§1.1.1): `--extracts` is given the run's whole `codespecs_extracts` directory,
+or it is omitted and the five checks announce themselves unrun.
 
 **Why none of them is a const-constructor `assert`.** Checks 8, 10, 14, 15, 16 and
 21 are per-instance constraints on a single annotation's arguments, so the obvious
@@ -2114,7 +2126,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generation-time
-validator's pass over the resolved annotation for **all** thirty-four.
+validator's pass over the resolved annotation for **all** thirty-six.
 
 | # | Check | Defined in | Implemented by |
 |---|-------|------------|----------------|
@@ -2152,6 +2164,8 @@ validator's pass over the resolved annotation for **all** thirty-four.
 | 32 | Every doc-comment line occurs in the extract of a section the declaration traces to — a line that occurs in no extract is prose the agent composed | §2.8 C1 | `CsCommentSourceCheck` |
 | 33 | A grouped holder — a top-level declaration with no `@DocSpec` — carries C3's one-line template and no other generated prose | §2.8 C3 | `CsGroupedHolderCommentCheck` |
 | 34 | A doc-comment line is its source line entire — not a re-wrap of it, and not a value the comment stopped rendering part-way | §2.8 C4.2 | `CsCommentFidelityCheck` |
+| 35 | Every section the extracts hold a value for is cited by a back-link in the trio — an uncited section is a specification fact that reached no code | §9.6 of `codespecs_mapping.md` | `CsExtractCoverageCheck` |
+| 36 | Every section id a back-link names exists in the extracts — a trace to a section no area routed is stale or invented | §9.6 of `codespecs_mapping.md` | `CsBackLinkExtractedCheck` |
 
 **Check 23 is the one that makes "compiles" checkable before a compiler sees
 it.** Its two halves fail in opposite directions and neither implies the other.
@@ -2280,6 +2294,39 @@ message, one rule cited.
 
 The division is the same one check 23 draws for the substrate half: a check reads
 what its input can show.
+
+**Checks 35 and 36 are the same input answering a different question.** Checks
+32–34 ask whether what the trio *says* came from the specification; 35 and 36
+ask whether what the specification *said* reached the trio at all. Both belong
+to the fourth corroborating-input category above — the extract — and neither is
+a comment rule: they compare **section id sets**, not text, so they are the only
+two checks that read the extract without reading a single character of a value.
+The rule they enforce is the self-sufficiency requirement of §9.6 of
+`codespecs_mapping.md`, which is why their **Defined in** cell leaves this
+document. That section owns the requirement — after Phase 4 the trio carries
+every fact its parts were routed from, so Phases 5 and 6 read code rather than
+reopening Phase-3 documents — and §6 owns what a program decides about it. It
+states three comparisons: check 35 is comparison 1, check 36 is its converse (the
+requirement is stated in one direction there because a dangling trace is a defect
+of the *trace*, not of the transfer), and comparison 2 is checks 32 and 34,
+already above. Comparison 3 stays output-local, where that section puts it, in
+checks 5 and 25.
+
+**What the pair still cannot see.** Two residues, both of the same shape as the
+comment checks' — a place the extract is silent, not a place nothing is checked:
+
+- **A routed section that produced no value.** The extract enumerates values, so
+  a section routed to an area and carrying nothing appears in neither artifact
+  and is absent from both sides of check 35's difference. That failure is
+  comparison 3 of §9.6 of `codespecs_mapping.md`, not comparison 1, and it is
+  caught where a missing value
+  actually bites: check 3 on a missing name, check 4 on a missing key, check 5
+  on an empty explication, check 25 on a missing method comment.
+- **Which declaration should have carried it.** Check 35 decides that a section
+  reached *some* code, not that it reached the right code. A back-link written
+  on a neighbouring declaration satisfies it. Deciding otherwise would mean
+  re-deriving each part's own §3 entry inside the validator, which is the
+  authoring step's judgement rather than a property of its output.
 
 **Check 29 carries §2.4 B7's bound, and states when it moves.** B4's guard is
 the point: an agent that emitted `if (order.total > limit)` would have parsed

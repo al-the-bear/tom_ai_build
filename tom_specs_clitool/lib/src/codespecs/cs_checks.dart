@@ -1,4 +1,4 @@
-/// The thirty-four validator checks `codespecs_derivation_contract.md` §6 names.
+/// The thirty-six validator checks `codespecs_derivation_contract.md` §6 names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
 /// rule that defines it so a failure cites the rule rather than a symptom. The
@@ -18,7 +18,9 @@ class CodeSpecsViolation {
   /// The §6 check number.
   final int check;
 
-  /// The section of `codespecs_derivation_contract.md` that defines the rule.
+  /// The section that defines the rule — a bare `§N` of
+  /// `codespecs_derivation_contract.md`, or the trailing form `§N of <file>.md`
+  /// for a rule another document owns.
   final String definedIn;
 
   /// What is wrong, in the vocabulary of the rule.
@@ -50,7 +52,8 @@ abstract class CodeSpecsCheck {
   /// The §6 row number.
   int get number;
 
-  /// The section that defines the rule.
+  /// The section that defines the rule, in the same two forms
+  /// [CodeSpecsViolation.definedIn] takes.
   String get definedIn;
 
   /// The rule, in one line — the §6 row text.
@@ -3099,10 +3102,152 @@ class CsCommentFidelityCheck extends CodeSpecsCheck {
 }
 
 // ---------------------------------------------------------------------------
+// 35, 36 — the transfer between the extract and the trio
+// ---------------------------------------------------------------------------
+
+/// Every SOM section id [declaration] traces to, across **both** back-links.
+///
+/// The union rather than either one alone. §2.5 rule 4 makes the two sets equal
+/// per declaration and check 7 enforces it, so where they differ the fault is
+/// already reported — taking the union means checks 35 and 36 fire only on a
+/// section cited by *neither*, which is unambiguously a transfer defect and not
+/// a second message for check 7's.
+Set<String> csCitedSectionIdsOf(CsDeclaration declaration) => {
+      ...?declaration.codeSpec?.source,
+      ...?declaration.docSpec?.map((r) => r.sectionId),
+    };
+
+/// Every SOM section id the trio traces to.
+Set<String> csCitedSectionIds(CodeSpecsValidationInput input) => {
+      for (final declaration in input.declarations)
+        ...csCitedSectionIdsOf(declaration),
+    };
+
+/// §6 check 35.
+///
+/// `codespecs_mapping.md` §9.6 comparison 1, at the granularity it names: the
+/// set of routed section ids, set-differenced against what the trio's back-links
+/// cite. A section on the left and not on the right is a specification fact that
+/// reached no code, and it is invisible from the trio alone — the output is the
+/// answer, and this comparison needs the question.
+///
+/// **Why the extract is what makes it decidable.** Nothing in a generated file
+/// states what was supposed to be in it, so a complete transfer and a partial
+/// one read identically. The extract is the other side: it enumerates, bounded
+/// and verbatim, exactly what the authoring step was given, so "did everything
+/// arrive" becomes a set difference over two artifacts instead of a search
+/// through a document set.
+///
+/// **Whole tree or none.** The extract tree and the trio are two artifacts of
+/// one run, so the check compares them as such. A partial `--extracts`
+/// directory understates the left-hand set and the check passes on a gap it
+/// simply could not see; that is the same "a skipped check must not read as a
+/// passed one" reason the CLI announces an absent input, applied to a
+/// half-present one.
+class CsExtractCoverageCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsExtractCoverageCheck();
+
+  @override
+  int get number => 35;
+
+  @override
+  String get definedIn => '§9.6 of codespecs_mapping.md';
+
+  @override
+  String get title =>
+      'Every section the extracts hold a value for is cited by a back-link in '
+      'the trio — an uncited section is a specification fact that reached no '
+      'code';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    if (input.extracts.isEmpty) return const [];
+    final cited = csCitedSectionIds(input);
+    final out = <CodeSpecsViolation>[];
+    for (final extract in input.extracts.extracts) {
+      // One violation per uncited section of an area, not per value: the gap is
+      // that the *section* reached no code, and a section with nine fields
+      // would otherwise be reported nine times over one fault.
+      final reported = <String>{};
+      for (final entry in extract.entries) {
+        if (cited.contains(entry.sectionId)) continue;
+        if (!reported.add(entry.sectionId)) continue;
+        final values =
+            extract.entries.where((e) => e.sectionId == entry.sectionId);
+        final origins = values.map((e) => e.origin).toSet().join(', ');
+        final at = entry.path.isEmpty ? '' : ' at ${entry.path}';
+        out.add(
+          fail(
+            '${extract.source} routes ${values.length} value(s) of '
+            '${entry.sectionId} to ${extract.areaCode}$at ($origins), and no '
+            '@CodeSpec or @DocSpec in the trio names that section — the '
+            'specification fact reached no code, so Phase 5 and Phase 6 would '
+            'have to reopen the document to find it',
+          ),
+        );
+      }
+    }
+    return out;
+  }
+}
+
+/// §6 check 36.
+///
+/// The converse of check 35, and a different defect rather than the same one
+/// read backwards. A `DocRef` naming a section no extract holds is a back-link
+/// with nothing behind it: either the section id is stale — the model renamed
+/// it and the trio still points at the old one — or the agent invented it to
+/// satisfy §2.5's requirement that every declaration carry one. Both make the
+/// §9.6 trace lie, and both are silent otherwise: an id is a string, and no
+/// reading of the trio can tell a real section id from a plausible one.
+///
+/// Check 32 deliberately *skips* a section the extracts do not know, on the
+/// grounds that it cannot judge a comment against text it does not have. This
+/// check is where that skip is accounted for, so an unknown section is reported
+/// exactly once and by the check whose rule it breaks.
+class CsBackLinkExtractedCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsBackLinkExtractedCheck();
+
+  @override
+  int get number => 36;
+
+  @override
+  String get definedIn => '§9.6 of codespecs_mapping.md';
+
+  @override
+  String get title =>
+      'Every section id a back-link names exists in the extracts — a trace to '
+      'a section no area routed is stale or invented';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    if (input.extracts.isEmpty) return const [];
+    final out = <CodeSpecsViolation>[];
+    for (final declaration in input.declarations) {
+      for (final sectionId in csCitedSectionIdsOf(declaration)) {
+        if (input.extracts.knowsSection(sectionId)) continue;
+        out.add(
+          fail(
+            '${declaration.path} traces to $sectionId, which no extract holds '
+            '— a back-link to a section no area routed is either a stale id or '
+            'one written to satisfy §2.5, and neither states where the code '
+            'came from',
+            declaration.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The thirty-four checks, in §6 table order.
+/// The thirty-six checks, in §6 table order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   CsIdentifierCollisionCheck(),
   CsReferenceResolutionCheck(),
@@ -3138,4 +3283,6 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   CsCommentSourceCheck(),
   CsGroupedHolderCommentCheck(),
   CsCommentFidelityCheck(),
+  CsExtractCoverageCheck(),
+  CsBackLinkExtractedCheck(),
 ];

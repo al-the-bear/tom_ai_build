@@ -35,8 +35,10 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'extracts',
       help: 'Directory of per-area extracts (*.extract.yaml), for the comment '
-          'checks (32, 33, 34). Omitted: the specification text the comments '
-          'claim to carry is absent, so the three report nothing.',
+          'checks (32, 33, 34) and the transfer checks (35, 36). Give the '
+          "run's whole extract tree or none: a partial one understates what "
+          'the trio was supposed to carry, and check 35 would pass a gap it '
+          'could not see. Omitted: all five report nothing.',
     )
     ..addOption(
       'cs-vocabulary',
@@ -104,8 +106,8 @@ Future<void> main(List<String> arguments) async {
   );
 
   // Every check whose corroborating input is absent says so. The trio is the
-  // pass's subject; four checks each need something the trio cannot show, and
-  // for all four a silent pass would read as a verified one.
+  // pass's subject; four questions each need something the trio cannot show,
+  // and for all four a silent pass would read as a verified one.
   if (migrations.isEmpty) {
     stdout.writeln(
       'codespecs: check 13 (migration convergence) not run — pass --migrations '
@@ -129,7 +131,8 @@ Future<void> main(List<String> arguments) async {
   if (extracts.isEmpty) {
     stdout.writeln(
       'codespecs: checks 32, 33 and 34 (comment source, template and fidelity) '
-      'not run — pass --extracts pointing at the run\'s '
+      'and checks 35 and 36 (extract coverage and back-link resolution) not '
+      'run — pass --extracts pointing at the run\'s '
       'generated-doc/codespecs_extracts directory.',
     );
   }
@@ -248,7 +251,7 @@ void _printUsage(ArgParser parser) {
   );
   stdout.writeln();
   stdout.writeln(
-    'Enforces the thirty-four checks of codespecs_derivation_contract.md §6. '
+    'Enforces the thirty-six checks of codespecs_derivation_contract.md §6. '
     'Any violation fails: the exit code is 1 and every breach is written to '
     'stderr naming its check number and defining section.',
   );
