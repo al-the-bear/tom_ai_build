@@ -49,13 +49,19 @@
 ///   * [SomNode] / [SomList] / [SomScalar] / [checkSomModelVersion] /
 ///     [somEditabilityFor] / [SomEditability] — the hand-written support the
 ///     generated `tom_som_dart_v0` typed facade extends (editing layer +
-///     instantiation-time version check + its non-throwing editability query).
+///     instantiation-time version check + its non-throwing editability query);
+///   * [CodeSpecsExtractor] / [CodeSpecsExtract] / [CodeSpecsAreaCatalog] — the
+///     machine half of TomSpecs Phase 4: routes a filled document by
+///     `@CodeSpecKind` into one bounded, cited extract per CodeSpecs area. It
+///     copies and indexes; it never summarises, rephrases or names anything,
+///     so every scalar it emits occurs character-for-character in its source.
 ///
 /// Pure Dart, no Flutter dependency.
 library;
 
 export 'src/docspecs_validator.dart';
 export 'src/spec_annotation_display.dart';
+export 'src/spec_codespecs_extract.dart';
 export 'src/som_facade.dart';
 export 'src/spec_document.dart';
 export 'src/spec_document_markdown.dart';
