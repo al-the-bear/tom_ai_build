@@ -57,10 +57,59 @@ main() {
 }
 ''';
 
-/// `llm_guidelines_specification.md` §6.3 — read any path, write only under
+/// `llm_guidelines_specification.md` §6.3 — reflect before you add (spec +
+/// model scopes).
+const example63 = '''
+import 'package:tom_spec_engine/spec_api.dart';
+import 'package:tom_spec_engine/spec_model_api.dart';
+
+// Ask the meta-model what PD00 permits, then add only a child it named.
+main() {
+  final permitted = [
+    for (final child in model.allowedChildren('PD00')) child['segment'],
+  ];
+  if (!permitted.contains('PD00-RISK')) {
+    return {'added': false, 'permitted': permitted};
+  }
+  final path = spec.addChild('PD00', 'PD00-RISK');
+  spec.setContent('\$path/RISK-TITLE', 'Vendor lock-in');
+  return {
+    'added': true,
+    'path': path,
+    'kind': model.kindOf(path),
+    'permitted': permitted,
+  };
+}
+''';
+
+/// `llm_guidelines_specification.md` §6.4 — search → iterate → edit (spec +
+/// search scopes).
+const example64 = '''
+import 'package:tom_spec_engine/spec_api.dart';
+import 'package:tom_spec_engine/spec_search_api.dart';
+
+// Flag every content section that mentions a term, stepping the live cursor.
+main() {
+  final cursor = search.grep('rollout', caseInsensitive: true);
+  final touched = [];
+  var hit = cursor.next();
+  while (hit != null) {
+    final path = hit['path'];
+    final text = spec.content(path);
+    if (text != null) {
+      spec.setContent(path, text + '\\n\\n_Flagged for review._');
+      touched.add(path);
+    }
+    hit = cursor.next();
+  }
+  return {'touched': touched};
+}
+''';
+
+/// `llm_guidelines_specification.md` §6.5 — read any path, write only under
 /// `agent/scratchpad` (files scope). `__NOTES__` is the only placeholder; the
 /// guidelines show a literal path.
-const example63 = '''
+const example65 = '''
 import 'package:tom_spec_engine/spec_files.dart';
 
 // Read an external note (any path) and stage a summary into agent/scratchpad.
@@ -72,9 +121,9 @@ main() {
 }
 ''';
 
-/// `llm_guidelines_specification.md` §6.4 — semantic recall, read-only (memory
+/// `llm_guidelines_specification.md` §6.6 — semantic recall, read-only (memory
 /// scope).
-const example64 = '''
+const example66 = '''
 import 'package:tom_spec_engine/memory.dart';
 
 // Recall the section paths most relevant to a question (semantic, read-only).
@@ -149,6 +198,16 @@ class _Controller implements SpecController {
           .add(parentPath, childSegment, itemId: itemId);
 }
 
+/// The `spec` scope as a host binds it once a document is loaded: all three
+/// globals over one live (model, document) pair — `spec` writing, `model`
+/// reflecting, `search` querying. The providers are the lazy shape
+/// `tom_specs_editor` supplies (`spec_script_runner.dart`).
+ScriptScope _fullSpecScope(SpecModel model, SpecDocument document) => specScope(
+      _Controller(model, document),
+      model: () => model,
+      search: () => SpecQueryEngine(model: model, document: document),
+    );
+
 Future<Object?> _run(ScriptScope scope, String source) async {
   final env = (ScopeRegistry()..register(scope)).build([scope.name]);
   final d4rt = D4rt();
@@ -178,7 +237,40 @@ void main() {
     });
   });
 
-  group('llm_guidelines_specification.md §6.3 read anywhere, write '
+  group('llm_guidelines_specification.md §6.3 reflect before you add '
+      '(spec + model)', () {
+    test('reads the permitted segments off the model, then adds one', () async {
+      final scope = _fullSpecScope(_specModel(), SpecDocument());
+      final result = await _run(scope, example63) as Map;
+      expect(result['added'], isTrue);
+      expect(result['path'], 'PD00/PD00-RISK-1');
+      expect(result['permitted'], ['PD00-VIS', 'PD00-RISK']);
+      expect(result['kind'], 'listItemComplex');
+    });
+  });
+
+  group('llm_guidelines_specification.md §6.4 search → iterate → edit '
+      '(spec + search)', () {
+    test('flags every content section the grep matched', () async {
+      final doc = SpecDocument()
+        ..setContent('PD00/PD00-VIS', 'A resilient Rollout platform.')
+        ..addListItem('PD00/PD00-RISK')
+        ..setContent('PD00/PD00-RISK-1/RISK-TITLE', 'rollout window too narrow')
+        ..addListItem('PD00/PD00-RISK')
+        ..setContent('PD00/PD00-RISK-2/RISK-TITLE', 'Vendor lock-in');
+
+      final scope = _fullSpecScope(_specModel(), doc);
+      final result = await _run(scope, example64) as Map;
+
+      expect(result['touched'],
+          ['PD00/PD00-VIS', 'PD00/PD00-RISK-1/RISK-TITLE']);
+      expect(doc.content('PD00/PD00-VIS'),
+          'A resilient Rollout platform.\n\n_Flagged for review._');
+      expect(doc.content('PD00/PD00-RISK-2/RISK-TITLE'), 'Vendor lock-in');
+    });
+  });
+
+  group('llm_guidelines_specification.md §6.5 read anywhere, write '
       'scratchpad only (files scope)', () {
     test('reads an external note and stages its head under scratchpad',
         () async {
@@ -188,7 +280,7 @@ void main() {
       addTearDown(() => ws.deleteSync(recursive: true));
 
       final scope = filesScope(SpecFileFacade(workspaceRoot: ws.path));
-      final source = example63.replaceAll('__NOTES__', notes.path);
+      final source = example65.replaceAll('__NOTES__', notes.path);
       final result = await _run(scope, source) as Map;
 
       expect(result['bytes'], 'line1\nline2\nline3'.length);
@@ -197,7 +289,7 @@ void main() {
     });
   });
 
-  group('llm_guidelines_specification.md §6.4 semantic recall '
+  group('llm_guidelines_specification.md §6.6 semantic recall '
       '(memory scope)', () {
     test('recalls candidate paths, read-only', () async {
       final doc = SpecDocument()
@@ -206,7 +298,7 @@ void main() {
       final index = StructuralLexicalIndex()..rebuild(engine.projectNodes());
       final scope = memoryScope(SpecRecall(index: index));
 
-      final result = await _run(scope, example64) as Map;
+      final result = await _run(scope, example66) as Map;
       expect(result['candidates'], contains('PD00/PD00-VIS'));
     });
   });
