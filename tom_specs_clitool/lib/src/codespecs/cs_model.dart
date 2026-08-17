@@ -13,6 +13,8 @@
 /// need is exactly what the syntax carries.
 library;
 
+import 'cs_extract.dart';
+
 /// One of the three generated projects (`codespecs_mapping.md` §4.2).
 enum CsLocus {
   /// The project both others depend on.
@@ -536,6 +538,24 @@ class CsDocComment {
           line.startsWith('///') ? line.substring(3).trimLeft() : line,
       ];
 
+  /// The comment text with each line's `/// ` marker removed and **nothing
+  /// else** — at most the one space C4.1 puts after the marker.
+  ///
+  /// [text] trims each line's leading whitespace, which is what a check about
+  /// escapes wants and exactly what a check about fidelity must not have: a
+  /// nested list item or an indented fenced line differs from its source only
+  /// in that indentation, so trimming it would make a mangled comment compare
+  /// equal to the specification it mangled.
+  List<String> get verbatimText => [
+        for (final line in lines) _unmark(line),
+      ];
+
+  static String _unmark(String line) {
+    if (!line.startsWith('///')) return line;
+    final rest = line.substring(3);
+    return rest.startsWith(' ') ? rest.substring(1) : rest;
+  }
+
   /// Whether the block says anything at all — a block of bare `///` markers
   /// documents nothing.
   bool get isEmpty => text.every((l) => l.trim().isEmpty);
@@ -824,7 +844,7 @@ class CodeSpecsRegeneration {
       };
 }
 
-/// Everything the thirty-one checks read.
+/// Everything the thirty-four checks read.
 class CodeSpecsValidationInput {
   /// The shared project.
   final CsLocusProject shared;
@@ -846,15 +866,24 @@ class CodeSpecsValidationInput {
   /// `null` when the caller performed none.
   final CodeSpecsRegeneration? regeneration;
 
+  /// The per-area extracts the trio was authored from, for the comment checks.
+  ///
+  /// The second side of §2.8: a comment claims to carry specification text, and
+  /// only the extract holds that text. Empty when the caller supplied none, in
+  /// which case the three comment-source checks report nothing rather than
+  /// guessing.
+  final CsExtractSet extracts;
+
   /// Creates a validation input.
-  const CodeSpecsValidationInput({
+  CodeSpecsValidationInput({
     required this.shared,
     required this.client,
     required this.server,
     this.migrations = const {},
     this.enumMirrors = const [],
     this.regeneration,
-  });
+    CsExtractSet? extracts,
+  }) : extracts = extracts ?? CsExtractSet.empty;
 
   /// The three projects, in emission order.
   List<CsLocusProject> get projects => [shared, client, server];

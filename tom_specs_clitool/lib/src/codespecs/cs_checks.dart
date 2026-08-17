@@ -1,4 +1,4 @@
-/// The thirty-one validator checks `codespecs_derivation_contract.md` §6 names.
+/// The thirty-four validator checks `codespecs_derivation_contract.md` §6 names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
 /// rule that defines it so a failure cites the rule rather than a symptom. The
@@ -7,6 +7,7 @@
 /// state nothing.
 library;
 
+import 'cs_extract.dart';
 import 'cs_model.dart';
 
 /// One failed check.
@@ -2205,10 +2206,10 @@ class CsNoInBodyCommentCheck extends CodeSpecsCheck {
 /// an unescaped `[Order]` becomes a broken reference, an unescaped `<name>` an
 /// HTML tag that renders as nothing at all.
 ///
-/// **What it leaves to the SOM side.** C4.2 (no re-wrapping, no truncation) and
-/// C1's source rules compare the emitted text against the SOM text it came from,
-/// which is not in the trio. Those are generator-side assertions; this check
-/// reads what a reader of the emitted file can see.
+/// **Why it is not all of C4.** C4.2 (no re-wrapping, no truncation) compares
+/// the emitted text against the SOM text it came from, which is not in the trio.
+/// It is [CsCommentFidelityCheck]'s, over the extract; this check reads what a
+/// reader of the emitted file alone can see.
 class CsDocCommentShapeCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsDocCommentShapeCheck();
@@ -2777,10 +2778,331 @@ class CsDeterminismCheck extends CodeSpecsCheck {
 }
 
 // ---------------------------------------------------------------------------
+// 32, 33, 34 — the comment rules, read against the extract
+// ---------------------------------------------------------------------------
+
+/// What one declaration's doc comment is allowed to say, and where that
+/// permission came from.
+///
+/// Built once per declaration and read by checks 32 and 34, which ask two
+/// questions of the same evidence: *is this line in the specification at all*
+/// and *is it the line the specification holds, whole*.
+class _CsCommentSources {
+  /// The entries the declaration's `@DocSpec` sections contributed.
+  final List<CsExtractEntry> entries;
+
+  /// Whether the sections were named by a `@DocSpec` (traced) or the whole
+  /// extract set stood in for them (untraced — §3.1.1's enum constants).
+  final bool traced;
+
+  const _CsCommentSources(this.entries, {required this.traced});
+
+  /// Every permitted line, in both the escaped and the raw spelling.
+  Set<String> get lines => {
+        for (final entry in entries) ...entry.escapedLines,
+        for (final entry in entries) ...entry.rawLines,
+      };
+
+  /// Whether [line] is a fragment of a permitted line — the signature of a
+  /// re-wrap, which is check 34's business rather than check 32's.
+  ///
+  /// Only asked of a line that is not itself permitted, so a short line that
+  /// happens to also occur inside a longer one never reaches here.
+  bool holdsFragment(String line) => fragmentOf(line) != null;
+
+  /// The permitted line [line] is part of, or `null` when it is part of none.
+  String? fragmentOf(String line) {
+    final needle = line.trim();
+    if (needle.isEmpty) return null;
+    for (final permitted in lines) {
+      if (permitted.contains(needle)) return permitted;
+    }
+    return null;
+  }
+}
+
+/// The permitted sources for [declaration], or `null` when the extract tree
+/// says nothing that bears on it.
+_CsCommentSources? _commentSources(
+  CsDeclaration declaration,
+  CsExtractSet extracts,
+) {
+  final refs = declaration.docSpec;
+  if (refs != null) {
+    final ids = [for (final ref in refs) ref.sectionId];
+    if (!ids.any(extracts.knowsSection)) return null;
+    return _CsCommentSources(extracts.entriesForAll(ids), traced: true);
+  }
+  // A top-level declaration with no back-link is C3's grouped holder — check 33
+  // owns it, and its one sentence is the single piece of generated prose C1
+  // permits.
+  if (declaration.isTopLevel) return null;
+  // §2.8's one exception: §3.1.1 withholds the per-constant `@DocSpec` from a
+  // domain enum *because* the constant's own comment identifies it. The comment
+  // is still author text, so it must still occur in the specification — the
+  // extract can say that much even though it cannot say which section.
+  return _CsCommentSources(extracts.entries.toList(), traced: false);
+}
+
+/// §6 check 32.
+///
+/// C1's fourth prohibition — *anything the agent composes* — made checkable.
+/// Every other comment rule constrains text that came from somewhere; this one
+/// constrains text that came from nowhere, and it is the failure §2.8 calls the
+/// one "where an authoring agent is most tempted and least detectable". A
+/// summarised description reads exactly like a written one, so the only evidence
+/// that separates them is the specification text itself, which is what the
+/// extract carries.
+///
+/// **What it leaves to the SOM side.** C1 narrows the summary to a section's
+/// *designated* description field, and the extract cannot say which field that
+/// is — an entry names it in prose, in point 1, beside the designated name
+/// field. So a comment built from the right section but the wrong field of it
+/// passes here. The check catches invention, not mis-selection; the narrowing
+/// stays an assertion about the authoring step rather than about its output.
+class CsCommentSourceCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsCommentSourceCheck();
+
+  @override
+  int get number => 32;
+
+  @override
+  String get definedIn => '§2.8 C1';
+
+  @override
+  String get title =>
+      'Every doc-comment line occurs in the extract of a section the '
+      'declaration traces to — a line that occurs nowhere is composed prose';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    if (input.extracts.isEmpty) return const [];
+    final out = <CodeSpecsViolation>[];
+    for (final declaration in input.declarations) {
+      final comment = declaration.docComment;
+      if (comment == null) continue;
+      final sources = _commentSources(declaration, input.extracts);
+      if (sources == null) continue;
+      final permitted = sources.lines;
+
+      for (final line in comment.verbatimText) {
+        if (line.trim().isEmpty) continue;
+        if (permitted.contains(line)) continue;
+        // A fragment of a permitted line is a re-wrap or a truncation, which
+        // check 34 diagnoses precisely. Reporting it here as well would give
+        // one fault two messages and neither of them the right one.
+        if (sources.holdsFragment(line)) continue;
+        out.add(
+          fail(
+            '${declaration.path} has a doc-comment line no extract holds '
+            '(`$line`) — C1 takes a comment from ${sources.traced ? 'the '
+                'section its `@DocSpec` names' : 'the specification'}, and '
+            'composes nothing',
+            comment.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+}
+
+/// §6 check 33.
+///
+/// C3 grants exactly one generated sentence in the entire output, and grants it
+/// only to a holder the agent created by grouping. The rule is worth a check
+/// because the exception is where a second one would be added: a holder already
+/// has no section, so a paragraph written for it breaks no back-link and reads
+/// like the rest of the file.
+///
+/// **What it leaves to the SOM side.** The template's two slots are checked for
+/// *shape*, not for content. §4.1 gives each part a canonical id (`ErrorResult`)
+/// while C3's own illustration renders one as prose (`Error codes`), and no rule
+/// states that rendering; and the extract's document root is the model's root
+/// section segment, not the document's name. Deciding the slots would mean
+/// inventing both mappings, which is how a checker starts specifying.
+class CsGroupedHolderCommentCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsGroupedHolderCommentCheck();
+
+  /// The one sentence C3 permits: `<part name> for <document root name>.`
+  static final RegExp _template = RegExp(r'^(\S.*) for (\S.*)\.$');
+
+  @override
+  int get number => 33;
+
+  @override
+  String get definedIn => '§2.8 C3';
+
+  @override
+  String get title =>
+      'A grouped holder — a top-level declaration with no `@DocSpec` — carries '
+      'C3\'s one-line template and no other generated prose';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    if (input.extracts.isEmpty) return const [];
+    final out = <CodeSpecsViolation>[];
+    for (final declaration in input.declarations) {
+      if (!declaration.isTopLevel) continue;
+      if (declaration.docSpec != null) continue;
+      final comment = declaration.docComment;
+      if (comment == null) continue;
+
+      final said = [
+        for (final line in comment.verbatimText)
+          if (line.trim().isNotEmpty) line.trim(),
+      ];
+      if (said.isEmpty) continue;
+
+      if (said.length > 1) {
+        out.add(
+          fail(
+            '${declaration.path} traces to no section and carries '
+            '${said.length} lines of prose — C3 grants a grouped holder the '
+            'one-line template `<part name> for <document root name>.` and '
+            'says no other generated sentence exists anywhere in the output',
+            comment.location,
+          ),
+        );
+        continue;
+      }
+
+      if (_template.hasMatch(said.single)) continue;
+      out.add(
+        fail(
+          '${declaration.path} traces to no section and its comment '
+          '(`${said.single}`) is not C3\'s template `<part name> for '
+          '<document root name>.` — a declaration with author text behind it '
+          'carries a `@DocSpec` instead',
+          comment.location,
+        ),
+      );
+    }
+    return out;
+  }
+}
+
+/// §6 check 34.
+///
+/// C4.2 forbids the two edits that leave a comment still reading as the
+/// specification: a re-wrap, which preserves every word and destroys the
+/// markdown the words are written in, and a truncation, which preserves the
+/// shape and drops the qualification that changes the meaning. Both survive
+/// every other check — the comment is well-formed, its lines escape correctly,
+/// and each word in it really does come from the specification — which is why
+/// the rule needs the source text and not just the file.
+///
+/// The two failures are looked for from opposite ends. A re-wrap shows up
+/// line-by-line: an emitted line that is a proper fragment of a source line is a
+/// source line that was split. A truncation shows up value-by-value: a value the
+/// comment started to render and did not finish.
+class CsCommentFidelityCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsCommentFidelityCheck();
+
+  @override
+  int get number => 34;
+
+  @override
+  String get definedIn => '§2.8 C4.2';
+
+  @override
+  String get title =>
+      'A doc-comment line is its source line entire — not a re-wrap of it, and '
+      'not a value the comment stopped rendering part-way';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    if (input.extracts.isEmpty) return const [];
+    final out = <CodeSpecsViolation>[];
+    for (final declaration in input.declarations) {
+      final comment = declaration.docComment;
+      if (comment == null) continue;
+      final sources = _commentSources(declaration, input.extracts);
+      // Only the traced tier: a value boundary is only meaningful when the
+      // values are the ones this declaration claims, and the untraced tier
+      // stands in the whole extract set for them.
+      if (sources == null || !sources.traced) continue;
+
+      final emitted = comment.verbatimText;
+      final permitted = sources.lines;
+
+      for (final line in emitted) {
+        if (line.trim().isEmpty) continue;
+        if (permitted.contains(line)) continue;
+        final whole = sources.fragmentOf(line);
+        if (whole == null) continue;
+        out.add(
+          fail(
+            '${declaration.path} emits `$line`, which is part of the source '
+            'line `$whole` — C4.2 preserves the source\'s line structure '
+            'exactly, because a wrap width is a constant the contract does not '
+            'state and a naive wrap destroys the markdown',
+            comment.location,
+          ),
+        );
+      }
+
+      for (final entry in sources.entries) {
+        final short = _truncationOf(entry, emitted);
+        if (short == null) continue;
+        out.add(
+          fail(
+            '${declaration.path} renders ${short.rendered} of the '
+            '${short.total} lines of ${entry.origin} (${entry.sectionId}) — '
+            'C4.2 forbids truncation, so a value a comment starts it finishes',
+            comment.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+
+  /// How much of [entry] [emitted] rendered, when it rendered some and not all.
+  ({int rendered, int total})? _truncationOf(
+    CsExtractEntry entry,
+    List<String> emitted,
+  ) {
+    for (final candidate in [entry.escapedLines, entry.rawLines]) {
+      if (candidate.length < 2) continue;
+      if (_contains(emitted, candidate)) return null;
+      if (!emitted.contains(candidate.first)) continue;
+      var rendered = 1;
+      final start = emitted.indexOf(candidate.first);
+      while (start + rendered < emitted.length &&
+          rendered < candidate.length &&
+          emitted[start + rendered] == candidate[rendered]) {
+        rendered++;
+      }
+      return (rendered: rendered, total: candidate.length);
+    }
+    return null;
+  }
+
+  /// Whether [run] occurs in [lines] as a contiguous run.
+  bool _contains(List<String> lines, List<String> run) {
+    if (run.isEmpty || run.length > lines.length) return false;
+    for (var i = 0; i <= lines.length - run.length; i++) {
+      var match = true;
+      for (var j = 0; j < run.length; j++) {
+        if (lines[i + j] == run[j]) continue;
+        match = false;
+        break;
+      }
+      if (match) return true;
+    }
+    return false;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The thirty-one checks, in §6 table order.
+/// The thirty-four checks, in §6 table order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   CsIdentifierCollisionCheck(),
   CsReferenceResolutionCheck(),
@@ -2813,4 +3135,7 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   CsBranchConditionCheck(),
   CsCollaboratorSignatureCheck(),
   CsDeterminismCheck(),
+  CsCommentSourceCheck(),
+  CsGroupedHolderCommentCheck(),
+  CsCommentFidelityCheck(),
 ];

@@ -1,4 +1,4 @@
-/// Fixtures for the thirty-one `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the thirty-four `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -7,8 +7,12 @@
 /// for the rule rather than for the shape of the fixture.
 ///
 /// The fixtures are in-memory Dart sources: the validator reads syntax, so a
-/// fixture needs no package resolution and no filesystem.
+/// fixture needs no package resolution and no filesystem. Checks 32–34 read a
+/// second input, so their fixtures are a pair — a trio and the extract it claims
+/// to have been written from.
 library;
+
+import 'dart:convert';
 
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
@@ -26,6 +30,7 @@ CodeSpecsValidationInput _input({
   Map<String, String>? againShared,
   Map<String, String>? againClient,
   Map<String, String>? againServer,
+  CsExtractSet? extracts,
 }) =>
     CodeSpecsValidationInput(
       shared: readCsLocusProject(
@@ -45,6 +50,7 @@ CodeSpecsValidationInput _input({
       ),
       migrations: migrations,
       enumMirrors: mirrors,
+      extracts: extracts,
       regeneration:
           againShared == null && againClient == null && againServer == null
               ? null
@@ -66,6 +72,52 @@ CodeSpecsValidationInput _input({
                   ),
                 ),
     );
+
+/// One `<CE-CODE>.extract.yaml`, in the shape `spec_codespecs_extract` emits.
+///
+/// Scalars are written as JSON string literals, which is what the emitter does
+/// and what makes a value carrying an em dash, a `#` or a newline survive the
+/// round trip as one scalar — the verbatimness checks 32 and 34 depend on.
+String _extractYaml(
+  String areaCode,
+  List<(String section, String field, String value)> entries, {
+  String documentRoot = 'IMO',
+  String className = 'DataEntityEntry',
+}) {
+  final buffer = StringBuffer()
+    ..writeln('extract:')
+    ..writeln('  formatVersion: $kCsExtractFormat')
+    ..writeln('  area:')
+    ..writeln('    code: ${jsonEncode(areaCode)}')
+    ..writeln('  document:')
+    ..writeln('    root: ${jsonEncode(documentRoot)}')
+    ..writeln('  entries:');
+  for (final (section, field, value) in entries) {
+    buffer
+      ..writeln('    - sectionId: ${jsonEncode(section)}')
+      ..writeln('      className: ${jsonEncode(className)}')
+      ..writeln('      fieldName: ${jsonEncode(field)}')
+      ..writeln('      value: ${jsonEncode(value)}');
+  }
+  return '$buffer';
+}
+
+/// A one-area extract set holding [entries], the usual shape for a comment
+/// fixture: one area is all a single declaration's sections can be routed to.
+CsExtractSet _extract(List<(String, String, String)> entries) =>
+    readCsExtracts({'CE-DB.extract.yaml': _extractYaml('CE-DB', entries)});
+
+/// `IMO-014`'s `content` from the §4 worked example — carried as a constant so
+/// the fixture's Dart source and the extract it is checked against cannot drift
+/// apart in the one character that matters, the em dash C4.5 leaves alone.
+const _customerContent =
+    'Customers are never deleted — a closed account keeps its orders.';
+
+/// The two values §2.8 P1 turns into the class doc comment of the §4 example.
+const _customerEntries = <(String, String, String)>[
+  ('IMO-014', 'description', 'A person or organisation that places orders.'),
+  ('IMO-014', 'content', _customerContent),
+];
 
 /// The violations of §6 check [number] raised by [input].
 List<CodeSpecsViolation> _forCheck(int number, CodeSpecsValidationInput input) =>
@@ -103,10 +155,10 @@ void _redGreen(
 
 void main() {
   group('§6 check catalogue', () {
-    test('names the thirty-one checks in table order', () {
+    test('names the thirty-four checks in table order', () {
       expect(
         codeSpecsChecks.map((c) => c.number),
-        [for (var i = 1; i <= 31; i++) i],
+        [for (var i = 1; i <= 34; i++) i],
       );
     });
 
@@ -1935,6 +1987,23 @@ class Order {}
       expect(_forCheck(27, input), isNotEmpty);
     });
 
+    test('an enum constant\'s comment is a comment C4 constrains too', () {
+      // §3.1.1 makes a domain enum's constant the one member whose comment is
+      // its own trace, so the shape rules have to reach it like any other.
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+@CsDomainEnum()
+enum CustomerState {
+  /// The state a <new> customer starts in.
+  active,
+}
+''',
+        },
+      );
+      expect(_forCheck(27, input), isNotEmpty);
+    });
+
     test('a fenced code block is left exactly as the source wrote it', () {
       final input = _input(
         server: {
@@ -2416,6 +2485,390 @@ class OrderService {
     });
   });
 
+  group('32 — comment source (§2.8 C1)', () {
+    _redGreen(
+      32,
+      '§2.8 C1',
+      says: contains('no extract holds'),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+/// A person or organisation that places orders.
+///
+/// Customers place orders regularly and are our most valued relationship.
+@CodeSpec('dataAccess.Customer', source: ['IMO-014'])
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+@CsTable('customer')
+class Customer {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+/// A person or organisation that places orders.
+///
+/// $_customerContent
+@CodeSpec('dataAccess.Customer', source: ['IMO-014'])
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+@CsTable('customer')
+class Customer {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      ),
+    );
+
+    test('with no extracts there is no second side, so it raises nothing', () {
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+/// Prose that occurs in no specification anywhere.
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+class Customer {}
+''',
+        },
+      );
+      expect(_forCheck(32, input), isEmpty);
+    });
+
+    test('a section the extracts do not know is not a section it can judge',
+        () {
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+/// Prose that occurs in no specification anywhere.
+@DocSpec([DocRef('SBP.9.9', 'a section no area routed')])
+class Order {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(32, input), isEmpty);
+    });
+
+    test('C4.4 escaping is check 27\'s, so an escaped line still matches', () {
+      final input = _input(
+        server: {
+          'lib/a.dart': r'''
+/// The \[primary\] key of the customer.
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+class Customer {}
+''',
+        },
+        extracts: _extract([
+          ('IMO-014', 'description', 'The [primary] key of the customer.'),
+        ]),
+      );
+      expect(_forCheck(32, input), isEmpty);
+    });
+
+    test('a re-wrapped line is check 34\'s fault, and is not reported twice',
+        () {
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+/// Customers are never deleted — a closed
+/// account keeps its orders.
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+class Customer {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(32, input), isEmpty);
+      expect(_forCheck(34, input), isNotEmpty);
+    });
+
+    test('an enum constant carries no `@DocSpec`, and is still author text',
+        () {
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+@DocSpec([DocRef('IMO-014', 'supplies the domain')])
+@CsDomainEnum()
+enum CustomerState {
+  /// Invented prose for a constant that never had any.
+  active,
+}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(32, input), isNotEmpty);
+      expect(
+        _forCheck(32, input).single.message,
+        contains('C1 takes a comment from the specification'),
+      );
+    });
+  });
+
+  group('33 — grouped holder template (§2.8 C3)', () {
+    _redGreen(
+      33,
+      '§2.8 C3',
+      says: contains('is not C3\'s template'),
+      red: _input(
+        shared: {
+          'lib/keys.dart': '''
+/// Holds every resource key the application authorizes against.
+class ResourceKeys {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      ),
+      green: _input(
+        shared: {
+          'lib/keys.dart': '''
+/// Resource keys for Ordering.
+class ResourceKeys {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      ),
+    );
+
+    test('a second sentence is the one C3 says exists nowhere', () {
+      final input = _input(
+        shared: {
+          'lib/keys.dart': '''
+/// Resource keys for Ordering.
+///
+/// Grouped by the module that owns them.
+class ResourceKeys {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(33, input), isNotEmpty);
+      expect(_forCheck(33, input).single.message, contains('2 lines of prose'));
+    });
+
+    test('a declaration that traces to a section is not a grouped holder', () {
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+/// A person or organisation that places orders.
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+class Customer {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(33, input), isEmpty);
+    });
+
+    test('a member is not a grouped holder — C3 grants the holder, not its '
+        'contents', () {
+      final input = _input(
+        shared: {
+          'lib/keys.dart': '''
+/// Resource keys for Ordering.
+class ResourceKeys {
+  /// The name the customer trades under.
+  static const customerPii = CsResourceKeyRef('customer.pii');
+}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(33, input), isEmpty);
+    });
+  });
+
+  group('34 — comment fidelity (§2.8 C4.2)', () {
+    _redGreen(
+      34,
+      '§2.8 C4.2',
+      says: contains('part of the source line'),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+/// Customers are never deleted — a closed
+/// account keeps its orders.
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+class Customer {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+/// $_customerContent
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+class Customer {}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      ),
+    );
+
+    test('a value the comment stopped rendering part-way', () {
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+/// - the order is placed
+/// - the customer is billed
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+class Customer {}
+''',
+        },
+        extracts: _extract([
+          (
+            'IMO-014',
+            'content',
+            '- the order is placed\n'
+                '- the customer is billed\n'
+                '- the warehouse is notified',
+          ),
+        ]),
+      );
+      final raised = _forCheck(34, input);
+      expect(raised, hasLength(1));
+      expect(raised.single.message, contains('renders 2 of the 3 lines'));
+    });
+
+    test('a multi-line value rendered whole is not a truncation', () {
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+/// - the order is placed
+/// - the customer is billed
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+class Customer {}
+''',
+        },
+        extracts: _extract([
+          (
+            'IMO-014',
+            'content',
+            '- the order is placed\n- the customer is billed',
+          ),
+        ]),
+      );
+      expect(_forCheck(34, input), isEmpty);
+    });
+
+    test('the untraced tier has no value boundaries, so it is left alone', () {
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+@DocSpec([DocRef('IMO-014', 'supplies the domain')])
+@CsDomainEnum()
+enum CustomerState {
+  /// Customers are never deleted — a closed
+  active,
+}
+''',
+        },
+        extracts: _extract(_customerEntries),
+      );
+      expect(_forCheck(34, input), isEmpty);
+    });
+  });
+
+  group('the §4 worked example', () {
+    // The example is the contract's own demonstration that the rules compose,
+    // so it is the fixture that has to pass every comment check: a rule the
+    // worked example breaks is a rule stated against the contract's own output.
+    CodeSpecsValidationInput workedExample() => _input(
+          shared: {
+            'lib/src/authorization/resource_keys.dart': '''
+// GENERATED by TomSpecs Phase 4 (CodeSpecs) — do not edit.
+
+import 'package:tom_code_specs/tom_code_specs.dart';
+
+/// Resource keys for Ordering.
+class ResourceKeys {
+  static const customerPii = CsResourceKeyRef('customer.pii');
+}
+''',
+          },
+          server: {
+            'lib/src/data_access/customer.dart': '''
+// GENERATED by TomSpecs Phase 4 (CodeSpecs) — do not edit.
+// Source document: information_model.md (D06)
+// Spec model version: 1.4.0
+
+import 'package:tom_code_specs/tom_code_specs.dart';
+import 'package:tom_core_server/tom_core_server.dart';
+
+import '../authorization/resource_keys.dart';
+
+/// A person or organisation that places orders.
+///
+/// $_customerContent
+@CodeSpec(
+  'dataAccess.Customer',
+  source: ['IMO-014', 'IMO-014-a', 'IMO-014-b', 'DAATT-DTFR'],
+)
+@DocSpec([
+  DocRef('IMO-014', 'supplies the entity, its table and its storage placement'),
+])
+@CsTable('customer', datasource: 'core')
+class Customer {
+  /// The name the customer trades under.
+  @DocSpec([
+    DocRef('IMO-014-a', 'supplies the stored attribute, its column and its storage type'),
+    DocRef('DATAA', 'supplies the maximum length'),
+  ])
+  @CsColumn(
+    column: 'cust_name',
+    columnType: 'VARCHAR',
+    length: 80,
+    accessKey: ResourceKeys.customerPii,
+  )
+  late final String name;
+
+  @DocSpec([
+    DocRef('IMO-014-b', 'supplies the stored attribute, its column and its storage type'),
+    DocRef('DAATT-DTFR', 'supplies the file-reference facet settings'),
+  ])
+  @CsColumn(
+    column: 'signed_contract',
+    fileReference: CsFileReference(
+      keyPrefix: 'contracts',
+      acceptedMediaTypes: ['application/pdf'],
+    ),
+  )
+  late final String signedContract;
+}
+''',
+          },
+          extracts: _extract([
+            ..._customerEntries,
+            ('IMO-014', 'entityName', 'Customer'),
+            ('IMO-014', 'table', 'customer'),
+            ('IMO-014', 'datasource', 'core'),
+            ('IMO-014-a', 'attributeName', 'name'),
+            ('IMO-014-a', 'column', 'cust_name'),
+            ('IMO-014-a', 'columnType', 'VARCHAR'),
+            ('IMO-014-a', 'accessKey', 'customer.pii'),
+            ('IMO-014-a', 'description', 'The name the customer trades under.'),
+            ('DATAA', 'maxLength', '80'),
+            ('IMO-014-b', 'attributeName', 'signedContract'),
+            ('IMO-014-b', 'column', 'signed_contract'),
+            ('DAATT-DTFR', 'keyPrefix', 'contracts'),
+            ('DAATT-DTFR', 'cascadeDelete', 'true'),
+            ('DAATT-DTFR', 'acceptedMediaTypes', 'application/pdf'),
+          ]),
+        );
+
+    test('every comment line comes from the extract (32)', () {
+      expect(_forCheck(32, workedExample()), isEmpty);
+    });
+
+    test('the grouped holder carries C3\'s one sentence (33)', () {
+      expect(_forCheck(33, workedExample()), isEmpty);
+    });
+
+    test('no line is a re-wrap and no value is cut short (34)', () {
+      expect(_forCheck(34, workedExample()), isEmpty);
+    });
+  });
+
   group('the pass as a whole', () {
     CodeSpecsValidationInput cleanTrio() => _input(
           shared: {
@@ -2488,7 +2941,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 31 checks passed');
+      expect(report.summary, 'codespecs: 34 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -2521,7 +2974,7 @@ class Order {
       );
       final report = runCodeSpecsChecks(broken);
       expect(report.violations.map((v) => v.check), containsAll([4, 6]));
-      expect(report.summary, contains('across 2 of 31 checks'));
+      expect(report.summary, contains('across 2 of 34 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(
         report.lines.join('\n'),

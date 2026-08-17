@@ -2081,15 +2081,29 @@ Each is named here so the toolchain implements it as a check rather than as a
 convention. They are the mechanised half of the authoring side (§2.0): the agent
 writes the trio, and this program decides whether what it wrote is admissible.
 
-**Where they run.** All thirty-one are implemented in
+**Where they run.** All thirty-four are implemented in
 `tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
-the analyzer, `cs_model` resolves it, `cs_checks` holds the checks,
-`codespecs_validator` drives them) and are invoked by
-`dart run bin/validate_codespecs.dart --shared … --client … --server …`, which
-exits non-zero on any violation. The third column names each check's class in
-`cs_checks.dart`, so the correspondence is stated rather than inferred: a check
-numbered below with no class, or a class in the registry with no row, is a
+the analyzer, `cs_model` resolves it, `cs_extract` reads the per-area extracts,
+`cs_checks` holds the checks, `codespecs_validator` drives them) and are invoked
+by
+`dart run bin/validate_codespecs.dart --shared … --client … --server … [--extracts …]`,
+which exits non-zero on any violation. The fourth column names each check's class
+in `cs_checks.dart`, so the correspondence is stated rather than inferred: a
+check numbered below with no class, or a class in the registry with no row, is a
 defect in one of the two.
+
+**The trio is the pass's subject, not its only input.** Most checks read the
+trio alone and ask whether it is internally coherent. Four questions cannot be
+answered that way, and each brings its own corroborating input: the CE-MG
+migrations (check 13), the `tom_core` catalogues a marker's vocabulary mirrors
+(check 9), a second generation run (check 31), and the **extracts** — what the
+agent was *given* (`codespecs_mapping.md` §1.1.1), which is what checks 32–34
+hold the emitted doc comments against. A comment claims to carry specification
+text, and only the extract holds that text; no reading of the output alone can
+tell a copied sentence from a composed one. Every corroborating input is
+optional at the CLI, and when one is absent its checks raise nothing and
+`validate_codespecs.dart` **writes that on stdout**, for the reason spelled out
+under check 31: a silent pass would read as a verified one.
 
 **Why none of them is a const-constructor `assert`.** Checks 8, 10, 14, 15, 16 and
 21 are per-instance constraints on a single annotation's arguments, so the obvious
@@ -2100,7 +2114,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generation-time
-validator's pass over the resolved annotation for **all** thirty-one.
+validator's pass over the resolved annotation for **all** thirty-four.
 
 | # | Check | Defined in | Implemented by |
 |---|-------|------------|----------------|
@@ -2135,6 +2149,9 @@ validator's pass over the resolved annotation for **all** thirty-one.
 | 29 | Every branch in a generated body is an `if` on a `…Applies` collaborator guard call, never a composed expression, and no body repeats (`for`, `while`) or selects multi-way (`switch`) | §2.4 B4, §2.4 B7 | `CsBranchConditionCheck` |
 | 30 | A collaborator method repeats its calling body's parameters name-for-name and type-for-type, and its return type follows the call's position — the body's own on a `return`, `void`/`Future<void>` on an earlier step, `bool`/`Future<bool>` on a guard | §3.0.1, §2.4 B3, §2.4 B4 | `CsCollaboratorSignatureCheck` |
 | 31 | Two generation runs over one model produce the same file set and byte-identical contents | §2.8 C5, §2.1 N1 | `CsDeterminismCheck` |
+| 32 | Every doc-comment line occurs in the extract of a section the declaration traces to — a line that occurs in no extract is prose the agent composed | §2.8 C1 | `CsCommentSourceCheck` |
+| 33 | A grouped holder — a top-level declaration with no `@DocSpec` — carries C3's one-line template and no other generated prose | §2.8 C3 | `CsGroupedHolderCommentCheck` |
+| 34 | A doc-comment line is its source line entire — not a re-wrap of it, and not a value the comment stopped rendering part-way | §2.8 C4.2 | `CsCommentFidelityCheck` |
 
 **Check 23 is the one that makes "compiles" checkable before a compiler sees
 it.** Its two halves fail in opposite directions and neither implies the other.
@@ -2212,7 +2229,8 @@ server project ever depending on them. A dangling drill-through is likewise a
 defect to report rather than a failure to suffer — a column whose target does
 not resolve simply does not drill through.
 
-**Checks 25–27 guard the only place the specification's words survive.** A
+**Checks 25–27 and 32–34 guard the only place the specification's words
+survive.** A
 form-3 body says nothing — it throws, or it delegates — so the doc comment is
 where the SOM description reaches the code Phase 6 implements. That is why C2
 calls a missing method comment a **generation error** and not a lapse of style
@@ -2223,15 +2241,45 @@ three-line banner the sole `//` an emitted file may hold, so check 26 counts the
 banner out rather than filtering by position — a fourth `//` above the imports
 has crept in beside the banner and is as forbidden as one inside a body.
 
-**What the comment checks leave to the SOM side.** Check 27 enforces the three
-C4 rules a reader of the emitted file can see: C4.1's trailing whitespace,
+**How the six comment rules divide across the checks.** Check 27 takes the three
+C4 rules a reader of the emitted file alone can see: C4.1's trailing whitespace,
 C4.3's blank line, and C4.4's escapes, which decide whether dartdoc renders the
 specification's own words or silently eats them — an unescaped `[Order]` becomes
 a broken reference, an unescaped `<name>` an HTML tag that renders as nothing.
-C4.2 (no re-wrapping, no truncation), C3's template and C1's source rules all
-compare emitted text against SOM text that is **not in the trio**, so they are
-assertions against the extract rather than trio checks. The division is the same one
-check 23 draws for the substrate half: a check reads what its input can show.
+C1's source rules, C3's template and C4.2 (no re-wrapping, no truncation) each
+hold the emitted text against the SOM text it came from, which the trio does not
+contain — so they are checks 32, 33 and 34, against the **extract**. C5's
+determinism is check 31 and C6's silence is check 26. C2's four positions are
+carried by check 25 (P3's missing method comment, a generation error) and by
+check 7 (P2 turns on the same test as `@DocSpec`, so the back-link agreement
+carries it).
+
+**The extract moves the division; it does not remove it.** Two residues stay on
+the SOM side, and each is a place where the extract is silent rather than a place
+nothing was checked:
+
+- **C1's *designated* description field.** Check 32 decides whether a line is in
+  the specification at all — C1's fourth prohibition, *anything the agent
+  composes*, which is the one §2.8 calls hardest to detect. It cannot decide
+  whether the line came from the *right* field of the right section, because
+  which field is designated is stated in an entry's point 1, in prose, and the
+  extract carries values rather than that verdict. A comment built from a
+  section's wrong field passes check 32.
+- **C3's two slots.** Check 33 decides the template's shape — one line, `<part>
+  for <root>.` — which is what makes "no other generated sentence exists anywhere
+  in the output" enforceable. It does not decide the slots' content: §4.1 gives
+  each part a canonical id (`ErrorResult`) where C3's own illustration renders
+  one as prose (`Error codes`), and the extract's document root is the model's
+  root section segment rather than the document's name. Deciding either would
+  mean inventing a mapping this contract does not state.
+
+Checks 32 and 34 also **partition** their reports rather than both firing on one
+fault: a line that is a fragment of a source line is a re-wrap or a truncation
+and belongs to 34, so 32 reports only lines that appear nowhere. One fault, one
+message, one rule cited.
+
+The division is the same one check 23 draws for the substrate half: a check reads
+what its input can show.
 
 **Check 29 carries §2.4 B7's bound, and states when it moves.** B4's guard is
 the point: an agent that emitted `if (order.total > limit)` would have parsed

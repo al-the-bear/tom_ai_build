@@ -1,12 +1,12 @@
 /// Runs the `codespecs_derivation_contract.md` §6 checks over an emitted
 /// CodeSpecs tree.
 ///
-/// **Where this runs.** §6 places enforcement in "the generator's validation
-/// pass over the resolved annotation". The CodeSpecs generator does not exist
-/// yet; this is that pass, written standalone so it can be called before the
-/// generator arrives and called *by* the generator once it does. It lives beside
-/// the SOM generator and the SOM model validator for the same reason they live
-/// together — the generator that will call it is already homed here.
+/// **Where this runs.** Phase 4 emits no code from a program: an authoring agent
+/// writes the trio from a per-area extract (`codespecs_mapping.md` §1.1.1). So
+/// this is the pass that stands where a generator's own validation would have
+/// stood — the step that decides whether what the agent wrote is admissible, run
+/// after each authoring step and at gate G4. It lives beside the SOM generator
+/// and the SOM model validator because the extract it reads is emitted there.
 ///
 /// **Failure mode.** A violation is a failure, never a warning: [runCodeSpecsChecks]
 /// returns every breach it finds and [CodeSpecsValidationReport.passed] is false
@@ -52,7 +52,7 @@ class CodeSpecsValidationReport {
   }
 }
 
-/// Runs [checks] (by default all thirty-one) over [input].
+/// Runs [checks] (by default all thirty-four) over [input].
 ///
 /// Every check runs even when an earlier one fails — an author fixing a
 /// generated tree wants the whole list, not the first breach.

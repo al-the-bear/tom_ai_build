@@ -126,6 +126,28 @@ CsFile _readFile(CsLocus locus, String path, String source) {
             docComment: _docComment(path, lines, member.documentationComment),
           ),
         );
+        // The constants are members like any other. They matter because
+        // `codespecs_derivation_contract.md` §3.1.1 withholds the per-constant
+        // `@DocSpec` *on the strength of* the constant's own doc comment, so a
+        // domain enum is the one place a comment stands alone as the trace —
+        // and a comment no check reads is a comment nothing constrains.
+        for (final constant in member.body.constants) {
+          declarations.add(
+            _declaration(
+              locus: locus,
+              path: path,
+              lines: lines,
+              name: constant.name.lexeme,
+              kind: CsDeclarationKind.field,
+              owner: name.lexeme,
+              metadata: constant.metadata,
+              offset: constant.name.offset,
+              isStatic: true,
+              docComment:
+                  _docComment(path, lines, constant.documentationComment),
+            ),
+          );
+        }
       case MixinDeclaration():
         declarations.add(
           _declaration(

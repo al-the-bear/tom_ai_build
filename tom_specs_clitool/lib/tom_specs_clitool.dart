@@ -220,6 +220,16 @@ export 'src/invariant_correspondence.dart'
 // The codespecs_derivation_contract.md §6 validation pass over an emitted
 // CodeSpecs trio.
 export 'src/codespecs/cs_model.dart';
+export 'src/codespecs/cs_extract.dart'
+    show
+        CsExtract,
+        CsExtractEntry,
+        CsExtractSet,
+        CsExtractException,
+        readCsExtracts,
+        csEscapedLines,
+        csEscapeCommentLine,
+        kCsExtractFormat;
 export 'src/codespecs/cs_reader.dart'
     show readCsLocusProject, readCsLocusProjectFromDirectory, readEnumValues;
 export 'src/codespecs/cs_checks.dart'

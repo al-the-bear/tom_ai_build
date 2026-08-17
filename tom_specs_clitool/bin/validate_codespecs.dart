@@ -30,7 +30,13 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'migrations',
       help: 'Directory of CE-MG migration artifacts (*.sql), for check 13. '
-          'Omitted: the check has nothing to converge and passes.',
+          'Omitted: the check has nothing to converge and reports nothing.',
+    )
+    ..addOption(
+      'extracts',
+      help: 'Directory of per-area extracts (*.extract.yaml), for the comment '
+          'checks (32, 33, 34). Omitted: the specification text the comments '
+          'claim to carry is absent, so the three report nothing.',
     )
     ..addOption(
       'cs-vocabulary',
@@ -80,26 +86,51 @@ Future<void> main(List<String> arguments) async {
   }
 
   final regeneration = _regeneration(results);
+  final extracts = _extracts(results.option('extracts'));
+  final migrations = _migrations(results.option('migrations'));
+  final vocabulary = results.option('cs-vocabulary');
+  final coreSource = results.option('core-source');
   final input = CodeSpecsValidationInput(
     shared: _project(CsLocus.shared, results.option('shared')!),
     client: _project(CsLocus.client, results.option('client')!),
     server: _project(CsLocus.server, results.option('server')!),
-    migrations: _migrations(results.option('migrations')),
+    migrations: migrations,
     enumMirrors: readCsEnumMirrors(
-      csSources: _dartSources(results.option('cs-vocabulary')),
-      coreSources: _dartSources(results.option('core-source')),
+      csSources: _dartSources(vocabulary),
+      coreSources: _dartSources(coreSource),
     ),
     regeneration: regeneration,
+    extracts: extracts,
   );
 
-  // A check that cannot run says so. Determinism is a property of the
-  // *generator*, not of a trio, so with one run there is nothing to compare —
-  // and a silent pass would read as a verified one.
+  // Every check whose corroborating input is absent says so. The trio is the
+  // pass's subject; four checks each need something the trio cannot show, and
+  // for all four a silent pass would read as a verified one.
+  if (migrations.isEmpty) {
+    stdout.writeln(
+      'codespecs: check 13 (migration convergence) not run — pass --migrations '
+      "pointing at the run's CE-MG artifacts.",
+    );
+  }
+  if (vocabulary == null || coreSource == null) {
+    stdout.writeln(
+      'codespecs: check 9 (mirrored catalogues) not run — pass both '
+      '--cs-vocabulary and --core-source; a catalogue neither side declares '
+      'mirrors an empty one, which compares equal.',
+    );
+  }
   if (regeneration == null) {
     stdout.writeln(
       'codespecs: check 31 (determinism) not run — pass '
       '--regenerated-shared/--regenerated-client/--regenerated-server pointing '
       'at a second generation run over the same model.',
+    );
+  }
+  if (extracts.isEmpty) {
+    stdout.writeln(
+      'codespecs: checks 32, 33 and 34 (comment source, template and fidelity) '
+      'not run — pass --extracts pointing at the run\'s '
+      'generated-doc/codespecs_extracts directory.',
     );
   }
 
@@ -165,6 +196,33 @@ Map<String, String> _migrations(String? path) {
   return out;
 }
 
+/// The per-area extracts under [path] — the `<CE-CODE>.extract.yaml` artifacts
+/// of record (`codespecs_mapping.md` §1.1.1).
+///
+/// The rendered `.md` views beside them are deliberately not read: they are a
+/// view of the YAML, and reading a view as an input is how a rendering becomes
+/// a second source of truth.
+CsExtractSet _extracts(String? path) {
+  if (path == null) return CsExtractSet.empty;
+  final dir = Directory(p.normalize(p.absolute(path)));
+  if (!dir.existsSync()) {
+    stderr.writeln('Error: extracts directory not found: ${dir.path}');
+    exit(2);
+  }
+  final sources = <String, String>{};
+  for (final entity in dir.listSync(recursive: true)) {
+    if (entity is! File || !entity.path.endsWith('.extract.yaml')) continue;
+    sources[p.relative(entity.path, from: dir.path)] =
+        entity.readAsStringSync();
+  }
+  try {
+    return readCsExtracts(sources);
+  } on CsExtractException catch (e) {
+    stderr.writeln('Error: ${e.message}');
+    exit(2);
+  }
+}
+
 /// Every Dart source under [path] — one file, or a tree.
 List<String> _dartSources(String? path) {
   if (path == null) return const [];
@@ -190,7 +248,7 @@ void _printUsage(ArgParser parser) {
   );
   stdout.writeln();
   stdout.writeln(
-    'Enforces the thirty-one checks of codespecs_derivation_contract.md §6. '
+    'Enforces the thirty-four checks of codespecs_derivation_contract.md §6. '
     'Any violation fails: the exit code is 1 and every breach is written to '
     'stderr naming its check number and defining section.',
   );
