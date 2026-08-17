@@ -6,7 +6,10 @@ Model (SOM). It is the language-independent core shared by every generated typed
 (`tom_specs_editor`) and the model reviewer (`tom_specs_reviewer`): the
 path-keyed in-memory document representation, the meta-model ("reflection")
 classes that load the exported spec-model meta-data, the markdown /
-DocSpecs-YAML readers and writers, the document validator, and the scripting
+DocSpecs-YAML readers and writers, the document validator, the Phase-4 CodeSpecs
+extractor (`spec_codespecs_extract`, which routes a filled document by
+`@CodeSpecKind` into one bounded, cited extract per CodeSpecs area — the machine
+half of Phase 4, and the reason that phase is not Dart-only), and the scripting
 surface a sandboxed layer needs — the lexical/structural query facility
 (`SpecQueryEngine`, matching over the portable `SomTextPattern` subset) and the
 model-constrained node-creation gate (`SpecNodeCreator`). Pure Dart, no Flutter
