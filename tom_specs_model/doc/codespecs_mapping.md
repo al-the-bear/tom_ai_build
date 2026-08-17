@@ -1390,28 +1390,45 @@ three competing options.
    *aggregate*: a root entity plus the entities that have no independent lifecycle
    outside it. It owns every CE-DB table and repository over those entities and
    every CE-API operation whose **primary written entity** is in the aggregate.
+   The aggregate is **read, not judged**: every entity states its aggregate in
+   `DAENT-CLAS.aggregateRoot`, which holds the root's `DAENT-IDEN.entityName`
+   and which a root fills with its own name. "Is this a root?" is therefore the
+   string equality `aggregateRoot == entityName`, and "which entities are in
+   this aggregate?" is a group-by over one authored field.
 2. **Secondary — process cohesion (D02 TOM).** Where two aggregates are always
    mutated inside one business transaction/process they may be **merged** into one
    unit; where one aggregate's operations divide into clearly independent processes
-   the unit may be **split**. Process cohesion only *adjusts* the primary grouping.
+   the unit may be **split**. Process cohesion only *adjusts* the primary grouping,
+   and the adjustment is authored, per entity, in
+   `DAENT-CLAS.serviceUnitAggregate` — the root whose unit serves this entity when
+   that is not its own. Several aggregates naming one root is a merge; one
+   aggregate whose entities name different roots is a split. Empty means no
+   adjustment, so the **effective aggregate** of an entity is
+   `serviceUnitAggregate` where set and `aggregateRoot` otherwise.
 3. **Outer bound — bounded context (D06 ATS).** A service unit never spans two
    architecture modules / bounded contexts. The context is the coarse container that
-   caps any merge.
+   caps any merge; an entity names its context in `DAENT-CLAS.boundedContext`.
 
 **Identification.** A unit's stable id is its root-aggregate name + `Service` (e.g.
 `OrderService`, PascalCase). That id is the `@CsServiceUnit` identity and the
-`<app>_codespec_server` grouping key (§4.2).
+`<app>_codespec_server` grouping key (§4.2). The unit set is exactly the distinct
+effective aggregates, so how many units exist is counted, not decided.
 
 **Ownership & cross-unit access.** A unit owns {its aggregate entities (CE-DB),
-their repositories (CE-DB), the operations that write them (CE-API + CE-AZ)}. A
-read spanning units is assigned to the unit owning its **primary** entity; a unit
-**never** reaches another unit's repository directly — cross-unit data flows through
-the owning unit's CE-API. This keeps each unit's persistence private and makes the
-boundary enforceable at generation time.
+their repositories (CE-DB), the operations that write them (CE-API + CE-AZ)} — an
+entity belongs to the unit of its effective aggregate, and an operation to the unit
+of `SVOPE.primaryDataEntity`'s entity. A read spanning units is assigned to the unit
+owning its **primary** entity; a unit **never** reaches another unit's repository
+directly — cross-unit data flows through the owning unit's CE-API. This keeps each
+unit's persistence private and makes the boundary enforceable at generation time.
+All three consumers — CE-SU, CE-DB, CE-API — resolve ownership through the same two
+fields, so they cannot disagree about where an entity lives.
 
-**SOM feed.** owned aggregate ← D03 IMO entity/aggregate structure · merges/splits
-← D02 TOM process cohesion · module cap ← D06 ATS · operation inventory ← D07 IFS.
-Join key is the SOM `@SectionId` (§8).
+**SOM feed.** owned aggregate ← `DAENT-CLAS.aggregateRoot` (D03 IMO) ·
+merges/splits ← `DAENT-CLAS.serviceUnitAggregate` (D03 IMO, authored from D02 TOM
+process cohesion) · outer bound ← `DAENT-CLAS.boundedContext` (D06 ATS) ·
+operation inventory ← D07 IFS, joined by `SVOPE.primaryDataEntity`. Join key is
+the SOM `@SectionId` (§8).
 
 ### 5.2 CE-LO layout-node representation
 
@@ -2987,7 +3004,10 @@ CE-API operation whose primary written entity is in it" means membership is
 
 - **Authored (the spec input):** the *unit identity* and the *aggregate root* the
   author picks, plus the explicit *process-cohesion adjustments* and the *bounded
-  context* that cap it. Everything the boundary needs and nothing more.
+  context* that cap it. Everything the boundary needs and nothing more. All of it
+  is authored **on the entity**, in `DAENT-CLAS` — there is no separate service-unit
+  registry to keep in step with the entity list, and no unit exists that no entity
+  named.
 - **Derived (computed by the ownership rule at generation time):** the owned entity
   set, the owned repositories, and the owned operations — all follow from the root
   aggregate + the CE-DB placement (§5.13) + the CE-API primary-written-entity rule
@@ -3001,10 +3021,10 @@ CE-API operation whose primary written entity is in it" means membership is
 
 | Attribute | Authored / Derived | Req? | Source rule | Neutral DocSpecs term |
 |-----------|--------------------|------|-------------|-----------------------|
-| **Unit id** (`<RootAggregate>Service`, PascalCase) | Authored | Y | §5.1 identification | Service unit (identity) |
-| **Root aggregate** (root entity + lifecycle-dependent entities) | Authored | Y | §5.1 rule 1 · D03 IMO | Data entity (aggregate root) |
-| **Process-cohesion adjustment** (merge two aggregates in one transaction / split one into independent processes) | Authored | D | §5.1 rule 2 · D02 TOM | Business process (grouping adjust) |
-| **Bounded context** (outer cap — the architecture module the unit sits in) | Authored | Y | §5.1 rule 3 · D06 ATS | Architecture module (outer bound) |
+| **Unit id** (`<RootAggregate>Service`, PascalCase) | Authored | Y | §5.1 identification, over `DAENT-CLAS.aggregateRoot` | Service unit (identity) |
+| **Root aggregate** (root entity + lifecycle-dependent entities) | Authored | Y | §5.1 rule 1 · `DAENT-CLAS.aggregateRoot` (D03 IMO) | Data entity (aggregate root) |
+| **Process-cohesion adjustment** (merge two aggregates in one transaction / split one into independent processes) | Authored | D | §5.1 rule 2 · `DAENT-CLAS.serviceUnitAggregate` (D03 IMO, from D02 TOM) | Business process (grouping adjust) |
+| **Bounded context** (outer cap — the architecture module the unit sits in) | Authored | Y | §5.1 rule 3 · `DAENT-CLAS.boundedContext` (D06 ATS) | Architecture module (outer bound) |
 | **Owned entities** (aggregate members) | Derived | — | §5.1 rule 1 | Data entity (ownership) |
 | **Owned repositories** (CE-DB repos over the aggregate, §5.13) | Derived | — | §5.1 rule 1 | Query/Filter (ownership) |
 | **Owned operations** (CE-API ops whose primary written entity ∈ aggregate, §5.14) | Derived | — | §5.1 rule 1 | Operation (membership) |
@@ -3035,9 +3055,11 @@ attribute here.
   server project's grouping key; clients see only the CE-API contract + CE-ST
   view-model, never the service-unit grouping.
 
-**SOM feed.** CE-SU derives from **D07 IFS** (operations to group) + **D03 IMO**
-(the aggregate that anchors the boundary) + **D02 TOM** (process cohesion) +
-**D06 ATS** (the bounded-context cap), per §8.
+**SOM feed.** CE-SU derives from **D07 IFS** (operations to group, joined by
+`SVOPE.primaryDataEntity`) + **D03 IMO** — `DAENT-CLAS.aggregateRoot` anchors the
+boundary, `DAENT-CLAS.serviceUnitAggregate` carries the **D02 TOM** process-cohesion
+adjustment, and `DAENT-CLAS.boundedContext` carries the **D06 ATS** cap. All four
+inputs reach the derivation as named fields on the entity, per §8.
 
 ### 5.18 CE-EL field-base + per-kind extras + the closed semantic→widget catalogue
 
@@ -4588,7 +4610,7 @@ document order, in slice 3.
 | CE-TX | **D09 XDS** + SOM `@ContentHelp`/`@Form` hints/doc-comments | Texts already in the SOM; error texts via CE-ER codes. |
 | CE-VA | **D04 RSP**; **D03 IMO** constraints | Field rules from attribute constraints; form rules from requirements. |
 | CE-AC, CE-SC, CE-NV | **D05 ISC**; **D02 TOM** | Scenarios/processes define actions, triggers, transitions; the CE-NV **screen-flow** (form→screen assignment, replace/popup, action-outcome targets) is authored in the **screen route map** (`SCRTMP`) under **D09 XDS**. |
-| CE-API, CE-ER, CE-SU | **D07 IFS**; **D06 ATS**; **D05 ISC** | Operations + request/response; service-unit grouping from architecture + process cohesion. |
+| CE-API, CE-ER, CE-SU | **D07 IFS**; **D03 IMO**; **D06 ATS**; **D05 ISC** | Operations + request/response; service-unit grouping from the D03 entity aggregate fields, capped by the architecture module. |
 | CE-AZ, CE-AU, CE-ID | **D08 SAS** | Roles/permissions per operation (CE-AZ); auth/credential/session flow (CE-AU); identity-attribute extensions from the USMGT family (CE-ID). |
 | CE-DB, CE-ST | **D03 IMO** rich classes | Tables, columns, view-models, DAOs; domain enums are generated as member declarations of their owning part from DOMEN/DMENE + OBST (§4.1 member-kind rule). |
 | CE-CF | **D06 ATS**; **D08 SAS**; **D09 XDS** | **Server/system** configuration only. ATS carries the declared list and the CM / feature-flag bands, SAS the security, audit-sink, encryption and key-management bands, XDS the `PrintAndExportLayout` renderer settings (§5.5). |
@@ -4992,7 +5014,7 @@ parts §4.4.3's slices.
 | CE-AC | `action` | `ScreenActionEntry` SCRAC · `ScreenElementAction` SCELAC · the ISC step entries MNSST/ALST/EXTST/SCNST | `@CsAction` · `@CsTrigger` | COVERED |
 | CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST, each under its own flow container (`MainSuccessScenario` MASUSC · `AlternativeFlowEntry` ALFL · `ExtensionEntry` EXTEN · `ScenarioEntry` SCNRY). All four step entries carry `action`+`serverCall`+`navigation` together, since one step is at once all three, and each carries the `ServerCallStepEntry` SVCST list whose required `role` routes a step to one of the call's three handling methods (§5.3). The operation the call targets is **resolved at derivation** against SVOPR, not authored (§5.3) | `@CsServerCall` | COVERED |
 | CE-API | `serverApi` | `ServerOperationEntry` SVOPE · `ServerOperationMemberEntry` SVOPM, under the `ServerOperationRegistry` SVOPR projection root (`operationName` · `primaryDataEntity` · `authorization` → the AZREQ closed choice (§5.15) · `descriptionKey` · `errorCodes` · request/response members). The external-interface inventory `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG describe **foreign** contracts and carry `serverCall` only | `@CsEndpoint` (shared and server halves) | COVERED |
-| CE-SU | `serviceUnit` | `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) | `@CsServiceUnit` | COVERED (weak — the aggregate root is free text, not a typed entity reference) |
+| CE-SU | `serviceUnit` | `DataEntityEntry` DAENT — the `DAENT-CLAS` grouping fields `aggregateRoot` (the ownership key, a `refersTo` reference to `DAENT.entityName`, so a root names itself) · `serviceUnitAggregate` (the process-cohesion merge/split adjustment) · `boundedContext` (the outer cap). The unit set is the distinct effective aggregates, so it is counted rather than authored. `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) supplies the component narrative only; `FunctionModel` FUMO / `FunctionEntry` FUNCT / `SubFunctionEntry` SUFN / `FunctionDataMatrixEntry` FNDMX supply the function×data view the operation inventory is checked against | `@CsServiceUnit` | COVERED |
 | CE-DB | `dataAccess` | `DataEntityEntry` DAENT · `DataAttributeEntry` DAATT · `EntityRelationshipEntry` ENRLE (the `DataModel` projection root) | `@CsTable` · `@CsColumn` · `CsFileReference` · `@CsRepository` | COVERED |
 | CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTA (D09 XDS, the states and data-bound displays) · `DisplayPropertyEntry` DISPL · `BusinessObjectAttributeEntry` BIOBAT with its `BOAED` detail (D03 IMO, the per-field shape and requirement level). The IMO business-object catalogue above BIOBAT — `BusinessObjectModel` BJOMD, `BusinessObjectEntry` BJOEN — carries the kind but is **unprojected**: it is the domain catalogue fields are read from, not a screen's state | `@CsViewModel` | COVERED |
 | CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | `@CsRoute` · `@CsScreenFlow` | COVERED (screen-flow half verified) |
@@ -5131,9 +5153,9 @@ join key, traceability and gap analysis become set operations in both directions
 Anything outstanding against this document is tracked as a **quest todo** in
 `_ai/quests/tom_specs/todos.tom_specs.todo.yaml` — `csrb` and `csre` for the
 CodeSpecs follow-up series, `qr` for findings raised by a quest-refresh pass,
-`qrc` for the work one of those findings opened, and `tscomp`/`tscompc` for a
-completeness pass and its follow-ups. Each todo is self-contained, so this
-section is an index rather than a specification.
+`qrc` for the work one of those findings opened, and `tscomp`/`tscompc`/`tscompd`
+for a completeness pass and its two generations of follow-ups. Each todo is
+self-contained, so this section is an index rather than a specification.
 
 The `cs*` ids of §1.1.1 item 3 are **not** in that set and never appear here:
 they belong to a Phase-4 run against a specified project, not to the quest that
@@ -5147,20 +5169,20 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Five entries are open, in two groups. **Model** — two
-gaps the behaviour-to-body derivation exposed, each of which leaves something
-the specification states **not emitted** in the generated body, or a required
-argument with no section behind it. **Document** — the Phase-4 production model
-this document describes, the procedure for running it, and the todo tree that
-procedure instantiates.
+active part COVERED. Five entries are open, in two groups. **Model** — two gaps
+standing behind a **required** marker argument: one argument resolves against no
+registry key, the other against no authored citation at all, so in both cases the
+value reaching the generated code is a spelling or a guess rather than a
+reference. **Document** — the Phase-4 production model this document describes,
+the procedure for running it, and the todo tree that procedure instantiates.
 
 | Todo | Subject |
 |------|---------|
-| `tscompc16` | **`@CsServiceUnit.rootAggregate` is required and no section supplies it.** §5.1 makes the owned aggregate the primary boundary criterion, and `codespecs_derivation_contract.md` §5.1 makes `rootAggregate` a **required** `Type` argument sourced from D03's entity/aggregate structure — which D03 does not carry: `DataEntityEntry` and `EntityRelationshipEntry` state entities and relationships, never aggregate membership or a root. The same guess would then be re-made for CE-DB's table ownership and for every CE-API operation's scope, with nothing making the three agree. Per §1.1's B8 rule the outcome is a field on the model, not a heuristic here. |
+| `tscompd1_ahqi` | **`@CsServiceUnit.boundedContext` is required and resolves against no registry key.** §5.1 rule 3 makes the bounded context the outer bound, and `codespecs_derivation_contract.md` §3.4.1 makes `boundedContext` a **required** verbatim argument read from `DAENT-CLAS.boundedContext` — a free-text field, because `BoundedContextEntry` (`BCE`) declares no name: its only required form field is `domainArea`, a description of the domain rather than an identifier, and `BCE.@sectionId` yields `BCE-BOUN-001` rather than a context name. So two entities can name the same context in two spellings and produce two caps, and a `refersTo` target cannot be written until `BCE` carries a key. |
+| `tscompd2_ahpu` | **CE-SC's operation edge is resolved from prose.** §5.3's "The operation edge is resolved, not authored" records that no SOM member cites `ServerOperationEntry.operationName`, so `CsOperationRef` is matched against the SVOPR registry by reading an ISC step's `systemResponse` wording — the inference B8 forbids, standing behind the one **required** argument of `@CsServerCall`. The authored shape already exists beside it: CE-NV's `ScreenActionEntry.behavior.navigateTo` cites `SCRTEN.routeId`. |
 | `tscompc17` | **The Phase-4 production model is not described the same way everywhere.** §1.1 pillar (e) and §1.1.1 now state it — a **generator that extracts the specification per area** plus **prompt/agent authoring** of the code from those extracts against §5's mapping rules — but `codespecs_derivation_contract.md` still reads as pure mechanism and `tom_specs_project_flow.md` names no producer at all. This document's own 22 uses of "generator" outside §1.1 also predate the boundary and have to be read against it one by one. |
 | `tscompc20` | **Neither document states how a Phase-4 run is performed.** §1.1.1 fixes the contract — the extract artifact, the extractor's home and the four todo id ranges — but not the procedure: extract, then iterate the areas in §4.4's order, then per area iterate its extract entries, with the per-area prompt text in the derivation contract. It carries the self-sufficiency rule with it: the emitted CodeSpecs code holds every specification fact it was derived from, in comments or annotations, so Phases 5 and 6 never reopen the document. |
 | `tscompc23` | **The generated todo tree has ids but no design.** §1.1.1 item 3 fixes the four id levels (`csopen<n>` → `csproj<n>` → `csgen<n>` → `cs<area><n>`); what each rung generates, what an L2 todo must check before generating its L3 rung, and the criteria under which a generated todo is emitted `decision-needed` rather than `not-started` are unwritten. Two shapes are open with them: how an SCC's declare/wire pass pair is kept in one todo, and how a section routed to several areas is written once and cited from the others. |
-| `tscompd2` | **CE-SC's operation edge is resolved from prose.** §5.3's "The operation edge is resolved, not authored" records that no SOM member cites `ServerOperationEntry.operationName`, so `CsOperationRef` is matched against the SVOPR registry by reading an ISC step's `systemResponse` wording — the inference B8 forbids, standing behind the one **required** argument of `@CsServerCall`. The authored shape already exists beside it: CE-NV's `ScreenActionEntry.behavior.navigateTo` cites `SCRTEN.routeId`. |
 
 An open todo in those series whose subject is **not** a mapping question does
 not belong here even when the index is non-empty — a SOM validator capability

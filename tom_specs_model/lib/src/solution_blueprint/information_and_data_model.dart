@@ -451,6 +451,22 @@ class EntityFollowUpEntry extends DocSpecsSection {
 ///
 /// Comprehensive entity specification following data modeling best practices.
 /// Captures conceptual, logical, and physical design aspects.
+///
+/// **The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`
+/// names the root entity of the aggregate this entity belongs to, and a root
+/// names itself — so "is this a root?" is the string equality
+/// `aggregateRoot == entityName`, not a judgment about lifecycles and
+/// cardinalities. That matters because the aggregate is the **ownership key**
+/// for three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes
+/// which `@CsServiceUnit` exists and what it is called, which CE-DB tables and
+/// repositories that unit owns, and which CE-API operations land on it. A
+/// derivation that had to guess the grouping would guess it three times, once
+/// per area, with nothing making the three agree.
+///
+/// `DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed
+/// to be adjusted: business-process cohesion sometimes merges two aggregates
+/// into one unit or splits one across two, and stating that per entity keeps
+/// even the exception readable. Empty means no adjustment.
 @StandardReferences(
   [
     'ER modeling (Chen / Barker notation)',
@@ -460,7 +476,12 @@ class EntityFollowUpEntry extends DocSpecsSection {
   'A single data entity with its identity, classification, lifecycle, relationships, attributes, keys, indexes, and constraints.',
 )
 @SectionId('DAENT')
-@CodeSpecKind([CodeSpecPart.dataAccess])
+@CodeSpecKind(
+  [CodeSpecPart.dataAccess, CodeSpecPart.serviceUnit],
+  note: 'Entity + attributes → CE-DB table/columns; the aggregate fields in '
+      'DAENT-CLAS → the CE-SU unit boundary and its ownership key '
+      '(codespecs_mapping.md §5.1).',
+)
 class DataEntityEntry extends DocSpecsSection {
   @ContentHelp(
     'Narrative for this data entity — what it represents in the business, '
@@ -504,8 +525,9 @@ class DataEntityEntry extends DocSpecsSection {
       'entityStereoType',
       String,
       'Stereotype',
-      hint:
-          'Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge',
+      hint: 'Entity pattern: Entity | ValueObject | Event | View | Bridge. '
+          'Aggregate-root-ness is not a stereotype here — it is read from '
+          'aggregateRoot below, which is the only field that states it',
     ),
   ])
   @SerializationOrder(1)
@@ -528,6 +550,29 @@ class DataEntityEntry extends DocSpecsSection {
       String,
       'Bounded Context',
       hint: 'Domain-driven design bounded context this entity belongs to',
+    ),
+    Field(
+      'aggregateRoot',
+      String,
+      'Aggregate Root',
+      required: true,
+      refersTo: ['DAENT.entityName'],
+      hint: 'Entity Name of the root of the aggregate this entity belongs to '
+          '— a root names itself, so an entity with no enclosing aggregate '
+          'names its own Entity Name. This is the ownership key: the service '
+          'unit that owns the aggregate owns this entity, its repository, and '
+          'every operation that primarily writes it',
+    ),
+    Field(
+      'serviceUnitAggregate',
+      String,
+      'Service Unit Aggregate',
+      refersTo: ['DAENT.entityName'],
+      hint: 'Only when business-process cohesion overrides the default '
+          'grouping: Entity Name of the aggregate root whose service unit '
+          'serves this entity. Several aggregates naming one root is a merge; '
+          'one aggregate whose entities name different roots is a split. '
+          'Empty means the aggregate named above',
     ),
     Field(
       'owningDomain',

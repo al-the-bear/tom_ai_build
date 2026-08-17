@@ -1104,12 +1104,14 @@ document:
               description: |2-
                 A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
               entityStereoType: |2-
-                Aggregate Root
+                Entity
             DAENT-CLAS classification:
               category: |2-
                 Transactional
               boundedContext: |2-
                 Ordering
+              aggregateRoot: |2-
+                Order
               owningDomain: |2-
                 Order Management
               dataOwner: |2-
@@ -1235,6 +1237,8 @@ document:
                 Transactional
               boundedContext: |2-
                 Ordering
+              aggregateRoot: |2-
+                Order
               owningDomain: |2-
                 Order Management
               dataOwner: |2-
@@ -1366,11 +1370,13 @@ document:
               description: |2-
                 A wholesale or e-commerce customer that places orders. Realizes FR-01.
               entityStereoType: |2-
-                Aggregate Root
+                Entity
             DAENT-CLAS classification:
               category: |2-
                 Master
               boundedContext: |2-
+                Customer
+              aggregateRoot: |2-
                 Customer
               owningDomain: |2-
                 Customer Management
@@ -1455,12 +1461,14 @@ document:
               description: |2-
                 A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
               entityStereoType: |2-
-                Aggregate Root
+                Entity
             DAENT-CLAS classification:
               category: |2-
                 Master
               boundedContext: |2-
                 Catalogue
+              aggregateRoot: |2-
+                Product
               owningDomain: |2-
                 Merchandising
               dataOwner: |2-

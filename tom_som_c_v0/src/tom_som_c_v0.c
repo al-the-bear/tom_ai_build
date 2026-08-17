@@ -74086,6 +74086,20 @@ char *data_entity_entry_classification_form_bounded_context(const DataEntityEntr
 void data_entity_entry_classification_form_set_bounded_context(DataEntityEntryClassificationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "boundedContext", value);
 }
+char *data_entity_entry_classification_form_aggregate_root(const DataEntityEntryClassificationForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "aggregateRoot");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_entity_entry_classification_form_set_aggregate_root(DataEntityEntryClassificationForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "aggregateRoot", value);
+}
+char *data_entity_entry_classification_form_service_unit_aggregate(const DataEntityEntryClassificationForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "serviceUnitAggregate");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_entity_entry_classification_form_set_service_unit_aggregate(DataEntityEntryClassificationForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "serviceUnitAggregate", value);
+}
 char *data_entity_entry_classification_form_owning_domain(const DataEntityEntryClassificationForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "owningDomain");
   return som_strdup(v != NULL ? v : "");

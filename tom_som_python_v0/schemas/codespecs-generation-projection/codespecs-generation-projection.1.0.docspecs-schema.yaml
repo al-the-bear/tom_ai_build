@@ -12823,13 +12823,18 @@ form-types:
       - fieldname: description
         description: Clear definition of what this entity represents
       - fieldname: entityStereoType
-        description: "Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge"
+        description: "Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it"
   daent-clas-form:
     fields:
       - fieldname: category
         description: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData"
       - fieldname: boundedContext
         description: Domain-driven design bounded context this entity belongs to
+      - fieldname: aggregateRoot
+        required: true
+        description: "Entity Name of the root of the aggregate this entity belongs to — a root names itself, so an entity with no enclosing aggregate names its own Entity Name. This is the ownership key: the service unit that owns the aggregate owns this entity, its repository, and every operation that primarily writes it"
+      - fieldname: serviceUnitAggregate
+        description: "Only when business-process cohesion overrides the default grouping: Entity Name of the aggregate root whose service unit serves this entity. Several aggregates naming one root is a merge; one aggregate whose entities name different roots is a split. Empty means the aggregate named above"
       - fieldname: owningDomain
         description: Business domain responsible for this entity
       - fieldname: dataOwner

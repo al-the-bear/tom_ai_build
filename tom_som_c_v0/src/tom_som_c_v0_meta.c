@@ -39629,8 +39629,8 @@ static void meta_build_d03_information_model_entities_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DAENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataEntityEntry");
-  meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.");
-  meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.");
+  meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
+  meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
 }
 static void meta_build_d03_information_model_entity_relationships(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationships");
@@ -43434,7 +43434,7 @@ static void meta_build_data_entity_entry_identity(SomMetaNode *n) {
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Stereotype");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Entity pattern: AggregateRoot | Entity | ValueObject | Event | View | Bridge");
+  n->form->fields[4].hint = som_strdup("Entity pattern: Entity | ValueObject | Event | View | Bridge. Aggregate-root-ness is not a stereotype here — it is read from aggregateRoot below, which is the only field that states it");
   n->form->fields[4].order = 4;
 }
 static void meta_build_data_entity_entry_classification(SomMetaNode *n) {
@@ -43446,8 +43446,8 @@ static void meta_build_data_entity_entry_classification(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 6;
-  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 8;
+  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("category");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Category");
@@ -43460,30 +43460,48 @@ static void meta_build_data_entity_entry_classification(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Domain-driven design bounded context this entity belongs to");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("owningDomain");
+  n->form->fields[2].name = som_strdup("aggregateRoot");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Owning Domain");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Business domain responsible for this entity");
+  n->form->fields[2].description = som_strdup("Aggregate Root");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("Entity Name of the root of the aggregate this entity belongs to — a root names itself, so an entity with no enclosing aggregate names its own Entity Name. This is the ownership key: the service unit that owns the aggregate owns this entity, its repository, and every operation that primarily writes it");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("dataOwner");
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[3].name = som_strdup("serviceUnitAggregate");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Data Owner");
+  n->form->fields[3].description = som_strdup("Service Unit Aggregate");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Role or team accountable for data quality");
+  n->form->fields[3].hint = som_strdup("Only when business-process cohesion overrides the default grouping: Entity Name of the aggregate root whose service unit serves this entity. Several aggregates naming one root is a merge; one aggregate whose entities name different roots is a split. Empty means the aggregate named above");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("dataSteward");
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[4].name = som_strdup("owningDomain");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Data Steward");
+  n->form->fields[4].description = som_strdup("Owning Domain");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Person or role responsible for data governance");
+  n->form->fields[4].hint = som_strdup("Business domain responsible for this entity");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("sourceSystem");
+  n->form->fields[5].name = som_strdup("dataOwner");
   n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Source System");
+  n->form->fields[5].description = som_strdup("Data Owner");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("System of record or originating system for migration");
+  n->form->fields[5].hint = som_strdup("Role or team accountable for data quality");
   n->form->fields[5].order = 5;
+  n->form->fields[6].name = som_strdup("dataSteward");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Data Steward");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("Person or role responsible for data governance");
+  n->form->fields[6].order = 6;
+  n->form->fields[7].name = som_strdup("sourceSystem");
+  n->form->fields[7].type_name = som_strdup("String");
+  n->form->fields[7].description = som_strdup("Source System");
+  n->form->fields[7].required = 0;
+  n->form->fields[7].hint = som_strdup("System of record or originating system for migration");
+  n->form->fields[7].order = 7;
 }
 static void meta_build_data_entity_entry_lifecycle_policy(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityEntry");
@@ -45411,8 +45429,8 @@ static void meta_build_data_model_entities_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DAENT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataEntityEntry");
-  meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.");
-  meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.");
+  meta_set(&n->doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
+  meta_set(&n->class_doc_comment, "A data entity entry (form).\n\nComprehensive entity specification following data modeling best practices.\nCaptures conceptual, logical, and physical design aspects.\n\n**The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`\nnames the root entity of the aggregate this entity belongs to, and a root\nnames itself — so \"is this a root?\" is the string equality\n`aggregateRoot == entityName`, not a judgment about lifecycles and\ncardinalities. That matters because the aggregate is the **ownership key**\nfor three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes\nwhich `@CsServiceUnit` exists and what it is called, which CE-DB tables and\nrepositories that unit owns, and which CE-API operations land on it. A\nderivation that had to guess the grouping would guess it three times, once\nper area, with nothing making the three agree.\n\n`DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed\nto be adjusted: business-process cohesion sometimes merges two aggregates\ninto one unit or splits one across two, and stating that per entity keeps\neven the exception readable. Empty means no adjustment.");
 }
 static void meta_build_data_model_entity_relationships(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityRelationships");

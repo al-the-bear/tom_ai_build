@@ -1007,10 +1007,13 @@ historical orders remain reproducible.''');
     ..tableName = 'mom_order'
     ..entityAlias = 'ORD'
     ..description = 'A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.'
-    ..entityStereoType = 'Aggregate Root';
+    ..entityStereoType = 'Entity';
   order.classification
     ..category = 'Transactional'
     ..boundedContext = 'Ordering'
+    // A root names itself, which is what makes `aggregateRoot == entityName`
+    // the root test rather than a judgment about lifecycles.
+    ..aggregateRoot = 'Order'
     ..owningDomain = 'Order Management'
     ..dataOwner = 'Head of Order Operations'
     ..sourceSystem = 'MOM';
@@ -1042,6 +1045,10 @@ historical orders remain reproducible.''');
   line.classification
     ..category = 'Transactional'
     ..boundedContext = 'Ordering'
+    // A non-root member: it names the root it belongs to, so the Order service
+    // unit owns this table and its repository without anyone inferring it from
+    // the fk_line_order relationship.
+    ..aggregateRoot = 'Order'
     ..owningDomain = 'Order Management'
     ..dataOwner = 'Head of Order Operations'
     ..sourceSystem = 'MOM';
@@ -1072,10 +1079,11 @@ historical orders remain reproducible.''');
     ..tableName = 'mom_customer'
     ..entityAlias = 'CUS'
     ..description = 'A wholesale or e-commerce customer that places orders. Realizes FR-01.'
-    ..entityStereoType = 'Aggregate Root';
+    ..entityStereoType = 'Entity';
   customer.classification
     ..category = 'Master'
     ..boundedContext = 'Customer'
+    ..aggregateRoot = 'Customer'
     ..owningDomain = 'Customer Management'
     ..dataOwner = 'Commercial'
     ..sourceSystem = 'MOM';
@@ -1098,10 +1106,11 @@ historical orders remain reproducible.''');
     ..tableName = 'mom_product'
     ..entityAlias = 'PRD'
     ..description = 'A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.'
-    ..entityStereoType = 'Aggregate Root';
+    ..entityStereoType = 'Entity';
   product.classification
     ..category = 'Master'
     ..boundedContext = 'Catalogue'
+    ..aggregateRoot = 'Product'
     ..owningDomain = 'Merchandising'
     ..dataOwner = 'Merchandising'
     ..sourceSystem = 'MOM';

@@ -10339,6 +10339,22 @@ public final class TomSomV0 {
   //
   // Comprehensive entity specification following data modeling best practices.
   // Captures conceptual, logical, and physical design aspects.
+  //
+  // **The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`
+  // names the root entity of the aggregate this entity belongs to, and a root
+  // names itself — so "is this a root?" is the string equality
+  // `aggregateRoot == entityName`, not a judgment about lifecycles and
+  // cardinalities. That matters because the aggregate is the **ownership key**
+  // for three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes
+  // which `@CsServiceUnit` exists and what it is called, which CE-DB tables and
+  // repositories that unit owns, and which CE-API operations land on it. A
+  // derivation that had to guess the grouping would guess it three times, once
+  // per area, with nothing making the three agree.
+  //
+  // `DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed
+  // to be adjusted: business-process cohesion sometimes merges two aggregates
+  // into one unit or splits one across two, and stating that per entity keeps
+  // even the exception readable. Empty means no adjustment.
   public static final class DataEntityEntry extends SomNode {
     public DataEntityEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -73779,6 +73795,24 @@ public final class TomSomV0 {
 
     public void boundedContext(String value) {
       doc.setFormField(path, "boundedContext", value);
+    }
+
+    public String aggregateRoot() {
+      String v = doc.formField(path, "aggregateRoot");
+      return v == null ? "" : v;
+    }
+
+    public void aggregateRoot(String value) {
+      doc.setFormField(path, "aggregateRoot", value);
+    }
+
+    public String serviceUnitAggregate() {
+      String v = doc.formField(path, "serviceUnitAggregate");
+      return v == null ? "" : v;
+    }
+
+    public void serviceUnitAggregate(String value) {
+      doc.setFormField(path, "serviceUnitAggregate", value);
     }
 
     public String owningDomain() {

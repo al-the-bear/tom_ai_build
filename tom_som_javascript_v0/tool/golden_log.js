@@ -361,7 +361,10 @@ function main() {
   out.push('DS\twarnings\t' + schema.warnings.length);
   out.push('DS\tviolations\t' + violations.length);
   for (const v of violations) {
-    out.push('DV\t' + v.rule.name + '\t' + esc(v.sectionId || '') + '\t' + v.line);
+    // `rule` is already the canonical Dart-parity spelling here — the JS
+    // runtime models the vocabulary as frozen string constants, not as an
+    // enum object, so `.name` would be `undefined`.
+    out.push('DV\t' + v.rule + '\t' + esc(v.sectionId || '') + '\t' + v.line);
   }
 
   fs.mkdirSync(path.dirname(output), { recursive: true });

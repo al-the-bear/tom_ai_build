@@ -38877,6 +38877,18 @@ std::string DataEntityEntryClassificationForm::boundedContext() const {
 void DataEntityEntryClassificationForm::setBoundedContext(const std::string& value) {
   doc().setFormField(path(), "boundedContext", value);
 }
+std::string DataEntityEntryClassificationForm::aggregateRoot() const {
+  return doc().formField(path(), "aggregateRoot");
+}
+void DataEntityEntryClassificationForm::setAggregateRoot(const std::string& value) {
+  doc().setFormField(path(), "aggregateRoot", value);
+}
+std::string DataEntityEntryClassificationForm::serviceUnitAggregate() const {
+  return doc().formField(path(), "serviceUnitAggregate");
+}
+void DataEntityEntryClassificationForm::setServiceUnitAggregate(const std::string& value) {
+  doc().setFormField(path(), "serviceUnitAggregate", value);
+}
 std::string DataEntityEntryClassificationForm::owningDomain() const {
   return doc().formField(path(), "owningDomain");
 }

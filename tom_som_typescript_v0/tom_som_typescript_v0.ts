@@ -10008,6 +10008,22 @@ export class DataDuplicationEntry extends SomNode {
 //
 // Comprehensive entity specification following data modeling best practices.
 // Captures conceptual, logical, and physical design aspects.
+//
+// **The aggregate is authored, not inferred.** `DAENT-CLAS.aggregateRoot`
+// names the root entity of the aggregate this entity belongs to, and a root
+// names itself — so "is this a root?" is the string equality
+// `aggregateRoot == entityName`, not a judgment about lifecycles and
+// cardinalities. That matters because the aggregate is the **ownership key**
+// for three separate CodeSpecs areas (`codespecs_mapping.md` §5.1): it fixes
+// which `@CsServiceUnit` exists and what it is called, which CE-DB tables and
+// repositories that unit owns, and which CE-API operations land on it. A
+// derivation that had to guess the grouping would guess it three times, once
+// per area, with nothing making the three agree.
+//
+// `DAENT-CLAS.serviceUnitAggregate` is the one place the grouping is allowed
+// to be adjusted: business-process cohesion sometimes merges two aggregates
+// into one unit or splits one across two, and stating that per entity keeps
+// even the exception readable. Empty means no adjustment.
 export class DataEntityEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -68742,6 +68758,22 @@ export class DataEntityEntryClassificationForm extends SomNode {
 
   set boundedContext(value: string) {
     this.doc.setFormField(this.path, "boundedContext", value);
+  }
+
+  get aggregateRoot(): string {
+    return this.doc.formField(this.path, "aggregateRoot") || '';
+  }
+
+  set aggregateRoot(value: string) {
+    this.doc.setFormField(this.path, "aggregateRoot", value);
+  }
+
+  get serviceUnitAggregate(): string {
+    return this.doc.formField(this.path, "serviceUnitAggregate") || '';
+  }
+
+  set serviceUnitAggregate(value: string) {
+    this.doc.setFormField(this.path, "serviceUnitAggregate", value);
   }
 
   get owningDomain(): string {

@@ -893,12 +893,13 @@ EntityName: Order
 TableName: mom_order
 EntityAlias: ORD
 Description: A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
-EntityStereoType: Aggregate Root
+EntityStereoType: Entity
 
 ###### <!--[DAENT-CLAS]--> Classification
 
 Category: Transactional
 BoundedContext: Ordering
+AggregateRoot: Order
 OwningDomain: Order Management
 DataOwner: Head of Order Operations
 SourceSystem: MOM
@@ -1012,6 +1013,7 @@ EntityStereoType: Entity
 
 Category: Transactional
 BoundedContext: Ordering
+AggregateRoot: Order
 OwningDomain: Order Management
 DataOwner: Head of Order Operations
 SourceSystem: MOM
@@ -1129,12 +1131,13 @@ EntityName: Customer
 TableName: mom_customer
 EntityAlias: CUS
 Description: A wholesale or e-commerce customer that places orders. Realizes FR-01.
-EntityStereoType: Aggregate Root
+EntityStereoType: Entity
 
 ###### <!--[DAENT-CLAS]--> Classification
 
 Category: Master
 BoundedContext: Customer
+AggregateRoot: Customer
 OwningDomain: Customer Management
 DataOwner: Commercial
 SourceSystem: MOM
@@ -1208,12 +1211,13 @@ EntityName: Product
 TableName: mom_product
 EntityAlias: PRD
 Description: A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
-EntityStereoType: Aggregate Root
+EntityStereoType: Entity
 
 ###### <!--[DAENT-CLAS]--> Classification
 
 Category: Master
 BoundedContext: Catalogue
+AggregateRoot: Product
 OwningDomain: Merchandising
 DataOwner: Merchandising
 SourceSystem: MOM
