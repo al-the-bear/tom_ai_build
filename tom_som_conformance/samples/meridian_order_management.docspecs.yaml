@@ -1623,6 +1623,120 @@ document:
                 OrderLine
               ENRLE-TARG-REF targetEntityRef: |2-
                 Product
+      MSGKR messageKeyRegistry:
+        MSGKE-MKEY-LST messageKeys:
+          MSGKE-MKEY-1:
+            headline: |2-
+              Work list title
+            content:
+              key: |2-
+                screen.orders.title
+              defaultCopy: |2-
+                Orders
+              description: |2-
+                Page title of the order work list (SCR-01).
+          MSGKE-MKEY-2:
+            headline: |2-
+              State filter label
+            content:
+              key: |2-
+                screen.orders.filter.state
+              defaultCopy: |2-
+                State
+              description: |2-
+                Label of the state selector on the work list filter bar.
+          MSGKE-MKEY-3:
+            headline: |2-
+              State filter hint
+            content:
+              key: |2-
+                screen.orders.filter.state.hint
+              defaultCopy: |2-
+                Show only orders in the selected lifecycle state
+              description: |2-
+                Helper text of the state selector.
+          MSGKE-MKEY-4:
+            headline: |2-
+              Open order action
+            content:
+              key: |2-
+                screen.orders.action.open
+              defaultCopy: |2-
+                Open
+              description: |2-
+                Row action that navigates from the work list to order detail.
+          MSGKE-MKEY-5:
+            headline: |2-
+              Empty queue message
+            content:
+              key: |2-
+                screen.orders.empty
+              defaultCopy: |2-
+                No orders match the selected state filter
+              description: |2-
+                Shown on the work list when the filtered queue is empty, and as the status column's empty-data copy.
+          MSGKE-MKEY-6:
+            headline: |2-
+              Clear filter action
+            content:
+              key: |2-
+                screen.orders.empty.action.clear
+              defaultCopy: |2-
+                Clear filter
+              description: |2-
+                Recovery action offered on the empty work list.
+          MSGKE-MKEY-7:
+            headline: |2-
+              Order detail title
+            content:
+              key: |2-
+                screen.order.title
+              defaultCopy: |2-
+                Order {orderId}
+              placeholders: |2-
+                orderId
+              description: |2-
+                Page title of order detail (SCR-02).
+          MSGKE-MKEY-8:
+            headline: |2-
+              Amend line action
+            content:
+              key: |2-
+                screen.order.action.amend
+              defaultCopy: |2-
+                Amend line
+              description: |2-
+                Submit action on an order line.
+          MSGKE-MKEY-9:
+            headline: |2-
+              Release hold action
+            content:
+              key: |2-
+                screen.order.action.release
+              defaultCopy: |2-
+                Release hold
+              description: |2-
+                Header action that releases a credit or stock hold.
+          MSGKE-MKEY-10:
+            headline: |2-
+              Amendment rejected message
+            content:
+              key: |2-
+                screen.order.amend.error
+              defaultCopy: |2-
+                The amendment could not be applied
+              description: |2-
+                Shown on order detail when a line amendment fails validation or reservation.
+          MSGKE-MKEY-11:
+            headline: |2-
+              Retry amendment action
+            content:
+              key: |2-
+                screen.order.amend.action.retry
+              defaultCopy: |2-
+                Retry
+              description: |2-
+                Recovery action offered after a rejected amendment.
     REQS requirements:
       content: |2-
         Functional:
@@ -1649,6 +1763,49 @@ document:
         The public order API is an API-gateway-fronted REST surface; EDI ingestion runs
         as an adapter that translates to the same command API. Infrastructure is
         provisioned as code.
+      TECH technicalFramework:
+        SDR softwareDesign:
+          LAMS layeringAndModuleStructure:
+            BCE-BOUN-LST boundedContexts:
+              BCE-BOUN-1:
+                headline: |2-
+                  Ordering
+                content:
+                  contextName: |2-
+                    Ordering
+                  domainArea: |2-
+                    Order capture and fulfilment
+                  owningTeam: |2-
+                    Order Management
+                BCES scope:
+                  purpose: |2-
+                    Owns the order aggregate and its lifecycle from capture to dispatch.
+              BCE-BOUN-2:
+                headline: |2-
+                  Customer
+                content:
+                  contextName: |2-
+                    Customer
+                  domainArea: |2-
+                    Customer master data
+                  owningTeam: |2-
+                    Order Management
+                BCES scope:
+                  purpose: |2-
+                    Owns customer identity and the credit standing orders are checked against.
+              BCE-BOUN-3:
+                headline: |2-
+                  Catalogue
+                content:
+                  contextName: |2-
+                    Catalogue
+                  domainArea: |2-
+                    Product catalogue and pricing
+                  owningTeam: |2-
+                    Order Management
+                BCES scope:
+                  purpose: |2-
+                    Owns the product master and the price list orders are priced from.
     SAAM securityAndAccessModel:
       content: |2-
         Access is role-based:
@@ -1661,6 +1818,74 @@ document:
         All customer PII is encrypted at rest; the public API uses OAuth2 client
         credentials with per-partner rate limits. Every state transition is attributed
         to an authenticated principal in the audit log.
+      ACCM accessControl:
+        USAU authorization:
+          AZRO-ROLE-LST roleDefinitions:
+            AZRO-ROLE-1:
+              headline: |2-
+                Order Clerk
+              content:
+                roleName: |2-
+                  Order Clerk
+                description: |2-
+                  Works the order queue: captures, amends, and confirms orders.
+                roleCategory: |2-
+                  Business
+              ARES structure:
+                roleScope: |2-
+                  Global
+                inheritsFrom: |2-
+                  none
+                permissionSet: |2-
+                  order.read, order.amend
+            AZRO-ROLE-2:
+              headline: |2-
+                Order Supervisor
+              content:
+                roleName: |2-
+                  Order Supervisor
+                description: |2-
+                  Everything a clerk may do, plus releasing credit and stock holds.
+                roleCategory: |2-
+                  Business
+              ARES structure:
+                roleScope: |2-
+                  Global
+                inheritsFrom: |2-
+                  Order Clerk
+                permissionSet: |2-
+                  order.read, order.amend, order.hold.release
+          ENT-ENTI-LST entitlements:
+            ENT-ENTI-1:
+              headline: |2-
+                order.read
+              content:
+                entitlementName: |2-
+                  order.read
+                description: |2-
+                  See orders in the work list and open their detail.
+                accessType: |2-
+                  Read
+            ENT-ENTI-2:
+              headline: |2-
+                order.amend
+              content:
+                entitlementName: |2-
+                  order.amend
+                description: |2-
+                  Change quantities and lines on an order that is not yet dispatched.
+                accessType: |2-
+                  Write
+            ENT-ENTI-3:
+              headline: |2-
+                order.hold.release
+              content:
+                entitlementName: |2-
+                  order.hold.release
+                description: |2-
+                  Release a credit or stock hold placed on an order.
+                accessType: |2-
+                  Approve
     XID experienceAndInterfaceDesign:
       content: |2-
         The operations back office is a single-page application organised around the
@@ -1686,7 +1911,7 @@ document:
                   screenCategory: |2-
                     List
                   routePattern: |2-
-                    /orders
+                    order-work-list
                 AZREQ access:
                   content:
                     requirementKind: |2-
@@ -1700,7 +1925,7 @@ document:
                   relatedUseCases: |2-
                     UC-01, UC-02
                   relatedRequirements: |2-
-                    FR-01, FR-04, FR-06
+                    FRE-REQU-ORDER-CAPTURE, FRE-REQU-CONFIRM-SLA, FRE-REQU-HOLD-RELEASE
                   dataEntities: |2-
                     Order
                   primaryAction: |2-
@@ -1777,12 +2002,14 @@ document:
                               SCR-01-EL-3
                             elementType: |2-
                               statusIndicator
-                          SEFS fieldSpec:
+                          SEDD dataDisplay:
                             content:
-                              fieldName: |2-
-                                status
-                              dataType: |2-
-                                enumeration
+                              dataSource: |2-
+                                Order.status
+                              displayFormat: |2-
+                                Coloured state chip, one colour per lifecycle state
+                              emptyStateMessageResource: |2-
+                                screen.orders.empty
                 SCAC actions:
                   SCRAC-ITEM-LST items:
                     SCRAC-ITEM-1:
@@ -1811,7 +2038,7 @@ document:
                         messageResource: |2-
                           screen.orders.empty
                         primaryActionLabel: |2-
-                          Clear filter
+                          screen.orders.empty.action.clear
                         primaryActionTarget: |2-
                           SCR-01-EL-1
               SCREN-ITEM-SCR-02:
@@ -1826,7 +2053,7 @@ document:
                   parentScreenId: |2-
                     SCREN-ITEM-SCR-01
                   routePattern: |2-
-                    /orders/:orderId
+                    order-detail
                 AZREQ access:
                   content:
                     requirementKind: |2-
@@ -1840,7 +2067,7 @@ document:
                   relatedUseCases: |2-
                     UC-02, UC-03
                   relatedRequirements: |2-
-                    FR-05, FR-06
+                    FRE-REQU-AMEND-CANCEL, FRE-REQU-HOLD-RELEASE
                   dataEntities: |2-
                     Order, OrderLine
                   primaryAction: |2-
@@ -1941,9 +2168,34 @@ document:
                         messageResource: |2-
                           screen.order.amend.error
                         primaryActionLabel: |2-
-                          Retry
+                          screen.order.amend.action.retry
                         primaryActionTarget: |2-
                           SCR-02-ACT-1
+        SCFLST screenFlow:
+          SCRTMP screenRouteMap:
+            SCRTEN-ROUT-LST routes:
+              SCRTEN-ROUT-1:
+                headline: |2-
+                  Order work list route
+                content:
+                  routeId: |2-
+                    order-work-list
+                  routePath: |2-
+                    /orders
+                  screenId: |2-
+                    SCREN-ITEM-SCR-01
+              SCRTEN-ROUT-2:
+                headline: |2-
+                  Order detail route
+                content:
+                  routeId: |2-
+                    order-detail
+                  routePath: |2-
+                    /orders/:orderId
+                  screenId: |2-
+                    SCREN-ITEM-SCR-02
+                  routeParameters: |2-
+                    orderId
       XDFU designFollowUp:
         ACCESS accessibility:
           ACCESS-ACCE accessibilityOverviewContent:

@@ -1370,6 +1370,77 @@ OrderLine
 
 Product
 
+### <!--[MSGKR]--> Message Key Registry
+
+#### <!--[MSGKE-MKEY-LST]--> Message Keys
+
+##### <!--[MSGKE-MKEY-1]--> Work list title
+
+Key: screen.orders.title
+DefaultCopy: Orders
+Description: Page title of the order work list (SCR-01).
+
+##### <!--[MSGKE-MKEY-2]--> State filter label
+
+Key: screen.orders.filter.state
+DefaultCopy: State
+Description: Label of the state selector on the work list filter bar.
+
+##### <!--[MSGKE-MKEY-3]--> State filter hint
+
+Key: screen.orders.filter.state.hint
+DefaultCopy: Show only orders in the selected lifecycle state
+Description: Helper text of the state selector.
+
+##### <!--[MSGKE-MKEY-4]--> Open order action
+
+Key: screen.orders.action.open
+DefaultCopy: Open
+Description: Row action that navigates from the work list to order detail.
+
+##### <!--[MSGKE-MKEY-5]--> Empty queue message
+
+Key: screen.orders.empty
+DefaultCopy: No orders match the selected state filter
+Description: Shown on the work list when the filtered queue is empty, and as the status column's empty-data copy.
+
+##### <!--[MSGKE-MKEY-6]--> Clear filter action
+
+Key: screen.orders.empty.action.clear
+DefaultCopy: Clear filter
+Description: Recovery action offered on the empty work list.
+
+##### <!--[MSGKE-MKEY-7]--> Order detail title
+
+Key: screen.order.title
+DefaultCopy: Order {orderId}
+Placeholders: orderId
+Description: Page title of order detail (SCR-02).
+
+##### <!--[MSGKE-MKEY-8]--> Amend line action
+
+Key: screen.order.action.amend
+DefaultCopy: Amend line
+Description: Submit action on an order line.
+
+##### <!--[MSGKE-MKEY-9]--> Release hold action
+
+Key: screen.order.action.release
+DefaultCopy: Release hold
+Description: Header action that releases a credit or stock hold.
+
+##### <!--[MSGKE-MKEY-10]--> Amendment rejected message
+
+Key: screen.order.amend.error
+DefaultCopy: The amendment could not be applied
+Description: Shown on order detail when a line amendment fails validation or reservation.
+
+##### <!--[MSGKE-MKEY-11]--> Retry amendment action
+
+Key: screen.order.amend.action.retry
+DefaultCopy: Retry
+Description: Recovery action offered after a rejected amendment.
+
 ## <!--[REQS]--> Requirements
 
 Functional:
@@ -1398,6 +1469,44 @@ The public order API is an API-gateway-fronted REST surface; EDI ingestion runs
 as an adapter that translates to the same command API. Infrastructure is
 provisioned as code.
 
+### <!--[TECH]--> Technical Framework
+
+#### <!--[SDR]--> Software Design
+
+##### <!--[LAMS]--> Layering And Module Structure
+
+###### <!--[BCE-BOUN-LST]--> Bounded Contexts
+
+####### <!--[BCE-BOUN-1]--> Ordering
+
+ContextName: Ordering
+DomainArea: Order capture and fulfilment
+OwningTeam: Order Management
+
+######## <!--[BCES]--> Scope
+
+Purpose: Owns the order aggregate and its lifecycle from capture to dispatch.
+
+####### <!--[BCE-BOUN-2]--> Customer
+
+ContextName: Customer
+DomainArea: Customer master data
+OwningTeam: Order Management
+
+######## <!--[BCES]--> Scope
+
+Purpose: Owns customer identity and the credit standing orders are checked against.
+
+####### <!--[BCE-BOUN-3]--> Catalogue
+
+ContextName: Catalogue
+DomainArea: Product catalogue and pricing
+OwningTeam: Order Management
+
+######## <!--[BCES]--> Scope
+
+Purpose: Owns the product master and the price list orders are priced from.
+
 ## <!--[SAAM]--> Security And Access Model
 
 Access is role-based:
@@ -1410,6 +1519,56 @@ Access is role-based:
 All customer PII is encrypted at rest; the public API uses OAuth2 client
 credentials with per-partner rate limits. Every state transition is attributed
 to an authenticated principal in the audit log.
+
+### <!--[ACCM]--> Access Control
+
+#### <!--[USAU]--> Authorization
+
+##### <!--[AZRO-ROLE-LST]--> Role Definitions
+
+###### <!--[AZRO-ROLE-1]--> Order Clerk
+
+RoleName: Order Clerk
+Description: Works the order queue: captures, amends, and confirms orders.
+RoleCategory: Business
+
+####### <!--[ARES]--> Structure
+
+RoleScope: Global
+InheritsFrom: none
+PermissionSet: order.read, order.amend
+
+###### <!--[AZRO-ROLE-2]--> Order Supervisor
+
+RoleName: Order Supervisor
+Description: Everything a clerk may do, plus releasing credit and stock holds.
+RoleCategory: Business
+
+####### <!--[ARES]--> Structure
+
+RoleScope: Global
+InheritsFrom: Order Clerk
+PermissionSet: order.read, order.amend, order.hold.release
+
+##### <!--[ENT-ENTI-LST]--> Entitlements
+
+###### <!--[ENT-ENTI-1]--> order.read
+
+EntitlementName: order.read
+Description: See orders in the work list and open their detail.
+AccessType: Read
+
+###### <!--[ENT-ENTI-2]--> order.amend
+
+EntitlementName: order.amend
+Description: Change quantities and lines on an order that is not yet dispatched.
+AccessType: Write
+
+###### <!--[ENT-ENTI-3]--> order.hold.release
+
+EntitlementName: order.hold.release
+Description: Release a credit or stock hold placed on an order.
+AccessType: Approve
 
 ## <!--[XID]--> Experience And Interface Design
 
@@ -1438,7 +1597,7 @@ Purpose: The single, state-filtered queue from which clerks work every order.
 ######## <!--[SCECL]--> Classification
 
 ScreenCategory: List
-RoutePattern: /orders
+RoutePattern: order-work-list
 
 ######## <!--[AZREQ]--> Access
 
@@ -1452,7 +1611,7 @@ Roles: Order Clerk, Order Supervisor
 ######## <!--[SCETR]--> Traceability
 
 RelatedUseCases: UC-01, UC-02
-RelatedRequirements: FR-01, FR-04, FR-06
+RelatedRequirements: FRE-REQU-ORDER-CAPTURE, FRE-REQU-CONFIRM-SLA, FRE-REQU-HOLD-RELEASE
 DataEntities: Order
 PrimaryAction: Open selected order
 
@@ -1516,10 +1675,11 @@ DataType: string
 ElementId: SCR-01-EL-3
 ElementType: statusIndicator
 
-############# <!--[SEFS]--> Field Spec
+############# <!--[SEDD]--> Data Display
 
-FieldName: status
-DataType: enumeration
+DataSource: Order.status
+DisplayFormat: Coloured state chip, one colour per lifecycle state
+EmptyStateMessageResource: screen.orders.empty
 
 ######## <!--[SCAC]--> Actions
 
@@ -1544,7 +1704,7 @@ ButtonStyle: Primary
 
 Description: No orders match the selected state filter.
 MessageResource: screen.orders.empty
-PrimaryActionLabel: Clear filter
+PrimaryActionLabel: screen.orders.empty.action.clear
 PrimaryActionTarget: SCR-01-EL-1
 
 ####### <!--[SCREN-ITEM-SCR-02]--> Order Detail
@@ -1555,7 +1715,7 @@ Purpose: The lifecycle timeline and inline actions for a single order.
 
 ScreenCategory: Detail
 ParentScreenId: SCREN-ITEM-SCR-01
-RoutePattern: /orders/:orderId
+RoutePattern: order-detail
 
 ######## <!--[AZREQ]--> Access
 
@@ -1569,7 +1729,7 @@ Roles: Order Clerk, Order Supervisor
 ######## <!--[SCETR]--> Traceability
 
 RelatedUseCases: UC-02, UC-03
-RelatedRequirements: FR-05, FR-06
+RelatedRequirements: FRE-REQU-AMEND-CANCEL, FRE-REQU-HOLD-RELEASE
 DataEntities: Order, OrderLine
 PrimaryAction: Amend line
 
@@ -1654,8 +1814,27 @@ ButtonStyle: Secondary
 
 Description: The new quantity failed validation or reservation.
 MessageResource: screen.order.amend.error
-PrimaryActionLabel: Retry
+PrimaryActionLabel: screen.order.amend.action.retry
 PrimaryActionTarget: SCR-02-ACT-1
+
+#### <!--[SCFLST]--> Screen Flow
+
+##### <!--[SCRTMP]--> Screen Route Map
+
+###### <!--[SCRTEN-ROUT-LST]--> Routes
+
+####### <!--[SCRTEN-ROUT-1]--> Order work list route
+
+RouteId: order-work-list
+RoutePath: /orders
+ScreenId: SCREN-ITEM-SCR-01
+
+####### <!--[SCRTEN-ROUT-2]--> Order detail route
+
+RouteId: order-detail
+RoutePath: /orders/:orderId
+ScreenId: SCREN-ITEM-SCR-02
+RouteParameters: orderId
 
 ### <!--[XDFU]--> Design Follow Up
 

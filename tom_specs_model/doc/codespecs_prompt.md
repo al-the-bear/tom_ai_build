@@ -277,7 +277,7 @@ mechanical:
 - **Stage A2's dangling references.** An unresolved reference *into* an area's
   registry is proof the project has elements of that area — the referring
   section is asking for one. §10.1 is this case: an area whose extract is empty
-  while eleven sections hold unresolved lookups into it is **insufficient**, and
+  while twelve sections hold unresolved lookups into it is **insufficient**, and
   the verdict names the registry section that should have carried the entries.
 - **Cross-area citation.** `codespecs_mapping.md` §4.4.3's `cites` edges say
   which areas an area's parts reference. An area cited by a populated area's
@@ -457,17 +457,27 @@ extraction surface and not a Dart accident.
 
 **The Meridian sample.** Extracting the shipped
 `meridian_order_management` Solution Blueprint from `D00SolutionBlueprint` walks
-327 classes and yields **627 entries across 11 areas**, leaving **15 areas with
-zero entries**. Most are correctly *not applicable* — the sample specifies no
-migrations, no background jobs and no reporting, and the run says so per area.
+345 classes and yields **690 entries across 12 areas**, leaving **14 areas with
+zero entries**. All fourteen are correctly *not applicable* — the sample
+specifies no migrations, no background jobs and no reporting, and the run says so
+per area.
 
-One of the fifteen is **not** — and it is the fixture that makes §6.4 necessary.
-The message-key area's extract is empty while stage A2 reports **eleven
-unresolved `MSGKE.key` lookups** from screen sections. Those eleven sections are
-asking for message keys that the registry does not carry. The correct verdict is
-therefore **insufficient**, with eleven gap lines naming `MSGKE` as the section
-that should have carried them — and the evidence for it came out of stage A, not
-out of re-reading the document, which is §3's point.
+**The counterexample is constructed, not shipped.** The sample as shipped is
+clean on both tiers, so the case §6.4 exists to catch has to be made: delete the
+`MSGKR` message-key registry from it — one *optional* subsection, so the deletion
+is legal — and re-measure.
+
+| | as shipped | registry deleted |
+|---|---|---|
+| **A1** — DocSpecs schema (completeness) | **0** violations | **0** violations — unchanged |
+| **A2** — `validateDocument` (values) | **0** violations | **12** violations, every one a `danglingReference` on `MSGKE.key` |
+| **CE-TX extract** | 34 entries | **0** entries |
+
+Emptiness is now all a run that trusted A1 would see, and it would be wrong: A2
+says twelve screen sections are asking for message keys that nothing declares.
+The correct verdict is **insufficient**, with twelve gap lines naming `MSGKE` as
+the section that should have carried them — and the evidence for it came out of
+stage A, not out of re-reading the document, which is §3's point.
 
 ### 10.2 A deliberately gutted specification is rejected
 
@@ -477,7 +487,7 @@ required structured field, populated as shipped.
 | | as shipped | gutted |
 |---|---|---|
 | **A1** — DocSpecs schema (completeness) | **0** violations | **4** violations, each `missingRequiredField [DAENT-CLAS] — required form field "aggregateRoot" of "daent-clas-form" is missing` |
-| **A2** — `validateDocument` (values) | 23 violations | **23** violations — unchanged |
+| **A2** — `validateDocument` (values) | **0** violations | **0** violations — unchanged |
 
 The gutted document is rejected at A1 before any area is read, which is the DONE
 condition. The row that matters more is the second one: **A2 does not move.**
@@ -486,8 +496,12 @@ has nothing left to object to. A gate built on `validateDocument` alone would
 have passed this document and handed the authoring agent four aggregate roots to
 invent. That is why §4.1 and §4.2 are two checks and not one.
 
-(The 23 standing A2 violations on the sample as shipped — 22 dangling references
-and one `oneOfCaseMismatch` — are a real finding about that sample, tracked in
-`_ai/quests/tom_specs/todos.tom_specs.todo.yaml`. Eleven of them are §10.1's
-message keys. The sample is gated on its DocSpecs schema and has never been gated
-on the instance tier, which is precisely the blind spot §4.2 closes.)
+§10.1 is the same argument with the tiers exchanged, which is why the two
+fixtures are stated together: there, a deletion A1 cannot see costs twelve
+resolvable references, and a gate built on the schema alone would have passed
+*that* document. Neither tier subsumes the other in either direction.
+
+Both fixtures are measured against a sample that is itself held to both tiers:
+`tom_som_dart_v0/tool/build_shared_sample.dart` runs `DocSpecsValidator` **and**
+`validateDocument` over what it emits and exits non-zero on either, so the
+"as shipped" column of both tables is a build gate rather than a claim.

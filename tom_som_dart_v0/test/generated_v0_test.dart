@@ -12,6 +12,7 @@
 // Run with `dart test` from this package (`tom_som_dart_v0`).
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
@@ -406,6 +407,7 @@ void main() {
         '../tom_som_conformance/samples/meridian_order_management.md';
     const schemaPath =
         'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
+    const modelMetaPath = 'meta/spec_model.meta.json';
 
     test('round-trip: decode → encode → decode is a stable reading', () {
       // Mirrors the golden's `generic-content` / `generic-lists` sections: the
@@ -456,6 +458,27 @@ void main() {
           reason: 'generated schema carries warnings');
       expect(violations, isEmpty,
           reason: 'sample markdown violates the generated schema');
+    });
+
+    test('validation: sample document validates cleanly on the instance tier',
+        () {
+      // The second tier of the same gate `build_shared_sample.dart` applies.
+      // It is a separate assertion because the two tiers ask disjoint
+      // questions: the schema tier above asks whether every required field is
+      // filled, this one asks whether the values are admissible — kinds, form
+      // keys, list minima, and `refersTo` resolution (SOM §9). A sample that
+      // names a message key, a role or a route nothing declares passes the
+      // first and fails this one. Asserted here as well as in the builder
+      // because the sample is *committed*: a hand-edit or a merge can reach it
+      // without anyone re-running the builder.
+      final model = SpecModel.fromJson(
+          jsonDecode(File(modelMetaPath).readAsStringSync())
+              as Map<String, dynamic>);
+      final doc =
+          SpecDocument.fromFile(samplePath, d00SolutionBlueprintMetaTree);
+
+      expect(validateDocument(model, doc), isEmpty,
+          reason: 'sample document violates the instance tier');
     });
 
     test('node operations: metadata tree / nav / id resolve to the same node',

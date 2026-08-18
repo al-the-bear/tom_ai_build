@@ -7,7 +7,7 @@ at once.
 
 | File | Root | Description |
 | ---- | ---- | ----------- |
-| `meridian_order_management.docspecs.yaml` | `D00SolutionBlueprint` (SBP) | A genuinely implementable Solution Blueprint for a fictional "Meridian Order Management" programme (~255 populated leaf paths) — 14 typed requirements across four list types (functional / technical / security / organizational), three Cockburn-style use cases with full flows and exception extensions, four actors, a key end-to-end scenario, a coherent four-entity / three-relationship data model, and two fully-detailed screens, plus multi-line markdown content across all fifteen top-level SBP sections. Broad enough to exercise the blueprint for access examples and the cross-language golden harness. |
+| `meridian_order_management.docspecs.yaml` | `D00SolutionBlueprint` (SBP) | A genuinely implementable Solution Blueprint for a fictional "Meridian Order Management" programme (~256 populated leaf paths) — 14 typed requirements across four list types (functional / technical / security / organizational), three Cockburn-style use cases with full flows and exception extensions, four actors, a key end-to-end scenario, a coherent four-entity / three-relationship data model, two fully-detailed screens, and the registries those screens refer into (11 message keys, 2 roles over 3 entitlements, 3 bounded contexts, 2 routes), plus multi-line markdown content across all fifteen top-level SBP sections. Broad enough to exercise the blueprint for access examples and the cross-language golden harness. |
 | `meridian_order_management.md` | — | DocSpecs markdown rendition of the same document (generated alongside the YAML). |
 | `invalid_demo_document.md` | — | **Invalid on purpose — do not repair.** A small hand-authored document written against `../corpus/docspecs_schema.yaml` (the demo schema, not the generated SBP one) that breaks each of the eleven `DocSpecsViolationRule` spellings exactly once. |
 
@@ -24,10 +24,21 @@ at once.
   `@Form` sections are `FieldName: value` blocks, list items are numbered
   sub-headings (`FRE-REQU-1`, …).
 
-The build tool validates the emitted markdown against the generated schema
-(`tom_som_dart_v0/schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml`)
-via the embedded validator API (SOM §14) and fails on any violation, so the committed
-sample always validates cleanly.
+The build tool gates the sample on **both** validation tiers and fails on any
+violation from either, so the committed sample always validates cleanly:
+
+- the emitted **markdown** against the generated schema
+  (`tom_som_dart_v0/schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml`)
+  via the embedded DocSpecs validator API (SOM §14) — *completeness*;
+- the **document** through `validateDocument` (SOM §9) — *values*: field kinds,
+  form keys, list minima, and `refersTo` resolution.
+
+The two tiers ask disjoint questions, so neither result implies the other. A
+document whose every required field is filled can still name a message key, a
+role or a route that nothing declares, and a document that resolves every
+reference it makes can still be missing a required field outright. Gating on one
+alone leaves the other class of defect in a sample that nine languages read as
+their worked example.
 
 ## The invalid companion fixture
 

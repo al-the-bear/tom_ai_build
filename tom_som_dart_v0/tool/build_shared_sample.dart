@@ -243,6 +243,7 @@ parallel-run gate passes.''');
   _authorActorsAndUseCases(sbp);
   _authorDataModel(sbp);
   _authorScreens(sbp);
+  _authorRegistries(sbp);
   _authorTypedFormValues(sbp);
 
   // Renumber every patterned list item to the deterministic anonymous
@@ -289,8 +290,9 @@ parallel-run gate passes.''');
   final mdFile = File('${samplesDir.path}/meridian_order_management.md');
   mdFile.writeAsStringSync(markdown);
 
-  // Gate: the emitted markdown must validate cleanly against the
-  // generated Solution Blueprint DocSpecs schema (via the embedded validator API , SOM §14).
+  // Gate, tier A1 — schema *completeness*: the emitted markdown must validate
+  // cleanly against the generated Solution Blueprint DocSpecs schema (via the
+  // embedded validator API , SOM §14).
   final schema = DocSpecsSchema.fromYamlText(File.fromUri(Platform.script
           .resolve('../schemas/solution-blueprint/'
               'solution-blueprint.1.0.docspecs-schema.yaml'))
@@ -304,10 +306,26 @@ parallel-run gate passes.''');
     exit(1);
   }
 
+  // Gate, tier A2 — instance *values*: field kinds, form keys, list minima and
+  // typed reference resolution (SOM §9). The two tiers ask disjoint questions —
+  // a document every required field of which is filled can still name a message
+  // key, a role or a route that nothing declares — so passing A1 says nothing
+  // about A2, and the shipped sample is held to both.
+  final instanceErrors = validateDocument(model, doc);
+  if (instanceErrors.isNotEmpty) {
+    stderr.writeln('sample FAILS instance-tier validation '
+        '(${instanceErrors.length} violations):');
+    for (final e in instanceErrors) {
+      stderr.writeln('  [${e.code.name}] ${e.path}: ${e.message}');
+    }
+    exit(1);
+  }
+
   stdout.writeln('Wrote sample to ${samplesDir.absolute.path}');
   stdout.writeln('  meridian_order_management.docspecs.yaml (${yaml.length} bytes)');
   stdout.writeln('  meridian_order_management.md (${markdown.length} bytes)');
   stdout.writeln('  markdown validates cleanly against solution-blueprint/1.0');
+  stdout.writeln('  document validates cleanly against the instance tier');
 }
 
 /// Collapses a hard-wrapped multi-line string literal into a single paragraph.
@@ -1202,9 +1220,11 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   wl.$headline = 'Order Work List';
   wl.content.purpose =
       'The single, state-filtered queue from which clerks work every order.';
+  // `routePattern` holds a route *id* (`refersTo: ['SCRTEN.routeId']`), not a
+  // URL. The path itself is declared once in the screen route map below.
   wl.classification
     ..screenCategory = 'List'
-    ..routePattern = '/orders';
+    ..routePattern = 'order-work-list';
   // Authorization is a closed choice: the kind selects which payload
   // subsection carries the detail. `role` implies authentication, so naming the
   // roles is the whole requirement — there is no separate access level.
@@ -1213,9 +1233,13 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..rationale = 'The work list exposes every open order, so it is limited to '
         'the two roles that work the queue.';
   wl.access.roleRequirement.roles = 'Order Clerk, Order Supervisor';
+  // `relatedRequirements` resolves against the four requirement registries by
+  // stored section id, so it names the ids the FR entries carry — not their
+  // FR-nn headline codes, which are prose.
   wl.traceability
     ..relatedUseCases = 'UC-01, UC-02'
-    ..relatedRequirements = 'FR-01, FR-04, FR-06'
+    ..relatedRequirements = 'FRE-REQU-ORDER-CAPTURE, FRE-REQU-CONFIRM-SLA, '
+        'FRE-REQU-HOLD-RELEASE'
     ..dataEntities = 'Order'
     ..primaryAction = 'Open selected order';
   wl.presentation
@@ -1262,9 +1286,13 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   statusCol.content
     ..elementId = 'SCR-01-EL-3'
     ..elementType = ScreenElementKind.statusIndicator;
-  statusCol.fieldSpec.content
-    ..fieldName = 'status'
-    ..dataType = ScreenElementFieldKind.enumeration;
+  // A status indicator is a *display* kind, so the `@OneOf(elementType)` case
+  // selects `dataDisplay`, not `fieldSpec` — this is the sample's display-facet
+  // fixture, the input facet being exercised by the two field elements.
+  statusCol.dataDisplay.content
+    ..dataSource = 'Order.status'
+    ..displayFormat = 'Coloured state chip, one colour per lifecycle state'
+    ..emptyStateMessageResource = 'screen.orders.empty';
 
   final openAction = wl.actions.items.add();
   openAction.$headline = 'Open order';
@@ -1278,10 +1306,13 @@ void _authorScreens(D00SolutionBlueprint sbp) {
 
   final emptyState = wl.states.items.add();
   emptyState.$headline = 'Empty queue';
+  // `primaryActionLabel` is a message *key* slot (`refersTo: ['MSGKE.key']`),
+  // not the literal button caption — the caption is the registry entry's
+  // default copy.
   emptyState.content
     ..description = 'No orders match the selected state filter.'
     ..messageResource = 'screen.orders.empty'
-    ..primaryActionLabel = 'Clear filter'
+    ..primaryActionLabel = 'screen.orders.empty.action.clear'
     ..primaryActionTarget = 'SCR-01-EL-1';
 
   // SCR-02 Order Detail / Lifecycle Timeline.
@@ -1293,7 +1324,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   detail.classification
     ..screenCategory = 'Detail'
     ..parentScreenId = 'SCREN-ITEM-SCR-01'
-    ..routePattern = '/orders/:orderId';
+    ..routePattern = 'order-detail';
   detail.access.content
     ..requirementKind = AuthorizationRequirementKind.role
     ..rationale = 'Order detail carries the amendment actions, so it is held to '
@@ -1301,7 +1332,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   detail.access.roleRequirement.roles = 'Order Clerk, Order Supervisor';
   detail.traceability
     ..relatedUseCases = 'UC-02, UC-03'
-    ..relatedRequirements = 'FR-05, FR-06'
+    ..relatedRequirements = 'FRE-REQU-AMEND-CANCEL, FRE-REQU-HOLD-RELEASE'
     ..dataEntities = 'Order, OrderLine'
     ..primaryAction = 'Amend line';
   detail.presentation
@@ -1361,8 +1392,177 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   errorState.content
     ..description = 'The new quantity failed validation or reservation.'
     ..messageResource = 'screen.order.amend.error'
-    ..primaryActionLabel = 'Retry'
+    ..primaryActionLabel = 'screen.order.amend.action.retry'
     ..primaryActionTarget = 'SCR-02-ACT-1';
+
+  _authorScreenRoutes(sbp);
+}
+
+/// The screen route map (SBP.13 -> Experience CodeSpecs -> Screen Flow). Every
+/// `routePattern` on a screen names a route *id* declared here — the id is the
+/// stable handle, the path is presentation. Without this registry the two
+/// screens' route references dangle.
+void _authorScreenRoutes(D00SolutionBlueprint sbp) {
+  final routes = sbp.experienceAndInterfaceDesign.experienceCodeSpecs.screenFlow
+      .screenRouteMap.routes;
+
+  final workList = routes.add();
+  workList.$headline = 'Order work list route';
+  workList.content
+    ..routeId = 'order-work-list'
+    ..routePath = '/orders'
+    ..screenId = 'SCREN-ITEM-SCR-01';
+
+  final detail = routes.add();
+  detail.$headline = 'Order detail route';
+  detail.content
+    ..routeId = 'order-detail'
+    ..routePath = '/orders/:orderId'
+    ..screenId = 'SCREN-ITEM-SCR-02'
+    ..routeParameters = 'orderId';
+}
+
+// ---------------------------------------------------------------------------
+// The three registries the rest of the sample refers *into*. A `refersTo` field
+// resolves against the registry that declares the value, so a specification
+// that names a message key, a role, or a bounded context without declaring it
+// is incomplete — the instance-tier validator reports it as a dangling
+// reference even though the schema tier, which asks only about completeness,
+// is satisfied.
+// ---------------------------------------------------------------------------
+void _authorRegistries(D00SolutionBlueprint sbp) {
+  _authorMessageKeys(sbp);
+  _authorRoles(sbp);
+  _authorBoundedContexts(sbp);
+}
+
+/// SBP.7.8 Message Key Registry (CE-TX). One entry per key the two screens
+/// name — page titles, field labels and hints, action captions, and the
+/// empty/error state copy. The key is the join token; the default copy is the
+/// text the built screen actually shows.
+void _authorMessageKeys(D00SolutionBlueprint sbp) {
+  final keys = sbp.informationAndDataModel.messageKeyRegistry.messageKeys;
+
+  void key(String headline, String k, String copy, String where,
+      {String? placeholders}) {
+    final e = keys.add();
+    e.$headline = headline;
+    e.content
+      ..key = k
+      ..defaultCopy = copy
+      ..description = where;
+    if (placeholders != null) e.content.placeholders = placeholders;
+  }
+
+  key('Work list title', 'screen.orders.title', 'Orders',
+      'Page title of the order work list (SCR-01).');
+  key('State filter label', 'screen.orders.filter.state', 'State',
+      'Label of the state selector on the work list filter bar.');
+  key('State filter hint', 'screen.orders.filter.state.hint',
+      'Show only orders in the selected lifecycle state',
+      'Helper text of the state selector.');
+  key('Open order action', 'screen.orders.action.open', 'Open',
+      'Row action that navigates from the work list to order detail.');
+  key('Empty queue message', 'screen.orders.empty',
+      'No orders match the selected state filter',
+      'Shown on the work list when the filtered queue is empty, and as the '
+          'status column\'s empty-data copy.');
+  key('Clear filter action', 'screen.orders.empty.action.clear',
+      'Clear filter', 'Recovery action offered on the empty work list.');
+  // The detail title interpolates the order id, so the entry declares the
+  // placeholder its copy carries.
+  key('Order detail title', 'screen.order.title', 'Order {orderId}',
+      'Page title of order detail (SCR-02).', placeholders: 'orderId');
+  key('Amend line action', 'screen.order.action.amend', 'Amend line',
+      'Submit action on an order line.');
+  key('Release hold action', 'screen.order.action.release', 'Release hold',
+      'Header action that releases a credit or stock hold.');
+  key('Amendment rejected message', 'screen.order.amend.error',
+      'The amendment could not be applied',
+      'Shown on order detail when a line amendment fails validation or '
+          'reservation.');
+  key('Retry amendment action', 'screen.order.amend.action.retry', 'Retry',
+      'Recovery action offered after a rejected amendment.');
+}
+
+/// SBP.12.1.4 User Authorization. The two roles both screens hold their access
+/// requirement to — every `roles` value elsewhere resolves against these names —
+/// and the entitlements those roles bundle. Roles and entitlements are both
+/// `@Min(1)` on `USAU`: a role catalogue that grants nothing is not a
+/// specification, so the two lists are authored together.
+void _authorRoles(D00SolutionBlueprint sbp) {
+  final authorization =
+      sbp.securityAndAccessModel.accessControl.authorization;
+
+  final entitlements = authorization.entitlements;
+  void entitlement(String name, String description, String accessType) {
+    final e = entitlements.add();
+    e.$headline = name;
+    e.content
+      ..entitlementName = name
+      ..description = description
+      ..accessType = accessType;
+  }
+
+  entitlement('order.read', 'See orders in the work list and open their detail.',
+      'Read');
+  entitlement('order.amend',
+      'Change quantities and lines on an order that is not yet dispatched.',
+      'Write');
+  entitlement('order.hold.release',
+      'Release a credit or stock hold placed on an order.', 'Approve');
+
+  final roles = authorization.roleDefinitions;
+
+  final clerk = roles.add();
+  clerk.$headline = 'Order Clerk';
+  clerk.content
+    ..roleName = 'Order Clerk'
+    ..description =
+        'Works the order queue: captures, amends, and confirms orders.'
+    ..roleCategory = 'Business';
+  clerk.structure
+    ..roleScope = 'Global'
+    ..inheritsFrom = 'none'
+    ..permissionSet = 'order.read, order.amend';
+
+  final supervisor = roles.add();
+  supervisor.$headline = 'Order Supervisor';
+  supervisor.content
+    ..roleName = 'Order Supervisor'
+    ..description =
+        'Everything a clerk may do, plus releasing credit and stock holds.'
+    ..roleCategory = 'Business';
+  supervisor.structure
+    ..roleScope = 'Global'
+    ..inheritsFrom = 'Order Clerk'
+    ..permissionSet = 'order.read, order.amend, order.hold.release';
+}
+
+/// SBP.8.2.1 Layering and Module Structure. The three bounded contexts the data
+/// model's entities are assigned to; `boundedContext` on an entity resolves
+/// against these names.
+void _authorBoundedContexts(D00SolutionBlueprint sbp) {
+  final contexts = sbp.solutionArchitectureAndTechnology.technicalFramework
+      .softwareDesign.layeringAndModuleStructure.boundedContexts;
+
+  void context(String name, String domain, String purpose) {
+    final e = contexts.add();
+    e.$headline = name;
+    e.content
+      ..contextName = name
+      ..domainArea = domain
+      ..owningTeam = 'Order Management';
+    e.scope.purpose = purpose;
+  }
+
+  context('Ordering', 'Order capture and fulfilment',
+      'Owns the order aggregate and its lifecycle from capture to dispatch.');
+  context('Customer', 'Customer master data',
+      'Owns customer identity and the credit standing orders are checked '
+          'against.');
+  context('Catalogue', 'Product catalogue and pricing',
+      'Owns the product master and the price list orders are priced from.');
 }
 
 /// YRD7: native-typed form values authored through the typed facade, so the
