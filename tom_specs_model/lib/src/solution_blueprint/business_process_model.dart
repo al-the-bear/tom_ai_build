@@ -5741,22 +5741,18 @@ class ScenarioStepEntry extends DocSpecsSection {
   @SerializationOrder(1)
   DocSpecsSection? context;
 
-  /// Branching, timing, and notes.
+  /// Timing and notes.
+  ///
+  /// Where the flow branches is stated by the `ALFL` entry that branches, not
+  /// here: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says
+  /// under what condition it is taken. A step states no branch of its own, so
+  /// there is one place a reader and the Phase-4 generator both look.
   @SectionId('SCSTENEX')
   @StandardReferences(
-    [
-      'BPMN 2.0 — sequence flow / activities (scenario steps)',
-      'Cockburn — Writing Effective Use Cases: extensions & alternative flows',
-    ],
-    'Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes.',
+    ['BPMN 2.0 — sequence flow / activities (scenario steps)'],
+    'Captures the execution details of a scenario step: expected timing and clarifying notes.',
   )
   @Form([
-    Field(
-      'decisionPoint',
-      String,
-      'Decision Point — if branching occurs here',
-      hint: 'Condition under which the flow branches here',
-    ),
     Field(
       'timing',
       String,

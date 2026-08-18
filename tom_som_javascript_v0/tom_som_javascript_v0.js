@@ -30253,7 +30253,12 @@ class ScenarioStepEntry extends SomNode {
     return new ScenarioStepEntryContextForm(this.doc, this.path + "/SSEC");
   }
 
-  // Branching, timing, and notes.
+  // Timing and notes.
+  //
+  // Where the flow branches is stated by the `ALFL` entry that branches, not
+  // here: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says
+  // under what condition it is taken. A step states no branch of its own, so
+  // there is one place a reader and the Phase-4 generator both look.
   get execution() {
     return new ScenarioStepEntryExecutionForm(this.doc, this.path + "/SCSTENEX");
   }
@@ -144203,14 +144208,6 @@ class ScenarioStepEntryExecutionForm extends SomNode {
 
   set content(value) {
     this.doc.setContent(this.path, value);
-  }
-
-  get decisionPoint() {
-    return this.doc.formField(this.path, "decisionPoint") || '';
-  }
-
-  set decisionPoint(value) {
-    this.doc.setFormField(this.path, "decisionPoint", value);
   }
 
   get timing() {

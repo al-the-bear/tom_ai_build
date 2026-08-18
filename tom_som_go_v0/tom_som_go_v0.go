@@ -34351,7 +34351,12 @@ func (x *ScenarioStepEntry) Context() *ScenarioStepEntryContextForm {
 	return NewScenarioStepEntryContextForm(x.Doc(), x.Path()+"/SSEC")
 }
 
-// Branching, timing, and notes.
+// Timing and notes.
+//
+// Where the flow branches is stated by the `ALFL` entry that branches, not
+// here: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says
+// under what condition it is taken. A step states no branch of its own, so
+// there is one place a reader and the Phase-4 generator both look.
 func (x *ScenarioStepEntry) Execution() *ScenarioStepEntryExecutionForm {
 	return NewScenarioStepEntryExecutionForm(x.Doc(), x.Path()+"/SCSTENEX")
 }
@@ -170677,14 +170682,6 @@ func (x *ScenarioStepEntryExecutionForm) Content() string {
 
 func (x *ScenarioStepEntryExecutionForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ScenarioStepEntryExecutionForm) DecisionPoint() string {
-	return x.Doc().FormFieldOr(x.Path(), "decisionPoint")
-}
-
-func (x *ScenarioStepEntryExecutionForm) SetDecisionPoint(value string) {
-	x.Doc().SetFormField(x.Path(), "decisionPoint", value)
 }
 
 func (x *ScenarioStepEntryExecutionForm) Timing() string {

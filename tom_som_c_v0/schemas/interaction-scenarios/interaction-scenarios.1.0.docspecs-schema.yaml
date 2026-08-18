@@ -353,7 +353,7 @@ section-types:
   scstenex:
     prefix: SCSTENEX
     format: scstenex-form
-    description: "Branching, timing, and notes."
+    description: Timing and notes.
   accasu:
     prefix: ACCASU
     format: accasu-form
@@ -795,8 +795,6 @@ form-types:
         description: Screen or component the actor uses
   scstenex-form:
     fields:
-      - fieldname: decisionPoint
-        description: Condition under which the flow branches here
       - fieldname: timing
         description: Expected time this step takes
       - fieldname: notes

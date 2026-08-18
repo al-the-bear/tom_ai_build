@@ -135642,13 +135642,6 @@ char *scenario_step_entry_execution_form_content(const ScenarioStepEntryExecutio
 void scenario_step_entry_execution_form_set_content(ScenarioStepEntryExecutionForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *scenario_step_entry_execution_form_decision_point(const ScenarioStepEntryExecutionForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "decisionPoint");
-  return som_strdup(v != NULL ? v : "");
-}
-void scenario_step_entry_execution_form_set_decision_point(ScenarioStepEntryExecutionForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "decisionPoint", value);
-}
 char *scenario_step_entry_execution_form_timing(const ScenarioStepEntryExecutionForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "timing");
   return som_strdup(v != NULL ? v : "");

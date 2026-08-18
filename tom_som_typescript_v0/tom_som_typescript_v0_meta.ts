@@ -42143,9 +42143,9 @@ function _mc_ScenarioStepEntry(s: Set<string>): SomMetaNode[] {
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 2,
-      docComment: "Branching, timing, and notes.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "decisionPoint", typeName: "String", description: "Decision Point — if branching occurs here", hint: "Condition under which the flow branches here", order: 0}), new SomFormFieldMeta({name: "timing", typeName: "String", description: "Timing — expected duration", hint: "Expected time this step takes", order: 1}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes — clarifications", hint: "Additional clarifications for this step", order: 2})]),
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BPMN 2.0 — sequence flow / activities (scenario steps)", "Cockburn — Writing Effective Use Cases: extensions & alternative flows"], "connotation": "Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes."})]}),
+      docComment: "Timing and notes.\n\nWhere the flow branches is stated by the `ALFL` entry that branches, not\nhere: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says\nunder what condition it is taken. A step states no branch of its own, so\nthere is one place a reader and the Phase-4 generator both look.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "timing", typeName: "String", description: "Timing — expected duration", hint: "Expected time this step takes", order: 0}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes — clarifications", hint: "Additional clarifications for this step", order: 1})]),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["BPMN 2.0 — sequence flow / activities (scenario steps)"], "connotation": "Captures the execution details of a scenario step: expected timing and clarifying notes."})]}),
      new SomMetaNode({
       className: "ScenarioStepEntry",
       memberName: "serverCallSteps",

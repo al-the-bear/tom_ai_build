@@ -28824,7 +28824,12 @@ class ScenarioStepEntry(SomNode):
     def context(self):
         return ScenarioStepEntryContextForm(self.doc, f"{self.path}/SSEC")
 
-    # Branching, timing, and notes.
+    # Timing and notes.
+    #
+    # Where the flow branches is stated by the `ALFL` entry that branches, not
+    # here: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says
+    # under what condition it is taken. A step states no branch of its own, so
+    # there is one place a reader and the Phase-4 generator both look.
     @property
     def execution(self):
         return ScenarioStepEntryExecutionForm(self.doc, f"{self.path}/SCSTENEX")
@@ -139114,14 +139119,6 @@ class ScenarioStepEntryExecutionForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def decisionPoint(self) -> str:
-        return self.doc.form_field(self.path, "decisionPoint") or ""
-
-    @decisionPoint.setter
-    def decisionPoint(self, value):
-        self.doc.set_form_field(self.path, "decisionPoint", value)
 
     @property
     def timing(self) -> str:

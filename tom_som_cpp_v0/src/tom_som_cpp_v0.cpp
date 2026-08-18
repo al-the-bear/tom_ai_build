@@ -87818,12 +87818,6 @@ std::string ScenarioStepEntryExecutionForm::content() const {
 void ScenarioStepEntryExecutionForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ScenarioStepEntryExecutionForm::decisionPoint() const {
-  return doc().formField(path(), "decisionPoint");
-}
-void ScenarioStepEntryExecutionForm::setDecisionPoint(const std::string& value) {
-  doc().setFormField(path(), "decisionPoint", value);
-}
 std::string ScenarioStepEntryExecutionForm::timing() const {
   return doc().formField(path(), "timing");
 }

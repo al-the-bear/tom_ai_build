@@ -473,7 +473,22 @@ condition states nothing. For the two *step* entries it is the ordinary case:
 `LGFLS` and `SCJOST` steps are unconditional by default, and an empty
 `LFSEB.conditionalTrigger` / `condition` simply emits no guard, which is what an
 unconditional step means. No second field participates in either direction, and
-none exists to. A step is skippable *because* it is conditional, so a `Yes | No`
+none exists to.
+
+The split between the two pairs is a model decision, not an accident of which
+sections happened to get a condition field. The four **interaction** step
+entries — `MNSST`, `SCNST`, `ALST`, `EXTST` — carry no condition of their own,
+because the branch *flow* beside them already states one: an `EXTEN` / `ALFL`
+names the step it diverges at (B5) and carries the condition that governs the
+divergence, so a branch is stated in exactly one place and a reader never has to
+reconcile two. `LGFLS` and `SCJOST` have no such flow — a logic block and a job
+body are step sequences with nothing beside them — which is precisely why the
+condition sits on their steps. Giving an interaction step a condition field too
+would restate the branch a flow already owns, in free text, on the wrong entity;
+where an interaction step really is conditional, the structure that says so is an
+`EXTEN` / `ALFL` naming it.
+
+A step is skippable *because* it is conditional, so a `Yes | No`
 skippability flag beside the condition would be a second source for one fact —
 §2.3's first test — and it would have exactly one authorable disagreement:
 *skippable, condition empty*. That combination asserts the step is sometimes

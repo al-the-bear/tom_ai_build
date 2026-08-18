@@ -20941,7 +20941,12 @@ class ScenarioStepEntry : public som::SomNode {
   ScenarioStepEntryContentForm content() const;
   // Expected outcome and referenced artifacts.
   ScenarioStepEntryContextForm context() const;
-  // Branching, timing, and notes.
+  // Timing and notes.
+  //
+  // Where the flow branches is stated by the `ALFL` entry that branches, not
+  // here: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says
+  // under what condition it is taken. A step states no branch of its own, so
+  // there is one place a reader and the Phase-4 generator both look.
   ScenarioStepEntryExecutionForm execution() const;
   // Returns the list view; element type: ServerCallStepEntry (construct from item paths).
   som::SomList serverCallSteps() const;
@@ -63271,8 +63276,6 @@ class ScenarioStepEntryExecutionForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string decisionPoint() const;
-  void setDecisionPoint(const std::string& value);
   std::string timing() const;
   void setTiming(const std::string& value);
   std::string notes() const;

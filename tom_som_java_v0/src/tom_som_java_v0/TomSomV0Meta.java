@@ -79130,12 +79130,11 @@ public final class TomSomV0Meta {
         n.memberName = "execution";
         n.sectionId = "SCSTENEX";
         n.serializationOrder = 2;
-        n.docComment = "Branching, timing, and notes.";
+        n.docComment = "Timing and notes.\n\nWhere the flow branches is stated by the `ALFL` entry that branches, not\nhere: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says\nunder what condition it is taken. A step states no branch of its own, so\nthere is one place a reader and the Phase-4 generator both look.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("decisionPoint", "String", "Decision Point — if branching occurs here", false, "Condition under which the flow branches here", 0),
-            new SomFormFieldMeta("timing", "String", "Timing — expected duration", false, "Expected time this step takes", 1),
-            new SomFormFieldMeta("notes", "String", "Notes — clarifications", false, "Additional clarifications for this step", 2)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BPMN 2.0 — sequence flow / activities (scenario steps)", "Cockburn — Writing Effective Use Cases: extensions & alternative flows"), "connotation", "Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes.")));
+            new SomFormFieldMeta("timing", "String", "Timing — expected duration", false, "Expected time this step takes", 0),
+            new SomFormFieldMeta("notes", "String", "Notes — clarifications", false, "Additional clarifications for this step", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BPMN 2.0 — sequence flow / activities (scenario steps)"), "connotation", "Captures the execution details of a scenario step: expected timing and clarifying notes.")));
         out.add(n);
       }
       {

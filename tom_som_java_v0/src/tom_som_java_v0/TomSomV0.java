@@ -30622,7 +30622,12 @@ public final class TomSomV0 {
       return new ScenarioStepEntryContextForm(doc, path + "/SSEC");
     }
 
-    // Branching, timing, and notes.
+    // Timing and notes.
+    //
+    // Where the flow branches is stated by the `ALFL` entry that branches, not
+    // here: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says
+    // under what condition it is taken. A step states no branch of its own, so
+    // there is one place a reader and the Phase-4 generator both look.
     public ScenarioStepEntryExecutionForm execution() {
       return new ScenarioStepEntryExecutionForm(doc, path + "/SCSTENEX");
     }
@@ -158770,15 +158775,6 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path, value);
-    }
-
-    public String decisionPoint() {
-      String v = doc.formField(path, "decisionPoint");
-      return v == null ? "" : v;
-    }
-
-    public void decisionPoint(String value) {
-      doc.setFormField(path, "decisionPoint", value);
     }
 
     public String timing() {

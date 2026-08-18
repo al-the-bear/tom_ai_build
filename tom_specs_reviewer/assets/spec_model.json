@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T06:30:07.765461Z",
+  "generatedAt": "2026-08-18T07:32:44.632047Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
@@ -213588,14 +213588,13 @@
         {
           "name": "execution",
           "kind": "form",
-          "doc": "Branching, timing, and notes.",
+          "doc": "Timing and notes.\n\nWhere the flow branches is stated by the `ALFL` entry that branches, not\nhere: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says\nunder what condition it is taken. A step states no branch of its own, so\nthere is one place a reader and the Phase-4 generator both look.",
           "sectionId": "SCSTENEX",
           "standardReferences": {
             "standards": [
-              "BPMN 2.0 — sequence flow / activities (scenario steps)",
-              "Cockburn — Writing Effective Use Cases: extensions & alternative flows"
+              "BPMN 2.0 — sequence flow / activities (scenario steps)"
             ],
-            "connotation": "Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes."
+            "connotation": "Captures the execution details of a scenario step: expected timing and clarifying notes."
           },
           "serializationOrder": 2,
           "annotations": [
@@ -213609,10 +213608,9 @@
               "name": "StandardReferences",
               "arguments": {
                 "standards": [
-                  "BPMN 2.0 — sequence flow / activities (scenario steps)",
-                  "Cockburn — Writing Effective Use Cases: extensions & alternative flows"
+                  "BPMN 2.0 — sequence flow / activities (scenario steps)"
                 ],
-                "connotation": "Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes."
+                "connotation": "Captures the execution details of a scenario step: expected timing and clarifying notes."
               }
             },
             {
@@ -213629,13 +213627,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "decisionPoint",
-              "label": "Decision Point — if branching occurs here",
-              "hint": "Condition under which the flow branches here",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "timing",
               "label": "Timing — expected duration",

@@ -42135,7 +42135,12 @@ impl ScenarioStepEntry {
         ScenarioStepEntryContextForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SSEC"))
     }
 
-    /// Branching, timing, and notes.
+    /// Timing and notes.
+    ///
+    /// Where the flow branches is stated by the `ALFL` entry that branches, not
+    /// here: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says
+    /// under what condition it is taken. A step states no branch of its own, so
+    /// there is one place a reader and the Phase-4 generator both look.
     pub fn execution(&self) -> ScenarioStepEntryExecutionForm {
         ScenarioStepEntryExecutionForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCSTENEX"))
     }
@@ -191102,15 +191107,6 @@ impl ScenarioStepEntryExecutionForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn decision_point(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "decisionPoint")
-    }
-
-    pub fn set_decision_point(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "decisionPoint", value);
     }
 
     pub fn timing(&self) -> String {

@@ -42133,9 +42133,9 @@ def _mc_ScenarioStepEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=2,
-            doc_comment="Branching, timing, and notes.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="decisionPoint", type_name="String", description="Decision Point — if branching occurs here", hint="Condition under which the flow branches here", order=0), SomFormFieldMeta(name="timing", type_name="String", description="Timing — expected duration", hint="Expected time this step takes", order=1), SomFormFieldMeta(name="notes", type_name="String", description="Notes — clarifications", hint="Additional clarifications for this step", order=2)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — sequence flow / activities (scenario steps)", "Cockburn — Writing Effective Use Cases: extensions & alternative flows"], "connotation": "Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes."})]),
+            doc_comment="Timing and notes.\n\nWhere the flow branches is stated by the `ALFL` entry that branches, not\nhere: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says\nunder what condition it is taken. A step states no branch of its own, so\nthere is one place a reader and the Phase-4 generator both look.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="timing", type_name="String", description="Timing — expected duration", hint="Expected time this step takes", order=0), SomFormFieldMeta(name="notes", type_name="String", description="Notes — clarifications", hint="Additional clarifications for this step", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BPMN 2.0 — sequence flow / activities (scenario steps)"], "connotation": "Captures the execution details of a scenario step: expected timing and clarifying notes."})]),
          SomMetaNode(
             class_name="ScenarioStepEntry",
             member_name="serverCallSteps",

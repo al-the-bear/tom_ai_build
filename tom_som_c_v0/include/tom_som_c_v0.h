@@ -20451,7 +20451,12 @@ int scenario_step_entry_can_have_content(const ScenarioStepEntry *self);
 ScenarioStepEntryContentForm scenario_step_entry_content(const ScenarioStepEntry *self);
 // Expected outcome and referenced artifacts.
 ScenarioStepEntryContextForm scenario_step_entry_context(const ScenarioStepEntry *self);
-// Branching, timing, and notes.
+// Timing and notes.
+//
+// Where the flow branches is stated by the `ALFL` entry that branches, not
+// here: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says
+// under what condition it is taken. A step states no branch of its own, so
+// there is one place a reader and the Phase-4 generator both look.
 ScenarioStepEntryExecutionForm scenario_step_entry_execution(const ScenarioStepEntry *self);
 // Returns the list view; element type: ServerCallStepEntry (construct from item paths).
 SomList scenario_step_entry_server_call_steps(const ScenarioStepEntry *self);
@@ -56481,8 +56486,6 @@ void scenario_step_entry_execution_form_free(ScenarioStepEntryExecutionForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *scenario_step_entry_execution_form_content(const ScenarioStepEntryExecutionForm *self);
 void scenario_step_entry_execution_form_set_content(ScenarioStepEntryExecutionForm *self, const char *value);
-char *scenario_step_entry_execution_form_decision_point(const ScenarioStepEntryExecutionForm *self);
-void scenario_step_entry_execution_form_set_decision_point(ScenarioStepEntryExecutionForm *self, const char *value);
 char *scenario_step_entry_execution_form_timing(const ScenarioStepEntryExecutionForm *self);
 void scenario_step_entry_execution_form_set_timing(ScenarioStepEntryExecutionForm *self, const char *value);
 char *scenario_step_entry_execution_form_notes(const ScenarioStepEntryExecutionForm *self);

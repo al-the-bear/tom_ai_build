@@ -19571,7 +19571,12 @@ class ScenarioStepEntry extends SomNode {
   /// Expected outcome and referenced artifacts.
   ScenarioStepEntryContextForm get context => ScenarioStepEntryContextForm(doc, '$path/SSEC');
 
-  /// Branching, timing, and notes.
+  /// Timing and notes.
+  /// 
+  /// Where the flow branches is stated by the `ALFL` entry that branches, not
+  /// here: `ALFL.branchPoint` names this step and `ALFL.triggerCondition` says
+  /// under what condition it is taken. A step states no branch of its own, so
+  /// there is one place a reader and the Phase-4 generator both look.
   ScenarioStepEntryExecutionForm get execution => ScenarioStepEntryExecutionForm(doc, '$path/SCSTENEX');
 
   SomList<ServerCallStepEntry> get serverCallSteps => SomList<ServerCallStepEntry>(doc, '$path/SVCST-STEP-LST', (d, p) => ServerCallStepEntry(d, p), pattern: 'SVCST-STEP-xxx');
@@ -76726,9 +76731,6 @@ class ScenarioStepEntryExecutionForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get decisionPoint => doc.formField(path, 'decisionPoint') ?? '';
-  set decisionPoint(String value) => doc.setFormField(path, 'decisionPoint', value);
 
   String get timing => doc.formField(path, 'timing') ?? '';
   set timing(String value) => doc.setFormField(path, 'timing', value);
