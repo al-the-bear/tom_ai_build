@@ -439,6 +439,9 @@ class SomRustEmitter {
   /// signal that its generated facade carries a `.content` accessor, so
   /// `can_have_content` is `true` (SOM §21). Same predicate as the Dart port's
   /// `_hasContentLeaf`.
+  /// A `@Unused()` on the member does **not** make this `false`: that
+  /// annotation says no prose is *expected* (`tom_specs_model_rules.md`
+  /// §5.6), not that the slot is absent.
   bool _hasContentLeaf(SpecClass cls) => cls.fields
       .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 

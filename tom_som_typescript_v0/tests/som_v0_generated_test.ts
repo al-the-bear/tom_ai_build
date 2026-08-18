@@ -392,6 +392,26 @@ function testCanHaveContent(): void {
   // The content-bearing document root itself overrides to true.
   check('canHaveContent.root-true', sbp.canHaveContent === true);
 
+  // A section whose `content` is `@Unused()` still reports true.
+  // DocumentControl is one of the ten in the model. `@Unused()` is an
+  // *authoring* statement ("no prose is expected here",
+  // `tom_specs_model_rules.md` §5.6), not a claim that the slot is absent, so
+  // the *capability* answer stays true and the slot stays writable. Pins
+  // SOM §21: `canHaveContent` never consults the annotation, and no second
+  // predicate exists for the authoring question — a consumer reads the content
+  // node's `unused` flag in the metadata.
+  const control = sbp.documentControl;
+  check('canHaveContent.unused-content-true', control.canHaveContent === true);
+  control.content = 'Prose is possible even where it is not expected.';
+  check(
+    'canHaveContent.unused-content-writable',
+    control.content === 'Prose is possible even where it is not expected.',
+  );
+  check(
+    'canHaveContent.unused-content-true-after-write',
+    control.canHaveContent === true,
+  );
+
   // Structural, not state: the predicate is constant regardless of whether any
   // content value is actually present (it never looks at the document).
   check(

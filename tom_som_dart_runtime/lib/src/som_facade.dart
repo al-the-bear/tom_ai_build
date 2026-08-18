@@ -61,6 +61,13 @@ abstract class SomNode {
   /// [SpecDocument.hasContent] answers "is a value present at this leaf *now*?"
   /// and [isEmpty] answers "is this subtree empty *now*?". `canHaveContent` never
   /// looks at the document — it describes the model, not the data.
+  ///
+  /// It is also distinct from the **authoring** statement `@Unused()`, which
+  /// marks a `content` member the model expects to stay empty
+  /// (`tom_specs_model_rules.md` §5.6). Those sections still report `true` —
+  /// the slot is declared and writable, and prose is possible even where it is
+  /// not expected. A consumer wanting "is prose expected here?" reads the
+  /// content node's `unused` flag in the metadata instead.
   bool get canHaveContent => false;
 
   /// This node's section id when it is a list item (AA1 criterion 1 read),

@@ -79,7 +79,14 @@ class SomNode:
         generic :meth:`SpecDocument.has_content` answers "is a value present at
         this leaf *now*?" and :attr:`is_empty` answers "is this subtree empty
         *now*?". ``can_have_content`` never looks at the document — it describes
-        the model, not the data."""
+        the model, not the data.
+
+        It is also distinct from the **authoring** statement ``@Unused()``,
+        which marks a ``content`` member the model expects to stay empty
+        (``tom_specs_model_rules.md`` §5.6). Those sections still report
+        ``True`` — the slot is declared and writable, and prose is possible even
+        where it is not expected. A consumer wanting "is prose expected here?"
+        reads the content node's ``unused`` flag in the metadata instead."""
         return False
 
     @property

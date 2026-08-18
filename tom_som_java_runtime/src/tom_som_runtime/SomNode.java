@@ -119,6 +119,13 @@ public class SomNode {
    * leaf <em>now</em>?" and {@link #isEmpty} answers "is this subtree empty
    * <em>now</em>?". {@code canHaveContent} never looks at the document — it
    * describes the model, not the data.
+   *
+   * <p>It is also distinct from the <b>authoring</b> statement {@code @Unused()},
+   * which marks a {@code content} member the model expects to stay empty
+   * ({@code tom_specs_model_rules.md} §5.6). Those sections still report
+   * {@code true} — the slot is declared and writable, and prose is possible even
+   * where it is not expected. A consumer wanting "is prose expected here?" reads
+   * the content node's {@code unused} flag in the metadata instead.
    */
   public boolean canHaveContent() {
     return false;

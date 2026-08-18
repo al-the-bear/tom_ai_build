@@ -248,6 +248,22 @@ def test_can_have_content() -> None:
     _check("chc.root-true",
            m.D00SolutionBlueprint(SpecDocument()).can_have_content is True)
 
+    # A section whose `content` is `@Unused()` still reports True.
+    # DocumentControl is one of the ten in the model. `@Unused()` is an
+    # *authoring* statement ("no prose is expected here",
+    # `tom_specs_model_rules.md` §5.6), not a claim that the slot is absent, so
+    # the *capability* answer stays True and the slot stays writable. Pins
+    # SOM §21: `can_have_content` never consults the annotation, and no second
+    # predicate exists for the authoring question — a consumer reads the
+    # content node's `unused` flag in the metadata.
+    control = sbp.documentControl
+    _check("chc.unused-content-still-true", control.can_have_content is True)
+    control.content = "Prose is possible even where it is not expected."
+    _check("chc.unused-content-writable",
+           control.content == "Prose is possible even where it is not expected.")
+    _check("chc.unused-content-still-true-after-write",
+           control.can_have_content is True)
+
     # Structural, not state — independent of whether content is written.
     sbp2 = m.D00SolutionBlueprint(SpecDocument())
     goals = sbp2.introductionAndScope.goals

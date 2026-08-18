@@ -363,6 +363,25 @@ void testCanHaveContent() {
   // The document root has a content leaf.
   ok(sbp.canHaveContent(), "root canHaveContent true");
 
+  // A `@Unused()` on the `content` member does not lower the answer.
+  // DocumentControl carries it — one of the ten in the model. That is an
+  // *authoring* statement ("no prose is expected here",
+  // `tom_specs_model_rules.md` §5.6), not a claim that the slot is absent, so
+  // the *capability* answer stays true and the slot stays writable. Pins
+  // SOM §21: canHaveContent never consults the annotation, and no second
+  // predicate exists for the authoring question — a consumer reads the content
+  // node's `unused` flag in the metadata.
+  {
+    tom_som_v0::DocumentControl control = sbp.documentControl();
+    ok(control.canHaveContent(),
+       "@Unused content: DocumentControl canHaveContent true");
+    control.setContent("Prose is possible even where it is not expected.");
+    ok(control.content() == "Prose is possible even where it is not expected.",
+       "@Unused content slot stays writable");
+    ok(control.canHaveContent(),
+       "@Unused content: canHaveContent stays true after a write");
+  }
+
   // Structural — independent of whether content is written now.
   {
     tom_som_v0::Goals goals = sbp.introductionAndScope().goals();

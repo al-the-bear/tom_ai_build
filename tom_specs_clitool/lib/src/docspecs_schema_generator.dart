@@ -52,7 +52,12 @@ import 'model_reader.dart';
 /// - `pattern-check-text:` is **never** emitted — the model constrains sections
 ///   structurally and only *guides* their prose, so it carries no text-body
 ///   regex annotation to map from (`tom_specs_model_rules.md` §9.4);
-/// - `@Unused` nodes are omitted entirely, subtree included;
+/// - `@Unused` nodes are omitted entirely, subtree included. The model only
+///   ever puts the annotation on a `content` member (`tom_specs_model_rules.md`
+///   §5.6), which contributes no section ref in any case — so today the rule is
+///   a no-op and the containers that carry it keep their section types and
+///   their subsections, which is the point of the annotation: it says no prose
+///   is *expected*, not that the section is absent;
 /// - the `document:` structure lists the root's top-level sections with
 ///   `optional: true` unless the child carries `@Min` ≥ 1; `access-key:` from
 ///   `@AccessKey` and `for-each:` from `@ForEach` ride there too, because

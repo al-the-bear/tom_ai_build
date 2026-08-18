@@ -393,6 +393,23 @@ public final class GeneratedModelTest {
     // The document root itself declares a `content` leaf → true.
     check("canhavecontent.root-true", sbp.canHaveContent());
 
+    // A section whose `content` is `@Unused()` still reports true.
+    // DocumentControl is one of the ten in the model. `@Unused()` is an
+    // *authoring* statement ("no prose is expected here",
+    // `tom_specs_model_rules.md` §5.6), not a claim that the slot is absent, so
+    // the *capability* answer stays true and the slot stays writable. Pins
+    // SOM §21: canHaveContent() never consults the annotation, and no second
+    // predicate exists for the authoring question — a consumer reads the
+    // content node's `unused` flag in the metadata.
+    TomSomV0.DocumentControl control = sbp.documentControl();
+    check("canhavecontent.unused-content-true", control.canHaveContent());
+    control.content("Prose is possible even where it is not expected.");
+    check("canhavecontent.unused-content-writable",
+        "Prose is possible even where it is not expected."
+            .equals(control.content()));
+    check("canhavecontent.unused-content-true-after-write",
+        control.canHaveContent());
+
     // Structural — independent of whether content is written. The content-bearing
     // section stays true after a write; a filled scalar item stays false.
     TomSomV0.Goals goals = sbp.introductionAndScope().goals();

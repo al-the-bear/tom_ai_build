@@ -54,7 +54,12 @@ int som_node_is_empty(const SomNode *n);
  * document — it describes the model, not the data — so it is deliberately
  * distinct from the STATE predicates `spec_document_has_content` ("is a value
  * present at this leaf now?") and `som_node_is_empty` ("is this subtree empty
- * now?"). */
+ * now?"). It is also distinct from the AUTHORING statement `@Unused()`, which
+ * marks a `content` member the model expects to stay empty
+ * (`tom_specs_model_rules.md` §5.6): those types still emit 1, because the slot
+ * is declared and writable and prose is possible even where it is not expected.
+ * A consumer wanting "is prose expected here?" reads the content node's `unused`
+ * flag in the metadata instead. */
 /* Overrides this list item's section id (AA1 criterion 5): an arbitrary suffix,
  * validated unique within the owning list. An empty id is a no-op. On collision
  * or a non-live node writes `*err` and returns 0; returns 1 on success. `err`

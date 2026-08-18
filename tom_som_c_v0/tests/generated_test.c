@@ -615,12 +615,34 @@ static void test_can_have_content(void) {
   ok(systems_to_replace_can_have_content(&systems) == 1,
      "pure-container SystemsToReplace can_have_content is true");
 
+  /* A `@Unused()` on the `content` member does not lower the answer.
+   * DocumentControl carries it — one of the ten in the model. That is an
+   * *authoring* statement ("no prose is expected here",
+   * `tom_specs_model_rules.md` §5.6), not a claim that the slot is absent, so
+   * the *capability* answer stays 1 and the slot stays writable. Pins SOM §21:
+   * can_have_content never consults the annotation, and no second predicate
+   * exists for the authoring question — a consumer reads the content node's
+   * `unused` flag in the metadata. */
+  DocumentControl control;
+  document_control_init(&control, &doc, "SBP/documentControl");
+  ok(document_control_can_have_content(&control) == 1,
+     "@Unused content: DocumentControl can_have_content is true");
+  document_control_set_content(&control,
+                               "Prose is possible even where it is not expected.");
+  char *control_content = document_control_content(&control);
+  eq_str(control_content, "Prose is possible even where it is not expected.",
+         "@Unused content slot stays writable");
+  free(control_content);
+  ok(document_control_can_have_content(&control) == 1,
+     "@Unused content: can_have_content stays true after a write");
+
   /* Structural, never stateful: writing a value under Goals' content leaf does
    * not change the answer. */
   goals_set_content(&goals, "Some goals");
   ok(goals_can_have_content(&goals) == 1,
      "Goals can_have_content stays true after content is written");
 
+  document_control_free(&control);
   goals_free(&goals);
   systems_to_replace_free(&systems);
   d00_solution_blueprint_free(&pd);

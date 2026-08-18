@@ -1480,6 +1480,18 @@ languages.
   branch lives in the emitter and is covered by those runtimes' own suites. The
   predicate is deliberately *not* a uniform nullable `content`, which would have
   undone the non-null `.content` coalescing above.
+- **`@Unused()` on a `content` member does not lower the answer.** It is an
+  authoring statement — *this container is not expected to carry prose of its
+  own* (`tom_specs_model_rules.md` §5.6) — not a claim that the slot is absent
+  or unwritable. Every section can hold prose in principle, so the capability
+  answer stays `true` for the ten classes that carry the annotation, and the
+  slot stays writable through `.content`. No second predicate is introduced for
+  the authoring statement: the flag itself already rides in the cross-language
+  meta as the content node's `unused`, which is where a consumer that wants
+  *"is prose expected here?"* rather than *"is prose possible here?"* reads it.
+  Nothing else keys off the annotation either — a `@Unused` content member does
+  **not** suppress its section from the generated DocSpec schema, which would
+  drop the subsections the container exists to hold.
 
 **Navigating and exporting:**
 

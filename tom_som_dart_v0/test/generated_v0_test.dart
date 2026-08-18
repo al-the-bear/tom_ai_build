@@ -282,6 +282,23 @@ void main() {
       expect(D00SolutionBlueprint(SpecDocument()).canHaveContent, isTrue);
     });
 
+    test('a section whose content is @Unused still reports true', () {
+      final sbp = D00SolutionBlueprint(SpecDocument());
+      // DocumentControl carries `@Unused()` on its `content` member — one of
+      // the ten in the model. That is an *authoring* statement ("no prose is
+      // expected here", `tom_specs_model_rules.md` §5.6), not a claim that the
+      // slot is absent, so the *capability* answer stays true and the slot
+      // stays writable. Pins SOM §21: `canHaveContent` never consults the
+      // annotation, and no second predicate exists for the authoring question
+      // — a consumer reads the content node's `unused` flag in the metadata.
+      final control = sbp.documentControl;
+      expect(control.canHaveContent, isTrue);
+      control.content = 'Prose is possible even where it is not expected.';
+      expect(control.content,
+          'Prose is possible even where it is not expected.');
+      expect(control.canHaveContent, isTrue);
+    });
+
     test('it is structural — independent of whether content is written', () {
       final sbp = D00SolutionBlueprint(SpecDocument());
       final goals = sbp.introductionAndScope.goals;

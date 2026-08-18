@@ -129,7 +129,13 @@ impl SomNode {
     // deliberately distinct from the two **state** predicates:
     // [`SpecDocument::has_content`] answers "is a value present at this leaf
     // *now*?" and [`SomNode::is_empty`] answers "is this subtree empty *now*?";
-    // `can_have_content` describes the model, not the data.
+    // `can_have_content` describes the model, not the data. It is also distinct
+    // from the **authoring** statement `@Unused()`, which marks a `content`
+    // member the model expects to stay empty (`tom_specs_model_rules.md` §5.6):
+    // those types still emit `true`, because the slot is declared and writable
+    // and prose is possible even where it is not expected. A consumer wanting
+    // "is prose expected here?" reads the content node's `unused` flag in the
+    // metadata instead.
 }
 
 /// A scalar list item — a bare string value held in the document's content store

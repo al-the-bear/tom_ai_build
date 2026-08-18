@@ -342,6 +342,26 @@ func TestCanHaveContent(t *testing.T) {
 		t.Errorf("SystemsToReplace.CanHaveContent() = false, want true (§10.2: every section declares `content`)")
 	}
 
+	// A section whose `content` is `@Unused()` still reports true.
+	// DocumentControl is one of the ten in the model. `@Unused()` is an
+	// *authoring* statement ("no prose is expected here",
+	// tom_specs_model_rules.md §5.6), not a claim that the slot is absent, so the
+	// *capability* answer stays true and the slot stays writable. Pins SOM §21:
+	// CanHaveContent never consults the annotation, and no second predicate
+	// exists for the authoring question — a consumer reads the content node's
+	// `unused` flag in the metadata.
+	control := pd.DocumentControl()
+	if !control.CanHaveContent() {
+		t.Errorf("DocumentControl.CanHaveContent() = false, want true (@Unused says no prose is expected, not that the slot is absent)")
+	}
+	control.SetContent("Prose is possible even where it is not expected.")
+	if got := control.Content(); got != "Prose is possible even where it is not expected." {
+		t.Errorf("DocumentControl.Content() = %q, want the written value — the @Unused slot stays writable", got)
+	}
+	if !control.CanHaveContent() {
+		t.Errorf("DocumentControl.CanHaveContent() must stay true after a write")
+	}
+
 	// A scalar list element is a *som.SomScalar: its value *is* its item path, so
 	// it declares no `content` leaf and inherits the promoted som.SomNode false
 	// default. This is the whole of the predicate's surviving false side.

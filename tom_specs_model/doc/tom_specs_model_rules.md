@@ -496,6 +496,14 @@ therefore carry a class-level `@Form` *and* a `@ContentHelp` on `content`.
 `@Unused()` is the right answer for a container that genuinely expects no
 narrative — it is a statement, not a way to skip writing help.
 
+It says *no prose is expected*, not *no prose is possible*. The slot stays
+declared and writable, the section keeps its subsections, and the generated
+facades' `canHaveContent` stays `true` (SOM §21) — that predicate answers the
+capability question, which every section answers the same way. The annotation
+reaches consumers as the content node's `unused` flag in the cross-language
+meta; nothing derives behaviour from it, and in particular the DocSpec schema
+generator does not drop the section, which would take the subsections with it.
+
 ContentType constraints:
 
 - **`@ContentType('Form')` (default):** the class's other scalar fields are the
@@ -1238,7 +1246,7 @@ Two authoring notes with model-wide consequences:
 | `@ContentHelp(text)` | class or member | Authoring guidance → schema `description`. |
 | `@Comment(text)` | class or field | Inline human note (outliner display; `Seeds → XX` provenance). |
 | `@Min(n)` / `@Max(n)` | `List<T>` field | Item-count bounds → schema `min-count`/`max-count`. |
-| `@Unused()` | `content` field | Structural container only; omitted from the schema, still walked for layout. |
+| `@Unused()` | `content` field | Structural container: no prose is *expected* here (§5.6). Carried to consumers as the meta node's `unused`; the section, its slot and its `canHaveContent` are untouched. |
 | `@SerializationOrder(n)` | every member | Sibling emission order in every observable surface. Stamped in bulk by `tom_specs_clitool/bin/stamp_serialization_order.dart`. |
 | `@Reference(description)` | field | Points at data owned elsewhere; renders as an ordinary content-kind inline sub-section keyed by its field-level `…-REF` id whose *value* is the referenced section id. Never followed in traversal; excluded from ownership/cycle/list coverage. |
 | `@MapsTo(Type)` | class | Seed node of a Phase 3 DocSpec in the master model — the whole subtree flows to that document. |
