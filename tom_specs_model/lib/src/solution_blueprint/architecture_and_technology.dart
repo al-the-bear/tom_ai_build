@@ -7,11 +7,13 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
-/// The closed set of things that can start a scheduled job ([ScheduledJobEntry]).
+/// The closed set of things that can start a scheduled job
+/// ([ScheduledJobEntry]).
 ///
 /// The discriminator enum for the `ScheduledJobEntry` `@OneOf` group. The three
-/// arms are not variants of one shape — each is started by a different thing and
-/// therefore authors a different rule, so each binds its own case subsection:
+/// arms are not variants of one shape — each is started by a different thing
+/// and therefore authors a different rule, so each binds its own case
+/// subsection:
 ///
 /// - [cron] fires on a recurring clock expression.
 /// - [calendar] fires on a date rule that a clock expression cannot state —
@@ -20,8 +22,8 @@ import '../document_stubs.dart';
 ///   happens, and the payload of that occurrence is what the work reads.
 ///
 /// The set is closed at three because it is exactly the trigger vocabulary the
-/// CodeSpecs surface realises (`codespecs_mapping.md` §5.29); a fourth arm would
-/// be a specification that cannot be generated.
+/// CodeSpecs surface realises (`codespecs_mapping.md` §5.29); a fourth arm
+/// would be a specification that cannot be generated.
 enum ScheduledJobTrigger {
   cron,
   calendar,
@@ -1668,7 +1670,8 @@ class RuntimeEnvironment extends DocSpecsSection {
 ///
 /// Target architecture style specification: monolith, modular monolith,
 /// microservices, event-driven, serverless, or hybrid. Includes justification
-/// based on project requirements, architectural principles, and design decisions.
+/// based on project requirements, architectural principles, and design
+/// decisions.
 @ContentHelp('''
 Define the system's architectural style and structural organization.
 Architecture decisions have long-lasting impacts on maintainability,
@@ -3958,7 +3961,8 @@ class CodingStandardEntry extends DocSpecsSection {
   DocSpecsSection? enforcement;
 }
 
-/// Development convention entry — a development practice or workflow convention.
+/// Development convention entry — a development practice or workflow
+/// convention.
 @StandardReferences([
   'coding standards (e.g. Effective Dart / language style guide)',
   'SOLID principles — object-oriented design',
@@ -5152,8 +5156,9 @@ Provide an overview of software design approach and key decisions.
 
 /// 8.2.1. Layering and Module Structure.
 ///
-/// Software layering (presentation, business logic, data access, infrastructure)
-/// and module structure (bounded contexts, packages, libraries).
+/// Software layering (presentation, business logic, data access,
+/// infrastructure) and module structure (bounded contexts, packages,
+/// libraries).
 @ContentHelp('''
 Define software layering approach, module organization, and dependency
 management rules. Clear boundaries prevent spaghetti architecture and
@@ -5601,10 +5606,10 @@ class LayerCommunicationRules extends DocSpecsSection {
 
 /// Bounded context entry — a DDD bounded context.
 ///
-/// `contextName` is the registry key: every `Bounded Context` field elsewhere in
-/// the specification names one of these entries, so a context exists in exactly
-/// one place and a misspelt name is reported rather than silently creating a
-/// second context.
+/// `contextName` is the registry key: every `Bounded Context` field elsewhere
+/// in the specification names one of these entries, so a context exists in
+/// exactly one place and a misspelt name is reported rather than silently
+/// creating a second context.
 @StandardReferences([
   'Domain-Driven Design — bounded contexts / modules',
   'SOLID principles — object-oriented design',
@@ -10636,8 +10641,8 @@ Provide an overview of standard software requirements approach.
 
 /// 8.3.1. Compatibility Requirements.
 ///
-/// Compatibility requirements with existing IT infrastructure, standard software,
-/// and enterprise systems.
+/// Compatibility requirements with existing IT infrastructure, standard
+/// software, and enterprise systems.
 @ContentHelp('''
 Specify compatibility requirements with existing infrastructure, software,
 and enterprise systems. Compatibility ensures smooth integration and
@@ -16403,11 +16408,11 @@ policy and the reasoning for the device scope.
 /// The declaration only: key, value type and default. The value is the user's
 /// choice on this device and is never authored (`codespecs_mapping.md` §5.16).
 ///
-/// There is deliberately no shadowing field. §5.16 puts the opt-in on the
-/// *wider* scope — a key is shadowable only because its wider-scope declaration
-/// says so — and CE-DS is the narrowest scope, so it has nothing below it to
-/// open. Declaring the same relation from both ends would be two authored
-/// fields that can disagree.
+/// There is deliberately no shadowing field. `codespecs_mapping.md` §5.16 puts
+/// the opt-in on the *wider* scope — a key is shadowable only because its
+/// wider-scope declaration says so — and CE-DS is the narrowest scope, so it
+/// has nothing below it to open. Declaring the same relation from both ends
+/// would be two authored fields that can disagree.
 @StandardReferences(
   [
     'ISO 9241-110 — suitability for individualization (user-tailored settings)',
@@ -28180,9 +28185,9 @@ class UserProvisioningTools extends DocSpecsSection {
 /// can say how jobs are run in general but cannot name a single one, which is
 /// exactly what the job list exists to fix.
 ///
-/// The policy is the **default layer**: an execution control stated here applies
-/// to every job that does not override it, and an entry that does override it
-/// says so in its own failure-policy subsection.
+/// The policy is the **default layer**: an execution control stated here
+/// applies to every job that does not override it, and an entry that does
+/// override it says so in its own failure-policy subsection.
 @StandardReferences(
   [
     'Google SRE — eliminating toil and operational procedures',
@@ -28240,13 +28245,13 @@ subsections below carry the defaults those declarations inherit.
   /// text says, so it became a second place to state which jobs exist and could
   /// disagree with [scheduledJobs] — which is authoritative and is what the
   /// CodeSpecs generator reads. The fixed five were also a closed taxonomy with
-  /// no basis: a system whose batch work is model retraining or index rebuilding
-  /// had no slot. One prose field can describe any workload and cannot be
-  /// mistaken for the inventory.
+  /// no basis: a system whose batch work is model retraining or index
+  /// rebuilding had no slot. One prose field can describe any workload and
+  /// cannot be mistaken for the inventory.
   ///
   /// [scheduledJobs] remains the only place a job comes into existence. A shape
-  /// described here that no entry there realises is a workload the specification
-  /// has not actually declared.
+  /// described here that no entry there realises is a workload the
+  /// specification has not actually declared.
   @SectionId('BJMJT')
   @StandardReferences(
     [
@@ -28647,14 +28652,15 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
   /// This is the structure `SCJOB-WORK` cannot carry. `workSummary` says what
   /// the job achieves; these entries say in what order it gets there, as
   /// sections that can be addressed, conditioned and traced one at a time. It
-  /// is the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**
-  /// work body from — one statement per step, in list order, each a call on the
-  /// job's abstract collaborator.
+  /// is the surface `codespecs_derivation_contract.md` §2.4 derives a
+  /// **form-3b** work body from — one statement per step, in list order, each a
+  /// call on the job's abstract collaborator.
   ///
   /// **Optional, and empty is a real answer.** A job whose work is genuinely
-  /// one action lists no steps, and §2.4's fallback then emits the form-3a body
-  /// from `workSummary` exactly as before. The list is how a job that *is*
-  /// multi-step stops having to say so in a sentence.
+  /// one action lists no steps, and `codespecs_derivation_contract.md` §2.4's
+  /// fallback then emits the form-3a body from `workSummary` exactly as before.
+  /// The list is how a job that *is* multi-step stops having to say so in a
+  /// sentence.
   @StandardReferences(
     [
       'Cockburn — Writing Effective Use Cases: numbered step sequences',
@@ -35602,7 +35608,8 @@ Provide an overview of security audit strategy.
   SecurityTestingAutomation securityTestingAutomation =
       SecurityTestingAutomation();
 
-  /// Individual security audit requirement entries — contains 0+× SecurityAudit.
+  /// Individual security audit requirement entries — contains 0+×
+  /// SecurityAudit.
   @StandardReferences(
     ['ISO/IEC 27001 — internal audit and management review (Clause 9)'],
     'The catalog of individual security audit requirements the system must satisfy.',

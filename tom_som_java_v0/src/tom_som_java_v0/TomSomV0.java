@@ -685,8 +685,9 @@ public final class TomSomV0 {
 
   // 9.1.2.5. Account Deactivation (form).
   //
-  // Defines temporary or permanent disabling of user accounts — reasons, effects,
-  // reactivation conditions, and the difference between suspension and deactivation.
+  // Defines temporary or permanent disabling of user accounts — reasons,
+  // effects, reactivation conditions, and the difference between suspension and
+  // deactivation.
   public static final class AccountDeactivationPolicy extends SomNode {
     public AccountDeactivationPolicy(SpecDocument doc, String path) {
       super(doc, path);
@@ -1955,7 +1956,8 @@ public final class TomSomV0 {
   //
   // Target architecture style specification: monolith, modular monolith,
   // microservices, event-driven, serverless, or hybrid. Includes justification
-  // based on project requirements, architectural principles, and design decisions.
+  // based on project requirements, architectural principles, and design
+  // decisions.
   public static final class ArchitectureStyle extends SomNode {
     public ArchitectureStyle(SpecDocument doc, String path) {
       super(doc, path);
@@ -3108,9 +3110,9 @@ public final class TomSomV0 {
   // can say how jobs are run in general but cannot name a single one, which is
   // exactly what the job list exists to fix.
   //
-  // The policy is the **default layer**: an execution control stated here applies
-  // to every job that does not override it, and an entry that does override it
-  // says so in its own failure-policy subsection.
+  // The policy is the **default layer**: an execution control stated here
+  // applies to every job that does not override it, and an entry that does
+  // override it says so in its own failure-policy subsection.
   public static final class BatchJobManagement extends SomNode {
     public BatchJobManagement(SpecDocument doc, String path) {
       super(doc, path);
@@ -3135,13 +3137,13 @@ public final class TomSomV0 {
     // text says, so it became a second place to state which jobs exist and could
     // disagree with [scheduledJobs] — which is authoritative and is what the
     // CodeSpecs generator reads. The fixed five were also a closed taxonomy with
-    // no basis: a system whose batch work is model retraining or index rebuilding
-    // had no slot. One prose field can describe any workload and cannot be
-    // mistaken for the inventory.
+    // no basis: a system whose batch work is model retraining or index
+    // rebuilding had no slot. One prose field can describe any workload and
+    // cannot be mistaken for the inventory.
     //
     // [scheduledJobs] remains the only place a job comes into existence. A shape
-    // described here that no entry there realises is a workload the specification
-    // has not actually declared.
+    // described here that no entry there realises is a workload the
+    // specification has not actually declared.
     public String workloadShape() {
       String v = doc.content(path + "/BJMJT");
       return v == null ? "" : v;
@@ -3296,10 +3298,10 @@ public final class TomSomV0 {
 
   // Bounded context entry — a DDD bounded context.
   //
-  // `contextName` is the registry key: every `Bounded Context` field elsewhere in
-  // the specification names one of these entries, so a context exists in exactly
-  // one place and a misspelt name is reported rather than silently creating a
-  // second context.
+  // `contextName` is the registry key: every `Bounded Context` field elsewhere
+  // in the specification names one of these entries, so a context exists in
+  // exactly one place and a misspelt name is reported rather than silently
+  // creating a second context.
   public static final class BoundedContextEntry extends SomNode {
     public BoundedContextEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -3736,7 +3738,8 @@ public final class TomSomV0 {
 
   // A business object attribute entry (form).
   //
-  // Business-level attribute specification focusing on business meaning and rules.
+  // Business-level attribute specification focusing on business meaning and
+  // rules.
   public static final class BusinessObjectAttributeEntry extends SomNode {
     public BusinessObjectAttributeEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -5748,8 +5751,8 @@ public final class TomSomV0 {
 
   // 8.3.1. Compatibility Requirements.
   //
-  // Compatibility requirements with existing IT infrastructure, standard software,
-  // and enterprise systems.
+  // Compatibility requirements with existing IT infrastructure, standard
+  // software, and enterprise systems.
   public static final class CompatibilityRequirementsSection extends SomNode {
     public CompatibilityRequirementsSection(SpecDocument doc, String path) {
       super(doc, path);
@@ -9763,13 +9766,14 @@ public final class TomSomV0 {
     // per-channel entries) and the key lifecycle under `KeyManagement`
     // (generation, storage, rotation, escrow-and-backup, compromise recovery).
     //
-    // It belongs here because §5.5's own substrate names its material:
-    // `TomBaseServerConfiguration` declares TLS material and signing keys as
-    // typed fields, so a TLS minimum version is a server-configuration value in
-    // exactly the sense `@CsServerConfig` generates. Its projected siblings
-    // settle it — `StorageEncryptionPolicy` under `AccessControlModel` and
-    // `LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of
-    // the same shape, and no criterion separates them from these.
+    // It belongs here because `codespecs_mapping.md` §5.5's own substrate names
+    // its material: `TomBaseServerConfiguration` declares TLS material and
+    // signing keys as typed fields, so a TLS minimum version is a
+    // server-configuration value in exactly the sense `@CsServerConfig`
+    // generates. Its projected siblings settle it — `StorageEncryptionPolicy`
+    // under `AccessControlModel` and `LogRetentionPolicy` under
+    // `AuditAndLogging` are fixed-key policy bands of the same shape, and no
+    // criterion separates them from these.
     public SensitiveDataEncryption sensitiveDataEncryption() {
       return new SensitiveDataEncryption(doc, path + "/sensitiveDataEncryption");
     }
@@ -9814,8 +9818,9 @@ public final class TomSomV0 {
     // supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
     // gives the data source / schema directory placement, `SCMST.artifactKind`
     // the artifact kind, and `SCMST.environments` the filename environment tag.
-    // The artifact *filenames* are authored, not derived — a §5.23 string
-    // exemption — so they are not part of the generated surface.
+    // The artifact *filenames* are authored, not derived — a
+    // `codespecs_mapping.md` §5.23 string exemption — so they are not part of
+    // the generated surface.
     //
     // The subtree sits beside `dataModel` above for a reason: the cumulative
     // effect of a schema's artifacts must converge on the CE-DB model that entry
@@ -9832,8 +9837,8 @@ public final class TomSomV0 {
     // shared — the client cites an operation and depends on its shapes — while
     // the **operation itself** lands on the owning service unit in the server
     // project. Which service unit that is follows from each operation's primary
-    // written data entity (§5.17), so ownership is derived here rather than
-    // declared.
+    // written data entity (`codespecs_mapping.md` §5.17), so ownership is
+    // derived here rather than declared.
     //
     // The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
     // reachable from this projection: it describes third-party interfaces the
@@ -10076,10 +10081,10 @@ public final class TomSomV0 {
 
     // File-reference type options — a promoted `@OneOf` case (csra10).
     //
-    // Present only for the `fileReference` logical type: the attribute stores the
-    // **address of a stored file**, so what a specification must say is where the
-    // file is filed, which store holds it, whether it dies with its record, and
-    // what may be uploaded into it.
+    // Present only for the `fileReference` logical type: the attribute stores
+    // the **address of a stored file**, so what a specification must say is
+    // where the file is filed, which store holds it, whether it dies with its
+    // record, and what may be uploaded into it.
     //
     // The address itself is never authored — it is generated when the file is
     // stored, so a specification chooses only the group it is filed under. The
@@ -10652,8 +10657,8 @@ public final class TomSomV0 {
   //
   // Comprehensive data access protection specification covering database-level
   // security, row-level security, column-level security, tenant data isolation,
-  // and data masking for production and non-production environments.
-  // Aligned with OWASP Database Security Cheat Sheet and least-privilege principles.
+  // and data masking for production and non-production environments. Aligned
+  // with OWASP Database Security Cheat Sheet and least-privilege principles.
   public static final class DataLevelSecurity extends SomNode {
     public DataLevelSecurity(SpecDocument doc, String path) {
       super(doc, path);
@@ -12866,7 +12871,8 @@ public final class TomSomV0 {
     }
   }
 
-  // Development convention entry — a development practice or workflow convention.
+  // Development convention entry — a development practice or workflow
+  // convention.
   public static final class DevelopmentConventionEntry extends SomNode {
     public DevelopmentConventionEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -13020,11 +13026,11 @@ public final class TomSomV0 {
   // The declaration only: key, value type and default. The value is the user's
   // choice on this device and is never authored (`codespecs_mapping.md` §5.16).
   //
-  // There is deliberately no shadowing field. §5.16 puts the opt-in on the
-  // *wider* scope — a key is shadowable only because its wider-scope declaration
-  // says so — and CE-DS is the narrowest scope, so it has nothing below it to
-  // open. Declaring the same relation from both ends would be two authored
-  // fields that can disagree.
+  // There is deliberately no shadowing field. `codespecs_mapping.md` §5.16 puts
+  // the opt-in on the *wider* scope — a key is shadowable only because its
+  // wider-scope declaration says so — and CE-DS is the narrowest scope, so it
+  // has nothing below it to open. Declaring the same relation from both ends
+  // would be two authored fields that can disagree.
   public static final class DeviceSettingEntry extends SomNode {
     public DeviceSettingEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -13766,8 +13772,8 @@ public final class TomSomV0 {
   //
   // One named closed value set: its name, backing value type, default value and
   // the ordered list of members. Maps to the `domainEnum` **member kind** — the
-  // enum name becomes the generated enum type and each member becomes a constant —
-  // and doubles as a closed-choice discriminator source (csm-7-4): the enum
+  // enum name becomes the generated enum type and each member becomes a constant
+  // — and doubles as a closed-choice discriminator source (csm-7-4): the enum
   // name identifies the choice set and [values] supply the cases.
   public static final class DomainEnumEntry extends SomNode {
     public DomainEnumEntry(SpecDocument doc, String path) {
@@ -14404,7 +14410,8 @@ public final class TomSomV0 {
 
   // An entity relationship entry (form).
   //
-  // Comprehensive relationship specification following ER modeling best practices.
+  // Comprehensive relationship specification following ER modeling best
+  // practices.
   public static final class EntityRelationshipEntry extends SomNode {
     public EntityRelationshipEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -16276,13 +16283,13 @@ public final class TomSomV0 {
   // 13.4.1. Feature Priority Register.
   //
   // Master register of all features with comprehensive priority scoring,
-  // business value analysis, effort estimates, stakeholder ownership,
-  // and traceability. Single source of truth for feature identity: a feature
-  // exists because it is declared here, and every feature reference elsewhere
-  // in the model resolves against `FPE.featureId`. The MoSCoW analysis
-  // (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
-  // (§13.4.4) are views onto this register — they name a registered feature and
-  // add their own view's attributes, never a second copy of its identity.
+  // business value analysis, effort estimates, stakeholder ownership, and
+  // traceability. Single source of truth for feature identity: a feature exists
+  // because it is declared here, and every feature reference elsewhere in the
+  // model resolves against `FPE.featureId`. The MoSCoW analysis (SBP.13.4.2),
+  // the feature-stage matrix (SBP.13.4.3) and the dependency map (SBP.13.4.4)
+  // are views onto this register — they name a registered feature and add their
+  // own view's attributes, never a second copy of its identity.
   public static final class FeaturePriorityRegister extends SomNode {
     public FeaturePriorityRegister(SpecDocument doc, String path) {
       super(doc, path);
@@ -16336,7 +16343,7 @@ public final class TomSomV0 {
   //
   // Maps every feature or feature group to the delivery stage, tracking
   // readiness, confidence, dependencies, and acceptance criteria. A view onto
-  // the Feature Priority Register (§13.4.1): each entry names a registered
+  // the Feature Priority Register (SBP.13.4.1): each entry names a registered
   // feature and adds only its staging.
   public static final class FeatureStageMatrix extends SomNode {
     public FeatureStageMatrix(SpecDocument doc, String path) {
@@ -17491,10 +17498,10 @@ public final class TomSomV0 {
   // nothing left to resolve to.
   //
   // The price is that [GradedAccessLevelEntry] restates five of
-  // [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
-  // the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
-  // and removing it by pointing the levels back at [AuthorizationRequirementSpec]
-  // reintroduces the cycle.
+  // [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate
+  // — the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2)
+  // — and removing it by pointing the levels back at
+  // [AuthorizationRequirementSpec] reintroduces the cycle.
   public static final class GradedAuthorizationRequirement extends SomNode {
     public GradedAuthorizationRequirement(SpecDocument doc, String path) {
       super(doc, path);
@@ -18347,8 +18354,8 @@ public final class TomSomV0 {
   // 13.7. Initial Development Flow.
   //
   // Inter-phase dependencies during the initial build (Phases 1–7 of
-  // `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out
-  // as "new in DRM".
+  // `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping
+  // calls out as "new in DRM".
   public static final class InitialDevelopmentFlow extends SomNode {
     public InitialDevelopmentFlow(SpecDocument doc, String path) {
       super(doc, path);
@@ -20050,7 +20057,8 @@ public final class TomSomV0 {
       return new LanguageCountrySelectionDefaultsForm(doc, path + "/LCSD");
     }
 
-    // Retention rules — how a chosen preference survives, without naming a store.
+    // Retention rules — how a chosen preference survives, without naming a
+    // store.
     //
     // Where the preference lives is *not* authored here: it follows from the
     // settings scope the preference is declared in (user setting vs device
@@ -20104,8 +20112,9 @@ public final class TomSomV0 {
 
   // 8.2.1. Layering and Module Structure.
   //
-  // Software layering (presentation, business logic, data access, infrastructure)
-  // and module structure (bounded contexts, packages, libraries).
+  // Software layering (presentation, business logic, data access,
+  // infrastructure) and module structure (bounded contexts, packages,
+  // libraries).
   public static final class LayeringAndModuleStructure extends SomNode {
     public LayeringAndModuleStructure(SpecDocument doc, String path) {
       super(doc, path);
@@ -21153,7 +21162,8 @@ public final class TomSomV0 {
   //
   // One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
   // copy for that locale. The base-locale copy lives on
-  // [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+  // [MessageKeyEntry.defaultCopy]; each variant here overrides it for one
+  // locale.
   public static final class MessageLocaleVariantEntry extends SomNode {
     public MessageLocaleVariantEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -22210,10 +22220,10 @@ public final class TomSomV0 {
 
   // 13.4.2. MoSCoW Analysis.
   //
-  // Classifies every feature using the MoSCoW method (Must / Should /
-  // Could / Won't) and maps each to its target delivery stage. A view onto the
-  // Feature Priority Register (§13.4.1): each entry names a registered feature
-  // and adds only its classification.
+  // Classifies every feature using the MoSCoW method (Must / Should / Could /
+  // Won't) and maps each to its target delivery stage. A view onto the Feature
+  // Priority Register (SBP.13.4.1): each entry names a registered feature and
+  // adds only its classification.
   public static final class MoscowAnalysis extends SomNode {
     public MoscowAnalysis(SpecDocument doc, String path) {
       super(doc, path);
@@ -22559,7 +22569,8 @@ public final class TomSomV0 {
 
   // 10.3.1.2. Navigation Hierarchy.
   //
-  // Full navigation tree: groups and items forming the app's navigation structure.
+  // Full navigation tree: groups and items forming the app's navigation
+  // structure.
   public static final class NavigationHierarchy extends SomNode {
     public NavigationHierarchy(SpecDocument doc, String path) {
       super(doc, path);
@@ -23977,7 +23988,8 @@ public final class TomSomV0 {
       return new OrganizationalRequirementsSummaryFormForm(doc, path + "/OR-SUMM");
     }
 
-    // Organizational requirements list — contains 0+× Organizational Requirement.
+    // Organizational requirements list — contains 0+× Organizational
+    // Requirement.
     public SomList<OrganizationalRequirementEntry> requirements() {
       return new SomList<>(doc, path + "/ORRQ-REQU-LST", (d, p) -> new OrganizationalRequirementEntry(d, p), "ORRQ-REQU-xxx");
     }
@@ -25209,7 +25221,8 @@ public final class TomSomV0 {
 
   // 10.3.1.3. Primary Navigation.
   //
-  // How the main navigation appears across platforms: drawer, sidebar, bottom nav.
+  // How the main navigation appears across platforms: drawer, sidebar, bottom
+  // nav.
   public static final class PrimaryNavigation extends SomNode {
     public PrimaryNavigation(SpecDocument doc, String path) {
       super(doc, path);
@@ -25450,9 +25463,10 @@ public final class TomSomV0 {
 
   // 2.3. Process Adjustments.
   //
-  // Documents any deviations from the standard tom_specs_project_flow.md
-  // creation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,
-  // reordered, or modified steps and the rationale for each deviation.
+  // Documents any deviations from the standard creation
+  // (`tom_specs_project_flow.md` §PF-PHA) or upgrade-cycle
+  // (`tom_specs_project_flow.md` §PF-UPG) process. Includes skipped, reordered,
+  // or modified steps and the rationale for each deviation.
   public static final class ProcessAdjustments extends SomNode {
     public ProcessAdjustments(SpecDocument doc, String path) {
       super(doc, path);
@@ -26336,7 +26350,8 @@ public final class TomSomV0 {
   //
   // Key process steps with their actor interactions. Each interaction will be
   // expanded into a full use case with alternate paths, preconditions, and
-  // postconditions in the ISC document. Follows Cockburn-style use case modeling.
+  // postconditions in the ISC document. Follows Cockburn-style use case
+  // modeling.
   public static final class ProcessStepsAndActorInteractions extends SomNode {
     public ProcessStepsAndActorInteractions(SpecDocument doc, String path) {
       super(doc, path);
@@ -27053,7 +27068,8 @@ public final class TomSomV0 {
       return new DeliveryScopeAndAcceptance(doc, path + "/deliveryAcceptance");
     }
 
-    // ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
+    // ISO/IEC 25010:2023 product-quality cross-map — the IP-6 completeness
+    // addition, as the library doc states.
     public Iso25010Coverage iso25010Coverage() {
       return new Iso25010Coverage(doc, path + "/iso25010Coverage");
     }
@@ -29830,7 +29846,8 @@ public final class TomSomV0 {
   //
   // Assumptions are **not** held here (L34C-4 consolidation, SR-11): the
   // canonical assumptions register lives in SBP.6 (Assumptions, Constraints &
-  // Dependencies). Only the risks half — unique to §4.7 — remains in this node.
+  // Dependencies). Only the risks half — unique to SBP.4.7 — remains in this
+  // node.
   // (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
   // sweep, which will rename it to `Risks`.)
   public static final class RisksAndAssumptions extends SomNode {
@@ -30726,14 +30743,15 @@ public final class TomSomV0 {
     // This is the structure `SCJOB-WORK` cannot carry. `workSummary` says what
     // the job achieves; these entries say in what order it gets there, as
     // sections that can be addressed, conditioned and traced one at a time. It
-    // is the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**
-    // work body from — one statement per step, in list order, each a call on the
-    // job's abstract collaborator.
+    // is the surface `codespecs_derivation_contract.md` §2.4 derives a
+    // **form-3b** work body from — one statement per step, in list order, each a
+    // call on the job's abstract collaborator.
     //
     // **Optional, and empty is a real answer.** A job whose work is genuinely
-    // one action lists no steps, and §2.4's fallback then emits the form-3a body
-    // from `workSummary` exactly as before. The list is how a job that *is*
-    // multi-step stops having to say so in a sentence.
+    // one action lists no steps, and `codespecs_derivation_contract.md` §2.4's
+    // fallback then emits the form-3a body from `workSummary` exactly as before.
+    // The list is how a job that *is* multi-step stops having to say so in a
+    // sentence.
     public SomList<ScheduledJobStepEntry> workSteps() {
       return new SomList<>(doc, path + "/SCJOST-WORK-LST", (d, p) -> new ScheduledJobStepEntry(d, p), "SCJOST-WORK-xxx");
     }
@@ -30822,9 +30840,9 @@ public final class TomSomV0 {
 
     // Baseline schema definition — a promoted `@OneOf` case.
     //
-    // Present only for the `initialDdl` kind. It establishes the schema, so there
-    // is no prior state: no affected-entity delta, no backfill, and nothing to
-    // roll back to.
+    // Present only for the `initialDdl` kind. It establishes the schema, so
+    // there is no prior state: no affected-entity delta, no backfill, and
+    // nothing to roll back to.
     public SchemaMigrationStepEntryBaselineSchemaForm baselineSchema() {
       return new SchemaMigrationStepEntryBaselineSchemaForm(doc, path + "/SCMST-BASE");
     }
@@ -30833,8 +30851,8 @@ public final class TomSomV0 {
     //
     // Present only for the `referenceData` kind. This artifact inserts rows, not
     // schema, so it authors the value set rather than schema statements. It is
-    // the new system's own initial data — legacy business-data migration stays in
-    // the migration-mapping sections (`MIGME`).
+    // the new system's own initial data — legacy business-data migration stays
+    // in the migration-mapping sections (`MIGME`).
     public SchemaMigrationStepEntryReferenceDataForm referenceData() {
       return new SchemaMigrationStepEntryReferenceDataForm(doc, path + "/SCMST-REFD");
     }
@@ -30866,7 +30884,8 @@ public final class TomSomV0 {
       return new SchemaVersioningAndMigrationContentForm(doc, path + "/content");
     }
 
-    // 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+    // 7.4.1. Migration Targets — the data source / schema pairs artifacts apply
+    // to.
     public SomList<MigrationTargetEntry> migrationTargets() {
       return new SomList<>(doc, path + "/MIGTG-TARG-LST", (d, p) -> new MigrationTargetEntry(d, p), "MIGTG-TARG-xxx");
     }
@@ -31212,7 +31231,8 @@ public final class TomSomV0 {
     // file's group is authored once on its CE-DB file-reference column
     // (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
     // name different groups. So is a download affordance, which follows from the
-    // field being wired for transfer and the file being stored (§5.18).
+    // field being wired for transfer and the file being stored
+    // (`codespecs_mapping.md` §5.18).
     public ScreenElementFieldSpecFileOptionsForm fileOptions() {
       return new ScreenElementFieldSpecFileOptionsForm(doc, path + "/SEFSU");
     }
@@ -31560,7 +31580,8 @@ public final class TomSomV0 {
 
   // A screen state entry (form).
   //
-  // A specific state the screen can be in: loading, empty, error, permission-denied.
+  // A specific state the screen can be in: loading, empty, error,
+  // permission-denied.
   public static final class ScreenStateEntry extends SomNode {
     public ScreenStateEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -31810,7 +31831,8 @@ public final class TomSomV0 {
       return new SecurityTestingAutomation(doc, path + "/securityTestingAutomation");
     }
 
-    // Individual security audit requirement entries — contains 0+× SecurityAudit.
+    // Individual security audit requirement entries — contains 0+×
+    // SecurityAudit.
     public SomList<SecurityAuditEntry> auditEntries() {
       return new SomList<>(doc, path + "/SAE-AUDI-LST", (d, p) -> new SecurityAuditEntry(d, p), "SAE-AUDI-xxx");
     }
@@ -32120,8 +32142,8 @@ public final class TomSomV0 {
   // `@CodeSpecKind`, so it is not itself a generation projection root.
   //
   // **The root is not the boundary here.** Its `encryption` child is a pure
-  // CE-CF band — encryption at rest, encryption in transit and the key
-  // lifecycle are settings the server reads, and §5.5's substrate
+  // CE-CF band — encryption at rest, encryption in transit and the key lifecycle
+  // are settings the server reads, and `codespecs_mapping.md` §5.5's substrate
   // (`TomBaseServerConfiguration`) names TLS material and signing keys as typed
   // fields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`
   // directly, past this root. Placing it here rather than beside the other SAS
@@ -32463,14 +32485,16 @@ public final class TomSomV0 {
   // assembled before the wire, a successful response is applied after it, and a
   // failure is surfaced instead. This entry is where each of those is stated,
   // and [role] is the field that says which. Without it a generator would have
-  // to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
-  // three bodies could only throw the same text.
+  // to split one sentence three ways by guessing, which
+  // `codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies
+  // could only throw the same text.
   //
   // The steps hang off the interaction step that issues the call (`MNSST`,
   // `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
   // *is* that step's reach across the boundary. Leaving the list empty leaves
   // the call's bodies as they were — an unstated role falls back to form 3a over
-  // the issuing step's own behaviour text (§2.4).
+  // the issuing step's own behaviour text (`codespecs_derivation_contract.md`
+  // §2.4).
   //
   // **No step number.** The list position *is* the order
   // (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
@@ -32478,10 +32502,11 @@ public final class TomSomV0 {
   // within the list.
   //
   // **[condition] is a precondition, not a case label.** It becomes a guard on
-  // the step's statement (§2.4 B4). It is not the way an error code is turned
-  // into user-visible wording: B7 forbids the `switch` that would need, and the
-  // message a code maps to belongs in the CE-TX message-key registry
-  // (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+  // the step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not
+  // the way an error code is turned into user-visible wording: B7 forbids the
+  // `switch` that would need, and the message a code maps to belongs in the
+  // CE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of
+  // conditions here.
   public static final class ServerCallStepEntry extends SomNode {
     public ServerCallStepEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -32624,10 +32649,11 @@ public final class TomSomV0 {
   // system talks to. Those carry a transport verb and a path because a
   // third-party API really has them; the application's own contract does not —
   // `codespecs_mapping.md` §7 fixes every operation as a single transport shape
-  // whose **operation name** carries the intent, and §5.14 drops transport
-  // plumbing from the spec surface.
+  // whose **operation name** carries the intent, and `codespecs_mapping.md`
+  // §5.14 drops transport plumbing from the spec surface.
   //
-  // **What is deliberately not authored here** (all fixed by §7 / §5.14):
+  // **What is deliberately not authored here** (all fixed by
+  // `codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):
   //
   // - no transport method and no path — the operation name is the identifier;
   // - no response status codes — every application outcome, success *or* error,
@@ -34442,11 +34468,11 @@ public final class TomSomV0 {
 
   // 4.1.1.3. Stakeholders and Beneficiaries.
   //
-  // A scope-framing *benefits lens* over the stakeholder landscape: who
-  // benefits from the system and what they gain. The canonical stakeholder
-  // register — with role, interest, influence, concerns and engagement
-  // strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
-  // recorded there once and are not restated here (L34C-6 / SR-15).
+  // A scope-framing *benefits lens* over the stakeholder landscape: who benefits
+  // from the system and what they gain. The canonical stakeholder register —
+  // with role, interest, influence, concerns and engagement strategy — lives in
+  // SBP.4 ([StakeholderRegisterEntry] list); those attributes are recorded there
+  // once and are not restated here (L34C-6 / SR-15).
   public static final class StakeholdersAndBeneficiaries extends SomNode {
     public StakeholdersAndBeneficiaries(SpecDocument doc, String path) {
       super(doc, path);
@@ -36463,7 +36489,8 @@ public final class TomSomV0 {
       return new SystemDataScope(doc, path + "/dataScope");
     }
 
-    // Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
+    // Contains 0+× ReplacementSystemDependencyEntry — integrations with other
+    // systems.
     public SomList<ReplacementSystemDependencyEntry> dependencies() {
       return new SomList<>(doc, path + "/RESYDE-DEPE-LST", (d, p) -> new ReplacementSystemDependencyEntry(d, p), "RESYDE-DEPE-xxx");
     }
@@ -36548,10 +36575,10 @@ public final class TomSomV0 {
 
   // 4.4. Systems to Replace. Seeds → CLA.
   //
-  // Documents existing systems that will be replaced, migrated, or decommissioned
-  // as part of the project. Follows TOGAF migration planning patterns and
-  // Gartner application rationalization frameworks. Each system entry provides
-  // comprehensive assessment for informed replacement decisions.
+  // Documents existing systems that will be replaced, migrated, or
+  // decommissioned as part of the project. Follows TOGAF migration planning
+  // patterns and Gartner application rationalization frameworks. Each system
+  // entry provides comprehensive assessment for informed replacement decisions.
   public static final class SystemsToReplace extends SomNode {
     public SystemsToReplace(SpecDocument doc, String path) {
       super(doc, path);
@@ -39626,7 +39653,8 @@ public final class TomSomV0 {
 
   // 9.4. User Authorization.
   //
-  // Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
+  // Aligns with Tom Core authorization model: groups → roles → entitlements →
+  // resourceKeys.
   public static final class UserAuthorization extends SomNode {
     public UserAuthorization(SpecDocument doc, String path) {
       super(doc, path);
@@ -39756,10 +39784,10 @@ public final class TomSomV0 {
   //
   // End-user documentation deliverables. The documentation half of the former
   // `DocumentationAndTraining` (`DOANTR`); split from its training half in
-  // L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
-  // (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
-  // sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
-  // `TRP-DOC` D12 detail subsection.
+  // L34C-7 (SR-29). Logically re-homed under SBP.9
+  // `InformationForUseRequirements` (`IFUR`) while physically staying in this
+  // file alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.
+  // Retains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.
   public static final class UserDocumentationRequirements extends SomNode {
     public UserDocumentationRequirements(SpecDocument doc, String path) {
       super(doc, path);
@@ -39837,8 +39865,9 @@ public final class TomSomV0 {
   // 4.1.5. User Interaction Model.
   //
   // Describes how different user categories interact with the system including
-  // access channels, interaction patterns, access levels, and session management.
-  // Based on user experience best practices and multi-channel interaction design.
+  // access channels, interaction patterns, access levels, and session
+  // management. Based on user experience best practices and multi-channel
+  // interaction design.
   public static final class UserInteractionModel extends SomNode {
     public UserInteractionModel(SpecDocument doc, String path) {
       super(doc, path);
@@ -40078,8 +40107,8 @@ public final class TomSomV0 {
 
   // 9.1.2.7. Lifecycle Transitions and Approvals (form).
   //
-  // Defines the permissible transitions between lifecycle states, who can trigger
-  // each transition, and the approval workflow required.
+  // Defines the permissible transitions between lifecycle states, who can
+  // trigger each transition, and the approval workflow required.
   public static final class UserLifecycleTransitions extends SomNode {
     public UserLifecycleTransitions(SpecDocument doc, String path) {
       super(doc, path);
@@ -40318,7 +40347,8 @@ public final class TomSomV0 {
   // 9.1.2.2. Registration Process (form).
   //
   // Defines how new user accounts are created — self-registration, invitation,
-  // admin-provisioned, or bulk import — including identity proofing requirements.
+  // admin-provisioned, or bulk import — including identity proofing
+  // requirements.
   public static final class UserRegistrationProcess extends SomNode {
     public UserRegistrationProcess(SpecDocument doc, String path) {
       super(doc, path);
@@ -40490,8 +40520,8 @@ public final class TomSomV0 {
 
   // A utility navigation item entry (form).
   //
-  // A persistent utility element in the app bar: user avatar, notifications bell,
-  // help icon, settings.
+  // A persistent utility element in the app bar: user avatar, notifications
+  // bell, help icon, settings.
   public static final class UtilityNavigationItemEntry extends SomNode {
     public UtilityNavigationItemEntry(SpecDocument doc, String path) {
       super(doc, path);

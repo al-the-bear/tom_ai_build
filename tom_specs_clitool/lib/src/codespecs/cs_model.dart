@@ -9,8 +9,8 @@
 ///
 /// Values are modelled rather than resolved. A generated file writes every
 /// marker inline with literal, enum-access or `Cs*Ref` const arguments
-/// (`codespecs_derivation_contract.md` §2.7), so the constant surface the checks
-/// need is exactly what the syntax carries.
+/// (`codespecs_derivation_contract.md` §2.7), so the constant surface the
+/// checks need is exactly what the syntax carries.
 library;
 
 import 'cs_extract.dart';
@@ -102,8 +102,8 @@ class CsNullValue extends CsValue {
 }
 
 /// A qualified identifier: an enum access (`CsTextRole.error`) or a catalogue
-/// const reference (`SharedOperations.login`). Which of the two it is depends on
-/// the reading check, so the model keeps both parts and decides nothing.
+/// const reference (`SharedOperations.login`). Which of the two it is depends
+/// on the reading check, so the model keeps both parts and decides nothing.
 class CsQualifiedValue extends CsValue {
   /// The part before the dot — an enum type or a catalogue holder.
   final String prefix;
@@ -138,8 +138,8 @@ class CsConstructionValue extends CsValue {
 
   /// The first positional argument as a string, when it is one.
   ///
-  /// Every `Cs*Ref` in `cross_part_refs.dart` wraps exactly one id string in its
-  /// first positional slot, so this is the ref id.
+  /// Every `Cs*Ref` in `cross_part_refs.dart` wraps exactly one id string in
+  /// its first positional slot, so this is the ref id.
   String? get idArgument {
     final first = positional.isEmpty ? null : positional.first;
     return first is CsStringValue ? first.value : null;
@@ -316,22 +316,26 @@ class CsCall {
 /// [other] (everything the five do not cover — an assignment, a bare literal, a
 /// `try`, an arithmetic expression).
 enum CsStatementKind {
-  /// §2.4 kind 1 or 2 — a call on the collaborator or on a named substrate.
+  /// `codespecs_derivation_contract.md` §2.4 kind 1 or 2 — a call on the
+  /// collaborator or on a named substrate.
   call,
 
-  /// §2.4 kind 3 — a `final` local binding of a call's result.
+  /// `codespecs_derivation_contract.md` §2.4 kind 3 — a `final` local binding
+  /// of a call's result.
   localBinding,
 
-  /// §2.4 kind 4 — `if` / `for` / `switch` / `while`.
+  /// `codespecs_derivation_contract.md` §2.4 kind 4 — `if` / `for` / `switch` /
+  /// `while`.
   controlFlow,
 
-  /// §2.4 kind 5 — a `return`.
+  /// `codespecs_derivation_contract.md` §2.4 kind 5 — a `return`.
   returned,
 
   /// A `throw`. The whole of a form-3a body; never a statement of a 3b one.
   thrown,
 
-  /// Anything else, which §2.4 admits nowhere.
+  /// Anything else, which `codespecs_derivation_contract.md` §2.4 admits
+  /// nowhere.
   other,
 }
 
@@ -339,10 +343,12 @@ enum CsStatementKind {
 ///
 /// Read as syntax, like everything else in this model: a statement is its kind,
 /// its source text, and — where it has one — the call its value comes out of.
-/// That last part is what lets the §2.4 invariant-2 check ask *could the
-/// generator have made this value up?* rather than *does the body return?*.
+/// That last part is what lets the `codespecs_derivation_contract.md` §2.4
+/// invariant-2 check ask *could the generator have made this value up?* rather
+/// than *does the body return?*.
 class CsStatement {
-  /// Which of the §2.4 statement kinds this is.
+  /// Which of the `codespecs_derivation_contract.md` §2.4 statement kinds this
+  /// is.
   final CsStatementKind kind;
 
   /// The statement as written, whitespace-collapsed, so a message can quote it.
@@ -369,12 +375,12 @@ class CsStatement {
   /// The statements inside a control-flow statement's blocks, in source order.
   final List<CsStatement> nested;
 
-  /// Which control-flow construct a [CsStatementKind.controlFlow] statement is —
-  /// `if`, `for`, `while`, `switch`, or `block` for a bare nested block.
+  /// Which control-flow construct a [CsStatementKind.controlFlow] statement is
+  /// — `if`, `for`, `while`, `switch`, or `block` for a bare nested block.
   ///
   /// Read from the syntax rather than sniffed back out of [source], because
-  /// §2.4 B7 distinguishes the constructs by name: `if` is derived, repetition
-  /// and multi-way choice are not.
+  /// `codespecs_derivation_contract.md` §2.4 B7 distinguishes the constructs by
+  /// name: `if` is derived, repetition and multi-way choice are not.
   final String? keyword;
 
   /// Where the statement is written.
@@ -405,10 +411,10 @@ class CsStatement {
 
 /// One formal parameter of a generated method, as written.
 ///
-/// Both halves are source text rather than resolved elements: §3.0.1 point 2
-/// requires a collaborator method to repeat its caller's list "name-for-name and
-/// type-for-type", and two spellings of the same type are a divergence that rule
-/// exists to catch.
+/// Both halves are source text rather than resolved elements:
+/// `codespecs_derivation_contract.md` §3.0.1 point 2 requires a collaborator
+/// method to repeat its caller's list "name-for-name and type-for-type", and
+/// two spellings of the same type are a divergence that rule exists to catch.
 class CsParameter {
   /// The parameter name.
   final String name;
@@ -475,18 +481,19 @@ class CsMethodBody {
   Iterable<CsStatement> get allStatements =>
       statements.expand((s) => s.selfAndNested);
 
-  /// Whether this body is a pseudo-implementation — §2.4's form 3b, which is
-  /// every body that is neither absent nor a lone `throw`.
+  /// Whether this body is a pseudo-implementation —
+  /// `codespecs_derivation_contract.md` §2.4's form 3b, which is every body
+  /// that is neither absent nor a lone `throw`.
   bool get isPseudoImplementation =>
       shape != CsBodyShape.none && shape != CsBodyShape.throwOnly;
 }
 
 /// What kind of Dart declaration a [CsDeclaration] stands for.
 ///
-/// Carried because several §6 checks turn on the *shape* of a declaration
-/// rather than on its markers — check 24 rejects a field, a constructor or a
-/// static member on a `@CsCollaborator` class, and a field and a body-less
-/// method are otherwise indistinguishable in this model.
+/// Carried because several `codespecs_derivation_contract.md` §6 checks turn on
+/// the *shape* of a declaration rather than on its markers — check 24 rejects a
+/// field, a constructor or a static member on a `@CsCollaborator` class, and a
+/// field and a body-less method are otherwise indistinguishable in this model.
 enum CsDeclarationKind {
   /// A top-level `class`.
   classType,
@@ -563,9 +570,10 @@ class CsDocComment {
 
 /// One comment token of a generated file.
 ///
-/// Read so §2.8 C6 — *the only `//` in a generated file is §2.7's banner* — is
-/// checkable. A doc comment is one of these too; [isDocumentation] is what tells
-/// the two apart.
+/// Read so `codespecs_derivation_contract.md` §2.8 C6 — *the only `//` in a
+/// generated file is `codespecs_derivation_contract.md` §2.7's banner* — is
+/// checkable. A doc comment is one of these too; [isDocumentation] is what
+/// tells the two apart.
 class CsComment {
   /// The comment as written, including its marker.
   final String text;
@@ -573,7 +581,8 @@ class CsComment {
   /// Whether it is a `///` doc comment.
   final bool isDocumentation;
 
-  /// Whether it precedes the file's very first token — §2.7's banner position.
+  /// Whether it precedes the file's very first token —
+  /// `codespecs_derivation_contract.md` §2.7's banner position.
   final bool isBanner;
 
   /// Where the comment is.
@@ -658,8 +667,9 @@ class CsDeclaration {
   });
 
   /// The line of the first annotation written on the declaration, or the
-  /// declaration's own line when it carries none — what §2.8 C4 rule 3 requires
-  /// a doc block to sit immediately above.
+  /// declaration's own line when it carries none — what
+  /// `codespecs_derivation_contract.md` §2.8 C4 rule 3 requires a doc block to
+  /// sit immediately above.
   int get firstAnnotationLine {
     var line = location.line;
     for (final marker in markers) {
@@ -730,10 +740,10 @@ class CsFile {
 
   /// The file's source text, verbatim.
   ///
-  /// Kept because §2.8 C5's determinism promise is *byte-for-byte*: the check
-  /// that verifies it diffs two runs' text, and a diff of the resolved model
-  /// would miss exactly the reorderings and whitespace a non-deterministic
-  /// generator produces.
+  /// Kept because `codespecs_derivation_contract.md` §2.8 C5's determinism
+  /// promise is *byte-for-byte*: the check that verifies it diffs two runs'
+  /// text, and a diff of the resolved model would miss exactly the reorderings
+  /// and whitespace a non-deterministic generator produces.
   final String source;
 
   /// The `import` URIs the file declares.
@@ -759,7 +769,7 @@ class CsFile {
   });
 }
 
-/// One generated project of the §4.2 trio.
+/// One generated project of the `codespecs_mapping.md` §4.2 trio.
 class CsLocusProject {
   /// Which project this is.
   final CsLocus locus;
@@ -813,12 +823,13 @@ class CsEnumMirror {
 
 /// A second generation run over the same spec model, for the determinism check.
 ///
-/// The only §6 check whose subject is two trios rather than one: §2.8 C5 and
-/// §2.1 N1 promise that regenerating over an unchanged document reproduces the
-/// output byte-for-byte, and nothing in a *single* trio can witness that. The
-/// caller regenerates into a second tree and hands it over here; a caller that
-/// does not is the one caller who has not run check 31, which the CLI says out
-/// loud rather than passing silently.
+/// The only `codespecs_derivation_contract.md` §6 check whose subject is two
+/// trios rather than one: `codespecs_derivation_contract.md` §2.8 C5 and
+/// `codespecs_derivation_contract.md` §2.1 N1 promise that regenerating over an
+/// unchanged document reproduces the output byte-for-byte, and nothing in a
+/// *single* trio can witness that. The caller regenerates into a second tree
+/// and hands it over here; a caller that does not is the one caller who has not
+/// run check 31, which the CLI says out loud rather than passing silently.
 class CodeSpecsRegeneration {
   /// The second run's shared project.
   final CsLocusProject shared;
@@ -868,10 +879,10 @@ class CodeSpecsValidationInput {
 
   /// The per-area extracts the trio was authored from, for the comment checks.
   ///
-  /// The second side of §2.8: a comment claims to carry specification text, and
-  /// only the extract holds that text. Empty when the caller supplied none, in
-  /// which case the three comment-source checks report nothing rather than
-  /// guessing.
+  /// The second side of `codespecs_derivation_contract.md` §2.8: a comment
+  /// claims to carry specification text, and only the extract holds that text.
+  /// Empty when the caller supplied none, in which case the three
+  /// comment-source checks report nothing rather than guessing.
   final CsExtractSet extracts;
 
   /// Creates a validation input.

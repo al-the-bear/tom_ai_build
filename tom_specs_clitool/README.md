@@ -153,7 +153,7 @@ Related entrypoints in `bin/`:
 | `model_json.dart` | Export the resolved meta-data class graph alone. Refresh either **committed** asset with `--target editor` / `--target reviewer` — the target owns both the path and the version stamp, which the two assets pin differently (`tom_specs_model/doc/tom_specs_model_meta_schema.md`, "Refreshing the committed assets"). `--package` + `--output` is for ad-hoc exports elsewhere. |
 | `outliner.dart` | Render a class-tree outline of the model from any document root. |
 | `check_todo_citations.dart` | Check that every quest-todo id cited inline in `tom_specs_model/doc` still resolves to an **open** todo. Exits `1` on a citation of closed or non-existent work. Run by `tool/regenerate_outlines.sh` and by `test/todo_citations_test.dart` (see below). |
-| `check_section_citations.dart` | Resolve every `§` citation in `tom_specs_model/doc` against `index.md`'s citation convention — a bare `§N` means *this* document. Exits `1` on a citation that resolves to no heading. The gate is **closed**: its default corpus is the doc folder plus the project READMEs that cite it (`defaultCitedReadmes`) and the CodeSpecs packages' Dart doc comments (`defaultCitedSourceRoots`, whose files are discovered beneath enumerated roots, so a new annotation file is gated the day it is written). `--extra <file>` adds one more file to that corpus. |
+| `check_section_citations.dart` | Resolve every `§` citation in `tom_specs_model/doc` against `index.md`'s citation convention — a bare `§N` means *this* document. Exits `1` on a citation that resolves to no heading. The gate is **closed**: its default corpus is the doc folder plus the project READMEs that cite it (`defaultCitedReadmes`) and the Dart doc comments of all six TomSpecs source trees (`defaultCitedSourceRoots`, whose files are discovered beneath enumerated roots, so a new file is gated the day it is written). `--extra <file>` adds one more file to that corpus. |
 | `check_oe_citations.dart` | Resolve every `OE-` id cited in the editor project, the doc folder and the quest's bookkeeping against the Open-Ends Register (`tom_specs_editor_specification.md` §22). Exits `1` on a citation with no register row, and on a register that defines one id twice. `--root` / `--register` retarget it. |
 | `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
 | `validate_codespecs.dart` | Run the `codespecs_derivation_contract.md` §6 checks over a generated CodeSpecs project trio. Takes `--shared` / `--client` / `--server`; exits `0` clean, `1` on any violation, `2` on bad usage. The trio is the pass's *subject*, not its only input: four checks cannot be answered from emitted code alone, and each takes its own **corroborating** input — `--migrations` (13), `--cs-vocabulary` + `--core-source` (9), the three `--regenerated-*` paths (31), and `--extracts` (32–36), the run's `generated-doc/codespecs_extracts` tree. The extracts answer two different questions: the specification *text* the comment checks (32, 33, 34) hold the emitted doc comments against, and the *routing* the self-sufficiency checks (35, 36) compare against the trio's back-links, per §9.6 of `codespecs_mapping.md`. Give the whole extract tree or none — a partial one understates what the trio was supposed to carry, and check 35 would pass a gap it could not see. Each corroborating input is optional, and an absent one names on stdout the checks it left unrun, so a skipped check never reads as a passed one. |
@@ -219,7 +219,7 @@ documentation pass trips it through `tool/regenerate_outlines.sh`, and a todo
 archive trips it through `test/todo_citations_test.dart`, which runs in the
 default `dart test`.
 
-**Doc-folder section citations.** The same documents cite each other's *sections*
+**Section citations.** The same documents cite each other's *sections*
 far more often than they cite todos, and `check_section_citations.dart` resolves
 those. `index.md` owns the convention; this is its decision procedure. A bare
 `§N` means **this** document — that carve-out is what makes the rule decidable at
@@ -260,12 +260,34 @@ citation naming a document outside the scanned corpus is `unverifiable`, not a
 defect: the checker cannot see the file, which is not the same as the citation
 being wrong.
 
+**One exemption, and it is narrow by construction.** A file that *documents* this
+convention has to exhibit its syntax, and an exhibit is a metavariable rather
+than a reference — nothing a parser can see tells the two apart, because they are
+deliberately identical. Where a metavariable will not serve, because the point
+being made is about particular numbers, the line carries
+`<!-- section-cite: exhibit … -->`, listing the ids it exhibits **without** the
+`§` sign. The marker is **line-scoped and id-scoped**: it excuses exactly those
+ids on exactly that line, and there is deliberately no document-level blanket,
+since the file the mechanism exists for also carries real citations two lines
+away. Markers inside fences are inert, and an id no citation on the line uses is
+reported as a *stale exemption* and fails the run — an exemption that excuses
+nothing is the register decaying in the other direction.
+
 `test/section_citations_test.dart` fixes the rule against hand-written fixtures
-**and closes the gate**: its last test holds the live corpus at *zero*
-violations. The corpus is the doc folder plus the project READMEs that cite it
-(`defaultCitedReadmes`), which is also what `check_section_citations.dart` scans
-by default — so the command and the gate cover the same files, and neither list
-can drift from the other. Pass `--no-default-readmes` to scan the folder alone.
+**and closes the gate**: its last tests hold the live corpus at *zero* violations
+and *zero* stale exemptions. The corpus is the doc folder, the project READMEs
+that cite it (`defaultCitedReadmes`) and the six TomSpecs source trees'
+`///` comments (`defaultCitedSourceRoots`) — which is also what
+`check_section_citations.dart` scans by default, so the command and the gate
+cover the same files and neither list can drift from the other. Anti-vacuity is
+asserted **per root** rather than in aggregate, so a root that resolved to an
+empty directory cannot hide behind the five that did not. Pass
+`--no-default-readmes` / `--no-default-sources` to narrow the scan.
+
+A Dart source is held to the same convention with **one difference that decides
+its whole house style**: a source file declares no sections, so it is scanned
+with an empty set of its own headings and the bare-`§N` carve-out has nothing to
+resolve against. Every citation in source must therefore name its document.
 
 **`OE-` citations.** The third gate differs from the other two in where the
 *citing* side lives: `OE-` ids are cited from **shipped source** — comments in

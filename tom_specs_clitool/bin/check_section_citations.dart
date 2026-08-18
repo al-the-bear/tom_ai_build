@@ -12,15 +12,15 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///   dart run bin/check_section_citations.dart --no-default-readmes
 ///
 /// The project READMEs that cite the doc set ([defaultCitedReadmes]) and the
-/// doc comments of the CodeSpecs source packages ([defaultCitedSourceRoots]) are
-/// scanned by default, so the command and the gate test cover the same files
-/// without the lists having to be repeated on a command line.
+/// doc comments of the CodeSpecs source packages ([defaultCitedSourceRoots])
+/// are scanned by default, so the command and the gate test cover the same
+/// files without the lists having to be repeated on a command line.
 ///
-/// A bare `§N` means *this* document, so it resolves against the headings of the
-/// file it is written in; a citation with a document name in front of it
+/// A bare `§N` means *this* document, so it resolves against the headings of
+/// the file it is written in; a citation with a document name in front of it
 /// resolves against that document. Exits 1 on any citation that resolves to no
-/// heading. See `lib/src/section_citations.dart` for the run rule and for what a
-/// section id is allowed to look like.
+/// heading. See `lib/src/section_citations.dart` for the run rule and for what
+/// a section id is allowed to look like.
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption(
@@ -120,6 +120,7 @@ Future<void> main(List<String> arguments) async {
       '${report.countOf(SectionCitationVerdict.dangling)}');
   stdout.writeln('  no such section '
       '${report.countOf(SectionCitationVerdict.wrongSection)}');
+  stdout.writeln('  exhibit       ${report.exempted.length}');
 
   if (results.flag('verbose')) {
     for (final citation in report.citations) {
@@ -128,15 +129,25 @@ Future<void> main(List<String> arguments) async {
   }
 
   if (report.isClean) {
-    stdout.writeln('OK — every § citation resolves to a heading.');
+    stdout.writeln('OK — every § citation resolves to a heading, and every '
+        'exhibit marker covers one that cannot.');
     exit(0);
   }
 
   stderr.writeln('');
-  stderr.writeln('${report.violations.length} citation(s) resolve to no '
-      'heading:');
-  for (final violation in report.violations) {
-    stderr.writeln('  ${violation.describe(relativeTo: containerRoot)}');
+  if (report.violations.isNotEmpty) {
+    stderr.writeln('${report.violations.length} citation(s) resolve to no '
+        'heading:');
+    for (final violation in report.violations) {
+      stderr.writeln('  ${violation.describe(relativeTo: containerRoot)}');
+    }
+  }
+  if (report.staleExemptions.isNotEmpty) {
+    stderr.writeln('${report.staleExemptions.length} exhibit marker id(s) '
+        'excuse nothing:');
+    for (final stale in report.staleExemptions) {
+      stderr.writeln('  ${stale.describe(relativeTo: containerRoot)}');
+    }
   }
   exit(1);
 }

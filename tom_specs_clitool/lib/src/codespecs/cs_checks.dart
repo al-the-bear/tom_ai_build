@@ -12,10 +12,11 @@ import 'cs_model.dart';
 
 /// One failed check.
 ///
-/// Every violation carries the §6 check number and the section that defines the
-/// rule, so the message identifies which rule was broken.
+/// Every violation carries the `codespecs_derivation_contract.md` §6 check
+/// number and the section that defines the rule, so the message identifies
+/// which rule was broken.
 class CodeSpecsViolation {
-  /// The §6 check number.
+  /// The `codespecs_derivation_contract.md` §6 check number.
   final int check;
 
   /// The section that defines the rule — a bare `§N` of
@@ -44,19 +45,20 @@ class CodeSpecsViolation {
   }
 }
 
-/// One §6 check.
+/// One `codespecs_derivation_contract.md` §6 check.
 abstract class CodeSpecsCheck {
   /// Creates a check.
   const CodeSpecsCheck();
 
-  /// The §6 row number.
+  /// The `codespecs_derivation_contract.md` §6 row number.
   int get number;
 
   /// The section that defines the rule, in the same two forms
   /// [CodeSpecsViolation.definedIn] takes.
   String get definedIn;
 
-  /// The rule, in one line — the §6 row text.
+  /// The rule, in one line — the `codespecs_derivation_contract.md` §6 row
+  /// text.
   String get title;
 
   /// Runs the check, returning one violation per breach.
@@ -153,9 +155,10 @@ const csPerKindSlots = <String, ({String discriminator, Map<String, Set<String>>
 /// The `Cs*` catalogues that mirror a `tom_core` enum, keyed by the mirror
 /// (`codespecs_derivation_contract.md` §5.3).
 ///
-/// §5.3 lists fourteen mirror rows, but most mirror a *document* section rather
-/// than a declared type: only these pairs have a `tom_core` counterpart that can
-/// be compared value-for-value, so only these are checkable at all.
+/// `codespecs_derivation_contract.md` §5.3 lists fourteen mirror rows, but most
+/// mirror a *document* section rather than a declared type: only these pairs
+/// have a `tom_core` counterpart that can be compared value-for-value, so only
+/// these are checkable at all.
 const csMirroredEnumPairs = <String, String>{
   'CsErrorSeverity': 'TomErrorSeverity',
 };
@@ -271,7 +274,7 @@ Set<String> resolvableIdentifiers(CsLocusProject project) {
 // 1 — identifier collisions
 // ---------------------------------------------------------------------------
 
-/// §6 check 1.
+/// `codespecs_derivation_contract.md` §6 check 1.
 class CsIdentifierCollisionCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsIdentifierCollisionCheck();
@@ -318,7 +321,7 @@ class CsIdentifierCollisionCheck extends CodeSpecsCheck {
 // 2 — reference resolution
 // ---------------------------------------------------------------------------
 
-/// §6 check 2.
+/// `codespecs_derivation_contract.md` §6 check 2.
 ///
 /// The subject is the **inline** reference — the one written as a
 /// `Cs*Ref('…')` inside a marker rather than cited through a declared const.
@@ -372,7 +375,7 @@ class CsReferenceResolutionCheck extends CodeSpecsCheck {
 // 3 — missing designated name
 // ---------------------------------------------------------------------------
 
-/// §6 check 3.
+/// `codespecs_derivation_contract.md` §6 check 3.
 ///
 /// Code-side, a name N1 failed to derive shows as a `@CodeSpec` id with an
 /// empty half: the canonical part id and the identifier are the two things the
@@ -418,7 +421,7 @@ class CsMissingNameCheck extends CodeSpecsCheck {
 // 4 — missing authored key
 // ---------------------------------------------------------------------------
 
-/// §6 check 4.
+/// `codespecs_derivation_contract.md` §6 check 4.
 class CsMissingAuthoredKeyCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsMissingAuthoredKeyCheck();
@@ -524,7 +527,7 @@ String csBodyPath(CsDeclaration declaration, CsMethodBody body) {
 // 5 — empty explication
 // ---------------------------------------------------------------------------
 
-/// §6 check 5.
+/// `codespecs_derivation_contract.md` §6 check 5.
 class CsEmptyExplicationCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsEmptyExplicationCheck();
@@ -562,19 +565,21 @@ class CsEmptyExplicationCheck extends CodeSpecsCheck {
 // 6 — fabricated values
 // ---------------------------------------------------------------------------
 
-/// §6 check 6.
+/// `codespecs_derivation_contract.md` §6 check 6.
 ///
-/// §2.4 invariant 2 asks *could the generator have made this value up?*, not
-/// *does the body return?* — a form-3b body's last statement **is** a `return`
-/// (§2.4 B3), so returning is not the offence. The offence is returning
+/// `codespecs_derivation_contract.md` §2.4 invariant 2 asks *could the
+/// generator have made this value up?*, not *does the body return?* — a form-3b
+/// body's last statement **is** a `return` (`codespecs_derivation_contract.md`
+/// §2.4 B3), so returning is not the offence. The offence is returning
 /// something the generator composed: a literal, an arithmetic result, a string
 /// built out of the specification's words. A value that came out of a
 /// collaborator or substrate call was not made up, because nothing in the
 /// generator knows what it will be.
 ///
 /// A `return` of a bare identifier is admitted exactly when that identifier
-/// names a `final` local the same body bound from a call — §2.4 kind 5 reads
-/// "produced by (1)–(3)", and kind 3 is that binding.
+/// names a `final` local the same body bound from a call —
+/// `codespecs_derivation_contract.md` §2.4 kind 5 reads "produced by (1)–(3)",
+/// and kind 3 is that binding.
 class CsFabricatedValueCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsFabricatedValueCheck();
@@ -621,7 +626,8 @@ class CsFabricatedValueCheck extends CodeSpecsCheck {
     return out;
   }
 
-  /// The names [body] binds `final` from a call — §2.4 kind 3.
+  /// The names [body] binds `final` from a call —
+  /// `codespecs_derivation_contract.md` §2.4 kind 3.
   Set<String> _localsBoundFromCalls(CsMethodBody body) => {
         for (final statement in body.allStatements)
           if (statement.kind == CsStatementKind.localBinding &&
@@ -636,7 +642,7 @@ class CsFabricatedValueCheck extends CodeSpecsCheck {
 // 7 — back-link set equality
 // ---------------------------------------------------------------------------
 
-/// §6 check 7.
+/// `codespecs_derivation_contract.md` §6 check 7.
 class CsBackLinkAgreementCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsBackLinkAgreementCheck();
@@ -691,7 +697,7 @@ class CsBackLinkAgreementCheck extends CodeSpecsCheck {
 // 8 — per-kind slot exclusivity
 // ---------------------------------------------------------------------------
 
-/// §6 check 8.
+/// `codespecs_derivation_contract.md` §6 check 8.
 class CsSlotExclusivityCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsSlotExclusivityCheck();
@@ -760,7 +766,7 @@ class CsSlotExclusivityCheck extends CodeSpecsCheck {
 // 9 — mirrored catalogues
 // ---------------------------------------------------------------------------
 
-/// §6 check 9.
+/// `codespecs_derivation_contract.md` §6 check 9.
 ///
 /// The mirror pairs are supplied by the caller because the two sides live in
 /// packages that must not depend on each other (`codespecs_mapping.md` §9.5) —
@@ -808,7 +814,7 @@ class CsMirroredCatalogueCheck extends CodeSpecsCheck {
 // 10 — error copy category
 // ---------------------------------------------------------------------------
 
-/// §6 check 10.
+/// `codespecs_derivation_contract.md` §6 check 10.
 class CsErrorCopyCategoryCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsErrorCopyCategoryCheck();
@@ -848,7 +854,7 @@ class CsErrorCopyCategoryCheck extends CodeSpecsCheck {
 // 11 — locus dependency arrow
 // ---------------------------------------------------------------------------
 
-/// §6 check 11.
+/// `codespecs_derivation_contract.md` §6 check 11.
 class CsLocusArrowCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsLocusArrowCheck();
@@ -907,7 +913,7 @@ class CsLocusArrowCheck extends CodeSpecsCheck {
 // 12 — operation agreement across loci
 // ---------------------------------------------------------------------------
 
-/// §6 check 12.
+/// `codespecs_derivation_contract.md` §6 check 12.
 class CsOperationAgreementCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsOperationAgreementCheck();
@@ -966,7 +972,7 @@ class CsOperationAgreementCheck extends CodeSpecsCheck {
 // 13 — cumulative DDL convergence
 // ---------------------------------------------------------------------------
 
-/// §6 check 13.
+/// `codespecs_derivation_contract.md` §6 check 13.
 class CsMigrationConvergenceCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsMigrationConvergenceCheck();
@@ -1214,7 +1220,7 @@ String _identifier(String raw) {
 // 14 — the non-declarable compose token
 // ---------------------------------------------------------------------------
 
-/// §6 check 14.
+/// `codespecs_derivation_contract.md` §6 check 14.
 class CsComposeTokenCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsComposeTokenCheck();
@@ -1256,7 +1262,7 @@ class CsComposeTokenCheck extends CodeSpecsCheck {
 // 15 — overridableBy scope narrowing
 // ---------------------------------------------------------------------------
 
-/// §6 check 15.
+/// `codespecs_derivation_contract.md` §6 check 15.
 class CsOverridableScopeCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsOverridableScopeCheck();
@@ -1298,7 +1304,7 @@ class CsOverridableScopeCheck extends CodeSpecsCheck {
 // 16 — a secret carries no default
 // ---------------------------------------------------------------------------
 
-/// §6 check 16.
+/// `codespecs_derivation_contract.md` §6 check 16.
 class CsSecretInitialiserCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsSecretInitialiserCheck();
@@ -1339,7 +1345,7 @@ class CsSecretInitialiserCheck extends CodeSpecsCheck {
 // 17 — notification fallback channel
 // ---------------------------------------------------------------------------
 
-/// §6 check 17.
+/// `codespecs_derivation_contract.md` §6 check 17.
 ///
 /// A declaration **cycle is not a violation**: membership is all that is
 /// asked, and `fallbackChainFrom` stops at the first channel already visited.
@@ -1405,7 +1411,7 @@ class CsFallbackChannelCheck extends CodeSpecsCheck {
 // 18 — report drill-through route
 // ---------------------------------------------------------------------------
 
-/// §6 check 18.
+/// `codespecs_derivation_contract.md` §6 check 18.
 ///
 /// The one check that looks **across projects** in the direction generated code
 /// may not take: it resolves a server-owned column's route id against the
@@ -1465,7 +1471,7 @@ class CsDrillThroughRouteCheck extends CodeSpecsCheck {
 // 19 — a secret is only ever declared
 // ---------------------------------------------------------------------------
 
-/// §6 check 19.
+/// `codespecs_derivation_contract.md` §6 check 19.
 ///
 /// CE-CF has two authoring shapes (`codespecs_mapping.md` §5.16): the
 /// *declared* shape, where the application owns the setting key and authors
@@ -1531,7 +1537,7 @@ class CsSecretIsDeclaredCheck extends CodeSpecsCheck {
 // 20 — setting keys share one namespace
 // ---------------------------------------------------------------------------
 
-/// §6 check 20.
+/// `codespecs_derivation_contract.md` §6 check 20.
 ///
 /// N10 puts CE-CF's derived keys (`<band>.<field>`, the fixed shape) and its
 /// authored keys (`SCSET`, the declared shape) in **one** namespace under one
@@ -1594,20 +1600,20 @@ class CsSettingKeyCollisionCheck extends CodeSpecsCheck {
 // 21 — graded depth is exactly one level
 // ---------------------------------------------------------------------------
 
-/// §6 check 21.
+/// `codespecs_derivation_contract.md` §6 check 21.
 ///
 /// The SOM bounds the graded depth **structurally**: a graded level is a
 /// `GradedAccessLevelEntry`, whose kind enum has no `graded` constant, so a
-/// second grading nested inside a level is unauthorable. `tom_specs_model_rules`
-/// §5.7 leaves no alternative — a self-recursive requirement class is a
-/// structural cycle and a hard error.
+/// second grading nested inside a level is unauthorable.
+/// `tom_specs_model_rules.md` §5.7 leaves no alternative — a self-recursive
+/// requirement class is a structural cycle and a hard error.
 ///
 /// The code side has no such type barrier: `CsGradedAccess`'s three slots are
 /// each a `@CsAuthorize`, and `@CsAuthorize` *does* have a `graded` arm. So the
-/// nesting is expressible in hand-written CodeSpecs even though no generator run
-/// can produce it, and without this check the two sides diverge exactly where
-/// the SOM was made deliberately strict — surfacing as a runtime access decision
-/// rather than a generation error.
+/// nesting is expressible in hand-written CodeSpecs even though no generator
+/// run can produce it, and without this check the two sides diverge exactly
+/// where the SOM was made deliberately strict — surfacing as a runtime access
+/// decision rather than a generation error.
 ///
 /// The bound is not arbitrary. A graded requirement resolves to one of four
 /// **terminal** access states (`none < disabled < read < full`), so a grading
@@ -1644,8 +1650,8 @@ class CsGradedDepthCheck extends CodeSpecsCheck {
   /// Reports every nested `@CsAuthorize` under [graded] that is itself graded.
   ///
   /// Recursive so a violation two levels down is still named rather than hidden
-  /// behind the one above it — the whole point of the check is that this nesting
-  /// has no depth limit in Dart.
+  /// behind the one above it — the whole point of the check is that this
+  /// nesting has no depth limit in Dart.
   void _walkGraded(
     CsConstructionValue graded,
     CsDeclaration declaration,
@@ -1686,7 +1692,8 @@ class CsGradedDepthCheck extends CodeSpecsCheck {
 /// and `TomZonedDateTime` are plain value types and legitimate column types, so
 /// a prefix rule would reject code the contract permits. Every name here is a
 /// `TomObservable` subtype and therefore something
-/// [TomColumnInformation.getVariableValue] would hand the driver *as an object*.
+/// [TomColumnInformation.getVariableValue] would hand the driver *as an
+/// object*.
 const csObservableTypes = <String>{
   'TomObservable',
   'TomObject',
@@ -1716,21 +1723,23 @@ const csObservableTypes = <String>{
   'TomDateTimeRange',
 };
 
-/// §6 check 22.
+/// `codespecs_derivation_contract.md` §6 check 22.
 ///
 /// The one asymmetry a reviewer cannot see by reading the entity: an observable
 /// member **reads** back correctly — `MariadbDatasource` normalises a `String?`
 /// onto `String` before dispatching to the observable's setter — but has no
 /// write path at all. `TomSqlDatasourceRepository.save` binds each column from
-/// `TomColumnInformation.getVariableValue`, which is `invokeGetter(declaredName)`
-/// and so yields the `TomNString` *object* rather than the `String?` it holds.
+/// `TomColumnInformation.getVariableValue`, which is
+/// `invokeGetter(declaredName)` and so yields the `TomNString` *object* rather
+/// than the `String?` it holds.
 ///
 /// So the wrong shape compiles, analyses clean, and passes any test that only
 /// selects — right up to the first save, where it throws a `TypeError` deep in
 /// the repository. That is exactly the class of defect a generation-time check
 /// exists for, and it is why `codespecs_derivation_contract.md` §3.3.2 emits an
 /// optional CE-DB attribute as a plain nullable field `T?`. The observable
-/// family belongs to CE-ST (§3.5.1), where there is no persistence step to break.
+/// family belongs to CE-ST (`codespecs_derivation_contract.md` §3.5.1), where
+/// there is no persistence step to break.
 class CsColumnNotObservableCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsColumnNotObservableCheck();
@@ -1786,9 +1795,9 @@ class CsColumnNotObservableCheck extends CodeSpecsCheck {
 
   /// The observable [source] declares, or `null` when it declares none.
   ///
-  /// Strips the nullability suffix and any type arguments, so `TomList<TomInt>?`
-  /// is recognised by its head — the family membership is the head's, and a
-  /// generic argument may itself be a legitimate value type.
+  /// Strips the nullability suffix and any type arguments, so
+  /// `TomList<TomInt>?` is recognised by its head — the family membership is
+  /// the head's, and a generic argument may itself be a legitimate value type.
   String? _observableIn(String? source) {
     if (source == null) return null;
     var head = source.trim();
@@ -1808,10 +1817,10 @@ class CsColumnNotObservableCheck extends CodeSpecsCheck {
 /// The single field name a form-3b body reaches its collaborator through
 /// (`codespecs_derivation_contract.md` §3.0.1 point 2).
 ///
-/// Fixed rather than derived: the injection is one
-/// `late final NameCollaborator collaborator;` field per declaration, so the
-/// receiver spelling in every 3b body is this word. That is what lets a *syntax*
-/// pass resolve the call at all.
+/// Fixed rather than derived: the injection is one `late final NameCollaborator
+/// collaborator;` field per declaration, so the receiver spelling in every 3b
+/// body is this word. That is what lets a *syntax* pass resolve the call at
+/// all.
 const csCollaboratorField = 'collaborator';
 
 /// The collaborator classes an [input] emits, by name.
@@ -1837,22 +1846,24 @@ String? _typeHead(String? source) {
   return head.isEmpty ? null : head;
 }
 
-/// §6 check 23.
+/// `codespecs_derivation_contract.md` §6 check 23.
 ///
 /// The check that makes "compiles" checkable *before* a compiler sees it, and
 /// the two halves fail in opposite directions. A `collaborator.<m>(…)` that
-/// resolves to nothing is a body §2.4 forbade — the generator wrote a statement
-/// against a declaration it never emitted. A collaborator method nothing calls
-/// is the reverse: a step's behaviour was lifted out of the body and then
-/// dropped, so the specification survives in the output but is no longer reached
-/// by it, and Phase 6 would implement a method that runs nowhere.
+/// resolves to nothing is a body `codespecs_derivation_contract.md` §2.4
+/// forbade — the generator wrote a statement against a declaration it never
+/// emitted. A collaborator method nothing calls is the reverse: a step's
+/// behaviour was lifted out of the body and then dropped, so the specification
+/// survives in the output but is no longer reached by it, and Phase 6 would
+/// implement a method that runs nowhere.
 ///
-/// **What it does not do.** The substrate half of the §6 row — a call on the
-/// `tom_core`-family class an entry's point 2 names — needs the resolved element
-/// model, which this pass deliberately does not have (`cs_reader`). A wrong
-/// substrate call is a compile error in the emitted trio; a wrong collaborator
-/// call is silent, or (the reverse half) never caught at all. The check covers
-/// exactly the failures a compiler would find late or not at all.
+/// **What it does not do.** The substrate half of the
+/// `codespecs_derivation_contract.md` §6 row — a call on the `tom_core`-family
+/// class an entry's point 2 names — needs the resolved element model, which
+/// this pass deliberately does not have (`cs_reader`). A wrong substrate call
+/// is a compile error in the emitted trio; a wrong collaborator call is silent,
+/// or (the reverse half) never caught at all. The check covers exactly the
+/// failures a compiler would find late or not at all.
 class CsCollaboratorCallResolutionCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsCollaboratorCallResolutionCheck();
@@ -1974,17 +1985,17 @@ class CsCollaboratorCallResolutionCheck extends CodeSpecsCheck {
       };
 }
 
-/// §6 check 24.
+/// `codespecs_derivation_contract.md` §6 check 24.
 ///
 /// A collaborator is the one generated declaration built on **nothing**
 /// (`codespecs_derivation_contract.md` §3.0.1 point 2, `@CsEnum` being the only
-/// other): an `abstract class` holding one abstract method per contributing step
-/// and not one member more. Every shape this rejects is a way of putting
+/// other): an `abstract class` holding one abstract method per contributing
+/// step and not one member more. Every shape this rejects is a way of putting
 /// behaviour or state back into the seam Phase 6 is supposed to fill — an
-/// implemented method pre-empts the implementation, a field gives the seam state
-/// the specification never described, a constructor makes it constructible where
-/// it is only ever implemented, and a static member hides logic in a place no
-/// step maps to.
+/// implemented method pre-empts the implementation, a field gives the seam
+/// state the specification never described, a constructor makes it
+/// constructible where it is only ever implemented, and a static member hides
+/// logic in a place no step maps to.
 class CsCollaboratorShapeCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsCollaboratorShapeCheck();
@@ -2056,12 +2067,12 @@ class CsCollaboratorShapeCheck extends CodeSpecsCheck {
 /// Whether [declaration] is a form-3a or form-3b declaration — one that carries
 /// a generated body rather than only a signature.
 ///
-/// §2.8 C2 P3 attaches its requirement to the *declaration*, not to the
-/// individual method, so the classification is made once over all its bodies:
-/// a declaration one of whose methods throws its explication (3a) or calls a
-/// collaborator (3b) is a form-3 declaration, and then **every** method of it
-/// carries a comment. A form-1/2/4 declaration carries none of this — its
-/// members are covered by P2 instead.
+/// `codespecs_derivation_contract.md` §2.8 C2 P3 attaches its requirement to
+/// the *declaration*, not to the individual method, so the classification is
+/// made once over all its bodies: a declaration one of whose methods throws its
+/// explication (3a) or calls a collaborator (3b) is a form-3 declaration, and
+/// then **every** method of it carries a comment. A form-1/2/4 declaration
+/// carries none of this — its members are covered by P2 instead.
 bool _isFormThreeDeclaration(CodeSpecsValidationInput input, CsDeclaration d) {
   if (!d.isTopLevel) return false;
   for (final member in input.project(d.locus).declarations) {
@@ -2078,19 +2089,20 @@ bool _isFormThreeDeclaration(CodeSpecsValidationInput input, CsDeclaration d) {
   return false;
 }
 
-/// §6 check 25.
+/// `codespecs_derivation_contract.md` §6 check 25.
 ///
-/// §2.8 C2's fourth position is the one whose absence the contract calls a
-/// **generation error** rather than a lapse of style, and the reason is what a
-/// form-3 method is *for*: the body says nothing (it throws, or it delegates),
-/// so the doc comment is the only place the specification's own words survive
-/// into the code Phase 6 implements. A method of a form-3 declaration with no
-/// comment is a step whose description was dropped between the SOM and the
-/// output — the seam is there, but nobody can see what it was supposed to do.
+/// `codespecs_derivation_contract.md` §2.8 C2's fourth position is the one
+/// whose absence the contract calls a **generation error** rather than a lapse
+/// of style, and the reason is what a form-3 method is *for*: the body says
+/// nothing (it throws, or it delegates), so the doc comment is the only place
+/// the specification's own words survive into the code Phase 6 implements. A
+/// method of a form-3 declaration with no comment is a step whose description
+/// was dropped between the SOM and the output — the seam is there, but nobody
+/// can see what it was supposed to do.
 ///
 /// The abstract collaborator is held to the same rule for the same reason, and
-/// more sharply: every one of its methods is a contributing step and has no body
-/// at all.
+/// more sharply: every one of its methods is a contributing step and has no
+/// body at all.
 class CsMethodCommentCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsMethodCommentCheck();
@@ -2142,22 +2154,25 @@ class CsMethodCommentCheck extends CodeSpecsCheck {
   }
 }
 
-/// The number of `//` lines §2.7's banner is.
+/// The number of `//` lines `codespecs_derivation_contract.md` §2.7's banner
+/// is.
 const _csBannerLines = 3;
 
-/// §6 check 26.
+/// `codespecs_derivation_contract.md` §6 check 26.
 ///
-/// §2.8 C6 gives the in-body comment position a value, and the value is
-/// *nothing*. It is the one C-rule that forbids rather than requires, and it
-/// exists because an in-body comment is where a generator starts explaining
-/// itself — "// TODO: implement", "// step 2 of 3", "// derived from CLA-4.2".
-/// Every one of those is either already in the doc comment (C2) or is generator
-/// commentary that no SOM section said, which C1 forbids as a source.
+/// `codespecs_derivation_contract.md` §2.8 C6 gives the in-body comment
+/// position a value, and the value is *nothing*. It is the one C-rule that
+/// forbids rather than requires, and it exists because an in-body comment is
+/// where a generator starts explaining itself — "// TODO: implement", "// step
+/// 2 of 3", "// derived from CLA-4.2". Every one of those is either already in
+/// the doc comment (C2) or is generator commentary that no SOM section said,
+/// which C1 forbids as a source.
 ///
-/// §2.7's three-line banner is the sole `//` an emitted file may hold, so the
-/// check counts it out rather than filtering all banner-position comments away:
-/// a fourth `//` above the imports is a comment that has crept in beside the
-/// banner, and is exactly as forbidden as one inside a body.
+/// `codespecs_derivation_contract.md` §2.7's three-line banner is the sole `//`
+/// an emitted file may hold, so the check counts it out rather than filtering
+/// all banner-position comments away: a fourth `//` above the imports is a
+/// comment that has crept in beside the banner, and is exactly as forbidden as
+/// one inside a body.
 class CsNoInBodyCommentCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsNoInBodyCommentCheck();
@@ -2200,19 +2215,19 @@ class CsNoInBodyCommentCheck extends CodeSpecsCheck {
   }
 }
 
-/// §6 check 27.
+/// `codespecs_derivation_contract.md` §6 check 27.
 ///
 /// The three C4 shape rules a syntax pass can see. Each one is a way the same
 /// promise breaks: C4.1's trailing whitespace and C4.3's blank line are
 /// whitespace a second run may or may not reproduce, and C4.4's escapes decide
-/// whether dartdoc renders the specification's own words or silently eats them —
-/// an unescaped `[Order]` becomes a broken reference, an unescaped `<name>` an
-/// HTML tag that renders as nothing at all.
+/// whether dartdoc renders the specification's own words or silently eats them
+/// — an unescaped `[Order]` becomes a broken reference, an unescaped `<name>`
+/// an HTML tag that renders as nothing at all.
 ///
 /// **Why it is not all of C4.** C4.2 (no re-wrapping, no truncation) compares
-/// the emitted text against the SOM text it came from, which is not in the trio.
-/// It is [CsCommentFidelityCheck]'s, over the extract; this check reads what a
-/// reader of the emitted file alone can see.
+/// the emitted text against the SOM text it came from, which is not in the
+/// trio. It is [CsCommentFidelityCheck]'s, over the extract; this check reads
+/// what a reader of the emitted file alone can see.
 class CsDocCommentShapeCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsDocCommentShapeCheck();
@@ -2301,21 +2316,23 @@ class CsDocCommentShapeCheck extends CodeSpecsCheck {
 // 28, 29, 30 — the form-3b body
 // ---------------------------------------------------------------------------
 
-/// §6 check 28.
+/// `codespecs_derivation_contract.md` §6 check 28.
 ///
-/// §2.4 lists five statement kinds a form-3b body may contain, and the list is
-/// closed for one reason: a body that stays inside it cannot compute anything.
-/// The excluded shapes are all ways of computing — a literal is a value the
-/// generator invented, arithmetic and string building are results derived in the
-/// body rather than obtained from a seam, and an unstated `try` is control flow
-/// no section asked for. Each of them would make the pseudo-implementation run
-/// to a result, which §2.4 invariant 4 forbids outright.
+/// `codespecs_derivation_contract.md` §2.4 lists five statement kinds a form-3b
+/// body may contain, and the list is closed for one reason: a body that stays
+/// inside it cannot compute anything. The excluded shapes are all ways of
+/// computing — a literal is a value the generator invented, arithmetic and
+/// string building are results derived in the body rather than obtained from a
+/// seam, and an unstated `try` is control flow no section asked for. Each of
+/// them would make the pseudo-implementation run to a result, which
+/// `codespecs_derivation_contract.md` §2.4 invariant 4 forbids outright.
 ///
 /// The `final` half of kind 3 is not decoration: a non-`final` local can be
-/// reassigned, and a body that reassigns is a body that computes. §2.4 B3 goes
-/// further for the collaborator specifically — this derivation binds nothing,
-/// it awaits or returns — so a binding of a *collaborator* call is a B3 breach
-/// even though kind 3 would admit the shape in general.
+/// reassigned, and a body that reassigns is a body that computes.
+/// `codespecs_derivation_contract.md` §2.4 B3 goes further for the collaborator
+/// specifically — this derivation binds nothing, it awaits or returns — so a
+/// binding of a *collaborator* call is a B3 breach even though kind 3 would
+/// admit the shape in general.
 class CsBodyStatementShapeCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsBodyStatementShapeCheck();
@@ -2400,19 +2417,20 @@ class CsBodyStatementShapeCheck extends CodeSpecsCheck {
   }
 }
 
-/// §6 check 29.
+/// `codespecs_derivation_contract.md` §6 check 29.
 ///
-/// §2.4 B4 turns a stated condition into a **guard method on the collaborator**
-/// rather than into an expression, and the reason is that the condition arrives
-/// as prose. A generator that emitted `if (order.total > limit)` would have
-/// parsed English into Dart and guessed at both the operands and the operator;
-/// a generator that emits `if (await collaborator.chargeOrderOverLimitApplies(…))`
-/// has moved the same sentence into a named seam, where Phase 6 reads the
-/// comment and implements it. The first is a guess that compiles, which is the
-/// worst kind.
+/// `codespecs_derivation_contract.md` §2.4 B4 turns a stated condition into a
+/// **guard method on the collaborator** rather than into an expression, and the
+/// reason is that the condition arrives as prose. A generator that emitted `if
+/// (order.total > limit)` would have parsed English into Dart and guessed at
+/// both the operands and the operator; a generator that emits `if (await
+/// collaborator.chargeOrderOverLimitApplies(…))` has moved the same sentence
+/// into a named seam, where Phase 6 reads the comment and implements it. The
+/// first is a guess that compiles, which is the worst kind.
 ///
-/// **Repetition and multi-way choice.** §2.4 kind 4 permits `for` and `switch`,
-/// but B7 states that this derivation produces neither: no §3 entry names a
+/// **Repetition and multi-way choice.** `codespecs_derivation_contract.md` §2.4
+/// kind 4 permits `for` and `switch`, but B7 states that this derivation
+/// produces neither: no `codespecs_derivation_contract.md` §3 entry names a
 /// structured surface that states repetition or a multi-way selection, so a
 /// `for` or a `switch` in a generated body came from somewhere other than the
 /// specification. The check moves when an entry names such a surface — the same
@@ -2488,22 +2506,26 @@ class CsBranchConditionCheck extends CodeSpecsCheck {
   }
 }
 
-/// The fixed suffix a §2.4 B4 guard method's name ends in.
+/// The fixed suffix a `codespecs_derivation_contract.md` §2.4 B4 guard method's
+/// name ends in.
 const csGuardSuffix = 'Applies';
 
 /// Where a collaborator call sits in the body that makes it.
 enum CsCallPosition {
-  /// The call is the body's `return` — §2.4 B3's last contributing step.
+  /// The call is the body's `return` — `codespecs_derivation_contract.md` §2.4
+  /// B3's last contributing step.
   returned,
 
   /// The call is a statement of its own — an earlier contributing step.
   statement,
 
-  /// The call is a branch condition — a §2.4 B4 guard.
+  /// The call is a branch condition — a `codespecs_derivation_contract.md` §2.4
+  /// B4 guard.
   guard,
 
-  /// The call initialises a local binding, which §2.4 B3 does not emit; check
-  /// 28 owns that breach, so check 30 does not judge the signature.
+  /// The call initialises a local binding, which
+  /// `codespecs_derivation_contract.md` §2.4 B3 does not emit; check 28 owns
+  /// that breach, so check 30 does not judge the signature.
   binding,
 }
 
@@ -2519,8 +2541,9 @@ typedef CsCollaboratorCall = ({
 
 /// Every collaborator call across the trio, with the body that makes it.
 ///
-/// The receiver spelling is the whole resolution mechanism: §3.0.1 point 2 fixes
-/// one `late final <Name>Collaborator collaborator;` field per declaration, so a
+/// The receiver spelling is the whole resolution mechanism: point 2 of
+/// `codespecs_derivation_contract.md` §3.0.1 fixes one
+/// `late final <Name>Collaborator collaborator;` field per declaration, so a
 /// syntax pass can name the collaborator a call reaches by reading that field's
 /// declared type.
 List<CsCollaboratorCall> csCollaboratorCalls(CodeSpecsValidationInput input) {
@@ -2570,17 +2593,18 @@ List<CsCollaboratorCall> csCollaboratorCalls(CodeSpecsValidationInput input) {
   return out;
 }
 
-/// §6 check 30.
+/// `codespecs_derivation_contract.md` §6 check 30.
 ///
-/// §3.0.1 point 2 derives a collaborator method's whole signature from the body
-/// that calls it — the parameters "name-for-name and type-for-type", the return
-/// type from the call's position — and a syntax pass can hold the generator to
-/// every part of it. The rule is not tidiness. A collaborator method exists so a
-/// step's behaviour can be *moved* out of the body without being *changed*; a
-/// parameter the caller does not have is an input the specification never named,
-/// and a missing one is an input the step needs and cannot reach. The return
-/// type says which of the three positions the call is in, so a mismatch means
-/// the generator emitted a step in a place its own derivation did not put it.
+/// `codespecs_derivation_contract.md` §3.0.1 point 2 derives a collaborator
+/// method's whole signature from the body that calls it — the parameters
+/// "name-for-name and type-for-type", the return type from the call's position
+/// — and a syntax pass can hold the generator to every part of it. The rule is
+/// not tidiness. A collaborator method exists so a step's behaviour can be
+/// *moved* out of the body without being *changed*; a parameter the caller does
+/// not have is an input the specification never named, and a missing one is an
+/// input the step needs and cannot reach. The return type says which of the
+/// three positions the call is in, so a mismatch means the generator emitted a
+/// step in a place its own derivation did not put it.
 ///
 /// Where the check is silent: on a method it cannot find (check 23 reports the
 /// unresolved call) and on a call that binds a local (check 28 reports the
@@ -2663,7 +2687,8 @@ class CsCollaboratorSignatureCheck extends CodeSpecsCheck {
     return out;
   }
 
-  /// The method [name] of collaborator [owner], or `null` when it declares none.
+  /// The method [name] of collaborator [owner], or `null` when it declares
+  /// none.
   CsDeclaration? _methodOf(
     CodeSpecsValidationInput input,
     CsDeclaration owner,
@@ -2686,21 +2711,24 @@ class CsCollaboratorSignatureCheck extends CodeSpecsCheck {
 // 31 — determinism
 // ---------------------------------------------------------------------------
 
-/// §6 check 31.
+/// `codespecs_derivation_contract.md` §6 check 31.
 ///
-/// The one check whose subject is two runs rather than one trio. §2.8 C5 and
-/// §2.1 N1 promise that regenerating over an unchanged document reproduces the
-/// output byte-for-byte, and nothing inside a single trio can witness that: a
-/// generator that iterates an unordered map, or stamps a time, or numbers a
-/// name from a counter that survives between runs, emits perfectly plausible
-/// output every time — it is only the *second* run that shows the difference.
+/// The one check whose subject is two runs rather than one trio.
+/// `codespecs_derivation_contract.md` §2.8 C5 and
+/// `codespecs_derivation_contract.md` §2.1 N1 promise that regenerating over an
+/// unchanged document reproduces the output byte-for-byte, and nothing inside a
+/// single trio can witness that: a generator that iterates an unordered map, or
+/// stamps a time, or numbers a name from a counter that survives between runs,
+/// emits perfectly plausible output every time — it is only the *second* run
+/// that shows the difference.
 ///
 /// tscomp17's derivation is where this stops being hypothetical. B1 orders a 3b
-/// body's statements by §2.1 N8 document order, and B4 names a guard method out
-/// of two headlines; both are derivations over collections, and both would still
-/// compile if the collection came back in another order. So the check diffs the
-/// two runs' file sets first (a name that changed is a naming derivation that is
-/// not a function of its input) and then their bytes.
+/// body's statements by `codespecs_derivation_contract.md` §2.1 N8 document
+/// order, and B4 names a guard method out of two headlines; both are
+/// derivations over collections, and both would still compile if the collection
+/// came back in another order. So the check diffs the two runs' file sets first
+/// (a name that changed is a naming derivation that is not a function of its
+/// input) and then their bytes.
 ///
 /// The check needs a caller who ran the generator twice. When none did, it
 /// raises nothing — see `bin/validate_codespecs.dart`, which says so on stdout
@@ -2795,7 +2823,8 @@ class _CsCommentSources {
   final List<CsExtractEntry> entries;
 
   /// Whether the sections were named by a `@DocSpec` (traced) or the whole
-  /// extract set stood in for them (untraced — §3.1.1's enum constants).
+  /// extract set stood in for them (untraced —
+  /// `codespecs_derivation_contract.md` §3.1.1's enum constants).
   final bool traced;
 
   const _CsCommentSources(this.entries, {required this.traced});
@@ -2847,15 +2876,15 @@ _CsCommentSources? _commentSources(
   return _CsCommentSources(extracts.entries.toList(), traced: false);
 }
 
-/// §6 check 32.
+/// `codespecs_derivation_contract.md` §6 check 32.
 ///
 /// C1's fourth prohibition — *anything the agent composes* — made checkable.
 /// Every other comment rule constrains text that came from somewhere; this one
-/// constrains text that came from nowhere, and it is the failure §2.8 calls the
-/// one "where an authoring agent is most tempted and least detectable". A
-/// summarised description reads exactly like a written one, so the only evidence
-/// that separates them is the specification text itself, which is what the
-/// extract carries.
+/// constrains text that came from nowhere, and it is the failure
+/// `codespecs_derivation_contract.md` §2.8 calls the one "where an authoring
+/// agent is most tempted and least detectable". A summarised description reads
+/// exactly like a written one, so the only evidence that separates them is the
+/// specification text itself, which is what the extract carries.
 ///
 /// **What it leaves to the SOM side.** C1 narrows the summary to a section's
 /// *designated* description field, and the extract cannot say which field that
@@ -2911,7 +2940,7 @@ class CsCommentSourceCheck extends CodeSpecsCheck {
   }
 }
 
-/// §6 check 33.
+/// `codespecs_derivation_contract.md` §6 check 33.
 ///
 /// C3 grants exactly one generated sentence in the entire output, and grants it
 /// only to a holder the agent created by grouping. The rule is worth a check
@@ -2920,11 +2949,12 @@ class CsCommentSourceCheck extends CodeSpecsCheck {
 /// like the rest of the file.
 ///
 /// **What it leaves to the SOM side.** The template's two slots are checked for
-/// *shape*, not for content. §4.1 gives each part a canonical id (`ErrorResult`)
-/// while C3's own illustration renders one as prose (`Error codes`), and no rule
-/// states that rendering; and the extract's document root is the model's root
-/// section segment, not the document's name. Deciding the slots would mean
-/// inventing both mappings, which is how a checker starts specifying.
+/// *shape*, not for content. `codespecs_mapping.md` §4.1 gives each part a
+/// canonical id (`ErrorResult`) while C3's own illustration renders one as
+/// prose (`Error codes`), and no rule states that rendering; and the extract's
+/// document root is the model's root section segment, not the document's name.
+/// Deciding the slots would mean inventing both mappings, which is how a
+/// checker starts specifying.
 class CsGroupedHolderCommentCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsGroupedHolderCommentCheck();
@@ -2987,7 +3017,7 @@ class CsGroupedHolderCommentCheck extends CodeSpecsCheck {
   }
 }
 
-/// §6 check 34.
+/// `codespecs_derivation_contract.md` §6 check 34.
 ///
 /// C4.2 forbids the two edits that leave a comment still reading as the
 /// specification: a re-wrap, which preserves every word and destroys the
@@ -2998,9 +3028,9 @@ class CsGroupedHolderCommentCheck extends CodeSpecsCheck {
 /// the rule needs the source text and not just the file.
 ///
 /// The two failures are looked for from opposite ends. A re-wrap shows up
-/// line-by-line: an emitted line that is a proper fragment of a source line is a
-/// source line that was split. A truncation shows up value-by-value: a value the
-/// comment started to render and did not finish.
+/// line-by-line: an emitted line that is a proper fragment of a source line is
+/// a source line that was split. A truncation shows up value-by-value: a value
+/// the comment started to render and did not finish.
 class CsCommentFidelityCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsCommentFidelityCheck();
@@ -3107,11 +3137,11 @@ class CsCommentFidelityCheck extends CodeSpecsCheck {
 
 /// Every SOM section id [declaration] traces to, across **both** back-links.
 ///
-/// The union rather than either one alone. §2.5 rule 4 makes the two sets equal
-/// per declaration and check 7 enforces it, so where they differ the fault is
-/// already reported — taking the union means checks 35 and 36 fire only on a
-/// section cited by *neither*, which is unambiguously a transfer defect and not
-/// a second message for check 7's.
+/// The union rather than either one alone. `codespecs_derivation_contract.md`
+/// §2.5 rule 4 makes the two sets equal per declaration and check 7 enforces
+/// it, so where they differ the fault is already reported — taking the union
+/// means checks 35 and 36 fire only on a section cited by *neither*, which is
+/// unambiguously a transfer defect and not a second message for check 7's.
 Set<String> csCitedSectionIdsOf(CsDeclaration declaration) => {
       ...?declaration.codeSpec?.source,
       ...?declaration.docSpec?.map((r) => r.sectionId),
@@ -3123,13 +3153,13 @@ Set<String> csCitedSectionIds(CodeSpecsValidationInput input) => {
         ...csCitedSectionIdsOf(declaration),
     };
 
-/// §6 check 35.
+/// `codespecs_derivation_contract.md` §6 check 35.
 ///
 /// `codespecs_mapping.md` §9.6 comparison 1, at the granularity it names: the
-/// set of routed section ids, set-differenced against what the trio's back-links
-/// cite. A section on the left and not on the right is a specification fact that
-/// reached no code, and it is invisible from the trio alone — the output is the
-/// answer, and this comparison needs the question.
+/// set of routed section ids, set-differenced against what the trio's
+/// back-links cite. A section on the left and not on the right is a
+/// specification fact that reached no code, and it is invisible from the trio
+/// alone — the output is the answer, and this comparison needs the question.
 ///
 /// **Why the extract is what makes it decidable.** Nothing in a generated file
 /// states what was supposed to be in it, so a complete transfer and a partial
@@ -3192,15 +3222,16 @@ class CsExtractCoverageCheck extends CodeSpecsCheck {
   }
 }
 
-/// §6 check 36.
+/// `codespecs_derivation_contract.md` §6 check 36.
 ///
 /// The converse of check 35, and a different defect rather than the same one
 /// read backwards. A `DocRef` naming a section no extract holds is a back-link
 /// with nothing behind it: either the section id is stale — the model renamed
 /// it and the trio still points at the old one — or the agent invented it to
-/// satisfy §2.5's requirement that every declaration carry one. Both make the
-/// §9.6 trace lie, and both are silent otherwise: an id is a string, and no
-/// reading of the trio can tell a real section id from a plausible one.
+/// satisfy `codespecs_derivation_contract.md` §2.5's requirement that every
+/// declaration carry one. Both make the `codespecs_mapping.md` §9.6 trace lie,
+/// and both are silent otherwise: an id is a string, and no reading of the trio
+/// can tell a real section id from a plausible one.
 ///
 /// Check 32 deliberately *skips* a section the extracts do not know, on the
 /// grounds that it cannot judge a comment against text it does not have. This
@@ -3247,7 +3278,7 @@ class CsBackLinkExtractedCheck extends CodeSpecsCheck {
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The thirty-six checks, in §6 table order.
+/// The thirty-six checks, in `codespecs_derivation_contract.md` §6 table order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   CsIdentifierCollisionCheck(),
   CsReferenceResolutionCheck(),

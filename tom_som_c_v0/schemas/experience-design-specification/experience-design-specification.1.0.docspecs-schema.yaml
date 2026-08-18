@@ -2375,7 +2375,7 @@ section-types:
   lcsp:
     prefix: LCSP
     format: lcsp-form
-    description: "Retention rules — how a chosen preference survives, without naming a store."
+    description: "Retention rules — how a chosen preference survives, without naming a"
   lcsu:
     prefix: LCSU
     format: lcsu-form

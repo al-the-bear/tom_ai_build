@@ -12889,7 +12889,7 @@ static void meta_build_access_control_model_authorization(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "9.1.4. User Authorization.");
-  meta_set(&n->class_doc_comment, "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.");
+  meta_set(&n->class_doc_comment, "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
 }
 static void meta_build_access_control_model_role_matrix(SomMetaNode *n) {
@@ -14950,7 +14950,7 @@ static void meta_build_administration_requirements_section_batch_jobs(SomMetaNod
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "Batch job management.");
-  meta_set(&n->class_doc_comment, "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here applies\nto every job that does not override it, and an entry that does override it\nsays so in its own failure-policy subsection.");
+  meta_set(&n->class_doc_comment, "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here\napplies to every job that does not override it, and an entry that does\noverride it says so in its own failure-policy subsection.");
 }
 static void meta_build_administration_requirements_section_environment_management(SomMetaNode *n) {
   meta_set(&n->class_name, "AdministrationRequirementsSection");
@@ -16436,8 +16436,8 @@ static void meta_build_alternative_step_entry_server_call_steps_elem(SomMetaNode
   meta_set(&n->class_section_id, "SVCST");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ServerCallStepEntry");
-  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
-  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.");
+  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.");
 }
 static void meta_build_anomaly_detection_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AnomalyDetectionPolicy");
@@ -20009,7 +20009,7 @@ static void meta_build_authorization_requirement_spec_graded_requirement(SomMeta
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->doc_comment, "Graded requirement payload — a promoted `@OneOf` case.");
-  meta_set(&n->class_doc_comment, "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —\nthe SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —\nand removing it by pointing the levels back at [AuthorizationRequirementSpec]\nreintroduces the cycle.");
+  meta_set(&n->class_doc_comment, "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate\n— the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2)\n— and removing it by pointing the levels back at\n[AuthorizationRequirementSpec] reintroduces the cycle.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Case");
@@ -21883,7 +21883,7 @@ static void meta_build_basic_technical_requirements_architecture_style(SomMetaNo
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "8.1.2. Architecture Style.");
-  meta_set(&n->class_doc_comment, "8.1.2. Architecture Style.\n\nTarget architecture style specification: monolith, modular monolith,\nmicroservices, event-driven, serverless, or hybrid. Includes justification\nbased on project requirements, architectural principles, and design decisions.");
+  meta_set(&n->class_doc_comment, "8.1.2. Architecture Style.\n\nTarget architecture style specification: monolith, modular monolith,\nmicroservices, event-driven, serverless, or hybrid. Includes justification\nbased on project requirements, architectural principles, and design\ndecisions.");
 }
 static void meta_build_basic_technical_requirements_design_patterns_and_standards(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignPatternsAndStandards");
@@ -21926,7 +21926,7 @@ static void meta_build_batch_job_management_workload_shape(SomMetaNode *n) {
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "Describe the shape of the scheduled workload in a short paragraph: what the batch surface of this system is mostly made of, and why it exists. This is orientation, not the job inventory — every job is declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; a list in two places is a list that can disagree with itself.");
-  meta_set(&n->doc_comment, "Workload shape — orientation above the job list, deliberately narrative.\n\nWhat kind of batch surface this system has, in prose: mostly a nightly\nfinancial rollup with a small maintenance tail, or a continuous\nintegration-sync load, or a report factory. It is the paragraph a reader\nwants *before* thirty [scheduledJobs] entries, for the same reason an\narchitecture overview sits above a component list.\n\n**It is narrative and not a form, on purpose.** This section used to carry\nfive fixed category slots — data processing, report generation,\nnotification, maintenance, integration sync. A form of five slots each\nlabelled \"… Jobs\" *is* an inventory grouped by category, whatever the help\ntext says, so it became a second place to state which jobs exist and could\ndisagree with [scheduledJobs] — which is authoritative and is what the\nCodeSpecs generator reads. The fixed five were also a closed taxonomy with\nno basis: a system whose batch work is model retraining or index rebuilding\nhad no slot. One prose field can describe any workload and cannot be\nmistaken for the inventory.\n\n[scheduledJobs] remains the only place a job comes into existence. A shape\ndescribed here that no entry there realises is a workload the specification\nhas not actually declared.");
+  meta_set(&n->doc_comment, "Workload shape — orientation above the job list, deliberately narrative.\n\nWhat kind of batch surface this system has, in prose: mostly a nightly\nfinancial rollup with a small maintenance tail, or a continuous\nintegration-sync load, or a report factory. It is the paragraph a reader\nwants *before* thirty [scheduledJobs] entries, for the same reason an\narchitecture overview sits above a component list.\n\n**It is narrative and not a form, on purpose.** This section used to carry\nfive fixed category slots — data processing, report generation,\nnotification, maintenance, integration sync. A form of five slots each\nlabelled \"… Jobs\" *is* an inventory grouped by category, whatever the help\ntext says, so it became a second place to state which jobs exist and could\ndisagree with [scheduledJobs] — which is authoritative and is what the\nCodeSpecs generator reads. The fixed five were also a closed taxonomy with\nno basis: a system whose batch work is model retraining or index\nrebuilding had no slot. One prose field can describe any workload and\ncannot be mistaken for the inventory.\n\n[scheduledJobs] remains the only place a job comes into existence. A shape\ndescribed here that no entry there realises is a workload the\nspecification has not actually declared.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -24570,8 +24570,8 @@ static void meta_build_business_object_entry_attributes_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "BIOBAT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BusinessObjectAttributeEntry");
-  meta_set(&n->doc_comment, "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and rules.");
-  meta_set(&n->class_doc_comment, "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and rules.");
+  meta_set(&n->doc_comment, "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and\nrules.");
+  meta_set(&n->class_doc_comment, "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and\nrules.");
 }
 static void meta_build_business_object_entry_key_states(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectEntry");
@@ -39861,7 +39861,7 @@ static void meta_build_d03_information_model_server_operation_registry(SomMetaNo
   n->has_serialization_order = 1;
   n->serialization_order = 18;
   meta_set(&n->doc_comment, "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.");
-  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
+  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
 }
 static void meta_build_d03_information_model_schema_versioning_and_migration(SomMetaNode *n) {
   meta_set(&n->class_name, "SchemaVersioningAndMigration");
@@ -40510,7 +40510,7 @@ static void meta_build_d08_security_access_specification_user_authorization(SomM
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "User authorization.");
-  meta_set(&n->class_doc_comment, "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.");
+  meta_set(&n->class_doc_comment, "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
 }
 static void meta_build_d08_security_access_specification_sensitive_data_encryption(SomMetaNode *n) {
@@ -41138,7 +41138,7 @@ static void meta_build_d11_delivery_roadmap_initial_development_flow(SomMetaNode
   n->has_serialization_order = 1;
   n->serialization_order = 9;
   meta_set(&n->doc_comment, "Initial development flow.");
-  meta_set(&n->class_doc_comment, "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".");
+  meta_set(&n->class_doc_comment, "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_d11_delivery_roadmap_upgrade_cycle_framework(SomMetaNode *n) {
@@ -41211,7 +41211,7 @@ static void meta_build_d12_transition_rollout_plan_user_documentation(SomMetaNod
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).");
-  meta_set(&n->class_doc_comment, "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`\n(`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`\nsub-forms and the shared `TextSection`. Retains `DOANTR` + the shared\n`TRP-DOC` D12 detail subsection.");
+  meta_set(&n->class_doc_comment, "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.");
   meta_set(&n->maps_to, "D12TransitionRolloutPlan");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
 }
@@ -41467,7 +41467,7 @@ static void meta_build_d13_code_specs_projection_sensitive_data_encryption(SomMe
   n->has_serialization_order = 1;
   n->serialization_order = 11;
   meta_set(&n->comment, "locus: server — CE-CF");
-  meta_set(&n->doc_comment, "Sensitive-data encryption and key management — CE-CF cryptographic\nsettings.\n\nReached **into** `SecurityOperationsFollowUp` rather than through it: that\nroot is tagged OPS for `ComplianceReporting`, and this sibling was swept\nalong by the split rather than placed there on a criterion. It is a pure\nCE-CF band — encryption at rest (database / file-storage / backup\npolicies and the encrypted-data category list), encryption in transit\n(TLS protocol, certificate management, mTLS, transport policy and the\nper-channel entries) and the key lifecycle under `KeyManagement`\n(generation, storage, rotation, escrow-and-backup, compromise recovery).\n\nIt belongs here because §5.5's own substrate names its material:\n`TomBaseServerConfiguration` declares TLS material and signing keys as\ntyped fields, so a TLS minimum version is a server-configuration value in\nexactly the sense `@CsServerConfig` generates. Its projected siblings\nsettle it — `StorageEncryptionPolicy` under `AccessControlModel` and\n`LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of\nthe same shape, and no criterion separates them from these.");
+  meta_set(&n->doc_comment, "Sensitive-data encryption and key management — CE-CF cryptographic\nsettings.\n\nReached **into** `SecurityOperationsFollowUp` rather than through it: that\nroot is tagged OPS for `ComplianceReporting`, and this sibling was swept\nalong by the split rather than placed there on a criterion. It is a pure\nCE-CF band — encryption at rest (database / file-storage / backup\npolicies and the encrypted-data category list), encryption in transit\n(TLS protocol, certificate management, mTLS, transport policy and the\nper-channel entries) and the key lifecycle under `KeyManagement`\n(generation, storage, rotation, escrow-and-backup, compromise recovery).\n\nIt belongs here because `codespecs_mapping.md` §5.5's own substrate names\nits material: `TomBaseServerConfiguration` declares TLS material and\nsigning keys as typed fields, so a TLS minimum version is a\nserver-configuration value in exactly the sense `@CsServerConfig`\ngenerates. Its projected siblings settle it — `StorageEncryptionPolicy`\nunder `AccessControlModel` and `LogRetentionPolicy` under\n`AuditAndLogging` are fixed-key policy bands of the same shape, and no\ncriterion separates them from these.");
   meta_set(&n->class_doc_comment, "9.5. Sensitive Data Encryption.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
 }
@@ -41506,7 +41506,7 @@ static void meta_build_d13_code_specs_projection_schema_versioning_and_migration
   n->has_serialization_order = 1;
   n->serialization_order = 14;
   meta_set(&n->comment, "locus: server — CE-MG");
-  meta_set(&n->doc_comment, "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.");
+  meta_set(&n->doc_comment, "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a\n`codespecs_mapping.md` §5.23 string exemption — so they are not part of\nthe generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.");
   meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.");
 }
 static void meta_build_d13_code_specs_projection_server_operation_registry(SomMetaNode *n) {
@@ -41518,8 +41518,8 @@ static void meta_build_d13_code_specs_projection_server_operation_registry(SomMe
   n->has_serialization_order = 1;
   n->serialization_order = 15;
   meta_set(&n->comment, "locus: shared(CE-API contract)+server(CE-API operations)");
-  meta_set(&n->doc_comment, "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.");
-  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
+  meta_set(&n->doc_comment, "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (`codespecs_mapping.md` §5.17), so ownership is\nderived here rather than declared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.");
+  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
 }
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessStepsAndActorInteractions");
@@ -41531,7 +41531,7 @@ static void meta_build_d13_code_specs_projection_process_steps_and_actor_interac
   n->serialization_order = 16;
   meta_set(&n->comment, "locus: server(CE-SU)+client(CE-SC)");
   meta_set(&n->doc_comment, "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.");
-  meta_set(&n->class_doc_comment, "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.");
+  meta_set(&n->class_doc_comment, "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case\nmodeling.");
   meta_set(&n->maps_to, "D05InteractionScenarios");
 }
 static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNode *n) {
@@ -42452,7 +42452,7 @@ static void meta_build_data_attribute_entry_file_reference_options(SomMetaNode *
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
-  meta_set(&n->doc_comment, "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores the\n**address of a stored file**, so what a specification must say is where the\nfile is filed, which store holds it, whether it dies with its record, and\nwhat may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.");
+  meta_set(&n->doc_comment, "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores\nthe **address of a stored file**, so what a specification must say is\nwhere the file is filed, which store holds it, whether it dies with its\nrecord, and what may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 6;
   n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
@@ -52260,8 +52260,8 @@ static void meta_build_design_patterns_and_standards_development_conventions_ele
   meta_set(&n->class_section_id, "DCE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DevelopmentConventionEntry");
-  meta_set(&n->doc_comment, "Development convention entry — a development practice or workflow convention.");
-  meta_set(&n->class_doc_comment, "Development convention entry — a development practice or workflow convention.");
+  meta_set(&n->doc_comment, "Development convention entry — a development practice or workflow\nconvention.");
+  meta_set(&n->class_doc_comment, "Development convention entry — a development practice or workflow\nconvention.");
 }
 static void meta_build_design_patterns_and_standards_industry_standards(SomMetaNode *n) {
   meta_set(&n->class_name, "DesignPatternsAndStandards");
@@ -53485,8 +53485,8 @@ static void meta_build_device_settings_settings_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DSSET");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DeviceSettingEntry");
-  meta_set(&n->doc_comment, "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.");
-  meta_set(&n->class_doc_comment, "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.");
+  meta_set(&n->doc_comment, "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. `codespecs_mapping.md` §5.16 puts\nthe opt-in on the *wider* scope — a key is shadowable only because its\nwider-scope declaration says so — and CE-DS is the narrowest scope, so it\nhas nothing below it to open. Declaring the same relation from both ends\nwould be two authored fields that can disagree.");
+  meta_set(&n->class_doc_comment, "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. `codespecs_mapping.md` §5.16 puts\nthe opt-in on the *wider* scope — a key is shadowable only because its\nwider-scope declaration says so — and CE-DS is the narrowest scope, so it\nhas nothing below it to open. Declaring the same relation from both ends\nwould be two authored fields that can disagree.");
 }
 static void meta_build_disaster_recovery_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DisasterRecoveryRequirements");
@@ -56125,8 +56125,8 @@ static void meta_build_domain_enum_registry_enums_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DMENE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DomainEnumEntry");
-  meta_set(&n->doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
-  meta_set(&n->class_doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
+  meta_set(&n->doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant\n— and doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
+  meta_set(&n->class_doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant\n— and doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
 }
 static void meta_build_domain_enum_value_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainEnumValueEntry");
@@ -58096,8 +58096,8 @@ static void meta_build_entity_relationships_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "ENRLE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "EntityRelationshipEntry");
-  meta_set(&n->doc_comment, "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best practices.");
-  meta_set(&n->class_doc_comment, "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best practices.");
+  meta_set(&n->doc_comment, "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best\npractices.");
+  meta_set(&n->class_doc_comment, "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best\npractices.");
 }
 static void meta_build_entry_point_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "EntryPointEntry");
@@ -62576,8 +62576,8 @@ static void meta_build_extension_step_entry_server_call_steps_elem(SomMetaNode *
   meta_set(&n->class_section_id, "SVCST");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ServerCallStepEntry");
-  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
-  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.");
+  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.");
 }
 static void meta_build_external_actor_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalActorEntry");
@@ -64596,7 +64596,7 @@ static void meta_build_feature_prioritization_feature_priority_register(SomMetaN
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "13.4.1. Feature Priority Register.\n\nThe register comes first because the three sections after it are views\nonto it: each names a feature by the id declared here.");
-  meta_set(&n->class_doc_comment, "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity: a feature\nexists because it is declared here, and every feature reference elsewhere\nin the model resolves against `FPE.featureId`. The MoSCoW analysis\n(§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map\n(§13.4.4) are views onto this register — they name a registered feature and\nadd their own view's attributes, never a second copy of its identity.");
+  meta_set(&n->class_doc_comment, "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership, and\ntraceability. Single source of truth for feature identity: a feature exists\nbecause it is declared here, and every feature reference elsewhere in the\nmodel resolves against `FPE.featureId`. The MoSCoW analysis (SBP.13.4.2),\nthe feature-stage matrix (SBP.13.4.3) and the dependency map (SBP.13.4.4)\nare views onto this register — they name a registered feature and add their\nown view's attributes, never a second copy of its identity.");
 }
 static void meta_build_feature_prioritization_moscow_analysis(SomMetaNode *n) {
   meta_set(&n->class_name, "MoscowAnalysis");
@@ -64607,7 +64607,7 @@ static void meta_build_feature_prioritization_moscow_analysis(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 9;
   meta_set(&n->doc_comment, "13.4.2. MoSCoW Analysis.");
-  meta_set(&n->class_doc_comment, "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage. A view onto the\nFeature Priority Register (§13.4.1): each entry names a registered feature\nand adds only its classification.");
+  meta_set(&n->class_doc_comment, "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should / Could /\nWon't) and maps each to its target delivery stage. A view onto the Feature\nPriority Register (SBP.13.4.1): each entry names a registered feature and\nadds only its classification.");
 }
 static void meta_build_feature_prioritization_feature_stage_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "FeatureStageMatrix");
@@ -64618,7 +64618,7 @@ static void meta_build_feature_prioritization_feature_stage_matrix(SomMetaNode *
   n->has_serialization_order = 1;
   n->serialization_order = 10;
   meta_set(&n->doc_comment, "13.4.3. Feature-Stage Matrix.");
-  meta_set(&n->class_doc_comment, "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (§13.4.1): each entry names a registered\nfeature and adds only its staging.");
+  meta_set(&n->class_doc_comment, "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (SBP.13.4.1): each entry names a registered\nfeature and adds only its staging.");
 }
 static void meta_build_feature_prioritization_feature_dependencies(SomMetaNode *n) {
   meta_set(&n->class_name, "FeatureDependencies");
@@ -71387,7 +71387,7 @@ static void meta_build_information_and_data_model_server_operation_registry(SomM
   n->has_serialization_order = 1;
   n->serialization_order = 9;
   meta_set(&n->doc_comment, "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.");
-  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
+  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
 }
 static void meta_build_information_and_data_model_data_model_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModelFollowUp");
@@ -71496,7 +71496,7 @@ static void meta_build_information_for_use_requirements_user_documentation(SomMe
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "User documentation requirements (doc half of the former DOANTR).");
-  meta_set(&n->class_doc_comment, "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`\n(`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`\nsub-forms and the shared `TextSection`. Retains `DOANTR` + the shared\n`TRP-DOC` D12 detail subsection.");
+  meta_set(&n->class_doc_comment, "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.");
   meta_set(&n->maps_to, "D12TransitionRolloutPlan");
   meta_set(&n->detailed_in, "D12TransitionRolloutPlan");
 }
@@ -76407,7 +76407,7 @@ static void meta_build_introduction_and_scope_systems_to_replace(SomMetaNode *n)
   n->serialization_order = 6;
   meta_set(&n->comment, "Seeds → CLA");
   meta_set(&n->doc_comment, "4.4. Systems to Replace. Seeds → CLA.");
-  meta_set(&n->class_doc_comment, "4.4. Systems to Replace. Seeds → CLA.\n\nDocuments existing systems that will be replaced, migrated, or decommissioned\nas part of the project. Follows TOGAF migration planning patterns and\nGartner application rationalization frameworks. Each system entry provides\ncomprehensive assessment for informed replacement decisions.");
+  meta_set(&n->class_doc_comment, "4.4. Systems to Replace. Seeds → CLA.\n\nDocuments existing systems that will be replaced, migrated, or\ndecommissioned as part of the project. Follows TOGAF migration planning\npatterns and Gartner application rationalization frameworks. Each system\nentry provides comprehensive assessment for informed replacement decisions.");
   meta_set(&n->maps_to, "D01CurrentLandscapeAssessment");
 }
 static void meta_build_introduction_and_scope_system_boundaries(SomMetaNode *n) {
@@ -76443,7 +76443,7 @@ static void meta_build_introduction_and_scope_risks_and_assumptions(SomMetaNode 
   n->has_serialization_order = 1;
   n->serialization_order = 9;
   meta_set(&n->doc_comment, "4.7. Risks and Assumptions.");
-  meta_set(&n->class_doc_comment, "4.7. Risks.\n\nDocuments identified project risks following ISO 31000 Risk Management and\nPMBOK risk management best practices. Provides a structured framework for\nrisk identification, analysis, response planning, and ongoing monitoring\nthroughout the project lifecycle.\n\nAssumptions are **not** held here (L34C-4 consolidation, SR-11): the\ncanonical assumptions register lives in SBP.6 (Assumptions, Constraints &\nDependencies). Only the risks half — unique to §4.7 — remains in this node.\n(The class name remains `RisksAndAssumptions` pending the L34C-9 rename\nsweep, which will rename it to `Risks`.)");
+  meta_set(&n->class_doc_comment, "4.7. Risks.\n\nDocuments identified project risks following ISO 31000 Risk Management and\nPMBOK risk management best practices. Provides a structured framework for\nrisk identification, analysis, response planning, and ongoing monitoring\nthroughout the project lifecycle.\n\nAssumptions are **not** held here (L34C-4 consolidation, SR-11): the\ncanonical assumptions register lives in SBP.6 (Assumptions, Constraints &\nDependencies). Only the risks half — unique to SBP.4.7 — remains in this\nnode.\n(The class name remains `RisksAndAssumptions` pending the L34C-9 rename\nsweep, which will rename it to `Risks`.)");
 }
 static void meta_build_ip_ownership_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "IpOwnershipEntry");
@@ -78306,7 +78306,7 @@ static void meta_build_language_country_selection_persistence(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
-  meta_set(&n->doc_comment, "Retention rules — how a chosen preference survives, without naming a store.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.");
+  meta_set(&n->doc_comment, "Retention rules — how a chosen preference survives, without naming a\nstore.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -78647,8 +78647,8 @@ static void meta_build_layering_and_module_structure_bounded_contexts_elem(SomMe
   meta_set(&n->class_section_id, "BCE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BoundedContextEntry");
-  meta_set(&n->doc_comment, "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.");
-  meta_set(&n->class_doc_comment, "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.");
+  meta_set(&n->doc_comment, "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere\nin the specification names one of these entries, so a context exists in\nexactly one place and a misspelt name is reported rather than silently\ncreating a second context.");
+  meta_set(&n->class_doc_comment, "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere\nin the specification names one of these entries, so a context exists in\nexactly one place and a misspelt name is reported rather than silently\ncreating a second context.");
 }
 static void meta_build_layering_and_module_structure_package_organization(SomMetaNode *n) {
   meta_set(&n->class_name, "PackageOrganization");
@@ -80632,8 +80632,8 @@ static void meta_build_main_scenario_step_entry_server_call_steps_elem(SomMetaNo
   meta_set(&n->class_section_id, "SVCST");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ServerCallStepEntry");
-  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
-  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.");
+  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.");
 }
 static void meta_build_main_success_scenario_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MainSuccessScenario");
@@ -82210,8 +82210,8 @@ static void meta_build_message_key_entry_locale_variants_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "MSGLV");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MessageLocaleVariantEntry");
-  meta_set(&n->doc_comment, "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.");
-  meta_set(&n->class_doc_comment, "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.");
+  meta_set(&n->doc_comment, "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one\nlocale.");
+  meta_set(&n->class_doc_comment, "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one\nlocale.");
 }
 static void meta_build_message_key_registry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MessageKeyRegistry");
@@ -88238,7 +88238,7 @@ static void meta_build_navigation_model_hierarchy(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "10.3.1.2. Navigation Hierarchy.");
-  meta_set(&n->class_doc_comment, "10.3.1.2. Navigation Hierarchy.\n\nFull navigation tree: groups and items forming the app's navigation structure.");
+  meta_set(&n->class_doc_comment, "10.3.1.2. Navigation Hierarchy.\n\nFull navigation tree: groups and items forming the app's navigation\nstructure.");
 }
 static void meta_build_navigation_model_primary_navigation(SomMetaNode *n) {
   meta_set(&n->class_name, "PrimaryNavigation");
@@ -88249,7 +88249,7 @@ static void meta_build_navigation_model_primary_navigation(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "10.3.1.3. Primary Navigation.");
-  meta_set(&n->class_doc_comment, "10.3.1.3. Primary Navigation.\n\nHow the main navigation appears across platforms: drawer, sidebar, bottom nav.");
+  meta_set(&n->class_doc_comment, "10.3.1.3. Primary Navigation.\n\nHow the main navigation appears across platforms: drawer, sidebar, bottom\nnav.");
 }
 static void meta_build_navigation_model_secondary_navigation(SomMetaNode *n) {
   meta_set(&n->class_name, "SecondaryNavigation");
@@ -93048,7 +93048,7 @@ static void meta_build_organizational_requirements_requirements(SomMetaNode *n) 
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per organizational requirement.");
-  meta_set(&n->doc_comment, "Organizational requirements list — contains 0+× Organizational Requirement.");
+  meta_set(&n->doc_comment, "Organizational requirements list — contains 0+× Organizational\nRequirement.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -102331,7 +102331,7 @@ static void meta_build_project_organization_and_process_process_adjustments(SomM
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "2.3. Process Adjustments.");
-  meta_set(&n->class_doc_comment, "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_specs_project_flow.md\ncreation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,\nreordered, or modified steps and the rationale for each deviation.");
+  meta_set(&n->class_doc_comment, "2.3. Process Adjustments.\n\nDocuments any deviations from the standard creation\n(`tom_specs_project_flow.md` §PF-PHA) or upgrade-cycle\n(`tom_specs_project_flow.md` §PF-UPG) process. Includes skipped, reordered,\nor modified steps and the rationale for each deviation.");
 }
 static void meta_build_project_organization_and_process_tooling_and_environments(SomMetaNode *n) {
   meta_set(&n->class_name, "ToolingAndEnvironments");
@@ -103663,7 +103663,7 @@ static void meta_build_quality_and_acceptance_model_iso25010_coverage(SomMetaNod
   meta_set(&n->type_name, "Iso25010Coverage");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
-  meta_set(&n->doc_comment, "ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).");
+  meta_set(&n->doc_comment, "ISO/IEC 25010:2023 product-quality cross-map — the IP-6 completeness\naddition, as the library doc states.");
   meta_set(&n->class_doc_comment, "ISO/IEC 25010:2023 product-quality cross-map (derived).\n\nA *derived* view over the canonical quality spine: the eight\n`*Characteristic` classes under [SystemQualityGoals] are the single source\nof truth for the taxonomy (L34C-8); this cross-map does not re-declare it.\nEach entry references one of those characteristics (via the closed\n[Iso25010Characteristic] enum) and records which quality goals / NFRs\naddress it and the target metric — so coverage of any 25010:2023\ncharacteristic (e.g. compatibility, flexibility) cannot be silently missed.");
 }
 static void meta_build_quality_category_entry_content(SomMetaNode *n) {
@@ -111267,7 +111267,7 @@ static void meta_build_resource_protection_data_level_security(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "9.3.1. Data-Level Security.");
-  meta_set(&n->class_doc_comment, "9.3.1. Data-Level Security.\n\nComprehensive data access protection specification covering database-level\nsecurity, row-level security, column-level security, tenant data isolation,\nand data masking for production and non-production environments.\nAligned with OWASP Database Security Cheat Sheet and least-privilege principles.");
+  meta_set(&n->class_doc_comment, "9.3.1. Data-Level Security.\n\nComprehensive data access protection specification covering database-level\nsecurity, row-level security, column-level security, tenant data isolation,\nand data masking for production and non-production environments. Aligned\nwith OWASP Database Security Cheat Sheet and least-privilege principles.");
 }
 static void meta_build_resource_protection_api_security(SomMetaNode *n) {
   meta_set(&n->class_name, "ApiSecurity");
@@ -117048,8 +117048,8 @@ static void meta_build_scenario_step_entry_server_call_steps_elem(SomMetaNode *n
   meta_set(&n->class_section_id, "SVCST");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ServerCallStepEntry");
-  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
-  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.");
+  meta_set(&n->doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.");
+  meta_set(&n->class_doc_comment, "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.");
 }
 static void meta_build_scheduled_job_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScheduledJobEntry");
@@ -117243,7 +117243,7 @@ static void meta_build_scheduled_job_entry_work_steps(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone.");
-  meta_set(&n->doc_comment, "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**\nwork body from — one statement per step, in list order, each a call on the\njob's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and §2.4's fallback then emits the form-3a body\nfrom `workSummary` exactly as before. The list is how a job that *is*\nmulti-step stops having to say so in a sentence.");
+  meta_set(&n->doc_comment, "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a\n**form-3b** work body from — one statement per step, in list order, each a\ncall on the job's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and `codespecs_derivation_contract.md` §2.4's\nfallback then emits the form-3a body from `workSummary` exactly as before.\nThe list is how a job that *is* multi-step stops having to say so in a\nsentence.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -117565,7 +117565,7 @@ static void meta_build_schema_migration_step_entry_baseline_schema(SomMetaNode *
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so there\nis no prior state: no affected-entity delta, no backfill, and nothing to\nroll back to.");
+  meta_set(&n->doc_comment, "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so\nthere is no prior state: no affected-entity delta, no backfill, and\nnothing to roll back to.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -117605,7 +117605,7 @@ static void meta_build_schema_migration_step_entry_reference_data(SomMetaNode *n
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays in\nthe migration-mapping sections (`MIGME`).");
+  meta_set(&n->doc_comment, "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays\nin the migration-mapping sections (`MIGME`).");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
@@ -117729,7 +117729,7 @@ static void meta_build_schema_versioning_and_migration_migration_targets(SomMeta
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->content_help, "Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.");
-  meta_set(&n->doc_comment, "7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.");
+  meta_set(&n->doc_comment, "7.4.1. Migration Targets — the data source / schema pairs artifacts apply\nto.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -119106,7 +119106,7 @@ static void meta_build_screen_element_field_spec_file_options(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
-  meta_set(&n->doc_comment, "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored (§5.18).");
+  meta_set(&n->doc_comment, "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored\n(`codespecs_mapping.md` §5.18).");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -120365,8 +120365,8 @@ static void meta_build_screen_states_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "SCRST");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ScreenStateEntry");
-  meta_set(&n->doc_comment, "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.");
-  meta_set(&n->class_doc_comment, "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.");
+  meta_set(&n->doc_comment, "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error,\npermission-denied.");
+  meta_set(&n->class_doc_comment, "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error,\npermission-denied.");
 }
 static void meta_build_screen_transition_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenTransitionEntry");
@@ -120745,7 +120745,7 @@ static void meta_build_security_and_access_model_security_operations(SomMetaNode
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "9.3. Security Operations — OPS follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** — the\nroutines run *against* the audit log — rather than CodeSpecs-generated\nbehaviour (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not itself a generation projection root.\n\n**The root is not the boundary here.** Its `encryption` child is a pure\nCE-CF band — encryption at rest, encryption in transit and the key\nlifecycle are settings the server reads, and §5.5's substrate\n(`TomBaseServerConfiguration`) names TLS material and signing keys as typed\nfields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`\ndirectly, past this root. Placing it here rather than beside the other SAS\nCE-CF bands is a grouping of subject matter, not a routing verdict, and the\nprojection's membership follows the part.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —\nand what the OPS tag is for — is `ComplianceReporting`: periodic access\nreview, privilege-usage reporting, anomaly detection and regulatory audit\nsupport are processes people run, not code a generator emits.");
+  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** — the\nroutines run *against* the audit log — rather than CodeSpecs-generated\nbehaviour (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not itself a generation projection root.\n\n**The root is not the boundary here.** Its `encryption` child is a pure\nCE-CF band — encryption at rest, encryption in transit and the key lifecycle\nare settings the server reads, and `codespecs_mapping.md` §5.5's substrate\n(`TomBaseServerConfiguration`) names TLS material and signing keys as typed\nfields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`\ndirectly, past this root. Placing it here rather than beside the other SAS\nCE-CF bands is a grouping of subject matter, not a routing verdict, and the\nprojection's membership follows the part.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —\nand what the OPS tag is for — is `ComplianceReporting`: periodic access\nreview, privilege-usage reporting, anomaly detection and regulatory audit\nsupport are processes people run, not code a generator emits.");
 }
 static void meta_build_security_and_access_model_compliance(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityComplianceFollowUp");
@@ -120998,7 +120998,7 @@ static void meta_build_security_audit_requirements_section_audit_entries(SomMeta
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per security audit requirement.");
-  meta_set(&n->doc_comment, "Individual security audit requirement entries — contains 0+× SecurityAudit.");
+  meta_set(&n->doc_comment, "Individual security audit requirement entries — contains 0+×\nSecurityAudit.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -126601,7 +126601,7 @@ static void meta_build_software_design_requirements_layering_and_module_structur
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "8.2.1. Layering and Module Structure.");
-  meta_set(&n->class_doc_comment, "8.2.1. Layering and Module Structure.\n\nSoftware layering (presentation, business logic, data access, infrastructure)\nand module structure (bounded contexts, packages, libraries).");
+  meta_set(&n->class_doc_comment, "8.2.1. Layering and Module Structure.\n\nSoftware layering (presentation, business logic, data access,\ninfrastructure) and module structure (bounded contexts, packages,\nlibraries).");
 }
 static void meta_build_software_design_requirements_development_environment(SomMetaNode *n) {
   meta_set(&n->class_name, "DevelopmentEnvironment");
@@ -131139,7 +131139,7 @@ static void meta_build_standard_software_requirements_compatibility_requirements
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "8.3.1. Compatibility Requirements.");
-  meta_set(&n->class_doc_comment, "8.3.1. Compatibility Requirements.\n\nCompatibility requirements with existing IT infrastructure, standard software,\nand enterprise systems.");
+  meta_set(&n->class_doc_comment, "8.3.1. Compatibility Requirements.\n\nCompatibility requirements with existing IT infrastructure, standard\nsoftware, and enterprise systems.");
 }
 static void meta_build_standard_software_requirements_standards_compliance(SomMetaNode *n) {
   meta_set(&n->class_name, "StandardsComplianceSection");
@@ -134316,7 +134316,7 @@ static void meta_build_system_description_user_interaction_model(SomMetaNode *n)
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->doc_comment, "4.1.5. User Interaction Model.");
-  meta_set(&n->class_doc_comment, "4.1.5. User Interaction Model.\n\nDescribes how different user categories interact with the system including\naccess channels, interaction patterns, access levels, and session management.\nBased on user experience best practices and multi-channel interaction design.");
+  meta_set(&n->class_doc_comment, "4.1.5. User Interaction Model.\n\nDescribes how different user categories interact with the system including\naccess channels, interaction patterns, access levels, and session\nmanagement. Based on user experience best practices and multi-channel\ninteraction design.");
 }
 static void meta_build_system_diagnostic_tools_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemDiagnosticTools");
@@ -135645,7 +135645,7 @@ static void meta_build_system_purpose_stakeholders(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "4.1.1.3. Stakeholders and Beneficiaries.");
-  meta_set(&n->class_doc_comment, "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).");
+  meta_set(&n->class_doc_comment, "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who benefits\nfrom the system and what they gain. The canonical stakeholder register —\nwith role, interest, influence, concerns and engagement strategy — lives in\nSBP.4 ([StakeholderRegisterEntry] list); those attributes are recorded there\nonce and are not restated here (L34C-6 / SR-15).");
 }
 static void meta_build_system_purpose_value_proposition(SomMetaNode *n) {
   meta_set(&n->class_name, "ValueProposition");
@@ -136606,7 +136606,7 @@ static void meta_build_system_stage_plan_initial_development_flow(SomMetaNode *n
   n->has_serialization_order = 1;
   n->serialization_order = 10;
   meta_set(&n->doc_comment, "13.7. Initial Development Flow. Covers DRM-IDV.");
-  meta_set(&n->class_doc_comment, "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".");
+  meta_set(&n->class_doc_comment, "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".");
   meta_set(&n->detailed_in, "D11DeliveryRoadmap");
 }
 static void meta_build_system_stage_plan_upgrade_cycle_framework(SomMetaNode *n) {
@@ -137342,7 +137342,7 @@ static void meta_build_system_to_replace_entry_dependencies(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated.");
-  meta_set(&n->doc_comment, "Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.");
+  meta_set(&n->doc_comment, "Contains 0+× ReplacementSystemDependencyEntry — integrations with other\nsystems.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -137984,7 +137984,7 @@ static void meta_build_target_operating_model_process_steps_and_actor_interactio
   n->serialization_order = 2;
   meta_set(&n->comment, "Seeds → ISC");
   meta_set(&n->doc_comment, "CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).");
-  meta_set(&n->class_doc_comment, "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.");
+  meta_set(&n->class_doc_comment, "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case\nmodeling.");
   meta_set(&n->maps_to, "D05InteractionScenarios");
 }
 static void meta_build_target_platform_entry_content(SomMetaNode *n) {
@@ -150546,7 +150546,7 @@ static void meta_build_user_lifecycle_registration(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "9.1.2.2. Registration Process.");
-  meta_set(&n->class_doc_comment, "9.1.2.2. Registration Process (form).\n\nDefines how new user accounts are created — self-registration, invitation,\nadmin-provisioned, or bulk import — including identity proofing requirements.");
+  meta_set(&n->class_doc_comment, "9.1.2.2. Registration Process (form).\n\nDefines how new user accounts are created — self-registration, invitation,\nadmin-provisioned, or bulk import — including identity proofing\nrequirements.");
 }
 static void meta_build_user_lifecycle_activation(SomMetaNode *n) {
   meta_set(&n->class_name, "AccountActivationPolicy");
@@ -150579,7 +150579,7 @@ static void meta_build_user_lifecycle_deactivation(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->doc_comment, "9.1.2.5. Account Deactivation.");
-  meta_set(&n->class_doc_comment, "9.1.2.5. Account Deactivation (form).\n\nDefines temporary or permanent disabling of user accounts — reasons, effects,\nreactivation conditions, and the difference between suspension and deactivation.");
+  meta_set(&n->class_doc_comment, "9.1.2.5. Account Deactivation (form).\n\nDefines temporary or permanent disabling of user accounts — reasons,\neffects, reactivation conditions, and the difference between suspension and\ndeactivation.");
 }
 static void meta_build_user_lifecycle_deletion(SomMetaNode *n) {
   meta_set(&n->class_name, "AccountDeletionPolicy");
@@ -150601,7 +150601,7 @@ static void meta_build_user_lifecycle_transitions(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "9.1.2.7. Lifecycle Transitions and Approvals.");
-  meta_set(&n->class_doc_comment, "9.1.2.7. Lifecycle Transitions and Approvals (form).\n\nDefines the permissible transitions between lifecycle states, who can trigger\neach transition, and the approval workflow required.");
+  meta_set(&n->class_doc_comment, "9.1.2.7. Lifecycle Transitions and Approvals (form).\n\nDefines the permissible transitions between lifecycle states, who can\ntrigger each transition, and the approval workflow required.");
 }
 static void meta_build_user_lifecycle_self_service(SomMetaNode *n) {
   meta_set(&n->class_name, "SelfServiceAccountManagement");
@@ -151666,8 +151666,8 @@ static void meta_build_utility_navigation_items_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "UTNAIT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UtilityNavigationItemEntry");
-  meta_set(&n->doc_comment, "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.");
-  meta_set(&n->class_doc_comment, "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.");
+  meta_set(&n->doc_comment, "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications\nbell, help icon, settings.");
+  meta_set(&n->class_doc_comment, "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications\nbell, help icon, settings.");
 }
 static void meta_build_utility_navigation_item_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UtilityNavigationItemEntry");

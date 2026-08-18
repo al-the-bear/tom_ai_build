@@ -2,14 +2,15 @@
 /// to check a generated comment against the specification text it claims to
 /// carry.
 ///
-/// The trio alone cannot answer "did this sentence come from the specification".
-/// `codespecs_mapping.md` §1.1.1 makes the extract the artifact that carries the
-/// other side: one `<CE-CODE>.extract.yaml` per active area, holding every
-/// routed value **verbatim**, keyed by section id. That is exactly the shape the
-/// comment rules need — `codespecs_derivation_contract.md` §2.8 C1 says a
-/// comment's text comes from a contributing section, and C4.2 says each line is
-/// its source line rather than a re-wrap of it, so both questions reduce to a
-/// lookup by section id followed by a string comparison.
+/// The trio alone cannot answer "did this sentence come from the
+/// specification". `codespecs_mapping.md` §1.1.1 makes the extract the artifact
+/// that carries the other side: one `<CE-CODE>.extract.yaml` per active area,
+/// holding every routed value **verbatim**, keyed by section id. That is
+/// exactly the shape the comment rules need —
+/// `codespecs_derivation_contract.md` §2.8 C1 says a comment's text comes from
+/// a contributing section, and C4.2 says each line is its source line rather
+/// than a re-wrap of it, so both questions reduce to a lookup by section id
+/// followed by a string comparison.
 ///
 /// The reader is deliberately its own unit rather than a private helper of the
 /// checks: the extract tree is the input for coverage questions too, and one
@@ -25,8 +26,8 @@ import 'package:yaml/yaml.dart';
 /// the emitting side.
 ///
 /// Refusing an unknown version is the point: a later format that moved a key
-/// would otherwise read as an extract with no entries, and a check with no input
-/// passes.
+/// would otherwise read as an extract with no entries, and a check with no
+/// input passes.
 const int kCsExtractFormat = 1;
 
 /// A malformed or unreadable extract.
@@ -90,7 +91,8 @@ class CsExtractEntry {
   /// [value] split into lines, exactly as authored.
   List<String> get rawLines => const LineSplitter().convert(value);
 
-  /// [value] split into lines with §2.8 C4.4's two escapes applied.
+  /// [value] split into lines with `codespecs_derivation_contract.md` §2.8
+  /// C4.4's two escapes applied.
   ///
   /// A comment line may legitimately appear in either form: C4.4 requires the
   /// escaped one, and check 27 owns that requirement. Offering both lets the
@@ -108,7 +110,7 @@ class CsExtract {
   /// The `CE-*` code.
   final String areaCode;
 
-  /// The §4.1 canonical id.
+  /// The `codespecs_mapping.md` §4.1 canonical id.
   final String canonicalId;
 
   /// The `@CodeSpecKind` value.

@@ -17573,7 +17573,7 @@ section-types:
     subsection-types:
       i25ce-char-lst:
         max-count: 1
-    description: ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
+    description: ISO/IEC 25010:2023 product-quality cross-map — the IP-6 completeness
   iameg:
     prefix: IAMEG
     format: iameg-form
@@ -22268,7 +22268,7 @@ section-types:
   lcsp:
     prefix: LCSP
     format: lcsp-form
-    description: "Retention rules — how a chosen preference survives, without naming a store."
+    description: "Retention rules — how a chosen preference survives, without naming a"
   lcsu:
     prefix: LCSU
     format: lcsu-form

@@ -13,7 +13,7 @@ const String _invariants = 'tom_specs_model_rules.md §10.2';
 ///
 /// Named for the same reason as [_invariants]. The shapes these errors enforce
 /// are the six *member shapes*, not the field *categories* the rules document's
-/// §6 covers.
+/// `tom_specs_model_rules.md` §6 covers.
 const String _shapes = 'tom_specs_model_rules.md §5.1';
 
 /// The document section the keep-a-class / keep-a-level tags cite.
@@ -23,10 +23,10 @@ const String _keepRules = 'tom_specs_model_rules.md §5.8';
 ///
 /// Six letters is what keeps a section id readable at a glance inside a
 /// docspecs comment. It is enforced here rather than left to authoring
-/// judgement because §7.2 *derives* every list container's prefix from the
-/// element class's id — an over-long class id therefore costs six characters in
-/// one place and the excess again in every container id that names the class,
-/// across all nine generated SOM languages.
+/// judgement because `tom_specs_model_rules.md` §7.2 *derives* every list
+/// container's prefix from the element class's id — an over-long class id
+/// therefore costs six characters in one place and the excess again in every
+/// container id that names the class, across all nine generated SOM languages.
 const int _maxClassSectionIdLength = 6;
 
 /// The reserved `refersTo` slot naming a registry entry's own stored section id
@@ -260,8 +260,8 @@ const String _sectionIdSlot = '@sectionId';
 /// Validates the `tom_specs_model_rules.md` §10.2 structural invariants of the
 /// TomSpecs object model.
 ///
-/// These checks operate globally from [D00SolutionBlueprint] as the root and are
-/// independent of the `rootTypeName` passed to [validateModel]:
+/// These checks operate globally from [D00SolutionBlueprint] as the root and
+/// are independent of the `rootTypeName` passed to [validateModel]:
 ///
 /// - **`@SectionId` global uniqueness** — no two classes reachable from
 ///   `D00SolutionBlueprint` may carry the same class-level `@SectionId` string.
@@ -269,7 +269,7 @@ const String _sectionIdSlot = '@sectionId';
 ///   occupy a *separate* namespace and are checked independently (see the
 ///   `-LST` checks below).
 /// - **`@SectionId` length** — a class-level `@SectionId` is capped at
-///   [_maxClassSectionIdLength] letters (§7.1). Container ids are exempt: they
+///   [_maxClassSectionIdLength] letters (`tom_specs_model_rules.md` §7.1). Container ids are exempt: they
 ///   are three-token compounds and carry a `-`.
 /// - **`@SectionId` single-occurrence (per class)** — a class may declare at
 ///   most one class-level `@SectionId`. A duplicate annotation on the same
@@ -419,9 +419,9 @@ List<String> sectionIdCoverageGaps(
 /// that also lies to a reader, since it looks like part of the model.
 ///
 /// Reachability is walked from every `@Document` root plus the canonical
-/// container root, which is itself exempt: the container is the tree root, so by
-/// construction no field points at it. A model with no `@Document` roots at all
-/// yields the empty list rather than declaring every class unreachable, so
+/// container root, which is itself exempt: the container is the tree root, so
+/// by construction no field points at it. A model with no `@Document` roots at
+/// all yields the empty list rather than declaring every class unreachable, so
 /// synthetic unit-test fixtures are unaffected.
 ///
 /// This is the detector the outliner structurally cannot be: the outliner walks
@@ -1102,14 +1102,15 @@ const List<String> _routingVerdicts = [
 /// the three claims to be two things at once, which is the one shape the split
 /// cannot express.
 ///
-/// **11b — per-part coverage.** Every *active* part named by any `@CodeSpecKind`
-/// has at least one bearer reachable from the CodeSpecs generation projection.
-/// This is what makes a `@CodeSpecKind` inside a follow-up subtree harmless
-/// rather than a routing gap: CE-TX help copy is legitimately tagged under
-/// `ExperienceDesignFollowUp` *because* the shared `MessageKeyRegistry`, which
-/// the projection does reach, bears CE-TX. A part named only from unreachable
-/// sections has no such bearer — its material would be specified and never
-/// generated. Deferred parts are exempt by construction ([_deferredParts]).
+/// **11b — per-part coverage.** Every *active* part named by any
+/// `@CodeSpecKind` has at least one bearer reachable from the CodeSpecs
+/// generation projection. This is what makes a `@CodeSpecKind` inside a
+/// follow-up subtree harmless rather than a routing gap: CE-TX help copy is
+/// legitimately tagged under `ExperienceDesignFollowUp` *because* the shared
+/// `MessageKeyRegistry`, which the projection does reach, bears CE-TX. A part
+/// named only from unreachable sections has no such bearer — its material would
+/// be specified and never generated. Deferred parts are exempt by construction
+/// ([_deferredParts]).
 ///
 /// **11c — routing totality.** The converse of 11b: every `@SectionId`-carrying
 /// class reachable from a specification root carries a verdict — a
@@ -1274,8 +1275,9 @@ String _nameFieldStem(String fieldName) =>
 String _entrySubject(String className) =>
     className.replaceAll(_entrySuffix, '').toLowerCase();
 
-/// §8 rule 4, name half: a list-entry section stores its name in its headline,
-/// so no form field beneath it may hold that same name (csre3).
+/// `tom_specs_model_rules.md` §8 rule 4, name half: a list-entry section stores
+/// its name in its headline, so no form field beneath it may hold that same
+/// name (csre3).
 ///
 /// The check walks from the field's owning class **up to the nearest enclosing
 /// list-entry class**, because an entry's identification block is as often an
@@ -1295,14 +1297,15 @@ String _entrySubject(String className) =>
 ///
 /// Why: the shape test stops at `Name`/`Title`/`Label` and does **not** extend
 /// to `Id`, even though rule 4 covers a section's id in the same breath. An
-/// id-shaped field beneath a list entry has a second honest reading a name never
-/// has — the identifier the *specified system* carries (`btn-submit`, an enum
-/// constant, `nav-customers`) — and it is written identically to a duplicated
-/// section id, so no structural test separates them. Exemption (b) does not
-/// rescue the id half either: `@sectionId` (§6.2 rule 6) means a referenced id
-/// never *needs* a field, so being a registry key argues against such a field
-/// rather than for it. `tom_specs_model_rules.md` §8.2 carries the full
-/// reasoning; a test pins it so the regex is not widened by accident.
+/// id-shaped field beneath a list entry has a second honest reading a name
+/// never has — the identifier the *specified system* carries (`btn-submit`, an
+/// enum constant, `nav-customers`) — and it is written identically to a
+/// duplicated section id, so no structural test separates them. Exemption (b)
+/// does not rescue the id half either: `@sectionId` (`tom_specs_model_rules.md`
+/// §6.2 rule 6) means a referenced id never *needs* a field, so being a
+/// registry key argues against such a field rather than for it.
+/// `tom_specs_model_rules.md` §8.2 carries the full reasoning; a test pins it
+/// so the regex is not widened by accident.
 void _validateEntryNameFields(
   Map<String, ModelClass> classes,
   Set<String> reachable,
@@ -1618,14 +1621,15 @@ void _validateOneOfGroups(
 /// **The `@sectionId` slot (csrd1).** A slot may instead be the reserved key
 /// `@sectionId`, meaning *the entry's own stored section id*. Some registries
 /// keep their id nowhere else: a functional requirement's id is its section id,
-/// supplied by the owning list's `@SectionIdPattern`, and §8 forbids restating
-/// it as a form field. For that slot, (iii)/(iv)/(v) are replaced by a single
-/// stricter check — the target class must be the direct element type of at
-/// least one `@SectionIdPattern`-bearing `List<T>`. A singleton subsection
-/// carries a *fixed* `@SectionId`, so it names one id rather than a set and
-/// cannot back a registry; only a patterned list enumerates per-item ids.
-/// `@` is a reserved namespace: any other `@`-prefixed slot is an error, so a
-/// future key cannot be mistaken for a form field that simply does not exist.
+/// supplied by the owning list's `@SectionIdPattern`, and
+/// `tom_specs_model_rules.md` §8 forbids restating it as a form field. For that
+/// slot, (iii)/(iv)/(v) are replaced by a single stricter check — the target
+/// class must be the direct element type of at least one
+/// `@SectionIdPattern`-bearing `List<T>`. A singleton subsection carries a
+/// *fixed* `@SectionId`, so it names one id rather than a set and cannot back a
+/// registry; only a patterned list enumerates per-item ids. `@` is a reserved
+/// namespace: any other `@`-prefixed slot is an error, so a future key cannot
+/// be mistaken for a form field that simply does not exist.
 ///
 /// **Co-reachability (csre2).** A sixth check, (vi), asks whether the
 /// declaration can ever be *run*; see [_validateReferenceCoReachability].

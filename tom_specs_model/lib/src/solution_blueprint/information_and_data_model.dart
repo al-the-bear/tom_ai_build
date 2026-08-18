@@ -16,7 +16,8 @@ import '../document_stubs.dart';
 /// form field (no `@OneOf`/`@Case` group).
 enum ObjectLifecycleKind { initial, intermediate, terminal, error }
 
-/// The closed set of logical attribute data types (`DataAttributeEntry`, csra4).
+/// The closed set of logical attribute data types (`DataAttributeEntry`,
+/// csra4).
 ///
 /// The discriminator enum for the `DataAttributeEntry` `@OneOf` group: it picks
 /// which type-specific options subsection applies — a text attribute carries
@@ -45,53 +46,56 @@ enum DataAttributeKind {
   /// attribute holds the bytes, so its options constrain their stored size; a
   /// file reference holds an address, so its options say where the file is
   /// filed, which store holds it, whether it dies with the record and what may
-  /// be uploaded into it. Nothing in the binary option set answers any of those,
-  /// which is why this is a kind of its own rather than a mode of [binary].
+  /// be uploaded into it. Nothing in the binary option set answers any of
+  /// those, which is why this is a kind of its own rather than a mode of
+  /// [binary].
   fileReference,
 
   /// A two-valued attribute. It binds no case because a truth value has nothing
-  /// to constrain: no length, no precision, no range, no value set. The whole of
-  /// its CE-DB surface is its value type (`codespecs_mapping.md` §5.13), which
-  /// the discriminator itself already states.
+  /// to constrain: no length, no precision, no range, no value set. The whole
+  /// of its CE-DB surface is its value type (`codespecs_mapping.md` §5.13),
+  /// which the discriminator itself already states.
   boolean,
 
   /// An attribute holding a generated unique identifier. It binds no case
   /// because a specification chooses nothing about one: the value is machine-
   /// generated rather than authored, in the same way a file reference's stored
-  /// address is derived and never authored (§5.13.1). Whether the identifier is
-  /// the entity's key is the entity's identity attribute, not this attribute's
-  /// type option.
+  /// address is derived and never authored (`codespecs_mapping.md` §5.13.1).
+  /// Whether the identifier is the entity's key is the entity's identity
+  /// attribute, not this attribute's type option.
   uuid,
 
   /// An attribute whose stored value is a structured document rather than a
-  /// scalar. It binds no case because §5.13's attribute surface carries the kind
-  /// as a single flag — the substrate's `TomDbColumn.isJson` — with no payload
-  /// beside it, and the flag follows from this constant. It deliberately carries
-  /// **no schema reference**: a JSON payload whose shape is known is modelled as
-  /// nested data entities, and one whose shape is only *checked* is checked by a
-  /// constraint (`DataAttributeConstraintEntry`, CE-VA), so a schema attribute
-  /// here would be a second home for one of those two answers.
+  /// scalar. It binds no case because `codespecs_mapping.md` §5.13's attribute
+  /// surface carries the kind as a single flag — the substrate's
+  /// `TomDbColumn.isJson` — with no payload beside it, and the flag follows
+  /// from this constant. It deliberately carries **no schema reference**: a
+  /// JSON payload whose shape is known is modelled as nested data entities, and
+  /// one whose shape is only *checked* is checked by a constraint
+  /// (`DataAttributeConstraintEntry`, CE-VA), so a schema attribute here would
+  /// be a second home for one of those two answers.
   json,
 
   /// An attribute drawn from a declared value set — a domain enum.
   ///
-  /// It binds [DataAttributeEntry.enumerationTypeOptions], which names **which**
-  /// domain enum the attribute is typed by. That is not optional detail: the
-  /// emitted column's value type *is* the generated enum type
+  /// It binds [DataAttributeEntry.enumerationTypeOptions], which names
+  /// **which** domain enum the attribute is typed by. That is not optional
+  /// detail: the emitted column's value type *is* the generated enum type
   /// (`TomDbColumn<DART_TYPE, …>`), so without the name the column cannot be
   /// emitted at all. Naming the registry entry rather than restating its values
   /// keeps the single source `DomainEnumRegistry` declares, and matches how
   /// every other enumerated value in the model is typed — an operation member
-  /// (`SVOPM.domainEnum`) and a report parameter (§5.13's sibling surface) both
-  /// name the enum rather than listing it.
+  /// (`SVOPM.domainEnum`) and a report parameter (`codespecs_mapping.md`
+  /// §5.13's sibling surface) both name the enum rather than listing it.
   ///
-  /// Narrowing — this attribute permitting only *some* of the enum's values — is
-  /// a constraint, so it stays in the `constraints` list (`DATAA.allowedValues`)
-  /// where every other per-attribute restriction lives.
+  /// Narrowing — this attribute permitting only *some* of the enum's values —
+  /// is a constraint, so it stays in the `constraints` list
+  /// (`DATAA.allowedValues`) where every other per-attribute restriction lives.
   enumeration,
 }
 
-/// The closed set of schema-migration artifact kinds (`SchemaMigrationStepEntry`).
+/// The closed set of schema-migration artifact kinds
+/// (`SchemaMigrationStepEntry`).
 ///
 /// The discriminator enum for the `SchemaMigrationStepEntry` `@OneOf` group.
 /// The three kinds are not variants of one shape — each authors a different
@@ -956,10 +960,10 @@ class DataAttributeEntry extends DocSpecsSection {
 
   /// File-reference type options — a promoted `@OneOf` case (csra10).
   ///
-  /// Present only for the `fileReference` logical type: the attribute stores the
-  /// **address of a stored file**, so what a specification must say is where the
-  /// file is filed, which store holds it, whether it dies with its record, and
-  /// what may be uploaded into it.
+  /// Present only for the `fileReference` logical type: the attribute stores
+  /// the **address of a stored file**, so what a specification must say is
+  /// where the file is filed, which store holds it, whether it dies with its
+  /// record, and what may be uploaded into it.
   ///
   /// The address itself is never authored — it is generated when the file is
   /// stored, so a specification chooses only the group it is filed under. The
@@ -1596,7 +1600,8 @@ referential integrity rules, and navigation patterns.
 
 /// An entity relationship entry (form).
 ///
-/// Comprehensive relationship specification following ER modeling best practices.
+/// Comprehensive relationship specification following ER modeling best
+/// practices.
 @StandardReferences(
   [
     'ER modeling (Chen / Barker notation)',
@@ -2576,7 +2581,8 @@ class BusinessObjectEntry extends DocSpecsSection {
 
 /// A business object attribute entry (form).
 ///
-/// Business-level attribute specification focusing on business meaning and rules.
+/// Business-level attribute specification focusing on business meaning and
+/// rules.
 @StandardReferences(
   [
     'ISO/IEC 11179 — metadata registries / data element definitions',
@@ -4504,7 +4510,8 @@ legacy systems stay in the migration-mapping sections (MIGME).
   @SerializationOrder(0)
   String? content;
 
-  /// 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+  /// 7.4.1. Migration Targets — the data source / schema pairs artifacts apply
+  /// to.
   @StandardReferences([
     'ISO/IEC 9075 (SQL) — schema as the named container of database objects',
     'DAMA-DMBOK2 — data management body of knowledge',
@@ -4667,9 +4674,9 @@ Author the further change as a new entry with the next version.
 
   /// Baseline schema definition — a promoted `@OneOf` case.
   ///
-  /// Present only for the `initialDdl` kind. It establishes the schema, so there
-  /// is no prior state: no affected-entity delta, no backfill, and nothing to
-  /// roll back to.
+  /// Present only for the `initialDdl` kind. It establishes the schema, so
+  /// there is no prior state: no affected-entity delta, no backfill, and
+  /// nothing to roll back to.
   @SectionId('SCMST-BASE')
   @StandardReferences(
     [
@@ -4708,8 +4715,8 @@ Author the further change as a new entry with the next version.
   ///
   /// Present only for the `referenceData` kind. This artifact inserts rows, not
   /// schema, so it authors the value set rather than schema statements. It is
-  /// the new system's own initial data — legacy business-data migration stays in
-  /// the migration-mapping sections (`MIGME`).
+  /// the new system's own initial data — legacy business-data migration stays
+  /// in the migration-mapping sections (`MIGME`).
   @SectionId('SCMST-REFD')
   @StandardReferences(
     [
@@ -4865,8 +4872,8 @@ Domain enums authored here are the single source for:
 ///
 /// One named closed value set: its name, backing value type, default value and
 /// the ordered list of members. Maps to the `domainEnum` **member kind** — the
-/// enum name becomes the generated enum type and each member becomes a constant —
-/// and doubles as a closed-choice discriminator source (csm-7-4): the enum
+/// enum name becomes the generated enum type and each member becomes a constant
+/// — and doubles as a closed-choice discriminator source (csm-7-4): the enum
 /// name identifies the choice set and [values] supply the cases.
 @StandardReferences(
   [
@@ -5387,7 +5394,8 @@ class MessageKeyEntry extends DocSpecsSection {
 ///
 /// One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
 /// copy for that locale. The base-locale copy lives on
-/// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.
+/// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one
+/// locale.
 @StandardReferences(
   [
     'Unicode CLDR / BCP 47 — locale identification and localized message data',
@@ -5442,10 +5450,11 @@ class MessageLocaleVariantEntry extends DocSpecsSection {
 /// system talks to. Those carry a transport verb and a path because a
 /// third-party API really has them; the application's own contract does not —
 /// `codespecs_mapping.md` §7 fixes every operation as a single transport shape
-/// whose **operation name** carries the intent, and §5.14 drops transport
-/// plumbing from the spec surface.
+/// whose **operation name** carries the intent, and `codespecs_mapping.md`
+/// §5.14 drops transport plumbing from the spec surface.
 ///
-/// **What is deliberately not authored here** (all fixed by §7 / §5.14):
+/// **What is deliberately not authored here** (all fixed by
+/// `codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):
 ///
 /// - no transport method and no path — the operation name is the identifier;
 /// - no response status codes — every application outcome, success *or* error,

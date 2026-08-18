@@ -2906,10 +2906,10 @@ class FeaturePrioritization extends DocSpecsSection {
 
 /// 13.4.2. MoSCoW Analysis.
 ///
-/// Classifies every feature using the MoSCoW method (Must / Should /
-/// Could / Won't) and maps each to its target delivery stage. A view onto the
-/// Feature Priority Register (§13.4.1): each entry names a registered feature
-/// and adds only its classification.
+/// Classifies every feature using the MoSCoW method (Must / Should / Could /
+/// Won't) and maps each to its target delivery stage. A view onto the Feature
+/// Priority Register (SBP.13.4.1): each entry names a registered feature and
+/// adds only its classification.
 @StandardReferences(
   [
     'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
@@ -3184,7 +3184,7 @@ class MoscowEntry extends DocSpecsSection {
 ///
 /// Maps every feature or feature group to the delivery stage, tracking
 /// readiness, confidence, dependencies, and acceptance criteria. A view onto
-/// the Feature Priority Register (§13.4.1): each entry names a registered
+/// the Feature Priority Register (SBP.13.4.1): each entry names a registered
 /// feature and adds only its staging.
 @StandardReferences(
   [
@@ -3431,13 +3431,13 @@ class FeatureStageMapping extends DocSpecsSection {
 /// 13.4.1. Feature Priority Register.
 ///
 /// Master register of all features with comprehensive priority scoring,
-/// business value analysis, effort estimates, stakeholder ownership,
-/// and traceability. Single source of truth for feature identity: a feature
-/// exists because it is declared here, and every feature reference elsewhere
-/// in the model resolves against `FPE.featureId`. The MoSCoW analysis
-/// (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
-/// (§13.4.4) are views onto this register — they name a registered feature and
-/// add their own view's attributes, never a second copy of its identity.
+/// business value analysis, effort estimates, stakeholder ownership, and
+/// traceability. Single source of truth for feature identity: a feature exists
+/// because it is declared here, and every feature reference elsewhere in the
+/// model resolves against `FPE.featureId`. The MoSCoW analysis (SBP.13.4.2),
+/// the feature-stage matrix (SBP.13.4.3) and the dependency map (SBP.13.4.4)
+/// are views onto this register — they name a registered feature and add their
+/// own view's attributes, never a second copy of its identity.
 @StandardReferences(
   [
     'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
@@ -3898,7 +3898,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
     // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Every
     // other field in this form names a register the blueprint declares; user
     // stories are the delivery backlog's decomposition of an already-registered
-    // feature (`FPE.featureId`, §13.4.1), not a blueprint artifact. The ids are
+    // feature (`FPE.featureId`, SBP.13.4.1), not a blueprint artifact. The ids are
     // owned by the delivery tooling, so there is nothing here to resolve
     // against — the label and hint say so rather than leaving the field bare.
     Field(
@@ -7486,8 +7486,8 @@ class DecisionOptionEntry extends DocSpecsSection {
 /// 13.7. Initial Development Flow.
 ///
 /// Inter-phase dependencies during the initial build (Phases 1–7 of
-/// `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out
-/// as "new in DRM".
+/// `tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping
+/// calls out as "new in DRM".
 @StandardReferences(
   [
     'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines development-phase dependencies, transitions, and integration points',

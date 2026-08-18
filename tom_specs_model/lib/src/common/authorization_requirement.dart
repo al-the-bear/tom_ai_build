@@ -33,7 +33,8 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// deliberate rename: the deny preset is [denied] here where the code side
 /// calls it `none`. On the code side `none` sits among typed slots and cannot
 /// be misread; in an authored document "None" reads as *no authorization
-/// needed* — the exact fail-open misreading §5.16 guards against.
+/// needed* — the exact fail-open misreading `codespecs_mapping.md` §5.16 guards
+/// against.
 enum AuthorizationRequirementKind {
   /// The caller must hold one of a named set of roles.
   role,
@@ -315,10 +316,10 @@ framework. It is not something to restate per site.
 /// nothing left to resolve to.
 ///
 /// The price is that [GradedAccessLevelEntry] restates five of
-/// [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
-/// the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
-/// and removing it by pointing the levels back at [AuthorizationRequirementSpec]
-/// reintroduces the cycle.
+/// [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate
+/// — the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2)
+/// — and removing it by pointing the levels back at
+/// [AuthorizationRequirementSpec] reintroduces the cycle.
 @SectionId('AZGRD')
 @StandardReferences(
   ['NIST SP 800-162 — attribute-based access control (ABAC)'],

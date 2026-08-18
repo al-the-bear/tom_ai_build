@@ -48,9 +48,10 @@ enum FlowReturnPoint {
 /// ordered steps, and this is the field that says which set a step belongs to.
 ///
 /// The three values are deliberately spelled as the three **fixed method
-/// names** of §3.5.7 point 4 — `assembleRequest`, `handleResponse`,
-/// `handleError`. The routing word and the emitted name are the same token, so
-/// they cannot drift apart: renaming one is renaming the other.
+/// names** of `codespecs_derivation_contract.md` §3.5.7 point 4 —
+/// `assembleRequest`, `handleResponse`, `handleError`. The routing word and the
+/// emitted name are the same token, so they cannot drift apart: renaming one is
+/// renaming the other.
 ///
 /// The set is closed at three because those are the whole of a call's
 /// handling. A fourth arm would have to name a moment that is neither before
@@ -2739,7 +2740,8 @@ class ProcessRelationshipEntry extends DocSpecsSection {
 ///
 /// Key process steps with their actor interactions. Each interaction will be
 /// expanded into a full use case with alternate paths, preconditions, and
-/// postconditions in the ISC document. Follows Cockburn-style use case modeling.
+/// postconditions in the ISC document. Follows Cockburn-style use case
+/// modeling.
 @StandardReferences(
   [
     'UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships',
@@ -4739,14 +4741,16 @@ class MainScenarioStepEntry extends DocSpecsSection {
 /// assembled before the wire, a successful response is applied after it, and a
 /// failure is surfaced instead. This entry is where each of those is stated,
 /// and [role] is the field that says which. Without it a generator would have
-/// to split one sentence three ways by guessing, which §2.4 B8 forbids — so the
-/// three bodies could only throw the same text.
+/// to split one sentence three ways by guessing, which
+/// `codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies
+/// could only throw the same text.
 ///
 /// The steps hang off the interaction step that issues the call (`MNSST`,
 /// `SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it
 /// *is* that step's reach across the boundary. Leaving the list empty leaves
 /// the call's bodies as they were — an unstated role falls back to form 3a over
-/// the issuing step's own behaviour text (§2.4).
+/// the issuing step's own behaviour text (`codespecs_derivation_contract.md`
+/// §2.4).
 ///
 /// **No step number.** The list position *is* the order
 /// (`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a
@@ -4754,10 +4758,11 @@ class MainScenarioStepEntry extends DocSpecsSection {
 /// within the list.
 ///
 /// **[condition] is a precondition, not a case label.** It becomes a guard on
-/// the step's statement (§2.4 B4). It is not the way an error code is turned
-/// into user-visible wording: B7 forbids the `switch` that would need, and the
-/// message a code maps to belongs in the CE-TX message-key registry
-/// (`codespecs_mapping.md` §5.3), not in a chain of conditions here.
+/// the step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not
+/// the way an error code is turned into user-visible wording: B7 forbids the
+/// `switch` that would need, and the message a code maps to belongs in the
+/// CE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of
+/// conditions here.
 @StandardReferences(
   [
     'Cockburn — Writing Effective Use Cases: main success scenario',

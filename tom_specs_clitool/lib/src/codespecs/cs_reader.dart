@@ -3,17 +3,18 @@
 ///
 /// **Why the syntax tree and not the element model.** The validation pass runs
 /// where the generator's does: immediately after emission, on a tree that has
-/// never been through `pub get` and whose `tom_core`-family dependencies may not
-/// be resolvable at all. Resolution would put a package fetch inside the
-/// generation pipeline. It is also unnecessary — §2.7 fixes the shape of an
-/// emitted file, and every value the checks read is written inline as a literal,
-/// an enum access or a `Cs*Ref` const, so the constant surface is exactly what
-/// the syntax carries.
+/// never been through `pub get` and whose `tom_core`-family dependencies may
+/// not be resolvable at all. Resolution would put a package fetch inside the
+/// generation pipeline. It is also unnecessary —
+/// `codespecs_derivation_contract.md` §2.7 fixes the shape of an emitted file,
+/// and every value the checks read is written inline as a literal, an enum
+/// access or a `Cs*Ref` const, so the constant surface is exactly what the
+/// syntax carries.
 ///
 /// The one thing this costs is a marker written through a const alias
-/// (`@myTrigger`); §2.7 point 4 emits markers inline, so no generated file has
-/// one, and a hand-written one reads as a marker-less declaration rather than as
-/// a wrong one.
+/// (`@myTrigger`); `codespecs_derivation_contract.md` §2.7 point 4 emits
+/// markers inline, so no generated file has one, and a hand-written one reads
+/// as a marker-less declaration rather than as a wrong one.
 library;
 
 import 'dart:io' as io;
@@ -227,10 +228,11 @@ CsFile _readFile(CsLocus locus, String path, String source) {
 /// Every comment token in [unit], in source order.
 ///
 /// The token stream rather than the AST: a comment inside a method body is
-/// attached to no node, and it is precisely the one §2.8 C6 forbids. A comment
-/// preceding the unit's **first** token is §2.7's banner position and is marked
-/// as such rather than being filtered out here — the model records, the check
-/// decides.
+/// attached to no node, and it is precisely the one
+/// `codespecs_derivation_contract.md` §2.8 C6 forbids. A comment preceding the
+/// unit's **first** token is `codespecs_derivation_contract.md` §2.7's banner
+/// position and is marked as such rather than being filtered out here — the
+/// model records, the check decides.
 List<CsComment> _comments(String path, LineInfo lines, CompilationUnit unit) {
   final out = <CsComment>[];
   final first = unit.beginToken;
@@ -574,8 +576,9 @@ CsMethodBody _body(
 
 /// The declared formal parameters of [parameters], in source order.
 ///
-/// The declared type as written, not a resolved one — §3.0.1 point 2 wants the
-/// spelling, because two spellings of one type are the divergence it forbids.
+/// The declared type as written, not a resolved one —
+/// `codespecs_derivation_contract.md` §3.0.1 point 2 wants the spelling,
+/// because two spellings of one type are the divergence it forbids.
 List<CsParameter> _parameters(FormalParameterList? parameters) {
   if (parameters == null) return const [];
   final out = <CsParameter>[];
@@ -599,12 +602,14 @@ List<CsParameter> _parameters(FormalParameterList? parameters) {
 // Statements
 // ---------------------------------------------------------------------------
 
-/// Decomposes [statements] into the §2.4 statement kinds.
+/// Decomposes [statements] into the `codespecs_derivation_contract.md` §2.4
+/// statement kinds.
 ///
-/// Only the shapes §2.4 admits are named; everything else is
-/// [CsStatementKind.other], which is not a gap in the reading but the whole
-/// point of it — the check that rejects a statement §2.4 does not permit needs
-/// a name for "not one of the five".
+/// Only the shapes `codespecs_derivation_contract.md` §2.4 admits are named;
+/// everything else is [CsStatementKind.other], which is not a gap in the
+/// reading but the whole point of it — the check that rejects a statement
+/// `codespecs_derivation_contract.md` §2.4 does not permit needs a name for
+/// "not one of the five".
 List<CsStatement> _statements(
   String path,
   LineInfo lines,
@@ -813,8 +818,9 @@ class _CallCollector extends RecursiveAstVisitor<void> {
 ///
 /// The explication is the thrown construction's first positional argument. An
 /// argument-less throw carries a definitely-empty explication (`''`) rather
-/// than an unread one (`null`), because §2.4's requirement is that the throw
-/// *state* something — `throw UnsupportedError()` states nothing.
+/// than an unread one (`null`), because `codespecs_derivation_contract.md`
+/// §2.4's requirement is that the throw *state* something — `throw
+/// UnsupportedError()` states nothing.
 CsMethodBody _throwBody(
   String name,
   CsLocation location,

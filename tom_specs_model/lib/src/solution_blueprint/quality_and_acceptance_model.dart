@@ -34,7 +34,8 @@ class QualityAndAcceptanceModel extends DocSpecsSection {
   @SerializationOrder(2)
   DeliveryScopeAndAcceptance deliveryAcceptance = DeliveryScopeAndAcceptance();
 
-  /// ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
+  /// ISO/IEC 25010:2023 product-quality cross-map — the IP-6 completeness
+  /// addition, as the library doc states.
   @SerializationOrder(3)
   Iso25010Coverage iso25010Coverage = Iso25010Coverage();
 }

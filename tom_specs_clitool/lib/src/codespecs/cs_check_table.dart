@@ -1,17 +1,18 @@
-/// Keeps `codespecs_derivation_contract.md` §6's table and [codeSpecsChecks] the
-/// same list in both directions.
+/// Keeps `codespecs_derivation_contract.md` §6's table and [codeSpecsChecks]
+/// the same list in both directions.
 ///
-/// §6 says of itself that "a check numbered below with no class, or a class in
-/// the registry with no row, is a defect in one of the two". That sentence is
-/// only worth writing if something reads it: a table maintained by hand beside a
-/// registry maintained by hand drifts on the first check anyone adds in a hurry,
-/// and the drift is invisible — the validator still runs, the document still
-/// reads plausibly, and the two stop describing the same thing.
+/// `codespecs_derivation_contract.md` §6 says of itself that "a check numbered
+/// below with no class, or a class in the registry with no row, is a defect in
+/// one of the two". That sentence is only worth writing if something reads it:
+/// a table maintained by hand beside a registry maintained by hand drifts on
+/// the first check anyone adds in a hurry, and the drift is invisible — the
+/// validator still runs, the document still reads plausibly, and the two stop
+/// describing the same thing.
 library;
 
 import 'cs_checks.dart';
 
-/// One row of §6's table.
+/// One row of `codespecs_derivation_contract.md` §6's table.
 class CsCheckRow {
   /// The check number in the first column.
   final int number;
@@ -28,7 +29,7 @@ class CsCheckRow {
 
 /// The outcome of one comparison.
 class CsCheckTableCorrespondence {
-  /// The rows §6 declares, in table order.
+  /// The rows `codespecs_derivation_contract.md` §6 declares, in table order.
   final List<CsCheckRow> rows;
 
   /// Everything wrong, one line each; empty when the two agree.
@@ -41,10 +42,11 @@ class CsCheckTableCorrespondence {
   bool get isConsistent => problems.isEmpty;
 }
 
-/// The `| # | Check | Defined in | Implemented by |` rows of §6.
+/// The `| # | Check | Defined in | Implemented by |` rows of
+/// `codespecs_derivation_contract.md` §6.
 ///
-/// The parse is anchored on the `## 6. ` heading rather than on the table shape,
-/// so a table elsewhere in the contract is not mistaken for this one.
+/// The parse is anchored on the `## 6. ` heading rather than on the table
+/// shape, so a table elsewhere in the contract is not mistaken for this one.
 List<CsCheckRow> parseCsCheckRows(String markdown) {
   final lines = markdown.split('\n');
   final start = lines.indexWhere((l) => l.startsWith('## 6. '));
@@ -72,7 +74,8 @@ List<CsCheckRow> parseCsCheckRows(String markdown) {
   return rows;
 }
 
-/// Compares §6's table in [markdown] against [checks].
+/// Compares `codespecs_derivation_contract.md` §6's table in [markdown] against
+/// [checks].
 CsCheckTableCorrespondence compareCsCheckTable({
   required String markdown,
   List<CodeSpecsCheck> checks = codeSpecsChecks,

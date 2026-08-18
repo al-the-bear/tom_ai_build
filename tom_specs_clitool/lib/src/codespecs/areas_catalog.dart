@@ -2,20 +2,21 @@
 /// nine-runtime `spec_codespecs_extract` surface reads — by transcribing
 /// `codespecs_mapping.md` §4.1, §4.4.3 and §4.4.6.
 ///
-/// The catalogue is *derived*, never authored: §4.1 is the document that
-/// declares itself authoritative ("the `CodeSpecPart` enum is generated from
-/// this table"), so a second hand-kept copy of those 26 rows would be a second
-/// thing to keep current — and the one failure mode this quest has met three
-/// times is a vocabulary duplicated N ways that is wrong in agreement. Every
-/// cell this builder emits is copied out of the document character for
-/// character; the only judgement it makes is which cell goes in which slot.
+/// The catalogue is *derived*, never authored: `codespecs_mapping.md` §4.1 is
+/// the document that declares itself authoritative ("the `CodeSpecPart` enum is
+/// generated from this table"), so a second hand-kept copy of those 26 rows
+/// would be a second thing to keep current — and the one failure mode this
+/// quest has met three times is a vocabulary duplicated N ways that is wrong in
+/// agreement. Every cell this builder emits is copied out of the document
+/// character for character; the only judgement it makes is which cell goes in
+/// which slot.
 ///
 /// The one thing it cannot read off a table is the across-slice **cites**
-/// relation: §4.4.3 states it in the prose paragraph "Why this order (the
-/// across-slice edges it satisfies)", and that paragraph contains sentences a
-/// regex reads backwards ("5 cites 1 and 2 **and never 3 or 4**"). So the seven
-/// edge lists are transcribed as [kSliceCites] and guarded *structurally*
-/// instead — see [_checkCites].
+/// relation: `codespecs_mapping.md` §4.4.3 states it in the prose paragraph
+/// "Why this order (the across-slice edges it satisfies)", and that paragraph
+/// contains sentences a regex reads backwards ("5 cites 1 and 2 **and never 3
+/// or 4**"). So the seven edge lists are transcribed as [kSliceCites] and
+/// guarded *structurally* instead — see [_checkCites].
 library;
 
 import 'dart:convert';
@@ -23,12 +24,14 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
-/// The §4.4.3 across-slice edges, transcribed from the "Why this order" prose.
+/// The `codespecs_mapping.md` §4.4.3 across-slice edges, transcribed from the
+/// "Why this order" prose.
 ///
 /// Not parsed, because the paragraph states one of them by negation. Guarded by
-/// [_checkCites]: every edge must point strictly backwards, and the §4.4.6
-/// authoring serialisation must be a topological order of the relation. A
-/// transcription slip that matters shows up as one of those failing.
+/// [_checkCites]: every edge must point strictly backwards, and the
+/// `codespecs_mapping.md` §4.4.6 authoring serialisation must be a topological
+/// order of the relation. A transcription slip that matters shows up as one of
+/// those failing.
 const Map<int, List<int>> kSliceCites = {
   1: [],
   2: [1],
@@ -39,7 +42,8 @@ const Map<int, List<int>> kSliceCites = {
   7: [3, 4],
 };
 
-/// The §4.4.6 rule-1 slice serialisation. Used only as a check on [kSliceCites].
+/// The `codespecs_mapping.md` §4.4.6 rule-1 slice serialisation. Used only as a
+/// check on [kSliceCites].
 const List<int> kAuthoringSliceOrder = [1, 2, 3, 4, 7, 5, 6];
 
 /// A failure to transcribe the mapping document — a missing table, a row that
@@ -56,11 +60,12 @@ class AreasCatalog {
   /// Where it came from, for the extract header — `codespecs_mapping.md §4.1 …`.
   final String source;
 
-  /// The §4.4.3 slices, in emission order.
+  /// The slices of `codespecs_mapping.md` §4.4.3, in emission order.
   final List<Map<String, dynamic>> slices;
 
-  /// The §4.1 areas, in catalogue order. Catalogue order is §4.4.6 rule 2's
-  /// tie-break, so it is load-bearing rather than cosmetic.
+  /// The areas of `codespecs_mapping.md` §4.1, in catalogue order — which is
+  /// rule 2's tie-break in §4.4.6 of `codespecs_mapping.md`, so it is
+  /// load-bearing rather than cosmetic.
   final List<Map<String, dynamic>> areas;
 
   const AreasCatalog({
@@ -258,7 +263,8 @@ Map<int, int> _parseStepTable(List<String> lines) {
   return steps;
 }
 
-/// The §4.4.6 "Coverage" paragraph — the authoritative per-part step list.
+/// The `codespecs_mapping.md` §4.4.6 "Coverage" paragraph — the authoritative
+/// per-part step list.
 ///
 /// The step *table* is not the source here on purpose: two of its rows name a
 /// second CE code as the host they ride ("CE-LG over the CE-DB write path"),
@@ -299,9 +305,10 @@ Map<String, List<int>> _parseCoverage(List<String> lines) {
 // §5 — the attribute surfaces
 // ---------------------------------------------------------------------------
 
-/// Maps each CE code to the `§5.x` headings that name it.
+/// Maps each CE code to the `codespecs_mapping.md` §5.x headings that name it.
 ///
-/// Read off the headings rather than authored, so a §5 restructure carries.
+/// Read off the headings rather than authored, so a `codespecs_mapping.md` §5
+/// restructure carries.
 Map<String, List<String>> _parseAttributeSurfaces(List<String> lines) {
   final heading = RegExp(r'^#{3,4} (5(?:\.\d+)+) (.*)$');
   final code = RegExp(r'CE-[A-Z]+');
@@ -316,15 +323,19 @@ Map<String, List<String>> _parseAttributeSurfaces(List<String> lines) {
   return out;
 }
 
-/// Where a part's spec-authorable attribute surface is stated: the §5 headings
-/// that name it, plus the `§x.y` citations its own §4.1 row carries.
+/// Where a part's spec-authorable attribute surface is stated: the
+/// `codespecs_mapping.md` §5 headings that name it, plus the `§x.y` citations
+/// its own `codespecs_mapping.md` §4.1 row carries.
 ///
-/// The two are unioned rather than tried in turn because neither alone is
-/// complete. CE-ER is named by §5.21's heading — which states the *error copy*
-/// keyed by its codes, CE-TX's surface — while its own surface is the §7 its
-/// row cites; taking only the heading would send a reader to the wrong section.
-/// Conversely CE-DB's row cites nothing, and §5.13 is exactly right. Falls back
-/// to §5, whose preamble table lists every part, when neither yields anything.
+/// All section numbers below are of `codespecs_mapping.md`. The two sources are
+/// unioned rather than tried in turn because neither alone is complete. CE-ER is
+/// named by the heading of §5.21 in `codespecs_mapping.md` — which states the
+/// *error copy* keyed by its codes, CE-TX's surface — while its own surface is
+/// the §7 of `codespecs_mapping.md` its row cites; taking only the heading would
+/// send a reader to the wrong section. Conversely CE-DB's row cites nothing, and
+/// §5.13 of `codespecs_mapping.md` is exactly right. Falls back to §5 of
+/// `codespecs_mapping.md`, whose preamble table lists every part, when neither
+/// yields anything.
 String _attributeSurface(_PartRow part, List<String>? headings) {
   final cited = <String>[...?headings];
   for (final m in RegExp(r'§\d+(?:\.\d+)*').allMatches(part.builtOn)) {
@@ -341,9 +352,10 @@ String _attributeSurface(_PartRow part, List<String>? headings) {
 /// Guards [kSliceCites] without re-reading the prose that states it.
 ///
 /// Two properties make a transcription slip visible: every edge must point
-/// **strictly backwards** (§4.4.2 forbids forward references outright), and the
-/// §4.4.6 rule-1 serialisation must be a topological order of the relation —
-/// which is exactly the claim §4.4.6 makes about it.
+/// **strictly backwards** (`codespecs_mapping.md` §4.4.2 forbids forward
+/// references outright), and the rule-1 serialisation of §4.4.6 in
+/// `codespecs_mapping.md` must be a topological order of the relation — which is
+/// exactly the claim that section makes about it.
 void _checkCites(List<int> declaredSlices) {
   for (final slice in declaredSlices) {
     final cites = kSliceCites[slice];

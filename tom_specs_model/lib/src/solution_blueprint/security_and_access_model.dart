@@ -128,8 +128,8 @@ class AccessControlModel extends DocSpecsSection {
 /// `@CodeSpecKind`, so it is not itself a generation projection root.
 ///
 /// **The root is not the boundary here.** Its `encryption` child is a pure
-/// CE-CF band — encryption at rest, encryption in transit and the key
-/// lifecycle are settings the server reads, and §5.5's substrate
+/// CE-CF band — encryption at rest, encryption in transit and the key lifecycle
+/// are settings the server reads, and `codespecs_mapping.md` §5.5's substrate
 /// (`TomBaseServerConfiguration`) names TLS material and signing keys as typed
 /// fields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`
 /// directly, past this root. Placing it here rather than beside the other SAS
@@ -517,7 +517,8 @@ class UserAccountStatesDefinition extends DocSpecsSection {
 /// 9.1.2.2. Registration Process (form).
 ///
 /// Defines how new user accounts are created — self-registration, invitation,
-/// admin-provisioned, or bulk import — including identity proofing requirements.
+/// admin-provisioned, or bulk import — including identity proofing
+/// requirements.
 @Form([
   Field(
     'registrationMethods',
@@ -872,8 +873,9 @@ class AccountModificationPolicy extends DocSpecsSection {
 
 /// 9.1.2.5. Account Deactivation (form).
 ///
-/// Defines temporary or permanent disabling of user accounts — reasons, effects,
-/// reactivation conditions, and the difference between suspension and deactivation.
+/// Defines temporary or permanent disabling of user accounts — reasons,
+/// effects, reactivation conditions, and the difference between suspension and
+/// deactivation.
 @Form([
   Field(
     'deactivationTriggers',
@@ -1122,8 +1124,8 @@ class AccountDeletionPolicy extends DocSpecsSection {
 
 /// 9.1.2.7. Lifecycle Transitions and Approvals (form).
 ///
-/// Defines the permissible transitions between lifecycle states, who can trigger
-/// each transition, and the approval workflow required.
+/// Defines the permissible transitions between lifecycle states, who can
+/// trigger each transition, and the approval workflow required.
 @Form([
   Field(
     'transitionModel',
@@ -6852,8 +6854,8 @@ can only access the specific resources they are entitled to.
 ///
 /// Comprehensive data access protection specification covering database-level
 /// security, row-level security, column-level security, tenant data isolation,
-/// and data masking for production and non-production environments.
-/// Aligned with OWASP Database Security Cheat Sheet and least-privilege principles.
+/// and data masking for production and non-production environments. Aligned
+/// with OWASP Database Security Cheat Sheet and least-privilege principles.
 @StandardReferences(
   [
     'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
@@ -10088,7 +10090,8 @@ class PermissionEvaluationBehavior extends DocSpecsSection {
 
 /// 9.4. User Authorization.
 ///
-/// Aligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.
+/// Aligns with Tom Core authorization model: groups → roles → entitlements →
+/// resourceKeys.
 @StandardReferences(
   [
     'NIST RBAC INCITS 359-2012 — role-based access control',

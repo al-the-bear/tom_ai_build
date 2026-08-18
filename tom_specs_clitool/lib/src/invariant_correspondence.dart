@@ -1,31 +1,31 @@
 /// The gate over `tom_specs_model_rules.md` §10.2 — the seventeen mechanical
 /// structural invariants — and everything that cites them.
 ///
-/// §10.2 states three meta-rules: a structural rule lives in the validator, not
-/// only in a test; *the validator is the contract, this document follows it*;
-/// and an invariant is cited by its **id**, never by its list position. The
-/// second and third are only true if something checks them. Left unchecked, the
-/// first two drifted apart in both directions at once — the document carried a
-/// detail-count budget the code never enforced, and the code ran three checks
-/// the document never listed.
+/// That section of `tom_specs_model_rules.md` states three meta-rules: a
+/// structural rule lives in the validator, not only in a test; *the validator is
+/// the contract, this document follows it*; and an invariant is cited by its
+/// **id**, never by its list position. The second and third are only true if
+/// something checks them. Left unchecked, the first two drifted apart in both
+/// directions at once — the document carried a detail-count budget the code
+/// never enforced, and the code ran three checks the document never listed.
 ///
-/// This library answers two questions, both by reading §10.2 as the register of
-/// what exists:
+/// This library answers two questions, both by reading that invariant list as
+/// the register of what exists:
 ///
 /// 1. **Correspondence** — does every check in the validator name an invariant
-///    §10.2 defines, and does every invariant §10.2 defines have a check? The
+///    the list defines, and does every invariant it defines have a check? The
 ///    correspondence is made mechanical by *tagging*: every check carries a
 ///    comment naming the invariant it implements, and every numbered entry in
-///    §10.2 opens with that invariant's id. Comparing the two sets catches a new
-///    check that was never written up, and a written-up rule whose check was
+///    the list opens with that invariant's id. Comparing the two sets catches a
+///    new check that was never written up, and a written-up rule whose check was
 ///    removed or never existed.
-/// 2. **Citation resolution** — does every `§10.2 invariant <ID>` citation
-///    *anywhere in the corpus* name an id §10.2 actually defines? This is the
-///    half the ordinals could not have: a citation used to be a list position,
-///    so deleting one entry silently re-pointed eleven citations across six
-///    files at the wrong rule, and nothing anywhere went red. An id survives a
-///    reordering; a citation of an id that was never allocated, or that has been
-///    retired, is now a test failure.
+/// 2. **Citation resolution** — does every citation *anywhere in the corpus*
+///    that names an invariant of that list name an id the list actually defines?
+///    This is the half the ordinals could not have: a citation used to be a list
+///    position, so deleting one entry silently re-pointed eleven citations
+///    across six files at the wrong rule, and nothing anywhere went red. An id
+///    survives a reordering; a citation of an id that was never allocated, or
+///    that has been retired, is now a test failure.
 ///
 /// A citation written the **old** way — an ordinal where the id belongs — is
 /// reported specifically rather than ignored, so the habit cannot quietly
@@ -42,28 +42,32 @@ library;
 
 import 'dart:io';
 
-/// The shape of a §10.2 invariant id: uppercase, hyphen-separated words.
+/// The shape of an invariant id in `tom_specs_model_rules.md` §10.2: uppercase,
+/// hyphen-separated words.
 ///
 /// The four-character floor keeps a short all-caps word in ordinary prose (and
-/// the `<ID>` metavariable in §10.2's own description of the tag format) from
-/// being read as a citation.
+/// the `<ID>` metavariable in that section's own description of the tag format)
+/// from being read as a citation.
 final RegExp _idShape = RegExp(r'^[A-Z][A-Z0-9]*(-[A-Z0-9]+)*$');
 
 bool _isInvariantId(String token) =>
     token.length >= 4 && _idShape.hasMatch(token);
 
-/// Id namespaces that are **not** §10.2 invariants but share its id shape.
+/// Id namespaces that are **not** invariants of `tom_specs_model_rules.md`
+/// §10.2 but share its id shape.
 ///
-/// A *bare* head — one that does not name §10.2 — followed by one of these is
-/// prose about that other thing, not a citation of an invariant. The corpus has
-/// exactly one such collision: the CodeSpecs part codes (`codespecs_mapping.md`
-/// §4.1), as in "the *stated everywhere* invariant CE-TX/CE-ER already follow".
+/// A *bare* head — one that does not name that section — followed by one of
+/// these is prose about that other thing, not a citation of an invariant. The
+/// corpus has exactly one such collision: the CodeSpecs part codes
+/// (`codespecs_mapping.md` §4.1), as in "the *stated everywhere* invariant
+/// CE-TX/CE-ER already follow".
 /// A **qualified** citation of a part code is still reported, because there the
 /// sentence does claim to be naming an invariant of this list. (Stated in words
 /// rather than shown, since the scan below reads this file too.)
 const List<String> _foreignIdNamespaces = ['CE-'];
 
-/// A `§10.2 invariant <ID>` citation found in some source.
+/// A citation naming an invariant of `tom_specs_model_rules.md` §10.2, found in
+/// some source.
 class InvariantCitation {
   InvariantCitation({
     required this.id,
@@ -86,14 +90,16 @@ class InvariantCitation {
   final String text;
 
   /// True when the citation names a **list position** rather than an id — the
-  /// pre-`tscompc9` form, which §10.2's third meta-rule forbids.
+  /// pre-`tscompc9` form, which the third meta-rule of
+  /// `tom_specs_model_rules.md` §10.2 forbids.
   bool get isOrdinal => int.tryParse(id) != null;
 
   @override
   String toString() => '$source:$line: $text';
 }
 
-/// One numbered entry of §10.2's invariant list.
+/// One numbered entry of the invariant list in `tom_specs_model_rules.md`
+/// §10.2.
 class InvariantEntry {
   InvariantEntry(this.id, this.number, this.title);
 
@@ -124,7 +130,7 @@ class InvariantCorrespondence {
     required this.malformed,
   });
 
-  /// The §10.2 entries, in document order.
+  /// The `tom_specs_model_rules.md` §10.2 entries, in document order.
   final List<InvariantEntry> entries;
 
   /// Every citation found in the validator source — the tags.
@@ -133,19 +139,22 @@ class InvariantCorrespondence {
   /// Every citation found anywhere in the scanned corpus, tags included.
   final List<InvariantCitation> citations;
 
-  /// Citations naming an id §10.2 does not define, or written as an ordinal —
-  /// a pointer at nothing, or at whatever now happens to sit in that position.
+  /// Citations naming an id `tom_specs_model_rules.md` §10.2 does not define, or
+  /// written as an ordinal — a pointer at nothing, or at whatever now happens to
+  /// sit in that position.
   final List<InvariantCitation> undocumented;
 
-  /// Ids listed in §10.2 that no validator tag cites — a documented rule with no
-  /// check behind it, which §10.2's first meta-rule calls a gap, not a rule.
+  /// Ids listed in `tom_specs_model_rules.md` §10.2 that no validator tag cites
+  /// — a documented rule with no check behind it, which that section's first
+  /// meta-rule calls a gap, not a rule.
   final List<InvariantEntry> unimplemented;
 
-  /// §10.2 entries that do not open with a well-formed id, and ids defined
-  /// twice — either would make a citation ambiguous or unresolvable.
+  /// Entries of `tom_specs_model_rules.md` §10.2 that do not open with a
+  /// well-formed id, and ids defined twice — either would make a citation
+  /// ambiguous or unresolvable.
   final List<String> malformed;
 
-  /// The ids §10.2 defines.
+  /// The ids `tom_specs_model_rules.md` §10.2 defines.
   Set<String> get definedIds => entries.map((e) => e.id).toSet();
 
   bool get isConsistent =>
@@ -173,17 +182,19 @@ class InvariantCorrespondence {
 
 /// Matches the head of a citation, with the section reference optional.
 ///
-/// A citation is **qualified** when it names §10.2 (`§10.2 invariant …`) and
-/// **bare** when it does not (`invariant `PART-ROUTED`'s exemption`, or the
-/// cross-references inside §10.2 itself, where the workspace citation
+/// A citation is **qualified** when it names the section of
+/// `tom_specs_model_rules.md` §10.2 ahead of the word *invariant*, and **bare**
+/// when it does not (`invariant `PART-ROUTED`'s exemption`, or the
+/// cross-references inside that section itself, where the workspace citation
 /// convention lets a reference to one's own document drop the file name).
 ///
 /// The distinction decides how an *ordinal* follower is read. Only a qualified
 /// head may report one: `codespecs_derivation_contract.md` §2.4 has its own
-/// numbered invariant list, cited as `§2.4 invariant 2`, and a bare
-/// `invariant 2` from that document is a correct citation of a different list,
-/// not a lapsed citation of this one. An uppercase id-shaped follower is
-/// unambiguous either way — no other list in the corpus uses ids.
+/// numbered invariant list, whose entries are cited there as `invariant 2` and
+/// the like — and such a bare citation from that document is a correct citation
+/// of a different list, not a lapsed citation of this one. An uppercase
+/// id-shaped follower is unambiguous either way — no other list in the corpus
+/// uses ids.
 final RegExp _citationHead = RegExp(r'(§10\.2,?\s+)?[Ii]nvariants?\s+');
 
 /// Consumes one joiner run plus one bare token from the tail of a citation.
@@ -197,15 +208,17 @@ final RegExp _citationToken = RegExp(
   r'^(?:[\s`*,+/#]|and\b)*([A-Za-z0-9][A-Za-z0-9-]*)',
 );
 
-/// Extracts every `§10.2 invariant <ID>` citation from [source].
+/// Extracts from [source] every citation of an invariant of
+/// `tom_specs_model_rules.md` §10.2.
 ///
-/// A single citation may name several ids (`§10.2 invariants KIND-EXCLUSIVE +
-/// PART-ROUTED` on the routing pair), and may wrap across lines, so the run
-/// after the head is consumed token by token rather than matched as one value.
+/// A single citation may name several ids — the routing pair is cited as one
+/// head followed by `KIND-EXCLUSIVE + PART-ROUTED` — and may wrap across lines,
+/// so the run after the head is consumed token by token rather than matched as
+/// one value.
 ///
 /// A leading **ordinal** is captured as a citation too, flagged by
 /// [InvariantCitation.isOrdinal]: it is a defect worth naming, not noise to
-/// skip. A head followed by ordinary prose (`the one §10.2 rule enforced here`)
+/// skip. A head followed by ordinary prose ("the one rule enforced here")
 /// yields nothing — it is a reference to the section, not to an invariant.
 List<InvariantCitation> parseInvariantCitations(
   String source, {
@@ -273,7 +286,8 @@ String _lineAt(String source, List<int> starts, int offset) {
 final RegExp _entryPattern = RegExp(r'^([0-9]+)\. (.+)$');
 final RegExp _leadingCode = RegExp(r'^\**`([^`]+)`\**\s*(?:—|-)?\s*');
 
-/// Extracts §10.2's numbered invariant list from the rules document [source].
+/// Extracts the numbered invariant list of `tom_specs_model_rules.md` §10.2
+/// from the rules document [source].
 ///
 /// The list is the numbered block that follows the heading `### 10.2 …`, and it
 /// ends at the first non-indented line that is neither a numbered entry nor a
@@ -327,7 +341,8 @@ String _titleOf(String raw) {
   return text.trim();
 }
 
-/// Compares §10.2's list against the validator's tags and the corpus citations.
+/// Compares the list of `tom_specs_model_rules.md` §10.2 against the validator's
+/// tags and the corpus citations.
 ///
 /// [corpus] maps a display name to that file's text. The validator source is
 /// added to it automatically, so a caller that only wants the correspondence can
@@ -412,8 +427,9 @@ const List<String> defaultCitingPaths = [
 const Set<String> _scannedExtensions = {'.dart', '.md', '.yaml'};
 
 /// The one file held out of the corpus: this library's own test, whose fixtures
-/// are synthetic §10.2 sections defining synthetic ids. Scanning it would
-/// resolve those fixtures against the *real* §10.2 and fail on every one.
+/// are synthetic `tom_specs_model_rules.md` §10.2 sections defining synthetic
+/// ids. Scanning it would resolve those fixtures against the real section and
+/// fail on every one.
 const String _corpusExemption = 'test/invariant_correspondence_test.dart';
 
 /// Reads the corpus files under [clitoolRoot], keyed by a path for messages.
@@ -444,8 +460,8 @@ Map<String, String> readCitingCorpus(String clitoolRoot) {
   return corpus;
 }
 
-/// Reads the canonical sources and checks §10.2 against the validator and the
-/// citing corpus.
+/// Reads the canonical sources and checks `tom_specs_model_rules.md` §10.2
+/// against the validator and the citing corpus.
 ///
 /// [clitoolRoot] is the `tom_specs_clitool` package root; everything else is
 /// resolved relative to it, so the check follows a package move rather than

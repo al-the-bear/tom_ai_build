@@ -533,24 +533,27 @@ class A {}
       expect(citations.single.verdict, SectionCitationVerdict.dangling);
     });
 
-    test('every § citation in the CodeSpecs source packages resolves', () {
+    test('every § citation in the TomSpecs source trees resolves', () {
       // The gate this group exists for. The doc-folder gate above reads `.md`
       // only, which is why four `codespecs_mapping.md §0` citations sat in the
       // annotation packages unnoticed while the doc folder was clean — and a
       // package's doc comments are the first thing a reader of that package
       // sees, so they decay in exactly the same silence.
-      final roots = [
+      final roots = {
         for (final root in defaultCitedSourceRoots)
-          p.normalize(p.join(containerRoot, root)),
-      ];
-      final missing = roots.where((d) => !Directory(d).existsSync());
+          root: p.normalize(p.join(containerRoot, root)),
+      };
+      final missing = roots.values.where((d) => !Directory(d).existsSync());
       if (missing.isNotEmpty) {
-        markTestSkipped('CodeSpecs source packages are not checked out: '
-            '$missing');
+        markTestSkipped('TomSpecs source trees are not checked out: $missing');
         return;
       }
 
-      final sources = [for (final root in roots) ...listDartSources(root)];
+      final byRoot = {
+        for (final entry in roots.entries)
+          entry.key: listDartSources(entry.value),
+      };
+      final sources = [for (final files in byRoot.values) ...files];
       final report = checkSectionCitations(docDir: docDir, extraSources: sources);
 
       expect(
@@ -560,13 +563,29 @@ class A {}
         isEmpty,
       );
 
-      // Anti-vacuity: a root that resolved to nothing, or sources that cite
-      // nothing, would pass the assertion above having checked nothing.
-      expect(sources, isNotEmpty);
+      // An exemption that excuses nothing is as much a defect as a citation
+      // that resolves to nothing — one is the register decaying in the other
+      // direction — so the gate is only clean when both are empty.
       expect(
-        report.citations.where((c) => p.extension(c.file) == '.dart'),
-        isNotEmpty,
+        report.staleExemptions
+            .where((e) => p.extension(e.file) == '.dart')
+            .map((e) => e.describe(relativeTo: containerRoot)),
+        isEmpty,
       );
+
+      // Anti-vacuity, **per root**. An aggregate `isNotEmpty` was enough while
+      // the list named three packages of one kind; with six trees of three
+      // kinds it is not, because a root that resolved to an empty directory —
+      // a package moved, a path typo'd — would hide behind the five that did
+      // not, and the assertions above would pass having checked nothing of it.
+      for (final entry in byRoot.entries) {
+        expect(entry.value, isNotEmpty, reason: '${entry.key} has no sources');
+        expect(
+          report.citations.where((c) => p.isWithin(roots[entry.key]!, c.file)),
+          isNotEmpty,
+          reason: '${entry.key} cites no section',
+        );
+      }
     });
   });
 
@@ -660,6 +679,170 @@ class A {}
       expect(citations.single.source, SectionQualifierSource.leading);
       expect(citations.single.document, 'x.md');
       expect(citations.single.verdict, SectionCitationVerdict.crossDocument);
+    });
+  });
+
+  group('SCC8: the exhibit exemption', () {
+    /// Classifies [markdown] and reports what the markers left unconsumed.
+    List<StaleSectionExemption> stale(String markdown,
+            {required SectionCorpus corpus, List<String> ownSections = const []}) =>
+        staleSectionExemptions(
+          markdown,
+          path: p.join('/docs', 'own.md'),
+          citations:
+              classify(markdown, corpus: corpus, ownSections: ownSections),
+        );
+
+    test('a named id on the marked line is excused, not resolved', () {
+      // The exemption suppresses the *defect*, it does not invent a referent:
+      // the verdict stays `dangling`, which is what keeps `--verbose` honest
+      // about what the file actually contains.
+      final citations = classify(
+        'Documents write `§4.1 / §4.2`. <!-- section-cite: exhibit 4.1 4.2 -->',
+        corpus: corpusOf({'other.md': ['4.1']}),
+      );
+
+      expect(citations, hasLength(2));
+      expect(citations.every((c) => c.verdict == SectionCitationVerdict.dangling),
+          isTrue);
+      expect(citations.every((c) => c.exemption == SectionCitationExemption.exhibit),
+          isTrue);
+      expect(citations.every((c) => c.isViolation), isFalse);
+    });
+
+    test('an id the marker does not name is still a violation', () {
+      // The boundary this mechanism exists for. A file that documents the
+      // convention also uses it, so a marker that swallowed its whole line
+      // would hide the next real citation written beside the exhibit — which is
+      // precisely the silent decay the gate is for.
+      final citations = classify(
+        'Documents write `§4.1`, and the rule is stated in §9.9. '
+        '<!-- section-cite: exhibit 4.1 -->',
+        corpus: corpusOf({'other.md': ['4.1']}),
+      );
+
+      expect(citations, hasLength(2));
+      expect(citations.first.isViolation, isFalse);
+      expect(citations.last.id, '9.9');
+      expect(citations.last.exemption, isNull);
+      expect(citations.last.isViolation, isTrue);
+    });
+
+    test('the marker does not reach the line above or the line below', () {
+      // Line scope, stated against the block machinery rather than assumed:
+      // lookback for a document name crosses a soft wrap, and an exemption
+      // deliberately does not.
+      final citations = classify(
+        'Before §4.1.\n'
+        'Exhibit `§4.1`. <!-- section-cite: exhibit 4.1 -->\n'
+        'After §4.1.',
+        corpus: corpusOf({'other.md': ['4.1']}),
+      );
+
+      expect(citations, hasLength(3));
+      expect(citations.map((c) => c.line), [1, 2, 3]);
+      expect(citations.map((c) => c.isViolation), [true, false, true]);
+    });
+
+    test('a marker inside a fence is inert', () {
+      // So a file may show the marker syntax without the specimen taking
+      // effect — the same reason fenced content is not scanned for citations.
+      final markdown = [
+        '```text',
+        '<!-- section-cite: exhibit 4.1 -->',
+        '```',
+        'The rule is stated in §4.1.',
+      ].join('\n');
+
+      final citations = classify(markdown, corpus: corpusOf({'other.md': []}));
+
+      expect(citations, hasLength(1));
+      expect(citations.single.exemption, isNull);
+      expect(citations.single.isViolation, isTrue);
+      // And the specimen is not itself reported as an exemption gone stale.
+      expect(stale(markdown, corpus: corpusOf({'other.md': []})), isEmpty);
+    });
+
+    test('a marker naming an id nothing on the line needs is reported stale', () {
+      // The other direction of the same discipline. An exemption that outlives
+      // its exhibit is a claim about the line that has stopped being true, and
+      // only a checker would ever notice.
+      final markdown =
+          'The rule is stated in §4.1. <!-- section-cite: exhibit 4.1 4.2 -->';
+
+      final entries = stale(markdown,
+          corpus: corpusOf({'other.md': []}), ownSections: ['4.1']);
+
+      // `4.1` resolves in its own document, so the exemption has nothing to
+      // excuse and is not consumed; `4.2` appears nowhere on the line at all.
+      expect(entries.map((e) => e.id), ['4.1', '4.2']);
+      expect(entries.every((e) => e.line == 1), isTrue);
+    });
+
+    test('a payload token that is not a section id exempts nothing', () {
+      // Writing the `§` into the marker is the likely slip. It is not silently
+      // repaired: the exhibit stays a violation, which reports the problem at
+      // the line a reader can act on rather than at the marker.
+      final citations = classify(
+        'Documents write `§4.1`. <!-- section-cite: exhibit §4.1 -->',
+        corpus: corpusOf({'other.md': []}),
+      );
+
+      expect(citations.map((c) => c.id), ['4.1', '4.1']);
+      expect(citations.every((c) => c.isViolation), isTrue);
+    });
+
+    test('a marker in a Dart doc comment survives the lift', () {
+      // Source is held to the convention through `dartDocComments`, so the
+      // exemption has to travel the same road — and only inside `///`, since a
+      // marker in a plain comment is not documentation.
+      const source = '''
+/// Shows the run rule with `§4.1 / §4.2`.
+/// <!-- section-cite: exhibit 4.1 4.2 -->
+class A {}
+''';
+
+      final citations = classifySectionCitations(
+        dartDocComments(source),
+        path: '/pkg/lib/a.dart',
+        corpus: corpusOf({'other.md': ['4.1']}),
+        own: DocumentSections.parse('', path: '/pkg/lib/a.dart'),
+      );
+
+      // Both citations are on line 1 and the marker on line 2: line scope is
+      // per source line, so this arrangement must *not* excuse them.
+      expect(citations, hasLength(2));
+      expect(citations.every((c) => c.isViolation), isTrue);
+
+      final onOneLine = classifySectionCitations(
+        dartDocComments(
+            '/// Shows the run rule with `§4.1 / §4.2`. '
+            '<!-- section-cite: exhibit 4.1 4.2 -->\n'
+            'class A {}\n'),
+        path: '/pkg/lib/a.dart',
+        corpus: corpusOf({'other.md': ['4.1']}),
+        own: DocumentSections.parse('', path: '/pkg/lib/a.dart'),
+      );
+
+      expect(onOneLine, hasLength(2));
+      expect(onOneLine.every((c) => c.isViolation), isFalse);
+    });
+
+    test('an unconsumed exemption fails the gate as loudly as a violation', () {
+      // `isClean` is the gate's single question, so both defects have to reach
+      // it — a report that was "clean" with a stale marker in it would let the
+      // exemption set rot while the exit code stayed green.
+      final report = SectionCitationReport(
+        citations: const [],
+        files: const [],
+        corpus: corpusOf(const {}),
+        staleExemptions: const [
+          StaleSectionExemption(file: '/docs/own.md', line: 1, id: '4.1'),
+        ],
+      );
+
+      expect(report.violations, isEmpty);
+      expect(report.isClean, isFalse);
     });
   });
 }

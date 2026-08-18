@@ -728,11 +728,11 @@ class OpportunityStatement extends DocSpecsSection {
 
 /// 4.1.1.3. Stakeholders and Beneficiaries.
 ///
-/// A scope-framing *benefits lens* over the stakeholder landscape: who
-/// benefits from the system and what they gain. The canonical stakeholder
-/// register — with role, interest, influence, concerns and engagement
-/// strategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are
-/// recorded there once and are not restated here (L34C-6 / SR-15).
+/// A scope-framing *benefits lens* over the stakeholder landscape: who benefits
+/// from the system and what they gain. The canonical stakeholder register —
+/// with role, interest, influence, concerns and engagement strategy — lives in
+/// SBP.4 ([StakeholderRegisterEntry] list); those attributes are recorded there
+/// once and are not restated here (L34C-6 / SR-15).
 @StandardReferences(
   [
     'BABOK v3 §10.43 — stakeholder list/map/personas',
@@ -3188,8 +3188,9 @@ class DomainEventEntry extends DocSpecsSection {
 /// 4.1.5. User Interaction Model.
 ///
 /// Describes how different user categories interact with the system including
-/// access channels, interaction patterns, access levels, and session management.
-/// Based on user experience best practices and multi-channel interaction design.
+/// access channels, interaction patterns, access levels, and session
+/// management. Based on user experience best practices and multi-channel
+/// interaction design.
 @StandardReferences(
   [
     'ISO 9241-210 — human-centred design for interactive systems',
@@ -10822,7 +10823,8 @@ class OrganizationalRequirements extends DocSpecsSection {
   @SerializationOrder(1)
   DocSpecsSection? summaryForm;
 
-  /// Organizational requirements list — contains 0+× Organizational Requirement.
+  /// Organizational requirements list — contains 0+× Organizational
+  /// Requirement.
   @StandardReferences(
     [
       'ISO 21500 — organizational project management',
@@ -11202,10 +11204,10 @@ class OrgImplementationActivity extends DocSpecsSection {
 
 /// 4.4. Systems to Replace. Seeds → CLA.
 ///
-/// Documents existing systems that will be replaced, migrated, or decommissioned
-/// as part of the project. Follows TOGAF migration planning patterns and
-/// Gartner application rationalization frameworks. Each system entry provides
-/// comprehensive assessment for informed replacement decisions.
+/// Documents existing systems that will be replaced, migrated, or
+/// decommissioned as part of the project. Follows TOGAF migration planning
+/// patterns and Gartner application rationalization frameworks. Each system
+/// entry provides comprehensive assessment for informed replacement decisions.
 @StandardReferences(
   [
     'TOGAF — migration planning & application portfolio management',
@@ -11446,7 +11448,8 @@ class SystemToReplaceEntry extends DocSpecsSection {
   @SerializationOrder(7)
   SystemDataScope dataScope = SystemDataScope();
 
-  /// Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
+  /// Contains 0+× ReplacementSystemDependencyEntry — integrations with other
+  /// systems.
   @StandardReferences(
     ['TOGAF — application portfolio management (integration dependencies)'],
     'Lists integrations and dependencies between this system and others, so '
@@ -17749,7 +17752,8 @@ class IntegrationConstraintEntry extends DocSpecsSection {
 ///
 /// Assumptions are **not** held here (L34C-4 consolidation, SR-11): the
 /// canonical assumptions register lives in SBP.6 (Assumptions, Constraints &
-/// Dependencies). Only the risks half — unique to §4.7 — remains in this node.
+/// Dependencies). Only the risks half — unique to SBP.4.7 — remains in this
+/// node.
 /// (The class name remains `RisksAndAssumptions` pending the L34C-9 rename
 /// sweep, which will rename it to `Risks`.)
 @StandardReferences(

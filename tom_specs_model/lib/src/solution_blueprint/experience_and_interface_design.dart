@@ -51,8 +51,8 @@ enum ScreenElementKind {
 /// The discriminator enum for the `ScreenElementFieldSpec` `@OneOf` group: it
 /// picks the promoted, kind-specific options subsection — `numberOptions`,
 /// `dateOptions`, `selectOptions`, or `textOptions` — so a Date field no longer
-/// carries `decimalPlaces` and a Number field no longer carries `optionsSource`.
-/// Replaces the former free-text `dataType`.
+/// carries `decimalPlaces` and a Number field no longer carries
+/// `optionsSource`. Replaces the former free-text `dataType`.
 enum ScreenElementFieldKind {
   string,
   integer,
@@ -71,13 +71,13 @@ enum ScreenElementFieldKind {
 
   /// A colour value.
   ///
-  /// **Realised by desugaring, not by a colour control** (`codespecs_mapping.md`
-  /// §5.18): free colour entry lowers onto a text field whose value is the
-  /// colour's textual form plus a pattern validation rule, and a
-  /// palette/design-token colour lowers onto a single-choice field whose option
-  /// source is the token catalogue. Naming this kind is what lets the generator
-  /// supply the pattern rule and the swatch preview without the specification
-  /// restating them — it does not promise a picker.
+  /// **Realised by desugaring, not by a colour control**
+  /// (`codespecs_mapping.md` §5.18): free colour entry lowers onto a text field
+  /// whose value is the colour's textual form plus a pattern validation rule,
+  /// and a palette/design-token colour lowers onto a single-choice field whose
+  /// option source is the token catalogue. Naming this kind is what lets the
+  /// generator supply the pattern rule and the swatch preview without the
+  /// specification restating them — it does not promise a picker.
   color,
   file,
 }
@@ -2446,7 +2446,8 @@ class ScreenElementFieldSpec extends DocSpecsSection {
   /// file's group is authored once on its CE-DB file-reference column
   /// (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
   /// name different groups. So is a download affordance, which follows from the
-  /// field being wired for transfer and the file being stored (§5.18).
+  /// field being wired for transfer and the file being stored
+  /// (`codespecs_mapping.md` §5.18).
   @SectionId('SEFSU')
   @StandardReferences([
     'ISO 9241-143:2012 — form fields with input assistance such as file selection',
@@ -2930,7 +2931,8 @@ empty states, and error displays.
 
 /// A screen state entry (form).
 ///
-/// A specific state the screen can be in: loading, empty, error, permission-denied.
+/// A specific state the screen can be in: loading, empty, error,
+/// permission-denied.
 @StandardReferences(
   [
     'ISO 9241-110:2020 — use error tolerance and controllability through clear state feedback',
@@ -3686,7 +3688,8 @@ class NavigationOverview extends DocSpecsSection {
 
 /// 10.3.1.2. Navigation Hierarchy.
 ///
-/// Full navigation tree: groups and items forming the app's navigation structure.
+/// Full navigation tree: groups and items forming the app's navigation
+/// structure.
 @StandardReferences(
   [
     'ISO 9241-151:2008 — the navigation structure reflects the information architecture as a hierarchy',
@@ -4115,7 +4118,8 @@ class NavigationItemEntry extends DocSpecsSection {
 
 /// 10.3.1.3. Primary Navigation.
 ///
-/// How the main navigation appears across platforms: drawer, sidebar, bottom nav.
+/// How the main navigation appears across platforms: drawer, sidebar, bottom
+/// nav.
 @StandardReferences(
   [
     'ISO 9241-151:2008 — provides guidance on navigation and the structure of links in the interface',
@@ -4570,8 +4574,8 @@ Dropdown/popup menus have nested items with:
 
 /// A utility navigation item entry (form).
 ///
-/// A persistent utility element in the app bar: user avatar, notifications bell,
-/// help icon, settings.
+/// A persistent utility element in the app bar: user avatar, notifications
+/// bell, help icon, settings.
 @StandardReferences(
   [
     'ISO 9241-14:1997 — menu dialogues cover persistent utility entry points such as user and help menus',
@@ -14587,10 +14591,10 @@ class TranslationVendorEntry extends DocSpecsSection {
 ///
 /// End-user documentation deliverables. The documentation half of the former
 /// `DocumentationAndTraining` (`DOANTR`); split from its training half in
-/// L34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`
-/// (`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`
-/// sub-forms and the shared `TextSection`. Retains `DOANTR` + the shared
-/// `TRP-DOC` D12 detail subsection.
+/// L34C-7 (SR-29). Logically re-homed under SBP.9
+/// `InformationForUseRequirements` (`IFUR`) while physically staying in this
+/// file alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.
+/// Retains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.
 @StandardReferences(
   [
     'ISO/IEC/IEEE 26514 — user documentation design and format follow a defined content structure',
@@ -14980,7 +14984,8 @@ class LanguageCountrySelection extends DocSpecsSection {
   @SerializationOrder(2)
   DocSpecsSection? defaults;
 
-  /// Retention rules — how a chosen preference survives, without naming a store.
+  /// Retention rules — how a chosen preference survives, without naming a
+  /// store.
   ///
   /// Where the preference lives is *not* authored here: it follows from the
   /// settings scope the preference is declared in (user setting vs device

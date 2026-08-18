@@ -14,10 +14,10 @@
 /// (`sensitiveDataEncryption`, `printAndExportLayout`) therefore reach *into* a
 /// `@FollowUpKind` root to pick a pure CE-CF band out of it, leaving its
 /// genuinely process-delivered siblings behind. That is not a weakening of the
-/// §8.3 split: the split's own rule is that a subtree mixing generated and
-/// non-generated content is a split point, and reaching past the root is how
-/// this projection expresses the split where the root was cut one level too
-/// high.
+/// `codespecs_mapping.md` §8.3 split: the split's own rule is that a subtree
+/// mixing generated and non-generated content is a split point, and reaching
+/// past the root is how this projection expresses the split where the root was
+/// cut one level too high.
 ///
 /// **`@CodeSpecKind`-driven, not `@DetailedIn`-driven.** No SBP section carries
 /// `@DetailedIn(D13CodeSpecsProjection)` — the single-valued `@DetailedIn` /
@@ -181,13 +181,14 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// per-channel entries) and the key lifecycle under `KeyManagement`
   /// (generation, storage, rotation, escrow-and-backup, compromise recovery).
   ///
-  /// It belongs here because §5.5's own substrate names its material:
-  /// `TomBaseServerConfiguration` declares TLS material and signing keys as
-  /// typed fields, so a TLS minimum version is a server-configuration value in
-  /// exactly the sense `@CsServerConfig` generates. Its projected siblings
-  /// settle it — `StorageEncryptionPolicy` under `AccessControlModel` and
-  /// `LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of
-  /// the same shape, and no criterion separates them from these.
+  /// It belongs here because `codespecs_mapping.md` §5.5's own substrate names
+  /// its material: `TomBaseServerConfiguration` declares TLS material and
+  /// signing keys as typed fields, so a TLS minimum version is a
+  /// server-configuration value in exactly the sense `@CsServerConfig`
+  /// generates. Its projected siblings settle it — `StorageEncryptionPolicy`
+  /// under `AccessControlModel` and `LogRetentionPolicy` under
+  /// `AuditAndLogging` are fixed-key policy bands of the same shape, and no
+  /// criterion separates them from these.
   @Comment('locus: server — CE-CF')
   @SerializationOrder(11)
   SensitiveDataEncryption sensitiveDataEncryption = SensitiveDataEncryption();
@@ -232,8 +233,9 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
   /// gives the data source / schema directory placement, `SCMST.artifactKind`
   /// the artifact kind, and `SCMST.environments` the filename environment tag.
-  /// The artifact *filenames* are authored, not derived — a §5.23 string
-  /// exemption — so they are not part of the generated surface.
+  /// The artifact *filenames* are authored, not derived — a
+  /// `codespecs_mapping.md` §5.23 string exemption — so they are not part of
+  /// the generated surface.
   ///
   /// The subtree sits beside `dataModel` above for a reason: the cumulative
   /// effect of a schema's artifacts must converge on the CE-DB model that entry
@@ -253,8 +255,8 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// shared — the client cites an operation and depends on its shapes — while
   /// the **operation itself** lands on the owning service unit in the server
   /// project. Which service unit that is follows from each operation's primary
-  /// written data entity (§5.17), so ownership is derived here rather than
-  /// declared.
+  /// written data entity (`codespecs_mapping.md` §5.17), so ownership is
+  /// derived here rather than declared.
   ///
   /// The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
   /// reachable from this projection: it describes third-party interfaces the

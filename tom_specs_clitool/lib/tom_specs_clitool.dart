@@ -74,8 +74,11 @@ export 'src/section_citations.dart'
         SectionCitation,
         SectionQualifierSource,
         SectionCitationVerdict,
+        SectionCitationExemption,
+        StaleSectionExemption,
         SectionCitationReport,
         classifySectionCitations,
+        staleSectionExemptions,
         checkSectionCitations;
 // The gate over `OE-` citations: the editor cites open-ends ids from shipped
 // source, so a citation that resolves to no register row fails here rather than

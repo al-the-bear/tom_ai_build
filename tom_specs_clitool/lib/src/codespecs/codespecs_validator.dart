@@ -1,16 +1,18 @@
 /// Runs the `codespecs_derivation_contract.md` §6 checks over an emitted
 /// CodeSpecs tree.
 ///
-/// **Where this runs.** Phase 4 emits no code from a program: an authoring agent
-/// writes the trio from a per-area extract (`codespecs_mapping.md` §1.1.1). So
-/// this is the pass that stands where a generator's own validation would have
-/// stood — the step that decides whether what the agent wrote is admissible, run
-/// after each authoring step and at gate G4. It lives beside the SOM generator
-/// and the SOM model validator because the extract it reads is emitted there.
+/// **Where this runs.** Phase 4 emits no code from a program: an authoring
+/// agent writes the trio from a per-area extract (`codespecs_mapping.md`
+/// §1.1.1). So this is the pass that stands where a generator's own validation
+/// would have stood — the step that decides whether what the agent wrote is
+/// admissible, run after each authoring step and at gate G4. It lives beside
+/// the SOM generator and the SOM model validator because the extract it reads
+/// is emitted there.
 ///
-/// **Failure mode.** A violation is a failure, never a warning: [runCodeSpecsChecks]
-/// returns every breach it finds and [CodeSpecsValidationReport.passed] is false
-/// if there is even one. The CLI turns that into a non-zero exit.
+/// **Failure mode.** A violation is a failure, never a warning:
+/// [runCodeSpecsChecks] returns every breach it finds and
+/// [CodeSpecsValidationReport.passed] is false if there is even one. The CLI
+/// turns that into a non-zero exit.
 library;
 
 import 'cs_checks.dart';
@@ -22,7 +24,7 @@ class CodeSpecsValidationReport {
   /// Every violation found, in check order then discovery order.
   final List<CodeSpecsViolation> violations;
 
-  /// The checks that ran, in §6 table order.
+  /// The checks that ran, in `codespecs_derivation_contract.md` §6 table order.
   final List<CodeSpecsCheck> checks;
 
   /// Creates a report.
@@ -34,7 +36,7 @@ class CodeSpecsValidationReport {
   /// Whether generation may proceed.
   bool get passed => violations.isEmpty;
 
-  /// The violations of one §6 check number.
+  /// The violations of one `codespecs_derivation_contract.md` §6 check number.
   List<CodeSpecsViolation> forCheck(int number) =>
       violations.where((v) => v.check == number).toList();
 

@@ -805,7 +805,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "USAU";
         n.serializationOrder = 4;
         n.docComment = "9.1.4. User Authorization.";
-        n.classDocComment = "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.";
+        n.classDocComment = "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.";
         n.detailedIn = "D08SecurityAccessSpecification";
         n.recursive = r;
         n.children = c;
@@ -2441,7 +2441,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "BAJOMA";
         n.serializationOrder = 5;
         n.docComment = "Batch job management.";
-        n.classDocComment = "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here applies\nto every job that does not override it, and an entry that does override it\nsays so in its own failure-policy subsection.";
+        n.classDocComment = "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here\napplies to every job that does not override it, and an entry that does\noverride it says so in its own failure-policy subsection.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -3424,8 +3424,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("ServerCallStepEntry", s, ServerCallStepEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ServerCallStepEntry", SomMetaKind.COMPLEX, "ServerCallStepEntry");
           e.classSectionId = "SVCST";
-          e.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.";
-          e.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.";
+          e.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+          e.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -6569,7 +6569,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "AZGRD";
         n.serializationOrder = 6;
         n.docComment = "Graded requirement payload — a promoted `@OneOf` case.";
-        n.classDocComment = "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —\nthe SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —\nand removing it by pointing the levels back at [AuthorizationRequirementSpec]\nreintroduces the cycle.";
+        n.classDocComment = "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate\n— the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2)\n— and removing it by pointing the levels back at\n[AuthorizationRequirementSpec] reintroduces the cycle.";
         n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "AuthorizationRequirementKind.graded")));
         n.recursive = r;
         n.children = c;
@@ -7860,7 +7860,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "AS";
         n.serializationOrder = 2;
         n.docComment = "8.1.2. Architecture Style.";
-        n.classDocComment = "8.1.2. Architecture Style.\n\nTarget architecture style specification: monolith, modular monolith,\nmicroservices, event-driven, serverless, or hybrid. Includes justification\nbased on project requirements, architectural principles, and design decisions.";
+        n.classDocComment = "8.1.2. Architecture Style.\n\nTarget architecture style specification: monolith, modular monolith,\nmicroservices, event-driven, serverless, or hybrid. Includes justification\nbased on project requirements, architectural principles, and design\ndecisions.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -7925,7 +7925,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.contentType = new SomContentTypeMeta("text", "");
         n.contentHelp = "Describe the shape of the scheduled workload in a short paragraph: what the batch surface of this system is mostly made of, and why it exists. This is orientation, not the job inventory — every job is declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; a list in two places is a list that can disagree with itself.";
-        n.docComment = "Workload shape — orientation above the job list, deliberately narrative.\n\nWhat kind of batch surface this system has, in prose: mostly a nightly\nfinancial rollup with a small maintenance tail, or a continuous\nintegration-sync load, or a report factory. It is the paragraph a reader\nwants *before* thirty [scheduledJobs] entries, for the same reason an\narchitecture overview sits above a component list.\n\n**It is narrative and not a form, on purpose.** This section used to carry\nfive fixed category slots — data processing, report generation,\nnotification, maintenance, integration sync. A form of five slots each\nlabelled \"… Jobs\" *is* an inventory grouped by category, whatever the help\ntext says, so it became a second place to state which jobs exist and could\ndisagree with [scheduledJobs] — which is authoritative and is what the\nCodeSpecs generator reads. The fixed five were also a closed taxonomy with\nno basis: a system whose batch work is model retraining or index rebuilding\nhad no slot. One prose field can describe any workload and cannot be\nmistaken for the inventory.\n\n[scheduledJobs] remains the only place a job comes into existence. A shape\ndescribed here that no entry there realises is a workload the specification\nhas not actually declared.";
+        n.docComment = "Workload shape — orientation above the job list, deliberately narrative.\n\nWhat kind of batch surface this system has, in prose: mostly a nightly\nfinancial rollup with a small maintenance tail, or a continuous\nintegration-sync load, or a report factory. It is the paragraph a reader\nwants *before* thirty [scheduledJobs] entries, for the same reason an\narchitecture overview sits above a component list.\n\n**It is narrative and not a form, on purpose.** This section used to carry\nfive fixed category slots — data processing, report generation,\nnotification, maintenance, integration sync. A form of five slots each\nlabelled \"… Jobs\" *is* an inventory grouped by category, whatever the help\ntext says, so it became a second place to state which jobs exist and could\ndisagree with [scheduledJobs] — which is authoritative and is what the\nCodeSpecs generator reads. The fixed five were also a closed taxonomy with\nno basis: a system whose batch work is model retraining or index\nrebuilding had no slot. One prose field can describe any workload and\ncannot be mistaken for the inventory.\n\n[scheduledJobs] remains the only place a job comes into existence. A shape\ndescribed here that no entry there realises is a workload the\nspecification has not actually declared.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Google SRE — eliminating toil and operational procedures", "ITIL 4 — change enablement and maintenance windows"), "connotation", "The shape of the scheduled workload — what kind of batch surface the system has, as orientation above the job list.")));
         out.add(n);
       }
@@ -9697,8 +9697,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("BusinessObjectAttributeEntry", s, BusinessObjectAttributeEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("BusinessObjectAttributeEntry", SomMetaKind.COMPLEX, "BusinessObjectAttributeEntry");
           e.classSectionId = "BIOBAT";
-          e.docComment = "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and rules.";
-          e.classDocComment = "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and rules.";
+          e.docComment = "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and\nrules.";
+          e.classDocComment = "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and\nrules.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -21627,7 +21627,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SVOPR";
         n.serializationOrder = 18;
         n.docComment = "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.";
-        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
+        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -22588,7 +22588,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "USAU";
         n.serializationOrder = 5;
         n.docComment = "User authorization.";
-        n.classDocComment = "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.";
+        n.classDocComment = "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.";
         n.detailedIn = "D08SecurityAccessSpecification";
         n.recursive = r;
         n.children = c;
@@ -23441,7 +23441,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "INDEFL";
         n.serializationOrder = 9;
         n.docComment = "Initial development flow.";
-        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
+        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".";
         n.detailedIn = "D11DeliveryRoadmap";
         n.recursive = r;
         n.children = c;
@@ -23571,7 +23571,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "DOANTR";
         n.serializationOrder = 4;
         n.docComment = "User documentation requirements (doc half of the former DOANTR;\nsplit in L34C-7).";
-        n.classDocComment = "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`\n(`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`\nsub-forms and the shared `TextSection`. Retains `DOANTR` + the shared\n`TRP-DOC` D12 detail subsection.";
+        n.classDocComment = "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.";
         n.mapsTo = "D12TransitionRolloutPlan";
         n.detailedIn = "D12TransitionRolloutPlan";
         n.recursive = r;
@@ -23896,7 +23896,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SEDAEN";
         n.serializationOrder = 11;
         n.comment = "locus: server — CE-CF";
-        n.docComment = "Sensitive-data encryption and key management — CE-CF cryptographic\nsettings.\n\nReached **into** `SecurityOperationsFollowUp` rather than through it: that\nroot is tagged OPS for `ComplianceReporting`, and this sibling was swept\nalong by the split rather than placed there on a criterion. It is a pure\nCE-CF band — encryption at rest (database / file-storage / backup\npolicies and the encrypted-data category list), encryption in transit\n(TLS protocol, certificate management, mTLS, transport policy and the\nper-channel entries) and the key lifecycle under `KeyManagement`\n(generation, storage, rotation, escrow-and-backup, compromise recovery).\n\nIt belongs here because §5.5's own substrate names its material:\n`TomBaseServerConfiguration` declares TLS material and signing keys as\ntyped fields, so a TLS minimum version is a server-configuration value in\nexactly the sense `@CsServerConfig` generates. Its projected siblings\nsettle it — `StorageEncryptionPolicy` under `AccessControlModel` and\n`LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of\nthe same shape, and no criterion separates them from these.";
+        n.docComment = "Sensitive-data encryption and key management — CE-CF cryptographic\nsettings.\n\nReached **into** `SecurityOperationsFollowUp` rather than through it: that\nroot is tagged OPS for `ComplianceReporting`, and this sibling was swept\nalong by the split rather than placed there on a criterion. It is a pure\nCE-CF band — encryption at rest (database / file-storage / backup\npolicies and the encrypted-data category list), encryption in transit\n(TLS protocol, certificate management, mTLS, transport policy and the\nper-channel entries) and the key lifecycle under `KeyManagement`\n(generation, storage, rotation, escrow-and-backup, compromise recovery).\n\nIt belongs here because `codespecs_mapping.md` §5.5's own substrate names\nits material: `TomBaseServerConfiguration` declares TLS material and\nsigning keys as typed fields, so a TLS minimum version is a\nserver-configuration value in exactly the sense `@CsServerConfig`\ngenerates. Its projected siblings settle it — `StorageEncryptionPolicy`\nunder `AccessControlModel` and `LogRetentionPolicy` under\n`AuditAndLogging` are fixed-key policy bands of the same shape, and no\ncriterion separates them from these.";
         n.classDocComment = "9.5. Sensitive Data Encryption.";
         n.detailedIn = "D08SecurityAccessSpecification";
         n.recursive = r;
@@ -23935,7 +23935,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SCHMG";
         n.serializationOrder = 14;
         n.comment = "locus: server — CE-MG";
-        n.docComment = "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.";
+        n.docComment = "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a\n`codespecs_mapping.md` §5.23 string exemption — so they are not part of\nthe generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.";
         n.classDocComment = "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.";
         n.recursive = r;
         n.children = c;
@@ -23947,8 +23947,8 @@ public final class TomSomV0Meta {
         n.classSectionId = "SVOPR";
         n.serializationOrder = 15;
         n.comment = "locus: shared(CE-API contract)+server(CE-API operations)";
-        n.docComment = "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.";
-        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
+        n.docComment = "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (`codespecs_mapping.md` §5.17), so ownership is\nderived here rather than declared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.";
+        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -23960,7 +23960,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 16;
         n.comment = "locus: server(CE-SU)+client(CE-SC)";
         n.docComment = "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.";
-        n.classDocComment = "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.";
+        n.classDocComment = "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case\nmodeling.";
         n.mapsTo = "D05InteractionScenarios";
         n.recursive = r;
         n.children = c;
@@ -24591,7 +24591,7 @@ public final class TomSomV0Meta {
         n.memberName = "fileReferenceOptions";
         n.sectionId = "DAATT-DTFR";
         n.serializationOrder = 7;
-        n.docComment = "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores the\n**address of a stored file**, so what a specification must say is where the\nfile is filed, which store holds it, whether it dies with its record, and\nwhat may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.";
+        n.docComment = "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores\nthe **address of a stored file**, so what a specification must say is\nwhere the file is filed, which store holds it, whether it dies with its\nrecord, and what may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("storageGroup", "String", "Storage Group", true, "Naming group the files are filed under — sets their retention and access partition (e.g. documents/attachment)", 0),
             new SomFormFieldMeta("fileStore", "String", "File Store", false, "Name of the configured file store holding the files; empty means the deployment default store", 1),
@@ -31463,8 +31463,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("DevelopmentConventionEntry", s, DevelopmentConventionEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("DevelopmentConventionEntry", SomMetaKind.COMPLEX, "DevelopmentConventionEntry");
           e.classSectionId = "DCE";
-          e.docComment = "Development convention entry — a development practice or workflow convention.";
-          e.classDocComment = "Development convention entry — a development practice or workflow convention.";
+          e.docComment = "Development convention entry — a development practice or workflow\nconvention.";
+          e.classDocComment = "Development convention entry — a development practice or workflow\nconvention.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -32494,8 +32494,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("DeviceSettingEntry", s, DeviceSettingEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("DeviceSettingEntry", SomMetaKind.COMPLEX, "DeviceSettingEntry");
           e.classSectionId = "DSSET";
-          e.docComment = "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.";
-          e.classDocComment = "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.";
+          e.docComment = "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. `codespecs_mapping.md` §5.16 puts\nthe opt-in on the *wider* scope — a key is shadowable only because its\nwider-scope declaration says so — and CE-DS is the narrowest scope, so it\nhas nothing below it to open. Declaring the same relation from both ends\nwould be two authored fields that can disagree.";
+          e.classDocComment = "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. `codespecs_mapping.md` §5.16 puts\nthe opt-in on the *wider* scope — a key is shadowable only because its\nwider-scope declaration says so — and CE-DS is the narrowest scope, so it\nhas nothing below it to open. Declaring the same relation from both ends\nwould be two authored fields that can disagree.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -34693,8 +34693,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("DomainEnumEntry", s, DomainEnumEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("DomainEnumEntry", SomMetaKind.COMPLEX, "DomainEnumEntry");
           e.classSectionId = "DMENE";
-          e.docComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
-          e.classDocComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
+          e.docComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant\n— and doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
+          e.classDocComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant\n— and doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -36318,8 +36318,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("EntityRelationshipEntry", s, EntityRelationshipEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("EntityRelationshipEntry", SomMetaKind.COMPLEX, "EntityRelationshipEntry");
           e.classSectionId = "ENRLE";
-          e.docComment = "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best practices.";
-          e.classDocComment = "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best practices.";
+          e.docComment = "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best\npractices.";
+          e.classDocComment = "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best\npractices.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -39356,8 +39356,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("ServerCallStepEntry", s, ServerCallStepEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ServerCallStepEntry", SomMetaKind.COMPLEX, "ServerCallStepEntry");
           e.classSectionId = "SVCST";
-          e.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.";
-          e.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.";
+          e.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+          e.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -40863,7 +40863,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "FEPRRE";
         n.serializationOrder = 8;
         n.docComment = "13.4.1. Feature Priority Register.\n\nThe register comes first because the three sections after it are views\nonto it: each names a feature by the id declared here.";
-        n.classDocComment = "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity: a feature\nexists because it is declared here, and every feature reference elsewhere\nin the model resolves against `FPE.featureId`. The MoSCoW analysis\n(§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map\n(§13.4.4) are views onto this register — they name a registered feature and\nadd their own view's attributes, never a second copy of its identity.";
+        n.classDocComment = "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership, and\ntraceability. Single source of truth for feature identity: a feature exists\nbecause it is declared here, and every feature reference elsewhere in the\nmodel resolves against `FPE.featureId`. The MoSCoW analysis (SBP.13.4.2),\nthe feature-stage matrix (SBP.13.4.3) and the dependency map (SBP.13.4.4)\nare views onto this register — they name a registered feature and add their\nown view's attributes, never a second copy of its identity.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -40874,7 +40874,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "MOAN";
         n.serializationOrder = 9;
         n.docComment = "13.4.2. MoSCoW Analysis.";
-        n.classDocComment = "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage. A view onto the\nFeature Priority Register (§13.4.1): each entry names a registered feature\nand adds only its classification.";
+        n.classDocComment = "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should / Could /\nWon't) and maps each to its target delivery stage. A view onto the Feature\nPriority Register (SBP.13.4.1): each entry names a registered feature and\nadds only its classification.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -40885,7 +40885,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "FESTMA";
         n.serializationOrder = 10;
         n.docComment = "13.4.3. Feature-Stage Matrix.";
-        n.classDocComment = "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (§13.4.1): each entry names a registered\nfeature and adds only its staging.";
+        n.classDocComment = "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (SBP.13.4.1): each entry names a registered\nfeature and adds only its staging.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -45983,7 +45983,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SVOPR";
         n.serializationOrder = 9;
         n.docComment = "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.";
-        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
+        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -46165,7 +46165,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "DOANTR";
         n.serializationOrder = 1;
         n.docComment = "User documentation requirements (doc half of the former DOANTR).";
-        n.classDocComment = "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`\n(`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`\nsub-forms and the shared `TextSection`. Retains `DOANTR` + the shared\n`TRP-DOC` D12 detail subsection.";
+        n.classDocComment = "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.";
         n.mapsTo = "D12TransitionRolloutPlan";
         n.detailedIn = "D12TransitionRolloutPlan";
         n.recursive = r;
@@ -49460,7 +49460,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 6;
         n.comment = "Seeds → CLA";
         n.docComment = "4.4. Systems to Replace. Seeds → CLA.";
-        n.classDocComment = "4.4. Systems to Replace. Seeds → CLA.\n\nDocuments existing systems that will be replaced, migrated, or decommissioned\nas part of the project. Follows TOGAF migration planning patterns and\nGartner application rationalization frameworks. Each system entry provides\ncomprehensive assessment for informed replacement decisions.";
+        n.classDocComment = "4.4. Systems to Replace. Seeds → CLA.\n\nDocuments existing systems that will be replaced, migrated, or\ndecommissioned as part of the project. Follows TOGAF migration planning\npatterns and Gartner application rationalization frameworks. Each system\nentry provides comprehensive assessment for informed replacement decisions.";
         n.mapsTo = "D01CurrentLandscapeAssessment";
         n.recursive = r;
         n.children = c;
@@ -49496,7 +49496,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "RIANAS";
         n.serializationOrder = 9;
         n.docComment = "4.7. Risks and Assumptions.";
-        n.classDocComment = "4.7. Risks.\n\nDocuments identified project risks following ISO 31000 Risk Management and\nPMBOK risk management best practices. Provides a structured framework for\nrisk identification, analysis, response planning, and ongoing monitoring\nthroughout the project lifecycle.\n\nAssumptions are **not** held here (L34C-4 consolidation, SR-11): the\ncanonical assumptions register lives in SBP.6 (Assumptions, Constraints &\nDependencies). Only the risks half — unique to §4.7 — remains in this node.\n(The class name remains `RisksAndAssumptions` pending the L34C-9 rename\nsweep, which will rename it to `Risks`.)";
+        n.classDocComment = "4.7. Risks.\n\nDocuments identified project risks following ISO 31000 Risk Management and\nPMBOK risk management best practices. Provides a structured framework for\nrisk identification, analysis, response planning, and ongoing monitoring\nthroughout the project lifecycle.\n\nAssumptions are **not** held here (L34C-4 consolidation, SR-11): the\ncanonical assumptions register lives in SBP.6 (Assumptions, Constraints &\nDependencies). Only the risks half — unique to SBP.4.7 — remains in this\nnode.\n(The class name remains `RisksAndAssumptions` pending the L34C-9 rename\nsweep, which will rename it to `Risks`.)";
         n.recursive = r;
         n.children = c;
         return n;
@@ -51032,7 +51032,7 @@ public final class TomSomV0Meta {
         n.memberName = "persistence";
         n.sectionId = "LCSP";
         n.serializationOrder = 3;
-        n.docComment = "Retention rules — how a chosen preference survives, without naming a store.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.";
+        n.docComment = "Retention rules — how a chosen preference survives, without naming a\nstore.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("guestRetention", "String", "Guest Retention", false, "Whether and for how long a preference chosen before sign-in is retained", 0),
             new SomFormFieldMeta("signInCarryOver", "String", "Sign-In Carry-Over", false, "What happens to a guest-chosen locale when the user signs in and a stored preference applies", 1),
@@ -51273,8 +51273,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("BoundedContextEntry", s, BoundedContextEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("BoundedContextEntry", SomMetaKind.COMPLEX, "BoundedContextEntry");
           e.classSectionId = "BCE";
-          e.docComment = "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.";
-          e.classDocComment = "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.";
+          e.docComment = "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere\nin the specification names one of these entries, so a context exists in\nexactly one place and a misspelt name is reported rather than silently\ncreating a second context.";
+          e.classDocComment = "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere\nin the specification names one of these entries, so a context exists in\nexactly one place and a misspelt name is reported rather than silently\ncreating a second context.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -52774,8 +52774,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("ServerCallStepEntry", s, ServerCallStepEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ServerCallStepEntry", SomMetaKind.COMPLEX, "ServerCallStepEntry");
           e.classSectionId = "SVCST";
-          e.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.";
-          e.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.";
+          e.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+          e.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -53892,8 +53892,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("MessageLocaleVariantEntry", s, MessageLocaleVariantEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("MessageLocaleVariantEntry", SomMetaKind.COMPLEX, "MessageLocaleVariantEntry");
           e.classSectionId = "MSGLV";
-          e.docComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.";
-          e.classDocComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.";
+          e.docComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one\nlocale.";
+          e.classDocComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one\nlocale.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -58115,7 +58115,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "NAHI";
         n.serializationOrder = 2;
         n.docComment = "10.3.1.2. Navigation Hierarchy.";
-        n.classDocComment = "10.3.1.2. Navigation Hierarchy.\n\nFull navigation tree: groups and items forming the app's navigation structure.";
+        n.classDocComment = "10.3.1.2. Navigation Hierarchy.\n\nFull navigation tree: groups and items forming the app's navigation\nstructure.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -58126,7 +58126,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "PRNA";
         n.serializationOrder = 3;
         n.docComment = "10.3.1.3. Primary Navigation.";
-        n.classDocComment = "10.3.1.3. Primary Navigation.\n\nHow the main navigation appears across platforms: drawer, sidebar, bottom nav.";
+        n.classDocComment = "10.3.1.3. Primary Navigation.\n\nHow the main navigation appears across platforms: drawer, sidebar, bottom\nnav.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -61594,7 +61594,7 @@ public final class TomSomV0Meta {
         n.sectionIdPattern = "ORRQ-REQU-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per organizational requirement.";
-        n.docComment = "Organizational requirements list — contains 0+× Organizational Requirement.";
+        n.docComment = "Organizational requirements list — contains 0+× Organizational\nRequirement.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 21500 — organizational project management", "BABOK v3 §10 — organizational readiness", "ISO/IEC/IEEE 29148 §9 — organizational requirements"), "connotation", "The set of individual organizational requirement entries — the non-technical changes needed for the system to succeed.")));
         n.elementNode = metaCx("OrganizationalRequirementEntry", s, OrganizationalRequirementEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("OrganizationalRequirementEntry", SomMetaKind.COMPLEX, "OrganizationalRequirementEntry");
@@ -68632,7 +68632,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "PCADJ";
         n.serializationOrder = 5;
         n.docComment = "2.3. Process Adjustments.";
-        n.classDocComment = "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_specs_project_flow.md\ncreation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,\nreordered, or modified steps and the rationale for each deviation.";
+        n.classDocComment = "2.3. Process Adjustments.\n\nDocuments any deviations from the standard creation\n(`tom_specs_project_flow.md` §PF-PHA) or upgrade-cycle\n(`tom_specs_project_flow.md` §PF-UPG) process. Includes skipped, reordered,\nor modified steps and the rationale for each deviation.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -69753,7 +69753,7 @@ public final class TomSomV0Meta {
         n.memberName = "iso25010Coverage";
         n.classSectionId = "I25CV";
         n.serializationOrder = 3;
-        n.docComment = "ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).";
+        n.docComment = "ISO/IEC 25010:2023 product-quality cross-map — the IP-6 completeness\naddition, as the library doc states.";
         n.classDocComment = "ISO/IEC 25010:2023 product-quality cross-map (derived).\n\nA *derived* view over the canonical quality spine: the eight\n`*Characteristic` classes under [SystemQualityGoals] are the single source\nof truth for the taxonomy (L34C-8); this cross-map does not re-declare it.\nEach entry references one of those characteristics (via the closed\n[Iso25010Characteristic] enum) and records which quality goals / NFRs\naddress it and the target metric — so coverage of any 25010:2023\ncharacteristic (e.g. compatibility, flexibility) cannot be silently missed.";
         n.recursive = r;
         n.children = c;
@@ -75087,7 +75087,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "DALESE";
         n.serializationOrder = 1;
         n.docComment = "9.3.1. Data-Level Security.";
-        n.classDocComment = "9.3.1. Data-Level Security.\n\nComprehensive data access protection specification covering database-level\nsecurity, row-level security, column-level security, tenant data isolation,\nand data masking for production and non-production environments.\nAligned with OWASP Database Security Cheat Sheet and least-privilege principles.";
+        n.classDocComment = "9.3.1. Data-Level Security.\n\nComprehensive data access protection specification covering database-level\nsecurity, row-level security, column-level security, tenant data isolation,\nand data masking for production and non-production environments. Aligned\nwith OWASP Database Security Cheat Sheet and least-privilege principles.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -79148,8 +79148,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("ServerCallStepEntry", s, ServerCallStepEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ServerCallStepEntry", SomMetaKind.COMPLEX, "ServerCallStepEntry");
           e.classSectionId = "SVCST";
-          e.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.";
-          e.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.";
+          e.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+          e.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -79258,7 +79258,7 @@ public final class TomSomV0Meta {
         n.sectionIdPattern = "SCJOST-WORK-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone.";
-        n.docComment = "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**\nwork body from — one statement per step, in list order, each a call on the\njob's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and §2.4's fallback then emits the form-3a body\nfrom `workSummary` exactly as before. The list is how a job that *is*\nmulti-step stops having to say so in a sentence.";
+        n.docComment = "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a\n**form-3b** work body from — one statement per step, in list order, each a\ncall on the job's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and `codespecs_derivation_contract.md` §2.4's\nfallback then emits the form-3a body from `workSummary` exactly as before.\nThe list is how a job that *is* multi-step stops having to say so in a\nsentence.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Cockburn — Writing Effective Use Cases: numbered step sequences", "Google SRE — eliminating toil and operational procedures"), "connotation", "The ordered steps a background job performs its work in.")));
         n.elementNode = metaCx("ScheduledJobStepEntry", s, ScheduledJobStepEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ScheduledJobStepEntry", SomMetaKind.COMPLEX, "ScheduledJobStepEntry");
@@ -79481,7 +79481,7 @@ public final class TomSomV0Meta {
         n.memberName = "baselineSchema";
         n.sectionId = "SCMST-BASE";
         n.serializationOrder = 1;
-        n.docComment = "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so there\nis no prior state: no affected-entity delta, no backfill, and nothing to\nroll back to.";
+        n.docComment = "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so\nthere is no prior state: no affected-entity delta, no backfill, and\nnothing to roll back to.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("createdEntities", "String", "Created Entities", true, "The Data Model entities this baseline creates", 0, java.util.List.of(), java.util.List.of("DAENT.entityName")),
             new SomFormFieldMeta("schemaStatements", "String", "Schema Statements", false, "The schema definition statements that create the tables", 1),
@@ -79494,7 +79494,7 @@ public final class TomSomV0Meta {
         n.memberName = "referenceData";
         n.sectionId = "SCMST-REFD";
         n.serializationOrder = 2;
-        n.docComment = "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays in\nthe migration-mapping sections (`MIGME`).";
+        n.docComment = "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays\nin the migration-mapping sections (`MIGME`).";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("targetEntities", "String", "Target Entities", true, "The Data Model entities this artifact populates", 0, java.util.List.of(), java.util.List.of("DAENT.entityName")),
             new SomFormFieldMeta("valueSet", "String", "Value Set", true, "The reference values loaded — lookup values, defaults, built-in roles — or where the authoritative list is kept", 1),
@@ -79568,7 +79568,7 @@ public final class TomSomV0Meta {
         n.sectionIdPattern = "MIGTG-TARG-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.";
-        n.docComment = "7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.";
+        n.docComment = "7.4.1. Migration Targets — the data source / schema pairs artifacts apply\nto.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 9075 (SQL) — schema as the named container of database objects", "DAMA-DMBOK2 — data management body of knowledge"), "connotation", "The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one.")));
         n.elementNode = metaCx("MigrationTargetEntry", s, MigrationTargetEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("MigrationTargetEntry", SomMetaKind.COMPLEX, "MigrationTargetEntry");
@@ -80434,7 +80434,7 @@ public final class TomSomV0Meta {
         n.memberName = "fileOptions";
         n.sectionId = "SEFSU";
         n.serializationOrder = 7;
-        n.docComment = "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored (§5.18).";
+        n.docComment = "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored\n(`codespecs_mapping.md` §5.18).";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("acceptedContentKinds", "String", "Accepted Content Kinds", false, "What may be chosen: a content-kind family (any/image/video/audio) and/or the accepted file extensions", 0),
             new SomFormFieldMeta("maxFileSize", "String", "Maximum File Size", false, "Largest file the field accepts, e.g. 10 MB", 1),
@@ -81438,8 +81438,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("ScreenStateEntry", s, ScreenStateEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ScreenStateEntry", SomMetaKind.COMPLEX, "ScreenStateEntry");
           e.classSectionId = "SCRST";
-          e.docComment = "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.";
-          e.classDocComment = "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.";
+          e.docComment = "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error,\npermission-denied.";
+          e.classDocComment = "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error,\npermission-denied.";
           e.recursive = r;
           e.children = c;
           return e;
@@ -81750,7 +81750,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SCOF";
         n.serializationOrder = 3;
         n.docComment = "9.3. Security Operations — OPS follow-up subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** — the\nroutines run *against* the audit log — rather than CodeSpecs-generated\nbehaviour (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not itself a generation projection root.\n\n**The root is not the boundary here.** Its `encryption` child is a pure\nCE-CF band — encryption at rest, encryption in transit and the key\nlifecycle are settings the server reads, and §5.5's substrate\n(`TomBaseServerConfiguration`) names TLS material and signing keys as typed\nfields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`\ndirectly, past this root. Placing it here rather than beside the other SAS\nCE-CF bands is a grouping of subject matter, not a routing verdict, and the\nprojection's membership follows the part.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —\nand what the OPS tag is for — is `ComplianceReporting`: periodic access\nreview, privilege-usage reporting, anomaly detection and regulatory audit\nsupport are processes people run, not code a generator emits.";
+        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** — the\nroutines run *against* the audit log — rather than CodeSpecs-generated\nbehaviour (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not itself a generation projection root.\n\n**The root is not the boundary here.** Its `encryption` child is a pure\nCE-CF band — encryption at rest, encryption in transit and the key lifecycle\nare settings the server reads, and `codespecs_mapping.md` §5.5's substrate\n(`TomBaseServerConfiguration`) names TLS material and signing keys as typed\nfields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`\ndirectly, past this root. Placing it here rather than beside the other SAS\nCE-CF bands is a grouping of subject matter, not a routing verdict, and the\nprojection's membership follows the part.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —\nand what the OPS tag is for — is `ComplianceReporting`: periodic access\nreview, privilege-usage reporting, anomaly detection and regulatory audit\nsupport are processes people run, not code a generator emits.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -81975,7 +81975,7 @@ public final class TomSomV0Meta {
         n.sectionIdPattern = "SAE-AUDI-xxx";
         n.serializationOrder = 8;
         n.contentHelp = "Add one entry per security audit requirement.";
-        n.docComment = "Individual security audit requirement entries — contains 0+× SecurityAudit.";
+        n.docComment = "Individual security audit requirement entries — contains 0+×\nSecurityAudit.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 27001 — internal audit and management review (Clause 9)"), "connotation", "The catalog of individual security audit requirements the system must satisfy.")));
         n.elementNode = metaCx("SecurityAuditEntry", s, SecurityAuditEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("SecurityAuditEntry", SomMetaKind.COMPLEX, "SecurityAuditEntry");
@@ -86220,7 +86220,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "LAMS";
         n.serializationOrder = 1;
         n.docComment = "8.2.1. Layering and Module Structure.";
-        n.classDocComment = "8.2.1. Layering and Module Structure.\n\nSoftware layering (presentation, business logic, data access, infrastructure)\nand module structure (bounded contexts, packages, libraries).";
+        n.classDocComment = "8.2.1. Layering and Module Structure.\n\nSoftware layering (presentation, business logic, data access,\ninfrastructure) and module structure (bounded contexts, packages,\nlibraries).";
         n.recursive = r;
         n.children = c;
         return n;
@@ -89157,7 +89157,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "CRS";
         n.serializationOrder = 1;
         n.docComment = "8.3.1. Compatibility Requirements.";
-        n.classDocComment = "8.3.1. Compatibility Requirements.\n\nCompatibility requirements with existing IT infrastructure, standard software,\nand enterprise systems.";
+        n.classDocComment = "8.3.1. Compatibility Requirements.\n\nCompatibility requirements with existing IT infrastructure, standard\nsoftware, and enterprise systems.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -91695,7 +91695,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "UIM";
         n.serializationOrder = 6;
         n.docComment = "4.1.5. User Interaction Model.";
-        n.classDocComment = "4.1.5. User Interaction Model.\n\nDescribes how different user categories interact with the system including\naccess channels, interaction patterns, access levels, and session management.\nBased on user experience best practices and multi-channel interaction design.";
+        n.classDocComment = "4.1.5. User Interaction Model.\n\nDescribes how different user categories interact with the system including\naccess channels, interaction patterns, access levels, and session\nmanagement. Based on user experience best practices and multi-channel\ninteraction design.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -92716,7 +92716,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SAB";
         n.serializationOrder = 4;
         n.docComment = "4.1.1.3. Stakeholders and Beneficiaries.";
-        n.classDocComment = "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).";
+        n.classDocComment = "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who benefits\nfrom the system and what they gain. The canonical stakeholder register —\nwith role, interest, influence, concerns and engagement strategy — lives in\nSBP.4 ([StakeholderRegisterEntry] list); those attributes are recorded there\nonce and are not restated here (L34C-6 / SR-15).";
         n.recursive = r;
         n.children = c;
         return n;
@@ -93603,7 +93603,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "INDEFL";
         n.serializationOrder = 10;
         n.docComment = "13.7. Initial Development Flow. Covers DRM-IDV.";
-        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".";
+        n.classDocComment = "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".";
         n.detailedIn = "D11DeliveryRoadmap";
         n.recursive = r;
         n.children = c;
@@ -94123,7 +94123,7 @@ public final class TomSomV0Meta {
         n.sectionIdPattern = "RESYDE-DEPE-xxx";
         n.serializationOrder = 8;
         n.contentHelp = "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated.";
-        n.docComment = "Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.";
+        n.docComment = "Contains 0+× ReplacementSystemDependencyEntry — integrations with other\nsystems.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("TOGAF — application portfolio management (integration dependencies)"), "connotation", "Lists integrations and dependencies between this system and others, so replacement sequencing accounts for connected systems.")));
         n.elementNode = metaCx("ReplacementSystemDependencyEntry", s, ReplacementSystemDependencyEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ReplacementSystemDependencyEntry", SomMetaKind.COMPLEX, "ReplacementSystemDependencyEntry");
@@ -94678,7 +94678,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.comment = "Seeds → ISC";
         n.docComment = "CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).";
-        n.classDocComment = "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.";
+        n.classDocComment = "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case\nmodeling.";
         n.mapsTo = "D05InteractionScenarios";
         n.recursive = r;
         n.children = c;
@@ -103606,7 +103606,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "URREG";
         n.serializationOrder = 3;
         n.docComment = "9.1.2.2. Registration Process.";
-        n.classDocComment = "9.1.2.2. Registration Process (form).\n\nDefines how new user accounts are created — self-registration, invitation,\nadmin-provisioned, or bulk import — including identity proofing requirements.";
+        n.classDocComment = "9.1.2.2. Registration Process (form).\n\nDefines how new user accounts are created — self-registration, invitation,\nadmin-provisioned, or bulk import — including identity proofing\nrequirements.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -103639,7 +103639,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "ACDEA";
         n.serializationOrder = 6;
         n.docComment = "9.1.2.5. Account Deactivation.";
-        n.classDocComment = "9.1.2.5. Account Deactivation (form).\n\nDefines temporary or permanent disabling of user accounts — reasons, effects,\nreactivation conditions, and the difference between suspension and deactivation.";
+        n.classDocComment = "9.1.2.5. Account Deactivation (form).\n\nDefines temporary or permanent disabling of user accounts — reasons,\neffects, reactivation conditions, and the difference between suspension and\ndeactivation.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -103661,7 +103661,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "ULTRS";
         n.serializationOrder = 8;
         n.docComment = "9.1.2.7. Lifecycle Transitions and Approvals.";
-        n.classDocComment = "9.1.2.7. Lifecycle Transitions and Approvals (form).\n\nDefines the permissible transitions between lifecycle states, who can trigger\neach transition, and the approval workflow required.";
+        n.classDocComment = "9.1.2.7. Lifecycle Transitions and Approvals (form).\n\nDefines the permissible transitions between lifecycle states, who can\ntrigger each transition, and the approval workflow required.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -104642,8 +104642,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("UtilityNavigationItemEntry", s, UtilityNavigationItemEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("UtilityNavigationItemEntry", SomMetaKind.COMPLEX, "UtilityNavigationItemEntry");
           e.classSectionId = "UTNAIT";
-          e.docComment = "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.";
-          e.classDocComment = "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.";
+          e.docComment = "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications\nbell, help icon, settings.";
+          e.classDocComment = "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications\nbell, help icon, settings.";
           e.recursive = r;
           e.children = c;
           return e;
