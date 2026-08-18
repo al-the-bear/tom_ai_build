@@ -307,9 +307,9 @@ document root.
 
 ## 6. The review vocabulary
 
-Six axes, recorded per structural path. The dialog shows destination, scope,
+Seven axes, recorded per structural path. The dialog shows destination, scope,
 the stop-here / add-details markers, the reviewed checkmark and the free-text
-comment unconditionally; the four axis-specific groups are collapsible.
+comment unconditionally; the five axis-specific groups are collapsible.
 
 | Axis | Records |
 | --- | --- |
@@ -319,8 +319,9 @@ comment unconditionally; the four axis-specific groups are collapsible.
 | **Annotations** | Section id / pattern wrong or colliding, handoff pointing at the wrong target, wrong `@ContentType`, standard references wrong or missing, and the keep-or-drop verdict on an `@Unused` marking |
 | **CodeSpecs mapping** | Should carry a `@CodeSpecKind` and does not; declared kinds wrong or incomplete; the `CodeSpecPart` kinds proposed instead; should not be realised as code at all |
 | **Follow-up mapping** | Should carry a `@FollowUpKind` and does not; declared processes wrong or incomplete; the `FollowUpProcess` codes proposed instead |
+| **No-artifact verdict** | Feeds nothing and should carry `@NoArtifact` but is routed; carries `@NoArtifact` but does feed something; the declared reason is the wrong one; the `NoArtifactReason` proposed instead |
 
-Four decisions shape this vocabulary.
+Six decisions shape this vocabulary.
 
 **Destination is one enum, not two booleans.** The CodeSpecs / follow-up split
 is a choice, and paired flags would admit the meaningless "neither and both".
@@ -332,6 +333,27 @@ Confirming and rejecting are mutually exclusive, enforced by counterpart-clearin
 setters so exclusivity survives a load as well as a click. A file that asserts
 both drops the *confirmation*: confirming authorises a deletion, and an
 ambiguous source must never authorise one.
+
+**Each routing verdict gets its own axis.** Routing is total across three
+verdicts (`codespecs_mapping.md` §8.3), and the tree renders all three, so the
+feedback vocabulary knows three. Folding "produces nothing" into the CodeSpecs
+axis would record *this should not be code* and *this should not exist
+downstream at all* as one finding — which is exactly the distinction a reviewer
+opens the dialog to draw.
+
+**The no-artifact proposal is single-valued, and borrows the model's own
+enum.** The two mapping axes propose *lists* because a section can become
+several parts or feed several processes at once; a section is unrouted for one
+reason, so a set would let a reviewer record a proposal the model cannot
+accept. The vocabulary is `NoArtifactReason` itself rather than a mirrored
+enum — the model already declares it closed at three, so a mirror could only
+ever drift from it. "No proposal" is carried by nullability rather than by an
+extra member, the one place this axis differs from the destination enum, whose
+`unset` member exists because there the vocabulary *is* the reviewer's to
+define. Its two opposing flags — "should be unrouted" against "is unrouted and
+should not be" — stay independent rather than counterpart-clearing: neither
+authorises anything, so a reviewer who ticks both has recorded a muddle worth
+seeing rather than a hazard worth silently resolving.
 
 **Proposed kinds are validated asymmetrically — warn where the vocabulary is
 open, reject where it is closed.** `CodeSpecPart` is a closed catalogue, so an
@@ -358,6 +380,14 @@ are legible while scanning the tree without opening anything.
 `ReviewStore` owns a single YAML file: a `version` stamp and an `entries` map
 keyed by structural path. It writes on every mutation, and drops entries that
 have become empty so an abandoned judgement leaves no residue.
+
+An entry has exactly one writer: `ReviewEntry.toMap` names every persisted
+field, and the store renders that map. Two writers for one schema is one that
+can be forgotten, and a forgotten writer loses a reviewer's judgement in
+silence. The renderer quotes every string unconditionally — closed tokens and
+free text sit side by side in that map, and no rule that inspects the *value*
+can tell a comment reading `true` from a token, so only quoting everything is
+safe by construction.
 
 Reading is deliberately more lenient than writing. An entry rejects a blank
 follow-up code but keeps an unrecognised one; an absent key reads as unset

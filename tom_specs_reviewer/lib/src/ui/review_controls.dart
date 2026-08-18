@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
     show kProjectionExplanation;
+import 'package:tom_specs_core/tom_specs_core.dart' show NoArtifactReason;
 
 import '../model/review_store.dart';
 
@@ -25,6 +26,13 @@ const String kCodeSpecsSectionLabel = 'CodeSpecs mapping';
 /// "Follow-up", and two identical labels in one dialog would name two different
 /// decisions.
 const String kFollowUpSectionLabel = 'Follow-up mapping';
+/// The third routing verdict gets its own group rather than a corner of the
+/// CodeSpecs one. The tree states three verdicts, so the feedback vocabulary
+/// has to know three: folding "produces nothing" into the CodeSpecs axis would
+/// record "this should not be code" and "this should not exist downstream at
+/// all" as the same finding, which is the distinction the reviewer opened the
+/// dialog to make.
+const String kNoArtifactSectionLabel = 'No-artifact verdict';
 
 /// Label of the always-visible destination choice.
 const String kDestinationLabel = 'Destination';
@@ -52,6 +60,21 @@ const String kSuggestedFollowUpKindsLabel = 'Suggested follow-up processes';
 /// they are extending the vocabulary rather than picking from it.
 const String kUnknownFollowUpWarning =
     'Proposes extending the taxonomy — code not in FollowUpProcess';
+
+/// Labels of the three no-artifact judgements and their reason picker.
+///
+/// The first two are opposites — "should be unrouted" against "is unrouted and
+/// should not be" — but stay independent flags rather than the
+/// counterpart-clearing pair used for the `@Unused` verdict. That pair exists
+/// because confirming it authorises a deletion; neither of these authorises
+/// anything, so a reviewer who ticks both has recorded a muddle worth seeing
+/// rather than a hazard worth silently resolving.
+const String kNoArtifactMissingLabel =
+    'Feeds nothing — should carry @NoArtifact';
+const String kNoArtifactWrongLabel =
+    'Declared to feed nothing, but it does';
+const String kNoArtifactReasonWrongLabel = 'Declared reason is the wrong one';
+const String kSuggestedNoArtifactReasonLabel = 'Suggested reason';
 
 /// Labels of the closed-choice judgements (`@OneOf` / `@Case`).
 const String kShouldBeOneOfLabel = 'These siblings are really alternatives';
@@ -222,6 +245,12 @@ class ReviewControls extends StatelessWidget {
     if (entry.suggestedFollowUpKinds.isNotEmpty) {
       parts.add('fu→${entry.suggestedFollowUpKinds.join(",")}');
     }
+    if (entry.noArtifactMissing) parts.add('na?');
+    if (entry.noArtifactWrong) parts.add('na✗');
+    if (entry.noArtifactReasonWrong) parts.add('na-reason✗');
+    if (entry.suggestedNoArtifactReason != null) {
+      parts.add('na→${entry.suggestedNoArtifactReason!.name}');
+    }
     if (entry.comment.trim().isNotEmpty) {
       var c = entry.comment.trim().replaceAll('\n', ' ');
       if (c.length > 60) c = '${c.substring(0, 60)}…';
@@ -290,6 +319,7 @@ class _ReviewDialogState extends State<_ReviewDialog> {
       if (_annotationsCarryFeedback(entry)) kAnnotationsSectionLabel,
       if (_codeSpecsCarryFeedback(entry)) kCodeSpecsSectionLabel,
       if (_followUpCarriesFeedback(entry)) kFollowUpSectionLabel,
+      if (_noArtifactCarriesFeedback(entry)) kNoArtifactSectionLabel,
     };
   }
 
@@ -327,6 +357,12 @@ class _ReviewDialogState extends State<_ReviewDialog> {
       e.followUpKindMissing ||
       e.followUpKindWrong ||
       e.suggestedFollowUpKinds.isNotEmpty;
+
+  static bool _noArtifactCarriesFeedback(ReviewEntry e) =>
+      e.noArtifactMissing ||
+      e.noArtifactWrong ||
+      e.noArtifactReasonWrong ||
+      e.suggestedNoArtifactReason != null;
 
   ReviewEntry get _current =>
       widget.store.entryFor(widget.path) ?? ReviewEntry();
@@ -604,6 +640,51 @@ class _ReviewDialogState extends State<_ReviewDialog> {
     );
   }
 
+  /// The suggested no-artifact reason: a single choice, not a chip multi-select.
+  ///
+  /// The two mapping axes propose *lists* because a section can become several
+  /// parts or feed several processes. This one cannot: a section is unrouted for
+  /// one reason, so offering a set would let a reviewer record a proposal the
+  /// model has no way to accept. `null` is the fourth option rather than an
+  /// absent one — "no proposal" has to be reachable again after a mis-click.
+  Widget _suggestedNoArtifactReason(ReviewEntry entry) {
+    return Column(
+      key: const ValueKey('no-artifact-reason-options'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(kSuggestedNoArtifactReasonLabel,
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+        RadioGroup<NoArtifactReason?>(
+          groupValue: entry.suggestedNoArtifactReason,
+          onChanged: (value) {
+            widget.store
+                .update(widget.path, (e) => e.suggestedNoArtifactReason = value);
+            setState(() {});
+          },
+          child: Wrap(
+            children: [
+              for (final reason in <NoArtifactReason?>[
+                null,
+                ...NoArtifactReason.values,
+              ])
+                SizedBox(
+                  width: 160,
+                  child: RadioListTile<NoArtifactReason?>(
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    value: reason,
+                    title: Text(noArtifactReasonLabel(reason),
+                        style: const TextStyle(fontSize: 13)),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final entry = _current;
@@ -745,6 +826,18 @@ class _ReviewDialogState extends State<_ReviewDialog> {
                     (e, v) => e.followUpKindWrong = v),
                 const SizedBox(height: 6),
                 _suggestedFollowUpKinds(entry),
+              ]),
+              _section(kNoArtifactSectionLabel, [
+                _check(kNoArtifactMissingLabel, entry.noArtifactMissing,
+                    (e, v) => e.noArtifactMissing = v),
+                _check(kNoArtifactWrongLabel, entry.noArtifactWrong,
+                    (e, v) => e.noArtifactWrong = v,
+                    subtitle: 'It carries normative content, or a view a '
+                        'generator would consume'),
+                _check(kNoArtifactReasonWrongLabel, entry.noArtifactReasonWrong,
+                    (e, v) => e.noArtifactReasonWrong = v),
+                const SizedBox(height: 6),
+                _suggestedNoArtifactReason(entry),
               ]),
               const SizedBox(height: 12),
               TextField(

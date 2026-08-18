@@ -1775,6 +1775,107 @@ entries:
     });
   });
 
+  group('No-artifact feedback axis (TSRA9)', () {
+    test('the reason vocabulary is the canonical NoArtifactReason enum', () {
+      // Not a mirrored enum: the model already closes this vocabulary at
+      // three, so a copy could only ever drift from it.
+      expect(NoArtifactReason.values, hasLength(3));
+      for (final reason in NoArtifactReason.values) {
+        expect(parseNoArtifactReason(reason.name), reason);
+      }
+    });
+
+    test('parsing accepts both the bare and the prefixed token form', () {
+      expect(parseNoArtifactReason('container'), NoArtifactReason.container);
+      expect(parseNoArtifactReason('NoArtifactReason.overview'),
+          NoArtifactReason.overview);
+      expect(parseNoArtifactReason('  VIEW  '), NoArtifactReason.view);
+    });
+
+    test('an unreadable reason token degrades to no proposal', () {
+      // Lenient like every other read path: a hand-typed typo costs the one
+      // proposal, never the review file.
+      expect(parseNoArtifactReason('containr'), isNull);
+      expect(parseNoArtifactReason(null), isNull);
+    });
+
+    test('null is the fourth choice, labelled rather than blank', () {
+      expect(noArtifactReasonLabel(null), 'Undecided');
+      for (final reason in NoArtifactReason.values) {
+        expect(noArtifactReasonLabel(reason), isNotEmpty);
+        expect(noArtifactReasonLabel(reason), isNot('Undecided'));
+      }
+    });
+
+    test('every reason round-trips through YAML', () {
+      final file = _tempReviewFile('no_artifact_reason.yaml');
+      for (final reason in NoArtifactReason.values) {
+        if (file.existsSync()) file.deleteSync();
+        ReviewStore(file).update('p', (e) => e.suggestedNoArtifactReason = reason);
+        expect((ReviewStore(file)..load()).entryFor('p')!
+            .suggestedNoArtifactReason, reason);
+      }
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    test('a hand-edited file with a bad reason keeps the rest of the entry',
+        () {
+      final file = _tempReviewFile('no_artifact_badtoken.yaml');
+      file.writeAsStringSync('''
+version: 2
+entries:
+  "DemoDoc/intro":
+    scope: none
+    no_artifact_wrong: true
+    suggested_no_artifact_reason: containr
+''');
+      final entry = (ReviewStore(file)..load()).entryFor('DemoDoc/intro')!;
+      expect(entry.noArtifactWrong, isTrue);
+      expect(entry.suggestedNoArtifactReason, isNull);
+      file.deleteSync();
+    });
+
+    test('the two opposing verdicts stay independent flags', () {
+      // Unlike the @Unused pair, neither authorises a deletion, so a reviewer
+      // who states both has recorded a muddle worth seeing rather than a
+      // hazard worth silently resolving.
+      final entry = ReviewEntry()
+        ..noArtifactMissing = true
+        ..noArtifactWrong = true;
+      expect(entry.noArtifactMissing, isTrue);
+      expect(entry.noArtifactWrong, isTrue);
+    });
+
+    test('clearing the axis again removes the entry', () {
+      final file = _tempReviewFile('no_artifact_cleared.yaml');
+      if (file.existsSync()) file.deleteSync();
+      final store = ReviewStore(file)
+        ..update('p', (e) {
+          e.noArtifactMissing = true;
+          e.suggestedNoArtifactReason = NoArtifactReason.container;
+        });
+      expect(store.count, 1);
+      store.update('p', (e) {
+        e.noArtifactMissing = false;
+        e.suggestedNoArtifactReason = null;
+      });
+      expect(store.count, 0);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    test('a free-text comment that reads as a scalar survives the round-trip',
+        () {
+      // The store emits from one map now, and that map holds closed tokens and
+      // free text side by side. Quoting every string is what keeps `true` a
+      // comment rather than a bool on the way back in.
+      final file = _tempReviewFile('scalar_comment.yaml');
+      if (file.existsSync()) file.deleteSync();
+      ReviewStore(file).update('p', (e) => e.comment = 'true');
+      expect((ReviewStore(file)..load()).entryFor('p')!.comment, 'true');
+      file.deleteSync();
+    });
+  });
+
   group('Structural feedback axes (TSRA7)', () {
     test('every new boolean axis round-trips through YAML', () {
       final file = _tempReviewFile('tsra7_flags.yaml');
@@ -1793,6 +1894,10 @@ entries:
         e.unusedConfirmed = true;
         e.destination = ReviewDestination.both;
         e.suggestedFollowUpKinds = ['doc', 'ops'];
+        e.noArtifactMissing = true;
+        e.noArtifactWrong = true;
+        e.noArtifactReasonWrong = true;
+        e.suggestedNoArtifactReason = NoArtifactReason.overview;
       });
 
       final entry = (ReviewStore(file)..load()).entryFor('DemoDoc/items')!;
@@ -1809,6 +1914,10 @@ entries:
       expect(entry.unusedRejected, isFalse);
       expect(entry.destination, ReviewDestination.both);
       expect(entry.suggestedFollowUpKinds, ['doc', 'ops']);
+      expect(entry.noArtifactMissing, isTrue);
+      expect(entry.noArtifactWrong, isTrue);
+      expect(entry.noArtifactReasonWrong, isTrue);
+      expect(entry.suggestedNoArtifactReason, NoArtifactReason.overview);
       file.deleteSync();
     });
 
@@ -1828,6 +1937,11 @@ entries:
         'unusedRejected': (e) => e.unusedRejected = true,
         'destination': (e) => e.destination = ReviewDestination.neither,
         'suggestedFollowUpKinds': (e) => e.suggestedFollowUpKinds = ['doc'],
+        'noArtifactMissing': (e) => e.noArtifactMissing = true,
+        'noArtifactWrong': (e) => e.noArtifactWrong = true,
+        'noArtifactReasonWrong': (e) => e.noArtifactReasonWrong = true,
+        'suggestedNoArtifactReason': (e) =>
+            e.suggestedNoArtifactReason = NoArtifactReason.view,
       };
       mutations.forEach((name, mutate) {
         if (file.existsSync()) file.deleteSync();
@@ -1869,6 +1983,10 @@ entries:
       expect(entry.idPatternWrong, isFalse);
       expect(entry.unusedConfirmed, isFalse);
       expect(entry.suggestedFollowUpKinds, isEmpty);
+      expect(entry.noArtifactMissing, isFalse);
+      expect(entry.noArtifactWrong, isFalse);
+      expect(entry.noArtifactReasonWrong, isFalse);
+      expect(entry.suggestedNoArtifactReason, isNull);
       file.deleteSync();
     });
   });
@@ -1920,6 +2038,7 @@ entries:
         kAnnotationsSectionLabel,
         kCodeSpecsSectionLabel,
         kFollowUpSectionLabel,
+        kNoArtifactSectionLabel,
       ]) {
         await tester.ensureVisible(find.text(section));
         await tester.pumpAndSettle();
@@ -1940,6 +2059,9 @@ entries:
         // Follow-up.
         kFollowUpKindMissingLabel, kFollowUpKindWrongLabel,
         kSuggestedFollowUpKindsLabel,
+        // No-artifact — the third routing verdict.
+        kNoArtifactMissingLabel, kNoArtifactWrongLabel,
+        kNoArtifactReasonWrongLabel, kSuggestedNoArtifactReasonLabel,
       ]) {
         await tester.ensureVisible(find.text(label));
         expect(find.text(label), findsOneWidget, reason: 'missing: $label');
@@ -1987,6 +2109,52 @@ entries:
       // silently accepting or dropping it.
       await tester.ensureVisible(find.text(kUnknownFollowUpWarning));
       expect(find.text(kUnknownFollowUpWarning), findsOneWidget);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('disagreeing with a @NoArtifact verdict persists it',
+        (tester) async {
+      // The case the axis exists for: the tree shows `na:overview`, and the
+      // reviewer thinks the section carries normative content after all.
+      final file = await pumpDialog(tester, 'no_artifact_persist.yaml');
+      await tester.ensureVisible(find.text(kNoArtifactSectionLabel));
+      await tester.tap(find.text(kNoArtifactSectionLabel));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text(kNoArtifactWrongLabel));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(kNoArtifactWrongLabel));
+      await tester.pumpAndSettle();
+
+      expect((ReviewStore(file)..load()).entryFor('DemoDoc')!.noArtifactWrong,
+          isTrue);
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('the reason picker offers one choice per reason plus undecided',
+        (tester) async {
+      // Scoped to the picker's own group: scope and destination each offer an
+      // "Undecided" too, and all three are legitimately worded that way.
+      final file = await pumpDialog(tester, 'no_artifact_reason_ui.yaml',
+          seed: (e) => e.suggestedNoArtifactReason = NoArtifactReason.view);
+      final group = find.byKey(const ValueKey('no-artifact-reason-options'));
+      expect(group, findsOneWidget);
+      for (final reason in <NoArtifactReason?>[
+        null,
+        ...NoArtifactReason.values,
+      ]) {
+        expect(
+            find.descendant(
+                of: group, matching: find.text(noArtifactReasonLabel(reason))),
+            findsOneWidget);
+      }
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    testWidgets('a recorded reason opens the section expanded', (tester) async {
+      final file = await pumpDialog(tester, 'no_artifact_expanded.yaml',
+          seed: (e) => e.suggestedNoArtifactReason = NoArtifactReason.container);
+      await tester.ensureVisible(find.text(kNoArtifactMissingLabel));
+      expect(find.text(kNoArtifactMissingLabel), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
     });
   });

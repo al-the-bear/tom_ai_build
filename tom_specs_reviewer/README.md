@@ -151,6 +151,13 @@ Per node:
   `FollowUpProcess` codes the reviewer proposes instead. That taxonomy is
   explicitly extensible, so a code outside it is *warned about, not rejected* —
   proposing a process nobody has named yet is a legitimate finding.
+- **No-artifact verdict** — the third routing verdict, with its own group
+  rather than a corner of the CodeSpecs one: whether the node feeds nothing and
+  should carry `@NoArtifact` but is routed anyway, whether it carries
+  `@NoArtifact` but does feed something downstream, whether the declared reason
+  is the wrong one of the three, and which `NoArtifactReason` the reviewer
+  proposes instead. That last is a single choice, not a set — a section becomes
+  several parts or feeds several processes, but it is unrouted for one reason.
 
 The axis-specific groups are collapsible. A group that already holds a
 judgement opens expanded, so recorded feedback is never hidden behind a

@@ -7,10 +7,11 @@ import 'package:yaml/yaml.dart';
 
 /// Schema version written into the review file.
 ///
-/// Version 2 covers the CodeSpecs-mapping, follow-up, destination and
-/// structural feedback axes. Every one of them is purely additive, so a
+/// Version 2 covers the CodeSpecs-mapping, follow-up, no-artifact, destination
+/// and structural feedback axes. Every one of them is purely additive, so a
 /// version-1 file loads unchanged — an in-flight review is never lost to the
-/// bump.
+/// bump. The counter only advances when a change is *not* additive; advancing
+/// it for an addition would cry wolf.
 const int kReviewFileVersion = 2;
 
 /// The canonical CodeSpecs kind vocabulary, as persistence tokens.
@@ -84,6 +85,51 @@ String normalizeFollowUpKindToken(String raw) {
     throw ArgumentError.value(raw, 'kind', 'follow-up code must not be blank');
   }
   return token;
+}
+
+/// Prefix a no-artifact reason may carry when copied from what the tree
+/// renders.
+const String _noArtifactTokenPrefix = 'NoArtifactReason.';
+
+/// Reads a no-artifact reason token, returning `null` for "no proposal".
+///
+/// The vocabulary is [NoArtifactReason] itself rather than a mirrored enum: the
+/// model already declares it closed at three, so mirroring it would only create
+/// something that can drift from it. `null` carries the "undecided" state the
+/// enum has no member for — the same split [ReviewDestination.unset] makes, but
+/// expressed by nullability because here the judgement vocabulary is not the
+/// reviewer's to define.
+///
+/// Lenient, like every other read path: an unrecognised token degrades to "no
+/// proposal" rather than making the file unloadable. Accepts the bare name
+/// (`overview`) and the qualified form the tree renders
+/// (`NoArtifactReason.overview`), because a reviewer hand-editing the file will
+/// copy whichever they saw.
+NoArtifactReason? parseNoArtifactReason(String? raw) {
+  if (raw == null) return null;
+  var token = raw.trim();
+  if (token.startsWith(_noArtifactTokenPrefix)) {
+    token = token.substring(_noArtifactTokenPrefix.length);
+  }
+  token = token.toLowerCase();
+  for (final reason in NoArtifactReason.values) {
+    if (reason.name == token) return reason;
+  }
+  return null;
+}
+
+/// Short human label for [reason], with `null` reading as "no proposal".
+String noArtifactReasonLabel(NoArtifactReason? reason) {
+  switch (reason) {
+    case null:
+      return 'Undecided';
+    case NoArtifactReason.container:
+      return 'Container';
+    case NoArtifactReason.overview:
+      return 'Overview';
+    case NoArtifactReason.view:
+      return 'View';
+  }
 }
 
 /// Where a reviewer thinks a subtree belongs.
@@ -254,6 +300,34 @@ class ReviewEntry {
   /// should be instead goes in [suggestedFollowUpKinds].
   bool followUpKindWrong;
 
+  /// This node produces no downstream artifact and should carry `@NoArtifact`,
+  /// but is routed to CodeSpecs or a follow-up process instead.
+  ///
+  /// The mirror of [codeSpecKindMissing] and [followUpKindMissing] for the
+  /// third routing verdict (`codespecs_mapping.md` §8.3).
+  bool noArtifactMissing;
+
+  /// This node carries `@NoArtifact` but does feed something downstream — the
+  /// verdict itself is wrong, not merely its reason.
+  ///
+  /// Deliberately a plain flag rather than the counterpart-clearing pair used
+  /// for the `@Unused` verdict: neither of these two authorises a deletion, so
+  /// a reviewer who has written both has recorded a muddle worth seeing rather
+  /// than a hazard worth resolving silently.
+  bool noArtifactWrong;
+
+  /// The `@NoArtifact` verdict stands, but its declared reason is the wrong one
+  /// of the three. What it should be goes in [suggestedNoArtifactReason].
+  bool noArtifactReasonWrong;
+
+  /// The `NoArtifactReason` the reviewer proposes for this node, or `null` for
+  /// no proposal.
+  ///
+  /// Single-valued where the other two mapping axes propose lists, because the
+  /// annotation is: a section feeds several parts or several processes at once,
+  /// but it is unrouted for one reason.
+  NoArtifactReason? suggestedNoArtifactReason;
+
   /// These siblings are really alternatives and should be an `@OneOf` set.
   bool shouldBeOneOf;
 
@@ -304,6 +378,10 @@ class ReviewEntry {
     this.destination = ReviewDestination.unset,
     this.followUpKindMissing = false,
     this.followUpKindWrong = false,
+    this.noArtifactMissing = false,
+    this.noArtifactWrong = false,
+    this.noArtifactReasonWrong = false,
+    this.suggestedNoArtifactReason,
     this.shouldBeOneOf = false,
     this.caseSetIncomplete = false,
     this.idPatternWrong = false,
@@ -414,6 +492,10 @@ class ReviewEntry {
       destination == ReviewDestination.unset &&
       !followUpKindMissing &&
       !followUpKindWrong &&
+      !noArtifactMissing &&
+      !noArtifactWrong &&
+      !noArtifactReasonWrong &&
+      suggestedNoArtifactReason == null &&
       !shouldBeOneOf &&
       !caseSetIncomplete &&
       !idPatternWrong &&
@@ -427,6 +509,14 @@ class ReviewEntry {
       _suggestedFollowUpKinds.isEmpty &&
       comment.trim().isEmpty;
 
+  /// The persisted form of this entry — the write counterpart of [fromMap], and
+  /// the single source `ReviewStore` emits from.
+  ///
+  /// Every axis is threaded through exactly one writer, because it was
+  /// previously threaded through two: this map and a hand-written YAML builder
+  /// that repeated the same key list. Two writers for one schema is one that
+  /// can be forgotten, and a forgotten writer loses a reviewer's judgement
+  /// silently.
   Map<String, Object?> toMap() => {
         'scope': scope.token,
         if (stopHere) 'stop_here': true,
@@ -443,6 +533,11 @@ class ReviewEntry {
           'destination': destination.token,
         if (followUpKindMissing) 'follow_up_kind_missing': true,
         if (followUpKindWrong) 'follow_up_kind_wrong': true,
+        if (noArtifactMissing) 'no_artifact_missing': true,
+        if (noArtifactWrong) 'no_artifact_wrong': true,
+        if (noArtifactReasonWrong) 'no_artifact_reason_wrong': true,
+        if (suggestedNoArtifactReason != null)
+          'suggested_no_artifact_reason': suggestedNoArtifactReason!.name,
         if (shouldBeOneOf) 'should_be_one_of': true,
         if (caseSetIncomplete) 'case_set_incomplete': true,
         if (idPatternWrong) 'id_pattern_wrong': true,
@@ -474,6 +569,11 @@ class ReviewEntry {
         destination: ReviewDestination.parse(map['destination'] as String?),
         followUpKindMissing: map['follow_up_kind_missing'] == true,
         followUpKindWrong: map['follow_up_kind_wrong'] == true,
+        noArtifactMissing: map['no_artifact_missing'] == true,
+        noArtifactWrong: map['no_artifact_wrong'] == true,
+        noArtifactReasonWrong: map['no_artifact_reason_wrong'] == true,
+        suggestedNoArtifactReason: parseNoArtifactReason(
+            map['suggested_no_artifact_reason'] as String?),
         shouldBeOneOf: map['should_be_one_of'] == true,
         caseSetIncomplete: map['case_set_incomplete'] == true,
         idPatternWrong: map['id_pattern_wrong'] == true,
@@ -597,70 +697,29 @@ class ReviewStore extends ChangeNotifier {
       buffer.writeln('  {}');
     }
     for (final key in keys) {
-      final entry = _entries[key]!;
       buffer.writeln('  ${_yamlString(key)}:');
-      buffer.writeln('    scope: ${entry.scope.token}');
-      if (entry.stopHere) buffer.writeln('    stop_here: true');
-      if (entry.addDetails) buffer.writeln('    add_details: true');
-      if (entry.mustBeList) buffer.writeln('    must_be_list: true');
-      if (entry.singleEntry) buffer.writeln('    single_entry: true');
-      if (entry.mustBeContentString) {
-        buffer.writeln('    must_be_content_string: true');
-      }
-      if (entry.convertFormToContent) {
-        buffer.writeln('    convert_form_to_content: true');
-      }
-      if (entry.reviewed) buffer.writeln('    reviewed: true');
-      if (entry.codeSpecKindMissing) {
-        buffer.writeln('    code_spec_kind_missing: true');
-      }
-      if (entry.codeSpecKindWrong) {
-        buffer.writeln('    code_spec_kind_wrong: true');
-      }
-      if (entry.notCodeSpecs) buffer.writeln('    not_code_specs: true');
-      if (entry.destination != ReviewDestination.unset) {
-        buffer.writeln('    destination: ${entry.destination.token}');
-      }
-      if (entry.followUpKindMissing) {
-        buffer.writeln('    follow_up_kind_missing: true');
-      }
-      if (entry.followUpKindWrong) {
-        buffer.writeln('    follow_up_kind_wrong: true');
-      }
-      if (entry.shouldBeOneOf) buffer.writeln('    should_be_one_of: true');
-      if (entry.caseSetIncomplete) {
-        buffer.writeln('    case_set_incomplete: true');
-      }
-      if (entry.idPatternWrong) buffer.writeln('    id_pattern_wrong: true');
-      if (entry.handoffWrong) buffer.writeln('    handoff_wrong: true');
-      if (entry.contentTypeWrong) {
-        buffer.writeln('    content_type_wrong: true');
-      }
-      if (entry.standardRefWrong) {
-        buffer.writeln('    standard_ref_wrong: true');
-      }
-      if (entry.standardRefMissing) {
-        buffer.writeln('    standard_ref_missing: true');
-      }
-      if (entry.unusedConfirmed) buffer.writeln('    unused_confirmed: true');
-      if (entry.unusedRejected) buffer.writeln('    unused_rejected: true');
-      if (entry.suggestedCodeSpecKinds.isNotEmpty) {
-        final kinds =
-            entry.suggestedCodeSpecKinds.map(_yamlString).join(', ');
-        buffer.writeln('    suggested_code_spec_kinds: [$kinds]');
-      }
-      if (entry.suggestedFollowUpKinds.isNotEmpty) {
-        final kinds =
-            entry.suggestedFollowUpKinds.map(_yamlString).join(', ');
-        buffer.writeln('    suggested_follow_up_kinds: [$kinds]');
-      }
-      if (entry.comment.trim().isNotEmpty) {
-        buffer.writeln('    comment: ${_yamlString(entry.comment.trim())}');
-      }
+      _entries[key]!.toMap().forEach((field, value) {
+        buffer.writeln('    $field: ${_yamlValue(value)}');
+      });
     }
 
     file.parent.createSync(recursive: true);
     file.writeAsStringSync(buffer.toString());
+  }
+
+  /// Renders one [ReviewEntry.toMap] value as a YAML scalar or flow sequence.
+  ///
+  /// Strings are quoted unconditionally — including the closed tokens, which
+  /// would survive bare. A free-text comment reading `true` or `12` must not
+  /// come back off disk as a bool or an int, and no rule that inspects the
+  /// *value* can tell that comment from a token; only a rule that quotes every
+  /// string is safe by construction.
+  String _yamlValue(Object? value) {
+    if (value is String) return _yamlString(value);
+    if (value is List) {
+      return '[${value.map((e) => _yamlString(e.toString())).join(', ')}]';
+    }
+    return '$value';
   }
 
   /// Double-quotes and escapes a string for safe YAML emission.
