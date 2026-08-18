@@ -27,7 +27,7 @@ codecs rely on it).
 | `spec_text_pattern.cpp` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`std::regex` is a different grammar with locale-sensitive folding). |
 | `spec_query.cpp` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.cpp` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator::add`) — a document may only grow in ways the model permits. |
-| `spec_codespecs_extract.cpp` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`, `CodeSpecsExtract`) — routes annotated nodes to areas and emits the byte-stable per-area YAML/Markdown extracts. |
+| `spec_codespecs_extract.cpp` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`, `CodeSpecsExtract`) — routes annotated nodes to areas and emits the byte-stable per-area YAML/Markdown extracts. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
 | `spec_document_yaml.cpp` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.cpp` | Meta-data-driven Markdown import/export codec (SOM §8 DocScanner route). |
 | `som_facade.cpp` | Editing-facade base types (`SomNode`, `SomList`, `joinPath`, `checkSomModelVersion`) for the generated `tom_som_cpp_v0`. |

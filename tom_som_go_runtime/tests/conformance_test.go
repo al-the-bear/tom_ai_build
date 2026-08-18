@@ -1387,6 +1387,27 @@ type codeSpecsExtractTable struct {
 	Routings   json.RawMessage        `json:"routings"`
 	Extracts   []codeSpecsExtractWant `json:"extracts"`
 	ErrorCases []codeSpecsErrorCase   `json:"errorCases"`
+	RootCases  []codeSpecsRootCase    `json:"rootCases"`
+}
+
+// codeSpecsRootCase is one row of the `rootCases` table — the root-scoping
+// contract of `codespecs_prompt.md` §5. RootType is absent when the case leaves
+// the root to the default, which in Go is the same empty string.
+type codeSpecsRootCase struct {
+	Name     string           `json:"name"`
+	Model    json.RawMessage  `json:"model"`
+	State    som.DocumentJson `json:"state"`
+	RootType string           `json:"rootType"`
+	Expect   struct {
+		Fails           bool     `json:"fails"`
+		Root            string   `json:"root"`
+		DocumentRoot    string   `json:"documentRoot"`
+		RoutingVerdicts []string `json:"routingVerdicts"`
+		Paths           []string `json:"paths"`
+		Path            string   `json:"path"`
+		ClassName       string   `json:"className"`
+		MessageContains string   `json:"messageContains"`
+	} `json:"expect"`
 }
 
 type codeSpecsExtractWant struct {
@@ -1426,7 +1447,10 @@ func testCodeSpecsExtract(c *checker, t *testing.T, model *som.SpecModel) {
 	if err != nil {
 		t.Fatalf("load codespecs catalog: %v", err)
 	}
-	extractor := som.NewCodeSpecsExtractor(model, freshDoc(t), catalog)
+	extractor, err := som.NewCodeSpecsExtractor(model, freshDoc(t), catalog, "")
+	if err != nil {
+		t.Fatalf("bind codespecs extractor: %v", err)
+	}
 
 	// 1. The verdicts reproduce the committed diagnostic.
 	gotRoutings := []map[string]any{}
@@ -1559,7 +1583,11 @@ func testCodeSpecsExtract(c *checker, t *testing.T, model *som.SpecModel) {
 			continue
 		}
 		state := cc.State
-		errExtractor := som.NewCodeSpecsExtractor(errModel, docFromState(&state), catalog)
+		errExtractor, err := som.NewCodeSpecsExtractor(errModel, docFromState(&state), catalog, "")
+		if err != nil {
+			c.check(tag+".bind", false, err.Error())
+			continue
+		}
 
 		_, err = errExtractor.ExtractAll()
 		var bad *som.CodeSpecsExtractError
@@ -1582,6 +1610,60 @@ func testCodeSpecsExtract(c *checker, t *testing.T, model *som.SpecModel) {
 		}
 		c.check(tag+".routing",
 			sliceEq(verdicts, []string{cc.Expect.RoutingVerdict}), join(verdicts))
+	}
+
+	// 6. Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root.
+	//    The models here carry two, because over a single-root model "walks the
+	//    named root" and "walks every root" give the same answer.
+	for _, rc := range table.RootCases {
+		tag := "codespecs.root[" + rc.Name + "]"
+		rootModel, err := som.SpecModelFromJSON(rc.Model)
+		if err != nil {
+			c.check(tag+".model", false, err.Error())
+			continue
+		}
+		state := rc.State
+		x, err := som.NewCodeSpecsExtractor(rootModel, docFromState(&state), catalog, rc.RootType)
+		if rc.Expect.Fails {
+			var bad *som.CodeSpecsExtractError
+			if !errors.As(err, &bad) {
+				c.check(tag+".thrown", false, "expected a CodeSpecsExtractError, got "+errString(err))
+				continue
+			}
+			c.check(tag+".path", bad.Path == rc.Expect.Path, bad.Path)
+			c.check(tag+".className", bad.ClassName == rc.Expect.ClassName, bad.ClassName)
+			c.check(tag+".message", strings.Contains(bad.Message, rc.Expect.MessageContains),
+				bad.Message)
+			continue
+		}
+		if err != nil {
+			c.check(tag+".bind", false, err.Error())
+			continue
+		}
+		c.check(tag+".root", x.Root.Type == rc.Expect.Root, x.Root.Type)
+		// Routings and ExtractAll walk the same resolved root, so the verdict
+		// sequence is scoped too — that is what makes the bare @Document root
+		// of case 2 the corpus's documentRoot producer.
+		rootVerdicts := []string{}
+		for _, r := range x.Routings() {
+			rootVerdicts = append(rootVerdicts, r.Verdict)
+		}
+		c.check(tag+".routingVerdicts",
+			sliceEq(rootVerdicts, rc.Expect.RoutingVerdicts), join(rootVerdicts))
+		rootExtracts, err := x.ExtractAll()
+		if err != nil {
+			c.check(tag+".extractAll", false, err.Error())
+			continue
+		}
+		c.check(tag+".documentRoot", rootExtracts[0].DocumentRoot == rc.Expect.DocumentRoot,
+			rootExtracts[0].DocumentRoot)
+		paths := []string{}
+		for _, g := range rootExtracts {
+			for _, e := range g.Entries {
+				paths = append(paths, e.Path)
+			}
+		}
+		c.check(tag+".paths", sliceEq(paths, rc.Expect.Paths), join(paths))
 	}
 }
 

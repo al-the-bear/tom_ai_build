@@ -162,6 +162,143 @@ void main() {
     });
   });
 
+  group('CodeSpecsExtractor root scoping', () {
+    // A Phase-4 run extracts from *one* specification document, so the walk has
+    // exactly one root. Walking every `@Document` root unions fourteen
+    // unrelated path spaces; naming a projection root that the document never
+    // populates yields every area empty and says nothing. Both are reachable
+    // only by getting the root wrong, so the root is resolved once, in the
+    // constructor, and both accessors share it.
+
+    test('walks the resolved root only, never the union of every root', () {
+      final document = _document();
+      document.setContent('LDG/NTE', 'Ledger note');
+      final extractor = CodeSpecsExtractor(
+        model: _twoRootModel(),
+        document: document,
+        catalog: _catalog(),
+        rootType: 'Order',
+      );
+      final paths = [
+        for (final x in extractor.extractAll()) ...x.entries.map((e) => e.path),
+      ];
+      expect(paths, isNot(contains('LDG/NTE')));
+      expect(paths, contains('ORD/TTL'));
+      expect(extractor.routings().map((r) => r.className),
+          isNot(contains('Ledger')));
+    });
+
+    test('reports the resolved root as the extract document root', () {
+      final document = SpecDocument()..setContent('LDG/NTE', 'Ledger note');
+      final extractor = CodeSpecsExtractor(
+        model: _twoRootModel(),
+        document: document,
+        catalog: _catalog(),
+      );
+      expect(extractor.root.type, 'Ledger');
+      expect(extractor.extractAll().first.documentRoot, 'LDG');
+      expect(
+        extractor.extractFor('CE-TX')!.entries.single.value,
+        'Ledger note',
+      );
+    });
+
+    test('defaults to the one populated root when none is named', () {
+      final extractor = CodeSpecsExtractor(
+        model: _twoRootModel(),
+        document: _document(),
+        catalog: _catalog(),
+      );
+      expect(extractor.root.type, 'Order');
+    });
+
+    test('accepts the root section id as well as its type name', () {
+      final extractor = CodeSpecsExtractor(
+        model: _twoRootModel(),
+        document: _document(),
+        catalog: _catalog(),
+        rootType: 'ORD',
+      );
+      expect(extractor.root.type, 'Order');
+    });
+
+    test('rejects a named root the document never populates', () {
+      // The `D13CodeSpecsProjection` failure: its path space is `CGP/…` while
+      // the document's values sit under `SBP/…`, so every area comes out empty
+      // and nothing complains. Here it complains.
+      expect(
+        () => CodeSpecsExtractor(
+          model: _twoRootModel(),
+          document: _document(),
+          catalog: _catalog(),
+          rootType: 'Ledger',
+        ),
+        throwsA(isA<CodeSpecsExtractError>()
+            .having((e) => e.className, 'className', 'Ledger')
+            .having((e) => e.path, 'path', 'LDG')
+            .having((e) => e.message, 'message', contains('holds no value'))
+            .having((e) => e.message, 'message', contains('Order'))),
+      );
+    });
+
+    test('rejects an ambiguous document, naming the roots it found', () {
+      final document = _document()..setContent('LDG/NTE', 'Ledger note');
+      expect(
+        () => CodeSpecsExtractor(
+          model: _twoRootModel(),
+          document: document,
+          catalog: _catalog(),
+        ),
+        throwsA(isA<CodeSpecsExtractError>()
+            .having((e) => e.message, 'message', contains('Order, Ledger'))
+            .having((e) => e.message, 'message', contains('rootType'))),
+      );
+    });
+
+    test('rejects a root type the model does not have', () {
+      expect(
+        () => CodeSpecsExtractor(
+          model: _twoRootModel(),
+          document: _document(),
+          catalog: _catalog(),
+          rootType: 'Nope',
+        ),
+        throwsA(isA<CodeSpecsExtractError>()
+            .having((e) => e.message, 'message', contains('no document root'))
+            .having((e) => e.message, 'message', contains('Order, Ledger'))),
+      );
+    });
+
+    test('resolves the single root of an unpopulated single-root model', () {
+      // The walk is a property of the *model*, not of what happens to be
+      // filled in: an empty document must still reach ROUTE-TOTAL rather than
+      // failing earlier on root resolution.
+      final extractor = CodeSpecsExtractor(
+        model: _model(unroutedRegistry: true),
+        document: SpecDocument(),
+        catalog: _catalog(),
+      );
+      expect(extractor.root.type, 'Order');
+      expect(
+        () => extractor.extractAll(),
+        throwsA(isA<CodeSpecsExtractError>()
+            .having((e) => e.message, 'message', contains('ROUTE-TOTAL'))),
+      );
+    });
+
+    test('rejects an unpopulated multi-root document', () {
+      expect(
+        () => CodeSpecsExtractor(
+          model: _twoRootModel(),
+          document: SpecDocument(),
+          catalog: _catalog(),
+        ),
+        throwsA(isA<CodeSpecsExtractError>().having(
+            (e) => e.message, 'message', contains('no populated root'))),
+      );
+    });
+  });
+
   group('CodeSpecsExtract emission', () {
     test('YAML carries the area context and every entry', () {
       final yaml = _extractor().extractFor('CE-FM')!.toYaml();
@@ -325,6 +462,31 @@ SpecModel _model({bool unroutedRegistry = false}) => SpecModel(
                 name: 'plan', kind: SpecFieldKind.content, sectionId: 'PLN'),
             SpecField(
                 name: 'owner', kind: SpecFieldKind.content, sectionId: 'OWN'),
+          ],
+        ),
+      },
+    );
+
+/// [_model] plus a second `@Document` root, so "which root does the walk
+/// start from" has an answer that can be wrong.
+SpecModel _twoRootModel() => SpecModel(
+      roots: [
+        SpecRoot(type: 'Order', title: 'Order', sectionId: 'ORD'),
+        SpecRoot(type: 'Ledger', title: 'Ledger', sectionId: 'LDG'),
+      ],
+      classes: {
+        ..._model().classes,
+        'Ledger': SpecClass(
+          name: 'Ledger',
+          sectionId: 'LDG',
+          annotations: [
+            const SpecAnnotation(
+                name: 'Document', arguments: {'title': 'Ledger'}),
+            _kind(['text']),
+          ],
+          fields: [
+            SpecField(
+                name: 'note', kind: SpecFieldKind.content, sectionId: 'NTE'),
           ],
         ),
       },

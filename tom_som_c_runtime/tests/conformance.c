@@ -1895,7 +1895,8 @@ static void test_codespecs_extract(Checker *c, const SpecModel *model) {
   CodeSpecsAreaCatalog catalog;
   spec_codespecs_area_catalog_from_json(som_json_get(table, "catalog"),
                                         &catalog);
-  CodeSpecsExtractor ex = spec_codespecs_extractor_make(model, &doc, &catalog);
+  CodeSpecsExtractor ex =
+      spec_codespecs_extractor_make(model, &doc, &catalog, NULL, NULL);
 
   /* 1. the routing verdicts reproduce the committed diagnostic. */
   const SomJson *want_routings = som_json_get(table, "routings");
@@ -2135,7 +2136,7 @@ static void test_codespecs_extract(Checker *c, const SpecModel *model) {
     doc_from_state(&err_doc, &err_state);
     document_json_free(&err_state);
     CodeSpecsExtractor err_ex =
-        spec_codespecs_extractor_make(err_model, &err_doc, &catalog);
+        spec_codespecs_extractor_make(err_model, &err_doc, &catalog, NULL, NULL);
 
     CodeSpecsExtractList out;
     CodeSpecsExtractError got;
@@ -2182,6 +2183,129 @@ static void test_codespecs_extract(Checker *c, const SpecModel *model) {
 
     spec_document_free(&err_doc);
     spec_model_free(err_model);
+  }
+
+  /* 6. Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root.
+   * The models here carry two, because over a single-root model "walks the
+   * named root" and "walks every root" give the same answer. */
+  const SomJson *root_cases = som_json_get(table, "rootCases");
+  for (size_t i = 0; i < som_json_array_len(root_cases); i++) {
+    const SomJson *rc = som_json_array_at(root_cases, i);
+    const SomJson *want = som_json_get(rc, "expect");
+    char tag[512], t[640];
+    snprintf(tag, sizeof(tag), "codespecs.root[%s]",
+             som_json_str_or(rc, "name"));
+
+    SpecModel *rc_model = spec_model_from_json(som_json_get(rc, "model"));
+    snprintf(t, sizeof(t), "%s.model", tag);
+    check(c, t, rc_model != NULL, "model did not load");
+    if (rc_model == NULL) {
+      continue;
+    }
+    SpecDocument rc_doc;
+    DocumentJson rc_state;
+    document_json_from_json(som_json_get(rc, "state"), &rc_state);
+    doc_from_state(&rc_doc, &rc_state);
+    document_json_free(&rc_state);
+
+    const SomJson *root_type_json = som_json_get(rc, "rootType");
+    const char *root_type = som_json_as_str(root_type_json);
+    CodeSpecsExtractError made;
+    CodeSpecsExtractor rc_ex = spec_codespecs_extractor_make(
+        rc_model, &rc_doc, &catalog, root_type, &made);
+
+    if (som_json_bool_or(want, "fails")) {
+      snprintf(t, sizeof(t), "%s.fails", tag);
+      check(c, t, made.failed && rc_ex.root == NULL,
+            made.failed ? "root resolved anyway" : "no error");
+      if (made.failed) {
+        snprintf(t, sizeof(t), "%s.path", tag);
+        check(c, t, strcmp(made.path, som_json_str_or(want, "path")) == 0,
+              made.path);
+        snprintf(t, sizeof(t), "%s.className", tag);
+        check(c, t,
+              strcmp(made.class_name, som_json_str_or(want, "className")) == 0,
+              made.class_name);
+        snprintf(t, sizeof(t), "%s.message", tag);
+        check(c, t,
+              strstr(made.message, som_json_str_or(want, "messageContains")) !=
+                  NULL,
+              made.message);
+      }
+      spec_codespecs_extract_error_free(&made);
+      spec_document_free(&rc_doc);
+      spec_model_free(rc_model);
+      continue;
+    }
+
+    snprintf(t, sizeof(t), "%s.root", tag);
+    check(c, t,
+          rc_ex.root != NULL &&
+              strcmp(rc_ex.root->type, som_json_str_or(want, "root")) == 0,
+          rc_ex.root == NULL ? "(unresolved)" : rc_ex.root->type);
+
+    /* `routings` and `extract_all` walk the same resolved root, so the verdict
+     * sequence is scoped too — that is what makes the bare `@Document` root of
+     * case 2 the corpus's `documentRoot` producer. */
+    CodeSpecsRoutingList rc_routings;
+    spec_codespecs_extractor_routings(&rc_ex, &rc_routings);
+    SomStrList got_verdicts, want_verdicts;
+    som_strlist_init(&got_verdicts);
+    for (size_t k = 0; k < rc_routings.len; k++) {
+      som_strlist_push_copy(&got_verdicts,
+                            spec_codespecs_verdict_name(
+                                rc_routings.items[k].verdict));
+    }
+    json_str_list(som_json_get(want, "routingVerdicts"), &want_verdicts);
+    {
+      char *gv = som_strlist_join(&got_verdicts, " ~ ");
+      char *wv = som_strlist_join(&want_verdicts, " ~ ");
+      snprintf(t, sizeof(t), "%s.routingVerdicts", tag);
+      check(c, t, strcmp(gv, wv) == 0, gv);
+      free(gv);
+      free(wv);
+    }
+    som_strlist_free(&got_verdicts);
+    som_strlist_free(&want_verdicts);
+    spec_codespecs_routing_list_free(&rc_routings);
+
+    CodeSpecsExtractList rc_out;
+    CodeSpecsExtractError rc_err;
+    spec_codespecs_extract_error_init(&rc_err);
+    int rc_ok = spec_codespecs_extractor_extract_all(&rc_ex, &rc_out, &rc_err);
+    snprintf(t, sizeof(t), "%s.extracts", tag);
+    check(c, t, rc_ok && rc_out.len > 0,
+          rc_ok ? "no extract" : rc_err.message);
+    if (rc_ok && rc_out.len > 0) {
+      snprintf(t, sizeof(t), "%s.documentRoot", tag);
+      check(c, t,
+            strcmp(rc_out.items[0].document_root,
+                   som_json_str_or(want, "documentRoot")) == 0,
+            rc_out.items[0].document_root);
+
+      SomStrList got_paths;
+      som_strlist_init(&got_paths);
+      for (size_t k = 0; k < rc_out.len; k++) {
+        for (size_t p = 0; p < rc_out.items[k].entries_len; p++) {
+          som_strlist_push_copy(&got_paths, rc_out.items[k].entries[p].path);
+        }
+      }
+      SomStrList want_paths;
+      json_str_list(som_json_get(want, "paths"), &want_paths);
+      char *gj = som_strlist_join(&got_paths, " ~ ");
+      char *wj = som_strlist_join(&want_paths, " ~ ");
+      snprintf(t, sizeof(t), "%s.paths", tag);
+      check(c, t, strcmp(gj, wj) == 0, gj);
+      free(gj);
+      free(wj);
+      som_strlist_free(&got_paths);
+      som_strlist_free(&want_paths);
+    }
+    spec_codespecs_extract_error_free(&rc_err);
+    spec_codespecs_extract_list_free(&rc_out);
+    spec_codespecs_extract_error_free(&made);
+    spec_document_free(&rc_doc);
+    spec_model_free(rc_model);
   }
 
   spec_codespecs_area_catalog_free(&catalog);

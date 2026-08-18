@@ -308,14 +308,6 @@
       ],
       "note": null,
       "declaredAt": "ChoicePart"
-    },
-    {
-      "path": "SIDE",
-      "className": "Sidecar",
-      "verdict": "documentRoot",
-      "values": [],
-      "note": null,
-      "declaredAt": ""
     }
   ],
   "extracts": [
@@ -817,6 +809,630 @@
         "className": "Orphan",
         "messageContains": "ROUTE-TOTAL",
         "routingVerdict": "unrouted"
+      }
+    }
+  ],
+  "rootCases": [
+    {
+      "name": "an explicit root scopes the walk to that root alone",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "roots": [
+          {
+            "type": "Alpha",
+            "title": "Alpha",
+            "sectionId": "ALP"
+          },
+          {
+            "type": "Beta",
+            "title": "Beta",
+            "sectionId": "BET"
+          }
+        ],
+        "classes": {
+          "Alpha": {
+            "name": "Alpha",
+            "sectionId": "ALP",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Alpha"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.form"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "title",
+                "kind": "content",
+                "sectionId": "TTL"
+              }
+            ]
+          },
+          "Beta": {
+            "name": "Beta",
+            "sectionId": "BET",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Beta"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          },
+          "BetaNotes": {
+            "name": "BetaNotes",
+            "sectionId": "NTS",
+            "annotations": [
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.text"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "note",
+                "kind": "content",
+                "sectionId": "NTE"
+              }
+            ]
+          }
+        }
+      },
+      "state": {
+        "content": {
+          "ALP/TTL": "Alpha title",
+          "BET/NTS/NTE": "Beta note"
+        }
+      },
+      "rootType": "Alpha",
+      "expect": {
+        "fails": false,
+        "root": "Alpha",
+        "documentRoot": "ALP",
+        "paths": [
+          "ALP/TTL"
+        ],
+        "routingVerdicts": [
+          "feedsCode"
+        ]
+      }
+    },
+    {
+      "name": "the root defaults to the one the document populates",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "roots": [
+          {
+            "type": "Alpha",
+            "title": "Alpha",
+            "sectionId": "ALP"
+          },
+          {
+            "type": "Beta",
+            "title": "Beta",
+            "sectionId": "BET"
+          }
+        ],
+        "classes": {
+          "Alpha": {
+            "name": "Alpha",
+            "sectionId": "ALP",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Alpha"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.form"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "title",
+                "kind": "content",
+                "sectionId": "TTL"
+              }
+            ]
+          },
+          "Beta": {
+            "name": "Beta",
+            "sectionId": "BET",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Beta"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          },
+          "BetaNotes": {
+            "name": "BetaNotes",
+            "sectionId": "NTS",
+            "annotations": [
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.text"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "note",
+                "kind": "content",
+                "sectionId": "NTE"
+              }
+            ]
+          }
+        }
+      },
+      "state": {
+        "content": {
+          "BET/NTS/NTE": "Beta note"
+        }
+      },
+      "expect": {
+        "fails": false,
+        "root": "Beta",
+        "documentRoot": "BET",
+        "paths": [
+          "BET/NTS/NTE"
+        ],
+        "routingVerdicts": [
+          "documentRoot",
+          "feedsCode"
+        ]
+      }
+    },
+    {
+      "name": "a section id names its root as well as the type does",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "roots": [
+          {
+            "type": "Alpha",
+            "title": "Alpha",
+            "sectionId": "ALP"
+          },
+          {
+            "type": "Beta",
+            "title": "Beta",
+            "sectionId": "BET"
+          }
+        ],
+        "classes": {
+          "Alpha": {
+            "name": "Alpha",
+            "sectionId": "ALP",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Alpha"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.form"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "title",
+                "kind": "content",
+                "sectionId": "TTL"
+              }
+            ]
+          },
+          "Beta": {
+            "name": "Beta",
+            "sectionId": "BET",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Beta"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          },
+          "BetaNotes": {
+            "name": "BetaNotes",
+            "sectionId": "NTS",
+            "annotations": [
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.text"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "note",
+                "kind": "content",
+                "sectionId": "NTE"
+              }
+            ]
+          }
+        }
+      },
+      "state": {
+        "content": {
+          "ALP/TTL": "Alpha title"
+        }
+      },
+      "rootType": "ALP",
+      "expect": {
+        "fails": false,
+        "root": "Alpha",
+        "documentRoot": "ALP",
+        "paths": [
+          "ALP/TTL"
+        ],
+        "routingVerdicts": [
+          "feedsCode"
+        ]
+      }
+    },
+    {
+      "name": "naming a root the document never populates is an error",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "roots": [
+          {
+            "type": "Alpha",
+            "title": "Alpha",
+            "sectionId": "ALP"
+          },
+          {
+            "type": "Beta",
+            "title": "Beta",
+            "sectionId": "BET"
+          }
+        ],
+        "classes": {
+          "Alpha": {
+            "name": "Alpha",
+            "sectionId": "ALP",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Alpha"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.form"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "title",
+                "kind": "content",
+                "sectionId": "TTL"
+              }
+            ]
+          },
+          "Beta": {
+            "name": "Beta",
+            "sectionId": "BET",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Beta"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          },
+          "BetaNotes": {
+            "name": "BetaNotes",
+            "sectionId": "NTS",
+            "annotations": [
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.text"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "note",
+                "kind": "content",
+                "sectionId": "NTE"
+              }
+            ]
+          }
+        }
+      },
+      "state": {
+        "content": {
+          "ALP/TTL": "Alpha title"
+        }
+      },
+      "rootType": "Beta",
+      "expect": {
+        "fails": true,
+        "path": "BET",
+        "className": "Beta",
+        "messageContains": "holds no value"
+      }
+    },
+    {
+      "name": "a document populating more than one root is an error",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "roots": [
+          {
+            "type": "Alpha",
+            "title": "Alpha",
+            "sectionId": "ALP"
+          },
+          {
+            "type": "Beta",
+            "title": "Beta",
+            "sectionId": "BET"
+          }
+        ],
+        "classes": {
+          "Alpha": {
+            "name": "Alpha",
+            "sectionId": "ALP",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Alpha"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.form"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "title",
+                "kind": "content",
+                "sectionId": "TTL"
+              }
+            ]
+          },
+          "Beta": {
+            "name": "Beta",
+            "sectionId": "BET",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Beta"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          },
+          "BetaNotes": {
+            "name": "BetaNotes",
+            "sectionId": "NTS",
+            "annotations": [
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.text"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "note",
+                "kind": "content",
+                "sectionId": "NTE"
+              }
+            ]
+          }
+        }
+      },
+      "state": {
+        "content": {
+          "ALP/TTL": "Alpha title",
+          "BET/NTS/NTE": "Beta note"
+        }
+      },
+      "expect": {
+        "fails": true,
+        "path": "",
+        "className": "",
+        "messageContains": "populated roots"
+      }
+    },
+    {
+      "name": "a root the model does not have is an error",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "roots": [
+          {
+            "type": "Alpha",
+            "title": "Alpha",
+            "sectionId": "ALP"
+          },
+          {
+            "type": "Beta",
+            "title": "Beta",
+            "sectionId": "BET"
+          }
+        ],
+        "classes": {
+          "Alpha": {
+            "name": "Alpha",
+            "sectionId": "ALP",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Alpha"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.form"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "title",
+                "kind": "content",
+                "sectionId": "TTL"
+              }
+            ]
+          },
+          "Beta": {
+            "name": "Beta",
+            "sectionId": "BET",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Beta"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          },
+          "BetaNotes": {
+            "name": "BetaNotes",
+            "sectionId": "NTS",
+            "annotations": [
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.text"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "note",
+                "kind": "content",
+                "sectionId": "NTE"
+              }
+            ]
+          }
+        }
+      },
+      "state": {
+        "content": {
+          "ALP/TTL": "Alpha title"
+        }
+      },
+      "rootType": "Gamma",
+      "expect": {
+        "fails": true,
+        "path": "",
+        "className": "Gamma",
+        "messageContains": "no document root"
       }
     }
   ]

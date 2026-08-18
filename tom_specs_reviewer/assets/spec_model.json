@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T08:01:42.318765Z",
+  "generatedAt": "2026-08-18T22:14:34.435511Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
@@ -141,6 +141,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -254,6 +263,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -756,6 +774,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -2698,6 +2725,15 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under ExperienceDesignFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -4019,7 +4055,7 @@
     "AccountDeactivationPolicy": {
       "name": "AccountDeactivationPolicy",
       "sectionId": "ACDEA",
-      "doc": "9.1.2.5. Account Deactivation (form).\n\nDefines temporary or permanent disabling of user accounts — reasons, effects,\nreactivation conditions, and the difference between suspension and deactivation.",
+      "doc": "9.1.2.5. Account Deactivation (form).\n\nDefines temporary or permanent disabling of user accounts — reasons,\neffects, reactivation conditions, and the difference between suspension and\ndeactivation.",
       "standardReferences": {
         "standards": [
           "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
@@ -9197,6 +9233,16 @@
               "hint": "The observable outcome after the step",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "serverOperation",
+              "label": "Server Operation",
+              "hint": "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             }
           ]
         },
@@ -13591,7 +13637,7 @@
     "ArchitectureStyle": {
       "name": "ArchitectureStyle",
       "sectionId": "AS",
-      "doc": "8.1.2. Architecture Style.\n\nTarget architecture style specification: monolith, modular monolith,\nmicroservices, event-driven, serverless, or hybrid. Includes justification\nbased on project requirements, architectural principles, and design decisions.",
+      "doc": "8.1.2. Architecture Style.\n\nTarget architecture style specification: monolith, modular monolith,\nmicroservices, event-driven, serverless, or hybrid. Includes justification\nbased on project requirements, architectural principles, and design\ndecisions.",
       "help": "Define the system's architectural style and structural organization.\nArchitecture decisions have long-lasting impacts on maintainability,\nscalability, team structure, and operational complexity.\n\n**Architectural Styles**:\n- **Monolith**: Single deployable unit; simple operations, harder to scale\n  teams; suitable for small-medium applications\n- **Modular Monolith**: Monolith with internal module boundaries; clean\n  architecture within single deployment; migration path to microservices\n- **Microservices**: Independent services; team autonomy, operational\n  complexity; requires mature DevOps practices\n- **Event-Driven**: Loosely coupled via events; async communication,\n  eventual consistency; CQRS/Event Sourcing patterns\n- **Serverless**: FaaS (Functions as a Service); auto-scaling, cold starts,\n  vendor lock-in considerations\n- **Hybrid**: Combination of styles for different system parts\n\n**Architecture Artifacts**:\n- Component diagrams (C4 model: Context, Container, Component, Code)\n- Data flow diagrams and integration maps\n- Deployment topology and infrastructure architecture\n- Architecture Decision Records (ADRs)\n- Quality attribute scenarios (performance, security, availability)\n\n**Reference**: ISO/IEC 42010, TOGAF ADM, arc42 template, C4 model.\n",
       "standardReferences": {
         "standards": [
@@ -20652,7 +20698,7 @@
     "BatchJobManagement": {
       "name": "BatchJobManagement",
       "sectionId": "BAJOMA",
-      "doc": "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here applies\nto every job that does not override it, and an entry that does override it\nsays so in its own failure-policy subsection.",
+      "doc": "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here\napplies to every job that does not override it, and an entry that does\noverride it says so in its own failure-policy subsection.",
       "standardReferences": {
         "standards": [
           "Google SRE — eliminating toil and operational procedures",
@@ -20726,7 +20772,7 @@
         {
           "name": "workloadShape",
           "kind": "content",
-          "doc": "Workload shape — orientation above the job list, deliberately narrative.\n\nWhat kind of batch surface this system has, in prose: mostly a nightly\nfinancial rollup with a small maintenance tail, or a continuous\nintegration-sync load, or a report factory. It is the paragraph a reader\nwants *before* thirty [scheduledJobs] entries, for the same reason an\narchitecture overview sits above a component list.\n\n**It is narrative and not a form, on purpose.** This section used to carry\nfive fixed category slots — data processing, report generation,\nnotification, maintenance, integration sync. A form of five slots each\nlabelled \"… Jobs\" *is* an inventory grouped by category, whatever the help\ntext says, so it became a second place to state which jobs exist and could\ndisagree with [scheduledJobs] — which is authoritative and is what the\nCodeSpecs generator reads. The fixed five were also a closed taxonomy with\nno basis: a system whose batch work is model retraining or index rebuilding\nhad no slot. One prose field can describe any workload and cannot be\nmistaken for the inventory.\n\n[scheduledJobs] remains the only place a job comes into existence. A shape\ndescribed here that no entry there realises is a workload the specification\nhas not actually declared.",
+          "doc": "Workload shape — orientation above the job list, deliberately narrative.\n\nWhat kind of batch surface this system has, in prose: mostly a nightly\nfinancial rollup with a small maintenance tail, or a continuous\nintegration-sync load, or a report factory. It is the paragraph a reader\nwants *before* thirty [scheduledJobs] entries, for the same reason an\narchitecture overview sits above a component list.\n\n**It is narrative and not a form, on purpose.** This section used to carry\nfive fixed category slots — data processing, report generation,\nnotification, maintenance, integration sync. A form of five slots each\nlabelled \"… Jobs\" *is* an inventory grouped by category, whatever the help\ntext says, so it became a second place to state which jobs exist and could\ndisagree with [scheduledJobs] — which is authoritative and is what the\nCodeSpecs generator reads. The fixed five were also a closed taxonomy with\nno basis: a system whose batch work is model retraining or index\nrebuilding had no slot. One prose field can describe any workload and\ncannot be mistaken for the inventory.\n\n[scheduledJobs] remains the only place a job comes into existence. A shape\ndescribed here that no entry there realises is a workload the\nspecification has not actually declared.",
           "help": "Describe the shape of the scheduled workload in a short paragraph: what the batch surface of this system is mostly made of, and why it exists. This is orientation, not the job inventory — every job is declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; a list in two places is a list that can disagree with itself.",
           "sectionId": "BJMJT",
           "standardReferences": {
@@ -21449,6 +21495,15 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -21569,6 +21624,15 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -21598,7 +21662,7 @@
     "BoundedContextEntry": {
       "name": "BoundedContextEntry",
       "sectionId": "BCE",
-      "doc": "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.",
+      "doc": "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere\nin the specification names one of these entries, so a context exists in\nexactly one place and a misspelt name is reported rather than silently\ncreating a second context.",
       "standardReferences": {
         "standards": [
           "Domain-Driven Design — bounded contexts / modules",
@@ -25379,7 +25443,7 @@
     "BusinessObjectAttributeEntry": {
       "name": "BusinessObjectAttributeEntry",
       "sectionId": "BIOBAT",
-      "doc": "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and rules.",
+      "doc": "A business object attribute entry (form).\n\nBusiness-level attribute specification focusing on business meaning and\nrules.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 11179 — metadata registries / data element definitions",
@@ -40567,6 +40631,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -40661,7 +40734,7 @@
     "CompatibilityRequirementsSection": {
       "name": "CompatibilityRequirementsSection",
       "sectionId": "CRS",
-      "doc": "8.3.1. Compatibility Requirements.\n\nCompatibility requirements with existing IT infrastructure, standard software,\nand enterprise systems.",
+      "doc": "8.3.1. Compatibility Requirements.\n\nCompatibility requirements with existing IT infrastructure, standard\nsoftware, and enterprise systems.",
       "help": "Specify compatibility requirements with existing infrastructure, software,\nand enterprise systems. Compatibility ensures smooth integration and\navoids costly surprises during deployment.\n\n**Compatibility Dimensions**:\n- **Operating System**: Desktop OS (Windows, macOS, Linux), server OS,\n  mobile OS (iOS, Android), embedded systems\n- **Browser**: Chrome, Firefox, Safari, Edge with version minimums;\n  progressive enhancement vs. graceful degradation strategy\n- **Database**: RDBMS (PostgreSQL, MySQL, SQL Server, Oracle), NoSQL\n  (MongoDB, Redis, Elasticsearch), compatibility modes and drivers\n- **Enterprise Systems**: ERP (SAP, Oracle), CRM (Salesforce), LDAP/AD,\n  SSO providers, message queues, API gateways\n\n**Compatibility Testing**:\n- Browser testing matrix and automation (Playwright, Selenium)\n- OS compatibility testing (virtual machines, device farms)\n- Database compatibility and migration testing\n- Integration testing with enterprise systems\n- Backward compatibility verification\n\n**Versioning Strategy**:\n- API versioning approach (URL, header, media type)\n- Database schema version management\n- Client version compatibility windows\n- Feature flags for gradual rollouts\n",
       "standardReferences": {
         "standards": [
@@ -42029,6 +42102,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp"
+            ],
+            "note": "follow-up material under SecurityComplianceFollowUp in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -48739,6 +48821,15 @@
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under SolutionArchitectureFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -52815,6 +52906,15 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -53283,6 +53383,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -53863,6 +53973,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -54355,6 +54474,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -54929,6 +55057,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -55075,6 +55212,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -55932,6 +56078,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -59692,7 +59850,7 @@
         {
           "name": "sensitiveDataEncryption",
           "kind": "complex",
-          "doc": "Sensitive-data encryption and key management — CE-CF cryptographic\nsettings.\n\nReached **into** `SecurityOperationsFollowUp` rather than through it: that\nroot is tagged OPS for `ComplianceReporting`, and this sibling was swept\nalong by the split rather than placed there on a criterion. It is a pure\nCE-CF band — encryption at rest (database / file-storage / backup\npolicies and the encrypted-data category list), encryption in transit\n(TLS protocol, certificate management, mTLS, transport policy and the\nper-channel entries) and the key lifecycle under `KeyManagement`\n(generation, storage, rotation, escrow-and-backup, compromise recovery).\n\nIt belongs here because §5.5's own substrate names its material:\n`TomBaseServerConfiguration` declares TLS material and signing keys as\ntyped fields, so a TLS minimum version is a server-configuration value in\nexactly the sense `@CsServerConfig` generates. Its projected siblings\nsettle it — `StorageEncryptionPolicy` under `AccessControlModel` and\n`LogRetentionPolicy` under `AuditAndLogging` are fixed-key policy bands of\nthe same shape, and no criterion separates them from these.",
+          "doc": "Sensitive-data encryption and key management — CE-CF cryptographic\nsettings.\n\nReached **into** `SecurityOperationsFollowUp` rather than through it: that\nroot is tagged OPS for `ComplianceReporting`, and this sibling was swept\nalong by the split rather than placed there on a criterion. It is a pure\nCE-CF band — encryption at rest (database / file-storage / backup\npolicies and the encrypted-data category list), encryption in transit\n(TLS protocol, certificate management, mTLS, transport policy and the\nper-channel entries) and the key lifecycle under `KeyManagement`\n(generation, storage, rotation, escrow-and-backup, compromise recovery).\n\nIt belongs here because `codespecs_mapping.md` §5.5's own substrate names\nits material: `TomBaseServerConfiguration` declares TLS material and\nsigning keys as typed fields, so a TLS minimum version is a\nserver-configuration value in exactly the sense `@CsServerConfig`\ngenerates. Its projected siblings settle it — `StorageEncryptionPolicy`\nunder `AccessControlModel` and `LogRetentionPolicy` under\n`AuditAndLogging` are fixed-key policy bands of the same shape, and no\ncriterion separates them from these.",
           "serializationOrder": 11,
           "annotations": [
             {
@@ -59755,7 +59913,7 @@
         {
           "name": "schemaVersioningAndMigration",
           "kind": "complex",
-          "doc": "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.",
+          "doc": "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a\n`codespecs_mapping.md` §5.23 string exemption — so they are not part of\nthe generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.",
           "serializationOrder": 14,
           "annotations": [
             {
@@ -59776,7 +59934,7 @@
         {
           "name": "serverOperationRegistry",
           "kind": "complex",
-          "doc": "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.",
+          "doc": "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (`codespecs_mapping.md` §5.17), so ownership is\nderived here rather than declared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.",
           "serializationOrder": 15,
           "annotations": [
             {
@@ -61713,7 +61871,7 @@
         {
           "name": "fileReferenceOptions",
           "kind": "form",
-          "doc": "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores the\n**address of a stored file**, so what a specification must say is where the\nfile is filed, which store holds it, whether it dies with its record, and\nwhat may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.",
+          "doc": "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores\nthe **address of a stored file**, so what a specification must say is\nwhere the file is filed, which store holds it, whether it dies with its\nrecord, and what may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.",
           "sectionId": "DAATT-DTFR",
           "standardReferences": {
             "standards": [
@@ -66140,7 +66298,7 @@
     "DataLevelSecurity": {
       "name": "DataLevelSecurity",
       "sectionId": "DALESE",
-      "doc": "9.3.1. Data-Level Security.\n\nComprehensive data access protection specification covering database-level\nsecurity, row-level security, column-level security, tenant data isolation,\nand data masking for production and non-production environments.\nAligned with OWASP Database Security Cheat Sheet and least-privilege principles.",
+      "doc": "9.3.1. Data-Level Security.\n\nComprehensive data access protection specification covering database-level\nsecurity, row-level security, column-level security, tenant data isolation,\nand data masking for production and non-production environments. Aligned\nwith OWASP Database Security Cheat Sheet and least-privilege principles.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — control A.8.3 information access restriction",
@@ -66424,6 +66582,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -74318,6 +74488,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -74750,6 +74932,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -81841,6 +82032,15 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under ExperienceDesignFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -82750,7 +82950,7 @@
     "DevelopmentConventionEntry": {
       "name": "DevelopmentConventionEntry",
       "sectionId": "DCE",
-      "doc": "Development convention entry — a development practice or workflow convention.",
+      "doc": "Development convention entry — a development practice or workflow\nconvention.",
       "standardReferences": {
         "standards": [
           "coding standards (e.g. Effective Dart / language style guide)",
@@ -83834,7 +84034,7 @@
     "DeviceSettingEntry": {
       "name": "DeviceSettingEntry",
       "sectionId": "DSSET",
-      "doc": "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.",
+      "doc": "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. `codespecs_mapping.md` §5.16 puts\nthe opt-in on the *wider* scope — a key is shadowable only because its\nwider-scope declaration says so — and CE-DS is the narrowest scope, so it\nhas nothing below it to open. Declaring the same relation from both ends\nwould be two authored fields that can disagree.",
       "standardReferences": {
         "standards": [
           "ISO 9241-110 — suitability for individualization (user-tailored settings)",
@@ -87481,6 +87681,15 @@
           "arguments": {
             "id": "DOCHD"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "front matter — it identifies the document, not the system. Reached under DocumentControl in the SBP and directly as the header of each of the other thirteen @Document roots; the doc process owns it on every one of those paths"
+          }
         }
       ],
       "fields": [
@@ -87922,6 +88131,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -89414,7 +89632,7 @@
     "DomainEnumEntry": {
       "name": "DomainEnumEntry",
       "sectionId": "DMENE",
-      "doc": "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.",
+      "doc": "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant\n— and doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 11179 — metadata registries / value-domain enumerations",
@@ -93311,7 +93529,7 @@
     "EntityRelationshipEntry": {
       "name": "EntityRelationshipEntry",
       "sectionId": "ENRLE",
-      "doc": "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best practices.",
+      "doc": "An entity relationship entry (form).\n\nComprehensive relationship specification following ER modeling best\npractices.",
       "standardReferences": {
         "standards": [
           "ER modeling (Chen / Barker notation)",
@@ -99682,6 +99900,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -102623,6 +102850,16 @@
               "hint": "How the system responds in this step",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "serverOperation",
+              "label": "Server Operation",
+              "hint": "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             }
           ]
         },
@@ -103553,6 +103790,13 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the external-interface entries; the entries below carry the routing"
           }
         }
       ],
@@ -106299,6 +106543,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -107708,7 +107964,7 @@
     "FeaturePriorityRegister": {
       "name": "FeaturePriorityRegister",
       "sectionId": "FEPRRE",
-      "doc": "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity: a feature\nexists because it is declared here, and every feature reference elsewhere\nin the model resolves against `FPE.featureId`. The MoSCoW analysis\n(§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map\n(§13.4.4) are views onto this register — they name a registered feature and\nadd their own view's attributes, never a second copy of its identity.",
+      "doc": "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership, and\ntraceability. Single source of truth for feature identity: a feature exists\nbecause it is declared here, and every feature reference elsewhere in the\nmodel resolves against `FPE.featureId`. The MoSCoW analysis (SBP.13.4.2),\nthe feature-stage matrix (SBP.13.4.3) and the dependency map (SBP.13.4.4)\nare views onto this register — they name a registered feature and add their\nown view's attributes, never a second copy of its identity.",
       "standardReferences": {
         "standards": [
           "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
@@ -108177,7 +108433,7 @@
     "FeatureStageMatrix": {
       "name": "FeatureStageMatrix",
       "sectionId": "FESTMA",
-      "doc": "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (§13.4.1): each entry names a registered\nfeature and adds only its staging.",
+      "doc": "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (SBP.13.4.1): each entry names a registered\nfeature and adds only its staging.",
       "standardReferences": {
         "standards": [
           "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
@@ -110005,6 +110261,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -111739,6 +112004,13 @@
           "arguments": {
             "id": "FRE"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the facets of one functional requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -112321,6 +112593,13 @@
           "arguments": {
             "id": "FR"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the functional-requirement entries; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -112684,6 +112963,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -115520,7 +115808,7 @@
     "GradedAuthorizationRequirement": {
       "name": "GradedAuthorizationRequirement",
       "sectionId": "AZGRD",
-      "doc": "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —\nthe SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —\nand removing it by pointing the levels back at [AuthorizationRequirementSpec]\nreintroduces the cycle.",
+      "doc": "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate\n— the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2)\n— and removing it by pointing the levels back at\n[AuthorizationRequirementSpec] reintroduces the cycle.",
       "standardReferences": {
         "standards": [
           "NIST SP 800-162 — attribute-based access control (ABAC)"
@@ -115541,6 +115829,13 @@
               "NIST SP 800-162 — attribute-based access control (ABAC)"
             ],
             "connotation": "The per-level requirements of a graded access rule: what earns full access, what earns read access, and what earns a visible-but-locked view."
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the graded access levels; each level entry carries the authorization routing"
           }
         }
       ],
@@ -122411,7 +122706,7 @@
     "InitialDevelopmentFlow": {
       "name": "InitialDevelopmentFlow",
       "sectionId": "INDEFL",
-      "doc": "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping calls out\nas \"new in DRM\".",
+      "doc": "13.7. Initial Development Flow.\n\nInter-phase dependencies during the initial build (Phases 1–7 of\n`tom_specs_project_flow.md` §PF-PHA). Covers DRM-IDV content the mapping\ncalls out as \"new in DRM\".",
       "detailedIn": "D11DeliveryRoadmap",
       "standardReferences": {
         "standards": [
@@ -122441,6 +122736,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -124565,6 +124872,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -125576,6 +125892,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -126943,6 +127268,15 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -126995,6 +127329,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "INBUCO"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -127223,6 +127566,15 @@
           "arguments": {
             "id": "INDAEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ],
+            "note": "one entity exchanged across an external interface — realised as a @CsDataAccess declaration"
+          }
         }
       ],
       "fields": [
@@ -127317,6 +127669,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "INDASP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess",
+              "CodeSpecPart.validation"
+            ],
+            "note": "the payload shape of one external interface: entity access is realised as @CsDataAccess, the field-level constraints as @CsValidation"
           }
         }
       ],
@@ -127944,6 +128306,15 @@
           "arguments": {
             "id": "INGO"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -128315,6 +128686,15 @@
           "arguments": {
             "id": "INOP"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -128656,6 +129036,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "IS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ],
+            "note": "the credential and trust arrangements of one external interface — realised as a @CsAuthentication (server locus)"
           }
         }
       ],
@@ -129298,6 +129687,15 @@
           "arguments": {
             "id": "INTESP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "the transport and operation surface of one external interface — realised as a @CsServiceUnit (server locus)"
+          }
         }
       ],
       "fields": [
@@ -129746,6 +130144,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "INTE"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -134607,6 +135014,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -134675,6 +135094,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under ExperienceLocalizationFollowUp in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -134833,7 +135261,7 @@
         {
           "name": "persistence",
           "kind": "form",
-          "doc": "Retention rules — how a chosen preference survives, without naming a store.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.",
+          "doc": "Retention rules — how a chosen preference survives, without naming a\nstore.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.",
           "sectionId": "LCSP",
           "standardReferences": {
             "standards": [
@@ -135350,7 +135778,7 @@
     "LayeringAndModuleStructure": {
       "name": "LayeringAndModuleStructure",
       "sectionId": "LAMS",
-      "doc": "8.2.1. Layering and Module Structure.\n\nSoftware layering (presentation, business logic, data access, infrastructure)\nand module structure (bounded contexts, packages, libraries).",
+      "doc": "8.2.1. Layering and Module Structure.\n\nSoftware layering (presentation, business logic, data access,\ninfrastructure) and module structure (bounded contexts, packages,\nlibraries).",
       "help": "Define software layering approach, module organization, and dependency\nmanagement rules. Clear boundaries prevent spaghetti architecture and\nenable independent development and testing.\n\n**Common Layering Approaches**:\n- **Clean Architecture**: Entities → Use Cases → Interface Adapters →\n  Frameworks & Drivers (dependencies point inward)\n- **Hexagonal (Ports & Adapters)**: Domain core with ports (interfaces)\n  and adapters (implementations)\n- **Onion Architecture**: Domain Model → Domain Services → Application\n  Services → Infrastructure\n- **Traditional N-Tier**: Presentation → Business Logic → Data Access\n\n**Module Organization**:\n- **By Feature/Domain**: Vertical slices containing all layers for a feature\n- **By Layer**: Horizontal separation (all controllers, all repositories)\n- **Bounded Contexts (DDD)**: Independent modules with clear context maps\n- **Package-by-Component**: Self-contained components with public APIs\n\n**Dependency Rules**:\n- Define allowed and forbidden dependencies between layers/modules\n- Enforce with architecture tests (ArchUnit, deptry, import linters)\n- Use interfaces/abstractions for cross-cutting concerns\n- Keep domain logic independent of frameworks\n\n**Best Practices**: SOLID, DRY, KISS, YAGNI, Dependency Inversion.\n",
       "standardReferences": {
         "standards": [
@@ -137571,6 +137999,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -139545,6 +139985,16 @@
               "required": false
             },
             {
+              "name": "serverOperation",
+              "label": "Server Operation",
+              "hint": "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
+            },
+            {
               "name": "dataInvolved",
               "label": "Data Involved — data read/written",
               "hint": "Data read or written during the step",
@@ -140149,6 +140599,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -142968,7 +143427,7 @@
     "MessageLocaleVariantEntry": {
       "name": "MessageLocaleVariantEntry",
       "sectionId": "MSGLV",
-      "doc": "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one locale.",
+      "doc": "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one\nlocale.",
       "standardReferences": {
         "standards": [
           "Unicode CLDR / BCP 47 — locale identification and localized message data",
@@ -144454,6 +144913,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -144897,6 +145365,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -146481,6 +146958,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -151516,7 +152005,7 @@
     "MoscowAnalysis": {
       "name": "MoscowAnalysis",
       "sectionId": "MOAN",
-      "doc": "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage. A view onto the\nFeature Priority Register (§13.4.1): each entry names a registered feature\nand adds only its classification.",
+      "doc": "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should / Could /\nWon't) and maps each to its target delivery stage. A view onto the Feature\nPriority Register (SBP.13.4.1): each entry names a registered feature and\nadds only its classification.",
       "standardReferences": {
         "standards": [
           "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
@@ -154115,7 +154604,7 @@
     "NavigationHierarchy": {
       "name": "NavigationHierarchy",
       "sectionId": "NAHI",
-      "doc": "10.3.1.2. Navigation Hierarchy.\n\nFull navigation tree: groups and items forming the app's navigation structure.",
+      "doc": "10.3.1.2. Navigation Hierarchy.\n\nFull navigation tree: groups and items forming the app's navigation\nstructure.",
       "standardReferences": {
         "standards": [
           "ISO 9241-151:2008 — the navigation structure reflects the information architecture as a hierarchy",
@@ -158367,6 +158856,15 @@
           "arguments": {
             "id": "NTFCH"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.notification"
+            ],
+            "note": "one delivery channel of the notification model — realised as a @CsNotificationChannel over the tom_core_codespecs notification model (shared locus), like its NotificationModel parent"
+          }
         }
       ],
       "fields": [
@@ -158706,6 +159204,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "NTFTY"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.notification"
+            ],
+            "note": "one notification type of the notification model — realised as a @CsNotification over the tom_core_codespecs notification model (shared locus), like its NotificationModel parent"
           }
         }
       ],
@@ -161859,6 +162366,15 @@
           "arguments": {
             "id": "ORIP"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org"
+            ],
+            "note": "follow-up material under RequirementsFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -163746,6 +164262,13 @@
           "arguments": {
             "id": "ORRQ"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the facets of one organizational requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -164130,6 +164653,13 @@
           "arguments": {
             "id": "OR"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the organizational-requirement entries; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -164235,7 +164765,7 @@
         {
           "name": "requirements",
           "kind": "list",
-          "doc": "Organizational requirements list — contains 0+× Organizational Requirement.",
+          "doc": "Organizational requirements list — contains 0+× Organizational\nRequirement.",
           "help": "Add one entry per organizational requirement.",
           "sectionId": "ORRQ-REQU-LST",
           "sectionIdPattern": "ORRQ-REQU-xxx",
@@ -165168,6 +165698,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -166779,6 +167318,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -168303,6 +168851,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -170494,6 +171051,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -170972,6 +171541,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -172648,7 +173229,7 @@
     "PrimaryNavigation": {
       "name": "PrimaryNavigation",
       "sectionId": "PRNA",
-      "doc": "10.3.1.3. Primary Navigation.\n\nHow the main navigation appears across platforms: drawer, sidebar, bottom nav.",
+      "doc": "10.3.1.3. Primary Navigation.\n\nHow the main navigation appears across platforms: drawer, sidebar, bottom\nnav.",
       "standardReferences": {
         "standards": [
           "ISO 9241-151:2008 — provides guidance on navigation and the structure of links in the interface",
@@ -175137,7 +175718,7 @@
     "ProcessAdjustments": {
       "name": "ProcessAdjustments",
       "sectionId": "PCADJ",
-      "doc": "2.3. Process Adjustments.\n\nDocuments any deviations from the standard tom_specs_project_flow.md\ncreation (§PF-PHA) or upgrade-cycle (§PF-UPG) process. Includes skipped,\nreordered, or modified steps and the rationale for each deviation.",
+      "doc": "2.3. Process Adjustments.\n\nDocuments any deviations from the standard creation\n(`tom_specs_project_flow.md` §PF-PHA) or upgrade-cycle\n(`tom_specs_project_flow.md` §PF-UPG) process. Includes skipped, reordered,\nor modified steps and the rationale for each deviation.",
       "standardReferences": {
         "standards": [
           "ISO 21500 — project management (process tailoring)",
@@ -175415,6 +175996,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -176595,6 +177186,16 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -177080,6 +177681,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -177816,6 +178427,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -178789,6 +179410,16 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -179757,6 +180388,16 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -180578,6 +181219,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -181432,7 +182083,7 @@
     "ProcessStepsAndActorInteractions": {
       "name": "ProcessStepsAndActorInteractions",
       "sectionId": "PSAAI",
-      "doc": "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
+      "doc": "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case\nmodeling.",
       "mapsTo": "D05InteractionScenarios",
       "standardReferences": {
         "standards": [
@@ -182358,6 +183009,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -184241,6 +184902,15 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under ExperienceDesignFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -186040,7 +186710,7 @@
         {
           "name": "iso25010Coverage",
           "kind": "complex",
-          "doc": "ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).",
+          "doc": "ISO/IEC 25010:2023 product-quality cross-map — the IP-6 completeness\naddition, as the library doc states.",
           "serializationOrder": 3,
           "annotations": [
             {
@@ -186440,6 +187110,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -188183,6 +188862,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -192649,6 +193337,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -193219,6 +193916,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -198550,6 +199256,13 @@
           "arguments": {
             "id": "RAC"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the acceptance criteria of one requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -198782,6 +199495,13 @@
           "arguments": {
             "id": "RBR"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the business rules of one requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -198896,6 +199616,15 @@
           "arguments": {
             "documentClass": "D04RequirementsSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -198955,6 +199684,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "RDR"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the data requirements of one requirement; the entries below carry the routing"
           }
         }
       ],
@@ -199068,6 +199804,13 @@
           "arguments": {
             "id": "REQDEP"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the dependencies of one requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -199170,6 +199913,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "RQDEP"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.view",
+            "note": "a link row re-presenting a dependency already declared on the two requirement entries it names"
           }
         }
       ],
@@ -199278,6 +200028,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D04RequirementsSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -199583,6 +200342,15 @@
           "arguments": {
             "id": "RQTSC"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -199825,6 +200593,13 @@
           "arguments": {
             "guidance": "Define test cases that verify requirement implementation."
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the test cases of one requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -199936,6 +200711,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "RT"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.view",
+            "note": "a matrix over requirement-to-artifact links already declared on the requirement entries it indexes"
           }
         }
       ],
@@ -200203,6 +200985,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "RUS"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the user-interface facets of one requirement; the entries below carry the routing"
           }
         }
       ],
@@ -207531,7 +208320,7 @@
     "RisksAndAssumptions": {
       "name": "RisksAndAssumptions",
       "sectionId": "RIANAS",
-      "doc": "4.7. Risks.\n\nDocuments identified project risks following ISO 31000 Risk Management and\nPMBOK risk management best practices. Provides a structured framework for\nrisk identification, analysis, response planning, and ongoing monitoring\nthroughout the project lifecycle.\n\nAssumptions are **not** held here (L34C-4 consolidation, SR-11): the\ncanonical assumptions register lives in SBP.6 (Assumptions, Constraints &\nDependencies). Only the risks half — unique to §4.7 — remains in this node.\n(The class name remains `RisksAndAssumptions` pending the L34C-9 rename\nsweep, which will rename it to `Risks`.)",
+      "doc": "4.7. Risks.\n\nDocuments identified project risks following ISO 31000 Risk Management and\nPMBOK risk management best practices. Provides a structured framework for\nrisk identification, analysis, response planning, and ongoing monitoring\nthroughout the project lifecycle.\n\nAssumptions are **not** held here (L34C-4 consolidation, SR-11): the\ncanonical assumptions register lives in SBP.6 (Assumptions, Constraints &\nDependencies). Only the risks half — unique to SBP.4.7 — remains in this\nnode.\n(The class name remains `RisksAndAssumptions` pending the L34C-9 rename\nsweep, which will rename it to `Risks`.)",
       "standardReferences": {
         "standards": [
           "ISO 31000:2018 — risk management",
@@ -210077,6 +210866,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -210136,6 +210937,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -213527,6 +214340,16 @@
               "hint": "How the system responds to the action",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "serverOperation",
+              "label": "Server Operation",
+              "hint": "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             }
           ]
         },
@@ -214095,7 +214918,7 @@
         {
           "name": "workSteps",
           "kind": "list",
-          "doc": "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a **form-3b**\nwork body from — one statement per step, in list order, each a call on the\njob's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and §2.4's fallback then emits the form-3a body\nfrom `workSummary` exactly as before. The list is how a job that *is*\nmulti-step stops having to say so in a sentence.",
+          "doc": "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a\n**form-3b** work body from — one statement per step, in list order, each a\ncall on the job's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and `codespecs_derivation_contract.md` §2.4's\nfallback then emits the form-3a body from `workSummary` exactly as before.\nThe list is how a job that *is* multi-step stops having to say so in a\nsentence.",
           "help": "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone.",
           "sectionId": "SCJOST-WORK-LST",
           "sectionIdPattern": "SCJOST-WORK-xxx",
@@ -214792,7 +215615,7 @@
         {
           "name": "baselineSchema",
           "kind": "form",
-          "doc": "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so there\nis no prior state: no affected-entity delta, no backfill, and nothing to\nroll back to.",
+          "doc": "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so\nthere is no prior state: no affected-entity delta, no backfill, and\nnothing to roll back to.",
           "sectionId": "SCMST-BASE",
           "standardReferences": {
             "standards": [
@@ -214868,7 +215691,7 @@
         {
           "name": "referenceData",
           "kind": "form",
-          "doc": "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays in\nthe migration-mapping sections (`MIGME`).",
+          "doc": "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays\nin the migration-mapping sections (`MIGME`).",
           "sectionId": "SCMST-REFD",
           "standardReferences": {
             "standards": [
@@ -215124,7 +215947,7 @@
         {
           "name": "migrationTargets",
           "kind": "list",
-          "doc": "7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.",
+          "doc": "7.4.1. Migration Targets — the data source / schema pairs artifacts apply\nto.",
           "help": "Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.",
           "sectionId": "MIGTG-TARG-LST",
           "sectionIdPattern": "MIGTG-TARG-xxx",
@@ -218000,7 +218823,7 @@
         {
           "name": "fileOptions",
           "kind": "form",
-          "doc": "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored (§5.18).",
+          "doc": "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored\n(`codespecs_mapping.md` §5.18).",
           "sectionId": "SEFSU",
           "standardReferences": {
             "standards": [
@@ -220559,7 +221382,7 @@
     "ScreenStateEntry": {
       "name": "ScreenStateEntry",
       "sectionId": "SCRST",
-      "doc": "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error, permission-denied.",
+      "doc": "A screen state entry (form).\n\nA specific state the screen can be in: loading, empty, error,\npermission-denied.",
       "standardReferences": {
         "standards": [
           "ISO 9241-110:2020 — use error tolerance and controllability through clear state feedback",
@@ -222085,7 +222908,7 @@
         {
           "name": "auditEntries",
           "kind": "list",
-          "doc": "Individual security audit requirement entries — contains 0+× SecurityAudit.",
+          "doc": "Individual security audit requirement entries — contains 0+×\nSecurityAudit.",
           "help": "Add one entry per security audit requirement.",
           "sectionId": "SAE-AUDI-LST",
           "sectionIdPattern": "SAE-AUDI-xxx",
@@ -222518,6 +223341,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -223029,6 +223861,15 @@
           "arguments": {
             "id": "SECOEN"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp"
+            ],
+            "note": "follow-up material under SecurityComplianceFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -223249,6 +224090,13 @@
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define security controls that implement this requirement."
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the security-control entries; the entries below carry the routing"
           }
         }
       ],
@@ -224050,7 +224898,7 @@
     "SecurityOperationsFollowUp": {
       "name": "SecurityOperationsFollowUp",
       "sectionId": "SCOF",
-      "doc": "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** — the\nroutines run *against* the audit log — rather than CodeSpecs-generated\nbehaviour (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not itself a generation projection root.\n\n**The root is not the boundary here.** Its `encryption` child is a pure\nCE-CF band — encryption at rest, encryption in transit and the key\nlifecycle are settings the server reads, and §5.5's substrate\n(`TomBaseServerConfiguration`) names TLS material and signing keys as typed\nfields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`\ndirectly, past this root. Placing it here rather than beside the other SAS\nCE-CF bands is a grouping of subject matter, not a routing verdict, and the\nprojection's membership follows the part.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —\nand what the OPS tag is for — is `ComplianceReporting`: periodic access\nreview, privilege-usage reporting, anomaly detection and regulatory audit\nsupport are processes people run, not code a generator emits.",
+      "doc": "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** — the\nroutines run *against* the audit log — rather than CodeSpecs-generated\nbehaviour (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not itself a generation projection root.\n\n**The root is not the boundary here.** Its `encryption` child is a pure\nCE-CF band — encryption at rest, encryption in transit and the key lifecycle\nare settings the server reads, and `codespecs_mapping.md` §5.5's substrate\n(`TomBaseServerConfiguration`) names TLS material and signing keys as typed\nfields. `D13CodeSpecsProjection` therefore reaches `SensitiveDataEncryption`\ndirectly, past this root. Placing it here rather than beside the other SAS\nCE-CF bands is a grouping of subject matter, not a routing verdict, and the\nprojection's membership follows the part.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What is genuinely operational —\nand what the OPS tag is for — is `ComplianceReporting`: periodic access\nreview, privilege-usage reporting, anomaly detection and regulatory audit\nsupport are processes people run, not code a generator emits.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging",
@@ -224164,6 +225012,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "SECRQ"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the facets of one security requirement; the entries below carry the routing"
           }
         }
       ],
@@ -224608,6 +225463,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "SR1"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the security-requirement entries; the entries below carry the routing"
           }
         }
       ],
@@ -226469,7 +227331,7 @@
     "ServerCallStepEntry": {
       "name": "ServerCallStepEntry",
       "sectionId": "SVCST",
-      "doc": "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which §2.4 B8 forbids — so the\nthree bodies could only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (§2.4 B4). It is not the way an error code is turned\ninto user-visible wording: B7 forbids the `switch` that would need, and the\nmessage a code maps to belongs in the CE-TX message-key registry\n(`codespecs_mapping.md` §5.3), not in a chain of conditions here.",
+      "doc": "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.",
       "standardReferences": {
         "standards": [
           "Cockburn — Writing Effective Use Cases: main success scenario",
@@ -227078,6 +227940,13 @@
           ],
           "formFields": [
             {
+              "name": "operationName",
+              "label": "Operation Name",
+              "hint": "The single identifier callers use, e.g., placeOrder — a stable token of the specified system, not a restatement of the headline",
+              "type": "String",
+              "required": true
+            },
+            {
               "name": "purpose",
               "label": "Purpose",
               "hint": "What the operation does, from the caller's point of view",
@@ -227350,7 +228219,7 @@
     "ServerOperationRegistry": {
       "name": "ServerOperationRegistry",
       "sectionId": "SVOPR",
-      "doc": "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.",
+      "doc": "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
@@ -232001,6 +232870,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -235562,6 +236440,18 @@
           "arguments": {
             "id": "STAGE"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -237854,6 +238744,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -240212,6 +241114,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -241482,7 +242396,7 @@
     "StakeholdersAndBeneficiaries": {
       "name": "StakeholdersAndBeneficiaries",
       "sectionId": "SAB",
-      "doc": "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who\nbenefits from the system and what they gain. The canonical stakeholder\nregister — with role, interest, influence, concerns and engagement\nstrategy — lives in SBP.4 ([StakeholderRegisterEntry] list); those attributes are\nrecorded there once and are not restated here (L34C-6 / SR-15).",
+      "doc": "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who benefits\nfrom the system and what they gain. The canonical stakeholder register —\nwith role, interest, influence, concerns and engagement strategy — lives in\nSBP.4 ([StakeholderRegisterEntry] list); those attributes are recorded there\nonce and are not restated here (L34C-6 / SR-15).",
       "help": "Identify the stakeholders and beneficiaries from a benefits perspective: who they are and the value they gain from the system. Record the canonical register (role, interest, influence, engagement) once, in SBP.4 StakeholderRegister — reference it here, do not restate it.",
       "standardReferences": {
         "standards": [
@@ -245020,6 +245934,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SUAC"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "user-facing support entry points; like its ContextualHelp and OnboardingHelp siblings the strings are realised as @CsText entries"
           }
         }
       ],
@@ -250648,6 +251571,15 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -254584,7 +255516,7 @@
         {
           "name": "dependencies",
           "kind": "list",
-          "doc": "Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.",
+          "doc": "Contains 0+× ReplacementSystemDependencyEntry — integrations with other\nsystems.",
           "help": "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated.",
           "sectionId": "RESYDE-DEPE-LST",
           "sectionIdPattern": "RESYDE-DEPE-xxx",
@@ -255227,7 +256159,7 @@
     "SystemsToReplace": {
       "name": "SystemsToReplace",
       "sectionId": "SYTOR1",
-      "doc": "4.4. Systems to Replace. Seeds → CLA.\n\nDocuments existing systems that will be replaced, migrated, or decommissioned\nas part of the project. Follows TOGAF migration planning patterns and\nGartner application rationalization frameworks. Each system entry provides\ncomprehensive assessment for informed replacement decisions.",
+      "doc": "4.4. Systems to Replace. Seeds → CLA.\n\nDocuments existing systems that will be replaced, migrated, or\ndecommissioned as part of the project. Follows TOGAF migration planning\npatterns and Gartner application rationalization frameworks. Each system\nentry provides comprehensive assessment for informed replacement decisions.",
       "mapsTo": "D01CurrentLandscapeAssessment",
       "standardReferences": {
         "standards": [
@@ -257374,6 +258306,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -259799,6 +260740,13 @@
           "arguments": {
             "id": "TERQ"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the facets of one technical requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -260287,6 +261235,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "TR1"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the technical-requirement entries; the entries below carry the routing"
           }
         }
       ],
@@ -262379,6 +263334,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -267835,6 +268799,17 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.l10n",
+              "FollowUpProcess.doc",
+              "FollowUpProcess.trn"
+            ],
+            "note": "follow-up material under RequirementsFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -271842,6 +272817,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -275962,6 +276949,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -276629,6 +277628,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -278754,7 +279762,7 @@
     "UserAuthorization": {
       "name": "UserAuthorization",
       "sectionId": "USAU",
-      "doc": "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements → resourceKeys.",
+      "doc": "9.4. User Authorization.\n\nAligns with Tom Core authorization model: groups → roles → entitlements →\nresourceKeys.",
       "detailedIn": "D08SecurityAccessSpecification",
       "standardReferences": {
         "standards": [
@@ -279631,7 +280639,7 @@
     "UserDocumentationRequirements": {
       "name": "UserDocumentationRequirements",
       "sectionId": "DOANTR",
-      "doc": "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9 `InformationForUseRequirements`\n(`IFUR`) while physically staying in this file alongside its `DATD`/`DATL`\nsub-forms and the shared `TextSection`. Retains `DOANTR` + the shared\n`TRP-DOC` D12 detail subsection.",
+      "doc": "10.12.3. User Documentation Requirements.\n\nEnd-user documentation deliverables. The documentation half of the former\n`DocumentationAndTraining` (`DOANTR`); split from its training half in\nL34C-7 (SR-29). Logically re-homed under SBP.9\n`InformationForUseRequirements` (`IFUR`) while physically staying in this\nfile alongside its `DATD`/`DATL` sub-forms and the shared `TextSection`.\nRetains `DOANTR` + the shared `TRP-DOC` D12 detail subsection.",
       "mapsTo": "D12TransitionRolloutPlan",
       "detailedIn": "D12TransitionRolloutPlan",
       "standardReferences": {
@@ -279668,6 +280676,17 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.l10n",
+              "FollowUpProcess.doc",
+              "FollowUpProcess.trn"
+            ],
+            "note": "follow-up material under RequirementsFollowUp in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -280288,7 +281307,7 @@
     "UserInteractionModel": {
       "name": "UserInteractionModel",
       "sectionId": "UIM",
-      "doc": "4.1.5. User Interaction Model.\n\nDescribes how different user categories interact with the system including\naccess channels, interaction patterns, access levels, and session management.\nBased on user experience best practices and multi-channel interaction design.",
+      "doc": "4.1.5. User Interaction Model.\n\nDescribes how different user categories interact with the system including\naccess channels, interaction patterns, access levels, and session\nmanagement. Based on user experience best practices and multi-channel\ninteraction design.",
       "help": "Describe how different user categories interact with the system: access channels (web, mobile, API, CLI), interaction patterns (real-time, batch, notification-driven), access levels, session management, and multi-channel considerations.",
       "standardReferences": {
         "standards": [
@@ -281341,7 +282360,7 @@
     "UserLifecycleTransitions": {
       "name": "UserLifecycleTransitions",
       "sectionId": "ULTRS",
-      "doc": "9.1.2.7. Lifecycle Transitions and Approvals (form).\n\nDefines the permissible transitions between lifecycle states, who can trigger\neach transition, and the approval workflow required.",
+      "doc": "9.1.2.7. Lifecycle Transitions and Approvals (form).\n\nDefines the permissible transitions between lifecycle states, who can\ntrigger each transition, and the approval workflow required.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — control A.5.18 access rights",
@@ -281639,6 +282658,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -281697,6 +282728,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "UNP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.notification"
+            ],
+            "note": "the per-user opt-in surface of the notification model — realised as the preference declarations of the @CsNotification set (shared locus), like its NotificationModel parent"
           }
         }
       ],
@@ -282576,7 +283616,7 @@
     "UserRegistrationProcess": {
       "name": "UserRegistrationProcess",
       "sectionId": "URREG",
-      "doc": "9.1.2.2. Registration Process (form).\n\nDefines how new user accounts are created — self-registration, invitation,\nadmin-provisioned, or bulk import — including identity proofing requirements.",
+      "doc": "9.1.2.2. Registration Process (form).\n\nDefines how new user accounts are created — self-registration, invitation,\nadmin-provisioned, or bulk import — including identity proofing\nrequirements.",
       "standardReferences": {
         "standards": [
           "SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning",
@@ -283440,7 +284480,7 @@
     "UtilityNavigationItemEntry": {
       "name": "UtilityNavigationItemEntry",
       "sectionId": "UTNAIT",
-      "doc": "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.",
+      "doc": "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications\nbell, help icon, settings.",
       "standardReferences": {
         "standards": [
           "ISO 9241-14:1997 — menu dialogues cover persistent utility entry points such as user and help menus",
@@ -286245,6 +287285,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -286399,6 +287451,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -287591,6 +288652,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under ExperienceDesignFollowUp in the SBP; reached here directly by a detail-document path"
           }
         }
       ],

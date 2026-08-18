@@ -1399,6 +1399,69 @@ public final class ConformanceRunner {
       wantVerdicts.add(want.get("routingVerdict"));
       check(at + ".routing", verdicts.equals(wantVerdicts), verdicts + " != " + wantVerdicts);
     }
+
+    // 6. Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root.
+    // The models here carry two, because over a single-root model "walks the
+    // named root" and "walks every root" give the same answer.
+    for (Object caseObj : (List<Object>) table.get("rootCases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      SpecModel rootModel = SpecModel.fromJson((Map<String, Object>) c.get("model"));
+      SpecDocument rootDoc = documentFromState((Map<String, Object>) c.get("state"));
+      Map<String, Object> want = (Map<String, Object>) c.get("expect");
+      String at = "codeSpecs.root[" + name + "]";
+
+      CodeSpecsExtractor x = null;
+      CodeSpecsExtractError err = null;
+      try {
+        x = new CodeSpecsExtractor(rootModel, rootDoc, catalog, (String) c.get("rootType"));
+      } catch (CodeSpecsExtractError e) {
+        err = e;
+      }
+      if (Boolean.TRUE.equals(want.get("fails"))) {
+        check(at + ".thrown", err != null, "the extractor bound instead of failing");
+        if (err != null) {
+          check(at + ".path", Objects.equals(err.path, want.get("path")), err.path);
+          check(
+              at + ".className",
+              Objects.equals(err.className, want.get("className")),
+              err.className);
+          check(
+              at + ".message",
+              err.getMessage().contains((String) want.get("messageContains")),
+              err.getMessage());
+        }
+        continue;
+      }
+      check(at + ".bound", x != null, String.valueOf(err));
+      if (x == null) {
+        continue;
+      }
+      check(at + ".root", Objects.equals(x.root.type, want.get("root")), x.root.type);
+      // `routings` and `extractAll` walk the same resolved root, so the verdict
+      // sequence is scoped too — that is what makes the bare `@Document` root
+      // of case 2 the corpus's `documentRoot` producer.
+      List<String> rootVerdicts = new ArrayList<>();
+      for (CodeSpecsRouting r : x.routings()) {
+        rootVerdicts.add(r.verdict.value);
+      }
+      check(
+          at + ".routingVerdicts",
+          rootVerdicts.equals(want.get("routingVerdicts")),
+          rootVerdicts + " != " + want.get("routingVerdicts"));
+      List<CodeSpecsExtract> rootExtracts = x.extractAll();
+      check(
+          at + ".documentRoot",
+          Objects.equals(rootExtracts.get(0).documentRoot, want.get("documentRoot")),
+          rootExtracts.get(0).documentRoot);
+      List<String> paths = new ArrayList<>();
+      for (CodeSpecsExtract g : rootExtracts) {
+        for (CodeSpecsExtractEntry e : g.entries) {
+          paths.add(e.path);
+        }
+      }
+      check(at + ".paths", paths.equals(want.get("paths")), paths + " != " + want.get("paths"));
+    }
   }
 
   /**

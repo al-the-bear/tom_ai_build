@@ -181,19 +181,33 @@ Run the nine-runtime `spec_codespecs_extract` surface
 (`codespecs_mapping.md` §1.1.1 item 2) over the document, producing one extract
 per active area at `codespecs_mapping.md` §1.1.1 item 1's location and names.
 
-**The walk root is the specification document's own root.** Two wrong choices are
-worth naming because both look right:
+**The walk root is the specification document's own root**, and the extractor
+resolves it once when it is constructed — so this is an API guarantee rather than
+an instruction an operator has to remember. It takes an optional `rootType`
+naming that root by type name or by section id; omitted, it defaults to the
+document's single **populated** root, falling back to the model's only root when
+the document is empty. Anything that does not resolve to exactly one root is a
+`CodeSpecsExtractError` from the constructor: an unknown `rootType`, more than one
+populated root, an empty document over a multi-root model, or a `rootType` that
+holds no value while another root does.
 
-- **Every `@Document` root.** The extractor's default iterates all fourteen. The
-  D01–D12 projections re-enter subtrees that the D00 walk skips because a
-  `@FollowUpKind` root sits above them, so the walk reaches follow-up content by
-  a path that carries no verdict and A3 rejects the run for a routing failure
-  that is an artifact of the walk, not of the document.
+Two wrong choices are worth naming because both look right, and because naming
+them is what the API shape was chosen to close:
+
+- **Every `@Document` root.** The D01–D12 projections re-enter subtrees that the
+  D00 walk skips because a `@FollowUpKind` root sits above them, so a union walk
+  reaches follow-up content by a path that carries no verdict and A3 rejects the
+  run for a routing failure that is an artifact of the walk, not of the document.
+  There is now no way to ask for that walk — the extractor has one root, not a
+  list.
 - **`D13CodeSpecsProjection`.** It is the CodeSpecs projection, so it reads like
   the right root for a CodeSpecs extraction. Its path space is `CGP/…` while the
-  document's values are keyed under its own root, so every extract comes back
-  empty — 26 areas, zero entries, and a run that would pass stage B only by
-  declaring the entire project not applicable.
+  document's values are keyed under its own root, so every extract would come
+  back empty — 26 areas, zero entries, and a run that would pass stage B only by
+  declaring the entire project not applicable. This is the failure mode a bare
+  required-root argument would leave intact, so it is the one the resolver
+  reports: naming a root the document never populates is an error, not an empty
+  result.
 
 The extraction run is **not** a gate stage. Its own failures — an unrouted class,
 a malformed catalogue — surface as A3 or as a tooling error, and a tooling error

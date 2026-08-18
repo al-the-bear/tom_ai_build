@@ -290,10 +290,12 @@ final List<CorpusGuardedEnum> _guarded = [
     enumName: 'CodeSpecsRoutingVerdict',
     declared: _wire(CodeSpecsRoutingVerdict.values),
     corpusFile: 'codespecs_extract_cases.json',
-    // Two tables, because the vocabulary is genuinely split across them: the
-    // four verdicts a well-formed section can carry are the `routings` rows,
-    // while `unrouted` is by construction never a row — a section that reaches
-    // it is the ROUTE-TOTAL failure, so its only home is an error case.
+    // Three tables, because the vocabulary is genuinely split across them: the
+    // verdicts an ordinary section can carry are the `routings` rows;
+    // `unrouted` is by construction never a row — a section that reaches it is
+    // the ROUTE-TOTAL failure, so its only home is an error case; and
+    // `documentRoot` belongs to the walk *root*, so it is produced only where a
+    // case walks a bare `@Document` root, which is `rootCases`.
     exercised: (c) => {
       for (final r in ((c as Map<String, dynamic>)['routings'] as List)
           .cast<Map<String, dynamic>>())
@@ -302,6 +304,9 @@ final List<CorpusGuardedEnum> _guarded = [
         if ((e['expect'] as Map<String, dynamic>)['routingVerdict']
             case final String v)
           v,
+      for (final r in (c['rootCases'] as List).cast<Map<String, dynamic>>())
+        ...?((r['expect'] as Map<String, dynamic>)['routingVerdicts'] as List?)
+            ?.cast<String>(),
     },
     why: 'the §8.3 routing verdict that decides whether a section reaches the '
         'Phase-4 extract at all — and the two failures it hides are opposite '

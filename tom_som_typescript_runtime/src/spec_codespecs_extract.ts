@@ -43,7 +43,13 @@
  */
 
 import { SpecDocument } from './spec_document';
-import { SpecClass, SpecField, SpecFieldKind, SpecModel } from './spec_model';
+import {
+  SpecClass,
+  SpecField,
+  SpecFieldKind,
+  SpecModel,
+  SpecRoot,
+} from './spec_model';
 import { specPathJoin } from './spec_paths';
 import { SpecReflection } from './spec_reflection';
 
@@ -670,11 +676,13 @@ export class CodeSpecsExtract {
 /**
  * Thrown when the document cannot be extracted from at all.
  *
- * The only cause today is a section routed nowhere — `ROUTE-TOTAL`
- * (`tom_specs_model_rules.md` §10.2) failing. It is an error rather than a skip
- * because a section routed nowhere is a section the agent writing that area
- * never sees, and a silent omission at this boundary is indistinguishable from
- * a specification that genuinely said nothing.
+ * Two causes: a section routed nowhere — `ROUTE-TOTAL`
+ * (`tom_specs_model_rules.md` §10.2) failing — and a walk root that cannot be
+ * resolved to exactly one (`codespecs_prompt.md` §5). Both are errors rather
+ * than skips: a section routed nowhere is a section the agent writing that area
+ * never sees, and a walk over the wrong root is every area empty. A silent
+ * omission at this boundary is indistinguishable from a specification that
+ * genuinely said nothing.
  *
  * Dart's counterpart `implements Exception` (a plain value); here it extends
  * `Error` so `throw` carries a stack and `instanceof` works — the same choice
@@ -704,9 +712,79 @@ export class CodeSpecsExtractError extends Error {
   }
 }
 
+/** The root segment of `root` — its `@SectionId` when it has one. */
+function codeSpecsRootSegment(root: SpecRoot): string {
+  return root.sectionId ?? root.type;
+}
+
+/** The one root a {@link CodeSpecsExtractor} walks — `codespecs_prompt.md` §5. */
+function resolveCodeSpecsRoot(
+  model: SpecModel,
+  document: SpecDocument,
+  rootType: string | null,
+): SpecRoot {
+  const populated = model.roots.filter((r) =>
+    document.hasValuesUnder(codeSpecsRootSegment(r)),
+  );
+  const names = model.roots.map((r) => r.type).join(', ');
+  if (rootType !== null && rootType !== '') {
+    for (const r of model.roots) {
+      if (r.type !== rootType && codeSpecsRootSegment(r) !== rootType) {
+        continue;
+      }
+      if (populated.length > 0 && !populated.includes(r)) {
+        throw new CodeSpecsExtractError(
+          `root "${rootType}" holds no value in this document, but ` +
+            `${populated.map((p) => p.type).join(', ')} does — every ` +
+            'extract would come out empty (codespecs_prompt.md §5)',
+          codeSpecsRootSegment(r),
+          r.type,
+        );
+      }
+      return r;
+    }
+    throw new CodeSpecsExtractError(
+      `no document root with type or section id "${rootType}" ` +
+        `(have: ${names})`,
+      '',
+      rootType,
+    );
+  }
+  if (populated.length === 1) {
+    return populated[0];
+  }
+  if (populated.length === 0) {
+    if (model.roots.length === 1) {
+      return model.roots[0];
+    }
+    throw new CodeSpecsExtractError(
+      'document has no populated root to extract from; pass rootType to ' +
+        `choose one (have: ${names})`,
+      '',
+      '',
+    );
+  }
+  throw new CodeSpecsExtractError(
+    `document has ${populated.length} populated roots ` +
+      `(${populated.map((r) => r.type).join(', ')}); pass rootType to ` +
+      'choose one',
+    '',
+    '',
+  );
+}
+
 /**
  * Produces one {@link CodeSpecsExtract} per active area from a filled
  * specification document.
+ *
+ * A Phase-4 run extracts from **one** specification document, so the walk has
+ * exactly one root ({@link CodeSpecsExtractor.root}, `codespecs_prompt.md` §5).
+ * The two ways to get that wrong are both closed here rather than left to the
+ * caller: the walk cannot union every `@Document` root, because there is no way
+ * to ask for that; and naming a root the document never populates — the
+ * `D13CodeSpecsProjection` mistake, whose `CGP/…` path space misses a
+ * blueprint's `SBP/…` values and yields every area silently empty — throws
+ * rather than returning an empty result.
  */
 export class CodeSpecsExtractor {
   /**
@@ -721,16 +799,39 @@ export class CodeSpecsExtractor {
   /** The area catalogue — `codespecs_mapping.md` §4.1/§4.4.3/§4.4.6. */
   catalog: CodeSpecsAreaCatalog;
 
+  /**
+   * The one `@Document` root this extractor walks. Resolved once, in the
+   * constructor, so {@link routings} and {@link extractAll} cannot disagree
+   * about what was walked.
+   */
+  readonly root: SpecRoot;
+
   private _reflection: SpecReflection;
 
+  /**
+   * Binds an extractor to a model / document / catalogue triple.
+   *
+   * `rootType` names the specification document's own root, by type name or by
+   * section id. Omitted (`null`), it defaults to the document's single
+   * **populated** root — the root under which the document holds any value —
+   * falling back to the model's only root when the document is empty, so an
+   * unfilled single-root model still reaches the routing walk.
+   *
+   * Throws {@link CodeSpecsExtractError} when the root cannot be resolved to
+   * exactly one: an unknown `rootType`, a `rootType` holding no value while
+   * another root does, more than one populated root, or an empty document over
+   * a multi-root model.
+   */
   constructor(
     model: SpecModel,
     document: SpecDocument,
     catalog: CodeSpecsAreaCatalog,
+    rootType: string | null = null,
   ) {
     this.model = model;
     this.document = document;
     this.catalog = catalog;
+    this.root = resolveCodeSpecsRoot(model, document, rootType);
     this._reflection = new SpecReflection(model);
   }
 
@@ -757,10 +858,7 @@ export class CodeSpecsExtractor {
   extractAll(): CodeSpecsExtract[] {
     const entries: CodeSpecsExtractEntry[] = [];
     this._walkAll(null, entries, true);
-    const root =
-      this.model.roots.length === 0
-        ? ''
-        : this._reflection.rootSegment(this.model.roots[0]);
+    const root = this._reflection.rootSegment(this.root);
     const out: CodeSpecsExtract[] = [];
     for (const area of this.catalog.activeAreas) {
       out.push(
@@ -797,16 +895,14 @@ export class CodeSpecsExtractor {
     entries: CodeSpecsExtractEntry[] | null,
     strict: boolean,
   ): void {
-    for (const root of this.model.roots) {
-      this._walk(
-        this._reflection.rootSegment(root),
-        this.model.classNamed(root.type),
-        new Set<string>([root.type]),
-        routings,
-        entries,
-        strict,
-      );
-    }
+    this._walk(
+      this._reflection.rootSegment(this.root),
+      this.model.classNamed(this.root.type),
+      new Set<string>([this.root.type]),
+      routings,
+      entries,
+      strict,
+    );
   }
 
   private _walk(

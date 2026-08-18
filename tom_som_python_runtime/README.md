@@ -40,7 +40,7 @@ The package `tom_som_runtime` mirrors the seven portable Dart modules:
 | `spec_node_creation` | The constrained node-creation gate (`check_add_node`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
 | `spec_document_yaml` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown` | Meta-data-driven Markdown import/export codec. |
-| `spec_codespecs_extract` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — one extract per CodeSpecs area, collecting every value `@CodeSpecKind` routes there **verbatim and with provenance**. It copies and indexes; it never summarises or composes. |
+| `spec_codespecs_extract` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — one extract per CodeSpecs area, collecting every value `@CodeSpecKind` routes there **verbatim and with provenance**. It copies and indexes; it never summarises or composes. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
 
 It holds **no document values of its own** and contains **no generated typed
 classes** — those belong to the per-language `tom_som_<lang>_v0` packages.

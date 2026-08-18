@@ -528,11 +528,13 @@ class CodeSpecsExtract {
 
 /// Thrown when the document cannot be extracted from at all.
 ///
-/// The only cause today is a section routed nowhere — `ROUTE-TOTAL`
-/// (`tom_specs_model_rules.md` §10.2) failing. It is an error rather than a
-/// skip because a section routed nowhere is a section the agent writing that
-/// area never sees, and a silent omission at this boundary is indistinguishable
-/// from a specification that genuinely said nothing.
+/// Two causes: a section routed nowhere — `ROUTE-TOTAL`
+/// (`tom_specs_model_rules.md` §10.2) failing — and a walk root that cannot be
+/// resolved to exactly one (`codespecs_prompt.md` §5). Both are errors rather
+/// than skips: a section routed nowhere is a section the agent writing that
+/// area never sees, and a walk over the wrong root is every area empty. A
+/// silent omission at this boundary is indistinguishable from a specification
+/// that genuinely said nothing.
 class CodeSpecsExtractError implements Exception {
   /// What went wrong, in one sentence.
   final String message;
@@ -555,6 +557,15 @@ class CodeSpecsExtractError implements Exception {
 
 /// Produces one [CodeSpecsExtract] per active area from a filled specification
 /// document.
+///
+/// A Phase-4 run extracts from **one** specification document, so the walk has
+/// exactly one root ([root], `codespecs_prompt.md` §5). The two ways to get
+/// that wrong are both closed here rather than left to the caller: the walk
+/// cannot union every `@Document` root, because there is no way to ask for
+/// that; and naming a root the document never populates — the
+/// `D13CodeSpecsProjection` mistake, whose `CGP/…` path space misses a
+/// blueprint's `SBP/…` values and yields every area silently empty — is a
+/// [CodeSpecsExtractError] rather than an empty result.
 class CodeSpecsExtractor {
   /// The model describing the document's structure and carrying the routing
   /// verdicts.
@@ -566,13 +577,82 @@ class CodeSpecsExtractor {
   /// The area catalogue — `codespecs_mapping.md` §4.1/§4.4.3/§4.4.6.
   final CodeSpecsAreaCatalog catalog;
 
+  /// The one `@Document` root this extractor walks.
+  ///
+  /// Resolved once, in the constructor, so [routings] and [extractAll] cannot
+  /// disagree about what was walked.
+  final SpecRoot root;
+
   final SpecReflection _reflection;
 
+  /// Binds an extractor to a model / document / catalogue triple.
+  ///
+  /// [rootType] names the specification document's own root, by type name or
+  /// by section id. Omitted, it defaults to the document's single **populated**
+  /// root — the root under which the document holds any value — falling back to
+  /// the model's only root when the document is empty, so an unfilled
+  /// single-root model still reaches the routing walk.
+  ///
+  /// Throws [CodeSpecsExtractError] when the root cannot be resolved to exactly
+  /// one: an unknown [rootType], a [rootType] holding no value while another
+  /// root does, more than one populated root, or an empty document over a
+  /// multi-root model.
   CodeSpecsExtractor({
     required this.model,
     required this.document,
     required this.catalog,
-  }) : _reflection = SpecReflection(model);
+    String? rootType,
+  })  : root = _resolveRoot(model, document, rootType),
+        _reflection = SpecReflection(model);
+
+  static String _segment(SpecRoot r) => r.sectionId ?? r.type;
+
+  static SpecRoot _resolveRoot(
+      SpecModel model, SpecDocument document, String? rootType) {
+    final populated = [
+      for (final r in model.roots)
+        if (document.hasValuesUnder(_segment(r))) r,
+    ];
+    final names = model.roots.map((r) => r.type).join(', ');
+    if (rootType != null && rootType.isNotEmpty) {
+      for (final r in model.roots) {
+        if (r.type != rootType && _segment(r) != rootType) continue;
+        if (populated.isNotEmpty && !populated.contains(r)) {
+          throw CodeSpecsExtractError(
+            message: 'root "$rootType" holds no value in this document, but '
+                '${populated.map((p) => p.type).join(', ')} does — every '
+                'extract would come out empty (codespecs_prompt.md §5)',
+            path: _segment(r),
+            className: r.type,
+          );
+        }
+        return r;
+      }
+      throw CodeSpecsExtractError(
+        message: 'no document root with type or section id "$rootType" '
+            '(have: $names)',
+        path: '',
+        className: rootType,
+      );
+    }
+    if (populated.length == 1) return populated.single;
+    if (populated.isEmpty) {
+      if (model.roots.length == 1) return model.roots.single;
+      throw CodeSpecsExtractError(
+        message: 'document has no populated root to extract from; pass '
+            'rootType to choose one (have: $names)',
+        path: '',
+        className: '',
+      );
+    }
+    throw CodeSpecsExtractError(
+      message: 'document has ${populated.length} populated roots '
+          '(${populated.map((r) => r.type).join(', ')}); pass rootType to '
+          'choose one',
+      path: '',
+      className: '',
+    );
+  }
 
   /// The verdict of every class node the walk reaches, in document order.
   ///
@@ -593,15 +673,13 @@ class CodeSpecsExtractor {
   List<CodeSpecsExtract> extractAll() {
     final entries = <CodeSpecsExtractEntry>[];
     _walkAll(routings: null, entries: entries, strict: true);
-    final root = model.roots.isEmpty
-        ? ''
-        : _reflection.rootSegment(model.roots.first);
+    final rootSegment = _reflection.rootSegment(root);
     final out = <CodeSpecsExtract>[];
     for (final area in catalog.activeAreas) {
       out.add(CodeSpecsExtract(
         area: area,
         catalogSource: catalog.source,
-        documentRoot: root,
+        documentRoot: rootSegment,
         citableParts: catalog.citableAreaCodes(area),
         projects: catalog.projectsFor(area),
         entries: entries
@@ -628,16 +706,14 @@ class CodeSpecsExtractor {
     required List<CodeSpecsExtractEntry>? entries,
     required bool strict,
   }) {
-    for (final root in model.roots) {
-      _walk(
-        path: _reflection.rootSegment(root),
-        cls: model.classNamed(root.type),
-        ancestorTypes: {root.type},
-        routings: routings,
-        entries: entries,
-        strict: strict,
-      );
-    }
+    _walk(
+      path: _reflection.rootSegment(root),
+      cls: model.classNamed(root.type),
+      ancestorTypes: {root.type},
+      routings: routings,
+      entries: entries,
+      strict: strict,
+    );
   }
 
   void _walk({

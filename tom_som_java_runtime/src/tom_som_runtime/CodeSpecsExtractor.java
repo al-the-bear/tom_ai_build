@@ -53,6 +53,15 @@ import java.util.Set;
  * slices) and §4.4.6 (the authoring steps), authored once and read by all nine
  * runtimes. Carrying it beside the content is what stops an agent having to open
  * the mapping document to find out what {@code CE-FM} means.
+ *
+ * <p>A Phase-4 run extracts from <b>one</b> specification document, so the walk
+ * has exactly one root ({@link #root}, {@code codespecs_prompt.md} §5). The two
+ * ways to get that wrong are both closed here rather than left to the caller: the
+ * walk cannot union every {@code @Document} root, because there is no way to ask
+ * for that; and naming a root the document never populates — the
+ * {@code D13CodeSpecsProjection} mistake, whose {@code CGP/…} path space misses a
+ * blueprint's {@code SBP/…} values and yields every area silently empty — is a
+ * {@link CodeSpecsExtractError} rather than an empty result.
  */
 public final class CodeSpecsExtractor {
   /**
@@ -81,14 +90,114 @@ public final class CodeSpecsExtractor {
   /** The area catalogue — {@code codespecs_mapping.md} §4.1/§4.4.3/§4.4.6. */
   public final CodeSpecsAreaCatalog catalog;
 
+  /**
+   * The one {@code @Document} root this extractor walks.
+   *
+   * <p>Resolved once, by the constructor, so {@link #routings} and
+   * {@link #extractAll} cannot disagree about what was walked.
+   */
+  public final SpecRoot root;
+
   private final SpecReflection reflection;
 
+  /** Binds an extractor to the document's single populated root. */
   public CodeSpecsExtractor(
       SpecModel model, SpecDocument document, CodeSpecsAreaCatalog catalog) {
+    this(model, document, catalog, null);
+  }
+
+  /**
+   * Binds an extractor to a model / document / catalogue triple.
+   *
+   * <p>{@code rootType} names the specification document's own root, by type name
+   * or by section id. {@code null} (or {@code ""}) means "omitted": the document's
+   * single <b>populated</b> root is used — the root under which the document holds
+   * any value — falling back to the model's only root when the document is empty,
+   * so an unfilled single-root model still reaches the routing walk.
+   *
+   * @throws CodeSpecsExtractError when the root cannot be resolved to exactly one:
+   *     an unknown {@code rootType}, a {@code rootType} holding no value while
+   *     another root does, more than one populated root, or an empty document over
+   *     a multi-root model.
+   */
+  public CodeSpecsExtractor(
+      SpecModel model, SpecDocument document, CodeSpecsAreaCatalog catalog, String rootType) {
     this.model = model;
     this.document = document;
     this.catalog = catalog;
+    this.root = resolveRoot(model, document, rootType);
     this.reflection = new SpecReflection(model);
+  }
+
+  /** The document path segment a root's values live under. */
+  private static String rootSegmentOf(SpecRoot r) {
+    return r.sectionId != null && !r.sectionId.isEmpty() ? r.sectionId : r.type;
+  }
+
+  /** Implements the constructor's root rule. */
+  private static SpecRoot resolveRoot(
+      SpecModel model, SpecDocument document, String rootType) {
+    List<SpecRoot> populated = new ArrayList<>();
+    List<String> names = new ArrayList<>();
+    for (SpecRoot r : model.roots) {
+      names.add(r.type);
+      if (document.hasValuesUnder(rootSegmentOf(r))) {
+        populated.add(r);
+      }
+    }
+    List<String> populatedTypes = new ArrayList<>();
+    for (SpecRoot r : populated) {
+      populatedTypes.add(r.type);
+    }
+    if (rootType != null && !rootType.isEmpty()) {
+      for (SpecRoot r : model.roots) {
+        if (!r.type.equals(rootType) && !rootSegmentOf(r).equals(rootType)) {
+          continue;
+        }
+        if (!populated.isEmpty() && !populated.contains(r)) {
+          throw new CodeSpecsExtractError(
+              "root \""
+                  + rootType
+                  + "\" holds no value in this document, but "
+                  + String.join(", ", populatedTypes)
+                  + " does — every extract would come out empty"
+                  + " (codespecs_prompt.md §5)",
+              rootSegmentOf(r),
+              r.type);
+        }
+        return r;
+      }
+      throw new CodeSpecsExtractError(
+          "no document root with type or section id \""
+              + rootType
+              + "\" (have: "
+              + String.join(", ", names)
+              + ")",
+          "",
+          rootType);
+    }
+    if (populated.size() == 1) {
+      return populated.get(0);
+    }
+    if (populated.isEmpty()) {
+      if (model.roots.size() == 1) {
+        return model.roots.get(0);
+      }
+      throw new CodeSpecsExtractError(
+          "document has no populated root to extract from; pass rootType to choose one (have: "
+              + String.join(", ", names)
+              + ")",
+          "",
+          "");
+    }
+    throw new CodeSpecsExtractError(
+        "document has "
+            + populated.size()
+            + " populated roots ("
+            + String.join(", ", populatedTypes)
+            + "); pass rootType to choose one",
+        "",
+        "");
   }
 
   /**
@@ -114,8 +223,7 @@ public final class CodeSpecsExtractor {
   public List<CodeSpecsExtract> extractAll() {
     List<CodeSpecsExtractEntry> entries = new ArrayList<>();
     walkAll(null, entries, true);
-    String root =
-        model.roots.isEmpty() ? "" : reflection.rootSegment(model.roots.get(0));
+    String rootSegment = reflection.rootSegment(root);
     List<CodeSpecsExtract> out = new ArrayList<>();
     for (CodeSpecsArea area : catalog.activeAreas()) {
       List<CodeSpecsExtractEntry> mine = new ArrayList<>();
@@ -128,7 +236,7 @@ public final class CodeSpecsExtractor {
           new CodeSpecsExtract(
               area,
               catalog.source,
-              root,
+              rootSegment,
               catalog.citableAreaCodes(area),
               catalog.projectsFor(area),
               Collections.unmodifiableList(mine)));
@@ -153,17 +261,15 @@ public final class CodeSpecsExtractor {
 
   private void walkAll(
       List<CodeSpecsRouting> routings, List<CodeSpecsExtractEntry> entries, boolean strict) {
-    for (SpecRoot root : model.roots) {
-      Set<String> ancestorTypes = new LinkedHashSet<>();
-      ancestorTypes.add(root.type);
-      walk(
-          reflection.rootSegment(root),
-          model.classNamed(root.type),
-          ancestorTypes,
-          routings,
-          entries,
-          strict);
-    }
+    Set<String> ancestorTypes = new LinkedHashSet<>();
+    ancestorTypes.add(root.type);
+    walk(
+        reflection.rootSegment(root),
+        model.classNamed(root.type),
+        ancestorTypes,
+        routings,
+        entries,
+        strict);
   }
 
   private void walk(

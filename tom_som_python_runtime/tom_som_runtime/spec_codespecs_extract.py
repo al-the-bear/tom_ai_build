@@ -48,7 +48,7 @@ from enum import Enum
 from typing import Any, Optional
 
 from .spec_document import SpecDocument
-from .spec_model import SpecClass, SpecField, SpecFieldKind, SpecModel
+from .spec_model import SpecClass, SpecField, SpecFieldKind, SpecModel, SpecRoot
 from .spec_paths import spec_path_join
 from .spec_reflection import SpecReflection
 
@@ -472,11 +472,13 @@ class CodeSpecsExtract:
 class CodeSpecsExtractError(Exception):
     """Raised when the document cannot be extracted from at all.
 
-    The only cause today is a section routed nowhere — ``ROUTE-TOTAL``
-    (`tom_specs_model_rules.md` §10.2) failing. It is an error rather than a
-    skip because a section routed nowhere is a section the agent writing that
-    area never sees, and a silent omission at this boundary is
-    indistinguishable from a specification that genuinely said nothing."""
+    Two causes: a section routed nowhere — ``ROUTE-TOTAL``
+    (`tom_specs_model_rules.md` §10.2) failing — and a walk root that cannot be
+    resolved to exactly one (`codespecs_prompt.md` §5). Both are errors rather
+    than skips: a section routed nowhere is a section the agent writing that
+    area never sees, and a walk over the wrong root is every area empty. A
+    silent omission at this boundary is indistinguishable from a specification
+    that genuinely said nothing."""
 
     def __init__(self, message: str, path: str, class_name: str) -> None:
         super().__init__(f"CodeSpecsExtractError: {message} ({path}, {class_name})")
@@ -488,16 +490,89 @@ class CodeSpecsExtractError(Exception):
         self.class_name = class_name
 
 
+def _root_segment(root: SpecRoot) -> str:
+    return root.section_id or root.type
+
+
+def _resolve_root(
+    model: SpecModel, document: SpecDocument, root_type: Optional[str]
+) -> SpecRoot:
+    """The one root :class:`CodeSpecsExtractor` walks — `codespecs_prompt.md`
+    §5."""
+    populated = [r for r in model.roots if document.has_values_under(_root_segment(r))]
+    names = ", ".join(r.type for r in model.roots)
+    if root_type:
+        for r in model.roots:
+            if r.type != root_type and _root_segment(r) != root_type:
+                continue
+            if populated and r not in populated:
+                raise CodeSpecsExtractError(
+                    message=f'root "{root_type}" holds no value in this '
+                    f"document, but {', '.join(p.type for p in populated)} "
+                    "does — every extract would come out empty "
+                    "(codespecs_prompt.md §5)",
+                    path=_root_segment(r),
+                    class_name=r.type,
+                )
+            return r
+        raise CodeSpecsExtractError(
+            message="no document root with type or section id "
+            f'"{root_type}" (have: {names})',
+            path="",
+            class_name=root_type,
+        )
+    if len(populated) == 1:
+        return populated[0]
+    if not populated:
+        if len(model.roots) == 1:
+            return model.roots[0]
+        raise CodeSpecsExtractError(
+            message="document has no populated root to extract from; pass "
+            f"root_type to choose one (have: {names})",
+            path="",
+            class_name="",
+        )
+    raise CodeSpecsExtractError(
+        message=f"document has {len(populated)} populated roots "
+        f"({', '.join(r.type for r in populated)}); pass root_type to "
+        "choose one",
+        path="",
+        class_name="",
+    )
+
+
 class CodeSpecsExtractor:
     """Produces one :class:`CodeSpecsExtract` per active area from a filled
-    specification document."""
+    specification document.
+
+    A Phase-4 run extracts from **one** specification document, so the walk has
+    exactly one root (:attr:`root`, `codespecs_prompt.md` §5). The two ways to
+    get that wrong are both closed here rather than left to the caller: the walk
+    cannot union every ``@Document`` root, because there is no way to ask for
+    that; and naming a root the document never populates — the
+    ``D13CodeSpecsProjection`` mistake, whose ``CGP/…`` path space misses a
+    blueprint's ``SBP/…`` values and yields every area silently empty — raises
+    :class:`CodeSpecsExtractError` rather than returning an empty result."""
 
     def __init__(
         self,
         model: SpecModel,
         document: SpecDocument,
         catalog: CodeSpecsAreaCatalog,
+        root_type: Optional[str] = None,
     ) -> None:
+        """Binds an extractor to a model / document / catalogue triple.
+
+        *root_type* names the specification document's own root, by type name or
+        by section id. Omitted, it defaults to the document's single
+        **populated** root — the root under which the document holds any value —
+        falling back to the model's only root when the document is empty, so an
+        unfilled single-root model still reaches the routing walk.
+
+        Raises :class:`CodeSpecsExtractError` when the root cannot be resolved to
+        exactly one: an unknown *root_type*, a *root_type* holding no value while
+        another root does, more than one populated root, or an empty document
+        over a multi-root model."""
         #: The model describing the document's structure and carrying the
         #: routing verdicts.
         self.model = model
@@ -505,6 +580,10 @@ class CodeSpecsExtractor:
         self.document = document
         #: The area catalogue — `codespecs_mapping.md` §4.1/§4.4.3/§4.4.6.
         self.catalog = catalog
+        #: The one `@Document` root this extractor walks. Resolved once, here,
+        #: so `routings` and `extract_all` cannot disagree about what was
+        #: walked.
+        self.root = _resolve_root(model, document, root_type)
         self._reflection = SpecReflection(model)
 
     def routings(self) -> list[CodeSpecsRouting]:
@@ -525,11 +604,7 @@ class CodeSpecsExtractor:
         reaches that carries none of the three verdicts."""
         entries: list[CodeSpecsExtractEntry] = []
         self._walk_all(routings=None, entries=entries, strict=True)
-        root = (
-            ""
-            if not self.model.roots
-            else self._reflection.root_segment(self.model.roots[0])
-        )
+        root = self._reflection.root_segment(self.root)
         out: list[CodeSpecsExtract] = []
         for area in self.catalog.active_areas:
             out.append(
@@ -560,15 +635,14 @@ class CodeSpecsExtractor:
         entries: Optional[list[CodeSpecsExtractEntry]],
         strict: bool,
     ) -> None:
-        for root in self.model.roots:
-            self._walk(
-                path=self._reflection.root_segment(root),
-                cls=self.model.class_named(root.type),
-                ancestor_types={root.type},
-                routings=routings,
-                entries=entries,
-                strict=strict,
-            )
+        self._walk(
+            path=self._reflection.root_segment(self.root),
+            cls=self.model.class_named(self.root.type),
+            ancestor_types={self.root.type},
+            routings=routings,
+            entries=entries,
+            strict=strict,
+        )
 
     def _walk(
         self,

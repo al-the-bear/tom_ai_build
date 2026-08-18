@@ -1404,7 +1404,8 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
     );
     let state = DocumentJson::from_json(&read_json("state.json"));
     let doc = doc_from_state(&state);
-    let extractor = CodeSpecsExtractor::for_model(&doc, model, catalog.clone());
+    let extractor = CodeSpecsExtractor::for_model(&doc, model, catalog.clone(), None)
+        .expect("the corpus model resolves to one root");
 
     // 1. the routing verdicts reproduce the committed diagnostic.
     let got = extractor.routings();
@@ -1635,7 +1636,9 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
             None => DocumentJson::default(),
         };
         let err_doc = doc_from_state(&err_state);
-        let err_extractor = CodeSpecsExtractor::for_model(&err_doc, &err_model, catalog.clone());
+        let err_extractor =
+            CodeSpecsExtractor::for_model(&err_doc, &err_model, catalog.clone(), None)
+                .expect("an error case's model resolves to one root");
         let want = ec.get("expect").expect("error case has an expectation");
 
         match err_extractor.extract_all() {
@@ -1674,6 +1677,101 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
             &format!("codespecs.error[{}].routingVerdict", name),
             verdicts == want_verdicts,
             &format!("{:?} != {:?}", verdicts, want_verdicts),
+        );
+    }
+
+    // 6. root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root.
+    // The models here carry two, because over a single-root model "walks the
+    // named root" and "walks every root" give the same answer.
+    let root_cases = table
+        .get("rootCases")
+        .and_then(|v| v.as_array())
+        .expect("codespecs_extract_cases.rootCases is a list");
+    for rc in root_cases {
+        let name = rc.str_or("name");
+        let root_model = SpecModel::from_json(rc.get("model").expect("root case has a model"));
+        let root_state = match rc.get("state") {
+            Some(s) => DocumentJson::from_json(s),
+            None => DocumentJson::default(),
+        };
+        let root_doc = doc_from_state(&root_state);
+        let want = rc.get("expect").expect("root case has an expectation");
+        let built = CodeSpecsExtractor::for_model(
+            &root_doc,
+            &root_model,
+            catalog.clone(),
+            rc.get("rootType").and_then(|v| v.as_str()),
+        );
+        if want.bool_or("fails") {
+            match built {
+                Ok(_) => c.check(
+                    &format!("codespecs.root[{}].thrown", name),
+                    false,
+                    "the extractor bound instead of failing",
+                ),
+                Err(e) => {
+                    c.check(
+                        &format!("codespecs.root[{}].path", name),
+                        e.path == want.str_or("path"),
+                        &e.path,
+                    );
+                    c.check(
+                        &format!("codespecs.root[{}].className", name),
+                        e.class_name == want.str_or("className"),
+                        &e.class_name,
+                    );
+                    c.check(
+                        &format!("codespecs.root[{}].message", name),
+                        e.message.contains(&want.str_or("messageContains")),
+                        &e.message,
+                    );
+                }
+            }
+            continue;
+        }
+        let x = built.expect("a passing root case binds");
+        c.check(
+            &format!("codespecs.root[{}].root", name),
+            x.root.type_ == want.str_or("root"),
+            &x.root.type_,
+        );
+        // `routings` and `extract_all` walk the same resolved root, so the
+        // verdict sequence is scoped too — that is what makes the bare
+        // `@Document` root of case 2 the corpus's `documentRoot` producer.
+        let root_verdicts: Vec<String> = x
+            .routings()
+            .iter()
+            .map(|r| r.verdict.name().to_string())
+            .collect();
+        let want_verdicts: Vec<String> = want
+            .get("routingVerdicts")
+            .and_then(|v| v.as_array())
+            .map(|a| a.iter().filter_map(|v| v.as_str().map(String::from)).collect())
+            .unwrap_or_default();
+        c.check(
+            &format!("codespecs.root[{}].routingVerdicts", name),
+            root_verdicts == want_verdicts,
+            &format!("{:?} != {:?}", root_verdicts, want_verdicts),
+        );
+        let extracts = x.extract_all().expect("a passing root case extracts");
+        c.check(
+            &format!("codespecs.root[{}].documentRoot", name),
+            extracts[0].document_root == want.str_or("documentRoot"),
+            &extracts[0].document_root,
+        );
+        let paths: Vec<String> = extracts
+            .iter()
+            .flat_map(|g| g.entries.iter().map(|e| e.path.clone()))
+            .collect();
+        let want_paths: Vec<String> = want
+            .get("paths")
+            .and_then(|v| v.as_array())
+            .map(|a| a.iter().filter_map(|v| v.as_str().map(String::from)).collect())
+            .unwrap_or_default();
+        c.check(
+            &format!("codespecs.root[{}].paths", name),
+            paths == want_paths,
+            &format!("{:?} != {:?}", paths, want_paths),
         );
     }
 }

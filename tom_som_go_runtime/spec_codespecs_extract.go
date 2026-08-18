@@ -555,11 +555,13 @@ func (x *CodeSpecsExtract) ToMarkdown() string {
 // CodeSpecsExtractError is returned when the document cannot be extracted from
 // at all.
 //
-// The only cause today is a section routed nowhere — `ROUTE-TOTAL`
-// (`tom_specs_model_rules.md` §10.2) failing. It is an error rather than a skip
-// because a section routed nowhere is a section the agent writing that area
-// never sees, and a silent omission at this boundary is indistinguishable from a
-// specification that genuinely said nothing.
+// Two causes: a section routed nowhere — `ROUTE-TOTAL`
+// (`tom_specs_model_rules.md` §10.2) failing — and a walk root that cannot be
+// resolved to exactly one (`codespecs_prompt.md` §5). Both are errors rather than
+// skips: a section routed nowhere is a section the agent writing that area never
+// sees, and a walk over the wrong root is every area empty. A silent omission at
+// this boundary is indistinguishable from a specification that genuinely said
+// nothing.
 type CodeSpecsExtractError struct {
 	// Message is what went wrong, in one sentence.
 	Message string
@@ -576,6 +578,15 @@ func (e *CodeSpecsExtractError) Error() string {
 
 // CodeSpecsExtractor produces one CodeSpecsExtract per active area from a filled
 // specification document.
+//
+// A Phase-4 run extracts from **one** specification document, so the walk has
+// exactly one root (Root, `codespecs_prompt.md` §5). The two ways to get that
+// wrong are both closed here rather than left to the caller: the walk cannot
+// union every `@Document` root, because there is no way to ask for that; and
+// naming a root the document never populates — the `D13CodeSpecsProjection`
+// mistake, whose `CGP/…` path space misses a blueprint's `SBP/…` values and
+// yields every area silently empty — is a CodeSpecsExtractError rather than an
+// empty result.
 type CodeSpecsExtractor struct {
 	// Model describes the document's structure and carries the routing verdicts.
 	Model *SpecModel
@@ -584,23 +595,127 @@ type CodeSpecsExtractor struct {
 	// Catalog is the area catalogue — `codespecs_mapping.md`
 	// §4.1/§4.4.3/§4.4.6.
 	Catalog *CodeSpecsAreaCatalog
+	// Root is the one `@Document` root this extractor walks.
+	//
+	// Resolved once, by NewCodeSpecsExtractor, so Routings and ExtractAll cannot
+	// disagree about what was walked.
+	Root *SpecRoot
 
 	reflection *SpecReflection
 }
 
 // NewCodeSpecsExtractor binds an extractor to a model / document / catalogue
 // triple.
+//
+// rootType names the specification document's own root, by type name or by
+// section id. An empty rootType ("") means "omitted": the document's single
+// **populated** root is used — the root under which the document holds any value
+// — falling back to the model's only root when the document is empty, so an
+// unfilled single-root model still reaches the routing walk.
+//
+// Returns a *CodeSpecsExtractError when the root cannot be resolved to exactly
+// one: an unknown rootType, a rootType holding no value while another root does,
+// more than one populated root, or an empty document over a multi-root model.
 func NewCodeSpecsExtractor(
 	model *SpecModel,
 	document *SpecDocument,
 	catalog *CodeSpecsAreaCatalog,
-) *CodeSpecsExtractor {
+	rootType string,
+) (*CodeSpecsExtractor, error) {
+	root, bad := resolveCodeSpecsRoot(model, document, rootType)
+	if bad != nil {
+		return nil, bad
+	}
 	return &CodeSpecsExtractor{
 		Model:      model,
 		Document:   document,
 		Catalog:    catalog,
+		Root:       root,
 		reflection: NewSpecReflection(model),
+	}, nil
+}
+
+// codeSpecsRootSegment is the document path segment a root's values live under.
+func codeSpecsRootSegment(r *SpecRoot) string {
+	if r.SectionID != "" {
+		return r.SectionID
 	}
+	return r.Type
+}
+
+// resolveCodeSpecsRoot implements NewCodeSpecsExtractor's root rule.
+func resolveCodeSpecsRoot(
+	model *SpecModel,
+	document *SpecDocument,
+	rootType string,
+) (*SpecRoot, *CodeSpecsExtractError) {
+	populated := []*SpecRoot{}
+	names := []string{}
+	for _, r := range model.Roots {
+		names = append(names, r.Type)
+		if document.HasValuesUnder(codeSpecsRootSegment(r)) {
+			populated = append(populated, r)
+		}
+	}
+	populatedTypes := func() string {
+		t := []string{}
+		for _, r := range populated {
+			t = append(t, r.Type)
+		}
+		return strings.Join(t, ", ")
+	}
+	if rootType != "" {
+		for _, r := range model.Roots {
+			if r.Type != rootType && codeSpecsRootSegment(r) != rootType {
+				continue
+			}
+			if len(populated) > 0 && !codeSpecsRootIn(populated, r) {
+				return nil, &CodeSpecsExtractError{
+					Message: "root \"" + rootType + "\" holds no value in this document, but " +
+						populatedTypes() + " does — every extract would come out empty " +
+						"(codespecs_prompt.md §5)",
+					Path:      codeSpecsRootSegment(r),
+					ClassName: r.Type,
+				}
+			}
+			return r, nil
+		}
+		return nil, &CodeSpecsExtractError{
+			Message: "no document root with type or section id \"" + rootType +
+				"\" (have: " + strings.Join(names, ", ") + ")",
+			Path:      "",
+			ClassName: rootType,
+		}
+	}
+	if len(populated) == 1 {
+		return populated[0], nil
+	}
+	if len(populated) == 0 {
+		if len(model.Roots) == 1 {
+			return model.Roots[0], nil
+		}
+		return nil, &CodeSpecsExtractError{
+			Message: "document has no populated root to extract from; pass rootType to " +
+				"choose one (have: " + strings.Join(names, ", ") + ")",
+			Path:      "",
+			ClassName: "",
+		}
+	}
+	return nil, &CodeSpecsExtractError{
+		Message: "document has " + itoa(len(populated)) + " populated roots (" +
+			populatedTypes() + "); pass rootType to choose one",
+		Path:      "",
+		ClassName: "",
+	}
+}
+
+func codeSpecsRootIn(roots []*SpecRoot, want *SpecRoot) bool {
+	for _, r := range roots {
+		if r == want {
+			return true
+		}
+	}
+	return false
 }
 
 // Routings returns the verdict of every class node the walk reaches, in document
@@ -625,10 +740,7 @@ func (x *CodeSpecsExtractor) ExtractAll() ([]*CodeSpecsExtract, error) {
 	if bad := x.walkAll(nil, &entries, true); bad != nil {
 		return nil, bad
 	}
-	root := ""
-	if len(x.Model.Roots) > 0 {
-		root = x.reflection.RootSegment(x.Model.Roots[0])
-	}
+	root := x.reflection.RootSegment(x.Root)
 	out := []*CodeSpecsExtract{}
 	for _, area := range x.Catalog.ActiveAreas() {
 		mine := []CodeSpecsExtractEntry{}
@@ -671,20 +783,14 @@ func (x *CodeSpecsExtractor) walkAll(
 	entries *[]CodeSpecsExtractEntry,
 	strict bool,
 ) *CodeSpecsExtractError {
-	for _, root := range x.Model.Roots {
-		bad := x.walk(
-			x.reflection.RootSegment(root),
-			x.Model.ClassNamed(root.Type),
-			map[string]bool{root.Type: true},
-			routings,
-			entries,
-			strict,
-		)
-		if bad != nil {
-			return bad
-		}
-	}
-	return nil
+	return x.walk(
+		x.reflection.RootSegment(x.Root),
+		x.Model.ClassNamed(x.Root.Type),
+		map[string]bool{x.Root.Type: true},
+		routings,
+		entries,
+		strict,
+	)
 }
 
 func (x *CodeSpecsExtractor) walk(

@@ -46,7 +46,7 @@ plus a hand-rolled JSON reader that the Rust standard library does not provide:
 | `spec_text_pattern.rs` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (std ships no regex, and the `regex` crate would be both a dependency this crate does not take and a different grammar). |
 | `spec_query.rs` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.rs` | The constrained node-creation gate (`check_add_node`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
-| `spec_codespecs_extract.rs` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — one verbatim, provenance-carrying extract per CodeSpecs area. |
+| `spec_codespecs_extract.rs` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — one verbatim, provenance-carrying extract per CodeSpecs area. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
 | `spec_document_yaml.rs` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.rs` | Meta-data-driven Markdown import/export codec. |
 | `som_facade.rs` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_rust_v0`. |

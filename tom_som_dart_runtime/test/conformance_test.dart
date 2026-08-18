@@ -775,11 +775,13 @@ void main() {
   });
 
   group('codespecs_extract_cases.json (the Phase-4 extract generator)', () {
-    // Declared, not deferred: the error cases need one test each at declaration
-    // time. Under UPDATE_CORPUS the committed file may not exist yet (setUpAll
-    // has not run), so the freshly built table stands in for that one run.
+    // Declared, not deferred: the error and root cases need one test each at
+    // declaration time. Under UPDATE_CORPUS the committed file is whatever the
+    // last run left — it may not exist, and when a case is added it is stale by
+    // definition — so the freshly built table stands in for that one run; the
+    // ordinary run that follows is what verifies the committed file.
     final onDisk = File('${corpusDir.path}/codespecs_extract_cases.json');
-    final table = update && !onDisk.existsSync()
+    final table = update
         ? codeSpecsExtractCases
         : jsonDecode(onDisk.readAsStringSync()) as Map<String, dynamic>;
 
@@ -906,6 +908,47 @@ void main() {
               .where((r) => r.path == want['path'])
               .map((r) => r.verdict.name),
           [want['routingVerdict']],
+        );
+      });
+    }
+
+    for (final c in (table['rootCases'] as List).cast<Map<String, dynamic>>()) {
+      test('root scoping: ${c['name']}', () {
+        final catalog = CodeSpecsAreaCatalog.fromJson(
+            (table['catalog'] as Map).cast<String, dynamic>());
+        final rootModel =
+            SpecModel.fromJson((c['model'] as Map).cast<String, dynamic>());
+        final rootDoc = SpecDocument()
+          ..loadJson((c['state'] as Map).cast<String, dynamic>());
+        final want = (c['expect'] as Map).cast<String, dynamic>();
+        CodeSpecsExtractor build() => CodeSpecsExtractor(
+              model: rootModel,
+              document: rootDoc,
+              catalog: catalog,
+              rootType: c['rootType'] as String?,
+            );
+        if (want['fails'] == true) {
+          expect(
+            build,
+            throwsA(isA<CodeSpecsExtractError>()
+                .having((e) => e.path, 'path', want['path'])
+                .having((e) => e.className, 'className', want['className'])
+                .having((e) => e.message, 'message',
+                    contains(want['messageContains']))),
+          );
+          return;
+        }
+        final x = build();
+        expect(x.root.type, want['root']);
+        expect(
+          [for (final r in x.routings()) r.verdict.name],
+          want['routingVerdicts'],
+        );
+        final extracts = x.extractAll();
+        expect(extracts.first.documentRoot, want['documentRoot']);
+        expect(
+          [for (final e in extracts) ...e.entries.map((n) => n.path)],
+          want['paths'],
         );
       });
     }
@@ -3985,8 +4028,195 @@ Map<String, dynamic> _codeSpecsExtractCases(
         },
       },
     ],
+    // Root scoping (`codespecs_prompt.md` §5). A Phase-4 run extracts from ONE
+    // specification document, so the walk has exactly one root; the two ways to
+    // get that wrong are both loud rather than silent. The model carries two
+    // `@Document` roots because a single-root model cannot tell "walks the
+    // named root" apart from "walks every root" — the union and the correct
+    // answer coincide.
+    //
+    // `rootType` absent means the caller named nothing. `expect.paths` is every
+    // entry path across every extract, in order, which is what makes the union
+    // visible: walking both roots would list the other root's path too.
+    //
+    // `expect.routingVerdicts` is the verdict of every class node the SAME walk
+    // reaches, which pins the claim the constructor-resolved root exists to
+    // make: `routings()` and `extractAll()` cannot disagree about what was
+    // walked. It is also the corpus's only producer of `documentRoot` — `Beta`
+    // is a bare `@Document` root, and no other table walks one.
+    // `expect.fails` cases pin `messageContains` on a normative fragment — the
+    // three failure modes are distinguished by `holds no value` (a named root
+    // the document never populates, the `D13CodeSpecsProjection` mistake),
+    // `populated roots` (ambiguous) and `no document root` (unknown name).
+    //
+    // That an empty document over a SINGLE-root model still resolves is pinned
+    // by `errorCases` above rather than here: it only reaches `ROUTE-TOTAL`
+    // because root resolution succeeded over an empty `state`.
+    'rootCases': [
+      {
+        'name': 'an explicit root scopes the walk to that root alone',
+        'model': _codeSpecsTwoRootModelJson(),
+        'state': {
+          'content': {'ALP/TTL': 'Alpha title', 'BET/NTS/NTE': 'Beta note'},
+        },
+        'rootType': 'Alpha',
+        'expect': {
+          'fails': false,
+          'root': 'Alpha',
+          'documentRoot': 'ALP',
+          'paths': ['ALP/TTL'],
+          'routingVerdicts': ['feedsCode'],
+        },
+      },
+      {
+        'name': 'the root defaults to the one the document populates',
+        'model': _codeSpecsTwoRootModelJson(),
+        'state': {
+          'content': {'BET/NTS/NTE': 'Beta note'},
+        },
+        'expect': {
+          'fails': false,
+          'root': 'Beta',
+          'documentRoot': 'BET',
+          'paths': ['BET/NTS/NTE'],
+          'routingVerdicts': ['documentRoot', 'feedsCode'],
+        },
+      },
+      {
+        'name': 'a section id names its root as well as the type does',
+        'model': _codeSpecsTwoRootModelJson(),
+        'state': {
+          'content': {'ALP/TTL': 'Alpha title'},
+        },
+        'rootType': 'ALP',
+        'expect': {
+          'fails': false,
+          'root': 'Alpha',
+          'documentRoot': 'ALP',
+          'paths': ['ALP/TTL'],
+          'routingVerdicts': ['feedsCode'],
+        },
+      },
+      {
+        'name': 'naming a root the document never populates is an error',
+        'model': _codeSpecsTwoRootModelJson(),
+        'state': {
+          'content': {'ALP/TTL': 'Alpha title'},
+        },
+        'rootType': 'Beta',
+        'expect': {
+          'fails': true,
+          'path': 'BET',
+          'className': 'Beta',
+          'messageContains': 'holds no value',
+        },
+      },
+      {
+        'name': 'a document populating more than one root is an error',
+        'model': _codeSpecsTwoRootModelJson(),
+        'state': {
+          'content': {'ALP/TTL': 'Alpha title', 'BET/NTS/NTE': 'Beta note'},
+        },
+        'expect': {
+          'fails': true,
+          'path': '',
+          'className': '',
+          'messageContains': 'populated roots',
+        },
+      },
+      {
+        'name': 'a root the model does not have is an error',
+        'model': _codeSpecsTwoRootModelJson(),
+        'state': {
+          'content': {'ALP/TTL': 'Alpha title'},
+        },
+        'rootType': 'Gamma',
+        'expect': {
+          'fails': true,
+          'path': '',
+          'className': 'Gamma',
+          'messageContains': 'no document root',
+        },
+      },
+    ],
   };
 }
+
+/// Two `@Document` roots over two disjoint path spaces, each routed to one
+/// area, for the `rootCases` table.
+///
+/// The two roots are deliberately shaped differently, because the walk root is
+/// the one node whose verdict depends on being the root. `Alpha` carries
+/// `@CodeSpecKind` itself; `Beta` is a bare `@Document` whose content is routed
+/// by a child section — the shape of a real specification document, and the
+/// only place the corpus produces the `documentRoot` verdict now that the walk
+/// enters exactly one root (`codespecs_prompt.md` §5).
+Map<String, dynamic> _codeSpecsTwoRootModelJson() => {
+      'metaSchemaVersion': 1,
+      'modelVersion': 1,
+      'roots': [
+        {'type': 'Alpha', 'title': 'Alpha', 'sectionId': 'ALP'},
+        {'type': 'Beta', 'title': 'Beta', 'sectionId': 'BET'},
+      ],
+      'classes': {
+        'Alpha': {
+          'name': 'Alpha',
+          'sectionId': 'ALP',
+          'annotations': [
+            {
+              'name': 'Document',
+              'arguments': {'title': 'Alpha'}
+            },
+            {
+              'name': 'CodeSpecKind',
+              'arguments': {
+                'kinds': ['CodeSpecPart.form']
+              }
+            },
+          ],
+          'fields': [
+            {'name': 'title', 'kind': 'content', 'sectionId': 'TTL'},
+          ],
+        },
+        'Beta': {
+          'name': 'Beta',
+          'sectionId': 'BET',
+          // No routing verdict: a bare `@Document` root is structurally exempt
+          // from `ROUTE-TOTAL` (a root is the document, not a section of it),
+          // so walking it yields `documentRoot` and its child carries the
+          // routing.
+          'annotations': [
+            {
+              'name': 'Document',
+              'arguments': {'title': 'Beta'}
+            },
+          ],
+          'fields': [
+            {
+              'name': 'notes',
+              'kind': 'section',
+              'type': 'BetaNotes',
+              'sectionId': 'NTS'
+            },
+          ],
+        },
+        'BetaNotes': {
+          'name': 'BetaNotes',
+          'sectionId': 'NTS',
+          'annotations': [
+            {
+              'name': 'CodeSpecKind',
+              'arguments': {
+                'kinds': ['CodeSpecPart.text']
+              }
+            },
+          ],
+          'fields': [
+            {'name': 'note', 'kind': 'content', 'sectionId': 'NTE'},
+          ],
+        },
+      },
+    };
 
 /// Cursor semantics that a result *table* cannot express: partial consumption
 /// via `take`, `count` reporting only what remains, and the edit-stability rule

@@ -473,10 +473,80 @@ CodeSpecsExtractError::CodeSpecsExtractError(std::string message,
 
 /* ---- the extractor ------------------------------------------------------ */
 
+namespace {
+
+/* The document path segment a root's values live under. */
+const std::string& codeSpecsRootSegment(const SpecRoot& r) {
+  return r.sectionId.empty() ? r.type : r.sectionId;
+}
+
+std::string joinTypes(const std::vector<const SpecRoot*>& roots) {
+  std::string out;
+  for (const SpecRoot* r : roots) {
+    if (!out.empty()) out += ", ";
+    out += r->type;
+  }
+  return out;
+}
+
+/* Implements the constructor's root rule. */
+const SpecRoot* resolveCodeSpecsRoot(const SpecModel& model,
+                                     const SpecDocument& document,
+                                     const std::string& rootType) {
+  std::vector<const SpecRoot*> all;
+  std::vector<const SpecRoot*> populated;
+  for (const SpecRoot& r : model.roots) {
+    all.push_back(&r);
+    if (document.hasValuesUnder(codeSpecsRootSegment(r))) populated.push_back(&r);
+  }
+  if (!rootType.empty()) {
+    for (const SpecRoot& r : model.roots) {
+      if (r.type != rootType && codeSpecsRootSegment(r) != rootType) continue;
+      bool isPopulated = false;
+      for (const SpecRoot* p : populated) {
+        if (p == &r) isPopulated = true;
+      }
+      if (!populated.empty() && !isPopulated) {
+        throw CodeSpecsExtractError(
+            "root \"" + rootType + "\" holds no value in this document, but " +
+                joinTypes(populated) +
+                " does — every extract would come out empty "
+                "(codespecs_prompt.md §5)",
+            codeSpecsRootSegment(r), r.type);
+      }
+      return &r;
+    }
+    throw CodeSpecsExtractError("no document root with type or section id \"" +
+                                    rootType + "\" (have: " + joinTypes(all) +
+                                    ")",
+                                std::string(), rootType);
+  }
+  if (populated.size() == 1) return populated.front();
+  if (populated.empty()) {
+    if (model.roots.size() == 1) return &model.roots.front();
+    throw CodeSpecsExtractError(
+        "document has no populated root to extract from; pass rootType to "
+        "choose one (have: " +
+            joinTypes(all) + ")",
+        std::string(), std::string());
+  }
+  throw CodeSpecsExtractError("document has " +
+                                  std::to_string(populated.size()) +
+                                  " populated roots (" + joinTypes(populated) +
+                                  "); pass rootType to choose one",
+                              std::string(), std::string());
+}
+
+}  // namespace
+
 CodeSpecsExtractor::CodeSpecsExtractor(const SpecModel& model,
                                        const SpecDocument& document,
-                                       CodeSpecsAreaCatalog catalog)
-    : model_(&model), document_(&document), catalog_(std::move(catalog)) {}
+                                       CodeSpecsAreaCatalog catalog,
+                                       const std::string& rootType)
+    : model_(&model),
+      document_(&document),
+      catalog_(std::move(catalog)),
+      root_(resolveCodeSpecsRoot(model, document, rootType)) {}
 
 std::vector<CodeSpecsRouting> CodeSpecsExtractor::routings() const {
   std::vector<CodeSpecsRouting> out;
@@ -487,9 +557,7 @@ std::vector<CodeSpecsRouting> CodeSpecsExtractor::routings() const {
 std::vector<CodeSpecsExtract> CodeSpecsExtractor::extractAll() const {
   std::vector<CodeSpecsExtractEntry> entries;
   walkAll(nullptr, &entries, true);
-  std::string root = model_->roots.empty()
-                         ? std::string()
-                         : SpecReflection::rootSegment(model_->roots.front());
+  std::string root = SpecReflection::rootSegment(*root_);
   std::vector<CodeSpecsExtract> out;
   for (const CodeSpecsArea& area : catalog_.activeAreas()) {
     CodeSpecsExtract x;
@@ -523,10 +591,8 @@ std::optional<CodeSpecsExtract> CodeSpecsExtractor::extractFor(
 void CodeSpecsExtractor::walkAll(std::vector<CodeSpecsRouting>* routings,
                                  std::vector<CodeSpecsExtractEntry>* entries,
                                  bool strict) const {
-  for (const SpecRoot& root : model_->roots) {
-    walk(SpecReflection::rootSegment(root), model_->classNamed(root.type),
-         {root.type}, routings, entries, strict);
-  }
+  walk(SpecReflection::rootSegment(*root_), model_->classNamed(root_->type),
+       {root_->type}, routings, entries, strict);
 }
 
 void CodeSpecsExtractor::walk(const std::string& path, const SpecClass* cls,

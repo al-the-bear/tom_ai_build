@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 21 files
-// Generated: 2026-08-18T21:16:44.957742
+// Generated: 2026-08-18T23:53:01.302187
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -2047,13 +2047,15 @@ BridgedClass _createCodeSpecsExtractorBridge() {
         final model = D4.getRequiredNamedArg<$tom_som_dart_runtime_12.SpecModel>(named, 'model', 'CodeSpecsExtractor');
         final document = D4.getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(named, 'document', 'CodeSpecsExtractor');
         final catalog = D4.getRequiredNamedArg<$tom_som_dart_runtime_4.CodeSpecsAreaCatalog>(named, 'catalog', 'CodeSpecsExtractor');
-        return $tom_som_dart_runtime_4.CodeSpecsExtractor(model: model, document: document, catalog: catalog);
+        final rootType = D4.getOptionalNamedArg<String?>(named, 'rootType');
+        return $tom_som_dart_runtime_4.CodeSpecsExtractor(model: model, document: document, catalog: catalog, rootType: rootType);
       },
     },
     getters: {
       'model': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor').model,
       'document': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor').document,
       'catalog': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor').catalog,
+      'root': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractor>(target, 'CodeSpecsExtractor').root,
     },
     methods: {
       'routings': (visitor, target, positional, named, typeArgs) {
@@ -2072,7 +2074,7 @@ BridgedClass _createCodeSpecsExtractorBridge() {
       },
     },
     constructorSignatures: {
-      '': 'CodeSpecsExtractor({required SpecModel model, required SpecDocument document, required CodeSpecsAreaCatalog catalog})',
+      '': 'CodeSpecsExtractor({required SpecModel model, required SpecDocument document, required CodeSpecsAreaCatalog catalog, String? rootType})',
     },
     methodSignatures: {
       'routings': 'List<CodeSpecsRouting> routings()',
@@ -2083,6 +2085,7 @@ BridgedClass _createCodeSpecsExtractorBridge() {
       'model': 'SpecModel get model',
       'document': 'SpecDocument get document',
       'catalog': 'CodeSpecsAreaCatalog get catalog',
+      'root': 'SpecRoot get root',
     },
   );
 }

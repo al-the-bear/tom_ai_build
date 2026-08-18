@@ -527,7 +527,13 @@ language mirrors it:
   TomSpecs is not thereby a Dart project. It **copies and indexes but never
   composes**: `codespecs_derivation_contract.md` §2.8 C1 binds it, and every
   runtime's conformance run checks the prohibition rather than trusting it, by
-  asserting each emitted value is a value the document stores.
+  asserting each emitted value is a value the document stores. A Phase-4 run
+  extracts from **one** document, so the extractor walks **one** root, resolved
+  when it is constructed from an optional root-type argument (type name or
+  section id) that defaults to the document's single populated root — there is
+  no way to ask for a union of every `@Document` root, and naming a root the
+  document never populates is an error rather than 26 silently empty extracts
+  (`codespecs_prompt.md` §5).
 
 The Dart runtime additionally carries **`spec_annotation_display.dart`** and the
 test-only `spec_display_fixture.dart`: the theme-free *display semantics* of the

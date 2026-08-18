@@ -296,11 +296,13 @@ struct CodeSpecsExtract {
 
 /* Thrown when the document cannot be extracted from at all.
  *
- * The only cause today is a section routed nowhere — `ROUTE-TOTAL`
- * (`tom_specs_model_rules.md` §10.2) failing. It is an error rather than a skip
- * because a section routed nowhere is a section the agent writing that area
- * never sees, and a silent omission at this boundary is indistinguishable from a
- * specification that genuinely said nothing. */
+ * Two causes: a section routed nowhere — `ROUTE-TOTAL`
+ * (`tom_specs_model_rules.md` §10.2) failing — and a walk root that cannot be
+ * resolved to exactly one (`codespecs_prompt.md` §5). Both are errors rather than
+ * skips: a section routed nowhere is a section the agent writing that area never
+ * sees, and a walk over the wrong root is every area empty. A silent omission at
+ * this boundary is indistinguishable from a specification that genuinely said
+ * nothing. */
 class CodeSpecsExtractError : public std::exception {
  public:
   CodeSpecsExtractError(std::string message, std::string path,
@@ -324,19 +326,45 @@ class CodeSpecsExtractError : public std::exception {
 };
 
 /* Produces one CodeSpecsExtract per active area from a filled specification
- * document. */
+ * document.
+ *
+ * A Phase-4 run extracts from **one** specification document, so the walk has
+ * exactly one root (`root()`, `codespecs_prompt.md` §5). The two ways to get that
+ * wrong are both closed here rather than left to the caller: the walk cannot
+ * union every `@Document` root, because there is no way to ask for that; and
+ * naming a root the document never populates — the `D13CodeSpecsProjection`
+ * mistake, whose `CGP/…` path space misses a blueprint's `SBP/…` values and
+ * yields every area silently empty — is a CodeSpecsExtractError rather than an
+ * empty result. */
 class CodeSpecsExtractor {
  public:
   /* `model` describes the document's structure and carries the routing verdicts;
    * `document` is the filled specification document; `catalog` is
    * `codespecs_mapping.md` §4.1/§4.4.3/§4.4.6. Model and document are borrowed
-   * and must outlive the extractor. */
+   * and must outlive the extractor.
+   *
+   * `rootType` names the specification document's own root, by type name or by
+   * section id. An empty `rootType` means "omitted": the document's single
+   * **populated** root is used — the root under which the document holds any
+   * value — falling back to the model's only root when the document is empty, so
+   * an unfilled single-root model still reaches the routing walk.
+   *
+   * Throws CodeSpecsExtractError when the root cannot be resolved to exactly one:
+   * an unknown `rootType`, a `rootType` holding no value while another root does,
+   * more than one populated root, or an empty document over a multi-root model. */
   CodeSpecsExtractor(const SpecModel& model, const SpecDocument& document,
-                     CodeSpecsAreaCatalog catalog);
+                     CodeSpecsAreaCatalog catalog,
+                     const std::string& rootType = std::string());
 
   const SpecModel& model() const { return *model_; }
   const SpecDocument& document() const { return *document_; }
   const CodeSpecsAreaCatalog& catalog() const { return catalog_; }
+
+  /* The one `@Document` root this extractor walks.
+   *
+   * Resolved once, by the constructor, so `routings()` and `extractAll()` cannot
+   * disagree about what was walked. */
+  const SpecRoot& root() const { return *root_; }
 
   /* The verdict of every class node the walk reaches, in document order.
    *
@@ -384,6 +412,7 @@ class CodeSpecsExtractor {
   const SpecModel* model_;
   const SpecDocument* document_;
   CodeSpecsAreaCatalog catalog_;
+  const SpecRoot* root_;
 };
 
 }  // namespace som

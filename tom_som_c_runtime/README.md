@@ -24,7 +24,7 @@ provide:
 | `spec_text_pattern.c` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (standard C has no regex at all, and POSIX `regex.h` would be both a dependency and a different grammar). |
 | `spec_query.c` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.c` | The constrained node-creation gate (`spec_check_add_node`, `spec_node_creator_add`) — a document may only grow in ways the model permits. |
-| `spec_codespecs_extract.c` | The Phase-4 CodeSpecs specification-extract generator (`CodeSpecsExtractor`) — routes every section by `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` and emits one verbatim, provenance-carrying extract per CodeSpecs area. |
+| `spec_codespecs_extract.c` | The Phase-4 CodeSpecs specification-extract generator (`CodeSpecsExtractor`) — routes every section by `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` and emits one verbatim, provenance-carrying extract per CodeSpecs area. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
 | `spec_document_yaml.c` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec. |
 | `som_facade.c` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_c_v0`. |

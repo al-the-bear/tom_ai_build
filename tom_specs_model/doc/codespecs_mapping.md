@@ -166,6 +166,16 @@ that every runner loads, and the parity gate that proves all nine read it
 and asked about by no corpus case is a vocabulary that can be wrong in agreement
 — the standing lesson this quest has paid for three times.
 
+A Phase-4 run extracts from **one** specification document, so the extractor
+walks **one** `@Document` root, resolved when it is constructed and not
+re-decided per call — which is what keeps its routing diagnostic and its extracts
+talking about the same walk. All nine expose the same optional root argument
+(type name or section id), defaulting to the document's single populated root;
+the two ways an operator would otherwise get this wrong — unioning all fourteen
+roots, or naming `D13CodeSpecsProjection` and receiving 26 silently empty
+extracts — are closed by the API rather than by instruction
+(`codespecs_prompt.md` §5).
+
 **3 — The generated todo tree's id ranges.** The workspace queue iterates by id
 prefix, so the ranges are predetermined for the whole Phase-4 run rather than
 allocated as it goes. **Digits appear only at the end of an id**, and they are

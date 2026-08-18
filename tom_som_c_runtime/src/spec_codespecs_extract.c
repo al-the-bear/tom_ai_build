@@ -869,14 +869,136 @@ char *spec_codespecs_extract_error_string(const CodeSpecsExtractError *e) {
 
 /* ---- the extractor ------------------------------------------------------- */
 
+/* Fills `*err` (when non-NULL) with a root-resolution failure and returns NULL,
+ * so every failing branch of `resolve_root` is one line. Takes ownership of
+ * `message`. */
+static const SpecRoot *fail_root(CodeSpecsExtractError *err, char *message,
+                                 const char *path, const char *class_name) {
+  if (err != NULL) {
+    err->failed = 1;
+    err->message = message;
+    err->path = som_strdup(path);
+    err->class_name = som_strdup(class_name);
+  } else {
+    free(message);
+  }
+  return NULL;
+}
+
+/* The one root the walk starts at — see `spec_codespecs_extractor_make`. */
+static const SpecRoot *resolve_root(const SpecModel *model,
+                                    const SpecDocument *document,
+                                    const char *root_type,
+                                    CodeSpecsExtractError *err) {
+  SomStrList populated_types;
+  som_strlist_init(&populated_types);
+  const SpecRoot *only_populated = NULL;
+  for (size_t i = 0; i < model->roots_len; i++) {
+    const SpecRoot *r = &model->roots[i];
+    if (spec_document_has_values_under(document,
+                                       spec_reflection_root_segment(r))) {
+      som_strlist_push_copy(&populated_types, r->type);
+      if (populated_types.len == 1) {
+        only_populated = r;
+      }
+    }
+  }
+  SomStrList all_types;
+  som_strlist_init(&all_types);
+  for (size_t i = 0; i < model->roots_len; i++) {
+    som_strlist_push_copy(&all_types, model->roots[i].type);
+  }
+
+  const SpecRoot *result = NULL;
+  SomBuf b;
+  if (root_type != NULL && root_type[0] != '\0') {
+    const SpecRoot *named = NULL;
+    for (size_t i = 0; i < model->roots_len; i++) {
+      const SpecRoot *r = &model->roots[i];
+      if (strcmp(r->type, root_type) == 0 ||
+          strcmp(spec_reflection_root_segment(r), root_type) == 0) {
+        named = r;
+        break;
+      }
+    }
+    if (named == NULL) {
+      char *names = som_strlist_join(&all_types, ", ");
+      som_buf_init(&b);
+      som_buf_puts(&b, "no document root with type or section id \"");
+      som_buf_puts(&b, root_type);
+      som_buf_puts(&b, "\" (have: ");
+      som_buf_puts(&b, names);
+      som_buf_putc(&b, ')');
+      free(names);
+      result = fail_root(err, som_buf_take(&b), "", root_type);
+      som_buf_free(&b);
+    } else if (populated_types.len > 0 &&
+               !som_strlist_contains(&populated_types, named->type)) {
+      char *pop = som_strlist_join(&populated_types, ", ");
+      som_buf_init(&b);
+      som_buf_puts(&b, "root \"");
+      som_buf_puts(&b, root_type);
+      som_buf_puts(&b, "\" holds no value in this document, but ");
+      som_buf_puts(&b, pop);
+      som_buf_puts(&b,
+                   " does — every extract would come out empty "
+                   "(codespecs_prompt.md §5)");
+      free(pop);
+      result = fail_root(err, som_buf_take(&b),
+                         spec_reflection_root_segment(named), named->type);
+      som_buf_free(&b);
+    } else {
+      result = named;
+    }
+  } else if (populated_types.len == 1) {
+    result = only_populated;
+  } else if (populated_types.len == 0) {
+    if (model->roots_len == 1) {
+      result = &model->roots[0];
+    } else {
+      char *names = som_strlist_join(&all_types, ", ");
+      som_buf_init(&b);
+      som_buf_puts(&b,
+                   "document has no populated root to extract from; pass "
+                   "rootType to choose one (have: ");
+      som_buf_puts(&b, names);
+      som_buf_putc(&b, ')');
+      free(names);
+      result = fail_root(err, som_buf_take(&b), "", "");
+      som_buf_free(&b);
+    }
+  } else {
+    char *pop = som_strlist_join(&populated_types, ", ");
+    som_buf_init(&b);
+    som_buf_puts(&b, "document has ");
+    som_buf_puti(&b, (long long)populated_types.len);
+    som_buf_puts(&b, " populated roots (");
+    som_buf_puts(&b, pop);
+    som_buf_puts(&b, "); pass rootType to choose one");
+    free(pop);
+    result = fail_root(err, som_buf_take(&b), "", "");
+    som_buf_free(&b);
+  }
+
+  som_strlist_free(&populated_types);
+  som_strlist_free(&all_types);
+  return result;
+}
+
 CodeSpecsExtractor
 spec_codespecs_extractor_make(const SpecModel *model,
                               const SpecDocument *document,
-                              const CodeSpecsAreaCatalog *catalog) {
+                              const CodeSpecsAreaCatalog *catalog,
+                              const char *root_type,
+                              CodeSpecsExtractError *err) {
+  if (err != NULL) {
+    spec_codespecs_extract_error_init(err);
+  }
   CodeSpecsExtractor e;
   e.model = model;
   e.document = document;
   e.catalog = catalog;
+  e.root = resolve_root(model, document, root_type, err);
   e.reflection = spec_reflection_make(model);
   return e;
 }
@@ -1100,20 +1222,20 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
 
 static int walk_all(const CodeSpecsExtractor *e, CodeSpecsRoutingList *routings,
                     EntryBuf *entries, int strict, CodeSpecsExtractError *err) {
-  for (size_t i = 0; i < e->model->roots_len; i++) {
-    const SpecRoot *root = &e->model->roots[i];
-    SomStrList ancestors;
-    som_strlist_init(&ancestors);
-    som_strlist_push_copy(&ancestors, root->type);
-    int ok = walk(e, spec_reflection_root_segment(root),
-                  spec_model_class_named(e->model, root->type), &ancestors,
-                  routings, entries, strict, err);
-    som_strlist_free(&ancestors);
-    if (!ok) {
-      return 0;
-    }
+  /* The factory already failed and said why; this only stops a caller that
+   * ignored the error from walking a half-built extractor. */
+  if (e->root == NULL) {
+    fail_root(err, som_strdup("extractor has no resolved root"), "", "");
+    return 0;
   }
-  return 1;
+  SomStrList ancestors;
+  som_strlist_init(&ancestors);
+  som_strlist_push_copy(&ancestors, e->root->type);
+  int ok = walk(e, spec_reflection_root_segment(e->root),
+                spec_model_class_named(e->model, e->root->type), &ancestors,
+                routings, entries, strict, err);
+  som_strlist_free(&ancestors);
+  return ok;
 }
 
 void spec_codespecs_extractor_routings(const CodeSpecsExtractor *e,
@@ -1132,9 +1254,7 @@ int spec_codespecs_extractor_extract_all(const CodeSpecsExtractor *e,
     entry_buf_free(&entries);
     return 0;
   }
-  const char *root = e->model->roots_len == 0
-                         ? ""
-                         : spec_reflection_root_segment(&e->model->roots[0]);
+  const char *root = spec_reflection_root_segment(e->root);
   size_t active = spec_codespecs_catalog_active_area_count(e->catalog);
   for (size_t i = 0; i < active; i++) {
     const CodeSpecsArea *area =

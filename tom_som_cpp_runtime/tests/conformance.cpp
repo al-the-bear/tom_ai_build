@@ -1483,6 +1483,90 @@ static void test_codespecs_extract(Checker& c, const som::SpecModel& model) {
     std::vector<std::string> wantVerdicts{som::jsonStrOr(want, "routingVerdict")};
     c.check(tag + ".routingVerdict", verdicts == wantVerdicts, join(verdicts));
   }
+
+  // 6. Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root. The
+  // models here carry two, because over a single-root model "walks the named
+  // root" and "walks every root" give the same answer.
+  som::JsonRef rootCases = som::jsonGet(table, "rootCases");
+  std::size_t rcn = som::jsonArrayLen(rootCases);
+  for (std::size_t i = 0; i < rcn; i++) {
+    som::JsonRef k = som::jsonArrayAt(rootCases, i);
+    std::string tag = "codeSpecsExtract.root[" + som::jsonStrOr(k, "name") + "]";
+    auto rootModel = som::SpecModel::fromJson(som::jsonGet(k, "model"));
+    if (rootModel == nullptr) {
+      c.check(tag + ".model", false, "model did not load");
+      continue;
+    }
+    som::SpecDocument rootDoc =
+        doc_from_state(som::documentJsonFromJson(som::jsonGet(k, "state")));
+    som::JsonRef want = som::jsonGet(k, "expect");
+    std::optional<som::CodeSpecsExtractor> x;
+    std::optional<som::CodeSpecsExtractError> raised;
+    try {
+      x.emplace(*rootModel, rootDoc,
+                som::CodeSpecsAreaCatalog::fromJson(catalogJson),
+                som::jsonStrOr(k, "rootType"));
+    } catch (const som::CodeSpecsExtractError& e) {
+      raised = e;
+    }
+    if (som::jsonBoolOr(want, "fails")) {
+      c.check(tag + ".thrown", raised.has_value(),
+              "the extractor bound instead of failing");
+      if (raised.has_value()) {
+        c.check(tag + ".path", raised->path() == som::jsonStrOr(want, "path"),
+                raised->path());
+        c.check(tag + ".className",
+                raised->className() == som::jsonStrOr(want, "className"),
+                raised->className());
+        std::string contains = som::jsonStrOr(want, "messageContains");
+        c.check(tag + ".message",
+                raised->message().find(contains) != std::string::npos,
+                raised->message());
+      }
+      continue;
+    }
+    c.check(tag + ".bound", x.has_value(),
+            raised.has_value() ? raised->message() : std::string());
+    if (!x.has_value()) continue;
+    c.check(tag + ".root", x->root().type == som::jsonStrOr(want, "root"),
+            x->root().type);
+    /* `routings` and `extractAll` walk the same resolved root, so the verdict
+     * sequence is scoped too — that is what makes the bare `@Document` root of
+     * case 2 the corpus's `documentRoot` producer. */
+    std::vector<std::string> rootVerdicts;
+    for (const som::CodeSpecsRouting& r : x->routings()) {
+      rootVerdicts.emplace_back(som::codeSpecsRoutingVerdictName(r.verdict));
+    }
+    std::vector<std::string> wantVerdicts;
+    som::JsonRef verdictsJson = som::jsonGet(want, "routingVerdicts");
+    std::size_t vn = som::jsonArrayLen(verdictsJson);
+    for (std::size_t v = 0; v < vn; v++) {
+      const std::string* s = som::jsonAsStr(som::jsonArrayAt(verdictsJson, v));
+      wantVerdicts.push_back(s == nullptr ? std::string() : *s);
+    }
+    c.check(tag + ".routingVerdicts", rootVerdicts == wantVerdicts,
+            join(rootVerdicts) + " != " + join(wantVerdicts));
+    std::vector<som::CodeSpecsExtract> rootExtracts = x->extractAll();
+    c.check(tag + ".documentRoot",
+            rootExtracts.front().documentRoot ==
+                som::jsonStrOr(want, "documentRoot"),
+            rootExtracts.front().documentRoot);
+    std::vector<std::string> paths;
+    for (const som::CodeSpecsExtract& g : rootExtracts) {
+      for (const som::CodeSpecsExtractEntry& e : g.entries) {
+        paths.push_back(e.path);
+      }
+    }
+    std::vector<std::string> wantPaths;
+    som::JsonRef pathsJson = som::jsonGet(want, "paths");
+    std::size_t pn = som::jsonArrayLen(pathsJson);
+    for (std::size_t p = 0; p < pn; p++) {
+      const std::string* s = som::jsonAsStr(som::jsonArrayAt(pathsJson, p));
+      wantPaths.push_back(s == nullptr ? std::string() : *s);
+    }
+    c.check(tag + ".paths", paths == wantPaths,
+            join(paths) + " != " + join(wantPaths));
+  }
 }
 
 /* The cursor's laziness and its view of a **mutating** document: the script

@@ -43,7 +43,7 @@ modules under `src/`:
 | `spec_text_pattern.ts` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`RegExp` is the ECMAScript grammar, which accepts far more than the subset and would let a pattern that only works here into the corpus). |
 | `spec_query.ts` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.ts` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
-| `spec_codespecs_extract.ts` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per CodeSpecs area, every value `@CodeSpecKind` routes there, verbatim and with provenance. |
+| `spec_codespecs_extract.ts` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per CodeSpecs area, every value `@CodeSpecKind` routes there, verbatim and with provenance. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
 | `spec_document_yaml.ts` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.ts` | Meta-data-driven Markdown import/export codec. |
 | `som_facade.ts` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList<T>`) for the generated `tom_som_typescript_v0`. |

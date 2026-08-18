@@ -1174,6 +1174,78 @@ function testCodeSpecsExtract(model, doc) {
       _jsonMismatch(verdicts, [want.routingVerdict]),
     );
   }
+
+  // Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root. The
+  // models here carry two, because over a single-root model "walks the named
+  // root" and "walks every root" give the same answer.
+  for (const c of table.rootCases) {
+    const want = c.expect;
+    const build = () =>
+      new CodeSpecsExtractor({
+        model: SpecModel.fromJson(c.model),
+        document: _documentFromState(c.state),
+        catalog: CodeSpecsAreaCatalog.fromJson(table.catalog),
+        rootType: c.rootType === undefined ? null : c.rootType,
+      });
+    if (want.fails) {
+      let thrown = null;
+      try {
+        build();
+      } catch (err) {
+        thrown = err;
+      }
+      _check(
+        `codespecs.root[${c.name}].thrown`,
+        thrown instanceof CodeSpecsExtractError,
+        String(thrown),
+      );
+      if (thrown instanceof CodeSpecsExtractError) {
+        _check(
+          `codespecs.root[${c.name}].path`,
+          thrown.path === want.path,
+          `${thrown.path} != ${want.path}`,
+        );
+        _check(
+          `codespecs.root[${c.name}].className`,
+          thrown.className === want.className,
+          `${thrown.className} != ${want.className}`,
+        );
+        _check(
+          `codespecs.root[${c.name}].message`,
+          thrown.message.includes(want.messageContains),
+          thrown.message,
+        );
+      }
+      continue;
+    }
+    const x = build();
+    _check(
+      `codespecs.root[${c.name}].root`,
+      x.root.type === want.root,
+      x.root.type,
+    );
+    // `routings` and `extractAll` walk the same resolved root, so the verdict
+    // sequence is scoped too — that is what makes the bare `@Document` root of
+    // case 2 the corpus's `documentRoot` producer.
+    const rootVerdicts = x.routings().map((r) => r.verdict);
+    _check(
+      `codespecs.root[${c.name}].routingVerdicts`,
+      _deepEqual(rootVerdicts, want.routingVerdicts),
+      _jsonMismatch(rootVerdicts, want.routingVerdicts),
+    );
+    const gotExtracts = x.extractAll();
+    _check(
+      `codespecs.root[${c.name}].documentRoot`,
+      gotExtracts[0].documentRoot === want.documentRoot,
+      gotExtracts[0].documentRoot,
+    );
+    const paths = gotExtracts.flatMap((g) => g.entries.map((e) => e.path));
+    _check(
+      `codespecs.root[${c.name}].paths`,
+      _deepEqual(paths, want.paths),
+      _jsonMismatch(paths, want.paths),
+    );
+  }
 }
 
 /**

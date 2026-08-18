@@ -45,7 +45,7 @@ runtime modules:
 | `spec_text_pattern.go` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (Go's RE2-based `regexp` is leftmost-longest and would not). |
 | `spec_query.go` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
 | `spec_node_creation.go` | The constrained node-creation gate (`CheckAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
-| `spec_codespecs_extract.go` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per-area, verbatim, with provenance. |
+| `spec_codespecs_extract.go` | The Phase-4 CodeSpecs specification extract generator (`CodeSpecsExtractor`, `CodeSpecsAreaCatalog`) — per-area, verbatim, with provenance. Walks one `@Document` root, resolved at construction from an optional root-type argument (`codespecs_prompt.md` §5). |
 | `spec_document_yaml.go` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec. |
 | `som_facade.go` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList[T]`) for the generated `tom_som_go_v0`. |

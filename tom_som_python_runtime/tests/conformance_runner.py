@@ -1023,6 +1023,60 @@ def test_codespecs_extract(model: SpecModel) -> None:
         _check(f"codespecs.error[{name}].routingVerdict",
                verdicts == [want["routingVerdict"]], str(verdicts))
 
+    # Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root. The
+    # models here carry two, because over a single-root model "walks the named
+    # root" and "walks every root" give the same answer.
+    for case in table["rootCases"]:
+        name = case["name"]
+        root_doc = SpecDocument()
+        root_doc.load_json(case["state"])
+        root_model = SpecModel.from_json(case["model"])
+        want = case["expect"]
+
+        def build() -> CodeSpecsExtractor:
+            return CodeSpecsExtractor(
+                model=root_model,
+                document=root_doc,
+                catalog=catalog,
+                root_type=case.get("rootType"),
+            )
+
+        if want["fails"]:
+            try:
+                build()
+                raised = None
+            except CodeSpecsExtractError as e:
+                raised = e
+            _check(f"codespecs.root[{name}].raises", raised is not None,
+                   "did not raise")
+            if raised is not None:
+                _check(f"codespecs.root[{name}].path",
+                       raised.path == want["path"], raised.path)
+                _check(f"codespecs.root[{name}].className",
+                       raised.class_name == want["className"],
+                       raised.class_name)
+                _check(f"codespecs.root[{name}].message",
+                       want["messageContains"] in raised.message,
+                       raised.message)
+            continue
+
+        x = build()
+        _check(f"codespecs.root[{name}].root", x.root.type == want["root"],
+               x.root.type)
+        # `routings` and `extract_all` walk the same resolved root, so the
+        # verdict sequence is scoped too — that is what makes the bare
+        # `@Document` root of case 2 the corpus's `documentRoot` producer.
+        verdicts = [r.verdict.value for r in x.routings()]
+        _check(f"codespecs.root[{name}].routingVerdicts",
+               verdicts == want["routingVerdicts"], str(verdicts))
+        got_extracts = x.extract_all()
+        _check(f"codespecs.root[{name}].documentRoot",
+               got_extracts[0].document_root == want["documentRoot"],
+               got_extracts[0].document_root)
+        paths = [e.path for g in got_extracts for e in g.entries]
+        _check(f"codespecs.root[{name}].paths", paths == want["paths"],
+               str(paths))
+
 
 def test_cursor(model: SpecModel) -> None:
     """A scripted cursor session over a freshly built document.

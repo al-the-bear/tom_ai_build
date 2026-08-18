@@ -357,11 +357,13 @@ void spec_codespecs_extract_list_free(CodeSpecsExtractList *l);
 
 /* Reported when the document cannot be extracted from at all.
  *
- * The only cause today is a section routed nowhere — `ROUTE-TOTAL`
- * (`tom_specs_model_rules.md` §10.2) failing. It is an error rather than a skip
- * because a section routed nowhere is a section the agent writing that area
- * never sees, and a silent omission at this boundary is indistinguishable from a
- * specification that genuinely said nothing.
+ * Two causes: a section routed nowhere — `ROUTE-TOTAL`
+ * (`tom_specs_model_rules.md` §10.2) failing — and a walk root that cannot be
+ * resolved to exactly one (`codespecs_prompt.md` §5). Both are errors rather
+ * than skips: a section routed nowhere is a section the agent writing that area
+ * never sees, and a walk over the wrong root is every area empty. A silent
+ * omission at this boundary is indistinguishable from a specification that
+ * genuinely said nothing.
  *
  * Owns its strings; initialise with `spec_codespecs_extract_error_init` and
  * release with `spec_codespecs_extract_error_free`. */
@@ -393,7 +395,16 @@ char *spec_codespecs_extract_error_string(const CodeSpecsExtractError *e);
 
 /* Produces one `CodeSpecsExtract` per active area from a filled specification
  * document. Borrows the model, the document and the catalogue; all three must
- * outlive it. */
+ * outlive it.
+ *
+ * A Phase-4 run extracts from **one** specification document, so the walk has
+ * exactly one root (`root`, `codespecs_prompt.md` §5). The two ways to get that
+ * wrong are both closed here rather than left to the caller: the walk cannot
+ * union every `@Document` root, because there is no way to ask for that; and
+ * naming a root the document never populates — the `D13CodeSpecsProjection`
+ * mistake, whose `CGP/…` path space misses a blueprint's `SBP/…` values and
+ * yields every area silently empty — is a `CodeSpecsExtractError` rather than an
+ * empty result. */
 typedef struct {
   /* The model describing the document's structure and carrying the routing
    * verdicts. */
@@ -402,13 +413,35 @@ typedef struct {
   const SpecDocument *document;
   /* The area catalogue — `codespecs_mapping.md` §4.1/§4.4.3/§4.4.6. */
   const CodeSpecsAreaCatalog *catalog;
+  /* The one `@Document` root this extractor walks — resolved once, by
+   * `spec_codespecs_extractor_make`, so `spec_codespecs_extractor_routings` and
+   * `spec_codespecs_extractor_extract_all` cannot disagree about what was
+   * walked. NULL when the factory failed; every other member is then unusable
+   * too. */
+  const SpecRoot *root;
   SpecReflection reflection;
 } CodeSpecsExtractor;
 
+/* Binds an extractor to a model / document / catalogue triple.
+ *
+ * `root_type` names the specification document's own root, by type name or by
+ * section id. NULL or empty, it defaults to the document's single **populated**
+ * root — the root under which the document holds any value — falling back to the
+ * model's only root when the document is empty, so an unfilled single-root model
+ * still reaches the routing walk.
+ *
+ * Fails — leaving `root` NULL and filling `*err` when `err` is non-NULL — when
+ * the root cannot be resolved to exactly one: an unknown `root_type`, a
+ * `root_type` holding no value while another root does, more than one populated
+ * root, or an empty document over a multi-root model. The C stand-in for the
+ * Dart port's constructor throw; check with
+ * `spec_codespecs_extract_error_is_ok`. */
 CodeSpecsExtractor
 spec_codespecs_extractor_make(const SpecModel *model,
                               const SpecDocument *document,
-                              const CodeSpecsAreaCatalog *catalog);
+                              const CodeSpecsAreaCatalog *catalog,
+                              const char *root_type,
+                              CodeSpecsExtractError *err);
 
 /* The verdict of every class node the walk reaches, in document order, written
  * into `out` (initialised by the callee; free with

@@ -51,7 +51,7 @@ use std::fmt;
 use crate::json::Json;
 use crate::spec_document::SpecDocument;
 use crate::spec_model::{
-    SpecClass, SpecField, SpecModel, SPEC_FIELD_KIND_COMPLEX, SPEC_FIELD_KIND_CONTENT,
+    SpecClass, SpecField, SpecModel, SpecRoot, SPEC_FIELD_KIND_COMPLEX, SPEC_FIELD_KIND_CONTENT,
     SPEC_FIELD_KIND_ENUM, SPEC_FIELD_KIND_FORM, SPEC_FIELD_KIND_LIST, SPEC_FIELD_KIND_SCALAR,
     SPEC_FIELD_KIND_SECTION,
 };
@@ -704,11 +704,13 @@ impl CodeSpecsExtract {
 
 /// Returned when the document cannot be extracted from at all.
 ///
-/// The only cause today is a section routed nowhere — `ROUTE-TOTAL`
-/// (`tom_specs_model_rules.md` §10.2) failing. It is an error rather than a skip
-/// because a section routed nowhere is a section the agent writing that area
-/// never sees, and a silent omission at this boundary is indistinguishable from
-/// a specification that genuinely said nothing.
+/// Two causes: a section routed nowhere — `ROUTE-TOTAL`
+/// (`tom_specs_model_rules.md` §10.2) failing — and a walk root that cannot be
+/// resolved to exactly one (`codespecs_prompt.md` §5). Both are errors rather
+/// than skips: a section routed nowhere is a section the agent writing that area
+/// never sees, and a walk over the wrong root is every area empty. A silent
+/// omission at this boundary is indistinguishable from a specification that
+/// genuinely said nothing.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CodeSpecsExtractError {
     /// What went wrong, in one sentence.
@@ -745,8 +747,108 @@ struct WalkSink {
     strict: bool,
 }
 
+/// The document path segment a root's values live under.
+fn code_specs_root_segment(root: &SpecRoot) -> &str {
+    if root.section_id.is_empty() {
+        &root.type_
+    } else {
+        &root.section_id
+    }
+}
+
+/// Resolves the one root [`CodeSpecsExtractor`] walks — the rule stated on
+/// [`CodeSpecsExtractor::new`].
+fn resolve_code_specs_root<'m>(
+    model: &'m SpecModel,
+    document: &SpecDocument,
+    root_type: Option<&str>,
+) -> Result<&'m SpecRoot, CodeSpecsExtractError> {
+    let populated: Vec<&SpecRoot> = model
+        .roots
+        .iter()
+        .filter(|r| document.has_values_under(code_specs_root_segment(r)))
+        .collect();
+    let names = || {
+        model
+            .roots
+            .iter()
+            .map(|r| r.type_.clone())
+            .collect::<Vec<_>>()
+            .join(", ")
+    };
+    let populated_types = || {
+        populated
+            .iter()
+            .map(|r| r.type_.clone())
+            .collect::<Vec<_>>()
+            .join(", ")
+    };
+    if let Some(want) = root_type.filter(|s| !s.is_empty()) {
+        for r in &model.roots {
+            if r.type_ != want && code_specs_root_segment(r) != want {
+                continue;
+            }
+            if !populated.is_empty() && !populated.iter().any(|p| std::ptr::eq(*p, r)) {
+                return Err(CodeSpecsExtractError {
+                    message: format!(
+                        "root \"{want}\" holds no value in this document, but {} does — every \
+                         extract would come out empty (codespecs_prompt.md §5)",
+                        populated_types()
+                    ),
+                    path: code_specs_root_segment(r).to_string(),
+                    class_name: r.type_.clone(),
+                });
+            }
+            return Ok(r);
+        }
+        return Err(CodeSpecsExtractError {
+            message: format!(
+                "no document root with type or section id \"{want}\" (have: {})",
+                names()
+            ),
+            path: String::new(),
+            class_name: want.to_string(),
+        });
+    }
+    if populated.len() == 1 {
+        return Ok(populated[0]);
+    }
+    if populated.is_empty() {
+        if model.roots.len() == 1 {
+            return Ok(&model.roots[0]);
+        }
+        return Err(CodeSpecsExtractError {
+            message: format!(
+                "document has no populated root to extract from; pass rootType to choose one \
+                 (have: {})",
+                names()
+            ),
+            path: String::new(),
+            class_name: String::new(),
+        });
+    }
+    Err(CodeSpecsExtractError {
+        message: format!(
+            "document has {} populated roots ({}); pass rootType to choose one",
+            populated.len(),
+            populated_types()
+        ),
+        path: String::new(),
+        class_name: String::new(),
+    })
+}
+
 /// Produces one [`CodeSpecsExtract`] per active area from a filled specification
 /// document.
+///
+/// A Phase-4 run extracts from **one** specification document, so the walk has
+/// exactly one root ([`Self::root`], `codespecs_prompt.md` §5). The two ways to
+/// get that wrong are both closed here rather than left to the caller: the walk
+/// cannot union every `@Document` root, because there is no way to ask for that;
+/// and naming a root the document never populates — the `D13CodeSpecsProjection`
+/// mistake, whose `CGP/…` path space misses a blueprint's `SBP/…` values and
+/// yields every area silently empty — is a [`CodeSpecsExtractError`] rather than
+/// an empty result.
 pub struct CodeSpecsExtractor<'d, 'm> {
     /// The filled specification document.
     pub document: &'d SpecDocument,
@@ -757,20 +859,40 @@ pub struct CodeSpecsExtractor<'d, 'm> {
 
     /// The area catalogue — `codespecs_mapping.md` §4.1/§4.4.3/§4.4.6.
     pub catalog: CodeSpecsAreaCatalog,
+
+    /// The one `@Document` root this extractor walks.
+    ///
+    /// Resolved once, by the constructor, so [`Self::routings`] and
+    /// [`Self::extract_all`] cannot disagree about what was walked.
+    pub root: &'m SpecRoot,
 }
 
 impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
     /// Binds an extractor to a document, a reflection surface and a catalogue.
+    ///
+    /// `root_type` names the specification document's own root, by type name or
+    /// by section id. `None` (or `Some("")`) means "omitted": the document's
+    /// single **populated** root is used — the root under which the document
+    /// holds any value — falling back to the model's only root when the document
+    /// is empty, so an unfilled single-root model still reaches the routing walk.
+    ///
+    /// Fails with [`CodeSpecsExtractError`] when the root cannot be resolved to
+    /// exactly one: an unknown `root_type`, a `root_type` holding no value while
+    /// another root does, more than one populated root, or an empty document over
+    /// a multi-root model.
     pub fn new(
         document: &'d SpecDocument,
         reflection: SpecReflection<'m>,
         catalog: CodeSpecsAreaCatalog,
-    ) -> CodeSpecsExtractor<'d, 'm> {
-        CodeSpecsExtractor {
+        root_type: Option<&str>,
+    ) -> Result<CodeSpecsExtractor<'d, 'm>, CodeSpecsExtractError> {
+        let root = resolve_code_specs_root(reflection.model, document, root_type)?;
+        Ok(CodeSpecsExtractor {
             document,
             reflection,
             catalog,
-        }
+            root,
+        })
     }
 
     /// Binds an extractor to a document and a model (convenience for
@@ -779,8 +901,9 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
         document: &'d SpecDocument,
         model: &'m SpecModel,
         catalog: CodeSpecsAreaCatalog,
-    ) -> CodeSpecsExtractor<'d, 'm> {
-        CodeSpecsExtractor::new(document, SpecReflection::new(model), catalog)
+        root_type: Option<&str>,
+    ) -> Result<CodeSpecsExtractor<'d, 'm>, CodeSpecsExtractError> {
+        CodeSpecsExtractor::new(document, SpecReflection::new(model), catalog, root_type)
     }
 
     /// The model describing the document's structure.
@@ -818,10 +941,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
         };
         self.walk_all(&mut sink)?;
         let entries = sink.entries.unwrap_or_default();
-        let root = match self.model().roots.first() {
-            Some(r) => self.reflection.root_segment(r),
-            None => String::new(),
-        };
+        let root = self.reflection.root_segment(self.root);
         let mut out = Vec::new();
         for area in self.catalog.active_areas() {
             out.push(CodeSpecsExtract {
@@ -855,17 +975,14 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
     // --- the walk ------------------------------------------------------------
 
     fn walk_all(&self, sink: &mut WalkSink) -> Result<(), CodeSpecsExtractError> {
-        for root in &self.model().roots {
-            let mut ancestor_types = HashSet::new();
-            ancestor_types.insert(root.type_.clone());
-            self.walk(
-                sink,
-                &self.reflection.root_segment(root),
-                self.model().class_named(&root.type_),
-                &ancestor_types,
-            )?;
-        }
-        Ok(())
+        let mut ancestor_types = HashSet::new();
+        ancestor_types.insert(self.root.type_.clone());
+        self.walk(
+            sink,
+            &self.reflection.root_segment(self.root),
+            self.model().class_named(&self.root.type_),
+            &ancestor_types,
+        )
     }
 
     fn walk(
