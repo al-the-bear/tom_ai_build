@@ -5341,15 +5341,36 @@ generic `extra` bag of the cross-language meta exactly as `@CodeSpecKind` does
   from inside a follow-up subtree is never a routing gap. The single permanently
   deferred part, CE-WF, is exempt by construction: it has no generated surface,
   so it has no bearer to reach.
-- `ROUTE-TOTAL` — **section → part (the converse):** every `@SectionId`-carrying
-  class reachable from a specification root carries a verdict — a
-  `@CodeSpecKind`, a `@NoArtifact`, or membership of some `@FollowUpKind`
-  subtree. `PART-ROUTED` says nothing *claimed* goes ungenerated; `ROUTE-TOTAL`
-  says nothing is *silently* left out. It is load-bearing for Phase 4: the
-  extract generator walks `@CodeSpecKind` to decide what lands in which area's
-  extract, so a section routed nowhere is a section the agent writing that area
-  never sees. The `@Document` roots are exempt structurally — a root is the
-  document, not a section of it, and has no content of its own to route.
+- `ROUTE-TOTAL` — **section → part (the converse):** every class the **routing
+  walk** reaches carries a verdict of its own — a `@CodeSpecKind`, a
+  `@FollowUpKind` or a `@NoArtifact`. `PART-ROUTED` says nothing *claimed* goes
+  ungenerated; `ROUTE-TOTAL` says nothing is *silently* left out. It is
+  load-bearing for Phase 4: the extract generator walks `@CodeSpecKind` to decide
+  what lands in which area's extract, so a section routed nowhere is a section
+  the agent writing that area never sees. The `@Document` roots are exempt
+  structurally — a root is the document, not a section of it, and has no content
+  of its own to route.
+
+**The routing walk.** `ROUTE-TOTAL`'s domain is a walk, not a type-reachability
+set: it starts at **every** `@Document` root and **stops descending at a
+`@FollowUpKind`**. A follow-up root is routed; its subtree belongs to that root's
+processes, so nothing inside it needs a verdict of its own. Exemption is
+therefore by *path* — a class is covered by a follow-up root only where the walk
+passes through that root, never merely because some field chain from that root
+reaches its type.
+
+The distinction is load-bearing, in both directions. Reading it by type
+**exempts too much**: `GradedAuthorizationRequirement` is type-reachable from
+`ExperienceDesignFollowUp`, but its home is under a `@CodeSpecKind` parent in the
+SBP's authorization subtree, so the type-level reading silently withheld
+authorization material from every extract. And starting the walk at
+`D00SolutionBlueprint` alone **sees too little**: all 45 follow-up roots live in
+the SBP tree, while each Phase-3 detail document (D01–D12) re-uses the same
+classes by its own paths, which the SBP walk never visits. Both tiers implement
+the same walk — `validator.dart`'s `_routingWalk` statically, and
+`CodeSpecsExtractor._walk` at runtime — and where they could differ the runtime
+is the authority, because it is the walk the extraction run performs
+(`codespecs_prompt.md` §4.3).
 
 Before `@NoArtifact` existed the second direction was not expressible: "decided
 to feed nothing" and "nobody got round to it" were written identically, so a

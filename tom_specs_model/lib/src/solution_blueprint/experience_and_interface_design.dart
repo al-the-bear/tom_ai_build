@@ -503,6 +503,12 @@ class AuthorizationComplianceFollowUp extends DocSpecsSection {
 @SectionId('DEVIZ')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under ExperienceDesignFollowUp in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class DesignVision extends DocSpecsSection {
   @ContentHelp('''
 ## Design Vision (10.1)
@@ -10645,6 +10651,13 @@ class TourStepEntry extends DocSpecsSection {
   'The overall support-access configuration spanning help centre, live support, tickets, contacts, and self-service.',
 )
 @SectionId('SUAC')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'user-facing support entry points; like its ContextualHelp and '
+      'OnboardingHelp siblings the strings are realised as @CsText '
+      'entries',
+)
 class SupportAccess extends DocSpecsSection {
   @ContentHelp(
     'Introduce how users reach support before the help-centre, live-support '
@@ -10877,6 +10890,12 @@ class SupportAccess extends DocSpecsSection {
 @SectionId('ACCESS')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under ExperienceDesignFollowUp in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class Accessibility extends DocSpecsSection {
   @ContentHelp(
     'Introduce the accessibility commitment before the WCAG, checklist, '
@@ -14183,6 +14202,12 @@ class LocaleHandlingRequirements extends DocSpecsSection {
 @SectionId('LOPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class LocalizationProcess extends DocSpecsSection {
   @ContentHelp(
     'Introduce the localization workflow before the review, formatting and '
@@ -14354,6 +14379,12 @@ class LocalizationProcess extends DocSpecsSection {
 @SectionId('TRPR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class TranslationProcess extends DocSpecsSection {
   @ContentHelp(
     'Introduce the translation workflow before the tooling, quality, '
@@ -14605,6 +14636,12 @@ class TranslationVendorEntry extends DocSpecsSection {
 @SectionId('DOANTR')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
+@FollowUpKind(
+  [FollowUpProcess.l10n, FollowUpProcess.doc, FollowUpProcess.trn],
+  note:
+      'follow-up material under RequirementsFollowUp in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class UserDocumentationRequirements extends DocSpecsSection {
   @ContentHelp(
     'Introduce the end-user documentation deliverables before the format '
@@ -14743,6 +14780,12 @@ class UserDocumentationRequirements extends DocSpecsSection {
 @SectionId('TRMAT')
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
+@FollowUpKind(
+  [FollowUpProcess.l10n, FollowUpProcess.doc, FollowUpProcess.trn],
+  note:
+      'follow-up material under RequirementsFollowUp in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class TrainingDeliverableRequirements extends DocSpecsSection {
   @ContentHelp(
     'Introduce the end-user training deliverables before the module '
@@ -14906,6 +14949,12 @@ class TrainingModuleEntry extends DocSpecsSection {
 @SectionId('LACOSE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@FollowUpKind(
+  [FollowUpProcess.l10n],
+  note:
+      'follow-up material under ExperienceLocalizationFollowUp in the '
+      'SBP; reached here directly by a detail-document path',
+)
 class LanguageCountrySelection extends DocSpecsSection {
   @ContentHelp(
     'Introduce the language and country picker before the default, '
@@ -15418,6 +15467,12 @@ class SupportedLocaleEntry extends DocSpecsSection {
 @SectionId('PROTOT')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under ExperienceDesignFollowUp in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class Prototype extends DocSpecsSection {
   @ContentHelp(
     'Introduce the prototype effort before the goal, feature-subset and '
@@ -16424,6 +16479,12 @@ class ThrowawayPrototype extends DocSpecsSection {
 @SectionId('WIANMO')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under ExperienceDesignFollowUp in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class WireframesAndMockups extends DocSpecsSection {
   @ContentHelp('''
 Catalog of wireframes and mockups across the UI. Complements the

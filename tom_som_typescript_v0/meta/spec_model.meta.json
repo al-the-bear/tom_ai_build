@@ -141,6 +141,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -254,6 +263,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -756,6 +774,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -2697,6 +2724,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under ExperienceDesignFollowUp in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -21459,6 +21495,15 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -21578,6 +21623,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -40577,6 +40631,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -42039,6 +42102,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D08SecurityAccessSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp"
+            ],
+            "note": "follow-up material under SecurityComplianceFollowUp in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -48749,6 +48821,15 @@
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under SolutionArchitectureFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -52825,6 +52906,15 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -53293,6 +53383,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -53873,6 +53973,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -54365,6 +54474,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -54939,6 +55057,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -55085,6 +55212,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -55942,6 +56078,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -66435,6 +66583,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -74328,6 +74488,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -74760,6 +74932,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -81851,6 +82032,15 @@
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under ExperienceDesignFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -87491,6 +87681,15 @@
           "arguments": {
             "id": "DOCHD"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "front matter — it identifies the document, not the system. Reached under DocumentControl in the SBP and directly as the header of each of the other thirteen @Document roots; the doc process owns it on every one of those paths"
+          }
         }
       ],
       "fields": [
@@ -87932,6 +88131,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -99692,6 +99900,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -103574,6 +103791,13 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the external-interface entries; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -106318,6 +106542,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -110025,6 +110261,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -111759,6 +112004,13 @@
           "arguments": {
             "id": "FRE"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the facets of one functional requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -112341,6 +112593,13 @@
           "arguments": {
             "id": "FR"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the functional-requirement entries; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -112704,6 +112963,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -115561,6 +115829,13 @@
               "NIST SP 800-162 — attribute-based access control (ABAC)"
             ],
             "connotation": "The per-level requirements of a graded access rule: what earns full access, what earns read access, and what earns a visible-but-locked view."
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the graded access levels; each level entry carries the authorization routing"
           }
         }
       ],
@@ -122462,6 +122737,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -124585,6 +124872,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -125596,6 +125892,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -126963,6 +127268,15 @@
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -127015,6 +127329,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "INBUCO"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -127243,6 +127566,15 @@
           "arguments": {
             "id": "INDAEN"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ],
+            "note": "one entity exchanged across an external interface — realised as a @CsDataAccess declaration"
+          }
         }
       ],
       "fields": [
@@ -127337,6 +127669,16 @@
           "name": "SectionId",
           "arguments": {
             "id": "INDASP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess",
+              "CodeSpecPart.validation"
+            ],
+            "note": "the payload shape of one external interface: entity access is realised as @CsDataAccess, the field-level constraints as @CsValidation"
           }
         }
       ],
@@ -127964,6 +128306,15 @@
           "arguments": {
             "id": "INGO"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -128335,6 +128686,15 @@
           "arguments": {
             "id": "INOP"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -128676,6 +129036,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "IS"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authentication"
+            ],
+            "note": "the credential and trust arrangements of one external interface — realised as a @CsAuthentication (server locus)"
           }
         }
       ],
@@ -129318,6 +129687,15 @@
           "arguments": {
             "id": "INTESP"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "the transport and operation surface of one external interface — realised as a @CsServiceUnit (server locus)"
+          }
         }
       ],
       "fields": [
@@ -129766,6 +130144,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "INTE"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -134627,6 +135014,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -134695,6 +135094,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under ExperienceLocalizationFollowUp in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -137591,6 +137999,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -140179,6 +140599,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -144484,6 +144913,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -144927,6 +145365,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -146511,6 +146958,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -158397,6 +158856,15 @@
           "arguments": {
             "id": "NTFCH"
           }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.notification"
+            ],
+            "note": "one delivery channel of the notification model — realised as a @CsNotificationChannel over the tom_core_codespecs notification model (shared locus), like its NotificationModel parent"
+          }
         }
       ],
       "fields": [
@@ -158736,6 +159204,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "NTFTY"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.notification"
+            ],
+            "note": "one notification type of the notification model — realised as a @CsNotification over the tom_core_codespecs notification model (shared locus), like its NotificationModel parent"
           }
         }
       ],
@@ -161889,6 +162366,15 @@
           "arguments": {
             "id": "ORIP"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org"
+            ],
+            "note": "follow-up material under RequirementsFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -163776,6 +164262,13 @@
           "arguments": {
             "id": "ORRQ"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the facets of one organizational requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -164159,6 +164652,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "OR"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the organizational-requirement entries; the entries below carry the routing"
           }
         }
       ],
@@ -165198,6 +165698,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -166809,6 +167318,15 @@
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under CurrentLandscape in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -168333,6 +168851,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -170524,6 +171051,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -171002,6 +171541,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -175446,6 +175997,16 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -176625,6 +177186,16 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -177110,6 +177681,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -177846,6 +178427,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -178819,6 +179410,16 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -179787,6 +180388,16 @@
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -180608,6 +181219,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -182388,6 +183009,16 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D02TargetOperatingModel"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.org",
+              "FollowUpProcess.ops"
+            ],
+            "note": "follow-up material under OrganizationAndProcessConcept in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -184270,6 +184901,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under ExperienceDesignFollowUp in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -186471,6 +187111,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -188213,6 +188862,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -192679,6 +193337,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -193249,6 +193916,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D01CurrentLandscapeAssessment"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -198580,6 +199256,13 @@
           "arguments": {
             "id": "RAC"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the acceptance criteria of one requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -198812,6 +199495,13 @@
           "arguments": {
             "id": "RBR"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the business rules of one requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -198926,6 +199616,15 @@
           "arguments": {
             "documentClass": "D04RequirementsSpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -198985,6 +199684,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "RDR"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the data requirements of one requirement; the entries below carry the routing"
           }
         }
       ],
@@ -199098,6 +199804,13 @@
           "arguments": {
             "id": "REQDEP"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the dependencies of one requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -199200,6 +199913,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "RQDEP"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.view",
+            "note": "a link row re-presenting a dependency already declared on the two requirement entries it names"
           }
         }
       ],
@@ -199308,6 +200028,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D04RequirementsSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -199613,6 +200342,15 @@
           "arguments": {
             "id": "RQTSC"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -199855,6 +200593,13 @@
           "arguments": {
             "guidance": "Define test cases that verify requirement implementation."
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the test cases of one requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -199966,6 +200711,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "RT"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.view",
+            "note": "a matrix over requirement-to-artifact links already declared on the requirement entries it indexes"
           }
         }
       ],
@@ -200233,6 +200985,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "RUS"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the user-interface facets of one requirement; the entries below carry the routing"
           }
         }
       ],
@@ -210107,6 +210866,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -210166,6 +210937,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -222559,6 +223342,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -223069,6 +223861,15 @@
           "arguments": {
             "id": "SECOEN"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.cmp"
+            ],
+            "note": "follow-up material under SecurityComplianceFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -223289,6 +224090,13 @@
           "name": "ContentHelp",
           "arguments": {
             "guidance": "Define security controls that implement this requirement."
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the security-control entries; the entries below carry the routing"
           }
         }
       ],
@@ -224205,6 +225013,13 @@
           "arguments": {
             "id": "SECRQ"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the facets of one security requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -224648,6 +225463,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "SR1"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the security-requirement entries; the entries below carry the routing"
           }
         }
       ],
@@ -232048,6 +232870,15 @@
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -235609,6 +236440,18 @@
           "arguments": {
             "id": "STAGE"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -237901,6 +238744,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -240258,6 +241113,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -245067,6 +245934,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "SUAC"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ],
+            "note": "user-facing support entry points; like its ContextualHelp and OnboardingHelp siblings the strings are realised as @CsText entries"
           }
         }
       ],
@@ -250694,6 +251570,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D07IntegrationInterfaceSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -257422,6 +258307,15 @@
           "arguments": {
             "documentClass": "D06ArchitectureTechnologySpecification"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under IntroductionAndScope in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -259846,6 +260740,13 @@
           "arguments": {
             "id": "TERQ"
           }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the facets of one technical requirement; the entries below carry the routing"
+          }
         }
       ],
       "fields": [
@@ -260334,6 +261235,13 @@
           "name": "SectionId",
           "arguments": {
             "id": "TR1"
+          }
+        },
+        {
+          "name": "NoArtifact",
+          "arguments": {
+            "reason": "NoArtifactReason.container",
+            "note": "grouping node over the technical-requirement entries; the entries below carry the routing"
           }
         }
       ],
@@ -262426,6 +263334,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -267882,6 +268799,17 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.l10n",
+              "FollowUpProcess.doc",
+              "FollowUpProcess.trn"
+            ],
+            "note": "follow-up material under RequirementsFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -271889,6 +272817,18 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -276009,6 +276949,18 @@
           "arguments": {
             "documentClass": "D11DeliveryRoadmap"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -276676,6 +277628,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -279716,6 +280677,17 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.l10n",
+              "FollowUpProcess.doc",
+              "FollowUpProcess.trn"
+            ],
+            "note": "follow-up material under RequirementsFollowUp in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -281686,6 +282658,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -281744,6 +282728,15 @@
           "name": "SectionId",
           "arguments": {
             "id": "UNP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.notification"
+            ],
+            "note": "the per-user opt-in surface of the notification model — realised as the preference declarations of the @CsNotification set (shared locus), like its NotificationModel parent"
           }
         }
       ],
@@ -286292,6 +287285,18 @@
           "arguments": {
             "documentClass": "D12TransitionRolloutPlan"
           }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.mig",
+              "FollowUpProcess.ops",
+              "FollowUpProcess.org",
+              "FollowUpProcess.l10n"
+            ],
+            "note": "follow-up material under DeliveryTransitionAndRollout in the SBP; reached here directly by a detail-document path"
+          }
         }
       ],
       "fields": [
@@ -286446,6 +287451,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D10QualityAcceptancePlan"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.acc"
+            ],
+            "note": "follow-up material under QualityAndAcceptanceModel in the SBP; reached here directly by a detail-document path"
           }
         }
       ],
@@ -287638,6 +288652,15 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.doc"
+            ],
+            "note": "follow-up material under ExperienceDesignFollowUp in the SBP; reached here directly by a detail-document path"
           }
         }
       ],

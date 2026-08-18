@@ -322,6 +322,12 @@ class SystemQualityGoals extends DocSpecsSection {
 )
 @SectionId('QLFWK')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class QualityFramework extends DocSpecsSection {
   @ContentHelp(
     'Introduce the quality framework before the objective, category and '
@@ -688,6 +694,12 @@ class QualityCategoryEntry extends DocSpecsSection {
 )
 @SectionId('FNSU')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
   @ContentHelp(
     'Introduce functional suitability for this system before the '
@@ -756,6 +768,12 @@ class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
 )
 @SectionId('INCP')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class InteractionCapabilityCharacteristic extends DocSpecsSection {
   @ContentHelp(
     'Introduce interaction capability for this system before the usability '
@@ -1232,6 +1250,12 @@ class Correctness extends DocSpecsSection {
 )
 @SectionId('PEEF')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
   @ContentHelp(
     'Introduce performance efficiency for this system before the efficiency '
@@ -1308,6 +1332,12 @@ class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
 )
 @SectionId('CMPT')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class CompatibilityCharacteristic extends DocSpecsSection {
   @ContentHelp(
     'Introduce compatibility for this system before any co-existence and '
@@ -1356,6 +1386,12 @@ class CompatibilityCharacteristic extends DocSpecsSection {
 )
 @SectionId('FLXC')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class FlexibilityCharacteristic extends DocSpecsSection {
   @ContentHelp(
     'Introduce flexibility for this system before the adaptability and '
@@ -1414,6 +1450,12 @@ class FlexibilityCharacteristic extends DocSpecsSection {
 )
 @SectionId('SECC')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class SecurityCharacteristic extends DocSpecsSection {
   @ContentHelp(
     'Introduce the security quality expectations before the security and '
@@ -1472,6 +1514,12 @@ class SecurityCharacteristic extends DocSpecsSection {
 )
 @SectionId('MNTC')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class MaintainabilityCharacteristic extends DocSpecsSection {
   @ContentHelp(
     'Introduce maintainability for this system before the maintainability '
@@ -2354,6 +2402,12 @@ class Reliability extends DocSpecsSection {
 ], 'This section describes the reliability characteristic of the solution.')
 @SectionId('RELC')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ReliabilityCharacteristic extends DocSpecsSection {
   @ContentHelp(
     'Introduce reliability for this system before the availability, '
@@ -3194,6 +3248,12 @@ class ItSecurityOperations extends DocSpecsSection {
 )
 @SectionId('DOQUCR')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class DocumentationQualityCriteria extends DocSpecsSection {
   @ContentHelp(
     'Introduce the documentation quality bar before the readability, '
@@ -3763,6 +3823,12 @@ class DocChangeability extends DocSpecsSection {
 )
 @SectionId('QUPR')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class QualityPrioritization extends DocSpecsSection {
   @ContentHelp(
     'Introduce how quality attributes are ranked before the weighted-matrix '
@@ -4253,6 +4319,12 @@ class TradeOffDecisionEntry extends DocSpecsSection {
 )
 @SectionId('ACCRSU')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class AcceptanceCriteriaSummary extends DocSpecsSection {
   @ContentHelp(
     'Introduce the acceptance framework before the must-pass, quality-gate '
@@ -4860,6 +4932,12 @@ class QualityGateCheckEntry extends DocSpecsSection {
 ], 'Defines the overall testing approach, levels, and coverage for the project.')
 @SectionId('TEST')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class TestStrategy extends DocSpecsSection {
   @ContentHelp('''
 High-level strategy for verifying quality across the system. Distinct

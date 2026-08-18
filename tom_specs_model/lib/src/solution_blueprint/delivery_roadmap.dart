@@ -201,6 +201,12 @@ class SystemStagePlan extends DocSpecsSection {
 )
 @SectionId('STAGST')
 @DetailedIn(D11DeliveryRoadmap)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class StagingStrategy extends DocSpecsSection {
   @Form([
     Field(
@@ -850,6 +856,12 @@ class StagingDependencies extends DocSpecsSection {
 )
 @SectionId('STAGOV')
 @DetailedIn(D11DeliveryRoadmap)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class StageOverview extends DocSpecsSection {
   @Form([
     Field(
@@ -1829,6 +1841,12 @@ class StageSummaryDependencies extends DocSpecsSection {
 /// deployment plan. Draws from PMBOK phase-gate discipline, SAFe PI
 /// planning, and PRINCE2 stage boundary management.
 @SectionId('STAGE')
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class StageEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2636,6 +2654,12 @@ class StageSuccessCriterionEntry extends DocSpecsSection {
 )
 @SectionId('FEPR')
 @DetailedIn(D11DeliveryRoadmap)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class FeaturePrioritization extends DocSpecsSection {
   @Form([
     Field(
@@ -4224,6 +4248,12 @@ class FeatureDependencyEntry extends DocSpecsSection {
 )
 @SectionId('DAMIST')
 @DetailedIn(D11DeliveryRoadmap)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class DataMigrationStrategy extends DocSpecsSection {
   @Form([
     Field(
@@ -6343,6 +6373,12 @@ class StageGovernance extends DocSpecsSection {
 )
 @SectionId('PHGARE')
 @DetailedIn(D11DeliveryRoadmap)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class PhaseGateReviews extends DocSpecsSection {
   @Form([
     Field(
@@ -6912,6 +6948,12 @@ class ReviewCriterionEntry extends DocSpecsSection {
 )
 @SectionId('DEPO')
 @DetailedIn(D11DeliveryRoadmap)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class DecisionPoints extends DocSpecsSection {
   @Form([
     // --- Decision Framework ---
@@ -7497,6 +7539,12 @@ class DecisionOptionEntry extends DocSpecsSection {
 )
 @SectionId('INDEFL')
 @DetailedIn(D11DeliveryRoadmap)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class InitialDevelopmentFlow extends DocSpecsSection {
   @ContentHelp('''
 Describes how the initial-development phases hand off to each other:
@@ -7533,6 +7581,12 @@ dependencies, parallel work streams, and synchronization points.
 )
 @SectionId('UPCYFR')
 @DetailedIn(D11DeliveryRoadmap)
+@FollowUpKind(
+  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  note:
+      'follow-up material under DeliveryTransitionAndRollout in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class UpgradeCycleFramework extends DocSpecsSection {
   @ContentHelp('''
 Framework that governs the upgrade cycle once initial development

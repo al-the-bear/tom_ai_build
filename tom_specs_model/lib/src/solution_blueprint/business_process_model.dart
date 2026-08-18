@@ -174,6 +174,12 @@ TOM (Target Operating Model) document.
 )
 @SectionId('PRVIZ')
 @DetailedIn(D02TargetOperatingModel)
+@FollowUpKind(
+  [FollowUpProcess.org, FollowUpProcess.ops],
+  note:
+      'follow-up material under OrganizationAndProcessConcept in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ProcessVision extends DocSpecsSection {
   @ContentHelp(
     'Introduce the target-state process vision before the narrative, '
@@ -412,6 +418,12 @@ class ExpectedImprovements extends DocSpecsSection {
 )
 @SectionId('PDPRI')
 @DetailedIn(D02TargetOperatingModel)
+@FollowUpKind(
+  [FollowUpProcess.org, FollowUpProcess.ops],
+  note:
+      'follow-up material under OrganizationAndProcessConcept in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ProcessDesignPrinciples extends DocSpecsSection {
   @ContentHelp(
     'Introduce the design principles before the individual principles '
@@ -547,6 +559,12 @@ class ProcessDesignPrincipleEntry extends DocSpecsSection {
 )
 @SectionId('PRCAT')
 @DetailedIn(D02TargetOperatingModel)
+@FollowUpKind(
+  [FollowUpProcess.org, FollowUpProcess.ops],
+  note:
+      'follow-up material under OrganizationAndProcessConcept in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ProcessCatalog extends DocSpecsSection {
   @ContentHelp(
     'Introduce the process catalog before the classification scheme and the '
@@ -2336,6 +2354,12 @@ class ProcessExceptionEntry extends DocSpecsSection {
 )
 @SectionId('PROVDI')
 @DetailedIn(D02TargetOperatingModel)
+@FollowUpKind(
+  [FollowUpProcess.org, FollowUpProcess.ops],
+  note:
+      'follow-up material under OrganizationAndProcessConcept in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ProcessOverviewDiagram extends DocSpecsSection {
   @ContentHelp(
     'Introduce the process landscape before the landscape, hierarchy and '
@@ -2414,6 +2438,12 @@ class ProcessOverviewDiagram extends DocSpecsSection {
 )
 @SectionId('PRIMSU')
 @DetailedIn(D02TargetOperatingModel)
+@FollowUpKind(
+  [FollowUpProcess.org, FollowUpProcess.ops],
+  note:
+      'follow-up material under OrganizationAndProcessConcept in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ProcessImprovementSummary extends DocSpecsSection {
   @ContentHelp(
     'Introduce the improvements expected over the current processes before '
@@ -2641,6 +2671,12 @@ class ProcessImprovementEntry extends DocSpecsSection {
 )
 @SectionId('PR')
 @DetailedIn(D02TargetOperatingModel)
+@FollowUpKind(
+  [FollowUpProcess.org, FollowUpProcess.ops],
+  note:
+      'follow-up material under OrganizationAndProcessConcept in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ProcessRelationships extends DocSpecsSection {
   @ContentHelp('''
 Process relationships map dependencies, data flows, and sequencing between
@@ -3031,6 +3067,12 @@ actor responsibility.
 )
 @SectionId('CRPRAN')
 @DetailedIn(D02TargetOperatingModel)
+@FollowUpKind(
+  [FollowUpProcess.org, FollowUpProcess.ops],
+  note:
+      'follow-up material under OrganizationAndProcessConcept in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class CrossProcessAnalysis extends DocSpecsSection {
   @ContentHelp('''
 Cross-cutting view of how processes interact: shared entities, data
@@ -3065,6 +3107,12 @@ exchanged, synchronization points, and conflicts.
 )
 @SectionId('PREXHA')
 @DetailedIn(D02TargetOperatingModel)
+@FollowUpKind(
+  [FollowUpProcess.org, FollowUpProcess.ops],
+  note:
+      'follow-up material under OrganizationAndProcessConcept in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ProcessExceptionHandling extends DocSpecsSection {
   @ContentHelp('''
 Handling of exceptions that interrupt a normal process flow. Distinct
@@ -6023,6 +6071,12 @@ class AlternativeStepEntry extends DocSpecsSection {
 )
 @SectionId('PMAK')
 @DetailedIn(D02TargetOperatingModel)
+@FollowUpKind(
+  [FollowUpProcess.org, FollowUpProcess.ops],
+  note:
+      'follow-up material under OrganizationAndProcessConcept in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ProcessMetric extends DocSpecsSection {
   @ContentHelp('''
 How each business process is measured for success once in production.

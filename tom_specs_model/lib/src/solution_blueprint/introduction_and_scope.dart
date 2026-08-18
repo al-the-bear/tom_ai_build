@@ -4313,6 +4313,13 @@ class NotificationModel extends DocSpecsSection {
   'and urgency characteristics.',
 )
 @SectionId('NTFCH')
+@CodeSpecKind(
+  [CodeSpecPart.notification],
+  note:
+      'one delivery channel of the notification model — realised as a '
+      '@CsNotificationChannel over the tom_core_codespecs notification '
+      'model (shared locus), like its NotificationModel parent',
+)
 class NotificationChannelEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4374,6 +4381,13 @@ class NotificationChannelEntry extends DocSpecsSection {
   'trigger, and content template.',
 )
 @SectionId('NTFTY')
+@CodeSpecKind(
+  [CodeSpecPart.notification],
+  note:
+      'one notification type of the notification model — realised as a '
+      '@CsNotification over the tom_core_codespecs notification model '
+      '(shared locus), like its NotificationModel parent',
+)
 class NotificationTypeEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4493,6 +4507,13 @@ class NotificationTypeEntry extends DocSpecsSection {
   ),
 ])
 @SectionId('UNP')
+@CodeSpecKind(
+  [CodeSpecPart.notification],
+  note:
+      'the per-user opt-in surface of the notification model — realised '
+      'as the preference declarations of the @CsNotification set (shared '
+      'locus), like its NotificationModel parent',
+)
 class UserNotificationPreferences extends DocSpecsSection {
   /// Preferences content.
   @ContentType('form', 'User notification preference options.')
@@ -8053,6 +8074,12 @@ class RequirementsOverview extends DocSpecsSection {
   'answer: What must the system do? For whom? Under what conditions?',
 )
 @SectionId('FR')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the functional-requirement entries; the entries '
+      'below carry the routing',
+)
 class FunctionalRequirements extends DocSpecsSection {
   @ContentHelp('Introduce the functional requirement set and how it is '
       'organised. Individual requirements go in the subsections below; use '
@@ -8140,6 +8167,12 @@ class FunctionalRequirements extends DocSpecsSection {
   'UI, dependencies, traceability, and test cases that elaborate it.',
 )
 @SectionId('FRE')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the facets of one functional requirement; the '
+      'entries below carry the routing',
+)
 class FunctionalRequirementEntry extends DocSpecsSection {
   // Why: there is a single authoritative storage slot for each of the
   // requirement's title and id — the id lives solely in the item's stored
@@ -8404,6 +8437,12 @@ class FunctionalRequirementEntry extends DocSpecsSection {
   'format: Given [context], When [action], Then [expected result].',
 )
 @SectionId('RAC')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the acceptance criteria of one requirement; the '
+      'entries below carry the routing',
+)
 class RequirementAcceptanceCriteria extends DocSpecsSection {
   @ContentType(
     'description',
@@ -8520,6 +8559,12 @@ class AcceptanceCriterionEntry extends DocSpecsSection {
   'rules are constraints, calculations, or policies from the business domain.',
 )
 @SectionId('RBR')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the business rules of one requirement; the '
+      'entries below carry the routing',
+)
 class RequirementBusinessRules extends DocSpecsSection {
   @ContentType(
     'description',
@@ -8637,6 +8682,12 @@ class RequirementBusinessRuleEntry extends DocSpecsSection {
   'reads, creates, updates, or deletes.',
 )
 @SectionId('RDR')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the data requirements of one requirement; the '
+      'entries below carry the routing',
+)
 class RequirementDataRequirements extends DocSpecsSection {
   @ContentType(
     'description',
@@ -8739,6 +8790,12 @@ class DataEntityReferenceEntry extends DocSpecsSection {
   'Specify screens, forms, fields, actions, and behaviors.',
 )
 @SectionId('RUS')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the user-interface facets of one requirement; '
+      'the entries below carry the routing',
+)
 class RequirementUiSpecification extends DocSpecsSection {
   @ContentHelp('Describe the screens, forms and interactions this requirement '
       'needs, in Tom UI terms: what the user sees, what they can do, and what '
@@ -9589,6 +9646,12 @@ class ScreenBehaviorEntry extends DocSpecsSection {
   'alongside this requirement.',
 )
 @SectionId('REQDEP')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the dependencies of one requirement; the '
+      'entries below carry the routing',
+)
 class RequirementDependencies extends DocSpecsSection {
   @ContentType(
     'description',
@@ -9619,6 +9682,12 @@ class RequirementDependencies extends DocSpecsSection {
   'the impact of the dependency not being met.',
 )
 @SectionId('RQDEP')
+@NoArtifact(
+  NoArtifactReason.view,
+  note:
+      'a link row re-presenting a dependency already declared on the two '
+      'requirement entries it names',
+)
 class RequirementDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9667,6 +9736,12 @@ class RequirementDependencyEntry extends DocSpecsSection {
   'requirements throughout the project lifecycle.',
 )
 @SectionId('RT')
+@NoArtifact(
+  NoArtifactReason.view,
+  note:
+      'a matrix over requirement-to-artifact links already declared on '
+      'the requirement entries it indexes',
+)
 class RequirementTraceability extends DocSpecsSection {
   @ContentHelp('Link this requirement upward to goals and business drivers and '
       'downward to use cases, processes and tests. A requirement that traces '
@@ -9796,6 +9871,12 @@ class RequirementTraceability extends DocSpecsSection {
 )
 @SectionId('RETECA')
 @ContentHelp('Define test cases that verify requirement implementation.')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the test cases of one requirement; the entries '
+      'below carry the routing',
+)
 class RequirementTestCases extends DocSpecsSection {
   @ContentType('description', 'Overview of test coverage for this requirement.')
   @override
@@ -9824,6 +9905,12 @@ class RequirementTestCases extends DocSpecsSection {
   'preconditions, plus its execution and automation details.',
 )
 @SectionId('RQTSC')
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class RequirementTestCaseEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9948,6 +10035,12 @@ class RequirementTestCaseEntry extends DocSpecsSection {
   'Performance, Scalability, Availability, Security, Maintainability.',
 )
 @SectionId('TR1')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the technical-requirement entries; the entries '
+      'below carry the routing',
+)
 class TechnicalRequirements extends DocSpecsSection {
   @ContentHelp('Introduce the technical requirement set — the constraints on '
       'how the system is built. Say which are externally imposed and which are '
@@ -10029,6 +10122,12 @@ class TechnicalRequirements extends DocSpecsSection {
   'constraint on how the system is built.',
 )
 @SectionId('TERQ')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the facets of one technical requirement; the '
+      'entries below carry the routing',
+)
 class TechnicalRequirementEntry extends DocSpecsSection {
   // Why: there is a single authoritative storage slot for each of the
   // requirement's title and id — the id lives solely in the item's stored
@@ -10292,6 +10391,12 @@ class TechnicalRequirementEntry extends DocSpecsSection {
   'data protection, and compliance requirements.',
 )
 @SectionId('SR1')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the security-requirement entries; the entries '
+      'below carry the routing',
+)
 class SecurityRequirements extends DocSpecsSection {
   @ContentHelp('Introduce the security requirement set and the frameworks it '
       'follows, such as OWASP and ISO 27001. Record the threat model or risk '
@@ -10378,6 +10483,12 @@ class SecurityRequirements extends DocSpecsSection {
   'need the system must satisfy.',
 )
 @SectionId('SECRQ')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the facets of one security requirement; the '
+      'entries below carry the routing',
+)
 class SecurityRequirementEntry extends DocSpecsSection {
   // Why: there is a single authoritative storage slot for each of the
   // requirement's title and id — the id lives solely in the item's stored
@@ -10608,6 +10719,12 @@ class SecurityRequirementEntry extends DocSpecsSection {
 )
 @SectionId('SECO')
 @ContentHelp('Define security controls that implement this requirement.')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the security-control entries; the entries below '
+      'carry the routing',
+)
 class SecurityControls extends DocSpecsSection {
   @ContentType(
     'description',
@@ -10649,6 +10766,12 @@ class SecurityControls extends DocSpecsSection {
   'implementing or supporting a security requirement.',
 )
 @SectionId('SECOEN')
+@FollowUpKind(
+  [FollowUpProcess.cmp],
+  note:
+      'follow-up material under SecurityComplianceFollowUp in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class SecurityControlEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10766,6 +10889,12 @@ class SecurityControlEntry extends DocSpecsSection {
   'support structures, and communication.',
 )
 @SectionId('OR')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the organizational-requirement entries; the '
+      'entries below carry the routing',
+)
 class OrganizationalRequirements extends DocSpecsSection {
   @ContentHelp('Introduce the changes the organization itself must make for '
       'the system to succeed — process, roles, training, support. These fail '
@@ -10855,6 +10984,12 @@ class OrganizationalRequirements extends DocSpecsSection {
   'process, training, or support for the system to succeed.',
 )
 @SectionId('ORRQ')
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the facets of one organizational requirement; '
+      'the entries below carry the routing',
+)
 class OrganizationalRequirementEntry extends DocSpecsSection {
   // Why: there is a single authoritative storage slot for each of the
   // requirement's title and id — the id lives solely in the item's stored
@@ -11061,6 +11196,12 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
   'change requirement.',
 )
 @SectionId('ORIP')
+@FollowUpKind(
+  [FollowUpProcess.org],
+  note:
+      'follow-up material under RequirementsFollowUp in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class OrgRequirementImplementationPlan extends DocSpecsSection {
   @ContentHelp('Set out how this organizational change is actually made: '
       'sequence, owner, timing, and what has to be true before it can start.')
@@ -11266,6 +11407,12 @@ class SystemsToReplace extends DocSpecsSection {
 )
 @SectionId('RI')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class ReplacementInventory extends DocSpecsSection {
   @ContentHelp(
     'Introduce the replacement inventory before the individual systems '
@@ -13015,6 +13162,12 @@ class SystemKnowledgeTransfer extends DocSpecsSection {
 )
 @SectionId('MIGCON')
 @DetailedIn(D01CurrentLandscapeAssessment)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class MigrationConsiderations extends DocSpecsSection {
   @ContentHelp(
     'Introduce the portfolio-wide migration approach before the resource, '
@@ -14365,6 +14518,12 @@ class SystemBoundaries extends DocSpecsSection {
 )
 @SectionId('EXIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the external-interface entries; the entries '
+      'below carry the routing',
+)
 class ExternalInterfaces extends DocSpecsSection {
   @ContentHelp(
     'Introduce the external-integration landscape before the individual '
@@ -14569,6 +14728,12 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   'Captures why the interface exists in business terms, linking the integration to value, ownership, and regulatory drivers.',
 )
 @SectionId('INBUCO')
+@FollowUpKind(
+  [FollowUpProcess.org],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class InterfaceBusinessContext extends DocSpecsSection {
   @Form([
     Field(
@@ -14677,6 +14842,12 @@ class InterfaceBusinessProcessEntry extends DocSpecsSection {
   'Captures the technical mechanics of the interface: protocol, transport security, message format, and encoding.',
 )
 @SectionId('INTESP')
+@CodeSpecKind(
+  [CodeSpecPart.serviceUnit],
+  note:
+      'the transport and operation surface of one external interface — '
+      'realised as a @CsServiceUnit (server locus)',
+)
 class InterfaceTechnicalSpec extends DocSpecsSection {
   @Form([
     Field(
@@ -14936,6 +15107,13 @@ class InterfaceOperationEntry extends DocSpecsSection {
   'Specifies the data exchanged over the interface: entities, sensitivity, volume, mapping, and validation.',
 )
 @SectionId('INDASP')
+@CodeSpecKind(
+  [CodeSpecPart.dataAccess, CodeSpecPart.validation],
+  note:
+      'the payload shape of one external interface: entity access is '
+      'realised as @CsDataAccess, the field-level constraints as '
+      '@CsValidation',
+)
 class InterfaceDataSpec extends DocSpecsSection {
   @Form([
     // Data Exchange Overview
@@ -15055,6 +15233,12 @@ class InterfaceDataSpec extends DocSpecsSection {
   'Documents a single data entity exchanged over the interface and how it maps to the internal model.',
 )
 @SectionId('INDAEN')
+@CodeSpecKind(
+  [CodeSpecPart.dataAccess],
+  note:
+      'one entity exchanged across an external interface — realised as a '
+      '@CsDataAccess declaration',
+)
 class InterfaceDataEntityEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -15108,6 +15292,12 @@ class InterfaceDataEntityEntry extends DocSpecsSection {
   'Specifies authentication, credential handling, and the security posture governing access to the interface.',
 )
 @SectionId('IS')
+@CodeSpecKind(
+  [CodeSpecPart.authentication],
+  note:
+      'the credential and trust arrangements of one external interface — '
+      'realised as a @CsAuthentication (server locus)',
+)
 class InterfaceSecurity extends DocSpecsSection {
   @Form([
     Field(
@@ -15237,6 +15427,12 @@ class InterfaceSecurity extends DocSpecsSection {
   'Captures the operational and SLA characteristics of the interface: availability, response time, and throughput.',
 )
 @SectionId('INOP')
+@FollowUpKind(
+  [FollowUpProcess.ops],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class InterfaceOperational extends DocSpecsSection {
   @Form([
     Field(
@@ -15548,6 +15744,12 @@ class InterfaceErrorHandling extends DocSpecsSection {
   'Captures ownership, contacts, and contractual governance that keep the interface accountable over its lifecycle.',
 )
 @SectionId('INGO')
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class InterfaceGovernance extends DocSpecsSection {
   @Form([
     Field(
@@ -15669,6 +15871,12 @@ class InterfaceGovernance extends DocSpecsSection {
   'Specifies how the interface is tested, including sandbox availability, test credentials, and mocking.',
 )
 @SectionId('INTE')
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class InterfaceTesting extends DocSpecsSection {
   @Form([
     Field(
@@ -15848,6 +16056,12 @@ class InterfaceTestScenarioEntry extends DocSpecsSection {
 )
 @SectionId('OUOFSC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class OutOfScope extends DocSpecsSection {
   @ContentHelp(
     'Introduce the exclusions before the individual out-of-scope items '
@@ -16016,6 +16230,12 @@ class OutOfScopeEntry extends DocSpecsSection {
 )
 @SectionId('BOAS')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class BoundaryAssumptions extends DocSpecsSection {
   @ContentHelp(
     'Introduce the assumptions the project depends on before the individual '
@@ -17069,6 +17289,12 @@ class ResponsibilitySystems extends DocSpecsSection {
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class TechnicalEnvironment extends DocSpecsSection {
   @ContentHelp(
     'Introduce the pre-existing technical landscape before the governance, '
@@ -18549,6 +18775,12 @@ class RiskRelationships extends DocSpecsSection {
 /// Complete external-system inventory covering IIS-LAN-INV content.
 @SectionId('SYLAIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class SystemLandscapeInventory extends DocSpecsSection {
   @ContentHelp('''
 Enumerates every external system the target system interacts with, with
@@ -18580,6 +18812,12 @@ organization's landscape.
 /// existing intra-system `InteractionPatterns` class.
 @SectionId('BOINPA')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class BoundaryInteractionPatterns extends DocSpecsSection {
   @ContentHelp('''
 Reusable interaction patterns applied at system boundaries. Distinct
@@ -18610,6 +18848,12 @@ within the target system.
 /// Covers IIS-TST.
 @SectionId('INTES1')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class InteractionTestingStrategy extends DocSpecsSection {
   @ContentHelp('''
 Strategy for testing boundary interactions specifically. Complements the
@@ -18639,6 +18883,12 @@ broader system-wide test strategy.
 /// dependencies. Covers IIS-DEP.
 @SectionId('INDEAN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class InteractionDependencyAnalysis extends DocSpecsSection {
   @ContentHelp('''
 What happens when external interactions are slow or unavailable, and
@@ -18669,6 +18919,12 @@ which of them lie on the critical path of user-facing flows.
 /// Systems to Replace inventory. Covers IIS-MIG.
 @SectionId('MIIN')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class MigrationInteractions extends DocSpecsSection {
   @ContentHelp('''
 Transitional interactions that exist only during the migration window:
@@ -18706,6 +18962,12 @@ dual-write bridges, reconciliation feeds, freeze/replay mechanisms.
 )
 @SectionId('RERE')
 @DetailedIn(D04RequirementsSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class RequirementRelationships extends DocSpecsSection {
   @ContentHelp('''
 Explicit relationships between requirements: dependencies, conflicts,
@@ -18742,6 +19004,12 @@ FUN/TEC/SEC/ORG into a network.
 )
 @SectionId('REQCOV')
 @DetailedIn(D04RequirementsSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class RequirementCoverage extends DocSpecsSection {
   @ContentHelp('''
 Reports coverage of requirements from multiple angles to ensure nothing
@@ -18770,6 +19038,12 @@ falls through.
 /// inside individual interface entries.
 @SectionId('CBOC')
 @DetailedIn(D07IntegrationInterfaceSpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under IntroductionAndScope in the SBP; reached '
+      'here directly by a detail-document path',
+)
 class CrossBoundaryOperationalConsiderations extends DocSpecsSection {
   @ContentHelp('''
 Operational considerations that span all boundary interactions rather

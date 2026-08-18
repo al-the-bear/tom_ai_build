@@ -125,13 +125,18 @@ Every section class reachable from the document root carries a routing verdict �
 `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL`.
 
 This is checked **at runtime, over this document's own walk**, not only by the
-model's static validator. The two tiers ask the same question over different
-domains: the static tier decides by *type* reachability, the runtime by *path*.
-A class exempted statically because some type-reachable ancestor carries
-`@FollowUpKind` can still be reached at runtime by a path that never passes
-through that ancestor. The runtime walk is the authority here, because it is the
-walk the extraction run performs; a class it reaches without a verdict would
-otherwise route nowhere and be silently absent from every extract.
+model's static validator. Both tiers now walk the same shape — from every
+`@Document` root, stopping at each `@FollowUpKind` — so a class is exempt only on
+the paths that actually pass through a follow-up root. The runtime walk remains
+the authority, because it is the walk the extraction run performs: a class it
+reaches without a verdict would route nowhere and be silently absent from every
+extract, whatever the static tier concluded.
+
+Keeping A3 a *runtime* check is therefore not redundancy. The static tier decides
+over the model's types, once, at generation time; A3 decides over **this
+document's own instance tree**, which is the thing the extract is built from. A
+model can pass `ROUTE-TOTAL` and a document still present a node the walk reaches
+by a path the model's shape permits but no committed sample exercised.
 
 ### 4.4 A4 — every required marker argument has a source with content
 

@@ -1510,19 +1510,37 @@ enforceable rather than aspirational.
     and the coverage warning has to fire for both, which is how the model came
     to carry six standing warnings that every reader had to re-derive as benign.
 17. **`ROUTE-TOTAL`** — **Routing totality** (`codespecs_mapping.md` §8.3) — every
-    `@SectionId`-carrying class reachable from a specification root carries a
-    routing verdict: a `@CodeSpecKind`, a `@NoArtifact`, or membership of some
-    `@FollowUpKind` subtree. This is the converse of `PART-ROUTED`, and the two
-    together are what make the mapping *two-directional*: `PART-ROUTED` says
-    nothing claimed goes ungenerated, `ROUTE-TOTAL` says nothing is silently
-    left out. It is load-bearing for Phase 4 — the extract generator walks
-    `@CodeSpecKind` to decide what lands in which area's extract, so a section
-    routed nowhere is a section the agent writing that area never sees. Before
-    `@NoArtifact` existed the check was not expressible: "decided to feed
-    nothing" and "nobody got round to it" were written identically, so the
-    absence of a marker could not be read as a defect. The `@Document` roots
-    are exempt structurally — a root is the document, not a section of it, and
-    has no content of its own to route.
+    class the **routing walk** reaches carries a routing verdict of its own: a
+    `@CodeSpecKind`, a `@FollowUpKind` or a `@NoArtifact`. The walk starts at
+    **every** `@Document` root and **stops descending at a `@FollowUpKind`** — a
+    follow-up root is routed, and its subtree belongs to that root's processes
+    rather than to any part, so nothing inside it needs a verdict. This is the
+    converse of `PART-ROUTED`, and the two together are what make the mapping
+    *two-directional*: `PART-ROUTED` says nothing claimed goes ungenerated,
+    `ROUTE-TOTAL` says nothing is silently left out. It is load-bearing for
+    Phase 4 — the extract generator walks `@CodeSpecKind` to decide what lands in
+    which area's extract, so a section routed nowhere is a section the agent
+    writing that area never sees. Before `@NoArtifact` existed the check was not
+    expressible: "decided to feed nothing" and "nobody got round to it" were
+    written identically, so the absence of a marker could not be read as a
+    defect. The `@Document` roots are exempt structurally — a root is the
+    document, not a section of it, and has no content of its own to route.
+
+    **The walk, not type reachability, is the domain**, and that is the whole of
+    the invariant's precision. Exemption is by *path*: a class is covered by a
+    follow-up root only where the walk actually passes through that root, never
+    merely because some field chain from that root happens to reach its type.
+    The two are not the same, and the difference is not academic —
+    `GradedAuthorizationRequirement` is type-reachable from
+    `ExperienceDesignFollowUp` while its real home is under a `@CodeSpecKind`
+    parent in the SBP's authorization subtree, so the type-level reading
+    exempted a class that feeds authorization code. Every Phase-3 detail
+    document (D01–D12) re-uses SBP classes by its own paths, so the walk must
+    start at all fourteen roots, not at `D00SolutionBlueprint` alone. Both tiers
+    implement this walk — `validator.dart`'s `_routingWalk` statically and
+    `CodeSpecsExtractor._walk` at runtime — and where they could differ the
+    runtime is the authority, because it is the walk the extraction run performs
+    (`codespecs_prompt.md` §4.3).
 
 **Deliberately not an invariant:** *"a `@CodeSpecKind`-bearing class must itself
 be reachable from the generation projection."* The model has 64 counterexamples

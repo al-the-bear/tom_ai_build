@@ -24,6 +24,12 @@ import '../document_stubs.dart';
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
 @DetailedIn(D06ArchitectureTechnologySpecification)
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'follow-up material under SolutionArchitectureFollowUp in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ComponentsAndDependencies extends DocSpecsSection {
   @ContentHelp('''
 ## Components and Dependencies (Chapter 12)

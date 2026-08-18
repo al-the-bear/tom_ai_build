@@ -1320,6 +1320,143 @@ void main() {
     });
   });
 
+  group('unit: routing totality — the walk, not type reachability '
+      '(§10.2 invariant ROUTE-TOTAL)', () {
+    // The static tier and the runtime extractor must agree about which classes
+    // a Phase-4 run reaches. They disagreed while this tier read *type*
+    // reachability from a follow-up root and the runtime read the *path* it
+    // actually walks. These tests pin the walk's shape: it starts at every
+    // `@Document` root and stops descending at a `@FollowUpKind`.
+
+    ModelClass doc(String name, List<ModelField> fields) => _cls(
+          name,
+          [
+            AnnotationData('Document', {'name': name}),
+            AnnotationData('SectionId', {'id': name.toUpperCase()}),
+          ],
+          fields,
+        );
+
+    List<String> totalityErrors(Map<String, ModelClass> classes) =>
+        validateStructuralInvariants(classes)
+            .errors
+            .where((e) => e.contains('routing totality:'))
+            .toList();
+
+    test('a class reachable both under a follow-up root and by a path that '
+        'never passes through one is reported', () {
+      // The `GradedAuthorizationRequirement` shape: its real home is under a
+      // `@CodeSpecKind` parent, and a follow-up subtree happens to type against
+      // it too. Exempting it by type reachability dropped it from every
+      // extract — which is exactly what the invariant exists to catch.
+      final classes = {
+        'D00SolutionBlueprint': doc('D00SolutionBlueprint', [
+          _field('authorization', 'AuthorizationModel'),
+          _field('design', 'DesignFollowUp'),
+        ]),
+        'AuthorizationModel': _cls('AuthorizationModel', [
+          AnnotationData('SectionId', {'id': 'AZM'}),
+          AnnotationData('CodeSpecKind', {
+            'kinds': ['CodeSpecPart.authorization']
+          }),
+        ], [
+          _field('graded', 'GradedAccess'),
+        ]),
+        'DesignFollowUp': _cls('DesignFollowUp', [
+          AnnotationData('SectionId', {'id': 'XDF'}),
+          AnnotationData('FollowUpKind', {
+            'processes': ['FollowUpProcess.doc']
+          }),
+        ], [
+          _field('graded', 'GradedAccess'),
+        ]),
+        'GradedAccess':
+            _cls('GradedAccess', [AnnotationData('SectionId', {'id': 'AZGRD'})]),
+      };
+      expect(
+        totalityErrors(classes).single,
+        contains('GradedAccess'),
+      );
+    });
+
+    test('a class reachable only below a follow-up root is exempt — the walk '
+        'stops at the root', () {
+      final classes = {
+        'D00SolutionBlueprint': doc('D00SolutionBlueprint', [
+          _field('design', 'DesignFollowUp'),
+        ]),
+        'DesignFollowUp': _cls('DesignFollowUp', [
+          AnnotationData('SectionId', {'id': 'XDF'}),
+          AnnotationData('FollowUpKind', {
+            'processes': ['FollowUpProcess.doc']
+          }),
+        ], [
+          _field('style', 'StyleGuide'),
+        ]),
+        'StyleGuide':
+            _cls('StyleGuide', [AnnotationData('SectionId', {'id': 'XDF-STY'})]),
+      };
+      expect(totalityErrors(classes), isEmpty);
+    });
+
+    test('the walk starts at every @Document root, not at the blueprint alone',
+        () {
+      // All follow-up roots live in the SBP tree, but D01–D12 re-use the same
+      // sections by their own paths. A section only a detail document reaches
+      // is reached by the runtime too, so it needs a verdict here as well.
+      final classes = {
+        'D00SolutionBlueprint': doc('D00SolutionBlueprint', const []),
+        'D07IntegrationInterfaceSpecification':
+            doc('D07IntegrationInterfaceSpecification', [
+          _field('endpoint', 'EndpointDetail'),
+        ]),
+        'EndpointDetail': _cls(
+            'EndpointDetail', [AnnotationData('SectionId', {'id': 'IFM-EP'})]),
+      };
+      expect(
+        totalityErrors(classes).single,
+        contains('EndpointDetail'),
+      );
+    });
+
+    test('any of the three verdicts satisfies totality', () {
+      Map<String, ModelClass> withVerdict(List<AnnotationData> verdict) => {
+            'D00SolutionBlueprint': doc('D00SolutionBlueprint', [
+              _field('section', 'Section'),
+            ]),
+            'Section': _cls('Section', [
+              AnnotationData('SectionId', {'id': 'SEC'}),
+              ...verdict,
+            ]),
+          };
+
+      expect(totalityErrors(withVerdict(const [])), hasLength(1),
+          reason: 'control: no verdict must fail');
+      expect(
+        totalityErrors(withVerdict([
+          AnnotationData('CodeSpecKind', {
+            'kinds': ['CodeSpecPart.text']
+          })
+        ])),
+        isEmpty,
+      );
+      expect(
+        totalityErrors(withVerdict([
+          AnnotationData('FollowUpKind', {
+            'processes': ['FollowUpProcess.doc']
+          })
+        ])),
+        isEmpty,
+      );
+      expect(
+        totalityErrors(withVerdict([
+          AnnotationData('NoArtifact', {'reason': 'NoArtifactReason.container'})
+        ])),
+        isEmpty,
+      );
+    });
+  });
+
   group('unit: tom_specs_model_rules.md §5.1 canonical field shapes (YRB1)',
       () {
     // Field-shape errors carry the '§5.1 field-shape' prefix. Synthetic models

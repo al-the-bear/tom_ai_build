@@ -612,6 +612,12 @@ All criteria must be objectively measurable and verifiable.
 )
 @SectionId('ACRITL')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class AcceptanceCriteriaList extends DocSpecsSection {
   @ContentHelp('''
 Formal acceptance criteria that must be met for project sign-off.
@@ -859,6 +865,12 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
 )
 @SectionId('ACPR1')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class AcceptanceProcess extends DocSpecsSection {
   @Form([
     Field(
@@ -1238,6 +1250,12 @@ class AcceptanceStepEntry extends DocSpecsSection {
 )
 @SectionId('USACTE')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class UserAcceptanceTesting extends DocSpecsSection {
   @Form([
     Field(
@@ -2229,6 +2247,12 @@ class UatTestStepEntry extends DocSpecsSection {
 )
 @SectionId('DERE')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class DefectResolution extends DocSpecsSection {
   @Form([
     Field(
@@ -2462,6 +2486,12 @@ class DefectResolution extends DocSpecsSection {
 )
 @SectionId('SIOFPR')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class SignOffProcess extends DocSpecsSection {
   @Form([
     Field(
@@ -2709,6 +2739,12 @@ class SignOffProcess extends DocSpecsSection {
 )
 @SectionId('WATE')
 @DetailedIn(D10QualityAcceptancePlan)
+@FollowUpKind(
+  [FollowUpProcess.acc],
+  note:
+      'follow-up material under QualityAndAcceptanceModel in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class WarrantyTerms extends DocSpecsSection {
   @Form([
     Field(

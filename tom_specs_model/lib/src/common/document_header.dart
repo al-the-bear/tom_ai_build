@@ -13,6 +13,14 @@ import '../snapshot/spec_node.dart';
   'The standard document control header identifying the document, its project, version, date, author, and status.',
 )
 @SectionId('DOCHD')
+@FollowUpKind(
+  [FollowUpProcess.doc],
+  note:
+      'front matter — it identifies the document, not the system. Reached '
+      'under DocumentControl in the SBP and directly as the header of each '
+      'of the other thirteen @Document roots; the doc process owns it on '
+      'every one of those paths',
+)
 class DocumentHeader extends DocSpecsSection with SpecNode {
   @Form([
     Field('documentId', String, 'Document Id'),

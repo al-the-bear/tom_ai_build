@@ -325,6 +325,12 @@ framework. It is not something to restate per site.
   ['NIST SP 800-162 — attribute-based access control (ABAC)'],
   'The per-level requirements of a graded access rule: what earns full access, what earns read access, and what earns a visible-but-locked view.',
 )
+@NoArtifact(
+  NoArtifactReason.container,
+  note:
+      'grouping node over the graded access levels; each level entry '
+      'carries the authorization routing',
+)
 class GradedAuthorizationRequirement extends DocSpecsSection {
   @ContentHelp('''
 The requirement for each access state, from the most permissive down.

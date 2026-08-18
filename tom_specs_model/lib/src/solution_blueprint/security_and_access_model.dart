@@ -14994,6 +14994,12 @@ authorization model; this section captures the concrete assignment.
 )
 @SectionId('CF')
 @DetailedIn(D08SecurityAccessSpecification)
+@FollowUpKind(
+  [FollowUpProcess.cmp],
+  note:
+      'follow-up material under SecurityComplianceFollowUp in the SBP; '
+      'reached here directly by a detail-document path',
+)
 class ComplianceFramework extends DocSpecsSection {
   @ContentHelp('''
 Explicit mapping from the access/auth controls in this concept to the

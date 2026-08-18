@@ -1112,10 +1112,13 @@ const List<String> _routingVerdicts = [
 /// be specified and never generated. Deferred parts are exempt by construction
 /// ([_deferredParts]).
 ///
-/// **11c — routing totality.** The converse of 11b: every `@SectionId`-carrying
-/// class reachable from a specification root carries a verdict — a
-/// `@CodeSpecKind`, a `@NoArtifact`, or membership of some `@FollowUpKind`
-/// subtree. 11b checks that nothing *claimed* goes ungenerated; 11c checks that
+/// **11c — routing totality.** The converse of 11b: every class the Phase-4
+/// routing walk reaches carries one of the three verdicts. The walk starts at
+/// every `@Document` root and stops descending at a `@FollowUpKind`
+/// ([_routingWalk]), so a follow-up subtree is covered by its root's verdict and
+/// a class is exempt only on the paths that actually pass through that root —
+/// which is what the runtime extractor does, and what makes the two tiers agree.
+/// 11b checks that nothing *claimed* goes ungenerated; 11c checks that
 /// nothing is *silently* left out. That matters because the Phase-4 extract
 /// generator walks `@CodeSpecKind` to decide what lands in which area's
 /// extract: a section routed nowhere is a section the agent writing that area
@@ -1158,26 +1161,29 @@ void _validateCodeSpecKindRouting(
   //
   // Placed before 11b because 11b returns early on a model with no generation
   // projection, and totality is meaningful without one.
-  final followUpCovered = <String>{};
-  for (final className in reachable) {
-    if (classes[className]?.getAnnotation('FollowUpKind') == null) continue;
-    followUpCovered.addAll(_findReachableTypes(classes, className));
-  }
-  for (final className in reachable.toList()..sort()) {
+  //
+  // The domain is the *routing walk* ([_routingWalk]), not type reachability.
+  // Deciding follow-up membership by type reachability made the two tiers
+  // disagree, and disagree in the unsafe direction: a class type-reachable from
+  // some follow-up root was exempted here even where the runtime reaches it by
+  // a path that never passes through that root — so it routed nowhere and was
+  // silently absent from every extract, which is the one failure the invariant
+  // exists to catch.
+  for (final className in _routingWalk(classes, documentClasses).toList()
+    ..sort()) {
     final cls = classes[className];
     if (cls == null) continue;
-    if (cls.getAnnotation('SectionId') == null) continue;
     if (documentClasses.contains(className)) continue;
     if (cls.getAnnotation('CodeSpecKind') != null) continue;
+    if (cls.getAnnotation('FollowUpKind') != null) continue;
     if (cls.getAnnotation('NoArtifact') != null) continue;
-    if (followUpCovered.contains(className)) continue;
     errors.add(
-      '$_invariants routing totality: $className carries @SectionId but no '
-      'routing verdict — give it a @CodeSpecKind naming every part it may '
-      'feed, bring it under a @FollowUpKind subtree, or mark it '
-      '@NoArtifact(...) to record that it deliberately feeds nothing; a '
-      'section routed nowhere is one the Phase-4 extract generator never '
-      'shows to any area (codespecs_mapping.md §8.3)',
+      '$_invariants routing totality: $className is reached by the Phase-4 '
+      'routing walk but carries no routing verdict — give it a @CodeSpecKind '
+      'naming every part it may feed, a @FollowUpKind naming the processes '
+      'that own it, or a @NoArtifact(...) recording that it deliberately '
+      'feeds nothing; a section routed nowhere is one the Phase-4 extract '
+      'generator never shows to any area (codespecs_mapping.md §8.3)',
     );
   }
 
@@ -1886,6 +1892,60 @@ void _validateReferenceCoReachability(
       }
     }
   }
+}
+
+/// The classes a Phase-4 extraction run reaches, and must therefore find a
+/// routing verdict on.
+///
+/// A walk from **every** `@Document` root that stops descending at a
+/// `@FollowUpKind`: the follow-up root is itself visited — it carries the
+/// verdict — but everything below it belongs to that root's processes rather
+/// than to any CodeSpecs part, so the walk does not look inside.
+///
+/// This mirrors `CodeSpecsExtractor._walk` in `tom_som_dart_runtime`, which
+/// returns at a `feedsProcess` node. The two tiers ask the same question over
+/// different domains — this one by *type*, the runtime by *path* — and where
+/// they differ the runtime is the authority, because it is the walk the
+/// extraction run actually performs (`codespecs_prompt.md` §4.3). Walking from
+/// all fourteen roots rather than from `D00SolutionBlueprint` alone is part of
+/// that agreement: a section only a Phase-3 detail document reaches is reached
+/// by the runtime too.
+Set<String> _routingWalk(
+  Map<String, ModelClass> classes,
+  Set<String> documentClasses,
+) {
+  final visited = <String>{};
+  final queue = <String>[...documentClasses];
+
+  while (queue.isNotEmpty) {
+    final current = queue.removeLast();
+    if (!visited.add(current)) continue;
+
+    final cls = classes[current];
+    if (cls == null) continue;
+
+    // A follow-up root is routed; its subtree is not the walk's business.
+    if (!documentClasses.contains(current) &&
+        cls.getAnnotation('FollowUpKind') != null) {
+      continue;
+    }
+
+    for (final field in cls.fields) {
+      if (field.isList && field.listElementIsComplex) {
+        final inner = field.listElementTypeName;
+        if (inner != null && !visited.contains(inner)) {
+          queue.add(inner);
+        }
+      } else if (field.isComplex) {
+        final typeName = field.typeName.replaceAll('?', '');
+        if (!visited.contains(typeName)) {
+          queue.add(typeName);
+        }
+      }
+    }
+  }
+
+  return visited;
 }
 
 Set<String> _findReachableTypes(
