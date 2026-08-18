@@ -5600,13 +5600,29 @@ class LayerCommunicationRules extends DocSpecsSection {
 }
 
 /// Bounded context entry — a DDD bounded context.
+///
+/// `contextName` is the registry key: every `Bounded Context` field elsewhere in
+/// the specification names one of these entries, so a context exists in exactly
+/// one place and a misspelt name is reported rather than silently creating a
+/// second context.
 @StandardReferences([
   'Domain-Driven Design — bounded contexts / modules',
   'SOLID principles — object-oriented design',
-], 'Describes a single DDD bounded context, its domain area, and owning team.')
+], 'Describes a single DDD bounded context — its name, domain area, and owning '
+    'team — and is the registry every Bounded Context reference resolves against.')
 @SectionId('BCE')
 class BoundedContextEntry extends DocSpecsSection {
   @Form([
+    Field(
+      'contextName',
+      String,
+      'Context Name',
+      required: true,
+      hint: 'PascalCase noun or noun phrase naming this context (e.g., Sales, '
+          'OrderFulfilment). This is the name every Bounded Context field '
+          'elsewhere in the specification refers to, so it is written once here '
+          'and quoted exactly thereafter',
+    ),
     Field(
       'domainArea',
       String,
@@ -6590,7 +6606,8 @@ class FeatureModuleEntry extends DocSpecsSection {
       'boundedContext',
       String,
       'Bounded Context',
-      hint: 'Owning bounded context',
+      refersTo: ['BCE.contextName'],
+      hint: 'Context Name of the owning bounded context',
     ),
   ])
   @override
@@ -9703,7 +9720,8 @@ class BusinessComponentEntry extends DocSpecsSection {
       'boundedContext',
       String,
       'Bounded Context',
-      hint: 'Domain area this belongs to',
+      refersTo: ['BCE.contextName'],
+      hint: 'Context Name of the bounded context this component belongs to',
     ),
   ])
   @override

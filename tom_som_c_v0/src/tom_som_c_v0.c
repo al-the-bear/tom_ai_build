@@ -58723,6 +58723,13 @@ char *bounded_context_entry_content_form_content(const BoundedContextEntryConten
 void bounded_context_entry_content_form_set_content(BoundedContextEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
+char *bounded_context_entry_content_form_context_name(const BoundedContextEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contextName");
+  return som_strdup(v != NULL ? v : "");
+}
+void bounded_context_entry_content_form_set_context_name(BoundedContextEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "contextName", value);
+}
 char *bounded_context_entry_content_form_domain_area(const BoundedContextEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "domainArea");
   return som_strdup(v != NULL ? v : "");

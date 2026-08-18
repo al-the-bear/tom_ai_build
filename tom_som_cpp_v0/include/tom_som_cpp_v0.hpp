@@ -5844,6 +5844,11 @@ class BoundaryInteractionPatterns : public som::SomNode {
 };
 
 // Bounded context entry — a DDD bounded context.
+//
+// `contextName` is the registry key: every `Bounded Context` field elsewhere in
+// the specification names one of these entries, so a context exists in exactly
+// one place and a misspelt name is reported rather than silently creating a
+// second context.
 class BoundedContextEntry : public som::SomNode {
  public:
   BoundedContextEntry(som::SpecDocument& doc, std::string path);
@@ -30402,6 +30407,8 @@ class BoundedContextEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string contextName() const;
+  void setContextName(const std::string& value);
   std::string domainArea() const;
   void setDomainArea(const std::string& value);
   std::string owningTeam() const;

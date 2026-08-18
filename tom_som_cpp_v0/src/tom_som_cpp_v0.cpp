@@ -26672,6 +26672,12 @@ std::string BoundedContextEntryContentForm::content() const {
 void BoundedContextEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string BoundedContextEntryContentForm::contextName() const {
+  return doc().formField(path(), "contextName");
+}
+void BoundedContextEntryContentForm::setContextName(const std::string& value) {
+  doc().setFormField(path(), "contextName", value);
+}
 std::string BoundedContextEntryContentForm::domainArea() const {
   return doc().formField(path(), "domainArea");
 }

@@ -5787,6 +5787,11 @@ char *boundary_interaction_patterns_content(const BoundaryInteractionPatterns *s
 void boundary_interaction_patterns_set_content(BoundaryInteractionPatterns *self, const char *value);
 
 // Bounded context entry — a DDD bounded context.
+//
+// `contextName` is the registry key: every `Bounded Context` field elsewhere in
+// the specification names one of these entries, so a context exists in exactly
+// one place and a misspelt name is reported rather than silently creating a
+// second context.
 // Binds a BoundedContextEntry facade to a document and a path (path copied).
 void bounded_context_entry_init(BoundedContextEntry *self, SpecDocument *doc, const char *path);
 void bounded_context_entry_free(BoundedContextEntry *self);
@@ -29108,6 +29113,8 @@ void bounded_context_entry_content_form_free(BoundedContextEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *bounded_context_entry_content_form_content(const BoundedContextEntryContentForm *self);
 void bounded_context_entry_content_form_set_content(BoundedContextEntryContentForm *self, const char *value);
+char *bounded_context_entry_content_form_context_name(const BoundedContextEntryContentForm *self);
+void bounded_context_entry_content_form_set_context_name(BoundedContextEntryContentForm *self, const char *value);
 char *bounded_context_entry_content_form_domain_area(const BoundedContextEntryContentForm *self);
 void bounded_context_entry_content_form_set_domain_area(BoundedContextEntryContentForm *self, const char *value);
 char *bounded_context_entry_content_form_owning_team(const BoundedContextEntryContentForm *self);

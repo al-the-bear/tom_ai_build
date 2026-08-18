@@ -32781,7 +32781,7 @@ form-types:
       - fieldname: category
         description: "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData"
       - fieldname: boundedContext
-        description: Domain-driven design bounded context this entity belongs to
+        description: "Context Name of the bounded context this entity belongs to. This is the outer bound on service-unit grouping: aggregates in different contexts are never served by one service unit"
       - fieldname: aggregateRoot
         required: true
         description: "Entity Name of the root of the aggregate this entity belongs to — a root names itself, so an entity with no enclosing aggregate names its own Entity Name. This is the ownership key: the service unit that owns the aggregate owns this entity, its repository, and every operation that primarily writes it"
@@ -33068,7 +33068,7 @@ form-types:
   bjoen-doma-form:
     fields:
       - fieldname: boundedContext
-        description: DDD bounded context this object belongs to
+        description: Context Name of the bounded context this object belongs to
       - fieldname: owningDomain
         description: Business domain responsible for this object
       - fieldname: domainExpert

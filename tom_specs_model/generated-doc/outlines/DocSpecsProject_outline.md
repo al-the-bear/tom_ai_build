@@ -1428,7 +1428,7 @@
               - content @Form(communicationDirection, dependencyRule, abstractionPrinciple), interfaces, flow,
                 governance
             - boundedContexts: `BoundedContextEntry`[]
-              - content @Form(domainArea, owningTeam), scope, boundaries, implementation, integration
+              - content @Form(contextName, domainArea, owningTeam), scope, boundaries, implementation, integration
             - `PackageOrganization`
               - content @Form(namingConvention, prefixStrategy, suffixConventions), structure, types, dependencies,
                 documentation
@@ -4362,7 +4362,7 @@
         - `LayerCommunicationRules`
           - content @Form(communicationDirection, dependencyRule, abstractionPrinciple), interfaces, flow, governance
         - boundedContexts: `BoundedContextEntry`[]
-          - content @Form(domainArea, owningTeam), scope, boundaries, implementation, integration
+          - content @Form(contextName, domainArea, owningTeam), scope, boundaries, implementation, integration
         - `PackageOrganization`
           - content @Form(namingConvention, prefixStrategy, suffixConventions), structure, types, dependencies,
             documentation
@@ -5512,7 +5512,7 @@
           - `LayerCommunicationRules`
             - content @Form(communicationDirection, dependencyRule, abstractionPrinciple), interfaces, flow, governance
           - boundedContexts: `BoundedContextEntry`[]
-            - content @Form(domainArea, owningTeam), scope, boundaries, implementation, integration
+            - content @Form(contextName, domainArea, owningTeam), scope, boundaries, implementation, integration
           - `PackageOrganization`
             - content @Form(namingConvention, prefixStrategy, suffixConventions), structure, types, dependencies,
               documentation

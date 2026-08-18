@@ -3682,6 +3682,11 @@ func (x *BoundaryInteractionPatterns) SetContent(value string) {
 }
 
 // Bounded context entry — a DDD bounded context.
+//
+// `contextName` is the registry key: every `Bounded Context` field elsewhere in
+// the specification names one of these entries, so a context exists in exactly
+// one place and a misspelt name is reported rather than silently creating a
+// second context.
 type BoundedContextEntry struct {
 	som.SomNode
 }
@@ -58526,6 +58531,14 @@ func (x *BoundedContextEntryContentForm) Content() string {
 
 func (x *BoundedContextEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *BoundedContextEntryContentForm) ContextName() string {
+	return x.Doc().FormFieldOr(x.Path(), "contextName")
+}
+
+func (x *BoundedContextEntryContentForm) SetContextName(value string) {
+	x.Doc().SetFormField(x.Path(), "contextName", value)
 }
 
 func (x *BoundedContextEntryContentForm) DomainArea() string {

@@ -8260,8 +8260,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("domainArea", "String", "Domain Area", true, "Business domain this context covers", 0),
-            new SomFormFieldMeta("owningTeam", "String", "Owning Team", false, "Team responsible for this context", 1)));
+            new SomFormFieldMeta("contextName", "String", "Context Name", true, "PascalCase noun or noun phrase naming this context (e.g., Sales, OrderFulfilment). This is the name every Bounded Context field elsewhere in the specification refers to, so it is written once here and quoted exactly thereafter", 0),
+            new SomFormFieldMeta("domainArea", "String", "Domain Area", true, "Business domain this context covers", 1),
+            new SomFormFieldMeta("owningTeam", "String", "Owning Team", false, "Team responsible for this context", 2)));
         out.add(n);
       }
       {
@@ -8934,7 +8935,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentType", "String", "Component Type", false, "Service, Repository, UseCase, Validator, Calculator", 0),
-            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Domain area this belongs to", 1)));
+            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Context Name of the bounded context this component belongs to", 1, java.util.List.of(), java.util.List.of("BCE.contextName"))));
         out.add(n);
       }
       {
@@ -9613,7 +9614,7 @@ public final class TomSomV0Meta {
         n.sectionId = "BJOEN-DOMA";
         n.serializationOrder = 2;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "DDD bounded context this object belongs to", 0),
+            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Context Name of the bounded context this object belongs to", 0, java.util.List.of(), java.util.List.of("BCE.contextName")),
             new SomFormFieldMeta("owningDomain", "String", "Owning Domain", false, "Business domain responsible for this object", 1),
             new SomFormFieldMeta("domainExpert", "String", "Domain Expert", false, "Business expert who defines this object", 2),
             new SomFormFieldMeta("ubiquitousLanguageTerm", "String", "Ubiquitous Language Term", false, "How this is referred to in the ubiquitous language", 3),
@@ -25288,7 +25289,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("category", "String", "Category", false, "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData", 0),
-            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Domain-driven design bounded context this entity belongs to", 1),
+            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Context Name of the bounded context this entity belongs to. This is the outer bound on service-unit grouping: aggregates in different contexts are never served by one service unit", 1, java.util.List.of(), java.util.List.of("BCE.contextName")),
             new SomFormFieldMeta("aggregateRoot", "String", "Aggregate Root", true, "Entity Name of the root of the aggregate this entity belongs to — a root names itself, so an entity with no enclosing aggregate names its own Entity Name. This is the ownership key: the service unit that owns the aggregate owns this entity, its repository, and every operation that primarily writes it", 2, java.util.List.of(), java.util.List.of("DAENT.entityName")),
             new SomFormFieldMeta("serviceUnitAggregate", "String", "Service Unit Aggregate", false, "Only when business-process cohesion overrides the default grouping: Entity Name of the aggregate root whose service unit serves this entity. Several aggregates naming one root is a merge; one aggregate whose entities name different roots is a split. Empty means the aggregate named above", 3, java.util.List.of(), java.util.List.of("DAENT.entityName")),
             new SomFormFieldMeta("owningDomain", "String", "Owning Domain", false, "Business domain responsible for this entity", 4),
@@ -40646,7 +40647,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureArea", "String", "Feature Area", false, "Business area this feature belongs to", 0),
-            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Owning bounded context", 1)));
+            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Context Name of the owning bounded context", 1, java.util.List.of(), java.util.List.of("BCE.contextName"))));
         out.add(n);
       }
       {
@@ -51272,8 +51273,8 @@ public final class TomSomV0Meta {
         n.elementNode = metaCx("BoundedContextEntry", s, BoundedContextEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("BoundedContextEntry", SomMetaKind.COMPLEX, "BoundedContextEntry");
           e.classSectionId = "BCE";
-          e.docComment = "Bounded context entry — a DDD bounded context.";
-          e.classDocComment = "Bounded context entry — a DDD bounded context.";
+          e.docComment = "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.";
+          e.classDocComment = "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.";
           e.recursive = r;
           e.children = c;
           return e;

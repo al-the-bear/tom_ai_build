@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T07:32:44.632047Z",
+  "generatedAt": "2026-08-18T08:01:42.318765Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
@@ -21598,13 +21598,13 @@
     "BoundedContextEntry": {
       "name": "BoundedContextEntry",
       "sectionId": "BCE",
-      "doc": "Bounded context entry — a DDD bounded context.",
+      "doc": "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.",
       "standardReferences": {
         "standards": [
           "Domain-Driven Design — bounded contexts / modules",
           "SOLID principles — object-oriented design"
         ],
-        "connotation": "Describes a single DDD bounded context, its domain area, and owning team."
+        "connotation": "Describes a single DDD bounded context — its name, domain area, and owning team — and is the registry every Bounded Context reference resolves against."
       },
       "annotations": [
         {
@@ -21614,7 +21614,7 @@
               "Domain-Driven Design — bounded contexts / modules",
               "SOLID principles — object-oriented design"
             ],
-            "connotation": "Describes a single DDD bounded context, its domain area, and owning team."
+            "connotation": "Describes a single DDD bounded context — its name, domain area, and owning team — and is the registry every Bounded Context reference resolves against."
           }
         },
         {
@@ -21644,6 +21644,13 @@
             }
           ],
           "formFields": [
+            {
+              "name": "contextName",
+              "label": "Context Name",
+              "hint": "PascalCase noun or noun phrase naming this context (e.g., Sales, OrderFulfilment). This is the name every Bounded Context field elsewhere in the specification refers to, so it is written once here and quoted exactly thereafter",
+              "type": "String",
+              "required": true
+            },
             {
               "name": "domainArea",
               "label": "Domain Area",
@@ -23950,9 +23957,12 @@
             {
               "name": "boundedContext",
               "label": "Bounded Context",
-              "hint": "Domain area this belongs to",
+              "hint": "Context Name of the bounded context this component belongs to",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BCE.contextName"
+              ]
             }
           ]
         },
@@ -25791,9 +25801,12 @@
             {
               "name": "boundedContext",
               "label": "Bounded Context",
-              "hint": "DDD bounded context this object belongs to",
+              "hint": "Context Name of the bounded context this object belongs to",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BCE.contextName"
+              ]
             },
             {
               "name": "owningDomain",
@@ -63728,9 +63741,12 @@
             {
               "name": "boundedContext",
               "label": "Bounded Context",
-              "hint": "Domain-driven design bounded context this entity belongs to",
+              "hint": "Context Name of the bounded context this entity belongs to. This is the outer bound on service-unit grouping: aggregates in different contexts are never served by one service unit",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BCE.contextName"
+              ]
             },
             {
               "name": "aggregateRoot",
@@ -105896,9 +105912,12 @@
             {
               "name": "boundedContext",
               "label": "Bounded Context",
-              "hint": "Owning bounded context",
+              "hint": "Context Name of the owning bounded context",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BCE.contextName"
+              ]
             }
           ]
         },

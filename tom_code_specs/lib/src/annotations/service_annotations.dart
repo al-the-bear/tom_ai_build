@@ -68,6 +68,13 @@ class CsServiceUnit {
   ///
   /// **Required** — it is the second half of the `codespecs_mapping.md` §5.1
   /// boundary criterion, and a unit with no named context has no stated bound.
+  ///
+  /// A `String` and not a ref const, because a bounded context is a partition of
+  /// the specification and generates no declaration to cite. It is nonetheless a
+  /// *checked* name on the document side: it is the `Context Name` of a declared
+  /// bounded context, and the entity field it is copied from resolves against
+  /// that registry, so two units in one context always carry the identical
+  /// string (`codespecs_mapping.md` §5.1 rule 3).
   final String boundedContext;
 
   /// Optional part-specific note.

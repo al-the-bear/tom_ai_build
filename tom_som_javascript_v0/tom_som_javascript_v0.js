@@ -3291,6 +3291,11 @@ class BoundaryInteractionPatterns extends SomNode {
 }
 
 // Bounded context entry — a DDD bounded context.
+//
+// `contextName` is the registry key: every `Bounded Context` field elsewhere in
+// the specification names one of these entries, so a context exists in exactly
+// one place and a misspelt name is reported rather than silently creating a
+// second context.
 class BoundedContextEntry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -50686,6 +50691,14 @@ class BoundedContextEntryContentForm extends SomNode {
 
   set content(value) {
     this.doc.setContent(this.path, value);
+  }
+
+  get contextName() {
+    return this.doc.formField(this.path, "contextName") || '';
+  }
+
+  set contextName(value) {
+    this.doc.setFormField(this.path, "contextName", value);
   }
 
   get domainArea() {

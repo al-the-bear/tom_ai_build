@@ -3126,7 +3126,13 @@ class BoundaryInteractionPatterns(SomNode):
         self.doc.set_content(f"{self.path}/content", value)
 
 class BoundedContextEntry(SomNode):
-    """Bounded context entry — a DDD bounded context."""
+    """Bounded context entry — a DDD bounded context.
+    
+    `contextName` is the registry key: every `Bounded Context` field elsewhere in
+    the specification names one of these entries, so a context exists in exactly
+    one place and a misspelt name is reported rather than silently creating a
+    second context.
+    """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -48431,6 +48437,14 @@ class BoundedContextEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
+
+    @property
+    def contextName(self) -> str:
+        return self.doc.form_field(self.path, "contextName") or ""
+
+    @contextName.setter
+    def contextName(self, value):
+        self.doc.set_form_field(self.path, "contextName", value)
 
     @property
     def domainArea(self) -> str:

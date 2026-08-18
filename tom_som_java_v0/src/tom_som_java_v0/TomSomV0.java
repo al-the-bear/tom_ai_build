@@ -3295,6 +3295,11 @@ public final class TomSomV0 {
   }
 
   // Bounded context entry — a DDD bounded context.
+  //
+  // `contextName` is the registry key: every `Bounded Context` field elsewhere in
+  // the specification names one of these entries, so a context exists in exactly
+  // one place and a misspelt name is reported rather than silently creating a
+  // second context.
   public static final class BoundedContextEntry extends SomNode {
     public BoundedContextEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -52480,6 +52485,15 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path, value);
+    }
+
+    public String contextName() {
+      String v = doc.formField(path, "contextName");
+      return v == null ? "" : v;
+    }
+
+    public void contextName(String value) {
+      doc.setFormField(path, "contextName", value);
     }
 
     public String domainArea() {

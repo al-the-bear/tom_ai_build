@@ -22311,20 +22311,26 @@ static void meta_build_bounded_context_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("domainArea");
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("contextName");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Domain Area");
+  n->form->fields[0].description = som_strdup("Context Name");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Business domain this context covers");
+  n->form->fields[0].hint = som_strdup("PascalCase noun or noun phrase naming this context (e.g., Sales, OrderFulfilment). This is the name every Bounded Context field elsewhere in the specification refers to, so it is written once here and quoted exactly thereafter");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("owningTeam");
+  n->form->fields[1].name = som_strdup("domainArea");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Owning Team");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Team responsible for this context");
+  n->form->fields[1].description = som_strdup("Domain Area");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("Business domain this context covers");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("owningTeam");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Owning Team");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Team responsible for this context");
+  n->form->fields[2].order = 2;
 }
 static void meta_build_bounded_context_entry_scope(SomMetaNode *n) {
   meta_set(&n->class_name, "BoundedContextEntry");
@@ -23469,8 +23475,11 @@ static void meta_build_business_component_entry_content(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Bounded Context");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Domain area this belongs to");
+  n->form->fields[1].hint = som_strdup("Context Name of the bounded context this component belongs to");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("BCE.contextName");
 }
 static void meta_build_business_component_entry_description(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessComponentEntry");
@@ -24380,8 +24389,11 @@ static void meta_build_business_object_entry_domain_context(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Bounded Context");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("DDD bounded context this object belongs to");
+  n->form->fields[0].hint = som_strdup("Context Name of the bounded context this object belongs to");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("BCE.contextName");
   n->form->fields[1].name = som_strdup("owningDomain");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Owning Domain");
@@ -43458,8 +43470,11 @@ static void meta_build_data_entity_entry_classification(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Bounded Context");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Domain-driven design bounded context this entity belongs to");
+  n->form->fields[1].hint = som_strdup("Context Name of the bounded context this entity belongs to. This is the outer bound on service-unit grouping: aggregates in different contexts are never served by one service unit");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("BCE.contextName");
   n->form->fields[2].name = som_strdup("aggregateRoot");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Aggregate Root");
@@ -64115,8 +64130,11 @@ static void meta_build_feature_module_entry_content(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Bounded Context");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Owning bounded context");
+  n->form->fields[1].hint = som_strdup("Context Name of the owning bounded context");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("BCE.contextName");
 }
 static void meta_build_feature_module_entry_description(SomMetaNode *n) {
   meta_set(&n->class_name, "FeatureModuleEntry");
@@ -78629,8 +78647,8 @@ static void meta_build_layering_and_module_structure_bounded_contexts_elem(SomMe
   meta_set(&n->class_section_id, "BCE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BoundedContextEntry");
-  meta_set(&n->doc_comment, "Bounded context entry — a DDD bounded context.");
-  meta_set(&n->class_doc_comment, "Bounded context entry — a DDD bounded context.");
+  meta_set(&n->doc_comment, "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.");
+  meta_set(&n->class_doc_comment, "Bounded context entry — a DDD bounded context.\n\n`contextName` is the registry key: every `Bounded Context` field elsewhere in\nthe specification names one of these entries, so a context exists in exactly\none place and a misspelt name is reported rather than silently creating a\nsecond context.");
 }
 static void meta_build_layering_and_module_structure_package_organization(SomMetaNode *n) {
   meta_set(&n->class_name, "PackageOrganization");

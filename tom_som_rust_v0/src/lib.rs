@@ -4511,6 +4511,11 @@ impl BoundaryInteractionPatterns {
 }
 
 /// Bounded context entry — a DDD bounded context.
+///
+/// `contextName` is the registry key: every `Bounded Context` field elsewhere in
+/// the specification names one of these entries, so a context exists in exactly
+/// one place and a misspelt name is reported rather than silently creating a
+/// second context.
 pub struct BoundedContextEntry {
     pub node: som::SomNode,
 }
@@ -69658,6 +69663,15 @@ impl BoundedContextEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn context_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contextName")
+    }
+
+    pub fn set_context_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contextName", value);
     }
 
     pub fn domain_area(&self) -> String {

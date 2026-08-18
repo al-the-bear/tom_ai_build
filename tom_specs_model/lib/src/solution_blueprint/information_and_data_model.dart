@@ -549,7 +549,10 @@ class DataEntityEntry extends DocSpecsSection {
       'boundedContext',
       String,
       'Bounded Context',
-      hint: 'Domain-driven design bounded context this entity belongs to',
+      refersTo: ['BCE.contextName'],
+      hint: 'Context Name of the bounded context this entity belongs to. This '
+          'is the outer bound on service-unit grouping: aggregates in different '
+          'contexts are never served by one service unit',
     ),
     Field(
       'aggregateRoot',
@@ -2367,7 +2370,8 @@ class BusinessObjectEntry extends DocSpecsSection {
       'boundedContext',
       String,
       'Bounded Context',
-      hint: 'DDD bounded context this object belongs to',
+      refersTo: ['BCE.contextName'],
+      hint: 'Context Name of the bounded context this object belongs to',
     ),
     Field(
       'owningDomain',

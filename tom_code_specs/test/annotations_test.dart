@@ -370,7 +370,7 @@ class CustomerRepository {}
 /// root aggregate and the context it sits in (`codespecs_mapping.md` §5.1).
 @CsServiceUnit(
   rootAggregate: Customer,
-  boundedContext: 'sales',
+  boundedContext: 'Sales',
   note: 'owns customer and contact',
 )
 @CodeSpec('SU-CUSTOMER', source: ['TOM-SU'])
@@ -834,11 +834,11 @@ void main() {
     test('CsServiceUnit requires both halves of the §5.1 boundary', () {
       const unit = CsServiceUnit(
         rootAggregate: Customer,
-        boundedContext: 'sales',
+        boundedContext: 'Sales',
         note: 'owns customer and contact',
       );
       expect(unit.rootAggregate, Customer);
-      expect(unit.boundedContext, 'sales');
+      expect(unit.boundedContext, 'Sales');
       expect(unit.note, 'owns customer and contact');
     });
 
