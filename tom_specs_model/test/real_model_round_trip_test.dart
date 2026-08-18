@@ -145,9 +145,13 @@ const String _sbp = 'D00SolutionBlueprint';
 /// Drives the object tree through the same reflection-free contract `SpecYaml`
 /// uses (`specSlotsOf`), and consults the exported [SpecModel] for the one
 /// thing the objects do not carry: whether a class's `content` member is a
-/// `@Form`. A form's body is a mapping of named fields in the v2 format and has
-/// no home for free text, so those sections are filled through
-/// [DocSpecsSection.form] instead.
+/// `@Form`.
+///
+/// **Every section gets free text, form or not.** A form's free text is its
+/// preamble (SOM §11.4 rule 7) and rides in the same `content` key a plain
+/// section's body uses (SOM §12.2), so the form-bearing sections — 233 of the
+/// SBP's reachable sections — are filled through *both* [DocSpecsSection.content]
+/// and [DocSpecsSection.form], and the round trip has to carry the pair.
 class _Filler {
   _Filler(SpecModel model)
       : _formFields = {
@@ -166,8 +170,8 @@ class _Filler {
   void fill(Object node, [String path = '']) {
     if (node is DocSpecsSection) {
       final fields = _formFields[node.runtimeType.toString()];
+      node.content = 'content at $path';
       if (fields == null) {
-        node.content = 'content at $path';
         contentLeaves++;
       } else if (fields.isNotEmpty) {
         node.form = DocSpecsForm(values: {fields.first: 'value at $path'});

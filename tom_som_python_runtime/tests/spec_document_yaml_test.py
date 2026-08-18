@@ -454,6 +454,114 @@ def test_class_level_only_key() -> None:
     _check("clskey.rt.owner", out.content("D00/control/owner") == "the owner")
 
 
+def test_form_preamble() -> None:
+    """A ``@Form`` node carries its own body text — the free text before its
+    first field (SOM §11.4 rule 7) — under the same literal ``content`` key
+    every other section uses (SOM §12.2); a form declaring a field literally
+    named ``content`` is a collision (§12.3 rule 6)."""
+    doc = SpecDocument()
+    doc.set_content("D00/D00-HDR", "why this header exists")
+    doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace")
+    yaml = _enc(doc)
+    # The reserved key sits above the fields, exactly as for a section.
+    _check(
+        "formPre.shape",
+        "\n    D00-HDR header:\n"
+        "      content: |2-\n"
+        "        why this header exists\n"
+        "      author: |2-\n"
+        "        Ada Lovelace\n" in yaml,
+        yaml,
+    )
+
+    only = SpecDocument()
+    only.set_content("D00/D00-HDR", "nothing filled in yet")
+    only_yaml = _enc(only)
+    _check(
+        "formPre.only",
+        "\n    D00-HDR header:\n"
+        "      content: |2-\n"
+        "        nothing filled in yet\n" in only_yaml,
+        only_yaml,
+    )
+
+    multi = SpecDocument()
+    multi.set_content("D00/D00-HDR", "first paragraph\n\nsecond paragraph")
+    multi.set_form_field("D00/D00-HDR", "author", "Ada Lovelace")
+    yaml1 = _enc(multi)
+    out = _dec(yaml1).document
+    _check(
+        "formPre.rtContent",
+        out.content("D00/D00-HDR") == "first paragraph\n\nsecond paragraph",
+        repr(out.content("D00/D00-HDR")),
+    )
+    _check(
+        "formPre.rtField",
+        out.form_field("D00/D00-HDR", "author") == "Ada Lovelace",
+        repr(out.form_field("D00/D00-HDR", "author")),
+    )
+    _check("formPre.byteStable", _enc(out) == yaml1)
+
+    # A form declaring a field literally named `content`: the field alone is
+    # fine (a declared field wins on decode), the preamble beside it collides.
+    clash_tree = build_som_meta_tree(
+        SpecModel.from_json(
+            {
+                "modelVersion": 1,
+                "roots": [
+                    {"type": "Clash", "title": "Clash", "sectionId": "C00"},
+                ],
+                "classes": {
+                    "Clash": {
+                        "name": "Clash",
+                        "sectionId": "C00",
+                        "fields": [
+                            {
+                                "name": "header",
+                                "kind": "form",
+                                "sectionId": "C00-HDR",
+                                "serializationOrder": 0,
+                                "formFields": [
+                                    {
+                                        "name": "content",
+                                        "label": "Content",
+                                        "type": "String",
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                },
+            }
+        )
+    )
+    field_only = SpecDocument()
+    field_only.set_form_field("C00/C00-HDR", "content", "a field value")
+    field_yaml = yaml_encode(field_only, clash_tree)
+    _check(
+        "formPre.clashFieldOnly",
+        "      content: |2-\n        a field value\n" in field_yaml,
+        field_yaml,
+    )
+    _check(
+        "formPre.clashFieldDecodes",
+        yaml_decode(field_yaml, clash_tree).document.form_field(
+            "C00/C00-HDR", "content"
+        )
+        == "a field value",
+    )
+
+    with_preamble = SpecDocument()
+    with_preamble.set_content("C00/C00-HDR", "the preamble")
+    with_preamble.set_form_field("C00/C00-HDR", "content", "a field value")
+    _check(
+        "formPre.clashRefused",
+        _throws_format(
+            lambda: yaml_encode(with_preamble, clash_tree), "literally named"
+        ),
+    )
+
+
 def test_code_spec_round_trip() -> None:
     # csmc8 (codespecs_mapping.md §9.2): a stored codeSpec survives the yaml
     # round-trip.
@@ -491,6 +599,7 @@ def main() -> int:
     test_round_trip()
     test_strict_decode()
     test_class_level_only_key()
+    test_form_preamble()
     test_code_spec_round_trip()
     test_code_spec_byte_stable()
 

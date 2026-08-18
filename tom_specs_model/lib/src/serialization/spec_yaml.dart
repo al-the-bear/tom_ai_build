@@ -159,9 +159,13 @@ abstract final class SpecYaml {
   /// Throws [SpecYamlFormatException] when the object tree holds a value the
   /// format has no home for: an object whose members the metadata tree does not
   /// describe (or vice versa), a key that disagrees with
-  /// [SpecDocumentYaml.nodeKey], or free text on a `@Form` section (a form is a
-  /// map of named fields in v2 — see `DocSpecsForm.content`). Failing loudly
-  /// here is the point: the alternative is a file that silently lost data.
+  /// [SpecDocumentYaml.nodeKey], or form field values on a section the metadata
+  /// tree does not declare as a `@Form`. Failing loudly here is the point: the
+  /// alternative is a file that silently lost data.
+  ///
+  /// Free text on a `@Form` section is *not* such a value: it is the form's
+  /// preamble (SOM §11.4 rule 7), and it binds to the node's `content` key like
+  /// any other section's body (SOM §12.2).
   static SpecDocument toDocument(
     Object root, {
     required SomMetaTree tree,
@@ -244,22 +248,20 @@ class _Projector {
     }
   }
 
-  /// Binds a `@Form` section: one document form entry keyed by form-field name.
+  /// Binds a `@Form` section: its preamble content plus one document form entry
+  /// keyed by form-field name.
+  ///
+  /// A form section's free text is `DocSpecsSection.content`, exactly as it is
+  /// for a section with no form, and it binds to the same `content` key of the
+  /// node's mapping (SOM §11.4 rule 7 and SOM §12.2). The form's parsed field
+  /// values bind beside it under their field names.
   void _bindForm(SomMetaNode node, String path, Object object) {
-    final raw = _scalarOf(object);
-    if (raw != null && raw.isNotEmpty) {
-      throw SpecYamlFormatException(
-          'unparsed form text at "$path" (${node.debugName}); a @Form section '
-          'is a map of named fields in the v2 format and has no home for free '
-          'text — parse it into the form values first');
+    final preamble = _scalarOf(object);
+    if (preamble != null && preamble.isNotEmpty) {
+      doc.setContent(path, preamble);
     }
     final form = (object is DocSpecsSection) ? object.form : null;
     if (form == null) return;
-    if ((form.content ?? '').isNotEmpty) {
-      throw SpecYamlFormatException(
-          'DocSpecsForm.content at "$path" (${node.debugName}) has no home in '
-          'the v2 format; a form serializes only its named field values');
-    }
     final meta = node.form;
     if (meta == null) {
       throw SpecYamlFormatException(
@@ -443,10 +445,7 @@ class _Projector {
     if (object is! DocSpecsSection) return;
     final form = object.form;
     if (form == null) return;
-    if (form.values.values.every((v) => v == null || '$v'.isEmpty) &&
-        (form.content ?? '').isEmpty) {
-      return;
-    }
+    if (form.values.values.every((v) => v == null || '$v'.isEmpty)) return;
     throw SpecYamlFormatException(
         'form values at "$path" but ${node.debugName} is not a @Form section');
   }

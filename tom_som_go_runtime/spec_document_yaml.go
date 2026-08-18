@@ -574,7 +574,12 @@ func (e *yamlEncoder) writeForm(
 	delete(e.headlines, path)
 	codeSpec, hasCodeSpec := e.codeSpecs[path]
 	delete(e.codeSpecs, path)
-	if (!ok || len(fields) == 0) && !hasHeadline && !hasCodeSpec {
+	// The form's preamble — the free text before its first field (SOM §11.4
+	// rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping under
+	// the literal `content` key, exactly as a section's body does.
+	content, hasContent := e.content[path]
+	delete(e.content, path)
+	if (!ok || len(fields) == 0) && !hasHeadline && !hasCodeSpec && !hasContent {
 		return nil
 	}
 	meta := node.Form
@@ -598,12 +603,20 @@ func (e *yamlEncoder) writeForm(
 			"cannot emit the stored codeSpec at `" + path + "`: the form declares a " +
 				"field literally named `codeSpec`")
 	}
+	if hasContent && meta.FieldNamed("content") != nil {
+		return yamlFormatErr(
+			"cannot emit the preamble content at `" + path + "`: the form declares a " +
+				"field literally named `content`")
+	}
 	b.writeln(strings.Repeat(" ", indent) + PlainKey(key) + ":")
 	if hasHeadline {
 		e.writeText(b, indent+2, "headline", headline)
 	}
 	if hasCodeSpec {
 		e.writeText(b, indent+2, "codeSpec", codeSpec)
+	}
+	if hasContent {
+		e.writeText(b, indent+2, "content", content)
 	}
 	for _, f := range meta.Fields {
 		v, ok := fields[f.Name]
@@ -950,6 +963,15 @@ func (d *yamlDecoder) loadChild(
 						return err
 					}
 					d.doc.SetCodeSpec(path, v)
+					continue
+				}
+				if name == "content" {
+					// The form's preamble (SOM §11.4 rule 7 / §12.2).
+					v, err := decoderScalarOf(fields.GetOr(name), path+"/content")
+					if err != nil {
+						return err
+					}
+					d.doc.SetContent(path, v)
 					continue
 				}
 				return yamlFormatErr(

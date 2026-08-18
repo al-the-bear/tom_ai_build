@@ -132,17 +132,13 @@
       }
     },
     {
-      "name": "text in a form section before the first field label is orphan content, and the labelled fields still import",
+      "name": "text in a form section before the first field label is the form's preamble, and lands beside the fields",
       "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details & Contacts\n\nloose prose with no field label\nOwner: Bob\nContact: bob@example.com\n",
-      "rejections": [
-        {
-          "line": 5,
-          "reason": "orphanContent",
-          "anchor": "DEMO/DET",
-          "message": "text in a @Form section before the first field label"
-        }
-      ],
+      "rejections": [],
       "document": {
+        "content": {
+          "DEMO/DET": "loose prose with no field label"
+        },
         "forms": {
           "DEMO/DET": {
             "contact": "bob@example.com",
@@ -214,17 +210,12 @@
           "reason": "unknownSection",
           "anchor": "NOSUCH",
           "message": "section id does not resolve against the schema tree at this position (under \"DEMO\")"
-        },
-        {
-          "line": 25,
-          "reason": "orphanContent",
-          "anchor": "DEMO/DET",
-          "message": "text in a @Form section before the first field label"
         }
       ],
       "document": {
         "content": {
           "DEMO/CNT": "3",
+          "DEMO/DET": "loose prose with no field label",
           "DEMO/TTL": "Hello"
         },
         "forms": {

@@ -57,8 +57,8 @@ enum SpecMarkdownRejectReason {
   /// a value-leaf (content/scalar/enum) section.
   kindMismatch,
 
-  /// Body text with no owning value slot — e.g. prose inside a `@Form` section
-  /// before the first `FieldName:` line.
+  /// Body text with no owning value slot — text before the document root
+  /// heading.
   orphanContent,
 
   /// A value-leaf section heading with an empty body.
@@ -427,25 +427,47 @@ class SpecDocumentMarkdown {
     }
   }
 
+  /// Whether the `@Form` node at [path] has anything to emit: its preamble
+  /// content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any
+  /// populated field.
   bool _formHasValues(SomMetaNode node, String path) {
+    if (document.hasContent(path)) return true;
     for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) {
       if (document.formField(path, f.name) != null) return true;
     }
     return false;
   }
 
+  /// Writes a `@Form` section body: the preamble content (when set) followed by
+  /// one `FieldName: value` group per populated field (SOM §11.4).
   void _writeForm(StringBuffer b, SomMetaNode node, String path) {
+    final fields = StringBuffer();
     for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) {
       final value = document.formField(path, f.name);
       if (value == null) continue;
       final lines = _prepareValue(value, path).split('\n');
-      b.writeln('${formLabel(f.name)}: ${lines.first}');
+      fields.writeln('${formLabel(f.name)}: ${lines.first}');
       for (final line in lines.skip(1)) {
         // SOM §11.4 generalised: any continuation line that could be mistaken
         // for a field-label line gains one leading space; parse strips it.
-        b.writeln(_labelShaped.hasMatch(line) ? ' $line' : line);
+        fields.writeln(_labelShaped.hasMatch(line) ? ' $line' : line);
       }
     }
+
+    final preamble = document.content(path);
+    if (preamble != null) {
+      final prepared = _prepareValue(preamble, path);
+      if (prepared.isNotEmpty) {
+        // Every preamble line gets the same label-shaped escape a continuation
+        // line gets: the parser reaches a field label before it knows which
+        // text is preamble, so a `Word:` line at column 0 would mis-split.
+        for (final line in prepared.split('\n')) {
+          b.writeln(_labelShaped.hasMatch(line) ? ' $line' : line);
+        }
+        if (fields.isNotEmpty) b.writeln();
+      }
+    }
+    b.write(fields);
     b.writeln();
   }
 
@@ -1004,6 +1026,9 @@ class _Parser {
   /// names across an owner's transparent forms follow emit order.
   int _currentFormIdx = 0;
 
+  /// Parses an id-bearing `@Form` section's body: the preamble text before the
+  /// first field label binds to the form's own `content` (SOM §11.4 rule 7);
+  /// everything from the first label on binds to the named fields.
   void _finalizeForm(_Frame frame, SomMetaNode node, String path) {
     final fieldsByLower = {
       for (final f in node.form?.fields ?? const <SomFormFieldMeta>[])
@@ -1014,18 +1039,13 @@ class _Parser {
     var currentLines = <String>[];
 
     void flush(int lineNo) {
+      final value = _restoreValue(currentLines);
       if (currentField != null) {
-        final value = _restoreValue(currentLines);
         if (value.isNotEmpty) {
           forms.putIfAbsent(path, () => {})[currentField] = value;
         }
-      } else if (currentLines.any((l) => l.trim().isNotEmpty)) {
-        rejections.add(SpecMarkdownRejection(
-          line: lineNo,
-          reason: SpecMarkdownRejectReason.orphanContent,
-          anchor: path,
-          message: 'text in a @Form section before the first field label',
-        ));
+      } else if (value.isNotEmpty) {
+        content[path] = value;
       }
       currentLines = <String>[];
     }

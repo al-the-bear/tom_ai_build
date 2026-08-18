@@ -362,6 +362,94 @@ void main() {
     });
   });
 
+  group('a form section\'s preamble (SOM §11.4 rule 7 / §12.2)', () {
+    test('a form node carries its own body under the literal `content` key',
+        () {
+      final doc = SpecDocument()
+        ..setContent('D00/D00-HDR', 'why this header exists')
+        ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+      final yaml = enc(doc);
+      // The reserved key sits above the fields, exactly as for a section.
+      expect(yaml, contains('\n    D00-HDR header:\n'
+          '      content: |2-\n'
+          '        why this header exists\n'
+          '      author: |2-\n'
+          '        Ada Lovelace\n'));
+    });
+
+    test('a preamble-only form node still emits its mapping', () {
+      final doc = SpecDocument()
+        ..setContent('D00/D00-HDR', 'nothing filled in yet');
+      expect(enc(doc), contains('\n    D00-HDR header:\n'
+          '      content: |2-\n'
+          '        nothing filled in yet\n'));
+    });
+
+    test('preamble + fields round-trip verbatim and byte-stably', () {
+      final doc = SpecDocument()
+        ..setContent('D00/D00-HDR', 'first paragraph\n\nsecond paragraph')
+        ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+      final yaml1 = enc(doc);
+      final out = dec(yaml1).document;
+      expect(out.content('D00/D00-HDR'), 'first paragraph\n\nsecond paragraph');
+      expect(out.formField('D00/D00-HDR', 'author'), 'Ada Lovelace');
+      expect(enc(out), yaml1);
+    });
+
+    test('a form declaring a field literally named `content` is a collision '
+        '(SOM §12.3 rule 6)', () {
+      // The reserved key would be ambiguous: is it the preamble or the field?
+      // The encoder refuses rather than write a file it cannot read back.
+      final model = SpecModel.fromJson({
+        'modelVersion': 1,
+        'roots': [
+          {'type': 'Clash', 'title': 'Clash', 'sectionId': 'C00'},
+        ],
+        'classes': {
+          'Clash': {
+            'name': 'Clash',
+            'sectionId': 'C00',
+            'fields': [
+              {
+                'name': 'header',
+                'kind': 'form',
+                'sectionId': 'C00-HDR',
+                'serializationOrder': 0,
+                'formFields': [
+                  {'name': 'content', 'label': 'Content', 'type': 'String'},
+                ],
+              },
+            ],
+          },
+        },
+      });
+      final clashTree = buildSomMetaTree(model);
+      // The field alone is fine: a declared field wins on decode, so the key
+      // is unambiguous as long as the preamble is not also present.
+      final fieldOnly = SpecDocument()
+        ..setFormField('C00/C00-HDR', 'content', 'a field value');
+      final fieldYaml =
+          SpecDocumentYaml.encode(document: fieldOnly, tree: clashTree);
+      expect(fieldYaml,
+          contains('      content: |2-\n        a field value\n'));
+      expect(
+        SpecDocumentYaml.decode(fieldYaml, clashTree)
+            .document
+            .formField('C00/C00-HDR', 'content'),
+        'a field value',
+      );
+      final withPreamble = SpecDocument()
+        ..setContent('C00/C00-HDR', 'the preamble')
+        ..setFormField('C00/C00-HDR', 'content', 'a field value');
+      expect(
+        () => SpecDocumentYaml.encode(
+            document: withPreamble, tree: clashTree),
+        throwsA(isA<SpecYamlFormatException>().having(
+            (e) => '$e', 'message', contains('literally named'))),
+      );
+    });
+  });
+
   group('round-trip', () {
     test('every value survives verbatim', () {
       final out = roundTrip(_populated());

@@ -622,7 +622,11 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
                   som_strdup("path does not resolve to any model node"));
       continue;
     }
-    if (!spec_resolution_is_value_leaf(&res)) {
+    /* A form node is the one non-leaf that legitimately carries content: it is
+     * the form's preamble, the free text before the first field line (SOM §11.4
+     * rule 7), in the same slot a plain section's body uses. */
+    if (!spec_resolution_is_value_leaf(&res) &&
+        strcmp(res.kind, SPEC_NODE_KIND_FORM) != 0) {
       errors_push(out, path, SPEC_VALIDATION_CODE_KIND_MISMATCH,
                   fmt_kind("expected a value leaf but path resolves to ",
                            res.kind));

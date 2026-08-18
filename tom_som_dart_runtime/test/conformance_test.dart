@@ -1739,6 +1739,19 @@ SpecDocument _buildDocument() {
   d.setFormField('DEMO/DET', 'active', 'true');
   d.setFormField('DEMO/DET', 'estimate', '8');
   d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
+  // A form **preamble** — free text before the first field line (SOM §11.4
+  // rule 7). It rides in the same `content` slot a plain section's body uses,
+  // so this pins the one shape a form section has that a non-form section does
+  // not: content and form values at the same path, in both codecs.
+  //
+  // The second line is deliberately label-shaped AND shadows DET's *declared*
+  // `owner` field. That makes the rule-3 escape load-bearing across all nine
+  // ports: a runtime that emits the preamble unescaped writes a line the
+  // parser will read back as `owner: this line is prose, not the field.`,
+  // silently overwriting `Bob` — a byte-stable export that loses a value.
+  d.setContent('DEMO/DET',
+      'Captured during the November review.\n'
+      'Owner: this line is prose, not the field.');
   final i1 = d.addListItem('DEMO/items');
   d.setContent('$i1/label', 'First');
   d.setContent('$i1/STS', 'open');
@@ -1866,6 +1879,14 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
     }),
     caseFor('kindMismatch', {
       'content': {'DEMO/items': 'x'}
+    }),
+    // The one non-leaf that may carry content: a form node, whose content is
+    // the preamble (SOM §11.4 rule 7). Pinned as its own case rather than left
+    // to ride on `valid`, because the two say different things — `valid` would
+    // still pass if the exemption were widened to every non-leaf, and this case
+    // sits directly beside the `kindMismatch` one that proves it was not.
+    caseFor('formPreamble', {
+      'content': {'DEMO/DET': 'free text above the fields'}
     }),
     caseFor('unknownFormField', {
       'forms': {
@@ -2713,7 +2734,6 @@ Map<String, dynamic> _markdownImportCases() {
   const noRoot = 'no document root with this section id (known: DEMO, SIDE)';
   const childUnderLeaf = 'child heading under a value-leaf or form section';
   const noValue = 'no value text under this section heading';
-  const formOrphan = 'text in a @Form section before the first field label';
   String noResolve(String parent) =>
       'section id does not resolve against the schema tree at this position '
       '(under "$parent")';
@@ -2905,12 +2925,14 @@ Map<String, dynamic> _markdownImportCases() {
           'content': {'DEMO/CNT': '3', 'DEMO/TTL': 'Hello'}
         },
       ),
-      // The second `orphanContent` cause. `DET` is a `@Form`: prose before the
-      // first `Field:` label has no slot to land in. The fields that *do* carry
-      // labels still land, which is what separates "reported" from "aborted".
+      // The `orphanContent` case that is *not* one. `DET` is a `@Form`, and
+      // prose before its first `Field:` label is the form's preamble (SOM §11.4
+      // rule 7) — it has a home, so it lands in the form's own content slot and
+      // nothing is rejected. Kept as a case precisely because it used to be a
+      // rejection: a port that still reports here has not read rule 7.
       c(
-        name: 'text in a form section before the first field label is orphan '
-            'content, and the labelled fields still import',
+        name: 'text in a form section before the first field label is the '
+            "form's preamble, and lands beside the fields",
         markdown: [
           '# <!--[DEMO]--> Demo Document', //                          1
           '', //                                                       2
@@ -2920,8 +2942,9 @@ Map<String, dynamic> _markdownImportCases() {
           'Owner: Bob', //                                             6
           'Contact: bob@example.com', //                               7
         ],
-        rejections: [rej(5, 'orphanContent', 'DEMO/DET', formOrphan)],
+        rejections: const <Map<String, dynamic>>[],
         document: {
+          'content': {'DEMO/DET': 'loose prose with no field label'},
           'forms': {
             'DEMO/DET': {'contact': 'bob@example.com', 'owner': 'Bob'}
           },
@@ -3019,10 +3042,13 @@ Map<String, dynamic> _markdownImportCases() {
           rej(13, 'malformedHeading', 'An Unmarked Heading', noComment),
           rej(17, 'missingValue', 'DEMO/PRI', noValue),
           rej(19, 'unknownSection', 'NOSUCH', noResolve('DEMO')),
-          rej(25, 'orphanContent', 'DEMO/DET', formOrphan),
         ],
         document: {
-          'content': {'DEMO/CNT': '3', 'DEMO/TTL': 'Hello'},
+          'content': {
+            'DEMO/CNT': '3',
+            'DEMO/DET': 'loose prose with no field label',
+            'DEMO/TTL': 'Hello',
+          },
           'forms': {
             'DEMO/DET': {'owner': 'Bob'}
           },

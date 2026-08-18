@@ -441,7 +441,13 @@ class YamlEncoder {
     bool hasHeadline = takeHeadline(path, &headline);
     std::string codeSpec;
     bool hasCodeSpec = takeCodeSpec(path, &codeSpec);
-    if ((!present || names.empty()) && !hasHeadline && !hasCodeSpec) {
+    /* The form's preamble — the free text before its first field (SOM §11.4
+     * rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
+     * under the literal `content` key, exactly as a section's body does. */
+    std::string content;
+    bool hasContent = takeContent(path, &content);
+    if ((!present || names.empty()) && !hasHeadline && !hasCodeSpec &&
+        !hasContent) {
       return true;
     }
     for (const std::string& name : names) {
@@ -467,6 +473,13 @@ class YamlEncoder {
                       "`codeSpec`");
       return false;
     }
+    if (hasContent && node.form.has_value() &&
+        node.form->fieldNamed("content") != nullptr) {
+      setErr(err, "cannot emit the preamble content at `" + path +
+                      "`: the form declares a field literally named "
+                      "`content`");
+      return false;
+    }
     b.append(indent, ' ');
     b += specYamlPlainKey(key);
     b += ":\n";
@@ -475,6 +488,9 @@ class YamlEncoder {
     }
     if (hasCodeSpec) {
       writeText(b, indent + 2, "codeSpec", codeSpec);
+    }
+    if (hasContent) {
+      writeText(b, indent + 2, "content", content);
     }
     if (node.form.has_value()) {
       for (const SomFormFieldMeta& f : node.form->fields) {
@@ -978,6 +994,17 @@ class YamlDecoder {
               return false;
             }
             doc->setCodeSpec(path, v);
+            continue;
+          }
+          if (name == "content") {
+            /* The form's preamble (SOM §11.4 rule 7 / §12.2). */
+            std::string v;
+            if (!decoderScalarOf(
+                    std::const_pointer_cast<const YamlValue>(fv.second),
+                    path + "/content", &v, err)) {
+              return false;
+            }
+            doc->setContent(path, v);
             continue;
           }
           setErr(err, "form `" + path + "` has no field `" + name +

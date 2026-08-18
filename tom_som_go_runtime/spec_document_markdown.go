@@ -57,8 +57,8 @@ const (
 	// e.g. a child heading nested under a value-leaf (content/scalar/enum)
 	// section.
 	SpecMarkdownRejectKindMismatch = "kindMismatch"
-	// SpecMarkdownRejectOrphanContent — body text with no owning value slot,
-	// e.g. prose inside a `@Form` section before the first `FieldName:` line.
+	// SpecMarkdownRejectOrphanContent — body text with no owning value slot:
+	// text before the document root heading.
 	SpecMarkdownRejectOrphanContent = "orphanContent"
 	// SpecMarkdownRejectMissingValue — a value-leaf section heading with an
 	// empty body.
@@ -176,6 +176,12 @@ type mdBuffer struct {
 
 func (b *mdBuffer) writeln(text string) {
 	b.parts = append(b.parts, text, "\n")
+}
+
+// write appends text verbatim — no trailing newline. Used to splice an
+// already-terminated buffer (a form's field block) into its owner.
+func (b *mdBuffer) write(text string) {
+	b.parts = append(b.parts, text)
 }
 
 func (b *mdBuffer) String() string {
@@ -636,7 +642,13 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	return nil
 }
 
+// formHasValues reports whether the `@Form` node at path has anything to emit:
+// its preamble content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or
+// any populated field.
 func (c *SpecDocumentMarkdown) formHasValues(node *SomMetaNode, path string) bool {
+	if c.Document.HasContent(path) {
+		return true
+	}
 	if node.Form == nil {
 		return false
 	}
@@ -648,11 +660,14 @@ func (c *SpecDocumentMarkdown) formHasValues(node *SomMetaNode, path string) boo
 	return false
 }
 
+// writeForm writes a `@Form` section body: the preamble content (when set)
+// followed by one `FieldName: value` group per populated field (SOM §11.4).
 func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path string) error {
 	var fields []*SomFormFieldMeta
 	if node.Form != nil {
 		fields = node.Form.Fields
 	}
+	fieldBuf := &mdBuffer{}
 	for _, f := range fields {
 		value, ok := c.Document.FormField(path, f.Name)
 		if !ok {
@@ -663,17 +678,41 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 			return err
 		}
 		lines := strings.Split(prepared, "\n")
-		b.writeln(SpecMarkdownFormLabel(f.Name) + ": " + lines[0])
+		fieldBuf.writeln(SpecMarkdownFormLabel(f.Name) + ": " + lines[0])
 		for _, line := range lines[1:] {
 			// SOM §11.4 generalised: any continuation line that could be mistaken
 			// for a field-label line gains one leading space; parse strips it.
 			if mdLabelShapedRE.MatchString(line) {
-				b.writeln(" " + line)
+				fieldBuf.writeln(" " + line)
 			} else {
-				b.writeln(line)
+				fieldBuf.writeln(line)
 			}
 		}
 	}
+
+	if preamble, ok := c.Document.Content(path); ok {
+		prepared, err := c.prepareValue(preamble, path)
+		if err != nil {
+			return err
+		}
+		if prepared != "" {
+			// Every preamble line gets the same label-shaped escape a
+			// continuation line gets: the parser reaches a field label before it
+			// knows which text is preamble, so a `Word:` line at column 0 would
+			// mis-split.
+			for _, line := range strings.Split(prepared, "\n") {
+				if mdLabelShapedRE.MatchString(line) {
+					b.writeln(" " + line)
+				} else {
+					b.writeln(line)
+				}
+			}
+			if fieldBuf.String() != "" {
+				b.writeln("")
+			}
+		}
+	}
+	b.write(fieldBuf.String())
 	b.writeln("")
 	return nil
 }
@@ -1298,6 +1337,9 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	}
 }
 
+// finalizeForm parses an id-bearing `@Form` section's body: the preamble text
+// before the first field label binds to the form's own content (SOM §11.4
+// rule 7); everything from the first label on binds to the named fields.
 func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) {
 	var fields []*SomFormFieldMeta
 	if node.Form != nil {
@@ -1313,26 +1355,16 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 	var currentLines []string
 
 	flush := func(lineNo int) {
+		value := mdRestoreValue(currentLines)
 		if haveField {
-			value := mdRestoreValue(currentLines)
 			if value != "" {
 				if p.forms[path] == nil {
 					p.forms[path] = map[string]string{}
 				}
 				p.forms[path][currentField] = value
 			}
-		} else {
-			for _, l := range currentLines {
-				if strings.TrimSpace(l) != "" {
-					p.rejections = append(p.rejections, &SpecMarkdownRejection{
-						Line:    lineNo,
-						Reason:  SpecMarkdownRejectOrphanContent,
-						Message: "text in a @Form section before the first field label",
-						Anchor:  path,
-					})
-					break
-				}
-			}
+		} else if value != "" {
+			p.content[path] = value
 		}
 		currentLines = nil
 	}

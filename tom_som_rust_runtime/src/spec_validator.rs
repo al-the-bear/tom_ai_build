@@ -62,7 +62,11 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
         match refl.resolve(&path) {
             None => errors.push(dangling(&path)),
             Some(res) => {
-                if !res.is_value_leaf() {
+                // A form node is the one non-leaf that legitimately carries
+                // content: it is the form's preamble, the free text before the
+                // first field line (SOM §11.4 rule 7), in the same slot a plain
+                // section's body uses.
+                if !res.is_value_leaf() && res.kind != SPEC_NODE_KIND_FORM {
                     errors.push(SpecValidationError {
                         path: path.clone(),
                         code: SPEC_VALIDATION_CODE_KIND_MISMATCH.to_string(),

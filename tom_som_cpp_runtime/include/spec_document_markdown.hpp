@@ -48,8 +48,8 @@ inline constexpr const char* kSpecMarkdownRejectUnknownSection =
 /* A structurally impossible combination, e.g. a child heading nested under a
  * value-leaf (content/scalar/enum) section. */
 inline constexpr const char* kSpecMarkdownRejectKindMismatch = "kindMismatch";
-/* Body text with no owning value slot, e.g. prose inside a `@Form` section
- * before the first `FieldName:` line. */
+/* Body text with no owning value slot: text before the document root
+ * heading. */
 inline constexpr const char* kSpecMarkdownRejectOrphanContent = "orphanContent";
 /* A value-leaf section heading with an empty body. */
 inline constexpr const char* kSpecMarkdownRejectMissingValue = "missingValue";

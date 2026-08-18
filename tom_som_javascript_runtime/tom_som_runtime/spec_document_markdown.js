@@ -55,8 +55,8 @@ const SpecMarkdownRejectReason = Object.freeze({
   /** A structurally impossible combination — e.g. a child heading nested
    *  under a value-leaf (content/scalar/enum) section. */
   KIND_MISMATCH: 'kindMismatch',
-  /** Body text with no owning value slot — e.g. prose inside a `@Form`
-   *  section before the first `FieldName:` line. */
+  /** Body text with no owning value slot — text before the document root
+   *  heading. */
   ORPHAN_CONTENT: 'orphanContent',
   /** A value-leaf section heading with an empty body. */
   MISSING_VALUE: 'missingValue',
@@ -181,6 +181,12 @@ class _Buffer {
   writeln(text = '') {
     this._parts.push(text);
     this._parts.push('\n');
+  }
+
+  /** Appends text verbatim — no trailing newline. Used to splice an
+   *  already-terminated buffer (a form's field block) into its owner. */
+  write(text) {
+    this._parts.push(text);
   }
 
   toString() {
@@ -584,7 +590,15 @@ class SpecDocumentMarkdown {
     }
   }
 
+  /**
+   * Whether the `@Form` node at `path` has anything to emit: its preamble
+   * content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any
+   * populated field.
+   */
   _formHasValues(node, path) {
+    if (this.document.hasContent(path)) {
+      return true;
+    }
     const fields = node.form !== null && node.form !== undefined ? node.form.fields : [];
     for (const f of fields) {
       if (this.document.formField(path, f.name) !== null) {
@@ -594,21 +608,43 @@ class SpecDocumentMarkdown {
     return false;
   }
 
+  /**
+   * Writes a `@Form` section body: the preamble content (when set) followed by
+   * one `FieldName: value` group per populated field (SOM §11.4).
+   */
   _writeForm(b, node, path) {
     const fields = node.form !== null && node.form !== undefined ? node.form.fields : [];
+    const fieldBuf = new _Buffer();
     for (const f of fields) {
       const value = this.document.formField(path, f.name);
       if (value === null) {
         continue;
       }
       const lines = this._prepareValue(value, path).split('\n');
-      b.writeln(`${SpecDocumentMarkdown.formLabel(f.name)}: ${lines[0]}`);
+      fieldBuf.writeln(`${SpecDocumentMarkdown.formLabel(f.name)}: ${lines[0]}`);
       for (const line of lines.slice(1)) {
         // SOM §11.4 generalised: any continuation line that could be mistaken
         // for a field-label line gains one leading space; parse strips it.
-        b.writeln(_LABEL_SHAPED.test(line) ? ` ${line}` : line);
+        fieldBuf.writeln(_LABEL_SHAPED.test(line) ? ` ${line}` : line);
       }
     }
+
+    const preamble = this.document.content(path);
+    if (preamble !== null && preamble !== undefined) {
+      const prepared = this._prepareValue(preamble, path);
+      if (prepared !== '') {
+        // Every preamble line gets the same label-shaped escape a continuation
+        // line gets: the parser reaches a field label before it knows which
+        // text is preamble, so a `Word:` line at column 0 would mis-split.
+        for (const line of prepared.split('\n')) {
+          b.writeln(_LABEL_SHAPED.test(line) ? ` ${line}` : line);
+        }
+        if (fieldBuf.toString() !== '') {
+          b.writeln();
+        }
+      }
+    }
+    b.write(fieldBuf.toString());
     b.writeln();
   }
 
@@ -1226,6 +1262,11 @@ class _Parser {
     }
   }
 
+  /**
+   * Parses an id-bearing `@Form` section's body: the preamble text before the
+   * first field label binds to the form's own `content` (SOM §11.4 rule 7);
+   * everything from the first label on binds to the named fields.
+   */
   _finalizeForm(frame, node, path) {
     const form = node.form;
     const fields = form !== null && form !== undefined ? form.fields : [];
@@ -1236,24 +1277,17 @@ class _Parser {
     let currentField = null;
     let currentLines = [];
 
-    const flush = (lineNo) => {
+    const flush = () => {
+      const value = _Parser._restoreValue(currentLines);
       if (currentField !== null) {
-        const value = _Parser._restoreValue(currentLines);
         if (value) {
           if (!this.forms[path]) {
             this.forms[path] = {};
           }
           this.forms[path][currentField] = value;
         }
-      } else if (currentLines.some((l) => l.trim())) {
-        this.rejections.push(
-          new SpecMarkdownRejection(
-            lineNo,
-            SpecMarkdownRejectReason.ORPHAN_CONTENT,
-            'text in a @Form section before the first field label',
-            path,
-          ),
-        );
+      } else if (value) {
+        this.content[path] = value;
       }
       currentLines = [];
     };
@@ -1265,7 +1299,7 @@ class _Parser {
         const fieldName =
           m !== null ? fieldsByLower.get(m[1].toLowerCase()) : undefined;
         if (fieldName !== undefined && m !== null) {
-          flush(frame.line + i);
+          flush();
           currentField = fieldName;
           currentLines = [m[2]];
           fence.feed(line);
@@ -1280,7 +1314,7 @@ class _Parser {
       }
       fence.feed(line);
     }
-    flush(frame.line + frame.body.length);
+    flush();
   }
 
   /**

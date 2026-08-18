@@ -648,6 +648,12 @@ references, each group sorted by path:
 | `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
 | `danglingReference` | 5 | a `refersTo` value naming an id no entry of its target registries declares in this document |
 
+Phase 1 has one exemption, and it is not optional: a **form** node may carry
+content. That content is the form's preamble (§11.4 rule 7), stored in the same
+slot a plain section's body uses, so a phase-1 check written as "content only on
+a value leaf" reports a legal document as invalid. Every other non-leaf kind —
+section, list, container — still fires.
+
 Adding a seventh code means adding it in all nine, in the same phase, with the
 same message text. The corpus obligation in §19 is what makes that mechanical
 rather than remembered.
@@ -842,14 +848,28 @@ ReviewCount: 3
    letter upper-cased; parse matching is case-insensitive.
 2. Multi-line values run until the next `Fieldname:` line or the section end.
 3. A value line that would mis-split as a field label is prefixed with a
-   single space on emit (DocSpecs trims leading whitespace — lossless).
+   single space on emit (DocSpecs trims leading whitespace — lossless). The
+   rule reads in both directions, and the authoring direction is the one worth
+   stating: a **hand-written** line at column 0 whose label matches a declared
+   field *is* that field, wherever in the body it sits; prose that merely looks
+   like a label is authored with the same one leading space. A form section
+   written by a human and one written by this emitter are therefore read by the
+   same rule, and no separate "promote prose into fields" pass exists or is
+   needed.
 4. Unpopulated fields are omitted.
 5. Enum/numeric fields serialize canonically (member name; decimal int /
    shortest round-trip double).
 6. No form field carries the section title or id; the heading text and the id
    comment are the sole storage for those values, so a form line can never
    restate them (`tom_specs_model_rules.md` §8 rule 4).
-7. Pre-form narrative content precedes the first field line.
+7. **The preamble.** Narrative text preceding the first field line is the
+   form's own **content** — the DocSpecs `${text[]}` region — and binds to the
+   form node's content slot exactly as a non-form section's body does. It
+   round-trips: parse binds it, emit writes it above the field block separated
+   by one blank line. Every preamble line carries the rule-3 escape, not just
+   the ones that follow a label: the parser reaches the first label before it
+   knows where the preamble ended, so an unescaped `Word:` line at column 0
+   would mis-split into a field.
 
 ### 11.5 Lists
 
@@ -896,11 +916,14 @@ target) is **transparent** — not a section of its own:
   transparent segments; only heading nesting collapses.
 - **Lists are never transparent.**
 
-Two canonicalisation losses are accepted and normative:
+Three canonicalisation losses are accepted and normative:
 
 1. Multiple transparent content members of one owner merge on parse (all text
    binds to the first slot).
 2. Colliding transparent-form labels bind to the nearest form in slot order.
+3. A transparent form's **preamble** (§11.4 rule 7) emits into the owner's body
+   region, where nothing separates it from the owner's own content; on parse the
+   two merge into the first content slot. Loss 1 with a form on one side.
 
 Stored list-item ids are **not** among the losses: they round-trip through md
 (`tom_specs_model_rules.md` §7.6).
@@ -916,9 +939,10 @@ absent when there is none), the reason and a human-readable message — pinned
 across the nine ports, together with the document that still landed, by
 `markdown_import_cases.json`. The message is part of the contract because a
 reason is one classification with several causes: `unknownSection` covers "no
-match at this position", "unresolvable parent" and "no such document root", and
-`orphanContent` covers both "before the root" and "before a form's first field
-label". `emit(parse(emit(doc)))` is byte-identical (modulo the idempotent blank-line
+match at this position", "unresolvable parent" and "no such document root".
+`orphanContent` means text before the document root heading — and only that:
+text before a form's first field label is the form's preamble and has a home
+(§11.4 rule 7). `emit(parse(emit(doc)))` is byte-identical (modulo the idempotent blank-line
 collapse and the §11.6 transparency canonicalisations). Stored headlines are
 staged only when they differ from the effective default, keeping untouched
 documents byte-stable.
@@ -995,6 +1019,7 @@ path segment is the bare `introductionAndScope`.
 | List field (container) | `<container-id> <fieldName>` | `GOAL-ITEM-LST entries` |
 | List item | resolved pattern id, or the stored id | `GOAL-ITEM-1` / `GOAL-ITEM-GL1` |
 | Content value | literal key `content` | `content` |
+| Form preamble (§11.4 rule 7) | literal key `content` inside the form's own mapping, emitted after `codeSpec` and before the fields | `content` |
 | Form field value | literal field name | `approvedBy` |
 | Scalar/enum field | `<id> <fieldName>` when the field carries an id, else the field name | `reviewCount` |
 | Stored headline | literal key `headline`, emitted **first** in its section/form/list-item mapping | `headline` |
@@ -1022,6 +1047,13 @@ path segment is the bare `introductionAndScope`.
    the md form (§11.2). Collision guards are errors: a model child key
    literally named `headline` or `codeSpec`, a form field of that name, or a
    list-item key of that name all refuse to serialize.
+7. **`content` is the third reserved key, and its guard is narrower.** A form's
+   preamble uses the literal key `content` inside the form's own mapping. Unlike
+   `headline`/`codeSpec`, a form field literally named `content` is *not* by
+   itself a collision: decoders resolve a declared field before the reserved
+   key, so such a field round-trips normally. Only the combination refuses —
+   encoding a preamble on a form that also declares a `content` field is a
+   structured error, because that one key would have to carry two values.
 
 ### 12.4 Text values
 
@@ -1112,10 +1144,12 @@ a fully populated `D00SolutionBlueprint` written by `SpecYaml`, parsed by
 `SpecDocumentYaml`, re-encoded, and compared byte-for-byte **and** path-for-path.
 
 A value the format has no home for is **refused, never dropped** — the projector
-throws `SpecYamlFormatException` naming the path. The one case the object model
-can currently hold and the format cannot is free text on a `@Form` section: a
-form's body is a mapping of its named fields, so unparsed text must be parsed
-into those fields first.
+throws `SpecYamlFormatException` naming the path. Every value the object model
+can hold now has a home, so what remains refusable is disagreement between the
+object tree and the metadata tree — an undescribed member, a key that disagrees
+with `nodeKey`, form values on a section the tree does not declare as a `@Form`.
+Free text on a `@Form` section is **not** among them: it is the form's preamble
+and binds to the node's `content` key like any other body (§11.4 rule 7, §12.2).
 
 ## 13. Schema generation (`*.docspecs-schema.yaml`)
 

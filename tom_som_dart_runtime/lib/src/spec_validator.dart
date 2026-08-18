@@ -74,7 +74,10 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
       errors.add(_dangling(path));
       continue;
     }
-    if (!res.isValueLeaf) {
+    // A form node is the one non-leaf that legitimately carries content: it is
+    // the form's preamble, the free text before the first field line (SOM §11.4
+    // rule 7), stored in the same `content` slot a plain section's body uses.
+    if (!res.isValueLeaf && res.kind != SpecNodeKind.form) {
       errors.add(SpecValidationError(
         path: path,
         code: SpecValidationCode.kindMismatch,

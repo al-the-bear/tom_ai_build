@@ -497,6 +497,100 @@ void testMarkdownRoundTripLabelShapedContinuation() {
   mdCheck("formCont.byteStable", md2 == md1);
 }
 
+/* ---- a form section's preamble (SOM §11.4 rule 7) ------------------------ */
+
+void testMarkdownFormPreambleParses() {
+  auto m = demoModel();
+  std::string md =
+      "# <!--[D00]--> Demo Document\n\n"
+      "## <!--[D00-HDR]--> Header\n\n"
+      "prose before any field label\n"
+      "Author: Ada Lovelace\n";
+  som::SpecMarkdownResult report = mdParse(*m, md);
+
+  mdCheck("formPre.clean", report.isClean(), mdRejStr(report));
+  const std::string* pre = stagedContent(report, "D00/D00-HDR");
+  mdCheck("formPre.content",
+          pre != nullptr && *pre == "prose before any field label",
+          pre != nullptr ? *pre : std::string("(absent)"));
+  mdCheck("formPre.fieldParsed",
+          formMatchesSingle(report, "D00/D00-HDR", "author", "Ada Lovelace"));
+}
+
+void testMarkdownFormPreambleEmits() {
+  auto m = demoModel();
+  som::SpecDocument doc;
+  doc.setContent("D00/D00-HDR", "why this header exists");
+  doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+  std::string md = mdExport(*m, doc);
+  mdCheck("formPre.emitOrder",
+          contains(md, "why this header exists\n\nAuthor: Ada Lovelace\n"), md);
+}
+
+void testMarkdownFormPreambleOnly() {
+  auto m = demoModel();
+  som::SpecDocument doc;
+  doc.setContent("D00/D00-HDR", "nothing filled in yet");
+  std::string md1 = mdExport(*m, doc);
+  mdCheck("formPreOnly.heading", contains(md1, "<!--[D00-HDR]-->"), md1);
+  mdCheck("formPreOnly.emitted", contains(md1, "nothing filled in yet"), md1);
+
+  som::SpecMarkdownResult report;
+  som::SpecDocument reloaded = mdReload(*m, md1, report);
+  mdCheck("formPreOnly.clean", report.isClean(), mdRejStr(report));
+  mdCheck("formPreOnly.value",
+          contentOr(reloaded, "D00/D00-HDR") == "nothing filled in yet",
+          contentOr(reloaded, "D00/D00-HDR"));
+  mdCheck("formPreOnly.byteStable", mdExport(*m, reloaded) == md1,
+          mdExport(*m, reloaded));
+}
+
+void testMarkdownFormPreambleRoundTrip() {
+  auto m = demoModel();
+  som::SpecDocument doc;
+  doc.setContent("D00/D00-HDR", "first paragraph\n\nsecond paragraph");
+  doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+  std::string md1 = mdExport(*m, doc);
+
+  som::SpecMarkdownResult report;
+  som::SpecDocument reloaded = mdReload(*m, md1, report);
+  mdCheck("formPreRT.clean", report.isClean(), mdRejStr(report));
+  mdCheck("formPreRT.content",
+          contentOr(reloaded, "D00/D00-HDR") ==
+              "first paragraph\n\nsecond paragraph",
+          contentOr(reloaded, "D00/D00-HDR"));
+  mdCheck("formPreRT.field",
+          formFieldOr(reloaded, "D00/D00-HDR", "author") == "Ada Lovelace",
+          formFieldOr(reloaded, "D00/D00-HDR", "author"));
+  mdCheck("formPreRT.byteStable", mdExport(*m, reloaded) == md1,
+          mdExport(*m, reloaded));
+}
+
+void testMarkdownFormPreambleLabelShaped() {
+  // Without the escape the parser would read `Author: ...` as the first field
+  // label and the line would leave the preamble.
+  auto m = demoModel();
+  som::SpecDocument doc;
+  doc.setContent("D00/D00-HDR", "Author: is a field of this form");
+  doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+  std::string md1 = mdExport(*m, doc);
+  mdCheck("formPreLbl.escaped",
+          contains(md1, "\n Author: is a field of this form\n"), md1);
+
+  som::SpecMarkdownResult report;
+  som::SpecDocument reloaded = mdReload(*m, md1, report);
+  mdCheck("formPreLbl.clean", report.isClean(), mdRejStr(report));
+  mdCheck("formPreLbl.content",
+          contentOr(reloaded, "D00/D00-HDR") ==
+              "Author: is a field of this form",
+          contentOr(reloaded, "D00/D00-HDR"));
+  mdCheck("formPreLbl.field",
+          formFieldOr(reloaded, "D00/D00-HDR", "author") == "Ada Lovelace",
+          formFieldOr(reloaded, "D00/D00-HDR", "author"));
+  mdCheck("formPreLbl.byteStable", mdExport(*m, reloaded) == md1,
+          mdExport(*m, reloaded));
+}
+
 /* ---- parse-rejection protocol (SOM §11.7) -------------------------------- */
 
 /* Reports whether any rejection matches (reason [+ anchor when non-null]). */
@@ -565,22 +659,6 @@ void testMarkdownRejectOrphanPreamble() {
           mdRejStr(report));
   const std::string* kept = stagedContent(report, "D00/D00-OVR");
   mdCheck("reject.orphanPreamble.kept", kept != nullptr && *kept == "kept");
-}
-
-void testMarkdownRejectOrphanFormProse() {
-  auto m = demoModel();
-  std::string md =
-      "# <!--[D00]--> Demo Document\n\n"
-      "## <!--[D00-HDR]--> Header\n\n"
-      "prose before any field label\n"
-      "Author: Ada Lovelace\n";
-  som::SpecMarkdownResult report = mdParse(*m, md);
-
-  mdCheck("reject.orphanForm.reason",
-          hasRejection(report, som::kSpecMarkdownRejectOrphanContent, nullptr),
-          mdRejStr(report));
-  mdCheck("reject.orphanForm.fieldParsed",
-          formMatchesSingle(report, "D00/D00-HDR", "author", "Ada Lovelace"));
 }
 
 void testMarkdownRejectKindMismatch() {
@@ -713,10 +791,14 @@ int main() {
   testMarkdownRoundTripRichMarkdown();
   testMarkdownRoundTripStoredItemId();
   testMarkdownRoundTripLabelShapedContinuation();
+  testMarkdownFormPreambleParses();
+  testMarkdownFormPreambleEmits();
+  testMarkdownFormPreambleOnly();
+  testMarkdownFormPreambleRoundTrip();
+  testMarkdownFormPreambleLabelShaped();
   testMarkdownRejectUnknownSection();
   testMarkdownRejectMalformedHeading();
   testMarkdownRejectOrphanPreamble();
-  testMarkdownRejectOrphanFormProse();
   testMarkdownRejectKindMismatch();
   testMarkdownRejectMissingValue();
   testMarkdownCaseInsensitiveLabels();

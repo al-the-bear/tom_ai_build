@@ -14,7 +14,10 @@
 /// codeSpec** (csmb1 — the codespecs_mapping.md §9.2 DocSpecs→CodeSpecs forward
 /// link, a comma-joined list of code locations) uses the literal key
 /// `codeSpec`, and form fields use their bare field names (no class fallback
-/// for content/form/list/scalar/enum keys). A scalar-valued node
+/// for content/form/list/scalar/enum keys). A `@Form` node's mapping carries
+/// its own preamble text — the free text before the first field (SOM §11.4
+/// rule 7) — under the same literal `content` key, so a form section stores its
+/// body exactly as every other section does. A scalar-valued node
 /// (content/scalar/enum leaf or scalar list item) that carries a stored
 /// headline and/or codeSpec is emitted as a `{headline: …, codeSpec: …,
 /// content: …}` mapping instead of a direct scalar. The former flat two-level
@@ -501,7 +504,16 @@ class _Encoder {
     final fields = _forms.remove(path) ?? const <String, String>{};
     final headline = _headlines.remove(path);
     final codeSpec = _codeSpecs.remove(path);
-    if (fields.isEmpty && headline == null && codeSpec == null) return;
+    // The form's preamble — the free text before its first field (SOM §11.4
+    // rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
+    // under the literal `content` key, exactly as a section's body does.
+    final content = _content.remove(path);
+    if (fields.isEmpty &&
+        headline == null &&
+        codeSpec == null &&
+        content == null) {
+      return;
+    }
     final meta = node.form ?? const SomFormMeta(fields: []);
     for (final name in fields.keys) {
       final field = meta.fieldNamed(name);
@@ -520,9 +532,15 @@ class _Encoder {
           'cannot emit the stored codeSpec at `$path`: the form declares a '
           'field literally named `codeSpec`');
     }
+    if (content != null && meta.fieldNamed('content') != null) {
+      throw SpecYamlFormatException(
+          'cannot emit the preamble content at `$path`: the form declares a '
+          'field literally named `content`');
+    }
     b.writeln('${' ' * indent}${SpecDocumentYaml.plainKey(key)}:');
     if (headline != null) _writeText(b, indent + 2, 'headline', headline);
     if (codeSpec != null) _writeText(b, indent + 2, 'codeSpec', codeSpec);
+    if (content != null) _writeText(b, indent + 2, 'content', content);
     for (final f in meta.fields) {
       final v = fields[f.name];
       if (v == null) continue;
@@ -709,6 +727,11 @@ class _Decoder {
             }
             if (name == 'codeSpec') {
               doc.setCodeSpec(path, _scalarOf(v, '$path (codeSpec)'));
+              return;
+            }
+            if (name == 'content') {
+              // The form's preamble (SOM §11.4 rule 7 / §12.2).
+              doc.setContent(path, _scalarOf(v, '$path/content'));
               return;
             }
             throw SpecYamlFormatException(

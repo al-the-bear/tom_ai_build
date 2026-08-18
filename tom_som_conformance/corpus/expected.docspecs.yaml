@@ -18,6 +18,9 @@ document:
     DET details:
       headline: |2-
         Details & Contacts
+      content: |2-
+        Captured during the November review.
+        Owner: this line is prose, not the field.
       owner: |2-
         Bob
       contact: |2-

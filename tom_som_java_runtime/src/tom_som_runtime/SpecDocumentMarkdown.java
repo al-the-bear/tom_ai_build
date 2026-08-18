@@ -496,7 +496,15 @@ public final class SpecDocumentMarkdown {
     }
   }
 
+  /**
+   * Whether the {@code @Form} node at {@code path} has anything to emit: its
+   * preamble content (SOM §11.4 rule 7 — the DocSpecs {@code ${text[]}}
+   * region), or any populated field.
+   */
   private boolean formHasValues(SomMetaNode node, String path) {
+    if (document.hasContent(path)) {
+      return true;
+    }
     if (node.form == null) {
       return false;
     }
@@ -508,9 +516,15 @@ public final class SpecDocumentMarkdown {
     return false;
   }
 
+  /**
+   * Writes a {@code @Form} section body: the preamble content (when set)
+   * followed by one {@code FieldName: value} group per populated field
+   * (SOM §11.4).
+   */
   private void writeForm(StringBuilder b, SomMetaNode node, String path) {
     List<SomFormFieldMeta> fields =
         node.form != null ? node.form.fields : new ArrayList<>();
+    StringBuilder fieldBuf = new StringBuilder();
     for (SomFormFieldMeta f : fields) {
       String value = document.formField(path, f.name);
       if (value == null) {
@@ -518,18 +532,39 @@ public final class SpecDocumentMarkdown {
       }
       String prepared = prepareValue(value, path);
       String[] lines = splitLines(prepared);
-      writeln(b, formLabel(f.name) + ": " + lines[0]);
+      writeln(fieldBuf, formLabel(f.name) + ": " + lines[0]);
       for (int i = 1; i < lines.length; i++) {
         String line = lines[i];
         // SOM §11.4 generalised: any continuation line that could be mistaken
         // for a field-label line gains one leading space; parse strips it.
         if (LABEL_SHAPED.matcher(line).find()) {
-          writeln(b, " " + line);
+          writeln(fieldBuf, " " + line);
         } else {
-          writeln(b, line);
+          writeln(fieldBuf, line);
         }
       }
     }
+
+    String preamble = document.content(path);
+    if (preamble != null) {
+      String prepared = prepareValue(preamble, path);
+      if (!prepared.isEmpty()) {
+        // Every preamble line gets the same label-shaped escape a continuation
+        // line gets: the parser reaches a field label before it knows which
+        // text is preamble, so a `Word:` line at column 0 would mis-split.
+        for (String line : splitLines(prepared)) {
+          if (LABEL_SHAPED.matcher(line).find()) {
+            writeln(b, " " + line);
+          } else {
+            writeln(b, line);
+          }
+        }
+        if (fieldBuf.length() > 0) {
+          writeln(b, "");
+        }
+      }
+    }
+    b.append(fieldBuf);
     writeln(b, "");
   }
 
@@ -1158,6 +1193,11 @@ public final class SpecDocumentMarkdown {
       }
     }
 
+    /**
+     * Parses an id-bearing {@code @Form} section's body: the preamble text
+     * before the first field label binds to the form's own content (SOM §11.4
+     * rule 7); everything from the first label on binds to the named fields.
+     */
     void finalizeForm(MdFrame frame, SomMetaNode node, String path) {
       List<SomFormFieldMeta> fields =
           node.form != null ? node.form.fields : new ArrayList<>();
@@ -1200,23 +1240,14 @@ public final class SpecDocumentMarkdown {
 
     private void flushForm(boolean[] haveField, String[] currentField,
         List<String> currentLines, String path, int lineNo) {
+      String value = restoreValue(currentLines);
       if (haveField[0]) {
-        String value = restoreValue(currentLines);
         if (!value.isEmpty()) {
           forms.computeIfAbsent(path, k -> new LinkedHashMap<>())
               .put(currentField[0], value);
         }
-      } else {
-        for (String l : currentLines) {
-          if (!l.trim().isEmpty()) {
-            rejections.add(new SpecMarkdownRejection(
-                lineNo,
-                SpecMarkdownRejectReason.ORPHAN_CONTENT,
-                "text in a @Form section before the first field label",
-                path));
-            break;
-          }
-        }
+      } else if (!value.isEmpty()) {
+        content.put(path, value);
       }
       currentLines.clear();
     }

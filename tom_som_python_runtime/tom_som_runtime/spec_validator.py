@@ -69,7 +69,10 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
         if res is None:
             errors.append(_dangling(path))
             continue
-        if not res.is_value_leaf:
+        # A form node is the one non-leaf that legitimately carries content: it
+        # is the form's preamble, the free text before the first field line
+        # (SOM §11.4 rule 7), in the same slot a plain section's body uses.
+        if not res.is_value_leaf and res.kind != SpecNodeKind.FORM:
             errors.append(
                 SpecValidationError(
                     path=path,

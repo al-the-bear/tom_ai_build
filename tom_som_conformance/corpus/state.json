@@ -1,6 +1,7 @@
 {
   "content": {
     "DEMO/CNT": "3",
+    "DEMO/DET": "Captured during the November review.\nOwner: this line is prose, not the field.",
     "DEMO/META/OWNR": "alice",
     "DEMO/META/tags-1": "on",
     "DEMO/META/tags-2": "no",

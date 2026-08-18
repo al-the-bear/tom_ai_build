@@ -66,7 +66,10 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 			errors = append(errors, dangling(path))
 			continue
 		}
-		if !res.IsValueLeaf() {
+		// A form node is the one non-leaf that legitimately carries content: it
+		// is the form's preamble, the free text before the first field line
+		// (SOM §11.4 rule 7), in the same slot a plain section's body uses.
+		if !res.IsValueLeaf() && res.Kind != SpecNodeKindForm {
 			errors = append(errors, SpecValidationError{
 				Path:    path,
 				Code:    SpecValidationCodeKindMismatch,

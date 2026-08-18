@@ -22,6 +22,9 @@ high
 
 ## <!--[DET]--> Details & Contacts
 
+Captured during the November review.
+ Owner: this line is prose, not the field.
+
 Owner: Bob
 Contact: bob@example.com
 Estimate: 8

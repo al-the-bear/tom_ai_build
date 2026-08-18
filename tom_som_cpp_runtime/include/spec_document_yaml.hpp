@@ -8,7 +8,10 @@
  * sections nest their children, list items appear under their container keyed
  * by their stored section id (or an anonymous positional `<member>-<n>` key), a
  * node's own body text uses the literal key `content`, and form fields use
- * their bare field names. The former flat two-level path-map format is
+ * their bare field names. A `@Form` node's mapping carries its own preamble
+ * text — the free text before its first field (SOM §11.4 rule 7) — under that
+ * same literal `content` key, so a form section stores its body exactly as
+ * every other section does. The former flat two-level path-map format is
  * **retired**; readers reject `version: 1` files with a clear error (no
  * compatibility path).
  *

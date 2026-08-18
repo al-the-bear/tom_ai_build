@@ -389,6 +389,97 @@ void main() {
     });
   });
 
+  group('a form section\'s preamble (SOM §11.4 rule 7)', () {
+    test('prose before the first field label parses as the form\'s content',
+        () {
+      const md = '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-HDR]--> Header\n\n'
+          'prose before any field label\n'
+          'Author: Ada Lovelace\n';
+      final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(report.content['D00/D00-HDR'], 'prose before any field label');
+      expect(report.forms['D00/D00-HDR'], {'author': 'Ada Lovelace'});
+    });
+
+    test('the preamble is emitted above the field lines, blank-line separated',
+        () {
+      final doc = SpecDocument()
+        ..setContent('D00/D00-HDR', 'why this header exists')
+        ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+      expect(
+        _export(doc),
+        contains('why this header exists\n\nAuthor: Ada Lovelace\n'),
+      );
+    });
+
+    test('a preamble-only form section still emits (no field values)', () {
+      final doc = SpecDocument()
+        ..setContent('D00/D00-HDR', 'nothing filled in yet');
+      final md1 = _export(doc);
+      expect(md1, contains('<!--[D00-HDR]-->'));
+      expect(md1, contains('nothing filled in yet'));
+
+      final (reloaded, report) = _reload(md1);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(reloaded.content('D00/D00-HDR'), 'nothing filled in yet');
+      expect(_export(reloaded), md1);
+    });
+
+    test('preamble + fields round-trip byte-stably', () {
+      final doc = SpecDocument()
+        ..setContent('D00/D00-HDR', 'first paragraph\n\nsecond paragraph')
+        ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+      final md1 = _export(doc);
+      final (reloaded, report) = _reload(md1);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(reloaded.content('D00/D00-HDR'),
+          'first paragraph\n\nsecond paragraph');
+      expect(reloaded.formField('D00/D00-HDR', 'author'), 'Ada Lovelace');
+      expect(_export(reloaded), md1);
+    });
+
+    test('a label-shaped preamble line is escaped on emit and recovered', () {
+      // Without the escape the parser would read `Author: ...` as the first
+      // field label and the line would leave the preamble.
+      final doc = SpecDocument()
+        ..setContent('D00/D00-HDR', 'Author: is a field of this form')
+        ..setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+      final md1 = _export(doc);
+      expect(md1, contains('\n Author: is a field of this form\n'));
+
+      final (reloaded, report) = _reload(md1);
+      expect(report.isClean, isTrue, reason: report.rejections.toString());
+      expect(reloaded.content('D00/D00-HDR'), 'Author: is a field of this form');
+      expect(reloaded.formField('D00/D00-HDR', 'author'), 'Ada Lovelace');
+      expect(_export(reloaded), md1);
+    });
+
+    test('the escape reads the same for a hand-authored document (rule 3)', () {
+      // The authoring direction of rule 3, and the one a reader can get
+      // backwards: the *only* thing that decides whether a label-shaped line is
+      // a field or prose is the leading space — not where the line sits, and
+      // not whether this emitter wrote it. So a human writes exactly what the
+      // emitter writes, and there is no "promote prose into fields" pass.
+      const asField = '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-HDR]--> Header\n\n'
+          'Author: Ada Lovelace\n';
+      const asProse = '# <!--[D00]--> Demo Document\n\n'
+          '## <!--[D00-HDR]--> Header\n\n'
+          ' Author: Ada Lovelace\n';
+
+      final field = SpecDocumentMarkdown(_model(), SpecDocument()).parse(asField);
+      expect(field.isClean, isTrue, reason: field.rejections.toString());
+      expect(field.forms['D00/D00-HDR'], {'author': 'Ada Lovelace'});
+      expect(field.content['D00/D00-HDR'], isNull);
+
+      final prose = SpecDocumentMarkdown(_model(), SpecDocument()).parse(asProse);
+      expect(prose.isClean, isTrue, reason: prose.rejections.toString());
+      expect(prose.content['D00/D00-HDR'], 'Author: Ada Lovelace');
+      expect(prose.forms['D00/D00-HDR'], isNull);
+    });
+  });
+
   group('parse-rejection protocol (SOM §11.7)', () {
     test('an unknown section id is reported; valid siblings still parsed', () {
       // The bogus heading is nested under `meta` (which has no list children);
@@ -438,21 +529,6 @@ void main() {
         isTrue,
       );
       expect(report.content['D00/D00-OVR'], 'kept');
-    });
-
-    test('prose in a form section before the first label is orphaned', () {
-      const md = '# <!--[D00]--> Demo Document\n\n'
-          '## <!--[D00-HDR]--> Header\n\n'
-          'prose before any field label\n'
-          'Author: Ada Lovelace\n';
-      final report = SpecDocumentMarkdown(_model(), SpecDocument()).parse(md);
-      expect(
-        report.rejections
-            .any((r) => r.reason == SpecMarkdownRejectReason.orphanContent),
-        isTrue,
-      );
-      // The labelled field still parses.
-      expect(report.forms['D00/D00-HDR'], {'author': 'Ada Lovelace'});
     });
 
     test('a child heading under a content section is a kind mismatch', () {

@@ -11,10 +11,11 @@
 /// member (`String? foo` → `DocSpecsSection? foo`, `List<String>` →
 /// `List<DocSpecsSection>`), and **every model class extends it** — so the
 /// whole model becomes an object model into which a `*.md` document can
-/// actually be parsed. The one remaining gap is `@Form`-annotated content,
-/// which stays unparsed in [content] until mediated by the optional
-/// [form] member (a [DocSpecsForm] holding the parsed field values plus the
-/// pre-form-field content already split off).
+/// actually be parsed. A `@Form`-annotated section is no exception: its free
+/// text lives in [content] like any other section's body (the DocSpecs form
+/// *preamble*, `${text[]}`, SOM §11.4 rule 7), and its parsed field values
+/// live in the optional [form] member. There is exactly one home for a
+/// section's free text, whether or not the section carries a form.
 ///
 /// Why this lives in `tom_specs_core` (decision, YRD5): the clitool's
 /// analyzer-based `ModelReader` scans `tom_specs_model/lib/src` and reflects
@@ -52,29 +53,29 @@ class DocSpecsSection {
   /// Empty by default so untouched sections stay byte-stable.
   List<String> codeSpec;
 
-  /// The section's body content. For `@Form`-annotated members this holds the
-  /// full unparsed section text until [form] mediates it.
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
   String? content;
 
-  /// The parsed form of a `@Form`-annotated section, when parsing has split
-  /// the content: pre-form-field text plus one value per form field.
+  /// The parsed field values of a `@Form`-annotated section, when parsing has
+  /// split them out of the section body. Null when the section carries no form
+  /// values; the section's free text stays in [content] either way.
   DocSpecsForm? form;
 }
 
-/// The parsed representation of a `@Form`-annotated section's content (YRD5).
+/// The parsed field values of a `@Form`-annotated section (YRD5).
 ///
-/// A form section's raw text consists of free-text content followed by the
-/// form's field lines. Parsing splits the two: [content] keeps the pre-field
-/// text, and [values] holds one entry per parsed form field, keyed by the
-/// field name declared in the `@Form([Field(...)])` annotation. Values are
-/// kept as `Object?` — YRD7 introduces the *typed* per-field members on the
-/// generated SOM classes; this class is the generic model-side holder.
+/// A form section's text consists of free-text preamble followed by the form's
+/// field lines. Parsing splits the two: the preamble stays in
+/// [DocSpecsSection.content] — the one home a section's free text has, form or
+/// not — and this holds one entry per parsed form field, keyed by the field
+/// name declared in the `@Form([Field(...)])` annotation. Values are kept as
+/// `Object?` — YRD7 introduces the *typed* per-field members on the generated
+/// SOM classes; this class is the generic model-side holder.
 class DocSpecsForm {
-  DocSpecsForm({this.content, Map<String, Object?>? values})
+  DocSpecsForm({Map<String, Object?>? values})
     : values = values ?? <String, Object?>{};
-
-  /// The section's free-text content before the first form field line.
-  String? content;
 
   /// Parsed form-field values, keyed by the `@Form` field name.
   final Map<String, Object?> values;

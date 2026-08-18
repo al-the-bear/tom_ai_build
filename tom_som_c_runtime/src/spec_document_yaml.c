@@ -550,10 +550,17 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
   int has_headline = encoder_take_headline(e, path, &headline);
   char *code_spec = NULL;
   int has_code_spec = encoder_take_code_spec(e, path, &code_spec);
-  if ((!present || names.len == 0) && !has_headline && !has_code_spec) {
+  /* The form's preamble — the free text before its first field (SOM §11.4
+   * rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping under
+   * the literal `content` key, exactly as a section's body does. */
+  char *content = NULL;
+  int has_content = encoder_take_content(e, path, &content);
+  if ((!present || names.len == 0) && !has_headline && !has_code_spec &&
+      !has_content) {
     som_strlist_free(&names);
     free(headline);
     free(code_spec);
+    free(content);
     return 1;
   }
   for (size_t i = 0; i < names.len; i++) {
@@ -565,6 +572,7 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
       som_strlist_free(&names);
       free(headline);
       free(code_spec);
+      free(content);
       return 0;
     }
   }
@@ -577,6 +585,7 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
                       NULL));
     free(headline);
     free(code_spec);
+    free(content);
     return 0;
   }
   if (has_code_spec &&
@@ -587,6 +596,17 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
                       NULL));
     free(headline);
     free(code_spec);
+    free(content);
+    return 0;
+  }
+  if (has_content && som_form_meta_field_named(node->form, "content") != NULL) {
+    set_err(err, vcat("cannot emit the preamble content at `", path,
+                      "`: the form declares a field literally named "
+                      "`content`",
+                      NULL));
+    free(headline);
+    free(code_spec);
+    free(content);
     return 0;
   }
   char *pk = spec_yaml_plain_key(key);
@@ -602,6 +622,10 @@ static int encoder_write_form(YamlEncoder *e, SomBuf *b, size_t indent,
     encoder_write_text(b, indent + 2, "codeSpec", code_spec);
   }
   free(code_spec);
+  if (has_content) {
+    encoder_write_text(b, indent + 2, "content", content);
+  }
+  free(content);
   if (node->form != NULL) {
     for (size_t i = 0; i < node->form->fields_len; i++) {
       const SomFormFieldMeta *f = &node->form->fields[i];
@@ -1279,6 +1303,21 @@ static int decoder_load_child(YamlDecoder *d, const SomMetaNode *child,
           }
           spec_document_set_code_spec(d->doc, path, cv);
           free(cv);
+          continue;
+        }
+        if (strcmp(name, "content") == 0) {
+          /* The form section's preamble (SOM §11.4 rule 7 / §12.2). A declared
+           * field literally named `content` wins — it is resolved above. */
+          char *where = vcat(path, "/content", NULL);
+          char *pv = NULL;
+          int ok = decoder_scalar_of(value->as.map.entries[i].value, where,
+                                     &pv, err);
+          free(where);
+          if (!ok) {
+            return 0;
+          }
+          spec_document_set_content(d->doc, path, pv);
+          free(pv);
           continue;
         }
         set_err(err, vcat("form `", path, "` has no field `", name,

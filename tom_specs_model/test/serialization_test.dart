@@ -334,6 +334,33 @@ void main() {
       expect(yaml, contains('version:'));
     });
 
+    test('a @Form section\'s free text is its preamble, and it round-trips '
+        '(SOM §11.4 rule 7 / §12.2)', () {
+      // `DocSpecsSection.content` is the single home for a section's free
+      // text, form or not — a form is not an exception, so a document caught
+      // mid-import (fields not yet split out) is still saveable.
+      final root = _FormRoot()
+        ..header = (_SbpSection()..content = 'raw text\nnot yet split');
+      final yaml = _roundTripped(root, _formTree);
+
+      expect(yaml, contains('HDR header:'));
+      expect(yaml, contains('content:'));
+      final doc = SpecDocumentYaml.decode(yaml, _formTree()).document;
+      expect(doc.content('FRM/HDR'), 'raw text\nnot yet split');
+    });
+
+    test('a @Form section carries preamble and fields side by side', () {
+      final root = _FormRoot()
+        ..header = (_SbpSection()
+          ..content = 'why this header exists'
+          ..form = DocSpecsForm(values: {'author': 'AK'}));
+      final yaml = _roundTripped(root, _formTree);
+
+      final doc = SpecDocumentYaml.decode(yaml, _formTree()).document;
+      expect(doc.content('FRM/HDR'), 'why this header exists');
+      expect(doc.formField('FRM/HDR', 'author'), 'AK');
+    });
+
     test('a multi-line scalar survives the round trip', () {
       final sbp = _SbpRoot()
         ..section = (_SbpSection()..content = 'line one\n\nline two\n');
@@ -369,16 +396,6 @@ void main() {
       expect(
         () => SpecYaml.toDocument(root,
             tree: _keyedTree(describeUnkeyed: false)),
-        throwsA(isA<SpecYamlFormatException>()),
-      );
-    });
-
-    test('free text on a @Form section is refused', () {
-      // A @Form section is a map of named fields in v2; unparsed section text
-      // has nowhere to go, and dropping it silently would lose the user's work.
-      final root = _FormRoot()..header = (_SbpSection()..content = 'raw text');
-      expect(
-        () => SpecYaml.toDocument(root, tree: _formTree()),
         throwsA(isA<SpecYamlFormatException>()),
       );
     });

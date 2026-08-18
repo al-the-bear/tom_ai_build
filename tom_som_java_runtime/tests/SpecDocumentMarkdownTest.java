@@ -404,6 +404,90 @@ public final class SpecDocumentMarkdownTest {
     check("formCont.byteStable", mdExport(reloaded).equals(md1));
   }
 
+  // --- a form section's preamble (SOM §11.4 rule 7) -----------------------------
+
+  private static void testFormPreambleParses() {
+    String md = "# <!--[D00]--> Demo Document\n\n"
+        + "## <!--[D00-HDR]--> Header\n\n"
+        + "prose before any field label\n"
+        + "Author: Ada Lovelace\n";
+    SpecMarkdownResult report = mdParse(md);
+    check("formPre.clean", report.isClean(), rejStr(report));
+    check("formPre.content",
+        "prose before any field label".equals(report.content.get("D00/D00-HDR")),
+        or(report.content.get("D00/D00-HDR")));
+    check("formPre.fieldParsed",
+        shallowEqual(report.forms.get("D00/D00-HDR"), mapOf("author", "Ada Lovelace")),
+        report.forms.toString());
+  }
+
+  private static void testFormPreambleEmits() {
+    SpecDocument doc = new SpecDocument();
+    doc.setContent("D00/D00-HDR", "why this header exists");
+    doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+    String md = mdExport(doc);
+    check("formPre.emitOrder",
+        md.contains("why this header exists\n\nAuthor: Ada Lovelace\n"), md);
+  }
+
+  private static void testFormPreambleOnly() {
+    SpecDocument doc = new SpecDocument();
+    doc.setContent("D00/D00-HDR", "nothing filled in yet");
+    String md1 = mdExport(doc);
+    check("formPreOnly.heading", md1.contains("<!--[D00-HDR]-->"), md1);
+    check("formPreOnly.emitted", md1.contains("nothing filled in yet"), md1);
+
+    Object[] pair = mdReload(md1);
+    SpecDocument reloaded = (SpecDocument) pair[0];
+    SpecMarkdownResult report = (SpecMarkdownResult) pair[1];
+    check("formPreOnly.clean", report.isClean(), rejStr(report));
+    check("formPreOnly.value",
+        "nothing filled in yet".equals(reloaded.content("D00/D00-HDR")),
+        or(reloaded.content("D00/D00-HDR")));
+    check("formPreOnly.byteStable", mdExport(reloaded).equals(md1));
+  }
+
+  private static void testFormPreambleRoundTrip() {
+    SpecDocument doc = new SpecDocument();
+    doc.setContent("D00/D00-HDR", "first paragraph\n\nsecond paragraph");
+    doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+    String md1 = mdExport(doc);
+    Object[] pair = mdReload(md1);
+    SpecDocument reloaded = (SpecDocument) pair[0];
+    SpecMarkdownResult report = (SpecMarkdownResult) pair[1];
+    check("formPreRT.clean", report.isClean(), rejStr(report));
+    check("formPreRT.content",
+        "first paragraph\n\nsecond paragraph".equals(reloaded.content("D00/D00-HDR")),
+        or(reloaded.content("D00/D00-HDR")));
+    check("formPreRT.field",
+        "Ada Lovelace".equals(reloaded.formField("D00/D00-HDR", "author")),
+        or(reloaded.formField("D00/D00-HDR", "author")));
+    check("formPreRT.byteStable", mdExport(reloaded).equals(md1));
+  }
+
+  private static void testFormPreambleLabelShaped() {
+    // Without the escape the parser would read `Author: ...` as the first field
+    // label and the line would leave the preamble.
+    SpecDocument doc = new SpecDocument();
+    doc.setContent("D00/D00-HDR", "Author: is a field of this form");
+    doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+    String md1 = mdExport(doc);
+    check("formPreLbl.escaped",
+        md1.contains("\n Author: is a field of this form\n"), md1);
+
+    Object[] pair = mdReload(md1);
+    SpecDocument reloaded = (SpecDocument) pair[0];
+    SpecMarkdownResult report = (SpecMarkdownResult) pair[1];
+    check("formPreLbl.clean", report.isClean(), rejStr(report));
+    check("formPreLbl.content",
+        "Author: is a field of this form".equals(reloaded.content("D00/D00-HDR")),
+        or(reloaded.content("D00/D00-HDR")));
+    check("formPreLbl.field",
+        "Ada Lovelace".equals(reloaded.formField("D00/D00-HDR", "author")),
+        or(reloaded.formField("D00/D00-HDR", "author")));
+    check("formPreLbl.byteStable", mdExport(reloaded).equals(md1));
+  }
+
   // --- parse-rejection protocol (SOM §11.7) -------------------------------------
 
   private static void testRejectUnknownSection() {
@@ -461,25 +545,6 @@ public final class SpecDocumentMarkdownTest {
     }
     check("reject.orphanPreamble.reason", found, rejStr(report));
     check("reject.orphanPreamble.kept", "kept".equals(report.content.get("D00/D00-OVR")));
-  }
-
-  private static void testRejectOrphanFormProse() {
-    String md = "# <!--[D00]--> Demo Document\n\n"
-        + "## <!--[D00-HDR]--> Header\n\n"
-        + "prose before any field label\n"
-        + "Author: Ada Lovelace\n";
-    SpecMarkdownResult report = mdParse(md);
-    boolean found = false;
-    for (SpecMarkdownRejection r : report.rejections) {
-      if (r.reason == SpecMarkdownRejectReason.ORPHAN_CONTENT) {
-        found = true;
-      }
-    }
-    check("reject.orphanForm.reason", found, rejStr(report));
-    // The labelled field still parses.
-    check("reject.orphanForm.fieldParsed",
-        shallowEqual(report.forms.get("D00/D00-HDR"), mapOf("author", "Ada Lovelace")),
-        report.forms.toString());
   }
 
   private static void testRejectKindMismatch() {
@@ -588,10 +653,14 @@ public final class SpecDocumentMarkdownTest {
     testRoundTripRichMarkdown();
     testRoundTripStoredItemId();
     testRoundTripLabelShapedContinuation();
+    testFormPreambleParses();
+    testFormPreambleEmits();
+    testFormPreambleOnly();
+    testFormPreambleRoundTrip();
+    testFormPreambleLabelShaped();
     testRejectUnknownSection();
     testRejectMalformedHeading();
     testRejectOrphanPreamble();
-    testRejectOrphanFormProse();
     testRejectKindMismatch();
     testRejectMissingValue();
     testCaseInsensitiveLabels();

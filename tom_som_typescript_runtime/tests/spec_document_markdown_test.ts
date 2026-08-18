@@ -378,6 +378,103 @@ function testRoundTripLabelShapedContinuation(): void {
   _check('formCont.byteStable', _export(reloaded) === md1);
 }
 
+// --- a form section's preamble (SOM §11.4 rule 7) ----------------------------
+
+function testFormPreambleParses(): void {
+  const md =
+    '# <!--[D00]--> Demo Document\n\n' +
+    '## <!--[D00-HDR]--> Header\n\n' +
+    'prose before any field label\n' +
+    'Author: Ada Lovelace\n';
+  const report = _parse(md);
+  _check('formPre.clean', report.isClean, _rejStr(report));
+  _check(
+    'formPre.content',
+    report.content['D00/D00-HDR'] === 'prose before any field label',
+    JSON.stringify(report.content['D00/D00-HDR']),
+  );
+  _check(
+    'formPre.fieldParsed',
+    _shallowEqual(report.forms['D00/D00-HDR'], { author: 'Ada Lovelace' }),
+    JSON.stringify(report.forms),
+  );
+}
+
+function testFormPreambleEmits(): void {
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-HDR', 'why this header exists');
+  doc.setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+  const md = _export(doc);
+  _check(
+    'formPre.emitOrder',
+    md.includes('why this header exists\n\nAuthor: Ada Lovelace\n'),
+    md,
+  );
+}
+
+function testFormPreambleOnly(): void {
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-HDR', 'nothing filled in yet');
+  const md1 = _export(doc);
+  _check('formPreOnly.heading', md1.includes('<!--[D00-HDR]-->'), md1);
+  _check('formPreOnly.emitted', md1.includes('nothing filled in yet'), md1);
+
+  const [reloaded, report] = _reload(md1);
+  _check('formPreOnly.clean', report.isClean, _rejStr(report));
+  _check(
+    'formPreOnly.value',
+    reloaded.content('D00/D00-HDR') === 'nothing filled in yet',
+    JSON.stringify(reloaded.content('D00/D00-HDR')),
+  );
+  _check('formPreOnly.byteStable', _export(reloaded) === md1, _export(reloaded));
+}
+
+function testFormPreambleRoundTrip(): void {
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-HDR', 'first paragraph\n\nsecond paragraph');
+  doc.setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+  const md1 = _export(doc);
+  const [reloaded, report] = _reload(md1);
+  _check('formPreRT.clean', report.isClean, _rejStr(report));
+  _check(
+    'formPreRT.content',
+    reloaded.content('D00/D00-HDR') === 'first paragraph\n\nsecond paragraph',
+    JSON.stringify(reloaded.content('D00/D00-HDR')),
+  );
+  _check(
+    'formPreRT.field',
+    reloaded.formField('D00/D00-HDR', 'author') === 'Ada Lovelace',
+  );
+  _check('formPreRT.byteStable', _export(reloaded) === md1, _export(reloaded));
+}
+
+function testFormPreambleLabelShaped(): void {
+  // Without the escape the parser would read `Author: ...` as the first field
+  // label and the line would leave the preamble.
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-HDR', 'Author: is a field of this form');
+  doc.setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+  const md1 = _export(doc);
+  _check(
+    'formPreLbl.escaped',
+    md1.includes('\n Author: is a field of this form\n'),
+    md1,
+  );
+
+  const [reloaded, report] = _reload(md1);
+  _check('formPreLbl.clean', report.isClean, _rejStr(report));
+  _check(
+    'formPreLbl.content',
+    reloaded.content('D00/D00-HDR') === 'Author: is a field of this form',
+    JSON.stringify(reloaded.content('D00/D00-HDR')),
+  );
+  _check(
+    'formPreLbl.field',
+    reloaded.formField('D00/D00-HDR', 'author') === 'Ada Lovelace',
+  );
+  _check('formPreLbl.byteStable', _export(reloaded) === md1, _export(reloaded));
+}
+
 // --- parse-rejection protocol (SOM §11.7) -------------------------------------
 
 function testRejectUnknownSection(): void {
@@ -436,26 +533,6 @@ function testRejectOrphanPreamble(): void {
     _rejStr(report),
   );
   _check('reject.orphanPreamble.kept', report.content['D00/D00-OVR'] === 'kept');
-}
-
-function testRejectOrphanFormProse(): void {
-  const md =
-    '# <!--[D00]--> Demo Document\n\n' +
-    '## <!--[D00-HDR]--> Header\n\n' +
-    'prose before any field label\n' +
-    'Author: Ada Lovelace\n';
-  const report = _parse(md);
-  _check(
-    'reject.orphanForm.reason',
-    report.rejections.some((r) => r.reason === SpecMarkdownRejectReason.ORPHAN_CONTENT),
-    _rejStr(report),
-  );
-  // The labelled field still parses.
-  _check(
-    'reject.orphanForm.fieldParsed',
-    _shallowEqual(report.forms['D00/D00-HDR'], { author: 'Ada Lovelace' }),
-    JSON.stringify(report.forms),
-  );
 }
 
 function testRejectKindMismatch(): void {
@@ -582,10 +659,14 @@ function main(): number {
   testRoundTripRichMarkdown();
   testRoundTripStoredItemId();
   testRoundTripLabelShapedContinuation();
+  testFormPreambleParses();
+  testFormPreambleEmits();
+  testFormPreambleOnly();
+  testFormPreambleRoundTrip();
+  testFormPreambleLabelShaped();
   testRejectUnknownSection();
   testRejectMalformedHeading();
   testRejectOrphanPreamble();
-  testRejectOrphanFormProse();
   testRejectKindMismatch();
   testRejectMissingValue();
   testCaseInsensitiveLabels();

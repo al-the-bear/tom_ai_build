@@ -66,8 +66,8 @@ class SpecMarkdownRejectReason(Enum):
     #: A structurally impossible combination — e.g. a child heading nested
     #: under a value-leaf (content/scalar/enum) section.
     KIND_MISMATCH = "kindMismatch"
-    #: Body text with no owning value slot — e.g. prose inside a ``@Form``
-    #: section before the first ``FieldName:`` line.
+    #: Body text with no owning value slot — text before the document root
+    #: heading.
     ORPHAN_CONTENT = "orphanContent"
     #: A value-leaf section heading with an empty body.
     MISSING_VALUE = "missingValue"
@@ -179,6 +179,11 @@ class _Buffer:
     def writeln(self, text: str = "") -> None:
         self._parts.append(text)
         self._parts.append("\n")
+
+    def write(self, text: str) -> None:
+        """Appends *text* verbatim — no trailing newline. Used to splice an
+        already-terminated buffer (a form's field block) into its owner."""
+        self._parts.append(text)
 
     def __str__(self) -> str:
         return "".join(self._parts)
@@ -547,6 +552,11 @@ class SpecDocumentMarkdown:
                     self._write_children(b, element, item_path, depth + 2)
 
     def _form_has_values(self, node: SomMetaNode, path: str) -> bool:
+        """Whether the ``@Form`` node at *path* has anything to emit: its
+        preamble content (SOM §11.4 rule 7 — the DocSpecs ``${text[]}``
+        region), or any populated field."""
+        if self.document.has_content(path):
+            return True
         fields = node.form.fields if node.form is not None else []
         for f in fields:
             if self.document.form_field(path, f.name) is not None:
@@ -554,20 +564,40 @@ class SpecDocumentMarkdown:
         return False
 
     def _write_form(self, b: _Buffer, node: SomMetaNode, path: str) -> None:
+        """Writes a ``@Form`` section body: the preamble content (when set)
+        followed by one ``FieldName: value`` group per populated field
+        (SOM §11.4)."""
         fields = node.form.fields if node.form is not None else []
+        field_buf = _Buffer()
         for f in fields:
             value = self.document.form_field(path, f.name)
             if value is None:
                 continue
             lines = self._prepare_value(value, path).split("\n")
-            b.writeln(f"{self.form_label(f.name)}: {lines[0]}")
+            field_buf.writeln(f"{self.form_label(f.name)}: {lines[0]}")
             for line in lines[1:]:
                 # SOM §11.4 generalised: any continuation line that could be
                 # mistaken for a field-label line gains one leading space;
                 # parse strips it.
-                b.writeln(
+                field_buf.writeln(
                     f" {line}" if self._label_shaped.match(line) else line
                 )
+
+        preamble = self.document.content(path)
+        if preamble is not None:
+            prepared = self._prepare_value(preamble, path)
+            if prepared:
+                # Every preamble line gets the same label-shaped escape a
+                # continuation line gets: the parser reaches a field label
+                # before it knows which text is preamble, so a `Word:` line at
+                # column 0 would mis-split.
+                for line in prepared.split("\n"):
+                    b.writeln(
+                        f" {line}" if self._label_shaped.match(line) else line
+                    )
+                if str(field_buf):
+                    b.writeln()
+        b.write(str(field_buf))
         b.writeln()
 
     @staticmethod
@@ -1154,6 +1184,10 @@ class _Parser:
     def _finalize_form(
         self, frame: _Frame, node: SomMetaNode, path: str
     ) -> None:
+        """Parses an id-bearing ``@Form`` section's body: the preamble text
+        before the first field label binds to the form's own ``content``
+        (SOM §11.4 rule 7); everything from the first label on binds to the
+        named fields."""
         form = node.form
         fields = form.fields if form is not None else []
         fields_by_lower = {f.name.lower(): f.name for f in fields}
@@ -1163,22 +1197,12 @@ class _Parser:
 
         def flush(line_no: int) -> None:
             nonlocal current_lines
+            value = self._restore_value(current_lines)
             if current_field is not None:
-                value = self._restore_value(current_lines)
                 if value:
                     self.forms.setdefault(path, {})[current_field] = value
-            elif any(l.strip() for l in current_lines):
-                self.rejections.append(
-                    SpecMarkdownRejection(
-                        line=line_no,
-                        reason=SpecMarkdownRejectReason.ORPHAN_CONTENT,
-                        anchor=path,
-                        message=(
-                            "text in a @Form section before the first field "
-                            "label"
-                        ),
-                    )
-                )
+            elif value:
+                self.content[path] = value
             current_lines = []
 
         for i, line in enumerate(frame.body):

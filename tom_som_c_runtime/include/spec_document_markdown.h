@@ -46,8 +46,8 @@
 /* A structurally impossible combination, e.g. a child heading nested under a
  * value-leaf (content/scalar/enum) section. */
 #define SPEC_MARKDOWN_REJECT_KIND_MISMATCH "kindMismatch"
-/* Body text with no owning value slot, e.g. prose inside a `@Form` section
- * before the first `FieldName:` line. */
+/* Body text with no owning value slot: text before the document root
+ * heading. */
 #define SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT "orphanContent"
 /* A value-leaf section heading with an empty body. */
 #define SPEC_MARKDOWN_REJECT_MISSING_VALUE "missingValue"

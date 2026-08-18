@@ -457,6 +457,105 @@ public final class SpecDocumentYamlTest {
     check("classKey.rt.owner", "the owner".equals(out.content("D00/control/owner")), "");
   }
 
+  /**
+   * A {@code @Form} node carries its own body text — the free text before its
+   * first field (SOM §11.4 rule 7) — under the same literal {@code content} key
+   * every other section uses (SOM §12.2). A form declaring a field literally
+   * named {@code content} is a collision (SOM §12.3 rule 6): the declared field
+   * alone is fine (it wins on decode), the preamble beside it is refused.
+   */
+  private static void yamlTestFormPreamble(SomMetaTree tree) {
+    SpecDocument doc = new SpecDocument();
+    doc.setContent("D00/D00-HDR", "why this header exists");
+    doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+    String yaml = SpecDocumentYaml.encode(doc, tree, null);
+    // The reserved key sits above the fields, exactly as for a section.
+    check(
+        "formPre.shape",
+        yaml.contains(
+            "\n    D00-HDR header:\n"
+                + "      content: |2-\n"
+                + "        why this header exists\n"
+                + "      author: |2-\n"
+                + "        Ada Lovelace\n"),
+        yaml);
+
+    SpecDocument only = new SpecDocument();
+    only.setContent("D00/D00-HDR", "nothing filled in yet");
+    check(
+        "formPre.only",
+        SpecDocumentYaml.encode(only, tree, null)
+            .contains(
+                "\n    D00-HDR header:\n      content: |2-\n        nothing filled in yet\n"),
+        SpecDocumentYaml.encode(only, tree, null));
+
+    SpecDocument multi = new SpecDocument();
+    multi.setContent("D00/D00-HDR", "first paragraph\n\nsecond paragraph");
+    multi.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+    String yaml1 = SpecDocumentYaml.encode(multi, tree, null);
+    SpecDocument out = SpecDocumentYaml.decode(yaml1, tree).document;
+    check(
+        "formPre.rtContent",
+        "first paragraph\n\nsecond paragraph".equals(out.content("D00/D00-HDR")),
+        quote(out.content("D00/D00-HDR")));
+    check(
+        "formPre.rtField",
+        "Ada Lovelace".equals(out.formField("D00/D00-HDR", "author")),
+        quote(out.formField("D00/D00-HDR", "author")));
+    String yaml2 = SpecDocumentYaml.encode(out, tree, null);
+    check("formPre.byteStable", yaml2.equals(yaml1), byteDiff(yaml2, yaml1));
+
+    // A form declaring a field literally named `content`: the field alone is
+    // fine (a declared field wins on decode), the preamble beside it collides.
+    SpecModel clashModel =
+        SpecModel.fromJson(
+            Json.parseObject(
+                """
+                {
+                  "modelVersion": 1,
+                  "roots": [{"type": "Clash", "title": "Clash", "sectionId": "C00"}],
+                  "classes": {
+                    "Clash": {
+                      "name": "Clash",
+                      "sectionId": "C00",
+                      "fields": [
+                        {"name": "header", "kind": "form", "sectionId": "C00-HDR",
+                         "serializationOrder": 0,
+                         "formFields": [
+                           {"name": "content", "label": "Content", "type": "String"}
+                         ]}
+                      ]
+                    }
+                  }
+                }"""));
+    SomMetaTree clashTree = SomMetaBridge.buildSomMetaTree(clashModel, null);
+
+    SpecDocument fieldOnly = new SpecDocument();
+    fieldOnly.setFormField("C00/C00-HDR", "content", "a field value");
+    String fieldYaml = SpecDocumentYaml.encode(fieldOnly, clashTree, null);
+    check(
+        "formPre.clashFieldOnly",
+        fieldYaml.contains("      content: |2-\n        a field value\n"),
+        fieldYaml);
+    check(
+        "formPre.clashFieldDecodes",
+        "a field value"
+            .equals(
+                SpecDocumentYaml.decode(fieldYaml, clashTree)
+                    .document
+                    .formField("C00/C00-HDR", "content")),
+        fieldYaml);
+
+    SpecDocument withPreamble = new SpecDocument();
+    withPreamble.setContent("C00/C00-HDR", "the preamble");
+    withPreamble.setFormField("C00/C00-HDR", "content", "a field value");
+    check(
+        "formPre.clashRefused",
+        throwsFormat(
+            () -> SpecDocumentYaml.encode(withPreamble, clashTree, null), "literally named"),
+        "");
+  }
+
   // --- csmc8: stored codeSpec round-trips through yaml (codespecs_mapping.md
   // §9.2) -----------------
 
@@ -490,6 +589,7 @@ public final class SpecDocumentYamlTest {
     yamlTestRoundTrip(tree);
     yamlTestStrictDecode(tree);
     yamlTestClassLevelOnlyKey(tree);
+    yamlTestFormPreamble(tree);
     yamlTestCodeSpecRoundTrip(tree);
     yamlTestCodeSpecByteStable(tree);
 

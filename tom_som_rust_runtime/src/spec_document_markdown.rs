@@ -63,8 +63,7 @@ pub const SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION: &str = "unknownSection";
 /// A structurally impossible combination, e.g. a child heading nested under a
 /// value-leaf (content/scalar/enum) section.
 pub const SPEC_MARKDOWN_REJECT_KIND_MISMATCH: &str = "kindMismatch";
-/// Body text with no owning value slot, e.g. prose inside a `@Form` section
-/// before the first `FieldName:` line.
+/// Body text with no owning value slot: text before the document root heading.
 pub const SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT: &str = "orphanContent";
 /// A value-leaf section heading with an empty body.
 pub const SPEC_MARKDOWN_REJECT_MISSING_VALUE: &str = "missingValue";
@@ -241,6 +240,12 @@ impl MdBuffer {
     fn writeln(&mut self, text: &str) {
         self.out.push_str(text);
         self.out.push('\n');
+    }
+
+    /// Appends `text` verbatim — no trailing newline. Used to splice an
+    /// already-terminated buffer (a form's field block) into its owner.
+    fn write(&mut self, text: &str) {
+        self.out.push_str(text);
     }
 }
 
@@ -877,7 +882,13 @@ impl<'a> SpecDocumentMarkdown<'a> {
         Ok(())
     }
 
+    /// Whether the `@Form` node at `path` has anything to emit: its preamble
+    /// content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any
+    /// populated field.
     fn form_has_values(&self, node: &SomMetaNode, path: &str) -> bool {
+        if self.document.has_content(path) {
+            return true;
+        }
         match &node.form {
             None => false,
             Some(form) => form
@@ -887,12 +898,15 @@ impl<'a> SpecDocumentMarkdown<'a> {
         }
     }
 
+    /// Writes a `@Form` section body: the preamble content (when set) followed
+    /// by one `FieldName: value` group per populated field (SOM §11.4).
     fn write_form(&self, b: &mut MdBuffer, node: &SomMetaNode, path: &str) -> Result<(), String> {
         let empty: Vec<SomFormFieldMeta> = Vec::new();
         let fields = match &node.form {
             Some(form) => &form.fields,
             None => &empty,
         };
+        let mut field_buf = MdBuffer::new();
         for f in fields {
             let value = match self.document.form_field(path, &f.name) {
                 Some(v) => v.clone(),
@@ -901,18 +915,39 @@ impl<'a> SpecDocumentMarkdown<'a> {
             let prepared = self.prepare_value(&value, path)?;
             let mut lines = prepared.split('\n');
             let first = lines.next().unwrap_or("");
-            b.writeln(&format!("{}: {}", spec_markdown_form_label(&f.name), first));
+            field_buf.writeln(&format!("{}: {}", spec_markdown_form_label(&f.name), first));
             for line in lines {
                 // SOM §11.4 generalised: any continuation line that could be
                 // mistaken for a field-label line gains one leading space;
                 // parse strips it.
                 if md_label_shaped(line) {
-                    b.writeln(&format!(" {}", line));
+                    field_buf.writeln(&format!(" {}", line));
                 } else {
-                    b.writeln(line);
+                    field_buf.writeln(line);
                 }
             }
         }
+
+        if let Some(preamble) = self.document.content(path) {
+            let prepared = self.prepare_value(preamble, path)?;
+            if !prepared.is_empty() {
+                // Every preamble line gets the same label-shaped escape a
+                // continuation line gets: the parser reaches a field label
+                // before it knows which text is preamble, so a `Word:` line at
+                // column 0 would mis-split.
+                for line in prepared.split('\n') {
+                    if md_label_shaped(line) {
+                        b.writeln(&format!(" {}", line));
+                    } else {
+                        b.writeln(line);
+                    }
+                }
+                if !field_buf.out.is_empty() {
+                    b.writeln("");
+                }
+            }
+        }
+        b.write(&field_buf.out);
         b.writeln("");
         Ok(())
     }
@@ -1640,6 +1675,9 @@ position (under \"{}\")",
         }
     }
 
+    /// Parses an id-bearing `@Form` section's body: the preamble text before
+    /// the first field label binds to the form's own content (SOM §11.4
+    /// rule 7); everything from the first label on binds to the named fields.
     fn finalize_form(&mut self, frame: &MdFrame, node: &SomMetaNode, path: &str) {
         let mut fields_by_lower: HashMap<String, String> = HashMap::new();
         if let Some(form) = &node.form {
@@ -1652,18 +1690,12 @@ position (under \"{}\")",
         let mut have_field = false;
         let mut current_lines: Vec<String> = Vec::new();
 
-        for (i, line) in frame.body.iter().enumerate() {
+        for line in frame.body.iter() {
             if !fence.in_fence() {
                 if let Some((label, first)) = md_field_label(line) {
                     if let Some(field_name) = fields_by_lower.get(&label.to_lowercase()) {
                         let field_name = field_name.clone();
-                        self.flush_form_lines(
-                            path,
-                            have_field,
-                            &current_field,
-                            &current_lines,
-                            frame.line + i,
-                        );
+                        self.flush_form_lines(path, have_field, &current_field, &current_lines);
                         current_lines = Vec::new();
                         have_field = true;
                         current_field = field_name;
@@ -1681,13 +1713,7 @@ position (under \"{}\")",
             }
             fence.feed(line);
         }
-        self.flush_form_lines(
-            path,
-            have_field,
-            &current_field,
-            &current_lines,
-            frame.line + frame.body.len(),
-        );
+        self.flush_form_lines(path, have_field, &current_field, &current_lines);
     }
 
     fn flush_form_lines(
@@ -1696,17 +1722,17 @@ position (under \"{}\")",
         have_field: bool,
         current_field: &str,
         current_lines: &[String],
-        line_no: usize,
     ) {
+        let value = md_restore_value(current_lines);
         if have_field {
-            stage_form_value(&mut self.forms, path, current_field, current_lines);
-        } else if current_lines.iter().any(|l| !l.trim().is_empty()) {
-            self.rejections.push(SpecMarkdownRejection {
-                line: line_no,
-                reason: SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT.to_string(),
-                message: "text in a @Form section before the first field label".to_string(),
-                anchor: path.to_string(),
-            });
+            if !value.is_empty() {
+                self.forms
+                    .entry(path.to_string())
+                    .or_default()
+                    .insert(current_field.to_string(), value);
+            }
+        } else if !value.is_empty() {
+            self.content.insert(path.to_string(), value);
         }
     }
 }

@@ -21,6 +21,10 @@ import java.util.regex.Pattern;
  * {@code <member>-<n>} key), a node's own body text uses the literal key
  * {@code content}, a node's own <b>stored headline</b> (YRD3) uses the literal
  * key {@code headline}, and form fields use their bare field names. A
+ * {@code @Form} node's mapping carries its own preamble text — the free text
+ * before the first field (SOM §11.4 rule 7) — under the same literal
+ * {@code content} key, so a form section stores its body exactly as every
+ * other section does. A
  * scalar-valued node (content/scalar/enum leaf or scalar list item) that
  * carries a stored headline is emitted as a {@code {headline: …, content: …}}
  * mapping. The former flat
@@ -545,7 +549,15 @@ public final class SpecDocumentYaml {
       String headline = hasHeadline ? headlines.remove(path) : null;
       boolean hasCodeSpec = codeSpecs.containsKey(path);
       String codeSpec = hasCodeSpec ? codeSpecs.remove(path) : null;
-      if ((fields == null || fields.isEmpty()) && !hasHeadline && !hasCodeSpec) {
+      // The form's preamble — the free text before its first field (SOM §11.4
+      // rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
+      // under the literal `content` key, exactly as a section's body does.
+      boolean hasContent = content.containsKey(path);
+      String ownContent = hasContent ? content.remove(path) : null;
+      if ((fields == null || fields.isEmpty())
+          && !hasHeadline
+          && !hasCodeSpec
+          && !hasContent) {
         return;
       }
       if (fields == null) {
@@ -569,12 +581,20 @@ public final class SpecDocumentYaml {
             "cannot emit the stored codeSpec at `" + path + "`: the form declares a "
                 + "field literally named `codeSpec`");
       }
+      if (hasContent && meta.fieldNamed("content") != null) {
+        throw new SpecYamlFormatException(
+            "cannot emit the preamble content at `" + path + "`: the form declares a "
+                + "field literally named `content`");
+      }
       b.append(pad(indent)).append(plainKey(key)).append(":\n");
       if (hasHeadline) {
         writeText(b, indent + 2, "headline", headline);
       }
       if (hasCodeSpec) {
         writeText(b, indent + 2, "codeSpec", codeSpec);
+      }
+      if (hasContent) {
+        writeText(b, indent + 2, "content", ownContent);
       }
       for (SomFormFieldMeta f : meta.fields) {
         if (!fields.containsKey(f.name)) {
@@ -893,6 +913,13 @@ public final class SpecDocumentYaml {
                 // only reachable when the model declares no field literally
                 // named `codeSpec`.
                 doc.setCodeSpec(path, scalarOf(fe.getValue(), path + " (codeSpec)"));
+                continue;
+              }
+              if (name.equals("content")) {
+                // The form's preamble (SOM §11.4 rule 7 / §12.2) — only
+                // reachable when the model declares no field literally named
+                // `content`.
+                doc.setContent(path, scalarOf(fe.getValue(), path + "/content"));
                 continue;
               }
               throw new SpecYamlFormatException(

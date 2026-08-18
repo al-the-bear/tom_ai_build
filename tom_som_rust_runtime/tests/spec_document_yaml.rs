@@ -531,6 +531,109 @@ fn yaml_test_class_level_only_key(c: &mut Checker, tree: &SomMetaTree) {
     );
 }
 
+/// A form node whose model declares a field literally named `content` — the
+/// collision fixture for the reserved preamble key (SOM §12.3 rule 6).
+const YAML_CLASH_MODEL_JSON: &str = r#"{
+  "modelVersion": 1,
+  "roots": [{"type": "Clash", "title": "Clash", "sectionId": "C00"}],
+  "classes": {
+    "Clash": {
+      "name": "Clash",
+      "sectionId": "C00",
+      "fields": [
+        {"name": "header", "kind": "form", "sectionId": "C00-HDR",
+         "serializationOrder": 0,
+         "formFields": [{"name": "content", "label": "Content", "type": "String"}]}
+      ]
+    }
+  }
+}"#;
+
+/// Verifies that a `@Form` node carries its own body text — the free text
+/// before its first field (SOM §11.4 rule 7) — under the same literal `content`
+/// key every other section uses (SOM §12.2), and that a form declaring a field
+/// literally named `content` is a collision (§12.3 rule 6).
+fn yaml_test_form_preamble(c: &mut Checker, tree: &SomMetaTree) {
+    let mut doc = SpecDocument::new();
+    doc.set_content("D00/D00-HDR", "why this header exists");
+    doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace");
+    let yaml = yaml_enc(tree, &doc, "");
+    // The reserved key sits above the fields, exactly as for a section.
+    c.check(
+        "formPre.shape",
+        yaml.contains(
+            "\n    D00-HDR header:\n\
+             \x20     content: |2-\n\
+             \x20       why this header exists\n\
+             \x20     author: |2-\n\
+             \x20       Ada Lovelace\n",
+        ),
+        &yaml,
+    );
+
+    let mut only = SpecDocument::new();
+    only.set_content("D00/D00-HDR", "nothing filled in yet");
+    let only_yaml = yaml_enc(tree, &only, "");
+    c.check(
+        "formPre.only",
+        only_yaml
+            .contains("\n    D00-HDR header:\n      content: |2-\n        nothing filled in yet\n"),
+        &only_yaml,
+    );
+
+    let mut multi = SpecDocument::new();
+    multi.set_content("D00/D00-HDR", "first paragraph\n\nsecond paragraph");
+    multi.set_form_field("D00/D00-HDR", "author", "Ada Lovelace");
+    let yaml1 = yaml_enc(tree, &multi, "");
+    let out = yaml_dec(tree, &yaml1).document;
+    c.check(
+        "formPre.rtContent",
+        out.content_or("D00/D00-HDR") == "first paragraph\n\nsecond paragraph",
+        &format!("{:?}", out.content_or("D00/D00-HDR")),
+    );
+    c.check(
+        "formPre.rtField",
+        out.form_field_or("D00/D00-HDR", "author") == "Ada Lovelace",
+        "",
+    );
+    c.check(
+        "formPre.byteStable",
+        yaml_enc(tree, &out, "") == yaml1,
+        &yaml_enc(tree, &out, ""),
+    );
+
+    // A form declaring a field literally named `content`: the field alone is
+    // fine (a declared field wins on decode), the preamble beside it collides.
+    let clash_model = SpecModel::from_json_str(YAML_CLASH_MODEL_JSON).expect("clash model");
+    let clash_tree = build_som_meta_tree(&clash_model, "").expect("clash tree");
+    let mut field_only = SpecDocument::new();
+    field_only.set_form_field("C00/C00-HDR", "content", "a field value");
+    let field_yaml = yaml_enc(&clash_tree, &field_only, "");
+    c.check(
+        "formPre.clashFieldOnly",
+        field_yaml.contains("      content: |2-\n        a field value\n"),
+        &field_yaml,
+    );
+    c.check(
+        "formPre.clashFieldDecodes",
+        yaml_dec(&clash_tree, &field_yaml)
+            .document
+            .form_field_or("C00/C00-HDR", "content")
+            == "a field value",
+        "",
+    );
+
+    let mut with_preamble = SpecDocument::new();
+    with_preamble.set_content("C00/C00-HDR", "the preamble");
+    with_preamble.set_form_field("C00/C00-HDR", "content", "a field value");
+    let clash_err = encode_yaml(&with_preamble, &clash_tree, "");
+    c.check(
+        "formPre.clashRefused",
+        yaml_throws_format(&clash_err, "literally named"),
+        "",
+    );
+}
+
 /// csmc8 (codespecs_mapping.md §9.2): a stored codeSpec survives the yaml
 /// round-trip; a sibling without a codeSpec keeps no entry.
 fn yaml_test_code_spec_round_trip(c: &mut Checker, tree: &SomMetaTree) {
@@ -572,6 +675,7 @@ fn spec_document_yaml() {
     yaml_test_round_trip(&mut c, &tree);
     yaml_test_strict_decode(&mut c, &tree);
     yaml_test_class_level_only_key(&mut c, &tree);
+    yaml_test_form_preamble(&mut c, &tree);
     yaml_test_code_spec_round_trip(&mut c, &tree);
     yaml_test_code_spec_byte_stable(&mut c, &tree);
     c.finish();

@@ -495,6 +495,113 @@ fn test_markdown_round_trip_label_shaped_continuation(c: &mut Checker) {
     c.check("formCont.byteStable", md_export(&reloaded) == md1, "");
 }
 
+// --- a form section's preamble (SOM §11.4 rule 7) ----------------------------
+
+fn test_markdown_form_preamble_parses(c: &mut Checker) {
+    let md = "# <!--[D00]--> Demo Document\n\n\
+## <!--[D00-HDR]--> Header\n\n\
+prose before any field label\n\
+Author: Ada Lovelace\n";
+    let report = md_parse(md);
+    c.check("formPre.clean", report.is_clean(), &md_rej_str(&report));
+    c.check(
+        "formPre.content",
+        report.content.get("D00/D00-HDR").map(String::as_str)
+            == Some("prose before any field label"),
+        &format!("{:?}", report.content.get("D00/D00-HDR")),
+    );
+    c.check(
+        "formPre.fieldParsed",
+        md_shallow_equal(report.forms.get("D00/D00-HDR"), &[("author", "Ada Lovelace")]),
+        &format!("{:?}", report.forms),
+    );
+}
+
+fn test_markdown_form_preamble_emits(c: &mut Checker) {
+    let mut doc = SpecDocument::new();
+    doc.set_content("D00/D00-HDR", "why this header exists");
+    doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace");
+    let md = md_export(&doc);
+    c.check(
+        "formPre.emitOrder",
+        md.contains("why this header exists\n\nAuthor: Ada Lovelace\n"),
+        &md,
+    );
+}
+
+fn test_markdown_form_preamble_only(c: &mut Checker) {
+    let mut doc = SpecDocument::new();
+    doc.set_content("D00/D00-HDR", "nothing filled in yet");
+    let md1 = md_export(&doc);
+    c.check(
+        "formPreOnly.heading",
+        md1.contains("<!--[D00-HDR]-->"),
+        &md1,
+    );
+    c.check(
+        "formPreOnly.emitted",
+        md1.contains("nothing filled in yet"),
+        &md1,
+    );
+
+    let (reloaded, report) = md_reload(&md1);
+    c.check("formPreOnly.clean", report.is_clean(), &md_rej_str(&report));
+    c.check(
+        "formPreOnly.value",
+        reloaded.content_or("D00/D00-HDR") == "nothing filled in yet",
+        &reloaded.content_or("D00/D00-HDR"),
+    );
+    c.check("formPreOnly.byteStable", md_export(&reloaded) == md1, "");
+}
+
+fn test_markdown_form_preamble_round_trip(c: &mut Checker) {
+    let mut doc = SpecDocument::new();
+    doc.set_content("D00/D00-HDR", "first paragraph\n\nsecond paragraph");
+    doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace");
+    let md1 = md_export(&doc);
+    let (reloaded, report) = md_reload(&md1);
+    c.check("formPreRT.clean", report.is_clean(), &md_rej_str(&report));
+    c.check(
+        "formPreRT.content",
+        reloaded.content_or("D00/D00-HDR") == "first paragraph\n\nsecond paragraph",
+        &format!("{:?}", reloaded.content_or("D00/D00-HDR")),
+    );
+    c.check(
+        "formPreRT.field",
+        reloaded.form_field_or("D00/D00-HDR", "author") == "Ada Lovelace",
+        "",
+    );
+    c.check("formPreRT.byteStable", md_export(&reloaded) == md1, "");
+}
+
+fn test_markdown_form_preamble_label_shaped(c: &mut Checker) {
+    // Without the escape the parser would read `Author: ...` as the first field
+    // label and the line would leave the preamble.
+    let mut doc = SpecDocument::new();
+    doc.set_content("D00/D00-HDR", "Author: is a field of this form");
+    doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace");
+    let md1 = md_export(&doc);
+    c.check(
+        "formPreLbl.escaped",
+        md1.contains("\n Author: is a field of this form\n"),
+        &md1,
+    );
+
+    let (reloaded, report) = md_reload(&md1);
+    c.check("formPreLbl.clean", report.is_clean(), &md_rej_str(&report));
+    c.check(
+        "formPreLbl.content",
+        reloaded.content_or("D00/D00-HDR") == "Author: is a field of this form",
+        &format!("{:?}", reloaded.content_or("D00/D00-HDR")),
+    );
+    c.check(
+        "formPreLbl.field",
+        reloaded.form_field_or("D00/D00-HDR", "author") == "Ada Lovelace",
+        "",
+    );
+    c.check("formPreLbl.byteStable", md_export(&reloaded) == md1, "");
+}
+
 // --- parse-rejection protocol (SOM §11.7) ---------------------------------------
 
 fn test_markdown_reject_unknown_section(c: &mut Checker) {
@@ -555,25 +662,6 @@ kept\n";
         "reject.orphanPreamble.kept",
         report.content.get("D00/D00-OVR").map(String::as_str) == Some("kept"),
         "",
-    );
-}
-
-fn test_markdown_reject_orphan_form_prose(c: &mut Checker) {
-    let md = "# <!--[D00]--> Demo Document\n\n\
-## <!--[D00-HDR]--> Header\n\n\
-prose before any field label\n\
-Author: Ada Lovelace\n";
-    let report = md_parse(md);
-    let found = report
-        .rejections
-        .iter()
-        .any(|r| r.reason == SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT);
-    c.check("reject.orphanForm.reason", found, &md_rej_str(&report));
-    // The labelled field still parses.
-    c.check(
-        "reject.orphanForm.fieldParsed",
-        md_shallow_equal(report.forms.get("D00/D00-HDR"), &[("author", "Ada Lovelace")]),
-        &format!("{:?}", report.forms),
     );
 }
 
@@ -719,10 +807,14 @@ fn spec_document_markdown() {
     test_markdown_round_trip_rich_markdown(&mut c);
     test_markdown_round_trip_stored_item_id(&mut c);
     test_markdown_round_trip_label_shaped_continuation(&mut c);
+    test_markdown_form_preamble_parses(&mut c);
+    test_markdown_form_preamble_emits(&mut c);
+    test_markdown_form_preamble_only(&mut c);
+    test_markdown_form_preamble_round_trip(&mut c);
+    test_markdown_form_preamble_label_shaped(&mut c);
     test_markdown_reject_unknown_section(&mut c);
     test_markdown_reject_malformed_heading(&mut c);
     test_markdown_reject_orphan_preamble(&mut c);
-    test_markdown_reject_orphan_form_prose(&mut c);
     test_markdown_reject_kind_mismatch(&mut c);
     test_markdown_reject_missing_value(&mut c);
     test_markdown_case_insensitive_labels(&mut c);

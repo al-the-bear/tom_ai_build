@@ -649,6 +649,150 @@ static void test_markdown_round_trip_label_shaped_continuation(void) {
   spec_model_free(m);
 }
 
+/* ---- a form section's preamble (SOM §11.4 rule 7) ------------------------ */
+
+static void test_markdown_form_preamble_parses(void) {
+  SpecModel *m = demo_model();
+  const char *md =
+      "# <!--[D00]--> Demo Document\n\n"
+      "## <!--[D00-HDR]--> Header\n\n"
+      "prose before any field label\n"
+      "Author: Ada Lovelace\n";
+  SpecMarkdownResult report;
+  md_parse(m, md, &report);
+
+  char *rej = md_rej_str(&report);
+  md_check("formPre.clean", spec_markdown_result_is_clean(&report), rej);
+  free(rej);
+  const char *got = staged_content(&report, "D00/D00-HDR");
+  md_check("formPre.content",
+           got != NULL && strcmp(got, "prose before any field label") == 0,
+           got != NULL ? got : "(absent)");
+  md_check("formPre.fieldParsed",
+           form_matches_single(&report, "D00/D00-HDR", "author",
+                               "Ada Lovelace"),
+           NULL);
+
+  spec_markdown_result_free(&report);
+  spec_model_free(m);
+}
+
+static void test_markdown_form_preamble_emits(void) {
+  SpecModel *m = demo_model();
+  SpecDocument doc;
+  spec_document_init(&doc);
+  spec_document_set_content(&doc, "D00/D00-HDR", "why this header exists");
+  spec_document_set_form_field(&doc, "D00/D00-HDR", "author", "Ada Lovelace");
+  char *md = md_export(m, &doc);
+  md_check("formPre.emitOrder",
+           contains(md, "why this header exists\n\nAuthor: Ada Lovelace\n"), md);
+
+  free(md);
+  spec_document_free(&doc);
+  spec_model_free(m);
+}
+
+static void test_markdown_form_preamble_only(void) {
+  SpecModel *m = demo_model();
+  SpecDocument doc;
+  spec_document_init(&doc);
+  spec_document_set_content(&doc, "D00/D00-HDR", "nothing filled in yet");
+  char *md1 = md_export(m, &doc);
+  md_check("formPreOnly.emitted", contains(md1, "nothing filled in yet"), md1);
+
+  SpecDocument reloaded;
+  SpecMarkdownResult report;
+  md_reload(m, md1, &reloaded, &report);
+  char *rej = md_rej_str(&report);
+  md_check("formPreOnly.clean", spec_markdown_result_is_clean(&report), rej);
+  free(rej);
+  md_check("formPreOnly.value",
+           strcmp(content_or(&reloaded, "D00/D00-HDR"),
+                  "nothing filled in yet") == 0,
+           content_or(&reloaded, "D00/D00-HDR"));
+  char *md2 = md_export(m, &reloaded);
+  md_check("formPreOnly.byteStable", strcmp(md2, md1) == 0, md2);
+
+  free(md1);
+  free(md2);
+  spec_markdown_result_free(&report);
+  spec_document_free(&reloaded);
+  spec_document_free(&doc);
+  spec_model_free(m);
+}
+
+static void test_markdown_form_preamble_round_trip(void) {
+  SpecModel *m = demo_model();
+  SpecDocument doc;
+  spec_document_init(&doc);
+  spec_document_set_content(&doc, "D00/D00-HDR",
+                            "first paragraph\n\nsecond paragraph");
+  spec_document_set_form_field(&doc, "D00/D00-HDR", "author", "Ada Lovelace");
+  char *md1 = md_export(m, &doc);
+
+  SpecDocument reloaded;
+  SpecMarkdownResult report;
+  md_reload(m, md1, &reloaded, &report);
+  char *rej = md_rej_str(&report);
+  md_check("formPreRT.clean", spec_markdown_result_is_clean(&report), rej);
+  free(rej);
+  md_check("formPreRT.content",
+           strcmp(content_or(&reloaded, "D00/D00-HDR"),
+                  "first paragraph\n\nsecond paragraph") == 0,
+           content_or(&reloaded, "D00/D00-HDR"));
+  md_check("formPreRT.field",
+           strcmp(form_field_or(&reloaded, "D00/D00-HDR", "author"),
+                  "Ada Lovelace") == 0,
+           form_field_or(&reloaded, "D00/D00-HDR", "author"));
+  char *md2 = md_export(m, &reloaded);
+  md_check("formPreRT.byteStable", strcmp(md2, md1) == 0, md2);
+
+  free(md1);
+  free(md2);
+  spec_markdown_result_free(&report);
+  spec_document_free(&reloaded);
+  spec_document_free(&doc);
+  spec_model_free(m);
+}
+
+static void test_markdown_form_preamble_label_shaped(void) {
+  /* Without the escape the parser would read `Author: …` as the first field
+   * label and the line would leave the preamble. */
+  SpecModel *m = demo_model();
+  SpecDocument doc;
+  spec_document_init(&doc);
+  spec_document_set_content(&doc, "D00/D00-HDR",
+                            "Author: is a field of this form");
+  spec_document_set_form_field(&doc, "D00/D00-HDR", "author", "Ada Lovelace");
+  char *md1 = md_export(m, &doc);
+  md_check("formPreLbl.escaped",
+           contains(md1, "\n Author: is a field of this form\n"), md1);
+
+  SpecDocument reloaded;
+  SpecMarkdownResult report;
+  md_reload(m, md1, &reloaded, &report);
+  char *rej = md_rej_str(&report);
+  md_check("formPreLbl.clean", spec_markdown_result_is_clean(&report), rej);
+  free(rej);
+  md_check("formPreLbl.content",
+           strcmp(content_or(&reloaded, "D00/D00-HDR"),
+                  "Author: is a field of this form") == 0,
+           content_or(&reloaded, "D00/D00-HDR"));
+  md_check("formPreLbl.field",
+           strcmp(form_field_or(&reloaded, "D00/D00-HDR", "author"),
+                  "Ada Lovelace") == 0,
+           form_field_or(&reloaded, "D00/D00-HDR", "author"));
+  char *md2 = md_export(m, &reloaded);
+  md_check("formPreLbl.byteStable", strcmp(md2, md1) == 0, md2);
+
+  free(md1);
+  free(md2);
+  spec_markdown_result_free(&report);
+  spec_document_free(&reloaded);
+  spec_document_free(&doc);
+  spec_model_free(m);
+}
+
 /* ---- parse-rejection protocol (SOM §11.7) -------------------------------- */
 
 /* Reports whether any rejection matches (reason [+ anchor when non-NULL]). */
@@ -732,30 +876,6 @@ static void test_markdown_reject_orphan_preamble(void) {
   const char *kept = staged_content(&report, "D00/D00-OVR");
   md_check("reject.orphanPreamble.kept",
            kept != NULL && strcmp(kept, "kept") == 0, NULL);
-
-  spec_markdown_result_free(&report);
-  spec_model_free(m);
-}
-
-static void test_markdown_reject_orphan_form_prose(void) {
-  SpecModel *m = demo_model();
-  const char *md =
-      "# <!--[D00]--> Demo Document\n\n"
-      "## <!--[D00-HDR]--> Header\n\n"
-      "prose before any field label\n"
-      "Author: Ada Lovelace\n";
-  SpecMarkdownResult report;
-  md_parse(m, md, &report);
-
-  char *rej = md_rej_str(&report);
-  md_check("reject.orphanForm.reason",
-           has_rejection(&report, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT, NULL),
-           rej);
-  free(rej);
-  md_check("reject.orphanForm.fieldParsed",
-           form_matches_single(&report, "D00/D00-HDR", "author",
-                               "Ada Lovelace"),
-           NULL);
 
   spec_markdown_result_free(&report);
   spec_model_free(m);
@@ -941,10 +1061,14 @@ int main(void) {
   test_markdown_round_trip_rich_markdown();
   test_markdown_round_trip_stored_item_id();
   test_markdown_round_trip_label_shaped_continuation();
+  test_markdown_form_preamble_parses();
+  test_markdown_form_preamble_emits();
+  test_markdown_form_preamble_only();
+  test_markdown_form_preamble_round_trip();
+  test_markdown_form_preamble_label_shaped();
   test_markdown_reject_unknown_section();
   test_markdown_reject_malformed_heading();
   test_markdown_reject_orphan_preamble();
-  test_markdown_reject_orphan_form_prose();
   test_markdown_reject_kind_mismatch();
   test_markdown_reject_missing_value();
   test_markdown_case_insensitive_labels();

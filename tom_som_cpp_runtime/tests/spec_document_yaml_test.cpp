@@ -271,6 +271,113 @@ void yamlTestEncode() {
   }
 }
 
+/* A `@Form` node carries its own body text — the free text before its first
+ * field (SOM §11.4 rule 7) — under the same literal `content` key every other
+ * section uses (SOM §12.2); a form declaring a field literally named `content`
+ * is a collision (SOM §12.3 rule 6). */
+const char* kClashModelJson = R"({
+  "modelVersion": 1,
+  "roots": [{"type": "Clash", "title": "Clash", "sectionId": "C00"}],
+  "classes": {
+    "Clash": {
+      "name": "Clash",
+      "sectionId": "C00",
+      "fields": [
+        {"name": "header", "kind": "form", "sectionId": "C00-HDR",
+         "serializationOrder": 0,
+         "formFields": [{"name": "content", "label": "Content", "type": "String"}]}
+      ]
+    }
+  }
+})";
+
+void yamlTestFormPreamble() {
+  {
+    som::SpecDocument doc;
+    doc.setContent("D00/D00-HDR", "why this header exists");
+    doc.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+    std::string yaml = yamlEnc(doc, "");
+    // The reserved key sits above the fields, exactly as for a section.
+    check("formPre.shape",
+          contains(yaml,
+                   "\n    D00-HDR header:\n"
+                   "      content: |2-\n"
+                   "        why this header exists\n"
+                   "      author: |2-\n"
+                   "        Ada Lovelace\n"),
+          yaml);
+  }
+
+  {
+    som::SpecDocument only;
+    only.setContent("D00/D00-HDR", "nothing filled in yet");
+    std::string yaml = yamlEnc(only, "");
+    check("formPre.only",
+          contains(yaml,
+                   "\n    D00-HDR header:\n"
+                   "      content: |2-\n"
+                   "        nothing filled in yet\n"),
+          yaml);
+  }
+
+  {
+    som::SpecDocument multi;
+    multi.setContent("D00/D00-HDR", "first paragraph\n\nsecond paragraph");
+    multi.setFormField("D00/D00-HDR", "author", "Ada Lovelace");
+    std::string yaml1 = yamlEnc(multi, "");
+    som::SpecYamlContents rt = yamlDec(yaml1);
+    const som::SpecDocument& out = rt.document;
+    check("formPre.rtContent",
+          contentOr(out, "D00/D00-HDR") == "first paragraph\n\nsecond paragraph",
+          contentOr(out, "D00/D00-HDR"));
+    check("formPre.rtField",
+          formFieldOr(out, "D00/D00-HDR", "author") == "Ada Lovelace",
+          formFieldOr(out, "D00/D00-HDR", "author"));
+    check("formPre.byteStable", yamlEnc(out, "") == yaml1, yamlEnc(out, ""));
+  }
+
+  /* A form declaring a field literally named `content`: the field alone is
+   * fine (a declared field wins on decode), the preamble beside it collides. */
+  {
+    std::string err;
+    auto clashModel = som::SpecModel::fromJsonStr(kClashModelJson, &err);
+    if (clashModel == nullptr) {
+      fatal("clash model", err);
+    }
+    auto clashTree = som::somBuildMetaTree(*clashModel, "", &err);
+    if (clashTree == nullptr) {
+      fatal("clash tree", err);
+    }
+
+    som::SpecDocument fieldOnly;
+    fieldOnly.setFormField("C00/C00-HDR", "content", "a field value");
+    auto fieldYaml = som::encodeYaml(fieldOnly, *clashTree, "", &err);
+    if (!fieldYaml.has_value()) {
+      fatal("clash encode", err);
+    }
+    check("formPre.clashFieldOnly",
+          contains(*fieldYaml, "      content: |2-\n        a field value\n"),
+          *fieldYaml);
+    som::SpecYamlContents decoded;
+    if (!som::decodeYaml(*fieldYaml, *clashTree, &decoded, &err)) {
+      fatal("clash decode", err);
+    }
+    check("formPre.clashFieldDecodes",
+          formFieldOr(decoded.document, "C00/C00-HDR", "content") ==
+              "a field value",
+          formFieldOr(decoded.document, "C00/C00-HDR", "content"));
+
+    som::SpecDocument withPreamble;
+    withPreamble.setContent("C00/C00-HDR", "the preamble");
+    withPreamble.setFormField("C00/C00-HDR", "content", "a field value");
+    std::string clashErr;
+    auto refused = som::encodeYaml(withPreamble, *clashTree, "", &clashErr);
+    check("formPre.clashRefused",
+          !refused.has_value() && contains(clashErr, "literally named"),
+          clashErr);
+  }
+}
+
 /* A complex field with no field-level @SectionId keys on its target class's
  * own @SectionId (SOM §12.2 class fallback); its id-less leaf keeps a bare key
  * while its own document path segment stays field-level (`control`). */
@@ -489,6 +596,7 @@ int main() {
 
   yamlTestEncode();
   yamlTestClassLevelOnlyKey();
+  yamlTestFormPreamble();
   yamlTestRoundTrip();
   yamlTestStrictDecode();
   yamlTestCodeSpecRoundTrip();

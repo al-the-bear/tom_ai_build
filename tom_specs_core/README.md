@@ -42,8 +42,11 @@ every section base type (`sections/sections.dart`).
 
 **`DocSpecsSection`** (YRD5) is the universal section base type of the TomSpecs
 object model: it stores a section's `headline`, `id`, body `content`, and an
-optional parsed **`DocSpecsForm form`** (pre-form-field content plus one parsed
-value per `@Form` field). Every `tom_specs_model` class extends it, and model
+optional parsed **`DocSpecsForm form`** (one parsed value per `@Form` field). A
+form's free text — the preamble before its first field line (SOM §11.4 rule 7) —
+is the section's own `content`, the slot a non-form section's body already uses,
+so body text has one home whether or not the section is a form. Every
+`tom_specs_model` class extends it, and model
 members formerly typed `String?` / `List<String>` are now
 `DocSpecsSection?` / `List<DocSpecsSection>` — so a `*.md` document can be
 parsed into the model with full headline/id fidelity. See

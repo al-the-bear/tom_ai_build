@@ -394,17 +394,19 @@ class DocSpecsSection {
   String? headline;          // stored headline (overrides the @Headline default)
   String? id;                // stored section id — the <!--[ID]--> marker
   List<String> codeSpec;     // instance-level DocSpecs → CodeSpecs link
-  String? content;           // body text
-  DocSpecsForm? form;        // parsed @Form content, once split
+  String? content;           // body text — for a @Form, its preamble
+  DocSpecsForm? form;        // parsed @Form field values, once split
 }
 ```
 
 - A `DocSpecsSection` holds **headline, id, content, an optional `codeSpec`
   forward link, and an optional parsed `DocSpecsForm form`** — representing a
-  simple section with no subsections. `DocSpecsForm` holds the pre-form-field
-  content (already split off) plus one parsed value per `@Form` field. Typed
-  per-field members are generated onto the SOM classes; `DocSpecsForm` is the
-  generic model-side holder.
+  simple section with no subsections. `DocSpecsForm` holds **only** the parsed
+  values, one per `@Form` field; a form's free text — the preamble before the
+  first field line (SOM §11.4 rule 7) — stays in the section's own `content`,
+  exactly where a non-form section's body lives. One home for body text, whether
+  or not the section is a form. Typed per-field members are generated onto the
+  SOM classes; `DocSpecsForm` is the generic model-side holder.
 - **Every model class extends `DocSpecsSection`** — including the section leaves
   in `tom_specs_core` and the `DocSpecsProject` container root — so the whole
   model is an object graph a `*.md` document can actually be **parsed into**:

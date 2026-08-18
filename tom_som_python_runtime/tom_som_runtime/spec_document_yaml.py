@@ -8,7 +8,10 @@ sections nest their children, list items appear under their container keyed by
 their stored section id (or an anonymous positional ``<member>-<n>`` key), a
 node's own body text uses the literal key ``content``, a node's **stored
 headline** (YRD3) uses the literal key ``headline``, and form fields use
-their bare field names. A scalar-valued node (content/scalar/enum leaf or
+their bare field names. A ``@Form`` node's mapping carries its own preamble
+text — the free text before the first field (SOM §11.4 rule 7) — under the
+same literal ``content`` key, so a form section stores its body exactly as
+every other section does. A scalar-valued node (content/scalar/enum leaf or
 scalar list item) that carries a stored headline is emitted as a
 ``{headline: …, content: …}`` mapping instead of a direct scalar. The former
 flat two-level path-map format
@@ -464,7 +467,16 @@ class _Encoder:
         fields = self._forms.pop(path, None) or {}
         headline = self._headlines.pop(path, None)
         code_spec = self._code_specs.pop(path, None)
-        if not fields and headline is None and code_spec is None:
+        # The form's preamble — the free text before its first field (SOM §11.4
+        # rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
+        # under the literal `content` key, exactly as a section's body does.
+        content = self._content.pop(path, None)
+        if (
+            not fields
+            and headline is None
+            and code_spec is None
+            and content is None
+        ):
             return
         meta = node.form if node.form is not None else SomFormMeta(fields=[])
         for name in fields:
@@ -484,11 +496,18 @@ class _Encoder:
                 f"cannot emit the stored codeSpec at `{path}`: the form "
                 "declares a field literally named `codeSpec`"
             )
+        if content is not None and meta.field_named("content") is not None:
+            raise SpecYamlFormatException(
+                f"cannot emit the preamble content at `{path}`: the form "
+                "declares a field literally named `content`"
+            )
         b.writeln(f"{' ' * indent}{plain_key(key)}:")
         if headline is not None:
             self._write_text(b, indent + 2, "headline", headline)
         if code_spec is not None:
             self._write_text(b, indent + 2, "codeSpec", code_spec)
+        if content is not None:
+            self._write_text(b, indent + 2, "content", content)
         for f in meta.fields:
             v = fields.get(f.name)
             if v is None:
@@ -758,6 +777,12 @@ class _Decoder:
                     if name == "codeSpec":
                         self.doc.set_code_spec(
                             path, self._scalar_of(v, f"{path} (codeSpec)")
+                        )
+                        continue
+                    if name == "content":
+                        # The form's preamble (SOM §11.4 rule 7 / §12.2).
+                        self.doc.set_content(
+                            path, self._scalar_of(v, f"{path}/content")
                         )
                         continue
                     raise SpecYamlFormatException(

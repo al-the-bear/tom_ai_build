@@ -366,7 +366,7 @@ func yamlTestStrictDecode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 }
 
 // TestSpecDocumentYaml runs the shared Hierarchical-codec suite
-// (58 checks).
+// (76 checks).
 func TestSpecDocumentYaml(t *testing.T) {
 	c := &checker{t: t}
 	tree := yamlTestTree(t)
@@ -374,7 +374,81 @@ func TestSpecDocumentYaml(t *testing.T) {
 	yamlTestRoundTrip(c, t, tree)
 	yamlTestStrictDecode(c, t, tree)
 	yamlTestClassLevelOnlyKey(c, t, tree)
+	yamlTestFormPreamble(c, t, tree)
 	c.finish()
+}
+
+// yamlTestFormPreamble verifies that a `@Form` node carries its own body text —
+// the free text before its first field (SOM §11.4 rule 7) — under the same
+// literal `content` key every other section uses (SOM §12.2), and that a form
+// declaring a field literally named `content` is a collision (§12.3 rule 6).
+func yamlTestFormPreamble(c *checker, t *testing.T, tree *som.SomMetaTree) {
+	doc := som.NewSpecDocument()
+	doc.SetContent("D00/D00-HDR", "why this header exists")
+	doc.SetFormField("D00/D00-HDR", "author", "Ada Lovelace")
+	yaml := yamlEnc(t, tree, doc, "")
+	c.check("formPre.shape", strings.Contains(yaml,
+		"\n    D00-HDR header:\n"+
+			"      content: |2-\n"+
+			"        why this header exists\n"+
+			"      author: |2-\n"+
+			"        Ada Lovelace\n"), yaml)
+
+	only := som.NewSpecDocument()
+	only.SetContent("D00/D00-HDR", "nothing filled in yet")
+	c.check("formPre.only", strings.Contains(yamlEnc(t, tree, only, ""),
+		"\n    D00-HDR header:\n      content: |2-\n        nothing filled in yet\n"), "")
+
+	multi := som.NewSpecDocument()
+	multi.SetContent("D00/D00-HDR", "first paragraph\n\nsecond paragraph")
+	multi.SetFormField("D00/D00-HDR", "author", "Ada Lovelace")
+	yaml1 := yamlEnc(t, tree, multi, "")
+	out := yamlDec(t, tree, yaml1).Document
+	c.check("formPre.rtContent",
+		out.ContentOr("D00/D00-HDR") == "first paragraph\n\nsecond paragraph", "")
+	c.check("formPre.rtField",
+		out.FormFieldOr("D00/D00-HDR", "author") == "Ada Lovelace", "")
+	c.check("formPre.byteStable", yamlEnc(t, tree, out, "") == yaml1, "")
+
+	// A form declaring a field literally named `content`: the field alone is
+	// fine (a declared field wins on decode), the preamble beside it collides.
+	clashModel, err := som.SpecModelFromJSON([]byte(`{
+  "modelVersion": 1,
+  "roots": [{"type": "Clash", "title": "Clash", "sectionId": "C00"}],
+  "classes": {
+    "Clash": {
+      "name": "Clash",
+      "sectionId": "C00",
+      "fields": [
+        {"name": "header", "kind": "form", "sectionId": "C00-HDR",
+         "serializationOrder": 0,
+         "formFields": [{"name": "content", "label": "Content", "type": "String"}]}
+      ]
+    }
+  }
+}`))
+	if err != nil {
+		t.Fatalf("clash model: %v", err)
+	}
+	clashTree, err := som.BuildSomMetaTree(clashModel, "")
+	if err != nil {
+		t.Fatalf("clash tree: %v", err)
+	}
+	fieldOnly := som.NewSpecDocument()
+	fieldOnly.SetFormField("C00/C00-HDR", "content", "a field value")
+	fieldYaml := yamlEnc(t, clashTree, fieldOnly, "")
+	c.check("formPre.clashFieldOnly",
+		strings.Contains(fieldYaml, "      content: |2-\n        a field value\n"), fieldYaml)
+	c.check("formPre.clashFieldDecodes",
+		yamlDec(t, clashTree, fieldYaml).Document.
+			FormFieldOr("C00/C00-HDR", "content") == "a field value", "")
+
+	withPreamble := som.NewSpecDocument()
+	withPreamble.SetContent("C00/C00-HDR", "the preamble")
+	withPreamble.SetFormField("C00/C00-HDR", "content", "a field value")
+	_, errClash := som.EncodeYaml(withPreamble, clashTree, "")
+	c.check("formPre.clashRefused",
+		yamlThrowsFormat(errClash, "literally named"), "")
 }
 
 // yamlTestClassLevelOnlyKey verifies a section whose @SectionId lives only on

@@ -735,8 +735,14 @@ void writeBody(std::string& b, const std::string& value,
   b.push_back('\n');
 }
 
+/* Whether the `@Form` node at `path` has anything to emit: its preamble content
+ * (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any populated
+ * field. */
 bool formHasValues(const SpecDocument& doc, const SomMetaNode& node,
                    const std::string& path) {
+  if (doc.hasContent(path)) {
+    return true;
+  }
   if (!node.form.has_value()) {
     return false;
   }
@@ -748,8 +754,11 @@ bool formHasValues(const SpecDocument& doc, const SomMetaNode& node,
   return false;
 }
 
+/* Writes a `@Form` section body: the preamble content (when set) followed by one
+ * `FieldName: value` group per populated field (SOM §11.4). */
 void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
                const std::string& path) {
+  std::string fields;
   if (node.form.has_value()) {
     for (const auto& f : node.form->fields) {
       const std::string* value = doc.formFieldOpt(path, f.name);
@@ -758,22 +767,43 @@ void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
       }
       std::string prepared = prepareValue(*value, path);
       std::vector<std::string> plines = splitLines(prepared);
-      b += formLabel(f.name);
-      b += ": ";
-      b += !plines.empty() ? plines[0] : "";
-      b.push_back('\n');
+      fields += formLabel(f.name);
+      fields += ": ";
+      fields += !plines.empty() ? plines[0] : "";
+      fields.push_back('\n');
       for (std::size_t li = 1; li < plines.size(); li++) {
         const std::string& line = plines[li];
         if (matchLabelShaped(line)) {
-          b.push_back(' ');
-          b += line;
+          fields.push_back(' ');
+          fields += line;
         } else {
-          b += line;
+          fields += line;
         }
+        fields.push_back('\n');
+      }
+    }
+  }
+
+  const std::string* preamble = doc.contentOpt(path);
+  if (preamble != nullptr) {
+    std::string prepared = prepareValue(*preamble, path);
+    if (!prepared.empty()) {
+      /* Every preamble line gets the same label-shaped escape a continuation
+       * line gets: the parser reaches a field label before it knows which text
+       * is preamble, so a `Word:` line at column 0 would mis-split. */
+      for (const auto& line : splitLines(prepared)) {
+        if (matchLabelShaped(line)) {
+          b.push_back(' ');
+        }
+        b += line;
+        b.push_back('\n');
+      }
+      if (!fields.empty()) {
         b.push_back('\n');
       }
     }
   }
+  b += fields;
   b.push_back('\n');
 }
 
@@ -1108,6 +1138,9 @@ const SomFormFieldMeta* formFieldCi(const SomMetaNode& node,
   return nullptr;
 }
 
+/* Parses an id-bearing `@Form` section's body: the preamble text before the
+ * first field label binds to the form's own content (SOM §11.4 rule 7);
+ * everything from the first label on binds to the named fields. */
 void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
                             const std::string& path) {
   SpecMarkdownFenceTracker fence;
@@ -1116,20 +1149,14 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
   std::vector<std::string> current;
 
   auto flush = [&](std::size_t lineNo) {
+    (void)lineNo;
+    std::string value = restoreValue(current);
     if (haveField) {
-      std::string value = restoreValue(current);
       if (!value.empty()) {
         stagedSetForm(path, *currentField, value);
       }
-    } else {
-      for (const auto& l : current) {
-        if (!trimSpace(l).empty()) {
-          pushRejection(lineNo, kSpecMarkdownRejectOrphanContent,
-                        "text in a @Form section before the first field label",
-                        path);
-          break;
-        }
-      }
+    } else if (!value.empty()) {
+      stagedSetContent(path, value);
     }
     current.clear();
   };

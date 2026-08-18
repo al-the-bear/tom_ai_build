@@ -938,6 +938,13 @@ function _buildFixtureDocument(): SpecDocument {
   d.setFormField('DEMO/DET', 'active', 'true');
   d.setFormField('DEMO/DET', 'estimate', '8');
   d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
+  // The form preamble (SOM §11.4 rule 7): free text in the form's own content
+  // slot, beside its fields. Line 2 is label-shaped AND shadows the declared
+  // `owner` field, so the rule-3 escape has to hold on emit.
+  d.setContent(
+    'DEMO/DET',
+    'Captured during the November review.\nOwner: this line is prose, not the field.',
+  );
   const i1 = d.addListItem('DEMO/items');
   d.setContent(`${i1}/label`, 'First');
   d.setContent(`${i1}/STS`, 'open');

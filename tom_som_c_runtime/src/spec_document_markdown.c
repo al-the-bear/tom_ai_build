@@ -924,8 +924,14 @@ static int write_body(MdCodec *c, SomBuf *b, const char *value,
   return 1;
 }
 
+/* formHasValues: whether the `@Form` node at `path` has anything to emit — its
+ * preamble content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any
+ * populated field. */
 static int form_has_values(MdCodec *c, const SomMetaNode *node,
                            const char *path) {
+  if (spec_document_content(c->document, path) != NULL) {
+    return 1;
+  }
   if (node->form == NULL) {
     return 0;
   }
@@ -938,9 +944,15 @@ static int form_has_values(MdCodec *c, const SomMetaNode *node,
   return 0;
 }
 
+/* writeForm: a `@Form` section body — the preamble content (when set) followed
+ * by one `FieldName: value` group per populated field (SOM §11.4). The field
+ * groups are buffered first so the preamble can be emitted above them with the
+ * blank-line separator only when there actually are field lines. */
 static int write_form(MdCodec *c, SomBuf *b, const SomMetaNode *node,
                       const char *path, char **err) {
   size_t nfields = node->form != NULL ? node->form->fields_len : 0;
+  SomBuf fieldbuf;
+  som_buf_init(&fieldbuf);
   for (size_t fi = 0; fi < nfields; fi++) {
     const SomFormFieldMeta *f = &node->form->fields[fi];
     const char *value = spec_document_form_field(c->document, path, f->name);
@@ -949,29 +961,62 @@ static int write_form(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     }
     char *prepared = NULL;
     if (!prepare_value(value, path, &prepared, err)) {
+      som_buf_free(&fieldbuf);
       return 0;
     }
     LineVec plines;
     split_lines(prepared, &plines);
     free(prepared);
     char *label = spec_markdown_form_label(f->name);
-    som_buf_puts(b, label);
-    som_buf_puts(b, ": ");
-    som_buf_puts(b, plines.len > 0 ? plines.items[0] : "");
-    som_buf_putc(b, '\n');
+    som_buf_puts(&fieldbuf, label);
+    som_buf_puts(&fieldbuf, ": ");
+    som_buf_puts(&fieldbuf, plines.len > 0 ? plines.items[0] : "");
+    som_buf_putc(&fieldbuf, '\n');
     free(label);
     for (size_t li = 1; li < plines.len; li++) {
       const char *line = plines.items[li];
       if (match_label_shaped(line)) {
-        som_buf_putc(b, ' ');
-        som_buf_puts(b, line);
+        som_buf_putc(&fieldbuf, ' ');
+        som_buf_puts(&fieldbuf, line);
       } else {
-        som_buf_puts(b, line);
+        som_buf_puts(&fieldbuf, line);
       }
-      som_buf_putc(b, '\n');
+      som_buf_putc(&fieldbuf, '\n');
     }
     lv_free(&plines);
   }
+  char *fields_text = som_buf_take(&fieldbuf);
+
+  const char *preamble = spec_document_content(c->document, path);
+  if (preamble != NULL) {
+    char *prepared = NULL;
+    if (!prepare_value(preamble, path, &prepared, err)) {
+      free(fields_text);
+      return 0;
+    }
+    if (prepared[0] != '\0') {
+      /* Every preamble line gets the same label-shaped escape a continuation
+       * line gets: the parser reaches a field label before it knows which text
+       * is preamble, so a `Word:` line at column 0 would mis-split. */
+      LineVec plines;
+      split_lines(prepared, &plines);
+      for (size_t li = 0; li < plines.len; li++) {
+        const char *line = plines.items[li];
+        if (match_label_shaped(line)) {
+          som_buf_putc(b, ' ');
+        }
+        som_buf_puts(b, line);
+        som_buf_putc(b, '\n');
+      }
+      lv_free(&plines);
+      if (fields_text[0] != '\0') {
+        som_buf_putc(b, '\n');
+      }
+    }
+    free(prepared);
+  }
+  som_buf_puts(b, fields_text);
+  free(fields_text);
   som_buf_putc(b, '\n');
   return 1;
 }
@@ -1431,6 +1476,9 @@ static void staged_set_form(MdParser *p, const char *form_path,
 
 /* ---- finalize form ------------------------------------------------------ */
 
+/* finalizeForm: parses an id-bearing `@Form` section's body — the preamble text
+ * before the first field label binds to the form's own content (SOM §11.4
+ * rule 7); everything from the first label on binds to the named fields. */
 static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
                           const char *path) {
   SpecMarkdownFenceTracker fence;
@@ -1443,26 +1491,16 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
   /* flush closure body */
 #define FORM_FLUSH(lineNo)                                                    \
   do {                                                                        \
+    (void)(lineNo);                                                           \
+    char *value = restore_value(current.items, current.len);                 \
     if (have_field) {                                                         \
-      char *value = restore_value(current.items, current.len);               \
       if (value[0] != '\0') {                                                 \
         staged_set_form(p, path, current_field, value);                      \
       }                                                                       \
-      free(value);                                                           \
-    } else {                                                                  \
-      for (size_t _k = 0; _k < current.len; _k++) {                          \
-        char *_ts = trim_space(current.items[_k]);                           \
-        int _nonblank = _ts[0] != '\0';                                      \
-        free(_ts);                                                            \
-        if (_nonblank) {                                                      \
-          parser_push_rejection(                                             \
-              p, (lineNo), SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,              \
-              "text in a @Form section before the first field label",        \
-              path);                                                          \
-          break;                                                             \
-        }                                                                     \
-      }                                                                       \
+    } else if (value[0] != '\0') {                                            \
+      staged_set_content(p, path, value);                                    \
     }                                                                         \
+    free(value);                                                             \
     lv_free(&current);                                                        \
     lv_init(&current);                                                        \
   } while (0)

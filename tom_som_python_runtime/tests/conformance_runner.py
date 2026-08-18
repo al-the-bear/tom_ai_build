@@ -160,6 +160,14 @@ def _build_document() -> SpecDocument:
     d.set_form_field("DEMO/DET", "active", "true")
     d.set_form_field("DEMO/DET", "estimate", "8")
     d.set_form_field("DEMO/DET", "contact", "bob@example.com")
+    # The form preamble (SOM §11.4 rule 7): free text in the form's own content
+    # slot, beside its fields. Line 2 is label-shaped AND shadows the declared
+    # `owner` field, so the rule-3 escape has to hold on emit.
+    d.set_content(
+        "DEMO/DET",
+        "Captured during the November review.\n"
+        "Owner: this line is prose, not the field.",
+    )
     i1 = d.add_list_item("DEMO/items")
     d.set_content(f"{i1}/label", "First")
     d.set_content(f"{i1}/STS", "open")

@@ -9,7 +9,10 @@
 //! by their stored section id (or an anonymous positional `<member>-<n>` key), a
 //! node's own body text uses the literal key `content`, a node's own stored
 //! headline (YRD3) uses the literal key `headline`, and form fields use their
-//! bare field names. A scalar-valued node (content/scalar/enum leaf or scalar
+//! bare field names. A `@Form` node's mapping carries its own preamble text —
+//! the free text before the first field (SOM §11.4 rule 7) — under the same
+//! literal `content` key, so a form section stores its body exactly as every
+//! other section does. A scalar-valued node (content/scalar/enum leaf or scalar
 //! list item) that carries a stored headline is emitted as a
 //! `{headline: …, content: …}` mapping. The former flat two-level path-map format
 //! (`document: {content: {"A/b": …}}`) is **retired**; readers reject
@@ -667,7 +670,11 @@ impl<'a> YamlEncoder<'a> {
         let fields = self.forms.remove(path).unwrap_or_default();
         let headline = self.headlines.remove(path);
         let code_spec = self.code_specs.remove(path);
-        if fields.is_empty() && headline.is_none() && code_spec.is_none() {
+        // The form's preamble — the free text before its first field (SOM §11.4
+        // rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
+        // under the literal `content` key, exactly as a section's body does.
+        let content = self.content.remove(path);
+        if fields.is_empty() && headline.is_none() && code_spec.is_none() && content.is_none() {
             return Ok(());
         }
         let empty_meta = SomFormMeta::default();
@@ -692,12 +699,21 @@ impl<'a> YamlEncoder<'a> {
                 path
             )));
         }
+        if content.is_some() && meta.field_named("content").is_some() {
+            return Err(yaml_format_err(format!(
+                "cannot emit the preamble content at `{}`: the form declares a field literally named `content`",
+                path
+            )));
+        }
         b.writeln(&format!("{}{}:", " ".repeat(indent), plain_key(key)));
         if let Some(h) = &headline {
             self.write_text(b, indent + 2, "headline", h);
         }
         if let Some(cs) = &code_spec {
             self.write_text(b, indent + 2, "codeSpec", cs);
+        }
+        if let Some(c) = &content {
+            self.write_text(b, indent + 2, "content", c);
         }
         for f in &meta.fields {
             let v = match fields.get(&f.name) {
@@ -1052,6 +1068,12 @@ impl YamlDecoder<'_> {
                         if name == "codeSpec" {
                             let v = decoder_scalar_of(raw, &format!("{} (codeSpec)", path))?;
                             self.doc.set_code_spec(path, &v);
+                            continue;
+                        }
+                        if name == "content" {
+                            // The form's preamble (SOM §11.4 rule 7 / §12.2).
+                            let v = decoder_scalar_of(raw, &format!("{}/content", path))?;
+                            self.doc.set_content(path, &v);
                             continue;
                         }
                         return Err(yaml_format_err(format!(

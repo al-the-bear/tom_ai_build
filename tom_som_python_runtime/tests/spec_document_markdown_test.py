@@ -392,6 +392,90 @@ def test_round_trip_label_shaped_continuation() -> None:
     _check("formCont.byteStable", _export(reloaded) == md1)
 
 
+# --- a form section's preamble (SOM §11.4 rule 7) -----------------------------
+
+
+def test_form_preamble_parses() -> None:
+    md = (
+        "# <!--[D00]--> Demo Document\n\n"
+        "## <!--[D00-HDR]--> Header\n\n"
+        "prose before any field label\n"
+        "Author: Ada Lovelace\n"
+    )
+    report = _parse(md)
+    _check("formPre.clean", report.is_clean,
+           "; ".join(str(r) for r in report.rejections))
+    _check("formPre.content",
+           report.content.get("D00/D00-HDR") == "prose before any field label",
+           repr(report.content.get("D00/D00-HDR")))
+    _check("formPre.fieldParsed",
+           report.forms.get("D00/D00-HDR") == {"author": "Ada Lovelace"},
+           str(report.forms))
+
+
+def test_form_preamble_emits() -> None:
+    doc = SpecDocument()
+    doc.set_content("D00/D00-HDR", "why this header exists")
+    doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace")
+    md = _export(doc)
+    _check("formPre.emitOrder",
+           "why this header exists\n\nAuthor: Ada Lovelace\n" in md, md)
+
+
+def test_form_preamble_only() -> None:
+    doc = SpecDocument()
+    doc.set_content("D00/D00-HDR", "nothing filled in yet")
+    md1 = _export(doc)
+    _check("formPreOnly.heading", "<!--[D00-HDR]-->" in md1, md1)
+    _check("formPreOnly.emitted", "nothing filled in yet" in md1, md1)
+
+    reloaded, report = _reload(md1)
+    _check("formPreOnly.clean", report.is_clean,
+           "; ".join(str(r) for r in report.rejections))
+    _check("formPreOnly.value",
+           reloaded.content("D00/D00-HDR") == "nothing filled in yet",
+           repr(reloaded.content("D00/D00-HDR")))
+    _check("formPreOnly.byteStable", _export(reloaded) == md1)
+
+
+def test_form_preamble_round_trip() -> None:
+    doc = SpecDocument()
+    doc.set_content("D00/D00-HDR", "first paragraph\n\nsecond paragraph")
+    doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace")
+    md1 = _export(doc)
+    reloaded, report = _reload(md1)
+    _check("formPreRT.clean", report.is_clean,
+           "; ".join(str(r) for r in report.rejections))
+    _check("formPreRT.content",
+           reloaded.content("D00/D00-HDR")
+           == "first paragraph\n\nsecond paragraph",
+           repr(reloaded.content("D00/D00-HDR")))
+    _check("formPreRT.field",
+           reloaded.form_field("D00/D00-HDR", "author") == "Ada Lovelace")
+    _check("formPreRT.byteStable", _export(reloaded) == md1)
+
+
+def test_form_preamble_label_shaped() -> None:
+    # Without the escape the parser would read `Author: ...` as the first field
+    # label and the line would leave the preamble.
+    doc = SpecDocument()
+    doc.set_content("D00/D00-HDR", "Author: is a field of this form")
+    doc.set_form_field("D00/D00-HDR", "author", "Ada Lovelace")
+    md1 = _export(doc)
+    _check("formPreLbl.escaped",
+           "\n Author: is a field of this form\n" in md1, md1)
+
+    reloaded, report = _reload(md1)
+    _check("formPreLbl.clean", report.is_clean,
+           "; ".join(str(r) for r in report.rejections))
+    _check("formPreLbl.content",
+           reloaded.content("D00/D00-HDR") == "Author: is a field of this form",
+           repr(reloaded.content("D00/D00-HDR")))
+    _check("formPreLbl.field",
+           reloaded.form_field("D00/D00-HDR", "author") == "Ada Lovelace")
+    _check("formPreLbl.byteStable", _export(reloaded) == md1)
+
+
 # --- parse-rejection protocol (SOM §11.7) -------------------------------------
 
 
@@ -449,24 +533,6 @@ def test_reject_orphan_preamble() -> None:
            "; ".join(str(r) for r in report.rejections))
     _check("reject.orphanPreamble.kept",
            report.content.get("D00/D00-OVR") == "kept")
-
-
-def test_reject_orphan_form_prose() -> None:
-    md = (
-        "# <!--[D00]--> Demo Document\n\n"
-        "## <!--[D00-HDR]--> Header\n\n"
-        "prose before any field label\n"
-        "Author: Ada Lovelace\n"
-    )
-    report = _parse(md)
-    _check("reject.orphanForm.reason",
-           any(r.reason == SpecMarkdownRejectReason.ORPHAN_CONTENT
-               for r in report.rejections),
-           "; ".join(str(r) for r in report.rejections))
-    # The labelled field still parses.
-    _check("reject.orphanForm.fieldParsed",
-           report.forms.get("D00/D00-HDR") == {"author": "Ada Lovelace"},
-           str(report.forms))
 
 
 def test_reject_kind_mismatch() -> None:
@@ -598,10 +664,14 @@ def main() -> int:
     test_round_trip_rich_markdown()
     test_round_trip_stored_item_id()
     test_round_trip_label_shaped_continuation()
+    test_form_preamble_parses()
+    test_form_preamble_emits()
+    test_form_preamble_only()
+    test_form_preamble_round_trip()
+    test_form_preamble_label_shaped()
     test_reject_unknown_section()
     test_reject_malformed_heading()
     test_reject_orphan_preamble()
-    test_reject_orphan_form_prose()
     test_reject_kind_mismatch()
     test_reject_missing_value()
     test_case_insensitive_labels()

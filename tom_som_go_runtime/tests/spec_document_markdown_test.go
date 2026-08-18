@@ -317,6 +317,80 @@ func TestMarkdownRoundTripLabelShapedContinuation(t *testing.T) {
 	mdCheck(t, "formCont.byteStable", mdExport(t, reloaded) == md1)
 }
 
+// --- a form section's preamble (SOM §11.4 rule 7) -----------------------------
+
+func TestMarkdownFormPreambleParses(t *testing.T) {
+	md := "# <!--[D00]--> Demo Document\n\n" +
+		"## <!--[D00-HDR]--> Header\n\n" +
+		"prose before any field label\n" +
+		"Author: Ada Lovelace\n"
+	report := mdParse(t, md)
+	mdCheck(t, "formPre.clean", report.IsClean(), mdRejStr(report))
+	mdCheck(t, "formPre.content",
+		report.Content["D00/D00-HDR"] == "prose before any field label",
+		fmt.Sprintf("%q", report.Content["D00/D00-HDR"]))
+	mdCheck(t, "formPre.fieldParsed",
+		mdShallowEqual(report.Forms["D00/D00-HDR"], map[string]string{"author": "Ada Lovelace"}),
+		fmt.Sprintf("%v", report.Forms))
+}
+
+func TestMarkdownFormPreambleEmits(t *testing.T) {
+	doc := som.NewSpecDocument()
+	doc.SetContent("D00/D00-HDR", "why this header exists")
+	doc.SetFormField("D00/D00-HDR", "author", "Ada Lovelace")
+	md := mdExport(t, doc)
+	mdCheck(t, "formPre.emitOrder",
+		strings.Contains(md, "why this header exists\n\nAuthor: Ada Lovelace\n"), md)
+}
+
+func TestMarkdownFormPreambleOnly(t *testing.T) {
+	doc := som.NewSpecDocument()
+	doc.SetContent("D00/D00-HDR", "nothing filled in yet")
+	md1 := mdExport(t, doc)
+	mdCheck(t, "formPreOnly.emitted", strings.Contains(md1, "nothing filled in yet"), md1)
+
+	reloaded, report := mdReload(t, md1)
+	mdCheck(t, "formPreOnly.clean", report.IsClean(), mdRejStr(report))
+	mdCheck(t, "formPreOnly.value",
+		reloaded.ContentOr("D00/D00-HDR") == "nothing filled in yet")
+	mdCheck(t, "formPreOnly.byteStable", mdExport(t, reloaded) == md1)
+}
+
+func TestMarkdownFormPreambleRoundTrip(t *testing.T) {
+	doc := som.NewSpecDocument()
+	doc.SetContent("D00/D00-HDR", "first paragraph\n\nsecond paragraph")
+	doc.SetFormField("D00/D00-HDR", "author", "Ada Lovelace")
+	md1 := mdExport(t, doc)
+	reloaded, report := mdReload(t, md1)
+	mdCheck(t, "formPreRT.clean", report.IsClean(), mdRejStr(report))
+	mdCheck(t, "formPreRT.content",
+		reloaded.ContentOr("D00/D00-HDR") == "first paragraph\n\nsecond paragraph",
+		fmt.Sprintf("%q", reloaded.ContentOr("D00/D00-HDR")))
+	mdCheck(t, "formPreRT.field",
+		reloaded.FormFieldOr("D00/D00-HDR", "author") == "Ada Lovelace")
+	mdCheck(t, "formPreRT.byteStable", mdExport(t, reloaded) == md1)
+}
+
+func TestMarkdownFormPreambleLabelShaped(t *testing.T) {
+	// Without the escape the parser would read `Author: ...` as the first field
+	// label and the line would leave the preamble.
+	doc := som.NewSpecDocument()
+	doc.SetContent("D00/D00-HDR", "Author: is a field of this form")
+	doc.SetFormField("D00/D00-HDR", "author", "Ada Lovelace")
+	md1 := mdExport(t, doc)
+	mdCheck(t, "formPreLbl.escaped",
+		strings.Contains(md1, "\n Author: is a field of this form\n"), md1)
+
+	reloaded, report := mdReload(t, md1)
+	mdCheck(t, "formPreLbl.clean", report.IsClean(), mdRejStr(report))
+	mdCheck(t, "formPreLbl.content",
+		reloaded.ContentOr("D00/D00-HDR") == "Author: is a field of this form",
+		fmt.Sprintf("%q", reloaded.ContentOr("D00/D00-HDR")))
+	mdCheck(t, "formPreLbl.field",
+		reloaded.FormFieldOr("D00/D00-HDR", "author") == "Ada Lovelace")
+	mdCheck(t, "formPreLbl.byteStable", mdExport(t, reloaded) == md1)
+}
+
 // --- parse-rejection protocol (SOM §11.7) -------------------------------------
 
 func TestMarkdownRejectUnknownSection(t *testing.T) {
@@ -373,25 +447,6 @@ func TestMarkdownRejectOrphanPreamble(t *testing.T) {
 	}
 	mdCheck(t, "reject.orphanPreamble.reason", found, mdRejStr(report))
 	mdCheck(t, "reject.orphanPreamble.kept", report.Content["D00/D00-OVR"] == "kept")
-}
-
-func TestMarkdownRejectOrphanFormProse(t *testing.T) {
-	md := "# <!--[D00]--> Demo Document\n\n" +
-		"## <!--[D00-HDR]--> Header\n\n" +
-		"prose before any field label\n" +
-		"Author: Ada Lovelace\n"
-	report := mdParse(t, md)
-	found := false
-	for _, r := range report.Rejections {
-		if r.Reason == som.SpecMarkdownRejectOrphanContent {
-			found = true
-		}
-	}
-	mdCheck(t, "reject.orphanForm.reason", found, mdRejStr(report))
-	// The labelled field still parses.
-	mdCheck(t, "reject.orphanForm.fieldParsed",
-		mdShallowEqual(report.Forms["D00/D00-HDR"], map[string]string{"author": "Ada Lovelace"}),
-		fmt.Sprintf("%v", report.Forms))
 }
 
 func TestMarkdownRejectKindMismatch(t *testing.T) {

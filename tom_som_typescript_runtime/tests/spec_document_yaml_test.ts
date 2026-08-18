@@ -444,6 +444,118 @@ function testClassLevelOnlyKey(): void {
   _check('clskey.rt.owner', out.content('D00/control/owner') === 'the owner');
 }
 
+// --- a form section's preamble (SOM §11.4 rule 7 / §12.2) --------------------
+
+function testFormPreamble(): void {
+  // A form node carries its own body under the literal `content` key — the
+  // reserved key sits above the fields, exactly as for a section.
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-HDR', 'why this header exists');
+  doc.setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+  const yaml = _enc(doc);
+  _check(
+    'formPre.shape',
+    yaml.includes(
+      '\n    D00-HDR header:\n' +
+        '      content: |2-\n' +
+        '        why this header exists\n' +
+        '      author: |2-\n' +
+        '        Ada Lovelace\n',
+    ),
+    yaml,
+  );
+}
+
+function testFormPreambleOnly(): void {
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-HDR', 'nothing filled in yet');
+  const yaml = _enc(doc);
+  _check(
+    'formPre.only',
+    yaml.includes(
+      '\n    D00-HDR header:\n' +
+        '      content: |2-\n' +
+        '        nothing filled in yet\n',
+    ),
+    yaml,
+  );
+}
+
+function testFormPreambleRoundTrip(): void {
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-HDR', 'first paragraph\n\nsecond paragraph');
+  doc.setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+  const yaml1 = _enc(doc);
+  const out = _dec(yaml1).document;
+  _check(
+    'formPre.rtContent',
+    out.content('D00/D00-HDR') === 'first paragraph\n\nsecond paragraph',
+    JSON.stringify(out.content('D00/D00-HDR')),
+  );
+  _check(
+    'formPre.rtField',
+    out.formField('D00/D00-HDR', 'author') === 'Ada Lovelace',
+  );
+  _check('formPre.byteStable', _enc(out) === yaml1, _enc(out));
+}
+
+function testFormPreambleContentFieldClash(): void {
+  // A form declaring a field literally named `content` (SOM §12.3 rule 6): the
+  // reserved key would be ambiguous — is it the preamble or the field? The
+  // encoder refuses rather than write a file it cannot read back.
+  const clashTree = buildSomMetaTree(
+    SpecModel.fromJson({
+      modelVersion: 1,
+      roots: [{ type: 'Clash', title: 'Clash', sectionId: 'C00' }],
+      classes: {
+        Clash: {
+          name: 'Clash',
+          sectionId: 'C00',
+          fields: [
+            {
+              name: 'header',
+              kind: 'form',
+              sectionId: 'C00-HDR',
+              serializationOrder: 0,
+              formFields: [
+                { name: 'content', label: 'Content', type: 'String' },
+              ],
+            },
+          ],
+        },
+      },
+    }),
+  );
+  // The field alone is fine: a declared field wins on decode, so the key is
+  // unambiguous as long as the preamble is not also present.
+  const fieldOnly = new SpecDocument();
+  fieldOnly.setFormField('C00/C00-HDR', 'content', 'a field value');
+  const fieldYaml = yamlEncode(fieldOnly, clashTree, null);
+  _check(
+    'formPre.clashFieldOnly',
+    fieldYaml.includes('      content: |2-\n        a field value\n'),
+    fieldYaml,
+  );
+  _check(
+    'formPre.clashFieldDecodes',
+    yamlDecode(fieldYaml, clashTree).document.formField(
+      'C00/C00-HDR',
+      'content',
+    ) === 'a field value',
+  );
+
+  const withPreamble = new SpecDocument();
+  withPreamble.setContent('C00/C00-HDR', 'the preamble');
+  withPreamble.setFormField('C00/C00-HDR', 'content', 'a field value');
+  _check(
+    'formPre.clashRefused',
+    _throwsFormat(
+      () => yamlEncode(withPreamble, clashTree, null),
+      'literally named',
+    ),
+  );
+}
+
 // --- codespecs_mapping.md §9.2 codeSpec forward-link (csmc8)
 // --------------------------------------
 
@@ -485,6 +597,10 @@ function main(): number {
   testRoundTrip();
   testStrictDecode();
   testClassLevelOnlyKey();
+  testFormPreamble();
+  testFormPreambleOnly();
+  testFormPreambleRoundTrip();
+  testFormPreambleContentFieldClash();
   testCodeSpecRoundTrip();
   testCodeSpecByteStable();
 

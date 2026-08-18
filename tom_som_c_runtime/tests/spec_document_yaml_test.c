@@ -9,7 +9,7 @@
  * the SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
  * structured load errors.
  *
- * 58 checks; check names byte-match the Go suite. Exit status is the number
+ * 80 checks; check names byte-match the Go suite. Exit status is the number
  * of failed checks (0 = green).
  */
 #include <stdio.h>
@@ -613,6 +613,139 @@ static void yaml_test_class_level_only_key(void) {
   spec_document_free(&doc);
 }
 
+/* A `@Form` node carries its own body text — the free text before its first
+ * field (SOM §11.4 rule 7) — under the same literal `content` key every other
+ * section uses (SOM §12.2); a form declaring a field literally named `content`
+ * is a collision (§12.3 rule 6). */
+static const char *yaml_clash_model_json =
+    "{\n"
+    "  \"modelVersion\": 1,\n"
+    "  \"roots\": [{\"type\": \"Clash\", \"title\": \"Clash\", \"sectionId\": "
+    "\"C00\"}],\n"
+    "  \"classes\": {\n"
+    "    \"Clash\": {\n"
+    "      \"name\": \"Clash\",\n"
+    "      \"sectionId\": \"C00\",\n"
+    "      \"fields\": [\n"
+    "        {\"name\": \"header\", \"kind\": \"form\", \"sectionId\": "
+    "\"C00-HDR\",\n"
+    "         \"serializationOrder\": 0,\n"
+    "         \"formFields\": [{\"name\": \"content\", \"label\": \"Content\", "
+    "\"type\": \"String\"}]}\n"
+    "      ]\n"
+    "    }\n"
+    "  }\n"
+    "}";
+
+static void yaml_test_form_preamble(void) {
+  {
+    SpecDocument doc;
+    spec_document_init(&doc);
+    spec_document_set_content(&doc, "D00/D00-HDR", "why this header exists");
+    spec_document_set_form_field(&doc, "D00/D00-HDR", "author", "Ada Lovelace");
+    char *yaml = yaml_enc(&doc, "");
+    check("formPre.shape",
+          strstr(yaml, "\n    D00-HDR header:\n"
+                       "      content: |2-\n"
+                       "        why this header exists\n"
+                       "      author: |2-\n"
+                       "        Ada Lovelace\n") != NULL,
+          yaml);
+    free(yaml);
+    spec_document_free(&doc);
+  }
+
+  {
+    SpecDocument only;
+    spec_document_init(&only);
+    spec_document_set_content(&only, "D00/D00-HDR", "nothing filled in yet");
+    char *yaml = yaml_enc(&only, "");
+    check("formPre.only",
+          strstr(yaml, "\n    D00-HDR header:\n      content: |2-\n"
+                       "        nothing filled in yet\n") != NULL,
+          yaml);
+    free(yaml);
+    spec_document_free(&only);
+  }
+
+  {
+    SpecDocument multi;
+    spec_document_init(&multi);
+    spec_document_set_content(&multi, "D00/D00-HDR",
+                              "first paragraph\n\nsecond paragraph");
+    spec_document_set_form_field(&multi, "D00/D00-HDR", "author",
+                                 "Ada Lovelace");
+    char *yaml1 = yaml_enc(&multi, "");
+    SpecYamlContents out;
+    yaml_dec(yaml1, &out);
+    check("formPre.rtContent",
+          strcmp(content_or(&out.document, "D00/D00-HDR"),
+                 "first paragraph\n\nsecond paragraph") == 0,
+          content_or(&out.document, "D00/D00-HDR"));
+    check("formPre.rtField",
+          strcmp(form_field_or(&out.document, "D00/D00-HDR", "author"),
+                 "Ada Lovelace") == 0,
+          "");
+    char *yaml2 = yaml_enc(&out.document, "");
+    check("formPre.byteStable", str_eq(yaml2, yaml1), yaml2);
+    free(yaml2);
+    spec_yaml_contents_free(&out);
+    free(yaml1);
+    spec_document_free(&multi);
+  }
+
+  /* A form declaring a field literally named `content`: the field alone is
+   * fine (a declared field wins on decode), the preamble beside it collides. */
+  {
+    char *err = NULL;
+    SpecModel *clash_model = spec_model_from_json_str(yaml_clash_model_json,
+                                                      &err);
+    if (clash_model == NULL) fatal("clash model", err);
+    SomMetaTree *clash_tree = som_build_meta_tree(clash_model, "", &err);
+    if (clash_tree == NULL) fatal("clash tree", err);
+
+    SpecDocument field_only;
+    spec_document_init(&field_only);
+    spec_document_set_form_field(&field_only, "C00/C00-HDR", "content",
+                                 "a field value");
+    char *field_yaml = encode_yaml(&field_only, clash_tree, "", &err);
+    if (field_yaml == NULL) fatal("clash encode", err);
+    check("formPre.clashFieldOnly",
+          strstr(field_yaml,
+                 "      content: |2-\n        a field value\n") != NULL,
+          field_yaml);
+    SpecYamlContents decoded;
+    if (!decode_yaml(field_yaml, clash_tree, &decoded, &err)) {
+      fatal("clash decode", err);
+    }
+    check("formPre.clashFieldDecodes",
+          strcmp(form_field_or(&decoded.document, "C00/C00-HDR", "content"),
+                 "a field value") == 0,
+          "");
+    spec_yaml_contents_free(&decoded);
+    free(field_yaml);
+    spec_document_free(&field_only);
+
+    SpecDocument with_preamble;
+    spec_document_init(&with_preamble);
+    spec_document_set_content(&with_preamble, "C00/C00-HDR", "the preamble");
+    spec_document_set_form_field(&with_preamble, "C00/C00-HDR", "content",
+                                 "a field value");
+    char *clash_err = NULL;
+    char *refused = encode_yaml(&with_preamble, clash_tree, "", &clash_err);
+    check("formPre.clashRefused",
+          refused == NULL && clash_err != NULL &&
+              strstr(clash_err, "literally named") != NULL,
+          clash_err != NULL ? clash_err : "(encode succeeded)");
+    free(refused);
+    free(clash_err);
+    spec_document_free(&with_preamble);
+
+    som_meta_tree_free(clash_tree);
+    spec_model_free(clash_model);
+  }
+}
+
 /* csmc8 (codespecs_mapping.md §9.2): a stored codeSpec — the forward DocSpecs→CodeSpecs link,
  * structurally a byte-for-byte mirror of the stored headline — survives the
  * yaml round-trip and re-encode is byte-stable. Mirrors the Python
@@ -668,6 +801,7 @@ int main(void) {
   yaml_test_round_trip();
   yaml_test_strict_decode();
   yaml_test_class_level_only_key();
+  yaml_test_form_preamble();
   yaml_test_code_spec();
 
   som_meta_tree_free(g_tree);

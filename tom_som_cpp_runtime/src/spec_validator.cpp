@@ -385,7 +385,10 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
            "path does not resolve to any model node");
       continue;
     }
-    if (!res->isValueLeaf()) {
+    // A form node is the one non-leaf that legitimately carries content: it is
+    // the form's preamble, the free text before the first field line (SOM §11.4
+    // rule 7), in the same slot a plain section's body uses.
+    if (!res->isValueLeaf() && res->kind != kSpecNodeKindForm) {
       push(path, kSpecValidationCodeKindMismatch,
            "expected a value leaf but path resolves to " + res->kind);
     }

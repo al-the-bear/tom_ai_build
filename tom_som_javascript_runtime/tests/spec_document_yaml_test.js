@@ -444,6 +444,110 @@ function testClassLevelOnlyKey() {
   _check('clskey.rt.owner', out.content('D00/control/owner') === 'the owner');
 }
 
+// --- a form section's preamble (SOM §11.4 rule 7 / §12.2) ---------------------
+
+/**
+ * A `@Form` node carries its own body text — the free text before its first
+ * field — under the same literal `content` key every other section uses, and a
+ * form declaring a field literally named `content` is a collision (§12.3
+ * rule 6).
+ */
+function testFormPreamble() {
+  const doc = new SpecDocument();
+  doc.setContent('D00/D00-HDR', 'why this header exists');
+  doc.setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+  const yaml = _enc(doc);
+  // The reserved key sits above the fields, exactly as for a section.
+  _check(
+    'formPre.shape',
+    yaml.includes(
+      '\n    D00-HDR header:\n' +
+        '      content: |2-\n' +
+        '        why this header exists\n' +
+        '      author: |2-\n' +
+        '        Ada Lovelace\n',
+    ),
+    yaml,
+  );
+
+  const only = new SpecDocument();
+  only.setContent('D00/D00-HDR', 'nothing filled in yet');
+  _check(
+    'formPre.only',
+    _enc(only).includes(
+      '\n    D00-HDR header:\n' +
+        '      content: |2-\n' +
+        '        nothing filled in yet\n',
+    ),
+    _enc(only),
+  );
+
+  const multi = new SpecDocument();
+  multi.setContent('D00/D00-HDR', 'first paragraph\n\nsecond paragraph');
+  multi.setFormField('D00/D00-HDR', 'author', 'Ada Lovelace');
+  const yaml1 = _enc(multi);
+  const out = _dec(yaml1).document;
+  _check(
+    'formPre.rtContent',
+    out.content('D00/D00-HDR') === 'first paragraph\n\nsecond paragraph',
+    JSON.stringify(out.content('D00/D00-HDR')),
+  );
+  _check(
+    'formPre.rtField',
+    out.formField('D00/D00-HDR', 'author') === 'Ada Lovelace',
+  );
+  _check('formPre.byteStable', _enc(out) === yaml1);
+
+  // A form declaring a field literally named `content`: the field alone is
+  // fine (a declared field wins on decode), the preamble beside it collides —
+  // the encoder refuses rather than write a file it cannot read back.
+  const clashTree = buildSomMetaTree(SpecModel.fromJson({
+    modelVersion: 1,
+    roots: [{ type: 'Clash', title: 'Clash', sectionId: 'C00' }],
+    classes: {
+      Clash: {
+        name: 'Clash',
+        sectionId: 'C00',
+        fields: [
+          {
+            name: 'header',
+            kind: 'form',
+            sectionId: 'C00-HDR',
+            serializationOrder: 0,
+            formFields: [
+              { name: 'content', label: 'Content', type: 'String' },
+            ],
+          },
+        ],
+      },
+    },
+  }));
+  const fieldOnly = new SpecDocument();
+  fieldOnly.setFormField('C00/C00-HDR', 'content', 'a field value');
+  const fieldYaml = yamlEncode(fieldOnly, clashTree, null);
+  _check(
+    'formPre.clashFieldOnly',
+    fieldYaml.includes('      content: |2-\n        a field value\n'),
+    fieldYaml,
+  );
+  _check(
+    'formPre.clashFieldDecodes',
+    yamlDecode(fieldYaml, clashTree).document
+      .formField('C00/C00-HDR', 'content') === 'a field value',
+  );
+
+  const withPreamble = new SpecDocument();
+  withPreamble.setContent('C00/C00-HDR', 'the preamble');
+  withPreamble.setFormField('C00/C00-HDR', 'content', 'a field value');
+  _check(
+    'formPre.clashRefused',
+    _throwsFormat(
+      () => yamlEncode(withPreamble, clashTree, null),
+      'literally named',
+    ),
+  );
+}
+
 // --- csmc8: stored codeSpec survives the yaml round-trip (codespecs_mapping.md
 // §9.2) --------------
 
@@ -479,6 +583,7 @@ function main() {
   testRoundTrip();
   testStrictDecode();
   testClassLevelOnlyKey();
+  testFormPreamble();
   testCodeSpecRoundTrip();
   testCodeSpecByteStable();
 

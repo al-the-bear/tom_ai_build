@@ -10,7 +10,10 @@
  * by their stored section id (or an anonymous positional `<member>-<n>` key), a
  * node's own body text uses the literal key `content`, a node's **stored
  * headline** (YRD3) uses the literal key `headline`, and form fields use
- * their bare field names. A scalar-valued node (content/scalar/enum leaf or
+ * their bare field names. A `@Form` node's mapping carries its own preamble
+ * text — the free text before the first field (SOM §11.4 rule 7) — under the
+ * same literal `content` key, so a form section stores its body exactly as
+ * every other section does. A scalar-valued node (content/scalar/enum leaf or
  * scalar list item) that carries a stored headline is emitted as a
  * `{headline: …, content: …}` mapping. The former flat two-level path-map format
  * (`document: {content: {"A/b": …}}`) is **retired**; readers reject
@@ -577,7 +580,13 @@ class _Encoder {
     const hasCodeSpec = this._codeSpecs.has(path);
     const codeSpec = hasCodeSpec ? (this._codeSpecs.get(path) as string) : null;
     this._codeSpecs.delete(path);
-    if (fields.size === 0 && !hasHeadline && !hasCodeSpec) {
+    // The form's preamble — the free text before its first field (SOM §11.4
+    // rule 7, the DocSpecs `${text[]}` region) — rides in the same mapping
+    // under the literal `content` key, exactly as a section's body does.
+    const hasContent = this._content.has(path);
+    const content = hasContent ? (this._content.get(path) as string) : null;
+    this._content.delete(path);
+    if (fields.size === 0 && !hasHeadline && !hasCodeSpec && !hasContent) {
       return;
     }
     const meta = node.form !== null && node.form !== undefined
@@ -603,12 +612,21 @@ class _Encoder {
           'field literally named `codeSpec`',
       );
     }
+    if (hasContent && meta.fieldNamed('content') !== null) {
+      throw new SpecYamlFormatException(
+        `cannot emit the preamble content at \`${path}\`: the form declares a ` +
+          'field literally named `content`',
+      );
+    }
     b.writeln(`${' '.repeat(indent)}${plainKey(key)}:`);
     if (hasHeadline) {
       this._writeText(b, indent + 2, 'headline', headline as string);
     }
     if (hasCodeSpec) {
       this._writeText(b, indent + 2, 'codeSpec', codeSpec as string);
+    }
+    if (hasContent) {
+      this._writeText(b, indent + 2, 'content', content as string);
     }
     for (const f of meta.fields) {
       if (!fields.has(f.name)) {
@@ -918,6 +936,11 @@ class _Decoder {
               path,
               _Decoder._scalarOf(v, `${path} (codeSpec)`),
             );
+            continue;
+          }
+          if (name === 'content') {
+            // The form's preamble (SOM §11.4 rule 7 / §12.2).
+            this.doc.setContent(path, _Decoder._scalarOf(v, `${path}/content`));
             continue;
           }
           throw new SpecYamlFormatException(

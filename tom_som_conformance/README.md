@@ -340,20 +340,24 @@ Three properties are deliberate:
   the rest still landed", which is why every case carries both.
 - **The `message` is pinned**, for the same reason as the version tier: a reason
   is one classification with several causes. `unknownSection` has three (no match
-  at this position, an unresolvable parent, no such document root) and
-  `orphanContent` two (before the root, before a form's first field label); a
-  table pinning only the reason would let a port collapse them.
+  at this position, an unresolvable parent, no such document root); a table
+  pinning only the reason would let a port collapse them. `orphanContent` now has
+  exactly one — text before the document root. Text before a form's first field
+  label used to be its second, and the case that pinned it is still in the table,
+  now asserting the opposite: that prose is the form's preamble (SOM §11.4 rule
+  7), it lands in the form's content, and nothing is rejected. A case kept
+  because its verdict flipped is worth more than one deleted.
 - **Cases are parsed against a fresh document.** Headline staging compares
   against the *schema* default, never against the target document, so a parse is
   document-independent and each case is reproducible in isolation.
 
-The ten cases cover each reason at least once, the two multi-cause reasons in
-each of their causes, a rejected block coexisting with imported ones in every
-case but the one where the root itself is unknown, and one document exercising
-all five reasons at once — which also pins the **report order**, not the same as
-ascending source order (a `missingValue` is raised once the parser has moved past
-the empty section's heading). All nine ports agreed on their first run; unlike
-the version tier, this one found no divergence.
+The ten cases cover each reason at least once, `unknownSection` in each of its
+three causes, a rejected block coexisting with imported ones in every case but
+the one where the root itself is unknown, and one document exercising all five
+reasons at once — which also pins the **report order**, not the same as ascending
+source order (a `missingValue` is raised once the parser has moved past the empty
+section's heading). All nine ports agreed on their first run; unlike the version
+tier, this one found no divergence.
 
 #### …and so does the Phase-4 CodeSpecs extract tier
 
