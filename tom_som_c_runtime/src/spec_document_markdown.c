@@ -924,32 +924,103 @@ static int write_body(MdCodec *c, SomBuf *b, const char *value,
   return 1;
 }
 
+/* undeclaredFormFields: the first stored field name at form `path` that `node`
+ * does not declare, in sorted order (SOM §9, "Form-field order"); NULL when
+ * every stored field is declared. Owned result.
+ *
+ * The emit walk is meta-driven — it iterates the model's declared fields — so a
+ * stored field the model does not know is invisible to it and cannot be dropped
+ * *loudly*. Seeing it at all needs this deliberate reverse check: store keys
+ * minus meta keys, which is the check the yaml codec already has (SOM §12.8).
+ * `spec_document_form_field_names` is byte-sorted, so the first hit is the
+ * sorted-first one — the same field the other eight ports report. */
+static char *first_undeclared_form_field(MdCodec *c, const SomMetaNode *node,
+                                         const char *path) {
+  SomStrList names;
+  spec_document_form_field_names(c->document, path, &names);
+  char *found = NULL;
+  for (size_t i = 0; i < names.len && found == NULL; i++) {
+    int declared = 0;
+    if (node->form != NULL) {
+      for (size_t fi = 0; fi < node->form->fields_len && !declared; fi++) {
+        if (strcmp(node->form->fields[fi].name, names.items[i]) == 0) {
+          declared = 1;
+        }
+      }
+    }
+    if (!declared) {
+      found = som_strdup(names.items[i]);
+    }
+  }
+  som_strlist_free(&names);
+  return found;
+}
+
+/* checkFormDeclared: 0 (writing `*err`) when the form at `path` holds a field
+ * the model does not declare (SOM §9, "Form-field order" — md refuses, matching
+ * yaml).
+ *
+ * Emitting it is impossible: the DocSpecs markdown grammar has no spelling for a
+ * field outside the model, and omitting it would lose a stored value in a file
+ * that looks complete. On import a partial document is normal and the codec
+ * reports-and-skips (SOM §11.7); on export the document is complete and a lossy
+ * rendering is a trap, so the codec refuses instead. */
+static int check_form_declared(MdCodec *c, const SomMetaNode *node,
+                               const char *path, char **err) {
+  char *name = first_undeclared_form_field(c, node, path);
+  if (name == NULL) {
+    return 1;
+  }
+  if (err != NULL) {
+    char *head = vcat3("form at \"", path, "\" holds a field \"");
+    *err = vcat3(head, name,
+                 "\" unknown to the model; it cannot be represented in the "
+                 "DocSpecs markdown format");
+    free(head);
+  }
+  free(name);
+  return 0;
+}
+
 /* formHasValues: whether the `@Form` node at `path` has anything to emit — its
  * preamble content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any
- * populated field. */
+ * populated field.
+ *
+ * An undeclared stored field counts too — not because it can be emitted, but so
+ * the section is still *visited* and `write_form` refuses. Without it a form
+ * holding nothing but undeclared fields would vanish unseen, which is the silent
+ * drop this check exists to prevent. */
 static int form_has_values(MdCodec *c, const SomMetaNode *node,
                            const char *path) {
   if (spec_document_content(c->document, path) != NULL) {
     return 1;
   }
-  if (node->form == NULL) {
-    return 0;
-  }
-  for (size_t i = 0; i < node->form->fields_len; i++) {
-    if (spec_document_form_field(c->document, path,
-                                 node->form->fields[i].name) != NULL) {
-      return 1;
+  if (node->form != NULL) {
+    for (size_t i = 0; i < node->form->fields_len; i++) {
+      if (spec_document_form_field(c->document, path,
+                                   node->form->fields[i].name) != NULL) {
+        return 1;
+      }
     }
   }
-  return 0;
+  char *undeclared = first_undeclared_form_field(c, node, path);
+  if (undeclared == NULL) {
+    return 0;
+  }
+  free(undeclared);
+  return 1;
 }
 
 /* writeForm: a `@Form` section body — the preamble content (when set) followed
  * by one `FieldName: value` group per populated field (SOM §11.4). The field
  * groups are buffered first so the preamble can be emitted above them with the
- * blank-line separator only when there actually are field lines. */
+ * blank-line separator only when there actually are field lines. Returns 0
+ * (writing `*err`) when the form holds a field the model does not declare. */
 static int write_form(MdCodec *c, SomBuf *b, const SomMetaNode *node,
                       const char *path, char **err) {
+  if (!check_form_declared(c, node, path, err)) {
+    return 0;
+  }
   size_t nfields = node->form != NULL ? node->form->fields_len : 0;
   SomBuf fieldbuf;
   som_buf_init(&fieldbuf);

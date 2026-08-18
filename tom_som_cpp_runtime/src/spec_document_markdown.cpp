@@ -10,8 +10,10 @@
  * purely positional. */
 #include "spec_document_markdown.hpp"
 
+#include <algorithm>
 #include <map>
 #include <memory>
+#include <set>
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -735,29 +737,81 @@ void writeBody(std::string& b, const std::string& value,
   b.push_back('\n');
 }
 
+/* The stored field names at form `path` that `node` does not declare, sorted
+ * (SOM §9, "Form-field order").
+ *
+ * The emit walk is meta-driven — it iterates the model's declared fields — so a
+ * stored field the model does not know is invisible to it and cannot be dropped
+ * *loudly*. Seeing it at all needs this deliberate reverse check: store keys
+ * minus meta keys, which is the check the yaml codec already has (SOM §12.8). */
+std::vector<std::string> undeclaredFormFields(const SpecDocument& doc,
+                                              const SomMetaNode& node,
+                                              const std::string& path) {
+  std::set<std::string> declared;
+  if (node.form.has_value()) {
+    for (const auto& f : node.form->fields) {
+      declared.insert(f.name);
+    }
+  }
+  std::vector<std::string> out;
+  for (const auto& name : doc.formFieldNames(path)) {
+    if (declared.find(name) == declared.end()) {
+      out.push_back(name);
+    }
+  }
+  std::sort(out.begin(), out.end());
+  return out;
+}
+
+/* Throws when the form at `path` holds a field the model does not declare
+ * (SOM §9, "Form-field order" — md refuses, matching yaml).
+ *
+ * Emitting it is impossible: the DocSpecs markdown grammar has no spelling for a
+ * field outside the model, and omitting it would lose a stored value in a file
+ * that looks complete. On import a partial document is normal and the codec
+ * reports-and-skips (SOM §11.7); on export the document is complete and a lossy
+ * rendering is a trap, so the codec refuses instead. */
+void checkFormDeclared(const SpecDocument& doc, const SomMetaNode& node,
+                       const std::string& path) {
+  std::vector<std::string> undeclared = undeclaredFormFields(doc, node, path);
+  if (undeclared.empty()) {
+    return;
+  }
+  throw std::invalid_argument("form at \"" + path + "\" holds a field \"" +
+                              undeclared.front() +
+                              "\" unknown to the model; it cannot be "
+                              "represented in the DocSpecs markdown format");
+}
+
 /* Whether the `@Form` node at `path` has anything to emit: its preamble content
- * (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any populated
- * field. */
+ * (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any populated field.
+ *
+ * An undeclared stored field counts too — not because it can be emitted, but so
+ * the section is still *visited* and `writeForm` refuses. Without it a form
+ * holding nothing but undeclared fields would vanish unseen, which is the silent
+ * drop this check exists to prevent. */
 bool formHasValues(const SpecDocument& doc, const SomMetaNode& node,
                    const std::string& path) {
   if (doc.hasContent(path)) {
     return true;
   }
-  if (!node.form.has_value()) {
-    return false;
-  }
-  for (const auto& f : node.form->fields) {
-    if (doc.formFieldOpt(path, f.name) != nullptr) {
-      return true;
+  if (node.form.has_value()) {
+    for (const auto& f : node.form->fields) {
+      if (doc.formFieldOpt(path, f.name) != nullptr) {
+        return true;
+      }
     }
   }
-  return false;
+  return !undeclaredFormFields(doc, node, path).empty();
 }
 
 /* Writes a `@Form` section body: the preamble content (when set) followed by one
- * `FieldName: value` group per populated field (SOM §11.4). */
+ * `FieldName: value` group per populated field (SOM §11.4). Throws
+ * std::invalid_argument when the form holds a field the model does not
+ * declare. */
 void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
                const std::string& path) {
+  checkFormDeclared(doc, node, path);
   std::string fields;
   if (node.form.has_value()) {
     for (const auto& f : node.form->fields) {

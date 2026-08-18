@@ -137,10 +137,12 @@ char *spec_markdown_form_label(const char *field_name);
 /* ---- export / import ----------------------------------------------------- */
 
 /* Renders the populated subtree of `root` as a DocSpecs-conform Markdown
- * document. Owned result. Returns NULL (writing `*err` when non-NULL) when a
- * content value contains an unterminated fenced code block (which would
- * shield the remainder of the document from heading detection and break the
- * round-trip) — the C analogue of the other ports' throw. */
+ * document. Owned result. Returns NULL (writing `*err` when non-NULL) — the C
+ * analogue of the other ports' throw — on the two conditions this format cannot
+ * represent without losing the round-trip: a content value containing an
+ * unterminated fenced code block (which would shield the remainder of the
+ * document from heading detection), and a form holding a field the model does
+ * not declare (SOM §9, "Form-field order"). */
 char *spec_markdown_export_root(const SpecModel *model,
                                 const SpecDocument *document,
                                 const SpecRoot *root, char **err);

@@ -1,6 +1,8 @@
 package tom_som_runtime;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -342,10 +344,11 @@ public final class SpecDocumentMarkdown {
 
   /**
    * Renders the populated subtree of {@code root} as a DocSpecs-conform
-   * Markdown document. Throws {@link IllegalStateException} when a content
-   * value contains an unterminated fenced code block (which would shield the
-   * remainder of the document from heading detection and break the
-   * round-trip).
+   * Markdown document. Throws {@link IllegalStateException} on the two
+   * conditions this format cannot represent without losing the round-trip: a
+   * content value containing an unterminated fenced code block (which would
+   * shield the remainder of the document from heading detection), and a form
+   * holding a field the model does not declare (SOM §9, "Form-field order").
    */
   public String exportRoot(SpecRoot root) {
     SomMetaTree tree = treeFor(root.type);
@@ -497,31 +500,85 @@ public final class SpecDocumentMarkdown {
   }
 
   /**
+   * The stored field names at form {@code path} that {@code node} does not
+   * declare, sorted (SOM §9, "Form-field order").
+   *
+   * <p>The emit walk is meta-driven — it iterates the model's declared fields —
+   * so a stored field the model does not know is invisible to it and cannot be
+   * dropped <em>loudly</em>. Seeing it at all needs this deliberate reverse
+   * check: store keys minus meta keys, which is the check the yaml codec
+   * already has (SOM §12.8).
+   */
+  private List<String> undeclaredFormFields(SomMetaNode node, String path) {
+    Set<String> declared = new HashSet<>();
+    if (node.form != null) {
+      for (SomFormFieldMeta f : node.form.fields) {
+        declared.add(f.name);
+      }
+    }
+    List<String> out = new ArrayList<>();
+    for (String name : document.formFieldNames(path)) {
+      if (!declared.contains(name)) {
+        out.add(name);
+      }
+    }
+    Collections.sort(out);
+    return out;
+  }
+
+  /**
+   * Throws when the form at {@code path} holds a field the model does not
+   * declare (SOM §9, "Form-field order" — md refuses, matching yaml).
+   *
+   * <p>Emitting it is impossible: the DocSpecs markdown grammar has no spelling
+   * for a field outside the model, and omitting it would lose a stored value in
+   * a file that looks complete. On import a partial document is normal and the
+   * codec reports-and-skips (SOM §11.7); on export the document is complete and
+   * a lossy rendering is a trap, so the codec refuses instead.
+   */
+  private void checkFormDeclared(SomMetaNode node, String path) {
+    List<String> undeclared = undeclaredFormFields(node, path);
+    if (undeclared.isEmpty()) {
+      return;
+    }
+    throw new IllegalStateException(
+        "form at \"" + path + "\" holds a field \"" + undeclared.get(0)
+            + "\" unknown to the model; it cannot be represented in the "
+            + "DocSpecs markdown format");
+  }
+
+  /**
    * Whether the {@code @Form} node at {@code path} has anything to emit: its
    * preamble content (SOM §11.4 rule 7 — the DocSpecs {@code ${text[]}}
    * region), or any populated field.
+   *
+   * <p>An undeclared stored field counts too — not because it can be emitted,
+   * but so the section is still <em>visited</em> and {@link #writeForm}
+   * refuses. Without it a form holding nothing but undeclared fields would
+   * vanish unseen, which is the silent drop this check exists to prevent.
    */
   private boolean formHasValues(SomMetaNode node, String path) {
     if (document.hasContent(path)) {
       return true;
     }
-    if (node.form == null) {
-      return false;
-    }
-    for (SomFormFieldMeta f : node.form.fields) {
-      if (document.formField(path, f.name) != null) {
-        return true;
+    if (node.form != null) {
+      for (SomFormFieldMeta f : node.form.fields) {
+        if (document.formField(path, f.name) != null) {
+          return true;
+        }
       }
     }
-    return false;
+    return !undeclaredFormFields(node, path).isEmpty();
   }
 
   /**
    * Writes a {@code @Form} section body: the preamble content (when set)
    * followed by one {@code FieldName: value} group per populated field
-   * (SOM §11.4).
+   * (SOM §11.4). Throws {@link IllegalStateException} when the form holds a
+   * field the model does not declare.
    */
   private void writeForm(StringBuilder b, SomMetaNode node, String path) {
+    checkFormDeclared(node, path);
     List<SomFormFieldMeta> fields =
         node.form != null ? node.form.fields : new ArrayList<>();
     StringBuilder fieldBuf = new StringBuilder();

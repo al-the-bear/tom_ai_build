@@ -246,6 +246,34 @@ def test_export_unterminated_fence_throws() -> None:
            _raises(lambda: _export(doc), ValueError, "unterminated"))
 
 
+def test_export_undeclared_form_field_throws() -> None:
+    """SOM §9, "Form-field order": md refuses an undeclared stored field, as
+    yaml does (SOM §12.8). Omitting it would lose a stored value in a file that
+    looks complete — the silent drop the codecs must never do."""
+    doc = _populated()
+    doc.set_form_field("D00/D00-HDR", "stale", "x")
+    _check("export.undeclaredField.raises",
+           _raises(lambda: _export(doc), ValueError, "stale"))
+    _check("export.undeclaredField.namesPath",
+           _raises(lambda: _export(doc), ValueError, "D00/D00-HDR"))
+
+    # The check has to run even when the form has nothing else, or the whole
+    # section is skipped before the check is reached and the drop is silent
+    # again.
+    only = SpecDocument()
+    only.set_content("D00/D00-OVR", "An overview paragraph.")
+    only.set_form_field("D00/D00-HDR", "stale", "x")
+    _check("export.undeclaredFieldOnly.raises",
+           _raises(lambda: _export(only), ValueError, "stale"))
+
+    # Sorted, so the reported name is the same in all nine runtimes.
+    two = _populated()
+    two.set_form_field("D00/D00-HDR", "zulu", "z")
+    two.set_form_field("D00/D00-HDR", "alpha", "a")
+    _check("export.undeclaredField.sortedFirst",
+           _raises(lambda: _export(two), ValueError, "alpha"))
+
+
 # --- SpecDocument.to_markdown (one-line export, SOM §21) --------------------
 
 
@@ -658,6 +686,7 @@ def main() -> int:
     test_export_format()
     test_export_stored_item_id()
     test_export_unterminated_fence_throws()
+    test_export_undeclared_form_field_throws()
     test_to_markdown()
     test_round_trip_values()
     test_round_trip_byte_stable()

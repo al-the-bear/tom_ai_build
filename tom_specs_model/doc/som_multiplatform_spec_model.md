@@ -567,12 +567,34 @@ a **persistence** shape whose only ordering requirement is a stable diff, so it
 sorts every store alphabetically, form fields included. It is read back through
 the model, never by a reader for whom field order is content.
 
-What happens to an *undeclared* stored field beyond its position is each
-format's own business, and the three answers differ by design: yaml refuses the
-document (§12.8 — a value the model cannot place is an error, never a silent
-drop), md omits it (its walk is meta-driven and never enumerates the store), and
-the query tier projects it, because dropping a stored value from a text search
-would hide it from the one facility whose job is to find it.
+What happens to an *undeclared* stored field beyond its position is each tier's
+own decision, and the four answers differ because the tiers answer different
+questions:
+
+- The **validator reports** it (`unknownFormField`, §9 "The instance tier") —
+  saying so is its whole job, and it is the only tier that can say so without
+  refusing anything.
+- The **two codecs refuse** on emit: yaml raises `SpecYamlFormatException`
+  (§12.8) and md raises its per-language export error (§11.4). Neither format has
+  a spelling for a field outside the model, so the only alternative is to omit
+  it — and a file that omits a stored value looks complete and is not. That is
+  the silent drop the codecs must never do.
+- The **query tier projects** it, last and sorted, because dropping a stored
+  value from a text search would hide it from the one facility whose job is to
+  find it.
+
+The codecs' refusal is **emit-only**, and the asymmetry is the point. On import a
+partial or unrecognised document is normal, so md reports-and-skips through the
+§11.7 rejection protocol rather than refusing; on export the document is complete
+and a lossy rendering is a trap. Parse is permissive and reports; emit is strict
+and refuses.
+
+Seeing an undeclared field on emit at all takes a deliberate reverse check —
+store keys minus meta keys — because both codec walks are meta-driven and a value
+the metadata does not name is invisible to them. The check also has to run before
+the emptiness test that skips an unpopulated form, or a form holding *nothing
+but* undeclared fields is skipped before the check is reached. A meta-driven walk
+cannot drop a stored value *loudly*: it never sees it.
 
 ### The query tier
 
@@ -827,7 +849,11 @@ no anchors:
 3. Content must not contain headings at column 0 — the emitter escapes a
    leading `#` as `\#`; the parser unescapes. (The only content escaping rule.)
 4. Fenced code blocks pass through verbatim; heading-like lines inside a fence
-   are not escaped.
+   are not escaped. An **unterminated** fence therefore shields the remainder of
+   the document from heading detection, which no escape can repair, so the
+   export fails rather than write a file that will not read back. That and the
+   undeclared form field (§11.4 rule 4) are the two conditions on which a
+   markdown export refuses.
 5. Runs of blank lines collapse to one on emit (idempotent; mirrors §12.4);
    parse does not re-collapse.
 
@@ -856,7 +882,12 @@ ReviewCount: 3
    written by a human and one written by this emitter are therefore read by the
    same rule, and no separate "promote prose into fields" pass exists or is
    needed.
-4. Unpopulated fields are omitted.
+4. Unpopulated fields are omitted. A field the *document* holds but the model
+   does not declare is a different case and **fails the export** — this format
+   has no spelling for it, and omitting it would drop a stored value into a file
+   that looks complete (§9, "Form-field order", where the four tiers' answers are
+   compared). The refusal is emit-only: on import the same field is reported
+   through the §11.7 rejection protocol, never a throw.
 5. Enum/numeric fields serialize canonically (member name; decimal int /
    shortest round-trip double).
 6. No form field carries the section title or id; the heading text and the id
@@ -1150,6 +1181,10 @@ object tree and the metadata tree — an undescribed member, a key that disagree
 with `nodeKey`, form values on a section the tree does not declare as a `@Form`.
 Free text on a `@Form` section is **not** among them: it is the form's preamble
 and binds to the node's `content` key like any other body (§11.4 rule 7, §12.2).
+
+An undeclared *stored form field* is refused here too, and md refuses it on the
+same grounds (§11.4 rule 4) — the two codecs give the same answer, stated
+per-format in §9, "Form-field order".
 
 ## 13. Schema generation (`*.docspecs-schema.yaml`)
 

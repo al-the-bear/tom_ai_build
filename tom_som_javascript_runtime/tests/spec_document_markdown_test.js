@@ -242,6 +242,29 @@ function testExportUntermFenceThrows() {
   _check('export.untermFence.raises', _raises(() => _export(doc), 'unterminated'));
 }
 
+// SOM §9, "Form-field order": md refuses an undeclared stored field, as yaml
+// does (SOM §12.8). Omitting it would lose a stored value in a file that looks
+// complete — the silent drop the codecs must never do.
+function testExportUndeclaredFormFieldThrows() {
+  const doc = _populated();
+  doc.setFormField('D00/D00-HDR', 'stale', 'x');
+  _check('export.undeclaredField.raises', _raises(() => _export(doc), 'stale'));
+  _check('export.undeclaredField.namesPath', _raises(() => _export(doc), 'D00/D00-HDR'));
+
+  // The check has to run even when the form has nothing else, or the whole
+  // section is skipped before the check is reached and the drop is silent again.
+  const only = new SpecDocument();
+  only.setContent('D00/D00-OVR', 'An overview paragraph.');
+  only.setFormField('D00/D00-HDR', 'stale', 'x');
+  _check('export.undeclaredFieldOnly.raises', _raises(() => _export(only), 'stale'));
+
+  // Sorted, so the reported name is the same in all nine runtimes.
+  const two = _populated();
+  two.setFormField('D00/D00-HDR', 'zulu', 'z');
+  two.setFormField('D00/D00-HDR', 'alpha', 'a');
+  _check('export.undeclaredField.sortedFirst', _raises(() => _export(two), 'alpha'));
+}
+
 // --- SpecDocument.toMarkdown (one-line export, SOM §21) ---------------------
 
 function testToMarkdown() {
@@ -650,6 +673,7 @@ function main() {
   testExportFormat();
   testExportStoredItemId();
   testExportUntermFenceThrows();
+  testExportUndeclaredFormFieldThrows();
   testToMarkdown();
   testRoundTripValues();
   testRoundTripByteStable();

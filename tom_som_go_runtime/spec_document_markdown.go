@@ -44,6 +44,7 @@ package somruntime
 
 import (
 	"regexp"
+	"sort"
 	"strings"
 	"unicode"
 )
@@ -472,10 +473,12 @@ func (c *SpecDocumentMarkdown) effectiveChildren(node *SomMetaNode) []mdNodeRel 
 }
 
 // ExportRoot renders the populated subtree of root as a DocSpecs-conform
-// Markdown document. Returns an error when a content value contains an
-// unterminated fenced code block (which would shield the remainder of the
-// document from heading detection and break the round-trip) — the Go
-// analogue of the other ports' throw.
+// Markdown document. Returns an error — the Go analogue of the other ports'
+// throw — on the two conditions this format cannot represent without losing
+// the round-trip: a content value containing an unterminated fenced code block
+// (which would shield the remainder of the document from heading detection),
+// and a form holding a field the model does not declare (SOM §9,
+// "Form-field order").
 func (c *SpecDocumentMarkdown) ExportRoot(root *SpecRoot) (string, error) {
 	tree, err := c.treeFor(root.Type)
 	if err != nil {
@@ -642,27 +645,76 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	return nil
 }
 
+// undeclaredFormFields returns the stored field names at form path that node
+// does not declare, sorted (SOM §9, "Form-field order").
+//
+// The emit walk is meta-driven — it iterates the model's declared fields — so a
+// stored field the model does not know is invisible to it and cannot be dropped
+// *loudly*. Seeing it at all needs this deliberate reverse check: store keys
+// minus meta keys, which is the check the yaml codec already has (SOM §12.8).
+func (c *SpecDocumentMarkdown) undeclaredFormFields(node *SomMetaNode, path string) []string {
+	declared := map[string]bool{}
+	if node.Form != nil {
+		for _, f := range node.Form.Fields {
+			declared[f.Name] = true
+		}
+	}
+	var out []string
+	for _, name := range c.Document.FormFieldNames(path) {
+		if !declared[name] {
+			out = append(out, name)
+		}
+	}
+	sort.Strings(out)
+	return out
+}
+
+// checkFormDeclared returns an error when the form at path holds a field the
+// model does not declare (SOM §9, "Form-field order" — md refuses, matching
+// yaml).
+//
+// Emitting it is impossible: the DocSpecs markdown grammar has no spelling for
+// a field outside the model, and omitting it would lose a stored value in a
+// file that looks complete. On import a partial document is normal and the
+// codec reports-and-skips (SOM §11.7); on export the document is complete and a
+// lossy rendering is a trap, so the codec refuses instead.
+func (c *SpecDocumentMarkdown) checkFormDeclared(node *SomMetaNode, path string) error {
+	undeclared := c.undeclaredFormFields(node, path)
+	if len(undeclared) == 0 {
+		return nil
+	}
+	return &undeclaredFormFieldError{path: path, field: undeclared[0]}
+}
+
 // formHasValues reports whether the `@Form` node at path has anything to emit:
 // its preamble content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or
 // any populated field.
+//
+// An undeclared stored field counts too — not because it can be emitted, but so
+// the section is still *visited* and writeForm refuses. Without it a form
+// holding nothing but undeclared fields would vanish unseen, which is the
+// silent drop this check exists to prevent.
 func (c *SpecDocumentMarkdown) formHasValues(node *SomMetaNode, path string) bool {
 	if c.Document.HasContent(path) {
 		return true
 	}
-	if node.Form == nil {
-		return false
-	}
-	for _, f := range node.Form.Fields {
-		if _, ok := c.Document.FormField(path, f.Name); ok {
-			return true
+	if node.Form != nil {
+		for _, f := range node.Form.Fields {
+			if _, ok := c.Document.FormField(path, f.Name); ok {
+				return true
+			}
 		}
 	}
-	return false
+	return len(c.undeclaredFormFields(node, path)) > 0
 }
 
 // writeForm writes a `@Form` section body: the preamble content (when set)
 // followed by one `FieldName: value` group per populated field (SOM §11.4).
+// Returns an error when the form holds a field the model does not declare.
 func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path string) error {
+	if err := c.checkFormDeclared(node, path); err != nil {
+		return err
+	}
 	var fields []*SomFormFieldMeta
 	if node.Form != nil {
 		fields = node.Form.Fields
@@ -783,6 +835,17 @@ type unterminatedFenceError struct{ path string }
 func (e *unterminatedFenceError) Error() string {
 	return "content at \"" + e.path + "\" contains an unterminated fenced " +
 		"code block; it cannot be represented in the DocSpecs markdown format"
+}
+
+// undeclaredFormFieldError reports a stored form field the model does not
+// declare — unrepresentable in the DocSpecs markdown format (SOM §9,
+// "Form-field order").
+type undeclaredFormFieldError struct{ path, field string }
+
+func (e *undeclaredFormFieldError) Error() string {
+	return "form at \"" + e.path + "\" holds a field \"" + e.field +
+		"\" unknown to the model; it cannot be represented in the DocSpecs " +
+		"markdown format"
 }
 
 // mdTitleOf is the effective DEFAULT title of node (YRD4): the `@Headline`

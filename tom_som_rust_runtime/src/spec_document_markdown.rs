@@ -664,10 +664,12 @@ impl<'a> SpecDocumentMarkdown<'a> {
     // --- Export (SOM §11.1–§11.8) ------------------------------------------------
 
     /// Renders the populated subtree of `root` as a DocSpecs-conform Markdown
-    /// document. Returns an error when a content value contains an
-    /// unterminated fenced code block (which would shield the remainder of the
-    /// document from heading detection and break the round-trip) — the Rust
-    /// analogue of the other ports' throw.
+    /// document. Returns an error — the Rust analogue of the other ports'
+    /// throw — on the two conditions this format cannot represent without
+    /// losing the round-trip: a content value containing an unterminated fenced
+    /// code block (which would shield the remainder of the document from
+    /// heading detection), and a form holding a field the model does not
+    /// declare (SOM §9, "Form-field order").
     pub fn export_root(&self, root: &SpecRoot) -> Result<String, String> {
         let tree = self.tree_for(&root.type_)?;
         let node = tree.root.clone();
@@ -882,25 +884,77 @@ impl<'a> SpecDocumentMarkdown<'a> {
         Ok(())
     }
 
+    /// The stored field names at form `path` that `node` does not declare,
+    /// sorted (SOM §9, "Form-field order").
+    ///
+    /// The emit walk is meta-driven — it iterates the model's declared fields —
+    /// so a stored field the model does not know is invisible to it and cannot
+    /// be dropped *loudly*. Seeing it at all needs this deliberate reverse
+    /// check: store keys minus meta keys, which is the check the yaml codec
+    /// already has (SOM §12.8).
+    fn undeclared_form_fields(&self, node: &SomMetaNode, path: &str) -> Vec<String> {
+        let declared: std::collections::HashSet<&str> = match &node.form {
+            Some(form) => form.fields.iter().map(|f| f.name.as_str()).collect(),
+            None => std::collections::HashSet::new(),
+        };
+        let mut out: Vec<String> = self
+            .document
+            .form_field_names(path)
+            .into_iter()
+            .filter(|n| !declared.contains(n.as_str()))
+            .collect();
+        out.sort();
+        out
+    }
+
+    /// Returns an error when the form at `path` holds a field the model does
+    /// not declare (SOM §9, "Form-field order" — md refuses, matching yaml).
+    ///
+    /// Emitting it is impossible: the DocSpecs markdown grammar has no spelling
+    /// for a field outside the model, and omitting it would lose a stored value
+    /// in a file that looks complete. On import a partial document is normal
+    /// and the codec reports-and-skips (SOM §11.7); on export the document is
+    /// complete and a lossy rendering is a trap, so the codec refuses instead.
+    fn check_form_declared(&self, node: &SomMetaNode, path: &str) -> Result<(), String> {
+        match self.undeclared_form_fields(node, path).first() {
+            None => Ok(()),
+            Some(name) => Err(format!(
+                "form at \"{}\" holds a field \"{}\" unknown to the model; it \
+                 cannot be represented in the DocSpecs markdown format",
+                path, name
+            )),
+        }
+    }
+
     /// Whether the `@Form` node at `path` has anything to emit: its preamble
     /// content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any
     /// populated field.
+    ///
+    /// An undeclared stored field counts too — not because it can be emitted,
+    /// but so the section is still *visited* and [`Self::write_form`] refuses.
+    /// Without it a form holding nothing but undeclared fields would vanish
+    /// unseen, which is the silent drop this check exists to prevent.
     fn form_has_values(&self, node: &SomMetaNode, path: &str) -> bool {
         if self.document.has_content(path) {
             return true;
         }
-        match &node.form {
-            None => false,
-            Some(form) => form
+        if let Some(form) = &node.form {
+            if form
                 .fields
                 .iter()
-                .any(|f| self.document.form_field(path, &f.name).is_some()),
+                .any(|f| self.document.form_field(path, &f.name).is_some())
+            {
+                return true;
+            }
         }
+        !self.undeclared_form_fields(node, path).is_empty()
     }
 
     /// Writes a `@Form` section body: the preamble content (when set) followed
-    /// by one `FieldName: value` group per populated field (SOM §11.4).
+    /// by one `FieldName: value` group per populated field (SOM §11.4). Returns
+    /// an error when the form holds a field the model does not declare.
     fn write_form(&self, b: &mut MdBuffer, node: &SomMetaNode, path: &str) -> Result<(), String> {
+        self.check_form_declared(node, path)?;
         let empty: Vec<SomFormFieldMeta> = Vec::new();
         let fields = match &node.form {
             Some(form) => &form.fields,

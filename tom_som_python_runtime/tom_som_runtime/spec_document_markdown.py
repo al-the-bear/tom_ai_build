@@ -397,10 +397,12 @@ class SpecDocumentMarkdown:
 
     def export_root(self, root: SpecRoot) -> str:
         """Renders the populated subtree of *root* as a DocSpecs-conform
-        Markdown document. Raises :class:`ValueError` when a content value
-        contains an unterminated fenced code block (which would shield the
-        remainder of the document from heading detection and break the
-        round-trip)."""
+        Markdown document. Raises :class:`ValueError` on the two conditions
+        this format cannot represent without losing the round-trip: a content
+        value containing an unterminated fenced code block (which would shield
+        the remainder of the document from heading detection), and a form
+        holding a field the model does not declare (SOM §9,
+        "Form-field order")."""
         tree = self._tree_for(root.type)
         node = tree.root
         b = _Buffer()
@@ -551,22 +553,62 @@ class SpecDocumentMarkdown:
                 if not element.recursive:
                     self._write_children(b, element, item_path, depth + 2)
 
+    def _undeclared_form_fields(self, node: SomMetaNode, path: str) -> list:
+        """The stored field names at form *path* that *node* does not declare,
+        sorted (SOM §9, "Form-field order").
+
+        The emit walk is meta-driven — it iterates the model's declared fields
+        — so a stored field the model does not know is invisible to it and
+        cannot be dropped *loudly*. Seeing it at all needs this deliberate
+        reverse check: store keys minus meta keys, which is the check the yaml
+        codec already has (SOM §12.8)."""
+        fields = node.form.fields if node.form is not None else []
+        declared = {f.name for f in fields}
+        return sorted(
+            n for n in self.document.form_field_names(path) if n not in declared
+        )
+
+    def _check_form_declared(self, node: SomMetaNode, path: str) -> None:
+        """Raises when the form at *path* holds a field the model does not
+        declare (SOM §9, "Form-field order" — md refuses, matching yaml).
+
+        Emitting it is impossible: the DocSpecs markdown grammar has no
+        spelling for a field outside the model, and omitting it would lose a
+        stored value in a file that looks complete. On import a partial
+        document is normal and the codec reports-and-skips (SOM §11.7); on
+        export the document is complete and a lossy rendering is a trap, so the
+        codec refuses instead."""
+        undeclared = self._undeclared_form_fields(node, path)
+        if not undeclared:
+            return
+        raise ValueError(
+            f'form at "{path}" holds a field "{undeclared[0]}" unknown to the '
+            "model; it cannot be represented in the DocSpecs markdown format"
+        )
+
     def _form_has_values(self, node: SomMetaNode, path: str) -> bool:
         """Whether the ``@Form`` node at *path* has anything to emit: its
         preamble content (SOM §11.4 rule 7 — the DocSpecs ``${text[]}``
-        region), or any populated field."""
+        region), or any populated field.
+
+        An undeclared stored field counts too — not because it can be emitted,
+        but so the section is still *visited* and :meth:`_write_form` refuses.
+        Without it a form holding nothing but undeclared fields would vanish
+        unseen, which is the silent drop this check exists to prevent."""
         if self.document.has_content(path):
             return True
         fields = node.form.fields if node.form is not None else []
         for f in fields:
             if self.document.form_field(path, f.name) is not None:
                 return True
-        return False
+        return bool(self._undeclared_form_fields(node, path))
 
     def _write_form(self, b: _Buffer, node: SomMetaNode, path: str) -> None:
         """Writes a ``@Form`` section body: the preamble content (when set)
         followed by one ``FieldName: value`` group per populated field
-        (SOM §11.4)."""
+        (SOM §11.4). Raises :class:`ValueError` when the form holds a field the
+        model does not declare."""
+        self._check_form_declared(node, path)
         fields = node.form.fields if node.form is not None else []
         field_buf = _Buffer()
         for f in fields:

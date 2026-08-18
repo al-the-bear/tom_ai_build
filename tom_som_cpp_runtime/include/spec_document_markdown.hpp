@@ -131,10 +131,12 @@ std::string formLabel(const std::string& fieldName);
 /* ---- export / import ----------------------------------------------------- */
 
 /* Renders the populated subtree of `root` as a DocSpecs-conform Markdown
- * document. Throws std::invalid_argument when a content value contains an
- * unterminated fenced code block (which would shield the remainder of the
- * document from heading detection and break the round-trip) — the C++ analogue
- * of the C port's NULL+err. */
+ * document. Throws std::invalid_argument — the C++ analogue of the C port's
+ * NULL+err — on the two conditions this format cannot represent without losing
+ * the round-trip: a content value containing an unterminated fenced code block
+ * (which would shield the remainder of the document from heading detection),
+ * and a form holding a field the model does not declare (SOM §9,
+ * "Form-field order"). */
 std::string markdownExportRoot(const SpecModel& model,
                                const SpecDocument& document,
                                const SpecRoot& root);

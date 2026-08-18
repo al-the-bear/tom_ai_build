@@ -303,9 +303,11 @@ class SpecDocumentMarkdown {
   }
 
   /// Renders the populated subtree of [root] as a DocSpecs-conform Markdown
-  /// document. Throws [ArgumentError] when a content value contains an
+  /// document. Throws [ArgumentError] on the two conditions this format cannot
+  /// represent without losing the round-trip: a content value containing an
   /// unterminated fenced code block (which would shield the remainder of the
-  /// document from heading detection and break the round-trip).
+  /// document from heading detection), and a form holding a field the model
+  /// does not declare (SOM §9, "Form-field order").
   String exportRoot(SpecRoot root) {
     final tree = _treeFor(root.type);
     final node = tree.root;
@@ -427,20 +429,59 @@ class SpecDocumentMarkdown {
     }
   }
 
+  /// The stored field names at form [path] that [node] does not declare,
+  /// sorted (SOM §9, "Form-field order").
+  ///
+  /// The emit walk is meta-driven — it iterates the model's declared fields —
+  /// so a stored field the model does not know is invisible to it and cannot be
+  /// dropped *loudly*. Seeing it at all needs this deliberate reverse check:
+  /// store keys minus meta keys, which is the check the yaml codec already has
+  /// (SOM §12.8).
+  List<String> _undeclaredFormFields(SomMetaNode node, String path) {
+    final declared = {
+      for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) f.name,
+    };
+    return document.formFieldNames(path).where((n) => !declared.contains(n)).toList()
+      ..sort();
+  }
+
+  /// Throws when the form at [path] holds a field the model does not declare
+  /// (SOM §9, "Form-field order" — md refuses, matching yaml).
+  ///
+  /// Emitting it is impossible: the DocSpecs markdown grammar has no spelling
+  /// for a field outside the model, and omitting it would lose a stored value
+  /// in a file that looks complete. On import a partial document is normal and
+  /// the codec reports-and-skips (§11.7); on export the document is complete
+  /// and a lossy rendering is a trap, so the codec refuses instead.
+  void _checkFormDeclared(SomMetaNode node, String path) {
+    final undeclared = _undeclaredFormFields(node, path);
+    if (undeclared.isEmpty) return;
+    throw ArgumentError('form at "$path" holds a field "${undeclared.first}" '
+        'unknown to the model; it cannot be represented in the DocSpecs '
+        'markdown format');
+  }
+
   /// Whether the `@Form` node at [path] has anything to emit: its preamble
   /// content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any
   /// populated field.
+  ///
+  /// An undeclared stored field counts too — not because it can be emitted, but
+  /// so the section is still *visited* and [_writeForm] refuses. Without it a
+  /// form holding nothing but undeclared fields would vanish unseen, which is
+  /// the silent drop this check exists to prevent.
   bool _formHasValues(SomMetaNode node, String path) {
     if (document.hasContent(path)) return true;
     for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) {
       if (document.formField(path, f.name) != null) return true;
     }
-    return false;
+    return _undeclaredFormFields(node, path).isNotEmpty;
   }
 
   /// Writes a `@Form` section body: the preamble content (when set) followed by
-  /// one `FieldName: value` group per populated field (SOM §11.4).
+  /// one `FieldName: value` group per populated field (SOM §11.4). Throws
+  /// [ArgumentError] when the form holds a field the model does not declare.
   void _writeForm(StringBuffer b, SomMetaNode node, String path) {
+    _checkFormDeclared(node, path);
     final fields = StringBuffer();
     for (final f in node.form?.fields ?? const <SomFormFieldMeta>[]) {
       final value = document.formField(path, f.name);

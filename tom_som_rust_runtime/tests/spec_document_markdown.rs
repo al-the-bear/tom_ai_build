@@ -305,6 +305,53 @@ fn test_markdown_export_unterm_fence_errors(c: &mut Checker) {
     );
 }
 
+/// SOM §9, "Form-field order": md refuses an undeclared stored field, as yaml
+/// does (SOM §12.8). Omitting it would lose a stored value in a file that looks
+/// complete — the silent drop the codecs must never do.
+fn test_markdown_export_undeclared_form_field_errors(c: &mut Checker) {
+    let model = demo_model();
+    let export_err = |doc: &SpecDocument| -> String {
+        match SpecDocumentMarkdown::new(&model, doc).export_root(&model.roots[0]) {
+            Ok(_) => "no error".to_string(),
+            Err(e) => e,
+        }
+    };
+
+    let mut doc = populated_demo_doc();
+    doc.set_form_field("D00/D00-HDR", "stale", "x");
+    let msg = export_err(&doc);
+    c.check("export.undeclaredField.raises", msg.contains("stale"), &msg);
+    c.check(
+        "export.undeclaredField.namesPath",
+        msg.contains("D00/D00-HDR"),
+        &msg,
+    );
+
+    // The check has to run even when the form has nothing else, or the whole
+    // section is skipped before the check is reached and the drop is silent
+    // again.
+    let mut only = SpecDocument::new();
+    only.set_content("D00/D00-OVR", "An overview paragraph.");
+    only.set_form_field("D00/D00-HDR", "stale", "x");
+    let only_msg = export_err(&only);
+    c.check(
+        "export.undeclaredFieldOnly.raises",
+        only_msg.contains("stale"),
+        &only_msg,
+    );
+
+    // Sorted, so the reported name is the same in all nine runtimes.
+    let mut two = populated_demo_doc();
+    two.set_form_field("D00/D00-HDR", "zulu", "z");
+    two.set_form_field("D00/D00-HDR", "alpha", "a");
+    let two_msg = export_err(&two);
+    c.check(
+        "export.undeclaredField.sortedFirst",
+        two_msg.contains("alpha") && !two_msg.contains("zulu"),
+        &two_msg,
+    );
+}
+
 // --- SpecDocument::to_markdown (one-line export, SOM §21) -------------------
 
 fn test_markdown_to_markdown(c: &mut Checker) {
@@ -801,6 +848,7 @@ fn spec_document_markdown() {
     test_markdown_export_format(&mut c);
     test_markdown_export_stored_item_id(&mut c);
     test_markdown_export_unterm_fence_errors(&mut c);
+    test_markdown_export_undeclared_form_field_errors(&mut c);
     test_markdown_to_markdown(&mut c);
     test_markdown_round_trip_values(&mut c);
     test_markdown_round_trip_byte_stable(&mut c);

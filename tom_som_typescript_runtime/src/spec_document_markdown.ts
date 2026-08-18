@@ -474,9 +474,11 @@ export class SpecDocumentMarkdown {
 
   /**
    * Renders the populated subtree of `root` as a DocSpecs-conform Markdown
-   * document. Throws an {@link Error} when a content value contains an
+   * document. Throws an {@link Error} on the two conditions this format cannot
+   * represent without losing the round-trip: a content value containing an
    * unterminated fenced code block (which would shield the remainder of the
-   * document from heading detection and break the round-trip).
+   * document from heading detection), and a form holding a field the model does
+   * not declare (SOM §9, "Form-field order").
    */
   exportRoot(root: import('./spec_model').SpecRoot): string {
     const tree = this._treeFor(root.type);
@@ -647,9 +649,59 @@ export class SpecDocumentMarkdown {
   }
 
   /**
+   * The stored field names at form `path` that `node` does not declare, sorted
+   * (SOM §9, "Form-field order").
+   *
+   * The emit walk is meta-driven — it iterates the model's declared fields —
+   * so a stored field the model does not know is invisible to it and cannot be
+   * dropped *loudly*. Seeing it at all needs this deliberate reverse check:
+   * store keys minus meta keys, which is the check the yaml codec already has
+   * (SOM §12.8).
+   */
+  private _undeclaredFormFields(node: SomMetaNode, path: string): string[] {
+    const fields =
+      node.form !== null && node.form !== undefined ? node.form.fields : [];
+    const declared = new Set(fields.map((f) => f.name));
+    const out: string[] = [];
+    for (const name of this.document.formFieldNames(path)) {
+      if (!declared.has(name)) {
+        out.push(name);
+      }
+    }
+    out.sort();
+    return out;
+  }
+
+  /**
+   * Throws when the form at `path` holds a field the model does not declare
+   * (SOM §9, "Form-field order" — md refuses, matching yaml).
+   *
+   * Emitting it is impossible: the DocSpecs markdown grammar has no spelling
+   * for a field outside the model, and omitting it would lose a stored value in
+   * a file that looks complete. On import a partial document is normal and the
+   * codec reports-and-skips (SOM §11.7); on export the document is complete and
+   * a lossy rendering is a trap, so the codec refuses instead.
+   */
+  private _checkFormDeclared(node: SomMetaNode, path: string): void {
+    const undeclared = this._undeclaredFormFields(node, path);
+    if (undeclared.length === 0) {
+      return;
+    }
+    throw new Error(
+      `form at "${path}" holds a field "${undeclared[0]}" unknown to the ` +
+        'model; it cannot be represented in the DocSpecs markdown format',
+    );
+  }
+
+  /**
    * Whether the `@Form` node at `path` has anything to emit: its preamble
    * content (SOM §11.4 rule 7 — the DocSpecs `${text[]}` region), or any
    * populated field.
+   *
+   * An undeclared stored field counts too — not because it can be emitted, but
+   * so the section is still *visited* and {@link _writeForm} refuses. Without
+   * it a form holding nothing but undeclared fields would vanish unseen, which
+   * is the silent drop this check exists to prevent.
    */
   private _formHasValues(node: SomMetaNode, path: string): boolean {
     if (this.document.hasContent(path)) {
@@ -662,14 +714,16 @@ export class SpecDocumentMarkdown {
         return true;
       }
     }
-    return false;
+    return this._undeclaredFormFields(node, path).length > 0;
   }
 
   /**
    * Writes a `@Form` section body: the preamble content (when set) followed by
-   * one `FieldName: value` group per populated field (SOM §11.4).
+   * one `FieldName: value` group per populated field (SOM §11.4). Throws when
+   * the form holds a field the model does not declare.
    */
   private _writeForm(b: _Buffer, node: SomMetaNode, path: string): void {
+    this._checkFormDeclared(node, path);
     const fields =
       node.form !== null && node.form !== undefined ? node.form.fields : [];
     const fieldBuf = new _Buffer();

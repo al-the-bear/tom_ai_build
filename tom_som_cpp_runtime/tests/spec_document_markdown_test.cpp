@@ -318,6 +318,48 @@ void testMarkdownExportUntermFenceErrors() {
           raised ? err : std::string("(no error)"));
 }
 
+/* The export error message, or "(no error)" when the export succeeded. */
+static std::string mdExportError(const som::SpecModel& m,
+                                 const som::SpecDocument& doc) {
+  try {
+    (void)som::markdownExportRoot(m, doc, m.roots[0]);
+    return "(no error)";
+  } catch (const std::invalid_argument& e) {
+    return e.what();
+  }
+}
+
+/* SOM §9, "Form-field order": md refuses an undeclared stored field, as yaml
+ * does (SOM §12.8). Omitting it would lose a stored value in a file that looks
+ * complete — the silent drop the codecs must never do. */
+void testMarkdownExportUndeclaredFormFieldErrors() {
+  auto m = demoModel();
+
+  som::SpecDocument doc = populateDemoDoc();
+  doc.setFormField("D00/D00-HDR", "stale", "x");
+  std::string msg = mdExportError(*m, doc);
+  mdCheck("export.undeclaredField.raises", contains(msg, "stale"), msg);
+  mdCheck("export.undeclaredField.namesPath", contains(msg, "D00/D00-HDR"), msg);
+
+  /* The check has to run even when the form has nothing else, or the whole
+   * section is skipped before the check is reached and the drop is silent
+   * again. */
+  som::SpecDocument only;
+  only.setContent("D00/D00-OVR", "An overview paragraph.");
+  only.setFormField("D00/D00-HDR", "stale", "x");
+  std::string onlyMsg = mdExportError(*m, only);
+  mdCheck("export.undeclaredFieldOnly.raises", contains(onlyMsg, "stale"),
+          onlyMsg);
+
+  /* Sorted, so the reported name is the same in all nine runtimes. */
+  som::SpecDocument two = populateDemoDoc();
+  two.setFormField("D00/D00-HDR", "zulu", "z");
+  two.setFormField("D00/D00-HDR", "alpha", "a");
+  std::string twoMsg = mdExportError(*m, two);
+  mdCheck("export.undeclaredField.sortedFirst",
+          contains(twoMsg, "alpha") && !contains(twoMsg, "zulu"), twoMsg);
+}
+
 /* ---- SpecDocument.ToMarkdown (one-line export, SOM §21) ------------------ */
 
 void testMarkdownToMarkdown() {
@@ -785,6 +827,7 @@ int main() {
   testMarkdownExportFormat();
   testMarkdownExportStoredItemId();
   testMarkdownExportUntermFenceErrors();
+  testMarkdownExportUndeclaredFormFieldErrors();
   testMarkdownToMarkdown();
   testMarkdownRoundTripValues();
   testMarkdownRoundTripByteStable();

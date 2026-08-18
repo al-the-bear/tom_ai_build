@@ -384,6 +384,61 @@ static void test_markdown_export_unterm_fence_errors(void) {
   spec_model_free(m);
 }
 
+/* SOM §9, "Form-field order": md refuses an undeclared stored field, as yaml
+ * does (SOM §12.8). Omitting it would lose a stored value in a file that looks
+ * complete — the silent drop the codecs must never do. */
+static void test_markdown_export_undeclared_form_field_errors(void) {
+  SpecModel *m = demo_model();
+
+  SpecDocument doc;
+  populate_demo_doc(&doc);
+  spec_document_set_form_field(&doc, "D00/D00-HDR", "stale", "x");
+  char *err = NULL;
+  char *out = spec_markdown_export_root(m, &doc, &m->roots[0], &err);
+  md_check("export.undeclaredField.raises",
+           out == NULL && err != NULL && contains(err, "stale"),
+           err ? err : "(no error)");
+  md_check("export.undeclaredField.namesPath",
+           err != NULL && contains(err, "D00/D00-HDR"),
+           err ? err : "(no error)");
+  free(out);
+  free(err);
+  spec_document_free(&doc);
+
+  /* The check has to run even when the form has nothing else, or the whole
+   * section is skipped before the check is reached and the drop is silent
+   * again. */
+  SpecDocument only;
+  spec_document_init(&only);
+  spec_document_set_content(&only, "D00/D00-OVR", "An overview paragraph.");
+  spec_document_set_form_field(&only, "D00/D00-HDR", "stale", "x");
+  err = NULL;
+  out = spec_markdown_export_root(m, &only, &m->roots[0], &err);
+  md_check("export.undeclaredFieldOnly.raises",
+           out == NULL && err != NULL && contains(err, "stale"),
+           err ? err : "(no error)");
+  free(out);
+  free(err);
+  spec_document_free(&only);
+
+  /* Sorted, so the reported name is the same in all nine runtimes. */
+  SpecDocument two;
+  populate_demo_doc(&two);
+  spec_document_set_form_field(&two, "D00/D00-HDR", "zulu", "z");
+  spec_document_set_form_field(&two, "D00/D00-HDR", "alpha", "a");
+  err = NULL;
+  out = spec_markdown_export_root(m, &two, &m->roots[0], &err);
+  md_check("export.undeclaredField.sortedFirst",
+           out == NULL && err != NULL && contains(err, "alpha") &&
+               !contains(err, "zulu"),
+           err ? err : "(no error)");
+  free(out);
+  free(err);
+  spec_document_free(&two);
+
+  spec_model_free(m);
+}
+
 /* ---- SpecDocument.ToMarkdown (one-line export, SOM §21) ------------------ */
 
 static void test_markdown_to_markdown(void) {
@@ -1055,6 +1110,7 @@ int main(void) {
   test_markdown_export_format();
   test_markdown_export_stored_item_id();
   test_markdown_export_unterm_fence_errors();
+  test_markdown_export_undeclared_form_field_errors();
   test_markdown_to_markdown();
   test_markdown_round_trip_values();
   test_markdown_round_trip_byte_stable();

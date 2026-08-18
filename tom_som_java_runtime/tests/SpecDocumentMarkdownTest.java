@@ -258,6 +258,45 @@ public final class SpecDocumentMarkdownTest {
     check("export.untermFence.raises", raised, detail);
   }
 
+  /** The export error message, or "no exception" when the export succeeded. */
+  private static String exportError(SpecDocument doc) {
+    SpecModel model = demoModel();
+    try {
+      new SpecDocumentMarkdown(model, doc).exportRoot(model.roots.get(0));
+      return "no exception";
+    } catch (IllegalStateException e) {
+      return e.getMessage();
+    }
+  }
+
+  // SOM §9, "Form-field order": md refuses an undeclared stored field, as yaml
+  // does (SOM §12.8). Omitting it would lose a stored value in a file that looks
+  // complete — the silent drop the codecs must never do.
+  private static void testExportUndeclaredFormFieldErrors() {
+    SpecDocument doc = populatedDemoDoc();
+    doc.setFormField("D00/D00-HDR", "stale", "x");
+    String msg = exportError(doc);
+    check("export.undeclaredField.raises", msg.contains("stale"), msg);
+    check("export.undeclaredField.namesPath", msg.contains("D00/D00-HDR"), msg);
+
+    // The check has to run even when the form has nothing else, or the whole
+    // section is skipped before the check is reached and the drop is silent
+    // again.
+    SpecDocument only = new SpecDocument();
+    only.setContent("D00/D00-OVR", "An overview paragraph.");
+    only.setFormField("D00/D00-HDR", "stale", "x");
+    String onlyMsg = exportError(only);
+    check("export.undeclaredFieldOnly.raises", onlyMsg.contains("stale"), onlyMsg);
+
+    // Sorted, so the reported name is the same in all nine runtimes.
+    SpecDocument two = populatedDemoDoc();
+    two.setFormField("D00/D00-HDR", "zulu", "z");
+    two.setFormField("D00/D00-HDR", "alpha", "a");
+    String twoMsg = exportError(two);
+    check("export.undeclaredField.sortedFirst",
+        twoMsg.contains("alpha") && !twoMsg.contains("zulu"), twoMsg);
+  }
+
   // --- SpecDocument.toMarkdown (one-line export, SOM §21) ---------------------
 
   private static void testToMarkdown() {
@@ -647,6 +686,7 @@ public final class SpecDocumentMarkdownTest {
     testExportFormat();
     testExportStoredItemId();
     testExportUntermFenceErrors();
+    testExportUndeclaredFormFieldErrors();
     testToMarkdown();
     testRoundTripValues();
     testRoundTripByteStable();

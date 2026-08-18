@@ -174,6 +174,39 @@ func TestMarkdownExportUntermFenceErrors(t *testing.T) {
 		fmt.Sprintf("out=%q err=%v", out, err))
 }
 
+// SOM §9, "Form-field order": md refuses an undeclared stored field, as yaml
+// does (SOM §12.8). Omitting it would lose a stored value in a file that looks
+// complete — the silent drop the codecs must never do.
+func TestMarkdownExportUndeclaredFormFieldErrors(t *testing.T) {
+	model := demoModel(t)
+	doc := populatedDemoDoc()
+	doc.SetFormField("D00/D00-HDR", "stale", "x")
+	_, err := som.NewSpecDocumentMarkdown(model, doc).ExportRoot(model.Roots[0])
+	mdCheck(t, "export.undeclaredField.raises",
+		err != nil && strings.Contains(err.Error(), "stale"), fmt.Sprintf("%v", err))
+	mdCheck(t, "export.undeclaredField.namesPath",
+		err != nil && strings.Contains(err.Error(), "D00/D00-HDR"), fmt.Sprintf("%v", err))
+
+	// The check has to run even when the form has nothing else, or the whole
+	// section is skipped before the check is reached and the drop is silent
+	// again.
+	only := som.NewSpecDocument()
+	only.SetContent("D00/D00-OVR", "An overview paragraph.")
+	only.SetFormField("D00/D00-HDR", "stale", "x")
+	_, err = som.NewSpecDocumentMarkdown(model, only).ExportRoot(model.Roots[0])
+	mdCheck(t, "export.undeclaredFieldOnly.raises",
+		err != nil && strings.Contains(err.Error(), "stale"), fmt.Sprintf("%v", err))
+
+	// Sorted, so the reported name is the same in all nine runtimes.
+	two := populatedDemoDoc()
+	two.SetFormField("D00/D00-HDR", "zulu", "z")
+	two.SetFormField("D00/D00-HDR", "alpha", "a")
+	_, err = som.NewSpecDocumentMarkdown(model, two).ExportRoot(model.Roots[0])
+	mdCheck(t, "export.undeclaredField.sortedFirst",
+		err != nil && strings.Contains(err.Error(), "alpha") &&
+			!strings.Contains(err.Error(), "zulu"), fmt.Sprintf("%v", err))
+}
+
 // --- SpecDocument.ToMarkdown (one-line export, SOM §21) ---------------------
 
 func TestMarkdownToMarkdown(t *testing.T) {

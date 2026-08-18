@@ -250,6 +250,45 @@ void main() {
             (e) => '${e.message}', 'message', contains('unterminated'))),
       );
     });
+
+    // SOM §9, "Form-field order": md refuses an undeclared stored field, as
+    // yaml does (§12.8). Omitting it would lose a stored value in a file that
+    // looks complete — the silent drop the codecs must never do.
+    test('a form field the model does not declare throws ArgumentError', () {
+      final doc = _populated()..setFormField('D00/D00-HDR', 'stale', 'x');
+      expect(
+        () => _export(doc),
+        throwsA(isA<ArgumentError>().having((e) => '${e.message}', 'message',
+            allOf(contains('D00/D00-HDR'), contains('stale')))),
+      );
+    });
+
+    // The reverse check has to run even when the form has nothing else, or the
+    // whole section is skipped before the check is reached and the drop is
+    // silent again.
+    test('a form holding ONLY undeclared fields still throws, rather than '
+        'vanishing from the export', () {
+      final doc = SpecDocument()
+        ..setContent('D00/D00-OVR', 'An overview paragraph.')
+        ..setFormField('D00/D00-HDR', 'stale', 'x');
+      expect(
+        () => _export(doc),
+        throwsA(isA<ArgumentError>()
+            .having((e) => '${e.message}', 'message', contains('stale'))),
+      );
+    });
+
+    // Sorted, so the reported name is the same in all nine runtimes.
+    test('the reported field is the alphabetically first undeclared one', () {
+      final doc = _populated()
+        ..setFormField('D00/D00-HDR', 'zulu', 'z')
+        ..setFormField('D00/D00-HDR', 'alpha', 'a');
+      expect(
+        () => _export(doc),
+        throwsA(isA<ArgumentError>().having((e) => '${e.message}', 'message',
+            allOf(contains('alpha'), isNot(contains('zulu'))))),
+      );
+    });
   });
 
   group('SpecDocument.toMarkdown (one-line export, SOM §21)', () {
