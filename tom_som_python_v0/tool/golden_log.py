@@ -34,6 +34,7 @@ sys.path.insert(0, _PROJECT)
 from tom_som_runtime import (  # noqa: E402
     DocSpecsSchema,
     DocSpecsValidator,
+    DocSpecsViolationRule,
     SomMetaKind,
     SpecDocument,
 )
@@ -45,6 +46,16 @@ _DEFAULT_SAMPLE_MD = os.path.normpath(os.path.join(
 _DEFAULT_SCHEMA = os.path.join(
     _PROJECT, "schemas", "solution-blueprint",
     "solution-blueprint.1.0.docspecs-schema.yaml")
+# The deliberately-invalid companion fixture and the hand-authored demo schema
+# it is written against (the same schema the runtime conformance corpus uses).
+# The generated SBP schema cannot stand in for it: it declares no
+# ``pattern-check:`` and no ``text-required:``, so two of the eleven rules are
+# unreachable against it whatever the document says.
+_DEFAULT_INVALID_SAMPLE_MD = os.path.normpath(os.path.join(
+    _PROJECT, "..", "tom_som_conformance", "samples",
+    "invalid_demo_document.md"))
+_DEFAULT_DEMO_SCHEMA = os.path.normpath(os.path.join(
+    _PROJECT, "..", "tom_som_conformance", "corpus", "docspecs_schema.yaml"))
 
 #: Map the native Python kind enum to the DART enum spelling the golden log
 #: emits (portability rule 1). Values are the canonical cross-language names.
@@ -82,7 +93,7 @@ def main() -> None:
     out: list[str] = []
     out.append("# TomSpecs SOM golden log — canonical cross-language reading.")
     out.append("# All nine per-language generators must emit byte-identical output.")
-    out.append("FORMAT\t9")
+    out.append("FORMAT\t10")
     out.append("MODELVERSION\t" + esc(doc.model_version or ""))
 
     # Generic: content leaves, sorted by path.
@@ -356,6 +367,43 @@ def main() -> None:
     out.append("DS\twarnings\t%d" % len(schema.warnings))
     out.append("DS\tviolations\t%d" % len(violations))
     for v in violations:
+        out.append("DV\t%s\t%s\t%d" % (
+            v.rule.value, esc(v.section_id or ""), v.line))
+
+    # --- DocSpecs validation, invalid fixture (FORMAT 10): the deliberately
+    # invalid companion sample validated against the hand-authored demo schema.
+    # The ``docspecs`` section above can only ever report two zeroes — the
+    # sample is gated to validate cleanly — so its ``DV`` line had never once
+    # executed in any of the nine generators, and a per-language defect in it
+    # was invisible. This section puts the per-violation emission, and with it
+    # every rule spelling, under the byte-identity comparison.
+    #
+    # The fixture reaches each of the eleven rules exactly once, and the
+    # generator asserts that rather than merely reporting it: a rule added to
+    # the vocabulary later without a matching fixture section aborts all nine
+    # generators instead of going quietly unexercised. ---
+    out.append("SECTION\tdocspecs-invalid")
+    with open(_DEFAULT_DEMO_SCHEMA, encoding="utf-8") as fh:
+        demo_schema = DocSpecsSchema.from_yaml_text(fh.read())
+    with open(_DEFAULT_INVALID_SAMPLE_MD, encoding="utf-8") as fh:
+        invalid_md = fh.read()
+    invalid_violations = DocSpecsValidator(demo_schema).validate_markdown(
+        invalid_md)
+    vocabulary = [r.value for r in DocSpecsViolationRule]
+    reached = {v.rule.value for v in invalid_violations}
+    if len(reached) != len(vocabulary):
+        sys.stderr.write(
+            "DOCSPECS RULE COVERAGE: the invalid fixture reaches %d of %d "
+            "rules; unexercised: %s\n" % (
+                len(reached), len(vocabulary),
+                ", ".join(r for r in vocabulary if r not in reached)))
+        sys.exit(4)
+    out.append("DS\troot\t%s" % esc(demo_schema.root_section_id or ""))
+    out.append("DS\twarnings\t%d" % len(demo_schema.warnings))
+    out.append("DS\tviolations\t%d" % len(invalid_violations))
+    out.append("DS\tvocabulary\t%d" % len(vocabulary))
+    out.append("DS\trules\t%d" % len(reached))
+    for v in invalid_violations:
         out.append("DV\t%s\t%s\t%d" % (
             v.rule.value, esc(v.section_id or ""), v.line))
 

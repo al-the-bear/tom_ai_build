@@ -1422,6 +1422,24 @@ The golden's `docspecs` section validates a **valid** sample, so it can never
 substitute for this table: it reports a root id and two zeroes, which nine
 runtimes will agree on whatever their rule implementations do or do not do.
 
+Which left a second gap, on the far side of the same fact. Because that section
+can only ever report zero violations, its **per-violation `DV` line had never
+once executed** in any of the nine generators — and unlike the runtime runners,
+those nine emit lines are separately hand-ported code reading the violation
+through a separate accessor. The JavaScript generator read `v.rule.name` against
+a runtime that models the vocabulary as frozen string constants; it emitted `DV
+undefined`, and nothing was red. A companion section closes it:
+`samples/invalid_demo_document.md` is a deliberately invalid document that
+breaks each of the eleven rules exactly once, and every generator emits a
+`docspecs-invalid` section (FORMAT 10) validating it against
+`corpus/docspecs_schema.yaml` — the demo schema rather than the generated SBP
+one, which is forced rather than chosen, since the SBP schema declares no
+`pattern-check:` and no `text-required:` and so cannot reach two of the eleven
+rules at all. The generators **assert** that the fixture reaches the whole
+vocabulary and abort otherwise, which is the only workable form of the guard
+here: `golden/` is git-ignored, so there is no committed log whose diff would
+surface a newly-unexercised rule.
+
 ### 19.1 Running everything: the two cross-language drivers
 
 The golden logs are only one of the two cross-language checks, and each has a

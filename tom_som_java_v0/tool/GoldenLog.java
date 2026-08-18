@@ -16,7 +16,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import tom_som_runtime.DocSpecsSchema;
 import tom_som_runtime.DocSpecsValidator;
@@ -65,7 +67,7 @@ public final class GoldenLog {
     List<String> out = new ArrayList<>();
     out.add("# TomSpecs SOM golden log — canonical cross-language reading.");
     out.add("# All nine per-language generators must emit byte-identical output.");
-    out.add("FORMAT\t9");
+    out.add("FORMAT\t10");
     out.add("MODELVERSION\t" + esc(doc.modelVersion()));
 
     // Generic: content leaves, sorted by path.
@@ -285,6 +287,57 @@ public final class GoldenLog {
     out.add("DS\twarnings\t" + schema.warnings.size());
     out.add("DS\tviolations\t" + violations.size());
     for (DocSpecsViolation v : violations) {
+      out.add("DV\t" + v.rule + "\t" + esc(v.sectionId == null ? "" : v.sectionId) + "\t" + v.line);
+    }
+
+    // --- DocSpecs validation, invalid fixture (FORMAT 10): the deliberately
+    // invalid companion sample validated against the hand-authored demo schema.
+    // The `docspecs` section above can only ever report two zeroes — the sample
+    // is gated to validate cleanly — so its `DV` line had never once executed in
+    // any of the nine generators, and a per-language defect in it was invisible.
+    // This section puts the per-violation emission, and with it every rule
+    // spelling, under the byte-identity comparison.
+    //
+    // The demo schema is used rather than the generated SBP one: the latter
+    // declares no `pattern-check:` and no `text-required:`, so two of the eleven
+    // rules are unreachable against it whatever the document says.
+    //
+    // The fixture reaches each of the eleven rules exactly once, and the
+    // generator asserts that rather than merely reporting it: a rule added to
+    // the vocabulary later without a matching fixture section aborts all nine
+    // generators instead of going quietly unexercised. ---
+    out.add("SECTION\tdocspecs-invalid");
+    String demoSchemaText = new String(Files.readAllBytes(Paths.get(
+        "../tom_som_conformance/corpus/docspecs_schema.yaml")),
+        StandardCharsets.UTF_8);
+    DocSpecsSchema demoSchema = DocSpecsSchema.fromYamlText(demoSchemaText);
+    String invalidMd = new String(Files.readAllBytes(Paths.get(
+        "../tom_som_conformance/samples/invalid_demo_document.md")),
+        StandardCharsets.UTF_8);
+    List<DocSpecsViolation> invalidViolations =
+        new DocSpecsValidator(demoSchema).validateMarkdown(invalidMd);
+    Set<String> reached = new HashSet<>();
+    for (DocSpecsViolation v : invalidViolations) {
+      reached.add(v.rule);
+    }
+    if (reached.size() != DocSpecsViolation.ALL_RULES.length) {
+      List<String> unexercised = new ArrayList<>();
+      for (String r : DocSpecsViolation.ALL_RULES) {
+        if (!reached.contains(r)) {
+          unexercised.add(r);
+        }
+      }
+      die("DOCSPECS RULE COVERAGE: the invalid fixture reaches " + reached.size()
+          + " of " + DocSpecsViolation.ALL_RULES.length + " rules; unexercised: "
+          + String.join(", ", unexercised));
+    }
+    String demoRootSid = demoSchema.rootSectionId();
+    out.add("DS\troot\t" + esc(demoRootSid == null ? "" : demoRootSid));
+    out.add("DS\twarnings\t" + demoSchema.warnings.size());
+    out.add("DS\tviolations\t" + invalidViolations.size());
+    out.add("DS\tvocabulary\t" + DocSpecsViolation.ALL_RULES.length);
+    out.add("DS\trules\t" + reached.size());
+    for (DocSpecsViolation v : invalidViolations) {
       out.add("DV\t" + v.rule + "\t" + esc(v.sectionId == null ? "" : v.sectionId) + "\t" + v.line);
     }
 

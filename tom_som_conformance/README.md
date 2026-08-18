@@ -41,8 +41,9 @@ across languages regardless of their native string/collection types. The format
 is versioned by a `FORMAT <n>` marker and has grown additively — `FORMAT 3`
 added stored headlines (YRD3), `FORMAT 5` typed role fields (YRD6), `FORMAT 6`
 typed non-String form fields, `FORMAT 7` the meta-form `enumValues` column
-(YRD7), `FORMAT 8` the stored `codeSpec` member, and `FORMAT 9` the meta-form
-`refersTo` column (csrb3). **All nine generators are at FORMAT 9** and the
+(YRD7), `FORMAT 8` the stored `codeSpec` member, `FORMAT 9` the meta-form
+`refersTo` column (csrb3), and `FORMAT 10` the `docspecs-invalid` section.
+**All nine generators are at FORMAT 10** and the
 harness is byte-identity green. Each log carries these sections, all
 model-derived so the lines are byte-identical across languages even though the
 accessor *names* differ:
@@ -56,6 +57,7 @@ accessor *names* differ:
 | `meta-nav` | Dot-notation navigation accessors (`d00SolutionBlueprint.introductionAndScope.goals`), asserted to resolve to the same node instance `byPath` finds. |
 | `meta-id` | Hoisted-id accessors (`SBP`, `SBP.RVENT_REVS_LST.item(0)`), asserted to agree with the dot-notation position. |
 | `docspecs` | The sample's markdown validated against the facade's generated DocSpecs schema — root id, warning count, violation count. |
+| `docspecs-invalid` | `samples/invalid_demo_document.md` validated against `corpus/docspecs_schema.yaml` (FORMAT 10) — the same three counters plus the rule-vocabulary size and the number of distinct rules reached, then **one `DV` line per violation**. This is the only section that puts the per-violation emission under byte comparison; see "The invalid companion fixture" in `samples/README.md`. |
 
 Each generator is itself a test: it asserts the typed reads equal the generic
 reads, the metadata-tree nav/id accessors resolve to the same nodes `byPath`
@@ -143,6 +145,7 @@ is a pair:
 | ---- | ---- |
 | `corpus/docspecs_schema.yaml` | The shared schema **input** — one schema whose features exist to provoke all eleven rules (a `max-text-length`, a `min-count: 2` container, a required form field with a pattern check, …). |
 | `corpus/docspecs_cases.json` | One case per rule: the invalid markdown plus the `rule` / `sectionId` / `line` triples the reference produces. |
+| `samples/invalid_demo_document.md` | The golden tier's counterpart to the cases file — one document violating all eleven rules at once, against the *same* schema. Read only by the nine golden generators, not by the runtime runners. |
 
 Three things about the table are deliberate:
 
@@ -159,12 +162,22 @@ Three things about the table are deliberate:
   `DOCSPECS_ALL_RULES`, `kDocSpecsAllRules`). Adding a rule is then the very act
   that demands its case.
 
-The golden's `docspecs` section reads a **valid** sample, so it cannot cover
+The golden's `docspecs` section reads a **valid** sample, so it could not cover
 this: before the table existed, all eleven rules were unexercised and the nine
 logs agreed byte-for-byte about a question none of them had been asked. Wiring
 the table immediately found three ports (JavaScript, TypeScript, Go) reporting
 the schema *type name* instead of the containing section's id on the three
 cardinality rules.
+
+The `docspecs-invalid` golden section (FORMAT 10) is the **third** row above and
+does **not** make the cases table redundant — the two tiers exercise different
+code. The cases table drives each *runtime's* conformance runner; the golden
+section drives each *v0 generator's* hand-ported `DV` emit line, which is a
+separate file reading the violation through a separate accessor. That gap was
+not hypothetical: the JavaScript generator read `v.rule.name` against a runtime
+that models the vocabulary as frozen string constants, and emitted `DV
+undefined` — a defect the passing cases table could not see, because the valid
+sample meant the line had never once executed.
 
 #### …and so does the editor tier (SOM §9)
 

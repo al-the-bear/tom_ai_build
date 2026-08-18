@@ -80,7 +80,7 @@ func main() {
 	var out []string
 	out = append(out, "# TomSpecs SOM golden log — canonical cross-language reading.")
 	out = append(out, "# All nine per-language generators must emit byte-identical output.")
-	out = append(out, "FORMAT\t9")
+	out = append(out, "FORMAT\t10")
 	out = append(out, "MODELVERSION\t"+esc(doc.ModelVersion))
 
 	// Generic: content leaves, sorted by path.
@@ -412,6 +412,62 @@ func main() {
 	out = append(out, fmt.Sprintf("DS\twarnings\t%d", len(schema.Warnings)))
 	out = append(out, fmt.Sprintf("DS\tviolations\t%d", len(violations)))
 	for _, v := range violations {
+		out = append(out, fmt.Sprintf("DV\t%s\t%s\t%d", v.Rule, esc(v.SectionID), v.Line))
+	}
+
+	// --- DocSpecs validation, invalid fixture (FORMAT 10): the deliberately
+	// invalid companion sample validated against the hand-authored demo schema.
+	// The `docspecs` section above can only ever report two zeroes — the sample
+	// is gated to validate cleanly — so its `DV` line had never once executed in
+	// any of the nine generators, and a per-language defect in it was invisible.
+	// This section puts the per-violation emission, and with it every rule
+	// spelling, under the byte-identity comparison.
+	//
+	// The demo schema is used rather than the generated SBP one: the latter
+	// declares no `pattern-check:` and no `text-required:`, so two of the eleven
+	// rules are unreachable against it whatever the document says.
+	//
+	// The fixture reaches each of the eleven rules exactly once, and the
+	// generator asserts that rather than merely reporting it: a rule added to
+	// the vocabulary later without a matching fixture section aborts all nine
+	// generators instead of going quietly unexercised. ---
+	out = append(out, "SECTION\tdocspecs-invalid")
+	demoSchemaText, err := os.ReadFile(filepath.Join(
+		"..", "tom_som_conformance", "corpus", "docspecs_schema.yaml"))
+	if err != nil {
+		die("read demo schema failed: " + err.Error())
+	}
+	demoSchema, err := som.DocSpecsSchemaFromYamlText(string(demoSchemaText))
+	if err != nil {
+		die("parse demo schema failed: " + err.Error())
+	}
+	invalidMd, err := os.ReadFile(filepath.Join("..", "tom_som_conformance", "samples",
+		"invalid_demo_document.md"))
+	if err != nil {
+		die("read invalid sample md failed: " + err.Error())
+	}
+	invalidViolations := som.NewDocSpecsValidator(demoSchema).ValidateMarkdown(string(invalidMd))
+	reached := map[string]bool{}
+	for _, v := range invalidViolations {
+		reached[v.Rule] = true
+	}
+	if len(reached) != len(som.DocSpecsAllRules) {
+		var unexercised []string
+		for _, r := range som.DocSpecsAllRules {
+			if !reached[r] {
+				unexercised = append(unexercised, r)
+			}
+		}
+		die(fmt.Sprintf("DOCSPECS RULE COVERAGE: the invalid fixture reaches %d of %d "+
+			"rules; unexercised: %s", len(reached), len(som.DocSpecsAllRules),
+			strings.Join(unexercised, ", ")))
+	}
+	out = append(out, "DS\troot\t"+esc(demoSchema.RootSectionID()))
+	out = append(out, fmt.Sprintf("DS\twarnings\t%d", len(demoSchema.Warnings)))
+	out = append(out, fmt.Sprintf("DS\tviolations\t%d", len(invalidViolations)))
+	out = append(out, fmt.Sprintf("DS\tvocabulary\t%d", len(som.DocSpecsAllRules)))
+	out = append(out, fmt.Sprintf("DS\trules\t%d", len(reached)))
+	for _, v := range invalidViolations {
 		out = append(out, fmt.Sprintf("DV\t%s\t%s\t%d", v.Rule, esc(v.SectionID), v.Line))
 	}
 

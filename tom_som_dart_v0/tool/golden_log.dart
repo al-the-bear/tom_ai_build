@@ -32,6 +32,14 @@ const _defaultSampleMd =
     '../tom_som_conformance/samples/meridian_order_management.md';
 const _defaultSchema =
     'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
+// The deliberately-invalid companion fixture and the hand-authored demo schema
+// it is written against (the same schema the runtime conformance corpus uses).
+// The generated SBP schema cannot stand in for it: it declares no
+// `pattern-check:` and no `text-required:`, so two of the eleven rules are
+// unreachable against it whatever the document says.
+const _defaultInvalidSampleMd =
+    '../tom_som_conformance/samples/invalid_demo_document.md';
+const _defaultDemoSchema = '../tom_som_conformance/corpus/docspecs_schema.yaml';
 const _defaultOutput = '../tom_som_conformance/golden/dart.log';
 
 /// Escapes a value so it occupies exactly one log line: backslash first (so the
@@ -57,7 +65,7 @@ void main(List<String> args) {
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.add('# All nine per-language generators must emit byte-identical output.');
-  out.add('FORMAT\t9');
+  out.add('FORMAT\t10');
   out.add('MODELVERSION\t${esc(doc.modelVersion ?? '')}');
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -363,6 +371,41 @@ void main(List<String> args) {
   out.add('DS\twarnings\t${schema.warnings.length}');
   out.add('DS\tviolations\t${violations.length}');
   for (final v in violations) {
+    out.add('DV\t${v.rule.name}\t${esc(v.sectionId ?? '')}\t${v.line}');
+  }
+
+  // --- DocSpecs validation, invalid fixture (FORMAT 10): the deliberately
+  // invalid companion sample validated against the hand-authored demo schema.
+  // The `docspecs` section above can only ever report two zeroes — the sample
+  // is gated to validate cleanly — so its `DV` line had never once executed in
+  // any of the nine generators, and a per-language defect in it was invisible.
+  // This section puts the per-violation emission, and with it every rule
+  // spelling, under the byte-identity comparison.
+  //
+  // The fixture reaches each of the eleven rules exactly once, and the
+  // generator asserts that rather than merely reporting it: a rule added to the
+  // vocabulary later without a matching fixture section aborts all nine
+  // generators instead of going quietly unexercised. ---
+  out.add('SECTION\tdocspecs-invalid');
+  final demoSchema =
+      DocSpecsSchema.fromYamlText(File(_defaultDemoSchema).readAsStringSync());
+  final invalidMd = File(_defaultInvalidSampleMd).readAsStringSync();
+  final invalidViolations =
+      DocSpecsValidator(demoSchema).validateMarkdown(invalidMd);
+  final vocabulary = [for (final r in DocSpecsViolationRule.values) r.name];
+  final reached = <String>{for (final v in invalidViolations) v.rule.name};
+  if (reached.length != vocabulary.length) {
+    stderr.writeln('DOCSPECS RULE COVERAGE: the invalid fixture reaches '
+        '${reached.length} of ${vocabulary.length} rules; unexercised: '
+        '${vocabulary.where((r) => !reached.contains(r)).join(', ')}');
+    exit(4);
+  }
+  out.add('DS\troot\t${esc(demoSchema.rootSectionId ?? '')}');
+  out.add('DS\twarnings\t${demoSchema.warnings.length}');
+  out.add('DS\tviolations\t${invalidViolations.length}');
+  out.add('DS\tvocabulary\t${vocabulary.length}');
+  out.add('DS\trules\t${reached.length}');
+  for (final v in invalidViolations) {
     out.add('DV\t${v.rule.name}\t${esc(v.sectionId ?? '')}\t${v.line}');
   }
 

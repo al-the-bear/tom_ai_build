@@ -17,7 +17,9 @@ const _runtimePath = path.resolve(
   _PROJECT,
   require(path.join(_PROJECT, 'package.json')).tomSom.runtimePath,
 );
-const { SpecDocument, DocSpecsSchema, DocSpecsValidator } = require(_runtimePath);
+const {
+  SpecDocument, DocSpecsSchema, DocSpecsValidator, DocSpecsViolationRule,
+} = require(_runtimePath);
 const m = require(path.join(_PROJECT, 'tom_som_javascript_v0.js'));
 
 const DEFAULT_SAMPLE = path.resolve(
@@ -29,6 +31,16 @@ const DEFAULT_SAMPLE_MD = path.resolve(
 const DEFAULT_SCHEMA = path.resolve(
   _PROJECT, 'schemas', 'solution-blueprint',
   'solution-blueprint.1.0.docspecs-schema.yaml');
+// The deliberately-invalid companion fixture and the hand-authored demo schema
+// it is written against (the same schema the runtime conformance corpus uses).
+// The generated SBP schema cannot stand in for it: it declares no
+// `pattern-check:` and no `text-required:`, so two of the eleven rules are
+// unreachable against it whatever the document says.
+const DEFAULT_INVALID_SAMPLE_MD = path.resolve(
+  _PROJECT, '..', 'tom_som_conformance', 'samples',
+  'invalid_demo_document.md');
+const DEFAULT_DEMO_SCHEMA = path.resolve(
+  _PROJECT, '..', 'tom_som_conformance', 'corpus', 'docspecs_schema.yaml');
 const DEFAULT_OUTPUT = path.resolve(
   _PROJECT, '..', 'tom_som_conformance', 'golden', 'javascript.log');
 
@@ -73,7 +85,7 @@ function main() {
   const out = [];
   out.push('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.push('# All nine per-language generators must emit byte-identical output.');
-  out.push('FORMAT\t9');
+  out.push('FORMAT\t10');
   out.push('MODELVERSION\t' + esc(doc.modelVersion || ''));
 
   // Generic: content leaves, sorted by path.
@@ -364,6 +376,44 @@ function main() {
     // `rule` is already the canonical Dart-parity spelling here — the JS
     // runtime models the vocabulary as frozen string constants, not as an
     // enum object, so `.name` would be `undefined`.
+    out.push('DV\t' + v.rule + '\t' + esc(v.sectionId || '') + '\t' + v.line);
+  }
+
+  // --- DocSpecs validation, invalid fixture (FORMAT 10): the deliberately
+  // invalid companion sample validated against the hand-authored demo schema.
+  // The `docspecs` section above can only ever report two zeroes — the sample
+  // is gated to validate cleanly — so its `DV` line had never once executed in
+  // any of the nine generators, and a per-language defect in it was invisible.
+  // This port is where that defect actually lived. This section puts the
+  // per-violation emission, and with it every rule spelling, under the
+  // byte-identity comparison.
+  //
+  // The fixture reaches each of the eleven rules exactly once, and the
+  // generator asserts that rather than merely reporting it: a rule added to the
+  // vocabulary later without a matching fixture section aborts all nine
+  // generators instead of going quietly unexercised. ---
+  out.push('SECTION\tdocspecs-invalid');
+  const demoSchema = DocSpecsSchema.fromYamlText(
+    fs.readFileSync(DEFAULT_DEMO_SCHEMA, 'utf8'),
+  );
+  const invalidMd = fs.readFileSync(DEFAULT_INVALID_SAMPLE_MD, 'utf8');
+  const invalidViolations =
+    new DocSpecsValidator(demoSchema).validateMarkdown(invalidMd);
+  const vocabulary = Object.values(DocSpecsViolationRule);
+  const reached = new Set(invalidViolations.map((v) => v.rule));
+  if (reached.size !== vocabulary.length) {
+    process.stderr.write(
+      'DOCSPECS RULE COVERAGE: the invalid fixture reaches ' + reached.size
+      + ' of ' + vocabulary.length + ' rules; unexercised: '
+      + vocabulary.filter((r) => !reached.has(r)).join(', ') + '\n');
+    process.exit(4);
+  }
+  out.push('DS\troot\t' + esc(demoSchema.rootSectionId || ''));
+  out.push('DS\twarnings\t' + demoSchema.warnings.length);
+  out.push('DS\tviolations\t' + invalidViolations.length);
+  out.push('DS\tvocabulary\t' + vocabulary.length);
+  out.push('DS\trules\t' + reached.size);
+  for (const v of invalidViolations) {
     out.push('DV\t' + v.rule + '\t' + esc(v.sectionId || '') + '\t' + v.line);
   }
 

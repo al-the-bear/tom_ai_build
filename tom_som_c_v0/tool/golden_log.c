@@ -301,7 +301,7 @@ int main(int argc, char **argv) {
       "# TomSpecs SOM golden log — canonical cross-language reading.");
   som_strlist_push_copy(&out,
       "# All nine per-language generators must emit byte-identical output.");
-  som_strlist_push_copy(&out, "FORMAT\t9");
+  som_strlist_push_copy(&out, "FORMAT\t10");
   {
     const char *mv = doc->model_version != NULL ? doc->model_version : "";
     char *e = esc(mv);
@@ -709,6 +709,81 @@ int main(int argc, char **argv) {
     docspecs_violation_list_free(&violations);
     docspecs_schema_free(schema);
     free(sample_md);
+    free(schema_text);
+  }
+
+  /* --- DocSpecs validation, invalid fixture (FORMAT 10): the deliberately
+   * invalid companion sample validated against the hand-authored demo schema.
+   * The `docspecs` section above can only ever report two zeroes — the sample is
+   * gated to validate cleanly — so its `DV` line had never once executed in any
+   * of the nine generators, and a per-language defect in it was invisible. This
+   * section puts the per-violation emission, and with it every rule spelling,
+   * under the byte-identity comparison.
+   *
+   * The fixture reaches each of the eleven rules exactly once, and the generator
+   * asserts that rather than merely reporting it: a rule added to the vocabulary
+   * later without a matching fixture section aborts all nine generators instead
+   * of going quietly unexercised. --- */
+  som_strlist_push_copy(&out, "SECTION\tdocspecs-invalid");
+  {
+    char *schema_text =
+        read_text_file("../tom_som_conformance/corpus/docspecs_schema.yaml");
+    char *invalid_md =
+        read_text_file("../tom_som_conformance/samples/invalid_demo_document.md");
+    DocSpecsSchema *schema = NULL;
+    char *ds_err = NULL;
+    if (!docspecs_schema_from_yaml_text(schema_text, &schema, &ds_err)) {
+      die(ds_err != NULL ? ds_err : "demo schema load failed");
+    }
+    DocSpecsValidator val = docspecs_validator_new(schema);
+    DocSpecsViolationList violations;
+    docspecs_violation_list_init(&violations);
+    docspecs_validator_validate_markdown(&val, invalid_md, &violations);
+
+    int reached[DOCSPECS_ALL_RULES_COUNT] = {0};
+    size_t reached_count = 0;
+    for (size_t i = 0; i < violations.len; i++) {
+      for (size_t r = 0; r < DOCSPECS_ALL_RULES_COUNT; r++) {
+        if (strcmp(violations.items[i].rule, DOCSPECS_ALL_RULES[r]) == 0 &&
+            !reached[r]) {
+          reached[r] = 1;
+          reached_count++;
+        }
+      }
+    }
+    if (reached_count != DOCSPECS_ALL_RULES_COUNT) {
+      SomBuf unexercised;
+      som_buf_init(&unexercised);
+      for (size_t r = 0; r < DOCSPECS_ALL_RULES_COUNT; r++) {
+        if (reached[r]) continue;
+        if (unexercised.len > 0) som_buf_puts(&unexercised, ", ");
+        som_buf_puts(&unexercised, DOCSPECS_ALL_RULES[r]);
+      }
+      char *unexercised_s = som_buf_take(&unexercised);
+      die(fmt("DOCSPECS RULE COVERAGE: the invalid fixture reaches %zu of %d "
+              "rules; unexercised: %s",
+              reached_count, DOCSPECS_ALL_RULES_COUNT, unexercised_s));
+    }
+
+    char *root = docspecs_schema_root_section_id(schema);
+    char *root_e = esc(root != NULL ? root : "");
+    som_strlist_push(&out, fmt("DS\troot\t%s", root_e));
+    free(root_e);
+    free(root);
+    som_strlist_push(&out, fmt("DS\twarnings\t%zu", schema->warnings.len));
+    som_strlist_push(&out, fmt("DS\tviolations\t%zu", violations.len));
+    som_strlist_push(&out, fmt("DS\tvocabulary\t%d", DOCSPECS_ALL_RULES_COUNT));
+    som_strlist_push(&out, fmt("DS\trules\t%zu", reached_count));
+    for (size_t i = 0; i < violations.len; i++) {
+      const DocSpecsViolation *v = &violations.items[i];
+      char *sid = esc(v->section_id);
+      som_strlist_push(&out, fmt("DV\t%s\t%s\t%d", v->rule, sid, v->line));
+      free(sid);
+    }
+
+    docspecs_violation_list_free(&violations);
+    docspecs_schema_free(schema);
+    free(invalid_md);
     free(schema_text);
   }
 

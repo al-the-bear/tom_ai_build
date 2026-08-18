@@ -7,6 +7,7 @@
 //
 // Run from the crate root:  cargo run --example golden_log [samplePath] [output]
 
+use std::collections::HashSet;
 use std::fs;
 use std::path::Path;
 use std::process::exit;
@@ -53,7 +54,7 @@ fn main() {
     let mut out: Vec<String> = Vec::new();
     out.push("# TomSpecs SOM golden log — canonical cross-language reading.".to_string());
     out.push("# All nine per-language generators must emit byte-identical output.".to_string());
-    out.push("FORMAT\t9".to_string());
+    out.push("FORMAT\t10".to_string());
     out.push(format!("MODELVERSION\t{}", esc(&doc.model_version)));
 
     // Generic: content leaves, sorted by path.
@@ -469,6 +470,54 @@ fn main() {
     out.push(format!("DS\twarnings\t{}", warnings_len));
     out.push(format!("DS\tviolations\t{}", violations.len()));
     for v in &violations {
+        out.push(format!("DV\t{}\t{}\t{}", v.rule, esc(&v.section_id), v.line));
+    }
+
+    // --- DocSpecs validation, invalid fixture (FORMAT 10): the deliberately
+    // invalid companion sample validated against the hand-authored demo schema.
+    // The `docspecs` section above can only ever report two zeroes — the sample
+    // is gated to validate cleanly — so its `DV` line had never once executed in
+    // any of the nine generators, and a per-language defect in it was invisible.
+    // This section puts the per-violation emission, and with it every rule
+    // spelling, under the byte-identity comparison.
+    //
+    // The fixture reaches each of the eleven rules exactly once, and the
+    // generator asserts that rather than merely reporting it: a rule added to the
+    // vocabulary later without a matching fixture section aborts all nine
+    // generators instead of going quietly unexercised. ---
+    out.push("SECTION\tdocspecs-invalid".to_string());
+    let demo_schema_text =
+        fs::read_to_string("../tom_som_conformance/corpus/docspecs_schema.yaml")
+            .unwrap_or_else(|e| die(&format!("read demo schema: {}", e)));
+    let demo_schema = som::DocSpecsSchema::from_yaml_text(&demo_schema_text)
+        .unwrap_or_else(|e| die(&format!("from_yaml_text: {}", e)));
+    let invalid_md =
+        fs::read_to_string("../tom_som_conformance/samples/invalid_demo_document.md")
+            .unwrap_or_else(|e| die(&format!("read invalid sample md: {}", e)));
+    let demo_root_id = demo_schema.root_section_id();
+    let demo_warnings_len = demo_schema.warnings.len();
+    let invalid_violations =
+        som::DocSpecsValidator::new(demo_schema).validate_markdown(&invalid_md);
+    let reached: HashSet<&str> = invalid_violations.iter().map(|v| v.rule.as_str()).collect();
+    if reached.len() != som::DOCSPECS_ALL_RULES.len() {
+        let unexercised: Vec<&str> = som::DOCSPECS_ALL_RULES
+            .iter()
+            .copied()
+            .filter(|r| !reached.contains(r))
+            .collect();
+        die(&format!(
+            "DOCSPECS RULE COVERAGE: the invalid fixture reaches {} of {} rules; unexercised: {}",
+            reached.len(),
+            som::DOCSPECS_ALL_RULES.len(),
+            unexercised.join(", ")
+        ));
+    }
+    out.push(format!("DS\troot\t{}", esc(&demo_root_id)));
+    out.push(format!("DS\twarnings\t{}", demo_warnings_len));
+    out.push(format!("DS\tviolations\t{}", invalid_violations.len()));
+    out.push(format!("DS\tvocabulary\t{}", som::DOCSPECS_ALL_RULES.len()));
+    out.push(format!("DS\trules\t{}", reached.len()));
+    for v in &invalid_violations {
         out.push(format!("DV\t{}\t{}\t{}", v.rule, esc(&v.section_id), v.line));
     }
 

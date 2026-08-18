@@ -15,10 +15,13 @@
 
 #include "docspecs_validator.hpp"
 
+#include <cstddef>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <optional>
+#include <set>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -93,7 +96,7 @@ int main(int argc, char** argv) {
   out.push_back("# TomSpecs SOM golden log — canonical cross-language reading.");
   out.push_back(
       "# All nine per-language generators must emit byte-identical output.");
-  out.push_back("FORMAT\t9");
+  out.push_back("FORMAT\t10");
   out.push_back("MODELVERSION\t" + esc(doc.modelVersion));
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -454,6 +457,62 @@ int main(int argc, char** argv) {
     out.push_back("DS\twarnings\t" + std::to_string(schema->warnings.size()));
     out.push_back("DS\tviolations\t" + std::to_string(violations.size()));
     for (const som::DocSpecsViolation& v : violations) {
+      out.push_back("DV\t" + v.rule + "\t" + esc(v.sectionId) + "\t" +
+                    std::to_string(v.line));
+    }
+  }
+
+  // --- DocSpecs validation, invalid fixture (FORMAT 10): the deliberately
+  // invalid companion sample validated against the hand-authored demo schema.
+  // The `docspecs` section above can only ever report two zeroes — the sample is
+  // gated to validate cleanly — so its `DV` line had never once executed in any
+  // of the nine generators, and a per-language defect in it was invisible. This
+  // section puts the per-violation emission, and with it every rule spelling,
+  // under the byte-identity comparison.
+  //
+  // The fixture reaches each of the eleven rules exactly once, and the generator
+  // asserts that rather than merely reporting it: a rule added to the vocabulary
+  // later without a matching fixture section aborts all nine generators instead
+  // of going quietly unexercised. ---
+  out.push_back("SECTION\tdocspecs-invalid");
+  {
+    std::string schemaErr;
+    std::optional<som::DocSpecsSchema> demoSchema =
+        som::docspecsSchemaFromYamlText(
+            readFile("../tom_som_conformance/corpus/docspecs_schema.yaml"),
+            &schemaErr);
+    if (!demoSchema) die("demo DocSpecsSchemaFromYamlText failed: " + schemaErr);
+    const std::string invalidMd =
+        readFile("../tom_som_conformance/samples/invalid_demo_document.md");
+    som::DocSpecsValidator validator(*demoSchema);
+    std::vector<som::DocSpecsViolation> invalidViolations;
+    validator.validateMarkdown(invalidMd, invalidViolations);
+
+    std::set<std::string> reached;
+    for (const som::DocSpecsViolation& v : invalidViolations) {
+      reached.insert(v.rule);
+    }
+    const std::size_t vocabulary = std::size(som::kDocSpecsAllRules);
+    if (reached.size() != vocabulary) {
+      std::string unexercised;
+      for (const char* rule : som::kDocSpecsAllRules) {
+        if (reached.count(rule) != 0) continue;
+        if (!unexercised.empty()) unexercised += ", ";
+        unexercised += rule;
+      }
+      die("DOCSPECS RULE COVERAGE: the invalid fixture reaches " +
+          std::to_string(reached.size()) + " of " + std::to_string(vocabulary) +
+          " rules; unexercised: " + unexercised);
+    }
+
+    out.push_back("DS\troot\t" + esc(demoSchema->rootSectionId()));
+    out.push_back("DS\twarnings\t" +
+                  std::to_string(demoSchema->warnings.size()));
+    out.push_back("DS\tviolations\t" +
+                  std::to_string(invalidViolations.size()));
+    out.push_back("DS\tvocabulary\t" + std::to_string(vocabulary));
+    out.push_back("DS\trules\t" + std::to_string(reached.size()));
+    for (const som::DocSpecsViolation& v : invalidViolations) {
       out.push_back("DV\t" + v.rule + "\t" + esc(v.sectionId) + "\t" +
                     std::to_string(v.line));
     }
