@@ -612,14 +612,19 @@ would not compile at its use sites.
 
 ### 2.5 Back-links — `@DocSpec` and `@CodeSpec`
 
-Every generated top-level declaration, and every generated member that came from
-a SOM section of its own, carries **both** code-side annotations. They are not
-redundant; they answer different questions:
+Two code-side annotations carry the back-link. They are not redundant; they
+answer different questions, and they are **carried by different things**:
 
-| Annotation | Carries | Used for |
-|------------|---------|----------|
-| `@CodeSpec('<canonical id>.<identifier>', source: [<section ids>])` | The element's stable CodeSpec id and the **flat set** of sections that fed it | `codespecs_mapping.md` §8's gap analysis as a set-difference over section ids |
-| `@DocSpec([DocRef('<sectionId>', '<description>'), …])` | One tuple **per contributing section**, explaining what the code took from it | `codespecs_mapping.md` §9.3's reverse link, read by a human |
+| Annotation | Carried by | Carries | Used for |
+|------------|-----------|---------|----------|
+| `@CodeSpec('<canonical id>.<identifier>', source: [<section ids>])` | the **emission unit** — the top-level declaration, never a member | The unit's stable CodeSpec id and the **flat set** of sections that fed it | `codespecs_mapping.md` §8's gap analysis as a set-difference over section ids |
+| `@DocSpec([DocRef('<sectionId>', '<description>'), …])` | **every** declaration that consumed a section of its own — the class *and* each such member | One tuple **per contributing section**, explaining what the code took from it | `codespecs_mapping.md` §9.3's reverse link, read by a human |
+
+The asymmetry is the point. The gap analysis asks *"which sections reached the
+generated code?"*, and its unit of accounting is the emission unit — so
+`source` is written once, where the unit is named. The reverse link asks *"why
+does this line look like this?"*, and its unit is the declaration a reader has
+in front of them — so a member states its own sections next to itself.
 
 **Emission rules.**
 
@@ -630,11 +635,23 @@ redundant; they answer different questions:
    generated from the per-entry template in each entry's point 7. It describes the
    **edge**, not the section — "supplies the operation name and request type", not
    "the interface operation entry".
-4. **`@CodeSpec.source` must equal the set of `sectionId`s in `@DocSpec`.** A
-   named validator check enforces it; drift between the two is otherwise
-   undetectable and would silently corrupt the set-difference gap analysis.
-5. A member that adds no section of its own (a derived back-reference, a
-   materialised ownership list) carries neither — it is covered by its owner's.
+4. **`@CodeSpec.source` must equal the set of `sectionId`s in the `@DocSpec` on
+   the same declaration.** A named validator check enforces it; drift between the
+   two is otherwise undetectable and would silently corrupt the set-difference
+   gap analysis.
+5. **The emission unit's `@DocSpec` enumerates every section the unit consumed,
+   its members' included.** A member's own sections therefore appear twice — once
+   on the member, once on the unit — and rules 4 and 5 together make the unit's
+   `source` the *union* across the class and its members. That union is a
+   **consequence** of these two rules, not a third rule: everywhere else this
+   document mentions it, it cites here.
+6. A declaration that adds no section of its own (a derived back-reference, a
+   materialised ownership list) carries neither annotation — it is covered by its
+   owner's.
+
+Restated as the three things the validator checks: `@CodeSpec` appears on the
+emission unit and nowhere below it; an emission unit carries both annotations or
+neither; and where both appear, their section-id sets are equal.
 
 ### 2.6 Cross-references — which type carries which edge
 
@@ -758,7 +775,7 @@ two subjects cannot drift the way two rules would.
 | **P3** | Method doc | Every method of a form-3a or form-3b declaration, and every method of the abstract collaborator a 3b body calls | The section — or promoted step subsection — whose behaviour the method states | **Generation error** |
 | **P4** | In-body comment | Nothing — see C6 | — | — |
 
-**P2 turns on the same test as `@DocSpec`, not on a judgement.** §2.5 rule 5
+**P2 turns on the same test as `@DocSpec`, not on a judgement.** §2.5 rule 6
 withholds a back-link from a member that adds no section of its own — a derived
 back-reference, a materialised ownership list — and P2 withholds the comment from
 exactly those members, for the same reason: there is no author text to render.
@@ -913,8 +930,10 @@ WRITE into <LOCUS>:
     `throw UnsupportedError(<explication>)`, or form 3b's statements plus the
     abstract collaborator §3.0.1 requires. §2.4 decides which from the input;
     you do not.
-  - Every declaration carries @CodeSpec then @DocSpec then its Cs* marker
-    (§2.5), and every file has §2.7's five-part shape.
+  - The top-level declaration carries @CodeSpec then @DocSpec then its Cs*
+    marker; a member that consumed a section of its own carries @DocSpec and no
+    @CodeSpec, and the top-level @DocSpec repeats those members' sections
+    (§2.5). Every file has §2.7's five-part shape.
   - Comments are governed by §2.8: C1's sources, C2's four positions, C4's
     shape. Copy the specification's text; do not write a sentence of your own.
 
@@ -1018,15 +1037,17 @@ name suffix would turn into load-bearing convention.
 | **4 Naming** | **Class** = the owning declaration's identifier + `Collaborator` (`CustomerActionControllerCollaborator`). Unique by construction — the owner's name is already unique in its locus under N4, and the suffix is fixed.<br>**Method** = camelCase of the **calling body's identifier**, then PascalCase of the **step's headline**, both through N2/N3: `saveCustomerCheckTheEditedValues`. N1 is unchanged and supplies each half. No step section carries a designated name field — `stepNumber` / `stepOrder` are *order*, and `tom_specs_model_rules.md` §10.2's entry-name restatement rule is precisely why a list entry has no name field beside its headline — so N1's second clause applies and the source is the step's **headline**. An unheadlined step therefore **fails** generation naming its section id, exactly as N1 already says of an unnamed section. The order token is deliberately not the source: it names nothing, and the behaviour text cannot be one either, since shortening a sentence to an identifier needs a truncation width, the unstated constant §2.8 C4 rule 2 rules out for the same reason.<br>**The calling body's identifier is always present, not only on collision.** One collaborator serves *every* 3b body of its declaration — §3.5.5's is the clearest case, where one action controller carries a `@CsAction` body per screen action and all of them share it — so two bodies' steps can carry the same headline; and a qualifier applied only when a collision occurs would make an identifier a function of the rest of the document, which N1's pure-function rule forbids. §2.4's B4 adds the one further method kind, a **guard**, under the same two-part name plus a fixed `Applies`.<br>**N4 applies per collaborator class** for these methods rather than per project: two steps of one calling body that produce the same identifier fail generation, naming both step section ids.<br>**File** = N7 unchanged, under the **owning part's** canonical id so it lands beside its caller: `lib/src/action/customer_action_controller_collaborator.dart`. |
 | **5 Locus** | Always the owning declaration's project, **never `shared`**. A collaborator is not a contract between the two sides — it is the Phase-6 seam of one declaration's bodies — and a shared one would put a client's steps in the server's compile unit. §3.4.4's and §3.7.1's are `server`; §3.5.5's and §3.5.10's are `client`. |
 | **6 Cross-refs** | None, in either direction. It emits no `Cs*Ref` — nothing outside its owning declaration ever names a collaborator, so there is no edge for one to carry — and it cites none: its methods carry only the caller's own parameters, whose types it references exactly as the caller does (§2.6). §2.6's table gains no row. |
-| **7 Back-link** | Class: `@CodeSpec('<owning part canonical id>.<Name>', source: [...])` and `@DocSpec([DocRef('<step-list container section id>', 'supplies the step list this collaborator carries')])`. Each method: `@DocSpec([DocRef('<step section id>', 'supplies the behaviour this step states')])`. §2.5 rule 4 is unchanged — the class's `@CodeSpec.source` is the union across the class and its methods. |
+| **7 Back-link** | Class: `@CodeSpec('<owning part canonical id>.<Name>', source: [...])` and a `@DocSpec` opening with `DocRef('<step-list container section id>', 'supplies the step list this collaborator carries')` and continuing with one `DocRef` per method section, per §2.5 rule 5. Each method: `@DocSpec([DocRef('<step section id>', 'supplies the behaviour this step states')])`. The class is the emission unit, so it alone carries `@CodeSpec`, and §2.5 rule 4 equates its `source` with its own `@DocSpec` set. |
 
 **A step section is consumed twice, by two declarations, and each says what it
 took.** The calling entry back-links the step from its own body (§3.5.5,
 §3.5.7 and §3.7.1 point 7) because it took the step's **position in the sequence**; the
 collaborator method back-links it because it took the step's **behaviour**. Two
 edges out of one section is exactly what §2.5 rule 3's "describe the edge, not
-the section" exists to keep distinguishable — it is not two copies of one edge,
-and §2.5 rule 4 holds independently on each declaration.
+the section" exists to keep distinguishable — it is not two copies of one edge.
+The caller and the collaborator are two separate emission units, so §2.5 rule 4
+holds independently within each, and the step section appears in both `source`
+sets.
 
 **Comments follow §2.8 unchanged.** P1 on the class comes from the container
 section through C1; P3 on each method comes from that step's behaviour field and
@@ -1045,8 +1066,8 @@ condition rather than the result; its name carries the fixed `Applies` token; an
 its P3 doc comment is the condition text rather than a behaviour text, and is
 fatal when absent for the same reason. Its back-link is
 `@DocSpec([DocRef('<flow or step section id>', 'supplies the condition this branch is taken under')])`,
-and the class's `@CodeSpec.source` union (§2.5 rule 4) includes it like any
-other.
+and the class's `@DocSpec` — and so its `@CodeSpec.source` (§2.5 rules 4–5) —
+carries it like any other.
 
 ### 3.1 Slice 1 — shared const catalogues
 
@@ -1724,7 +1745,7 @@ DataEntityEntry <!--[IMO-014]--> Customer
 | `String` type | test **(a)** | carried by the member declaration, never repeated in `@CsColumn` |
 | `accessKey` | §2.6 | `CsResourceKeyRef`, resolved by N9 against the shared CE-AZ catalogue |
 | File facet | §3.3.3 | its **presence** is the column kind; `store` and `defaultMediaType` omitted → deployment defaults |
-| `@CodeSpec.source` | §2.5 rule 4 | must equal the `@DocSpec` section-id set: `{IMO-014, IMO-014-a, IMO-014-b, DAATT-DTFR}` |
+| `@CodeSpec.source` | §2.5 rules 4–5 | the class is the emission unit, so its `@DocSpec` enumerates its members' sections too and `source` equals that set: `{IMO-014, IMO-014-a, DATAA, IMO-014-b, DAATT-DTFR}` |
 | Class doc comment | §2.8 P1 + C1 | `description` becomes the summary, `content` the body, separated by one `///` line — and the `—` stays as authored (C4 rule 5 normalises nothing) |
 | `name`'s doc comment | §2.8 P2 | `IMO-014-a` has a `description`, so the member gets one |
 | `signedContract`'s doc comment | §2.8 P2 | `IMO-014-b` has none, so the member gets none — the `@DocSpec` is still emitted, because the section *was* consumed |
@@ -1750,10 +1771,14 @@ import '../authorization/resource_keys.dart';
 /// Customers are never deleted — a closed account keeps its orders.
 @CodeSpec(
   'dataAccess.Customer',
-  source: ['IMO-014', 'IMO-014-a', 'IMO-014-b', 'DAATT-DTFR'],
+  source: ['IMO-014', 'IMO-014-a', 'DATAA', 'IMO-014-b', 'DAATT-DTFR'],
 )
 @DocSpec([
   DocRef('IMO-014', 'supplies the entity, its table and its storage placement'),
+  DocRef('IMO-014-a', 'supplies the stored attribute, its column and its storage type'),
+  DocRef('DATAA', 'supplies the maximum length'),
+  DocRef('IMO-014-b', 'supplies the stored attribute, its column and its storage type'),
+  DocRef('DAATT-DTFR', 'supplies the file-reference facet settings'),
 ])
 @CsTable('customer', datasource: 'core')
 class Customer {
@@ -1797,9 +1822,11 @@ class Customer {
   CE-DB entity is coding form 1/2. `late final` is §2.4's shape for a
   non-nullable field with no authored default: it compiles, and it throws if
   anything reads it before Phase 6 fills it in.
-- **Both back-links agree.** `@CodeSpec.source` is exactly the union of the
-  `@DocSpec` section ids across the class and its members — the invariant §2.5
-  rule 4 makes a validator check.
+- **Both back-links agree.** The class is the emission unit, so it alone carries
+  `@CodeSpec`; the two members carry `@DocSpec` only. Its `@DocSpec` lists all
+  five sections and `source` equals that set — §2.5 rules 4–5, which a validator
+  check enforces. `DATAA` is in both because it fed `length: 80`, and a section
+  the code took something from is a section the gap analysis has to see.
 - **Every comment is derived.** The three `//` banner lines are §2.7 part 1; the
   class doc comment is §2.8 P1 over `IMO-014`'s `description` + `content`;
   `name`'s is P2 over `IMO-014-a`'s `description`. `signedContract` has no
@@ -1862,14 +1889,14 @@ ScreenActionEntry <!--[XDS-104]--> Save customer
 | Collaborator class name | §3.0.1 point 4 | `CustomerActionControllerCollaborator` — the owning declaration's identifier plus the fixed suffix |
 | Method names | §3.0.1 point 4, N1 | `saveCustomerCheckTheEditedValues`, `saveCustomerStoreTheRecord`, `saveCustomerRefuseTheSave` — the calling body's identifier, then the step's **headline**; `stepNumber` is order, not name |
 | Method signatures | §3.0.1 point 2 | the calling body's own parameter list; `Future<void>` on all three, because `saveCustomer` returns `Future<void>` and so no step returns a value |
-| Injection | §3.0.1 point 2 | `late final CustomerActionControllerCollaborator collaborator;` — no doc comment and no `@DocSpec`, per §2.8 P2 and §2.5 rule 5 |
+| Injection | §3.0.1 point 2 | `late final CustomerActionControllerCollaborator collaborator;` — no doc comment and no `@DocSpec`, per §2.8 P2 and §2.5 rule 6 |
 | Statement order | B1 | the step list's document order. `stepNumber` is not read — it agrees here, and `2a1` on the extension step shows why it could not be relied on |
 | Body statements | B2, B3 | one awaited collaborator call per contributing step; no `return`, because the body returns `Future<void>` |
 | The branch | B4 | `ISC-021-X1`'s `condition` becomes the guard `saveCustomerCustomerIsOnCreditHoldApplies` — the calling body's identifier, the **flow entry's** headline, the fixed `Applies` — returning `Future<bool>` because `saveCustomer` is asynchronous. The condition text is its doc comment, not an expression anyone parsed |
 | Where the branch sits | B5 | immediately before step 2's statement. `branchPoint: "ISC-021-2"` is a `MNSST.@sectionId` reference, so the step is resolved rather than matched — and the branch is taken *instead of* that step, so it precedes it |
 | How the branch ends | B6 | `returnKind: endFlow` ends the block `return;` — `saveCustomer` returns `Future<void>`, so there is no value to carry out. Control does not fall through into the two steps the branch replaced, which is what the extension states |
 | Method doc comments | §2.8 P3 | `systemResponse` / `response` / `condition` verbatim — and fatal when absent, which is the second reason step 1 yields no method rather than an undocumented one |
-| Back-links | §3.0.1 point 7 | both declarations cite `ISC-021-2`, `ISC-021-3` and `ISC-021-X1-1`: the caller for each step's position in the sequence, the collaborator for its behaviour. `ISC-021-X1` is cited by the guard for its condition, and by the caller for the branch it placed |
+| Back-links | §3.0.1 point 7, §2.5 rules 4–5 | both declarations cite `ISC-021-2`, `ISC-021-3` and `ISC-021-X1-1`: the caller for each step's position in the sequence, the collaborator for its behaviour. `ISC-021-X1` is cited by the guard for its condition, and by the caller for the branch it placed. `@CodeSpec` sits on the two classes only — `saveCustomer` and the four abstract methods carry `@DocSpec` alone, and each class's `@DocSpec` repeats its members' sections so that `source` accounts for them |
 | Locus and files | §3.0.1 point 5, N7 | `<app>_codespec_client/lib/src/action/customer_action_controller.dart` and `…_collaborator.dart` |
 
 #### The output
@@ -1893,6 +1920,10 @@ import '../view_state/customer_view_model.dart';
 )
 @DocSpec([
   DocRef('ISC-021', 'supplies the step list this collaborator carries'),
+  DocRef('ISC-021-2', 'supplies the behaviour this step states'),
+  DocRef('ISC-021-3', 'supplies the behaviour this step states'),
+  DocRef('ISC-021-X1', 'supplies the condition this branch is taken under'),
+  DocRef('ISC-021-X1-1', 'supplies the behaviour this step states'),
 ])
 @CsCollaborator()
 abstract class CustomerActionControllerCollaborator {
@@ -1984,6 +2015,12 @@ business and are left out here:
   different descriptions: position from the caller, behaviour from the
   collaborator. §2.5 rule 3's "describe the edge, not the section" is what keeps
   the two legible as one section consumed twice rather than one edge duplicated.
+  The caller and the collaborator are two emission units, so the section lands in
+  two `@CodeSpec.source` sets and the gap analysis sees it from both.
+- **`@CodeSpec` marks units, `@DocSpec` marks declarations.** The collaborator
+  class carries both; its four abstract methods carry `@DocSpec` only, as does
+  `saveCustomer` on the controller. That split is §2.5's, and it is why a
+  method's own section still reaches `source` — the class repeats it (rule 5).
 
 ---
 
@@ -2158,7 +2195,7 @@ validator's pass over the resolved annotation for **all** thirty-six.
 | 4 | A missing authored key (message key, error code, setting key, operation name, route id) **fails** | §2.1 N5 | `CsMissingAuthoredKeyCheck` |
 | 5 | A form-3a body with an empty SOM description **fails** | §2.4 | `CsEmptyExplicationCheck` |
 | 6 | No generated body returns a fabricated value — a 3b `return` is admissible only where the returned value came out of a collaborator or substrate call | §2.4 invariant 2 | `CsFabricatedValueCheck` |
-| 7 | `@CodeSpec.source` equals the `@DocSpec` section-id set | §2.5 rule 4 | `CsBackLinkAgreementCheck` |
+| 7 | `@CodeSpec` sits on the emission unit, which carries `@DocSpec` too, and the two section-id sets are equal | §2.5 rules 4–5 | `CsBackLinkAgreementCheck` |
 | 8 | Only the slots of a marker's declared kind are non-null (`@CsTrigger`, `@CsAuthorize`, `@CsJob`) | §2.3 | `CsSlotExclusivityCheck` |
 | 9 | Every mirrored enum matches its `tom_core` counterpart value-for-value | §5.3 | `CsMirroredCatalogueCheck` |
 | 10 | `@CsText` with `role == error` has `category == errorCopy` | §3.1.3 | `CsErrorCopyCategoryCheck` |

@@ -487,10 +487,10 @@ class OrderService {
     });
   });
 
-  group('7 — back-link set equality (§2.5 rule 4)', () {
+  group('7 — back-link set equality (§2.5 rules 4–5)', () {
     _redGreen(
       7,
-      '§2.5 rule 4',
+      '§2.5 rules 4–5',
       says: contains('differs from the @DocSpec section ids'),
       red: _input(
         client: {
@@ -512,7 +512,7 @@ class orderForm {}
       ),
     );
 
-    test('rule 5: a member adding no section carries neither back-link', () {
+    test('rule 6: a member adding no section carries neither back-link', () {
       final input = _input(
         client: {'lib/a.dart': 'class orderForm { String? note; }'},
       );
@@ -529,6 +529,67 @@ class orderForm {}
       expect(
         _forCheck(7, input).single.message,
         contains('@CodeSpec without @DocSpec'),
+      );
+    });
+
+    test('a member carrying @DocSpec alone is the normal case', () {
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CodeSpec('ce-fm.orderForm', source: ['SBP.4.1', 'SBP.4.2'])
+@DocSpec([DocRef('SBP.4.1', 'the order form'), DocRef('SBP.4.2', 'the lines')])
+class orderForm {
+  @DocSpec([DocRef('SBP.4.2', 'the lines')])
+  late final String lines;
+}
+''',
+        },
+      );
+      expect(_forCheck(7, input), isEmpty);
+    });
+
+    test('@CodeSpec on a member fails — it belongs to the emission unit', () {
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CodeSpec('ce-fm.orderForm', source: ['SBP.4.1', 'SBP.4.2'])
+@DocSpec([DocRef('SBP.4.1', 'the order form'), DocRef('SBP.4.2', 'the lines')])
+class orderForm {
+  @CodeSpec('ce-fm.orderForm.lines', source: ['SBP.4.2'])
+  @DocSpec([DocRef('SBP.4.2', 'the lines')])
+  late final String lines;
+}
+''',
+        },
+      );
+      expect(
+        _forCheck(7, input).single.message,
+        allOf(
+          contains('orderForm.lines carries @CodeSpec'),
+          contains('belongs to the emission unit'),
+        ),
+      );
+    });
+
+    test('rule 5: a section only a member cites must reach the unit', () {
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CodeSpec('ce-fm.orderForm', source: ['SBP.4.1'])
+@DocSpec([DocRef('SBP.4.1', 'the order form')])
+class orderForm {
+  @DocSpec([DocRef('SBP.4.2', 'the lines')])
+  late final String lines;
+}
+''',
+        },
+      );
+      expect(
+        _forCheck(7, input).single.message,
+        allOf(
+          contains('the emission unit omits SBP.4.2 (from orderForm.lines)'),
+          contains('@CodeSpec.source'),
+        ),
       );
     });
   });
@@ -2996,10 +3057,14 @@ import '../authorization/resource_keys.dart';
 /// $_customerContent
 @CodeSpec(
   'dataAccess.Customer',
-  source: ['IMO-014', 'IMO-014-a', 'IMO-014-b', 'DAATT-DTFR'],
+  source: ['IMO-014', 'IMO-014-a', 'DATAA', 'IMO-014-b', 'DAATT-DTFR'],
 )
 @DocSpec([
   DocRef('IMO-014', 'supplies the entity, its table and its storage placement'),
+  DocRef('IMO-014-a', 'supplies the stored attribute, its column and its storage type'),
+  DocRef('DATAA', 'supplies the maximum length'),
+  DocRef('IMO-014-b', 'supplies the stored attribute, its column and its storage type'),
+  DocRef('DAATT-DTFR', 'supplies the file-reference facet settings'),
 ])
 @CsTable('customer', datasource: 'core')
 class Customer {
@@ -3049,6 +3114,14 @@ class Customer {
             ('DAATT-DTFR', 'acceptedMediaTypes', 'application/pdf'),
           ]),
         );
+
+    // The example is where the two back-links have to be seen composing: the
+    // class is the emission unit and the two members carry @DocSpec alone, so
+    // all three arms of check 7 are exercised at once. It was asserted here
+    // only after the example was found to break the rule it demonstrates.
+    test('both back-links agree across the unit and its members (7)', () {
+      expect(_forCheck(7, workedExample()), isEmpty);
+    });
 
     test('every comment line comes from the extract (32)', () {
       expect(_forCheck(32, workedExample()), isEmpty);

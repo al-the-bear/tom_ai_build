@@ -5593,8 +5593,10 @@ location(s) a concrete section maps to.
 ### 9.3 The code side — identity and back-trace (`@CodeSpec` + `@DocSpec`)
 
 Generated code carries **two** annotations, and they answer different questions.
-Both are emitted on every top-level declaration and on every member that came
-from a section of its own (`codespecs_derivation_contract.md` §2.5).
+They are also placed differently: `@CodeSpec` on the top-level declaration only,
+`@DocSpec` on every declaration — class or member — that came from a section of
+its own. `codespecs_derivation_contract.md` §2.5 is the rule; the two paragraphs
+below say what each carries.
 
 - **`@CodeSpec('<id>', source: [<sectionIds>], requirements: [<ids>])`** — the
   element's **identity**: a stable CodeSpec id, the **flat set** of section ids
@@ -5608,9 +5610,12 @@ from a section of its own (`codespecs_derivation_contract.md` §2.5).
 
 They are kept separate because a set is what a tool reads and a sentence is what
 a human reads, and merging them would force the gap analysis to parse prose.
-`@CodeSpec.source` must equal the set of `sectionId`s in `@DocSpec` — the
-derivation contract makes that a validator check, since drift between them is
-otherwise undetectable and silently corrupts the set-difference.
+`@CodeSpec.source` must equal the set of `sectionId`s in the `@DocSpec` beside
+it — the derivation contract makes that a validator check, since drift between
+them is otherwise undetectable and silently corrupts the set-difference. Because
+the declaration carrying `@CodeSpec` is the emission unit, its `@DocSpec` also
+repeats its members' sections, so `source` accounts for the whole unit and §8's
+set-difference never has to look inside a class.
 
 ### 9.4 Why both directions
 

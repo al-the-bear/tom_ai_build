@@ -16,6 +16,13 @@
 /// - [requirements] — the requirement ids (RSP / RC) this code satisfies.
 ///
 /// The code → doc back-trace is carried by the companion `@DocSpec` annotation.
+/// The two are **not** placed alike, and `codespecs_derivation_contract.md`
+/// §2.5 is where that asymmetry is stated: `@CodeSpec` sits on the top-level
+/// declaration — the *emission unit* — and never on a member, while `@DocSpec`
+/// sits on every declaration that consumed a section, member or not. So
+/// [source] accounts for the **whole** unit: a section only a member cites
+/// still belongs in the class's [source], because the gap analysis reads
+/// [source] and never looks inside a class.
 ///
 /// Example:
 /// ```dart

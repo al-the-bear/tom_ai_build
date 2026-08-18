@@ -643,6 +643,14 @@ class CsFabricatedValueCheck extends CodeSpecsCheck {
 // ---------------------------------------------------------------------------
 
 /// `codespecs_derivation_contract.md` §6 check 7.
+///
+/// Three things, because `codespecs_derivation_contract.md` §2.5 makes the two
+/// back-link annotations asymmetric: `@CodeSpec`
+/// belongs to the **emission unit** — the top-level declaration — while
+/// `@DocSpec` belongs to whichever declaration consumed a section, class or
+/// member. So a member carrying `@DocSpec` alone is the normal case and not a
+/// violation, a member carrying `@CodeSpec` at all is one, and the equality of
+/// rule 4 is asserted where `@CodeSpec` is written.
 class CsBackLinkAgreementCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsBackLinkAgreementCheck();
@@ -651,18 +659,47 @@ class CsBackLinkAgreementCheck extends CodeSpecsCheck {
   int get number => 7;
 
   @override
-  String get definedIn => '§2.5 rule 4';
+  String get definedIn => '§2.5 rules 4–5';
 
   @override
-  String get title => '@CodeSpec.source equals the @DocSpec section-id set';
+  String get title =>
+      '@CodeSpec sits on the emission unit and its section ids equal '
+      'its @DocSpec set';
 
   @override
   List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
     final out = <CodeSpecsViolation>[];
+
+    // Members by their owner's name — the owner is unique in its locus under
+    // N4, which check 1 enforces, so the name is the whole key it needs.
+    final membersOf = <String, List<CsDeclaration>>{};
+    for (final declaration in input.declarations) {
+      final owner = declaration.owner;
+      if (owner == null) continue;
+      (membersOf[owner] ??= []).add(declaration);
+    }
+
     for (final declaration in input.declarations) {
       final codeSpec = declaration.codeSpec;
       final docSpec = declaration.docSpec;
-      // Rule 5: a member that adds no section of its own carries neither.
+
+      if (!declaration.isTopLevel) {
+        // A member never carries @CodeSpec: `source` accounts for the whole
+        // emission unit, and a second one below it would double-count.
+        if (codeSpec != null) {
+          out.add(
+            fail(
+              '${declaration.path} carries @CodeSpec, but @CodeSpec belongs to '
+              'the emission unit — the member states its sections in @DocSpec '
+              'and ${declaration.owner} repeats them',
+              codeSpec.location,
+            ),
+          );
+        }
+        continue;
+      }
+
+      // Rule 6: a declaration that adds no section of its own carries neither.
       if (codeSpec == null && docSpec == null) continue;
       if (codeSpec == null || docSpec == null) {
         out.add(
@@ -677,11 +714,35 @@ class CsBackLinkAgreementCheck extends CodeSpecsCheck {
       }
       final fromCodeSpec = codeSpec.source.toSet();
       final fromDocSpec = docSpec.map((r) => r.sectionId).toSet();
-      if (_sameSet(fromCodeSpec, fromDocSpec)) continue;
+      if (!_sameSet(fromCodeSpec, fromDocSpec)) {
+        out.add(
+          fail(
+            '${declaration.path}: @CodeSpec.source {${fromCodeSpec.join(', ')}} '
+            'differs from the @DocSpec section ids {${fromDocSpec.join(', ')}}',
+            codeSpec.location,
+          ),
+        );
+        continue;
+      }
+
+      // Rule 5: the unit's @DocSpec enumerates its members' sections too. This
+      // is what makes `source` the union across the class and its members, and
+      // so what keeps a member's section visible to the gap analysis — which
+      // reads `source` and never looks inside a class.
+      final missing = <String, String>{};
+      for (final member in membersOf[declaration.path] ?? const <CsDeclaration>[]) {
+        for (final ref in member.docSpec ?? const <CsDocRef>[]) {
+          if (fromDocSpec.contains(ref.sectionId)) continue;
+          missing.putIfAbsent(ref.sectionId, () => member.path);
+        }
+      }
+      if (missing.isEmpty) continue;
       out.add(
         fail(
-          '${declaration.path}: @CodeSpec.source {${fromCodeSpec.join(', ')}} '
-          'differs from the @DocSpec section ids {${fromDocSpec.join(', ')}}',
+          '${declaration.path}: the emission unit omits '
+          '${missing.entries.map((e) => '${e.key} (from ${e.value})').join(', ')}'
+          " — a member's sections belong in the unit's @DocSpec and"
+          ' @CodeSpec.source as well as on the member',
           codeSpec.location,
         ),
       );
