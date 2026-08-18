@@ -51545,6 +51545,14 @@ func (x *AlternativeStepEntryContentForm) SetExpectedResult(value string) {
 	x.Doc().SetFormField(x.Path(), "expectedResult", value)
 }
 
+func (x *AlternativeStepEntryContentForm) ServerOperation() string {
+	return x.Doc().FormFieldOr(x.Path(), "serverOperation")
+}
+
+func (x *AlternativeStepEntryContentForm) SetServerOperation(value string) {
+	x.Doc().SetFormField(x.Path(), "serverOperation", value)
+}
+
 // AnomalyDetectionPolicyContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type AnomalyDetectionPolicyContentForm struct {
@@ -104570,6 +104578,14 @@ func (x *ExtensionStepEntryContentForm) SetResponse(value string) {
 	x.Doc().SetFormField(x.Path(), "response", value)
 }
 
+func (x *ExtensionStepEntryContentForm) ServerOperation() string {
+	return x.Doc().FormFieldOr(x.Path(), "serverOperation")
+}
+
+func (x *ExtensionStepEntryContentForm) SetServerOperation(value string) {
+	x.Doc().SetFormField(x.Path(), "serverOperation", value)
+}
+
 // ExternalActorEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ExternalActorEntryContentForm struct {
@@ -126446,6 +126462,14 @@ func (x *MainScenarioStepEntryContentForm) SystemResponse() string {
 
 func (x *MainScenarioStepEntryContentForm) SetSystemResponse(value string) {
 	x.Doc().SetFormField(x.Path(), "systemResponse", value)
+}
+
+func (x *MainScenarioStepEntryContentForm) ServerOperation() string {
+	return x.Doc().FormFieldOr(x.Path(), "serverOperation")
+}
+
+func (x *MainScenarioStepEntryContentForm) SetServerOperation(value string) {
+	x.Doc().SetFormField(x.Path(), "serverOperation", value)
 }
 
 func (x *MainScenarioStepEntryContentForm) DataInvolved() string {
@@ -170643,6 +170667,14 @@ func (x *ScenarioStepEntryContentForm) SetSystemResponse(value string) {
 	x.Doc().SetFormField(x.Path(), "systemResponse", value)
 }
 
+func (x *ScenarioStepEntryContentForm) ServerOperation() string {
+	return x.Doc().FormFieldOr(x.Path(), "serverOperation")
+}
+
+func (x *ScenarioStepEntryContentForm) SetServerOperation(value string) {
+	x.Doc().SetFormField(x.Path(), "serverOperation", value)
+}
+
 // ScenarioStepEntryContextForm is the generated section facade for the `context` @Form section: its own
 // content text followed by one typed member per form field.
 type ScenarioStepEntryContextForm struct {
@@ -177871,6 +177903,14 @@ func (x *ServerOperationEntryContentForm) Content() string {
 
 func (x *ServerOperationEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ServerOperationEntryContentForm) OperationName() string {
+	return x.Doc().FormFieldOr(x.Path(), "operationName")
+}
+
+func (x *ServerOperationEntryContentForm) SetOperationName(value string) {
+	x.Doc().SetFormField(x.Path(), "operationName", value)
 }
 
 func (x *ServerOperationEntryContentForm) Purpose() string {

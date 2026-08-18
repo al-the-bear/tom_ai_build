@@ -44500,6 +44500,14 @@ export class AlternativeStepEntryContentForm extends SomNode {
   set expectedResult(value: string) {
     this.doc.setFormField(this.path, "expectedResult", value);
   }
+
+  get serverOperation(): string {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value: string) {
+    this.doc.setFormField(this.path, "serverOperation", value);
+  }
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
@@ -88283,6 +88291,14 @@ export class ExtensionStepEntryContentForm extends SomNode {
   set response(value: string) {
     this.doc.setFormField(this.path, "response", value);
   }
+
+  get serverOperation(): string {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value: string) {
+    this.doc.setFormField(this.path, "serverOperation", value);
+  }
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
@@ -106550,6 +106566,14 @@ export class MainScenarioStepEntryContentForm extends SomNode {
 
   set systemResponse(value: string) {
     this.doc.setFormField(this.path, "systemResponse", value);
+  }
+
+  get serverOperation(): string {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value: string) {
+    this.doc.setFormField(this.path, "serverOperation", value);
   }
 
   get dataInvolved(): string {
@@ -143507,6 +143531,14 @@ export class ScenarioStepEntryContentForm extends SomNode {
   set systemResponse(value: string) {
     this.doc.setFormField(this.path, "systemResponse", value);
   }
+
+  get serverOperation(): string {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value: string) {
+    this.doc.setFormField(this.path, "serverOperation", value);
+  }
 }
 
 // Generated section facade for the `context` @Form section: its own content text followed by one typed member per form field.
@@ -149601,6 +149633,14 @@ export class ServerOperationEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
+  }
+
+  get operationName(): string {
+    return this.doc.formField(this.path, "operationName") || '';
+  }
+
+  set operationName(value: string) {
+    this.doc.setFormField(this.path, "operationName", value);
   }
 
   get purpose(): string {

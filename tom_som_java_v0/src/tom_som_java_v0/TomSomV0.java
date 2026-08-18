@@ -46210,6 +46210,15 @@ public final class TomSomV0 {
     public void expectedResult(String value) {
       doc.setFormField(path, "expectedResult", value);
     }
+
+    public String serverOperation() {
+      String v = doc.formField(path, "serverOperation");
+      return v == null ? "" : v;
+    }
+
+    public void serverOperation(String value) {
+      doc.setFormField(path, "serverOperation", value);
+    }
   }
 
   // Generated section facade for the `content` @Form section: its own content
@@ -95986,6 +95995,15 @@ public final class TomSomV0 {
     public void response(String value) {
       doc.setFormField(path, "response", value);
     }
+
+    public String serverOperation() {
+      String v = doc.formField(path, "serverOperation");
+      return v == null ? "" : v;
+    }
+
+    public void serverOperation(String value) {
+      doc.setFormField(path, "serverOperation", value);
+    }
   }
 
   // Generated section facade for the `content` @Form section: its own content
@@ -116752,6 +116770,15 @@ public final class TomSomV0 {
 
     public void systemResponse(String value) {
       doc.setFormField(path, "systemResponse", value);
+    }
+
+    public String serverOperation() {
+      String v = doc.formField(path, "serverOperation");
+      return v == null ? "" : v;
+    }
+
+    public void serverOperation(String value) {
+      doc.setFormField(path, "serverOperation", value);
     }
 
     public String dataInvolved() {
@@ -158740,6 +158767,15 @@ public final class TomSomV0 {
     public void systemResponse(String value) {
       doc.setFormField(path, "systemResponse", value);
     }
+
+    public String serverOperation() {
+      String v = doc.formField(path, "serverOperation");
+      return v == null ? "" : v;
+    }
+
+    public void serverOperation(String value) {
+      doc.setFormField(path, "serverOperation", value);
+    }
   }
 
   // Generated section facade for the `context` @Form section: its own content
@@ -165674,6 +165710,15 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path, value);
+    }
+
+    public String operationName() {
+      String v = doc.formField(path, "operationName");
+      return v == null ? "" : v;
+    }
+
+    public void operationName(String value) {
+      doc.setFormField(path, "operationName", value);
     }
 
     public String purpose() {

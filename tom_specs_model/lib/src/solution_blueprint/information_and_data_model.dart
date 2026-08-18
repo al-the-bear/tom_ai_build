@@ -5542,6 +5542,14 @@ systems are inventoried under External Interfaces (EXIN) instead.
 class ServerOperationEntry extends DocSpecsSection {
   @Form([
     Field(
+      'operationName',
+      String,
+      'Operation Name',
+      required: true,
+      hint: 'The single identifier callers use, e.g., placeOrder — a stable '
+          'token of the specified system, not a restatement of the headline',
+    ),
+    Field(
       'purpose',
       String,
       'Purpose',

@@ -54220,6 +54220,13 @@ char *alternative_step_entry_content_form_expected_result(const AlternativeStepE
 void alternative_step_entry_content_form_set_expected_result(AlternativeStepEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "expectedResult", value);
 }
+char *alternative_step_entry_content_form_server_operation(const AlternativeStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "serverOperation");
+  return som_strdup(v != NULL ? v : "");
+}
+void alternative_step_entry_content_form_set_server_operation(AlternativeStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "serverOperation", value);
+}
 
 void anomaly_detection_policy_content_form_init(AnomalyDetectionPolicyContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -90091,6 +90098,13 @@ char *extension_step_entry_content_form_response(const ExtensionStepEntryContent
 void extension_step_entry_content_form_set_response(ExtensionStepEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "response", value);
 }
+char *extension_step_entry_content_form_server_operation(const ExtensionStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "serverOperation");
+  return som_strdup(v != NULL ? v : "");
+}
+void extension_step_entry_content_form_set_server_operation(ExtensionStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "serverOperation", value);
+}
 
 void external_actor_entry_content_form_init(ExternalActorEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -105088,6 +105102,13 @@ char *main_scenario_step_entry_content_form_system_response(const MainScenarioSt
 }
 void main_scenario_step_entry_content_form_set_system_response(MainScenarioStepEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "systemResponse", value);
+}
+char *main_scenario_step_entry_content_form_server_operation(const MainScenarioStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "serverOperation");
+  return som_strdup(v != NULL ? v : "");
+}
+void main_scenario_step_entry_content_form_set_server_operation(MainScenarioStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "serverOperation", value);
 }
 char *main_scenario_step_entry_content_form_data_involved(const MainScenarioStepEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataInvolved");
@@ -135593,6 +135614,13 @@ char *scenario_step_entry_content_form_system_response(const ScenarioStepEntryCo
 void scenario_step_entry_content_form_set_system_response(ScenarioStepEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "systemResponse", value);
 }
+char *scenario_step_entry_content_form_server_operation(const ScenarioStepEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "serverOperation");
+  return som_strdup(v != NULL ? v : "");
+}
+void scenario_step_entry_content_form_set_server_operation(ScenarioStepEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "serverOperation", value);
+}
 
 void scenario_step_entry_context_form_init(ScenarioStepEntryContextForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -140585,6 +140613,13 @@ char *server_operation_entry_content_form_content(const ServerOperationEntryCont
 }
 void server_operation_entry_content_form_set_content(ServerOperationEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *server_operation_entry_content_form_operation_name(const ServerOperationEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationName");
+  return som_strdup(v != NULL ? v : "");
+}
+void server_operation_entry_content_form_set_operation_name(ServerOperationEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "operationName", value);
 }
 char *server_operation_entry_content_form_purpose(const ServerOperationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "purpose");

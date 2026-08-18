@@ -4689,6 +4689,16 @@ class MainScenarioStepEntry extends DocSpecsSection {
       hint: 'How the system responds to the action',
     ),
     Field(
+      'serverOperation',
+      String,
+      'Server Operation',
+      hint: 'ServerOperationEntry.operationName (SVOPR registry) this step '
+          'calls. State it only where the step reaches the server: the client '
+          'call is generated exactly where this is present, so a step that '
+          'names nothing generates no call.',
+      refersTo: ['SVOPE.operationName'],
+    ),
+    Field(
       'dataInvolved',
       String,
       'Data Involved — data read/written',
@@ -5031,6 +5041,16 @@ class ExtensionStepEntry extends DocSpecsSection {
       String,
       'Response',
       hint: 'How the system responds in this step',
+    ),
+    Field(
+      'serverOperation',
+      String,
+      'Server Operation',
+      hint: 'ServerOperationEntry.operationName (SVOPR registry) this step '
+          'calls. State it only where the step reaches the server: the client '
+          'call is generated exactly where this is present, so a step that '
+          'names nothing generates no call.',
+      refersTo: ['SVOPE.operationName'],
     ),
   ])
   @override
@@ -5703,6 +5723,16 @@ class ScenarioStepEntry extends DocSpecsSection {
       'System Response — what system does',
       hint: 'How the system responds to the action',
     ),
+    Field(
+      'serverOperation',
+      String,
+      'Server Operation',
+      hint: 'ServerOperationEntry.operationName (SVOPR registry) this step '
+          'calls. State it only where the step reaches the server: the client '
+          'call is generated exactly where this is present, so a step that '
+          'names nothing generates no call.',
+      refersTo: ['SVOPE.operationName'],
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -5951,6 +5981,16 @@ class AlternativeStepEntry extends DocSpecsSection {
       String,
       'Expected Result',
       hint: 'The observable outcome after the step',
+    ),
+    Field(
+      'serverOperation',
+      String,
+      'Server Operation',
+      hint: 'ServerOperationEntry.operationName (SVOPR registry) this step '
+          'calls. State it only where the step reaches the server: the client '
+          'call is generated exactly where this is present, so a step that '
+          'names nothing generates no call.',
+      refersTo: ['SVOPE.operationName'],
     ),
   ])
   @override

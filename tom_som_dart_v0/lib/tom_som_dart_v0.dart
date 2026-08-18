@@ -28378,6 +28378,9 @@ class AlternativeStepEntryContentForm extends SomNode {
 
   String get expectedResult => doc.formField(path, 'expectedResult') ?? '';
   set expectedResult(String value) => doc.setFormField(path, 'expectedResult', value);
+
+  String get serverOperation => doc.formField(path, 'serverOperation') ?? '';
+  set serverOperation(String value) => doc.setFormField(path, 'serverOperation', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -49893,6 +49896,9 @@ class ExtensionStepEntryContentForm extends SomNode {
 
   String get response => doc.formField(path, 'response') ?? '';
   set response(String value) => doc.setFormField(path, 'response', value);
+
+  String get serverOperation => doc.formField(path, 'serverOperation') ?? '';
+  set serverOperation(String value) => doc.setFormField(path, 'serverOperation', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -58842,6 +58848,9 @@ class MainScenarioStepEntryContentForm extends SomNode {
 
   String get systemResponse => doc.formField(path, 'systemResponse') ?? '';
   set systemResponse(String value) => doc.setFormField(path, 'systemResponse', value);
+
+  String get serverOperation => doc.formField(path, 'serverOperation') ?? '';
+  set serverOperation(String value) => doc.setFormField(path, 'serverOperation', value);
 
   String get dataInvolved => doc.formField(path, 'dataInvolved') ?? '';
   set dataInvolved(String value) => doc.setFormField(path, 'dataInvolved', value);
@@ -76731,6 +76740,9 @@ class ScenarioStepEntryContentForm extends SomNode {
 
   String get systemResponse => doc.formField(path, 'systemResponse') ?? '';
   set systemResponse(String value) => doc.setFormField(path, 'systemResponse', value);
+
+  String get serverOperation => doc.formField(path, 'serverOperation') ?? '';
+  set serverOperation(String value) => doc.setFormField(path, 'serverOperation', value);
 }
 
 /// Generated section facade for the `context` `@Form` section:
@@ -79767,6 +79779,9 @@ class ServerOperationEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
+
+  String get operationName => doc.formField(path, 'operationName') ?? '';
+  set operationName(String value) => doc.setFormField(path, 'operationName', value);
 
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);

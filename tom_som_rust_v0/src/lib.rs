@@ -62405,6 +62405,15 @@ impl AlternativeStepEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "expectedResult", value);
     }
+
+    pub fn server_operation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serverOperation")
+    }
+
+    pub fn set_server_operation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serverOperation", value);
+    }
 }
 
 /// AnomalyDetectionPolicyContentForm is the generated section facade for the `content` @Form section: its own
@@ -119512,6 +119521,15 @@ impl ExtensionStepEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "response", value);
     }
+
+    pub fn server_operation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serverOperation")
+    }
+
+    pub fn set_server_operation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serverOperation", value);
+    }
 }
 
 /// ExternalActorEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -143273,6 +143291,15 @@ impl MainScenarioStepEntryContentForm {
     pub fn set_system_response(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "systemResponse", value);
+    }
+
+    pub fn server_operation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serverOperation")
+    }
+
+    pub fn set_server_operation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serverOperation", value);
     }
 
     pub fn data_involved(&self) -> String {
@@ -191056,6 +191083,15 @@ impl ScenarioStepEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "systemResponse", value);
     }
+
+    pub fn server_operation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serverOperation")
+    }
+
+    pub fn set_server_operation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serverOperation", value);
+    }
 }
 
 /// ScenarioStepEntryContextForm is the generated section facade for the `context` @Form section: its own
@@ -199042,6 +199078,15 @@ impl ServerOperationEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn operation_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "operationName")
+    }
+
+    pub fn set_operation_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "operationName", value);
     }
 
     pub fn purpose(&self) -> String {

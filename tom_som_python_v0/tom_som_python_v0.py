@@ -43149,6 +43149,14 @@ class AlternativeStepEntryContentForm(SomNode):
     def expectedResult(self, value):
         self.doc.set_form_field(self.path, "expectedResult", value)
 
+    @property
+    def serverOperation(self) -> str:
+        return self.doc.form_field(self.path, "serverOperation") or ""
+
+    @serverOperation.setter
+    def serverOperation(self, value):
+        self.doc.set_form_field(self.path, "serverOperation", value)
+
 class AnomalyDetectionPolicyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -85434,6 +85442,14 @@ class ExtensionStepEntryContentForm(SomNode):
     def response(self, value):
         self.doc.set_form_field(self.path, "response", value)
 
+    @property
+    def serverOperation(self) -> str:
+        return self.doc.form_field(self.path, "serverOperation") or ""
+
+    @serverOperation.setter
+    def serverOperation(self, value):
+        self.doc.set_form_field(self.path, "serverOperation", value)
+
 class ExternalActorEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -103090,6 +103106,14 @@ class MainScenarioStepEntryContentForm(SomNode):
     @systemResponse.setter
     def systemResponse(self, value):
         self.doc.set_form_field(self.path, "systemResponse", value)
+
+    @property
+    def serverOperation(self) -> str:
+        return self.doc.form_field(self.path, "serverOperation") or ""
+
+    @serverOperation.setter
+    def serverOperation(self, value):
+        self.doc.set_form_field(self.path, "serverOperation", value)
 
     @property
     def dataInvolved(self) -> str:
@@ -139099,6 +139123,14 @@ class ScenarioStepEntryContentForm(SomNode):
     def systemResponse(self, value):
         self.doc.set_form_field(self.path, "systemResponse", value)
 
+    @property
+    def serverOperation(self) -> str:
+        return self.doc.form_field(self.path, "serverOperation") or ""
+
+    @serverOperation.setter
+    def serverOperation(self, value):
+        self.doc.set_form_field(self.path, "serverOperation", value)
+
 class ScenarioStepEntryContextForm(SomNode):
     """Generated section facade for the `context` @Form section: its own content text followed by one typed member per form field."""
 
@@ -144975,6 +145007,14 @@ class ServerOperationEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
+
+    @property
+    def operationName(self) -> str:
+        return self.doc.form_field(self.path, "operationName") or ""
+
+    @operationName.setter
+    def operationName(self, value):
+        self.doc.set_form_field(self.path, "operationName", value)
 
     @property
     def purpose(self) -> str:

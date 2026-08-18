@@ -28455,6 +28455,8 @@ class AlternativeStepEntryContentForm : public som::SomNode {
   void setResponse(const std::string& value);
   std::string expectedResult() const;
   void setExpectedResult(const std::string& value);
+  std::string serverOperation() const;
+  void setServerOperation(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -43977,6 +43979,8 @@ class ExtensionStepEntryContentForm : public som::SomNode {
   void setAction(const std::string& value);
   std::string response() const;
   void setResponse(const std::string& value);
+  std::string serverOperation() const;
+  void setServerOperation(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -50427,6 +50431,8 @@ class MainScenarioStepEntryContentForm : public som::SomNode {
   void setActorAction(const std::string& value);
   std::string systemResponse() const;
   void setSystemResponse(const std::string& value);
+  std::string serverOperation() const;
+  void setServerOperation(const std::string& value);
   std::string dataInvolved() const;
   void setDataInvolved(const std::string& value);
   std::string businessRuleApplied() const;
@@ -63285,6 +63291,8 @@ class ScenarioStepEntryContentForm : public som::SomNode {
   void setAction(const std::string& value);
   std::string systemResponse() const;
   void setSystemResponse(const std::string& value);
+  std::string serverOperation() const;
+  void setServerOperation(const std::string& value);
 };
 
 // Generated section facade for the `context` @Form section: its own `content` text followed by one typed member per form field.
@@ -65481,6 +65489,8 @@ class ServerOperationEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string operationName() const;
+  void setOperationName(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
   std::string primaryDataEntity() const;

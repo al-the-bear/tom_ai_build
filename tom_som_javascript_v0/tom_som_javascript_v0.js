@@ -45175,6 +45175,14 @@ class AlternativeStepEntryContentForm extends SomNode {
   set expectedResult(value) {
     this.doc.setFormField(this.path, "expectedResult", value);
   }
+
+  get serverOperation() {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value) {
+    this.doc.setFormField(this.path, "serverOperation", value);
+  }
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
@@ -88958,6 +88966,14 @@ class ExtensionStepEntryContentForm extends SomNode {
   set response(value) {
     this.doc.setFormField(this.path, "response", value);
   }
+
+  get serverOperation() {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value) {
+    this.doc.setFormField(this.path, "serverOperation", value);
+  }
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
@@ -107225,6 +107241,14 @@ class MainScenarioStepEntryContentForm extends SomNode {
 
   set systemResponse(value) {
     this.doc.setFormField(this.path, "systemResponse", value);
+  }
+
+  get serverOperation() {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value) {
+    this.doc.setFormField(this.path, "serverOperation", value);
   }
 
   get dataInvolved() {
@@ -144182,6 +144206,14 @@ class ScenarioStepEntryContentForm extends SomNode {
   set systemResponse(value) {
     this.doc.setFormField(this.path, "systemResponse", value);
   }
+
+  get serverOperation() {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value) {
+    this.doc.setFormField(this.path, "serverOperation", value);
+  }
 }
 
 // Generated section facade for the `context` @Form section: its own content text followed by one typed member per form field.
@@ -150276,6 +150308,14 @@ class ServerOperationEntryContentForm extends SomNode {
 
   set content(value) {
     this.doc.setContent(this.path, value);
+  }
+
+  get operationName() {
+    return this.doc.formField(this.path, "operationName") || '';
+  }
+
+  set operationName(value) {
+    this.doc.setFormField(this.path, "operationName", value);
   }
 
   get purpose() {

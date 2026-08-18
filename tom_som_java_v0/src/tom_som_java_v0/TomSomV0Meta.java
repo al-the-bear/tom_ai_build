@@ -3411,7 +3411,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("stepNumber", "String", "Step Number", false, "Sequential position within the alternative flow", 0),
             new SomFormFieldMeta("action", "String", "Action", false, "The action taken in this step", 1),
             new SomFormFieldMeta("response", "String", "Response", false, "How the system responds to the action", 2),
-            new SomFormFieldMeta("expectedResult", "String", "Expected Result", false, "The observable outcome after the step", 3)));
+            new SomFormFieldMeta("expectedResult", "String", "Expected Result", false, "The observable outcome after the step", 3),
+            new SomFormFieldMeta("serverOperation", "String", "Server Operation", false, "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.", 4, java.util.List.of(), java.util.List.of("SVOPE.operationName"))));
         out.add(n);
       }
       {
@@ -39343,7 +39344,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "String", "Step Number (e.g., 3a1)", false, "Extension step id such as 3a1", 0),
             new SomFormFieldMeta("action", "String", "Action", false, "What the actor does in this extension step", 1),
-            new SomFormFieldMeta("response", "String", "Response", false, "How the system responds in this step", 2)));
+            new SomFormFieldMeta("response", "String", "Response", false, "How the system responds in this step", 2),
+            new SomFormFieldMeta("serverOperation", "String", "Server Operation", false, "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.", 3, java.util.List.of(), java.util.List.of("SVOPE.operationName"))));
         out.add(n);
       }
       {
@@ -52757,11 +52759,12 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", 0),
             new SomFormFieldMeta("actorAction", "String", "Actor Action — what actor does", false, "What the actor does in this step", 1),
             new SomFormFieldMeta("systemResponse", "String", "System Response — what system does", false, "How the system responds to the action", 2),
-            new SomFormFieldMeta("dataInvolved", "String", "Data Involved — data read/written", false, "Data read or written during the step", 3),
-            new SomFormFieldMeta("businessRuleApplied", "String", "Business Rule Applied — BR-xxx reference", false, "BR-xxx rule enforced at this step", 4),
-            new SomFormFieldMeta("uiElementUsed", "String", "UI Element Used — screen/component", false, "Screen or component the actor interacts with", 5),
-            new SomFormFieldMeta("validationPerformed", "String", "Validation Performed — checks done", false, "Validations run during this step", 6),
-            new SomFormFieldMeta("expectedDuration", "String", "Expected Duration — time for this step", false, "Expected time to complete this step", 7)));
+            new SomFormFieldMeta("serverOperation", "String", "Server Operation", false, "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.", 3, java.util.List.of(), java.util.List.of("SVOPE.operationName")),
+            new SomFormFieldMeta("dataInvolved", "String", "Data Involved — data read/written", false, "Data read or written during the step", 4),
+            new SomFormFieldMeta("businessRuleApplied", "String", "Business Rule Applied — BR-xxx reference", false, "BR-xxx rule enforced at this step", 5),
+            new SomFormFieldMeta("uiElementUsed", "String", "UI Element Used — screen/component", false, "Screen or component the actor interacts with", 6),
+            new SomFormFieldMeta("validationPerformed", "String", "Validation Performed — checks done", false, "Validations run during this step", 7),
+            new SomFormFieldMeta("expectedDuration", "String", "Expected Duration — time for this step", false, "Expected time to complete this step", 8)));
         out.add(n);
       }
       {
@@ -79109,7 +79112,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Sequential position of this step. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", 0),
             new SomFormFieldMeta("actor", "String", "Actor — who performs this step", false, "The actor performing this step", 1),
             new SomFormFieldMeta("action", "String", "Action — what actor does", false, "The action the actor takes", 2),
-            new SomFormFieldMeta("systemResponse", "String", "System Response — what system does", false, "How the system responds to the action", 3)));
+            new SomFormFieldMeta("systemResponse", "String", "System Response — what system does", false, "How the system responds to the action", 3),
+            new SomFormFieldMeta("serverOperation", "String", "Server Operation", false, "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.", 4, java.util.List.of(), java.util.List.of("SVOPE.operationName"))));
         out.add(n);
       }
       {
@@ -83778,10 +83782,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 0),
-            new SomFormFieldMeta("primaryDataEntity", "String", "Primary Data Entity", false, "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", 1, java.util.List.of(), java.util.List.of("DAENT.entityName")),
-            new SomFormFieldMeta("descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
-            new SomFormFieldMeta("errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 3, java.util.List.of(), java.util.List.of("ERCEN.code"))));
+            new SomFormFieldMeta("operationName", "String", "Operation Name", true, "The single identifier callers use, e.g., placeOrder — a stable token of the specified system, not a restatement of the headline", 0),
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 1),
+            new SomFormFieldMeta("primaryDataEntity", "String", "Primary Data Entity", false, "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", 2, java.util.List.of(), java.util.List.of("DAENT.entityName")),
+            new SomFormFieldMeta("descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 3, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 4, java.util.List.of(), java.util.List.of("ERCEN.code"))));
         out.add(n);
       }
       out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {

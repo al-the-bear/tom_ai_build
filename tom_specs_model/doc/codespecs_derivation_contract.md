@@ -551,15 +551,20 @@ list, so §2.4's selector puts it
 in 3a and none of B1–B7 applies. Where the derivation *needs* a structure the SOM
 does not carry, the honest outcome is a field on the model, never a heuristic
 here. **`SCJOST` is what that outcome looks like**, and so are `branchPoint`,
-`returnKind` and `SVCST.role`. A job's work was prose only, and the sentence
+`returnKind`, `SVCST.role` and the step's `serverOperation`. A job's work was
+prose only, and the sentence
 "what the job does, step by step" was an instruction to the author that the model
 gave nowhere to obey; a branch's two attachment points were free text in which a
 step reference and the word `"end"` were the same `String`; a server call's three
 handling roles had one sentence between them and no field saying which of the
-three it stated, so all three bodies could only throw the same text. In each case
+three it stated, so all three bodies could only throw the same text; and the
+operation a call targets had no citation at all, so §3.5.7's **required**
+`operation` could only be matched against the SVOPR registry by reading how a
+step's `systemResponse` happened to be worded — two steps naming one operation
+differently resolved to two operations or none. In each case
 the resolution was to give the model the structure — a step list, a section-id
-reference, a closed choice, a role discriminator — not to teach this derivation
-to read sentences. B4 is the one case that resolves without one, and only
+reference, a closed choice, a role discriminator, a registry citation — not to
+teach this derivation to read sentences. B4 is the one case that resolves without one, and only
 because a stated condition already has somewhere to go: a documented seam is
 precisely what Phase 6 implements.
 
@@ -1561,9 +1566,9 @@ component admits no order in which each reference follows its referent.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | The ISC step entries `MNSST` / `ALST` / `EXTST` / `SCNST`, and the `ServerCallStepEntry` (`SVCST`) list each of them carries. Consumed (§5.3): the operation called, request assembly, response handling, error handling, call options. |
+| **1 Input** | The ISC step entries `MNSST` / `ALST` / `EXTST` / `SCNST`, and the `ServerCallStepEntry` (`SVCST`) list each of them carries. Consumed (`codespecs_mapping.md` §5.3): the step's `serverOperation` field — the authored citation of `SVOPE.operationName` that names the operation called — plus request assembly, response handling, error handling and call options. **`serverOperation` is also the emission condition:** it is optional, and a step that leaves it empty reaches no server, so `@CsServerCall` is emitted for exactly the steps that carry it. Which steps call the server is therefore read off a member rather than classified from `systemResponse` wording. |
 | **2 Output** | A `TomServerEndpoint<T, R>` call over `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`), **form 1 + form 3b**. Request assembly, response handling and error handling are three methods, and each derives from the steps routed to it.<br>**3b on §2.4's structural selector, because the roles are three ordered step lists.** A `@CsServerCall` is derived from the **one** ISC step whose behaviour states the call — which is what point 7's first back-link says — but the call's *handling* is stated by that step's `SVCST` list, whose **required** `role` field (`ServerCallRole {assembleRequest, handleResponse, handleError}`) says which of the three bodies each step belongs to. Each body reads its own role's steps in document order (B1), emits one statement per step (B2) with the last carrying the result (B3), and reifies a stated `condition` as a guard (B4). The routing is read off a field, so nothing here splits one sentence three ways — which is what B8 forbade before `SVCST` existed, and why all three bodies used to throw the same text.<br>**The three values of `ServerCallRole` are spelled as the three method names of point 4.** The routing word and the emitted identifier are the same token, so renaming one is renaming the other and they cannot drift.<br>**§2.4's fallback applies per body.** A role with no `SVCST` steps has an empty step source and emits 3a over the issuing step's own behaviour text, exactly as all three bodies did before. A call whose issuing step lists no steps at all is therefore unchanged, and emits no collaborator (§3.0).<br>This is the middle hop of §5.3's chain: `@CsAction ──triggers──▶ @CsServerCall ──operation──▶ @CsEndpoint` (client / client / shared). |
-| **3 Arguments** | `operation` — **first positional, required** ← the `CsOperationRef` const of the shared operation it calls. It is the one edge the code cannot carry itself: the call site is client, the operation is shared, and nothing in the Dart declaration names the link. Call options are `TomServerCallSpecs`'s own surface (test **b**); the three handling steps are the methods (test **a**). |
+| **3 Arguments** | `operation` — **first positional, required** ← the `CsOperationRef` const of the shared operation it calls, taken from the issuing step's `serverOperation` field (point 1) and resolved to the `@CsEndpoint` that `SVOPE.operationName` names. It is the one edge the code cannot carry itself: the call site is client, the operation is shared, and nothing in the Dart declaration names the link — so it is required here, and it has an authored source rather than being recovered from the step's prose (§2.4 **B8**). Call options are `TomServerCallSpecs`'s own surface (test **b**); the three handling steps are the methods (test **a**). |
 | **4 Naming** | camelCase of the operation name's last segment + `Call`; its three bodies are `assembleRequest`, `handleResponse` and `handleError`, fixed names since the three roles are the entry's, not the spec's — and `SVCST.role`'s three values are those same three words, so a step names its body rather than describing it. The collaborator §3.0.1 names takes that identifier **PascalCased**, plus `Collaborator` (`SubmitOrderCallCollaborator`): this declaration's identifier is camelCase where §3.0.1's other four owners are already PascalCase, and a class name is PascalCase in every locus. Its methods follow §3.0.1 unchanged — the calling body's identifier, then the step's headline (`handleErrorSurfaceTheRejectionToTheUser`), so two steps of different roles cannot collide however alike their headlines. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | `CsOperationRef` outbound; emits `CsCallRef` for the action edge. Cites `CsErrorCode` for each error it handles. |

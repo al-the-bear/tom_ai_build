@@ -2078,15 +2078,36 @@ projection: `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG carr
 `serverCall` alone and describe a **foreign** contract, which is mirrored rather
 than generated from (§8.5, CE-API row).
 
-**The operation edge is resolved, not authored.** A step names what the system
-does in prose — MNSST's `systemResponse` and its siblings' equivalents — and no
-SOM member cites `ServerOperationEntry.operationName`. Hop 2's `CsOperationRef`
-is therefore resolved during derivation against the SVOPR registry, which is why
-`codespecs_derivation_contract.md` §3.5.7 makes `operation` the one **required**
-argument of `@CsServerCall`: it is the single edge in the chain that the emitted
-Dart cannot carry itself. The CE-NV edge beside it *is* an authored member —
-`ScreenActionEntry.behavior.navigateTo` cites `SCRTEN.routeId` — which is what an
-authored operation edge would look like.
+**The operation edge is authored, and it is what selects the part.** Each of the
+four step entries carries a `serverOperation` form field citing
+`SVOPE.operationName` — the same shape as the CE-NV edge beside it, where
+`ScreenActionEntry.behavior.navigateTo` cites `SCRTEN.routeId`. Hop 2's
+`CsOperationRef` is read off that member, so `codespecs_derivation_contract.md`
+§3.5.7's **required** `operation` argument has an authored source and is not
+recovered from a sentence. A step's prose (MNSST's `systemResponse` and its
+siblings' equivalents) says what the system does *for a reader*; the member says
+which operation it calls *for the generator*, and `codespecs_derivation_contract.md`
+§2.4 **B8** is satisfied because nothing has to read the former to obtain the
+latter.
+
+The field is **optional**, and its absence is meaningful rather than a gap: a
+step that names no operation reaches no server, so CE-SC is emitted **exactly
+where the member is present**. That is what makes the routing decidable — the
+question "does this step call the server?" is answered by a member's presence
+instead of by classifying prose, and the two failure modes the prose reading had
+are gone. Two steps whose wording differs can no longer resolve to two
+operations or none, and renaming an operation in the SVOPR registry now breaks
+the citation loudly (`refersTo` targets are resolved against the live model)
+instead of silently unhooking every step that referred to it by wording.
+
+`ServerOperationEntry.operationName` is the target that citation resolves to. It
+is a form field rather than the entry's headline because an operation name is a
+**token of the specified system** — the sole wire identifier under the §7
+contract, which carries no method and no path — and so belongs with `routeId`,
+`actionId` and `entityName` rather than with the documentation-only entries cited
+by `@sectionId`. It is admissible beneath a list entry under
+`tom_specs_model_rules.md` §8's rule-4 registry-key exemption precisely
+*because* the step entries cite it.
 
 ### 5.4 CE-ST view-model model over TomObservable/TomObject
 
@@ -5498,7 +5519,7 @@ parts §4.4.3's slices.
 | CE-TX | `text` | `MessageKeyEntry` MSGKE (the `MessageKeyRegistry` projection root) · `ValidationMessageTemplate` VMT | `@CsText` | COVERED |
 | CE-VA | `validation` | `ElementValidationRuleEntry` ELVARU · `DataAttributeConstraintEntry` DATAA · `IntegrityConstraints` INCO | `@CsValidation` · `@CsFieldRule` · `@CsFormRule` | COVERED |
 | CE-AC | `action` | `ScreenActionEntry` SCRAC · `ScreenElementAction` SCELAC · the ISC step entries MNSST/ALST/EXTST/SCNST | `@CsAction` · `@CsTrigger` | COVERED |
-| CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST, each under its own flow container (`MainSuccessScenario` MASUSC · `AlternativeFlowEntry` ALFL · `ExtensionEntry` EXTEN · `ScenarioEntry` SCNRY). All four step entries carry `action`+`serverCall`+`navigation` together, since one step is at once all three, and each carries the `ServerCallStepEntry` SVCST list whose required `role` routes a step to one of the call's three handling methods (§5.3). The operation the call targets is **resolved at derivation** against SVOPR, not authored (§5.3) | `@CsServerCall` | COVERED |
+| CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST, each under its own flow container (`MainSuccessScenario` MASUSC · `AlternativeFlowEntry` ALFL · `ExtensionEntry` EXTEN · `ScenarioEntry` SCNRY). All four step entries carry `action`+`serverCall`+`navigation` together, since one step is at once all three, and each carries the `ServerCallStepEntry` SVCST list whose required `role` routes a step to one of the call's three handling methods (§5.3). The operation the call targets is **authored** on the step: the optional `serverOperation` field cites `SVOPE.operationName`, and its presence is exactly what emits the call (§5.3) | `@CsServerCall` | COVERED |
 | CE-API | `serverApi` | `ServerOperationEntry` SVOPE · `ServerOperationMemberEntry` SVOPM, under the `ServerOperationRegistry` SVOPR projection root (`operationName` · `primaryDataEntity` · `authorization` → the AZREQ closed choice (§5.15) · `descriptionKey` · `errorCodes` · request/response members). The external-interface inventory `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG describe **foreign** contracts and carry `serverCall` only | `@CsEndpoint` (shared and server halves) | COVERED |
 | CE-SU | `serviceUnit` | `DataEntityEntry` DAENT — the `DAENT-CLAS` grouping fields `aggregateRoot` (the ownership key, a `refersTo` reference to `DAENT.entityName`, so a root names itself) · `serviceUnitAggregate` (the process-cohesion merge/split adjustment) · `boundedContext` (the outer cap, a `refersTo` reference to `BCE.contextName`, so the cap is a registry key rather than a spelling). The unit set is the distinct effective aggregates, so it is counted rather than authored. `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) supplies the component narrative only; `FunctionModel` FUMO / `FunctionEntry` FUNCT / `SubFunctionEntry` SUFN / `FunctionDataMatrixEntry` FNDMX supply the function×data view the operation inventory is checked against | `@CsServiceUnit` | COVERED |
 | CE-DB | `dataAccess` | `DataEntityEntry` DAENT · `DataAttributeEntry` DAATT · `EntityRelationshipEntry` ENRLE (the `DataModel` projection root) | `@CsTable` · `@CsColumn` · `CsFileReference` · `@CsRepository` | COVERED |
@@ -5755,16 +5776,11 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. One entry is open — a **model** gap standing behind a
-**required** marker argument, which resolves against no authored citation at all,
-so the value reaching the generated code is a guess rather than a reference.
-Nothing is open against the **document** — §1.1.1 fixes the Phase-4 contract,
-§1.1.2 the run procedure and §1.1.3 the generated todo tree the procedure
-instantiates.
-
-| Todo | Subject |
-|------|---------|
-| `tscompd2_ahpu` | **CE-SC's operation edge is resolved from prose.** §5.3's "The operation edge is resolved, not authored" records that no SOM member cites `ServerOperationEntry.operationName`, so `CsOperationRef` is matched against the SVOPR registry by reading an ISC step's `systemResponse` wording — the inference B8 forbids, standing behind the one **required** argument of `@CsServerCall`. The authored shape already exists beside it: CE-NV's `ScreenActionEntry.behavior.navigateTo` cites `SCRTEN.routeId`. |
+active part COVERED. **Nothing is open** — every marker argument the derivation
+contract makes required now resolves against an authored citation rather than
+against a reading of prose, and nothing is open against the **document** either:
+§1.1.1 fixes the Phase-4 contract, §1.1.2 the run procedure and §1.1.3 the
+generated todo tree the procedure instantiates.
 
 An open todo in those series whose subject is **not** a mapping question does
 not belong here even when the index is non-empty — a SOM validator capability

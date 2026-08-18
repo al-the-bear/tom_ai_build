@@ -9197,6 +9197,16 @@
               "hint": "The observable outcome after the step",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "serverOperation",
+              "label": "Server Operation",
+              "hint": "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             }
           ]
         },
@@ -102623,6 +102633,16 @@
               "hint": "How the system responds in this step",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "serverOperation",
+              "label": "Server Operation",
+              "hint": "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             }
           ]
         },
@@ -139543,6 +139563,16 @@
               "hint": "How the system responds to the action",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "serverOperation",
+              "label": "Server Operation",
+              "hint": "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             },
             {
               "name": "dataInvolved",
@@ -213527,6 +213557,16 @@
               "hint": "How the system responds to the action",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "serverOperation",
+              "label": "Server Operation",
+              "hint": "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             }
           ]
         },
@@ -227077,6 +227117,13 @@
             }
           ],
           "formFields": [
+            {
+              "name": "operationName",
+              "label": "Operation Name",
+              "hint": "The single identifier callers use, e.g., placeOrder — a stable token of the specified system, not a restatement of the headline",
+              "type": "String",
+              "required": true
+            },
             {
               "name": "purpose",
               "label": "Purpose",

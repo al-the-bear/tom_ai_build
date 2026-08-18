@@ -4087,6 +4087,7 @@ void buildAlternativeStepEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"action", "String", "Action", false, "The action taken in this step", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"response", "String", "Response", false, "How the system responds to the action", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedResult", "String", "Expected Result", false, "The observable outcome after the step", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serverOperation", "String", "Server Operation", false, "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.", 4, std::vector<std::string>{}, std::vector<std::string>{"SVOPE.operationName"}});
     parent.addChild(std::move(n));
   }
   {
@@ -35228,6 +35229,7 @@ void buildExtensionStepEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stepNumber", "String", "Step Number (e.g., 3a1)", false, "Extension step id such as 3a1", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"action", "String", "Action", false, "What the actor does in this extension step", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"response", "String", "Response", false, "How the system responds in this step", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serverOperation", "String", "Server Operation", false, "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.", 3, std::vector<std::string>{}, std::vector<std::string>{"SVOPE.operationName"}});
     parent.addChild(std::move(n));
   }
   {
@@ -46565,11 +46567,12 @@ void buildMainScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stepNumber", "int", "Step Number", true, "Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actorAction", "String", "Actor Action — what actor does", false, "What the actor does in this step", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemResponse", "String", "System Response — what system does", false, "How the system responds to the action", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataInvolved", "String", "Data Involved — data read/written", false, "Data read or written during the step", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessRuleApplied", "String", "Business Rule Applied — BR-xxx reference", false, "BR-xxx rule enforced at this step", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"uiElementUsed", "String", "UI Element Used — screen/component", false, "Screen or component the actor interacts with", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationPerformed", "String", "Validation Performed — checks done", false, "Validations run during this step", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedDuration", "String", "Expected Duration — time for this step", false, "Expected time to complete this step", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serverOperation", "String", "Server Operation", false, "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.", 3, std::vector<std::string>{}, std::vector<std::string>{"SVOPE.operationName"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataInvolved", "String", "Data Involved — data read/written", false, "Data read or written during the step", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessRuleApplied", "String", "Business Rule Applied — BR-xxx reference", false, "BR-xxx rule enforced at this step", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"uiElementUsed", "String", "UI Element Used — screen/component", false, "Screen or component the actor interacts with", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationPerformed", "String", "Validation Performed — checks done", false, "Validations run during this step", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedDuration", "String", "Expected Duration — time for this step", false, "Expected time to complete this step", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -68817,6 +68820,7 @@ void buildScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actor", "String", "Actor — who performs this step", false, "The actor performing this step", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"action", "String", "Action — what actor does", false, "The action the actor takes", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemResponse", "String", "System Response — what system does", false, "How the system responds to the action", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serverOperation", "String", "Server Operation", false, "ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.", 4, std::vector<std::string>{}, std::vector<std::string>{"SVOPE.operationName"}});
     parent.addChild(std::move(n));
   }
   {
@@ -72846,10 +72850,11 @@ void buildServerOperationEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryDataEntity", "String", "Primary Data Entity", false, "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", 1, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 2, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 3, std::vector<std::string>{}, std::vector<std::string>{"ERCEN.code"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"operationName", "String", "Operation Name", true, "The single identifier callers use, e.g., placeOrder — a stable token of the specified system, not a restatement of the headline", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryDataEntity", "String", "Primary Data Entity", false, "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", 2, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 3, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 4, std::vector<std::string>{}, std::vector<std::string>{"ERCEN.code"}});
     parent.addChild(std::move(n));
   }
   {

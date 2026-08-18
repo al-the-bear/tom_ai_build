@@ -27509,6 +27509,8 @@ char *alternative_step_entry_content_form_response(const AlternativeStepEntryCon
 void alternative_step_entry_content_form_set_response(AlternativeStepEntryContentForm *self, const char *value);
 char *alternative_step_entry_content_form_expected_result(const AlternativeStepEntryContentForm *self);
 void alternative_step_entry_content_form_set_expected_result(AlternativeStepEntryContentForm *self, const char *value);
+char *alternative_step_entry_content_form_server_operation(const AlternativeStepEntryContentForm *self);
+void alternative_step_entry_content_form_set_server_operation(AlternativeStepEntryContentForm *self, const char *value);
 
 // AnomalyDetectionPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void anomaly_detection_policy_content_form_init(AnomalyDetectionPolicyContentForm *self, SpecDocument *doc, const char *path);
@@ -40379,6 +40381,8 @@ char *extension_step_entry_content_form_action(const ExtensionStepEntryContentFo
 void extension_step_entry_content_form_set_action(ExtensionStepEntryContentForm *self, const char *value);
 char *extension_step_entry_content_form_response(const ExtensionStepEntryContentForm *self);
 void extension_step_entry_content_form_set_response(ExtensionStepEntryContentForm *self, const char *value);
+char *extension_step_entry_content_form_server_operation(const ExtensionStepEntryContentForm *self);
+void extension_step_entry_content_form_set_server_operation(ExtensionStepEntryContentForm *self, const char *value);
 
 // ExternalActorEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void external_actor_entry_content_form_init(ExternalActorEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -45740,6 +45744,8 @@ char *main_scenario_step_entry_content_form_actor_action(const MainScenarioStepE
 void main_scenario_step_entry_content_form_set_actor_action(MainScenarioStepEntryContentForm *self, const char *value);
 char *main_scenario_step_entry_content_form_system_response(const MainScenarioStepEntryContentForm *self);
 void main_scenario_step_entry_content_form_set_system_response(MainScenarioStepEntryContentForm *self, const char *value);
+char *main_scenario_step_entry_content_form_server_operation(const MainScenarioStepEntryContentForm *self);
+void main_scenario_step_entry_content_form_set_server_operation(MainScenarioStepEntryContentForm *self, const char *value);
 char *main_scenario_step_entry_content_form_data_involved(const MainScenarioStepEntryContentForm *self);
 void main_scenario_step_entry_content_form_set_data_involved(MainScenarioStepEntryContentForm *self, const char *value);
 char *main_scenario_step_entry_content_form_business_rule_applied(const MainScenarioStepEntryContentForm *self);
@@ -56501,6 +56507,8 @@ char *scenario_step_entry_content_form_action(const ScenarioStepEntryContentForm
 void scenario_step_entry_content_form_set_action(ScenarioStepEntryContentForm *self, const char *value);
 char *scenario_step_entry_content_form_system_response(const ScenarioStepEntryContentForm *self);
 void scenario_step_entry_content_form_set_system_response(ScenarioStepEntryContentForm *self, const char *value);
+char *scenario_step_entry_content_form_server_operation(const ScenarioStepEntryContentForm *self);
+void scenario_step_entry_content_form_set_server_operation(ScenarioStepEntryContentForm *self, const char *value);
 
 // ScenarioStepEntryContextForm is the generated section facade for the `context` @Form section: its own `content` text followed by one typed member per form field.
 void scenario_step_entry_context_form_init(ScenarioStepEntryContextForm *self, SpecDocument *doc, const char *path);
@@ -58310,6 +58318,8 @@ void server_operation_entry_content_form_free(ServerOperationEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *server_operation_entry_content_form_content(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_content(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_operation_name(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_operation_name(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_purpose(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_purpose(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_primary_data_entity(const ServerOperationEntryContentForm *self);

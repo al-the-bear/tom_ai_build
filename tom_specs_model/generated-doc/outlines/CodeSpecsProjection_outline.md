@@ -1059,7 +1059,7 @@
   - `ServerOperationRegistry` ← (locus: shared(CE-API contract)+server(CE-API operations))
     - content
     - operations: `ServerOperationEntry`[]
-      - content @Form(purpose, primaryDataEntity, descriptionKey, errorCodes)
+      - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
       - authorization: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement
@@ -1099,7 +1099,7 @@
         - mainScenario: `MainSuccessScenario`
           - content @Form(scenarioSummary, estimatedDuration, stepCount)
           - [1,] steps: `MainScenarioStepEntry`[]
-            - content @Form(stepNumber, actorAction, systemResponse, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
+            - content @Form(stepNumber, actorAction, systemResponse, serverOperation, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
             - serverCallSteps: `ServerCallStepEntry`[]
               - content @Form(role, systemAction, condition)
         - extensions: `UseCaseExtensions`
@@ -1108,7 +1108,7 @@
             - content @Form(branchPoint, condition, extensionType, description, outcome, returnKind, frequency, severity),
               resumePoint
             - steps: `ExtensionStepEntry`[]
-              - content @Form(stepNumber, action, response)
+              - content @Form(stepNumber, action, response, serverOperation)
               - serverCallSteps: `ServerCallStepEntry`[]
                 - content @Form(role, systemAction, condition)
         - variations: `TechnologyDataVariations`[]
@@ -1123,14 +1123,14 @@
       - [1,] scenarios: `ScenarioEntry`[]
         - content, identification, context, scenarioData, timing, validation
         - [1,] steps: `ScenarioStepEntry`[]
-          - content @Form(stepNumber, actor, action, systemResponse), context, execution
+          - content @Form(stepNumber, actor, action, systemResponse, serverOperation), context, execution
           - serverCallSteps: `ServerCallStepEntry`[]
             - content @Form(role, systemAction, condition)
         - alternativeFlows: `AlternativeFlowEntry`[]
           - content @Form(flowType, branchPoint, triggerCondition, description, outcome, returnKind, frequency, businessImpact),
             resumePoint
           - steps: `AlternativeStepEntry`[]
-            - content @Form(stepNumber, action, response, expectedResult)
+            - content @Form(stepNumber, action, response, expectedResult, serverOperation)
             - serverCallSteps: `ServerCallStepEntry`[]
               - content @Form(role, systemAction, condition)
     - `ActorRelationshipDiagram`

@@ -23052,6 +23052,12 @@ std::string AlternativeStepEntryContentForm::expectedResult() const {
 void AlternativeStepEntryContentForm::setExpectedResult(const std::string& value) {
   doc().setFormField(path(), "expectedResult", value);
 }
+std::string AlternativeStepEntryContentForm::serverOperation() const {
+  return doc().formField(path(), "serverOperation");
+}
+void AlternativeStepEntryContentForm::setServerOperation(const std::string& value) {
+  doc().setFormField(path(), "serverOperation", value);
+}
 
 AnomalyDetectionPolicyContentForm::AnomalyDetectionPolicyContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -51572,6 +51578,12 @@ std::string ExtensionStepEntryContentForm::response() const {
 void ExtensionStepEntryContentForm::setResponse(const std::string& value) {
   doc().setFormField(path(), "response", value);
 }
+std::string ExtensionStepEntryContentForm::serverOperation() const {
+  return doc().formField(path(), "serverOperation");
+}
+void ExtensionStepEntryContentForm::setServerOperation(const std::string& value) {
+  doc().setFormField(path(), "serverOperation", value);
+}
 
 ExternalActorEntryContentForm::ExternalActorEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -63480,6 +63492,12 @@ std::string MainScenarioStepEntryContentForm::systemResponse() const {
 }
 void MainScenarioStepEntryContentForm::setSystemResponse(const std::string& value) {
   doc().setFormField(path(), "systemResponse", value);
+}
+std::string MainScenarioStepEntryContentForm::serverOperation() const {
+  return doc().formField(path(), "serverOperation");
+}
+void MainScenarioStepEntryContentForm::setServerOperation(const std::string& value) {
+  doc().setFormField(path(), "serverOperation", value);
 }
 std::string MainScenarioStepEntryContentForm::dataInvolved() const {
   return doc().formField(path(), "dataInvolved");
@@ -87782,6 +87800,12 @@ std::string ScenarioStepEntryContentForm::systemResponse() const {
 void ScenarioStepEntryContentForm::setSystemResponse(const std::string& value) {
   doc().setFormField(path(), "systemResponse", value);
 }
+std::string ScenarioStepEntryContentForm::serverOperation() const {
+  return doc().formField(path(), "serverOperation");
+}
+void ScenarioStepEntryContentForm::setServerOperation(const std::string& value) {
+  doc().setFormField(path(), "serverOperation", value);
+}
 
 ScenarioStepEntryContextForm::ScenarioStepEntryContextForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -91700,6 +91724,12 @@ std::string ServerOperationEntryContentForm::content() const {
 }
 void ServerOperationEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
+}
+std::string ServerOperationEntryContentForm::operationName() const {
+  return doc().formField(path(), "operationName");
+}
+void ServerOperationEntryContentForm::setOperationName(const std::string& value) {
+  doc().setFormField(path(), "operationName", value);
 }
 std::string ServerOperationEntryContentForm::purpose() const {
   return doc().formField(path(), "purpose");
