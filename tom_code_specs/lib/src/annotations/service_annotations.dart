@@ -607,9 +607,9 @@ class CsJob {
 /// records **automatically** at two chokepoints no handler can opt out of
 /// (`TomEndpointHandler.handleMethodCall` and `TomSqlDatasourceRepository`'s
 /// write path), so what a specification authors is the *declared* half only:
-/// which endpoint invocations are auditable, whether reads count, and which
-/// fields must never appear in a record. Those three decisions are exactly
-/// `@TomAudited(enabled:, includeReads:, redact:)`, which the CodeSpec carries
+/// which endpoint invocations are auditable, whether the type is audited at
+/// all, and which fields must never appear in a record. Those decisions are
+/// exactly `@TomAudited(enabled:, redact:)`, which the CodeSpec carries
 /// alongside this marker — the same shape CE-SU uses, where the CodeSpec is an
 /// ordinary class carrying the framework's own `@tomService` and [CsServiceUnit]
 /// marks it as the part.

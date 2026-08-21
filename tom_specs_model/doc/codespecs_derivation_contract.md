@@ -246,7 +246,7 @@ that can disagree.
 a `tom_core`-family class whose constructor already takes it —
 `TomNotificationType(typeId:, urgency:, defaultChannelIds:)`,
 `TomReportColumn(...)`, `TomActionTrigger(guard:)`, `@TomAudited(enabled:,
-includeReads:, redact:)`. Not an argument; the marker only says *which part*
+redact:)`. Not an argument; the marker only says *which part*
 this is. This is pillar (b) doing its job: reuse means the substrate holds the
 data.
 
@@ -1381,9 +1381,9 @@ CE-DS or CE-UP, authored in that scope's own list.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | The `SecurityEventsDefinition` (`SEEVDE`) band under `AuditAndLogging` (`AUANLO`): `SecurityEventLoggingPolicy` (`SELP`), the four per-category event policies, and `SecurityEventEntry` (`SEVT`). Consumed: which invocations are auditable, whether reads count, which fields must never appear. The sibling `AuditLogFormat` (`AULOFO`) band is **not** an input here — it is CE-CF (§3.3.6). |
-| **2 Output** | **No declaration of its own** — a marker on an entity or endpoint, carrying the framework's own `@TomAudited(enabled:, includeReads:, redact:)` beside it. Pure reuse of `tom_core_server`'s `audit` module (`TomAuditTrail` / `TomAuditRecord` / `TomAuditSink`); recording happens automatically at two chokepoints no handler can opt out of — `TomEndpointHandler.handleMethodCall` and `TomSqlDatasourceRepository`'s write path. |
-| **3 Arguments** | None; `@CsAudited({String? note})` unchanged. The three authored decisions are **exactly** `@TomAudited`'s three parameters (test **b**) — the same pattern CE-SU uses with `@tomService`. Retention and log format are **not** CE-LG: they are sink deployment settings and belong to `@CsServerConfig` (§3.3.6). The compliance report is not CodeSpecs at all — it is an ops/compliance follow-up. |
+| **1 Input** | The `SecurityEventsDefinition` (`SEEVDE`) band under `AuditAndLogging` (`AUANLO`): `SecurityEventLoggingPolicy` (`SELP`), the four per-category event policies, and `SecurityEventEntry` (`SEVT`). Consumed: which invocations are auditable, whether the type is audited at all, which fields must never appear. A band that says reads count maps to endpoint-level `@TomAudited()` — the substrate audits no repository read. The sibling `AuditLogFormat` (`AULOFO`) band is **not** an input here — it is CE-CF (§3.3.6). |
+| **2 Output** | **No declaration of its own** — a marker on an entity or endpoint, carrying the framework's own `@TomAudited(enabled:, redact:)` beside it. Pure reuse of `tom_core_server`'s `audit` module (`TomAuditTrail` / `TomAuditRecord` / `TomAuditSink`); recording happens automatically at two chokepoints no handler can opt out of — `TomEndpointHandler.handleMethodCall` and `TomSqlDatasourceRepository`'s write path. Repository reads are **never** audited and no annotation turns them on; an invocation-level `@TomAudited()` on the endpoint is the substrate's answer for "record who looked". |
+| **3 Arguments** | None; `@CsAudited({String? note})` unchanged. The authored decisions are **exactly** `@TomAudited`'s parameters (test **b**) — the same pattern CE-SU uses with `@tomService`. Retention and log format are **not** CE-LG: they are sink deployment settings and belong to `@CsServerConfig` (§3.3.6). The compliance report is not CodeSpecs at all — it is an ops/compliance follow-up. |
 | **4 Naming** | None — the marker rides an existing declaration. |
 | **5 Locus** | `server` — the trail is a server chokepoint. It emits in **two slices**, because it is annotation-only and a marker cannot precede the thing it marks: with the CE-DB write path here, and with the CE-API handler at slice 4. Entered once, at the earlier, per §3's placement rule. |
 | **6 Cross-refs** | None typed. Nothing outbound at all, which is why the two-slice split costs no ordering. |
