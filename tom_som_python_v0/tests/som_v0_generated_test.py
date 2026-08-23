@@ -27,8 +27,10 @@ over the shared document (SOM §6):
   * live-document conformance case (YRD8 / dsa8): the shared Meridian sample
     survives a decode → encode → decode round-trip byte-for-byte at the value
     level, its markdown validates cleanly against the generated schema (root
-    ``SBP``, 0 warnings / 0 violations), and the metadata tree / nav / id
-    accessors resolve to the same node — the Python parity of the Dart guard.
+    ``SBP``, 0 warnings / 0 violations), the document validates cleanly on the
+    instance tier (``validate_document``, SOM §9), and the metadata tree / nav
+    / id accessors resolve to the same node — the Python parity of the Dart
+    guard.
 
 Run with ``python3 tests/som_v0_generated_test.py``; exit code 0 == all green.
 The runtime is located by the ``runtime-path`` recorded in ``pyproject.toml`` so
@@ -37,6 +39,7 @@ the test is portable across checkouts.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import sys
@@ -69,6 +72,8 @@ from tom_som_runtime import (  # noqa: E402
     SomMetaKind,
     DocSpecsSchema,
     DocSpecsValidator,
+    SpecModel,
+    validate_document,
     yaml_encode,
 )
 import tom_som_python_v0 as m  # noqa: E402
@@ -348,10 +353,10 @@ def test_live_document_case() -> None:
     sample end to end and asserts python.log is byte-identical to the Dart
     reference. Because golden/ is git-ignored, this committed test is the
     Python-side durability guard for the three live-document guarantees the
-    golden's ``generic-*`` / ``docspecs`` / ``meta-*`` sections encode — the
-    Python parity of the Dart guard added under dsa7 — so a regression fails
-    ``python3 tests/som_v0_generated_test.py`` without needing a full
-    nine-toolchain golden run.
+    golden's ``generic-*`` / ``docspecs`` / ``meta-*`` sections encode, plus a
+    fourth with no golden section behind it — instance-tier cleanliness — so a
+    regression fails ``python3 tests/som_v0_generated_test.py`` without needing
+    a full nine-toolchain golden run.
     """
     sample = "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml"
     sample_md = "../tom_som_conformance/samples/meridian_order_management.md"
@@ -392,6 +397,20 @@ def test_live_document_case() -> None:
            str(len(schema.warnings)))
     _check("live.validate.no-violations", len(violations) == 0,
            str(len(violations)))
+
+    # 2b) Validation, instance tier: the sample's *values* are admissible.
+    # Disjoint from the schema tier above — that asks whether every required
+    # field is filled, this asks whether the values are well-formed: field
+    # kinds, form keys, list minima and ``refersTo`` resolution (SOM §9). A
+    # sample naming a message key, a role or a route nothing declares passes
+    # the first and fails this one. Pinned here as well as in the sample's
+    # builder because the sample is *committed*: a hand-edit or a merge can
+    # reach it without anyone re-running the builder.
+    with open("meta/spec_model.meta.json", encoding="utf-8") as fh:
+        model = SpecModel.from_json(json.load(fh))
+    instance_violations = validate_document(model, original)
+    _check("live.validate.instance-tier", len(instance_violations) == 0,
+           "; ".join(f"{v.path}: {v.code}" for v in instance_violations[:5]))
 
     # 3) Node operations: metadata tree / nav / id resolve to the same node
     # (mirrors the golden's meta / meta-nav / meta-id sections).

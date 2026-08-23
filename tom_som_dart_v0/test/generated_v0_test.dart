@@ -397,15 +397,10 @@ void main() {
   // `compare_golden.dart`) already exercises the shared Meridian sample end to
   // end and the Dart golden is the reference reading. This committed group is
   // the *durability guard* for the three live-document guarantees the golden's
-  // `generic-*`, `docspecs`, and `meta-*` sections encode, so a regression that
-  // silently drops any of them from the Dart reference fails `dart test` — not
-  // only a full nine-toolchain golden run.
-  //
-  // The last test in the group is a *fourth* guarantee with no golden section
-  // behind it: the sample validates cleanly on the instance tier as well as the
-  // schema tier. A golden section could not carry it — over a valid sample it
-  // would only ever report zero, which is the same reason the `docspecs` golden
-  // needed the separate `invalid_demo_document.md` companion.
+  // `generic-*`, `docspecs`, and `meta-*` sections encode, plus a fourth the
+  // golden has no section for — instance-tier cleanliness — so a regression
+  // that silently drops any of them from the Dart reference fails `dart test` —
+  // not only a full nine-toolchain golden run.
   group('shared sample: live-document case durability (YRD8 / dsa7)', () {
     const samplePath =
         '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';

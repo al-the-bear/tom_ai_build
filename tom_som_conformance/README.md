@@ -72,28 +72,27 @@ committed Dart test group — `shared sample: live-document case durability
 (YRD8 / dsa7)` in `tom_som_dart_v0/test/generated_v0_test.dart` — pins those
 three guarantees (decode→encode→decode stability, clean schema validation,
 byPath/nav/id node identity) so a regression fails `dart test` without needing a
-full nine-toolchain golden run. **Every runtime now carries the same guard**
+full nine-toolchain golden run. **Every runtime carries the same guard**
 (dsa8–dsa15): a `testLiveDocumentCase` (or language idiom, e.g. Go
 `TestLiveDocumentCase`, Rust `live_document_case`, C/C++/Python
 `test_live_document_case`) in each `tom_som_<lang>_v0` test suite pins the same
-three guarantees, so a per-language regression fails that language's own test
+guarantees, so a per-language regression fails that language's own test
 suite — not only the aggregate golden comparison.
 
-The Dart group carries a **fourth** assertion the other eight do not, and it is
-the one guarantee in the group that has no golden section behind it: the sample
-also validates cleanly on the **instance tier** (`validateDocument`, SOM §9).
-The two validation tiers are disjoint questions — the `docspecs` golden section
-asks whether every *required section* is present, `validateDocument` asks
-whether the *values* are well-formed (field kinds, form keys, list minima,
-`refersTo` resolution) — and neither implies the other, which is why the sample
-was schema-clean for a long time while carrying twelve instance-tier violations.
-The sample's builder (`tom_som_dart_v0/tool/build_shared_sample.dart`) now gates
-on both tiers, and the committed test repeats the second gate because the sample
-is *committed*: a hand-edit or a merge can reach it without anyone re-running the
-builder. The instance tier is nine-language like everything else here, but what
-forces the other eight runtimes to implement it is `corpus/validation_cases.json`
-(below), not the sample — so the sample's own instance-tier cleanliness is
-currently a Dart-only guarantee.
+Each guard carries a **fourth** assertion, and it is the one guarantee in the
+group that has no golden section behind it: the sample also validates cleanly on
+the **instance tier** (`validateDocument`, SOM §9). A golden section could not
+carry it — over a valid sample it would only ever report zero, which is the same
+reason the `docspecs` golden needed the separate `invalid_demo_document.md`
+companion. The two validation tiers are disjoint questions — the `docspecs`
+golden section asks whether every *required section* is present,
+`validateDocument` asks whether the *values* are well-formed (field kinds, form
+keys, list minima, `refersTo` resolution) — and neither implies the other, which
+is why the sample was schema-clean for a long time while carrying twelve
+instance-tier violations. The sample's builder
+(`tom_som_dart_v0/tool/build_shared_sample.dart`) gates on both tiers, and the
+committed tests repeat the second gate because the sample is *committed*: a
+hand-edit or a merge can reach it without anyone re-running the builder.
 
 ### Running
 

@@ -24,9 +24,11 @@
 
 #include "docspecs_validator.hpp"
 #include "spec_document_yaml.hpp"
+#include "spec_validator.hpp"
 
 #include <fstream>
 #include <iostream>
+#include <memory>
 #include <optional>
 #include <sstream>
 #include <string>
@@ -508,7 +510,8 @@ void testOneCallLoading() {
 // generator processes — the Meridian sample in tom_som_conformance/samples. The
 // golden log itself is git-ignored, so this committed test pins the three
 // live-document guarantees (round-trip stability, DocSpecs validation, node
-// operations); a regression fails ./run_tests.sh, not only a full
+// operations) plus a fourth the golden has no section for — instance-tier
+// cleanliness; a regression fails ./run_tests.sh, not only a full
 // nine-toolchain golden run. Mirrors the Dart (dsa7) … C (dsa14) guards.
 void testLiveDocumentCase() {
   namespace m = tom_som_v0_meta;
@@ -518,6 +521,7 @@ void testLiveDocumentCase() {
       "../tom_som_conformance/samples/meridian_order_management.md";
   const std::string schemaPath =
       "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
+  const std::string modelMetaPath = "meta/spec_model.meta.json";
   const som::SomMetaTree& tree = m::d00SolutionBlueprintMetaTree();
 
   // 1) Round-trip: decode -> encode -> decode is stable over content + lists.
@@ -572,6 +576,29 @@ void testLiveDocumentCase() {
     std::vector<som::DocSpecsViolation> violations;
     validator.validateMarkdown(readFile(sampleMdPath), violations);
     ok(violations.empty(), "live: markdown validates cleanly");
+  }
+
+  // 2b) Validation, instance tier: the sample's *values* are admissible.
+  // Disjoint from the schema tier above — that asks whether every required
+  // field is filled, this asks whether the values are well-formed: field kinds,
+  // form keys, list minima and `refersTo` resolution (SOM §9). A sample naming
+  // a message key, a role or a route nothing declares passes the first and
+  // fails this one. Pinned here as well as in the sample's builder because the
+  // sample is *committed*: a hand-edit or a merge can reach it without anyone
+  // re-running the builder.
+  std::string modelErr;
+  std::unique_ptr<som::SpecModel> model =
+      som::SpecModel::fromJsonStr(readFile(modelMetaPath), &modelErr);
+  ok(model != nullptr, "live: model meta parses");
+  if (model != nullptr && original) {
+    const std::vector<som::SpecValidationError> instanceViolations =
+        som::validateDocument(*model, *original);
+    ok(instanceViolations.empty(),
+       "live: document validates cleanly on the instance tier");
+    for (const som::SpecValidationError& e : instanceViolations) {
+      std::cerr << "  instance-tier violation: [" << e.code << "] " << e.path
+                << ": " << e.message << "\n";
+    }
   }
 
   // 3) Node operations: byPath / nav / id resolve to the same node instance.

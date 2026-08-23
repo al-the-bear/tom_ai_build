@@ -443,8 +443,9 @@ fn unstamped_document_has_empty_model_version() {
 /// already exercises the shared Meridian sample end to end and asserts the Rust
 /// `rust.log` is byte-identical to the Dart reference. But `golden/` is
 /// git-ignored, so this committed test pins the three live-document guarantees
-/// the Rust golden generator emits over the shared sample — a regression fails
-/// `cargo test`, not only a full nine-toolchain golden run. Mirrors the Dart
+/// the Rust golden generator emits over the shared sample, plus a fourth the
+/// golden has no section for — instance-tier cleanliness — so a regression
+/// fails `cargo test`, not only a full nine-toolchain golden run. Mirrors the Dart
 /// (dsa7), Python (dsa8), JavaScript (dsa9), TypeScript (dsa10), Go (dsa11) and
 /// Java (dsa12) durability guards.
 #[test]
@@ -452,6 +453,7 @@ fn live_document_case() {
     const SAMPLE_MD: &str = "../tom_som_conformance/samples/meridian_order_management.md";
     const SCHEMA_PATH: &str =
         "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
+    const MODEL_META_PATH: &str = "meta/spec_model.meta.json";
     let tree = meta::d00_solution_blueprint_meta_tree();
 
     // 1) Round-trip: decode → encode → decode is stable over content + lists.
@@ -503,6 +505,27 @@ fn live_document_case() {
     assert_eq!(root_id, "SBP", "schema root section id");
     assert_eq!(warnings, 0, "generated schema carries warnings");
     assert_eq!(violations.len(), 0, "sample markdown violates the generated schema");
+
+    // 2b) Validation, instance tier: the sample's *values* are admissible.
+    // Disjoint from the schema tier above — that asks whether every required
+    // field is filled, this asks whether the values are well-formed: field
+    // kinds, form keys, list minima and `refers_to` resolution (SOM §9). A
+    // sample naming a message key, a role or a route nothing declares passes
+    // the first and fails this one. Pinned here as well as in the sample's
+    // builder because the sample is *committed*: a hand-edit or a merge can
+    // reach it without anyone re-running the builder.
+    let meta_text = std::fs::read_to_string(MODEL_META_PATH).expect("read model meta");
+    let model = som::SpecModel::from_json_str(&meta_text).expect("SpecModel::from_json_str");
+    let instance_violations = som::validate_document(&model, &original);
+    assert!(
+        instance_violations.is_empty(),
+        "sample document violates the instance tier: {}",
+        instance_violations
+            .iter()
+            .map(|v| v.to_display())
+            .collect::<Vec<_>>()
+            .join("; ")
+    );
 
     // 3) Node operations: by_path / nav / id resolve to the same node.
     let list_by_path = tree

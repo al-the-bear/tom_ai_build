@@ -23,6 +23,7 @@
 #include "tom_som_c_v0.h"
 
 #include "docspecs_validator.h"
+#include "spec_validator.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -710,8 +711,10 @@ static int strlist_eq(const SomStrList *a, const SomStrList *b) {
  * compare_golden.dart) already exercises the shared Meridian sample end to end
  * and asserts c.log is byte-identical to the Dart reference, but golden/ is
  * git-ignored. This committed test pins the three live-document guarantees the C
- * golden generator emits — a regression fails ./run_tests.sh, not only a full
- * nine-toolchain golden run. Mirrors the Dart (dsa7) … Rust (dsa13) guards. */
+ * golden generator emits, plus a fourth the golden has no section for —
+ * instance-tier cleanliness — so a regression fails ./run_tests.sh, not only a
+ * full nine-toolchain golden run. Mirrors the Dart (dsa7) … Rust (dsa13)
+ * guards. */
 static void test_live_document_case(void) {
   const char *sample_path =
       "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
@@ -719,6 +722,7 @@ static void test_live_document_case(void) {
       "../tom_som_conformance/samples/meridian_order_management.md";
   const char *schema_path =
       "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
+  const char *model_meta_path = "meta/spec_model.meta.json";
   const SomMetaTree *tree = d00_solution_blueprint_meta_tree();
 
   /* 1) Round-trip: decode -> encode -> decode is stable over content + lists. */
@@ -810,6 +814,42 @@ static void test_live_document_case(void) {
   }
   free(sample_md);
   free(schema_text);
+
+  /* 2b) Validation, instance tier: the sample's *values* are admissible.
+   * Disjoint from the schema tier above — that asks whether every required
+   * field is filled, this asks whether the values are well-formed: field kinds,
+   * form keys, list minima and `refers_to` resolution (SOM §9). A sample naming
+   * a message key, a role or a route nothing declares passes the first and
+   * fails this one. Pinned here as well as in the sample's builder because the
+   * sample is *committed*: a hand-edit or a merge can reach it without anyone
+   * re-running the builder. The document is re-loaded because step 1 freed it. */
+  char *meta_text = read_file(model_meta_path);
+  ok(meta_text != NULL, "live: read model meta");
+  if (meta_text != NULL) {
+    char *merr = NULL;
+    SpecModel *model = spec_model_from_json_str(meta_text, &merr);
+    ok(model != NULL, "live: model meta parses");
+    free(merr);
+    char *ierr = NULL;
+    SpecDocument *doc = spec_document_from_file(sample_path, tree, &ierr);
+    free(ierr);
+    if (model != NULL && doc != NULL) {
+      SpecValidationErrors errs;
+      validate_document(model, doc, &errs);
+      ok(errs.len == 0, "live: document validates cleanly on the instance tier");
+      for (size_t i = 0; i < errs.len; i++) {
+        fprintf(stderr, "  instance-tier violation: [%s] %s: %s\n", errs.items[i].code,
+                errs.items[i].path, errs.items[i].message);
+      }
+      spec_validation_errors_free(&errs);
+    }
+    if (doc != NULL) {
+      spec_document_free(doc);
+      free(doc);
+    }
+    spec_model_free(model);
+    free(meta_text);
+  }
 
   /* 3) Node operations: by_path / nav / id resolve to the same node instance. */
   const SomMetaNode *list_by_path =

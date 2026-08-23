@@ -18,9 +18,11 @@
 //     rejects a newer-minor / cross-major stamp;
 //   * the live-document conformance case (YRD8 / dsa12): the shared Meridian
 //     sample round-trips (content + lists), its markdown twin validates clean
-//     under the SBP schema, and byPath / nav / id node operations resolve to the
-//     same meta identity — the guarantees the Java golden generator emits, pinned
-//     as a committed guard because `golden/` is git-ignored.
+//     under the SBP schema, the document validates clean on the instance tier
+//     (SpecValidator.validateDocument, SOM §9), and byPath / nav / id node
+//     operations resolve to the same meta identity — the guarantees the Java
+//     golden generator emits plus one it has no section for, pinned as a
+//     committed guard because `golden/` is git-ignored.
 //
 // Zero external deps: a plain `main()` that exits 0 on success (no JUnit), run
 // by `run_tests.sh`.
@@ -33,6 +35,7 @@ import java.time.LocalDate;
 import tom_som_runtime.DocSpecsSchema;
 import tom_som_runtime.DocSpecsValidator;
 import tom_som_runtime.DocSpecsViolation;
+import tom_som_runtime.Json;
 import tom_som_runtime.SomMetaKind;
 import tom_som_runtime.SomMetaNode;
 import tom_som_runtime.SomMetaRef;
@@ -41,7 +44,10 @@ import tom_som_runtime.SomScalar;
 import tom_som_runtime.SomVersionError;
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentYaml;
+import tom_som_runtime.SpecModel;
 import tom_som_runtime.SpecSectionIdCollision;
+import tom_som_runtime.SpecValidationError;
+import tom_som_runtime.SpecValidator;
 import tom_som_java_v0.TomSomV0;
 import tom_som_java_v0.TomSomV0Meta;
 
@@ -430,7 +436,8 @@ public final class GeneratedModelTest {
 
   // Live-document conformance case durability (YRD8 / dsa12). The golden/ tree is
   // git-ignored, so this committed guard pins the three live-document guarantees
-  // the Java golden generator emits over the shared Meridian sample — a
+  // the Java golden generator emits over the shared Meridian sample, plus a
+  // fourth the golden has no section for — instance-tier cleanliness — so a
   // regression fails `run_tests.sh`, not only a full nine-toolchain golden run.
   // Mirrors the Dart (dsa7), Python (dsa8), JavaScript (dsa9), TypeScript (dsa10)
   // and Go (dsa11) durability guards.
@@ -438,6 +445,7 @@ public final class GeneratedModelTest {
     final String sampleMd = "../tom_som_conformance/samples/meridian_order_management.md";
     final String schemaPath =
         "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
+    final String modelMetaPath = "meta/spec_model.meta.json";
     SomMetaTree tree = TomSomV0Meta.D00SolutionBlueprintMetaTree;
 
     // 1) Round-trip: decode -> encode -> decode is stable over content + lists.
@@ -484,6 +492,27 @@ public final class GeneratedModelTest {
         String.valueOf(schema.warnings.size()));
     check("live.validate.no-violations", violations.isEmpty(),
         String.valueOf(violations.size()));
+
+    // 2b) Validation, instance tier: the sample's *values* are admissible.
+    // Disjoint from the schema tier above — that asks whether every required
+    // field is filled, this asks whether the values are well-formed: field
+    // kinds, form keys, list minima and `refersTo` resolution (SOM §9). A
+    // sample naming a message key, a role or a route nothing declares passes
+    // the first and fails this one. Pinned here as well as in the sample's
+    // builder because the sample is *committed*: a hand-edit or a merge can
+    // reach it without anyone re-running the builder.
+    SpecModel model = SpecModel.fromJson(Json.parseObject(readText(modelMetaPath)));
+    java.util.List<SpecValidationError> instanceViolations =
+        SpecValidator.validateDocument(model, original);
+    StringBuilder instanceDetail = new StringBuilder();
+    for (SpecValidationError e : instanceViolations) {
+      if (instanceDetail.length() > 0) {
+        instanceDetail.append("; ");
+      }
+      instanceDetail.append(e.toString());
+    }
+    check("live.validate.instance-tier", instanceViolations.isEmpty(),
+        instanceDetail.toString());
 
     // 3) Node operations: byPath / nav / id resolve to the same meta identity.
     SomMetaNode listByPath = tree.byPath("SBP/currentLandscape/CUOPME-OPER-LST");

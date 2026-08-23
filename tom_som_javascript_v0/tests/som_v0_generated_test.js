@@ -25,9 +25,11 @@
  *     `SpecDocument.fromYaml` retains (or nulls) the parsed model version.
  *   * the live-document conformance case (YRD8 / dsa9): the shared Meridian
  *     sample round-trips (content + lists), its markdown twin validates clean
- *     under the SBP schema, and byPath / nav / id node operations resolve to the
- *     same meta identity — the guarantees the JS golden generator emits, pinned
- *     as a committed guard because `golden/` is git-ignored.
+ *     under the SBP schema, the document validates clean on the instance tier
+ *     (`validateDocument`, SOM §9), and byPath / nav / id node operations
+ *     resolve to the same meta identity — the guarantees the JS golden
+ *     generator emits plus one it has no section for, pinned as a committed
+ *     guard because `golden/` is git-ignored.
  *
  * Run with `node tests/som_v0_generated_test.js`; exit code 0 == all green.
  * The runtime is located by the `tomSom.runtimePath` recorded in `package.json`
@@ -50,6 +52,8 @@ const {
   SomMetaKind,
   DocSpecsSchema,
   DocSpecsValidator,
+  SpecModel,
+  validateDocument,
   yamlEncode,
 } = require(_runtimePath);
 const m = require(path.join(_PROJECT, 'tom_som_javascript_v0.js'));
@@ -490,6 +494,24 @@ function testLiveDocumentCase() {
   check('live.validate.root', schema.rootSectionId === 'SBP', String(schema.rootSectionId));
   check('live.validate.no-warnings', schema.warnings.length === 0, String(schema.warnings.length));
   check('live.validate.no-violations', violations.length === 0, String(violations.length));
+
+  // 2b) Validation, instance tier: the sample's *values* are admissible.
+  // Disjoint from the schema tier above — that asks whether every required
+  // field is filled, this asks whether the values are well-formed: field
+  // kinds, form keys, list minima and `refersTo` resolution (SOM §9). A sample
+  // naming a message key, a role or a route nothing declares passes the first
+  // and fails this one. Pinned here as well as in the sample's builder because
+  // the sample is *committed*: a hand-edit or a merge can reach it without
+  // anyone re-running the builder.
+  const model = SpecModel.fromJson(
+    JSON.parse(fs.readFileSync('meta/spec_model.meta.json', 'utf8')),
+  );
+  const instanceViolations = validateDocument(model, original);
+  check(
+    'live.validate.instance-tier',
+    instanceViolations.length === 0,
+    instanceViolations.slice(0, 5).map((v) => `${v.path}: ${v.code}`).join('; '),
+  );
 
   // 3) Node operations: byPath / nav / id resolve to the same meta identity.
   const listByPath = tree.byPath('SBP/currentLandscape/CUOPME-OPER-LST');

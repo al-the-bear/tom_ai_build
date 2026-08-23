@@ -14,9 +14,11 @@
 //     rejects a newer-minor / cross-major stamp with a *som.SomVersionError;
 //   - the live-document conformance case (YRD8 / dsa11): the shared Meridian
 //     sample round-trips (content + lists), its markdown twin validates clean
-//     under the SBP schema, and ByPath / nav / id node operations resolve to the
-//     same meta identity — the guarantees the Go golden generator emits, pinned
-//     as a committed guard because `golden/` is git-ignored.
+//     under the SBP schema, the document validates clean on the instance tier
+//     (ValidateDocument, SOM §9), and ByPath / nav / id node operations resolve
+//     to the same meta identity — the guarantees the Go golden generator emits
+//     plus one it has no section for, pinned as a committed guard because
+//     `golden/` is git-ignored.
 //
 // Run with `go test ./...`. The runtime resolves through the `replace`
 // directive in this module's go.mod, so the test is portable across checkouts.
@@ -503,12 +505,14 @@ func TestOneCallLoading(t *testing.T) {
 // TestLiveDocumentCase is the live-document conformance case durability guard
 // (YRD8 / dsa11). The golden/ tree is git-ignored, so this committed test pins
 // the three live-document guarantees the Go golden generator emits over the
-// shared Meridian sample — a regression fails `go test`, not only a full
+// shared Meridian sample, plus a fourth the golden has no section for —
+// instance-tier cleanliness — so a regression fails `go test`, not only a full
 // nine-toolchain golden run. Mirrors the Dart (dsa7), Python (dsa8),
 // JavaScript (dsa9) and TypeScript (dsa10) durability guards.
 func TestLiveDocumentCase(t *testing.T) {
 	const sampleMd = "../tom_som_conformance/samples/meridian_order_management.md"
 	const schemaPath = "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml"
+	const modelMetaPath = "meta/spec_model.meta.json"
 	tree := D00SolutionBlueprintMetaTree
 
 	// 1) Round-trip: decode → encode → decode is stable over content + lists.
@@ -574,6 +578,26 @@ func TestLiveDocumentCase(t *testing.T) {
 	}
 	if len(violations) != 0 {
 		t.Errorf("validation violations = %d, want 0", len(violations))
+	}
+
+	// 2b) Validation, instance tier: the sample's *values* are admissible.
+	// Disjoint from the schema tier above — that asks whether every required
+	// field is filled, this asks whether the values are well-formed: field
+	// kinds, form keys, list minima and `refersTo` resolution (SOM §9). A
+	// sample naming a message key, a role or a route nothing declares passes
+	// the first and fails this one. Pinned here as well as in the sample's
+	// builder because the sample is *committed*: a hand-edit or a merge can
+	// reach it without anyone re-running the builder.
+	metaText, err := os.ReadFile(modelMetaPath)
+	if err != nil {
+		t.Fatalf("read model meta: %v", err)
+	}
+	model, err := som.SpecModelFromJSON(metaText)
+	if err != nil {
+		t.Fatalf("SpecModelFromJSON: %v", err)
+	}
+	for _, v := range som.ValidateDocument(model, original) {
+		t.Errorf("instance-tier violation: %s", v.String())
 	}
 
 	// 3) Node operations: ByPath / nav / id resolve to the same meta identity.
