@@ -1,5 +1,11 @@
-/// Checks that every quest-todo id cited in a documentation folder still
-/// resolves to an **open** todo.
+/// Checks that every quest-todo id cited in the documentation still names
+/// exactly one **open** todo.
+///
+/// "The documentation" is a folder plus the files outside it that cite the same
+/// todos — in practice `tom_specs_model/doc` and the project READMEs
+/// (`defaultCitedReadmes`, shared with the section gate). A README pointing at
+/// finished work strands its reader exactly as a doc page does, so the scope is
+/// the set of *citing* files, not one directory.
 ///
 /// ## Why this exists
 ///
@@ -35,6 +41,26 @@
 /// ([TodoCitationVocabulary]) — a list of words, not a list of files, so nothing
 /// is blanket-exempted.
 ///
+/// ## A stem does not always name one todo
+///
+/// Ids are `<stem>_<datecode>-<slug>`, and several campaigns number their
+/// follow-ups from 1 **per prompt**, using the date code as the disambiguator.
+/// That is a working id policy — but it means a stem can carry several todos,
+/// and a citation written as the bare stem then names all of them.
+///
+/// So a citation resolves to a **set** of records, and a set larger than one is
+/// [CitationVerdict.ambiguous]: a defect in its own right, whatever the statuses
+/// behind it. Reporting the first open record instead would defeat the gate's
+/// whole purpose for exactly the ids that repeat — a stem whose older todo is
+/// closed and whose newer one is open would read as `open` forever, and a reader
+/// following the citation could land on either.
+///
+/// The escape hatch is the disambiguator itself: a citation that carries the
+/// date code (`tscompd2_ahpu`) resolves **exactly**, against ids equal to it or
+/// extending it at a `-` or `_` boundary. That is what the date code is for, and
+/// it makes the new verdict actionable rather than merely noisy — the fix for an
+/// ambiguous citation is always to write more of the id.
+///
 /// ## The two exemptions
 ///
 /// A citation of a closed todo is a defect *except* in two cases, both marked
@@ -42,7 +68,9 @@
 ///
 /// - `<!-- todo-cite: provenance -->` on the line — the cited todo is named as
 ///   the *raiser* or the landed *prerequisite* of an item ("Raised by
-///   `csra12`"). The named todo is history; the item it produced is open.
+///   `<closed raiser>` — restated by `<open todo>`"). The named todo is history;
+///   the item it produced is open. The example is schematic on purpose: written
+///   with a real pair, it has to be re-pointed every time one of them closes.
 ///
 ///   The marker only applies when the same line **also cites an open todo**.
 ///   Without that condition it would be a blanket "ignore me" that any line
@@ -52,6 +80,12 @@
 /// - `<!-- todo-cite: history -->` on a line of its own — the whole document is a
 ///   changelog or history record, which is exempt from the current-state rule by
 ///   definition. No such condition applies: a history record has no open items.
+///
+/// Neither marker exempts an [CitationVerdict.ambiguous] citation. Both excuse a
+/// citation of *finished* work; ambiguity is not a question about status but
+/// about whether the pointer names one todo, and a changelog entry that says
+/// "closed `tscompd2`" leaves its reader exactly as stuck as a current-state
+/// document would.
 library;
 
 import 'dart:io';
@@ -191,12 +225,18 @@ class TodoCorpus {
 
 /// What the checker concluded about one citation.
 enum CitationVerdict {
-  /// Resolves to a todo that is still open. Nothing to do.
+  /// Resolves to exactly one todo, and it is still open. Nothing to do.
   open,
 
-  /// Resolves, but every todo carrying the id is archived, deleted, completed or
+  /// Resolves to exactly one todo, and it is archived, deleted, completed or
   /// cancelled — the document points a reader at finished work.
   closed,
+
+  /// Resolves to **several** todos, because the campaign that produced them
+  /// restarted its numbering and the citation dropped the date code that tells
+  /// them apart. A defect whatever their statuses: the pointer names more than
+  /// one thing.
+  ambiguous,
 
   /// The series exists in the corpus but this number does not: a typo, or an id
   /// that was renamed.
@@ -234,6 +274,7 @@ class TodoCitation {
     required this.file,
     required this.line,
     required this.verdict,
+    this.matchedIds = const [],
     this.exemption,
   });
 
@@ -252,6 +293,15 @@ class TodoCitation {
 
   final CitationVerdict verdict;
 
+  /// The full on-disk ids [token] resolved to, in corpus order.
+  ///
+  /// One entry for [CitationVerdict.open] and [CitationVerdict.closed], several
+  /// for [CitationVerdict.ambiguous], none when it resolved to nothing. The
+  /// ambiguous case is why this is carried at all: naming the ids that collided
+  /// is what turns the failure into an obvious edit, since the fix is to write
+  /// whichever of them was meant.
+  final List<String> matchedIds;
+
   /// Set only when [verdict] is [CitationVerdict.closed] and the citation is
   /// marked.
   final CitationExemption? exemption;
@@ -260,6 +310,8 @@ class TodoCitation {
   bool get isViolation => switch (verdict) {
         CitationVerdict.open => false,
         CitationVerdict.closed => exemption == null,
+        // Deliberately not exemptable — see the library doc.
+        CitationVerdict.ambiguous => true,
         CitationVerdict.unresolved || CitationVerdict.unknownSeries => true,
       };
 
@@ -277,6 +329,10 @@ class TodoCitation {
                 'prerequisite, cite the open todo that owns the follow-up on '
                 'the same line and mark it <!-- todo-cite: provenance -->'
             : 'CLOSED (${exemption!.name})',
+        CitationVerdict.ambiguous =>
+          'AMBIGUOUS — ${matchedIds.length} todos carry this stem, so the '
+              'citation names all of them; write the one you mean, date code '
+              'and all: ${matchedIds.join(', ')}',
         CitationVerdict.unresolved =>
           'UNRESOLVED — no todo with this number exists in the series',
         CitationVerdict.unknownSeries =>
@@ -357,13 +413,20 @@ List<TodoCitation> classifyMarkdown(
     // Classify the whole line first: a provenance marker only takes effect when
     // the line also cites an open todo, which is not known until every token on
     // it has been resolved.
-    final onLine = <(String token, String stem, CitationVerdict verdict)>[];
+    final onLine =
+        <(String token, String stem, CitationVerdict verdict, List<String> ids)>[];
     for (final match in _inlineCode.allMatches(line)) {
       final token = match.group(1)!.trim();
       if (vocabulary.contains(token)) continue;
       final stem = _stemOf(token);
       if (stem == null) continue;
-      onLine.add((token, stem, _verdictFor(stem, corpus)));
+      final records = _recordsFor(token, stem, corpus);
+      onLine.add((
+        token,
+        stem,
+        _verdictFor(records, stem, corpus),
+        [for (final r in records) r.id],
+      ));
     }
     if (onLine.isEmpty) continue;
 
@@ -379,13 +442,14 @@ List<TodoCitation> classifyMarkdown(
       exemption = null;
     }
 
-    for (final (token, stem, verdict) in onLine) {
+    for (final (token, stem, verdict, ids) in onLine) {
       citations.add(TodoCitation(
         token: token,
         stem: stem,
         file: path,
         line: i + 1,
         verdict: verdict,
+        matchedIds: ids,
         exemption: verdict == CitationVerdict.closed ? exemption : null,
       ));
     }
@@ -400,13 +464,35 @@ String? _stemOf(String token) {
   return _fullTodoId.firstMatch(token)?.group(1);
 }
 
-CitationVerdict _verdictFor(String stem, TodoCorpus corpus) {
+/// The records [token] names, given that it resolves through [stem].
+///
+/// A bare stem names every record under it. A qualified citation — anything
+/// longer than the stem — names the records whose id **equals** it or extends it
+/// at a separator, since ids append the slug with either `-` or `_`. Anchoring
+/// on the separator is what stops `tscompd2_ahp` from silently matching
+/// `tscompd2_ahpu-…`: a truncated date code is a typo, and must read as one.
+List<TodoRecord> _recordsFor(String token, String stem, TodoCorpus corpus) {
   final records = corpus[stem];
-  if (records.isNotEmpty) {
-    return records.any((r) => !r.closed)
-        ? CitationVerdict.open
-        : CitationVerdict.closed;
+  if (token == stem) return records;
+  return [
+    for (final record in records)
+      if (record.id == token ||
+          record.id.startsWith('$token-') ||
+          record.id.startsWith('${token}_'))
+        record,
+  ];
+}
+
+CitationVerdict _verdictFor(List<TodoRecord> records, String stem,
+    TodoCorpus corpus) {
+  if (records.length > 1) return CitationVerdict.ambiguous;
+  if (records.length == 1) {
+    return records.single.closed
+        ? CitationVerdict.closed
+        : CitationVerdict.open;
   }
+  // Nothing matched. A qualified citation whose stem exists is a wrong date code
+  // or a wrong slug, which is the same defect as a wrong number: `unresolved`.
   final series = todoIdShape.firstMatch(stem)!.group(1)!;
   return corpus.seriesPrefixes.contains(series)
       ? CitationVerdict.unresolved
@@ -438,14 +524,21 @@ class TodoCitationReport {
       citations.where((c) => c.verdict == verdict).length;
 }
 
-/// Scans every `*.md` directly inside [docDir] and classifies its citations.
+/// Scans every `*.md` directly inside [docDir], plus [extraFiles], and
+/// classifies their citations.
 ///
-/// Only the folder itself: the TomSpecs doc set is flat by design, and generator
-/// output lives in a sibling tree that must not be checked (a generated file is
-/// regenerated, not edited).
+/// Only the doc folder itself, not its subtree: the TomSpecs doc set is flat by
+/// design, and generator output lives in a sibling tree that must not be checked
+/// (a generated file is regenerated, not edited).
+///
+/// [extraFiles] is how the project READMEs join the scan — see
+/// [defaultCitedReadmes]. A file listed there that does not exist is skipped
+/// rather than fatal, so a project that has not been checked out beside the
+/// clitool does not read as a missing citation.
 TodoCitationReport checkDocFolder({
   required String docDir,
   required TodoCorpus corpus,
+  List<String> extraFiles = const [],
   TodoCitationVocabulary vocabulary = const TodoCitationVocabulary.empty(),
 }) {
   final dir = Directory(docDir);
@@ -459,6 +552,10 @@ TodoCitationReport checkDocFolder({
       .where((f) => p.extension(f.path) == '.md')
       .toList()
     ..sort((a, b) => a.path.compareTo(b.path));
+  for (final path in extraFiles) {
+    final file = File(path);
+    if (file.existsSync()) files.add(file);
+  }
 
   final citations = <TodoCitation>[];
   for (final file in files) {

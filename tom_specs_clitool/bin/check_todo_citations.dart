@@ -4,16 +4,21 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Checks that every quest-todo id cited in the TomSpecs doc folder still
-/// resolves to an **open** todo.
+/// Checks that every quest-todo id cited in the TomSpecs documentation still
+/// points a reader at exactly one **open** todo.
 ///
 ///   dart run bin/check_todo_citations.dart
 ///   dart run bin/check_todo_citations.dart --verbose
 ///
-/// Exits 1 on any citation that resolves to closed work without an inline
-/// exemption marker, and on any citation that resolves to nothing at all. See
-/// `lib/src/todo_citations.dart` for the two markers and why the id shapes are
-/// discovered rather than enumerated.
+/// The scan is the TomSpecs doc folder plus the project READMEs that cite it —
+/// the same closed set the section gate holds, since a README pointing at a
+/// finished todo strands its reader exactly as a doc-folder page would.
+///
+/// Exits 1 on a citation that resolves to closed work without an inline
+/// exemption marker, to nothing at all, or to **several** todos at once. See
+/// `lib/src/todo_citations.dart` for the two markers, why an ambiguous citation
+/// is not exemptable, and why the id shapes are discovered rather than
+/// enumerated.
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption(
@@ -21,6 +26,15 @@ Future<void> main(List<String> arguments) async {
       help: 'Documentation folder to scan. Default: the sibling '
           'tom_specs_model/doc.',
     )
+    ..addMultiOption(
+      'extra',
+      help: 'Additional file to scan, resolved against the same corpus. '
+          'Repeatable. Defaults to the project READMEs that cite the doc set; '
+          'pass --no-default-readmes to scan the doc folder alone.',
+    )
+    ..addFlag('default-readmes',
+        defaultsTo: true,
+        help: 'Also scan the project READMEs that cite the doc set.')
     ..addMultiOption(
       'quest',
       help: 'Quest folder contributing todos (active + archived + deleted). '
@@ -82,6 +96,13 @@ Future<void> main(List<String> arguments) async {
     report = checkDocFolder(
       docDir: docDir,
       corpus: corpus,
+      extraFiles: [
+        if (results.flag('default-readmes'))
+          for (final readme in defaultCitedReadmes)
+            p.normalize(p.join(containerRoot, readme)),
+        for (final path in results.multiOption('extra'))
+          p.normalize(p.absolute(path)),
+      ],
       vocabulary: TodoCitationVocabulary.load(vocabularyPath),
     );
   } on ArgumentError catch (e) {
@@ -89,11 +110,13 @@ Future<void> main(List<String> arguments) async {
     exit(1);
   }
 
-  stdout.writeln('Scanned ${report.documentCount} document(s) in '
-      '${p.relative(docDir, from: containerRoot)} against '
-      '${corpus.stemCount} todo id(s) from ${corpus.sourceFiles.length} file(s).');
+  stdout.writeln('Scanned ${report.documentCount} document(s) from '
+      '${p.relative(docDir, from: containerRoot)} and the cited READMEs against '
+      '${corpus.stemCount} todo stem(s) from ${corpus.sourceFiles.length} '
+      'file(s).');
   stdout.writeln('  open       ${report.countOf(CitationVerdict.open)}');
   stdout.writeln('  closed     ${report.countOf(CitationVerdict.closed)}');
+  stdout.writeln('  ambiguous  ${report.countOf(CitationVerdict.ambiguous)}');
   stdout.writeln('  unresolved ${report.countOf(CitationVerdict.unresolved) + report.countOf(CitationVerdict.unknownSeries)}');
 
   if (results.flag('verbose')) {
@@ -103,13 +126,13 @@ Future<void> main(List<String> arguments) async {
   }
 
   if (report.isClean) {
-    stdout.writeln('OK — every cited todo id resolves to open work.');
+    stdout.writeln('OK — every cited todo id resolves to one open todo.');
     exit(0);
   }
 
   stderr.writeln('');
-  stderr.writeln('${report.violations.length} citation(s) point at closed or '
-      'non-existent todos:');
+  stderr.writeln('${report.violations.length} citation(s) fail to name one open '
+      'todo:');
   for (final violation in report.violations) {
     stderr.writeln('  ${violation.describe(relativeTo: containerRoot)}');
   }

@@ -152,7 +152,7 @@ Related entrypoints in `bin/`:
 | `generate_som.dart` | Generate the per-language `tom_som_<slug>_<label>` projects (this section). |
 | `model_json.dart` | Export the resolved meta-data class graph alone. Refresh either **committed** asset with `--target editor` / `--target reviewer` — the target owns both the path and the version stamp, which the two assets pin differently (`tom_specs_model/doc/tom_specs_model_meta_schema.md`, "Refreshing the committed assets"). `--package` + `--output` is for ad-hoc exports elsewhere. |
 | `outliner.dart` | Render a class-tree outline of the model from any document root. |
-| `check_todo_citations.dart` | Check that every quest-todo id cited inline in `tom_specs_model/doc` still resolves to an **open** todo. Exits `1` on a citation of closed or non-existent work. Run by `tool/regenerate_outlines.sh` and by `test/todo_citations_test.dart` (see below). |
+| `check_todo_citations.dart` | Check that every quest-todo id cited inline in `tom_specs_model/doc` and in the cited project READMEs still names **exactly one open** todo. Exits `1` on a citation of closed or non-existent work, and on a bare stem that several todos answer to. `--no-default-readmes` scans the doc folder alone; `--extra` adds a file. Run by `tool/regenerate_outlines.sh` and by `test/todo_citations_test.dart` (see below). |
 | `check_section_citations.dart` | Resolve every `§` citation in `tom_specs_model/doc` against `index.md`'s citation convention — a bare `§N` means *this* document. Exits `1` on a citation that resolves to no heading. The gate is **closed**: its default corpus is the doc folder plus the project READMEs that cite it (`defaultCitedReadmes`) and the Dart doc comments of all six TomSpecs source trees (`defaultCitedSourceRoots`, whose files are discovered beneath enumerated roots, so a new file is gated the day it is written). `--extra <file>` adds one more file to that corpus. |
 | `check_oe_citations.dart` | Resolve every `OE-` id cited in the editor project, the doc folder and the quest's bookkeeping against the Open-Ends Register (`tom_specs_editor_specification.md` §22). Exits `1` on a citation with no register row, and on a register that defines one id twice. `--root` / `--register` retarget it. |
 | `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
@@ -184,15 +184,16 @@ serialises members in the authored order. Re-run it after any model edit that
 adds, removes, or reorders fields; it is idempotent (old annotations are stripped
 and renumbered).
 
-**Doc-folder todo citations.** The TomSpecs documents cite quest-todo ids inline,
+**Todo citations.** The TomSpecs documents cite quest-todo ids inline,
 as a backticked id, to say who owns an open question. Such a citation decays
 silently: the todo completes, is archived, and the document goes on pointing a
 reader at finished work. `check_todo_citations.dart` closes that by resolving every
-backticked id-shaped token in `tom_specs_model/doc` against the active, archived
-and deleted todo files of the quests those documents cite
-(`defaultCitedQuests` — `tom_specs` and `tom_core`).
+backticked id-shaped token in `tom_specs_model/doc` — **plus the project READMEs
+that cite it** (`defaultCitedReadmes`, the same closed set the section gate
+holds) — against the active, archived and deleted todo files of the quests those
+documents cite (`defaultCitedQuests` — `tom_specs` and `tom_core`).
 
-Three things about it are deliberate:
+Four things about it are deliberate:
 
 - **Id shapes are discovered, not enumerated.** The stems come from the todo
   files themselves, so a citation of *another* quest's corpus resolves rather
@@ -210,6 +211,18 @@ Three things about it are deliberate:
   one, which then closed in its turn. A
   `<!-- todo-cite: history -->` standing alone on its own line exempts the whole
   document, for a changelog.
+- **A citation must name exactly one todo.** Ids are `<stem>_<datecode>-<slug>`
+  and several campaigns renumber their follow-ups from 1 per prompt, using the
+  date code to tell them apart — so a stem can carry many todos, and a bare-stem
+  citation names all of them. That is the `ambiguous` verdict, a violation
+  whatever the statuses behind it: answering with the first open record would
+  make a stem whose *older* todo closed and whose *newer* one is open read as
+  healthy forever, while a reader following it lands on either. The report names
+  every id the stem matched, because the fix is always to write more of the id —
+  and a citation carrying the date code resolves **exactly**, against ids equal
+  to it or extending it at a `-` or `_` boundary, so a truncated date code reads
+  as the typo it is. Neither exemption applies: both excuse a citation of
+  *finished* work, and ambiguity is not a question about status.
 - **It checks citations, not claims.** That a cited id still *exists and is
   open* is mechanical; that what the document says *about* it is still true is a
   semantic judgement and stays with a human reading pass.

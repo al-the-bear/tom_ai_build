@@ -266,6 +266,11 @@ const String somDocument = 'som_multiplatform_spec_model.md';
 /// the workspace" would pull in projects that neither cite nor are cited by
 /// TomSpecs, and their unrelated `§` usage would have to be exempted one by
 /// one.
+///
+/// The **todo** gate holds the same set — a README pointing at a finished or an
+/// ambiguous todo strands its reader exactly as a doc-folder page does, and the
+/// two gates asking about the same files is the point of there being one list
+/// rather than two that drift.
 const defaultCitedReadmes = [
   'tom_ai/ai_build/tom_code_specs/README.md',
   'tom_ai/ai_build/tom_spec_engine/README.md',

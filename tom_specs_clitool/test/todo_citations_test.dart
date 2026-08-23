@@ -4,7 +4,7 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Covers the doc-folder gate over inline quest-todo citations
+/// Covers the documentation gate over inline quest-todo citations
 /// (`lib/src/todo_citations.dart`).
 ///
 /// The three fixtures the gate was specified against are the three failure modes
@@ -13,6 +13,14 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// must pass. They are built from purpose-written todo files rather than from
 /// the live corpus, so the fixtures keep testing the same thing after the real
 /// todos move on.
+///
+/// TCC5's fourth mode — a bare stem naming **several** todos — carries more
+/// weight than the others, because the live corpus currently cites no todo at
+/// all. Nothing on disk exercises the `ambiguous` verdict, so these fixtures are
+/// the whole of its assurance.
+///
+/// The fixture groups run first and TCC4 — the live gate — stays last, so the
+/// group numbers follow when each mode was specified rather than file order.
 void main() {
   final clitoolRoot = Directory.current.path;
   final containerRoot = p.normalize(p.join(clitoolRoot, '..', '..', '..'));
@@ -177,14 +185,13 @@ void main() {
               'work until someone ran an archive pass');
     });
 
-    test('one open todo among several records is enough', () {
-      final corpus = corpusWith(
-        active: [('abc2_reopened', 'in-progress')],
-        archived: [('abc2_first-attempt', 'completed')],
-      );
+    test('a resolved citation names the id it resolved to', () {
+      final corpus = corpusWith(active: [('abc2_ahci-do-the-thing', 'blocked')]);
 
-      expect(classify('See `abc2`.', corpus).single.verdict,
-          CitationVerdict.open);
+      expect(classify('See `abc2`.', corpus).single.matchedIds,
+          ['abc2_ahci-do-the-thing'],
+          reason: 'the ids are carried for every verdict, not only the '
+              'ambiguous one, so a report can always show what was hit');
     });
 
     test('vocabulary tokens are not citations at all', () {
@@ -215,8 +222,109 @@ void main() {
     });
   });
 
-  group('TCC4: the live doc folder', () {
-    test('every todo id cited in tom_specs_model/doc resolves to open work', () {
+  group('TCC5: a stem does not always name one todo', () {
+    /// Two todos under one stem, the shape a per-prompt renumbering produces:
+    /// an older attempt that finished and a newer one that has not.
+    TodoCorpus corpus() => corpusWith(
+          active: [('abc2_ahpu-second-attempt', 'not-started')],
+          archived: [('abc2_ahjt-first-attempt', 'completed')],
+        );
+
+    test('a bare stem naming two todos is ambiguous, not open', () {
+      final citation = classify('Tracked at `abc2`.', corpus()).single;
+
+      expect(citation.verdict, CitationVerdict.ambiguous,
+          reason: 'answering with the open record would let the citation read '
+              'as healthy while pointing at two different things — and the '
+              'closed one is the older, so a reader following it lands on '
+              'finished work');
+      expect(citation.isViolation, isTrue);
+      expect(
+          citation.matchedIds,
+          unorderedEquals(
+              ['abc2_ahpu-second-attempt', 'abc2_ahjt-first-attempt']));
+    });
+
+    test('the report names every id the stem matched', () {
+      final citation = classify('Tracked at `abc2`.', corpus()).single;
+
+      final described = citation.describe(relativeTo: '.');
+      expect(described, contains('AMBIGUOUS'));
+      expect(described, contains('abc2_ahpu-second-attempt'));
+      expect(described, contains('abc2_ahjt-first-attempt'),
+          reason: 'the fix is to write whichever id was meant, so the message '
+              'has to hand the reader the candidates');
+    });
+
+    test('the date code disambiguates and resolves exactly', () {
+      final open = classify('Tracked at `abc2_ahpu`.', corpus()).single;
+      expect(open.verdict, CitationVerdict.open);
+      expect(open.matchedIds, ['abc2_ahpu-second-attempt']);
+
+      final closed = classify('Raised by `abc2_ahjt`.', corpus()).single;
+      expect(closed.verdict, CitationVerdict.closed,
+          reason: 'qualifying a citation narrows it; it does not excuse it');
+      expect(closed.isViolation, isTrue);
+    });
+
+    test('a citation qualified past the date code resolves too', () {
+      final citation =
+          classify('Tracked at `abc2_ahpu-second-attempt`.', corpus()).single;
+
+      expect(citation.verdict, CitationVerdict.open);
+    });
+
+    test('a slug appended with an underscore is matched at that boundary', () {
+      final corpus = corpusWith(active: [
+        ('abc2_ahpu_second_attempt', 'not-started'),
+        ('abc2_ahjt-first-attempt', 'completed'),
+      ]);
+
+      expect(classify('Tracked at `abc2_ahpu`.', corpus).single.verdict,
+          CitationVerdict.open,
+          reason: 'ids append the slug with either separator, so anchoring on '
+              'only one of them would leave half the corpus uncitable');
+    });
+
+    test('a truncated date code is unresolved, not a prefix match', () {
+      final citation = classify('Tracked at `abc2_ahp`.', corpus()).single;
+
+      expect(citation.verdict, CitationVerdict.unresolved,
+          reason: 'a half-written date code is a typo and has to read as one — '
+              'matching it to abc2_ahpu would resurrect the guessing the '
+              'ambiguous verdict exists to stop');
+      expect(citation.matchedIds, isEmpty);
+    });
+
+    test('neither marker exempts an ambiguous citation', () {
+      final provenance = classify(
+        '| `abc3` | Raised by `abc2`. | <!-- todo-cite: provenance -->',
+        corpusWith(
+          active: [
+            ('abc3_ahpu-live', 'not-started'),
+            ('abc2_ahpu-second-attempt', 'not-started'),
+          ],
+          archived: [('abc2_ahjt-first-attempt', 'completed')],
+        ),
+      ).singleWhere((c) => c.token == 'abc2');
+
+      expect(provenance.exemption, isNull);
+      expect(provenance.isViolation, isTrue);
+
+      final history = classify(
+        '<!-- todo-cite: history -->\n\n2026-08-03 — closed `abc2`.',
+        corpus(),
+      ).single;
+
+      expect(history.isViolation, isTrue,
+          reason: 'both markers excuse a citation of finished work; ambiguity '
+              'is a different question, and a changelog entry naming two todos '
+              'strands its reader just as badly');
+    });
+  });
+
+  group('TCC4: the live documentation', () {
+    test('every todo id cited in the doc set resolves to one open todo', () {
       final docDir = p.join(
           containerRoot, 'tom_ai', 'ai_build', 'tom_specs_model', 'doc');
       if (!Directory(docDir).existsSync()) {
@@ -237,6 +345,14 @@ void main() {
         corpus: TodoCorpus.load([
           for (final dir in questDirs) ...TodoCorpus.questTodoFiles(dir),
         ]),
+        // The same closed set the section gate holds: a README that points at
+        // finished work strands its reader exactly as a doc-folder page does,
+        // and the command scans these by default, so the gate and the test have
+        // to see the same files.
+        extraFiles: [
+          for (final readme in defaultCitedReadmes)
+            p.normalize(p.join(containerRoot, readme)),
+        ],
         vocabulary: TodoCitationVocabulary.load(
             p.join(clitoolRoot, 'tool', 'todo_citation_vocabulary.txt')),
       );

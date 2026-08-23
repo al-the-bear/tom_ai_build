@@ -14,8 +14,14 @@
 #
 # One token per line. `#` starts a comment.
 
-address2      # HTTP/postal address line 2 — an ExperienceDesign form field
-arm64         # CPU architecture
-legiondary01  # a fleet machine name
-python3       # the Python 3 interpreter binary
-vec0          # the sqlite-vec extension's virtual-table module
+address2                      # HTTP/postal address line 2 — an ExperienceDesign form field
+arm64                         # CPU architecture
+legiondary01                  # a fleet machine name
+libsqlite3                    # the SQLite shared library
+python3                       # the Python 3 interpreter binary
+sqlite3_auto_extension        # SQLite C API
+sqlite3_enable_load_extension # SQLite C API
+sqlite3_flutter_libs          # a pub.dev package
+sqlite3_load_extension        # SQLite C API
+sqlite3_vec_init              # the sqlite-vec entry point
+vec0                          # the sqlite-vec extension's virtual-table module
