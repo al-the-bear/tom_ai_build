@@ -79,6 +79,22 @@ full nine-toolchain golden run. **Every runtime now carries the same guard**
 three guarantees, so a per-language regression fails that language's own test
 suite — not only the aggregate golden comparison.
 
+The Dart group carries a **fourth** assertion the other eight do not, and it is
+the one guarantee in the group that has no golden section behind it: the sample
+also validates cleanly on the **instance tier** (`validateDocument`, SOM §9).
+The two validation tiers are disjoint questions — the `docspecs` golden section
+asks whether every *required section* is present, `validateDocument` asks
+whether the *values* are well-formed (field kinds, form keys, list minima,
+`refersTo` resolution) — and neither implies the other, which is why the sample
+was schema-clean for a long time while carrying twelve instance-tier violations.
+The sample's builder (`tom_som_dart_v0/tool/build_shared_sample.dart`) now gates
+on both tiers, and the committed test repeats the second gate because the sample
+is *committed*: a hand-edit or a merge can reach it without anyone re-running the
+builder. The instance tier is nine-language like everything else here, but what
+forces the other eight runtimes to implement it is `corpus/validation_cases.json`
+(below), not the sample — so the sample's own instance-tier cleanliness is
+currently a Dart-only guarantee.
+
 ### Running
 
 ```bash
