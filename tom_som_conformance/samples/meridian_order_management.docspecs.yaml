@@ -1018,6 +1018,33 @@ document:
                         OrderLine, PriceList
                       businessRuleApplied: |2-
                         FR-05 amend before dispatch
+                    SVCST-STEP-LST serverCallSteps:
+                      SVCST-STEP-1:
+                        content:
+                          role: |2-
+                            assembleRequest
+                          systemAction: |2-
+                            Puts the line id, the new quantity and the order version onto the amendment command.
+                      SVCST-STEP-2:
+                        content:
+                          role: |2-
+                            assembleRequest
+                          systemAction: |2-
+                            Adds the clerk's justification note to the command.
+                          condition: |2-
+                            Only when the clerk entered a justification
+                      SVCST-STEP-3:
+                        content:
+                          role: |2-
+                            handleResponse
+                          systemAction: |2-
+                            Applies the returned price snapshot and reservation state to the open line.
+                      SVCST-STEP-4:
+                        content:
+                          role: |2-
+                            handleError
+                          systemAction: |2-
+                            Leaves the line at its stored quantity and shows screen.order.amend.error beside the field.
                   MNSST-STEP-2:
                     content:
                       stepNumber: 2
@@ -1068,6 +1095,13 @@ document:
                       Observes the confirmed order on the work list.
                     systemResponse: |2-
                       Order shows state Confirmed with both lines priced and reserved.
+                  SVCST-STEP-LST serverCallSteps:
+                    SVCST-STEP-1:
+                      content:
+                        role: |2-
+                          handleResponse
+                        systemAction: |2-
+                          Renders the returned page of work-list rows into the order table.
                 SCNST-STEP-3:
                   content:
                     stepNumber: 3

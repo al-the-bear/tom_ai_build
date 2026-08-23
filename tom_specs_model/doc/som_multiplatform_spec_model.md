@@ -1427,13 +1427,26 @@ nine languages at once.
 
 The shared sample is a genuinely implementable specification — typed
 requirements across several list types, Cockburn-style use cases with
-extensions, a relational data model and fully-detailed screens — authored
-through the typed facade so the wire format stays valid. Every
-`tom_som_<lang>_v0` project ships a golden generator that reads essentially
-every section of it through **both** APIs into a canonical log, and
-`tom_som_conformance` asserts all nine logs are byte-identical. That is the
-standing proof that the nine language APIs yield exactly the same reading of the
-same specification.
+extensions and the server calls their steps make, a relational data model and
+fully-detailed screens — authored through the typed facade so the wire format
+stays valid. Every `tom_som_<lang>_v0` project ships a golden generator that
+reads it through **both** APIs into a canonical log, and `tom_som_conformance`
+asserts all nine logs are byte-identical. That is the standing proof that the
+nine language APIs yield exactly the same reading of the same specification.
+
+**The proof is bounded by what the sample instantiates, not by the model.** The
+generic half of each generator's walk is total over the *document* — every
+content leaf, form field, list, headline and codeSpec path it holds — and the
+typed half is a curated traversal cross-checked against it. Neither is total
+over the *model*: a structure the sample never populates is generated into all
+nine languages and compared nine ways against logs that never mention it, so the
+nine ports agree about a construct none of them has ever serialized. That bound
+is wide. The sample carries roughly 120 of the ~3 850 section ids reachable from
+the SBP root, and 34 of the 569 reachable list structures — and it is invisible
+from the outside, because the logs stay byte-identical whether an uninstantiated
+structure works or not. Populating the sample is therefore the act that brings a
+construct under the parity proof, and it belongs in the same change as the
+structure worth proving parity for.
 
 **The corpus must exercise every validation code.** `corpus/validation_cases.json`
 is what forces a runtime to implement an instance-tier check: a case expecting a

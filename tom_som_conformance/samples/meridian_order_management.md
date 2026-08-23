@@ -819,6 +819,29 @@ SystemResponse: System validates the new quantity and re-prices the line.
 DataInvolved: OrderLine, PriceList
 BusinessRuleApplied: FR-05 amend before dispatch
 
+########## <!--[SVCST-STEP-LST]--> Server Call Steps
+
+########### <!--[SVCST-STEP-1]--> Server Call Step 1
+
+Role: assembleRequest
+SystemAction: Puts the line id, the new quantity and the order version onto the amendment command.
+
+########### <!--[SVCST-STEP-2]--> Server Call Step 2
+
+Role: assembleRequest
+SystemAction: Adds the clerk's justification note to the command.
+Condition: Only when the clerk entered a justification
+
+########### <!--[SVCST-STEP-3]--> Server Call Step 3
+
+Role: handleResponse
+SystemAction: Applies the returned price snapshot and reservation state to the open line.
+
+########### <!--[SVCST-STEP-4]--> Server Call Step 4
+
+Role: handleError
+SystemAction: Leaves the line at its stored quantity and shows screen.order.amend.error beside the field.
+
 ######### <!--[MNSST-STEP-2]--> Main Scenario Step 2
 
 StepNumber: 2
@@ -858,6 +881,13 @@ StepNumber: 2
 Actor: ACT-01 Order Clerk
 Action: Observes the confirmed order on the work list.
 SystemResponse: Order shows state Confirmed with both lines priced and reserved.
+
+######### <!--[SVCST-STEP-LST]--> Server Call Steps
+
+########## <!--[SVCST-STEP-1]--> Server Call Step 1
+
+Role: handleResponse
+SystemAction: Renders the returned page of work-list rows into the order table.
 
 ######## <!--[SCNST-STEP-3]--> Scenario Step 3
 

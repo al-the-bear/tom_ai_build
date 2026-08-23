@@ -931,10 +931,25 @@ audit trail.''')
   uc3post.content
     ..successGuarantees = 'The amended line carries a fresh price snapshot and reservation; the amendment is audited.'
     ..dataPostcondition = 'OrderLine updated; prior values retained in the event history.';
-  _step(uc3.mainScenario.steps.add(), '1',
-      'Clerk changes the quantity of a line and saves.',
+  // The save crosses the client/server boundary, so the step's three handling
+  // bodies are stated separately (SVCST). This is the sample's *dense* server
+  // call: all three `ServerCallRole` values appear on one step, one role twice,
+  // and one entry carries the optional `condition` — so the enum's whole range,
+  // a repeated role and the sparse/populated split of the optional field are all
+  // serialized by the cross-language corpus.
+  final uc3s1 = uc3.mainScenario.steps.add();
+  _step(uc3s1, '1', 'Clerk changes the quantity of a line and saves.',
       'System validates the new quantity and re-prices the line.',
       data: 'OrderLine, PriceList', rule: 'FR-05 amend before dispatch');
+  _svcStep(uc3s1.serverCallSteps.add(), ServerCallRole.assembleRequest,
+      'Puts the line id, the new quantity and the order version onto the amendment command.');
+  _svcStep(uc3s1.serverCallSteps.add(), ServerCallRole.assembleRequest,
+      'Adds the clerk\'s justification note to the command.',
+      condition: 'Only when the clerk entered a justification');
+  _svcStep(uc3s1.serverCallSteps.add(), ServerCallRole.handleResponse,
+      'Applies the returned price snapshot and reservation state to the open line.');
+  _svcStep(uc3s1.serverCallSteps.add(), ServerCallRole.handleError,
+      'Leaves the line at its stored quantity and shows screen.order.amend.error beside the field.');
   _step(uc3.mainScenario.steps.add(), '2',
       'System re-reserves stock for the amended line.',
       'Reservation is adjusted; the order returns to Confirmed if fully satisfied.',
@@ -954,9 +969,16 @@ audit trail.''')
   _scnStep(scn.steps.add(), '1', 'ACT-04 EDI Integration Account',
       'Submits a two-line wholesale order.',
       'Order captured, validated, priced, reserved, and confirmed within five minutes.');
-  _scnStep(scn.steps.add(), '2', 'ACT-01 Order Clerk',
+  // The sample's *sparse* server call, on the second host kind it instantiates:
+  // a one-entry list carrying a single role. A structure is only exercised by a
+  // corpus at the shapes it is instantiated in, and a list of one behaves
+  // differently from a list of four in several of the nine ports' serializers.
+  final scn2 = scn.steps.add();
+  _scnStep(scn2, '2', 'ACT-01 Order Clerk',
       'Observes the confirmed order on the work list.',
       'Order shows state Confirmed with both lines priced and reserved.');
+  _svcStep(scn2.serverCallSteps.add(), ServerCallRole.handleResponse,
+      'Renders the returned page of work-list rows into the order table.');
   _scnStep(scn.steps.add(), '3', 'System',
       'Receives the warehouse dispatch webhook.',
       'Order moves to Fulfilled and the public tracking page updates.');
@@ -994,6 +1016,18 @@ void _extStep(ExtensionStepEntry s, String number, String action, String respons
     ..stepNumber = number
     ..action = action
     ..response = response;
+}
+
+/// Fills one server-call step (SVCST) hanging off an interaction step that
+/// reaches across the client/server boundary. There is no step number: the list
+/// position *is* the order, and each role's steps are read in document order
+/// within the list.
+void _svcStep(ServerCallStepEntry s, ServerCallRole role, String systemAction,
+    {String condition = ''}) {
+  s.content
+    ..role = role
+    ..systemAction = systemAction
+    ..condition = condition;
 }
 
 void _scnStep(ScenarioStepEntry s, String number, String actor, String action,
