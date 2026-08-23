@@ -96,6 +96,15 @@ export 'src/oe_citations.dart'
         firstInlineCodeOf,
         findOeCitations,
         checkOeCitations;
+export 'src/entrypoint_options.dart'
+    show
+        kUniversalOption,
+        EntrypointOption,
+        EntrypointRow,
+        EntrypointCorrespondence,
+        parseEntrypointOptions,
+        parseEntrypointRows,
+        compareEntrypointOptions;
 export 'src/meta_tree.dart'
     show
         MetaTreeBuilder,
