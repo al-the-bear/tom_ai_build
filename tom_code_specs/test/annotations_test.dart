@@ -1133,7 +1133,12 @@ void main() {
       expect(fatal.note, 'store unreachable');
     });
 
-    test('CsErrorSeverity mirrors TomErrorSeverity value-for-value', () {
+    test('CsErrorSeverity is a closed four-value catalogue in rising order',
+        () {
+      // It mirrored the kernel's TomErrorSeverity until the result module was
+      // removed as application domain (codespecs_mapping.md §7); it is now the
+      // authority for CE-ER severity, so this is the only place the catalogue
+      // and its order are pinned.
       expect(CsErrorSeverity.values, [
         CsErrorSeverity.info,
         CsErrorSeverity.warning,

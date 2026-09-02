@@ -131,8 +131,9 @@ class D03InformationModel extends DocSpecsSection {
 
   /// Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.
   ///
-  /// The success-or-error `Result` envelope; CE-ER home, realised by
-  /// tom_core_kernel's `TomResult` (csmb5).
+  /// The success-or-error `Result` envelope; CE-ER home. Realised per
+  /// application in `<app>_codespec_shared` — a response envelope is
+  /// application domain, so no framework type backs it (csmb5).
   @SerializationOrder(16)
   ResultEnvelope resultEnvelope = ResultEnvelope();
 

@@ -282,10 +282,12 @@ Three shaping rules on top:
 **Closed catalogues are mirrored enums.** `tom_code_specs` is annotations-only
 and does **not** depend on `tom_core` (`codespecs_mapping.md` §9.5). So a closed catalogue a marker
 selects from is declared **in `tom_code_specs`**, mirroring its `tom_core`
-counterpart one-for-one where one exists (`CsErrorSeverity` ↔
-`TomErrorSeverity`). A named validator check asserts the mirror is complete; a
-`tom_core` catalogue that grows without its mirror growing is a build failure,
-not a silent divergence.
+counterpart one-for-one where one exists. A named validator check asserts each
+such mirror is complete; a `tom_core` catalogue that grows without its mirror
+growing is a build failure, not a silent divergence. No catalogue currently has
+a declared `tom_core` counterpart — every row of the §5.3 table mirrors a
+*document section* — so the check has an empty pair table and stands ready
+rather than firing.
 
 **Per-kind argument slots.** Three markers select a kind and then carry that
 kind's own attributes: `CsTrigger` (its five `CsTriggerKind` arms), `CsAuthorize`
@@ -1099,8 +1101,8 @@ consts that join them second.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ErrorCodeEntry` (`ERCEN`); the envelope shape comes from `ResultEnvelope` (`RSLTE`). Consumed per entry: the authored error code, the severity, the description. |
-| **2 Output** | One **error-code catalogue holder** per document, marked `@CsError()` plain, holding one `static const CsErrorCode` member per `ERCEN`, each marked with its own `@CsError(severity: …)`. Built on `TomResult<T>` / `TomErrorResult` / `TomFieldError` / `TomErrorSeverity` (`tom_core_kernel`) — the holder is form 2, a plain annotated model class over those types. |
-| **3 Arguments** | `severity` ← `ERCEN`'s severity field, **enum-mapped** onto `CsErrorSeverity {info, warning, error, fatal}`, mirroring `TomErrorSeverity` (§2.3); defaults to `error`. The **code itself is not an argument** — it is already the `CsErrorCode` const's string (test **a**). No `messageKey` argument: `codespecs_mapping.md` §5.21 keys error copy *by the error code*, so the message key is derived, not authored. |
+| **2 Output** | One **error-code catalogue holder** per document, marked `@CsError()` plain, holding one `static const CsErrorCode` member per `ERCEN`, each marked with its own `@CsError(severity: …)`. The holder is form 2, a plain annotated model class, authored in `<app>_codespec_shared` alongside the CE-ER envelope + field-error types it references — none of which has a framework counterpart to build on. |
+| **3 Arguments** | `severity` ← `ERCEN`'s severity field, **enum-mapped** onto the closed `CsErrorSeverity {info, warning, error, fatal}` catalogue (§2.3, §5.3); defaults to `error`. The **code itself is not an argument** — it is already the `CsErrorCode` const's string (test **a**). No `messageKey` argument: `codespecs_mapping.md` §5.21 keys error copy *by the error code*, so the message key is derived, not authored. |
 | **4 Naming** | Holder = `<Document>ErrorCodes` (PascalCase of the document root's name + `ErrorCodes`). Member = N5 over the authored code: `order.not_found` → `orderNotFound`. |
 | **5 Locus** | `shared` — §4.2 lists the error result **and** the error-code catalogue as shared. |
 | **6 Cross-refs** | None outgoing. `CsErrorCode` is the incoming ref type, cited by CE-VA rules, CE-API operations and CE-NV `outcomeReference`. |
@@ -1127,7 +1129,7 @@ Cites slice 1 only.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ServerOperationEntry` (`SVOPE`) under the `ServerOperationRegistry` (`SVOPR`) — the application's own operation surface. Consumed: `operationName`, and the `ServerOperationMemberEntry` (`SVOPM`) lists that make up the request and response shapes. `InterfaceOperationEntry` (`IOE`) is **not** an input here: it describes a foreign contract and carries `serverCall` only (`codespecs_mapping.md` §8.5). |
-| **2 Output** | Two things in shared: (i) the **operation-ref catalogue** — one `static const CsOperationRef` per operation; (ii) the **request/response DTOs** — form-2 plain annotated model classes. The endpoint declaration itself is built on `TomApiEndpoint<R,Q>` within a `TomApi` (`tom_core_kernel`), with `R` the response type and `Q` the request type. The response type **is** `TomResult<T>` (`codespecs_mapping.md` §7); an agent that emits a bare `T` has violated the server contract. |
+| **2 Output** | Two things in shared: (i) the **operation-ref catalogue** — one `static const CsOperationRef` per operation; (ii) the **request/response DTOs** — form-2 plain annotated model classes. The endpoint declaration itself is built on `TomApiEndpoint<R,Q>` within a `TomApi` (`tom_core_kernel`), with `R` the response type and `Q` the request type. The response type **is** the shared CE-ER result envelope `Result<T>` (§3.1.2, `codespecs_mapping.md` §7); an agent that emits a bare `T` has violated the server contract. |
 | **3 Arguments** | `operation` — **first positional, required** ← `SVOPE.operationName`, **verbatim** (N5). `codespecs_mapping.md` §5.14 drops the HTTP method (fixed POST) and the error-response type (5xx only) as spec inputs, and `SVOPE` authors neither, so neither is an argument. `descriptionKey` → CE-TX (not an argument); `SVOPE.authorization` — the embedded `AZREQ` choice — → the `@CsAuthorize` modifier (§3.4.3). |
 | **4 Naming** | Catalogue = `<Document>Operations`; member = N5 over the operation name. DTOs = PascalCase of the operation name + `Request` / `Response`. |
 | **5 Locus** | `shared` (§4.2: request/response types **and** the operation-ref catalogue). The handler half is §3.4.2, server. |
@@ -1449,7 +1451,7 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 | Point | Contract |
 |-------|----------|
 | **1 Input** | The same `ServerOperationEntry` (`SVOPE`) as §3.2.1 — one section, two loci. Consumed here: `purpose` (the operation's behaviour, which becomes the stub explication), `primaryDataEntity` (which service unit the handler lands on — it names a `DAENT-IDEN.entityName`, and that entity's effective aggregate *is* the unit, §3.4.1, so the placement is two field reads and no judgment) and `errorCodes` (the `CsErrorCode` cross-refs below). |
-| **2 Output** | A **handler method on the §3.4.1 service unit**, **form 3a**: real signature `Future<TomResult<T>> <op>(<Request> request)`, body `throw UnsupportedError('<behaviour description>')`. 3a and not 3b because `SVOPE.purpose` is prose — the operation states *what* it does, and the SOM gives no ordered steps for *how*; the flow that reaches this handler is authored in ISC, on the client side (§3.5.5, §3.5.7). Routed by `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`). All operations are POST and only 5xx are transport errors (`codespecs_mapping.md` §7); an agent emitting a non-POST verb or a 4xx contract has violated it. |
+| **2 Output** | A **handler method on the §3.4.1 service unit**, **form 3a**: real signature `Future<Result<T>> <op>(<Request> request)` over the shared CE-ER envelope (§3.1.2), body `throw UnsupportedError('<behaviour description>')`. 3a and not 3b because `SVOPE.purpose` is prose — the operation states *what* it does, and the SOM gives no ordered steps for *how*; the flow that reaches this handler is authored in ISC, on the client side (§3.5.5, §3.5.7). Routed by `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`). All operations are POST and only 5xx are transport errors (`codespecs_mapping.md` §7); an agent emitting a non-POST verb or a 4xx contract has violated it. |
 | **3 Arguments** | `operation` — first positional, required, **the identical verbatim string** as the shared half's `CsOperationRef` (§3.2.1). A validator asserts the two match; they are one operation named once. |
 | **4 Naming** | Method = camelCase of the operation name's last dotted segment (`customer.save` → `save`) — the unit already supplies the `customer` half, and repeating it would give `CustomerService.customerSave`. |
 | **5 Locus** | `server` (§4.2: handlers). |
@@ -2097,7 +2099,7 @@ arguments — a marker selects from nothing that is not in this table.
 
 | Type | Values | Mirrors |
 |------|--------|---------|
-| `CsErrorSeverity` | `info, warning, error, fatal` | `TomErrorSeverity` |
+| `CsErrorSeverity` | `info, warning, error, fatal` | `codespecs_mapping.md` §7's CE-ER severity |
 | `CsTextRole` | `error, notification, email, report, generic` | `codespecs_mapping.md` §5.21 |
 | `CsTextCategory` | `uiCopy, errorCopy` | `codespecs_mapping.md` §5.21 |
 | `CsElementKind` | `textInput, number, toggle, dateInput, choice, multiChoice, fileInput, label, button, menuEntry, formHost` | `codespecs_mapping.md` §5.18's eleven-kind catalogue |

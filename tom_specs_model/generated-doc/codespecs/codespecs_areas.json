@@ -306,7 +306,7 @@
       "annotations": [
         "CsError"
       ],
-      "builtOn": "`TomResult<T>` / `TomErrorResult` (`tom_core_kernel`) (§7)",
+      "builtOn": "**gap** — plain annotated result/error classes in `<app>_codespec_shared`; no framework counterpart (§7)",
       "attributeSurface": "§5.21, §7",
       "slices": [
         1

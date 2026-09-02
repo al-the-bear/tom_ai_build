@@ -155,13 +155,19 @@ const csPerKindSlots = <String, ({String discriminator, Map<String, Set<String>>
 /// The `Cs*` catalogues that mirror a `tom_core` enum, keyed by the mirror
 /// (`codespecs_derivation_contract.md` §5.3).
 ///
-/// `codespecs_derivation_contract.md` §5.3 lists fourteen mirror rows, but most
-/// mirror a *document* section rather than a declared type: only these pairs
-/// have a `tom_core` counterpart that can be compared value-for-value, so only
-/// these are checkable at all.
-const csMirroredEnumPairs = <String, String>{
-  'CsErrorSeverity': 'TomErrorSeverity',
-};
+/// `codespecs_derivation_contract.md` §5.3 lists fourteen mirror rows, but they
+/// mirror a *document* section rather than a declared type: a pair belongs here
+/// only when it has a `tom_core` counterpart that can be compared
+/// value-for-value.
+///
+/// The table is currently **empty**. Its one entry was
+/// `CsErrorSeverity` ↔ `TomErrorSeverity`, and the kernel's `result` module was
+/// removed — a response envelope is application domain, not kernel surface
+/// (`codespecs_mapping.md` §7), so `CsErrorSeverity` is now the authority rather
+/// than a mirror. Check 9 keeps its machinery and fires again the moment a pair
+/// is added; it is not deleted, because rebuilding it for the next mirror would
+/// cost more than carrying an empty table.
+const csMirroredEnumPairs = <String, String>{};
 
 /// The narrower scopes each configuration marker may open
 /// (`codespecs_derivation_contract.md` §3.3.6, §5.3). `none` is always valid.

@@ -562,7 +562,7 @@ CodeSpecsAreaCatalog _catalog() => const CodeSpecsAreaCatalog(
           canonicalId: 'ErrorResult',
           part: 'errorResult',
           annotations: ['@CsError'],
-          builtOn: 'TomResult',
+          builtOn: '<app>_codespec_shared Result',
           attributeSurface: 'codespecs_mapping.md §7',
           slices: [1],
           authoringSteps: [2],

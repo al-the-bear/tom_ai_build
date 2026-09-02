@@ -3895,7 +3895,8 @@ Map<String, dynamic> _codeSpecsCatalogJson() => {
           'canonicalId': 'ErrorResult',
           'part': 'errorResult',
           'annotations': ['@CsError'],
-          'builtOn': '`TomResult<T>` / `TomErrorResult` (`tom_core_kernel`)',
+          'builtOn': '**gap** — plain annotated result/error classes in '
+              '`<app>_codespec_shared`; no framework counterpart',
           'attributeSurface': 'codespecs_mapping.md §7',
           'slices': [1],
           'authoringSteps': [2],

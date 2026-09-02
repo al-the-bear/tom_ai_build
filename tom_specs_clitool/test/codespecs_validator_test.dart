@@ -676,8 +676,8 @@ class Reports {}
       red: _input(
         mirrors: const [
           CsEnumMirror(
-            csEnumName: 'CsErrorSeverity',
-            coreEnumName: 'TomErrorSeverity',
+            csEnumName: 'CsSample',
+            coreEnumName: 'TomSample',
             csValues: ['info', 'warning', 'error'],
             coreValues: ['info', 'warning', 'error', 'fatal'],
           ),
@@ -686,8 +686,8 @@ class Reports {}
       green: _input(
         mirrors: const [
           CsEnumMirror(
-            csEnumName: 'CsErrorSeverity',
-            coreEnumName: 'TomErrorSeverity',
+            csEnumName: 'CsSample',
+            coreEnumName: 'TomSample',
             csValues: ['info', 'warning', 'error', 'fatal'],
             coreValues: ['info', 'warning', 'error', 'fatal'],
           ),
@@ -699,8 +699,8 @@ class Reports {}
       final input = _input(
         mirrors: const [
           CsEnumMirror(
-            csEnumName: 'CsErrorSeverity',
-            coreEnumName: 'TomErrorSeverity',
+            csEnumName: 'CsSample',
+            coreEnumName: 'TomSample',
             csValues: ['warning', 'info'],
             coreValues: ['info', 'warning'],
           ),
@@ -711,8 +711,9 @@ class Reports {}
 
     test('readCsEnumMirrors pairs the two packages as source text', () {
       final mirrors = readCsEnumMirrors(
-        csSources: ['enum CsErrorSeverity { info, warning, error, fatal }'],
-        coreSources: ['enum TomErrorSeverity { info, warning, error, fatal }'],
+        pairs: const {'CsSample': 'TomSample'},
+        csSources: ['enum CsSample { info, warning, error, fatal }'],
+        coreSources: ['enum TomSample { info, warning, error, fatal }'],
       );
       expect(mirrors.single.csValues, ['info', 'warning', 'error', 'fatal']);
       expect(_forCheck(9, _input(mirrors: mirrors)), isEmpty);
@@ -720,17 +721,27 @@ class Reports {}
 
     test('an undeclared counterpart reports rather than passing silently', () {
       final mirrors = readCsEnumMirrors(
-        csSources: ['enum CsErrorSeverity { info, warning, error, fatal }'],
+        pairs: const {'CsSample': 'TomSample'},
+        csSources: ['enum CsSample { info, warning, error, fatal }'],
         coreSources: const ['class Nothing {}'],
       );
       expect(mirrors.single.coreValues, isEmpty);
       expect(_forCheck(9, _input(mirrors: mirrors)), isNotEmpty);
     });
 
-    test('only pairs with a declared counterpart are checkable', () {
-      // §5.3 lists fourteen mirror rows; the rest mirror a document section,
-      // which no value-for-value comparison can reach.
-      expect(csMirroredEnumPairs, {'CsErrorSeverity': 'TomErrorSeverity'});
+    test('no catalogue currently has a declared counterpart to check', () {
+      // codespecs_derivation_contract.md §5.3's rows mirror a document
+      // section, which no value-for-value
+      // comparison can reach. The one exception was CsErrorSeverity ↔
+      // TomErrorSeverity, and the kernel's result module was removed — the
+      // envelope is application domain (codespecs_mapping.md §7). The check
+      // above still works; it simply has nothing to compare until a pair with
+      // a real tom_core counterpart is added here.
+      expect(csMirroredEnumPairs, isEmpty);
+      expect(
+        readCsEnumMirrors(csSources: const [], coreSources: const []),
+        isEmpty,
+      );
     });
   });
 
@@ -3208,8 +3219,8 @@ class PlaceOrderHandler {
           },
           mirrors: const [
             CsEnumMirror(
-              csEnumName: 'CsErrorSeverity',
-              coreEnumName: 'TomErrorSeverity',
+              csEnumName: 'CsSample',
+              coreEnumName: 'TomSample',
               csValues: ['info', 'warning', 'error', 'fatal'],
               coreValues: ['info', 'warning', 'error', 'fatal'],
             ),

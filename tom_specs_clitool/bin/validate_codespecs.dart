@@ -43,12 +43,15 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'cs-vocabulary',
       help: "Path to tom_code_specs' vocabulary source (file or directory), "
-          'for the mirrored-catalogue check.',
+          'for the mirrored-catalogue check (9). No catalogue currently has a '
+          'tom_core counterpart, so the check has an empty pair table and this '
+          'reports nothing until one is added.',
     )
     ..addOption(
       'core-source',
       help: 'Path to the tom_core source (file or directory) holding the '
-          'mirrored counterparts, for the mirrored-catalogue check.',
+          'mirrored counterparts, for the mirrored-catalogue check (9). Same '
+          'empty-pair-table caveat as --cs-vocabulary.',
     )
     ..addOption(
       'regenerated-shared',

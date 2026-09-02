@@ -5127,8 +5127,8 @@ class ErrorCodeEntry extends DocSpecsSection {
 ///
 /// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
 /// the `codespecs_mapping.md` §7 server contract). This is the model-side
-/// counterpart of the `TomResult`/`TomErrorResult` envelope authored in
-/// `tom_core_kernel` (csmb4): every application outcome — success *or*
+/// counterpart of the result/error envelope authored per application in
+/// `<app>_codespec_shared` (csmb4): every application outcome — success *or*
 /// structured error — is returned in a normal (2xx-transport) body as this one
 /// envelope; only 5xx are transport failures.
 ///
@@ -5149,8 +5149,9 @@ class ErrorCodeEntry extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.errorResult],
     note: 'CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm '
         'or a structured error arm carrying a code (from the error-code '
-        'registry), field-level details, and retryable/severity. Realised by '
-        "tom_core_kernel's TomResult/TomErrorResult (csmb4).")
+        'registry), field-level details, and retryable/severity. Realised per '
+        'application in <app>_codespec_shared; no framework counterpart '
+        '(csmb4).')
 class ResultEnvelope extends DocSpecsSection {
   @Form([
     Field(
@@ -5208,7 +5209,8 @@ class ResultEnvelope extends DocSpecsSection {
 /// One entry in a [ResultEnvelope] error arm's field-detail list: the offending
 /// field path, an error code referencing the [ErrorCodeRegistry], and an
 /// optional default message (user copy resolves from the code via CE-TX). The
-/// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+/// model-side counterpart of the per-application field-error type authored in
+/// `<app>_codespec_shared` beside the envelope (csmb4).
 @StandardReferences(
   [
     'ISO 9241-143:2012 — form-based interaction and input validation',

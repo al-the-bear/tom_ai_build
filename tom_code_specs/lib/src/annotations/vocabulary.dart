@@ -5,10 +5,12 @@
 /// annotations-only and deliberately does **not** depend on `tom_core`
 /// (`codespecs_mapping.md` §9.5). Every closed catalogue a marker selects from is
 /// therefore declared locally, mirroring its `tom_core` counterpart one-for-one
-/// where one exists ([CsErrorSeverity] ↔ `TomErrorSeverity`). A named validator
-/// check asserts each mirror is complete
-/// (`codespecs_derivation_contract.md` §6 check 9): a `tom_core` catalogue that
-/// grows without its mirror growing is a build failure, not a silent divergence.
+/// where one exists. A named validator check asserts each such mirror is
+/// complete (`codespecs_derivation_contract.md` §6 check 9): a `tom_core`
+/// catalogue that grows without its mirror growing is a build failure, not a
+/// silent divergence. No catalogue here currently has one — every
+/// `codespecs_derivation_contract.md` §5.3 row mirrors a *document section* —
+/// so the check's pair table is empty and it stands ready rather than firing.
 ///
 /// **Why they are enums and not strings.** A catalogue is *closed* — adding a
 /// value is an edit to the taxonomy, reviewed as such, not a free-form attribute
@@ -31,7 +33,9 @@ library;
 
 /// How severe a CE-ER error code is (`codespecs_derivation_contract.md` §3.1.2).
 ///
-/// Mirrors `TomErrorSeverity` (`tom_core_kernel`) value-for-value.
+/// The severity vocabulary of `codespecs_mapping.md` §7's result envelope. The
+/// envelope itself is authored per application in `<app>_codespec_shared`, so
+/// this catalogue is the specification-side authority, not a mirror of one.
 enum CsErrorSeverity {
   /// Informational — the operation succeeded and is reporting something.
   info,

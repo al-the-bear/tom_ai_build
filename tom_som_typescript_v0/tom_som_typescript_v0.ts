@@ -8184,8 +8184,9 @@ export class D03InformationModel extends SomNode {
 
   // Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.
   //
-  // The success-or-error `Result` envelope; CE-ER home, realised by
-  // tom_core_kernel's `TomResult` (csmb5).
+  // The success-or-error `Result` envelope; CE-ER home. Realised per
+  // application in `<app>_codespec_shared` — a response envelope is
+  // application domain, so no framework type backs it (csmb5).
   get resultEnvelope(): ResultEnvelope {
     return new ResultEnvelope(this.doc, this.path + "/resultEnvelope");
   }
@@ -28547,8 +28548,8 @@ export class ResponsiveScreenRuleEntry extends SomNode {
 //
 // The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
 // the `codespecs_mapping.md` §7 server contract). This is the model-side
-// counterpart of the `TomResult`/`TomErrorResult` envelope authored in
-// `tom_core_kernel` (csmb4): every application outcome — success *or*
+// counterpart of the result/error envelope authored per application in
+// `<app>_codespec_shared` (csmb4): every application outcome — success *or*
 // structured error — is returned in a normal (2xx-transport) body as this one
 // envelope; only 5xx are transport failures.
 //
@@ -28579,7 +28580,8 @@ export class ResultEnvelope extends SomNode {
 // One entry in a [ResultEnvelope] error arm's field-detail list: the offending
 // field path, an error code referencing the [ErrorCodeRegistry], and an
 // optional default message (user copy resolves from the code via CE-TX). The
-// model-side counterpart of `tom_core_kernel`'s `TomFieldError` (csmb4).
+// model-side counterpart of the per-application field-error type authored in
+// `<app>_codespec_shared` beside the envelope (csmb4).
 export class ResultFieldDetailEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
