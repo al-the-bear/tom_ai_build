@@ -303,8 +303,33 @@ Phase 4 output **compiles and does not execute**. Per `codespecs_mapping.md`
 §4.1.1's coding-form spectrum:
 
 - **Forms 1 and 2** (framework subclass/instantiation, plain annotated model
-  class) emit **no bodies at all**. Fields are declarations; a non-nullable field
-  with no authored default is `late final`.
+  class) emit **no bodies at all**. Fields are declarations; a non-nullable
+  field with no authored default is **`late`**, and where reflection writes it,
+  **`late` and never `late final`**.
+
+  The distinction is who assigns the member. A **reflection-written** member —
+  a wire DTO member filled by the kernel's `setValues`, a CE-DB column filled by
+  the repository's `invokeSetter` — is written from outside by name, and that
+  needs a setter, which a `final` field, `late final` included, does not have.
+  The kernel does not paper over it either: a payload key naming a `final`
+  member raises `reflection.set.unexpected_condition_final_static_private`, and
+  a class whose wire members are *all* `final` is refused outbound with
+  `reflector.type.all_final`. `late` alone keeps everything `late final` was
+  wanted for — it compiles, and it throws if anything reads the field before
+  Phase 6 fills it in — while leaving the field assignable, which is the whole
+  point of emitting it. Emitting such a member `final` is therefore not a style
+  choice the derivation may make.
+
+  A **self-assigned** member is outside the rule, because nothing reflective
+  writes it: it is bound once, by the declaration itself or by Phase 6, and
+  reflection only ever *reads* it. That covers a **`static`** member of a
+  catalogue or configuration holder (§3.1.2, §3.1.3, §3.6.1 — read through its
+  resource provider, never through a field walk), §3.0.1's **collaborator
+  seam**, which Phase 6 binds by hand, and a **holder member the declaration
+  populates in its own declaring method** — a CE-CC `TomSetting` assigned in
+  `declareSettings()`, a CE-FM field member assigned where the form declares its
+  fields. Those keep `late final`: the field reference is bound once and the
+  mutable state lives inside the object it points at.
 - **Form 3** (compilable pseudo-code) emits a body. It has **two shapes**,
   **3a** and **3b**, defined below; every §3 entry that emits a body names which
   one it uses.
@@ -1039,7 +1064,7 @@ name suffix would turn into load-bearing convention.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | No section of its own: the **ordered step list** the calling entry's point 1 already names — or, where the entry emits several bodies from several sources, all of them (§3.5.7's three role-routed sublists of one `SVCST` list are one collaborator's methods, not three collaborators). One method per step that supplies **behaviour text** — what the *system* does. Per step section: `MNSST` → `systemResponse`, `SCNST` → `systemResponse`, `ALST` → `response`, `EXTST` → `response`, `LGFLS` → `LFSEP.description`, `SCJOST` → `systemAction`, `SVCST` → `systemAction`. `LGFLS`'s is a subsection field and not the step's own `content` because that `content` is a `@Form` — `stepOrder`, `stepType`, `actor` — and so carries no prose at all; `LFSEP.description` is the one field of the step that states what happens in it. The **actor-side** fields (`MNSST.actorAction`, `SCNST.actor`/`action`, `ALST.action`, `EXTST.action`, `LGFLS.actor`) are never a behaviour source: they state what the user does, which is the step's trigger, not work the collaborator performs. `SCJOST` and `SVCST` have no such field to exclude, and that is the point of their shape: a job runs off the request thread and a server call's three roles are assembling, applying and surfacing, so in neither does anything outside the system act within a step — which is why their one behaviour field is `required` where every other step section's is optional, and why a `SCJOST` or `SVCST` step never yields "no method". A step with no behaviour text yields **no method and no statement** — it is an actor-only step, and there is nothing for Phase 6 to implement. That is also what §2.4's "empty step source" means concretely: a body all of whose steps are actor-only falls back to 3a, and a declaration all of whose bodies do emits no collaborator. The class's own contributing section is the step list's **container** section (`tom_specs_model_rules.md` §7.5), which is what §2.8 C2 P1 selects anyway. |
-| **2 Output** | An `abstract class` with **no superclass and no substrate** — one of only two declarations in this contract built on nothing (§5.2's `@CsEnum` is the other), and deliberately: `codespecs_mapping.md` §1.1 pillar (b) governs the classes a CodeSpec *instantiates*, and a collaborator is never instantiated in Phase 4. It holds one abstract method per contributing step and **nothing else** — no fields, no constructor, no statics, no implemented member. Coding **form 2**: an abstract method has no body at all, so §2.4's 3a/3b distinction does not reach it and "compiles, does not execute" is structural here rather than stated.<br>**Signatures.** *Parameters* — the calling body's own parameter list, repeated name-for-name and type-for-type. A step operates on what its caller was given; which parameters a given step reads is authored nowhere (`MNSST.dataInvolved` is prose), and an agent that guessed a subset would be inventing signature, which invariant 1 forbids. *Return type* — the calling body's return type on the **last** contributing step in N8 order, `void` (or `Future<void>`) on every earlier one; the last step is what the caller `return`s, which is how invariant 2 holds without a fabricated value. Where the calling body returns `void` / `Future<void>`, every method does and the body has no `return`. *Asynchrony* — `Future`-returning exactly when the calling body is (invariant 3); the caller `await`s each earlier call and `return`s the last one un-awaited, its future *being* the caller's result.<br>**Injection** — one field on the calling declaration:<br>`late final <Name>Collaborator collaborator;`<br>The name is the fixed word `collaborator`, not derived: there is exactly one per declaration, so there is nothing to distinguish, and deriving it would make the caller's call sites depend on the collaborator's name twice over. `late final` is §2.4's existing shape for a non-nullable field with no authored default, and it is what makes the "does not execute" claim land at the earliest possible point — the first 3b body to run throws on the unset field *before* it dispatches to an abstract method. The field carries **no doc comment and no `@DocSpec`** (§2.8 P2, §2.5 rule 5): it adds no section of its own.<br>**Not a constructor parameter, and not a locator.** The five declarations that carry 3b bodies sit on different `tom_core`-family substrates whose constructors Phase 4 does not own (§3.4.4's `TomAuthenticationService`, §3.5.5's action controller, §3.7.1's `TomJobBase`), so a constructor parameter would have to thread through a superclass signature it cannot change, and a service locator would be a Phase-4 runtime the artifact is not allowed to have. A settable field is the one shape that works identically on all five; Phase 6 binds it wherever it builds the declaration. |
+| **2 Output** | An `abstract class` with **no superclass and no substrate** — one of only two declarations in this contract built on nothing (§5.2's `@CsEnum` is the other), and deliberately: `codespecs_mapping.md` §1.1 pillar (b) governs the classes a CodeSpec *instantiates*, and a collaborator is never instantiated in Phase 4. It holds one abstract method per contributing step and **nothing else** — no fields, no constructor, no statics, no implemented member. Coding **form 2**: an abstract method has no body at all, so §2.4's 3a/3b distinction does not reach it and "compiles, does not execute" is structural here rather than stated.<br>**Signatures.** *Parameters* — the calling body's own parameter list, repeated name-for-name and type-for-type. A step operates on what its caller was given; which parameters a given step reads is authored nowhere (`MNSST.dataInvolved` is prose), and an agent that guessed a subset would be inventing signature, which invariant 1 forbids. *Return type* — the calling body's return type on the **last** contributing step in N8 order, `void` (or `Future<void>`) on every earlier one; the last step is what the caller `return`s, which is how invariant 2 holds without a fabricated value. Where the calling body returns `void` / `Future<void>`, every method does and the body has no `return`. *Asynchrony* — `Future`-returning exactly when the calling body is (invariant 3); the caller `await`s each earlier call and `return`s the last one un-awaited, its future *being* the caller's result.<br>**Injection** — one field on the calling declaration:<br>`late final <Name>Collaborator collaborator;`<br>The name is the fixed word `collaborator`, not derived: there is exactly one per declaration, so there is nothing to distinguish, and deriving it would make the caller's call sites depend on the collaborator's name twice over. `late final` is the one place this contract keeps `final` where §2.4 otherwise emits a bare `late`: the seam is plumbing Phase 6 binds exactly once and no reflection ever writes, so the setter §2.4 preserves for reflected members buys nothing here. It is also what makes the "does not execute" claim land at the earliest possible point — the first 3b body to run throws on the unset field *before* it dispatches to an abstract method. The field carries **no doc comment and no `@DocSpec`** (§2.8 P2, §2.5 rule 5): it adds no section of its own.<br>**Not a constructor parameter, and not a locator.** The five declarations that carry 3b bodies sit on different `tom_core`-family substrates whose constructors Phase 4 does not own (§3.4.4's `TomAuthenticationService`, §3.5.5's action controller, §3.7.1's `TomJobBase`), so a constructor parameter would have to thread through a superclass signature it cannot change, and a service locator would be a Phase-4 runtime the artifact is not allowed to have. A settable field is the one shape that works identically on all five; Phase 6 binds it wherever it builds the declaration. |
 | **3 Arguments** | None; `@CsCollaborator({String? note})`. §2.3 test **a**: the method set *is* the declaration. There is no substrate, so test **b** does not arise, and nothing reaches test **c**. It carries nothing and is emitted anyway, for the two reasons §3.0 gives. |
 | **4 Naming** | **Class** = the owning declaration's identifier + `Collaborator` (`CustomerActionControllerCollaborator`). Unique by construction — the owner's name is already unique in its locus under N4, and the suffix is fixed.<br>**Method** = camelCase of the **calling body's identifier**, then PascalCase of the **step's headline**, both through N2/N3: `saveCustomerCheckTheEditedValues`. N1 is unchanged and supplies each half. No step section carries a designated name field — `stepNumber` / `stepOrder` are *order*, and `tom_specs_model_rules.md` §10.2's entry-name restatement rule is precisely why a list entry has no name field beside its headline — so N1's second clause applies and the source is the step's **headline**. An unheadlined step therefore **fails** generation naming its section id, exactly as N1 already says of an unnamed section. The order token is deliberately not the source: it names nothing, and the behaviour text cannot be one either, since shortening a sentence to an identifier needs a truncation width, the unstated constant §2.8 C4 rule 2 rules out for the same reason.<br>**The calling body's identifier is always present, not only on collision.** One collaborator serves *every* 3b body of its declaration — §3.5.5's is the clearest case, where one action controller carries a `@CsAction` body per screen action and all of them share it — so two bodies' steps can carry the same headline; and a qualifier applied only when a collision occurs would make an identifier a function of the rest of the document, which N1's pure-function rule forbids. §2.4's B4 adds the one further method kind, a **guard**, under the same two-part name plus a fixed `Applies`.<br>**N4 applies per collaborator class** for these methods rather than per project: two steps of one calling body that produce the same identifier fail generation, naming both step section ids.<br>**File** = N7 unchanged, under the **owning part's** canonical id so it lands beside its caller: `lib/src/action/customer_action_controller_collaborator.dart`. |
 | **5 Locus** | Always the owning declaration's project, **never `shared`**. A collaborator is not a contract between the two sides — it is the Phase-6 seam of one declaration's bodies — and a shared one would put a client's steps in the server's compile unit. §3.4.4's and §3.7.1's are `server`; §3.5.5's and §3.5.10's are `client`. |
@@ -1267,7 +1292,7 @@ Never cites the client.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `DataAttributeEntry` (`DAATT`), with `DataAttributeConstraintEntry` (`DATAA`) supplying length, format and **storage nullability**. Consumed (`codespecs_mapping.md` §5.13 attribute level): name, column, value type, column type, read-only, not-loaded, json-encoded, column-access key, converters, `DATAA.nullable`, and the `DataAttributeKind.fileReference` facet. **`DATAA.mandatory` is not read here** — it is already claimed by CE-VA (`DataAttributeConstraintEntry` carries `@CodeSpecKind([CodeSpecPart.validation])`), and it answers a different question. |
-| **2 Output** | One **member** of the §3.3.1 entity, typed by the SOM value type. **Optionality is the member's own nullability, keyed on `DATAA.nullable`:** `Yes` emits a plain nullable field `T?`; `No` emits `late final T` per §2.4. It is **never** a `TomN*` observable — `tom_core_kernel`'s nullable observable family belongs to CE-ST (§3.5.1), and an entity is a plain annotated model class. `read-only`, `not-loaded`, `json-encoded` and converters are emitted as the framework's own persistence annotations beside the marker (test **b**), not as marker arguments. |
+| **2 Output** | One **member** of the §3.3.1 entity, typed by the SOM value type. **Optionality is the member's own nullability, keyed on `DATAA.nullable`:** `Yes` emits a plain nullable field `T?`; `No` emits `late T` per §2.4 — `late`, never `late final`, since the repository fills the column through the member's setter. It is **never** a `TomN*` observable — `tom_core_kernel`'s nullable observable family belongs to CE-ST (§3.5.1), and an entity is a plain annotated model class. `read-only`, `not-loaded`, `json-encoded` and converters are emitted as the framework's own persistence annotations beside the marker (test **b**), not as marker arguments. |
 | **3 Arguments** | `column` ← `DAATT`'s column field, verbatim; `null` means "same as the member name". `columnType` ← the SOM column type, verbatim. `length` ← the maximum length from `DATAA` — `codespecs_mapping.md` §4.1.1 names maximum lengths as exactly the kind of thing simple code cannot express. `accessKey` ← the column-access key as a `CsResourceKeyRef`. `fileReference` ← a `CsFileReference` value **iff** `DAATT`'s kind is `fileReference` (§3.3.3); its **presence is the column kind**. The Dart **value type** is never an argument (test **a**). |
 | **4 Naming** | camelCase of `DAATT`'s attribute-name field. |
 | **5 Locus** | `server`, with its entity. |
@@ -1800,7 +1825,7 @@ class Customer {
     length: 80,
     accessKey: ResourceKeys.customerPii,
   )
-  late final String name;
+  late String name;
 
   @DocSpec([
     DocRef('IMO-014-b', 'supplies the stored attribute, its column and its storage type'),
@@ -1813,7 +1838,7 @@ class Customer {
       acceptedMediaTypes: ['application/pdf'],
     ),
   )
-  late final String signedContract;
+  late String signedContract;
 }
 ```
 
@@ -1826,9 +1851,10 @@ class Customer {
   appears once (the annotation), `'contracts'` appears once (the facet). Each of
   the three §2.3 tests is visible doing its job.
 - **Compiles, does not execute.** There are no method bodies to stub here — a
-  CE-DB entity is coding form 1/2. `late final` is §2.4's shape for a
-  non-nullable field with no authored default: it compiles, and it throws if
-  anything reads it before Phase 6 fills it in.
+  CE-DB entity is coding form 1/2. `late` — not `late final` — is §2.4's shape
+  for a non-nullable field with no authored default: it compiles, it throws if
+  anything reads it before Phase 6 fills it in, and it still has the setter the
+  repository writes the column through.
 - **Both back-links agree.** The class is the emission unit, so it alone carries
   `@CodeSpec`; the two members carry `@DocSpec` only. Its `@DocSpec` lists all
   five sections and `source` equals that set — §2.5 rules 4–5, which a validator
@@ -2217,7 +2243,7 @@ validator's pass over the resolved annotation for **all** thirty-six.
 | 19 | A `@CsServerConfig(secret: true)` member's `@DocSpec` names **`SCSET`** — a secret is only ever authored on the declared path, so one traced to a fixed band means a credential slot was invented in a policy section | §3.3.6 | `CsSecretIsDeclaredCheck` |
 | 20 | Two `@CsServerConfig` members never claim the same setting key — derived and authored keys share one namespace, and neither shape can see the other while it is authored | §2.1 N10 | `CsSettingKeyCollisionCheck` |
 | 21 | A `CsGradedAccess` slot's `@CsAuthorize` is never itself `graded` — the graded depth is exactly one level | §3.4.3 | `CsGradedDepthCheck` |
-| 22 | A `@CsColumn` member is a plain Dart field — `T?` when optional, `late final T` when not — and **never** a `TomN*` or any other observable, which the shipped repository can read but cannot write | §3.3.2 | `CsColumnNotObservableCheck` |
+| 22 | A `@CsColumn` member is a plain Dart field — `T?` when optional, `late T` when not — **never `final`** and **never** a `TomN*` or any other observable, both of which the shipped repository can read but cannot write | §3.3.2 | `CsColumnNotObservableCheck` |
 | 23 | Every call in a form-3b body resolves — to a method of the declaration's own `@CsCollaborator` class reached through its `collaborator` field, or to the substrate its entry's point 2 names — and every collaborator method is called by at least one body of its owning declaration | §2.4, §3.0.1 | `CsCollaboratorCallResolutionCheck` |
 | 24 | A `@CsCollaborator` class is `abstract`, declares only abstract methods, and has no field, constructor or static member | §3.0.1 | `CsCollaboratorShapeCheck` |
 | 25 | Every method of a form-3a or form-3b declaration, and every method of a `@CsCollaborator` class, carries a doc comment — C2 calls its absence a **generation error**, not a lapse of style | §2.8 C2 P3, §3.0.1 | `CsMethodCommentCheck` |

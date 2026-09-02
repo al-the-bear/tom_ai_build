@@ -540,7 +540,7 @@ class orderForm {}
 @DocSpec([DocRef('SBP.4.1', 'the order form'), DocRef('SBP.4.2', 'the lines')])
 class orderForm {
   @DocSpec([DocRef('SBP.4.2', 'the lines')])
-  late final String lines;
+  late String lines;
 }
 ''',
         },
@@ -557,7 +557,7 @@ class orderForm {
 class orderForm {
   @CodeSpec('ce-fm.orderForm.lines', source: ['SBP.4.2'])
   @DocSpec([DocRef('SBP.4.2', 'the lines')])
-  late final String lines;
+  late String lines;
 }
 ''',
         },
@@ -579,7 +579,7 @@ class orderForm {
 @DocSpec([DocRef('SBP.4.1', 'the order form')])
 class orderForm {
   @DocSpec([DocRef('SBP.4.2', 'the lines')])
-  late final String lines;
+  late String lines;
 }
 ''',
         },
@@ -2854,7 +2854,7 @@ enum CustomerState {
 @CsTable('customer')
 class Customer {
   @CsColumn(column: 'cust_name', length: 80)
-  late final String name;
+  late String name;
 }
 ''',
         },
@@ -2872,7 +2872,7 @@ class Customer {
 class Customer {
   @DocSpec([DocRef('DATAA', 'supplies the maximum length')])
   @CsColumn(column: 'cust_name', length: 80)
-  late final String name;
+  late String name;
 }
 ''',
         },
@@ -3090,7 +3090,7 @@ class Customer {
     length: 80,
     accessKey: ResourceKeys.customerPii,
   )
-  late final String name;
+  late String name;
 
   @DocSpec([
     DocRef('IMO-014-b', 'supplies the stored attribute, its column and its storage type'),
@@ -3103,7 +3103,7 @@ class Customer {
       acceptedMediaTypes: ['application/pdf'],
     ),
   )
-  late final String signedContract;
+  late String signedContract;
 }
 ''',
           },
