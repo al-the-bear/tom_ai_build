@@ -119,11 +119,11 @@ reading order for a newcomer:
 [`tom_specs_clitool/tool/release_set.yaml`](tom_specs_clitool/tool/release_set.yaml),
 held closed by a shipped dependency-closure gate):
 
-- The **Dart chain**: `tom_specs_core`, `tom_specs_model`,
-  `tom_specs_clitool`, `tom_som_dart_runtime`, `tom_som_dart_v0`,
-  `tom_code_specs`, `tom_doc_scanner`, `tom_doc_specs` (plus
-  `tom_core_codespecs`, the one chain member housed outside this repository,
-  in the `tom_core` tree).
+- The **Dart chain**, published on pub.dev: `tom_specs_core`,
+  `tom_specs_model`, `tom_specs_clitool`, `tom_som_dart_runtime`,
+  `tom_som_dart_v0`, `tom_code_specs`, `tom_doc_scanner`, `tom_doc_specs`
+  (plus `tom_core_codespecs`, the one chain member housed outside this
+  repository, in the `tom_core` tree).
 - The **sixteen non-Dart packages**: the eight `tom_som_<lang>_runtime` /
   `tom_som_<lang>_v0` pairs, shipped source-only in release 1.
 - The **conformance harness**: `tom_som_conformance`.

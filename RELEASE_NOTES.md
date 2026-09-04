@@ -9,22 +9,21 @@ authority documents. Start with [README.md](README.md) for the quickstart.
 
 ## What release 1 contains
 
-**The nine-package Dart chain**, versioned in step; pub.dev publication is
-the release-execution step, so until it lands the packages are consumed from
-this repository (clone + path or git dependency, per each package's
-`readme_howtointegrate.md`):
+**The nine-package Dart chain**, versioned in step and **published on
+pub.dev** (alternatively consumable from this repository — clone + path or
+git dependency — per each package's `readme_howtointegrate.md`):
 
-| Package | What it is |
-| --- | --- |
-| `tom_specs_core` | The annotation vocabulary the source model is written in. |
-| `tom_specs_model` | The Dart source model — the single source of truth all nine languages are generated from — plus the thirteen authority documents under `doc/`. |
-| `tom_specs_clitool` | The generator and gate suite: SOM generation, outlines, the model validator, the citation gates, the release-closure gate. |
-| `tom_som_dart_runtime` | The generic Dart document runtime: path-keyed documents, the meta-model, the DocSpecs schema validator and the instance-tier `validateDocument`, the `spec_codespecs_extract` surface. |
-| `tom_som_dart_v0` | The generated typed Dart facade over the runtime. |
-| `tom_code_specs` | The CodeSpecs annotation framework (`Cs*` markers, cross-part references, back-trace annotations). |
-| `tom_core_codespecs` | CodeSpecs-only gap classes for the `tom_core` family (the one chain member housed outside this repository, in the `tom_core` tree). |
-| `tom_doc_scanner` | The markdown structure parser the DocSpecs tooling reads with. |
-| `tom_doc_specs` | The DocSpecs schema assets and validator. |
+| Package | Version | What it is |
+| --- | --- | --- |
+| `tom_specs_core` | 0.1.0 | The annotation vocabulary the source model is written in. |
+| `tom_specs_model` | 1.0.0 | The Dart source model — the single source of truth all nine languages are generated from — plus the thirteen authority documents under `doc/`. |
+| `tom_specs_clitool` | 0.1.0 | The generator and gate suite: SOM generation, outlines, the model validator, the citation gates, the release-closure gate. |
+| `tom_som_dart_runtime` | 1.0.0 | The generic Dart document runtime: path-keyed documents, the meta-model, the DocSpecs schema validator and the instance-tier `validateDocument`, the `spec_codespecs_extract` surface. |
+| `tom_som_dart_v0` | 1.0.0 | The generated typed Dart facade over the runtime. |
+| `tom_code_specs` | 0.12.0 | The CodeSpecs annotation framework (`Cs*` markers, cross-part references, back-trace annotations). |
+| `tom_core_codespecs` | 0.11.2 | CodeSpecs-only gap classes for the `tom_core` family (the one chain member housed outside this repository, in the `tom_core` tree). |
+| `tom_doc_scanner` | 0.1.0 | The markdown structure parser the DocSpecs tooling reads with. |
+| `tom_doc_specs` | 0.1.0 | The DocSpecs schema assets and validator. |
 
 **The sixteen non-Dart packages** — `tom_som_<lang>_runtime` +
 `tom_som_<lang>_v0` for Python, Java, JavaScript, TypeScript, Go, Rust, C and
