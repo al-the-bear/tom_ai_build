@@ -1,4 +1,4 @@
-/// Fixtures for the thirty-six `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the thirty-seven `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -155,10 +155,10 @@ void _redGreen(
 
 void main() {
   group('§6 check catalogue', () {
-    test('names the thirty-six checks in table order', () {
+    test('names the thirty-seven checks in table order', () {
       expect(
         codeSpecsChecks.map((c) => c.number),
-        [for (var i = 1; i <= 36; i++) i],
+        [for (var i = 1; i <= 37; i++) i],
       );
     });
 
@@ -176,6 +176,63 @@ void main() {
         message: 'no name',
       );
       expect('$violation', 'codespecs check 3 [§2.1 N1]: no name');
+    });
+  });
+
+  group('the reader records how a member spells its finality', () {
+    // §2.4 admits three shapes for a member — plain, `late`, `late final` —
+    // and rules the third out wherever reflection writes the member. A model
+    // that collapses them cannot carry that rule, so the reader has to keep
+    // the two keywords apart.
+    final project = readCsLocusProject(
+      locus: CsLocus.server,
+      packageName: _serverPackage,
+      sources: {
+        'lib/a.dart': '''
+final topLevel = 1;
+
+class Order {
+  final String withKeyword = '';
+  late final String lateFinal;
+  late String lateOnly;
+  String plain = '';
+  static const catalogue = 'x';
+  static late final String secret;
+}
+
+enum Colour { red }
+''',
+      },
+    );
+
+    (bool, bool) finality(String name) {
+      final member = project.declarations.firstWhere((d) => d.name == name);
+      return (member.isFinal, member.isLate);
+    }
+
+    test('distinguishes final, late final and plain fields', () {
+      expect(finality('withKeyword'), (true, false));
+      expect(finality('lateFinal'), (true, true));
+      expect(finality('lateOnly'), (false, true));
+      expect(finality('plain'), (false, false));
+    });
+
+    test('reads a top-level variable the same way', () {
+      expect(finality('topLevel'), (true, false));
+    });
+
+    test('§3.3.6\'s secret holder reads as static, final and late', () {
+      final secret =
+          project.declarations.firstWhere((d) => d.name == 'secret');
+      expect((secret.isFinal, secret.isLate, secret.isStatic), (true, true, true));
+    });
+
+    test('what spells no keyword records none', () {
+      // A `const` member and an enum constant are unassignable by the
+      // language's rule rather than by anything the author wrote, and this is
+      // a syntax pass: it reports the keyword, not the semantics.
+      expect(finality('catalogue'), (false, false));
+      expect(finality('red'), (false, false));
     });
   });
 
@@ -3035,6 +3092,206 @@ class Order {}
     });
   });
 
+  group('37 — a member reflection writes is never final (§2.4)', () {
+    _redGreen(
+      37,
+      '§2.4',
+      says: contains('never `late final`'),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('customer', datasource: 'core')
+class Customer {
+  @CsColumn(column: 'cust_name', columnType: 'VARCHAR', length: 80)
+  late final String name;
+}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('customer', datasource: 'core')
+class Customer {
+  @CsColumn(column: 'cust_name', columnType: 'VARCHAR', length: 80)
+  late String name;
+}
+''',
+        },
+      ),
+    );
+
+    test('a plain `final` column is the same defect, and says so', () {
+      // `final` without `late` is the shape an author reaches for when the
+      // column has a default. It has no setter either, so the message names
+      // the spelling that was written rather than the one the rule mentions.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('customer', datasource: 'core')
+class Customer {
+  @CsColumn(column: 'cust_name')
+  final String name = '';
+}
+''',
+        },
+      );
+      expect(_forCheck(37, input).single.message, contains('declared `final`'));
+    });
+
+    test('a CE-API DTO member is reflection-written too', () {
+      // §3.2.1 point 4 names the DTO by its suffix and point 5 puts it in the
+      // shared locus; there is no `@CsDto` marker, so those two facts are the
+      // whole recogniser. The wire decoder fills the member by name.
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+class CustomerSaveRequest {
+  late final String customerId;
+  late String name;
+}
+
+class CustomerSaveResponse {
+  late final bool accepted;
+}
+''',
+        },
+      );
+      expect(
+        _forCheck(37, input).map((v) => v.message).toList(),
+        [
+          contains('CustomerSaveRequest.customerId'),
+          contains('CustomerSaveResponse.accepted'),
+        ],
+      );
+    });
+
+    test('a shared class that is not a DTO is not this check', () {
+      // The suffix is the recogniser, so a shared holder that carries neither
+      // it nor a `@CsColumn` is outside the population entirely — the check
+      // must have no opinion about a value class's `final` members.
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+class CustomerName {
+  final String value;
+  const CustomerName(this.value);
+}
+''',
+        },
+      );
+      expect(_forCheck(37, input), isEmpty);
+    });
+
+    test('a client class named like a DTO is not one', () {
+      // §3.2.1 point 5 puts the DTOs in `shared`. Without the locus half of
+      // the recogniser a client view-model holding a submitted request would
+      // read as a wire type.
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsViewModel()
+class CustomerSaveRequest {
+  final String customerId = '';
+}
+''',
+        },
+      );
+      expect(_forCheck(37, input), isEmpty);
+    });
+
+    // The three §2.4 carve-outs. A `@CsColumn` member is by construction none
+    // of them, so each is pinned inside a DTO, where every instance field is a
+    // wire member and the guard is what keeps the check off a member nothing
+    // reflective writes.
+    test('a static holder member keeps `late final`', () {
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+class CustomerSaveRequest {
+  static late final String schemaVersion;
+  late String name;
+}
+''',
+        },
+      );
+      expect(_forCheck(37, input), isEmpty);
+    });
+
+    test('the collaborator seam keeps `late final`', () {
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+class CustomerSaveRequest {
+  late final CustomerSaveCollaborator collaborator;
+  late String name;
+}
+''',
+        },
+      );
+      expect(_forCheck(37, input), isEmpty);
+    });
+
+    test('a member the declaration assigns in its own method keeps it', () {
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+class CustomerSaveResponse {
+  late String name;
+  late final String summary;
+
+  void describe() {
+    summary = name;
+  }
+}
+''',
+        },
+      );
+      expect(_forCheck(37, input), isEmpty);
+    });
+
+    test('a comparison against the member is not an assignment to it', () {
+      // The self-assignment carve-out is read off statement source, so the
+      // pattern has to tell `summary =` from `summary ==` — otherwise a guard
+      // that merely reads the member would exempt it.
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+class CustomerSaveResponse {
+  late String name;
+  late final String summary;
+
+  bool isNamed() {
+    if (summary == name) {
+      return true;
+    }
+    return false;
+  }
+}
+''',
+        },
+      );
+      expect(_forCheck(37, input), hasLength(1));
+    });
+
+    test('§3.3.6\'s secret holder is static, so it is untouched', () {
+      // The shape check 16 and check 19 are about: `static late final` with no
+      // initialiser. It is read through its resource provider, never through a
+      // field walk.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+class OrderingConfig {
+  @CsServerConfig(key: 'db.password', secret: true)
+  static late final String dbPassword;
+}
+''',
+        },
+      );
+      expect(_forCheck(37, input), isEmpty);
+    });
+  });
+
   group('the §4 worked example', () {
     // The example is the contract's own demonstration that the rules compose,
     // so it is the fixture that has to pass every comment check: a rule the
@@ -3231,7 +3488,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 36 checks passed');
+      expect(report.summary, 'codespecs: 37 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -3264,7 +3521,7 @@ class Order {
       );
       final report = runCodeSpecsChecks(broken);
       expect(report.violations.map((v) => v.check), containsAll([4, 6]));
-      expect(report.summary, contains('across 2 of 36 checks'));
+      expect(report.summary, contains('across 2 of 37 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(
         report.lines.join('\n'),

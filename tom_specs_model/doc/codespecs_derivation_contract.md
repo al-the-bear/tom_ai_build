@@ -2173,7 +2173,7 @@ Each is named here so the toolchain implements it as a check rather than as a
 convention. They are the mechanised half of the authoring side (§2.0): the agent
 writes the trio, and this program decides whether what it wrote is admissible.
 
-**Where they run.** All thirty-six are implemented in
+**Where they run.** All thirty-seven are implemented in
 `tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
 the analyzer, `cs_model` resolves it, `cs_extract` reads the per-area extracts,
 `cs_checks` holds the checks, `codespecs_validator` drives them) and are invoked
@@ -2218,7 +2218,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generation-time
-validator's pass over the resolved annotation for **all** thirty-six.
+validator's pass over the resolved annotation for **all** thirty-seven.
 
 | # | Check | Defined in | Implemented by |
 |---|-------|------------|----------------|
@@ -2243,7 +2243,7 @@ validator's pass over the resolved annotation for **all** thirty-six.
 | 19 | A `@CsServerConfig(secret: true)` member's `@DocSpec` names **`SCSET`** — a secret is only ever authored on the declared path, so one traced to a fixed band means a credential slot was invented in a policy section | §3.3.6 | `CsSecretIsDeclaredCheck` |
 | 20 | Two `@CsServerConfig` members never claim the same setting key — derived and authored keys share one namespace, and neither shape can see the other while it is authored | §2.1 N10 | `CsSettingKeyCollisionCheck` |
 | 21 | A `CsGradedAccess` slot's `@CsAuthorize` is never itself `graded` — the graded depth is exactly one level | §3.4.3 | `CsGradedDepthCheck` |
-| 22 | A `@CsColumn` member is a plain Dart field — `T?` when optional, `late T` when not — **never `final`** and **never** a `TomN*` or any other observable, both of which the shipped repository can read but cannot write | §3.3.2 | `CsColumnNotObservableCheck` |
+| 22 | A `@CsColumn` member is **never** a `TomN*` or any other observable, which the shipped repository can read but cannot write | §3.3.2 | `CsColumnNotObservableCheck` |
 | 23 | Every call in a form-3b body resolves — to a method of the declaration's own `@CsCollaborator` class reached through its `collaborator` field, or to the substrate its entry's point 2 names — and every collaborator method is called by at least one body of its owning declaration | §2.4, §3.0.1 | `CsCollaboratorCallResolutionCheck` |
 | 24 | A `@CsCollaborator` class is `abstract`, declares only abstract methods, and has no field, constructor or static member | §3.0.1 | `CsCollaboratorShapeCheck` |
 | 25 | Every method of a form-3a or form-3b declaration, and every method of a `@CsCollaborator` class, carries a doc comment — C2 calls its absence a **generation error**, not a lapse of style | §2.8 C2 P3, §3.0.1 | `CsMethodCommentCheck` |
@@ -2258,6 +2258,7 @@ validator's pass over the resolved annotation for **all** thirty-six.
 | 34 | A doc-comment line is its source line entire — not a re-wrap of it, and not a value the comment stopped rendering part-way | §2.8 C4.2 | `CsCommentFidelityCheck` |
 | 35 | Every section the extracts hold a value for is cited by a back-link in the trio — an uncited section is a specification fact that reached no code | §9.6 of `codespecs_mapping.md` | `CsExtractCoverageCheck` |
 | 36 | Every section id a back-link names exists in the extracts — a trace to a section no area routed is stale or invented | §9.6 of `codespecs_mapping.md` | `CsBackLinkExtractedCheck` |
+| 37 | A member reflection writes — a `@CsColumn` attribute, a CE-API DTO field — is a plain field, `late` where it is non-nullable and **never `final`**, because reflection assigns through a setter a final field does not have. A `static` holder, the `collaborator` seam, and a member the declaration assigns in its own method body are §2.4's carve-outs | §2.4 | `CsReflectionWrittenNotFinalCheck` |
 
 **Check 23 is the one that makes "compiles" checkable before a compiler sees
 it.** Its two halves fail in opposite directions and neither implies the other.

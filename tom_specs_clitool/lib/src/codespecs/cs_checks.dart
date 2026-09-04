@@ -1,4 +1,5 @@
-/// The thirty-six validator checks `codespecs_derivation_contract.md` §6 names.
+/// The thirty-seven validator checks `codespecs_derivation_contract.md` §6
+/// names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
 /// rule that defines it so a failure cites the rule rather than a symptom. The
@@ -3342,10 +3343,142 @@ class CsBackLinkExtractedCheck extends CodeSpecsCheck {
 }
 
 // ---------------------------------------------------------------------------
+// 37 — a member reflection writes is never final
+// ---------------------------------------------------------------------------
+
+/// The two names `codespecs_derivation_contract.md` §3.2.1 point 4 gives a
+/// CE-API DTO: the PascalCase operation name plus one of these.
+///
+/// The suffix is the whole of the recogniser because there is no `@CsDto`
+/// marker — a DTO is a plain class, and `codespecs_derivation_contract.md`
+/// §3.2.1 point 4 makes the suffix normative rather than conventional. Its
+/// point 5 puts DTOs in the shared locus, which is what keeps the recogniser
+/// from claiming a client view-model that happens to end in `Request`.
+const _csDtoSuffixes = ['Request', 'Response'];
+
+/// `codespecs_derivation_contract.md` §6 check 37.
+///
+/// The rule `codespecs_derivation_contract.md` §2.4 states — where reflection
+/// writes a member it is `late` and **never `late final`** — is about a write
+/// path that does not exist at the call site the author is looking at. A `@CsColumn` field is assigned by
+/// `TomColumnInformation.setVariableValue`, a DTO field by the JSON decoder;
+/// both go through `invokeSetter`, and a `final` field has no setter to invoke.
+/// The declaration still compiles, still analyses clean, and still passes any
+/// test that constructs the object by hand — the shape only fails when
+/// something reflective tries to fill it, which is the first real read from the
+/// database or the first request off the wire.
+///
+/// The three carve-outs `codespecs_derivation_contract.md` §2.4 states are
+/// members nothing reflective writes, so the rule has nothing to say about
+/// them and `late final` is the better spelling: a `static` catalogue,
+/// configuration or secret holder (`codespecs_derivation_contract.md` §3.1.2,
+/// §3.1.3, §3.3.6 and §3.6.1), the `collaborator` seam of
+/// `codespecs_derivation_contract.md` §3.0.1, which Phase 6 binds by hand, and
+/// a holder the declaration populates in one of its own method bodies — a
+/// CE-CC `TomSetting` assigned in `declareSettings()`, a CE-FM field member
+/// assigned where the form declares its fields.
+class CsReflectionWrittenNotFinalCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsReflectionWrittenNotFinalCheck();
+
+  @override
+  int get number => 37;
+
+  @override
+  String get definedIn => '§2.4';
+
+  @override
+  String get title =>
+      'A member reflection writes — a @CsColumn attribute, a CE-API DTO field '
+      '— is late and never final, because reflection assigns through a setter '
+      'a final field does not have';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final project in input.projects) {
+      // Both maps are per project: an owner name is only unique within one, and
+      // no declaration spans two.
+      final owners = <String, CsDeclaration>{};
+      final members = <String, List<CsDeclaration>>{};
+      for (final declaration in project.declarations) {
+        final owner = declaration.owner;
+        if (owner == null) {
+          owners[declaration.name] = declaration;
+        } else {
+          members.putIfAbsent(owner, () => []).add(declaration);
+        }
+      }
+
+      for (final entry in members.entries) {
+        final owner = owners[entry.key];
+        final ownerIsDto = owner != null &&
+            owner.kind == CsDeclarationKind.classType &&
+            project.locus == CsLocus.shared &&
+            _csDtoSuffixes.any((s) => owner.name.endsWith(s));
+
+        for (final member in entry.value) {
+          if (member.kind != CsDeclarationKind.field) continue;
+          if (!member.isFinal) continue;
+
+          final written = member.has('CsColumn')
+              ? 'a @CsColumn attribute, which the repository assigns through '
+                  'TomColumnInformation.setVariableValue'
+              : ownerIsDto
+                  ? 'a field of the CE-API DTO ${entry.key}, which the wire '
+                      'decoder assigns'
+                  : null;
+          if (written == null) continue;
+
+          // The §2.4 carve-outs, in the order the section states them.
+          if (member.isStatic) continue;
+          if (member.name == csCollaboratorField) continue;
+          if (_assignedByOwner(owner, member.name)) continue;
+
+          final spelling = member.isLate ? '`late final`' : '`final`';
+          out.add(
+            fail(
+              '${member.path} is declared $spelling, and it is $written — §2.4 '
+              'writes such a member `late` and never `late final`, because '
+              'reflection assigns it through a setter a final field does not '
+              'have, so the shape fails at the first reflective write rather '
+              'than at generation',
+              member.location,
+            ),
+          );
+        }
+      }
+    }
+    return out;
+  }
+
+  /// Whether [owner] assigns [name] in one of its own method bodies — the
+  /// self-assignment carve-out of `codespecs_derivation_contract.md` §2.4.
+  ///
+  /// Read off the statement source rather than a resolved element, like the
+  /// rest of this pass. The pattern requires an `=` that is not `==`, `>=`,
+  /// `<=` or `!=`, so a comparison against the member does not read as a write
+  /// to it.
+  bool _assignedByOwner(CsDeclaration? owner, String name) {
+    if (owner == null) return false;
+    final assignment = RegExp(
+      '(^|[^A-Za-z0-9_.])(this\\.)?${RegExp.escape(name)}\\s*=[^=]',
+    );
+    for (final body in owner.bodies) {
+      for (final statement in body.allStatements) {
+        if (assignment.hasMatch('${statement.source} ')) return true;
+      }
+    }
+    return false;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The thirty-six checks, in `codespecs_derivation_contract.md` §6 table order.
+/// The thirty-seven checks, in `codespecs_derivation_contract.md` §6 table
+/// order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   CsIdentifierCollisionCheck(),
   CsReferenceResolutionCheck(),
@@ -3383,4 +3516,5 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   CsCommentFidelityCheck(),
   CsExtractCoverageCheck(),
   CsBackLinkExtractedCheck(),
+  CsReflectionWrittenNotFinalCheck(),
 ];

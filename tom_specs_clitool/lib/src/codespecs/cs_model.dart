@@ -621,6 +621,25 @@ class CsDeclaration {
   /// Whether a variable declaration carries an initialiser.
   final bool hasInitialiser;
 
+  /// Whether a variable declaration is written `final`.
+  ///
+  /// The keyword as spelled, not the language's notion of finality — an enum
+  /// constant and a `const` member are both unassignable and neither carries
+  /// the keyword, and this reader is a syntax pass (see [declaredType]).
+  /// `codespecs_derivation_contract.md` §2.4 is a rule about what the
+  /// generator writes, so the keyword is the thing to record.
+  final bool isFinal;
+
+  /// Whether a variable declaration is written `late`.
+  ///
+  /// Kept beside [isFinal] because `codespecs_derivation_contract.md` §2.4
+  /// separates three shapes a member can take — plain, `late`, and
+  /// `late final` — and admits the third only where nothing reflective writes
+  /// the member. One boolean cannot tell `final` from `late final`, and a
+  /// check that names which of the two was written says something the author
+  /// can act on.
+  final bool isLate;
+
   /// The declared type of a variable, as written; `null` when there is none —
   /// either because it is inferred (`final x = …`) or because the declaration
   /// is not a variable at all.
@@ -659,6 +678,8 @@ class CsDeclaration {
     this.codeSpec,
     this.docSpec,
     this.hasInitialiser = false,
+    this.isFinal = false,
+    this.isLate = false,
     this.declaredType,
     this.bodies = const [],
     this.isAbstract = false,
@@ -855,7 +876,7 @@ class CodeSpecsRegeneration {
       };
 }
 
-/// Everything the thirty-six checks read.
+/// Everything the thirty-seven checks read.
 class CodeSpecsValidationInput {
   /// The shared project.
   final CsLocusProject shared;
