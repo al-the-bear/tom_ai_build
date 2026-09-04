@@ -301,3 +301,6 @@ bk_master.yaml
 
 # Local development folders (repo-specific - add as needed)
 # /some_local_folder/
+
+# testkit run artifacts (baselines + raw JSON) — machine-local, never committed.
+testlog/

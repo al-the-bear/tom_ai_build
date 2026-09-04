@@ -117,13 +117,14 @@ void main() {
         reason: 'prebuild must build the runtime dist via the relative path');
 
     // npm packaging contract (SOM §17.3): the version is the model version, the
-    // package is proprietary (private + UNLICENSED), the tarball payload is
+    // package is BSD-3-Clause but still private (release 1 is source-only; the
+    // flag refuses an accidental `npm publish`), the tarball payload is
     // pinned via `files`/`exports` and ships the *compiled* `dist/` (`.js` +
     // `.d.ts`), and `prepack` rebuilds `dist/` before packing.
     expect(manifest['version'], '1.0.0',
         reason: 'version tracks the TomSpecs model version');
     expect(manifest['private'], isTrue);
-    expect(manifest['license'], 'UNLICENSED');
+    expect(manifest['license'], 'BSD-3-Clause');
     expect(manifest['types'], 'dist/tom_som_typescript_v0.d.ts');
     expect(scripts['prepack'], 'npm run build',
         reason: 'prepack must rebuild the shipped dist/ before packing');

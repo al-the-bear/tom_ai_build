@@ -105,12 +105,13 @@ void main() {
         reason: 'relative path must resolve to the JS runtime package');
 
     // npm packaging contract (SOM §17.3): the version is the model version, the
-    // package is proprietary (private + UNLICENSED), the tarball payload is
+    // package is BSD-3-Clause but still private (release 1 is source-only; the
+    // flag refuses an accidental `npm publish`), the tarball payload is
     // pinned via `files`/`exports`, and the runtime is a declared dependency.
     expect(manifest['version'], '1.0.0',
         reason: 'version tracks the TomSpecs model version');
     expect(manifest['private'], isTrue);
-    expect(manifest['license'], 'UNLICENSED');
+    expect(manifest['license'], 'BSD-3-Clause');
     final files = (manifest['files'] as List).cast<String>();
     expect(
         files,

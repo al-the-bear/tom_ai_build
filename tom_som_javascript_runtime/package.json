@@ -21,6 +21,6 @@
   "scripts": {
     "test": "node tests/conformance_runner.js"
   },
-  "license": "UNLICENSED",
+  "license": "BSD-3-Clause",
   "private": true
 }

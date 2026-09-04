@@ -193,10 +193,12 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
     // The TomSpecs model version — the facade is regenerated per model version
     // and always reports it (never maintained independently).
     'version': version,
-    // Proprietary and unpublished-to-a-public-registry: `npm pack` packages it,
-    // `npm publish` is intentionally refused.
+    // BSD-3-Clause per the release-1 licence decision; still `private` because
+    // release 1 ships the non-Dart runtimes source-only — npm publication is a
+    // separate follow-up, and `private: true` makes an accidental `npm publish`
+    // refuse while `npm pack` keeps working.
     'private': true,
-    'license': 'UNLICENSED',
+    'license': 'BSD-3-Clause',
     'description': 'Generated typed TomSpecs object model (v0). An editing '
         'facade over the generic tom_som_javascript_runtime; see the meta-data '
         'file and DocSpecs schemas in this package. Regenerate with '
