@@ -8,10 +8,10 @@
 ### Global Guidelines
 | Document | Purpose |
 |----------|---------|
-| [Coding Guidelines](/_copilot_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
-| [Unit Tests](/_copilot_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
-| [D4rt Bridged Class Guidelines](/_copilot_guidelines/d4rt/d4rt_bridgedclass_guidelines.md) | BridgedClass registration patterns |
-| [D4rt Bridge Generator](/_copilot_guidelines/d4rt/d4rt_bridge_generator.md) | Automatic bridge generation |
+| [Coding Guidelines](../../../../_copilot_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
+| [Unit Tests](../../../../_copilot_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
+| [D4rt Bridged Class Guidelines](../../../../_copilot_guidelines/d4rt/d4rt_bridgedclass_guidelines.md) | BridgedClass registration patterns |
+| [D4rt Bridge Generator](../../../../_copilot_guidelines/d4rt/d4rt_bridge_generator.md) | Automatic bridge generation |
 
 ## Project-Specific Guidelines
 
