@@ -248,6 +248,13 @@ no root and are the only host gaps a fresh sign-off run hits:
   with `python3 -m pip install --user --break-system-packages build`. Verified
   `build 1.5.0`.
 
+Sweep order matters for the two facades whose manifests name their runtime as a
+registry dependency (SOM §17.3's ecosystem notes): `mvn package` in
+`tom_som_java_v0` needs `mvn install` run in `tom_som_java_runtime` first (local
+`~/.m2` resolution), and `cargo package` of `tom_som_rust_v0` is runnable only
+once `tom_som_rust_runtime` is on crates.io — until then the facade's pack
+verification is its `run_tests.sh` build + suite.
+
 ## Exercising every toolchain at once
 
 Two drivers in `tom_som_conformance/tool/` reach every language

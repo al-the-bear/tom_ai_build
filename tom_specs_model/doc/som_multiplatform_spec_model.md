@@ -1391,7 +1391,7 @@ descriptors, and a reproducible build/pack command. This is the one exception to
 | C | static+shared lib + headers + `pkg-config` `.pc` + `make dist` | `pkg-config` / vendored headers+lib | `make && make dist` |
 | C++ | static+shared lib + headers + `pkg-config` `.pc` + `make dist` | `pkg-config` / vendored | `make && make dist` |
 
-Three ecosystems need a note:
+Four ecosystems need a note:
 
 - **Go** versions live in VCS tags, not the manifest. The tag scheme maps the
   model version to `vMAJOR.MINOR.PATCH`; the "version = model version" rule is
@@ -1399,6 +1399,16 @@ Three ecosystems need a note:
   generator. The module path and `doc.go` are part of the packaging definition.
 - **Java** builds via Maven, with `build_jar.sh` as the no-Maven fallback; the
   facade JAR it produces is facade-only (the runtime is a separate artefact).
+  The facade's `pom.xml` names the runtime as an ordinary Maven dependency, so
+  `mvn package` in the facade needs the runtime resolvable — in a checkout with
+  nothing published, run `mvn install` in `tom_som_java_runtime` first (it lands
+  in the local `~/.m2` repository) and the facade packages against it.
+- **Rust** packs both crates with `cargo package --no-verify`, but the facade's
+  packaged form rewrites its path dependency into a registry dependency, and
+  cargo refuses to package against a runtime crates.io does not carry. Until the
+  runtime is published there, the facade's pack verification is its build + test
+  suite (`run_tests.sh`); `cargo package` of the facade becomes runnable the day
+  the runtime crate is on the registry.
 - **C / C++** have no universal registry. "Package" there means a clean,
   versioned, installable artefact — lib + headers + a `pkg-config` discovery
   file — plus a `make dist` tarball, which is the realistic integration path for
