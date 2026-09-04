@@ -2109,6 +2109,28 @@ class Order {}
       expect(_forCheck(27, input), isEmpty);
     });
 
+    test('a leading @DocSpec is the first annotation, not blank lines', () {
+      // §2.9 step 4's member shape: doc comment, then @DocSpec (a member
+      // carries no @CodeSpec), then the Cs* marker. The @DocSpec lines are
+      // annotation, not whitespace — C4.3 holds the block against them.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('orders')
+class Order {
+  /// Stable order identifier.
+  @DocSpec([
+    DocRef('SBP.3.1', 'supplies the stored attribute and its column'),
+  ])
+  @CsColumn(column: 'order_id', columnType: 'uuid')
+  late String orderId;
+}
+''',
+        },
+      );
+      expect(_forCheck(27, input), isEmpty);
+    });
+
     test('an angle bracket is written &lt;, so dartdoc does not eat it', () {
       final input = _input(
         server: {'lib/a.dart': '/// Holds a <name>.\nclass Order {}\n'},

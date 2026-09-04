@@ -1,0 +1,14 @@
+name: meridian_codespec_shared
+description: Phase-4 CodeSpecs shared project for the Meridian Order Management sample (generated skeleton).
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.11.4
+
+dependencies:
+  tom_code_specs:
+    path: ../../../../tom_code_specs
+
+dev_dependencies:
+  lints: ^6.0.0

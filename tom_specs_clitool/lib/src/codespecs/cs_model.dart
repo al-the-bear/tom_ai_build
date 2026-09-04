@@ -618,6 +618,13 @@ class CsDeclaration {
   /// The `@DocSpec` tuples, or `null` when the annotation is absent.
   final List<CsDocRef>? docSpec;
 
+  /// Where the `@DocSpec` annotation itself is written, or `null` when it is
+  /// absent. A member's first annotation is usually its `@DocSpec`
+  /// (codespecs_derivation_contract.md §2.9 step 4 puts it between the doc
+  /// comment and the `Cs*` marker), so C4.3's adjacency test needs its line as
+  /// much as the marker lines.
+  final CsLocation? docSpecLocation;
+
   /// Whether a variable declaration carries an initialiser.
   final bool hasInitialiser;
 
@@ -677,6 +684,7 @@ class CsDeclaration {
     this.owner,
     this.codeSpec,
     this.docSpec,
+    this.docSpecLocation,
     this.hasInitialiser = false,
     this.isFinal = false,
     this.isLate = false,
@@ -698,6 +706,8 @@ class CsDeclaration {
     }
     final link = codeSpec;
     if (link != null && link.location.line < line) line = link.location.line;
+    final docLink = docSpecLocation;
+    if (docLink != null && docLink.line < line) line = docLink.line;
     return line;
   }
 

@@ -384,6 +384,7 @@ CsDeclaration _declaration({
   final markers = <CsMarker>[];
   CsCodeSpecLink? codeSpec;
   List<CsDocRef>? docSpec;
+  CsLocation? docSpecLocation;
 
   for (final annotation in metadata) {
     final annotationName = annotation.name.name;
@@ -392,6 +393,7 @@ CsDeclaration _declaration({
       codeSpec = _codeSpecLink(annotation, location);
     } else if (annotationName == 'DocSpec') {
       docSpec = _docRefs(annotation);
+      docSpecLocation = location;
     } else if (annotationName.startsWith('Cs') &&
         !_backLinkAnnotations.contains(annotationName)) {
       final (positional, named) = _arguments(annotation.arguments);
@@ -407,6 +409,7 @@ CsDeclaration _declaration({
     markers: markers,
     codeSpec: codeSpec,
     docSpec: docSpec,
+    docSpecLocation: docSpecLocation,
     hasInitialiser: hasInitialiser,
     isFinal: isFinal,
     isLate: isLate,

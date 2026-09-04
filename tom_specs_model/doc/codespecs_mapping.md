@@ -5804,9 +5804,10 @@ rule is stated here.
 Anything outstanding against this document is tracked as a **quest todo** in
 `_ai/quests/tom_specs/todos.tom_specs.todo.yaml` — `csrb` and `csre` for the
 CodeSpecs follow-up series, `qr` for findings raised by a quest-refresh pass,
-`qrc` for the work one of those findings opened, and `tscomp`/`tscompc`/`tscompd`
-for a completeness pass and its two generations of follow-ups. Each todo is
-self-contained, so this section is an index rather than a specification.
+`qrc` for the work one of those findings opened, `tscomp`/`tscompc`/`tscompd`
+for a completeness pass and its two generations of follow-ups, and `tspuba` for
+the findings of the Phase-4 dogfood run. Each todo is self-contained, so this
+section is an index rather than a specification.
 
 The `cs*` ids of §1.1.1 item 3 are **not** in that set and never appear here:
 they belong to a Phase-4 run against a specified project, not to the quest that
@@ -5820,11 +5821,16 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. **Nothing is open** — every marker argument the derivation
-contract makes required now resolves against an authored citation rather than
-against a reading of prose, and nothing is open against the **document** either:
-§1.1.1 fixes the Phase-4 contract, §1.1.2 the run procedure and §1.1.3 the
-generated todo tree the procedure instantiates.
+active part COVERED. Open against this document's mapping surfaces (raised by
+the Phase-4 dogfood run over the Meridian sample):
+
+- `tspuba3_aidu-som-model-gaps-scrst-scrac-screl` — its §5 attribute-surface
+  updates for the SCRST/SCRAC/SCREL fields the SOM gains (the model work itself
+  belongs to `tom_specs_model`).
+- `tspuba4_aidu-derivation-contract-gaps` — its mapping-side halves: the
+  stated `elementType` → §5.18 closed-catalogue mapping (F4) and the
+  `@CsColumn` carriage of `DAATT-SECU` facts (F11); the rest of that todo is
+  derivation-contract work.
 
 An open todo in those series whose subject is **not** a mapping question does
 not belong here even when the index is non-empty — a SOM validator capability
