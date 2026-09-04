@@ -1,9 +1,9 @@
 name: tom_doc_scanner
 description: Parses markdown files into structured document trees with sections.
-version: 1.0.0
-publish_to: none
+version: 0.1.0
 
 repository: https://github.com/al-the-bear/tom_ai_build
+homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_doc_scanner
 
 environment:
   sdk: ^3.10.4

@@ -162,9 +162,10 @@ void main() {
   });
 
   group('licenseText (SOM §17)', () {
-    test('is the proprietary workspace license', () {
+    test('is the workspace release license (BSD 3-Clause)', () {
+      expect(licenseText, contains('BSD 3-Clause License'));
       expect(licenseText, contains('Peter Nicolai Alexis Kyaw'));
-      expect(licenseText, contains('proprietary and confidential'));
+      expect(licenseText, contains('Redistribution and use in source'));
     });
   });
 

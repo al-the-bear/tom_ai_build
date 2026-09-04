@@ -1,17 +1,22 @@
 name: tom_specs_model
-description: A starting point for Dart libraries or applications.
+description: >-
+  Typed Dart data model for all TomSpecs specification documents — the source
+  of truth the SOM generator derives the nine language runtimes from.
+# Version is the TomSpecs model version (stamped by the versioner and read by
+# generate_som; the SOM runtime/facade packages are kept in lockstep with it).
 version: 1.0.0
-publish_to: none
+
+repository: https://github.com/al-the-bear/tom_ai_build
+homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_specs_model
 
 environment:
   sdk: ^3.11.4
 
-# Add regular dependencies here.
 dependencies:
-  tom_som_dart_runtime:
-    path: ../tom_som_dart_runtime
-  tom_specs_core:
-    path: ../tom_specs_core
+  # Co-developed siblings, resolved by path locally via pubspec_overrides.yaml
+  # (excluded from publish); the published package uses the hosted constraints.
+  tom_som_dart_runtime: ^1.0.0
+  tom_specs_core: ^0.1.0
 
 dev_dependencies:
   lints: ^6.0.0

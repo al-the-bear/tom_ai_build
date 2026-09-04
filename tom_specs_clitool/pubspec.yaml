@@ -1,9 +1,9 @@
 name: tom_specs_clitool
-description: CLI tools for TomSpecs model analysis and outline generation.
-version: 1.0.0
-# Internal build tooling with path dependencies on unpublished sibling packages
-# (tom_doc_specs / tom_doc_scanner); never published to pub.dev.
-publish_to: none
+description: CLI tools for TomSpecs model analysis, validation, and SOM code generation.
+version: 0.1.0
+
+repository: https://github.com/al-the-bear/tom_ai_build
+homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_specs_clitool
 
 environment:
   sdk: ^3.11.4
@@ -26,21 +26,21 @@ dependencies:
   # analyzer major, so a point-SDK bundle-format drift can't crash the cached
   # `.sum` reader (RCK26); and bundles are invalidated when a transitive
   # dependency changes version, so a stale closure can't silently drop classes
-  # (RCJ6). Both are correctness fixes for any summary-cache consumer.
-  tom_analyzer_shared: ">=0.7.2"
-  # publish_to: none package — consumed by path per the workspace convention for
-  # unpublished sibling tooling (NOT a pubspec override of a published dep).
-  tom_doc_specs:
-    path: ../tom_doc_specs
+  # (RCJ6). Both are correctness fixes for any summary-cache consumer. Caret
+  # upper bound (<0.8.0) added for publication — pub.dev requires a bounded
+  # constraint.
+  tom_analyzer_shared: ^0.7.2
+  # Co-developed release-set siblings, resolved by path locally via
+  # pubspec_overrides.yaml (excluded from publish); the published package uses
+  # these hosted constraints.
+  tom_doc_specs: ^0.1.0
   # The generic SOM runtime the Dart emitter targets — the emitter drives its
   # SpecModel and the generated code extends its SomNode/SomList facade base.
-  tom_som_dart_runtime:
-    path: ../tom_som_dart_runtime
+  tom_som_dart_runtime: ^1.0.0
   # The annotation library the model is written against. The validator reads
   # `deferredCodeSpecParts` from it (invariant PART-ROUTED's exemption) rather than
   # restating which CodeSpecs parts have no generated surface.
-  tom_specs_core:
-    path: ../tom_specs_core
+  tom_specs_core: ^0.1.0
 
 dev_dependencies:
   json_schema: ^5.2.2
@@ -48,5 +48,4 @@ dev_dependencies:
   test: ^1.25.6
   # Used only by the schema-generator test to scan a known-good markdown export
   # without going through DocSpecs' on-disk schema resolver.
-  tom_doc_scanner:
-    path: ../tom_doc_scanner
+  tom_doc_scanner: ^0.1.0

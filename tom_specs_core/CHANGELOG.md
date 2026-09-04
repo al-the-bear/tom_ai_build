@@ -1,4 +1,8 @@
-## Unreleased
+# Changelog
+
+## 0.1.0
+
+Initial development release (pub.dev 0.x channel, BSD-3-Clause).
 
 - csra8: `CodeSpecPart.reporting` (CE-RP) is **active**, not deferred. Its doc
   comment now carries the live mapping — the grouped projection built on
@@ -17,7 +21,3 @@
   built-on `tom_core` class or generated code until promoted into
   `codespecs_mapping.md` §4.1. Enum now holds 29 values (20 active + 9
   deferred).
-
-## 1.0.0
-
-- Initial version.

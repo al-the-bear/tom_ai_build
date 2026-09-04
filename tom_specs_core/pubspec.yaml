@@ -1,7 +1,9 @@
 name: tom_specs_core
 description: Core annotations and shared types for TomSpecs document model families.
 version: 0.1.0
-publish_to: none
+
+repository: https://github.com/al-the-bear/tom_ai_build
+homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_specs_core
 
 environment:
   sdk: ^3.11.4

@@ -1,9 +1,9 @@
 name: tom_doc_specs
 description: Document schema validation for structured markdown, extending DocScanner with typed sections.
-version: 1.0.0
-publish_to: none
+version: 0.1.0
 
 repository: https://github.com/al-the-bear/tom_ai_build
+homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_doc_specs
 
 environment:
   sdk: ^3.10.4
@@ -11,8 +11,9 @@ environment:
 dependencies:
   path: ^1.9.0
   yaml: ^3.1.2
-  tom_doc_scanner:
-    path: ../tom_doc_scanner
+  # Co-developed sibling, resolved by path locally via pubspec_overrides.yaml
+  # (excluded from publish); the published package uses this hosted constraint.
+  tom_doc_scanner: ^0.1.0
 
 dev_dependencies:
   lints: ^6.0.0

@@ -1,7 +1,9 @@
 name: tom_code_specs
 description: CodeSpecs framework — the Cs* annotation family (no base classes) and the code-side DocSpecs↔CodeSpecs link annotations for TomSpecs Phase 4.
 version: 0.12.0
-publish_to: none
+
+repository: https://github.com/al-the-bear/tom_ai_build
+homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_code_specs
 
 environment:
   sdk: ^3.11.4
@@ -9,9 +11,9 @@ environment:
 dependencies:
   # The shared kind vocabulary (CodeSpecPart) + the type-level @CodeSpecKind
   # link annotation live in tom_specs_core; the Cs* annotation family references
-  # them. tom_specs_core is a zero-dependency annotation library.
-  tom_specs_core:
-    path: ../tom_specs_core
+  # them. tom_specs_core is a zero-dependency annotation library. Resolved by
+  # path locally via pubspec_overrides.yaml (excluded from publish).
+  tom_specs_core: ^0.1.0
 
 dev_dependencies:
   lints: ^6.0.0

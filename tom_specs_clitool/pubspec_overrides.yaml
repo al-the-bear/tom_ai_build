@@ -1,0 +1,15 @@
+# Local-development override (same mechanism as tom_som_dart_v0's generated
+# overrides file): resolve the co-developed release-set siblings by path. This
+# file is excluded from `dart pub publish`; the published package uses the
+# hosted constraints declared in pubspec.yaml. tom_doc_scanner is here both as
+# the dev-dep and as tom_doc_specs' own dependency, so the whole local graph
+# resolves from one checkout.
+dependency_overrides:
+  tom_doc_scanner:
+    path: ../tom_doc_scanner
+  tom_doc_specs:
+    path: ../tom_doc_specs
+  tom_som_dart_runtime:
+    path: ../tom_som_dart_runtime
+  tom_specs_core:
+    path: ../tom_specs_core
