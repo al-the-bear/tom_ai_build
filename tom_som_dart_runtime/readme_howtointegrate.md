@@ -43,7 +43,7 @@ dependencies:
   tom_som_dart_runtime:
     git:
       url: https://github.com/al-the-bear/tom_ai_build.git
-      path: tom_ai/ai_build/tom_som_dart_runtime
+      path: tom_som_dart_runtime
 ```
 
 ### Path dependency (monorepo / vendored)

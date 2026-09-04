@@ -45,7 +45,7 @@ tom_som_python_v0>=VERSION
 Install directly from source control (the facade lives in a sub-directory of the mono-repo):
 
 ```bash
-pip install "tom_som_python_v0 @ git+https://github.com/al-the-bear/tom_ai_build.git#subdirectory=tom_ai/ai_build/tom_som_python_v0"
+pip install "tom_som_python_v0 @ git+https://github.com/al-the-bear/tom_ai_build.git#subdirectory=tom_som_python_v0"
 ```
 
 ### Path / editable (monorepo / vendored)

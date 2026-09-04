@@ -37,7 +37,7 @@ tom_som_python_runtime>=1.0.0
 ### Git dependency
 
 ```bash
-pip install "tom_som_python_runtime @ git+https://github.com/al-the-bear/tom_ai_build.git#subdirectory=tom_ai/ai_build/tom_som_python_runtime"
+pip install "tom_som_python_runtime @ git+https://github.com/al-the-bear/tom_ai_build.git#subdirectory=tom_som_python_runtime"
 ```
 
 ### Path / editable (monorepo / vendored)

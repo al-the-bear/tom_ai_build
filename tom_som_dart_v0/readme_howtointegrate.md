@@ -50,7 +50,7 @@ dependencies:
   tom_som_dart_v0:
     git:
       url: https://github.com/al-the-bear/tom_ai_build.git
-      path: tom_ai/ai_build/tom_som_dart_v0
+      path: tom_som_dart_v0
 ```
 
 ### Path dependency (monorepo / vendored)

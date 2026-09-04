@@ -45,10 +45,12 @@ The published package ships compiled `dist/` (`.js` + `.d.ts`), so no build step
 
 ### Git dependency
 
-Depend on the facade directly from source control (it lives in a sub-directory of the mono-repo). Because the tarball is built on `prepack`, a git install compiles `dist/` for you:
+npm cannot install a sub-directory of a git repository directly, and the facade lives in a sub-directory of the mono-repo — so clone first, then install by path (runtime first; the facade compiles against the runtime's `dist/`):
 
 ```bash
-npm install "git+https://github.com/al-the-bear/tom_ai_build.git#path:tom_ai/ai_build/tom_som_typescript_v0"
+git clone https://github.com/al-the-bear/tom_ai_build.git
+npm install ./tom_ai_build/tom_som_typescript_runtime
+npm install ./tom_ai_build/tom_som_typescript_v0
 ```
 
 ### Path / link (monorepo / vendored)

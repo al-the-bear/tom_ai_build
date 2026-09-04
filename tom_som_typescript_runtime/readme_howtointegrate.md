@@ -49,15 +49,17 @@ or pin it in your `package.json`:
 
 ### Git dependency
 
-Depend on the runtime directly from source control (it lives in a sub-directory
-of the mono-repo):
+npm cannot install a sub-directory of a git repository directly, and the
+runtime lives in a sub-directory of the mono-repo — so clone first, then
+install by path:
 
 ```bash
-npm install "git+https://github.com/al-the-bear/tom_ai_build.git#path:tom_ai/ai_build/tom_som_typescript_runtime"
+git clone https://github.com/al-the-bear/tom_ai_build.git
+npm install ./tom_ai_build/tom_som_typescript_runtime
 ```
 
-Git installs run `prepack` (`npm run build`), so the compiled `dist/` is
-produced from source on install.
+A path install of an in-tree package runs `prepare`/`prepack` (`npm run
+build`), so the compiled `dist/` is produced from source on install.
 
 ### Path / link (monorepo / vendored)
 
