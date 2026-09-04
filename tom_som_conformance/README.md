@@ -2,8 +2,9 @@
 
 Cross-language conformance assets for the SOM (Spec Object Model) runtimes and
 generated `tom_som_<lang>_v0` facades. Everything here is **language-agnostic**:
-one shared sample, one shared corpus, and one golden harness that proves all
-nine language APIs agree.
+one shared sample, one shared corpus, and one golden harness that proves the
+nine language APIs agree **on everything the sample and corpus exercise** — see
+"The parity claim's bound" below for exactly how far that reaches.
 
 ## Layout
 
@@ -107,7 +108,29 @@ dart run tool/compare_golden.dart
 `compare_golden.dart` compares raw bytes (not decoded text), so a stray CR, BOM,
 or trailing-newline difference is caught. On a mismatch it reports the first
 differing line against the Dart reference and exits non-zero. A green run proves
-all nine language APIs yield exactly the same reading of the same specification.
+all nine language APIs yield exactly the same reading of the same specification
+— within the bound stated next.
+
+#### The parity claim's bound
+
+The proof extends exactly as far as the shared sample and corpus reach, and no
+further. As of the 2026-09-04 survey, the Meridian sample instantiates **34 of
+the 569 reachable list structures** and roughly **120 of the ~3 850 section
+ids** in the model. Within that exercised slice the byte-identity proof is
+exact: every value the sample carries is read identically nine ways, byte for
+byte. Outside it, a construct is proven only to *exist* in all nine ports — the
+generators compile against it — not to *behave* identically; an uninstantiated
+structure can be wrong in one language and the logs stay green, because the
+logs never mention it.
+
+No shipped check measures or enforces this bound yet — the numbers above are a
+hand survey, dated so a reader can tell how stale they are. Populating the
+sample is the act that brings a construct under the proof (SOM §19 states the
+same rule from the model's side).
+
+**This subsection is the canonical statement of the bound.** Release-facing
+wording that claims nine-way parity must cite it rather than restating the
+numbers — one sentence, one place, not nine copies that drift apart.
 
 #### The nine generators move together
 
@@ -151,7 +174,7 @@ proves it.
 
 #### …and so does the DocSpecs tier (SOM §14)
 
-The §14 DocSpecs tier is a **second, separate** rule vocabulary — the eleven
+The SOM §14 DocSpecs tier is a **second, separate** rule vocabulary — the eleven
 `DocSpecsViolationRule` constants, not the instance tier's
 `SpecValidationCode` — and it is nine-language for the same reason. Its corpus
 is a pair:
@@ -296,7 +319,7 @@ Four properties of these tables are deliberate:
   they *select*.
 
 `node_creation_cases.json` deliberately drops the rejection `message` and keeps
-only the `code`, for the same reason §14 drops it: it is prose, and pinning it
+only the `code`, for the same reason SOM §14 drops it: it is prose, and pinning it
 would make a reword a nine-package change.
 
 #### …and so does the version check (SOM §4.2 / §21)
@@ -316,7 +339,7 @@ deliberate:
   classification is not `editable`". Asserting both is what fails a port that
   classifies correctly and *refuses* wrongly — which is exactly what the table
   found in Rust on its first run.
-- **The `message` is pinned here, unlike §14 and `node_creation_cases.json`.**
+- **The `message` is pinned here, unlike SOM §14 and `node_creation_cases.json`.**
   Those drop it because the code already identifies the fault. Here it does not:
   `invalidVersion` is **one outcome with two causes** — an unparseable document
   stamp or an unparseable object-model constant — and the message is the only
@@ -348,7 +371,7 @@ block it **cannot** place. It arrived after the same trap as the tier above:
 `SpecMarkdownRejectReason` was declared in all nine runtimes and asked about by
 nothing, because `expected.md` is a byte-golden of a *successful* export and the
 three markdown tiers all assert `isClean()`. The failure that hid behind that is
-the worst one §11.7 exists to prevent — a port that silently **drops** an
+the worst one SOM §11.7 exists to prevent — a port that silently **drops** an
 unplaceable block is indistinguishable from one that never met it.
 
 Each case is a Markdown source plus two expectations that have to hold
@@ -362,7 +385,7 @@ Each case is a Markdown source plus two expectations that have to hold
 
 Three properties are deliberate:
 
-- **Neither half alone says what §11.7 requires.** A port that drops a block
+- **Neither half alone says what SOM §11.7 requires.** A port that drops a block
   fails `rejections`; a port that reports it and then abandons the rest of the
   parse fails `document`. Only the pair states "reported, **not** dropped, and
   the rest still landed", which is why every case carries both.
@@ -399,12 +422,12 @@ toolchain must still be able to produce its extracts.
 
 The table has four parts, and each pins something the others cannot:
 
-- **`catalog`** — the §4.1/§4.4.3/§4.4.6 area catalogue, supplied as an *input*
+- **`catalog`** — the `codespecs_mapping.md` §4.1/§4.4.3/§4.4.6 area catalogue, supplied as an *input*
   rather than baked into nine runtimes. The real one is generated by
   `tom_specs_clitool/bin/codespecs_areas.dart`; the corpus carries a six-area
   cut of it, sized to exercise the shapes (a locus-split area with two slices, an
   area whose extract comes out empty) rather than to be complete.
-- **`routings`** — the per-class verdict diagnostic. All three §8.3 verdicts have
+- **`routings`** — the per-class verdict diagnostic. All three `codespecs_mapping.md` §8.3 verdicts have
   to be reachable, plus the two the walk itself produces: `documentRoot` (a
   `@Document` root is structurally exempt from `ROUTE-TOTAL`) and `unrouted`.
 - **`extracts`** — the emitted artifact, byte for byte, in **both** renderings:
@@ -482,7 +505,7 @@ them was asked.
 
 This has cost two rounds. `danglingReference` and `oneOfCaseMismatch` shipped
 Dart-only; later, all eleven `DocSpecsViolationRule` rules were unexercised while
-the §14 golden read three lines off a *valid* sample — and once a table existed,
+the SOM §14 golden read three lines off a *valid* sample — and once a table existed,
 two of the five ports that had the rules turned out to be wrong.
 
 So the rule is:
@@ -587,7 +610,8 @@ internally consistent, versioned to the model, and independently buildable.
 
 ## The eighteen test suites — `run_all_suites.sh`
 
-The golden harness proves the nine APIs *read* the sample identically. It says
+The golden harness proves the nine APIs *read* the sample identically (see
+"The parity claim's bound" above for how far the sample reaches). It says
 nothing about the eighteen hand-authored test suites that sit in the nine
 runtime and nine `v0` packages — and for a long time nothing ran them together,
 so a suite could stay red without anyone noticing.

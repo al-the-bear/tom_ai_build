@@ -277,6 +277,7 @@ const defaultCitedReadmes = [
   'tom_ai/ai_build/tom_specs_clitool/README.md',
   'tom_ai/ai_build/tom_specs_core/README.md',
   'tom_ai/ai_build/tom_specs_model/README.md',
+  'tom_ai/ai_build/tom_som_conformance/README.md',
   'tom_ai/core/tom_core_codespecs/README.md',
 ];
 
