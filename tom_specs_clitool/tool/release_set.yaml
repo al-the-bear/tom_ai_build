@@ -1,0 +1,74 @@
+# The release-1 set and its closure rules, read by
+# bin/check_release_closure.dart (lib/src/release_closure.dart).
+#
+# This is the committed record of the release-1 scope: the Dart chain plus the
+# eight non-Dart runtime/v0 pairs and the conformance assets. The editor,
+# tom_spec_engine and tom_specs_reviewer are out of scope — excluding the
+# engine is what removes the tom_assistant / tom_brain / tom_d4rt links — and
+# the `forbid` list is that exclusion made mechanical: red wherever reached,
+# allowlisted or not.
+
+# Dart members: package name -> container-root-relative directory. The walk
+# starts here and recurses through `dependencies`.
+release_set:
+  tom_specs_core: tom_ai/ai_build/tom_specs_core
+  tom_doc_scanner: tom_ai/ai_build/tom_doc_scanner
+  tom_doc_specs: tom_ai/ai_build/tom_doc_specs
+  tom_som_dart_runtime: tom_ai/ai_build/tom_som_dart_runtime
+  tom_som_dart_v0: tom_ai/ai_build/tom_som_dart_v0
+  tom_specs_model: tom_ai/ai_build/tom_specs_model
+  tom_specs_clitool: tom_ai/ai_build/tom_specs_clitool
+  tom_code_specs: tom_ai/ai_build/tom_code_specs
+  tom_core_codespecs: tom_ai/core/tom_core_codespecs
+
+# Non-Dart members: no Dart dependency graph, held to existence so a renamed
+# or dropped directory fails the same gate.
+source_only:
+  - tom_ai/ai_build/tom_som_conformance
+  - tom_ai/ai_build/tom_som_c_runtime
+  - tom_ai/ai_build/tom_som_c_v0
+  - tom_ai/ai_build/tom_som_cpp_runtime
+  - tom_ai/ai_build/tom_som_cpp_v0
+  - tom_ai/ai_build/tom_som_go_runtime
+  - tom_ai/ai_build/tom_som_go_v0
+  - tom_ai/ai_build/tom_som_java_runtime
+  - tom_ai/ai_build/tom_som_java_v0
+  - tom_ai/ai_build/tom_som_javascript_runtime
+  - tom_ai/ai_build/tom_som_javascript_v0
+  - tom_ai/ai_build/tom_som_python_runtime
+  - tom_ai/ai_build/tom_som_python_v0
+  - tom_ai/ai_build/tom_som_rust_runtime
+  - tom_ai/ai_build/tom_som_rust_v0
+  - tom_ai/ai_build/tom_som_typescript_runtime
+  - tom_ai/ai_build/tom_som_typescript_v0
+
+# Approved published crossings: workspace-authored, already on pub.dev,
+# consumed hosted. The walk continues through their local pubspecs — approving
+# the crossing must not approve whatever sits behind it.
+allow:
+  tom_analyzer_shared:
+    path: tom_ai/basics/tom_analyzer_shared
+    reason: >-
+      Published to pub.dev; hosted dependency of tom_specs_clitool (the
+      analyzer-summary infrastructure). A release consumer resolves the
+      published closure.
+  tom_build_base:
+    path: tom_ai/basics/tom_build_base
+    reason: >-
+      Published to pub.dev; hosted dependency of tom_analyzer_shared. Its own
+      dependencies are all third-party.
+
+# Never reachable, allowlisted or not. Exact names, or `prefix*`.
+forbid:
+  - tom_spec_engine
+  - tom_specs_editor
+  - tom_specs_reviewer
+  - tom_brain_*
+  - tom_assistant*
+  - tom_d4rt
+  - tom_d4rt_generator
+
+# Names with these prefixes are workspace-authored; any other dependency is
+# third-party pub and permitted.
+workspace_prefixes:
+  - tom_
