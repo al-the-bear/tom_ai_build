@@ -130,6 +130,41 @@ CsExtractSet _settingExtract(List<String> settingKeys) {
   return readCsExtracts({'CE-CF.extract.yaml': '$buffer'});
 }
 
+/// A `gate.verdicts.yaml` over [verdicts] — (area, verdict word, resolution or
+/// null), in the shape `codespecs_prompt.md` §6.3 persists.
+String _gateYaml(List<(String, String, String?)> verdicts) {
+  final buffer = StringBuffer()
+    ..writeln('gate:')
+    ..writeln('  formatVersion: $kCsGateRecordFormat')
+    ..writeln('  verdicts:');
+  for (final (area, verdict, resolution) in verdicts) {
+    buffer
+      ..writeln('    - area: ${jsonEncode(area)}')
+      ..writeln('      verdict: ${jsonEncode(verdict)}');
+    if (resolution != null) {
+      buffer.writeln('      resolution: ${jsonEncode(resolution)}');
+    }
+  }
+  return '$buffer';
+}
+
+/// The routed entry only CE-SC's extract carries in [_scopedExtracts] — the
+/// fact a descoped area leaves behind.
+const _scErrorEntry = ('SEER', 'messageText', 'Order was rejected.');
+
+/// A two-area extract pair — CE-DB with the worked example's entries, CE-SC
+/// with one error message — optionally scoped by a gate record over [gate].
+CsExtractSet _scopedExtracts({List<(String, String, String?)>? gate}) =>
+    readCsExtracts({
+      'CE-DB.extract.yaml': _extractYaml('CE-DB', _customerEntries),
+      'CE-SC.extract.yaml': _extractYaml(
+        'CE-SC',
+        [_scErrorEntry],
+        className: 'ServerErrorEntry',
+      ),
+      if (gate != null) kCsGateRecordFile: _gateYaml(gate),
+    });
+
 /// `IMO-014`'s `content` from the §4 worked example — carried as a constant so
 /// the fixture's Dart source and the extract it is checked against cannot drift
 /// apart in the one character that matters, the em dash C4.5 leaves alone.
@@ -3135,6 +3170,181 @@ class Order {}
       );
       expect(_forCheck(32, input), isEmpty);
       expect(_forCheck(36, input), hasLength(1));
+    });
+  });
+
+  group('gate record — scoping a partial pass (codespecs_prompt.md §6.3)', () {
+    // The trio of a pass that authored CE-DB and descoped CE-SC: IMO-014 is
+    // covered, SEER is not — the F9 situation the scoping rule exists for.
+    const partialServer = {
+      'lib/a.dart': '''
+@CodeSpec('dataAccess.Customer', source: ['IMO-014'])
+@DocSpec([DocRef('IMO-014', 'supplies the entity')])
+@CsTable('customer')
+class Customer {}
+''',
+    };
+    const partialGate = <(String, String, String?)>[
+      ('CE-DB', 'sufficient', null),
+      ('CE-SC', 'insufficient', 'descoped'),
+    ];
+
+    test('without a record, check 35 demands the descoped area\'s facts', () {
+      final input = _input(
+        server: partialServer,
+        extracts: _scopedExtracts(),
+      );
+      expect(
+        _forCheck(35, input).map((v) => v.message).join('\n'),
+        contains('SEER'),
+      );
+    });
+
+    test('a recorded descope takes the area out of the obligation set', () {
+      final input = _input(
+        server: partialServer,
+        extracts: _scopedExtracts(gate: partialGate),
+      );
+      expect(_forCheck(35, input), isEmpty);
+    });
+
+    test('check 36 refuses a citation of an excluded area\'s token', () {
+      // The authoring agent never read CE-SC's extract, so a back-link naming
+      // SEER cannot be a transfer from it — this is exactly the coarse
+      // nearest-honest-carrier citation the rule removes the need for.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CodeSpec('dataAccess.Customer', source: ['IMO-014'])
+@DocSpec([
+  DocRef('IMO-014', 'supplies the entity'),
+  DocRef('SEER', 'a token only the descoped extract carries'),
+])
+@CsTable('customer')
+class Customer {}
+''',
+        },
+        extracts: _scopedExtracts(gate: partialGate),
+      );
+      expect(
+        _forCheck(36, input).single.message,
+        contains('SEER'),
+      );
+    });
+
+    test('the exclusions stay visible so the driver can announce them', () {
+      final set = _scopedExtracts(gate: partialGate);
+      expect(set.extracts.map((e) => e.areaCode), ['CE-DB']);
+      final excluded = set.excluded.single;
+      expect(excluded.areaCode, 'CE-SC');
+      expect(excluded.verdict, CsGateVerdict.insufficient);
+      expect(excluded.descoped, isTrue);
+      expect(excluded.entryCount, 1);
+    });
+
+    test('a not-applicable verdict may name an area with no extract file', () {
+      final set = _scopedExtracts(gate: [
+        ...partialGate,
+        ('CE-JB', 'not applicable', null),
+      ]);
+      expect(set.excluded.map((e) => e.areaCode), contains('CE-JB'));
+    });
+
+    test('a not-applicable area with routed entries contradicts §6.4', () {
+      expect(
+        () => _scopedExtracts(gate: [
+          ('CE-DB', 'sufficient', null),
+          ('CE-SC', 'not applicable', null),
+        ]),
+        throwsA(isA<CsExtractException>()),
+      );
+    });
+
+    test('insufficient without a recorded descope is refused', () {
+      // §6.2 of codespecs_prompt.md: the run does not continue past an
+      // unresolved insufficient area — recording the descope is the act that
+      // legitimizes the partial pass.
+      expect(
+        () => _scopedExtracts(gate: [
+          ('CE-DB', 'sufficient', null),
+          ('CE-SC', 'insufficient', null),
+        ]),
+        throwsA(isA<CsExtractException>()),
+      );
+    });
+
+    test('the record must be total over the supplied extracts', () {
+      expect(
+        () => _scopedExtracts(gate: [('CE-DB', 'sufficient', null)]),
+        throwsA(isA<CsExtractException>()),
+      );
+    });
+
+    test('an unknown verdict word is refused', () {
+      expect(
+        () => _scopedExtracts(gate: [
+          ('CE-DB', 'sufficient', null),
+          ('CE-SC', 'deferred', null),
+        ]),
+        throwsA(isA<CsExtractException>()),
+      );
+    });
+
+    test('two verdicts for one area are refused', () {
+      expect(
+        () => _scopedExtracts(gate: [
+          ('CE-DB', 'sufficient', null),
+          ('CE-DB', 'sufficient', null),
+          ('CE-SC', 'insufficient', 'descoped'),
+        ]),
+        throwsA(isA<CsExtractException>()),
+      );
+    });
+
+    test('a resolution on a non-insufficient verdict is refused', () {
+      expect(
+        () => _scopedExtracts(gate: [
+          ('CE-DB', 'sufficient', 'descoped'),
+          ('CE-SC', 'insufficient', 'descoped'),
+        ]),
+        throwsA(isA<CsExtractException>()),
+      );
+    });
+
+    test('a resolution other than descoped is refused', () {
+      // Any other resolution means the area's inputs were completed and its
+      // verdict re-taken as sufficient — there is nothing else to record.
+      expect(
+        () => _scopedExtracts(gate: [
+          ('CE-DB', 'sufficient', null),
+          ('CE-SC', 'insufficient', 'completed'),
+        ]),
+        throwsA(isA<CsExtractException>()),
+      );
+    });
+
+    test('an unknown record format version is refused', () {
+      expect(
+        () => readCsExtracts({
+          'CE-DB.extract.yaml': _extractYaml('CE-DB', _customerEntries),
+          kCsGateRecordFile:
+              'gate:\n  formatVersion: 99\n  verdicts:\n'
+              '    - area: "CE-DB"\n      verdict: "sufficient"\n',
+        }),
+        throwsA(isA<CsExtractException>()),
+      );
+    });
+
+    test('two gate records are refused — the scope must have one author', () {
+      expect(
+        () => readCsExtracts({
+          'CE-DB.extract.yaml': _extractYaml('CE-DB', _customerEntries),
+          kCsGateRecordFile: _gateYaml(const [('CE-DB', 'sufficient', null)]),
+          'nested/$kCsGateRecordFile':
+              _gateYaml(const [('CE-DB', 'sufficient', null)]),
+        }),
+        throwsA(isA<CsExtractException>()),
+      );
     });
   });
 

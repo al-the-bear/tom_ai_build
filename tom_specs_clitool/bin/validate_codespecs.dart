@@ -38,7 +38,10 @@ Future<void> main(List<String> arguments) async {
           'checks (32, 33, 34) and the transfer checks (35, 36). Give the '
           "run's whole extract tree or none: a partial one understates what "
           'the trio was supposed to carry, and check 35 would pass a gap it '
-          'could not see. Omitted: all five report nothing.',
+          'could not see. A legitimate partial pass is recorded, not '
+          'truncated: a gate.verdicts.yaml beside the extracts '
+          '(codespecs_prompt.md §6.3) scopes the obligation set to the '
+          'sufficient areas. Omitted: all five report nothing.',
     )
     ..addOption(
       'cs-vocabulary',
@@ -139,6 +142,18 @@ Future<void> main(List<String> arguments) async {
       'at the run\'s generated-doc/codespecs_extracts directory.',
     );
   }
+  // A scoped-out area must never read as a covered one: name each area the
+  // gate record excluded, its verdict, and what the exclusion drops.
+  for (final area in extracts.excluded) {
+    stdout.writeln(
+      'codespecs: ${area.areaCode} excluded by gate.verdicts.yaml '
+      '(verdict `${area.verdict.word}`'
+      '${area.descoped ? ', resolution `descoped`' : ''}) — '
+      '${area.entryCount == 0 ? 'no routed entries' : '${area.entryCount} '
+          'routed entr${area.entryCount == 1 ? 'y' : 'ies'} dropped from the '
+          'obligation set'}; checks 32–36 do not hold the trio to this area.',
+    );
+  }
 
   final report = runCodeSpecsChecks(input);
   for (final line in report.lines) {
@@ -208,6 +223,10 @@ Map<String, String> _migrations(String? path) {
 /// The rendered `.md` views beside them are deliberately not read: they are a
 /// view of the YAML, and reading a view as an input is how a rendering becomes
 /// a second source of truth.
+///
+/// A `gate.verdicts.yaml` in the tree is picked up too — the Stage-B gate
+/// record that scopes a partial pass (`codespecs_prompt.md` §6.3); the reader
+/// recognises it by basename and validates it.
 CsExtractSet _extracts(String? path) {
   if (path == null) return CsExtractSet.empty;
   final dir = Directory(p.normalize(p.absolute(path)));
@@ -217,7 +236,10 @@ CsExtractSet _extracts(String? path) {
   }
   final sources = <String, String>{};
   for (final entity in dir.listSync(recursive: true)) {
-    if (entity is! File || !entity.path.endsWith('.extract.yaml')) continue;
+    if (entity is! File) continue;
+    final isExtract = entity.path.endsWith('.extract.yaml');
+    final isGate = p.basename(entity.path) == kCsGateRecordFile;
+    if (!isExtract && !isGate) continue;
     sources[p.relative(entity.path, from: dir.path)] =
         entity.readAsStringSync();
   }

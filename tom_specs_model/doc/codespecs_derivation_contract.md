@@ -2261,6 +2261,24 @@ the two artifacts of one run, which is what they are (`codespecs_mapping.md`
 §1.1.1): `--extracts` is given the run's whole `codespecs_extracts` directory,
 or it is omitted and the five checks announce themselves unrun.
 
+**A partial pass is recorded, not truncated.** A run may legitimately author
+fewer areas than the extract tree names: `codespecs_prompt.md` §6.2 admits
+*not applicable* areas, and an *insufficient* area whose L0 decision resolved
+to descoping. The scope of such a pass is carried by the gate record —
+`gate.verdicts.yaml` beside the extracts (`codespecs_prompt.md` §6.3) — and the
+extract reader applies it at the boundary: an area is in the obligation set
+**iff** its recorded verdict is `sufficient`. Checks 35 and 36 then neither
+hold the trio to an excluded area's routed facts (35) nor accept a citation of
+a token only that area's extract carries (36) — the authoring agent never read
+it. The reader refuses a record that is silent about a supplied extract, an
+*insufficient* entry without `resolution: descoped`, or a *not applicable*
+entry whose extract has routed entries, and the driver announces every excluded
+area on stdout — the same discipline as an absent corroborating input: a
+scoped-out area must never read as a covered one. Without a gate record the
+whole extract tree is the obligation set, exactly as above. Deleting extracts
+from the tree remains inadmissible either way — the record states the scope; a
+missing file merely hides it.
+
 **Why none of them is a const-constructor `assert`.** Checks 8, 10, 14, 15, 16 and
 21 are per-instance constraints on a single annotation's arguments, so the obvious
 home looks like an `assert` in the marker's const constructor. It does not work:
@@ -2455,7 +2473,11 @@ states three comparisons: check 35 is comparison 1, check 36 is its converse (th
 requirement is stated in one direction there because a dangling trace is a defect
 of the *trace*, not of the transfer), and comparison 2 is checks 32 and 34,
 already above. Comparison 3 stays output-local, where that section puts it, in
-checks 5 and 25.
+checks 5 and 25. Both directions run over the **in-scope** extract set: when a
+gate record marks an area out of the pass (see *A partial pass is recorded, not
+truncated* above), 35 stops demanding its facts and 36 stops resolving against
+its tokens — the obligation and the vocabulary are the same set, scoped once at
+the reader.
 
 **What the pair still cannot see.** Two residues, both of the same shape as the
 comment checks' — a place the extract is silent, not a place nothing is checked:

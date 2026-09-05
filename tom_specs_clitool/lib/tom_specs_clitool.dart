@@ -238,10 +238,14 @@ export 'src/codespecs/cs_extract.dart'
         CsExtractEntry,
         CsExtractSet,
         CsExtractException,
+        CsExcludedArea,
+        CsGateVerdict,
         readCsExtracts,
         csEscapedLines,
         csEscapeCommentLine,
-        kCsExtractFormat;
+        kCsExtractFormat,
+        kCsGateRecordFile,
+        kCsGateRecordFormat;
 export 'src/codespecs/cs_reader.dart'
     show readCsLocusProject, readCsLocusProjectFromDirectory, readEnumValues;
 export 'src/codespecs/cs_checks.dart'

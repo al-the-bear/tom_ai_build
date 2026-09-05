@@ -138,6 +138,7 @@ to read.
 | **Names** | `<CE-CODE>.extract.yaml` and `<CE-CODE>.extract.md`, where `<CE-CODE>` is the §4.1 registry key verbatim — `CE-FM.extract.yaml`, `CE-API.extract.md`. The registry key is used because §4.1 fixes it as permanent: never reused, never renamed. |
 | **Entry** | Extract token (the routed field's `@SectionId`, or its own name where it carries none — `codespecs_derivation_contract.md` §2.5 rule 2) · class name · field name · form field where applicable · the verbatim value · the `@CodeSpecKind` value that routed it here · source location. |
 | **Authority** | The YAML is the artifact of record; the Markdown is a *view* and is regenerated from it. Nothing reads the Markdown as input. |
+| **Gate record** | `gate.verdicts.yaml`, beside the extracts — the Stage-B verdicts persisted per area (`codespecs_prompt.md` §6.3). It is the scope of the pass: the §6-of-`codespecs_derivation_contract.md` transfer checks hold the trio to the `sufficient` areas only, so a recorded partial pass (a descoped *insufficient* area, a *not applicable* area) neither fails coverage nor forces coarse citations. Absent the record, the whole extract tree is the obligation set. |
 
 The YAML carries the authority because the whole value of an extract is that its
 provenance is machine-checkable — the (id, verbatim value) pair is the second
@@ -5765,7 +5766,11 @@ be carried by, and demanding otherwise would ask the trio to hold organisational
 and migration content it has no shape for. This bound is decidable rather than
 argued: `tom_specs_model_rules.md` §10.2 invariant `ROUTE-TOTAL` makes the three
 verdicts a total partition of the SOM, so "everything routed" names a computable
-set and its complement is enumerable too.
+set and its complement is enumerable too. The bound is scoped once more by the
+pass itself: the gate record (§1.1.1's `gate.verdicts.yaml`,
+`codespecs_prompt.md` §6.3) names the areas the run actually authored, and the
+rule ranges over the sections routed to *those* — a descoped or not-applicable
+area's routed facts are owed by the pass that ships it, not by this one.
 
 **How the rule is decided.** Three comparisons, none of them a reading:
 

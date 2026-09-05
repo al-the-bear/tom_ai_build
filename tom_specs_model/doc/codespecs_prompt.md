@@ -244,6 +244,20 @@ Three properties of that phrasing are deliberate.
 | **not applicable** | This project has no elements of this area at all | yes |
 | **insufficient** | At least one required input is absent | **no** |
 
+An *insufficient* verdict stops the run for that area until its L0 decision
+(§7) resolves. **Descoping is an admissible resolution**: the user may decide
+the area is out of this pass's scope — the specification will be completed
+later, or the area shipped in a follow-up pass. That decision is recorded as
+`resolution: descoped` on the area's entry in the gate record (§6.3), and it is
+the recording that legitimizes the partial pass: the validator's extract reader
+refuses a gate record that carries an unresolved *insufficient* entry, because
+without the recorded descope the record itself says the run may not have
+continued. An area descoped this way is **excluded from the obligation set** —
+`codespecs_derivation_contract.md` §6's checks 35 and 36 neither hold the trio
+to its routed facts nor let the trio cite them (the authoring agent never read
+its extract) — and the exclusion is announced per area on the validator's
+stdout, so a scoped-out area never reads as a covered one.
+
 ### 6.3 The output shape
 
 Fixed, so that *sufficient* means the same thing on two different days:
@@ -260,6 +274,33 @@ and for `insufficient` only, one line per missing input:
 
 The trailing coordinate is the point of the line. It is what the user opens, and
 it is verbatim what the L0 todo created for it states.
+
+The verdicts are also **persisted as an artifact of record** —
+`gate.verdicts.yaml`, written beside the extracts in
+`<spec-root>/generated-doc/codespecs_extracts/`:
+
+```yaml
+gate:
+  formatVersion: 1
+  verdicts:
+    - area: CE-DB
+      verdict: sufficient
+    - area: CE-JB
+      verdict: not applicable
+    - area: CE-SC
+      verdict: insufficient
+      resolution: descoped
+```
+
+The `verdict:` words are exactly §6.2's three; `resolution: descoped` appears
+only on an *insufficient* area whose L0 decision resolved to descoping (§6.2),
+and no other resolution value is recorded — any other resolution means the
+area's inputs were completed and its verdict re-taken. The record is what makes
+the scope machine-readable: the validator's extract reader scopes checks 35 and
+36 to the `sufficient` areas **iff** this file is present, requires it to carry
+a verdict for every extract it reads, and rejects a `not applicable` entry
+whose extract has routed entries (§6.4's evidence rule, held mechanically).
+Without the record, the whole extract tree is the obligation set, as before.
 
 ### 6.4 An empty extract is a candidate, never the verdict
 
