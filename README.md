@@ -51,8 +51,10 @@ dart run tool/build_meridian_extracts.dart
 ```
 
 This runs the gate tiers in order — DocSpecs **schema completeness**, the
-**instance-tier document validator** (`validateDocument`), and **routing
-totality** — and only then runs the `spec_codespecs_extract` surface, writing
+**instance-tier document validator** (`validateDocument`), **routing
+totality**, and **DOMEN closed-choice completeness** (every enumeration-kind
+attribute's `domainEnum` must resolve to an authored `DMENE` entry) — and only
+then runs the `spec_codespecs_extract` surface, writing
 one extract pair (`.extract.yaml` of record + rendered `.extract.md`) per
 CodeSpecs area to `tom_som_conformance/generated-doc/codespecs_extracts/`
 (52 files). Those extracts are the bounded, cited input the Phase-4 authoring
