@@ -649,41 +649,55 @@ answer different questions, and they are **carried by different things**:
 
 | Annotation | Carried by | Carries | Used for |
 |------------|-----------|---------|----------|
-| `@CodeSpec('<canonical id>.<identifier>', source: [<section ids>])` | the **emission unit** — the top-level declaration, never a member | The unit's stable CodeSpec id and the **flat set** of sections that fed it | `codespecs_mapping.md` §8's gap analysis as a set-difference over section ids |
-| `@DocSpec([DocRef('<sectionId>', '<description>'), …])` | **every** declaration that consumed a section of its own — the class *and* each such member | One tuple **per contributing section**, explaining what the code took from it | `codespecs_mapping.md` §9.3's reverse link, read by a human |
+| `@CodeSpec('<canonical id>.<identifier>', source: [<extract tokens>])` | the **emission unit** — the top-level declaration, never a member | The unit's stable CodeSpec id and the **flat set** of extract tokens that fed it | `codespecs_mapping.md` §8's gap analysis as a set-difference over extract tokens |
+| `@DocSpec([DocRef('<sectionId>', '<description>'), …])` | **every** declaration that consumed a value of its own — the class *and* each such member | One tuple **per contributing extract token**, explaining what the code took from it | `codespecs_mapping.md` §9.3's reverse link, read by a human |
 
-The asymmetry is the point. The gap analysis asks *"which sections reached the
-generated code?"*, and its unit of accounting is the emission unit — so
+The asymmetry is the point. The gap analysis asks *"which routed values reached
+the generated code?"*, and its unit of accounting is the emission unit — so
 `source` is written once, where the unit is named. The reverse link asks *"why
 does this line look like this?"*, and its unit is the declaration a reader has
-in front of them — so a member states its own sections next to itself.
+in front of them — so a member states its own tokens next to itself.
 
 **Emission rules.**
 
-1. One `DocRef` per contributing section, in the order the sections were
-   consumed (which is N8's order).
-2. `sectionId` is the SOM `@SectionId` **verbatim**.
-3. `description` is one sentence stating *what the code takes from that section*,
-   generated from the per-entry template in each entry's point 7. It describes the
-   **edge**, not the section — "supplies the operation name and request type", not
-   "the interface operation entry".
+1. One `DocRef` per contributing **extract token**, in the order the tokens
+   were first consumed (which is N8's order). Two values sharing one token
+   contribute one `DocRef`, not two — the token is the unit of accounting, and
+   the description widens to cover both edges.
+2. `sectionId` is the **extract token** of the consumed value, verbatim: the
+   `@SectionId` of the SOM *field* the extract routed the value from
+   (`DAENT-IDEN`, `DAATT-DTFR`), or the field's own name where it carries none —
+   which for a section's narrative field, and for any form riding it, is the
+   token `content`. This is one vocabulary with three carriers — the extract
+   keys its entries by it, `source` lists it, `DocRef` names it — so checks 35
+   and 36 compare sets over the same alphabet. A section class's own id appears
+   only where a routed field itself carries it, and a document instance id (the
+   `<!--[…]-->` headline id) never appears in a back-link: instance ids live in
+   the document and in its `codeSpec` forward link. The token is deliberately
+   coarser than an instance id — every section's narrative field yields the
+   same `content` — and the per-edge description is what keeps two same-token
+   edges legible.
+3. `description` is one sentence stating *what the code takes from the values
+   behind that token*, generated from the per-entry template in each entry's
+   point 7. It describes the **edge**, not the section — "supplies the operation
+   name and request type", not "the interface operation entry".
 4. **`@CodeSpec.source` must equal the set of `sectionId`s in the `@DocSpec` on
    the same declaration.** A named validator check enforces it; drift between the
    two is otherwise undetectable and would silently corrupt the set-difference
    gap analysis.
-5. **The emission unit's `@DocSpec` enumerates every section the unit consumed,
-   its members' included.** A member's own sections therefore appear twice — once
+5. **The emission unit's `@DocSpec` enumerates every token the unit consumed,
+   its members' included.** A member's own tokens therefore appear twice — once
    on the member, once on the unit — and rules 4 and 5 together make the unit's
    `source` the *union* across the class and its members. That union is a
    **consequence** of these two rules, not a third rule: everywhere else this
    document mentions it, it cites here.
-6. A declaration that adds no section of its own (a derived back-reference, a
+6. A declaration that adds no token of its own (a derived back-reference, a
    materialised ownership list) carries neither annotation — it is covered by its
    owner's.
 
 Restated as the three things the validator checks: `@CodeSpec` appears on the
 emission unit and nowhere below it; an emission unit carries both annotations or
-neither; and where both appear, their section-id sets are equal.
+neither; and where both appear, their token sets are equal.
 
 ### 2.6 Cross-references — which type carries which edge
 
@@ -1031,6 +1045,21 @@ CE-DB write path and the CE-API handler); it is entered once, at the earlier, an
 its Locus point names the other. And a part may emit an unmarked half in a later
 slice (CE-NT delivery, CE-UP server persistence); that half has no marker, so it
 has no entry, and again the Locus point carries it.
+
+**How a point-7 row names its sections.** A row writes the class-level id of the
+*routing* section type — `DocRef('DAENT', …)` reads "the edge this description
+fixes comes from the entity's section". The row thereby fixes the description
+and the routing, not the emitted id: what is emitted is §2.5 rule 2's extract
+token routed from that section (`DAENT-IDEN` for the entity head's form,
+`content` for a narrative field or a form riding it), one `DocRef` per token.
+Where a section's values split across several tokens, the row's phrasing splits
+with them — each token's `DocRef` carries the clause covering what that token
+supplied. The converse holds for multiplicity: a row that says "one `DocRef`
+per contributing step" enumerates **edges**, and §2.5 rule 1 merges the edges
+that share a token into one `DocRef` with a widened description. A class-level
+id is not an extract key, and a back-link check 36 cannot resolve against an
+extract is a defect, so the row's id never reaches the code verbatim unless a
+routed field happens to carry it.
 
 ### 3.0 Across every slice — the abstract collaborator
 
@@ -1384,7 +1413,7 @@ of a setting's properties can be authored at all.
 | **4 Naming** | Holder = `<App>ServerConfig`. Member = **N5** over the authored key (declared) or **N2/N3 over the N10-derived key** (fixed) — both paths converge on the same member-naming rule, applied to a key that is authored in one and derived in the other. |
 | **5 Locus** | `server`. Deployment-environment names appearing in values are `codespecs_mapping.md` §5.23 exemption 2 — verbatim strings, not refs. |
 | **6 Cross-refs** | None typed. Log format, storage, protection and retention land here rather than on CE-LG — they are sink deployment settings. The compliance *report* lands on neither: reviewing and reporting from the log is a follow-up process, not generated code (`codespecs_mapping.md` §4.3.2). |
-| **7 Back-link** | **Declared:** `@DocSpec([DocRef('SCSET', 'supplies the setting key, type, default, sources, secret mark and overridability')])`. **Fixed:** `@DocSpec([DocRef('<band section id>', 'supplies the value of this model-named setting')])` — the band's own id, which is what makes check 19 decidable from the emitted code alone. |
+| **7 Back-link** | **Declared:** `@DocSpec([DocRef('SCSET', 'supplies the setting key, type, default, sources, secret mark and overridability')])`. **Fixed:** `@DocSpec([DocRef('<band section>', 'supplies the value of this model-named setting')])`. Both shapes ride narrative-borne forms, so both emit §2.5 rule 2's token and the back-link cannot tell them apart — which is why check 19 decides the declared shape by the **key** instead: a secret member's authored key must match a declared entry's `settingKey` in the extracts. |
 
 **Why a secret is only ever declared.** A credential's *identity* is
 application-specific — no model can name a particular sink's password in
@@ -1599,7 +1628,7 @@ component admits no order in which each reference follows its referent.
 | **4 Naming** | camelCase of the operation name's last segment + `Call`; its three bodies are `assembleRequest`, `handleResponse` and `handleError`, fixed names since the three roles are the entry's, not the spec's — and `SVCST.role`'s three values are those same three words, so a step names its body rather than describing it. The collaborator §3.0.1 names takes that identifier **PascalCased**, plus `Collaborator` (`SubmitOrderCallCollaborator`): this declaration's identifier is camelCase where §3.0.1's other four owners are already PascalCase, and a class name is PascalCase in every locus. Its methods follow §3.0.1 unchanged — the calling body's identifier, then the step's headline (`handleErrorSurfaceTheRejectionToTheUser`), so two steps of different roles cannot collide however alike their headlines. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | `CsOperationRef` outbound; emits `CsCallRef` for the action edge. Cites `CsErrorCode` for each error it handles. |
-| **7 Back-link** | `@DocSpec([DocRef('MNSST', 'supplies the interaction step this call performs')])`, with the actual step section id substituted. Each 3b body additionally carries one `DocRef('SVCST', 'supplies a step of this call\'s <role>')` per step it took a statement from — the calling entry back-links a step for its **position**, the collaborator method for its **behaviour**, which is the two-edges-out-of-one-section case §3.0.1 states. |
+| **7 Back-link** | `@DocSpec([DocRef('MNSST', 'supplies the interaction step this call performs')])` — `ALST` / `EXTST` / `SCNST` substituted when the issuing step is of that kind. Each 3b body additionally carries `DocRef('SVCST', 'supplies a step of this call\'s <role>')` for the steps it took statements from — the calling entry back-links a step for its **position**, the collaborator method for its **behaviour**, which is the two-edges-out-of-one-source case §3.0.1 states. |
 
 #### 3.5.8 `@CsRoute` — CE-NV route
 
@@ -1777,7 +1806,8 @@ DataEntityEntry <!--[IMO-014]--> Customer
 | `String` type | test **(a)** | carried by the member declaration, never repeated in `@CsColumn` |
 | `accessKey` | §2.6 | `CsResourceKeyRef`, resolved by N9 against the shared CE-AZ catalogue |
 | File facet | §3.3.3 | its **presence** is the column kind; `store` and `defaultMediaType` omitted → deployment defaults |
-| `@CodeSpec.source` | §2.5 rules 4–5 | the class is the emission unit, so its `@DocSpec` enumerates its members' sections too and `source` equals that set: `{IMO-014, IMO-014-a, DATAA, IMO-014-b, DAATT-DTFR}` |
+| Back-link tokens | §2.5 rule 2 | the entity head's form routes as `DAENT-IDEN` and its narrative as `content`; the attributes split across `DAATT-IDEN` (name, column), `DAATT-DATA` (types, kind) and `DAATT-SECU` (access key); the constraint's `maxLength` rides the constraint entry's narrative field, so it is `content` **too** — the instance ids in the rendering above never reach the code |
+| `@CodeSpec.source` | §2.5 rules 4–5 | the class is the emission unit, so its `@DocSpec` enumerates its members' tokens too and `source` equals that set: `{DAENT-IDEN, content, DAATT-IDEN, DAATT-DATA, DAATT-SECU, DAATT-DTFR}` |
 | Class doc comment | §2.8 P1 + C1 | `description` becomes the summary, `content` the body, separated by one `///` line — and the `—` stays as authored (C4 rule 5 normalises nothing) |
 | `name`'s doc comment | §2.8 P2 | `IMO-014-a` has a `description`, so the member gets one |
 | `signedContract`'s doc comment | §2.8 P2 | `IMO-014-b` has none, so the member gets none — the `@DocSpec` is still emitted, because the section *was* consumed |
@@ -1803,21 +1833,31 @@ import '../authorization/resource_keys.dart';
 /// Customers are never deleted — a closed account keeps its orders.
 @CodeSpec(
   'dataAccess.Customer',
-  source: ['IMO-014', 'IMO-014-a', 'DATAA', 'IMO-014-b', 'DAATT-DTFR'],
+  source: [
+    'DAENT-IDEN',
+    'content',
+    'DAATT-IDEN',
+    'DAATT-DATA',
+    'DAATT-SECU',
+    'DAATT-DTFR',
+  ],
 )
 @DocSpec([
-  DocRef('IMO-014', 'supplies the entity, its table and its storage placement'),
-  DocRef('IMO-014-a', 'supplies the stored attribute, its column and its storage type'),
-  DocRef('DATAA', 'supplies the maximum length'),
-  DocRef('IMO-014-b', 'supplies the stored attribute, its column and its storage type'),
+  DocRef('DAENT-IDEN', 'supplies the entity, its table and its storage placement'),
+  DocRef('content', 'supplies the entity narrative and the maximum length'),
+  DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
+  DocRef('DAATT-DATA', 'supplies the storage type'),
+  DocRef('DAATT-SECU', 'supplies the column-access key'),
   DocRef('DAATT-DTFR', 'supplies the file-reference facet settings'),
 ])
 @CsTable('customer', datasource: 'core')
 class Customer {
   /// The name the customer trades under.
   @DocSpec([
-    DocRef('IMO-014-a', 'supplies the stored attribute, its column and its storage type'),
-    DocRef('DATAA', 'supplies the maximum length'),
+    DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
+    DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef('DAATT-SECU', 'supplies the column-access key'),
+    DocRef('content', 'supplies the maximum length'),
   ])
   @CsColumn(
     column: 'cust_name',
@@ -1828,7 +1868,8 @@ class Customer {
   late String name;
 
   @DocSpec([
-    DocRef('IMO-014-b', 'supplies the stored attribute, its column and its storage type'),
+    DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
+    DocRef('DAATT-DATA', 'supplies the storage type'),
     DocRef('DAATT-DTFR', 'supplies the file-reference facet settings'),
   ])
   @CsColumn(
@@ -1857,9 +1898,12 @@ class Customer {
   repository writes the column through.
 - **Both back-links agree.** The class is the emission unit, so it alone carries
   `@CodeSpec`; the two members carry `@DocSpec` only. Its `@DocSpec` lists all
-  five sections and `source` equals that set — §2.5 rules 4–5, which a validator
-  check enforces. `DATAA` is in both because it fed `length: 80`, and a section
-  the code took something from is a section the gap analysis has to see.
+  six tokens and `source` equals that set — §2.5 rules 4–5, which a validator
+  check enforces. `content` is on both the class and `name` because the
+  constraint's maximum length rides the constraint entry's narrative field —
+  the token is coarse there by design (§2.5 rule 2), and the two descriptions
+  say which edge is which. A token the code took something from is a token the
+  gap analysis has to see.
 - **Every comment is derived.** The three `//` banner lines are §2.7 part 1; the
   class doc comment is §2.8 P1 over `IMO-014`'s `description` + `content`;
   `name`'s is P2 over `IMO-014-a`'s `description`. `signedContract` has no
@@ -1929,7 +1973,8 @@ ScreenActionEntry <!--[XDS-104]--> Save customer
 | Where the branch sits | B5 | immediately before step 2's statement. `branchPoint: "ISC-021-2"` is a `MNSST.@sectionId` reference, so the step is resolved rather than matched — and the branch is taken *instead of* that step, so it precedes it |
 | How the branch ends | B6 | `returnKind: endFlow` ends the block `return;` — `saveCustomer` returns `Future<void>`, so there is no value to carry out. Control does not fall through into the two steps the branch replaced, which is what the extension states |
 | Method doc comments | §2.8 P3 | `systemResponse` / `response` / `condition` verbatim — and fatal when absent, which is the second reason step 1 yields no method rather than an undocumented one |
-| Back-links | §3.0.1 point 7, §2.5 rules 4–5 | both declarations cite `ISC-021-2`, `ISC-021-3` and `ISC-021-X1-1`: the caller for each step's position in the sequence, the collaborator for its behaviour. `ISC-021-X1` is cited by the guard for its condition, and by the caller for the branch it placed. `@CodeSpec` sits on the two classes only — `saveCustomer` and the four abstract methods carry `@DocSpec` alone, and each class's `@DocSpec` repeats its members' sections so that `source` accounts for them |
+| Back-link tokens | §2.5 rule 2 | every contributing value here — the scenario narrative, each step's `systemResponse`, the extension's `condition` and `response`, the screen action's fields — rides a narrative-borne form, so every edge carries the one token `content`. The instance ids in the rendering above never reach the code; the descriptions and the doc comments are what tell the edges apart |
+| Back-links | §3.0.1 point 7, §2.5 rules 1 and 4–5 | each declaration cites `content` **once** — rule 1's dedupe — with a description widened over its edges: the caller for the steps' position and the branch it placed, the collaborator for the steps' behaviour and the branch's condition. `@CodeSpec` sits on the two classes only — `saveCustomer` and the four abstract methods carry `@DocSpec` alone, and each class's `@DocSpec` covers its members' tokens so that `source` accounts for them |
 | Locus and files | §3.0.1 point 5, N7 | `<app>_codespec_client/lib/src/action/customer_action_controller.dart` and `…_collaborator.dart` |
 
 #### The output
@@ -1949,32 +1994,32 @@ import '../view_state/customer_view_model.dart';
 /// The clerk corrects a customer record and saves it.
 @CodeSpec(
   'action.CustomerActionControllerCollaborator',
-  source: ['ISC-021', 'ISC-021-2', 'ISC-021-3', 'ISC-021-X1', 'ISC-021-X1-1'],
+  source: ['content'],
 )
 @DocSpec([
-  DocRef('ISC-021', 'supplies the step list this collaborator carries'),
-  DocRef('ISC-021-2', 'supplies the behaviour this step states'),
-  DocRef('ISC-021-3', 'supplies the behaviour this step states'),
-  DocRef('ISC-021-X1', 'supplies the condition this branch is taken under'),
-  DocRef('ISC-021-X1-1', 'supplies the behaviour this step states'),
+  DocRef(
+    'content',
+    'supplies the step list this collaborator carries, the behaviour each '
+    'step states and the condition the branch is taken under',
+  ),
 ])
 @CsCollaborator()
 abstract class CustomerActionControllerCollaborator {
   /// The edited values are checked against the customer rules.
   @DocSpec([
-    DocRef('ISC-021-2', 'supplies the behaviour this step states'),
+    DocRef('content', 'supplies the behaviour this step states'),
   ])
   Future<void> saveCustomerCheckTheEditedValues(CustomerViewModel context);
 
   /// The customer record is stored and the list is reloaded.
   @DocSpec([
-    DocRef('ISC-021-3', 'supplies the behaviour this step states'),
+    DocRef('content', 'supplies the behaviour this step states'),
   ])
   Future<void> saveCustomerStoreTheRecord(CustomerViewModel context);
 
   /// The customer is on credit hold.
   @DocSpec([
-    DocRef('ISC-021-X1', 'supplies the condition this branch is taken under'),
+    DocRef('content', 'supplies the condition this branch is taken under'),
   ])
   Future<bool> saveCustomerCustomerIsOnCreditHoldApplies(
     CustomerViewModel context,
@@ -1982,7 +2027,7 @@ abstract class CustomerActionControllerCollaborator {
 
   /// The save is refused and the hold reason is shown.
   @DocSpec([
-    DocRef('ISC-021-X1-1', 'supplies the behaviour this step states'),
+    DocRef('content', 'supplies the behaviour this step states'),
   ])
   Future<void> saveCustomerRefuseTheSave(CustomerViewModel context);
 }
@@ -1997,11 +2042,11 @@ business and are left out here:
 
   /// Saves the edited customer record.
   @DocSpec([
-    DocRef('XDS-104', 'supplies the action and its context requirement'),
-    DocRef('ISC-021-2', 'supplies the step this body performs, in sequence'),
-    DocRef('ISC-021-3', 'supplies the step this body performs, in sequence'),
-    DocRef('ISC-021-X1', 'supplies the branch this body guards'),
-    DocRef('ISC-021-X1-1', 'supplies the step this body performs, in sequence'),
+    DocRef(
+      'content',
+      'supplies the action and its context requirement, the steps this body '
+      'performs in sequence and the branch it guards',
+    ),
   ])
   @CsAction()
   Future<void> saveCustomer(CustomerViewModel context) async {
@@ -2044,16 +2089,21 @@ business and are left out here:
   collaborator method's P3 doc comment, not an in-body comment (§2.8 C6). A
   reader asking what the step does reads a declaration — and so does the
   validator.
-- **One section, two edges.** `ISC-021-2` is back-linked twice with two
-  different descriptions: position from the caller, behaviour from the
-  collaborator. §2.5 rule 3's "describe the edge, not the section" is what keeps
-  the two legible as one section consumed twice rather than one edge duplicated.
-  The caller and the collaborator are two emission units, so the section lands in
-  two `@CodeSpec.source` sets and the gap analysis sees it from both.
+- **One token, many edges.** Every contributing value here rides a
+  narrative-borne form — the scenario's steps, the extension, the screen action —
+  so every back-link carries the single token `content`: §2.5 rule 2's accepted
+  coarseness at its extreme. Rule 1's dedupe keeps each declaration to one
+  `DocRef`, and the descriptions are what keep the edges apart — each
+  collaborator method says what its step states, while the caller's one widened
+  description covers the action, the sequence and the guard. §2.5 rule 3's
+  "describe the edge, not the section" is what keeps same-token edges legible.
+  The caller and the collaborator are two emission units, so the token lands in
+  two `@CodeSpec.source` sets and the gap analysis sees the consumption from
+  both.
 - **`@CodeSpec` marks units, `@DocSpec` marks declarations.** The collaborator
   class carries both; its four abstract methods carry `@DocSpec` only, as does
   `saveCustomer` on the controller. That split is §2.5's, and it is why a
-  method's own section still reaches `source` — the class repeats it (rule 5).
+  method's own token still reaches `source` — the class repeats it (rule 5).
 
 ---
 
@@ -2189,10 +2239,12 @@ trio alone and ask whether it is internally coherent. Four questions cannot be
 answered that way, and each brings its own corroborating input: the CE-MG
 migrations (check 13), the `tom_core` catalogues a marker's vocabulary mirrors
 (check 9), a second generation run (check 31), and the **extracts** — what the
-agent was *given* (`codespecs_mapping.md` §1.1.1), which is what checks 32–36
-read. A comment claims to carry specification text, and only the extract holds
-that text; no reading of the output alone can tell a copied sentence from a
-composed one, nor a complete transfer from a partial one. Every corroborating
+agent was *given* (`codespecs_mapping.md` §1.1.1), which is what checks 19 and
+32–36 read. A comment claims to carry specification text, and only the extract
+holds that text; no reading of the output alone can tell a copied sentence from
+a composed one, nor a complete transfer from a partial one — and only the
+extract holds the declared setting keys a secret must resolve against, since
+both CE-CF shapes emit the same back-link token. Every corroborating
 input is optional at the CLI, and when one is absent its checks raise nothing
 and `validate_codespecs.dart` **writes that on stdout**, for the reason spelled
 out under check 31: a silent pass would read as a verified one.
@@ -2228,7 +2280,7 @@ validator's pass over the resolved annotation for **all** thirty-seven.
 | 4 | A missing authored key (message key, error code, setting key, operation name, route id) **fails** | §2.1 N5 | `CsMissingAuthoredKeyCheck` |
 | 5 | A form-3a body with an empty SOM description **fails** | §2.4 | `CsEmptyExplicationCheck` |
 | 6 | No generated body returns a fabricated value — a 3b `return` is admissible only where the returned value came out of a collaborator or substrate call | §2.4 invariant 2 | `CsFabricatedValueCheck` |
-| 7 | `@CodeSpec` sits on the emission unit, which carries `@DocSpec` too, and the two section-id sets are equal | §2.5 rules 4–5 | `CsBackLinkAgreementCheck` |
+| 7 | `@CodeSpec` sits on the emission unit, which carries `@DocSpec` too, and the two token sets are equal | §2.5 rules 4–5 | `CsBackLinkAgreementCheck` |
 | 8 | Only the slots of a marker's declared kind are non-null (`@CsTrigger`, `@CsAuthorize`, `@CsJob`) | §2.3 | `CsSlotExclusivityCheck` |
 | 9 | Every mirrored enum matches its `tom_core` counterpart value-for-value | §5.3 | `CsMirroredCatalogueCheck` |
 | 10 | `@CsText` with `role == error` has `category == errorCopy` | §3.1.3 | `CsErrorCopyCategoryCheck` |
@@ -2240,7 +2292,7 @@ validator's pass over the resolved annotation for **all** thirty-seven.
 | 16 | A `@CsServerConfig(secret: true)` member has **no initialiser** — a secret declares presence and shape only, so a default is a credential in the source tree | §3.3.6 | `CsSecretInitialiserCheck` |
 | 17 | Every `TomNotificationChannelDeclaration.fallbackChannelId` resolves to a channel declared in the same catalogue | §3.2.9 | `CsFallbackChannelCheck` |
 | 18 | Every `TomReportColumn.drillThroughRouteId` resolves to a CE-NV route declared in the **client** project | §3.3.9 | `CsDrillThroughRouteCheck` |
-| 19 | A `@CsServerConfig(secret: true)` member's `@DocSpec` names **`SCSET`** — a secret is only ever authored on the declared path, so one traced to a fixed band means a credential slot was invented in a policy section | §3.3.6 | `CsSecretIsDeclaredCheck` |
+| 19 | A `@CsServerConfig(secret: true)` member's key matches a declared `SCSET` entry's `settingKey` in the extracts — a secret is only ever authored on the declared path, so a key no entry declares means a credential slot was invented in a policy section | §3.3.6 | `CsSecretIsDeclaredCheck` |
 | 20 | Two `@CsServerConfig` members never claim the same setting key — derived and authored keys share one namespace, and neither shape can see the other while it is authored | §2.1 N10 | `CsSettingKeyCollisionCheck` |
 | 21 | A `CsGradedAccess` slot's `@CsAuthorize` is never itself `graded` — the graded depth is exactly one level | §3.4.3 | `CsGradedDepthCheck` |
 | 22 | A `@CsColumn` member is **never** a `TomN*` or any other observable, which the shipped repository can read but cannot write | §3.3.2 | `CsColumnNotObservableCheck` |
@@ -2256,8 +2308,8 @@ validator's pass over the resolved annotation for **all** thirty-seven.
 | 32 | Every doc-comment line occurs in the extract of a section the declaration traces to — a line that occurs in no extract is prose the agent composed | §2.8 C1 | `CsCommentSourceCheck` |
 | 33 | A grouped holder — a top-level declaration with no `@DocSpec` — carries C3's one-line template and no other generated prose | §2.8 C3 | `CsGroupedHolderCommentCheck` |
 | 34 | A doc-comment line is its source line entire — not a re-wrap of it, and not a value the comment stopped rendering part-way | §2.8 C4.2 | `CsCommentFidelityCheck` |
-| 35 | Every section the extracts hold a value for is cited by a back-link in the trio — an uncited section is a specification fact that reached no code | §9.6 of `codespecs_mapping.md` | `CsExtractCoverageCheck` |
-| 36 | Every section id a back-link names exists in the extracts — a trace to a section no area routed is stale or invented | §9.6 of `codespecs_mapping.md` | `CsBackLinkExtractedCheck` |
+| 35 | Every token the extracts hold a value for is cited by a back-link in the trio — an uncited token is a specification fact that reached no code | §9.6 of `codespecs_mapping.md` | `CsExtractCoverageCheck` |
+| 36 | Every token a back-link names exists in the extracts — a trace to a token no area routed is stale or invented | §9.6 of `codespecs_mapping.md` | `CsBackLinkExtractedCheck` |
 | 37 | A member reflection writes — a `@CsColumn` attribute, a CE-API DTO field — is a plain field, `late` where it is non-nullable and **never `final`**, because reflection assigns through a setter a final field does not have. A `static` holder, the `collaborator` seam, and a member the declaration assigns in its own method body are §2.4's carve-outs | §2.4 | `CsReflectionWrittenNotFinalCheck` |
 
 **Check 23 is the one that makes "compiles" checkable before a compiler sees
@@ -2392,7 +2444,7 @@ what its input can show.
 32–34 ask whether what the trio *says* came from the specification; 35 and 36
 ask whether what the specification *said* reached the trio at all. Both belong
 to the fourth corroborating-input category above — the extract — and neither is
-a comment rule: they compare **section id sets**, not text, so they are the only
+a comment rule: they compare **token sets**, not text, so they are the only
 two checks that read the extract without reading a single character of a value.
 The rule they enforce is the self-sufficiency requirement of §9.6 of
 `codespecs_mapping.md`, which is why their **Defined in** cell leaves this

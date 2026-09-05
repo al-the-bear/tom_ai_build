@@ -1545,15 +1545,23 @@ class CsDrillThroughRouteCheck extends CodeSpecsCheck {
 /// *declared* shape, where the application owns the setting key and authors
 /// every property of it, and the *fixed* shape, where the model owns the key
 /// and the author supplies the value only. `secret: true` is authorable on the
-/// declared shape alone, so a secret member's `@DocSpec` back-link must name
-/// [_declaredShapeSection]. One traced to a fixed band means a credential slot
-/// was invented in a policy section.
+/// declared shape alone. Both shapes ride narrative-borne forms, so both emit
+/// the same back-link token (`codespecs_derivation_contract.md` §2.5 rule 2)
+/// and the `@DocSpec` cannot tell them
+/// apart — what can is the **key**: the declared shape's key is authored
+/// verbatim into the extract as a [_declaredShapeClass] `settingKey` value,
+/// while a fixed band's key is N10-derived and appears in no extract. A secret
+/// member whose key the extracts do not declare means a credential slot was
+/// invented in a policy section.
 class CsSecretIsDeclaredCheck extends CodeSpecsCheck {
   /// Creates the check.
   const CsSecretIsDeclaredCheck();
 
-  /// The SOM section id of CE-CF's declared shape.
-  static const _declaredShapeSection = 'SCSET';
+  /// The SOM model class of CE-CF's declared shape.
+  static const _declaredShapeClass = 'ServerConfigurationSettingEntry';
+
+  /// The `@Form` field of [_declaredShapeClass] that authors the key.
+  static const _keyFormField = 'settingKey';
 
   @override
   int get number => 19;
@@ -1563,34 +1571,30 @@ class CsSecretIsDeclaredCheck extends CodeSpecsCheck {
 
   @override
   String get title =>
-      'A @CsServerConfig(secret: true) member is traced to $_declaredShapeSection';
+      'A @CsServerConfig(secret: true) member keys a declared setting';
 
   @override
   List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    if (input.extracts.isEmpty) return const [];
+    final declaredKeys = <String>{
+      for (final e in input.extracts.entries)
+        if (e.className == _declaredShapeClass && e.formField == _keyFormField)
+          e.value.trim(),
+    };
     final out = <CodeSpecsViolation>[];
     for (final declaration in input.declarations) {
       final marker = declaration.marker('CsServerConfig');
       if (marker == null) continue;
       final secret = marker.named['secret'];
       if (secret is! CsBoolValue || !secret.value) continue;
-      final docSpec = declaration.docSpec;
-      if (docSpec == null) {
-        out.add(
-          fail(
-            '${declaration.path} is a secret setting with no @DocSpec '
-            'back-link — a secret is only ever authored as a '
-            '$_declaredShapeSection entry, and the back-link is what says so',
-            declaration.location,
-          ),
-        );
-        continue;
-      }
-      final sections = docSpec.map((r) => r.sectionId).toSet();
-      if (sections.contains(_declaredShapeSection)) continue;
+      final key = marker.firstPositionalString?.trim();
+      // A blank key is check 4's violation, not this one's.
+      if (key == null || key.isEmpty) continue;
+      if (declaredKeys.contains(key)) continue;
       out.add(
         fail(
-          '${declaration.path} is a secret setting traced to '
-          '{${sections.join(', ')}} rather than $_declaredShapeSection — the '
+          "${declaration.path} is a secret setting whose key '$key' matches "
+          'no declared $_declaredShapeClass entry in the extracts — the '
           'fixed-shape CE-CF bands name settings the model owns and carry '
           'values only, so a credential slot there is a specification defect',
           declaration.location,
@@ -3203,19 +3207,24 @@ class CsCommentFidelityCheck extends CodeSpecsCheck {
 // 35, 36 — the transfer between the extract and the trio
 // ---------------------------------------------------------------------------
 
-/// Every SOM section id [declaration] traces to, across **both** back-links.
+/// Every extract token [declaration] traces to, across **both** back-links.
+///
+/// A token is `codespecs_derivation_contract.md` §2.5 rule 2's vocabulary: the
+/// `@SectionId` of the SOM *field* the extract routed the value from, or the
+/// field's own name where it carries none — which for a narrative field is the
+/// pseudo-id `content`.
 ///
 /// The union rather than either one alone. `codespecs_derivation_contract.md`
 /// §2.5 rule 4 makes the two sets equal per declaration and check 7 enforces
 /// it, so where they differ the fault is already reported — taking the union
-/// means checks 35 and 36 fire only on a section cited by *neither*, which is
+/// means checks 35 and 36 fire only on a token cited by *neither*, which is
 /// unambiguously a transfer defect and not a second message for check 7's.
 Set<String> csCitedSectionIdsOf(CsDeclaration declaration) => {
       ...?declaration.codeSpec?.source,
       ...?declaration.docSpec?.map((r) => r.sectionId),
     };
 
-/// Every SOM section id the trio traces to.
+/// Every extract token the trio traces to.
 Set<String> csCitedSectionIds(CodeSpecsValidationInput input) => {
       for (final declaration in input.declarations)
         ...csCitedSectionIdsOf(declaration),
@@ -3224,8 +3233,8 @@ Set<String> csCitedSectionIds(CodeSpecsValidationInput input) => {
 /// `codespecs_derivation_contract.md` §6 check 35.
 ///
 /// `codespecs_mapping.md` §9.6 comparison 1, at the granularity it names: the
-/// set of routed section ids, set-differenced against what the trio's
-/// back-links cite. A section on the left and not on the right is a
+/// set of routed extract tokens, set-differenced against what the trio's
+/// back-links cite. A token on the left and not on the right is a
 /// specification fact that reached no code, and it is invisible from the trio
 /// alone — the output is the answer, and this comparison needs the question.
 ///
@@ -3254,8 +3263,8 @@ class CsExtractCoverageCheck extends CodeSpecsCheck {
 
   @override
   String get title =>
-      'Every section the extracts hold a value for is cited by a back-link in '
-      'the trio — an uncited section is a specification fact that reached no '
+      'Every token the extracts hold a value for is cited by a back-link in '
+      'the trio — an uncited token is a specification fact that reached no '
       'code';
 
   @override
@@ -3264,9 +3273,9 @@ class CsExtractCoverageCheck extends CodeSpecsCheck {
     final cited = csCitedSectionIds(input);
     final out = <CodeSpecsViolation>[];
     for (final extract in input.extracts.extracts) {
-      // One violation per uncited section of an area, not per value: the gap is
-      // that the *section* reached no code, and a section with nine fields
-      // would otherwise be reported nine times over one fault.
+      // One violation per uncited token of an area, not per value: the gap is
+      // that the *token* reached no code, and a token with nine values behind
+      // it would otherwise be reported nine times over one fault.
       final reported = <String>{};
       for (final entry in extract.entries) {
         if (cited.contains(entry.sectionId)) continue;
@@ -3279,7 +3288,7 @@ class CsExtractCoverageCheck extends CodeSpecsCheck {
           fail(
             '${extract.source} routes ${values.length} value(s) of '
             '${entry.sectionId} to ${extract.areaCode}$at ($origins), and no '
-            '@CodeSpec or @DocSpec in the trio names that section — the '
+            '@CodeSpec or @DocSpec in the trio names that token — the '
             'specification fact reached no code, so Phase 5 and Phase 6 would '
             'have to reopen the document to find it',
           ),
@@ -3293,17 +3302,17 @@ class CsExtractCoverageCheck extends CodeSpecsCheck {
 /// `codespecs_derivation_contract.md` §6 check 36.
 ///
 /// The converse of check 35, and a different defect rather than the same one
-/// read backwards. A `DocRef` naming a section no extract holds is a back-link
-/// with nothing behind it: either the section id is stale — the model renamed
-/// it and the trio still points at the old one — or the agent invented it to
+/// read backwards. A `DocRef` naming a token no extract holds is a back-link
+/// with nothing behind it: either the token is stale — the model renamed the
+/// field and the trio still points at the old one — or the agent invented it to
 /// satisfy `codespecs_derivation_contract.md` §2.5's requirement that every
 /// declaration carry one. Both make the `codespecs_mapping.md` §9.6 trace lie,
-/// and both are silent otherwise: an id is a string, and no reading of the trio
-/// can tell a real section id from a plausible one.
+/// and both are silent otherwise: a token is a string, and no reading of the
+/// trio can tell a real token from a plausible one.
 ///
-/// Check 32 deliberately *skips* a section the extracts do not know, on the
+/// Check 32 deliberately *skips* a token the extracts do not know, on the
 /// grounds that it cannot judge a comment against text it does not have. This
-/// check is where that skip is accounted for, so an unknown section is reported
+/// check is where that skip is accounted for, so an unknown token is reported
 /// exactly once and by the check whose rule it breaks.
 class CsBackLinkExtractedCheck extends CodeSpecsCheck {
   /// Creates the check.
@@ -3317,8 +3326,8 @@ class CsBackLinkExtractedCheck extends CodeSpecsCheck {
 
   @override
   String get title =>
-      'Every section id a back-link names exists in the extracts — a trace to '
-      'a section no area routed is stale or invented';
+      'Every token a back-link names exists in the extracts — a trace to a '
+      'token no area routed is stale or invented';
 
   @override
   List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
@@ -3330,7 +3339,7 @@ class CsBackLinkExtractedCheck extends CodeSpecsCheck {
         out.add(
           fail(
             '${declaration.path} traces to $sectionId, which no extract holds '
-            '— a back-link to a section no area routed is either a stale id or '
+            '— a back-link to a token no area routed is either a stale id or '
             'one written to satisfy §2.5, and neither states where the code '
             'came from',
             declaration.location,

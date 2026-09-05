@@ -133,10 +133,10 @@ Future<void> main(List<String> arguments) async {
   }
   if (extracts.isEmpty) {
     stdout.writeln(
-      'codespecs: checks 32, 33 and 34 (comment source, template and fidelity) '
-      'and checks 35 and 36 (extract coverage and back-link resolution) not '
-      'run — pass --extracts pointing at the run\'s '
-      'generated-doc/codespecs_extracts directory.',
+      'codespecs: check 19 (secret is declared), checks 32, 33 and 34 '
+      '(comment source, template and fidelity) and checks 35 and 36 (extract '
+      'coverage and back-link resolution) not run — pass --extracts pointing '
+      'at the run\'s generated-doc/codespecs_extracts directory.',
     );
   }
 

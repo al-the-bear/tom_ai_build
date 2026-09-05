@@ -136,7 +136,7 @@ to read.
 |---|---|
 | **Location** | `<spec-root>/generated-doc/codespecs_extracts/` — the `generated-doc/<type>/` convention (`overview.tom_specs.md` Document Map), rooted at the folder that holds the specification document. For TomSpecs' own worked example that root is `tom_ai/ai_build/tom_specs_model/`; for a specified project it is that project's. |
 | **Names** | `<CE-CODE>.extract.yaml` and `<CE-CODE>.extract.md`, where `<CE-CODE>` is the §4.1 registry key verbatim — `CE-FM.extract.yaml`, `CE-API.extract.md`. The registry key is used because §4.1 fixes it as permanent: never reused, never renamed. |
-| **Entry** | Section id · class name · field name · the verbatim value · the `@CodeSpecKind` value that routed it here · source location. |
+| **Entry** | Extract token (the routed field's `@SectionId`, or its own name where it carries none — `codespecs_derivation_contract.md` §2.5 rule 2) · class name · field name · form field where applicable · the verbatim value · the `@CodeSpecKind` value that routed it here · source location. |
 | **Authority** | The YAML is the artifact of record; the Markdown is a *view* and is regenerated from it. Nothing reads the Markdown as input. |
 
 The YAML carries the authority because the whole value of an extract is that its
@@ -468,8 +468,9 @@ it is fixed here rather than left to the reporting agent. Four items:
 1. **What was emitted** — each declaration by fully-qualified name and file,
    under its locus project; or, for a non-owning entry, the single reference
    emitted and the declaration it points at.
-2. **The section id it was derived from**, verbatim from the entry, so the report
-   and the emitted `@CodeSpec.source` can be compared without reading the code.
+2. **The extract token it was derived from**, verbatim from the entry, so the
+   report and the emitted `@CodeSpec.source` can be compared without reading the
+   code.
 3. **The `Cs*` markers applied**, and for each whether every required argument
    was filled from the entry.
 4. **Any intra-component slot left for pass 2** — empty for an ordinary step, the
@@ -2223,7 +2224,8 @@ is assembled from the screen sections that name its states and its data-bound
 displays, plus the attribute entries that give each field its type and its
 requirement level; the typed field tree is the *output* of that crossing rather
 than a shape an author restates. `codespecs_derivation_contract.md` §3.5.1 fixes
-the crossing, down to which section each field's `@DocSpec` back-link names.
+the crossing, down to which extract token each field's `@DocSpec` back-link
+names.
 
 ### 5.5 CE-CF server-configuration model + system-vs-user config scoping
 
@@ -3493,8 +3495,10 @@ secrets at all — the model already answers this question, and this paragraph i
 where the answer is written down. An audit sink needing credentials for a remote store authors them
 as `SCSET` entries (`audit.sink.password`); `LOSTPO` names the storage *policy*,
 never the credential to reach it. `codespecs_derivation_contract.md` §6 check 19
-enforces this from the emitted code, since a `secret: true` member's `@DocSpec`
-back-link names the band it came from.
+enforces this from the emitted code against the extracts: a `secret: true`
+member's authored key must match a declared `SCSET` entry's `settingKey`, since
+both shapes ride narrative-borne forms and emit the same back-link token — a key
+no entry declares means the credential slot was invented in a policy section.
 
 **Corollary — a fixed setting is never overridable.** Every fixed band is
 security, infrastructure or environment-wide deployment policy, which the
@@ -4311,7 +4315,7 @@ compiler:
    vocabulary, not code.
 3. **CE-MG migration artifact filenames**: SQL artifacts, not Dart; the named
    schema-convergence validator check is the integrity mechanism.
-4. **Doc-side `codeSpec` locations and `@DocSpec` SOM section ids**
+4. **Doc-side `codeSpec` locations and `@DocSpec` extract tokens**
    (§9.2/§9.3): documents are not compiled; already validator-checked.
 
 The list is **closed at four**, and the clause above says why no fifth can be
@@ -5145,8 +5149,8 @@ document order, in slice 3.
 | **Deferred (§4.3)** | per the §4.3 "SOM home section" column | **Mapping-only**: the SOM section carries `@CodeSpecKind` with the reserved kind; no CodeSpecs code until promoted. |
 
 **Derivation principle:** the SOM's stable `@SectionId` is the join key — each
-generated element's `@CodeSpec(source: [...])` cites the SOM section IDs it came
-from as a flat set (§9.3), making gap analysis a set-difference over section IDs,
+generated element's `@CodeSpec(source: [...])` cites the extract tokens it came
+from as a flat set (§9.3), making gap analysis a set-difference over tokens,
 and its `@DocSpec([DocRef(sectionId, …), …])` says what it took from each.
 
 ### 8.1 The CodeSpecs surface is bounded
@@ -5663,15 +5667,18 @@ They are also placed differently: `@CodeSpec` on the top-level declaration only,
 its own. `codespecs_derivation_contract.md` §2.5 is the rule; the two paragraphs
 below say what each carries.
 
-- **`@CodeSpec('<id>', source: [<sectionIds>], requirements: [<ids>])`** — the
-  element's **identity**: a stable CodeSpec id, the **flat set** of section ids
-  that fed it, and the requirement ids it satisfies. Because `source` is a set,
-  §8's gap analysis is a set-difference over section ids, computable without
+- **`@CodeSpec('<id>', source: [<tokens>], requirements: [<ids>])`** — the
+  element's **identity**: a stable CodeSpec id, the **flat set** of extract
+  tokens that fed it, and the requirement ids it satisfies. Because `source` is
+  a set, §8's gap analysis is a set-difference over tokens, computable without
   reading a single description.
 - **`@DocSpec([DocRef(sectionId, description), …])`** — the **back-trace**: one
-  tuple per contributing section, each saying what the code took from that
-  section and how. `sectionId` is the SOM `@SectionId`; the description states
-  the *edge*, not the section.
+  tuple per contributing extract token, each saying what the code took from the
+  values behind that token and how. `sectionId` is the **extract token** of
+  `codespecs_derivation_contract.md` §2.5 rule 2 — the `@SectionId` of the SOM
+  *field* the extract routed the value from, or the field's own name where it
+  carries none (a narrative field yields `content`); the description states the
+  *edge*, not the section.
 
 They are kept separate because a set is what a tool reads and a sentence is what
 a human reads, and merging them would force the gap analysis to parse prose.
@@ -5679,7 +5686,7 @@ a human reads, and merging them would force the gap analysis to parse prose.
 it — the derivation contract makes that a validator check, since drift between
 them is otherwise undetectable and silently corrupts the set-difference. Because
 the declaration carrying `@CodeSpec` is the emission unit, its `@DocSpec` also
-repeats its members' sections, so `source` accounts for the whole unit and §8's
+repeats its members' tokens, so `source` accounts for the whole unit and §8's
 set-difference never has to look inside a class.
 
 ### 9.4 Why both directions
@@ -5762,14 +5769,15 @@ set and its complement is enumerable too.
 
 **How the rule is decided.** Three comparisons, none of them a reading:
 
-1. **Nothing routed is missing.** The set of routed section ids, set-differenced
-   against the union of `@CodeSpec.source` over the trio, is the set of sections
-   that reached no code. §8.5's per-part verdict is this operation at part
-   granularity; the rule needs it at section-instance granularity against one
-   project. `codespecs_derivation_contract.md` §6 check 35 is exactly this
-   difference, with the extract standing for the routed set; its converse —
-   a back-link naming a section no area routed, which is a defect of the trace
-   rather than of the transfer — is check 36.
+1. **Nothing routed is missing.** The set of routed extract tokens
+   (`codespecs_derivation_contract.md` §2.5 rule 2), set-differenced against the
+   union of `@CodeSpec.source` over the trio, is the set of routed values that
+   reached no code. §8.5's per-part verdict is this operation at part
+   granularity; the rule needs it at token granularity against one project.
+   `codespecs_derivation_contract.md` §6 check 35 is exactly this difference,
+   with the extract standing for the routed set; its converse — a back-link
+   naming a token no area routed, which is a defect of the trace rather than of
+   the transfer — is check 36.
 2. **Nothing carried is invented.** Every comment and every verbatim argument
    occurs character-for-character in its source section — the identical test
    §1.1.1 item 1 places on the extract, applied to the second artifact produced
@@ -5917,7 +5925,7 @@ are integral to it:
   compiler cannot see: required annotations, valid parameters, the §5.23-exempt
   string surfaces (config source keys + env-var/cmdline aliases,
   deployment-environment names, migration artifact filenames, doc-side
-  `codeSpec` locations + `@DocSpec` section ids), route uniqueness, and
+  `codeSpec` locations + `@DocSpec` extract tokens), route uniqueness, and
   well-known-class usage.
 - **Production stripping.** A cleanup tool comments spec-only code with the `//$`
   marker (reversible) before a production build, leaving implementation code intact.

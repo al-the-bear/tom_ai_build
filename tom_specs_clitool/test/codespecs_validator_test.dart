@@ -107,6 +107,29 @@ String _extractYaml(
 CsExtractSet _extract(List<(String, String, String)> entries) =>
     readCsExtracts({'CE-DB.extract.yaml': _extractYaml('CE-DB', entries)});
 
+/// A CE-CF extract declaring [settingKeys] as `ServerConfigurationSettingEntry`
+/// `settingKey` values — the second side check 19 resolves a secret's key
+/// against.
+CsExtractSet _settingExtract(List<String> settingKeys) {
+  final buffer = StringBuffer()
+    ..writeln('extract:')
+    ..writeln('  formatVersion: $kCsExtractFormat')
+    ..writeln('  area:')
+    ..writeln('    code: "CE-CF"')
+    ..writeln('  document:')
+    ..writeln('    root: "ATS"')
+    ..writeln('  entries:');
+  for (final key in settingKeys) {
+    buffer
+      ..writeln('    - sectionId: "content"')
+      ..writeln('      className: "ServerConfigurationSettingEntry"')
+      ..writeln('      fieldName: "content"')
+      ..writeln('      formField: "settingKey"')
+      ..writeln('      value: ${jsonEncode(key)}');
+  }
+  return readCsExtracts({'CE-CF.extract.yaml': '$buffer'});
+}
+
 /// `IMO-014`'s `content` from the §4 worked example — carried as a constant so
 /// the fixture's Dart source and the extract it is checked against cannot drift
 /// apart in the one character that matters, the em dash C4.5 leaves alone.
@@ -1219,30 +1242,32 @@ class SalesReport {
     _redGreen(
       19,
       '§3.3.6',
-      says: contains('rather than SCSET'),
+      says: contains('matches no declared'),
       red: _input(
         server: {
           'lib/a.dart': '''
 class ServerConfig {
-  @DocSpec([DocRef('LOSTPO', 'the audit sink storage policy')])
+  @DocSpec([DocRef('content', 'supplies the value of this model-named setting')])
   @CsServerConfig('logStorage.sinkPassword',
       overridableBy: CsOverridableBy.none, secret: true)
   static late final String sinkPassword;
 }
 ''',
         },
+        extracts: _settingExtract(['audit.sink.password']),
       ),
       green: _input(
         server: {
           'lib/a.dart': '''
 class ServerConfig {
-  @DocSpec([DocRef('SCSET', 'declares the audit sink credential')])
+  @DocSpec([DocRef('content', 'declares the audit sink credential')])
   @CsServerConfig('audit.sink.password',
       overridableBy: CsOverridableBy.none, secret: true)
   static late final String sinkPassword;
 }
 ''',
         },
+        extracts: _settingExtract(['audit.sink.password']),
       ),
     );
 
@@ -1253,36 +1278,35 @@ class ServerConfig {
         server: {
           'lib/a.dart': '''
 class ServerConfig {
-  @DocSpec([DocRef('LOREPO', 'the audit sink retention policy')])
+  @DocSpec([DocRef('content', 'the audit sink retention policy')])
   @CsServerConfig('logRetention.minimumRetention',
       overridableBy: CsOverridableBy.none)
   static const String minimumRetention = 'P1Y';
 }
 ''',
         },
+        extracts: _settingExtract(['audit.sink.password']),
       );
       expect(_forCheck(19, input), isEmpty);
     });
 
-    test('a secret with no back-link at all fires', () {
-      // An untraceable secret is the same defect seen from further away: the
-      // back-link is what says which shape authored it.
+    test('with no extracts there is no declared-key set, so it does not run',
+        () {
+      // The back-link token cannot tell the two CE-CF shapes apart — both ride
+      // narrative-borne forms — so the declared keys come from the extracts,
+      // and without them the check has no second side.
       final input = _input(
         server: {
           'lib/a.dart': '''
 class ServerConfig {
-  @CsServerConfig('audit.sink.password',
+  @CsServerConfig('logStorage.sinkPassword',
       overridableBy: CsOverridableBy.none, secret: true)
   static late final String sinkPassword;
 }
 ''',
         },
       );
-      expect(_forCheck(19, input), isNotEmpty);
-      expect(
-        _forCheck(19, input).first.message,
-        contains('no @DocSpec back-link'),
-      );
+      expect(_forCheck(19, input), isEmpty);
     });
   });
 
