@@ -1209,11 +1209,11 @@ Cites slice 1 only.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ServerOperationEntry` (`SVOPE`) under the `ServerOperationRegistry` (`SVOPR`) — the application's own operation surface. Consumed: `operationName`, and the `ServerOperationMemberEntry` (`SVOPM`) lists that make up the request and response shapes. `InterfaceOperationEntry` (`IOE`) is **not** an input here: it describes a foreign contract and carries `serverCall` only (`codespecs_mapping.md` §8.5). |
-| **2 Output** | Two things in shared: (i) the **operation-ref catalogue** — one `static const CsOperationRef` per operation; (ii) the **request/response DTOs** — form-2 plain annotated model classes. The endpoint declaration itself is built on `TomApiEndpoint<R,Q>` within a `TomApi` (`tom_core_kernel`), with `R` the response type and `Q` the request type. The response type **is** the shared CE-ER result envelope `Result<T>` (§3.1.2, `codespecs_mapping.md` §7); an agent that emits a bare `T` has violated the server contract. |
+| **2 Output** | Three things in shared: (i) the **operation-ref catalogue** — one `static const CsOperationRef` per operation; (ii) the **request/response DTOs** — form-2 plain annotated model classes; (iii) where an operation member is typed by a data entity (`SVOPM.dataEntity`), the **entity wire DTO** that types it (§3.2.11). The endpoint declaration itself is built on `TomApiEndpoint<R,Q>` within a `TomApi` (`tom_core_kernel`), with `R` the response type and `Q` the request type. The response type **is** the shared CE-ER result envelope `Result<T>` (§3.1.2, `codespecs_mapping.md` §7); an agent that emits a bare `T` has violated the server contract. |
 | **3 Arguments** | `operation` — **first positional, required** ← `SVOPE.operationName`, **verbatim** (N5). `codespecs_mapping.md` §5.14 drops the HTTP method (fixed POST) and the error-response type (5xx only) as spec inputs, and `SVOPE` authors neither, so neither is an argument. `descriptionKey` → CE-TX (not an argument); `SVOPE.authorization` — the embedded `AZREQ` choice — → the `@CsAuthorize` modifier (§3.4.3). |
 | **4 Naming** | Catalogue = `<Document>Operations`; member = N5 over the operation name. DTOs = PascalCase of the operation name + `Request` / `Response`. |
 | **5 Locus** | `shared` (§4.2: request/response types **and** the operation-ref catalogue). The handler half is §3.4.2, server. |
-| **6 Cross-refs** | Emits `CsOperationRef` consts (the edge everything else cites). A member typed by a domain enum (`SVOPM.domainEnum`) or a data entity (`SVOPM.dataEntity`) references that declaration by plain type rather than restating it. |
+| **6 Cross-refs** | Emits `CsOperationRef` consts (the edge everything else cites). A member typed by a domain enum (`SVOPM.domainEnum`) references that enum by plain type rather than restating it. A member typed by a data entity (`SVOPM.dataEntity`) is typed by that entity's **wire DTO** (§3.2.11) — never by the §3.3.1 entity class, which is server-only (§4.2) and would invert the locus split if a shared DTO named it. |
 | **7 Back-link** | `@DocSpec([DocRef('SVOPE', 'supplies the operation name')])`, plus one `DocRef('SVOPM', …)` per member of the shape the DTO realises. |
 
 #### 3.2.2 `@CsValidation` — CE-VA, the declaration string
@@ -1323,6 +1323,26 @@ Cites slice 1 only.
 | **5 Locus** | **`shared`** — the parameter shape crosses to the client with the result envelope, even though the definition stays server-side at slice 3 (§3.3.8). It is emitted here, with the `TomReportResult` envelope that carries it, because both travel as a CE-API response DTO. |
 | **6 Cross-refs** | `CsMessageKey` (its label); domain enums by plain type. |
 | **7 Back-link** | `@DocSpec([DocRef('REPENT', 'supplies the runtime parameter and its bound')])`. |
+
+#### 3.2.11 Entity wire DTO — CE-API, derived shared row shape (markerless)
+
+A server-operation member typed by a data entity (`SVOPM.dataEntity`) needs a
+shared type to be typed by, but the entity class itself (§3.3.1) is server-only
+(§4.2): the store is server-side, and what has to live in shared is only the
+part the two halves must agree on — the shape on the wire. The framework's own
+precedent is `TomUserPreference` (server entity, `tom_core_server`) beside
+`TomUserPreferenceDto` (kernel wire shape): the entity carries storage, the DTO
+carries the agreed row shape. Phase 4 follows that split.
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | `DataEntityEntry` (`DAENT`) + its `DataAttributeEntry` (`DAATT`) children, with `DataAttributeConstraintEntry` (`DATAA`) supplying nullability and `DAATT`'s enum typing (`DAATT-DTEN`) supplying enum members — all delivered **in the CE-API extract** by dual routing (`@CodeSpecKind` lists `serverApi` beside `dataAccess` on all three section types), because the slice-2 shared emission may not forward-reference slice 3 (§4.4). The DTO is **derived, not authored**: one DTO exists for exactly the distinct entities named by an in-scope operation member's `SVOPM.dataEntity`; an entity no wire member names gets none. |
+| **2 Output** | A **form-2 markerless shared class** — `@CodeSpec` + `@DocSpec`, no `Cs*` marker, like the §3.2.1 request/response DTOs — with one member per stored attribute, typed exactly as the §3.3.2 entity member is typed (SOM value type; enumeration-kind → the §3.1.1 enum, never `String`; `DATAA.nullable` `Yes` → `T?`, `No` → `late T`), and **no storage arguments**: no `@CsColumn`, no column names or types, no sensitivity/PII marking — those are the entity's, not the wire's. |
+| **3 Arguments** | None — there is no marker to argue with. |
+| **4 Naming** | PascalCase of `DAENT`'s entity name + `Dto` (`Order` → `OrderDto`). The consuming operation member is typed `OrderDto` or `List<OrderDto>` per `SVOPM.multiValued`, nullable per `SVOPM.required`. |
+| **5 Locus** | `shared` — which is what the §3.1.1 enum-locus rule then keys on: a domain enum the DTO names becomes shared by that rule. |
+| **6 Cross-refs** | Domain enums by plain type (§3.1.1). Never the §3.3.1 entity class, and no relationship navigation — `ENRLE` edges are storage structure, not wire shape; a related entity crosses the wire only if a member's `SVOPM.dataEntity` names it in its own right. |
+| **7 Back-link** | `@DocSpec` from `DAENT-IDEN` (the entity), `DAATT-IDEN` (the attributes), `DAATT-DATA` (their types), plus `DAATT-DTEN` / `DATAA` where they supplied a member's typing. No `DAATT-SECU` and no `ENRLE-*` — the facts they carry are not emitted here. |
 
 ### 3.3 Slice 3 — server persistence & configuration
 

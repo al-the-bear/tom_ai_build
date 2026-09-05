@@ -2,7 +2,6 @@
 // Source document: meridian_order_management.md (D00)
 // Spec model version: 1.0.0+3.50e0102
 
-export 'src/domain_enum/order_channel.dart';
 export 'src/data_access/customer.dart';
 export 'src/data_access/customer_repository.dart';
 export 'src/data_access/order.dart';

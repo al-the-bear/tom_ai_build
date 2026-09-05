@@ -4,6 +4,8 @@
 
 import 'package:tom_code_specs/tom_code_specs.dart';
 
+import 'order_dto.dart';
+
 /// Returns one state-filtered page of the order work list in queue order.
 @CodeSpec('serverApi.FetchOrderWorkListResponse', source: ['content'])
 @DocSpec([
@@ -21,7 +23,7 @@ class FetchOrderWorkListResponse {
       'it is typed by',
     ),
   ])
-  late List<Object> orders;
+  late List<OrderDto> orders;
 
   /// Total matching orders across all pages.
   @DocSpec([

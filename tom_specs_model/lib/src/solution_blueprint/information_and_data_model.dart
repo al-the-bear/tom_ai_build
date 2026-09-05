@@ -481,10 +481,13 @@ class EntityFollowUpEntry extends DocSpecsSection {
 )
 @SectionId('DAENT')
 @CodeSpecKind(
-  [CodeSpecPart.dataAccess, CodeSpecPart.serviceUnit],
+  [CodeSpecPart.dataAccess, CodeSpecPart.serviceUnit, CodeSpecPart.serverApi],
   note: 'Entity + attributes → CE-DB table/columns; the aggregate fields in '
       'DAENT-CLAS → the CE-SU unit boundary and its ownership key '
-      '(codespecs_mapping.md §5.1).',
+      '(codespecs_mapping.md §5.1). An entity a server-operation member is '
+      'typed by (SVOPM.dataEntity) also crosses the wire as the shared '
+      'CE-API entity wire DTO (codespecs_derivation_contract.md §3.2.11), '
+      'which is why the entity facts reach the CE-API extract.',
 )
 class DataEntityEntry extends DocSpecsSection {
   @ContentHelp(
@@ -777,10 +780,12 @@ class DataEntityEntry extends DocSpecsSection {
       'type and constraint subsections, each for the reason stated at its '
       'constant.',
 )
-@CodeSpecKind([CodeSpecPart.dataAccess],
+@CodeSpecKind([CodeSpecPart.dataAccess, CodeSpecPart.serverApi],
     note: 'A persisted attribute becomes a table column; a file-reference '
         'attribute becomes a file-reference column (csra10); display/label '
-        'detail feeds CE-TX/CE-ST via DisplayPropertyEntry.')
+        'detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute '
+        'set also types the CE-API entity wire DTO of an entity that '
+        'crosses the wire (codespecs_derivation_contract.md §3.2.11).')
 class DataAttributeEntry extends DocSpecsSection {
   @ContentHelp(
     'Narrative for this attribute — what it means and how it is used, '
@@ -4071,9 +4076,14 @@ class IntegrationPointEntry extends DocSpecsSection {
   'The constraints on a single data attribute: nullability, uniqueness, defaults, allowed values, and validation expressions.',
 )
 @SectionId('DATAA')
-@CodeSpecKind([CodeSpecPart.validation],
-    note: 'Attribute-level constraint → CE-VA field rule (required, range, '
-        'pattern, type).')
+@CodeSpecKind([
+  CodeSpecPart.validation,
+  CodeSpecPart.dataAccess,
+  CodeSpecPart.serverApi,
+], note: 'Attribute-level constraint → CE-VA field rule (required, range, '
+    'pattern, type). The storage facts (nullable, length, format) feed the '
+    'CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API '
+    'entity wire DTO (§3.2.11), so both extracts carry them.')
 class DataAttributeConstraintEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5643,8 +5653,11 @@ class ServerOperationEntry extends DocSpecsSection {
   [CodeSpecPart.serverApi],
   note: 'CE-API — one member of an operation request or response shape. The '
       'members of a shape become the shared request/response type both sides '
-      'depend on (§4.2 shared locus); a member typed by a data entity or a '
-      'domain enum reuses that declaration rather than restating it.',
+      'depend on (§4.2 shared locus); a member typed by a domain enum reuses '
+      'that declaration by plain type, and a member typed by a data entity is '
+      'typed by that entity\'s shared wire DTO '
+      '(codespecs_derivation_contract.md §3.2.11), never the server-only '
+      'entity class.',
 )
 class ServerOperationMemberEntry extends DocSpecsSection {
   @Form([

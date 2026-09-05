@@ -5,8 +5,6 @@
 import 'package:meridian_codespec_shared/meridian_codespec_shared.dart';
 import 'package:tom_code_specs/tom_code_specs.dart';
 
-import '../domain_enum/order_channel.dart';
-
 /// A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
 @CodeSpec(
   'dataAccess.Order',

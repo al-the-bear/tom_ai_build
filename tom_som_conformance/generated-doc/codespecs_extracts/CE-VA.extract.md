@@ -170,7 +170,7 @@ Order Detail screen
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 Required
@@ -182,7 +182,7 @@ Required
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 No
@@ -194,7 +194,7 @@ No
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 required, min:1
@@ -206,7 +206,7 @@ required, min:1
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 quantity > 0
@@ -218,7 +218,7 @@ quantity > 0
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 Required
@@ -230,7 +230,7 @@ Required
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 No
@@ -242,7 +242,7 @@ No
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 required, min:0
@@ -254,7 +254,7 @@ required, min:0
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 unit_price >= 0
@@ -266,7 +266,7 @@ unit_price >= 0
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 Required
@@ -278,7 +278,7 @@ Required
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 No
@@ -290,7 +290,7 @@ No
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 required, min:0
@@ -302,7 +302,7 @@ required, min:0
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 credit_limit >= 0
@@ -314,7 +314,7 @@ credit_limit >= 0
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 Required
@@ -326,7 +326,7 @@ Required
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 No
@@ -338,7 +338,7 @@ No
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 Unique
@@ -350,7 +350,7 @@ Unique
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}$
@@ -362,7 +362,7 @@ required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}$
 - instanceId: `DATAA-CONS-1`
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
-- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
+- routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type). The storage facts (nullable, length, format) feed the CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API entity wire DTO (§3.2.11), so both extracts carry them.
 
 ``` text
 ^[A-Z0-9]{4}-[A-Z0-9]{4}$
