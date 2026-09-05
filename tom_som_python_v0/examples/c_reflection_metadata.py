@@ -35,14 +35,17 @@ def _add_runtime_path() -> None:
 
 
 _add_runtime_path()
+sys.path.insert(0, _PROJECT)
 
 from tom_som_runtime import SpecModel, SpecReflection  # noqa: E402
+from tom_som_python_v0_data import spec_model_meta_path  # noqa: E402
 
 
 def main() -> int:
-    # The meta-data shipped in this package, relative to this script, so the
-    # sample runs from any working directory.
-    meta_path = os.path.join(_PROJECT, "meta", "spec_model.meta.json")
+    # The meta-data shipped with this distribution, resolved through the
+    # generated resolution module — works from this checkout AND from an
+    # installed wheel (where meta/ lives in the mapped data package).
+    meta_path = spec_model_meta_path()
     with open(meta_path, encoding="utf-8") as fh:
         model = SpecModel.from_json(json.load(fh))
     reflection = SpecReflection(model)

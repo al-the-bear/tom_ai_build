@@ -98,10 +98,38 @@ void main() {
     expect(pyproject, contains('build-backend = "setuptools.build_meta"'));
     expect(pyproject, contains('version = "1.0.0"'),
         reason: 'facade version is the TomSpecs model version');
+    expect(
+        pyproject,
+        contains('py-modules = ["tom_som_python_v0", "tom_som_python_v0_meta", '
+            '"tom_som_python_v0_data"]'),
+        reason: 'the facade, its generated metadata module and the data '
+            'resolution module must be listed explicitly so setuptools skips '
+            'flat-layout auto-discovery');
+    // The shipped data trees (meta/ + schemas/) are mapped into the wheel as
+    // importable data packages, so an installed dist carries the meta-data and
+    // the DocSpecs schemas (not just the code).
     expect(pyproject,
-        contains('py-modules = ["tom_som_python_v0", "tom_som_python_v0_meta"]'),
-        reason: 'the facade and its generated metadata module must be listed '
-            'explicitly so setuptools skips flat-layout auto-discovery');
+        contains('packages = ["tom_som_python_v0_meta_data", '
+            '"tom_som_python_v0_schemas"]'),
+        reason: 'the wheel must carry the data packages');
+    expect(pyproject, contains('"tom_som_python_v0_meta_data" = "meta"'));
+    expect(pyproject, contains('"tom_som_python_v0_schemas" = "schemas"'));
+    // The mapped directories are packageable (marker inits) and the resolution
+    // module resolves them installed-or-checkout.
+    expect(
+        File(p.join(result.outputRoot, 'meta', '__init__.py')).existsSync(),
+        isTrue,
+        reason: 'meta/ needs an __init__.py marker to be wheel-packageable');
+    expect(
+        File(p.join(result.outputRoot, 'schemas', '__init__.py')).existsSync(),
+        isTrue,
+        reason: 'schemas/ needs an __init__.py marker to be wheel-packageable');
+    final dataModule =
+        File(p.join(result.outputRoot, 'tom_som_python_v0_data.py'));
+    expect(dataModule.existsSync(), isTrue);
+    final dataSource = dataModule.readAsStringSync();
+    expect(dataSource, contains('def spec_model_meta_path()'));
+    expect(dataSource, contains('def schemas_root()'));
     expect(pyproject, contains('tom_som_python_runtime>=1.0.0'),
         reason: 'the runtime dep must be pinned to the model version');
     final rtPath =

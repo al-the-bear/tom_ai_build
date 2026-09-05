@@ -31,6 +31,7 @@ import 'analyzer_bootstrap.dart';
 import 'docspecs_schema_generator.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
+import 'packaging.dart' show packageVersionFromModel;
 import 'som_go_emitter.dart';
 import 'som_go_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
@@ -187,7 +188,11 @@ SomGoGenerationResult writeSomGoProject({
       .relative(p.normalize(runtimePackagePath), from: p.normalize(outputRoot))
       .replaceAll('\\', '/');
   final goModPath = p.join(outputRoot, 'go.mod');
-  File(goModPath).writeAsStringSync(_goMod(moduleName, runtimeRel));
+  File(goModPath).writeAsStringSync(_goMod(
+    moduleName,
+    runtimeRel,
+    runtimeVersion: packageVersionFromModel(modelLabel.split('+').first),
+  ));
 
   return SomGoGenerationResult(
     outputRoot: outDir.path,
@@ -214,15 +219,24 @@ const String _goModuleBase = 'github.com/al-the-bear/tom_ai_build';
 /// directive resolves it in-repo.
 const String _goRuntimeModulePath = '$_goModuleBase/tom_som_go_runtime';
 
-String _goMod(String moduleName, String runtimeRel) {
+String _goMod(String moduleName, String runtimeRel,
+    {required String runtimeVersion}) {
   // A leading "./" keeps the replace target an explicit relative path; Go
   // requires relative replace targets to start with "./" or "../".
+  //
+  // The require names the runtime's real published tag
+  // (`tom_som_go_runtime/v<version>` on the host repo) so a downstream `go get`
+  // of the facade — where the local `replace` is ignored, as replace directives
+  // only apply in the main module — resolves the runtime through the module
+  // proxy. In-repo builds keep resolving through the replace. Note: a model
+  // major version ≥ 2 would additionally require the `/vN` module-path suffix
+  // on both modules (Go semantic import versioning) — revisit then.
   final target = runtimeRel.startsWith('.') ? runtimeRel : './$runtimeRel';
   return 'module $moduleName\n'
       '\n'
       'go 1.21\n'
       '\n'
-      'require $_goRuntimeModulePath v0.0.0\n'
+      'require $_goRuntimeModulePath v$runtimeVersion\n'
       '\n'
       'replace $_goRuntimeModulePath => $target\n';
 }

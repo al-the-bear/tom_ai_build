@@ -6,7 +6,7 @@
 
 ## Quick start
 
-Add `tom_som_java_v0` (group `com.altbear.tomsom`) to your Maven `pom.xml`, then:
+Add `tom_som_java_v0` (group `io.github.al-the-bear`) to your Maven `pom.xml`, then:
 
 ```java
 import tom_som_runtime.SpecDocument;
@@ -31,7 +31,7 @@ Declare the dependency (it pulls in `tom_som_java_runtime`):
 
 ```xml
 <dependency>
-  <groupId>com.altbear.tomsom</groupId>
+  <groupId>io.github.al-the-bear</groupId>
   <artifactId>tom_som_java_v0</artifactId>
   <version>VERSION</version>
 </dependency>

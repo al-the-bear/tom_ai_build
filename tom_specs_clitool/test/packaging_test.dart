@@ -211,8 +211,12 @@ void main() {
       expect(d.codeFence, 'python');
       expect(d.runtimeManifestFormat, ManifestFormat.pyproject);
       expect(d.runtimeManifestFileName, 'pyproject.toml');
-      // PyPI / git / editable routes are all documented.
-      expect(d.integrateRoutes, hasLength(3));
+      // PyPI / git / editable routes plus the shipped-data-files route are
+      // all documented.
+      expect(d.integrateRoutes, hasLength(4));
+      expect(d.integrateRoutes.last.heading, contains('data files'),
+          reason: 'the 4th route documents the wheel-shipped meta/schemas '
+              'data resolution (tom_som_python_v0_data)');
     });
   });
 

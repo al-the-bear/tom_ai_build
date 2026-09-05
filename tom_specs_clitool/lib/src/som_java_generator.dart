@@ -236,7 +236,7 @@ void _makeExecutable(String path) {
   }
 }
 
-/// The facade Maven `pom.xml`: coordinates under `com.altbear.tomsom`, the
+/// The facade Maven `pom.xml`: coordinates under `io.github.al-the-bear`, the
 /// package [version] (= model version), a dependency on the runtime artifact at
 /// the same version, and the non-standard flat `src/` source layout.
 String _facadePom(String artifactId, String version) => '''
@@ -247,7 +247,7 @@ String _facadePom(String artifactId, String version) => '''
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.altbear.tomsom</groupId>
+  <groupId>io.github.al-the-bear</groupId>
   <artifactId>$artifactId</artifactId>
   <!-- Version is the TomSpecs model version — the facade is regenerated per
        model version and always reports it (never maintained independently). -->
@@ -282,7 +282,7 @@ String _facadePom(String artifactId, String version) => '''
 
   <dependencies>
     <dependency>
-      <groupId>com.altbear.tomsom</groupId>
+      <groupId>io.github.al-the-bear</groupId>
       <artifactId>tom_som_java_runtime</artifactId>
       <version>$version</version>
     </dependency>

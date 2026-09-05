@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.altbear.tomsom</groupId>
+  <groupId>io.github.al-the-bear</groupId>
   <artifactId>tom_som_java_runtime</artifactId>
   <!-- Version tracks the TomSpecs model version; realigned by generate_som's
        packaging hook (never hand-bumped independently of the model). -->

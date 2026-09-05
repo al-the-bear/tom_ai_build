@@ -111,12 +111,12 @@ void main() {
         reason: 'relative path must resolve to the java runtime src');
 
     // pom.xml is a publishable Maven manifest (SOM §17.3): it declares the
-    // coordinates under `com.altbear.tomsom`, the facade version pinned to the
+    // coordinates under `io.github.al-the-bear`, the facade version pinned to the
     // model version, the non-standard flat `src/` source layout, and a
     // dependency on the runtime artifact at the same version.
     final pom = File(result.pomPath).readAsStringSync();
     expect(result.pomPath, endsWith('pom.xml'));
-    expect(pom, contains('<groupId>com.altbear.tomsom</groupId>'));
+    expect(pom, contains('<groupId>io.github.al-the-bear</groupId>'));
     expect(pom, contains('<artifactId>tom_som_java_v0</artifactId>'));
     expect(pom, contains('<modelVersion>4.0.0</modelVersion>'),
         reason: 'a Maven POM must declare its schema modelVersion');

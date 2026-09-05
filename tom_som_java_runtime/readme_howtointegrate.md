@@ -9,7 +9,7 @@ so your document reads and writes match the model.
 
 ## Quick start
 
-Add `tom_som_java_runtime` (group `com.altbear.tomsom`) to your Maven `pom.xml`,
+Add `tom_som_java_runtime` (group `io.github.al-the-bear`) to your Maven `pom.xml`,
 then:
 
 ```java
@@ -26,7 +26,7 @@ System.out.println(doc.content("SBP/content"));
 
 ```xml
 <dependency>
-  <groupId>com.altbear.tomsom</groupId>
+  <groupId>io.github.al-the-bear</groupId>
   <artifactId>tom_som_java_runtime</artifactId>
   <version>1.0.0</version>
 </dependency>

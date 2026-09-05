@@ -6,7 +6,7 @@ Generated typed TomSpecs object model (v1.0.0) for Java. An editing facade over 
 
 ## How to use
 
-Add `tom_som_java_v0` (group `com.altbear.tomsom`) to your Maven `pom.xml`, then:
+Add `tom_som_java_v0` (group `io.github.al-the-bear`) to your Maven `pom.xml`, then:
 
 ```java
 import tom_som_runtime.SpecDocument;

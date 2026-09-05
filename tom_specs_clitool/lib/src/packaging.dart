@@ -563,6 +563,22 @@ print(blueprint.content)''',
           '`pyproject.toml`; add that path to `PYTHONPATH` so '
           '`import tom_som_runtime` resolves.',
     ),
+    PackagingRoute(
+      heading: 'Shipped data files (meta-data + DocSpecs schemas)',
+      body: 'The distribution carries the lossless object-model meta-data '
+          '(`spec_model.meta.json`) and the DocSpecs schemas as data '
+          'packages inside the wheel. Resolve them through the generated '
+          'resolution module — it works both from a source checkout and from '
+          'an installed wheel:\n\n'
+          '```python\n'
+          'from tom_som_python_v0_data import spec_model_meta_path, '
+          'schemas_root\n'
+          '\n'
+          'meta_file = spec_model_meta_path()  # …/spec_model.meta.json\n'
+          'schema_dir = schemas_root()         # one subfolder per document '
+          'root\n'
+          '```',
+    ),
   ],
   buildFromSource: 'Regenerate the facade and build the PEP 517 dists from the '
       'workspace:\n\n'
@@ -595,7 +611,7 @@ const PackagingDescriptor _javaDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_java_runtime',
   facadePackageName: 'tom_som_java_v0',
   codeFence: 'java',
-  installShort: 'Add `tom_som_java_v0` (group `com.altbear.tomsom`) to your '
+  installShort: 'Add `tom_som_java_v0` (group `io.github.al-the-bear`) to your '
       'Maven `pom.xml`, then:',
   usageSnippet: '''
 import tom_som_runtime.SpecDocument;
@@ -616,7 +632,7 @@ System.out.println(blueprint.content());''',
       body: 'Declare the dependency (it pulls in `tom_som_java_runtime`):\n\n'
           '```xml\n'
           '<dependency>\n'
-          '  <groupId>com.altbear.tomsom</groupId>\n'
+          '  <groupId>io.github.al-the-bear</groupId>\n'
           '  <artifactId>tom_som_java_v0</artifactId>\n'
           '  <version>VERSION</version>\n'
           '</dependency>\n'

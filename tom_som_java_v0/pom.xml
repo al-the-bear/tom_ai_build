@@ -5,7 +5,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.altbear.tomsom</groupId>
+  <groupId>io.github.al-the-bear</groupId>
   <artifactId>tom_som_java_v0</artifactId>
   <!-- Version is the TomSpecs model version — the facade is regenerated per
        model version and always reports it (never maintained independently). -->
@@ -40,7 +40,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.altbear.tomsom</groupId>
+      <groupId>io.github.al-the-bear</groupId>
       <artifactId>tom_som_java_runtime</artifactId>
       <version>1.0.0</version>
     </dependency>

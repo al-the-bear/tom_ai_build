@@ -59,6 +59,17 @@ pip install -e ../tom_som_python_v0
 
 For a no-install checkout the facade also records the runtime location under `[tool.tom_som] runtime-path` in its `pyproject.toml`; add that path to `PYTHONPATH` so `import tom_som_runtime` resolves.
 
+### Shipped data files (meta-data + DocSpecs schemas)
+
+The distribution carries the lossless object-model meta-data (`spec_model.meta.json`) and the DocSpecs schemas as data packages inside the wheel. Resolve them through the generated resolution module — it works both from a source checkout and from an installed wheel:
+
+```python
+from tom_som_python_v0_data import spec_model_meta_path, schemas_root
+
+meta_file = spec_model_meta_path()  # …/spec_model.meta.json
+schema_dir = schemas_root()         # one subfolder per document root
+```
+
 ## Pinning the version
 
 Both `tom_som_python_runtime` and `tom_som_python_v0` carry version `1.0.0`, taken from the TomSpecs model version. When you upgrade the model, regenerate and move to the new matching version so the facade and your stored documents stay in step.
