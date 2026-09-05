@@ -4,11 +4,9 @@
 
 import 'package:tom_code_specs/tom_code_specs.dart';
 
-@CodeSpec('text.SbpMessages', source: ['content', 'SEER', 'SAEV'])
+@CodeSpec('text.SbpMessages', source: ['content'])
 @DocSpec([
   DocRef('content', 'supplies the message key, its base copy and its role'),
-  DocRef('SEER', 'supplies the element label and hint resources these keys realise'),
-  DocRef('SAEV', 'supplies the action label resources these keys realise'),
 ])
 class SbpMessages {
   /// Page title of the order work list (SCR-01).
@@ -22,7 +20,6 @@ class SbpMessages {
   /// Label of the state selector on the work list filter bar.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
-    DocRef('SEER', 'supplies the element label resource this key realises'),
   ])
   @CsText(baseCopy: 'State')
   static const CsMessageKey screenOrdersFilterState =
@@ -31,7 +28,6 @@ class SbpMessages {
   /// Helper text of the state selector.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
-    DocRef('SEER', 'supplies the element hint resource this key realises'),
   ])
   @CsText(baseCopy: 'Show only orders in the selected lifecycle state')
   static const CsMessageKey screenOrdersFilterStateHint =
@@ -40,7 +36,6 @@ class SbpMessages {
   /// Row action that navigates from the work list to order detail.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
-    DocRef('SAEV', 'supplies the action label resource this key realises'),
   ])
   @CsText(baseCopy: 'Open')
   static const CsMessageKey screenOrdersActionOpen =
@@ -73,7 +68,6 @@ class SbpMessages {
   /// Submit action on an order line.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
-    DocRef('SAEV', 'supplies the action label resource this key realises'),
   ])
   @CsText(baseCopy: 'Amend line')
   static const CsMessageKey screenOrderActionAmend =
@@ -82,7 +76,6 @@ class SbpMessages {
   /// Header action that releases a credit or stock hold.
   @DocSpec([
     DocRef('content', 'supplies the message key, its base copy and its role'),
-    DocRef('SAEV', 'supplies the action label resource this key realises'),
   ])
   @CsText(baseCopy: 'Release hold')
   static const CsMessageKey screenOrderActionRelease =
@@ -103,4 +96,28 @@ class SbpMessages {
   @CsText(baseCopy: 'Retry')
   static const CsMessageKey screenOrderAmendActionRetry =
       CsMessageKey('screen.order.amend.action.retry');
+
+  /// Copy of the ORDER_VERSION_CONFLICT error code.
+  @DocSpec([
+    DocRef('content', 'supplies the message key, its base copy and its role'),
+  ])
+  @CsText(baseCopy: 'The order changed while you were editing; reload and retry')
+  static const CsMessageKey errorOrderVersionConflict =
+      CsMessageKey('error.order.versionConflict');
+
+  /// Description of the amendOrderLine server operation.
+  @DocSpec([
+    DocRef('content', 'supplies the message key, its base copy and its role'),
+  ])
+  @CsText(baseCopy: 'Re-prices and re-reserves an amended order line')
+  static const CsMessageKey opOrderAmendLine =
+      CsMessageKey('op.order.amendLine');
+
+  /// Description of the fetchOrderWorkList server operation.
+  @DocSpec([
+    DocRef('content', 'supplies the message key, its base copy and its role'),
+  ])
+  @CsText(baseCopy: 'Fetches a state-filtered page of the order work list')
+  static const CsMessageKey opOrderFetchWorkList =
+      CsMessageKey('op.order.fetchWorkList');
 }

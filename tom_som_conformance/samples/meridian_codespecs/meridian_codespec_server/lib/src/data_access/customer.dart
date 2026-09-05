@@ -7,7 +7,7 @@ import 'package:tom_code_specs/tom_code_specs.dart';
 /// A wholesale or e-commerce customer that places orders. Realizes FR-01.
 @CodeSpec(
   'dataAccess.Customer',
-  source: ['DAENT-IDEN', 'DAATT-IDEN', 'DAATT-DATA', 'DAATT-SECU'],
+  source: ['DAENT-IDEN', 'DAATT-IDEN', 'DAATT-DATA', 'DAATT-SECU', 'content'],
 )
 @DocSpec([
   DocRef(
@@ -20,6 +20,7 @@ import 'package:tom_code_specs/tom_code_specs.dart';
     'DAATT-SECU',
     'records the sensitivity level and PII marking of the stored attributes',
   ),
+  DocRef('content', 'supplies the rule set and its arguments'),
 ])
 @CsTable('mom_customer')
 class Customer {
@@ -64,6 +65,7 @@ class Customer {
       'DAATT-SECU',
       'records the sensitivity level and PII marking of the stored attributes',
     ),
+    DocRef('content', 'supplies the rule set and its arguments'),
   ])
   @CsColumn(
     column: 'credit_limit',
@@ -71,5 +73,6 @@ class Customer {
     sensitivityLevel: CsSensitivityLevel.internal,
     isPii: false,
   )
+  @CsValidation(rules: 'required, min:0')
   late double creditLimit;
 }

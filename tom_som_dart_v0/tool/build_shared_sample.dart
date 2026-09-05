@@ -941,14 +941,22 @@ audit trail.''')
   _step(uc3s1, '1', 'Clerk changes the quantity of a line and saves.',
       'System validates the new quantity and re-prices the line.',
       data: 'OrderLine, PriceList', rule: 'FR-05 amend before dispatch');
-  _svcStep(uc3s1.serverCallSteps.add(), ServerCallRole.assembleRequest,
+  // The step *cites* the operation the save invokes; the operation itself is
+  // declared once in the server operation registry (SVOPR). This citation is
+  // what routes the step's server-call bodies to CE-SC.
+  uc3s1.content.serverOperation = 'amendOrderLine';
+  _svcStep(uc3s1.serverCallSteps.add(), 'Stage the core fields',
+      ServerCallRole.assembleRequest,
       'Puts the line id, the new quantity and the order version onto the amendment command.');
-  _svcStep(uc3s1.serverCallSteps.add(), ServerCallRole.assembleRequest,
+  _svcStep(uc3s1.serverCallSteps.add(), 'Attach the justification',
+      ServerCallRole.assembleRequest,
       'Adds the clerk\'s justification note to the command.',
       condition: 'Only when the clerk entered a justification');
-  _svcStep(uc3s1.serverCallSteps.add(), ServerCallRole.handleResponse,
+  _svcStep(uc3s1.serverCallSteps.add(), 'Apply the price snapshot',
+      ServerCallRole.handleResponse,
       'Applies the returned price snapshot and reservation state to the open line.');
-  _svcStep(uc3s1.serverCallSteps.add(), ServerCallRole.handleError,
+  _svcStep(uc3s1.serverCallSteps.add(), 'Surface the rejection',
+      ServerCallRole.handleError,
       'Leaves the line at its stored quantity and shows screen.order.amend.error beside the field.');
   _step(uc3.mainScenario.steps.add(), '2',
       'System re-reserves stock for the amended line.',
@@ -977,7 +985,9 @@ audit trail.''')
   _scnStep(scn2, '2', 'ACT-01 Order Clerk',
       'Observes the confirmed order on the work list.',
       'Order shows state Confirmed with both lines priced and reserved.');
-  _svcStep(scn2.serverCallSteps.add(), ServerCallRole.handleResponse,
+  scn2.content.serverOperation = 'fetchOrderWorkList';
+  _svcStep(scn2.serverCallSteps.add(), 'Render the work list page',
+      ServerCallRole.handleResponse,
       'Renders the returned page of work-list rows into the order table.');
   _scnStep(scn.steps.add(), '3', 'System',
       'Receives the warehouse dispatch webhook.',
@@ -1021,9 +1031,13 @@ void _extStep(ExtensionStepEntry s, String number, String action, String respons
 /// Fills one server-call step (SVCST) hanging off an interaction step that
 /// reaches across the client/server boundary. There is no step number: the list
 /// position *is* the order, and each role's steps are read in document order
-/// within the list.
-void _svcStep(ServerCallStepEntry s, ServerCallRole role, String systemAction,
+/// within the list. The [headline] is the step's name — the sole source for the
+/// collaborator method identifier the derivation contract's §3.0.1 N1 derives
+/// from it (an unheadlined step fails Phase-4 generation).
+void _svcStep(ServerCallStepEntry s, String headline, ServerCallRole role,
+    String systemAction,
     {String condition = ''}) {
+  s.$headline = headline;
   s.content
     ..role = role
     ..systemAction = systemAction
@@ -1074,12 +1088,19 @@ historical orders remain reproducible.''');
   _attr(order.attributes.add(), 'customerId', 'customer_id',
       'Reference to the ordering customer.', DataAttributeKind.uuid, 'uuid',
       pii: false, sensitivity: 'Internal');
-  _attr(order.attributes.add(), 'channel', 'channel',
+  // The two enumeration attributes name their DOMEN enum through
+  // `enumerationTypeOptions.domainEnum` — the DAATT-DTEN join gate tier A4
+  // holds every enumeration-kind attribute to.
+  final channel = order.attributes.add();
+  _attr(channel, 'channel', 'channel',
       'Capture channel: EDI or REST.', DataAttributeKind.enumeration, 'varchar(8)',
       pii: false, sensitivity: 'Internal');
-  _attr(order.attributes.add(), 'status', 'status',
+  channel.enumerationTypeOptions.domainEnum = 'OrderChannel';
+  final status = order.attributes.add();
+  _attr(status, 'status', 'status',
       'Lifecycle state (Captured..Closed, with Hold).', DataAttributeKind.enumeration, 'varchar(16)',
       pii: false, sensitivity: 'Internal');
+  status.enumerationTypeOptions.domainEnum = 'OrderStatus';
   _attr(order.attributes.add(), 'createdAt', 'created_at',
       'Capture timestamp (UTC).', DataAttributeKind.dateTime, 'timestamptz',
       pii: false, sensitivity: 'Internal');
@@ -1112,11 +1133,27 @@ historical orders remain reproducible.''');
   _attr(line.attributes.add(), 'productId', 'product_id',
       'Referenced product.', DataAttributeKind.uuid, 'uuid',
       pii: false, sensitivity: 'Internal');
-  _attr(line.attributes.add(), 'quantity', 'quantity',
+  // The amend-line rule "quantity must be positive" stated as derivable
+  // structure (DATAA) rather than step prose: a validationRules string in the
+  // §5.19 grammar, plus the CHECK expression the schema carries. CE-VA reads
+  // these fields; the prose in the use-case steps only *cites* the rule.
+  final quantity = line.attributes.add();
+  _attr(quantity, 'quantity', 'quantity',
       'Ordered quantity.', DataAttributeKind.integer, 'int', pii: false, sensitivity: 'Internal');
-  _attr(line.attributes.add(), 'unitPrice', 'unit_price',
+  _constraint(quantity.constraints.add(), 'quantity-positive',
+      mandatory: 'Required',
+      nullable: 'No',
+      rules: 'required, min:1',
+      check: 'quantity > 0');
+  final unitPrice = line.attributes.add();
+  _attr(unitPrice, 'unitPrice', 'unit_price',
       'Snapshotted unit price at pricing time.', DataAttributeKind.decimal, 'numeric(12,2)',
       pii: false, sensitivity: 'Internal');
+  _constraint(unitPrice.constraints.add(), 'unit-price-non-negative',
+      mandatory: 'Required',
+      nullable: 'No',
+      rules: 'required, min:0',
+      check: 'unit_price >= 0');
   _key(line.keyAttributes.add(), 'pk_order_line', 'Primary', 'line_id',
       'Primary key of the order line.');
   final lineFk = line.keyAttributes.add();
@@ -1145,9 +1182,15 @@ historical orders remain reproducible.''');
   _attr(customer.attributes.add(), 'name', 'name',
       'Customer legal name (PII).', DataAttributeKind.string, 'varchar(200)',
       pii: true, sensitivity: 'Confidential');
-  _attr(customer.attributes.add(), 'creditLimit', 'credit_limit',
+  final creditLimit = customer.attributes.add();
+  _attr(creditLimit, 'creditLimit', 'credit_limit',
       'Approved credit limit used by validation.', DataAttributeKind.decimal, 'numeric(14,2)',
       pii: false, sensitivity: 'Confidential');
+  _constraint(creditLimit.constraints.add(), 'credit-limit-non-negative',
+      mandatory: 'Required',
+      nullable: 'No',
+      rules: 'required, min:0',
+      check: 'credit_limit >= 0');
   _key(customer.keyAttributes.add(), 'pk_customer', 'Primary', 'customer_id',
       'Primary key of the customer.');
 
@@ -1169,9 +1212,16 @@ historical orders remain reproducible.''');
   _attr(product.attributes.add(), 'productId', 'product_id',
       'Stable product identifier.', DataAttributeKind.uuid, 'uuid',
       pii: false, sensitivity: 'Internal');
-  _attr(product.attributes.add(), 'sku', 'sku',
+  final sku = product.attributes.add();
+  _attr(sku, 'sku', 'sku',
       'Stock-keeping unit.', DataAttributeKind.string, 'varchar(40)',
       pii: false, sensitivity: 'Internal');
+  _constraint(sku.constraints.add(), 'sku-format',
+      mandatory: 'Required',
+      nullable: 'No',
+      unique: 'Unique',
+      rules: 'required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}\$',
+      pattern: '^[A-Z0-9]{4}-[A-Z0-9]{4}\$');
   _attr(product.attributes.add(), 'name', 'name',
       'Product display name.', DataAttributeKind.string, 'varchar(200)',
       pii: false, sensitivity: 'Internal');
@@ -1205,6 +1255,27 @@ void _attr(DataAttributeEntry a, String name, String column, String description,
   a.securityClassification
     ..sensitivityLevel = sensitivity
     ..isPii = pii ? 'true' : 'false';
+}
+
+/// Fills one structured attribute constraint (DATAA). The `rules` string is
+/// the §5.19 validation grammar CE-VA derives `@CsValidation` from; `check` is
+/// the SQL CHECK expression the schema carries; both are *derivable*
+/// restatements of rules that elsewhere appear only as step prose.
+void _constraint(DataAttributeConstraintEntry c, String headline,
+    {String mandatory = '',
+    String nullable = '',
+    String unique = '',
+    String rules = '',
+    String check = '',
+    String pattern = ''}) {
+  c.$headline = headline;
+  final f = c.content;
+  if (mandatory.isNotEmpty) f.mandatory = mandatory;
+  if (nullable.isNotEmpty) f.nullable = nullable;
+  if (unique.isNotEmpty) f.unique = unique;
+  if (rules.isNotEmpty) f.validationRules = rules;
+  if (check.isNotEmpty) f.constraintExpression = check;
+  if (pattern.isNotEmpty) f.patternRegex = pattern;
 }
 
 void _key(KeyAttributeEntry k, String name, String type, String columns,
@@ -1332,7 +1403,10 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   openAction.$headline = 'Open order';
   openAction.content
     ..actionId = 'SCR-01-ACT-1'
-    ..actionType = 'Navigate';
+    ..actionType = 'Navigate'
+    ..owningController = 'Order'
+    ..description = 'Opens the selected order\'s detail screen.'
+    ..contextType = 'OrderViewModel';
   openAction.visual
     ..labelResource = 'screen.orders.action.open'
     ..placement = 'Row'
@@ -1344,6 +1418,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   // not the literal button caption — the caption is the registry entry's
   // default copy.
   emptyState.content
+    ..stateId = 'empty-queue'
     ..description = 'No orders match the selected state filter.'
     ..messageResource = 'screen.orders.empty'
     ..primaryActionLabel = 'screen.orders.empty.action.clear'
@@ -1406,7 +1481,10 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   amend.$headline = 'Amend line';
   amend.content
     ..actionId = 'SCR-02-ACT-1'
-    ..actionType = 'Submit';
+    ..actionType = 'Submit'
+    ..owningController = 'Order'
+    ..description = 'Submits the amended line quantity for revalidation.'
+    ..contextType = 'OrderViewModel';
   amend.visual
     ..labelResource = 'screen.order.action.amend'
     ..placement = 'Row'
@@ -1415,7 +1493,10 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   release.$headline = 'Release hold';
   release.content
     ..actionId = 'SCR-02-ACT-2'
-    ..actionType = 'Submit';
+    ..actionType = 'Submit'
+    ..owningController = 'Order'
+    ..description = 'Releases the credit hold on the order.'
+    ..contextType = 'OrderViewModel';
   release.visual
     ..labelResource = 'screen.order.action.release'
     ..placement = 'Header'
@@ -1424,6 +1505,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   final errorState = detail.states.items.add();
   errorState.$headline = 'Amendment rejected';
   errorState.content
+    ..stateId = 'amendment-rejected'
     ..description = 'The new quantity failed validation or reservation.'
     ..messageResource = 'screen.order.amend.error'
     ..primaryActionLabel = 'screen.order.amend.action.retry'
@@ -1468,6 +1550,234 @@ void _authorRegistries(D00SolutionBlueprint sbp) {
   _authorMessageKeys(sbp);
   _authorRoles(sbp);
   _authorBoundedContexts(sbp);
+  _authorDomainEnums(sbp);
+  _authorServerOperations(sbp);
+  _authorErrorCodesAndEnvelope(sbp);
+}
+
+/// SBP.8.5 Domain Enum Registry (DOMEN). The two closed value sets the data
+/// model's enumeration attributes name through `DAATT-DTEN.domainEnum`; gate
+/// tier A4 holds every enumeration attribute to an authored entry here.
+void _authorDomainEnums(D00SolutionBlueprint sbp) {
+  final enums = sbp.informationAndDataModel.domainEnumRegistry.enums;
+
+  final channel = enums.add();
+  channel.$headline = 'OrderChannel';
+  channel.content
+    ..enumName = 'OrderChannel'
+    ..description =
+        'The capture channel an order arrived through. Types the Order.channel attribute.'
+    ..backingType = 'String';
+  void channelValue(String id, String backing, String description) {
+    final v = channel.values.add();
+    v.$headline = id;
+    v.content
+      ..valueId = id
+      ..backingValue = backing
+      ..description = description;
+  }
+
+  channelValue('edi', 'EDI', 'The wholesale electronic data interchange channel.');
+  channelValue('rest', 'REST', 'The public REST order API.');
+
+  final orderStatus = enums.add();
+  orderStatus.$headline = 'OrderStatus';
+  orderStatus.content
+    ..enumName = 'OrderStatus'
+    ..description =
+        'The order lifecycle state (Captured -> Validated -> Priced -> Reserved -> Confirmed -> Fulfilled -> Closed, with Hold and Cancelled). Types the Order.status attribute.'
+    ..backingType = 'String'
+    ..defaultValue = 'captured';
+  void statusValue(String id, String backing, String description) {
+    final v = orderStatus.values.add();
+    v.$headline = id;
+    v.content
+      ..valueId = id
+      ..backingValue = backing
+      ..description = description;
+  }
+
+  statusValue('captured', 'Captured', 'Accepted from EDI or REST; lifecycle entry state.');
+  statusValue('validated', 'Validated', 'Customer and product references verified.');
+  statusValue('priced', 'Priced', 'Unit prices snapshotted onto every line.');
+  statusValue('reserved', 'Reserved', 'Stock reserved for every line.');
+  statusValue('confirmed', 'Confirmed', 'Confirmed to the customer with a fulfilment window.');
+  statusValue('fulfilled', 'Fulfilled', 'Dispatched; the public tracking page reflects it.');
+  statusValue('closed', 'Closed', 'Invoiced and complete; terminal state.');
+  statusValue('hold', 'Hold', 'Awaiting manual review; resumes at the transition that placed it on hold.');
+  statusValue('cancelled', 'Cancelled', 'Cancelled before dispatch, with an audited reason; terminal state.');
+}
+
+/// SBP.8.7 Server Operation Registry (SVOPR -> CE-API). The two operations the
+/// interaction model's server-call steps cite by `serverOperation`: the
+/// amend-line command (UC-03 step 1) and the work-list query (SCN-01 step 2).
+/// The operation name is the sole identifier — no method, path or status codes
+/// (`codespecs_mapping.md` §7); the owning service unit follows from
+/// `primaryDataEntity`.
+void _authorServerOperations(D00SolutionBlueprint sbp) {
+  final registry = sbp.informationAndDataModel.serverOperationRegistry;
+  registry.content = _md('''
+The application's own operation surface. Both operations return the shared
+Result envelope; the client-side handling of each call is stated on the
+interaction step that cites the operation.''');
+
+  // amendOrderLine — the amend-line flow's price/reservation call.
+  final amend = registry.operations.add();
+  amend.$headline = 'Amend Order Line';
+  amend.content
+    ..operationName = 'amendOrderLine'
+    ..purpose = _p('''
+Applies a quantity change to one order line before dispatch, re-pricing and
+re-reserving only the affected line under optimistic concurrency.''')
+    ..primaryDataEntity = 'OrderLine'
+    ..descriptionKey = 'op.order.amendLine'
+    ..errorCodes = 'VALIDATION_FAILED, ORDER_ALREADY_DISPATCHED, '
+        'ORDER_VERSION_CONFLICT';
+  amend.authorization.content
+    ..requirementKind = AuthorizationRequirementKind.role
+    ..rationale = 'Amending a line is a clerk action on the order queue; the '
+        'supervisor role inherits it via Order Clerk.';
+  amend.authorization.roleRequirement.roles = 'Order Clerk';
+  void amendRequest(String name, String type, bool required, String description,
+      {String domainEnum = ''}) {
+    final m = amend.requestMembers.add();
+    m.$headline = name;
+    m.content
+      ..memberType = type
+      ..required = required
+      ..description = description;
+    if (domainEnum.isNotEmpty) m.content.domainEnum = domainEnum;
+  }
+
+  amendRequest('orderId', 'Text', true, 'The order the amended line belongs to.');
+  amendRequest('lineId', 'Text', true, 'The line whose quantity changes.');
+  amendRequest('newQuantity', 'Integer', true,
+      'The new ordered quantity; must satisfy the quantity-positive constraint '
+          'on OrderLine.quantity.');
+  amendRequest('orderVersion', 'Integer', true,
+      'The order version the clerk read; a stale version is rejected with '
+          'ORDER_VERSION_CONFLICT.');
+  amendRequest('justification', 'Text', false,
+      'The clerk\'s justification note, when one was entered.');
+  void amendResponse(String name, String type, String description,
+      {String domainEnum = ''}) {
+    final m = amend.responseMembers.add();
+    m.$headline = name;
+    m.content
+      ..memberType = type
+      ..required = true
+      ..description = description;
+    if (domainEnum.isNotEmpty) m.content.domainEnum = domainEnum;
+  }
+
+  amendResponse('unitPrice', 'Decimal',
+      'The fresh price snapshot applied to the amended line.');
+  amendResponse('reserved', 'Boolean',
+      'Whether stock was re-reserved for the amended line.');
+  amendResponse('orderStatus', 'Text',
+      'The order state after the amendment (Confirmed when fully satisfied); '
+          'a value of the OrderStatus domain enum.');
+  amendResponse('orderVersion', 'Integer',
+      'The order version after the amendment, for the next optimistic write.');
+
+  // fetchOrderWorkList — the query behind the work-list screen.
+  final workList = registry.operations.add();
+  workList.$headline = 'Fetch Order Work List';
+  workList.content
+    ..operationName = 'fetchOrderWorkList'
+    ..purpose =
+        'Returns one state-filtered page of the order work list in queue order.'
+    ..primaryDataEntity = 'Order'
+    ..descriptionKey = 'op.order.fetchWorkList'
+    ..errorCodes = 'VALIDATION_FAILED';
+  workList.authorization.content
+    ..requirementKind = AuthorizationRequirementKind.role
+    ..rationale = 'The work list exposes every open order, so the query is '
+        'limited to the two roles that work the queue.';
+  workList.authorization.roleRequirement.roles = 'Order Clerk, Order Supervisor';
+  final stateFilter = workList.requestMembers.add();
+  stateFilter.$headline = 'stateFilter';
+  stateFilter.content
+    ..memberType = 'DomainEnum'
+    ..domainEnum = 'OrderStatus'
+    ..required = false
+    ..description = 'Show only orders in this lifecycle state; absent means '
+        'every open state.';
+  final page = workList.requestMembers.add();
+  page.$headline = 'page';
+  page.content
+    ..memberType = 'Integer'
+    ..required = false
+    ..description = 'Zero-based page index; defaults to the first page.';
+  final orders = workList.responseMembers.add();
+  orders.$headline = 'orders';
+  orders.content
+    ..memberType = 'DataEntity'
+    ..dataEntity = 'Order'
+    ..multiValued = true
+    ..required = true
+    ..description = 'The page of matching orders in queue order.';
+  final totalCount = workList.responseMembers.add();
+  totalCount.$headline = 'totalCount';
+  totalCount.content
+    ..memberType = 'Integer'
+    ..required = true
+    ..description = 'Total matching orders across all pages.';
+}
+
+/// SBP.8.6 Error Code Registry (ERCRG -> CE-ER) and SBP.8.8 Result Envelope
+/// (RSLTE -> CE-ER). The three codes the amend operation may return, and the
+/// one envelope every operation outcome rides in (`codespecs_mapping.md` §7:
+/// success or structured error in a normal body; only infrastructure failures
+/// are transport errors).
+void _authorErrorCodesAndEnvelope(D00SolutionBlueprint sbp) {
+  final registry = sbp.informationAndDataModel.errorCodeRegistry;
+  registry.content =
+      'The shared application error codes the Result envelope\'s error arm carries.';
+
+  void code(String headline, String c, String category, String severity,
+      bool retryable, String copyKey, String description) {
+    final e = registry.errorCodes.add();
+    e.$headline = headline;
+    e.content
+      ..content = description
+      ..code = c
+      ..category = category
+      ..severity = severity
+      ..retryable = retryable
+      ..copyKey = copyKey;
+  }
+
+  code('Validation failed', 'VALIDATION_FAILED', 'Validation', 'Error', false,
+      'screen.order.amend.error',
+      'A request member failed its declared validation rules; field-level '
+          'details name the offending members.');
+  code('Order already dispatched', 'ORDER_ALREADY_DISPATCHED', 'BusinessRule',
+      'Error', false, 'screen.order.amend.error',
+      'The order left the amendable window before the command arrived '
+          '(FR-05: amendments only before dispatch).');
+  code('Order version conflict', 'ORDER_VERSION_CONFLICT', 'Conflict',
+      'Warning', true, 'error.order.versionConflict',
+      'The order changed between the clerk\'s read and the amendment; the '
+          'client reloads and may retry.');
+
+  final envelope = sbp.informationAndDataModel.resultEnvelope;
+  envelope.content
+    ..content = _p('''
+Every operation returns this one envelope: a success arm carrying the
+operation's response members, or an error arm carrying a code from the error
+code registry.''')
+    ..discriminatorField = 'success'
+    ..successArm = 'value'
+    ..errorArm = 'error'
+    ..retryable = true
+    ..severity = 'Info | Warning | Error | Fatal';
+  final detail = envelope.fieldDetails.add();
+  detail.$headline = 'Invalid quantity detail';
+  detail.content
+    ..fieldPath = 'newQuantity'
+    ..errorCodeRef = 'VALIDATION_FAILED'
+    ..message = 'The quantity must be a positive whole number';
 }
 
 /// SBP.7.8 Message Key Registry (CE-TX). One entry per key the two screens
@@ -1517,6 +1827,15 @@ void _authorMessageKeys(D00SolutionBlueprint sbp) {
           'reservation.');
   key('Retry amendment action', 'screen.order.amend.action.retry', 'Retry',
       'Recovery action offered after a rejected amendment.');
+  key('Version conflict message', 'error.order.versionConflict',
+      'The order changed while you were editing; reload and retry',
+      'Copy of the ORDER_VERSION_CONFLICT error code.');
+  key('Amend line operation description', 'op.order.amendLine',
+      'Re-prices and re-reserves an amended order line',
+      'Description of the amendOrderLine server operation.');
+  key('Work list operation description', 'op.order.fetchWorkList',
+      'Fetches a state-filtered page of the order work list',
+      'Description of the fetchOrderWorkList server operation.');
 }
 
 /// SBP.12.1.4 User Authorization. The two roles both screens hold their access

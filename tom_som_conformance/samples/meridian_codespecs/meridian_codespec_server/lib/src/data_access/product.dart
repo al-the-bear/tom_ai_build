@@ -7,7 +7,7 @@ import 'package:tom_code_specs/tom_code_specs.dart';
 /// A sellable product referenced by order lines and priced by the price list. Realizes FR-02, FR-03.
 @CodeSpec(
   'dataAccess.Product',
-  source: ['DAENT-IDEN', 'DAATT-IDEN', 'DAATT-DATA', 'DAATT-SECU'],
+  source: ['DAENT-IDEN', 'DAATT-IDEN', 'DAATT-DATA', 'DAATT-SECU', 'content'],
 )
 @DocSpec([
   DocRef(
@@ -20,6 +20,7 @@ import 'package:tom_code_specs/tom_code_specs.dart';
     'DAATT-SECU',
     'records the sensitivity level and PII marking of the stored attributes',
   ),
+  DocRef('content', 'supplies the rule set and its arguments'),
 ])
 @CsTable('mom_product')
 class Product {
@@ -48,12 +49,14 @@ class Product {
       'DAATT-SECU',
       'records the sensitivity level and PII marking of the stored attributes',
     ),
+    DocRef('content', 'supplies the rule set and its arguments'),
   ])
   @CsColumn(
     columnType: 'varchar(40)',
     sensitivityLevel: CsSensitivityLevel.internal,
     isPii: false,
   )
+  @CsValidation(rules: r'required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}$')
   late String sku;
 
   /// Product display name.

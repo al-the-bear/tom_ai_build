@@ -2,5 +2,12 @@
 // Source document: meridian_order_management.md (D00)
 // Spec model version: 1.0.0+3.50e0102
 
+export 'src/api/amend_order_line_request.dart';
+export 'src/api/amend_order_line_response.dart';
+export 'src/api/fetch_order_work_list_request.dart';
+export 'src/api/fetch_order_work_list_response.dart';
+export 'src/api/operation_catalog.dart';
 export 'src/authorization/authorization_catalog.dart';
+export 'src/error/error_catalog.dart';
+export 'src/error/result_envelope.dart';
 export 'src/text/text_catalog.dart';

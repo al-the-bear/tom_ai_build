@@ -1,0 +1,60 @@
+# gate.verdicts.yaml — Phase-4 gate record for the Meridian sample (codespecs_prompt.md §6.3).
+gate:
+  formatVersion: 1
+  verdicts:
+    - area: CE-AC
+      verdict: insufficient
+      resolution: descoped
+    - area: CE-API
+      verdict: sufficient
+    - area: CE-AU
+      verdict: not applicable
+    - area: CE-AZ
+      verdict: sufficient
+    - area: CE-CC
+      verdict: not applicable
+    - area: CE-CF
+      verdict: not applicable
+    - area: CE-CL
+      verdict: not applicable
+    - area: CE-DB
+      verdict: sufficient
+    - area: CE-DS
+      verdict: not applicable
+    - area: CE-EL
+      verdict: insufficient
+      resolution: descoped
+    - area: CE-ER
+      verdict: sufficient
+    - area: CE-FM
+      verdict: insufficient
+      resolution: descoped
+    - area: CE-ID
+      verdict: not applicable
+    - area: CE-JB
+      verdict: not applicable
+    - area: CE-LG
+      verdict: not applicable
+    - area: CE-LO
+      verdict: sufficient
+    - area: CE-MG
+      verdict: not applicable
+    - area: CE-NT
+      verdict: not applicable
+    - area: CE-NV
+      verdict: sufficient
+    - area: CE-RP
+      verdict: not applicable
+    - area: CE-SC
+      verdict: sufficient
+    - area: CE-ST
+      verdict: insufficient
+      resolution: descoped
+    - area: CE-SU
+      verdict: sufficient
+    - area: CE-TX
+      verdict: sufficient
+    - area: CE-UP
+      verdict: not applicable
+    - area: CE-VA
+      verdict: sufficient

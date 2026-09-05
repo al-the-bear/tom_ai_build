@@ -6,11 +6,10 @@ import 'package:tom_code_specs/tom_code_specs.dart';
 import 'package:tom_core_codespecs/tom_core_codespecs.dart';
 
 /// Editable list of lines with price and reservation status.
-@CodeSpec('layout.Scr02Sec2Layout', source: ['content', 'SSEL', 'SEEB'])
+@CodeSpec('layout.Scr02Sec2Layout', source: ['content', 'SSEL'])
 @DocSpec([
   DocRef('content', 'supplies the section, its purpose and its type'),
   DocRef('SSEL', 'supplies the layout direction and display order'),
-  DocRef('SEEB', 'records the readonly condition of an element this section lays out'),
 ])
 @CsLayout('SCR-02-SEC-2')
 class Scr02Sec2Layout {

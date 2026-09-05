@@ -15,7 +15,7 @@ extract:
     citableParts: ["CE-EL", "CE-FM", "CE-TX", "CE-VA", "CE-SC", "CE-API", "CE-ST", "CE-NV", "CE-AZ", "CE-ER", "CE-AU", "CE-ID", "CE-NT", "CE-RP"]
   document:
     root: "SBP"
-    entryCount: 152
+    entryCount: 154
   entries:
     - sectionId: "INID"
       path: "SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/INID"
@@ -939,6 +939,15 @@ extract:
       path: "SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/content"
       className: "MainScenarioStepEntry"
       fieldName: "content"
+      formField: "serverOperation"
+      routedBy: "CodeSpecPart.action"
+      routedAt: "MainScenarioStepEntry"
+      routingNote: "CE-AC/CE-SC/CE-NV — each main-flow step: actor action, server-bound call, and/or screen transition"
+      value: "amendOrderLine"
+    - sectionId: "content"
+      path: "SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/content"
+      className: "MainScenarioStepEntry"
+      fieldName: "content"
       formField: "dataInvolved"
       routedBy: "CodeSpecPart.action"
       routedAt: "MainScenarioStepEntry"
@@ -1133,6 +1142,15 @@ extract:
       routedAt: "ScenarioStepEntry"
       routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
       value: "Order shows state Confirmed with both lines priced and reserved."
+    - sectionId: "content"
+      path: "SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-2/content"
+      className: "ScenarioStepEntry"
+      fieldName: "content"
+      formField: "serverOperation"
+      routedBy: "CodeSpecPart.action"
+      routedAt: "ScenarioStepEntry"
+      routingNote: "CE-AC/CE-SC/CE-NV — each scenario step: actor action, server-bound call, and/or screen transition"
+      value: "fetchOrderWorkList"
     - sectionId: "content"
       path: "SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-3/content"
       className: "ScenarioStepEntry"

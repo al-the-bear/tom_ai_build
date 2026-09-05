@@ -1014,18 +1014,24 @@ document:
                         Clerk changes the quantity of a line and saves.
                       systemResponse: |2-
                         System validates the new quantity and re-prices the line.
+                      serverOperation: |2-
+                        amendOrderLine
                       dataInvolved: |2-
                         OrderLine, PriceList
                       businessRuleApplied: |2-
                         FR-05 amend before dispatch
                     SVCST-STEP-LST serverCallSteps:
                       SVCST-STEP-1:
+                        headline: |2-
+                          Stage the core fields
                         content:
                           role: |2-
                             assembleRequest
                           systemAction: |2-
                             Puts the line id, the new quantity and the order version onto the amendment command.
                       SVCST-STEP-2:
+                        headline: |2-
+                          Attach the justification
                         content:
                           role: |2-
                             assembleRequest
@@ -1034,12 +1040,16 @@ document:
                           condition: |2-
                             Only when the clerk entered a justification
                       SVCST-STEP-3:
+                        headline: |2-
+                          Apply the price snapshot
                         content:
                           role: |2-
                             handleResponse
                           systemAction: |2-
                             Applies the returned price snapshot and reservation state to the open line.
                       SVCST-STEP-4:
+                        headline: |2-
+                          Surface the rejection
                         content:
                           role: |2-
                             handleError
@@ -1095,8 +1105,12 @@ document:
                       Observes the confirmed order on the work list.
                     systemResponse: |2-
                       Order shows state Confirmed with both lines priced and reserved.
+                    serverOperation: |2-
+                      fetchOrderWorkList
                   SVCST-STEP-LST serverCallSteps:
                     SVCST-STEP-1:
+                      headline: |2-
+                        Render the work list page
                       content:
                         role: |2-
                           handleResponse
@@ -1353,6 +1367,19 @@ document:
                     integer
                   physicalType: |2-
                     int
+                DATAA-CONS-LST constraints:
+                  DATAA-CONS-1:
+                    headline: |2-
+                      quantity-positive
+                    content:
+                      mandatory: |2-
+                        Required
+                      nullable: |2-
+                        No
+                      validationRules: |2-
+                        required, min:1
+                      constraintExpression: |2-
+                        quantity > 0
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
@@ -1371,6 +1398,19 @@ document:
                     decimal
                   physicalType: |2-
                     numeric(12,2)
+                DATAA-CONS-LST constraints:
+                  DATAA-CONS-1:
+                    headline: |2-
+                      unit-price-non-negative
+                    content:
+                      mandatory: |2-
+                        Required
+                      nullable: |2-
+                        No
+                      validationRules: |2-
+                        required, min:0
+                      constraintExpression: |2-
+                        unit_price >= 0
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
@@ -1474,6 +1514,19 @@ document:
                     decimal
                   physicalType: |2-
                     numeric(14,2)
+                DATAA-CONS-LST constraints:
+                  DATAA-CONS-1:
+                    headline: |2-
+                      credit-limit-non-negative
+                    content:
+                      mandatory: |2-
+                        Required
+                      nullable: |2-
+                        No
+                      validationRules: |2-
+                        required, min:0
+                      constraintExpression: |2-
+                        credit_limit >= 0
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Confidential
@@ -1547,6 +1600,21 @@ document:
                     string
                   physicalType: |2-
                     varchar(40)
+                DATAA-CONS-LST constraints:
+                  DATAA-CONS-1:
+                    headline: |2-
+                      sku-format
+                    content:
+                      mandatory: |2-
+                        Required
+                      nullable: |2-
+                        No
+                      unique: |2-
+                        Unique
+                      validationRules: |2-
+                        required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}$
+                      patternRegex: |2-
+                        ^[A-Z0-9]{4}-[A-Z0-9]{4}$
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
@@ -1799,6 +1867,79 @@ document:
                     Cancelled
                   description: |2-
                     Cancelled before dispatch, with an audited reason; terminal state.
+      ERCRG errorCodeRegistry:
+        content: |2-
+          The shared application error codes the Result envelope's error arm carries.
+        ERCEN-CODE-LST errorCodes:
+          ERCEN-CODE-1:
+            headline: |2-
+              Validation failed
+            content:
+              content: |2-
+                A request member failed its declared validation rules; field-level details name the offending members.
+              code: |2-
+                VALIDATION_FAILED
+              category: |2-
+                Validation
+              severity: |2-
+                Error
+              retryable: false
+              copyKey: |2-
+                screen.order.amend.error
+          ERCEN-CODE-2:
+            headline: |2-
+              Order already dispatched
+            content:
+              content: |2-
+                The order left the amendable window before the command arrived (FR-05: amendments only before dispatch).
+              code: |2-
+                ORDER_ALREADY_DISPATCHED
+              category: |2-
+                BusinessRule
+              severity: |2-
+                Error
+              retryable: false
+              copyKey: |2-
+                screen.order.amend.error
+          ERCEN-CODE-3:
+            headline: |2-
+              Order version conflict
+            content:
+              content: |2-
+                The order changed between the clerk's read and the amendment; the client reloads and may retry.
+              code: |2-
+                ORDER_VERSION_CONFLICT
+              category: |2-
+                Conflict
+              severity: |2-
+                Warning
+              retryable: true
+              copyKey: |2-
+                error.order.versionConflict
+      RSLTE resultEnvelope:
+        content:
+          content: |2-
+            Every operation returns this one envelope: a success arm carrying the operation's response members, or an error arm carrying a code from the error code registry.
+          discriminatorField: |2-
+            success
+          successArm: |2-
+            value
+          errorArm: |2-
+            error
+          retryable: true
+          severity: |2-
+            Info | Warning | Error | Fatal
+        RSFDE-FLDD-LST fieldDetails:
+          RSFDE-FLDD-1:
+            headline: |2-
+              Invalid quantity detail
+            content:
+              fieldPath: |2-
+                newQuantity
+              errorCodeRef: |2-
+                VALIDATION_FAILED
+              message: |2-
+                The quantity must be a positive whole number
       MSGKR messageKeyRegistry:
         MSGKE-MKEY-LST messageKeys:
           MSGKE-MKEY-1:
@@ -1913,6 +2054,214 @@ document:
                 Retry
               description: |2-
                 Recovery action offered after a rejected amendment.
+          MSGKE-MKEY-12:
+            headline: |2-
+              Version conflict message
+            content:
+              key: |2-
+                error.order.versionConflict
+              defaultCopy: |2-
+                The order changed while you were editing; reload and retry
+              description: |2-
+                Copy of the ORDER_VERSION_CONFLICT error code.
+          MSGKE-MKEY-13:
+            headline: |2-
+              Amend line operation description
+            content:
+              key: |2-
+                op.order.amendLine
+              defaultCopy: |2-
+                Re-prices and re-reserves an amended order line
+              description: |2-
+                Description of the amendOrderLine server operation.
+          MSGKE-MKEY-14:
+            headline: |2-
+              Work list operation description
+            content:
+              key: |2-
+                op.order.fetchWorkList
+              defaultCopy: |2-
+                Fetches a state-filtered page of the order work list
+              description: |2-
+                Description of the fetchOrderWorkList server operation.
+      SVOPR serverOperationRegistry:
+        content: |2-
+          The application's own operation surface. Both operations return the shared
+          Result envelope; the client-side handling of each call is stated on the
+          interaction step that cites the operation.
+        SVOPE-OPER-LST operations:
+          SVOPE-OPER-1:
+            headline: |2-
+              Amend Order Line
+            content:
+              operationName: |2-
+                amendOrderLine
+              purpose: |2-
+                Applies a quantity change to one order line before dispatch, re-pricing and re-reserving only the affected line under optimistic concurrency.
+              primaryDataEntity: |2-
+                OrderLine
+              descriptionKey: |2-
+                op.order.amendLine
+              errorCodes: |2-
+                VALIDATION_FAILED, ORDER_ALREADY_DISPATCHED, ORDER_VERSION_CONFLICT
+            AZREQ authorization:
+              content:
+                requirementKind: |2-
+                  role
+                rationale: |2-
+                  Amending a line is a clerk action on the order queue; the supervisor role inherits it via Order Clerk.
+              AZREQ-ROLE roleRequirement:
+                roles: |2-
+                  Order Clerk
+            SVOPM-REQM-LST requestMembers:
+              SVOPM-REQM-1:
+                headline: |2-
+                  orderId
+                content:
+                  memberType: |2-
+                    Text
+                  required: true
+                  description: |2-
+                    The order the amended line belongs to.
+              SVOPM-REQM-2:
+                headline: |2-
+                  lineId
+                content:
+                  memberType: |2-
+                    Text
+                  required: true
+                  description: |2-
+                    The line whose quantity changes.
+              SVOPM-REQM-3:
+                headline: |2-
+                  newQuantity
+                content:
+                  memberType: |2-
+                    Integer
+                  required: true
+                  description: |2-
+                    The new ordered quantity; must satisfy the quantity-positive constraint on OrderLine.quantity.
+              SVOPM-REQM-4:
+                headline: |2-
+                  orderVersion
+                content:
+                  memberType: |2-
+                    Integer
+                  required: true
+                  description: |2-
+                    The order version the clerk read; a stale version is rejected with ORDER_VERSION_CONFLICT.
+              SVOPM-REQM-5:
+                headline: |2-
+                  justification
+                content:
+                  memberType: |2-
+                    Text
+                  required: false
+                  description: |2-
+                    The clerk's justification note, when one was entered.
+            SVOPM-RESM-LST responseMembers:
+              SVOPM-RESM-1:
+                headline: |2-
+                  unitPrice
+                content:
+                  memberType: |2-
+                    Decimal
+                  required: true
+                  description: |2-
+                    The fresh price snapshot applied to the amended line.
+              SVOPM-RESM-2:
+                headline: |2-
+                  reserved
+                content:
+                  memberType: |2-
+                    Boolean
+                  required: true
+                  description: |2-
+                    Whether stock was re-reserved for the amended line.
+              SVOPM-RESM-3:
+                headline: |2-
+                  orderStatus
+                content:
+                  memberType: |2-
+                    Text
+                  required: true
+                  description: |2-
+                    The order state after the amendment (Confirmed when fully satisfied); a value of the OrderStatus domain enum.
+              SVOPM-RESM-4:
+                headline: |2-
+                  orderVersion
+                content:
+                  memberType: |2-
+                    Integer
+                  required: true
+                  description: |2-
+                    The order version after the amendment, for the next optimistic write.
+          SVOPE-OPER-2:
+            headline: |2-
+              Fetch Order Work List
+            content:
+              operationName: |2-
+                fetchOrderWorkList
+              purpose: |2-
+                Returns one state-filtered page of the order work list in queue order.
+              primaryDataEntity: |2-
+                Order
+              descriptionKey: |2-
+                op.order.fetchWorkList
+              errorCodes: |2-
+                VALIDATION_FAILED
+            AZREQ authorization:
+              content:
+                requirementKind: |2-
+                  role
+                rationale: |2-
+                  The work list exposes every open order, so the query is limited to the two roles that work the queue.
+              AZREQ-ROLE roleRequirement:
+                roles: |2-
+                  Order Clerk, Order Supervisor
+            SVOPM-REQM-LST requestMembers:
+              SVOPM-REQM-1:
+                headline: |2-
+                  stateFilter
+                content:
+                  memberType: |2-
+                    DomainEnum
+                  required: false
+                  domainEnum: |2-
+                    OrderStatus
+                  description: |2-
+                    Show only orders in this lifecycle state; absent means every open state.
+              SVOPM-REQM-2:
+                headline: |2-
+                  page
+                content:
+                  memberType: |2-
+                    Integer
+                  required: false
+                  description: |2-
+                    Zero-based page index; defaults to the first page.
+            SVOPM-RESM-LST responseMembers:
+              SVOPM-RESM-1:
+                headline: |2-
+                  orders
+                content:
+                  memberType: |2-
+                    DataEntity
+                  multiValued: true
+                  required: true
+                  dataEntity: |2-
+                    Order
+                  description: |2-
+                    The page of matching orders in queue order.
+              SVOPM-RESM-2:
+                headline: |2-
+                  totalCount
+                content:
+                  memberType: |2-
+                    Integer
+                  required: true
+                  description: |2-
+                    Total matching orders across all pages.
     REQS requirements:
       content: |2-
         Functional:

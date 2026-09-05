@@ -2,6 +2,7 @@
 // Source document: meridian_order_management.md (D00)
 // Spec model version: 1.0.0+3.50e0102
 
+import 'package:meridian_codespec_shared/meridian_codespec_shared.dart';
 import 'package:tom_code_specs/tom_code_specs.dart';
 import 'package:tom_core_server/tom_core_server.dart';
 
@@ -9,14 +10,61 @@ import '../data_access/order.dart';
 
 @CodeSpec(
   'serviceUnit.OrderService',
-  source: ['DAENT-CLAS', 'INID', 'SCID', 'EXTEN-RESU'],
+  source: ['DAENT-CLAS', 'content'],
 )
 @DocSpec([
   DocRef('DAENT-CLAS', 'supplies the bounded context and aggregate root'),
-  DocRef('INID', 'records the use cases this service unit realises'),
-  DocRef('SCID', 'records the key scenarios exercising this service unit'),
-  DocRef('EXTEN-RESU', 'records the resume step of the amend extension flow'),
+  DocRef(
+    'content',
+    'supplies each server operation this unit realises, its purpose and '
+    'its authorization requirement',
+  ),
 ])
 @tomService
 @CsServiceUnit(rootAggregate: Order, boundedContext: 'Ordering')
-abstract class OrderService {}
+abstract class OrderService {
+  /// Applies a quantity change to one order line before dispatch, re-pricing and re-reserving only the affected line under optimistic concurrency.
+  @DocSpec([
+    DocRef(
+      'content',
+      'supplies the operation name, its purpose and its authorization '
+      'requirement',
+    ),
+  ])
+  @CsEndpoint('amendOrderLine')
+  @CsAuthorize(
+    requirement: CsAuthRequirement.role,
+    roles: [SbpRoles.orderClerk],
+  )
+  Future<Result<AmendOrderLineResponse>> amendOrderLine(
+    AmendOrderLineRequest request,
+  ) {
+    throw UnsupportedError(
+      'Applies a quantity change to one order line before dispatch, '
+      're-pricing and re-reserving only the affected line under optimistic '
+      'concurrency.',
+    );
+  }
+
+  /// Returns one state-filtered page of the order work list in queue order.
+  @DocSpec([
+    DocRef(
+      'content',
+      'supplies the operation name, its purpose and its authorization '
+      'requirement',
+    ),
+  ])
+  @CsEndpoint('fetchOrderWorkList')
+  @CsAuthorize(
+    requirement: CsAuthRequirement.role,
+    roles: [SbpRoles.orderClerk, SbpRoles.orderSupervisor],
+  )
+  Future<Result<FetchOrderWorkListResponse>> fetchOrderWorkList(
+    FetchOrderWorkListRequest request,
+  ) {
+    throw UnsupportedError(
+      'Returns one state-filtered page of the order work list in queue '
+      'order.',
+    );
+  }
+}
