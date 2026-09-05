@@ -25,7 +25,9 @@
 #
 # Usage:  ./tool/run_all_suites.sh [--strict] [--log-dir DIR] [suite ...]
 #         suite names are package names without the `tom_som_` prefix,
-#         e.g. `go_v0 rust_runtime`. With none given, all eighteen run.
+#         e.g. `go_v0 rust_runtime`, plus `sample_coverage` for the SOM §19
+#         instantiation-coverage gate (check_sample_coverage.dart). With none
+#         given, all eighteen suites run and the coverage gate runs first.
 set -uo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"   # tom_som_conformance/tool
@@ -89,6 +91,36 @@ passed=0
 failed=0
 skipped=0
 declare -a RESULTS=()
+
+# The sample instantiation-coverage gate (SOM §19) runs first: it is
+# language-agnostic (Dart model meta vs the shared samples), so it runs once
+# here rather than nine times inside the suites. Same skip semantics as a
+# suite: absent toolchain skips with the reason stated, never a false pass.
+run_coverage=1
+if [ ${#SELECTED[@]} -gt 0 ]; then
+  run_coverage=0
+  for s in "${SELECTED[@]}"; do [ "$s" = "sample_coverage" ] && run_coverage=1; done
+fi
+if [ "$run_coverage" -eq 1 ]; then
+  echo "== sample_coverage =="
+  if ! command -v dart > /dev/null 2>&1; then
+    echo "== sample_coverage: SKIP (dart not on PATH) =="
+    RESULTS+=("SKIP sample_coverage  (dart not on PATH)")
+    skipped=$((skipped + 1))
+  else
+    log="$LOG_DIR/sample_coverage.log"
+    if dart "$HERE/check_sample_coverage.dart" "$CONF" > "$log" 2>&1; then
+      RESULTS+=("PASS sample_coverage")
+      passed=$((passed + 1))
+    else
+      RESULTS+=("FAIL sample_coverage  (log: $log)")
+      failed=$((failed + 1))
+      echo "---- sample_coverage failed; last 30 lines of $log ----"
+      tail -30 "$log"
+      echo "---- end sample_coverage ----"
+    fi
+  fi
+fi
 
 for entry in "${SUITES[@]}"; do
   name="${entry%%:*}"

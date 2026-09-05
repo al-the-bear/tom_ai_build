@@ -1451,12 +1451,20 @@ typed half is a curated traversal cross-checked against it. Neither is total
 over the *model*: a structure the sample never populates is generated into all
 nine languages and compared nine ways against logs that never mention it, so the
 nine ports agree about a construct none of them has ever serialized. That bound
-is wide. The sample carries roughly 120 of the ~3 850 section ids reachable from
-the SBP root, and 34 of the 569 reachable list structures — and it is invisible
-from the outside, because the logs stay byte-identical whether an uninstantiated
-structure works or not. Populating the sample is therefore the act that brings a
-construct under the parity proof, and it belongs in the same change as the
-structure worth proving parity for.
+would be invisible from the logs themselves — they stay byte-identical whether
+an uninstantiated structure works or not — so it is measured and enforced by
+`tool/check_sample_coverage.dart`, which walks the full model meta
+(`tom_som_dart_v0/meta/spec_model.meta.json`) from the SBP root and holds both
+coverage metrics — instantiated list structures, and instantiated section ids —
+against the committed remaining set in `tool/sample_coverage_manifest.yaml`.
+The gate is red when reality and the manifest disagree in either direction: a
+structure added to the model that no sample instantiates (and nobody
+consciously recorded), a manifest entry that became covered (coverage only
+ratchets forward — the entry must be deleted), or a manifest entry the model no
+longer reaches. The current ratios are the check's report, never a number
+quoted here; an empty manifest is full coverage, and shrinking it — populating
+the samples — is the act that brings a construct under the parity proof. It
+belongs in the same change as the structure worth proving parity for.
 
 **The corpus must exercise every validation code.** `corpus/validation_cases.json`
 is what forces a runtime to implement an instance-tier check: a case expecting a
@@ -1512,7 +1520,7 @@ driver in `tom_som_conformance/tool/`:
 | Driver | What it proves |
 | --- | --- |
 | `regenerate_golden.sh` | Rebuilds all nine golden logs and asserts they are byte-identical — the nine APIs read the same specification identically. |
-| `run_all_suites.sh` | Runs the **eighteen** hand-authored suites (nine runtime + nine `v0` packages), so a red suite surfaces the same way a golden mismatch does. |
+| `run_all_suites.sh` | Runs the **eighteen** hand-authored suites (nine runtime + nine `v0` packages), so a red suite surfaces the same way a golden mismatch does. Runs the `sample_coverage` instantiation gate (`check_sample_coverage.dart`) first — language-agnostic, so once rather than nine times. |
 
 Every SOM package carries a uniform `run_tests.sh` that runs everything
 hand-authored in it, whatever the ecosystem underneath (`dart test`, `python3`,

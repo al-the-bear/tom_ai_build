@@ -13,7 +13,7 @@ nine language APIs agree **on everything the sample and corpus exercise** — se
 | `samples/` | The shared specification sample (`meridian_order_management.docspecs.yaml` + `.md`), authored once through the Dart typed facade and loaded by every language. See `samples/README.md`. |
 | `corpus/` | Language-agnostic case tables plus their expected outputs, consumed by each runtime's conformance runner. **Every tier has a `#### …and so does the <tier>` subsection below, and each one names its own tables** — the tiers are not listed here, because a list in two places is a list that goes stale in one of them (it did: the scripting tier and the version check were both added without this row noticing). What keeps the tables *complete* is the enum-coverage guard — see below before adding a check to any runtime. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand (see below). |
-| `tool/` | The two cross-language drivers: `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the eighteen test suites). |
+| `tool/` | The two cross-language drivers — `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the eighteen test suites) — plus the `sample_coverage` gate: `check_sample_coverage.dart` and its committed remaining set `sample_coverage_manifest.yaml` (see "The parity claim's bound"). |
 
 ## Cross-language golden harness (SOM §19)
 
@@ -113,19 +113,27 @@ all nine language APIs yield exactly the same reading of the same specification
 
 #### The parity claim's bound
 
-The proof extends exactly as far as the shared sample and corpus reach, and no
-further. As of the 2026-09-04 survey, the Meridian sample instantiates **34 of
-the 569 reachable list structures** and roughly **120 of the ~3 850 section
-ids** in the model. Within that exercised slice the byte-identity proof is
-exact: every value the sample carries is read identically nine ways, byte for
-byte. Outside it, a construct is proven only to *exist* in all nine ports — the
-generators compile against it — not to *behave* identically; an uninstantiated
-structure can be wrong in one language and the logs stay green, because the
-logs never mention it.
+The proof extends exactly as far as the shared samples and corpus reach, and no
+further. Within the exercised slice the byte-identity proof is exact: every
+value the samples carry is read identically nine ways, byte for byte. Outside
+it, a construct is proven only to *exist* in all nine ports — the generators
+compile against it — not to *behave* identically; an uninstantiated structure
+can be wrong in one language and the logs stay green, because the logs never
+mention it.
 
-No shipped check measures or enforces this bound yet — the numbers above are a
-hand survey, dated so a reader can tell how stale they are. Populating the
-sample is the act that brings a construct under the proof (SOM §19 states the
+The bound is measured and enforced by `tool/check_sample_coverage.dart`, which
+`run_all_suites.sh` runs first (as the `sample_coverage` gate): it walks the
+full model meta (`tom_som_dart_v0/meta/spec_model.meta.json`) from the
+`D00SolutionBlueprint` root, computes both coverage metrics — instantiated
+list structures and instantiated section ids, where *instantiated* means the
+id appears as a mapping key in some `samples/*.docspecs.yaml` (never in prose)
+— and holds them against the committed remaining set in
+`tool/sample_coverage_manifest.yaml`. Red on any disagreement: an uncovered id
+the manifest does not record (a structure added and never instantiated), a
+manifest entry that became covered (coverage only ratchets forward — delete
+the line), or a manifest entry the model no longer reaches. The check's report
+carries the current ratios; an empty manifest is full coverage. Populating the
+samples is the act that brings a construct under the proof (SOM §19 states the
 same rule from the model's side).
 
 **This subsection is the canonical statement of the bound.** Release-facing
