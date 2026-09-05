@@ -56822,6 +56822,12 @@ char *screen_action_entry_content_form_action_id(const ScreenActionEntryContentF
 void screen_action_entry_content_form_set_action_id(ScreenActionEntryContentForm *self, const char *value);
 char *screen_action_entry_content_form_action_type(const ScreenActionEntryContentForm *self);
 void screen_action_entry_content_form_set_action_type(ScreenActionEntryContentForm *self, const char *value);
+char *screen_action_entry_content_form_owning_controller(const ScreenActionEntryContentForm *self);
+void screen_action_entry_content_form_set_owning_controller(ScreenActionEntryContentForm *self, const char *value);
+char *screen_action_entry_content_form_description(const ScreenActionEntryContentForm *self);
+void screen_action_entry_content_form_set_description(ScreenActionEntryContentForm *self, const char *value);
+char *screen_action_entry_content_form_context_type(const ScreenActionEntryContentForm *self);
+void screen_action_entry_content_form_set_context_type(ScreenActionEntryContentForm *self, const char *value);
 
 // ScreenActionEntryVisualForm is the generated section facade for the `visual` @Form section: its own `content` text followed by one typed member per form field.
 void screen_action_entry_visual_form_init(ScreenActionEntryVisualForm *self, SpecDocument *doc, const char *path);
@@ -57397,6 +57403,8 @@ void screen_state_entry_content_form_free(ScreenStateEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *screen_state_entry_content_form_content(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_content(ScreenStateEntryContentForm *self, const char *value);
+char *screen_state_entry_content_form_state_id(const ScreenStateEntryContentForm *self);
+void screen_state_entry_content_form_set_state_id(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_description(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_description(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_message_resource(const ScreenStateEntryContentForm *self);

@@ -2373,11 +2373,12 @@
             - actions: `ScreenActions`
               - content
               - items: `ScreenActionEntry`[]
-                - content @Form(actionId, actionType), visual, conditions, behavior
+                - content @Form(actionId, actionType, owningController, description, contextType), visual, conditions,
+                  behavior
             - states: `ScreenStates`
               - content
               - items: `ScreenStateEntry`[]
-                - content @Form(description, messageResource, iconResource, illustrationResource, primaryActionLabel, primaryActionTarget, secondaryActionLabel)
+                - content @Form(stateId, description, messageResource, iconResource, illustrationResource, primaryActionLabel, primaryActionTarget, secondaryActionLabel)
             - userCategories: `ScreenUserCategoryEntry`[]
               - content @Form(description, contentVariations)
             - entryPoints: `EntryPointEntry`[]

@@ -77269,6 +77269,15 @@ class ScreenActionEntryContentForm extends SomNode {
 
   String get actionType => doc.formField(path, 'actionType') ?? '';
   set actionType(String value) => doc.setFormField(path, 'actionType', value);
+
+  String get owningController => doc.formField(path, 'owningController') ?? '';
+  set owningController(String value) => doc.setFormField(path, 'owningController', value);
+
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
+
+  String get contextType => doc.formField(path, 'contextType') ?? '';
+  set contextType(String value) => doc.setFormField(path, 'contextType', value);
 }
 
 /// Generated section facade for the `visual` `@Form` section:
@@ -78234,6 +78243,9 @@ class ScreenStateEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
+
+  String get stateId => doc.formField(path, 'stateId') ?? '';
+  set stateId(String value) => doc.setFormField(path, 'stateId', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);

@@ -2156,6 +2156,12 @@ shape and the client-side bindings around it.
 
 **Attribute surface (`@CsViewModel`).**
 
+The view-model's **class name** derives from `SCRST.stateId` — the state's
+machine symbol and `ScreenStateEntry`'s designated name field
+(`codespecs_derivation_contract.md` §3.5.1 point 4). The entry headline names
+the state for people; the extract carries only routed form-field values, so the
+symbol the class name is built from is authored as a field.
+
 1. **fields** — the typed observable cells of the view-model: each a
    `(name, T, kind)` where `kind` is scalar (`TomString`/`TomInt`/…), composite
    (`TomClass`), or collection (`TomList`/`TomMap`). Declared as a field tree, not
@@ -3713,6 +3719,17 @@ a selected option is *worth*; both label identically. A CodeSpec therefore never
 authors an option list: naming the enum is the authoring act, and the source is
 derived from the bound member's type (`codespecs_derivation_contract.md` §3.5.2).
 
+**The SOM carrier of the per-kind extras is the field spec itself.** Every
+per-kind column above is authored on `ScreenElementFieldSpec` (`SEFS`): the
+data type selects the promoted options subsection carrying that kind's extras,
+and the select arm (`SEFSS`) carries the **option source** a non-enum *Choice*
+/ *MultiChoice* names (`optionsSource` — static list, API endpoint, or entity
+query; the enum-valued case stays derived, above). `SEFS` is dual-routed
+`@CodeSpecKind([form, screenElement])`, so the CE-EL extract carries these
+values alongside CE-FM's — they become the named constructor parameters of the
+`@CsWidget` step (`codespecs_derivation_contract.md` §3.5.3) without a second
+authoring home on the element entry.
+
 **The resolution rule** is a key derived from the *value*, not a catalogued one:
 `<scope path>.<enumType>.<value>`, tried **longest scope prefix first** and
 falling back to the global scope
@@ -3930,6 +3947,14 @@ Framework-internal (never spec input): `scope`/`tomGroup`, `authState`/
 `effectiveAuthState`, `TomActionController._actions`, event plumbing. The
 `canExecute(context)` guard is not an authored *action* attribute — it surfaces as the
 **condition** trigger kind (below).
+
+**SOM carriers of the required head.** On the screen-action entry
+(`ScreenActionEntry`, `SCRAC`): **Action id** ← `SCRAC.actionId`, **Owning
+controller** ← `SCRAC.owningController` (the controller-class name source,
+`codespecs_derivation_contract.md` §3.5.5 naming), **Context requirement** ←
+`SCRAC.contextType` (the `TContext` view-model type). `SCRAC.description`
+carries the stated behaviour the form-3a fallback quotes when no scenario step
+contributes to the action's body.
 
 **Trigger attribute surface (designed gap).** A
 `@CsTrigger` names *how* an action is invoked; one `@CsAction` may carry **several**

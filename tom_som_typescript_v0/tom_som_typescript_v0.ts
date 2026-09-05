@@ -144584,6 +144584,30 @@ export class ScreenActionEntryContentForm extends SomNode {
   set actionType(value: string) {
     this.doc.setFormField(this.path, "actionType", value);
   }
+
+  get owningController(): string {
+    return this.doc.formField(this.path, "owningController") || '';
+  }
+
+  set owningController(value: string) {
+    this.doc.setFormField(this.path, "owningController", value);
+  }
+
+  get description(): string {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value: string) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get contextType(): string {
+    return this.doc.formField(this.path, "contextType") || '';
+  }
+
+  set contextType(value: string) {
+    this.doc.setFormField(this.path, "contextType", value);
+  }
 }
 
 // Generated section facade for the `visual` @Form section: its own content text followed by one typed member per form field.
@@ -146520,6 +146544,14 @@ export class ScreenStateEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
+  }
+
+  get stateId(): string {
+    return this.doc.formField(this.path, "stateId") || '';
+  }
+
+  set stateId(value: string) {
+    this.doc.setFormField(this.path, "stateId", value);
   }
 
   get description(): string {

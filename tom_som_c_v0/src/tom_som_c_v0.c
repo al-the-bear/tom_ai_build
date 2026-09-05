@@ -136470,6 +136470,27 @@ char *screen_action_entry_content_form_action_type(const ScreenActionEntryConten
 void screen_action_entry_content_form_set_action_type(ScreenActionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "actionType", value);
 }
+char *screen_action_entry_content_form_owning_controller(const ScreenActionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "owningController");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_action_entry_content_form_set_owning_controller(ScreenActionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "owningController", value);
+}
+char *screen_action_entry_content_form_description(const ScreenActionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_action_entry_content_form_set_description(ScreenActionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "description", value);
+}
+char *screen_action_entry_content_form_context_type(const ScreenActionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contextType");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_action_entry_content_form_set_context_type(ScreenActionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "contextType", value);
+}
 
 void screen_action_entry_visual_form_init(ScreenActionEntryVisualForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -138063,6 +138084,13 @@ char *screen_state_entry_content_form_content(const ScreenStateEntryContentForm 
 }
 void screen_state_entry_content_form_set_content(ScreenStateEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *screen_state_entry_content_form_state_id(const ScreenStateEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stateId");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_state_entry_content_form_set_state_id(ScreenStateEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "stateId", value);
 }
 char *screen_state_entry_content_form_description(const ScreenStateEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");

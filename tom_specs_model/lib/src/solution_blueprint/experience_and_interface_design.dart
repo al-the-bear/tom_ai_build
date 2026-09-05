@@ -2224,7 +2224,11 @@ class ScreenElementAction extends DocSpecsSection {
 )
 @CodeSpecKind([
   CodeSpecPart.form,
-], note: 'CE-FM — a form field / input specification.')
+  CodeSpecPart.screenElement,
+], note: 'CE-FM — a form field / input specification. Also CE-EL: the '
+    'per-kind extras (number/date/select/text/file options, incl. the select '
+    "arm's option source) are the widget-config surface `@CsWidget` carries "
+    '(codespecs_mapping.md §5.18).')
 class ScreenElementFieldSpec extends DocSpecsSection {
   @Form([
     Field(
@@ -2750,6 +2754,29 @@ class ScreenActionEntry extends DocSpecsSection {
       'Action Type',
       hint: 'Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh',
     ),
+    Field(
+      'owningController',
+      String,
+      'Owning Controller',
+      required: true,
+      hint: 'The action controller this action belongs to — the source of '
+          'the controller class name, e.g. Order',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'What the action does — the stated behavior of an action no '
+          'scenario step contributes to',
+    ),
+    Field(
+      'contextType',
+      String,
+      'Context Type',
+      required: true,
+      hint: 'The view-model type the action requires as its context, '
+          'e.g. OrderViewModel',
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -2954,6 +2981,16 @@ empty states, and error displays.
 )
 class ScreenStateEntry extends DocSpecsSection {
   @Form([
+    Field(
+      'stateId',
+      String,
+      'State Id',
+      required: true,
+      hint: 'The symbol the built screen carries for this state — unique '
+          'within the screen, and the source of the state class name '
+          '(distinct from the entry headline, which names it for people), '
+          'e.g. empty-queue',
+    ),
     Field('description', String, 'Description', hint: 'When this state occurs'),
     Field(
       'messageResource',

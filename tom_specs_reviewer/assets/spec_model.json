@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T13:11:23.010404Z",
+  "generatedAt": "2026-09-05T08:51:50.235264Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
@@ -216483,6 +216483,27 @@
               "hint": "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "owningController",
+              "label": "Owning Controller",
+              "hint": "The action controller this action belongs to — the source of the controller class name, e.g. Order",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "What the action does — the stated behavior of an action no scenario step contributes to",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "contextType",
+              "label": "Context Type",
+              "hint": "The view-model type the action requires as its context, e.g. OrderViewModel",
+              "type": "String",
+              "required": true
             }
           ]
         },
@@ -218249,9 +218270,10 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.form"
+              "CodeSpecPart.form",
+              "CodeSpecPart.screenElement"
             ],
-            "note": "CE-FM — a form field / input specification."
+            "note": "CE-FM — a form field / input specification. Also CE-EL: the per-kind extras (number/date/select/text/file options, incl. the select arm's option source) are the widget-config surface `@CsWidget` carries (codespecs_mapping.md §5.18)."
           }
         }
       ],
@@ -221437,6 +221459,13 @@
             }
           ],
           "formFields": [
+            {
+              "name": "stateId",
+              "label": "State Id",
+              "hint": "The symbol the built screen carries for this state — unique within the screen, and the source of the state class name (distinct from the entry headline, which names it for people), e.g. empty-queue",
+              "type": "String",
+              "required": true
+            },
             {
               "name": "description",
               "label": "Description",

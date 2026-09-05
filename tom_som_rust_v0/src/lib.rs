@@ -192471,6 +192471,33 @@ impl ScreenActionEntryContentForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "actionType", value);
     }
+
+    pub fn owning_controller(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "owningController")
+    }
+
+    pub fn set_owning_controller(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "owningController", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
+    }
+
+    pub fn context_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contextType")
+    }
+
+    pub fn set_context_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contextType", value);
+    }
 }
 
 /// ScreenActionEntryVisualForm is the generated section facade for the `visual` @Form section: its own
@@ -195008,6 +195035,15 @@ impl ScreenStateEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn state_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stateId")
+    }
+
+    pub fn set_state_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stateId", value);
     }
 
     pub fn description(&self) -> String {

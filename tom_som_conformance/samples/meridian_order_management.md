@@ -1719,6 +1719,9 @@ EmptyStateMessageResource: screen.orders.empty
 
 ActionId: SCR-01-ACT-1
 ActionType: Navigate
+OwningController: Order
+Description: Opens the selected order's detail screen.
+ContextType: OrderViewModel
 
 ########### <!--[SAEV]--> Visual
 
@@ -1732,6 +1735,7 @@ ButtonStyle: Primary
 
 ########## <!--[SCRST-ITEM-1]--> Empty queue
 
+StateId: empty-queue
 Description: No orders match the selected state filter.
 MessageResource: screen.orders.empty
 PrimaryActionLabel: screen.orders.empty.action.clear
@@ -1818,6 +1822,9 @@ DataType: integer
 
 ActionId: SCR-02-ACT-1
 ActionType: Submit
+OwningController: Order
+Description: Submits the amended line quantity for revalidation.
+ContextType: OrderViewModel
 
 ########### <!--[SAEV]--> Visual
 
@@ -1829,6 +1836,9 @@ ButtonStyle: Primary
 
 ActionId: SCR-02-ACT-2
 ActionType: Submit
+OwningController: Order
+Description: Releases the credit hold on the order.
+ContextType: OrderViewModel
 
 ########### <!--[SAEV]--> Visual
 
@@ -1842,6 +1852,7 @@ ButtonStyle: Secondary
 
 ########## <!--[SCRST-ITEM-1]--> Amendment rejected
 
+StateId: amendment-rejected
 Description: The new quantity failed validation or reservation.
 MessageResource: screen.order.amend.error
 PrimaryActionLabel: screen.order.amend.action.retry

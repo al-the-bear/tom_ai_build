@@ -171952,6 +171952,30 @@ func (x *ScreenActionEntryContentForm) SetActionType(value string) {
 	x.Doc().SetFormField(x.Path(), "actionType", value)
 }
 
+func (x *ScreenActionEntryContentForm) OwningController() string {
+	return x.Doc().FormFieldOr(x.Path(), "owningController")
+}
+
+func (x *ScreenActionEntryContentForm) SetOwningController(value string) {
+	x.Doc().SetFormField(x.Path(), "owningController", value)
+}
+
+func (x *ScreenActionEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *ScreenActionEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
+}
+
+func (x *ScreenActionEntryContentForm) ContextType() string {
+	return x.Doc().FormFieldOr(x.Path(), "contextType")
+}
+
+func (x *ScreenActionEntryContentForm) SetContextType(value string) {
+	x.Doc().SetFormField(x.Path(), "contextType", value)
+}
+
 // ScreenActionEntryVisualForm is the generated section facade for the `visual` @Form section: its own
 // content text followed by one typed member per form field.
 type ScreenActionEntryVisualForm struct {
@@ -174240,6 +174264,14 @@ func (x *ScreenStateEntryContentForm) Content() string {
 
 func (x *ScreenStateEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenStateEntryContentForm) StateId() string {
+	return x.Doc().FormFieldOr(x.Path(), "stateId")
+}
+
+func (x *ScreenStateEntryContentForm) SetStateId(value string) {
+	x.Doc().SetFormField(x.Path(), "stateId", value)
 }
 
 func (x *ScreenStateEntryContentForm) Description() string {

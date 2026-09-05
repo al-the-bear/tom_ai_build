@@ -88475,6 +88475,24 @@ std::string ScreenActionEntryContentForm::actionType() const {
 void ScreenActionEntryContentForm::setActionType(const std::string& value) {
   doc().setFormField(path(), "actionType", value);
 }
+std::string ScreenActionEntryContentForm::owningController() const {
+  return doc().formField(path(), "owningController");
+}
+void ScreenActionEntryContentForm::setOwningController(const std::string& value) {
+  doc().setFormField(path(), "owningController", value);
+}
+std::string ScreenActionEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void ScreenActionEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
+}
+std::string ScreenActionEntryContentForm::contextType() const {
+  return doc().formField(path(), "contextType");
+}
+void ScreenActionEntryContentForm::setContextType(const std::string& value) {
+  doc().setFormField(path(), "contextType", value);
+}
 
 ScreenActionEntryVisualForm::ScreenActionEntryVisualForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -89719,6 +89737,12 @@ std::string ScreenStateEntryContentForm::content() const {
 }
 void ScreenStateEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
+}
+std::string ScreenStateEntryContentForm::stateId() const {
+  return doc().formField(path(), "stateId");
+}
+void ScreenStateEntryContentForm::setStateId(const std::string& value) {
+  doc().setFormField(path(), "stateId", value);
 }
 std::string ScreenStateEntryContentForm::description() const {
   return doc().formField(path(), "description");

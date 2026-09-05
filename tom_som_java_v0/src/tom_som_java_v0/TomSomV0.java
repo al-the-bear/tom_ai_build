@@ -159965,6 +159965,33 @@ public final class TomSomV0 {
     public void actionType(String value) {
       doc.setFormField(path, "actionType", value);
     }
+
+    public String owningController() {
+      String v = doc.formField(path, "owningController");
+      return v == null ? "" : v;
+    }
+
+    public void owningController(String value) {
+      doc.setFormField(path, "owningController", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
+    }
+
+    public String contextType() {
+      String v = doc.formField(path, "contextType");
+      return v == null ? "" : v;
+    }
+
+    public void contextType(String value) {
+      doc.setFormField(path, "contextType", value);
+    }
   }
 
   // Generated section facade for the `visual` @Form section: its own content
@@ -162168,6 +162195,15 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path, value);
+    }
+
+    public String stateId() {
+      String v = doc.formField(path, "stateId");
+      return v == null ? "" : v;
+    }
+
+    public void stateId(String value) {
+      doc.setFormField(path, "stateId", value);
     }
 
     public String description() {

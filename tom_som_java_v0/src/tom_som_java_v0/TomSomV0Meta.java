@@ -79789,7 +79789,10 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionId", "String", "Action ID", true, "The symbol the built screen carries for this action — unique within the screen, e.g. act-submit-order", 0),
-            new SomFormFieldMeta("actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", 1)));
+            new SomFormFieldMeta("actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", 1),
+            new SomFormFieldMeta("owningController", "String", "Owning Controller", true, "The action controller this action belongs to — the source of the controller class name, e.g. Order", 2),
+            new SomFormFieldMeta("description", "String", "Description", false, "What the action does — the stated behavior of an action no scenario step contributes to", 3),
+            new SomFormFieldMeta("contextType", "String", "Context Type", true, "The view-model type the action requires as its context, e.g. OrderViewModel", 4)));
         out.add(n);
       }
       {
@@ -81392,13 +81395,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("description", "String", "Description", false, "When this state occurs", 0),
-            new SomFormFieldMeta("messageResource", "String", "Message Resource", false, "Message key (MSGKR registry) for state message", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
-            new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for state icon", 2),
-            new SomFormFieldMeta("illustrationResource", "String", "Illustration Resource", false, "Resource key for state illustration/image", 3),
-            new SomFormFieldMeta("primaryActionLabel", "String", "Primary Action Label", false, "Message key (MSGKR registry) for recovery action, e.g., Try Again", 4, java.util.List.of(), java.util.List.of("MSGKE.key")),
-            new SomFormFieldMeta("primaryActionTarget", "String", "Primary Action Target", false, "Action or navigation on recovery", 5),
-            new SomFormFieldMeta("secondaryActionLabel", "String", "Secondary Action Label", false, "Message key (MSGKR registry) for alternative action", 6, java.util.List.of(), java.util.List.of("MSGKE.key"))));
+            new SomFormFieldMeta("stateId", "String", "State Id", true, "The symbol the built screen carries for this state — unique within the screen, and the source of the state class name (distinct from the entry headline, which names it for people), e.g. empty-queue", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "When this state occurs", 1),
+            new SomFormFieldMeta("messageResource", "String", "Message Resource", false, "Message key (MSGKR registry) for state message", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for state icon", 3),
+            new SomFormFieldMeta("illustrationResource", "String", "Illustration Resource", false, "Resource key for state illustration/image", 4),
+            new SomFormFieldMeta("primaryActionLabel", "String", "Primary Action Label", false, "Message key (MSGKR registry) for recovery action, e.g., Try Again", 5, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("primaryActionTarget", "String", "Primary Action Target", false, "Action or navigation on recovery", 6),
+            new SomFormFieldMeta("secondaryActionLabel", "String", "Secondary Action Label", false, "Message key (MSGKR registry) for alternative action", 7, java.util.List.of(), java.util.List.of("MSGKE.key"))));
         out.add(n);
       }
       return out;

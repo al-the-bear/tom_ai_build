@@ -140135,6 +140135,30 @@ class ScreenActionEntryContentForm(SomNode):
     def actionType(self, value):
         self.doc.set_form_field(self.path, "actionType", value)
 
+    @property
+    def owningController(self) -> str:
+        return self.doc.form_field(self.path, "owningController") or ""
+
+    @owningController.setter
+    def owningController(self, value):
+        self.doc.set_form_field(self.path, "owningController", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
+
+    @property
+    def contextType(self) -> str:
+        return self.doc.form_field(self.path, "contextType") or ""
+
+    @contextType.setter
+    def contextType(self, value):
+        self.doc.set_form_field(self.path, "contextType", value)
+
 class ScreenActionEntryVisualForm(SomNode):
     """Generated section facade for the `visual` @Form section: its own content text followed by one typed member per form field."""
 
@@ -142019,6 +142043,14 @@ class ScreenStateEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
+
+    @property
+    def stateId(self) -> str:
+        return self.doc.form_field(self.path, "stateId") or ""
+
+    @stateId.setter
+    def stateId(self, value):
+        self.doc.set_form_field(self.path, "stateId", value)
 
     @property
     def description(self) -> str:

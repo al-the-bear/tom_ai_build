@@ -69404,6 +69404,9 @@ void buildScreenActionEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionId", "String", "Action ID", true, "The symbol the built screen carries for this action — unique within the screen, e.g. act-submit-order", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"owningController", "String", "Owning Controller", true, "The action controller this action belongs to — the source of the controller class name, e.g. Order", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the action does — the stated behavior of an action no scenario step contributes to", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contextType", "String", "Context Type", true, "The view-model type the action requires as its context, e.g. OrderViewModel", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -70843,13 +70846,14 @@ void buildScreenStateEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "When this state occurs", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"messageResource", "String", "Message Resource", false, "Message key (MSGKR registry) for state message", 1, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"iconResource", "String", "Icon Resource", false, "Resource key for state icon", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"illustrationResource", "String", "Illustration Resource", false, "Resource key for state illustration/image", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActionLabel", "String", "Primary Action Label", false, "Message key (MSGKR registry) for recovery action, e.g., Try Again", 4, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActionTarget", "String", "Primary Action Target", false, "Action or navigation on recovery", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"secondaryActionLabel", "String", "Secondary Action Label", false, "Message key (MSGKR registry) for alternative action", 6, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stateId", "String", "State Id", true, "The symbol the built screen carries for this state — unique within the screen, and the source of the state class name (distinct from the entry headline, which names it for people), e.g. empty-queue", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "When this state occurs", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"messageResource", "String", "Message Resource", false, "Message key (MSGKR registry) for state message", 2, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"iconResource", "String", "Icon Resource", false, "Resource key for state icon", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"illustrationResource", "String", "Illustration Resource", false, "Resource key for state illustration/image", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActionLabel", "String", "Primary Action Label", false, "Message key (MSGKR registry) for recovery action, e.g., Try Again", 5, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActionTarget", "String", "Primary Action Target", false, "Action or navigation on recovery", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"secondaryActionLabel", "String", "Secondary Action Label", false, "Message key (MSGKR registry) for alternative action", 7, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
     parent.addChild(std::move(n));
   }
 }

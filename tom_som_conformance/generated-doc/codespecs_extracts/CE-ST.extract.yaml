@@ -15,7 +15,7 @@ extract:
     citableParts: ["CE-EL", "CE-FM", "CE-TX", "CE-VA", "CE-AC", "CE-SC", "CE-API", "CE-NV", "CE-AZ", "CE-ER", "CE-AU", "CE-ID", "CE-NT", "CE-RP"]
   document:
     root: "SBP"
-    entryCount: 11
+    entryCount: 13
   entries:
     - sectionId: "content"
       path: "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/sections/SCRSC-ITEM-LST-2/SCREL-ELEM-LST-2/dataDisplay/content"
@@ -44,6 +44,15 @@ extract:
       routedAt: "ScreenElementDataDisplay"
       routingNote: "CE-ST — view-model / UI state (data-bound display, screen/component state)."
       value: "screen.orders.empty"
+    - sectionId: "content"
+      path: "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST-1/content"
+      className: "ScreenStateEntry"
+      fieldName: "content"
+      formField: "stateId"
+      routedBy: "CodeSpecPart.viewState"
+      routedAt: "ScreenStateEntry"
+      routingNote: "CE-ST — view-model / UI state (data-bound display, screen/component state)."
+      value: "empty-queue"
     - sectionId: "content"
       path: "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST-1/content"
       className: "ScreenStateEntry"
@@ -80,6 +89,15 @@ extract:
       routedAt: "ScreenStateEntry"
       routingNote: "CE-ST — view-model / UI state (data-bound display, screen/component state)."
       value: "SCR-01-EL-1"
+    - sectionId: "content"
+      path: "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST-1/content"
+      className: "ScreenStateEntry"
+      fieldName: "content"
+      formField: "stateId"
+      routedBy: "CodeSpecPart.viewState"
+      routedAt: "ScreenStateEntry"
+      routingNote: "CE-ST — view-model / UI state (data-bound display, screen/component state)."
+      value: "amendment-rejected"
     - sectionId: "content"
       path: "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST-1/content"
       className: "ScreenStateEntry"

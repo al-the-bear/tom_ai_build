@@ -2054,6 +2054,12 @@ document:
                           SCR-01-ACT-1
                         actionType: |2-
                           Navigate
+                        owningController: |2-
+                          Order
+                        description: |2-
+                          Opens the selected order's detail screen.
+                        contextType: |2-
+                          OrderViewModel
                       SAEV visual:
                         labelResource: |2-
                           screen.orders.action.open
@@ -2067,6 +2073,8 @@ document:
                       headline: |2-
                         Empty queue
                       content:
+                        stateId: |2-
+                          empty-queue
                         description: |2-
                           No orders match the selected state filter.
                         messageResource: |2-
@@ -2169,6 +2177,12 @@ document:
                           SCR-02-ACT-1
                         actionType: |2-
                           Submit
+                        owningController: |2-
+                          Order
+                        description: |2-
+                          Submits the amended line quantity for revalidation.
+                        contextType: |2-
+                          OrderViewModel
                       SAEV visual:
                         labelResource: |2-
                           screen.order.action.amend
@@ -2184,6 +2198,12 @@ document:
                           SCR-02-ACT-2
                         actionType: |2-
                           Submit
+                        owningController: |2-
+                          Order
+                        description: |2-
+                          Releases the credit hold on the order.
+                        contextType: |2-
+                          OrderViewModel
                       SAEV visual:
                         labelResource: |2-
                           screen.order.action.release
@@ -2197,6 +2217,8 @@ document:
                       headline: |2-
                         Amendment rejected
                       content:
+                        stateId: |2-
+                          amendment-rejected
                         description: |2-
                           The new quantity failed validation or reservation.
                         messageResource: |2-

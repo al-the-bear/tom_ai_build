@@ -63675,6 +63675,12 @@ class ScreenActionEntryContentForm : public som::SomNode {
   void setActionId(const std::string& value);
   std::string actionType() const;
   void setActionType(const std::string& value);
+  std::string owningController() const;
+  void setOwningController(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+  std::string contextType() const;
+  void setContextType(const std::string& value);
 };
 
 // Generated section facade for the `visual` @Form section: its own `content` text followed by one typed member per form field.
@@ -64373,6 +64379,8 @@ class ScreenStateEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string stateId() const;
+  void setStateId(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string messageResource() const;
