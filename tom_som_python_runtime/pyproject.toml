@@ -1,5 +1,7 @@
 [build-system]
-requires = ["setuptools>=61"]
+# setuptools >= 77 for PEP 639 SPDX licence-expression metadata (the plain
+# `license = "BSD-3-Clause"` string below).
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -11,7 +13,13 @@ version = "1.0.0"
 description = "Python port of the generic TomSpecs object-model runtime (paths, model, reflection, document, validator, YAML/Markdown codecs)."
 requires-python = ">=3.9"
 readme = "README.md"
+# PEP 639 SPDX licence expression, per the release-1 licence decision.
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
 dependencies = ["PyYAML>=6.0"]
+
+[project.urls]
+Repository = "https://github.com/al-the-bear/tom_ai_build"
 
 # The importable package is `tom_som_runtime`; the distribution name above is
 # `tom_som_python_runtime` (parallel to tom_som_dart_runtime). Listed explicitly

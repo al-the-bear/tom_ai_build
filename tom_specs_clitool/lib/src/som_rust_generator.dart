@@ -214,10 +214,11 @@ String _cargoToml(String crateName, String runtimeRel, String version) {
   // Each runtime dependency carries **both** a relative `path` (resolves in-repo)
   // *and* a `version` requirement (= the model version). `cargo package` requires
   // every dependency to specify a version; the `path` is stripped from the
-  // packaged manifest, leaving the version. `publish = false` keeps the
-  // proprietary crate out of `cargo publish`; `license-file` points at the
-  // LICENSE the packaging hook writes, so `cargo package` carries no metadata
-  // warning.
+  // packaged manifest, leaving the version. `publish = false` keeps the crate
+  // out of `cargo publish` until the crates.io publication step deliberately
+  // flips it; `license` is the SPDX expression crates.io indexes (BSD-3-Clause
+  // per the release-1 licence decision — the LICENSE file still ships via the
+  // packaging hook).
   final runtimeDep =
       'tom_som_rust_runtime = { path = "$runtimeRel", version = "$version" }';
   return '[package]\n'
@@ -225,7 +226,7 @@ String _cargoToml(String crateName, String runtimeRel, String version) {
       'version = "$version"\n'
       'edition = "2021"\n'
       'description = "Generated typed TomSpecs object-model facade (Rust)."\n'
-      'license-file = "LICENSE"\n'
+      'license = "BSD-3-Clause"\n'
       'repository = "https://github.com/al-the-bear/tom_ai_build"\n'
       'publish = false\n'
       '\n'

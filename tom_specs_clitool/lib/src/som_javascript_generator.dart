@@ -199,6 +199,11 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
     // refuse while `npm pack` keeps working.
     'private': true,
     'license': 'BSD-3-Clause',
+    'repository': <String, Object?>{
+      'type': 'git',
+      'url': 'git+https://github.com/al-the-bear/tom_ai_build.git',
+      'directory': name,
+    },
     'description': 'Generated typed TomSpecs object model (v0). An editing '
         'facade over the generic tom_som_javascript_runtime; see the meta-data '
         'file and DocSpecs schemas in this package. Regenerate with '

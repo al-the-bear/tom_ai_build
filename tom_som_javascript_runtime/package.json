@@ -22,5 +22,10 @@
     "test": "node tests/conformance_runner.js"
   },
   "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/al-the-bear/tom_ai_build.git",
+    "directory": "tom_som_javascript_runtime"
+  },
   "private": true
 }

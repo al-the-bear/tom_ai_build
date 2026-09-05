@@ -10,7 +10,7 @@ name = "tom_som_rust_runtime"
 version = "1.0.0"
 edition = "2021"
 description = "Generic TomSpecs object-model runtime (Rust port)."
-license-file = "LICENSE"
+license = "BSD-3-Clause"
 repository = "https://github.com/al-the-bear/tom_ai_build"
 publish = false
 

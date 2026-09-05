@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/al-the-bear/tom_ai_build.git",
+    "directory": "tom_som_typescript_v0"
+  },
   "description": "Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_typescript_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.",
   "main": "dist/tom_som_typescript_v0.js",
   "types": "dist/tom_som_typescript_v0.d.ts",

@@ -3,7 +3,7 @@ name = "tom_som_rust_v0"
 version = "1.0.0"
 edition = "2021"
 description = "Generated typed TomSpecs object-model facade (Rust)."
-license-file = "LICENSE"
+license = "BSD-3-Clause"
 repository = "https://github.com/al-the-bear/tom_ai_build"
 publish = false
 

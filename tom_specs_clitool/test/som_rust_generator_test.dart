@@ -96,13 +96,14 @@ void main() {
     }
 
     // Cargo.toml is stamped with the model version and carries the crate
-    // metadata `cargo package` needs (license-file / repository), so packaging
-    // is warning-free (SOM §17.3).
+    // metadata `cargo package` needs (SPDX license / repository), so packaging
+    // is warning-free (SOM §17.3). The SPDX expression (not `license-file`) is
+    // what crates.io indexes — per the release-1 licence decision.
     final cargo = File(result.cargoTomlPath).readAsStringSync();
     expect(cargo, contains('name = "tom_som_rust_v0"'));
     expect(cargo, contains('version = "1.0.0"'),
         reason: 'crate version must be the model version');
-    expect(cargo, contains('license-file = "LICENSE"'));
+    expect(cargo, contains('license = "BSD-3-Clause"'));
     expect(cargo, contains('repository = '));
 
     // Cargo.toml records a *relative* runtime `path` dependency (portable across

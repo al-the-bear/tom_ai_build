@@ -256,6 +256,24 @@ String _facadePom(String artifactId, String version) => '''
 
   <name>$artifactId</name>
   <description>Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_java_runtime. Regenerate with tom_specs_clitool/bin/generate_som.dart.</description>
+  <url>https://github.com/al-the-bear/tom_ai_build</url>
+
+  <!-- Registry metadata (Maven Central requires licenses/developers/scm). -->
+  <licenses>
+    <license>
+      <name>BSD-3-Clause</name>
+      <url>https://opensource.org/license/bsd-3-clause</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Alexis Kyaw</name>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/al-the-bear/tom_ai_build</url>
+    <connection>scm:git:https://github.com/al-the-bear/tom_ai_build.git</connection>
+  </scm>
 
   <properties>
     <maven.compiler.release>17</maven.compiler.release>
