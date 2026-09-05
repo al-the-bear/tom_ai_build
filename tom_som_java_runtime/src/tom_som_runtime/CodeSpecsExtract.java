@@ -14,8 +14,12 @@ public final class CodeSpecsExtract {
    * <p>2: entries carry {@code headline} — the enclosing section instance's
    * headline, copy-only (stored headline, else the {@code @Headline} type
    * default, else null).
+   *
+   * <p>3: entries carry {@code instanceId} — the nearest enclosing list-item
+   * instance's <b>stored</b> section id (the {@code <!--[…]-->} id the document
+   * serializes), copy-only; null when no enclosing instance stores one.
    */
-  public static final int FORMAT_VERSION = 2;
+  public static final int FORMAT_VERSION = 3;
 
   /** The area this extract is for. */
   public final CodeSpecsArea area;
@@ -90,6 +94,7 @@ public final class CodeSpecsExtract {
     for (CodeSpecsExtractEntry e : entries) {
       line(b, "    - sectionId: " + yamlString(e.sectionId));
       line(b, "      headline: " + yamlNullableString(e.headline));
+      line(b, "      instanceId: " + yamlNullableString(e.instanceId));
       line(b, "      path: " + yamlString(e.path));
       line(b, "      className: " + yamlString(e.className));
       line(b, "      fieldName: " + yamlString(e.fieldName));
@@ -148,6 +153,9 @@ public final class CodeSpecsExtract {
       line(b, "");
       if (e.headline != null) {
         line(b, "- headline: " + mdCell(e.headline));
+      }
+      if (e.instanceId != null) {
+        line(b, "- instanceId: `" + e.instanceId + "`");
       }
       line(b, "- path: `" + e.path + "`");
       line(b, "- routed by: `" + e.routedBy + "` declared on `" + e.routedAt + "`");

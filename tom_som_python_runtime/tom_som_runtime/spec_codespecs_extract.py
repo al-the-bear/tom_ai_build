@@ -57,7 +57,13 @@ from .spec_reflection import SpecReflection
 #:
 #: 2: entries carry ``headline`` — the enclosing section instance's headline,
 #: copy-only (stored headline, else the ``@Headline`` type default, else None).
-K_CODE_SPECS_EXTRACT_FORMAT = 2
+#:
+#: 3: entries carry ``instanceId`` — the nearest enclosing list-item instance's
+#: **stored** section id (the ``<!--[…]-->`` id the document serializes),
+#: copy-only; ``None`` when no enclosing instance stores one. The render-time
+#: positional default (``CARD-2``) is derived, never stored, so it is never
+#: carried — that would be the composition C1 forbids.
+K_CODE_SPECS_EXTRACT_FORMAT = 3
 
 #: The annotation names of the three routing verdicts (`codespecs_mapping.md`
 #: §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -154,6 +160,12 @@ class CodeSpecsExtractEntry:
     form_field: Optional[str] = None
     #: The ``@CodeSpecKind`` ``note``, verbatim; ``None`` when it carries none.
     routing_note: Optional[str] = None
+    #: The nearest enclosing list-item instance's **stored** section id — the
+    #: ``<!--[…]-->`` id the document serializes — or ``None`` when no
+    #: enclosing instance stores one. Copy-only, like :attr:`value` and
+    #: :attr:`headline`. Auxiliary trace data: a ``DocRef`` back-link still
+    #: names the extract token, not this id (`codespecs_mapping.md` §9.3).
+    instance_id: Optional[str] = None
 
 
 @dataclass(frozen=True)
@@ -399,6 +411,9 @@ class CodeSpecsExtract:
         for e in self.entries:
             b.writeln(f"    - sectionId: {_yaml_string(e.section_id)}")
             b.writeln(f"      headline: {_yaml_nullable_string(e.headline)}")
+            b.writeln(
+                f"      instanceId: {_yaml_nullable_string(e.instance_id)}"
+            )
             b.writeln(f"      path: {_yaml_string(e.path)}")
             b.writeln(f"      className: {_yaml_string(e.class_name)}")
             b.writeln(f"      fieldName: {_yaml_string(e.field_name)}")
@@ -467,6 +482,8 @@ class CodeSpecsExtract:
             b.writeln()
             if e.headline is not None:
                 b.writeln(f"- headline: {_md_cell(e.headline)}")
+            if e.instance_id is not None:
+                b.writeln(f"- instanceId: `{e.instance_id}`")
             b.writeln(f"- path: `{e.path}`")
             b.writeln(f"- routed by: `{e.routed_by}` declared on `{e.routed_at}`")
             if e.routing_note is not None:
@@ -653,6 +670,7 @@ class CodeSpecsExtractor:
             routings=routings,
             entries=entries,
             strict=strict,
+            enclosing_instance_id=None,
         )
 
     def _walk(
@@ -663,6 +681,7 @@ class CodeSpecsExtractor:
         routings: Optional[list[CodeSpecsRouting]],
         entries: Optional[list[CodeSpecsExtractEntry]],
         strict: bool,
+        enclosing_instance_id: Optional[str],
     ) -> None:
         if cls is None:
             return
@@ -696,6 +715,16 @@ class CodeSpecsExtractor:
         stored = self.document.headline(path)
         headline = stored if stored is not None else cls.headline
 
+        # The nearest enclosing list-item instance's **stored** section id,
+        # copied onto every entry emitted below it. Only a stored id is ever
+        # carried — the render-time positional default is a derivation, and a
+        # derivation is what C1 forbids — so an id-less instance yields
+        # ``None``, never ``CARD-2``.
+        stored_id = self.document.item_section_id(path)
+        instance_id = (
+            stored_id if stored_id is not None else enclosing_instance_id
+        )
+
         for f in cls.fields:
             field_path = spec_path_join(path, self._reflection.field_segment(f))
             field_routing = self._field_routing(cls, f) or class_routing
@@ -713,6 +742,7 @@ class CodeSpecsExtractor:
                     path=field_path,
                     form_field=None,
                     headline=headline,
+                    instance_id=instance_id,
                     value=self.document.content(field_path),
                 )
             elif f.kind is SpecFieldKind.FORM:
@@ -725,6 +755,7 @@ class CodeSpecsExtractor:
                         path=field_path,
                         form_field=ff.name,
                         headline=headline,
+                        instance_id=instance_id,
                         value=self.document.form_field(field_path, ff.name),
                     )
             elif f.kind is SpecFieldKind.LIST:
@@ -741,8 +772,13 @@ class CodeSpecsExtractor:
                             routings=routings,
                             entries=entries,
                             strict=strict,
+                            enclosing_instance_id=instance_id,
                         )
                     else:
+                        # A scalar item is itself an instance of the list: its
+                        # own stored id is the most precise enclosing-instance
+                        # id its entry can carry.
+                        item_stored = self.document.item_section_id(item_path)
                         self._emit_value(
                             entries=entries,
                             routing=field_routing,
@@ -751,6 +787,9 @@ class CodeSpecsExtractor:
                             path=item_path,
                             form_field=None,
                             headline=headline,
+                            instance_id=item_stored
+                            if item_stored is not None
+                            else instance_id,
                             value=self.document.content(item_path),
                         )
             elif f.kind in (SpecFieldKind.COMPLEX, SpecFieldKind.SECTION):
@@ -762,6 +801,7 @@ class CodeSpecsExtractor:
                         routings=routings,
                         entries=entries,
                         strict=strict,
+                        enclosing_instance_id=instance_id,
                     )
 
     def _emit_value(
@@ -773,6 +813,7 @@ class CodeSpecsExtractor:
         path: str,
         form_field: Optional[str],
         headline: Optional[str],
+        instance_id: Optional[str],
         value: Optional[str],
     ) -> None:
         """Appends one entry **per area the routing names** — never
@@ -791,6 +832,7 @@ class CodeSpecsExtractor:
                     area_code=area.code,
                     section_id=self._reflection.field_segment(field),
                     headline=headline,
+                    instance_id=instance_id,
                     path=path,
                     class_name=cls.name,
                     field_name=field.name,

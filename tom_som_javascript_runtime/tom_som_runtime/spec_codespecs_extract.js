@@ -54,7 +54,13 @@ const { SpecReflection } = require('./spec_reflection');
  */
 // 2: entries carry `headline` — the enclosing section instance's headline,
 // copy-only (stored headline, else the `@Headline` type default, else null).
-const K_CODESPECS_EXTRACT_FORMAT = 2;
+//
+// 3: entries carry `instanceId` — the nearest enclosing list-item instance's
+// **stored** section id (the `<!--[…]-->` id the document serializes),
+// copy-only; null when no enclosing instance stores one. The render-time
+// positional default (`CARD-2`) is derived, never stored, so it is never
+// carried — that would be the composition C1 forbids.
+const K_CODESPECS_EXTRACT_FORMAT = 3;
 
 /**
  * The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -143,6 +149,7 @@ class CodeSpecsExtractEntry {
     routedAt,
     value,
     headline = null,
+    instanceId = null,
     formField = null,
     routingNote = null,
   }) {
@@ -156,6 +163,12 @@ class CodeSpecsExtractEntry {
      * class's `@Headline(text)` default (YRD4); `null` when neither exists.
      * Copy-only, like `value` — never a name derivation. @type {?string} */
     this.headline = headline;
+    /** The nearest enclosing list-item instance's **stored** section id — the
+     * `<!--[…]-->` id the document serializes — or `null` when no enclosing
+     * instance stores one. Copy-only auxiliary trace data: a `DocRef`
+     * back-link still names the extract token, not this id
+     * (`codespecs_mapping.md` §9.3). @type {?string} */
+    this.instanceId = instanceId;
     /** The document path of the leaf — the source location. */
     this.path = path;
     /** The model class declaring the leaf. */
@@ -488,6 +501,7 @@ class CodeSpecsExtract {
     for (const e of this.entries) {
       b.writeln(`    - sectionId: ${_yamlString(e.sectionId)}`);
       b.writeln(`      headline: ${_yamlNullableString(e.headline)}`);
+      b.writeln(`      instanceId: ${_yamlNullableString(e.instanceId)}`);
       b.writeln(`      path: ${_yamlString(e.path)}`);
       b.writeln(`      className: ${_yamlString(e.className)}`);
       b.writeln(`      fieldName: ${_yamlString(e.fieldName)}`);
@@ -554,6 +568,9 @@ class CodeSpecsExtract {
       b.writeln();
       if (e.headline !== null) {
         b.writeln(`- headline: ${_mdCell(e.headline)}`);
+      }
+      if (e.instanceId !== null) {
+        b.writeln(`- instanceId: \`${e.instanceId}\``);
       }
       b.writeln(`- path: \`${e.path}\``);
       b.writeln(`- routed by: \`${e.routedBy}\` declared on \`${e.routedAt}\``);
@@ -780,10 +797,11 @@ class CodeSpecsExtractor {
       routings,
       entries,
       strict,
+      enclosingInstanceId: null,
     });
   }
 
-  _walk({ path, cls, ancestorTypes, routings, entries, strict }) {
+  _walk({ path, cls, ancestorTypes, routings, entries, strict, enclosingInstanceId }) {
     if (cls === null || cls === undefined) {
       return;
     }
@@ -821,6 +839,13 @@ class CodeSpecsExtractor {
     const stored = this.document.headline(path);
     const headline = stored !== null ? stored : cls.headline;
 
+    // The nearest enclosing list-item instance's **stored** section id, copied
+    // onto every entry emitted below it. Only a stored id is ever carried — the
+    // render-time positional default is a derivation, and a derivation is what
+    // C1 forbids — so an id-less instance yields `null`, never `CARD-2`.
+    const storedId = this.document.itemSectionId(path);
+    const instanceId = storedId !== null ? storedId : enclosingInstanceId;
+
     for (const field of cls.fields) {
       const fieldPath = specPathJoin(path, this._reflection.fieldSegment(field));
       const own = this._fieldRouting(cls, field);
@@ -838,6 +863,7 @@ class CodeSpecsExtractor {
             path: fieldPath,
             formField: null,
             headline,
+            instanceId,
             value: this.document.content(fieldPath),
           });
           break;
@@ -851,6 +877,7 @@ class CodeSpecsExtractor {
               path: fieldPath,
               formField: ff.name,
               headline,
+              instanceId,
               value: this.document.formField(fieldPath, ff.name),
             });
           }
@@ -869,8 +896,13 @@ class CodeSpecsExtractor {
                 routings,
                 entries,
                 strict,
+                enclosingInstanceId: instanceId,
               });
             } else {
+              // A scalar item is itself an instance of the list: its own
+              // stored id is the most precise enclosing-instance id its entry
+              // can carry.
+              const itemStored = this.document.itemSectionId(itemPath);
               this._emitValue({
                 entries,
                 routing: fieldRouting,
@@ -879,6 +911,7 @@ class CodeSpecsExtractor {
                 path: itemPath,
                 formField: null,
                 headline,
+                instanceId: itemStored !== null ? itemStored : instanceId,
                 value: this.document.content(itemPath),
               });
             }
@@ -894,6 +927,7 @@ class CodeSpecsExtractor {
               routings,
               entries,
               strict,
+              enclosingInstanceId: instanceId,
             });
           }
           break;
@@ -907,7 +941,7 @@ class CodeSpecsExtractor {
    * Appends one entry **per area the routing names** — never deduplicated,
    * because each area's prompt must be self-sufficient (§1.1.1).
    */
-  _emitValue({ entries, routing, cls, field, path, formField, headline, value }) {
+  _emitValue({ entries, routing, cls, field, path, formField, headline, instanceId, value }) {
     if (entries === null || routing === null) {
       return;
     }
@@ -924,6 +958,7 @@ class CodeSpecsExtractor {
           areaCode: area.code,
           sectionId: this._reflection.fieldSegment(field),
           headline,
+          instanceId,
           path,
           className: cls.name,
           fieldName: field.name,

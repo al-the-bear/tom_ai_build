@@ -136,7 +136,7 @@ to read.
 |---|---|
 | **Location** | `<spec-root>/generated-doc/codespecs_extracts/` — the `generated-doc/<type>/` convention (`overview.tom_specs.md` Document Map), rooted at the folder that holds the specification document. For TomSpecs' own worked example that root is `tom_ai/ai_build/tom_specs_model/`; for a specified project it is that project's. |
 | **Names** | `<CE-CODE>.extract.yaml` and `<CE-CODE>.extract.md`, where `<CE-CODE>` is the §4.1 registry key verbatim — `CE-FM.extract.yaml`, `CE-API.extract.md`. The registry key is used because §4.1 fixes it as permanent: never reused, never renamed. |
-| **Entry** | Extract token (the routed field's `@SectionId`, or its own name where it carries none — `codespecs_derivation_contract.md` §2.5 rule 2) · the enclosing section instance's headline, copy-only (the stored headline, else the `@Headline` type default, else null) — the `codespecs_derivation_contract.md` §2.1 N1 headline source · class name · field name · form field where applicable · the verbatim value · the `@CodeSpecKind` value that routed it here · source location. |
+| **Entry** | Extract token (the routed field's `@SectionId`, or its own name where it carries none — `codespecs_derivation_contract.md` §2.5 rule 2) · the enclosing section instance's headline, copy-only (the stored headline, else the `@Headline` type default, else null) — the `codespecs_derivation_contract.md` §2.1 N1 headline source · the enclosing instance's stored id (`instanceId`), copy-only (see below) · class name · field name · form field where applicable · the verbatim value · the `@CodeSpecKind` value that routed it here · source location. |
 | **Authority** | The YAML is the artifact of record; the Markdown is a *view* and is regenerated from it. Nothing reads the Markdown as input. |
 | **Gate record** | `gate.verdicts.yaml`, beside the extracts — the Stage-B verdicts persisted per area (`codespecs_prompt.md` §6.3). It is the scope of the pass: the §6-of-`codespecs_derivation_contract.md` transfer checks hold the trio to the `sufficient` areas only, so a recorded partial pass (a descoped *insufficient* area, a *not applicable* area) neither fails coverage nor forces coarse citations. Absent the record, the whole extract tree is the obligation set. |
 
@@ -147,6 +147,23 @@ comment line equals its source line. A Markdown-only extract is a second copy of
 the document with the provenance thrown away. The Markdown exists because the
 agent reads it far better than it reads YAML, and a rendered view cannot drift
 from a generated source.
+
+**`instanceId` — what it is and is not.** Each entry carries the nearest
+enclosing list-item instance's **stored** section id — the `<!--[…]-->` id the
+document serializes (`som_multiplatform_spec_model.md` §11.2), resolved once per
+class node walking outward (the node's own stored item id, else the enclosing
+instance's; a scalar list item prefers its own stored id, being itself an
+instance of its list). Only a *stored* id qualifies: the render-time positional
+default (`CARD-2`) is derived, and carrying a derivation is what
+`codespecs_derivation_contract.md` §2.8 C1 forbids — so an id-less instance
+yields null, never a synthesized position. The field is **auxiliary trace data
+only**: it lets the agent and the §6 checks tell two instances of the same list
+apart without parsing paths. It is **not** the back-link vocabulary — a
+`DocRef.sectionId` still names the **extract token** of
+`codespecs_derivation_contract.md` §2.5 rule 2 (§9.3), and no migration of that
+vocabulary onto instance ids is intended: the token is total (every entry has
+one) where the instance id is partial (only stored ids qualify), and a partial
+key cannot carry the §8 set-difference.
 
 Routing is by `@CodeSpecKind`, which is **list-valued** (§9.1): a section feeding
 three areas appears, whole, in three extracts. Extracts are **not** deduplicated
@@ -5712,6 +5729,12 @@ below say what each carries.
   *field* the extract routed the value from, or the field's own name where it
   carries none (a narrative field yields `content`); the description states the
   *edge*, not the section.
+
+The extract's `instanceId` (§1.1.1) does **not** change this vocabulary: a
+`DocRef.sectionId` names the extract token, never a stored instance id. The
+instance id is partial — present only where the document stores an id — and a
+partial key cannot carry a set-difference; it stays auxiliary trace data on the
+extract entry.
 
 They are kept separate because a set is what a tool reads and a sentence is what
 a human reads, and merging them would force the gap analysis to parse prose.

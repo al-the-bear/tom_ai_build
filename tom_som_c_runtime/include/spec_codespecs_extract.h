@@ -67,8 +67,12 @@
  * YAML or Markdown layout changes in a way a reader could notice.
  *
  * 2: entries carry `headline` — the enclosing section instance's headline,
- * copy-only (stored headline, else the `@Headline` type default, else null). */
-#define SPEC_CODESPECS_EXTRACT_FORMAT 2
+ * copy-only (stored headline, else the `@Headline` type default, else null).
+ *
+ * 3: entries carry `instanceId` — the nearest enclosing list-item instance's
+ * **stored** section id (the `<!--[…]-->` id the document serializes),
+ * copy-only; null when no enclosing instance stores one. */
+#define SPEC_CODESPECS_EXTRACT_FORMAT 3
 
 /* The annotation names of the three routing verdicts (`codespecs_mapping.md`
  * §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -162,6 +166,12 @@ typedef struct {
    * (YRD3), else the class's `@Headline` type default (YRD4), else NULL. Gives
    * naming rule N1 a real source — never a derivation. */
   char *headline;
+  /* The nearest enclosing list-item instance's **stored** section id (the
+   * `<!--[…]-->` id the document serializes), copy-only auxiliary trace data;
+   * NULL when no enclosing instance stores one. The render-time positional
+   * default is a derivation and is never carried. A `DocRef` back-link still
+   * names the extract token, not this id (`codespecs_mapping.md` §9.3). */
+  char *instance_id;
   /* The document path of the leaf — the source location. */
   char *path;
   /* The model class declaring the leaf. */

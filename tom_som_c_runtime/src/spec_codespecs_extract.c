@@ -259,6 +259,7 @@ void spec_codespecs_extract_entry_free(CodeSpecsExtractEntry *e) {
   free(e->area_code);
   free(e->section_id);
   free(e->headline);
+  free(e->instance_id);
   free(e->path);
   free(e->class_name);
   free(e->field_name);
@@ -288,6 +289,7 @@ static CodeSpecsExtractEntry entry_copy(const CodeSpecsExtractEntry *e) {
   out.area_code = som_strdup(e->area_code);
   out.section_id = som_strdup(e->section_id);
   out.headline = dup_opt(e->headline);
+  out.instance_id = dup_opt(e->instance_id);
   out.path = som_strdup(e->path);
   out.class_name = som_strdup(e->class_name);
   out.field_name = som_strdup(e->field_name);
@@ -690,6 +692,8 @@ char *spec_codespecs_extract_to_yaml(const CodeSpecsExtract *x) {
     yaml_string(&b, e->section_id);
     som_buf_puts(&b, "\n      headline: ");
     yaml_nullable_string(&b, e->headline);
+    som_buf_puts(&b, "\n      instanceId: ");
+    yaml_nullable_string(&b, e->instance_id);
     som_buf_puts(&b, "\n      path: ");
     yaml_string(&b, e->path);
     som_buf_puts(&b, "\n      className: ");
@@ -782,6 +786,11 @@ char *spec_codespecs_extract_to_markdown(const CodeSpecsExtract *x) {
       som_buf_puts(&b, "- headline: ");
       md_cell(&b, e->headline);
       som_buf_putc(&b, '\n');
+    }
+    if (e->instance_id != NULL) {
+      som_buf_puts(&b, "- instanceId: `");
+      som_buf_puts(&b, e->instance_id);
+      som_buf_puts(&b, "`\n");
     }
     som_buf_puts(&b, "- path: `");
     som_buf_puts(&b, e->path);
@@ -1090,7 +1099,7 @@ static void emit_value(const CodeSpecsExtractor *e, EntryBuf *entries,
                        const CodeSpecsRouting *routing, const SpecClass *cls,
                        const SpecField *field, const char *path,
                        const char *form_field, const char *headline,
-                       const char *value) {
+                       const char *instance_id, const char *value) {
   if (entries == NULL || routing == NULL) {
     return;
   }
@@ -1107,6 +1116,7 @@ static void emit_value(const CodeSpecsExtractor *e, EntryBuf *entries,
     entry.area_code = som_strdup(area->code);
     entry.section_id = som_strdup(spec_reflection_field_segment(field));
     entry.headline = dup_opt(headline);
+    entry.instance_id = dup_opt(instance_id);
     entry.path = som_strdup(path);
     entry.class_name = som_strdup(cls->name);
     entry.field_name = som_strdup(field->name);
@@ -1140,7 +1150,8 @@ static void fail_unrouted(CodeSpecsExtractError *err, const char *path,
 static int walk(const CodeSpecsExtractor *e, const char *path,
                 const SpecClass *cls, const SomStrList *ancestor_types,
                 CodeSpecsRoutingList *routings, EntryBuf *entries, int strict,
-                CodeSpecsExtractError *err) {
+                CodeSpecsExtractError *err,
+                const char *enclosing_instance_id) {
   if (cls == NULL) {
     return 1;
   }
@@ -1175,6 +1186,14 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
           ? stored_headline
           : (cls->headline[0] != '\0' ? cls->headline : NULL);
 
+  /* The nearest enclosing list-item instance's stored section id, resolved
+   * once per class node. Only a *stored* id qualifies — the render-time
+   * positional default ("CARD-2") is derived, and a derivation is what C1
+   * forbids — so an id-less instance yields NULL, never "CARD-2". */
+  const char *stored_id = spec_document_item_section_id(e->document, path);
+  const char *instance_id =
+      stored_id != NULL ? stored_id : enclosing_instance_id;
+
   int ok = 1;
   for (size_t i = 0; ok && i < cls->fields_len; i++) {
     const SpecField *field = &cls->fields[i];
@@ -1189,11 +1208,12 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
         strcmp(field->kind, SPEC_FIELD_KIND_ENUM) == 0 ||
         strcmp(field->kind, SPEC_FIELD_KIND_SCALAR) == 0) {
       emit_value(e, entries, routed, cls, field, field_path, NULL, headline,
-                 spec_document_content(e->document, field_path));
+                 instance_id, spec_document_content(e->document, field_path));
     } else if (strcmp(field->kind, SPEC_FIELD_KIND_FORM) == 0) {
       for (size_t f = 0; f < field->form_fields_len; f++) {
         const char *name = field->form_fields[f].name;
         emit_value(e, entries, routed, cls, field, field_path, name, headline,
+                   instance_id,
                    spec_document_form_field(e->document, field_path, name));
       }
     } else if (strcmp(field->kind, SPEC_FIELD_KIND_LIST) == 0) {
@@ -1210,10 +1230,16 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
           som_strlist_push_copy(&nested, field->element_type);
           ok = walk(e, item_path,
                     spec_model_class_named(e->model, field->element_type),
-                    &nested, routings, entries, strict, err);
+                    &nested, routings, entries, strict, err, instance_id);
           som_strlist_free(&nested);
         } else {
+          /* A scalar item is itself an instance of the list: its own stored
+           * id is the most precise enclosing-instance id its entry can
+           * carry. */
+          const char *item_stored =
+              spec_document_item_section_id(e->document, item_path);
           emit_value(e, entries, routed, cls, field, item_path, NULL, headline,
+                     item_stored != NULL ? item_stored : instance_id,
                      spec_document_content(e->document, item_path));
         }
         free(item_path);
@@ -1226,7 +1252,7 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
         som_strlist_copy(&nested, ancestor_types);
         som_strlist_push_copy(&nested, field->type);
         ok = walk(e, field_path, spec_model_class_named(e->model, field->type),
-                  &nested, routings, entries, strict, err);
+                  &nested, routings, entries, strict, err, instance_id);
         som_strlist_free(&nested);
       }
     }
@@ -1254,7 +1280,7 @@ static int walk_all(const CodeSpecsExtractor *e, CodeSpecsRoutingList *routings,
   som_strlist_push_copy(&ancestors, e->root->type);
   int ok = walk(e, spec_reflection_root_segment(e->root),
                 spec_model_class_named(e->model, e->root->type), &ancestors,
-                routings, entries, strict, err);
+                routings, entries, strict, err, NULL);
   som_strlist_free(&ancestors);
   return ok;
 }

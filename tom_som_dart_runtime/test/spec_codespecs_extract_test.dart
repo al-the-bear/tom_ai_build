@@ -201,6 +201,64 @@ void main() {
       expect(itemEntry.headline, 'Weekly standing order');
     });
 
+    test("carries the enclosing list-item instance's stored section id", () {
+      // The instance id is the document's stored `<!--[…]-->` id (AA1), so
+      // C1 permits copying it. It names *which* instance of a repeated
+      // section an entry came from — the trace the coarse token vocabulary
+      // (`codespecs_derivation_contract.md` §2.5) cannot carry.
+      final document = _document();
+      final entryPath = document.listItems('ORD/REG/ENT').single;
+      document.setItemSectionId(entryPath, 'ENT-SPEC');
+      final extractor = CodeSpecsExtractor(
+        model: _model(),
+        document: document,
+        catalog: _catalog(),
+      );
+      final byPath = {
+        for (final x in extractor.extractAll())
+          for (final e in x.entries) e.path: e,
+      };
+      // Beneath the id-carrying item: the stored id, copied.
+      expect(byPath['$entryPath/LBL']!.instanceId, 'ENT-SPEC');
+      // Outside any list item: null — the fixed sections' ids are static,
+      // already in the path, and the document stores no instance id for them.
+      expect(byPath['ORD/TTL']!.instanceId, isNull);
+    });
+
+    test('an id-less list item yields null, never the positional default', () {
+      // The render-time default (`ENT-1`) is derived at serialization time,
+      // never stored — composing it here would be the derivation C1 forbids.
+      final byPath = {
+        for (final x in _extractor().extractAll())
+          for (final e in x.entries) e.path: e,
+      };
+      final itemEntry = byPath.entries
+          .firstWhere((e) => e.key.endsWith('/LBL'))
+          .value;
+      expect(itemEntry.instanceId, isNull);
+    });
+
+    test("a scalar list item carries its own stored id", () {
+      // A scalar item is itself an instance of its list: its own stored id is
+      // the most precise enclosing-instance id its entry can carry.
+      final document = _document();
+      final t1 = document.addListItem('ORD/TAG', sectionId: 'TAG-URGENT');
+      document.setContent(t1, 'urgent');
+      final t2 = document.addListItem('ORD/TAG');
+      document.setContent(t2, 'plain');
+      final extractor = CodeSpecsExtractor(
+        model: _model(),
+        document: document,
+        catalog: _catalog(),
+      );
+      final byPath = {
+        for (final x in extractor.extractAll())
+          for (final e in x.entries) e.path: e,
+      };
+      expect(byPath[t1]!.instanceId, 'TAG-URGENT');
+      expect(byPath[t2]!.instanceId, isNull);
+    });
+
     test('derives citable areas transitively from the slice graph', () {
       final catalog = _catalog();
       // CE-FM sits in slice 2, which cites slice 1 — so it reaches both areas
@@ -369,6 +427,23 @@ void main() {
       expect(yaml, contains('routedAt: "Order"'));
       // The headline slot is always emitted, null when no source text exists.
       expect(yaml, contains('headline: null'));
+      // Likewise the instanceId slot: fixed position, null when no enclosing
+      // instance stores an id.
+      expect(yaml, contains('instanceId: null'));
+    });
+
+    test('YAML and Markdown carry an instanceId when the instance has one',
+        () {
+      final document = _document();
+      final entryPath = document.listItems('ORD/REG/ENT').single;
+      document.setItemSectionId(entryPath, 'ENT-SPEC');
+      final extract = CodeSpecsExtractor(
+        model: _model(),
+        document: document,
+        catalog: _catalog(),
+      ).extractFor('CE-FM')!;
+      expect(extract.toYaml(), contains('instanceId: "ENT-SPEC"'));
+      expect(extract.toMarkdown(), contains('- instanceId: `ENT-SPEC`'));
     });
 
     test('YAML and Markdown carry a headline when the instance has one', () {

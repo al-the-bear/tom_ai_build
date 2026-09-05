@@ -34,6 +34,7 @@ The shared application error codes the Result envelope's error arm carries.
 ### 2. `content` — `ErrorCodeEntry.content.code`
 
 - headline: Validation failed
+- instanceId: `ERCEN-CODE-1`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-1/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -45,6 +46,7 @@ VALIDATION_FAILED
 ### 3. `content` — `ErrorCodeEntry.content.category`
 
 - headline: Validation failed
+- instanceId: `ERCEN-CODE-1`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-1/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -56,6 +58,7 @@ Validation
 ### 4. `content` — `ErrorCodeEntry.content.severity`
 
 - headline: Validation failed
+- instanceId: `ERCEN-CODE-1`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-1/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -67,6 +70,7 @@ Error
 ### 5. `content` — `ErrorCodeEntry.content.retryable`
 
 - headline: Validation failed
+- instanceId: `ERCEN-CODE-1`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-1/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -78,6 +82,7 @@ false
 ### 6. `content` — `ErrorCodeEntry.content.copyKey`
 
 - headline: Validation failed
+- instanceId: `ERCEN-CODE-1`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-1/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -89,6 +94,7 @@ screen.order.amend.error
 ### 7. `content` — `ErrorCodeEntry.content.code`
 
 - headline: Order already dispatched
+- instanceId: `ERCEN-CODE-2`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-2/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -100,6 +106,7 @@ ORDER_ALREADY_DISPATCHED
 ### 8. `content` — `ErrorCodeEntry.content.category`
 
 - headline: Order already dispatched
+- instanceId: `ERCEN-CODE-2`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-2/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -111,6 +118,7 @@ BusinessRule
 ### 9. `content` — `ErrorCodeEntry.content.severity`
 
 - headline: Order already dispatched
+- instanceId: `ERCEN-CODE-2`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-2/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -122,6 +130,7 @@ Error
 ### 10. `content` — `ErrorCodeEntry.content.retryable`
 
 - headline: Order already dispatched
+- instanceId: `ERCEN-CODE-2`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-2/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -133,6 +142,7 @@ false
 ### 11. `content` — `ErrorCodeEntry.content.copyKey`
 
 - headline: Order already dispatched
+- instanceId: `ERCEN-CODE-2`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-2/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -144,6 +154,7 @@ screen.order.amend.error
 ### 12. `content` — `ErrorCodeEntry.content.code`
 
 - headline: Order version conflict
+- instanceId: `ERCEN-CODE-3`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-3/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -155,6 +166,7 @@ ORDER_VERSION_CONFLICT
 ### 13. `content` — `ErrorCodeEntry.content.category`
 
 - headline: Order version conflict
+- instanceId: `ERCEN-CODE-3`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-3/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -166,6 +178,7 @@ Conflict
 ### 14. `content` — `ErrorCodeEntry.content.severity`
 
 - headline: Order version conflict
+- instanceId: `ERCEN-CODE-3`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-3/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -177,6 +190,7 @@ Warning
 ### 15. `content` — `ErrorCodeEntry.content.retryable`
 
 - headline: Order version conflict
+- instanceId: `ERCEN-CODE-3`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-3/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -188,6 +202,7 @@ true
 ### 16. `content` — `ErrorCodeEntry.content.copyKey`
 
 - headline: Order version conflict
+- instanceId: `ERCEN-CODE-3`
 - path: `SBP/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST-3/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ErrorCodeEntry`
 - routing note: CE-ER — the shared error-code vocabulary the Result envelope error arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX error copy (one code, three consumers).
@@ -249,6 +264,7 @@ Info | Warning | Error | Fatal
 ### 22. `content` — `ResultFieldDetailEntry.content.fieldPath`
 
 - headline: Invalid quantity detail
+- instanceId: `RSFDE-FLDD-1`
 - path: `SBP/informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST-1/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ResultFieldDetailEntry`
 - routing note: one field detail carried by a result envelope
@@ -260,6 +276,7 @@ newQuantity
 ### 23. `content` — `ResultFieldDetailEntry.content.errorCodeRef`
 
 - headline: Invalid quantity detail
+- instanceId: `RSFDE-FLDD-1`
 - path: `SBP/informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST-1/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ResultFieldDetailEntry`
 - routing note: one field detail carried by a result envelope
@@ -271,6 +288,7 @@ VALIDATION_FAILED
 ### 24. `content` — `ResultFieldDetailEntry.content.message`
 
 - headline: Invalid quantity detail
+- instanceId: `RSFDE-FLDD-1`
 - path: `SBP/informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST-1/content`
 - routed by: `CodeSpecPart.errorResult` declared on `ResultFieldDetailEntry`
 - routing note: one field detail carried by a result envelope

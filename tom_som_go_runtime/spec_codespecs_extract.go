@@ -68,7 +68,11 @@ import (
 //
 // 2: entries carry `headline` — the enclosing section instance's headline,
 // copy-only (stored headline, else the `@Headline` type default, else null).
-const CodeSpecsExtractFormatVersion = 2
+//
+// 3: entries carry `instanceId` — the nearest enclosing list-item instance's
+// **stored** section id (the `<!--[…]-->` id the document serializes),
+// copy-only; null when no enclosing instance stores one.
+const CodeSpecsExtractFormatVersion = 3
 
 // The annotation names of the three routing verdicts (`codespecs_mapping.md`
 // §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -169,6 +173,13 @@ type CodeSpecsExtractEntry struct {
 	// under (YRD3), else the class's `@Headline` type default (YRD4), else "".
 	// Gives naming rule N1 a real source — never a derivation.
 	Headline string
+	// InstanceID is the nearest enclosing list-item instance's **stored**
+	// section id (the `<!--[…]-->` id the document serializes), copy-only
+	// auxiliary trace data; "" when no enclosing instance stores one. The
+	// render-time positional default is a derivation and is never carried. A
+	// `DocRef` back-link still names the extract token, not this id
+	// (`codespecs_mapping.md` §9.3).
+	InstanceID string
 	// Path is the document path of the leaf — the source location.
 	Path string
 	// ClassName is the model class declaring the leaf.
@@ -489,6 +500,7 @@ func (x *CodeSpecsExtract) ToYaml() string {
 	for _, e := range x.Entries {
 		b.WriteString("    - sectionId: " + cseYamlString(e.SectionID) + "\n")
 		b.WriteString("      headline: " + cseYamlNullableString(e.Headline) + "\n")
+		b.WriteString("      instanceId: " + cseYamlNullableString(e.InstanceID) + "\n")
 		b.WriteString("      path: " + cseYamlString(e.Path) + "\n")
 		b.WriteString("      className: " + cseYamlString(e.ClassName) + "\n")
 		b.WriteString("      fieldName: " + cseYamlString(e.FieldName) + "\n")
@@ -548,6 +560,9 @@ func (x *CodeSpecsExtract) ToMarkdown() string {
 		b.WriteString("\n")
 		if e.Headline != "" {
 			b.WriteString("- headline: " + cseMdCell(e.Headline) + "\n")
+		}
+		if e.InstanceID != "" {
+			b.WriteString("- instanceId: `" + e.InstanceID + "`\n")
 		}
 		b.WriteString("- path: `" + e.Path + "`\n")
 		b.WriteString("- routed by: `" + e.RoutedBy + "` declared on `" + e.RoutedAt + "`\n")
@@ -802,6 +817,7 @@ func (x *CodeSpecsExtractor) walkAll(
 		routings,
 		entries,
 		strict,
+		"",
 	)
 }
 
@@ -812,6 +828,7 @@ func (x *CodeSpecsExtractor) walk(
 	routings *[]CodeSpecsRouting,
 	entries *[]CodeSpecsExtractEntry,
 	strict bool,
+	enclosingInstanceID string,
 ) *CodeSpecsExtractError {
 	if cls == nil {
 		return nil
@@ -849,6 +866,15 @@ func (x *CodeSpecsExtractor) walk(
 		headline = cls.Headline
 	}
 
+	// The nearest enclosing list-item instance's stored section id, copied onto
+	// every entry emitted below it. Only a stored id is ever carried — the
+	// render-time positional default is a derivation, and a derivation is what
+	// C1 forbids — so an id-less instance yields "", never "CARD-2".
+	instanceID := x.Document.ItemSectionIDOr(path)
+	if instanceID == "" {
+		instanceID = enclosingInstanceID
+	}
+
 	for _, field := range cls.Fields {
 		fieldPath := SpecPathJoin(path, x.reflection.FieldSegment(field))
 		fieldRouting := x.fieldRouting(cls, field)
@@ -859,11 +885,11 @@ func (x *CodeSpecsExtractor) walk(
 		switch field.Kind {
 		case SpecFieldKindContent, SpecFieldKindEnum, SpecFieldKindScalar:
 			x.emitValue(entries, fieldRouting, cls, field, fieldPath, "", headline,
-				x.Document.ContentOr(fieldPath))
+				instanceID, x.Document.ContentOr(fieldPath))
 		case SpecFieldKindForm:
 			for _, ff := range field.FormFields {
 				x.emitValue(entries, fieldRouting, cls, field, fieldPath, ff.Name,
-					headline, x.Document.FormFieldOr(fieldPath, ff.Name))
+					headline, instanceID, x.Document.FormFieldOr(fieldPath, ff.Name))
 			}
 		case SpecFieldKindList:
 			for _, itemPath := range x.Document.ListItems(fieldPath) {
@@ -876,13 +902,21 @@ func (x *CodeSpecsExtractor) walk(
 						routings,
 						entries,
 						strict,
+						instanceID,
 					)
 					if bad != nil {
 						return bad
 					}
 				} else {
+					// A scalar item is itself an instance of the list: its own
+					// stored id is the most precise enclosing-instance id its
+					// entry can carry.
+					itemInstance := x.Document.ItemSectionIDOr(itemPath)
+					if itemInstance == "" {
+						itemInstance = instanceID
+					}
 					x.emitValue(entries, fieldRouting, cls, field, itemPath, "",
-						headline, x.Document.ContentOr(itemPath))
+						headline, itemInstance, x.Document.ContentOr(itemPath))
 				}
 			}
 		case SpecFieldKindComplex, SpecFieldKindSection:
@@ -894,6 +928,7 @@ func (x *CodeSpecsExtractor) walk(
 					routings,
 					entries,
 					strict,
+					instanceID,
 				)
 				if bad != nil {
 					return bad
@@ -914,6 +949,7 @@ func (x *CodeSpecsExtractor) emitValue(
 	path string,
 	formField string,
 	headline string,
+	instanceID string,
 	value string,
 ) {
 	if entries == nil || routing == nil {
@@ -931,6 +967,7 @@ func (x *CodeSpecsExtractor) emitValue(
 			AreaCode:    area.Code,
 			SectionID:   x.reflection.FieldSegment(field),
 			Headline:    headline,
+			InstanceID:  instanceID,
 			Path:        path,
 			ClassName:   cls.Name,
 			FieldName:   field.Name,

@@ -63,7 +63,11 @@ use crate::spec_reflection::SpecReflection;
 ///
 /// 2: entries carry `headline` — the enclosing section instance's headline,
 /// copy-only (stored headline, else the `@Headline` type default, else null).
-pub const CODE_SPECS_EXTRACT_FORMAT: i64 = 2;
+///
+/// 3: entries carry `instanceId` — the nearest enclosing list-item instance's
+/// **stored** section id (the `<!--[…]-->` id the document serializes),
+/// copy-only; null when no enclosing instance stores one.
+pub const CODE_SPECS_EXTRACT_FORMAT: i64 = 3;
 
 /// The annotation names of the three routing verdicts (`codespecs_mapping.md`
 /// §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -179,6 +183,13 @@ pub struct CodeSpecsExtractEntry {
     /// (YRD3), else the class's `@Headline` type default (YRD4), else `None`.
     /// Gives naming rule N1 a real source — never a derivation.
     pub headline: Option<String>,
+    /// The nearest enclosing list-item instance's **stored** section id (the
+    /// `<!--[…]-->` id the document serializes), copy-only auxiliary trace
+    /// data; `None` when no enclosing instance stores one. The render-time
+    /// positional default is a derivation and is never carried. A `DocRef`
+    /// back-link still names the extract token, not this id
+    /// (`codespecs_mapping.md` §9.3).
+    pub instance_id: Option<String>,
 
     /// The document path of the leaf — the source location.
     pub path: String,
@@ -551,6 +562,13 @@ impl CodeSpecsExtract {
                     yaml_nullable_string(e.headline.as_deref())
                 ),
             );
+            writeln_to(
+                &mut b,
+                &format!(
+                    "      instanceId: {}",
+                    yaml_nullable_string(e.instance_id.as_deref())
+                ),
+            );
             writeln_to(&mut b, &format!("      path: {}", yaml_string(&e.path)));
             writeln_to(
                 &mut b,
@@ -698,6 +716,9 @@ impl CodeSpecsExtract {
             writeln_to(&mut b, "");
             if let Some(headline) = &e.headline {
                 writeln_to(&mut b, &format!("- headline: {}", md_cell(headline)));
+            }
+            if let Some(instance_id) = &e.instance_id {
+                writeln_to(&mut b, &format!("- instanceId: `{}`", instance_id));
             }
             writeln_to(&mut b, &format!("- path: `{}`", e.path));
             writeln_to(
@@ -1001,6 +1022,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
             &self.reflection.root_segment(self.root),
             self.model().class_named(&self.root.type_),
             &ancestor_types,
+            None,
         )
     }
 
@@ -1010,6 +1032,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
         path: &str,
         cls: Option<&SpecClass>,
         ancestor_types: &HashSet<String>,
+        enclosing_instance_id: Option<&str>,
     ) -> Result<(), CodeSpecsExtractError> {
         let cls = match cls {
             Some(c) => c,
@@ -1055,6 +1078,16 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
             None => None,
         };
 
+        // The nearest enclosing list-item instance's **stored** section id,
+        // copied onto every entry emitted below it. Only a stored id is ever
+        // carried — the render-time positional default is a derivation, and a
+        // derivation is what C1 forbids — so an id-less instance yields None,
+        // never "CARD-2".
+        let instance_id: Option<String> = match self.document.item_section_id(path) {
+            Some(stored) => Some(stored.clone()),
+            None => enclosing_instance_id.map(|s| s.to_string()),
+        };
+
         for field in &cls.fields {
             let field_path = spec_path_join(path, &self.reflection.field_segment(field));
             let own = self.field_routing(cls, field);
@@ -1070,6 +1103,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                         &field_path,
                         None,
                         headline.as_deref(),
+                        instance_id.as_deref(),
                         self.document.content(&field_path),
                     );
                 }
@@ -1083,6 +1117,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                             &field_path,
                             Some(&ff.name),
                             headline.as_deref(),
+                            instance_id.as_deref(),
                             self.document.form_field(&field_path, &ff.name),
                         );
                     }
@@ -1100,8 +1135,17 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                                 &item_path,
                                 self.model().class_named(&field.element_type),
                                 &next,
+                                instance_id.as_deref(),
                             )?;
                         } else {
+                            // A scalar item is itself an instance of the list:
+                            // its own stored id is the most precise
+                            // enclosing-instance id its entry can carry.
+                            let item_instance: Option<&str> = self
+                                .document
+                                .item_section_id(&item_path)
+                                .map(|s| s.as_str())
+                                .or(instance_id.as_deref());
                             self.emit_value(
                                 sink,
                                 field_routing,
@@ -1110,6 +1154,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                                 &item_path,
                                 None,
                                 headline.as_deref(),
+                                item_instance,
                                 self.document.content(&item_path),
                             );
                         }
@@ -1128,6 +1173,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                         &field_path,
                         self.model().class_named(&field.type_),
                         &next,
+                        instance_id.as_deref(),
                     )?;
                 }
                 _ => {}
@@ -1148,6 +1194,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
         path: &str,
         form_field: Option<&str>,
         headline: Option<&str>,
+        instance_id: Option<&str>,
         value: Option<&String>,
     ) {
         let (entries, routing) = match (sink.entries.as_mut(), routing) {
@@ -1167,6 +1214,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                 area_code: area.code.clone(),
                 section_id: self.reflection.field_segment(field),
                 headline: headline.map(|h| h.to_string()),
+                instance_id: instance_id.map(|s| s.to_string()),
                 path: path.to_string(),
                 class_name: cls.name.clone(),
                 field_name: field.name.clone(),

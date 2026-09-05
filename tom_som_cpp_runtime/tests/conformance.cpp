@@ -1356,6 +1356,10 @@ static void test_codespecs_extract(Checker& c, const som::SpecModel& model) {
               opt_text(e.headline) ==
                   json_opt_text(som::jsonGet(we, "headline")),
               opt_text(e.headline));
+      c.check(etag + ".instanceId",
+              opt_text(e.instanceId) ==
+                  json_opt_text(som::jsonGet(we, "instanceId")),
+              opt_text(e.instanceId));
       c.check(etag + ".path", e.path == som::jsonStrOr(we, "path"),
               e.path + " != " + som::jsonStrOr(we, "path"));
       c.check(etag + ".className", e.className == som::jsonStrOr(we, "className"),

@@ -1293,6 +1293,7 @@ public final class ConformanceRunner {
         Map<String, Object> o = new LinkedHashMap<>();
         o.put("sectionId", e.sectionId);
         o.put("headline", e.headline);
+        o.put("instanceId", e.instanceId);
         o.put("path", e.path);
         o.put("className", e.className);
         o.put("fieldName", e.fieldName);

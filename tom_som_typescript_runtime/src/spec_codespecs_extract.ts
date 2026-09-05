@@ -59,8 +59,14 @@ import { SpecReflection } from './spec_reflection';
  *
  * 2: entries carry `headline` — the enclosing section instance's headline,
  * copy-only (stored headline, else the `@Headline` type default, else null).
+ *
+ * 3: entries carry `instanceId` — the nearest enclosing list-item instance's
+ * **stored** section id (the `<!--[…]-->` id the document serializes),
+ * copy-only; null when no enclosing instance stores one. The render-time
+ * positional default (`CARD-2`) is derived, never stored, so it is never
+ * carried — that would be the composition C1 forbids.
  */
-export const K_CODE_SPECS_EXTRACT_FORMAT = 2;
+export const K_CODE_SPECS_EXTRACT_FORMAT = 3;
 
 /**
  * The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -187,6 +193,14 @@ export class CodeSpecsExtractEntry {
    */
   headline: string | null;
 
+  /**
+   * The nearest enclosing list-item instance's **stored** section id — the
+   * `<!--[…]-->` id the document serializes — or `null` when no enclosing
+   * instance stores one. Copy-only auxiliary trace data: a `DocRef` back-link
+   * still names the extract token, not this id (`codespecs_mapping.md` §9.3).
+   */
+  instanceId: string | null;
+
   /** The document path of the leaf — the source location. */
   path: string;
 
@@ -227,12 +241,14 @@ export class CodeSpecsExtractEntry {
     routedAt: string;
     value: string;
     headline?: string | null;
+    instanceId?: string | null;
     formField?: string | null;
     routingNote?: string | null;
   }) {
     this.areaCode = props.areaCode;
     this.sectionId = props.sectionId;
     this.headline = props.headline != null ? props.headline : null;
+    this.instanceId = props.instanceId != null ? props.instanceId : null;
     this.path = props.path;
     this.className = props.className;
     this.fieldName = props.fieldName;
@@ -609,6 +625,7 @@ export class CodeSpecsExtract {
     for (const e of this.entries) {
       b.writeln(`    - sectionId: ${yamlString(e.sectionId)}`);
       b.writeln(`      headline: ${yamlNullableString(e.headline)}`);
+      b.writeln(`      instanceId: ${yamlNullableString(e.instanceId)}`);
       b.writeln(`      path: ${yamlString(e.path)}`);
       b.writeln(`      className: ${yamlString(e.className)}`);
       b.writeln(`      fieldName: ${yamlString(e.fieldName)}`);
@@ -673,6 +690,9 @@ export class CodeSpecsExtract {
       b.writeln();
       if (e.headline !== null) {
         b.writeln(`- headline: ${mdCell(e.headline)}`);
+      }
+      if (e.instanceId !== null) {
+        b.writeln(`- instanceId: \`${e.instanceId}\``);
       }
       b.writeln(`- path: \`${e.path}\``);
       b.writeln(`- routed by: \`${e.routedBy}\` declared on \`${e.routedAt}\``);
@@ -919,6 +939,7 @@ export class CodeSpecsExtractor {
       routings,
       entries,
       strict,
+      null,
     );
   }
 
@@ -929,6 +950,7 @@ export class CodeSpecsExtractor {
     routings: CodeSpecsRouting[] | null,
     entries: CodeSpecsExtractEntry[] | null,
     strict: boolean,
+    enclosingInstanceId: string | null,
   ): void {
     if (cls === null) {
       return;
@@ -960,6 +982,13 @@ export class CodeSpecsExtractor {
     const stored = this.document.headline(path);
     const headline = stored !== null ? stored : cls.headline;
 
+    // The nearest enclosing list-item instance's **stored** section id, copied
+    // onto every entry emitted below it. Only a stored id is ever carried — the
+    // render-time positional default is a derivation, and a derivation is what
+    // C1 forbids — so an id-less instance yields `null`, never `CARD-2`.
+    const storedId = this.document.itemSectionId(path);
+    const instanceId = storedId !== null ? storedId : enclosingInstanceId;
+
     for (const field of cls.fields) {
       const fieldPath = specPathJoin(
         path,
@@ -979,6 +1008,7 @@ export class CodeSpecsExtractor {
             fieldPath,
             null,
             headline,
+            instanceId,
             this.document.content(fieldPath),
           );
           break;
@@ -992,6 +1022,7 @@ export class CodeSpecsExtractor {
               fieldPath,
               ff.name,
               headline,
+              instanceId,
               this.document.formField(fieldPath, ff.name),
             );
           }
@@ -1010,8 +1041,13 @@ export class CodeSpecsExtractor {
                 routings,
                 entries,
                 strict,
+                instanceId,
               );
             } else {
+              // A scalar item is itself an instance of the list: its own
+              // stored id is the most precise enclosing-instance id its
+              // entry can carry.
+              const itemStored = this.document.itemSectionId(itemPath);
               this._emitValue(
                 entries,
                 fieldRouting,
@@ -1020,6 +1056,7 @@ export class CodeSpecsExtractor {
                 itemPath,
                 null,
                 headline,
+                itemStored !== null ? itemStored : instanceId,
                 this.document.content(itemPath),
               );
             }
@@ -1035,6 +1072,7 @@ export class CodeSpecsExtractor {
               routings,
               entries,
               strict,
+              instanceId,
             );
           }
           break;
@@ -1054,6 +1092,7 @@ export class CodeSpecsExtractor {
     path: string,
     formField: string | null,
     headline: string | null,
+    instanceId: string | null,
     value: string | null,
   ): void {
     if (entries === null || routing === null) {
@@ -1072,6 +1111,7 @@ export class CodeSpecsExtractor {
           areaCode: area.code,
           sectionId: this._reflection.fieldSegment(field),
           headline,
+          instanceId,
           path,
           className: cls.name,
           fieldName: field.name,

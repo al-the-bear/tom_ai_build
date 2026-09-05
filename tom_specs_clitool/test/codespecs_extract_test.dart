@@ -76,6 +76,30 @@ void main() {
       expect(entries[1].headline, isNull);
     });
 
+    test('reads the entry instanceId, and its absence reads as null', () {
+      // Format 3: the nearest enclosing list-item instance's *stored* section
+      // id, copy-only — auxiliary trace data, not the back-link vocabulary
+      // (codespecs_mapping.md §9.3).
+      final buffer = StringBuffer()
+        ..writeln('extract:')
+        ..writeln('  formatVersion: $kCsExtractFormat')
+        ..writeln('  area:')
+        ..writeln('    code: "CE-DB"')
+        ..writeln('  document:')
+        ..writeln('    root: "IMO"')
+        ..writeln('  entries:')
+        ..writeln('    - sectionId: "IMO-014"')
+        ..writeln('      instanceId: "ENT-PARTNER"')
+        ..writeln('      value: "A person or organisation."')
+        ..writeln('    - sectionId: "IMO-015"')
+        ..writeln('      instanceId: null')
+        ..writeln('      value: "An address."');
+      final set = readCsExtracts({'CE-DB.extract.yaml': '$buffer'});
+      final entries = set.extracts.single.entries;
+      expect(entries[0].instanceId, 'ENT-PARTNER');
+      expect(entries[1].instanceId, isNull);
+    });
+
     test('indexes by section id across every area, in read order', () {
       final set = readCsExtracts({
         'CE-DB.extract.yaml': _yaml(entries: [('IMO-014', 'from the entity')]),

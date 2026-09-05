@@ -51,7 +51,13 @@ import 'spec_reflection.dart';
 ///
 /// 2: entries carry `headline` — the enclosing section instance's headline,
 /// copy-only (stored headline, else the `@Headline` type default, else null).
-const int kCodeSpecsExtractFormat = 2;
+///
+/// 3: entries carry `instanceId` — the nearest enclosing list-item instance's
+/// **stored** section id (the `<!--[…]-->` id the document serializes, AA1),
+/// copy-only; null when no enclosing instance stores one. The render-time
+/// positional default (`CARD-2`) is derived, never stored, so it is never
+/// carried — that would be the composition C1 forbids.
+const int kCodeSpecsExtractFormat = 3;
 
 /// The annotation names of the three routing verdicts (`codespecs_mapping.md`
 /// §8.3). All three ride the generic annotation bag in every SOM runtime
@@ -150,6 +156,19 @@ class CodeSpecsExtractEntry {
   /// it stays `null` rather than being composed.
   final String? headline;
 
+  /// The document instance id of the enclosing section instance — the
+  /// **stored** section id (AA1, the `<!--[…]-->` id the document serializes)
+  /// of the nearest enclosing list item that carries one, walking outward;
+  /// `null` when none does.
+  ///
+  /// Copy-only, like [value] and [headline]: a stored id is a string the
+  /// document holds, so carrying it is within C1. The render-time positional
+  /// default (`CARD-2`) is derived rather than stored and is **never**
+  /// carried. This field is auxiliary trace data — the back-link vocabulary of
+  /// `codespecs_derivation_contract.md` §2.5 stays the extract token
+  /// ([sectionId]); see `codespecs_mapping.md` §9.3.
+  final String? instanceId;
+
   /// The document path of the leaf — the source location.
   final String path;
 
@@ -186,6 +205,7 @@ class CodeSpecsExtractEntry {
     required this.routedAt,
     required this.value,
     this.headline,
+    this.instanceId,
     this.formField,
     this.routingNote,
   });
@@ -473,6 +493,7 @@ class CodeSpecsExtract {
     for (final e in entries) {
       b.writeln('    - sectionId: ${_yamlString(e.sectionId)}');
       b.writeln('      headline: ${_yamlNullableString(e.headline)}');
+      b.writeln('      instanceId: ${_yamlNullableString(e.instanceId)}');
       b.writeln('      path: ${_yamlString(e.path)}');
       b.writeln('      className: ${_yamlString(e.className)}');
       b.writeln('      fieldName: ${_yamlString(e.fieldName)}');
@@ -529,6 +550,9 @@ class CodeSpecsExtract {
       b.writeln();
       if (e.headline != null) {
         b.writeln('- headline: ${_mdCell(e.headline!)}');
+      }
+      if (e.instanceId != null) {
+        b.writeln('- instanceId: `${e.instanceId}`');
       }
       b.writeln('- path: `${e.path}`');
       b.writeln('- routed by: `${e.routedBy}` declared on `${e.routedAt}`');
@@ -730,6 +754,7 @@ class CodeSpecsExtractor {
       path: _reflection.rootSegment(root),
       cls: model.classNamed(root.type),
       ancestorTypes: {root.type},
+      enclosingInstanceId: null,
       routings: routings,
       entries: entries,
       strict: strict,
@@ -740,6 +765,7 @@ class CodeSpecsExtractor {
     required String path,
     required SpecClass? cls,
     required Set<String> ancestorTypes,
+    required String? enclosingInstanceId,
     required List<CodeSpecsRouting>? routings,
     required List<CodeSpecsExtractEntry>? entries,
     required bool strict,
@@ -777,6 +803,13 @@ class CodeSpecsExtractor {
     // when neither source exists the entries carry `null`, never a derivation.
     final headline = document.headline(path) ?? cls.headline;
 
+    // The nearest enclosing list-item instance's **stored** section id (AA1),
+    // resolved once per class node: the document's stored id when this node is
+    // a list item carrying one, else whatever the walk inherited. Copy-only —
+    // the positional render default (`CARD-2`) is derived, never stored, so an
+    // id-less instance yields `null` rather than a composed id.
+    final instanceId = document.itemSectionId(path) ?? enclosingInstanceId;
+
     for (final field in cls.fields) {
       final fieldPath = specPathJoin(path, _reflection.fieldSegment(field));
       final fieldRouting = _fieldRouting(cls, field) ?? classRouting;
@@ -793,6 +826,7 @@ class CodeSpecsExtractor {
             path: fieldPath,
             formField: null,
             headline: headline,
+            instanceId: instanceId,
             value: document.content(fieldPath),
           );
         case SpecFieldKind.form:
@@ -805,6 +839,7 @@ class CodeSpecsExtractor {
               path: fieldPath,
               formField: ff.name,
               headline: headline,
+              instanceId: instanceId,
               value: document.formField(fieldPath, ff.name),
             );
           }
@@ -817,11 +852,15 @@ class CodeSpecsExtractor {
                 path: itemPath,
                 cls: model.classNamed(field.elementType),
                 ancestorTypes: {...ancestorTypes, field.elementType!},
+                enclosingInstanceId: instanceId,
                 routings: routings,
                 entries: entries,
                 strict: strict,
               );
             } else {
+              // A scalar item is itself an instance of the list: its own
+              // stored id (when the document carries one) is the most precise
+              // enclosing-instance id its entry can carry.
               _emitValue(
                 entries: entries,
                 routing: fieldRouting,
@@ -830,6 +869,7 @@ class CodeSpecsExtractor {
                 path: itemPath,
                 formField: null,
                 headline: headline,
+                instanceId: document.itemSectionId(itemPath) ?? instanceId,
                 value: document.content(itemPath),
               );
             }
@@ -841,6 +881,7 @@ class CodeSpecsExtractor {
               path: fieldPath,
               cls: model.classNamed(field.type),
               ancestorTypes: {...ancestorTypes, field.type!},
+              enclosingInstanceId: instanceId,
               routings: routings,
               entries: entries,
               strict: strict,
@@ -860,6 +901,7 @@ class CodeSpecsExtractor {
     required String path,
     required String? formField,
     required String? headline,
+    required String? instanceId,
     required String? value,
   }) {
     if (entries == null || routing == null) return;
@@ -875,6 +917,7 @@ class CodeSpecsExtractor {
         fieldName: field.name,
         formField: formField,
         headline: headline,
+        instanceId: instanceId,
         routedBy: area.kindValue,
         routedAt: routing.declaredAt,
         routingNote: routing.note,

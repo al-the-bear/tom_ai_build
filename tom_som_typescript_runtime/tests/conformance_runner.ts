@@ -1206,6 +1206,7 @@ function testCodeSpecsExtract(model: SpecModel): void {
       entries: x.entries.map((e) => ({
         sectionId: e.sectionId,
         headline: e.headline,
+        instanceId: e.instanceId,
         path: e.path,
         className: e.className,
         fieldName: e.fieldName,

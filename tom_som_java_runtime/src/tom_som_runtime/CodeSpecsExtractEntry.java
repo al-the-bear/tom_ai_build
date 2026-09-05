@@ -23,6 +23,16 @@ public final class CodeSpecsExtractEntry {
    */
   public final String headline;
 
+  /**
+   * The nearest enclosing list-item instance's <b>stored</b> section id (the
+   * {@code <!--[…]-->} id the document serializes), copy-only auxiliary trace
+   * data; {@code null} when no enclosing instance stores one. The render-time
+   * positional default is a derivation and is never carried. A {@code DocRef}
+   * back-link still names the extract token, not this id
+   * ({@code codespecs_mapping.md} §9.3).
+   */
+  public final String instanceId;
+
   /** The document path of the leaf — the source location. */
   public final String path;
 
@@ -57,6 +67,7 @@ public final class CodeSpecsExtractEntry {
       String areaCode,
       String sectionId,
       String headline,
+      String instanceId,
       String path,
       String className,
       String fieldName,
@@ -68,6 +79,7 @@ public final class CodeSpecsExtractEntry {
     this.areaCode = areaCode;
     this.sectionId = sectionId;
     this.headline = headline;
+    this.instanceId = instanceId;
     this.path = path;
     this.className = className;
     this.fieldName = fieldName;

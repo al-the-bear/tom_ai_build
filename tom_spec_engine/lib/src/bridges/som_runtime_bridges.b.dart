@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 21 files
-// Generated: 2026-09-05T18:35:06.375501
+// Generated: 2026-09-05T20:22:26.124200
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1672,15 +1672,17 @@ BridgedClass _createCodeSpecsExtractEntryBridge() {
         final routedAt = D4.getRequiredNamedArg<String>(named, 'routedAt', 'CodeSpecsExtractEntry');
         final value = D4.getRequiredNamedArg<String>(named, 'value', 'CodeSpecsExtractEntry');
         final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
+        final instanceId = D4.getOptionalNamedArg<String?>(named, 'instanceId');
         final formField = D4.getOptionalNamedArg<String?>(named, 'formField');
         final routingNote = D4.getOptionalNamedArg<String?>(named, 'routingNote');
-        return $tom_som_dart_runtime_4.CodeSpecsExtractEntry(areaCode: areaCode, sectionId: sectionId, path: path, className: className, fieldName: fieldName, routedBy: routedBy, routedAt: routedAt, value: value, headline: headline, formField: formField, routingNote: routingNote);
+        return $tom_som_dart_runtime_4.CodeSpecsExtractEntry(areaCode: areaCode, sectionId: sectionId, path: path, className: className, fieldName: fieldName, routedBy: routedBy, routedAt: routedAt, value: value, headline: headline, instanceId: instanceId, formField: formField, routingNote: routingNote);
       },
     },
     getters: {
       'areaCode': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').areaCode,
       'sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').sectionId,
       'headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').headline,
+      'instanceId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').instanceId,
       'path': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').path,
       'className': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').className,
       'fieldName': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.CodeSpecsExtractEntry>(target, 'CodeSpecsExtractEntry').fieldName,
@@ -1697,7 +1699,7 @@ BridgedClass _createCodeSpecsExtractEntryBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const CodeSpecsExtractEntry({required String areaCode, required String sectionId, required String path, required String className, required String fieldName, required String routedBy, required String routedAt, required String value, String? headline, String? formField, String? routingNote})',
+      '': 'const CodeSpecsExtractEntry({required String areaCode, required String sectionId, required String path, required String className, required String fieldName, required String routedBy, required String routedAt, required String value, String? headline, String? instanceId, String? formField, String? routingNote})',
     },
     methodSignatures: {
       'toString': 'String toString()',
@@ -1706,6 +1708,7 @@ BridgedClass _createCodeSpecsExtractEntryBridge() {
       'areaCode': 'String get areaCode',
       'sectionId': 'String get sectionId',
       'headline': 'String? get headline',
+      'instanceId': 'String? get instanceId',
       'path': 'String get path',
       'className': 'String get className',
       'fieldName': 'String get fieldName',

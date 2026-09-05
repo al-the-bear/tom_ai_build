@@ -388,6 +388,7 @@ std::string CodeSpecsExtract::toYaml() const {
   for (const CodeSpecsExtractEntry& e : entries) {
     writeln(b, "    - sectionId: " + yamlString(e.sectionId));
     writeln(b, "      headline: " + yamlNullableString(e.headline));
+    writeln(b, "      instanceId: " + yamlNullableString(e.instanceId));
     writeln(b, "      path: " + yamlString(e.path));
     writeln(b, "      className: " + yamlString(e.className));
     writeln(b, "      fieldName: " + yamlString(e.fieldName));
@@ -446,6 +447,9 @@ std::string CodeSpecsExtract::toMarkdown() const {
     writeln(b, "");
     if (e.headline.has_value()) {
       writeln(b, "- headline: " + mdCell(*e.headline));
+    }
+    if (e.instanceId.has_value()) {
+      writeln(b, "- instanceId: `" + *e.instanceId + "`");
     }
     writeln(b, "- path: `" + e.path + "`");
     writeln(b, "- routed by: `" + e.routedBy + "` declared on `" + e.routedAt +
@@ -596,14 +600,15 @@ void CodeSpecsExtractor::walkAll(std::vector<CodeSpecsRouting>* routings,
                                  std::vector<CodeSpecsExtractEntry>* entries,
                                  bool strict) const {
   walk(SpecReflection::rootSegment(*root_), model_->classNamed(root_->type),
-       {root_->type}, routings, entries, strict);
+       {root_->type}, routings, entries, strict, std::nullopt);
 }
 
-void CodeSpecsExtractor::walk(const std::string& path, const SpecClass* cls,
-                              const std::set<std::string>& ancestorTypes,
-                              std::vector<CodeSpecsRouting>* routings,
-                              std::vector<CodeSpecsExtractEntry>* entries,
-                              bool strict) const {
+void CodeSpecsExtractor::walk(
+    const std::string& path, const SpecClass* cls,
+    const std::set<std::string>& ancestorTypes,
+    std::vector<CodeSpecsRouting>* routings,
+    std::vector<CodeSpecsExtractEntry>* entries, bool strict,
+    const std::optional<std::string>& enclosingInstanceId) const {
   if (cls == nullptr) {
     return;
   }
@@ -644,6 +649,18 @@ void CodeSpecsExtractor::walk(const std::string& path, const SpecClass* cls,
     headline = cls->headline;
   }
 
+  // The nearest enclosing list-item instance's **stored** section id, copied
+  // onto every entry emitted below it. Only a stored id is ever carried — the
+  // render-time positional default is a derivation, and a derivation is what
+  // C1 forbids — so an id-less instance yields unset, never "CARD-2".
+  const std::string* storedId = document_->itemSectionIdOpt(path);
+  std::optional<std::string> instanceId;
+  if (storedId != nullptr) {
+    instanceId = *storedId;
+  } else {
+    instanceId = enclosingInstanceId;
+  }
+
   for (const SpecField& field : cls->fields) {
     std::string fieldPath =
         specPathJoin(path, SpecReflection::fieldSegment(field));
@@ -655,11 +672,12 @@ void CodeSpecsExtractor::walk(const std::string& path, const SpecClass* cls,
         field.kind == kSpecFieldKindEnum ||
         field.kind == kSpecFieldKindScalar) {
       emitValue(entries, fieldRouted, *cls, field, fieldPath, std::nullopt,
-                headline, document_->content(fieldPath));
+                headline, instanceId, document_->content(fieldPath));
     } else if (field.kind == kSpecFieldKindForm) {
       for (const FormFieldSpec& ff : field.formFields) {
         emitValue(entries, fieldRouted, *cls, field, fieldPath, ff.name,
-                  headline, document_->formField(fieldPath, ff.name));
+                  headline, instanceId,
+                  document_->formField(fieldPath, ff.name));
       }
     } else if (field.kind == kSpecFieldKindList) {
       for (const std::string& itemPath : document_->listItems(fieldPath)) {
@@ -668,10 +686,19 @@ void CodeSpecsExtractor::walk(const std::string& path, const SpecClass* cls,
           std::set<std::string> nested(ancestorTypes);
           nested.insert(field.elementType);
           walk(itemPath, model_->classNamed(field.elementType), nested,
-               routings, entries, strict);
+               routings, entries, strict, instanceId);
         } else {
+          // A scalar item is itself an instance of the list: its own stored
+          // id is the most precise enclosing-instance id its entry can carry.
+          const std::string* itemStored = document_->itemSectionIdOpt(itemPath);
+          std::optional<std::string> itemInstance;
+          if (itemStored != nullptr) {
+            itemInstance = *itemStored;
+          } else {
+            itemInstance = instanceId;
+          }
           emitValue(entries, fieldRouted, *cls, field, itemPath, std::nullopt,
-                    headline, document_->content(itemPath));
+                    headline, itemInstance, document_->content(itemPath));
         }
       }
     } else if (field.kind == kSpecFieldKindComplex ||
@@ -680,7 +707,7 @@ void CodeSpecsExtractor::walk(const std::string& path, const SpecClass* cls,
         std::set<std::string> nested(ancestorTypes);
         nested.insert(field.type);
         walk(fieldPath, model_->classNamed(field.type), nested, routings,
-             entries, strict);
+             entries, strict, instanceId);
       }
     }
   }
@@ -691,6 +718,7 @@ void CodeSpecsExtractor::emitValue(
     const SpecClass& cls, const SpecField& field, const std::string& path,
     const std::optional<std::string>& formField,
     const std::optional<std::string>& headline,
+    const std::optional<std::string>& instanceId,
     const std::string& value) const {
   if (entries == nullptr || routing == nullptr) {
     return;
@@ -710,6 +738,7 @@ void CodeSpecsExtractor::emitValue(
     e.areaCode = area->code;
     e.sectionId = SpecReflection::fieldSegment(field);
     e.headline = headline;
+    e.instanceId = instanceId;
     e.path = path;
     e.className = cls.name;
     e.fieldName = field.name;

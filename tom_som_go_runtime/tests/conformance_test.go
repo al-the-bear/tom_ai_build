@@ -1671,6 +1671,7 @@ func codeSpecsEntryRecord(e som.CodeSpecsExtractEntry) map[string]any {
 	return map[string]any{
 		"sectionId":   e.SectionID,
 		"headline":    nullable(e.Headline),
+		"instanceId":  nullable(e.InstanceID),
 		"path":        e.Path,
 		"className":   e.ClassName,
 		"fieldName":   e.FieldName,

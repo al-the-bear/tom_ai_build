@@ -269,7 +269,8 @@ public final class CodeSpecsExtractor {
         ancestorTypes,
         routings,
         entries,
-        strict);
+        strict,
+        null);
   }
 
   private void walk(
@@ -278,7 +279,8 @@ public final class CodeSpecsExtractor {
       Set<String> ancestorTypes,
       List<CodeSpecsRouting> routings,
       List<CodeSpecsExtractEntry> entries,
-      boolean strict) {
+      boolean strict,
+      String enclosingInstanceId) {
     if (cls == null) {
       return;
     }
@@ -317,6 +319,13 @@ public final class CodeSpecsExtractor {
     String stored = document.headline(path);
     String headline = stored != null ? stored : cls.headline;
 
+    // The nearest enclosing list-item instance's stored section id, copied
+    // onto every entry emitted below it. Only a stored id is ever carried —
+    // the render-time positional default is a derivation, and a derivation is
+    // what C1 forbids — so an id-less instance yields null, never "CARD-2".
+    String storedId = document.itemSectionId(path);
+    String instanceId = storedId != null ? storedId : enclosingInstanceId;
+
     for (SpecField field : cls.fields) {
       String fieldPath = SpecPaths.join(path, reflection.fieldSegment(field));
       CodeSpecsRouting declared = fieldRouting(cls, field);
@@ -334,6 +343,7 @@ public final class CodeSpecsExtractor {
               fieldPath,
               null,
               headline,
+              instanceId,
               document.content(fieldPath));
           break;
         case FORM:
@@ -346,6 +356,7 @@ public final class CodeSpecsExtractor {
                 fieldPath,
                 ff.name,
                 headline,
+                instanceId,
                 document.formField(fieldPath, ff.name));
           }
           break;
@@ -362,8 +373,13 @@ public final class CodeSpecsExtractor {
                   nested,
                   routings,
                   entries,
-                  strict);
+                  strict,
+                  instanceId);
             } else {
+              // A scalar item is itself an instance of the list: its own
+              // stored id is the most precise enclosing-instance id its
+              // entry can carry.
+              String itemStored = document.itemSectionId(itemPath);
               emitValue(
                   entries,
                   fieldRouting,
@@ -372,6 +388,7 @@ public final class CodeSpecsExtractor {
                   itemPath,
                   null,
                   headline,
+                  itemStored != null ? itemStored : instanceId,
                   document.content(itemPath));
             }
           }
@@ -381,7 +398,14 @@ public final class CodeSpecsExtractor {
           if (field.type != null && !ancestorTypes.contains(field.type)) {
             Set<String> nested = new LinkedHashSet<>(ancestorTypes);
             nested.add(field.type);
-            walk(fieldPath, model.classNamed(field.type), nested, routings, entries, strict);
+            walk(
+                fieldPath,
+                model.classNamed(field.type),
+                nested,
+                routings,
+                entries,
+                strict,
+                instanceId);
           }
           break;
         default:
@@ -402,6 +426,7 @@ public final class CodeSpecsExtractor {
       String path,
       String formField,
       String headline,
+      String instanceId,
       String value) {
     if (entries == null || routing == null) {
       return;
@@ -419,6 +444,7 @@ public final class CodeSpecsExtractor {
               area.code,
               reflection.fieldSegment(field),
               headline,
+              instanceId,
               path,
               cls.name,
               field.name,

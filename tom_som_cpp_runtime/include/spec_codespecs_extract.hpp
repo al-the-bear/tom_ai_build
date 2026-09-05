@@ -67,8 +67,12 @@ namespace som {
  * YAML or Markdown layout changes in a way a reader could notice.
  *
  * 2: entries carry `headline` — the enclosing section instance's headline,
- * copy-only (stored headline, else the `@Headline` type default, else null). */
-inline constexpr long long kCodeSpecsExtractFormat = 2;
+ * copy-only (stored headline, else the `@Headline` type default, else null).
+ *
+ * 3: entries carry `instanceId` — the nearest enclosing list-item instance's
+ * **stored** section id (the `<!--[…]-->` id the document serializes),
+ * copy-only; null when no enclosing instance stores one. */
+inline constexpr long long kCodeSpecsExtractFormat = 3;
 
 /* The annotation names of the three routing verdicts (`codespecs_mapping.md`
  * §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -141,6 +145,12 @@ struct CodeSpecsExtractEntry {
   /* The enclosing section instance's headline, copy-only: the stored headline,
    * else the `@Headline` type default, else unset. */
   std::optional<std::string> headline;
+  /* The nearest enclosing list-item instance's **stored** section id (the
+   * `<!--[…]-->` id the document serializes), copy-only auxiliary trace data;
+   * unset when no enclosing instance stores one. The render-time positional
+   * default is a derivation and is never carried. A `DocRef` back-link still
+   * names the extract token, not this id (`codespecs_mapping.md` §9.3). */
+  std::optional<std::string> instanceId;
   /* The document path of the leaf — the source location. */
   std::string path;
   /* The model class declaring the leaf. */
@@ -399,7 +409,8 @@ class CodeSpecsExtractor {
   void walk(const std::string& path, const SpecClass* cls,
             const std::set<std::string>& ancestorTypes,
             std::vector<CodeSpecsRouting>* routings,
-            std::vector<CodeSpecsExtractEntry>* entries, bool strict) const;
+            std::vector<CodeSpecsExtractEntry>* entries, bool strict,
+            const std::optional<std::string>& enclosingInstanceId) const;
 
   /* Appends one entry **per area the routing names** — never deduplicated,
    * because each area's prompt must be self-sufficient (§1.1.1). */
@@ -408,6 +419,7 @@ class CodeSpecsExtractor {
                  const SpecField& field, const std::string& path,
                  const std::optional<std::string>& formField,
                  const std::optional<std::string>& headline,
+                 const std::optional<std::string>& instanceId,
                  const std::string& value) const;
 
   // --- verdict resolution --------------------------------------------------

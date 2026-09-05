@@ -31,7 +31,13 @@ import 'package:yaml/yaml.dart';
 ///
 /// 2: entries carry `headline` — the enclosing section instance's headline,
 /// copy-only (stored headline, else the `@Headline` type default, else null).
-const int kCsExtractFormat = 2;
+///
+/// 3: entries carry `instanceId` — the nearest enclosing list-item instance's
+/// **stored** section id (the `<!--[…]-->` id the document serializes),
+/// copy-only; null when no enclosing instance stores one. Auxiliary trace
+/// data: the back-link vocabulary stays the extract token
+/// (`codespecs_mapping.md` §9.3).
+const int kCsExtractFormat = 3;
 
 /// The file name of the Stage-B gate record — `codespecs_prompt.md` §6.3's
 /// persisted verdicts, written beside the extracts.
@@ -136,6 +142,12 @@ class CsExtractEntry {
   /// headline, else the `@Headline` type default, else null.
   final String? headline;
 
+  /// The nearest enclosing list-item instance's **stored** section id — the
+  /// `<!--[…]-->` id the document serializes — or null when no enclosing
+  /// instance stores one. Copy-only auxiliary trace data; a `DocRef` still
+  /// names the extract token, not this id (`codespecs_mapping.md` §9.3).
+  final String? instanceId;
+
   /// The document path of the node the value was read from.
   final String path;
 
@@ -166,6 +178,7 @@ class CsExtractEntry {
     required this.sectionId,
     required this.value,
     this.headline,
+    this.instanceId,
     this.path = '',
     this.className = '',
     this.fieldName = '',
@@ -513,6 +526,7 @@ CsExtract _readExtract(String name, String yamlText) {
           areaCode: areaCode,
           sectionId: _string(raw['sectionId']),
           headline: _nullableString(raw['headline']),
+          instanceId: _nullableString(raw['instanceId']),
           path: _string(raw['path']),
           className: _string(raw['className']),
           fieldName: _string(raw['fieldName']),

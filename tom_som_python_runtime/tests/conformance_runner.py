@@ -947,6 +947,7 @@ def test_codespecs_extract(model: SpecModel) -> None:
                 {
                     "sectionId": e.section_id,
                     "headline": e.headline,
+                    "instanceId": e.instance_id,
                     "path": e.path,
                     "className": e.class_name,
                     "fieldName": e.field_name,

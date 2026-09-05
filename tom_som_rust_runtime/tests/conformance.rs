@@ -1528,6 +1528,12 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
                 e.headline == want_headline,
                 &format!("{:?} != {:?}", e.headline, want_headline),
             );
+            let want_instance_id = opt_str(we.get("instanceId"));
+            c.check(
+                &format!("{}.instanceId", etag),
+                e.instance_id == want_instance_id,
+                &format!("{:?} != {:?}", e.instance_id, want_instance_id),
+            );
             c.check(&format!("{}.path", etag), e.path == we.str_or("path"), &e.path);
             c.check(
                 &format!("{}.className", etag),

@@ -36,6 +36,7 @@ interaction step that cites the operation.
 ### 2. `content` — `ServerOperationEntry.content.operationName`
 
 - headline: Amend Order Line
+- instanceId: `SVOPE-OPER-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -47,6 +48,7 @@ amendOrderLine
 ### 3. `content` — `ServerOperationEntry.content.purpose`
 
 - headline: Amend Order Line
+- instanceId: `SVOPE-OPER-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -58,6 +60,7 @@ Applies a quantity change to one order line before dispatch, re-pricing and re-r
 ### 4. `content` — `ServerOperationEntry.content.primaryDataEntity`
 
 - headline: Amend Order Line
+- instanceId: `SVOPE-OPER-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -69,6 +72,7 @@ OrderLine
 ### 5. `content` — `ServerOperationEntry.content.descriptionKey`
 
 - headline: Amend Order Line
+- instanceId: `SVOPE-OPER-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -80,6 +84,7 @@ op.order.amendLine
 ### 6. `content` — `ServerOperationEntry.content.errorCodes`
 
 - headline: Amend Order Line
+- instanceId: `SVOPE-OPER-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -91,6 +96,7 @@ VALIDATION_FAILED, ORDER_ALREADY_DISPATCHED, ORDER_VERSION_CONFLICT
 ### 7. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: orderId
+- instanceId: `SVOPM-REQM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -102,6 +108,7 @@ Text
 ### 8. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: orderId
+- instanceId: `SVOPM-REQM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -113,6 +120,7 @@ true
 ### 9. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: orderId
+- instanceId: `SVOPM-REQM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -124,6 +132,7 @@ The order the amended line belongs to.
 ### 10. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: lineId
+- instanceId: `SVOPM-REQM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -135,6 +144,7 @@ Text
 ### 11. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: lineId
+- instanceId: `SVOPM-REQM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -146,6 +156,7 @@ true
 ### 12. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: lineId
+- instanceId: `SVOPM-REQM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -157,6 +168,7 @@ The line whose quantity changes.
 ### 13. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: newQuantity
+- instanceId: `SVOPM-REQM-3`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-3/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -168,6 +180,7 @@ Integer
 ### 14. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: newQuantity
+- instanceId: `SVOPM-REQM-3`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-3/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -179,6 +192,7 @@ true
 ### 15. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: newQuantity
+- instanceId: `SVOPM-REQM-3`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-3/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -190,6 +204,7 @@ The new ordered quantity; must satisfy the quantity-positive constraint on Order
 ### 16. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: orderVersion
+- instanceId: `SVOPM-REQM-4`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-4/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -201,6 +216,7 @@ Integer
 ### 17. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: orderVersion
+- instanceId: `SVOPM-REQM-4`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-4/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -212,6 +228,7 @@ true
 ### 18. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: orderVersion
+- instanceId: `SVOPM-REQM-4`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-4/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -223,6 +240,7 @@ The order version the clerk read; a stale version is rejected with ORDER_VERSION
 ### 19. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: justification
+- instanceId: `SVOPM-REQM-5`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-5/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -234,6 +252,7 @@ Text
 ### 20. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: justification
+- instanceId: `SVOPM-REQM-5`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-5/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -245,6 +264,7 @@ false
 ### 21. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: justification
+- instanceId: `SVOPM-REQM-5`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-REQM-LST-5/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -256,6 +276,7 @@ The clerk's justification note, when one was entered.
 ### 22. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: unitPrice
+- instanceId: `SVOPM-RESM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -267,6 +288,7 @@ Decimal
 ### 23. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: unitPrice
+- instanceId: `SVOPM-RESM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -278,6 +300,7 @@ true
 ### 24. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: unitPrice
+- instanceId: `SVOPM-RESM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -289,6 +312,7 @@ The fresh price snapshot applied to the amended line.
 ### 25. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: reserved
+- instanceId: `SVOPM-RESM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -300,6 +324,7 @@ Boolean
 ### 26. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: reserved
+- instanceId: `SVOPM-RESM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -311,6 +336,7 @@ true
 ### 27. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: reserved
+- instanceId: `SVOPM-RESM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -322,6 +348,7 @@ Whether stock was re-reserved for the amended line.
 ### 28. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: orderStatus
+- instanceId: `SVOPM-RESM-3`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-3/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -333,6 +360,7 @@ Text
 ### 29. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: orderStatus
+- instanceId: `SVOPM-RESM-3`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-3/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -344,6 +372,7 @@ true
 ### 30. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: orderStatus
+- instanceId: `SVOPM-RESM-3`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-3/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -355,6 +384,7 @@ The order state after the amendment (Confirmed when fully satisfied); a value of
 ### 31. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: orderVersion
+- instanceId: `SVOPM-RESM-4`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-4/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -366,6 +396,7 @@ Integer
 ### 32. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: orderVersion
+- instanceId: `SVOPM-RESM-4`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-4/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -377,6 +408,7 @@ true
 ### 33. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: orderVersion
+- instanceId: `SVOPM-RESM-4`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-1/SVOPM-RESM-LST-4/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -388,6 +420,7 @@ The order version after the amendment, for the next optimistic write.
 ### 34. `content` — `ServerOperationEntry.content.operationName`
 
 - headline: Fetch Order Work List
+- instanceId: `SVOPE-OPER-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -399,6 +432,7 @@ fetchOrderWorkList
 ### 35. `content` — `ServerOperationEntry.content.purpose`
 
 - headline: Fetch Order Work List
+- instanceId: `SVOPE-OPER-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -410,6 +444,7 @@ Returns one state-filtered page of the order work list in queue order.
 ### 36. `content` — `ServerOperationEntry.content.primaryDataEntity`
 
 - headline: Fetch Order Work List
+- instanceId: `SVOPE-OPER-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -421,6 +456,7 @@ Order
 ### 37. `content` — `ServerOperationEntry.content.descriptionKey`
 
 - headline: Fetch Order Work List
+- instanceId: `SVOPE-OPER-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -432,6 +468,7 @@ op.order.fetchWorkList
 ### 38. `content` — `ServerOperationEntry.content.errorCodes`
 
 - headline: Fetch Order Work List
+- instanceId: `SVOPE-OPER-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationEntry`
 - routing note: CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2).
@@ -443,6 +480,7 @@ VALIDATION_FAILED
 ### 39. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: stateFilter
+- instanceId: `SVOPM-REQM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-REQM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -454,6 +492,7 @@ DomainEnum
 ### 40. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: stateFilter
+- instanceId: `SVOPM-REQM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-REQM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -465,6 +504,7 @@ false
 ### 41. `content` — `ServerOperationMemberEntry.content.domainEnum`
 
 - headline: stateFilter
+- instanceId: `SVOPM-REQM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-REQM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -476,6 +516,7 @@ OrderStatus
 ### 42. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: stateFilter
+- instanceId: `SVOPM-REQM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-REQM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -487,6 +528,7 @@ Show only orders in this lifecycle state; absent means every open state.
 ### 43. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: page
+- instanceId: `SVOPM-REQM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-REQM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -498,6 +540,7 @@ Integer
 ### 44. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: page
+- instanceId: `SVOPM-REQM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-REQM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -509,6 +552,7 @@ false
 ### 45. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: page
+- instanceId: `SVOPM-REQM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-REQM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -520,6 +564,7 @@ Zero-based page index; defaults to the first page.
 ### 46. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: orders
+- instanceId: `SVOPM-RESM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-RESM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -531,6 +576,7 @@ DataEntity
 ### 47. `content` — `ServerOperationMemberEntry.content.multiValued`
 
 - headline: orders
+- instanceId: `SVOPM-RESM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-RESM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -542,6 +588,7 @@ true
 ### 48. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: orders
+- instanceId: `SVOPM-RESM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-RESM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -553,6 +600,7 @@ true
 ### 49. `content` — `ServerOperationMemberEntry.content.dataEntity`
 
 - headline: orders
+- instanceId: `SVOPM-RESM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-RESM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -564,6 +612,7 @@ Order
 ### 50. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: orders
+- instanceId: `SVOPM-RESM-1`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-RESM-LST-1/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -575,6 +624,7 @@ The page of matching orders in queue order.
 ### 51. `content` — `ServerOperationMemberEntry.content.memberType`
 
 - headline: totalCount
+- instanceId: `SVOPM-RESM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-RESM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -586,6 +636,7 @@ Integer
 ### 52. `content` — `ServerOperationMemberEntry.content.required`
 
 - headline: totalCount
+- instanceId: `SVOPM-RESM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-RESM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
@@ -597,6 +648,7 @@ true
 ### 53. `content` — `ServerOperationMemberEntry.content.description`
 
 - headline: totalCount
+- instanceId: `SVOPM-RESM-2`
 - path: `SBP/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST-2/SVOPM-RESM-LST-2/content`
 - routed by: `CodeSpecPart.serverApi` declared on `ServerOperationMemberEntry`
 - routing note: CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it.
