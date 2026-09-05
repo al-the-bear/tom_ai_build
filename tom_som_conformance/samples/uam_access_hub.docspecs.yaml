@@ -1,0 +1,1809 @@
+# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.
+version: 2
+modelVersion: "1.0"
+document:
+  SBP D00SolutionBlueprint:
+    content: |2-
+      Solution Blueprint for the **Tom Access Hub (TAH)** programme — a
+      multi-tenant, multi-application user and authorization management system.
+
+      TAH manages tenants (clients), the organizations and applications within
+      each tenant, the users who belong to them, and the graded authorization
+      model that governs what each principal may do on each resource. Its data
+      model is grounded in the tom_uam admin_db DDL (`um_*` tables plus the
+      framework's `tom_principal_resource_grant` / `tom_principal_delegation`
+      tables) and deliberately reaches beyond what that DDL covers today:
+      time-boxed delegation approval, periodic access-review campaigns, and a
+      graded four-state grant editor are specified here before any schema
+      carries them.
+    DOCTL documentControl:
+      content: |2-
+        - Version: 1.0
+        - Status: Draft for architecture review
+        - Authors: Identity Platform chapter
+        - Approvers: Security Architecture Board, Head of Platform
+
+        This blueprint is a conformance sample for the TomSpecs object model;
+        its domain content mirrors the tom_uam administration database.
+    INSC introductionAndScope:
+      content: |2-
+        TAH covers tenant onboarding, organization and application management
+        within a tenant, user lifecycle, role and group administration, graded
+        (four-state) resource grants, per-principal resource roles, delegation,
+        and access-review campaigns.
+
+        Out of scope:
+
+        - workforce HR master data (users are provisioned, not employed, here)
+        - billing and subscription management (Tom SQM owns quota and payment)
+        - network-level access control
+      SYDSC systemDescription:
+        UCE-USER-LST userCategories:
+          UCE-USER-1:
+            headline: |2-
+              Tenant administrator
+            content:
+              description: |2-
+                Administers one tenant: its organizations, applications, users,
+                groups, roles and grants. The tenant boundary (`client_id`) is
+                absolute — no operation ever crosses it.
+              userType: |2-
+                Internal
+            SYTS-SYST-LST systemTasks:
+              SYTS-SYST-1:
+                headline: |2-
+                  Grant a graded role on a resource
+                content:
+                  description: |2-
+                    Select a role, a resource-key pattern and one of the four
+                    TomAuthState access levels, and persist the grant so every
+                    application of the tenant enforces it on next resolution.
+                SYTS-WORK-LST workflowSteps:
+                  SYTS-WORK-1: |2-
+                    Open the grant editor for a role of an application.
+                  SYTS-WORK-2: |2-
+                    Choose the resource-key pattern and the access level
+                    (none / disabled / read / full).
+                  SYTS-WORK-3: |2-
+                    Save; the grant row is written and the authorization cache
+                    for affected principals is invalidated.
+          UCE-USER-2:
+            headline: |2-
+              Application owner
+            content:
+              description: |2-
+                Owns one application registered in a tenant: its roles,
+                entitlement patterns, resource keys and per-application
+                configuration. Requests grants but cannot approve their own.
+              userType: |2-
+                Internal
+            SYTS-SYST-LST systemTasks:
+              SYTS-SYST-1:
+                headline: |2-
+                  Register application roles and entitlements
+                content:
+                  description: |2-
+                    Declare the roles an application exposes and the
+                    entitlement / resource-key patterns each role matches, so
+                    tenant administrators can grant them.
+                SYTS-WORK-LST workflowSteps:
+                  SYTS-WORK-1: |2-
+                    Define or import the application's role list.
+                  SYTS-WORK-2: |2-
+                    Attach entitlement and resource-key patterns per role.
+                  SYTS-WORK-3: |2-
+                    Publish the role catalogue to the tenant administrators.
+      GOALS goals:
+        content: |2-
+          - One authorization model for every application of a tenant — roles,
+            groups, graded grants and delegation resolved by one engine.
+          - Closed by default: absence of a grant row is a denial, never an
+            implicit permission.
+          - Full auditability: every grant, delegation and review decision is
+            attributable to a principal and a point in time.
+      RO requirements:
+        content: |2-
+          Requirements are split into functional, security and organizational
+          series. The functional series centres on the graded grant model and
+          the two capabilities that go beyond the current DDL: delegation
+          approval and access-review campaigns.
+        FR functionalRequirements:
+          headline: |2-
+            Functional requirements
+          FRE-REQU-LST requirements:
+            FRE-REQU-GRADED-GRANTS:
+              headline: |2-
+                Four-state graded resource grants
+              content:
+                status: |2-
+                  Approved
+              FRED details:
+                description: |2-
+                  A tenant administrator can grade a (role, resource-key
+                  pattern) pair with one of the four TomAuthState values
+                  (none, disabled, read, full). A pair with no row resolves to
+                  none. Grading follows the um_role_resource_grants overlay:
+                  the role's own entitlement pattern keeps meaning an implicit
+                  full grant until a row says otherwise.
+                requirementType: |2-
+                  Functional
+                category: |2-
+                  Authorization
+              FREP priority:
+                priority: |2-
+                  Must
+                businessValue: |2-
+                  High
+                effort: |2-
+                  Medium
+                riskLevel: |2-
+                  Medium
+              FREV verification:
+                fitCriterion: |2-
+                  For every combination of (grant row present/absent) x (four
+                  access levels), the resolver returns exactly the graded state,
+                  and an empty grant table denies everything.
+              RAC acceptanceCriteria:
+                ACE-CRIT-LST criteria:
+                  ACE-CRIT-1:
+                    headline: |2-
+                      Absence denies
+                    content:
+                      given: |2-
+                        A role whose resource-key pattern matches resource R,
+                        and no grant row for (role, R)
+                      when: |2-
+                        A principal holding the role requests access to R with
+                        the four-state resolver enabled
+                      then: |2-
+                        The resolver yields the implicit full grant of the
+                        legacy binary path, and yields none once the tenant opts
+                        the role into explicit grading
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Approved
+                  ACE-CRIT-2:
+                    headline: |2-
+                      Read grade masks writes
+                    content:
+                      given: |2-
+                        A grant row grading (role, R) as read
+                      when: |2-
+                        The principal attempts a mutating operation on R
+                      then: |2-
+                        The operation is rejected with UAM-403-GRADE-DENIED and
+                        the read paths remain available
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Approved
+            FRE-REQU-DELEGATION:
+              headline: |2-
+                Time-boxed delegation with revocation
+              content:
+                status: |2-
+                  Approved
+              FRED details:
+                description: |2-
+                  A principal may delegate a role on a resource to another
+                  principal for an inclusive validity window; either bound may
+                  be open. A delegation outside its window or revoked
+                  contributes nothing. Delegated and direct roles fold by
+                  strength — the stronger role wins.
+                requirementType: |2-
+                  Functional
+                category: |2-
+                  Delegation
+              FREP priority:
+                priority: |2-
+                  Must
+                businessValue: |2-
+                  High
+                effort: |2-
+                  Medium
+                riskLevel: |2-
+                  Medium
+              RAC acceptanceCriteria:
+                ACE-CRIT-LST criteria:
+                  ACE-CRIT-1:
+                    headline: |2-
+                      Window is evaluated at resolution time
+                    content:
+                      given: |2-
+                        A delegation valid from tomorrow
+                      when: |2-
+                        The delegate resolves access today
+                      then: |2-
+                        The delegation contributes nothing today and takes
+                        effect tomorrow without any further write
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Unit
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Approved
+            FRE-REQU-ACCESS-REVIEW:
+              headline: |2-
+                Periodic access-review campaigns
+              content:
+                status: |2-
+                  Draft
+              FRED details:
+                description: |2-
+                  A tenant administrator can open an access-review campaign
+                  over a scope (an organization, an application, or the whole
+                  tenant). Every grant and delegation in scope is listed for a
+                  reviewer to confirm or revoke; unconfirmed items past the
+                  campaign deadline are revoked automatically. This capability
+                  is specified beyond the current DDL — the campaign tables are
+                  introduced by this blueprint.
+                requirementType: |2-
+                  Functional
+                category: |2-
+                  Governance
+              FREP priority:
+                priority: |2-
+                  Should
+                businessValue: |2-
+                  High
+                effort: |2-
+                  High
+                riskLevel: |2-
+                  Medium
+              RAC acceptanceCriteria:
+                ACE-CRIT-LST criteria:
+                  ACE-CRIT-1:
+                    headline: |2-
+                      Deadline revokes the unconfirmed
+                    content:
+                      given: |2-
+                        An open campaign with one unconfirmed grant and a
+                        deadline in the past
+                      when: |2-
+                        The campaign sweeper runs
+                      then: |2-
+                        The grant is revoked, the revocation is journaled with
+                        the campaign id, and the reviewer is notified
+                      verificationMethod: |2-
+                        Automated test
+                      testType: |2-
+                        Integration
+                      priority: |2-
+                        Must
+                      status: |2-
+                        Draft
+        SR1 securityRequirements:
+          SECRQ-REQU-LST requirements:
+            SECRQ-REQU-TENANT-ISOLATION:
+              headline: |2-
+                Absolute tenant isolation
+              content:
+                description: |2-
+                  Every um_* table is keyed by client_id and every query path
+                  carries the tenant of the authenticated principal. No
+                  operation, including administrative ones, may read or write
+                  across tenants.
+              SEREENCL classification:
+                category: |2-
+                  Access control
+                subcategory: |2-
+                  Multi-tenancy
+                priority: |2-
+                  Must
+                source: |2-
+                  Security Architecture Board
+                rationale: |2-
+                  Tenants are separate legal customers; leakage is a
+                  contractual and regulatory breach.
+                threatMitigated: |2-
+                  Cross-tenant data exposure via a forged or missing tenant key
+                dataClassification: |2-
+                  Confidential
+              SEREENCO compliance:
+                owaspCategory: |2-
+                  A01:2021 Broken Access Control
+                nistControl: |2-
+                  AC-3
+            SECRQ-REQU-CLOSED-DEFAULT:
+              headline: |2-
+                Closed-by-default resolution
+              content:
+                description: |2-
+                  A (principal, resource) with no grant row has no role on that
+                  resource; the resolver yields TomAuthState.none. Absence is a
+                  denial, never an implicit grant, so an empty grant table is a
+                  closed system.
+              SEREENCL classification:
+                category: |2-
+                  Authorization
+                subcategory: |2-
+                  Default posture
+                priority: |2-
+                  Must
+                source: |2-
+                  tom_core_server graded authorization design
+                rationale: |2-
+                  Fail-closed is the only default compatible with an
+                  authorization system of record.
+                threatMitigated: |2-
+                  Privilege creep through forgotten default allowances
+                dataClassification: |2-
+                  Internal
+              SEREENCO compliance:
+                nistControl: |2-
+                  AC-6
+        OR organizationalRequirements:
+          ORRQ-REQU-LST requirements:
+            ORRQ-REQU-ADMIN-TRAINING:
+              headline: |2-
+                Train tenant administrators on graded grants
+              content:
+                description: |2-
+                  Tenant administrators must complete the graded-authorization
+                  training before the four-state editor is enabled for their
+                  tenant, because the read and disabled grades are new
+                  concepts with audit consequences.
+              OREI impact:
+                impactedGroups: |2-
+                  Tenant administrators, application owners
+                impactedUserCount: |2-
+                  ~80 across pilot tenants
+                changeType: |2-
+                  Process
+                changeComplexity: |2-
+                  Medium
+                resistance: |2-
+                  Low
+    GLAB glossaryAndAbbreviations:
+      content: |2-
+        - **Tenant / client** — the isolation unit (`um_clients` row); every
+          other entity is keyed under it.
+        - **Grant** — a graded (role, resource-key pattern) pair carrying a
+          TomAuthState access level.
+        - **Delegation** — a principal-to-principal transfer of a role on a
+          resource, bounded by a validity window and a revocation flag.
+        - **Access review** — a campaign that re-certifies grants and
+          delegations in a scope.
+        - **TAH** — Tom Access Hub, this system.
+    STKG stakeholdersAndGovernance:
+      content: |2-
+        Sponsor: Head of Platform. The Security Architecture Board approves the
+        authorization model; tenant administrators are represented by the pilot
+        customer council. Changes to grant semantics require a board decision.
+    CULA currentLandscape:
+      content: |2-
+        Today each application ships its own role check against the shared
+        um_* tables in admin_db. Grading is binary (role matches — allowed),
+        delegation is handled by sharing accounts, and there is no periodic
+        recertification of grants.
+      CUOPME-OPER-LST operationalMetrics:
+        CUOPME-OPER-1:
+          content: |2-
+            9 applications resolve authorization against admin_db across 4
+            pilot tenants.
+        CUOPME-OPER-2:
+          content: |2-
+            0 delegations are representable today — measured by the number of
+            shared-account incidents instead (7 in the last quarter).
+        CUOPME-OPER-3:
+          content: |2-
+            Median grant-resolution latency 4 ms against the role tables; the
+            graded overlay must stay within 6 ms at p95.
+    ACDP assumptionsConstraintsDependencies:
+      content: |2-
+        Assumes the framework's graded authorization primitives
+        (TomAuthState, TomResourceGrant, TomPrincipalResourceGrant,
+        TomPrincipalDelegation) as delivered by tom_core_server. Constrained to
+        the existing admin_db MySQL schema for the um_* tables; new campaign
+        tables are additive. Depends on Tom UAM server for authentication.
+    TOMC targetOperatingModelConcept:
+      content: |2-
+        One authorization engine serves every application of a tenant. Tenant
+        administrators grade grants and run reviews in the Access Hub console;
+        application owners publish role catalogues; the provisioning bot keeps
+        users and group memberships in sync with the upstream directory.
+      PSAAI processStepsAndActorInteractions:
+        ACOV actorOverview:
+          ACOVNA overview:
+            totalActorCount: 3
+            humanActorCount: 2
+            systemActorCount: 1
+            externalActorCount: 0
+          ACEN-ACTO-LST actors:
+            ACEN-ACTO-1:
+              headline: |2-
+                Tenant administrator
+              ACID identification:
+                actorType: |2-
+                  Human
+                category: |2-
+                  Primary
+                description: |2-
+                  Administers organizations, applications, users, roles,
+                  grants and reviews within one tenant.
+                organizationalUnit: |2-
+                  Customer IT administration
+                estimatedCount: |2-
+                  1-5 per tenant
+                geographicDistribution: |2-
+                  Per customer site
+            ACEN-ACTO-2:
+              headline: |2-
+                Application owner
+              ACID identification:
+                actorType: |2-
+                  Human
+                category: |2-
+                  Primary
+                description: |2-
+                  Declares an application's roles, entitlement patterns and
+                  resource keys; requests grants for their application.
+                organizationalUnit: |2-
+                  Product teams
+                estimatedCount: |2-
+                  1 per registered application
+                geographicDistribution: |2-
+                  Distributed
+            ACEN-ACTO-3:
+              headline: |2-
+                Provisioning bot
+              ACID identification:
+                actorType: |2-
+                  System
+                category: |2-
+                  Supporting
+                description: |2-
+                  Synchronizes users, organization membership and group
+                  membership from the upstream directory on a schedule.
+                organizationalUnit: |2-
+                  Platform operations
+                estimatedCount: |2-
+                  1
+                geographicDistribution: |2-
+                  Central
+        INCA interactionCatalog:
+          INEN-INTE-LST interactions:
+            INEN-INTE-UC-01:
+              INID identification:
+                useCaseName: |2-
+                  Grant graded role on a resource
+                processReference: |2-
+                  Authorization administration
+                briefDescription: |2-
+                  A tenant administrator grades a (role, resource-key pattern)
+                  pair with one of the four access levels.
+                fullDescription: |2-
+                  From the grant editor of an application's role, the
+                  administrator selects a resource-key pattern and an access
+                  level and saves. The server validates tenant scope and
+                  uniqueness, writes the grant row, and invalidates the
+                  resolution cache for affected principals.
+                primaryActor: |2-
+                  Tenant administrator
+                supportingActors: |2-
+                  Authorization engine
+                goalLevel: |2-
+                  User goal
+                designScope: |2-
+                  System
+              PRANTR-PREC-LST preconditions:
+                PRANTR-PREC-1:
+                  content:
+                    precondition: |2-
+                      The administrator is authenticated in the target tenant
+                      and holds the tenant-admin role.
+                    trigger: |2-
+                      The administrator opens the grant editor and submits a
+                      grade.
+                    triggerType: |2-
+                      User
+                    triggerSource: |2-
+                      Access Hub console
+              POANGU-POST-LST postconditions:
+                POANGU-POST-1:
+                  content:
+                    successGuarantees: |2-
+                      The grant row exists with the chosen access level and is
+                      journaled with actor and timestamp.
+                    dataPostcondition: |2-
+                      um_role_resource_grants holds exactly one row for the
+                      (client, application, role, pattern) key.
+              MASUSC mainScenario:
+                MNSST-STEP-LST steps:
+                  MNSST-STEP-1:
+                    content:
+                      stepNumber: 1
+                      actorAction: |2-
+                        Administrator opens the grant editor for a role and
+                        enters a resource-key pattern.
+                      systemResponse: |2-
+                        Console shows the current effective grade for the
+                        pattern (none when no row exists).
+                      dataInvolved: |2-
+                        Role, existing grant rows
+                      uiElementUsed: |2-
+                        Grant editor form
+                  MNSST-STEP-2:
+                    content:
+                      stepNumber: 2
+                      actorAction: |2-
+                        Administrator selects the access level "read" and
+                        saves.
+                      systemResponse: |2-
+                        Client submits the grant to the server operation
+                        grantRoleOnResource.
+                      serverOperation: |2-
+                        grantRoleOnResource
+                      dataInvolved: |2-
+                        Grant candidate (role, pattern, level)
+                      businessRuleApplied: |2-
+                        One grant row per (client, application, role, pattern)
+                    SVCST-STEP-LST serverCallSteps:
+                      SVCST-STEP-1:
+                        headline: |2-
+                          Validate and write
+                        content:
+                          role: |2-
+                            validation
+                          systemAction: |2-
+                            Verify tenant scope, role existence and pattern
+                            syntax; reject duplicates.
+                      SVCST-STEP-2:
+                        headline: |2-
+                          Persist and invalidate
+                        content:
+                          role: |2-
+                            persistence
+                          systemAction: |2-
+                            Write the grant row and invalidate the resolution
+                            cache for principals holding the role.
+                  MNSST-STEP-3:
+                    content:
+                      stepNumber: 3
+                      actorAction: |2-
+                        Administrator reviews the confirmation.
+                      systemResponse: |2-
+                        Console shows the new effective grade and the journal
+                        entry reference.
+                      dataInvolved: |2-
+                        Grant row, journal entry
+                      businessRuleApplied: |2-
+                        Every grant mutation is journaled
+              USCAEX extensions:
+                EXTEN-EXTE-LST extensions:
+                  EXTEN-EXTE-1:
+                    headline: |2-
+                      Duplicate grant
+                    content:
+                      branchPoint: |2-
+                        2
+                      condition: |2-
+                        A grant row already exists for the (client,
+                        application, role, pattern) key.
+                      extensionType: |2-
+                        Exception Handling
+                      description: |2-
+                        The server rejects the write with
+                        UAM-409-DUPLICATE-GRANT; the console offers to edit
+                        the existing row instead.
+                      outcome: |2-
+                        No data change
+                      returnKind: |2-
+                        Return to step
+                      severity: |2-
+                        Warning
+                    EXTEN-RESU resumePoint:
+                      resumeStep: |2-
+                        2
+                    EXTST-STEP-LST steps:
+                      EXTST-STEP-1:
+                        content:
+                          stepNumber: |2-
+                            2a
+                          action: |2-
+                            Console loads the existing grant into the editor.
+                          response: |2-
+                            Administrator amends the level and resubmits as an
+                            update.
+        KESC keyScenarios:
+          SCNRY-SCEN-LST scenarios:
+            SCNRY-SCEN-1:
+              headline: |2-
+                Quarterly access review of an application
+              SCID identification:
+                scenarioType: |2-
+                  Business
+                description: |2-
+                  A tenant administrator opens a review campaign over one
+                  application, reviewers confirm or revoke each grant, and the
+                  sweeper revokes what the deadline leaves unconfirmed.
+                businessGoal: |2-
+                  Demonstrable least-privilege posture per quarter
+                primaryActor: |2-
+                  Tenant administrator
+                supportingActors: |2-
+                  Application owner, authorization engine
+                priority: |2-
+                  High
+                complexity: |2-
+                  Medium
+              SCNST-STEP-LST steps:
+                SCNST-STEP-1:
+                  content:
+                    stepNumber: 1
+                    actor: |2-
+                      Tenant administrator
+                    action: |2-
+                      Opens a campaign scoped to the application with a
+                      two-week deadline.
+                    systemResponse: |2-
+                      All grants and delegations in scope are snapshotted into
+                      the campaign worklist.
+                SCNST-STEP-2:
+                  content:
+                    stepNumber: 2
+                    actor: |2-
+                      Application owner
+                    action: |2-
+                      Confirms the grants still needed and revokes two stale
+                      ones.
+                    systemResponse: |2-
+                      Confirmations and revocations are journaled against the
+                      campaign.
+                    serverOperation: |2-
+                      resolveCampaignItem
+                  SVCST-STEP-LST serverCallSteps:
+                    SVCST-STEP-1:
+                      headline: |2-
+                        Apply the decision
+                      content:
+                        role: |2-
+                          persistence
+                        systemAction: |2-
+                          Write the decision, and for a revocation delete the
+                          grant row in the same transaction.
+                SCNST-STEP-3:
+                  content:
+                    stepNumber: 3
+                    actor: |2-
+                      Provisioning bot
+                    action: |2-
+                      Runs the deadline sweeper after the campaign closes.
+                    systemResponse: |2-
+                      Unconfirmed items are revoked and the campaign report is
+                      published to the tenant administrator.
+    INDM informationAndDataModel:
+      content: |2-
+        The data model is the tom_uam admin_db schema: tenants (um_clients),
+        users, organizations, applications and their link tables, roles and
+        groups, the graded grant overlay (um_role_resource_grants), and the
+        framework's principal-level grant and delegation tables. Entities below
+        pick the authorization core; the full um_* catalogue is inherited from
+        the DDL unchanged.
+      DATMD dataModel:
+        content: |2-
+          Four entities carry the graded authorization model. All are keyed
+          under the tenant; the grant overlay composes with the principal
+          tables at resolution time (role meaning from the grade, role holding
+          from the principal grant).
+        DAENT-ENTI-LST entities:
+          DAENT-ENTI-1:
+            DAENT-IDEN identity:
+              entityName: |2-
+                Tenant
+              tableName: |2-
+                um_clients
+              entityAlias: |2-
+                Client
+              description: |2-
+                The isolation unit. Every other entity is keyed by the
+                tenant's id (client_id); uniqueness constraints are always
+                tenant-scoped.
+              entityStereoType: |2-
+                Entity
+            DAENT-CLAS classification:
+              category: |2-
+                Master
+              boundedContext: |2-
+                Identity
+              aggregateRoot: |2-
+                Yes
+              owningDomain: |2-
+                Tenant management
+              dataOwner: |2-
+                Platform operations
+              sourceSystem: |2-
+                TAH
+            DAATT-ATTR-LST attributes:
+              DAATT-ATTR-1:
+                headline: |2-
+                  id
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    id
+                  description: |2-
+                    Surrogate tenant key; referenced by every um_* table as
+                    client_id.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    integer
+                  physicalType: |2-
+                    INT AUTO_INCREMENT
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    No
+              DAATT-ATTR-2:
+                headline: |2-
+                  name
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    name
+                  description: |2-
+                    Unique display name of the tenant.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    string
+                  physicalType: |2-
+                    VARCHAR(100)
+                DATAA-CONS-LST constraints:
+                  DATAA-CONS-1:
+                    headline: |2-
+                      Unique tenant name
+                    content:
+                      mandatory: |2-
+                        Yes
+                      nullable: |2-
+                        No
+                      unique: |2-
+                        Yes
+                      validationRules: |2-
+                        Globally unique across all tenants
+                      constraintExpression: |2-
+                        CONSTRAINT UNIQUE (name)
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    No
+              DAATT-ATTR-3:
+                headline: |2-
+                  extended_data
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    extended_data
+                  description: |2-
+                    Free-form JSON extension payload for tenant-specific
+                    settings.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    string
+                  physicalType: |2-
+                    MEDIUMTEXT
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    No
+            KEATT-KEYA-LST keyAttributes:
+              KEATT-KEYA-1:
+                headline: |2-
+                  Primary key
+                content:
+                  keyType: |2-
+                    Primary
+                  keyColumns: |2-
+                    id
+                  description: |2-
+                    Surrogate primary key.
+          DAENT-ENTI-2:
+            DAENT-IDEN identity:
+              entityName: |2-
+                User
+              tableName: |2-
+                um_users
+              entityAlias: |2-
+                Principal
+              description: |2-
+                A person or service account within a tenant. Name and email
+                are unique per tenant, never globally — the same address may
+                exist in two tenants as two unrelated users.
+              entityStereoType: |2-
+                Entity
+            DAENT-CLAS classification:
+              category: |2-
+                Master
+              boundedContext: |2-
+                Identity
+              aggregateRoot: |2-
+                Yes
+              owningDomain: |2-
+                User management
+              dataOwner: |2-
+                Tenant administrator
+              sourceSystem: |2-
+                Upstream directory via provisioning bot
+            DAATT-ATTR-LST attributes:
+              DAATT-ATTR-1:
+                headline: |2-
+                  client_id
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    client_id
+                  description: |2-
+                    Owning tenant; part of every uniqueness constraint.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    integer
+                  physicalType: |2-
+                    INT
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    No
+              DAATT-ATTR-2:
+                headline: |2-
+                  email
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    email
+                  description: |2-
+                    Login and notification address, unique within the tenant.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    string
+                  physicalType: |2-
+                    VARCHAR(250)
+                DATAA-CONS-LST constraints:
+                  DATAA-CONS-1:
+                    headline: |2-
+                      Tenant-scoped unique email
+                    content:
+                      mandatory: |2-
+                        Yes
+                      nullable: |2-
+                        No
+                      unique: |2-
+                        Per tenant
+                      validationRules: |2-
+                        RFC 5322 address syntax
+                      constraintExpression: |2-
+                        CONSTRAINT UNIQUE (client_id, email)
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Confidential
+                  isPii: |2-
+                    Yes
+              DAATT-ATTR-3:
+                headline: |2-
+                  password_hash
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    password_hash
+                  description: |2-
+                    Salted password hash; hash_type names the algorithm so
+                    hashes can be migrated per user.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    string
+                  physicalType: |2-
+                    VARCHAR(512)
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Secret
+                  isPii: |2-
+                    No
+              DAATT-ATTR-4:
+                headline: |2-
+                  two_factor_type
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    two_factor_type
+                  description: |2-
+                    Second-factor mechanism enrolled for the user.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    enumeration
+                  physicalType: |2-
+                    VARCHAR(30)
+                DAATT-DTEN enumerationTypeOptions:
+                  domainEnum: |2-
+                    TwoFactorType
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Confidential
+                  isPii: |2-
+                    No
+            KEATT-KEYA-LST keyAttributes:
+              KEATT-KEYA-1:
+                headline: |2-
+                  Primary key
+                content:
+                  keyType: |2-
+                    Primary
+                  keyColumns: |2-
+                    id
+                  description: |2-
+                    Surrogate primary key.
+              KEATT-KEYA-2:
+                headline: |2-
+                  Tenant foreign key
+                content:
+                  keyType: |2-
+                    Foreign
+                  keyColumns: |2-
+                    client_id
+                  description: |2-
+                    Owning tenant reference.
+                KEATT-REFE-REF referencedEntityRef: |2-
+                  DAENT-ENTI-1
+          DAENT-ENTI-3:
+            DAENT-IDEN identity:
+              entityName: |2-
+                Role
+              tableName: |2-
+                um_roles
+              entityAlias: |2-
+                ApplicationRole
+              description: |2-
+                A role an application exposes, scoped to (tenant,
+                application). Carries the entitlement and resource-key
+                patterns the role matches; the graded overlay refines what a
+                match means.
+              entityStereoType: |2-
+                Entity
+            DAENT-CLAS classification:
+              category: |2-
+                Master
+              boundedContext: |2-
+                Authorization
+              aggregateRoot: |2-
+                Yes
+              owningDomain: |2-
+                Authorization
+              dataOwner: |2-
+                Application owner
+              sourceSystem: |2-
+                TAH
+            DAATT-ATTR-LST attributes:
+              DAATT-ATTR-1:
+                headline: |2-
+                  role_name
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    role_name
+                  description: |2-
+                    Role identifier unique per (tenant, application).
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    string
+                  physicalType: |2-
+                    VARCHAR(100)
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    No
+              DAATT-ATTR-2:
+                headline: |2-
+                  entitlement_pattern
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    entitlement_pattern
+                  description: |2-
+                    Pattern over the application's entitlement catalogue that
+                    this role matches.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    string
+                  physicalType: |2-
+                    TEXT
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    No
+              DAATT-ATTR-3:
+                headline: |2-
+                  resource_key_pattern
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    resource_key_pattern
+                  description: |2-
+                    Pattern over resource keys; a match without a graded
+                    overlay row keeps its legacy meaning of an implicit full
+                    grant.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    string
+                  physicalType: |2-
+                    TEXT
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    No
+            KEATT-KEYA-LST keyAttributes:
+              KEATT-KEYA-1:
+                headline: |2-
+                  Composite primary key
+                content:
+                  keyType: |2-
+                    Primary
+                  keyColumns: |2-
+                    client_id, application_id, id
+                  description: |2-
+                    Roles live inside a (tenant, application) scope.
+          DAENT-ENTI-4:
+            DAENT-IDEN identity:
+              entityName: |2-
+                RoleResourceGrant
+              tableName: |2-
+                um_role_resource_grants
+              entityAlias: |2-
+                GradedGrant
+              description: |2-
+                The four-state overlay: grades a (role, resource-key pattern)
+                pair with one TomAuthState. Absence of a row means the legacy
+                implicit grant until the role opts into explicit grading; the
+                application layer always writes access_level explicitly.
+              entityStereoType: |2-
+                Entity
+            DAENT-CLAS classification:
+              category: |2-
+                Transactional
+              boundedContext: |2-
+                Authorization
+              aggregateRoot: |2-
+                No
+              owningDomain: |2-
+                Authorization
+              dataOwner: |2-
+                Tenant administrator
+              sourceSystem: |2-
+                TAH
+            DAATT-ATTR-LST attributes:
+              DAATT-ATTR-1:
+                headline: |2-
+                  resource_key_pattern
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    resource_key_pattern
+                  description: |2-
+                    The resource scope this grade applies to.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    string
+                  physicalType: |2-
+                    VARCHAR(255)
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    No
+              DAATT-ATTR-2:
+                headline: |2-
+                  access_level
+                DAATT-IDEN identity:
+                  columnName: |2-
+                    access_level
+                  description: |2-
+                    The grade, mirroring TomAuthState.name through the
+                    server-side TomAuthStateCodec.
+                DAATT-DATA dataTypeSpec:
+                  dataType: |2-
+                    enumeration
+                  physicalType: |2-
+                    ENUM ('none', 'disabled', 'read', 'full')
+                DAATT-DTEN enumerationTypeOptions:
+                  domainEnum: |2-
+                    TomAuthState
+                DAATT-SECU securityClassification:
+                  sensitivityLevel: |2-
+                    Internal
+                  isPii: |2-
+                    No
+            KEATT-KEYA-LST keyAttributes:
+              KEATT-KEYA-1:
+                headline: |2-
+                  Composite primary key
+                content:
+                  keyType: |2-
+                    Primary
+                  keyColumns: |2-
+                    client_id, application_id, role_id, resource_key_pattern
+                  description: |2-
+                    One grade per (role, pattern) within the application.
+              KEATT-KEYA-2:
+                headline: |2-
+                  Role foreign key
+                content:
+                  keyType: |2-
+                    Foreign
+                  keyColumns: |2-
+                    client_id, application_id, role_id
+                  description: |2-
+                    The graded role.
+                KEATT-REFE-REF referencedEntityRef: |2-
+                  DAENT-ENTI-3
+        ENREL entityRelationships:
+          content: |2-
+            The tenant owns everything; roles are scoped to applications; the
+            graded overlay refines roles. Principal-level grants and
+            delegations (framework tables) compose on top at resolution time.
+          ENRLE-ITEM-LST items:
+            ENRLE-ITEM-1:
+              headline: |2-
+                Tenant owns users
+              ENRLE-IDEN identity:
+                relationshipType: |2-
+                  Association
+                description: |2-
+                  Every user belongs to exactly one tenant; user identity is
+                  meaningless outside it.
+                businessJustification: |2-
+                  Tenant isolation is the core contract.
+                implementationType: |2-
+                  Foreign key
+              ENRLE-CARD cardinality:
+                sourceCardinality: |2-
+                  1
+                targetCardinality: |2-
+                  0..*
+              ENRLE-NAVI navigation:
+                navigability: |2-
+                  Source to target
+                foreignKeyLocation: |2-
+                  Target
+              ENRLE-SOUR-REF sourceEntityRef: |2-
+                DAENT-ENTI-1
+              ENRLE-TARG-REF targetEntityRef: |2-
+                DAENT-ENTI-2
+            ENRLE-ITEM-2:
+              headline: |2-
+                Tenant scopes roles
+              ENRLE-IDEN identity:
+                relationshipType: |2-
+                  Association
+                description: |2-
+                  Roles are declared per (tenant, application); the same role
+                  name in two tenants is two roles.
+                businessJustification: |2-
+                  Applications are registered per tenant with their own role
+                  catalogues.
+                implementationType: |2-
+                  Composite foreign key
+              ENRLE-CARD cardinality:
+                sourceCardinality: |2-
+                  1
+                targetCardinality: |2-
+                  0..*
+              ENRLE-NAVI navigation:
+                navigability: |2-
+                  Source to target
+                foreignKeyLocation: |2-
+                  Target
+              ENRLE-SOUR-REF sourceEntityRef: |2-
+                DAENT-ENTI-1
+              ENRLE-TARG-REF targetEntityRef: |2-
+                DAENT-ENTI-3
+            ENRLE-ITEM-3:
+              headline: |2-
+                Grade refines role
+              ENRLE-IDEN identity:
+                relationshipType: |2-
+                  Association
+                description: |2-
+                  A graded grant row refines what one role means on one
+                  resource-key pattern; a role may carry many grades.
+                businessJustification: |2-
+                  Four-state grading without touching the role table.
+                implementationType: |2-
+                  Composite foreign key
+              ENRLE-CARD cardinality:
+                sourceCardinality: |2-
+                  1
+                targetCardinality: |2-
+                  0..*
+              ENRLE-NAVI navigation:
+                navigability: |2-
+                  Bidirectional
+                foreignKeyLocation: |2-
+                  Target
+              ENRLE-SOUR-REF sourceEntityRef: |2-
+                DAENT-ENTI-3
+              ENRLE-TARG-REF targetEntityRef: |2-
+                DAENT-ENTI-4
+      DOMEN domainEnumRegistry:
+        DMENE-ENUM-LST enums:
+          DMENE-ENUM-1:
+            headline: |2-
+              TomAuthState
+            content:
+              enumName: |2-
+                TomAuthState
+              description: |2-
+                The four-state graded access level, shared with
+                tom_core_server's graded authorization mechanism.
+              backingType: |2-
+                string
+              defaultValue: |2-
+                none
+            DMEVA-VALU-LST values:
+              DMEVA-VALU-1:
+                headline: |2-
+                  none
+                content:
+                  valueId: |2-
+                    none
+                  backingValue: |2-
+                    none
+                  description: |2-
+                    No access; the closed default for an absent row.
+              DMEVA-VALU-2:
+                headline: |2-
+                  disabled
+                content:
+                  valueId: |2-
+                    disabled
+                  backingValue: |2-
+                    disabled
+                  description: |2-
+                    Visible but inoperable; the UI renders the affordance
+                    greyed out.
+              DMEVA-VALU-3:
+                headline: |2-
+                  read
+                content:
+                  valueId: |2-
+                    read
+                  backingValue: |2-
+                    read
+                  description: |2-
+                    Read paths allowed; every mutation denied.
+              DMEVA-VALU-4:
+                headline: |2-
+                  full
+                content:
+                  valueId: |2-
+                    full
+                  backingValue: |2-
+                    full
+                  description: |2-
+                    Unrestricted access within the role's scope.
+          DMENE-ENUM-2:
+            headline: |2-
+              DelegationMode
+            content:
+              enumName: |2-
+                DelegationMode
+              description: |2-
+                How a delegation transfers authority: the whole role set or a
+                single role on a single resource.
+              backingType: |2-
+                string
+            DMEVA-VALU-LST values:
+              DMEVA-VALU-1:
+                headline: |2-
+                  full
+                content:
+                  valueId: |2-
+                    full
+                  backingValue: |2-
+                    full
+                  description: |2-
+                    The delegate acts with the delegator's whole effective
+                    role set for the window.
+              DMEVA-VALU-2:
+                headline: |2-
+                  scoped
+                content:
+                  valueId: |2-
+                    scoped
+                  backingValue: |2-
+                    scoped
+                  description: |2-
+                    A single role on a single resource key.
+      ERCRG errorCodeRegistry:
+        content: |2-
+          Error codes are stable strings surfaced in the result envelope and
+          referenced by message keys for user-facing copy.
+        ERCEN-CODE-LST errorCodes:
+          ERCEN-CODE-1:
+            headline: |2-
+              UAM-403-GRADE-DENIED
+            content:
+              content: |2-
+                A mutation was attempted on a resource whose effective grade is
+                read or disabled.
+              code: |2-
+                UAM-403-GRADE-DENIED
+              category: |2-
+                Authorization
+              severity: |2-
+                Error
+              retryable: false
+              copyKey: |2-
+                uam.error.gradeDenied
+          ERCEN-CODE-2:
+            headline: |2-
+              UAM-409-DUPLICATE-GRANT
+            content:
+              content: |2-
+                A grant row already exists for the (client, application, role,
+                pattern) key.
+              code: |2-
+                UAM-409-DUPLICATE-GRANT
+              category: |2-
+                Validation
+              severity: |2-
+                Warning
+              retryable: false
+              copyKey: |2-
+                uam.error.duplicateGrant
+      RSLTE resultEnvelope:
+        content:
+          content: |2-
+            Every server operation answers with the standard envelope: a
+            discriminator, a success arm carrying the operation's response
+            members, and an error arm carrying the error code and message key.
+          discriminatorField: |2-
+            ok
+          successArm: |2-
+            value
+          errorArm: |2-
+            error
+          retryable: false
+          severity: |2-
+            Error
+        RSFDE-FLDD-LST fieldDetails:
+          RSFDE-FLDD-1:
+            headline: |2-
+              error.code
+            content:
+              fieldPath: |2-
+                error.code
+              errorCodeRef: |2-
+                ERCEN-CODE-1
+              message: |2-
+                Stable error code from the registry above.
+      MSGKR messageKeyRegistry:
+        MSGKE-MKEY-LST messageKeys:
+          MSGKE-MKEY-1:
+            headline: |2-
+              uam.grantEditor.title
+            content:
+              key: |2-
+                uam.grantEditor.title
+              defaultCopy: |2-
+                Grant access
+              description: |2-
+                Title of the graded grant editor.
+          MSGKE-MKEY-2:
+            headline: |2-
+              uam.grantEditor.saveAction
+            content:
+              key: |2-
+                uam.grantEditor.saveAction
+              defaultCopy: |2-
+                Save grant
+              description: |2-
+                Primary action of the grant editor.
+          MSGKE-MKEY-3:
+            headline: |2-
+              uam.error.gradeDenied
+            content:
+              key: |2-
+                uam.error.gradeDenied
+              defaultCopy: |2-
+                Your access level here is read-only.
+              description: |2-
+                Shown when a mutation is denied by a read or disabled grade.
+          MSGKE-MKEY-4:
+            headline: |2-
+              uam.error.duplicateGrant
+            content:
+              key: |2-
+                uam.error.duplicateGrant
+              defaultCopy: |2-
+                A grant for this role and resource already exists.
+              description: |2-
+                Shown when saving a duplicate grant; offers editing the
+                existing row.
+          MSGKE-MKEY-5:
+            headline: |2-
+              uam.review.deadlineNotice
+            content:
+              key: |2-
+                uam.review.deadlineNotice
+              defaultCopy: |2-
+                Unconfirmed access will be revoked on {deadline}.
+              placeholders: |2-
+                deadline
+              description: |2-
+                Campaign banner shown to reviewers.
+      SVOPR serverOperationRegistry:
+        content: |2-
+          Operations follow the POST-only contract with the standard result
+          envelope; authorization is declared per operation.
+        SVOPE-OPER-LST operations:
+          SVOPE-OPER-1:
+            headline: |2-
+              grantRoleOnResource
+            content:
+              operationName: |2-
+                grantRoleOnResource
+              purpose: |2-
+                Create or update the graded grant of a (role, resource-key
+                pattern) pair.
+              primaryDataEntity: |2-
+                RoleResourceGrant
+              descriptionKey: |2-
+                uam.grantEditor.title
+              errorCodes: |2-
+                UAM-403-GRADE-DENIED, UAM-409-DUPLICATE-GRANT
+            AZREQ authorization:
+              content:
+                requirementKind: |2-
+                  role
+                rationale: |2-
+                  Only tenant administrators may change what a role means;
+                  application owners request, never approve.
+              AZREQ-ROLE roleRequirement:
+                roles: |2-
+                  tenant-admin
+            SVOPM-REQM-LST requestMembers:
+              SVOPM-REQM-1:
+                headline: |2-
+                  roleId
+                content:
+                  memberType: |2-
+                    integer
+                  required: true
+                  description: |2-
+                    The role being graded, within the caller's tenant.
+              SVOPM-REQM-2:
+                headline: |2-
+                  resourceKeyPattern
+                content:
+                  memberType: |2-
+                    string
+                  required: true
+                  description: |2-
+                    The resource scope of the grade.
+              SVOPM-REQM-3:
+                headline: |2-
+                  accessLevel
+                content:
+                  memberType: |2-
+                    enumeration
+                  required: true
+                  domainEnum: |2-
+                    TomAuthState
+                  description: |2-
+                    The grade to apply.
+            SVOPM-RESM-LST responseMembers:
+              SVOPM-RESM-1:
+                headline: |2-
+                  grant
+                content:
+                  memberType: |2-
+                    entity
+                  required: true
+                  dataEntity: |2-
+                    RoleResourceGrant
+                  description: |2-
+                    The persisted grant row after the write.
+              SVOPM-RESM-2:
+                headline: |2-
+                  journalRef
+                content:
+                  memberType: |2-
+                    string
+                  required: true
+                  description: |2-
+                    Reference of the journal entry recording the mutation.
+    REQS requirements:
+      content: |2-
+        The consolidated requirement register lives in the RO section of the
+        introduction; this section is the placeholder the Phase 3 RSP document
+        expands.
+    SOAT solutionArchitectureAndTechnology:
+      content: |2-
+        A Tom server application over admin_db, one Flutter console client,
+        and the graded-authorization primitives of tom_core_server. All
+        authorization resolution happens server-side; clients only render the
+        resolved states.
+      TECH technicalFramework:
+        SDR softwareDesign:
+          LAMS layeringAndModuleStructure:
+            BCE-BOUN-LST boundedContexts:
+              BCE-BOUN-1:
+                headline: |2-
+                  Identity
+                content:
+                  contextName: |2-
+                    Identity
+                  domainArea: |2-
+                    Tenants, organizations, users, groups
+                  owningTeam: |2-
+                    Identity Platform
+                BCES scope:
+                  purpose: |2-
+                    Who exists and where they belong. Owns the um_clients,
+                    um_users, um_organizations and membership tables.
+              BCE-BOUN-2:
+                headline: |2-
+                  Authorization
+                content:
+                  contextName: |2-
+                    Authorization
+                  domainArea: |2-
+                    Roles, grants, delegation, access reviews
+                  owningTeam: |2-
+                    Identity Platform
+                BCES scope:
+                  purpose: |2-
+                    What a principal may do. Owns um_roles, the graded
+                    overlay, the framework principal tables and the campaign
+                    tables this blueprint introduces.
+    SAAM securityAndAccessModel:
+      content: |2-
+        TAH administers authorization for other applications and applies the
+        same model to itself: its own console operations are guarded by the
+        roles and entitlements below, resolved by the same engine.
+      ACCM accessControl:
+        USAU authorization:
+          AZRO-ROLE-LST roleDefinitions:
+            AZRO-ROLE-1:
+              headline: |2-
+                tenant-admin
+              content:
+                roleName: |2-
+                  tenant-admin
+                description: |2-
+                  Full administration of one tenant: organizations,
+                  applications, users, roles, grants and reviews.
+                roleCategory: |2-
+                  Business
+              ARES structure:
+                roleScope: |2-
+                  Tenant
+                inheritsFrom: |2-
+                  app-owner
+                permissionSet: |2-
+                  uam.grant.write, uam.grant.read, uam.delegation.manage
+            AZRO-ROLE-2:
+              headline: |2-
+                app-owner
+              content:
+                roleName: |2-
+                  app-owner
+                description: |2-
+                  Administration of one application's role catalogue and
+                  read access to its grants.
+                roleCategory: |2-
+                  Business
+              ARES structure:
+                roleScope: |2-
+                  Application
+                inheritsFrom: |2-
+                  none
+                permissionSet: |2-
+                  uam.grant.read
+          ENT-ENTI-LST entitlements:
+            ENT-ENTI-1:
+              headline: |2-
+                uam.grant.write
+              content:
+                entitlementName: |2-
+                  uam.grant.write
+                description: |2-
+                  Create, update and revoke graded grants.
+                accessType: |2-
+                  Write
+            ENT-ENTI-2:
+              headline: |2-
+                uam.grant.read
+              content:
+                entitlementName: |2-
+                  uam.grant.read
+                description: |2-
+                  View grants and effective grades.
+                accessType: |2-
+                  Read
+            ENT-ENTI-3:
+              headline: |2-
+                uam.delegation.manage
+              content:
+                entitlementName: |2-
+                  uam.delegation.manage
+                description: |2-
+                  Create and revoke delegations on behalf of the tenant.
+                accessType: |2-
+                  Write
+    XID experienceAndInterfaceDesign:
+      content: |2-
+        The Access Hub console is a Flutter desktop/web application. The grant
+        editor is its centre; every affordance renders the four-state model
+        visibly (disabled affordances shown greyed, read-only forms locked).
+      XCS experienceCodeSpecs:
+        SCRDZ screens:
+          SCRINV screenInventory:
+            SCREN-ITEM-LST items:
+              SCREN-ITEM-SCR-01:
+                headline: |2-
+                  Grant editor
+                content:
+                  purpose: |2-
+                    Grade a (role, resource-key pattern) pair with one of the
+                    four access levels and show the effective grade before and
+                    after.
+                SCECL classification:
+                  screenCategory: |2-
+                    Form
+                  routePattern: |2-
+                    /tenant/:tenantId/apps/:appId/roles/:roleId/grants
+                AZREQ access:
+                  content:
+                    requirementKind: |2-
+                      role
+                    rationale: |2-
+                      Grant mutation is the most privileged operation of the
+                      console.
+                  AZREQ-ROLE roleRequirement:
+                    roles: |2-
+                      tenant-admin
+                SCETR traceability:
+                  relatedUseCases: |2-
+                    INEN-INTE-UC-01
+                  relatedRequirements: |2-
+                    FRE-REQU-GRADED-GRANTS
+                  dataEntities: |2-
+                    Role, RoleResourceGrant
+                  primaryAction: |2-
+                    save-grant
+                SCENPR presentation:
+                  pageTitleResource: |2-
+                    uam.grantEditor.title
+                  layout: |2-
+                    Single column
+                SCSE sections:
+                  SCRSC-ITEM-LST items:
+                    SCRSC-ITEM-1:
+                      headline: |2-
+                        Grade form
+                      content:
+                        sectionId: |2-
+                          grade-form
+                        purpose: |2-
+                          Capture pattern and access level.
+                        sectionType: |2-
+                          Form
+                      SSEL layout:
+                        layoutDirection: |2-
+                          Vertical
+                        displayOrder: 1
+                      SCREL-ELEM-LST elements:
+                        SCREL-ELEM-1:
+                          headline: |2-
+                            Access level selector
+                          content:
+                            elementId: |2-
+                              access-level
+                            elementType: |2-
+                              Radio group
+                          SEFS fieldSpec:
+                            content:
+                              fieldName: |2-
+                                accessLevel
+                              dataType: |2-
+                                enumeration
+                SCAC actions:
+                  SCRAC-ITEM-LST items:
+                    SCRAC-ITEM-1:
+                      headline: |2-
+                        Save grant
+                      content:
+                        actionId: |2-
+                          save-grant
+                        actionType: |2-
+                          Submit
+                        owningController: |2-
+                          GrantEditorController
+                        description: |2-
+                          Submits the grade to grantRoleOnResource and shows
+                          the journal reference on success.
+                        contextType: |2-
+                          Form
+                      SAEV visual:
+                        labelResource: |2-
+                          uam.grantEditor.saveAction
+                        placement: |2-
+                          Footer
+                        buttonStyle: |2-
+                          Primary
+                SCST states:
+                  SCRST-ITEM-LST items:
+                    SCRST-ITEM-1:
+                      headline: |2-
+                        Duplicate grant
+                      content:
+                        stateId: |2-
+                          duplicate
+                        description: |2-
+                          The grant already exists; the editor offers loading
+                          the existing row.
+                        messageResource: |2-
+                          uam.error.duplicateGrant
+                        primaryActionLabel: |2-
+                          Edit existing
+                        primaryActionTarget: |2-
+                          load-existing-grant
+        SCFLST screenFlow:
+          SCRTMP screenRouteMap:
+            SCRTEN-ROUT-LST routes:
+              SCRTEN-ROUT-1:
+                headline: |2-
+                  Grant editor route
+                content:
+                  routeId: |2-
+                    grant-editor
+                  routePath: |2-
+                    /tenant/:tenantId/apps/:appId/roles/:roleId/grants
+                  screenId: |2-
+                    SCREN-ITEM-SCR-01
+                  routeParameters: |2-
+                    tenantId, appId, roleId
+      XDFU designFollowUp:
+        ACCESS accessibility:
+          ACCESS-ACCE accessibilityOverviewContent:
+            accessibilityStatement: |2-
+              The console targets WCAG 2.1 AA. The four-state model is never
+              conveyed by colour alone: disabled affordances carry a state
+              label, and the access-level selector is fully keyboard
+              operable.
+    QACM qualityAndAcceptanceModel:
+      content: |2-
+        Quality gates centre on the closed-by-default property and tenant
+        isolation: both are enforced by automated integration suites that run
+        against an empty grant table and a two-tenant fixture respectively.
+      I25CV iso25010Coverage:
+        I25CE-CHAR-LST characteristics:
+          I25CE-CHAR-1:
+            content:
+              characteristic: |2-
+                Security
+              addressedBy: |2-
+                Closed-by-default resolution, tenant isolation suite, journal
+                of every grant mutation
+              targetMetric: |2-
+                Zero cross-tenant reads in the isolation suite; 100% of grant
+                mutations journaled
+          I25CE-CHAR-2:
+            content:
+              characteristic: |2-
+                Performance efficiency
+              addressedBy: |2-
+                Grant-resolution cache with invalidation on mutation
+              targetMetric: |2-
+                p95 resolution latency <= 6 ms with the graded overlay active
+    DTRO deliveryTransitionAndRollout:
+      content: |2-
+        Rollout is per tenant: the graded editor is enabled after the tenant's
+        administrators complete training (ORRQ-REQU-ADMIN-TRAINING). The
+        four-state migration is behaviour-preserving on day one — existing role
+        matches keep meaning full — and grading is adopted role by role.
