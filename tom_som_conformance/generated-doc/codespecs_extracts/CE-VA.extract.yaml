@@ -12,7 +12,7 @@ extract:
     slices: [2]
     authoringSteps: [4]
     projects: ["<app>_codespec_shared"]
-    citableParts: ["CE-TX", "CE-API", "CE-AZ", "CE-ER", "CE-AU", "CE-ID", "CE-NT", "CE-RP"]
+    citableParts: ["CE-EN", "CE-TX", "CE-API", "CE-AZ", "CE-ER", "CE-AU", "CE-ID", "CE-NT", "CE-RP"]
   document:
     root: "SBP"
     entryCount: 30

@@ -4,6 +4,8 @@
 
 import 'package:tom_code_specs/tom_code_specs.dart';
 
+import '../domain_enum/order_status.dart';
+
 /// Returns one state-filtered page of the order work list in queue order.
 @CodeSpec('serverApi.FetchOrderWorkListRequest', source: ['content'])
 @DocSpec([
@@ -21,7 +23,7 @@ class FetchOrderWorkListRequest {
       'enum it selects from',
     ),
   ])
-  String? stateFilter;
+  OrderStatus? stateFilter;
 
   /// Zero-based page index; defaults to the first page.
   @DocSpec([

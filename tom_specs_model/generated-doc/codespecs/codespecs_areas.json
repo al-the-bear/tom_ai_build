@@ -64,6 +64,23 @@
   ],
   "areas": [
     {
+      "code": "CE-EN",
+      "canonicalId": "DomainEnum",
+      "part": "domainEnum",
+      "annotations": [
+        "CsEnum"
+      ],
+      "builtOn": "Plain Dart `enum` — a member kind, not a part: no `tom_core` basis and no gap class (§4.1 member-kind rule; `codespecs_derivation_contract.md` §3.1.1)",
+      "attributeSurface": "§4.1",
+      "slices": [
+        1
+      ],
+      "authoringSteps": [
+        1
+      ],
+      "active": true
+    },
+    {
       "code": "CE-EL",
       "canonicalId": "ScreenElement",
       "part": "screenElement",

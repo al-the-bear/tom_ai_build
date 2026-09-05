@@ -704,7 +704,8 @@ Beyond these, **one deferred candidate part** is reserved for *mapping only*
 `domainEnum` is a **member kind**. A domain enum is authored within its owning
 part — a CE-DB entity, a CE-CF/CE-CC/CE-DS/CE-UP setting, a CE-ST view model, or a
 CE-API contract member — and marked `@CsEnum`; see the §4.1 rule for the
-placement rule.
+placement rule and for **CE-EN**, the member kind's extract home in the areas
+catalogue.
 
 ### 4.1 Authoritative parts catalogue
 
@@ -794,6 +795,22 @@ surface — pillar (a)/(b)):
   it like any other `@CodeSpecKind` value; the SOM `DomainEnumRegistry` (DOMEN)
   stays the single document-model authoring home for closed value sets, while
   the owning part determines where the generated enum lives.
+- **`CE-EN` is the member kind's extract home.** Being a member kind keeps
+  `domainEnum` out of this parts catalogue, but the Phase-4 extract pass still
+  has to put its routed values *somewhere*: `DOMEN`/`DMENE`/`DMEVA` carry
+  `@CodeSpecKind([CodeSpecPart.domainEnum])`, and an extractor that finds no
+  area claiming the kind would drop the registry from every extract — leaving
+  §4.4.6's authoring step 1 with no extract of its own and tripping the §9.6
+  extract-presence checks on every conforming `@CsEnum` back-link. So the
+  registry key **`CE-EN`** (canonical id `DomainEnum`) is allocated as an
+  **areas-catalogue entry that is not a parts-catalogue row**: it claims
+  `CodeSpecPart.domainEnum`, rides slice 1 / authoring step 1 at position 0
+  (§4.4.3, §4.4.6), and yields `CE-EN.extract.yaml` like any area. The
+  precedent is CE-TR — a `CE-*` registry key may name a non-part mechanism, and
+  registry keys are never reused or renamed — with one difference: CE-TR names
+  a mechanism no value routes to, so it stays out of the areas catalogue, while
+  CE-EN exists precisely because values route to it. §4.1's part count stays
+  **26**; the areas catalogue counts **27** entries.
 - **A domain enum holds no authored attributes of its own** — which is *why*
   the realisation is a plain `enum` and not a holder class. Each attribute a
   holder would have carried already belongs to something else, and belongs
@@ -5637,7 +5654,7 @@ parts §4.4.3's slices.
 | CE-LG | `auditLog` | `SecurityEventsDefinition` SEEVDE with its five policy forms and `SecurityEventEntry` SEVT (the `AuditAndLogging` AUANLO root) · `SessionLifecycleMonitoring` · `DataAccessAuditPolicy` · `ApiSecurityMonitoring` (under `AccessControlModel`) — 11 sections, all projected | `@CsAudited` | COVERED |
 | CE-NT | `notification` | `NotificationModel` NM → `NotificationChannelEntry` NTFCH · `NotificationTypeEntry` NTFTY · `UserNotificationPreferences` UNP | `@CsNotification` · `@CsNotificationChannel` | COVERED |
 | CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOL · `ReportChartEntry` REPCHA, under the `ReportDefinitions` REDF projection root | `@CsReport` · `@CsReportColumn` · `@CsReportChart` · `@CsReportParameter` | COVERED |
-| — | `domainEnum` *(member kind)* | `DomainEnumEntry` DMENE + `DomainEnumValueEntry` DMEVA, under the `DomainEnumRegistry` DOMEN projection root; `ObjectStateEntry` OBST cites the registry rather than being a second home (§4.1) | `@CsEnum` | COVERED |
+| CE-EN | `domainEnum` *(member kind — extract home, not a part)* | `DomainEnumEntry` DMENE + `DomainEnumValueEntry` DMEVA, under the `DomainEnumRegistry` DOMEN projection root; `ObjectStateEntry` OBST cites the registry rather than being a second home (§4.1) | `@CsEnum` | COVERED |
 | CE-WF | `workflow` *(deferred)* | `DetailedProcessWorkflow` DEPRWO — unprojected, as a deferred part should be | — *(deferred: no marker, so no entry)* | N/A (deferred, §4.3) |
 
 **Neutral-vocabulary check (§1.1 pillar (c)).** The check applies to sections
@@ -5889,14 +5906,8 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Open against this document's mapping surfaces:
-
-- `tspubb3_aien-domainenum-extract-home` — the `domainEnum` **member kind** has
-  no extract home: no CE-\* area claims `CodeSpecPart.domainEnum`, so the
-  extractor drops `DOMEN`/`DMENE`/`DMEVA` values from every extract and a
-  conforming `@CsEnum` back-link trips the extract-presence check. The todo
-  decides and documents the home here (§4.1/§8) and carries the
-  nine-runtime extractor change and the Meridian enum emission.
+active part COVERED. Nothing is currently open against this document's mapping
+surfaces.
 
 An open todo in those series whose subject is **not** a mapping question does
 not belong here even when the index is non-empty — a SOM validator capability

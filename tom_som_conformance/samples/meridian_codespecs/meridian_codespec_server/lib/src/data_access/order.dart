@@ -2,7 +2,10 @@
 // Source document: meridian_order_management.md (D00)
 // Spec model version: 1.0.0+3.50e0102
 
+import 'package:meridian_codespec_shared/meridian_codespec_shared.dart';
 import 'package:tom_code_specs/tom_code_specs.dart';
+
+import '../domain_enum/order_channel.dart';
 
 /// A customer order captured from EDI or REST and driven through the lifecycle. Realizes FR-01, FR-04, FR-05, FR-06.
 @CodeSpec(
@@ -95,7 +98,7 @@ class Order {
     sensitivityLevel: CsSensitivityLevel.internal,
     isPii: false,
   )
-  late String channel;
+  late OrderChannel channel;
 
   /// Lifecycle state (Captured..Closed, with Hold).
   @DocSpec([
@@ -115,7 +118,7 @@ class Order {
     sensitivityLevel: CsSensitivityLevel.internal,
     isPii: false,
   )
-  late String status;
+  late OrderStatus status;
 
   /// Capture timestamp (UTC).
   @DocSpec([

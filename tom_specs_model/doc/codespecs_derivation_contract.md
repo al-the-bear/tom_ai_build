@@ -1156,13 +1156,13 @@ consts that join them second.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `DomainEnumEntry` (`DMENE`) under `DOMEN`, with its child `DomainEnumValueEntry` (`DMEVA`) list. Consumed: the enum's designated name field, its description (the §2.8 P1 summary source), and each value's name + description (P2). **Value *labels* are not consumed here** — display copy for a domain-enum value is CE-TX, resolved through `TomTextResourceProvider` like every other label (`codespecs_mapping.md` §1.2 consequence 1). It is of `codespecs_mapping.md` §5.21's **derived** shape, not the catalogued one: the key `<scope path>.<enumType>.<value>` is computable from the value, so it gets no message-key entry and no `@CsText` (§3.1.3), exactly as element-slot copy gets none. The carrier is the **option source** the consuming element emits (§3.5.2), so the label reaches code there and not through this entry. |
+| **1 Input** | `DomainEnumEntry` (`DMENE`) under `DOMEN`, with its child `DomainEnumValueEntry` (`DMEVA`) list, delivered in the **CE-EN extract** — the member kind's extract home (`codespecs_mapping.md` §4.1), an areas-catalogue entry rather than a part. Consumed: the enum's designated name field, its description (the §2.8 P1 summary source), and each value's name + description (P2). **Value *labels* are not consumed here** — display copy for a domain-enum value is CE-TX, resolved through `TomTextResourceProvider` like every other label (`codespecs_mapping.md` §1.2 consequence 1). It is of `codespecs_mapping.md` §5.21's **derived** shape, not the catalogued one: the key `<scope path>.<enumType>.<value>` is computable from the value, so it gets no message-key entry and no `@CsText` (§3.1.3), exactly as element-slot copy gets none. The carrier is the **option source** the consuming element emits (§3.5.2), so the label reaches code there and not through this entry. |
 | **2 Output** | A **plain Dart `enum`** — no superclass, no `tom_core` basis; §4.1 records `domainEnum` as a *member kind*, so there is nothing to build on. Doc comments carry the descriptions per §2.8 — the enum's at P1, each constant's at P2. **No enhanced-enum members are emitted**: the constant's identifier *is* the value token, the display label is bundle-resolved copy (see point 1) and a default belongs to the enum-typed member, so the enum has no field to hold (`codespecs_mapping.md` §4.1). Emitted only into `shared` **iff** a shared contract type references it (§4.1); otherwise into the single project that does. |
 | **3 Arguments** | None. `@CsEnum({String? note})` is unchanged: the enum's name and its complete value list are the declaration (test **a**). |
 | **4 Naming** | Enum type = PascalCase of `DMENE`'s name field; each constant = camelCase of `DMEVA`'s name field. N6 applies per constant (`default` → `defaultDomainEnum`). |
 | **5 Locus** | `shared` when any shared contract type (CE-API DTO, CE-ER, CE-RP envelope) names it; otherwise the referencing project. A domain enum referenced from **both** client and server is shared by that rule, never duplicated. |
 | **6 Cross-refs** | None outgoing. Incoming edges are plain Dart type references. |
-| **7 Back-link** | `@DocSpec([DocRef('DMENE', 'declares the enum and its value set')])` on the enum; per-constant refs are not emitted — N8 order plus the doc comment already identifies each `DMEVA`. |
+| **7 Back-link** | `@DocSpec([DocRef('content', 'supplies the enum name, its backing type and default, and each value id and description')])` on the enum — `content` is the form token of both `DMENE` and `DMEVA` per §2.5 rule 2, so the two carriers contribute **one** `DocRef` with a widened description per §2.5 rule 1; per-constant refs are not emitted — N8 order plus the doc comment already identifies each `DMEVA`. |
 
 #### 3.1.2 `@CsError` — CE-ER error code
 
@@ -2326,7 +2326,7 @@ out under check 31: a silent pass would read as a verified one.
 inputs are each self-describing — a migration set, a catalogue pair, a second
 trio — and a partial one is either obviously partial or refused outright, which
 is why check 31 takes all three regenerated packages or none. The extract tree
-is not: a directory holding four of an area's twenty-six extracts parses
+is not: a directory holding four of a run's twenty-seven extracts parses
 perfectly and simply describes a smaller run. That matters for check 35 alone,
 whose left-hand set *is* the extract tree — understate it and the check passes
 over a gap it could not see. So the trio and the extract tree are compared as

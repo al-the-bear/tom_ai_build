@@ -24,6 +24,8 @@ gate:
     - area: CE-EL
       verdict: insufficient
       resolution: descoped
+    - area: CE-EN
+      verdict: sufficient
     - area: CE-ER
       verdict: sufficient
     - area: CE-FM

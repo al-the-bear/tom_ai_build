@@ -59,14 +59,16 @@ void main() {
               'two has moved without the other.');
 
       // The other direction is not equality: §4.3 reserves a value for the
-      // deferred part and §4.1 rules `domainEnum` a member kind rather than a
-      // part, so the enum is legitimately larger. What must hold is that the
-      // surplus is exactly those two classes, which §4.1 fixes at 28 - 26.
-      expect(declared.difference(transcribed).length, 2,
-          reason: 'the enum should hold exactly two non-part values — the §4.3 '
-              'deferred candidate and the `domainEnum` member kind. Surplus: '
+      // deferred part, so the enum is legitimately larger. `domainEnum` is a
+      // member kind rather than a §4.1 part, but CE-EN — its extract home
+      // (§4.1 member-kind rule bullet) — transcribes it into the areas
+      // catalogue, so the only surplus left is the deferred candidate.
+      expect(declared.difference(transcribed).length, 1,
+          reason: 'the enum should hold exactly one non-area value — the §4.3 '
+              'deferred candidate. Surplus: '
               '${(declared.difference(transcribed).toList()..sort()).join(", ")}');
-      expect(declared.difference(transcribed), contains('domainEnum'));
+      expect(transcribed, contains('domainEnum'),
+          reason: 'CE-EN, the member-kind extract home, must claim domainEnum');
     });
 
     test('the slice relation is acyclic and the authoring order respects it',

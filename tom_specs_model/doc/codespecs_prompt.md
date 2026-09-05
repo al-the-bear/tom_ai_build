@@ -38,7 +38,7 @@ The prompt executes three stages, in order, and stops at the first failure:
 | Stage | Does | Fails how |
 |-------|------|-----------|
 | **A · Mechanical** (§4) | Runs every check a program can decide, over the document alone | Rejection, before a single area is read |
-| **B · Per-area judgment** (§6) | For each of the 26 active areas of `codespecs_mapping.md` §4.1, reads that area's extract and returns one of three verdicts | Rejection, naming the missing inputs area by area |
+| **B · Per-area judgment** (§6) | For each of the 27 active areas of the areas catalogue — the 26 active parts of `codespecs_mapping.md` §4.1 plus CE-EN, the `domainEnum` member kind's extract home — reads that area's extract and returns one of three verdicts | Rejection, naming the missing inputs area by area |
 | **C · Instantiation** (§7) | Creates the L0/L1/L2 rungs of `codespecs_mapping.md` §1.1.3's todo tree | — |
 
 Between A and B sits the **pre-gate extraction run** (§5): stage B judges
@@ -56,7 +56,7 @@ is paused on them by construction (§7).
 Two properties do all the work.
 
 **Per area, not per document.** A verdict over a whole specification has one bit
-of information and no starting point. A verdict per area is 26 bits, each
+of information and no starting point. A verdict per area is 27 bits, each
 attached to a bounded body of text the reader can open. It is also the only
 granularity at which the third verdict exists at all: a project with no
 background jobs is not underspecified about background jobs, and a
@@ -217,7 +217,7 @@ them is what the API shape was chosen to close:
 - **`D13CodeSpecsProjection`.** It is the CodeSpecs projection, so it reads like
   the right root for a CodeSpecs extraction. Its path space is `CGP/…` while the
   document's values are keyed under its own root, so every extract would come
-  back empty — 26 areas, zero entries, and a run that would pass stage B only by
+  back empty — 27 areas, zero entries, and a run that would pass stage B only by
   declaring the entire project not applicable. This is the failure mode a bare
   required-root argument would leave intact, so it is the one the resolver
   reports: naming a root the document never populates is an error, not an empty
@@ -460,7 +460,7 @@ NEVER:
 
 HAND BACK:
   - The stage-A results, all five.
-  - The per-area table, all 26 rows, with gap lines beneath any insufficient.
+  - The per-area table, all 27 rows, with gap lines beneath any insufficient.
   - The todos created, by rung.
 ```
 

@@ -46,6 +46,35 @@ const Map<int, List<int>> kSliceCites = {
 /// check on [kSliceCites].
 const List<int> kAuthoringSliceOrder = [1, 2, 3, 4, 7, 5, 6];
 
+/// The `codespecs_mapping.md` §4.1 member-kind extract home **CE-EN** —
+/// the one areas-catalogue entry that is not a parts-catalogue row.
+///
+/// `domainEnum` is a member kind, so `codespecs_mapping.md` §4.1's table (and
+/// its 26-row count) does not carry it; but its values (`DOMEN`/`DMENE`/
+/// `DMEVA`) route via `@CodeSpecKind([CodeSpecPart.domainEnum])` and need an
+/// extract of their own for authoring step 1 of `codespecs_mapping.md` §4.4.6
+/// — that is the `codespecs_mapping.md` §4.1 member-kind rule bullet this
+/// entry transcribes. Like [kSliceCites] it is transcribed rather than parsed (the
+/// rule is prose, not a table) and guarded structurally instead:
+/// [_checkStepCoverage] requires its steps to be **exactly** the steps the
+/// `codespecs_mapping.md` §4.4.6 coverage partition leaves unclaimed, and
+/// [buildAreasCatalog] requires its kind and code to collide with no parsed
+/// part's.
+const Map<String, dynamic> kMemberKindArea = {
+  'code': 'CE-EN',
+  'canonicalId': 'DomainEnum',
+  'part': 'domainEnum',
+  'annotations': ['CsEnum'],
+  'builtOn':
+      'Plain Dart `enum` — a member kind, not a part: no `tom_core` basis and '
+          'no gap class (§4.1 member-kind rule; '
+          '`codespecs_derivation_contract.md` §3.1.1)',
+  'attributeSurface': '§4.1',
+  'slices': [1],
+  'authoringSteps': [1],
+  'active': true,
+};
+
 /// A failure to transcribe the mapping document — a missing table, a row that
 /// does not parse, or a cross-table disagreement.
 class AreasCatalogException implements Exception {
@@ -98,8 +127,19 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
 
   _checkCites(sliceRows.keys.toList()..sort());
 
-  final areas = <Map<String, dynamic>>[];
+  // CE-EN, the `domainEnum` member-kind extract home (`codespecs_mapping.md`
+  // §4.1 rule bullet), leads the catalogue: §4.4.6 gives the member kind
+  // position 0 ("everything else cites it"), and catalogue order is the rule-2
+  // tie-break, so the position is load-bearing.
+  final areas = <Map<String, dynamic>>[kMemberKindArea];
   for (final part in parts) {
+    if (part.code == kMemberKindArea['code'] ||
+        part.kind == kMemberKindArea['part']) {
+      throw AreasCatalogException(
+          '§4.1 row ${part.code} collides with the member-kind extract home '
+          '${kMemberKindArea['code']} — the registry key and kind value must '
+          'stay unique.');
+    }
     final code = part.code;
     final steps = areaSteps[code];
     if (steps == null || steps.isEmpty) {
@@ -387,19 +427,40 @@ void _checkCites(List<int> declaredSlices) {
   }
 }
 
-/// Every authoring step must be claimed by at least one part — a step no part
+/// Every authoring step must be claimed by exactly one home — a step no area
 /// names is a step no extract would ever be written for.
+///
+/// The `codespecs_mapping.md` §4.4.6 coverage paragraph partitions the steps
+/// over the 26 parts and leaves the member-kind step(s) out (it says so: "plus
+/// step 1's `domainEnum`, which is a member kind and not a part").
+/// [kMemberKindArea] claims those, so the structural guard on that
+/// transcription is exact-set equality: the steps it claims must be
+/// **precisely** the steps the partition leaves unclaimed. A future change to
+/// `codespecs_mapping.md` §4.4.6 that hands step 1 to a part, or adds a second
+/// member-kind step, fails here rather than silently dropping an extract.
 void _checkStepCoverage(
     Map<String, List<int>> areaSteps, Map<int, int> stepSlices) {
   final claimed = <int>{for (final steps in areaSteps.values) ...steps};
   final unclaimed = stepSlices.keys.where((s) => !claimed.contains(s)).toList()
     ..sort();
-  // Step 1 is the `domainEnum` member kind, which §4.1 rules is not a part —
-  // so it is legitimately unclaimed, and the only one that may be.
-  if (unclaimed.length != 1 || unclaimed.first != 1) {
+  final memberKindSteps = [...kMemberKindArea['authoringSteps'] as List]..sort();
+  if (unclaimed.toString() != memberKindSteps.toString()) {
     throw AreasCatalogException(
-        'authoring steps claimed by no part: ${unclaimed.join(", ")} — only '
-        'step 1 (domainEnum, a member kind rather than a part) may be.');
+        'the member-kind extract home ${kMemberKindArea['code']} claims steps '
+        '${memberKindSteps.join(", ")}, but the §4.4.6 coverage partition '
+        'leaves ${unclaimed.isEmpty ? "none" : unclaimed.join(", ")} '
+        'unclaimed — the two must be the same set.');
+  }
+  final memberKindSlices = {
+    for (final step in memberKindSteps) stepSlices[step as int]!,
+  }.toList()
+    ..sort();
+  final declaredSlices = [...kMemberKindArea['slices'] as List]..sort();
+  if (memberKindSlices.toString() != declaredSlices.toString()) {
+    throw AreasCatalogException(
+        'the member-kind extract home ${kMemberKindArea['code']} declares '
+        'slices ${declaredSlices.join(", ")}, but its steps sit in slices '
+        '${memberKindSlices.join(", ")} per the §4.4.6 step table.');
   }
 }
 
