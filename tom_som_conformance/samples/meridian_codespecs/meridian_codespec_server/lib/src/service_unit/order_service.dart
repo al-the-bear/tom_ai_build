@@ -3,6 +3,7 @@
 // Spec model version: 1.0.0+3.50e0102
 
 import 'package:tom_code_specs/tom_code_specs.dart';
+import 'package:tom_core_server/tom_core_server.dart';
 
 import '../data_access/order.dart';
 
@@ -16,5 +17,6 @@ import '../data_access/order.dart';
   DocRef('SCID', 'records the key scenarios exercising this service unit'),
   DocRef('EXTEN-RESU', 'records the resume step of the amend extension flow'),
 ])
+@tomService
 @CsServiceUnit(rootAggregate: Order, boundedContext: 'Ordering')
 abstract class OrderService {}

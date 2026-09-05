@@ -12,6 +12,11 @@
 //   A2 — instance-tier values (`validateDocument`, SOM §9)
 //   A3 — routing totality: the extractor's strict walk throws on any section
 //        carrying none of the three §8.3 verdicts (`ROUTE-TOTAL`)
+//   A4 — DOMEN closed-choice completeness (`codespecs_prompt.md` §4): every
+//        stored attribute of kind `enumeration` names, via
+//        `DAATT-DTEN.domainEnum`, an authored `DMENE` entry. A miss is a hard
+//        rejection naming the attribute and the register section (DOMEN) that
+//        should have carried the entry — never a degraded emission.
 //
 // Re-run after the sample or the model changes:
 //
@@ -86,6 +91,39 @@ void main() {
     exit(1);
   }
 
+  // --- Gate, tier A4 — DOMEN closed-choice completeness ---------------------
+  // An enumeration-kind attribute's column value type IS the generated enum
+  // type, so an unresolvable (or absent) enum name blocks the run outright
+  // (codespecs_prompt.md §4 — a hard A4 rejection, never a degraded emission).
+  final authoredEnums = <String>{};
+  for (final r in routings) {
+    if (r.className != 'DomainEnumEntry') continue;
+    final name = doc.formField('${r.path}/content', 'enumName');
+    if (name != null && name.isNotEmpty) authoredEnums.add(name);
+  }
+  final a4 = <String>[];
+  for (final r in routings) {
+    if (r.className != 'DataAttributeEntry') continue;
+    final kind = doc.formField('${r.path}/DAATT-DATA', 'dataType');
+    if (kind != 'enumeration') continue;
+    final enumName = doc.formField('${r.path}/DAATT-DTEN', 'domainEnum');
+    if (enumName == null || enumName.isEmpty) {
+      a4.add('${r.path}: enumeration attribute carries no '
+          'DAATT-DTEN.domainEnum — DOMEN cannot type its column');
+    } else if (!authoredEnums.contains(enumName)) {
+      a4.add('${r.path}: DAATT-DTEN.domainEnum "$enumName" resolves to no '
+          'authored DMENE entry — DOMEN should carry it');
+    }
+  }
+  if (a4.isNotEmpty) {
+    stderr.writeln('gate A4 FAILS — ${a4.length} enumeration attribute(s) '
+        'without a resolvable domain enum:');
+    for (final v in a4) {
+      stderr.writeln('  $v');
+    }
+    exit(1);
+  }
+
   // --- Write the extract pairs ----------------------------------------------
   final outDir = Directory.fromUri(Platform.script
       .resolve('../../tom_som_conformance/generated-doc/codespecs_extracts'));
@@ -108,6 +146,8 @@ void main() {
   stdout.writeln('gate A2 passes — 0 instance-tier violations');
   stdout.writeln('gate A3 passes — ${routings.length} class nodes walked, '
       'every one routed');
+  stdout.writeln('gate A4 passes — every enumeration attribute resolves to '
+      'an authored DMENE entry (${authoredEnums.length} authored)');
   stdout.writeln('  verdicts: $byVerdict');
   stdout.writeln('Wrote ${extracts.length} extract pairs to '
       '${outDir.absolute.path}');

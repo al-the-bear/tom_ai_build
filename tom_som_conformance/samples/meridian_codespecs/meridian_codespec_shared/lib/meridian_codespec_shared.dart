@@ -2,5 +2,5 @@
 // Source document: meridian_order_management.md (D00)
 // Spec model version: 1.0.0+3.50e0102
 
-export 'src/authorization/roles.dart';
-export 'src/text/messages.dart';
+export 'src/authorization/authorization_catalog.dart';
+export 'src/text/text_catalog.dart';

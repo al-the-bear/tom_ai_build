@@ -884,6 +884,32 @@ void main() {
       expect(column.length, isNull);
       expect(column.accessKey, isNull);
       expect(column.fileReference, isNull);
+      // An unauthored DAATT-SECU subform is null on both facts — never a
+      // defaulted `public`/`false` claim about a column nobody classified.
+      expect(column.sensitivityLevel, isNull);
+      expect(column.isPii, isNull);
+    });
+
+    test('CsColumn carries the DAATT-SECU sensitivity classification', () {
+      const column = CsColumn(
+        column: 'iban',
+        sensitivityLevel: CsSensitivityLevel.confidential,
+        isPii: true,
+      );
+      expect(column.sensitivityLevel, CsSensitivityLevel.confidential);
+      expect(column.isPii, isTrue);
+    });
+
+    test('CsSensitivityLevel mirrors DAATT-SECU constant-for-constant', () {
+      expect(CsSensitivityLevel.values, hasLength(6));
+      expect(CsSensitivityLevel.values, [
+        CsSensitivityLevel.public,
+        CsSensitivityLevel.internal,
+        CsSensitivityLevel.confidential,
+        CsSensitivityLevel.restricted,
+        CsSensitivityLevel.pii,
+        CsSensitivityLevel.phi,
+      ]);
     });
 
     test('CsServerConfig carries the key, both aliases and the secret mark', () {

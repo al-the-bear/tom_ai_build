@@ -21,11 +21,20 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   ],
 )
 @DocSpec([
-  DocRef('DAENT-IDEN', 'supplies the entity, its table and its storage placement'),
+  DocRef(
+    'DAENT-IDEN',
+    'supplies the entity, its table and its storage placement',
+  ),
   DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
   DocRef('DAATT-DATA', 'supplies the storage type'),
-  DocRef('DAATT-SECU', 'records the sensitivity level and PII marking of the stored attributes'),
-  DocRef('KEATT-REFE-REF', 'records the entity the owning-order key attribute references'),
+  DocRef(
+    'DAATT-SECU',
+    'records the sensitivity level and PII marking of the stored attributes',
+  ),
+  DocRef(
+    'KEATT-REFE-REF',
+    'records the entity the owning-order key attribute references',
+  ),
   DocRef('ENRLE-IDEN', 'records the relationships this entity participates in'),
   DocRef('ENRLE-CARD', 'records the cardinalities of those relationships'),
   DocRef('ENRLE-NAVI', 'records their navigability and foreign-key location'),
@@ -38,40 +47,83 @@ class OrderLine {
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(column: 'line_id', columnType: 'uuid')
+  @CsColumn(
+    column: 'line_id',
+    columnType: 'uuid',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String lineId;
 
   /// Owning order reference.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
-    DocRef('KEATT-REFE-REF', 'records the entity this key attribute references'),
+    DocRef(
+      'KEATT-REFE-REF',
+      'records the entity this key attribute references',
+    ),
   ])
-  @CsColumn(column: 'order_id', columnType: 'uuid')
+  @CsColumn(
+    column: 'order_id',
+    columnType: 'uuid',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String orderId;
 
   /// Referenced product.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(column: 'product_id', columnType: 'uuid')
+  @CsColumn(
+    column: 'product_id',
+    columnType: 'uuid',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String productId;
 
   /// Ordered quantity.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(columnType: 'int')
+  @CsColumn(
+    columnType: 'int',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late int quantity;
 
   /// Snapshotted unit price at pricing time.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(column: 'unit_price', columnType: 'numeric(12,2)')
+  @CsColumn(
+    column: 'unit_price',
+    columnType: 'numeric(12,2)',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late double unitPrice;
 }

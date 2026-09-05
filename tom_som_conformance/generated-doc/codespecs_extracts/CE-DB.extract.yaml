@@ -15,7 +15,7 @@ extract:
     citableParts: ["CE-TX", "CE-VA", "CE-API", "CE-AZ", "CE-ER", "CE-CF", "CE-AU", "CE-ID", "CE-MG", "CE-LG", "CE-NT", "CE-RP"]
   document:
     root: "SBP"
-    entryCount: 188
+    entryCount: 190
   entries:
     - sectionId: "content"
       path: "SBP/informationAndDataModel/dataModel/content"
@@ -269,6 +269,15 @@ extract:
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry."
       value: "varchar(8)"
+    - sectionId: "DAATT-DTEN"
+      path: "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/DAATT-DTEN"
+      className: "DataAttributeEntry"
+      fieldName: "enumerationTypeOptions"
+      formField: "domainEnum"
+      routedBy: "CodeSpecPart.dataAccess"
+      routedAt: "DataAttributeEntry"
+      routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry."
+      value: "OrderChannel"
     - sectionId: "DAATT-SECU"
       path: "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/DAATT-SECU"
       className: "DataAttributeEntry"
@@ -323,6 +332,15 @@ extract:
       routedAt: "DataAttributeEntry"
       routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry."
       value: "varchar(16)"
+    - sectionId: "DAATT-DTEN"
+      path: "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/DAATT-DTEN"
+      className: "DataAttributeEntry"
+      fieldName: "enumerationTypeOptions"
+      formField: "domainEnum"
+      routedBy: "CodeSpecPart.dataAccess"
+      routedAt: "DataAttributeEntry"
+      routingNote: "A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry."
+      value: "OrderStatus"
     - sectionId: "DAATT-SECU"
       path: "SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/DAATT-SECU"
       className: "DataAttributeEntry"

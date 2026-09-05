@@ -229,6 +229,23 @@ class CsColumn {
   /// by its Dart type and the entity's storage annotations.
   final CsFileReference? fileReference;
 
+  /// The sensitivity classification of the stored value
+  /// (`codespecs_mapping.md` §5.13).
+  ///
+  /// ← the SOM's `DAATT-SECU.sensitivityLevel`, constant-for-constant. `null`
+  /// means the specification authored no data-security subform for this
+  /// attribute — never a claim that the value is public.
+  final CsSensitivityLevel? sensitivityLevel;
+
+  /// Whether the stored value is personal data (PII).
+  ///
+  /// ← the SOM's `DAATT-SECU.isPii`. Carried separately from
+  /// [sensitivityLevel] because the SOM authors them separately — a column can
+  /// be `confidential` without being personal, and a `pii`-classified column's
+  /// flag is then redundantly `true` rather than inferred. `null` means the
+  /// subform was not authored.
+  final bool? isPii;
+
   /// Optional part-specific note.
   final String? note;
 
@@ -241,6 +258,8 @@ class CsColumn {
     this.length,
     this.accessKey,
     this.fileReference,
+    this.sensitivityLevel,
+    this.isPii,
     this.note,
   });
 }

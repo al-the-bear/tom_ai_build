@@ -982,6 +982,10 @@ Description: Capture channel: EDI or REST.
 DataType: enumeration
 PhysicalType: varchar(8)
 
+######## <!--[DAATT-DTEN]--> Enumeration Type Options
+
+DomainEnum: OrderChannel
+
 ######## <!--[DAATT-SECU]--> Security Classification
 
 SensitivityLevel: Internal
@@ -998,6 +1002,10 @@ Description: Lifecycle state (Captured..Closed, with Hold).
 
 DataType: enumeration
 PhysicalType: varchar(16)
+
+######## <!--[DAATT-DTEN]--> Enumeration Type Options
+
+DomainEnum: OrderStatus
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
@@ -1399,6 +1407,93 @@ OrderLine
 ####### <!--[ENRLE-TARG-REF]--> Target Entity Ref
 
 Product
+
+### <!--[DOMEN]--> Domain Enum Registry
+
+#### <!--[DMENE-ENUM-LST]--> Enums
+
+##### <!--[DMENE-ENUM-1]--> OrderChannel
+
+EnumName: OrderChannel
+Description: The capture channel an order arrived through. Types the Order.channel attribute.
+BackingType: String
+
+###### <!--[DMEVA-VALU-LST]--> Values
+
+####### <!--[DMEVA-VALU-1]--> edi
+
+ValueId: edi
+BackingValue: EDI
+Description: The wholesale electronic data interchange channel.
+
+####### <!--[DMEVA-VALU-2]--> rest
+
+ValueId: rest
+BackingValue: REST
+Description: The public REST order API.
+
+##### <!--[DMENE-ENUM-2]--> OrderStatus
+
+EnumName: OrderStatus
+Description: The order lifecycle state (Captured -> Validated -> Priced -> Reserved -> Confirmed -> Fulfilled -> Closed, with Hold and Cancelled). Types the Order.status attribute.
+BackingType: String
+DefaultValue: captured
+
+###### <!--[DMEVA-VALU-LST]--> Values
+
+####### <!--[DMEVA-VALU-1]--> captured
+
+ValueId: captured
+BackingValue: Captured
+Description: Accepted from EDI or REST; lifecycle entry state.
+
+####### <!--[DMEVA-VALU-2]--> validated
+
+ValueId: validated
+BackingValue: Validated
+Description: Customer and product references verified.
+
+####### <!--[DMEVA-VALU-3]--> priced
+
+ValueId: priced
+BackingValue: Priced
+Description: Unit prices snapshotted onto every line.
+
+####### <!--[DMEVA-VALU-4]--> reserved
+
+ValueId: reserved
+BackingValue: Reserved
+Description: Stock reserved for every line.
+
+####### <!--[DMEVA-VALU-5]--> confirmed
+
+ValueId: confirmed
+BackingValue: Confirmed
+Description: Confirmed to the customer with a fulfilment window.
+
+####### <!--[DMEVA-VALU-6]--> fulfilled
+
+ValueId: fulfilled
+BackingValue: Fulfilled
+Description: Dispatched; the public tracking page reflects it.
+
+####### <!--[DMEVA-VALU-7]--> closed
+
+ValueId: closed
+BackingValue: Closed
+Description: Invoiced and complete; terminal state.
+
+####### <!--[DMEVA-VALU-8]--> hold
+
+ValueId: hold
+BackingValue: Hold
+Description: Awaiting manual review; resumes at the transition that placed it on hold.
+
+####### <!--[DMEVA-VALU-9]--> cancelled
+
+ValueId: cancelled
+BackingValue: Cancelled
+Description: Cancelled before dispatch, with an audited reason; terminal state.
 
 ### <!--[MSGKR]--> Message Key Registry
 

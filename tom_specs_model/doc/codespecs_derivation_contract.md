@@ -28,7 +28,7 @@ form-3b body calls. With the two facet value classes a marker carries
 **What this document decides.** It **decides** each annotation's argument shape.
 The shapes below are **authored** in `tom_code_specs` — the constructors, the
 `Cs*Ref` typed-reference family the arguments consume
-(`lib/src/annotations/cross_part_refs.dart`) and the 15 closed catalogues they
+(`lib/src/annotations/cross_part_refs.dart`) and the 16 closed catalogues they
 select from (`lib/src/annotations/vocabulary.dart`) — so every annotation call
 written to this contract compiles.
 
@@ -172,7 +172,11 @@ so a `DataEntityEntry` named *Customer* lands at
 `lib/src/data_access/customer.dart`. Member markers are emitted in their owner's
 file. Catalogue holders (error codes, message keys, roles, resource keys,
 operation refs) get exactly one file per catalogue,
-`lib/src/<canonical>/<canonical>_catalog.dart`. Each project exports its files
+`lib/src/<canonical>/<canonical>_catalog.dart` — and **route definitions share
+that rule**: though each `@CsRoute` is a top-level declaration rather than a
+holder member (§3.5.8), all of a document's routes land together in
+`lib/src/navigation/navigation_catalog.dart`, which is the one sanctioned
+several-declarations-per-file case. Each project exports its files
 from `lib/<project>.dart` in the same order §2.2 emits them.
 
 **N8 — member order.** Members are emitted in **SOM document order** — the order
@@ -751,18 +755,24 @@ Every emitted file has the same five-part shape, in this order:
    the file; §2.8 C6 rules out every other one.
 2. Imports: `package:tom_code_specs/tom_code_specs.dart`, the `tom_core`-family
    packages the declarations are built on, and — in client/server projects only —
-   `<app>_codespec_shared`.
+   `<app>_codespec_shared`. **Each import beyond the first must be used**: a file
+   imports exactly the packages whose symbols its declarations reference, never
+   its locus's habitual set — an unused import is dead weight the analyzer flags,
+   and a server file whose declaration is pure `tom_core_kernel` imports no
+   `tom_core_server`.
 3. The declaration's **doc comment** (§2.8 P1), derived from the contributing
    SOM section.
 4. The declaration, annotated `@CodeSpec` then `@DocSpec` then its `Cs*` marker,
    in that order (`codespecs_mapping.md` §9.5's placement, outermost-provenance-first) — its members
    each preceded by their own doc comment (§2.8 P2) and its methods by theirs
    (§2.8 P3).
-5. Nothing else. One top-level declaration per file (N7).
+5. Nothing else. One top-level declaration per file (N7) — parts 3–4 repeating
+   per declaration in the two catalogue-file cases N7 sanctions.
 
 **No file carries a `library;` directive.** A library-level doc comment would be
-a second rendering of the same SOM text the file's one declaration already
-carries — N7 puts exactly one top-level declaration in a file, so there is never
+a second rendering of the same SOM text the file's declarations already
+carry — N7 puts exactly one top-level declaration in a file (and in the
+catalogue-file cases, one catalogue), so there is never
 a second thing for a library comment to describe, and two comments from one
 source is §2.3 test (a) applied to prose.
 
@@ -1174,6 +1184,18 @@ consts that join them second.
 | **6 Cross-refs** | None outgoing. `CsMessageKey` is the incoming ref type, cited by CE-VA error keys, CE-NT bodies, CE-RP labels and CE-JB failure alerts. |
 | **7 Back-link** | `@DocSpec([DocRef('MSGKE', 'supplies the message key, its base copy and its role')])`, plus `DocRef('VMT', …)` where the key came from a validation-message template. |
 
+#### 3.1.4 Role and resource-key catalogues — CE-AZ consts, deliberately markerless
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | `AuthorizationRoleEntry` (`AZRO`) with its scope subsection (`ARES`) for the role catalogue; `ResourceKeyEntry` (`RESKEY`) for the resource-key catalogue. Both route to CE-AZ, so both reach the CE-AZ extract; this entry is authored in slice 1 because §3.4.3 point 2 places the catalogues there — every `CsRoleRef` / `CsResourceKeyRef` in the trio bottoms out here. Consumed per role: the role name, its description (§2.8 P2), its scope/inheritance metadata as doc-comment context. Per resource key: the key, its resource type and description. The permission-set detail (`ROMA` / `ROLPER` / `ENT`) is **not** consumed — it defines what a role means at runtime, which `TomRoleAccess` resolves; the catalogue only names the role. |
+| **2 Output** | One holder per document and catalogue — form 2, a plain class of `static const` members: `static const CsRoleRef orderClerk = CsRoleRef('orderClerk');`, `static const CsResourceKeyRef orderArchive = CsResourceKeyRef('order.archive');`. The strings live in the `TomRoleAccess.roles` / `TomResourceKeyAccess.key` string spaces (`tom_core_kernel`), which is the substrate relationship — there is no framework holder class to build on. **Holder and members carry no `Cs*` marker, and that is a rule, not an omission**: CE-AZ's one annotation, `@CsAuthorize`, marks a *gate* — its required `requirement` argument names which arm gates a thing — and a catalogue const gates nothing, so a marker here would either invent a fake requirement or need a second, argument-less marker whose only content is what the member's own const type (`CsRoleRef` / `CsResourceKeyRef`, `codespecs_mapping.md` §5.23) already states. §2.3 has no argument to carry (the name is the const's string — test **a**; the meaning is the runtime's — test **b**), and a marker carrying nothing that a type already declares fails the §3.0 emptiness bar that `@CsAuthorize()` plain would set. `@CodeSpec` and `@DocSpec` remain **mandatory** as on every emission unit (§2.5) — markerless means no `Cs*` marker, never no back-link. |
+| **3 Arguments** | None — there is no marker to carry them (point 2). |
+| **4 Naming** | Holders = `<Document>Roles` / `<Document>ResourceKeys` (PascalCase of the document root's name token, as §3.1.2's `<Document>ErrorCodes`). Members by **N9**: camelCase of the role's name field; a resource key is an authored dotted key, kept verbatim per N9's authored-key exception, with the const named by N5 over it. Files by **N7's catalogue-holder rule**: `lib/src/authorization/authorization_catalog.dart` holds both holders — they are one catalogue file per N7, two holders because roles and resource keys are two ref types. |
+| **5 Locus** | `shared` — §4.2 and §3.4.3 point 5: both sides cite the catalogues. |
+| **6 Cross-refs** | None outgoing. `CsRoleRef` / `CsResourceKeyRef` are the incoming ref types, cited by `@CsAuthorize` slots (§3.4.3), CE-NV route access and anything else that names a role. |
+| **7 Back-link** | Per role member: `@DocSpec([DocRef('content', 'supplies the role, its scope and its permission set'), DocRef('ARES', 'supplies the role scope, inheritance and permission set')])` — `content` is `AZRO`'s form token per §2.5 rule 2. Per resource-key member: `@DocSpec([DocRef('content', 'supplies the resource key, its type and its protection level')])` from `RESKEY`. The holders aggregate their members' refs per §2.5 rule 4. |
+
 ### 3.2 Slice 2 — shared contract
 
 Cites slice 1 only.
@@ -1320,13 +1342,13 @@ Never cites the client.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `DataAttributeEntry` (`DAATT`), with `DataAttributeConstraintEntry` (`DATAA`) supplying length, format and **storage nullability**. Consumed (`codespecs_mapping.md` §5.13 attribute level): name, column, value type, column type, read-only, not-loaded, json-encoded, column-access key, converters, `DATAA.nullable`, and the `DataAttributeKind.fileReference` facet. **`DATAA.mandatory` is not read here** — it is already claimed by CE-VA (`DataAttributeConstraintEntry` carries `@CodeSpecKind([CodeSpecPart.validation])`), and it answers a different question. |
-| **2 Output** | One **member** of the §3.3.1 entity, typed by the SOM value type. **Optionality is the member's own nullability, keyed on `DATAA.nullable`:** `Yes` emits a plain nullable field `T?`; `No` emits `late T` per §2.4 — `late`, never `late final`, since the repository fills the column through the member's setter. It is **never** a `TomN*` observable — `tom_core_kernel`'s nullable observable family belongs to CE-ST (§3.5.1), and an entity is a plain annotated model class. `read-only`, `not-loaded`, `json-encoded` and converters are emitted as the framework's own persistence annotations beside the marker (test **b**), not as marker arguments. |
-| **3 Arguments** | `column` ← `DAATT`'s column field, verbatim; `null` means "same as the member name". `columnType` ← the SOM column type, verbatim. `length` ← the maximum length from `DATAA` — `codespecs_mapping.md` §4.1.1 names maximum lengths as exactly the kind of thing simple code cannot express. `accessKey` ← the column-access key as a `CsResourceKeyRef`. `fileReference` ← a `CsFileReference` value **iff** `DAATT`'s kind is `fileReference` (§3.3.3); its **presence is the column kind**. The Dart **value type** is never an argument (test **a**). |
+| **1 Input** | `DataAttributeEntry` (`DAATT`), with `DataAttributeConstraintEntry` (`DATAA`) supplying length, format and **storage nullability**, the `DAATT-SECU` data-security subform supplying the sensitivity classification, and the `DAATT-DTEN` enumeration-type case supplying the domain enum an enumeration-kind attribute is typed by. Consumed (`codespecs_mapping.md` §5.13 attribute level): name, column, value type, column type, read-only, not-loaded, json-encoded, column-access key, converters, `DATAA.nullable`, `DAATT-SECU.sensitivityLevel`, `DAATT-SECU.isPii`, `DAATT-DTEN.domainEnum`, and the `DataAttributeKind.fileReference` facet. **`DATAA.mandatory` is not read here** — it is already claimed by CE-VA (`DataAttributeConstraintEntry` carries `@CodeSpecKind([CodeSpecPart.validation])`), and it answers a different question. |
+| **2 Output** | One **member** of the §3.3.1 entity, typed by the SOM value type. **An enumeration-kind attribute is typed by its domain enum:** `DAATT-DTEN.domainEnum` names the `DMENE` entry, and the member's Dart type is the §3.1.1 `@CsEnum` enum generated from that entry — never `String`. The SOM makes `domainEnum` **required** on the case precisely because a stringly-typed column would reopen the closed set the registry exists to close; an enumeration-kind attribute that names no authored enum is a **gate rejection** (`codespecs_prompt.md` §4, A4), never a `String` fallback. The `columnType` argument still carries the SOM column type verbatim — how the enum is *stored* is the enum's own `DMENE.backingType` fact, and the two travel independently. **Optionality is the member's own nullability, keyed on `DATAA.nullable`:** `Yes` emits a plain nullable field `T?`; `No` emits `late T` per §2.4 — `late`, never `late final`, since the repository fills the column through the member's setter. It is **never** a `TomN*` observable — `tom_core_kernel`'s nullable observable family belongs to CE-ST (§3.5.1), and an entity is a plain annotated model class. `read-only`, `not-loaded`, `json-encoded` and converters are emitted as the framework's own persistence annotations beside the marker (test **b**), not as marker arguments. |
+| **3 Arguments** | `column` ← `DAATT`'s column field, verbatim; `null` means "same as the member name". `columnType` ← the SOM column type, verbatim. `length` ← the maximum length from `DATAA` — `codespecs_mapping.md` §4.1.1 names maximum lengths as exactly the kind of thing simple code cannot express. `accessKey` ← the column-access key as a `CsResourceKeyRef`. `fileReference` ← a `CsFileReference` value **iff** `DAATT`'s kind is `fileReference` (§3.3.3); its **presence is the column kind**. `sensitivityLevel` ← `DAATT-SECU.sensitivityLevel`, constant-for-constant onto `CsSensitivityLevel {public, internal, confidential, restricted, pii, phi}`; `isPii` ← `DAATT-SECU.isPii` (`Yes`/`No` → `true`/`false`). Both are omitted — `null`, never defaulted — when the attribute authors no `DAATT-SECU` subform: an unauthored classification is not a `public` one. The Dart **value type** is never an argument (test **a**). |
 | **4 Naming** | camelCase of `DAATT`'s attribute-name field. |
 | **5 Locus** | `server`, with its entity. |
 | **6 Cross-refs** | `CsResourceKeyRef`; `Type` literals for relationship targets. |
-| **7 Back-link** | `@DocSpec([DocRef('DAATT', 'supplies the stored attribute, its column and its storage type')])`, plus `DocRef('DATAA', …)` where a constraint supplied the length, format or nullability. |
+| **7 Back-link** | `@DocSpec([DocRef('DAATT', 'supplies the stored attribute, its column and its storage type')])`, plus `DocRef('DATAA', …)` where a constraint supplied the length, format or nullability, plus `DocRef('DAATT-SECU', …)` where the data-security subform supplied the sensitivity level or PII marking, plus `DocRef('DAATT-DTEN', …)` where the enumeration-type case supplied the member's enum type. |
 
 **Why `nullable` and not `mandatory`.** `DATAA` carries both, and they are not two
 spellings of one fact. `mandatory` (`Required | Optional | ConditionallyRequired`)
@@ -1493,7 +1515,7 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `DataEntityEntry` (`DAENT`) — the unit set and its boundary. Consumed (`codespecs_mapping.md` §5.17): `DAENT-CLAS.aggregateRoot`, `DAENT-CLAS.serviceUnitAggregate`, `DAENT-CLAS.boundedContext`, and `DAENT-IDEN.entityName` as the value the first two resolve against. `BoundedContextEntry` (`BCE`) is the registry the third resolves against: `boundedContext` carries `refersTo: ['BCE.contextName']`, so the cap is a declared context and not a spelling. `ArchitectureComponentEntry` (`ARCM`) is a **secondary** input supplying the component narrative only — `codespecs_mapping.md` §8.5 records it as COVERED but **weak**, and nothing in this entry is derived from it. |
-| **2 Output** | An **ordinary abstract class** carrying the framework's own `@tomService` / `TomApiImplementation` (`tom_core_server`) beside the marker — `codespecs_mapping.md` §5.6.2 records CE-SU as reuse with *no new class*. It **co-emits the CE-API handler methods** (§3.4.2), which is why slice 4 emits both together. **One class per distinct effective aggregate**, where an entity's effective aggregate is `DAENT-CLAS.serviceUnitAggregate` if set and `DAENT-CLAS.aggregateRoot` otherwise (`codespecs_mapping.md` §5.1) — so the unit set is a group-by over authored strings, and nothing in Phase 4 decides how many units exist. Its derived ownership lists — owned entities, repositories, operations — are materialised as `Type` literals and `CsOperationRef` consts, never re-authored: an entity is owned by the unit of its effective aggregate, and an operation by the unit of `SVOPE.primaryDataEntity`'s entity. |
+| **2 Output** | An **ordinary abstract class** carrying the framework's own service annotation beside the marker (test **b**). `tom_core_server` offers **two mutually exclusive** forms — `@tomService` and `@TomApiImplementation(apiId: …)` — and its endpoint pipeline rejects a class carrying both, so they are alternatives, never a pair. **The derivation emits `@tomService`**: `TomApiImplementation` is the registry-API-bound variant and its required `apiId` has no authoring SOM field, so emitting it would invent an argument (§2.8 C1). `codespecs_mapping.md` §5.6.2 records CE-SU as reuse with *no new class*. It **co-emits the CE-API handler methods** (§3.4.2), which is why slice 4 emits both together. **One class per distinct effective aggregate**, where an entity's effective aggregate is `DAENT-CLAS.serviceUnitAggregate` if set and `DAENT-CLAS.aggregateRoot` otherwise (`codespecs_mapping.md` §5.1) — so the unit set is a group-by over authored strings, and nothing in Phase 4 decides how many units exist. Its derived ownership lists — owned entities, repositories, operations — are materialised as `Type` literals and `CsOperationRef` consts, never re-authored: an entity is owned by the unit of its effective aggregate, and an operation by the unit of `SVOPE.primaryDataEntity`'s entity. |
 | **3 Arguments** | `rootAggregate` (**required**) ← the unit's effective aggregate, as a **`Type` literal** — the CE-DB entity class (§3.3.1) generated for the `DAENT` whose `entityName` equals it. `boundedContext` (**required**) ← `DAENT-CLAS.boundedContext` of that root entity, verbatim — the `BCE.contextName` it references, copied character-for-character rather than re-cased, so two units in one context carry the identical string. Both are read off named fields, and both are *checked* references (`refersTo`): neither is inferred from lifecycle prose or relationship cardinality, per §2.4 **B8**. The unit id is **not** an argument — it is the class name (test **a**), fixed by §5.1 as `<RootAggregate>Service`. The process-cohesion adjustment is marked **D** (derived) in `codespecs_mapping.md` §5.17: it is authored in the SOM but reaches the code as *which* unit an entity landed in, not as a field on the marker. |
 | **4 Naming** | PascalCase of the root aggregate's `DAENT-IDEN.entityName` + `Service`, per §5.1 — **not** of `ARCM`'s headline, so two documents naming the same aggregate cannot produce two unit names. N6 applies. |
 | **5 Locus** | `server`. |
@@ -1517,7 +1539,7 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `AuthorizationRequirementSpec` (`AZREQ`) — the one reusable closed choice, read from wherever the gated thing embeds it: `ServerOperationEntry.authorization` (`SVOPE`) for the operation-level case, the `access` member on the XDS screen / screen-element / navigation / tab / utility / deep-link / report / export sections for the field- and element-level cases. Consumed: `requirementKind` (which of the ten arms) plus that arm's payload subsection, and for the graded arm `GradedAuthorizationRequirement` (`AZGRD`) → its `GradedAccessLevelEntry` (`AZLVL`) level list. `RoleMatrix` (`ROMA`), `RolePermissionEntry` (`ROLPER`) and `EntitlementEntry` (`ENT`) are the **catalogues** the payload cites, not the requirement itself — they define what a role or entitlement *means*; `AZREQ` only names one. |
-| **2 Output** | **No declaration of its own** — coding form 4, a modifier on the `@CsEndpoint` it gates (`codespecs_mapping.md` §5.6.3), or on a field for the field-level `authorizer` (slice 5). It feeds `TomEndpointHandler.checkAccess`, over the `TomAccessControl` family + `TomGradedAccess` + `TomPrincipal` (`tom_core_kernel`) and `TomResourceGrant` (`tom_core_server`). Slice 1 separately emits the **role and resource-key catalogues** into shared, since both sides cite them. |
+| **2 Output** | **No declaration of its own** — coding form 4, a modifier on the `@CsEndpoint` it gates (`codespecs_mapping.md` §5.6.3), or on a field for the field-level `authorizer` (slice 5). It feeds `TomEndpointHandler.checkAccess`, over the `TomAccessControl` family + `TomGradedAccess` + `TomPrincipal` (`tom_core_kernel`) and `TomResourceGrant` (`tom_core_server`). Slice 1 separately emits the **role and resource-key catalogues** into shared, since both sides cite them — §3.1.4 is their entry, including why holder and members are deliberately markerless. |
 | **3 Arguments** | `requirement` (**required**) ← `AZREQ.requirementKind`, constant-for-constant onto `CsAuthRequirement {role, group, entitlement, resourceKey, custom, graded, none, public, authenticated, guest}` — `codespecs_mapping.md` §5.15's six requirement kinds plus its four attribute-less presets (`TomNoAccess`, `TomPublicAccess`, `TomAuthenticatedAccess`, `TomGuestAccess`) folded into one closed enum. **One constant is renamed across the boundary: SOM `denied` → `CsAuthRequirement.none`.** The SOM spells the deny preset `denied` because in an authored document "None" reads as *no authorization needed*, the exact fail-open misreading `codespecs_mapping.md` §5.16's fail-safe rule exists to prevent; the code side keeps `none` to match `TomNoAccess`. Required, and no arm is a default, on either side. Per-kind slots, only the declared kind's being non-null (§2.3), each read from that kind's `@Case` subsection: `roles: List<CsRoleRef>` ← `AZREQ-ROLE.roles` (→ `TomRoleAccess.roles`), `groups: List<String>` ← `AZREQ-GRUP.groups`, `entitlements: List<String>` ← `AZREQ-ENTL.patterns`, `resourceKey: CsResourceKeyRef` ← `AZREQ-RKEY.resourceKey`, `handler` + `resourceId: String` ← `AZREQ-CUST`, and `graded: CsGradedAccess` ← `AZGRD`. The graded slot is a nested facet value class holding the three slots `full` / `read` / `disabled`, filled by matching each `AZLVL` entry's `accessLevel` to its slot and lowering that entry's own kind + payload into a nested `@CsAuthorize` by the same rules. Because `AZLVL` ranges over the nine-constant `BasicAuthorizationRequirementKind`, **a nested slot's `requirement` is never `graded`** — the SOM bounds the depth structurally (`codespecs_mapping.md` §5.15) and §6 check 21 holds the code side to the same bound. An omitted level is not an omitted requirement: the four states `none < disabled < read < full` and the monotonic defaults `read ⇐ full`, `disabled ⇐ read` are **derived**, not authored, so authoring only `full` is the common and correct case. |
 | **4 Naming** | None — the modifier has no identifier. Catalogue consts are named by N9 over the role / resource-key name. |
 | **5 Locus** | `server` for operation-level; `client` for the field-level `authorizer` (slice 5); the **catalogues** are `shared` (§4.2). |
@@ -1564,11 +1586,53 @@ component admits no order in which each reference follows its referent.
 |-------|----------|
 | **1 Input** | `ScreenElementEntry` (`SCREL`), `UiComponentEntry` (`UICOM`), `ComponentVariantEntry` (`CVE`). Consumed (`codespecs_mapping.md` §5.18 field base): element id, semantic kind, value type; the N-marked rows (initial value, label/hint, validators, authorization, auto-validate) come from other parts and are **not** consumed here. |
 | **2 Output** | A **standalone element declaration** built on the `Tom*` element family through `TomScreenElementsProvider` (`tom_flutter_ui`), form 1. The element id rides `TomField.tomId` (test **b**). Elements that are *members of a form* are emitted by CE-FM instead (`codespecs_mapping.md` §5.7.2): `@CsElement` proper covers standalone elements.<br>**A `choice` / `multiChoice` element additionally emits its option source**, never a literal `TomSelectableSource`: `TomEnumSelectableSource<E>` when the bound member is enum-typed, `TomEnumNameSelectableSource<E>` when it stores `Enum.name` in a `TomString` — the shape a reflected, JSON-carried domain class takes (`tom_flutter_ui` `forms/selection/tom_enum_selectable_source.dart`). This is what makes each option label resolve through `TomTextResourceProvider` (`codespecs_mapping.md` §5.18) and what makes §2.3 test **b** hold for value labels: the substrate carries the resolution, so no annotation argument does.<br>**It is constructed in the element's own field initializer** — inside the owning `@CsForm` class for a form member, at the element declaration for a standalone one. The source captures `TomScope.current` **at construction** and resolves labels later, inside Flutter builder callbacks that run outside the zone which installed the scope; initializing it with the element puts the capture in the same ambient scope the element's `basePath` resolves in, whereas building it lazily inside a builder would capture whatever scope is current *then*. Where the bound member is a `TomObservableEnum`, `TomEnumSelectableSource.of(cell)` is emitted instead, so cell and picker resolve in one scope by construction rather than by coincidence. |
-| **3 Arguments** | `kind` (**required**) ← the semantic kind, enum-mapped onto `CsElementKind {textInput, number, toggle, dateInput, choice, multiChoice, fileInput, label, button, menuEntry, formHost}` — `codespecs_mapping.md` §5.18's closed eleven-kind catalogue. Required because it selects the per-kind attribute set and the default widget; no kind is a sensible default. The value type `T` is the declaration's generic (test **a**); every per-kind extra (`maxLength`, `keyboardType`, `maxLines`, `obscureText`, `variant`, `icon`, `allowedExtensions`, `maxSizeBytes`, `pickKind`, `autoUpload`, …) maps onto a named `tom_flutter_ui` widget property and is therefore carried by the `@CsWidget` instantiation (test **b**), never duplicated here — `fileInput`'s `presentation` included, since like `button`'s `variant` it selects the concrete (`TomFormFileUpload` / `TomFormFileDropzone` / `TomFormFileThumbnail`) rather than configuring one. A SOM field kind with no arm in the catalogue is **not** an error — a **colour value** is resolved *before* this mapping runs (`codespecs_mapping.md` §5.18): free entry becomes `textInput` plus a CE-VA pattern rule, a closed palette becomes `choice` whose source is the token catalogue, so `kind` never sees a colour. |
+| **3 Arguments** | `kind` (**required**) ← the semantic kind, enum-mapped onto `CsElementKind {textInput, number, toggle, dateInput, choice, multiChoice, fileInput, label, button, menuEntry, formHost}` — `codespecs_mapping.md` §5.18's closed eleven-kind catalogue, by the **stated total disposition below this table**, never by resemblance. Required because it selects the per-kind attribute set and the default widget; no kind is a sensible default. The value type `T` is the declaration's generic (test **a**); every per-kind extra (`maxLength`, `keyboardType`, `maxLines`, `obscureText`, `variant`, `icon`, `allowedExtensions`, `maxSizeBytes`, `pickKind`, `autoUpload`, …) maps onto a named `tom_flutter_ui` widget property and is therefore carried by the `@CsWidget` instantiation (test **b**), never duplicated here — `fileInput`'s `presentation` included, since like `button`'s `variant` it selects the concrete (`TomFormFileUpload` / `TomFormFileDropzone` / `TomFormFileThumbnail`) rather than configuring one. A SOM field kind with no arm in the catalogue is **not** an error — a **colour value** is resolved *before* this mapping runs (`codespecs_mapping.md` §5.18): free entry becomes `textInput` plus a CE-VA pattern rule, a closed palette becomes `choice` whose source is the token catalogue, so `kind` never sees a colour. |
 | **4 Naming** | camelCase of `SCREL`'s element-id field. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | `CsMessageKey` for catalogued label/hint copy; `CsResourceKeyRef` via its field-level `@CsAuthorize`. A `choice`'s **option labels are cited by nothing** — they are derived copy resolved by the emitted source (point 2), so no `CsMessageKey` names them. Its **action edge is a derived back-reference** (`codespecs_mapping.md` §5.18) — read off the triggers, never authored here. Emits `CsElementRef` (§2.6). |
 | **7 Back-link** | `@DocSpec([DocRef('SCREL', 'supplies the element, its semantic kind and its value type')])`. |
+
+**The kind mapping is total and stated.** "Enum-mapped" in point 3 is this
+disposition, not a judgment call: every constant of the SOM's two closed source
+enums has exactly one stated outcome, so two agents mapping the same
+specification emit the same kind — or the same *absence* of one, since three
+dispositions route a constant away from `@CsElement` entirely, the same
+pre-mapping resolution the colour rule already performs.
+
+For a **standalone element**, `SCREL.elementType` (`ScreenElementKind`, 19
+constants) disposes as:
+
+| `ScreenElementKind` | Disposition |
+|---------------------|-------------|
+| `textField` | `CsElementKind.textInput` |
+| `numberField` | `CsElementKind.number` |
+| `dateField` | `CsElementKind.dateInput` |
+| `selectField` | `CsElementKind.choice`; `CsElementKind.multiChoice` when its field spec's select options state `Multi` (`SEFSS.selectMode`) |
+| `checkbox`, `toggle` | `CsElementKind.toggle` — one semantic kind, two presentations; the widget (§3.5.3) carries the difference |
+| `actionButton` | `CsElementKind.button` |
+| `link` | `CsElementKind.button` — a link is an action affordance; the link presentation is the widget's variant (§3.5.3), the same pattern as `button`'s other variants |
+| `label` | `CsElementKind.label` |
+| `dataDisplay`, `dataTable`, `card`, `chart`, `statusIndicator`, `icon`, `image`, `badge` | **No `@CsElement`.** A display-kind element carries no value — its `SEDD` data-display case is routed to `CodeSpecPart.viewState` by the model itself, so its state lands on the §3.5.1 view model and its rendering on the §3.5.3 widget bound to it. |
+| `divider`, `spacer`, `tabBar` | **No `@CsElement`.** The structural kinds are the `@OneOf`'s `noCase` list — they carry no case payload at all and are layout nodes, emitted by CE-LO (§3.5.9). |
+
+For a **form member** (emitted by CE-FM, §3.5.4), `SEFS.dataType`
+(`ScreenElementFieldKind`, 16 constants) disposes as:
+
+| `ScreenElementFieldKind` | Disposition |
+|--------------------------|-------------|
+| `string`, `richText` | `CsElementKind.textInput` — the rich-text editor is a widget choice (§3.5.3) |
+| `email`, `phone`, `url`, `password` | `CsElementKind.textInput` **plus** a CE-VA format rule for the first three — the format is validation, not a kind; `password`'s obscuring is the widget's `obscureText` (test **b**) |
+| `integer`, `decimal`, `currency` | `CsElementKind.number` |
+| `date`, `dateTime`, `time` | `CsElementKind.dateInput` |
+| `boolean` | `CsElementKind.toggle` |
+| `enumeration` | `CsElementKind.choice`; `CsElementKind.multiChoice` when `SEFSS.selectMode` states `Multi` |
+| `file` | `CsElementKind.fileInput` |
+| `color` | resolved **before** the mapping runs (point 3's colour rule): free entry → `textInput` + CE-VA pattern rule, closed palette → `choice` over the token catalogue |
+
+`formHost` and `menuEntry` have no source constant here by design: a form host
+is emitted where a screen embeds a `@CsForm`, and a menu entry where a
+navigation or utility section authors an action in a menu — both arrive from
+their owning structures, not from an element kind an author picks.
 
 #### 3.5.3 `@CsWidget` — CE-EL concrete widget
 
@@ -1587,12 +1651,12 @@ component admits no order in which each reference follows its referent.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ScreenElementFieldSpec` (`SEFS`). Consumed: the form/subform tree **and its member input elements** — `codespecs_mapping.md` §5.7.2 gives CE-FM ownership of both, which is what distinguishes it from §3.5.2. |
-| **2 Output** | A `TomForm<T>` subclass with `TomFormChildContainer` for subforms and `TomField<T>` members (`tom_flutter_ui`), form 1. It mirrors the SOM `@Form` field-group one-for-one — a form section and a form class are the same shape at two resolutions. Member fields carry their own `@CsElement` + `@CsWidget` markers. |
+| **2 Output** | A `TomForm<T>` subclass with `TomFormChildContainer` for subforms and `TomField<T>` members (`tom_flutter_ui`), form 1. It mirrors the SOM `@Form` field-group one-for-one — a form section and a form class are the same shape at two resolutions. Member fields carry their own `@CsElement` + `@CsWidget` markers, their kind fixed by §3.5.2's form-member disposition over `SEFS.dataType`.<br>**The value type `T` is emitted with the form.** `TomForm<T extends TomClass>` requires a value class, and no authored section supplies one — the CE-DB entity cannot serve: it is server-locus (§4.2), and a client form may not reference it. So the derivation emits a companion `TomClass` subclass beside the form, one field per form member, each typed by the same §3.5.2 form-member disposition over `SEFS.dataType` that fixed the member's element kind — the one field list read twice, once as input elements and once as values, so the two cannot disagree. The companion is form 1 with no marker of its own: it is part of CE-FM's output, not a separate part. |
 | **3 Arguments** | None; `@CsForm({String? note})` unchanged. The field list, the subform tree and the form's value type are the declaration (test **a**); everything else `TomForm` takes is its own constructor (test **b**). |
-| **4 Naming** | PascalCase of `SEFS`'s name field + `Form`. |
-| **5 Locus** | `client`. |
+| **4 Naming** | PascalCase of `SEFS`'s name field + `Form`; the companion value type is the same PascalCase name + `Value`, so the pair reads as what it is (`OrderCaptureForm` / `OrderCaptureValue`) and neither collides with the other under N4. |
+| **5 Locus** | `client` — the companion value type included. |
 | **6 Cross-refs** | Emits `CsFormRef` (§2.6). Cites `CsMessageKey` for copy and its `@CsFormRule` methods for cross-field invariants. |
-| **7 Back-link** | `@DocSpec([DocRef('SEFS', 'supplies the form, its subform tree and its fields')])`. |
+| **7 Back-link** | `@DocSpec([DocRef('SEFS', 'supplies the form, its subform tree and its fields')])`. The companion value type carries the same back-link — it is derived from the same field list, and a reader tracing either class lands on the same section. |
 
 #### 3.5.5 `@CsAction` — CE-AC action
 
@@ -1635,9 +1699,9 @@ component admits no order in which each reference follows its referent.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ScreenRouteEntry` (`SCRTEN`) under `SCRTMP` (D09 XDS). `codespecs_mapping.md` §5.11 maps the three registries 1:1, and this is the first: route entries → `TomRouteDefinition`. |
-| **2 Output** | A route declaration built on `TomPageRoute<T>` with `TomNavigationDestination` (`tom_flutter_ui`), registered in the route-id registry `TomRouteDefinition` — a `tom_core_codespecs` **gap class**, because the substrate has no stable route id of its own. Form 1. |
+| **2 Output** | A route declaration built on `TomPageRoute<T>` with `TomNavigationDestination` (`tom_flutter_ui`), registered in the route-id registry `TomRouteDefinition` — a `tom_core_codespecs` **gap class**, because the substrate has no stable route id of its own. Form 1, and the declaration shape is a **top-level `final` variable**:<br>`final TomRouteDefinition orderWorkListRoute = TomRouteDefinition(routeId: 'order-work-list', path: '/orders');`<br>`final` and not `const` because `TomRouteDefinition` is deliberately mutable (non-final fields, non-const constructor — Phase 6 wires builders onto it), so `const` is unavailable; and a top-level variable rather than a holder member because a route is a *declaration in its own right* — it carries its own `@CodeSpec` / `@DocSpec` / `@CsRoute`, which a `static const`-style member of a holder could not do per emission unit. All of a document's routes share one file (point 4). |
 | **3 Arguments** | None; `@CsRoute({String? note})` unchanged. The route id and its parameters ride `TomRouteDefinition`'s constructor (test **b**), and the route id itself is an authored key taken verbatim (N5). |
-| **4 Naming** | camelCase of `SCRTEN`'s route-id field + `Route`. |
+| **4 Naming** | camelCase of `SCRTEN`'s route-id field + `Route`. File: N7's catalogue-file rule — every route of a document lands in `lib/src/navigation/navigation_catalog.dart`, the CE-NV catalogue file, each route a separate top-level declaration within it. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | Emits `CsRouteRef`. Cites the form it presents by `CsFormRef`. |
 | **7 Back-link** | `@DocSpec([DocRef('SCRTEN', 'supplies the route and its stable id')])`. |
@@ -1824,9 +1888,7 @@ DataEntityEntry <!--[IMO-014]--> Customer
 // Spec model version: 1.4.0
 
 import 'package:tom_code_specs/tom_code_specs.dart';
-import 'package:tom_core_server/tom_core_server.dart';
-
-import '../authorization/resource_keys.dart';
+import 'package:<app>_codespec_shared/<app>_codespec_shared.dart';
 
 /// A person or organisation that places orders.
 ///
@@ -1863,7 +1925,7 @@ class Customer {
     column: 'cust_name',
     columnType: 'VARCHAR',
     length: 80,
-    accessKey: ResourceKeys.customerPii,
+    accessKey: SbpResourceKeys.customerPii,
   )
   late String name;
 
@@ -1909,9 +1971,15 @@ class Customer {
   `name`'s is P2 over `IMO-014-a`'s `description`. `signedContract` has no
   comment because its section supplies no text, and the body has none because C6
   allows none. No sentence here was composed rather than copied.
-- **The one ref const.** `ResourceKeys.customerPii` is a `CsResourceKeyRef`
-  imported from shared. A rename in the CE-AZ catalogue is a compile break here,
-  which is the entire point of `codespecs_mapping.md` §5.23's typed references.
+- **The one ref const.** `SbpResourceKeys.customerPii` is a `CsResourceKeyRef`
+  imported from the shared package's §3.1.4 catalogue. A rename in the CE-AZ
+  catalogue is a compile break here, which is the entire point of
+  `codespecs_mapping.md` §5.23's typed references.
+- **Exactly two imports.** `tom_code_specs` carries the annotations and the
+  shared package carries the ref const — and nothing else is imported, per
+  §2.7 point 2: the class references no `tom_core_server` symbol in this
+  emission, so the server package earns no import line, its being the locus's
+  habitual dependency notwithstanding.
 
 ### 4.5 Second example — a form-3b body and its collaborator
 
@@ -2132,7 +2200,7 @@ it is omitted below.
 | `@CsEndpoint` | `(String operation)` |
 | `@CsServiceUnit` | `{required Type rootAggregate, required String boundedContext}` |
 | `@CsTable` | `(String table, {String? datasource, String? schema})` |
-| `@CsColumn` | `{String? column, String? columnType, int? length, CsResourceKeyRef? accessKey, CsFileReference? fileReference}` |
+| `@CsColumn` | `{String? column, String? columnType, int? length, CsResourceKeyRef? accessKey, CsFileReference? fileReference, CsSensitivityLevel? sensitivityLevel, bool? isPii}` |
 | `@CsAuthorize` | `{required CsAuthRequirement requirement, List<CsRoleRef> roles = const [], List<String> groups = const [], List<String> entitlements = const [], CsResourceKeyRef? resourceKey, String? handler, String? resourceId, CsGradedAccess? graded}` |
 | `@CsServerConfig` | `(String key, {required CsOverridableBy overridableBy, String? envAlias, String? cmdlineAlias, bool secret = false})` |
 | `@CsClientConfig` | `(String key, {required CsOverridableBy overridableBy, String? envAlias})` |
@@ -2169,7 +2237,7 @@ declaration — a plain `enum`, a plain `abstract class` — for the same reason
 
 `tom_code_specs` is annotations-only and must not depend on `tom_core` (`codespecs_mapping.md` §9.5), so
 every closed catalogue a marker selects from is declared locally, mirroring its
-`tom_core` counterpart where one exists. **Fifteen catalogues and two facet value
+`tom_core` counterpart where one exists. **Sixteen catalogues and two facet value
 classes**, which is the whole of `vocabulary.dart` plus the two structured
 arguments — a marker selects from nothing that is not in this table.
 
@@ -2191,9 +2259,10 @@ arguments — a marker selects from nothing that is not in this table.
 | `CsTriggerKind` | `userGesture, inFormEvent, lifecycle, serverEvent, condition` | `codespecs_mapping.md` §5.20's closed 5-kind trigger taxonomy — **no `tom_core` counterpart**: `TomAction` has no trigger concept, so this is a documented framing over the reused action classes (`codespecs_mapping.md` §5.10) |
 | `CsIdentityAttributePlacement` | `public, encrypted` | `codespecs_mapping.md` §5.24's two token carriers — `TomUser.attributes` and `TomPrincipal.currentContext`, so the arms are a placement choice over carriers that already exist |
 | `CsOverridableBy` | `none, client, user, device` | `codespecs_mapping.md` §5.16's opt-in cross-scope lattice `CE-DS ▸ CE-UP ▸ CE-CC ▸ CE-CF` |
+| `CsSensitivityLevel` | `public, internal, confidential, restricted, pii, phi` | the SOM's `DAATT-SECU.sensitivityLevel` vocabulary, constant-for-constant — **no `tom_core` counterpart**: the level is recorded on the column for downstream consumers; the framework enforces field-level access through `accessKey` (§3.3.2) |
 | `CsFileReference` | value class `{keyPrefix, store, cascadeDelete, defaultMediaType, acceptedMediaTypes}` | `TomFileReference`, except `acceptedMediaTypes`, which has no counterpart by design — the substrate stores what it is handed and the restriction is enforced at the CE-API upload endpoint (§3.3.3) |
 
-**All fifteen carry the `Cs` prefix**, without exception. The prefix is what
+**All sixteen carry the `Cs` prefix**, without exception. The prefix is what
 makes the catalogues legible as one family at a consumer's import site, where
 they sit unprefixed alongside `tom_core` — a generic name like `TriggerKind`
 denotes something else entirely elsewhere in the workspace (a SOM

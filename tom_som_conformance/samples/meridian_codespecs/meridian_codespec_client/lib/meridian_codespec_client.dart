@@ -6,4 +6,4 @@ export 'src/layout/scr01_sec1_layout.dart';
 export 'src/layout/scr01_sec2_layout.dart';
 export 'src/layout/scr02_sec1_layout.dart';
 export 'src/layout/scr02_sec2_layout.dart';
-export 'src/navigation/routes.dart';
+export 'src/navigation/navigation_catalog.dart';

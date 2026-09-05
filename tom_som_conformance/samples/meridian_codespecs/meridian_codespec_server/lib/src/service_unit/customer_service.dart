@@ -3,6 +3,7 @@
 // Spec model version: 1.0.0+3.50e0102
 
 import 'package:tom_code_specs/tom_code_specs.dart';
+import 'package:tom_core_server/tom_core_server.dart';
 
 import '../data_access/customer.dart';
 
@@ -10,5 +11,6 @@ import '../data_access/customer.dart';
 @DocSpec([
   DocRef('DAENT-CLAS', 'supplies the bounded context and aggregate root'),
 ])
+@tomService
 @CsServiceUnit(rootAggregate: Customer, boundedContext: 'Customer')
 abstract class CustomerService {}

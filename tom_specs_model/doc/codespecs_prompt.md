@@ -158,6 +158,20 @@ defect is not the project's: those cases are `codespecs_mapping.md` §10's index
 and a project using an affected part inherits that document's status rather than
 receiving a rejection here.
 
+**One case is stated by name because a fallback would look harmless.** A stored
+attribute of kind `enumeration` must carry `DAATT-DTEN.domainEnum`, and the name
+must resolve to an authored `DMENE` entry in the domain-enum registry — the
+emitted column's Dart type *is* the `@CsEnum` enum generated from that entry
+(`codespecs_derivation_contract.md` §3.3.2), so an enumeration attribute whose
+enum is unauthored has no type to emit. A run that fell back to `String` would
+compile, and would silently reopen the closed value set the registry exists to
+close — which is why this is a hard A4 rejection, never a degraded emission. The
+rejection names the attribute and the register section (`DOMEN`) that should
+have carried the entry. Formally this is A4's ordinary rule — `domainEnum` is a
+required case field resolving through `DMENE.enumName` — but it is the one
+instance where the tempting repair is a type substitution rather than an
+authored value, so the contract forecloses it here.
+
 ### 4.5 A5 — no structured carrier is missing from the model
 
 Several places in the model carry an explicitly structured field because prose

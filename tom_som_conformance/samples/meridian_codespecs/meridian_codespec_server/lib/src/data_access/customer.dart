@@ -10,10 +10,16 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   source: ['DAENT-IDEN', 'DAATT-IDEN', 'DAATT-DATA', 'DAATT-SECU'],
 )
 @DocSpec([
-  DocRef('DAENT-IDEN', 'supplies the entity, its table and its storage placement'),
+  DocRef(
+    'DAENT-IDEN',
+    'supplies the entity, its table and its storage placement',
+  ),
   DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
   DocRef('DAATT-DATA', 'supplies the storage type'),
-  DocRef('DAATT-SECU', 'records the sensitivity level and PII marking of the stored attributes'),
+  DocRef(
+    'DAATT-SECU',
+    'records the sensitivity level and PII marking of the stored attributes',
+  ),
 ])
 @CsTable('mom_customer')
 class Customer {
@@ -21,23 +27,49 @@ class Customer {
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(column: 'customer_id', columnType: 'uuid')
+  @CsColumn(
+    column: 'customer_id',
+    columnType: 'uuid',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String customerId;
 
   /// Customer legal name (PII).
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(columnType: 'varchar(200)')
+  @CsColumn(
+    columnType: 'varchar(200)',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String name;
 
   /// Approved credit limit used by validation.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(column: 'credit_limit', columnType: 'numeric(14,2)')
+  @CsColumn(
+    column: 'credit_limit',
+    columnType: 'numeric(14,2)',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late double creditLimit;
 }

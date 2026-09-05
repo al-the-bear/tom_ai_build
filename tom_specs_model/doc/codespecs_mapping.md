@@ -2427,7 +2427,7 @@ surveyed grouping substrate:
 | Surveyed class | Package | Role for `@CsServiceUnit` |
 |----------------|---------|----------------------------|
 | `TomService` (`@tomService`) | `tom_core_server` (`endpoint_annotation.dart`) | The existing "scan my endpoint methods" class marker. A `@CsServiceUnit` class *is-a* `@tomService`. |
-| `TomApiImplementation` (`extends TomService`) | `tom_core_server` | The registry-API-bound service variant (`apiId` + API-wide error/log defaults). |
+| `TomApiImplementation` (`extends TomService`) | `tom_core_server` | The registry-API-bound service variant (`apiId` + API-wide error/log defaults). **Mutually exclusive** with `@tomService` — the endpoint pipeline rejects a class carrying both. |
 | `TomComponentReference` | `tom_core_server` | Resolves a service's implementation bean by name or type — the unit's implementation binding. |
 | `TomEndpointRouting.scanClasses` | `tom_core_server` (`endpoint_pipeline.dart`) | Discovers the annotated services/endpoints — the mechanism a unit's operations are gathered by. |
 
@@ -2436,9 +2436,12 @@ surveyed grouping substrate:
 That boundary is supplied by the **`@CsServiceUnit` annotation** on an ordinary
 **(abstract) class** that clusters the server API into a functional-group *closure*
 — **no new `tom_core_codespecs` class** (decision (h)): the unit is a normal class
-carrying the existing `@tomService` / `TomApiImplementation` server-API mapping
-annotations, and `@CsServiceUnit` (a `Cs*` annotation, not a base class) names its
-boundary. This respects the §4.1 no-base-classes rule.
+carrying **one** of the existing server-API mapping annotations — `@tomService`
+or `TomApiImplementation`, which are exclusive alternatives — and `@CsServiceUnit`
+(a `Cs*` annotation, not a base class) names its boundary. The derivation emits
+`@tomService` (`codespecs_derivation_contract.md` §3.4.1: `TomApiImplementation`'s
+required `apiId` has no authoring SOM field). This respects the §4.1
+no-base-classes rule.
 
 **Boundary criterion (§5.1).** A `@CsServiceUnit` owns exactly
 one **aggregate** (root entity + lifecycle-dependent entities), every CE-DB table/
@@ -2874,7 +2877,11 @@ attribute set for CE-DB:
 - **Attribute level** (per persistent field) — attribute name, storage column,
   value type, **storage nullability**, column (storage) type, read-only,
   not-loaded, json-encoded, **column-access key** (field-level authorization,
-  → CE-AZ), value converters, and — for a file reference only — the
+  → CE-AZ), value converters, the **sensitivity classification**
+  (`DAATT-SECU.sensitivityLevel` + `isPii` → `@CsColumn(sensitivityLevel:,
+  isPii:)`, recorded for downstream consumers — encryption-at-rest policy,
+  export redaction, audit scoping — while enforcement stays with the
+  column-access key), and — for a file reference only — the
   **file-reference facet** below.
   Two of these are not free-standing settings but consequences of the attribute's
   logical kind, and §5.13.2 records where each is authored: **json-encoded** is
@@ -5859,16 +5866,14 @@ run, and no named validator check is unable to run. Nothing here waits on a
 rather than against shipped source.
 
 **§8.5** carries the standing per-part coverage verdict, and it records every
-active part COVERED. Open against this document's mapping surfaces (raised by
-the Phase-4 dogfood run over the Meridian sample):
+active part COVERED. Open against this document's mapping surfaces:
 
-- `tspuba3_aidu-som-model-gaps-scrst-scrac-screl` — its §5 attribute-surface
-  updates for the SCRST/SCRAC/SCREL fields the SOM gains (the model work itself
-  belongs to `tom_specs_model`).
-- `tspuba4_aidu-derivation-contract-gaps` — its mapping-side halves: the
-  stated `elementType` → §5.18 closed-catalogue mapping (F4) and the
-  `@CsColumn` carriage of `DAATT-SECU` facts (F11); the rest of that todo is
-  derivation-contract work.
+- `tspubb3_aien-domainenum-extract-home` — the `domainEnum` **member kind** has
+  no extract home: no CE-\* area claims `CodeSpecPart.domainEnum`, so the
+  extractor drops `DOMEN`/`DMENE`/`DMEVA` values from every extract and a
+  conforming `@CsEnum` back-link trips the extract-presence check. The todo
+  decides and documents the home here (§4.1/§8) and carries the
+  nine-runtime extractor change and the Meridian enum emission.
 
 An open todo in those series whose subject is **not** a mapping question does
 not belong here even when the index is non-empty — a SOM validator capability

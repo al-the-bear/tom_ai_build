@@ -11,6 +11,7 @@ import 'package:tom_code_specs/tom_code_specs.dart';
     'DAENT-IDEN',
     'DAATT-IDEN',
     'DAATT-DATA',
+    'DAATT-DTEN',
     'DAATT-SECU',
     'ENRLE-IDEN',
     'ENRLE-CARD',
@@ -20,10 +21,20 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   ],
 )
 @DocSpec([
-  DocRef('DAENT-IDEN', 'supplies the entity, its table and its storage placement'),
+  DocRef(
+    'DAENT-IDEN',
+    'supplies the entity, its table and its storage placement',
+  ),
   DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
   DocRef('DAATT-DATA', 'supplies the storage type'),
-  DocRef('DAATT-SECU', 'records the sensitivity level and PII marking of the stored attributes'),
+  DocRef(
+    'DAATT-DTEN',
+    'names the domain enum that types the enumeration-kind columns',
+  ),
+  DocRef(
+    'DAATT-SECU',
+    'records the sensitivity level and PII marking of the stored attributes',
+  ),
   DocRef('ENRLE-IDEN', 'records the relationships this entity participates in'),
   DocRef('ENRLE-CARD', 'records the cardinalities of those relationships'),
   DocRef('ENRLE-NAVI', 'records their navigability and foreign-key location'),
@@ -36,39 +47,90 @@ class Order {
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(column: 'order_id', columnType: 'uuid')
+  @CsColumn(
+    column: 'order_id',
+    columnType: 'uuid',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String orderId;
 
   /// Reference to the ordering customer.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(column: 'customer_id', columnType: 'uuid')
+  @CsColumn(
+    column: 'customer_id',
+    columnType: 'uuid',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String customerId;
 
   /// Capture channel: EDI or REST.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-DTEN',
+      'names the domain enum (OrderChannel) that types this column',
+    ),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(columnType: 'varchar(8)')
+  @CsColumn(
+    columnType: 'varchar(8)',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String channel;
 
   /// Lifecycle state (Captured..Closed, with Hold).
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-DTEN',
+      'names the domain enum (OrderStatus) that types this column',
+    ),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(columnType: 'varchar(16)')
+  @CsColumn(
+    columnType: 'varchar(16)',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String status;
 
   /// Capture timestamp (UTC).
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(column: 'created_at', columnType: 'timestamptz')
+  @CsColumn(
+    column: 'created_at',
+    columnType: 'timestamptz',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late DateTime createdAt;
 }

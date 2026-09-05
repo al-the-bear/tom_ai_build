@@ -10,10 +10,16 @@ import 'package:tom_code_specs/tom_code_specs.dart';
   source: ['DAENT-IDEN', 'DAATT-IDEN', 'DAATT-DATA', 'DAATT-SECU'],
 )
 @DocSpec([
-  DocRef('DAENT-IDEN', 'supplies the entity, its table and its storage placement'),
+  DocRef(
+    'DAENT-IDEN',
+    'supplies the entity, its table and its storage placement',
+  ),
   DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
   DocRef('DAATT-DATA', 'supplies the storage type'),
-  DocRef('DAATT-SECU', 'records the sensitivity level and PII marking of the stored attributes'),
+  DocRef(
+    'DAATT-SECU',
+    'records the sensitivity level and PII marking of the stored attributes',
+  ),
 ])
 @CsTable('mom_product')
 class Product {
@@ -21,23 +27,48 @@ class Product {
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(column: 'product_id', columnType: 'uuid')
+  @CsColumn(
+    column: 'product_id',
+    columnType: 'uuid',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String productId;
 
   /// Stock-keeping unit.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(columnType: 'varchar(40)')
+  @CsColumn(
+    columnType: 'varchar(40)',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String sku;
 
   /// Product display name.
   @DocSpec([
     DocRef('DAATT-IDEN', 'supplies the stored attribute and its column'),
     DocRef('DAATT-DATA', 'supplies the storage type'),
+    DocRef(
+      'DAATT-SECU',
+      'records the sensitivity level and PII marking of the stored attributes',
+    ),
   ])
-  @CsColumn(columnType: 'varchar(200)')
+  @CsColumn(
+    columnType: 'varchar(200)',
+    sensitivityLevel: CsSensitivityLevel.internal,
+    isPii: false,
+  )
   late String name;
 }

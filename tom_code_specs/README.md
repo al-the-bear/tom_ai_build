@@ -26,7 +26,7 @@ whose every element carries traceability annotations back to its source spec.
 | `Cs*` annotation family (no base classes) — 39 markers | The catalogue's part markers, in four files — see the table below | `codespecs_mapping.md` §4.1 |
 | `@CsCollaborator()` | The one marker that is **not** a part: the abstract collaborator a form-3b body calls | `codespecs_derivation_contract.md` §3.0.1 |
 | `Cs*Ref` typed cross-part references — 13 consts | Annotation *parameter* vocabulary: one const type per referenceable part | `codespecs_mapping.md` §5.23 |
-| The closed catalogues — 15 enums in `vocabulary.dart` | Annotation *parameter* vocabulary: the arms a marker's argument selects from | `codespecs_derivation_contract.md` §5.3 |
+| The closed catalogues — 16 enums in `vocabulary.dart` | Annotation *parameter* vocabulary: the arms a marker's argument selects from | `codespecs_derivation_contract.md` §5.3 |
 
 ### The `Cs*` family
 
@@ -102,7 +102,7 @@ fallback — which names a **sibling channel**. That is why the family has no
 
 ### The closed catalogues
 
-`vocabulary.dart` holds the fifteen enums a marker's arguments select from
+`vocabulary.dart` holds the sixteen enums a marker's arguments select from
 (`codespecs_derivation_contract.md` §5.3). They are enums rather than strings for
 the same reason the refs are consts: a catalogue grows by a reviewed taxonomy
 edit, not by a specification inventing a value in passing.
@@ -120,6 +120,7 @@ edit, not by a specification inventing a value in passing.
 | `CsClientKind` | `@CsClient(kind:)` |
 | `CsIdentityAttributePlacement` | `@CsIdentityAttribute(placement:)` |
 | `CsOverridableBy` | `@CsServerConfig` / `@CsClientConfig` / `@CsUserSetting` `(overridableBy:)` |
+| `CsSensitivityLevel` | `@CsColumn(sensitivityLevel:)` |
 
 Each is **declared here, not imported**: `tom_code_specs` deliberately does not
 depend on `tom_core` (`codespecs_mapping.md` §9.5), so every catalogue with a
@@ -155,7 +156,7 @@ separately.
 ## Status
 
 `@CodeSpec`, `@DocSpec`/`DocRef`, the **39-marker `Cs*` family** plus
-`@CsCollaborator`, the **13-const `Cs*Ref` family** and the **15 closed
+`@CsCollaborator`, the **13-const `Cs*Ref` family** and the **16 closed
 catalogues** are declared — one marker (or marker group) for every active part in
 the `codespecs_mapping.md` §4.1 catalogue, with no marker for a deferred one.
 `@CodeSpecKind` is list-valued.

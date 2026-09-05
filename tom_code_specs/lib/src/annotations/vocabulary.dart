@@ -141,6 +141,36 @@ enum CsElementKind {
   formHost,
 }
 
+/// How sensitive a CE-DB column's stored value is
+/// (`codespecs_mapping.md` §5.13).
+///
+/// Mirrors the SOM's `DAATT-SECU.sensitivityLevel` vocabulary
+/// constant-for-constant, so the classification an information-model author
+/// chose reaches the stored column without translation. Like every catalogue
+/// here it mirrors a *document section*, not a `tom_core` enum — the level is
+/// recorded on the column for downstream consumers (encryption-at-rest policy,
+/// export redaction, audit scoping); the framework enforces field-level access
+/// through the separate `accessKey` mechanism, not through this value.
+enum CsSensitivityLevel {
+  /// Freely disclosable.
+  public,
+
+  /// Internal to the operating organisation.
+  internal,
+
+  /// Restricted to a need-to-know audience.
+  confidential,
+
+  /// The narrowest non-personal classification.
+  restricted,
+
+  /// Personally identifiable information.
+  pii,
+
+  /// Protected health information.
+  phi,
+}
+
 /// The gesture arm of a `userGesture` trigger (`codespecs_mapping.md` §5.20).
 enum CsGesture {
   /// A short activation.

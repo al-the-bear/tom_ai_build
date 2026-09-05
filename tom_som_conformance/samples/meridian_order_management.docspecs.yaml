@@ -1202,6 +1202,9 @@ document:
                     enumeration
                   physicalType: |2-
                     varchar(8)
+                DAATT-DTEN enumerationTypeOptions:
+                  domainEnum: |2-
+                    OrderChannel
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
@@ -1220,6 +1223,9 @@ document:
                     enumeration
                   physicalType: |2-
                     varchar(16)
+                DAATT-DTEN enumerationTypeOptions:
+                  domainEnum: |2-
+                    OrderStatus
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
                     Internal
@@ -1657,6 +1663,142 @@ document:
                 OrderLine
               ENRLE-TARG-REF targetEntityRef: |2-
                 Product
+      DOMEN domainEnumRegistry:
+        DMENE-ENUM-LST enums:
+          DMENE-ENUM-1:
+            headline: |2-
+              OrderChannel
+            content:
+              enumName: |2-
+                OrderChannel
+              description: |2-
+                The capture channel an order arrived through. Types the Order.channel attribute.
+              backingType: |2-
+                String
+            DMEVA-VALU-LST values:
+              DMEVA-VALU-1:
+                headline: |2-
+                  edi
+                content:
+                  valueId: |2-
+                    edi
+                  backingValue: |2-
+                    EDI
+                  description: |2-
+                    The wholesale electronic data interchange channel.
+              DMEVA-VALU-2:
+                headline: |2-
+                  rest
+                content:
+                  valueId: |2-
+                    rest
+                  backingValue: |2-
+                    REST
+                  description: |2-
+                    The public REST order API.
+          DMENE-ENUM-2:
+            headline: |2-
+              OrderStatus
+            content:
+              enumName: |2-
+                OrderStatus
+              description: |2-
+                The order lifecycle state (Captured -> Validated -> Priced -> Reserved -> Confirmed -> Fulfilled -> Closed, with Hold and Cancelled). Types the Order.status attribute.
+              backingType: |2-
+                String
+              defaultValue: |2-
+                captured
+            DMEVA-VALU-LST values:
+              DMEVA-VALU-1:
+                headline: |2-
+                  captured
+                content:
+                  valueId: |2-
+                    captured
+                  backingValue: |2-
+                    Captured
+                  description: |2-
+                    Accepted from EDI or REST; lifecycle entry state.
+              DMEVA-VALU-2:
+                headline: |2-
+                  validated
+                content:
+                  valueId: |2-
+                    validated
+                  backingValue: |2-
+                    Validated
+                  description: |2-
+                    Customer and product references verified.
+              DMEVA-VALU-3:
+                headline: |2-
+                  priced
+                content:
+                  valueId: |2-
+                    priced
+                  backingValue: |2-
+                    Priced
+                  description: |2-
+                    Unit prices snapshotted onto every line.
+              DMEVA-VALU-4:
+                headline: |2-
+                  reserved
+                content:
+                  valueId: |2-
+                    reserved
+                  backingValue: |2-
+                    Reserved
+                  description: |2-
+                    Stock reserved for every line.
+              DMEVA-VALU-5:
+                headline: |2-
+                  confirmed
+                content:
+                  valueId: |2-
+                    confirmed
+                  backingValue: |2-
+                    Confirmed
+                  description: |2-
+                    Confirmed to the customer with a fulfilment window.
+              DMEVA-VALU-6:
+                headline: |2-
+                  fulfilled
+                content:
+                  valueId: |2-
+                    fulfilled
+                  backingValue: |2-
+                    Fulfilled
+                  description: |2-
+                    Dispatched; the public tracking page reflects it.
+              DMEVA-VALU-7:
+                headline: |2-
+                  closed
+                content:
+                  valueId: |2-
+                    closed
+                  backingValue: |2-
+                    Closed
+                  description: |2-
+                    Invoiced and complete; terminal state.
+              DMEVA-VALU-8:
+                headline: |2-
+                  hold
+                content:
+                  valueId: |2-
+                    hold
+                  backingValue: |2-
+                    Hold
+                  description: |2-
+                    Awaiting manual review; resumes at the transition that placed it on hold.
+              DMEVA-VALU-9:
+                headline: |2-
+                  cancelled
+                content:
+                  valueId: |2-
+                    cancelled
+                  backingValue: |2-
+                    Cancelled
+                  description: |2-
+                    Cancelled before dispatch, with an audited reason; terminal state.
       MSGKR messageKeyRegistry:
         MSGKE-MKEY-LST messageKeys:
           MSGKE-MKEY-1:
