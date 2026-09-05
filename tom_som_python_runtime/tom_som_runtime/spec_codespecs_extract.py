@@ -54,7 +54,10 @@ from .spec_reflection import SpecReflection
 
 #: The version of the emitted extract artifact's on-disk shape. Bumped when the
 #: YAML or Markdown layout changes in a way a reader could notice.
-K_CODE_SPECS_EXTRACT_FORMAT = 1
+#:
+#: 2: entries carry ``headline`` — the enclosing section instance's headline,
+#: copy-only (stored headline, else the ``@Headline`` type default, else None).
+K_CODE_SPECS_EXTRACT_FORMAT = 2
 
 #: The annotation names of the three routing verdicts (`codespecs_mapping.md`
 #: §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -128,6 +131,11 @@ class CodeSpecsExtractEntry:
     #: The section id of the leaf the value sits on (``@SectionId``, else the
     #: model field name).
     section_id: str
+    #: The headline of the enclosing section instance the value belongs to —
+    #: the document's stored headline at the class node's path (YRD3), else the
+    #: class's ``@Headline(text)`` default (YRD4); ``None`` when neither
+    #: exists. Copy-only, like :attr:`value` — never a name derivation.
+    headline: Optional[str]
     #: The document path of the leaf — the source location.
     path: str
     #: The model class declaring the leaf.
@@ -390,6 +398,7 @@ class CodeSpecsExtract:
         b.writeln("  entries:")
         for e in self.entries:
             b.writeln(f"    - sectionId: {_yaml_string(e.section_id)}")
+            b.writeln(f"      headline: {_yaml_nullable_string(e.headline)}")
             b.writeln(f"      path: {_yaml_string(e.path)}")
             b.writeln(f"      className: {_yaml_string(e.class_name)}")
             b.writeln(f"      fieldName: {_yaml_string(e.field_name)}")
@@ -456,6 +465,8 @@ class CodeSpecsExtract:
             )
             b.writeln(f"### {n}. `{e.section_id}` — `{e.class_name}.{member}`")
             b.writeln()
+            if e.headline is not None:
+                b.writeln(f"- headline: {_md_cell(e.headline)}")
             b.writeln(f"- path: `{e.path}`")
             b.writeln(f"- routed by: `{e.routed_by}` declared on `{e.routed_at}`")
             if e.routing_note is not None:
@@ -677,6 +688,14 @@ class CodeSpecsExtractor:
             else None
         )
 
+        # The enclosing instance's headline, resolved once per class node with
+        # the model's own render precedence (stored YRD3 > ``@Headline`` default
+        # YRD4) and copied onto every entry emitted below it. Copying is all
+        # this is — when neither source exists the entries carry ``None``,
+        # never a derivation.
+        stored = self.document.headline(path)
+        headline = stored if stored is not None else cls.headline
+
         for f in cls.fields:
             field_path = spec_path_join(path, self._reflection.field_segment(f))
             field_routing = self._field_routing(cls, f) or class_routing
@@ -693,6 +712,7 @@ class CodeSpecsExtractor:
                     field=f,
                     path=field_path,
                     form_field=None,
+                    headline=headline,
                     value=self.document.content(field_path),
                 )
             elif f.kind is SpecFieldKind.FORM:
@@ -704,6 +724,7 @@ class CodeSpecsExtractor:
                         field=f,
                         path=field_path,
                         form_field=ff.name,
+                        headline=headline,
                         value=self.document.form_field(field_path, ff.name),
                     )
             elif f.kind is SpecFieldKind.LIST:
@@ -729,6 +750,7 @@ class CodeSpecsExtractor:
                             field=f,
                             path=item_path,
                             form_field=None,
+                            headline=headline,
                             value=self.document.content(item_path),
                         )
             elif f.kind in (SpecFieldKind.COMPLEX, SpecFieldKind.SECTION):
@@ -750,6 +772,7 @@ class CodeSpecsExtractor:
         field: SpecField,
         path: str,
         form_field: Optional[str],
+        headline: Optional[str],
         value: Optional[str],
     ) -> None:
         """Appends one entry **per area the routing names** — never
@@ -767,6 +790,7 @@ class CodeSpecsExtractor:
                 CodeSpecsExtractEntry(
                     area_code=area.code,
                     section_id=self._reflection.field_segment(field),
+                    headline=headline,
                     path=path,
                     class_name=cls.name,
                     field_name=field.name,

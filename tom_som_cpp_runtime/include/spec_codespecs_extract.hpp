@@ -64,8 +64,11 @@
 namespace som {
 
 /* The version of the emitted extract artifact's on-disk shape. Bumped when the
- * YAML or Markdown layout changes in a way a reader could notice. */
-inline constexpr long long kCodeSpecsExtractFormat = 1;
+ * YAML or Markdown layout changes in a way a reader could notice.
+ *
+ * 2: entries carry `headline` — the enclosing section instance's headline,
+ * copy-only (stored headline, else the `@Headline` type default, else null). */
+inline constexpr long long kCodeSpecsExtractFormat = 2;
 
 /* The annotation names of the three routing verdicts (`codespecs_mapping.md`
  * §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -135,6 +138,9 @@ struct CodeSpecsExtractEntry {
   /* The section id of the leaf the value sits on (`@SectionId`, else the model
    * field name). */
   std::string sectionId;
+  /* The enclosing section instance's headline, copy-only: the stored headline,
+   * else the `@Headline` type default, else unset. */
+  std::optional<std::string> headline;
   /* The document path of the leaf — the source location. */
   std::string path;
   /* The model class declaring the leaf. */
@@ -401,6 +407,7 @@ class CodeSpecsExtractor {
                  const CodeSpecsRouting* routing, const SpecClass& cls,
                  const SpecField& field, const std::string& path,
                  const std::optional<std::string>& formField,
+                 const std::optional<std::string>& headline,
                  const std::string& value) const;
 
   // --- verdict resolution --------------------------------------------------

@@ -1522,6 +1522,12 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
                 e.section_id == we.str_or("sectionId"),
                 &e.section_id,
             );
+            let want_headline = opt_str(we.get("headline"));
+            c.check(
+                &format!("{}.headline", etag),
+                e.headline == want_headline,
+                &format!("{:?} != {:?}", e.headline, want_headline),
+            );
             c.check(&format!("{}.path", etag), e.path == we.str_or("path"), &e.path);
             c.check(
                 &format!("{}.className", etag),

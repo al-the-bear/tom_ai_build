@@ -146,6 +146,7 @@ MOM
 
 ### 13. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -156,6 +157,7 @@ order_id
 
 ### 14. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -166,6 +168,7 @@ Stable order identifier.
 
 ### 15. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -176,6 +179,7 @@ uuid
 
 ### 16. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -186,6 +190,7 @@ uuid
 
 ### 17. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -196,6 +201,7 @@ Internal
 
 ### 18. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-1/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -206,6 +212,7 @@ false
 
 ### 19. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -216,6 +223,7 @@ customer_id
 
 ### 20. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -226,6 +234,7 @@ Reference to the ordering customer.
 
 ### 21. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -236,6 +245,7 @@ uuid
 
 ### 22. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -246,6 +256,7 @@ uuid
 
 ### 23. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -256,6 +267,7 @@ Internal
 
 ### 24. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-2/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -266,6 +278,7 @@ false
 
 ### 25. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: channel
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -276,6 +289,7 @@ channel
 
 ### 26. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: channel
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -286,6 +300,7 @@ Capture channel: EDI or REST.
 
 ### 27. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: channel
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -296,6 +311,7 @@ enumeration
 
 ### 28. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: channel
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -306,6 +322,7 @@ varchar(8)
 
 ### 29. `DAATT-DTEN` — `DataAttributeEntry.enumerationTypeOptions.domainEnum`
 
+- headline: channel
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/DAATT-DTEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -316,6 +333,7 @@ OrderChannel
 
 ### 30. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: channel
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -326,6 +344,7 @@ Internal
 
 ### 31. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: channel
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-3/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -336,6 +355,7 @@ false
 
 ### 32. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: status
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -346,6 +366,7 @@ status
 
 ### 33. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: status
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -356,6 +377,7 @@ Lifecycle state (Captured..Closed, with Hold).
 
 ### 34. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: status
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -366,6 +388,7 @@ enumeration
 
 ### 35. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: status
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -376,6 +399,7 @@ varchar(16)
 
 ### 36. `DAATT-DTEN` — `DataAttributeEntry.enumerationTypeOptions.domainEnum`
 
+- headline: status
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/DAATT-DTEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -386,6 +410,7 @@ OrderStatus
 
 ### 37. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: status
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -396,6 +421,7 @@ Internal
 
 ### 38. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: status
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-4/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -406,6 +432,7 @@ false
 
 ### 39. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: createdAt
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -416,6 +443,7 @@ created_at
 
 ### 40. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: createdAt
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -426,6 +454,7 @@ Capture timestamp (UTC).
 
 ### 41. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: createdAt
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -436,6 +465,7 @@ dateTime
 
 ### 42. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: createdAt
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -446,6 +476,7 @@ timestamptz
 
 ### 43. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: createdAt
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -456,6 +487,7 @@ Internal
 
 ### 44. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: createdAt
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAATT-ATTR-LST-5/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -466,6 +498,7 @@ false
 
 ### 45. `content` — `KeyAttributeEntry.content.keyType`
 
+- headline: pk_order
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -475,6 +508,7 @@ Primary
 
 ### 46. `content` — `KeyAttributeEntry.content.keyColumns`
 
+- headline: pk_order
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -484,6 +518,7 @@ order_id
 
 ### 47. `content` — `KeyAttributeEntry.content.description`
 
+- headline: pk_order
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -603,6 +638,7 @@ MOM
 
 ### 59. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: lineId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -613,6 +649,7 @@ line_id
 
 ### 60. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: lineId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -623,6 +660,7 @@ Stable line identifier.
 
 ### 61. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: lineId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -633,6 +671,7 @@ uuid
 
 ### 62. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: lineId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -643,6 +682,7 @@ uuid
 
 ### 63. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: lineId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -653,6 +693,7 @@ Internal
 
 ### 64. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: lineId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-1/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -663,6 +704,7 @@ false
 
 ### 65. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -673,6 +715,7 @@ order_id
 
 ### 66. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -683,6 +726,7 @@ Owning order reference.
 
 ### 67. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -693,6 +737,7 @@ uuid
 
 ### 68. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -703,6 +748,7 @@ uuid
 
 ### 69. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -713,6 +759,7 @@ Internal
 
 ### 70. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: orderId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-2/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -723,6 +770,7 @@ false
 
 ### 71. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -733,6 +781,7 @@ product_id
 
 ### 72. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -743,6 +792,7 @@ Referenced product.
 
 ### 73. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -753,6 +803,7 @@ uuid
 
 ### 74. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -763,6 +814,7 @@ uuid
 
 ### 75. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -773,6 +825,7 @@ Internal
 
 ### 76. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-3/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -783,6 +836,7 @@ false
 
 ### 77. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: quantity
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -793,6 +847,7 @@ quantity
 
 ### 78. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: quantity
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -803,6 +858,7 @@ Ordered quantity.
 
 ### 79. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: quantity
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -813,6 +869,7 @@ integer
 
 ### 80. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: quantity
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -823,6 +880,7 @@ int
 
 ### 81. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: quantity
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -833,6 +891,7 @@ Internal
 
 ### 82. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: quantity
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -843,6 +902,7 @@ false
 
 ### 83. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: unitPrice
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -853,6 +913,7 @@ unit_price
 
 ### 84. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: unitPrice
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -863,6 +924,7 @@ Snapshotted unit price at pricing time.
 
 ### 85. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: unitPrice
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -873,6 +935,7 @@ decimal
 
 ### 86. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: unitPrice
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -883,6 +946,7 @@ numeric(12,2)
 
 ### 87. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: unitPrice
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -893,6 +957,7 @@ Internal
 
 ### 88. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: unitPrice
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -903,6 +968,7 @@ false
 
 ### 89. `content` — `KeyAttributeEntry.content.keyType`
 
+- headline: pk_order_line
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -912,6 +978,7 @@ Primary
 
 ### 90. `content` — `KeyAttributeEntry.content.keyColumns`
 
+- headline: pk_order_line
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -921,6 +988,7 @@ line_id
 
 ### 91. `content` — `KeyAttributeEntry.content.description`
 
+- headline: pk_order_line
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -930,6 +998,7 @@ Primary key of the order line.
 
 ### 92. `content` — `KeyAttributeEntry.content.keyType`
 
+- headline: fk_line_order
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-2/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -939,6 +1008,7 @@ Foreign
 
 ### 93. `content` — `KeyAttributeEntry.content.keyColumns`
 
+- headline: fk_line_order
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-2/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -948,6 +1018,7 @@ order_id
 
 ### 94. `content` — `KeyAttributeEntry.content.description`
 
+- headline: fk_line_order
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-2/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -957,6 +1028,7 @@ References the owning order.
 
 ### 95. `KEATT-REFE-REF` — `KeyAttributeEntry.referencedEntityRef`
 
+- headline: fk_line_order
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/KEATT-KEYA-LST-2/KEATT-REFE-REF`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -1076,6 +1148,7 @@ MOM
 
 ### 107. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1086,6 +1159,7 @@ customer_id
 
 ### 108. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1096,6 +1170,7 @@ Stable customer identifier.
 
 ### 109. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1106,6 +1181,7 @@ uuid
 
 ### 110. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1116,6 +1192,7 @@ uuid
 
 ### 111. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1126,6 +1203,7 @@ Internal
 
 ### 112. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: customerId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-1/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1136,6 +1214,7 @@ false
 
 ### 113. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1146,6 +1225,7 @@ name
 
 ### 114. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1156,6 +1236,7 @@ Customer legal name (PII).
 
 ### 115. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1166,6 +1247,7 @@ string
 
 ### 116. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1176,6 +1258,7 @@ varchar(200)
 
 ### 117. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1186,6 +1269,7 @@ Confidential
 
 ### 118. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-2/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1196,6 +1280,7 @@ true
 
 ### 119. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: creditLimit
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1206,6 +1291,7 @@ credit_limit
 
 ### 120. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: creditLimit
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1216,6 +1302,7 @@ Approved credit limit used by validation.
 
 ### 121. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: creditLimit
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1226,6 +1313,7 @@ decimal
 
 ### 122. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: creditLimit
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1236,6 +1324,7 @@ numeric(14,2)
 
 ### 123. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: creditLimit
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1246,6 +1335,7 @@ Confidential
 
 ### 124. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: creditLimit
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1256,6 +1346,7 @@ false
 
 ### 125. `content` — `KeyAttributeEntry.content.keyType`
 
+- headline: pk_customer
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -1265,6 +1356,7 @@ Primary
 
 ### 126. `content` — `KeyAttributeEntry.content.keyColumns`
 
+- headline: pk_customer
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -1274,6 +1366,7 @@ customer_id
 
 ### 127. `content` — `KeyAttributeEntry.content.description`
 
+- headline: pk_customer
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -1393,6 +1486,7 @@ MOM
 
 ### 139. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1403,6 +1497,7 @@ product_id
 
 ### 140. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1413,6 +1508,7 @@ Stable product identifier.
 
 ### 141. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1423,6 +1519,7 @@ uuid
 
 ### 142. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1433,6 +1530,7 @@ uuid
 
 ### 143. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1443,6 +1541,7 @@ Internal
 
 ### 144. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: productId
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-1/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1453,6 +1552,7 @@ false
 
 ### 145. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: sku
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1463,6 +1563,7 @@ sku
 
 ### 146. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: sku
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1473,6 +1574,7 @@ Stock-keeping unit.
 
 ### 147. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: sku
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1483,6 +1585,7 @@ string
 
 ### 148. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: sku
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1493,6 +1596,7 @@ varchar(40)
 
 ### 149. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: sku
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1503,6 +1607,7 @@ Internal
 
 ### 150. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: sku
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1513,6 +1618,7 @@ false
 
 ### 151. `DAATT-IDEN` — `DataAttributeEntry.identity.columnName`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1523,6 +1629,7 @@ name
 
 ### 152. `DAATT-IDEN` — `DataAttributeEntry.identity.description`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3/DAATT-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1533,6 +1640,7 @@ Product display name.
 
 ### 153. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.dataType`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1543,6 +1651,7 @@ string
 
 ### 154. `DAATT-DATA` — `DataAttributeEntry.dataTypeSpec.physicalType`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3/DAATT-DATA`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1553,6 +1662,7 @@ varchar(200)
 
 ### 155. `DAATT-SECU` — `DataAttributeEntry.securityClassification.sensitivityLevel`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1563,6 +1673,7 @@ Internal
 
 ### 156. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
 
+- headline: name
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-3/DAATT-SECU`
 - routed by: `CodeSpecPart.dataAccess` declared on `DataAttributeEntry`
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry.
@@ -1573,6 +1684,7 @@ false
 
 ### 157. `content` — `KeyAttributeEntry.content.keyType`
 
+- headline: pk_product
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -1582,6 +1694,7 @@ Primary
 
 ### 158. `content` — `KeyAttributeEntry.content.keyColumns`
 
+- headline: pk_product
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -1591,6 +1704,7 @@ product_id
 
 ### 159. `content` — `KeyAttributeEntry.content.description`
 
+- headline: pk_product
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/KEATT-KEYA-LST-1/content`
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
@@ -1609,6 +1723,7 @@ The foreign-key relationships binding the ordering core together.
 
 ### 161. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.relationshipType`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1619,6 +1734,7 @@ Composition
 
 ### 162. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.description`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1629,6 +1745,7 @@ An order owns one or more order lines.
 
 ### 163. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.businessJustification`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1639,6 +1756,7 @@ Maintains referential integrity across the ordering core.
 
 ### 164. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.implementationType`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1649,6 +1767,7 @@ Foreign Key
 
 ### 165. `ENRLE-CARD` — `EntityRelationshipEntry.cardinality.sourceCardinality`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-CARD`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1659,6 +1778,7 @@ Foreign Key
 
 ### 166. `ENRLE-CARD` — `EntityRelationshipEntry.cardinality.targetCardinality`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-CARD`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1669,6 +1789,7 @@ Foreign Key
 
 ### 167. `ENRLE-NAVI` — `EntityRelationshipEntry.navigation.navigability`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-NAVI`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1679,6 +1800,7 @@ Bidirectional
 
 ### 168. `ENRLE-NAVI` — `EntityRelationshipEntry.navigation.foreignKeyLocation`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-NAVI`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1689,6 +1811,7 @@ mom_order_line.order_id
 
 ### 169. `ENRLE-SOUR-REF` — `EntityRelationshipEntry.sourceEntityRef`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-SOUR-REF`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1699,6 +1822,7 @@ Order
 
 ### 170. `ENRLE-TARG-REF` — `EntityRelationshipEntry.targetEntityRef`
 
+- headline: Order-owns-Lines
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-1/ENRLE-TARG-REF`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1709,6 +1833,7 @@ OrderLine
 
 ### 171. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.relationshipType`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1719,6 +1844,7 @@ Association
 
 ### 172. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.description`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1729,6 +1855,7 @@ Each order is placed by exactly one customer.
 
 ### 173. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.businessJustification`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1739,6 +1866,7 @@ Maintains referential integrity across the ordering core.
 
 ### 174. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.implementationType`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1749,6 +1877,7 @@ Foreign Key
 
 ### 175. `ENRLE-CARD` — `EntityRelationshipEntry.cardinality.sourceCardinality`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-CARD`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1759,6 +1888,7 @@ Foreign Key
 
 ### 176. `ENRLE-CARD` — `EntityRelationshipEntry.cardinality.targetCardinality`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-CARD`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1769,6 +1899,7 @@ Foreign Key
 
 ### 177. `ENRLE-NAVI` — `EntityRelationshipEntry.navigation.navigability`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-NAVI`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1779,6 +1910,7 @@ Bidirectional
 
 ### 178. `ENRLE-NAVI` — `EntityRelationshipEntry.navigation.foreignKeyLocation`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-NAVI`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1789,6 +1921,7 @@ mom_order.customer_id
 
 ### 179. `ENRLE-SOUR-REF` — `EntityRelationshipEntry.sourceEntityRef`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-SOUR-REF`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1799,6 +1932,7 @@ Order
 
 ### 180. `ENRLE-TARG-REF` — `EntityRelationshipEntry.targetEntityRef`
 
+- headline: Order-placed-by-Customer
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-2/ENRLE-TARG-REF`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1809,6 +1943,7 @@ Customer
 
 ### 181. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.relationshipType`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1819,6 +1954,7 @@ Association
 
 ### 182. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.description`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1829,6 +1965,7 @@ Each order line references exactly one product.
 
 ### 183. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.businessJustification`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1839,6 +1976,7 @@ Maintains referential integrity across the ordering core.
 
 ### 184. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.implementationType`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-IDEN`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1849,6 +1987,7 @@ Foreign Key
 
 ### 185. `ENRLE-CARD` — `EntityRelationshipEntry.cardinality.sourceCardinality`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-CARD`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1859,6 +1998,7 @@ Foreign Key
 
 ### 186. `ENRLE-CARD` — `EntityRelationshipEntry.cardinality.targetCardinality`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-CARD`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1869,6 +2009,7 @@ Foreign Key
 
 ### 187. `ENRLE-NAVI` — `EntityRelationshipEntry.navigation.navigability`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-NAVI`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1879,6 +2020,7 @@ Bidirectional
 
 ### 188. `ENRLE-NAVI` — `EntityRelationshipEntry.navigation.foreignKeyLocation`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-NAVI`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1889,6 +2031,7 @@ mom_order_line.product_id
 
 ### 189. `ENRLE-SOUR-REF` — `EntityRelationshipEntry.sourceEntityRef`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-SOUR-REF`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.
@@ -1899,6 +2042,7 @@ OrderLine
 
 ### 190. `ENRLE-TARG-REF` — `EntityRelationshipEntry.targetEntityRef`
 
+- headline: Line-references-Product
 - path: `SBP/informationAndDataModel/dataModel/entityRelationships/ENRLE-ITEM-LST-3/ENRLE-TARG-REF`
 - routed by: `CodeSpecPart.dataAccess` declared on `EntityRelationshipEntry`
 - routing note: Foreign-key / association between tables.

@@ -673,6 +673,7 @@ Order moves to Fulfilled and the public tracking page updates.
 
 ### 66. `content` — `ScreenEntry.content.purpose`
 
+- headline: Order Work List
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -683,6 +684,7 @@ The single, state-filtered queue from which clerks work every order.
 
 ### 67. `SCECL` — `ScreenEntry.classification.screenCategory`
 
+- headline: Order Work List
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/SCECL`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -693,6 +695,7 @@ List
 
 ### 68. `SCECL` — `ScreenEntry.classification.routePattern`
 
+- headline: Order Work List
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/SCECL`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -703,6 +706,7 @@ order-work-list
 
 ### 69. `SCETR` — `ScreenEntry.traceability.relatedUseCases`
 
+- headline: Order Work List
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/SCETR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -713,6 +717,7 @@ UC-01, UC-02
 
 ### 70. `SCETR` — `ScreenEntry.traceability.relatedRequirements`
 
+- headline: Order Work List
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/SCETR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -723,6 +728,7 @@ FRE-REQU-ORDER-CAPTURE, FRE-REQU-CONFIRM-SLA, FRE-REQU-HOLD-RELEASE
 
 ### 71. `SCETR` — `ScreenEntry.traceability.dataEntities`
 
+- headline: Order Work List
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/SCETR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -733,6 +739,7 @@ Order
 
 ### 72. `SCETR` — `ScreenEntry.traceability.primaryAction`
 
+- headline: Order Work List
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/SCETR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -743,6 +750,7 @@ Open selected order
 
 ### 73. `SCENPR` — `ScreenEntry.presentation.pageTitleResource`
 
+- headline: Order Work List
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/SCENPR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -753,6 +761,7 @@ screen.orders.title
 
 ### 74. `SCENPR` — `ScreenEntry.presentation.layout`
 
+- headline: Order Work List
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/SCENPR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -763,6 +772,7 @@ Master-detail
 
 ### 75. `content` — `ScreenEntry.content.purpose`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/content`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -773,6 +783,7 @@ The lifecycle timeline and inline actions for a single order.
 
 ### 76. `SCECL` — `ScreenEntry.classification.screenCategory`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/SCECL`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -783,6 +794,7 @@ Detail
 
 ### 77. `SCECL` — `ScreenEntry.classification.parentScreenId`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/SCECL`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -793,6 +805,7 @@ SCREN-ITEM-SCR-01
 
 ### 78. `SCECL` — `ScreenEntry.classification.routePattern`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/SCECL`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -803,6 +816,7 @@ order-detail
 
 ### 79. `SCETR` — `ScreenEntry.traceability.relatedUseCases`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/SCETR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -813,6 +827,7 @@ UC-02, UC-03
 
 ### 80. `SCETR` — `ScreenEntry.traceability.relatedRequirements`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/SCETR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -823,6 +838,7 @@ FRE-REQU-AMEND-CANCEL, FRE-REQU-HOLD-RELEASE
 
 ### 81. `SCETR` — `ScreenEntry.traceability.dataEntities`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/SCETR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -833,6 +849,7 @@ Order, OrderLine
 
 ### 82. `SCETR` — `ScreenEntry.traceability.primaryAction`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/SCETR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -843,6 +860,7 @@ Amend line
 
 ### 83. `SCENPR` — `ScreenEntry.presentation.pageTitleResource`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/SCENPR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -853,6 +871,7 @@ screen.order.title
 
 ### 84. `SCENPR` — `ScreenEntry.presentation.layout`
 
+- headline: Order Detail
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/SCENPR`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenEntry`
 - routing note: CE-LO + CE-NV — a screen is a routable, laid-out page.
@@ -863,6 +882,7 @@ Single column
 
 ### 85. `content` — `ScreenRouteEntry.content.routeId`
 
+- headline: Order work list route
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST-1/content`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenRouteEntry`
 - routing note: CE-NV — a route definition: the stable target of every navigation.
@@ -873,6 +893,7 @@ order-work-list
 
 ### 86. `content` — `ScreenRouteEntry.content.routePath`
 
+- headline: Order work list route
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST-1/content`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenRouteEntry`
 - routing note: CE-NV — a route definition: the stable target of every navigation.
@@ -883,6 +904,7 @@ order-work-list
 
 ### 87. `content` — `ScreenRouteEntry.content.screenId`
 
+- headline: Order work list route
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST-1/content`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenRouteEntry`
 - routing note: CE-NV — a route definition: the stable target of every navigation.
@@ -893,6 +915,7 @@ SCREN-ITEM-SCR-01
 
 ### 88. `content` — `ScreenRouteEntry.content.routeId`
 
+- headline: Order detail route
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST-2/content`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenRouteEntry`
 - routing note: CE-NV — a route definition: the stable target of every navigation.
@@ -903,6 +926,7 @@ order-detail
 
 ### 89. `content` — `ScreenRouteEntry.content.routePath`
 
+- headline: Order detail route
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST-2/content`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenRouteEntry`
 - routing note: CE-NV — a route definition: the stable target of every navigation.
@@ -913,6 +937,7 @@ order-detail
 
 ### 90. `content` — `ScreenRouteEntry.content.screenId`
 
+- headline: Order detail route
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST-2/content`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenRouteEntry`
 - routing note: CE-NV — a route definition: the stable target of every navigation.
@@ -923,6 +948,7 @@ SCREN-ITEM-SCR-02
 
 ### 91. `content` — `ScreenRouteEntry.content.routeParameters`
 
+- headline: Order detail route
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCRTEN-ROUT-LST-2/content`
 - routed by: `CodeSpecPart.navigation` declared on `ScreenRouteEntry`
 - routing note: CE-NV — a route definition: the stable target of every navigation.

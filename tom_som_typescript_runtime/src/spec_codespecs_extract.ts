@@ -56,8 +56,11 @@ import { SpecReflection } from './spec_reflection';
 /**
  * The version of the emitted extract artifact's on-disk shape. Bumped when the
  * YAML or Markdown layout changes in a way a reader could notice.
+ *
+ * 2: entries carry `headline` — the enclosing section instance's headline,
+ * copy-only (stored headline, else the `@Headline` type default, else null).
  */
-export const K_CODE_SPECS_EXTRACT_FORMAT = 1;
+export const K_CODE_SPECS_EXTRACT_FORMAT = 2;
 
 /**
  * The annotation names of the three routing verdicts (`codespecs_mapping.md`
@@ -176,6 +179,14 @@ export class CodeSpecsExtractEntry {
    */
   sectionId: string;
 
+  /**
+   * The enclosing section instance's headline, copy-only like {@link value}:
+   * the document's **stored** headline for the class node the leaf sits under
+   * (YRD3), else the class's `@Headline` type default (YRD4), else `null`.
+   * Gives naming rule N1 a real source — never a derivation.
+   */
+  headline: string | null;
+
   /** The document path of the leaf — the source location. */
   path: string;
 
@@ -215,11 +226,13 @@ export class CodeSpecsExtractEntry {
     routedBy: string;
     routedAt: string;
     value: string;
+    headline?: string | null;
     formField?: string | null;
     routingNote?: string | null;
   }) {
     this.areaCode = props.areaCode;
     this.sectionId = props.sectionId;
+    this.headline = props.headline != null ? props.headline : null;
     this.path = props.path;
     this.className = props.className;
     this.fieldName = props.fieldName;
@@ -595,6 +608,7 @@ export class CodeSpecsExtract {
     b.writeln('  entries:');
     for (const e of this.entries) {
       b.writeln(`    - sectionId: ${yamlString(e.sectionId)}`);
+      b.writeln(`      headline: ${yamlNullableString(e.headline)}`);
       b.writeln(`      path: ${yamlString(e.path)}`);
       b.writeln(`      className: ${yamlString(e.className)}`);
       b.writeln(`      fieldName: ${yamlString(e.fieldName)}`);
@@ -657,6 +671,9 @@ export class CodeSpecsExtract {
         e.formField === null ? e.fieldName : `${e.fieldName}.${e.formField}`;
       b.writeln(`### ${n}. \`${e.sectionId}\` — \`${e.className}.${member}\``);
       b.writeln();
+      if (e.headline !== null) {
+        b.writeln(`- headline: ${mdCell(e.headline)}`);
+      }
       b.writeln(`- path: \`${e.path}\``);
       b.writeln(`- routed by: \`${e.routedBy}\` declared on \`${e.routedAt}\``);
       if (e.routingNote !== null) {
@@ -937,6 +954,12 @@ export class CodeSpecsExtractor {
     const classRouting =
       routing.verdict === CodeSpecsRoutingVerdict.FEEDS_CODE ? routing : null;
 
+    // The enclosing section instance's headline, resolved once per class node
+    // (YRD3 stored > YRD4 type default > null) and copied onto every entry
+    // emitted below it. Copy-only — never a name derivation.
+    const stored = this.document.headline(path);
+    const headline = stored !== null ? stored : cls.headline;
+
     for (const field of cls.fields) {
       const fieldPath = specPathJoin(
         path,
@@ -955,6 +978,7 @@ export class CodeSpecsExtractor {
             field,
             fieldPath,
             null,
+            headline,
             this.document.content(fieldPath),
           );
           break;
@@ -967,6 +991,7 @@ export class CodeSpecsExtractor {
               field,
               fieldPath,
               ff.name,
+              headline,
               this.document.formField(fieldPath, ff.name),
             );
           }
@@ -994,6 +1019,7 @@ export class CodeSpecsExtractor {
                 field,
                 itemPath,
                 null,
+                headline,
                 this.document.content(itemPath),
               );
             }
@@ -1027,6 +1053,7 @@ export class CodeSpecsExtractor {
     field: SpecField,
     path: string,
     formField: string | null,
+    headline: string | null,
     value: string | null,
   ): void {
     if (entries === null || routing === null) {
@@ -1044,6 +1071,7 @@ export class CodeSpecsExtractor {
         new CodeSpecsExtractEntry({
           areaCode: area.code,
           sectionId: this._reflection.fieldSegment(field),
+          headline,
           path,
           className: cls.name,
           fieldName: field.name,

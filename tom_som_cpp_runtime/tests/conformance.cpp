@@ -1352,6 +1352,10 @@ static void test_codespecs_extract(Checker& c, const som::SpecModel& model) {
       std::string etag = tag + ".entries[" + std::to_string(j) + "]";
       c.check(etag + ".sectionId", e.sectionId == som::jsonStrOr(we, "sectionId"),
               e.sectionId + " != " + som::jsonStrOr(we, "sectionId"));
+      c.check(etag + ".headline",
+              opt_text(e.headline) ==
+                  json_opt_text(som::jsonGet(we, "headline")),
+              opt_text(e.headline));
       c.check(etag + ".path", e.path == som::jsonStrOr(we, "path"),
               e.path + " != " + som::jsonStrOr(we, "path"));
       c.check(etag + ".className", e.className == som::jsonStrOr(we, "className"),

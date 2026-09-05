@@ -48,7 +48,10 @@ import 'spec_reflection.dart';
 
 /// The version of the emitted extract artifact's on-disk shape. Bumped when
 /// the YAML or Markdown layout changes in a way a reader could notice.
-const int kCodeSpecsExtractFormat = 1;
+///
+/// 2: entries carry `headline` — the enclosing section instance's headline,
+/// copy-only (stored headline, else the `@Headline` type default, else null).
+const int kCodeSpecsExtractFormat = 2;
 
 /// The annotation names of the three routing verdicts (`codespecs_mapping.md`
 /// §8.3). All three ride the generic annotation bag in every SOM runtime
@@ -135,6 +138,18 @@ class CodeSpecsExtractEntry {
   /// field name).
   final String sectionId;
 
+  /// The headline of the enclosing section instance the value belongs to —
+  /// the document's stored headline at the class node's path (YRD3), else the
+  /// class's `@Headline(text)` default (YRD4); `null` when neither exists.
+  ///
+  /// Copy-only, like [value]: both sources are source text, so carrying it is
+  /// within C1 — and it is what gives naming rule N1
+  /// (`codespecs_derivation_contract.md` §2.1) a real source for derived
+  /// holders, instead of the PascalCase-of-sectionId fallback. The one thing
+  /// this field is **never** is a name derivation: when neither source exists
+  /// it stays `null` rather than being composed.
+  final String? headline;
+
   /// The document path of the leaf — the source location.
   final String path;
 
@@ -170,6 +185,7 @@ class CodeSpecsExtractEntry {
     required this.routedBy,
     required this.routedAt,
     required this.value,
+    this.headline,
     this.formField,
     this.routingNote,
   });
@@ -456,6 +472,7 @@ class CodeSpecsExtract {
     b.writeln('  entries:');
     for (final e in entries) {
       b.writeln('    - sectionId: ${_yamlString(e.sectionId)}');
+      b.writeln('      headline: ${_yamlNullableString(e.headline)}');
       b.writeln('      path: ${_yamlString(e.path)}');
       b.writeln('      className: ${_yamlString(e.className)}');
       b.writeln('      fieldName: ${_yamlString(e.fieldName)}');
@@ -510,6 +527,9 @@ class CodeSpecsExtract {
           e.formField == null ? e.fieldName : '${e.fieldName}.${e.formField}';
       b.writeln('### $n. `${e.sectionId}` — `${e.className}.$member`');
       b.writeln();
+      if (e.headline != null) {
+        b.writeln('- headline: ${_mdCell(e.headline!)}');
+      }
       b.writeln('- path: `${e.path}`');
       b.writeln('- routed by: `${e.routedBy}` declared on `${e.routedAt}`');
       if (e.routingNote != null) {
@@ -751,6 +771,12 @@ class CodeSpecsExtractor {
         ? routing
         : null;
 
+    // The enclosing instance's headline, resolved once per class node with the
+    // model's own render precedence (stored YRD3 > `@Headline` default YRD4)
+    // and copied onto every entry emitted below it. Copying is all this is —
+    // when neither source exists the entries carry `null`, never a derivation.
+    final headline = document.headline(path) ?? cls.headline;
+
     for (final field in cls.fields) {
       final fieldPath = specPathJoin(path, _reflection.fieldSegment(field));
       final fieldRouting = _fieldRouting(cls, field) ?? classRouting;
@@ -766,6 +792,7 @@ class CodeSpecsExtractor {
             field: field,
             path: fieldPath,
             formField: null,
+            headline: headline,
             value: document.content(fieldPath),
           );
         case SpecFieldKind.form:
@@ -777,6 +804,7 @@ class CodeSpecsExtractor {
               field: field,
               path: fieldPath,
               formField: ff.name,
+              headline: headline,
               value: document.formField(fieldPath, ff.name),
             );
           }
@@ -801,6 +829,7 @@ class CodeSpecsExtractor {
                 field: field,
                 path: itemPath,
                 formField: null,
+                headline: headline,
                 value: document.content(itemPath),
               );
             }
@@ -830,6 +859,7 @@ class CodeSpecsExtractor {
     required SpecField field,
     required String path,
     required String? formField,
+    required String? headline,
     required String? value,
   }) {
     if (entries == null || routing == null) return;
@@ -844,6 +874,7 @@ class CodeSpecsExtractor {
         className: cls.name,
         fieldName: field.name,
         formField: formField,
+        headline: headline,
         routedBy: area.kindValue,
         routedAt: routing.declaredAt,
         routingNote: routing.note,

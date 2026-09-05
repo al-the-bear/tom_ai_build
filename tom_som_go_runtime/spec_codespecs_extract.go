@@ -65,7 +65,10 @@ import (
 // CodeSpecsExtractFormatVersion is the version of the emitted extract artifact's
 // on-disk shape. Bumped when the YAML or Markdown layout changes in a way a
 // reader could notice.
-const CodeSpecsExtractFormatVersion = 1
+//
+// 2: entries carry `headline` — the enclosing section instance's headline,
+// copy-only (stored headline, else the `@Headline` type default, else null).
+const CodeSpecsExtractFormatVersion = 2
 
 // The annotation names of the three routing verdicts (`codespecs_mapping.md`
 // §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -161,6 +164,11 @@ type CodeSpecsExtractEntry struct {
 	// SectionID is the section id of the leaf the value sits on (`@SectionId`,
 	// else the model field name).
 	SectionID string
+	// Headline is the enclosing section instance's headline, copy-only like
+	// Value: the document's **stored** headline for the class node the leaf sits
+	// under (YRD3), else the class's `@Headline` type default (YRD4), else "".
+	// Gives naming rule N1 a real source — never a derivation.
+	Headline string
 	// Path is the document path of the leaf — the source location.
 	Path string
 	// ClassName is the model class declaring the leaf.
@@ -480,6 +488,7 @@ func (x *CodeSpecsExtract) ToYaml() string {
 	b.WriteString("  entries:\n")
 	for _, e := range x.Entries {
 		b.WriteString("    - sectionId: " + cseYamlString(e.SectionID) + "\n")
+		b.WriteString("      headline: " + cseYamlNullableString(e.Headline) + "\n")
 		b.WriteString("      path: " + cseYamlString(e.Path) + "\n")
 		b.WriteString("      className: " + cseYamlString(e.ClassName) + "\n")
 		b.WriteString("      fieldName: " + cseYamlString(e.FieldName) + "\n")
@@ -537,6 +546,9 @@ func (x *CodeSpecsExtract) ToMarkdown() string {
 		b.WriteString("### " + itoa(n) + ". `" + e.SectionID + "` — `" +
 			e.ClassName + "." + member + "`\n")
 		b.WriteString("\n")
+		if e.Headline != "" {
+			b.WriteString("- headline: " + cseMdCell(e.Headline) + "\n")
+		}
 		b.WriteString("- path: `" + e.Path + "`\n")
 		b.WriteString("- routed by: `" + e.RoutedBy + "` declared on `" + e.RoutedAt + "`\n")
 		if e.RoutingNote != "" {
@@ -829,6 +841,14 @@ func (x *CodeSpecsExtractor) walk(
 		classRouting = &routing
 	}
 
+	// The enclosing section instance's headline, resolved once per class node
+	// (YRD3 stored > YRD4 type default > "") and copied onto every entry emitted
+	// below it. Copy-only — never a name derivation.
+	headline := x.Document.HeadlineOr(path)
+	if headline == "" {
+		headline = cls.Headline
+	}
+
 	for _, field := range cls.Fields {
 		fieldPath := SpecPathJoin(path, x.reflection.FieldSegment(field))
 		fieldRouting := x.fieldRouting(cls, field)
@@ -838,12 +858,12 @@ func (x *CodeSpecsExtractor) walk(
 
 		switch field.Kind {
 		case SpecFieldKindContent, SpecFieldKindEnum, SpecFieldKindScalar:
-			x.emitValue(entries, fieldRouting, cls, field, fieldPath, "",
+			x.emitValue(entries, fieldRouting, cls, field, fieldPath, "", headline,
 				x.Document.ContentOr(fieldPath))
 		case SpecFieldKindForm:
 			for _, ff := range field.FormFields {
 				x.emitValue(entries, fieldRouting, cls, field, fieldPath, ff.Name,
-					x.Document.FormFieldOr(fieldPath, ff.Name))
+					headline, x.Document.FormFieldOr(fieldPath, ff.Name))
 			}
 		case SpecFieldKindList:
 			for _, itemPath := range x.Document.ListItems(fieldPath) {
@@ -862,7 +882,7 @@ func (x *CodeSpecsExtractor) walk(
 					}
 				} else {
 					x.emitValue(entries, fieldRouting, cls, field, itemPath, "",
-						x.Document.ContentOr(itemPath))
+						headline, x.Document.ContentOr(itemPath))
 				}
 			}
 		case SpecFieldKindComplex, SpecFieldKindSection:
@@ -893,6 +913,7 @@ func (x *CodeSpecsExtractor) emitValue(
 	field *SpecField,
 	path string,
 	formField string,
+	headline string,
 	value string,
 ) {
 	if entries == nil || routing == nil {
@@ -909,6 +930,7 @@ func (x *CodeSpecsExtractor) emitValue(
 		*entries = append(*entries, CodeSpecsExtractEntry{
 			AreaCode:    area.Code,
 			SectionID:   x.reflection.FieldSegment(field),
+			Headline:    headline,
 			Path:        path,
 			ClassName:   cls.Name,
 			FieldName:   field.Name,

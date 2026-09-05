@@ -153,6 +153,7 @@ Order Detail screen
 
 ### 14. `content` — `DataAttributeConstraintEntry.content.mandatory`
 
+- headline: quantity-positive
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -163,6 +164,7 @@ Required
 
 ### 15. `content` — `DataAttributeConstraintEntry.content.nullable`
 
+- headline: quantity-positive
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -173,6 +175,7 @@ No
 
 ### 16. `content` — `DataAttributeConstraintEntry.content.validationRules`
 
+- headline: quantity-positive
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -183,6 +186,7 @@ required, min:1
 
 ### 17. `content` — `DataAttributeConstraintEntry.content.constraintExpression`
 
+- headline: quantity-positive
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-4/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -193,6 +197,7 @@ quantity > 0
 
 ### 18. `content` — `DataAttributeConstraintEntry.content.mandatory`
 
+- headline: unit-price-non-negative
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -203,6 +208,7 @@ Required
 
 ### 19. `content` — `DataAttributeConstraintEntry.content.nullable`
 
+- headline: unit-price-non-negative
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -213,6 +219,7 @@ No
 
 ### 20. `content` — `DataAttributeConstraintEntry.content.validationRules`
 
+- headline: unit-price-non-negative
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -223,6 +230,7 @@ required, min:0
 
 ### 21. `content` — `DataAttributeConstraintEntry.content.constraintExpression`
 
+- headline: unit-price-non-negative
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAATT-ATTR-LST-5/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -233,6 +241,7 @@ unit_price >= 0
 
 ### 22. `content` — `DataAttributeConstraintEntry.content.mandatory`
 
+- headline: credit-limit-non-negative
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -243,6 +252,7 @@ Required
 
 ### 23. `content` — `DataAttributeConstraintEntry.content.nullable`
 
+- headline: credit-limit-non-negative
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -253,6 +263,7 @@ No
 
 ### 24. `content` — `DataAttributeConstraintEntry.content.validationRules`
 
+- headline: credit-limit-non-negative
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -263,6 +274,7 @@ required, min:0
 
 ### 25. `content` — `DataAttributeConstraintEntry.content.constraintExpression`
 
+- headline: credit-limit-non-negative
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-3/DAATT-ATTR-LST-3/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -273,6 +285,7 @@ credit_limit >= 0
 
 ### 26. `content` — `DataAttributeConstraintEntry.content.mandatory`
 
+- headline: sku-format
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -283,6 +296,7 @@ Required
 
 ### 27. `content` — `DataAttributeConstraintEntry.content.nullable`
 
+- headline: sku-format
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -293,6 +307,7 @@ No
 
 ### 28. `content` — `DataAttributeConstraintEntry.content.unique`
 
+- headline: sku-format
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -303,6 +318,7 @@ Unique
 
 ### 29. `content` — `DataAttributeConstraintEntry.content.validationRules`
 
+- headline: sku-format
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).
@@ -313,6 +329,7 @@ required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}$
 
 ### 30. `content` — `DataAttributeConstraintEntry.content.patternRegex`
 
+- headline: sku-format
 - path: `SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-4/DAATT-ATTR-LST-2/DATAA-CONS-LST-1/content`
 - routed by: `CodeSpecPart.validation` declared on `DataAttributeConstraintEntry`
 - routing note: Attribute-level constraint → CE-VA field rule (required, range, pattern, type).

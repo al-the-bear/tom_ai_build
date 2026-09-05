@@ -311,6 +311,12 @@ public final class CodeSpecsExtractor {
     CodeSpecsRouting classRouting =
         routing.verdict == CodeSpecsRoutingVerdict.FEEDS_CODE ? routing : null;
 
+    // The enclosing section instance's headline, resolved once per class node
+    // (YRD3 stored > YRD4 type default > null) and copied onto every entry
+    // emitted below it. Copy-only — never a name derivation.
+    String stored = document.headline(path);
+    String headline = stored != null ? stored : cls.headline;
+
     for (SpecField field : cls.fields) {
       String fieldPath = SpecPaths.join(path, reflection.fieldSegment(field));
       CodeSpecsRouting declared = fieldRouting(cls, field);
@@ -321,7 +327,14 @@ public final class CodeSpecsExtractor {
         case ENUM:
         case SCALAR:
           emitValue(
-              entries, fieldRouting, cls, field, fieldPath, null, document.content(fieldPath));
+              entries,
+              fieldRouting,
+              cls,
+              field,
+              fieldPath,
+              null,
+              headline,
+              document.content(fieldPath));
           break;
         case FORM:
           for (FormFieldSpec ff : field.formFields) {
@@ -332,6 +345,7 @@ public final class CodeSpecsExtractor {
                 field,
                 fieldPath,
                 ff.name,
+                headline,
                 document.formField(fieldPath, ff.name));
           }
           break;
@@ -351,7 +365,14 @@ public final class CodeSpecsExtractor {
                   strict);
             } else {
               emitValue(
-                  entries, fieldRouting, cls, field, itemPath, null, document.content(itemPath));
+                  entries,
+                  fieldRouting,
+                  cls,
+                  field,
+                  itemPath,
+                  null,
+                  headline,
+                  document.content(itemPath));
             }
           }
           break;
@@ -380,6 +401,7 @@ public final class CodeSpecsExtractor {
       SpecField field,
       String path,
       String formField,
+      String headline,
       String value) {
     if (entries == null || routing == null) {
       return;
@@ -396,6 +418,7 @@ public final class CodeSpecsExtractor {
           new CodeSpecsExtractEntry(
               area.code,
               reflection.fieldSegment(field),
+              headline,
               path,
               cls.name,
               field.name,

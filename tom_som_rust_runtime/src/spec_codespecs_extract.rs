@@ -60,7 +60,10 @@ use crate::spec_reflection::SpecReflection;
 
 /// The version of the emitted extract artifact's on-disk shape. Bumped when the
 /// YAML or Markdown layout changes in a way a reader could notice.
-pub const CODE_SPECS_EXTRACT_FORMAT: i64 = 1;
+///
+/// 2: entries carry `headline` — the enclosing section instance's headline,
+/// copy-only (stored headline, else the `@Headline` type default, else null).
+pub const CODE_SPECS_EXTRACT_FORMAT: i64 = 2;
 
 /// The annotation names of the three routing verdicts (`codespecs_mapping.md`
 /// §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -170,6 +173,12 @@ pub struct CodeSpecsExtractEntry {
     /// The section id of the leaf the value sits on (`@SectionId`, else the
     /// model field name).
     pub section_id: String,
+
+    /// The enclosing section instance's headline, copy-only like `value`: the
+    /// document's **stored** headline for the class node the leaf sits under
+    /// (YRD3), else the class's `@Headline` type default (YRD4), else `None`.
+    /// Gives naming rule N1 a real source — never a derivation.
+    pub headline: Option<String>,
 
     /// The document path of the leaf — the source location.
     pub path: String,
@@ -535,6 +544,13 @@ impl CodeSpecsExtract {
                 &mut b,
                 &format!("    - sectionId: {}", yaml_string(&e.section_id)),
             );
+            writeln_to(
+                &mut b,
+                &format!(
+                    "      headline: {}",
+                    yaml_nullable_string(e.headline.as_deref())
+                ),
+            );
             writeln_to(&mut b, &format!("      path: {}", yaml_string(&e.path)));
             writeln_to(
                 &mut b,
@@ -680,6 +696,9 @@ impl CodeSpecsExtract {
                 &format!("### {}. `{}` — `{}.{}`", n, e.section_id, e.class_name, member),
             );
             writeln_to(&mut b, "");
+            if let Some(headline) = &e.headline {
+                writeln_to(&mut b, &format!("- headline: {}", md_cell(headline)));
+            }
             writeln_to(&mut b, &format!("- path: `{}`", e.path));
             writeln_to(
                 &mut b,
@@ -1027,6 +1046,15 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
             None
         };
 
+        // The enclosing section instance's headline, resolved once per class
+        // node (YRD3 stored > YRD4 type default > None) and copied onto every
+        // entry emitted below it. Copy-only — never a name derivation.
+        let headline: Option<String> = match self.document.headline(path) {
+            Some(stored) => Some(stored.clone()),
+            None if !cls.headline.is_empty() => Some(cls.headline.clone()),
+            None => None,
+        };
+
         for field in &cls.fields {
             let field_path = spec_path_join(path, &self.reflection.field_segment(field));
             let own = self.field_routing(cls, field);
@@ -1041,6 +1069,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                         field,
                         &field_path,
                         None,
+                        headline.as_deref(),
                         self.document.content(&field_path),
                     );
                 }
@@ -1053,6 +1082,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                             field,
                             &field_path,
                             Some(&ff.name),
+                            headline.as_deref(),
                             self.document.form_field(&field_path, &ff.name),
                         );
                     }
@@ -1079,6 +1109,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
                                 field,
                                 &item_path,
                                 None,
+                                headline.as_deref(),
                                 self.document.content(&item_path),
                             );
                         }
@@ -1116,6 +1147,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
         field: &SpecField,
         path: &str,
         form_field: Option<&str>,
+        headline: Option<&str>,
         value: Option<&String>,
     ) {
         let (entries, routing) = match (sink.entries.as_mut(), routing) {
@@ -1134,6 +1166,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
             entries.push(CodeSpecsExtractEntry {
                 area_code: area.code.clone(),
                 section_id: self.reflection.field_segment(field),
+                headline: headline.map(|h| h.to_string()),
                 path: path.to_string(),
                 class_name: cls.name.clone(),
                 field_name: field.name.clone(),

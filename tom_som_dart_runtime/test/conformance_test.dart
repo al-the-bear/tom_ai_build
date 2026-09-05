@@ -822,6 +822,7 @@ void main() {
               for (final e in x.entries)
                 {
                   'sectionId': e.sectionId,
+                  'headline': e.headline,
                   'path': e.path,
                   'className': e.className,
                   'fieldName': e.fieldName,
@@ -3924,6 +3925,7 @@ Map<String, dynamic> _codeSpecsExtractCases(
 
   Map<String, dynamic> entryJson(CodeSpecsExtractEntry e) => {
         'sectionId': e.sectionId,
+        'headline': e.headline,
         'path': e.path,
         'className': e.className,
         'fieldName': e.fieldName,

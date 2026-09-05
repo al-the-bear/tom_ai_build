@@ -1050,6 +1050,7 @@ function testCodeSpecsExtract(model, doc) {
     citableParts: x.citableParts,
     entries: x.entries.map((e) => ({
       sectionId: e.sectionId,
+      headline: e.headline,
       path: e.path,
       className: e.className,
       fieldName: e.fieldName,

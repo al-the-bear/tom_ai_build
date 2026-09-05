@@ -53,6 +53,7 @@ screen.orders.empty
 
 ### 4. `content` — `ScreenStateEntry.content.stateId`
 
+- headline: Empty queue
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).
@@ -63,6 +64,7 @@ empty-queue
 
 ### 5. `content` — `ScreenStateEntry.content.description`
 
+- headline: Empty queue
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).
@@ -73,6 +75,7 @@ No orders match the selected state filter.
 
 ### 6. `content` — `ScreenStateEntry.content.messageResource`
 
+- headline: Empty queue
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).
@@ -83,6 +86,7 @@ screen.orders.empty
 
 ### 7. `content` — `ScreenStateEntry.content.primaryActionLabel`
 
+- headline: Empty queue
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).
@@ -93,6 +97,7 @@ screen.orders.empty.action.clear
 
 ### 8. `content` — `ScreenStateEntry.content.primaryActionTarget`
 
+- headline: Empty queue
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).
@@ -103,6 +108,7 @@ SCR-01-EL-1
 
 ### 9. `content` — `ScreenStateEntry.content.stateId`
 
+- headline: Amendment rejected
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).
@@ -113,6 +119,7 @@ amendment-rejected
 
 ### 10. `content` — `ScreenStateEntry.content.description`
 
+- headline: Amendment rejected
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).
@@ -123,6 +130,7 @@ The new quantity failed validation or reservation.
 
 ### 11. `content` — `ScreenStateEntry.content.messageResource`
 
+- headline: Amendment rejected
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).
@@ -133,6 +141,7 @@ screen.order.amend.error
 
 ### 12. `content` — `ScreenStateEntry.content.primaryActionLabel`
 
+- headline: Amendment rejected
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).
@@ -143,6 +152,7 @@ screen.order.amend.action.retry
 
 ### 13. `content` — `ScreenStateEntry.content.primaryActionTarget`
 
+- headline: Amendment rejected
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/states/SCRST-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.viewState` declared on `ScreenStateEntry`
 - routing note: CE-ST — view-model / UI state (data-bound display, screen/component state).

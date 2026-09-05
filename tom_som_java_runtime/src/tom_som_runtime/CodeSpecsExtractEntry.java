@@ -15,6 +15,14 @@ public final class CodeSpecsExtractEntry {
    */
   public final String sectionId;
 
+  /**
+   * The enclosing section instance's headline, copy-only like {@link #value}:
+   * the document's <b>stored</b> headline for the class node the leaf sits
+   * under (YRD3), else the class's {@code @Headline} type default (YRD4), else
+   * {@code null}. Gives naming rule N1 a real source — never a derivation.
+   */
+  public final String headline;
+
   /** The document path of the leaf — the source location. */
   public final String path;
 
@@ -48,6 +56,7 @@ public final class CodeSpecsExtractEntry {
   public CodeSpecsExtractEntry(
       String areaCode,
       String sectionId,
+      String headline,
       String path,
       String className,
       String fieldName,
@@ -58,6 +67,7 @@ public final class CodeSpecsExtractEntry {
       String value) {
     this.areaCode = areaCode;
     this.sectionId = sectionId;
+    this.headline = headline;
     this.path = path;
     this.className = className;
     this.fieldName = fieldName;

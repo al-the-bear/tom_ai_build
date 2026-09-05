@@ -2029,6 +2029,8 @@ static void test_codespecs_extract(Checker *c, const SpecModel *model) {
         const char *want;
       } efs[] = {
           {"sectionId", e->section_id, som_json_str_or(we, "sectionId")},
+          {"headline", opt_text(e->headline),
+           json_opt_text(som_json_get(we, "headline"))},
           {"path", e->path, som_json_str_or(we, "path")},
           {"className", e->class_name, som_json_str_or(we, "className")},
           {"fieldName", e->field_name, som_json_str_or(we, "fieldName")},

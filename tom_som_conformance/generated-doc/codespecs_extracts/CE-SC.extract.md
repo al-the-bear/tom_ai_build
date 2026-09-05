@@ -493,6 +493,7 @@ FR-05 amend before dispatch
 
 ### 48. `content` — `ServerCallStepEntry.content.role`
 
+- headline: Stage the core fields
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/SVCST-STEP-LST-1/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -503,6 +504,7 @@ assembleRequest
 
 ### 49. `content` — `ServerCallStepEntry.content.systemAction`
 
+- headline: Stage the core fields
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/SVCST-STEP-LST-1/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -513,6 +515,7 @@ Puts the line id, the new quantity and the order version onto the amendment comm
 
 ### 50. `content` — `ServerCallStepEntry.content.role`
 
+- headline: Attach the justification
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/SVCST-STEP-LST-2/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -523,6 +526,7 @@ assembleRequest
 
 ### 51. `content` — `ServerCallStepEntry.content.systemAction`
 
+- headline: Attach the justification
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/SVCST-STEP-LST-2/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -533,6 +537,7 @@ Adds the clerk's justification note to the command.
 
 ### 52. `content` — `ServerCallStepEntry.content.condition`
 
+- headline: Attach the justification
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/SVCST-STEP-LST-2/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -543,6 +548,7 @@ Only when the clerk entered a justification
 
 ### 53. `content` — `ServerCallStepEntry.content.role`
 
+- headline: Apply the price snapshot
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/SVCST-STEP-LST-3/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -553,6 +559,7 @@ handleResponse
 
 ### 54. `content` — `ServerCallStepEntry.content.systemAction`
 
+- headline: Apply the price snapshot
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/SVCST-STEP-LST-3/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -563,6 +570,7 @@ Applies the returned price snapshot and reservation state to the open line.
 
 ### 55. `content` — `ServerCallStepEntry.content.role`
 
+- headline: Surface the rejection
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/SVCST-STEP-LST-4/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -573,6 +581,7 @@ handleError
 
 ### 56. `content` — `ServerCallStepEntry.content.systemAction`
 
+- headline: Surface the rejection
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/mainScenario/MNSST-STEP-LST-1/SVCST-STEP-LST-4/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -723,6 +732,7 @@ fetchOrderWorkList
 
 ### 71. `content` — `ServerCallStepEntry.content.role`
 
+- headline: Render the work list page
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-2/SVCST-STEP-LST-1/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.
@@ -733,6 +743,7 @@ handleResponse
 
 ### 72. `content` — `ServerCallStepEntry.content.systemAction`
 
+- headline: Render the work list page
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCNST-STEP-LST-2/SVCST-STEP-LST-1/content`
 - routed by: `CodeSpecPart.serverCall` declared on `ServerCallStepEntry`
 - routing note: CE-SC — one step of one of the call's three method bodies. The role field routes it to assembleRequest, handleResponse or handleError, which is what makes those bodies form 3b (codespecs_derivation_contract.md §2.4): within a role, each step contributes one collaborator method and one statement in list order, and a stated condition becomes a guard method (B4). It routes to the same part as the interaction step that owns it — a step is not a declaration of its own, it is part of one call.

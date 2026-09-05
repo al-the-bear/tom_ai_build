@@ -122,9 +122,13 @@ counters, no clocks, no dictionaries, no state carried between elements.
 **N1 — the source string.** Each entry names a **designated name field**: the
 SOM field whose value names the thing (`DataEntityEntry.entityName`,
 `InterfaceOperationEntry.operationName`, …). If the section type has no
-designated name field, the source is the section's **headline text**. If both
-are absent or empty, generation **fails** naming the section id — an unnamed
-section is a spec defect, not a naming problem.
+designated name field, the source is the section's **headline text** — carried
+on every extract entry as `headline` (`codespecs_mapping.md` §1.1.1): the
+enclosing section instance's stored headline, else its `@Headline` type
+default. The headline is the source *string*; the naming judgement stays N2/N3
+over it, never a fallback to PascalCase of the section id. If both are absent
+or empty, generation **fails** naming the section id — an unnamed section is a
+spec defect, not a naming problem.
 
 **N2 — tokenisation.** The source string becomes a token list:
 

@@ -1670,6 +1670,7 @@ func testCodeSpecsExtract(c *checker, t *testing.T, model *som.SpecModel) {
 func codeSpecsEntryRecord(e som.CodeSpecsExtractEntry) map[string]any {
 	return map[string]any{
 		"sectionId":   e.SectionID,
+		"headline":    nullable(e.Headline),
 		"path":        e.Path,
 		"className":   e.ClassName,
 		"fieldName":   e.FieldName,

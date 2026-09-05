@@ -387,6 +387,7 @@ std::string CodeSpecsExtract::toYaml() const {
   writeln(b, "  entries:");
   for (const CodeSpecsExtractEntry& e : entries) {
     writeln(b, "    - sectionId: " + yamlString(e.sectionId));
+    writeln(b, "      headline: " + yamlNullableString(e.headline));
     writeln(b, "      path: " + yamlString(e.path));
     writeln(b, "      className: " + yamlString(e.className));
     writeln(b, "      fieldName: " + yamlString(e.fieldName));
@@ -443,6 +444,9 @@ std::string CodeSpecsExtract::toMarkdown() const {
     writeln(b, "### " + std::to_string(n) + ". `" + e.sectionId + "` — `" +
                    e.className + "." + member + "`");
     writeln(b, "");
+    if (e.headline.has_value()) {
+      writeln(b, "- headline: " + mdCell(*e.headline));
+    }
     writeln(b, "- path: `" + e.path + "`");
     writeln(b, "- routed by: `" + e.routedBy + "` declared on `" + e.routedAt +
                    "`");
@@ -630,6 +634,16 @@ void CodeSpecsExtractor::walk(const std::string& path, const SpecClass* cls,
       routing.verdict == CodeSpecsRoutingVerdict::FeedsCode ? &routing
                                                             : nullptr;
 
+  // The enclosing section instance's headline, copy-only: the stored headline
+  // (YRD3), else the class's `@Headline` type default (YRD4), else unset.
+  const std::string* storedHeadline = document_->headlineOpt(path);
+  std::optional<std::string> headline;
+  if (storedHeadline != nullptr) {
+    headline = *storedHeadline;
+  } else if (!cls->headline.empty()) {
+    headline = cls->headline;
+  }
+
   for (const SpecField& field : cls->fields) {
     std::string fieldPath =
         specPathJoin(path, SpecReflection::fieldSegment(field));
@@ -641,11 +655,11 @@ void CodeSpecsExtractor::walk(const std::string& path, const SpecClass* cls,
         field.kind == kSpecFieldKindEnum ||
         field.kind == kSpecFieldKindScalar) {
       emitValue(entries, fieldRouted, *cls, field, fieldPath, std::nullopt,
-                document_->content(fieldPath));
+                headline, document_->content(fieldPath));
     } else if (field.kind == kSpecFieldKindForm) {
       for (const FormFieldSpec& ff : field.formFields) {
         emitValue(entries, fieldRouted, *cls, field, fieldPath, ff.name,
-                  document_->formField(fieldPath, ff.name));
+                  headline, document_->formField(fieldPath, ff.name));
       }
     } else if (field.kind == kSpecFieldKindList) {
       for (const std::string& itemPath : document_->listItems(fieldPath)) {
@@ -657,7 +671,7 @@ void CodeSpecsExtractor::walk(const std::string& path, const SpecClass* cls,
                routings, entries, strict);
         } else {
           emitValue(entries, fieldRouted, *cls, field, itemPath, std::nullopt,
-                    document_->content(itemPath));
+                    headline, document_->content(itemPath));
         }
       }
     } else if (field.kind == kSpecFieldKindComplex ||
@@ -676,6 +690,7 @@ void CodeSpecsExtractor::emitValue(
     std::vector<CodeSpecsExtractEntry>* entries, const CodeSpecsRouting* routing,
     const SpecClass& cls, const SpecField& field, const std::string& path,
     const std::optional<std::string>& formField,
+    const std::optional<std::string>& headline,
     const std::string& value) const {
   if (entries == nullptr || routing == nullptr) {
     return;
@@ -694,6 +709,7 @@ void CodeSpecsExtractor::emitValue(
     CodeSpecsExtractEntry e;
     e.areaCode = area->code;
     e.sectionId = SpecReflection::fieldSegment(field);
+    e.headline = headline;
     e.path = path;
     e.className = cls.name;
     e.fieldName = field.name;

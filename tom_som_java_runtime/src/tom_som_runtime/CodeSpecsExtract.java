@@ -10,8 +10,12 @@ public final class CodeSpecsExtract {
   /**
    * The version of the emitted extract artifact's on-disk shape. Bumped when the
    * YAML or Markdown layout changes in a way a reader could notice.
+   *
+   * <p>2: entries carry {@code headline} — the enclosing section instance's
+   * headline, copy-only (stored headline, else the {@code @Headline} type
+   * default, else null).
    */
-  public static final int FORMAT_VERSION = 1;
+  public static final int FORMAT_VERSION = 2;
 
   /** The area this extract is for. */
   public final CodeSpecsArea area;
@@ -85,6 +89,7 @@ public final class CodeSpecsExtract {
     line(b, "  entries:");
     for (CodeSpecsExtractEntry e : entries) {
       line(b, "    - sectionId: " + yamlString(e.sectionId));
+      line(b, "      headline: " + yamlNullableString(e.headline));
       line(b, "      path: " + yamlString(e.path));
       line(b, "      className: " + yamlString(e.className));
       line(b, "      fieldName: " + yamlString(e.fieldName));
@@ -141,6 +146,9 @@ public final class CodeSpecsExtract {
           e.formField == null ? e.fieldName : e.fieldName + "." + e.formField;
       line(b, "### " + n + ". `" + e.sectionId + "` — `" + e.className + "." + member + "`");
       line(b, "");
+      if (e.headline != null) {
+        line(b, "- headline: " + mdCell(e.headline));
+      }
       line(b, "- path: `" + e.path + "`");
       line(b, "- routed by: `" + e.routedBy + "` declared on `" + e.routedAt + "`");
       if (e.routingNote != null) {

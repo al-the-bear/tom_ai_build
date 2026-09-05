@@ -64,8 +64,11 @@
 #include "spec_reflection.h"
 
 /* The version of the emitted extract artifact's on-disk shape. Bumped when the
- * YAML or Markdown layout changes in a way a reader could notice. */
-#define SPEC_CODESPECS_EXTRACT_FORMAT 1
+ * YAML or Markdown layout changes in a way a reader could notice.
+ *
+ * 2: entries carry `headline` — the enclosing section instance's headline,
+ * copy-only (stored headline, else the `@Headline` type default, else null). */
+#define SPEC_CODESPECS_EXTRACT_FORMAT 2
 
 /* The annotation names of the three routing verdicts (`codespecs_mapping.md`
  * §8.3). All three ride the generic annotation bag in every SOM runtime (§8.4),
@@ -154,6 +157,11 @@ typedef struct {
   /* The section id of the leaf the value sits on (`@SectionId`, else the model
    * field name). */
   char *section_id;
+  /* The enclosing section instance's headline, copy-only like `value`: the
+   * document's **stored** headline for the class node the leaf sits under
+   * (YRD3), else the class's `@Headline` type default (YRD4), else NULL. Gives
+   * naming rule N1 a real source — never a derivation. */
+  char *headline;
   /* The document path of the leaf — the source location. */
   char *path;
   /* The model class declaring the leaf. */

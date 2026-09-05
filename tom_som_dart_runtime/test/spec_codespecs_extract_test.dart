@@ -142,6 +142,65 @@ void main() {
       }
     });
 
+    test("carries the enclosing section instance's stored headline", () {
+      // F10: a derived holder (a CE-LO layout class, a list-item form) needs a
+      // name, and the sectionId fallback (`Scr01Sec1Layout`) is a codename.
+      // The headline is source text, so C1 permits copying it — the entry
+      // carries the headline of the *enclosing section instance*, which is
+      // what names the holder its values feed.
+      final document = _document();
+      document.setHeadline('ORD', 'Coffee ordering');
+      final entryPath = document.listItems('ORD/REG/ENT').single;
+      document.setHeadline(entryPath, 'Standing order entry');
+      final extractor = CodeSpecsExtractor(
+        model: _model(),
+        document: document,
+        catalog: _catalog(),
+      );
+      final byPath = {
+        for (final x in extractor.extractAll())
+          for (final e in x.entries) e.path: e,
+      };
+      expect(byPath['ORD/TTL']!.headline, 'Coffee ordering');
+      expect(byPath['$entryPath/LBL']!.headline, 'Standing order entry');
+    });
+
+    test("falls back to the class's @Headline default, else null", () {
+      // Render precedence for the copy is the model's own (YRD3 > YRD4):
+      // stored instance headline first, the `@Headline(text)` type default
+      // second, and null when neither exists — never a name derivation, which
+      // is exactly the composition C1 forbids.
+      final extractor = CodeSpecsExtractor(
+        model: _model(entryHeadline: 'Register entry'),
+        document: _document(),
+        catalog: _catalog(),
+      );
+      final entries = [
+        for (final x in extractor.extractAll()) ...x.entries,
+      ];
+      final itemEntry =
+          entries.firstWhere((e) => e.path.endsWith('/LBL'));
+      expect(itemEntry.headline, 'Register entry');
+      // No stored headline and no @Headline on Order: null, not a derivation.
+      final rootEntry = entries.firstWhere((e) => e.path == 'ORD/TTL');
+      expect(rootEntry.headline, isNull);
+    });
+
+    test('a stored headline wins over the @Headline type default', () {
+      final document = _document();
+      final entryPath = document.listItems('ORD/REG/ENT').single;
+      document.setHeadline(entryPath, 'Weekly standing order');
+      final extractor = CodeSpecsExtractor(
+        model: _model(entryHeadline: 'Register entry'),
+        document: document,
+        catalog: _catalog(),
+      );
+      final itemEntry = [
+        for (final x in extractor.extractAll()) ...x.entries,
+      ].firstWhere((e) => e.path.endsWith('/LBL'));
+      expect(itemEntry.headline, 'Weekly standing order');
+    });
+
     test('derives citable areas transitively from the slice graph', () {
       final catalog = _catalog();
       // CE-FM sits in slice 2, which cites slice 1 — so it reaches both areas
@@ -308,6 +367,26 @@ void main() {
       expect(yaml, contains('citableParts: ["CE-TX", "CE-ER"]'));
       expect(yaml, contains('value: "Place an order"'));
       expect(yaml, contains('routedAt: "Order"'));
+      // The headline slot is always emitted, null when no source text exists.
+      expect(yaml, contains('headline: null'));
+    });
+
+    test('YAML and Markdown carry a headline when the instance has one', () {
+      final document = _document();
+      document.setHeadline('ORD', 'Coffee "to go" ordering');
+      final extract = CodeSpecsExtractor(
+        model: _model(),
+        document: document,
+        catalog: _catalog(),
+      ).extractFor('CE-FM')!;
+      expect(
+        extract.toYaml(),
+        contains(r'headline: "Coffee \"to go\" ordering"'),
+      );
+      expect(
+        extract.toMarkdown(),
+        contains('- headline: Coffee "to go" ordering'),
+      );
     });
 
     test('YAML escapes a value that would otherwise break the document', () {
@@ -367,7 +446,8 @@ SpecAnnotation _kind(List<String> kinds, {String? note}) => SpecAnnotation(
 
 /// A four-class model: a routed root, a follow-up subtree, a container and a
 /// routed list element.
-SpecModel _model({bool unroutedRegistry = false}) => SpecModel(
+SpecModel _model({bool unroutedRegistry = false, String? entryHeadline}) =>
+    SpecModel(
       roots: [SpecRoot(type: 'Order', title: 'Order', sectionId: 'ORD')],
       classes: {
         'Order': SpecClass(
@@ -439,6 +519,7 @@ SpecModel _model({bool unroutedRegistry = false}) => SpecModel(
         'Entry': SpecClass(
           name: 'Entry',
           sectionId: 'ENT',
+          headline: entryHeadline,
           annotations: [_kind(['form'])],
           fields: [
             SpecField(

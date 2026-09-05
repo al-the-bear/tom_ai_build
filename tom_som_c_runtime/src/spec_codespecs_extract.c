@@ -258,6 +258,7 @@ void spec_codespecs_extract_entry_free(CodeSpecsExtractEntry *e) {
   }
   free(e->area_code);
   free(e->section_id);
+  free(e->headline);
   free(e->path);
   free(e->class_name);
   free(e->field_name);
@@ -286,6 +287,7 @@ static CodeSpecsExtractEntry entry_copy(const CodeSpecsExtractEntry *e) {
   CodeSpecsExtractEntry out;
   out.area_code = som_strdup(e->area_code);
   out.section_id = som_strdup(e->section_id);
+  out.headline = dup_opt(e->headline);
   out.path = som_strdup(e->path);
   out.class_name = som_strdup(e->class_name);
   out.field_name = som_strdup(e->field_name);
@@ -686,6 +688,8 @@ char *spec_codespecs_extract_to_yaml(const CodeSpecsExtract *x) {
     const CodeSpecsExtractEntry *e = &x->entries[i];
     som_buf_puts(&b, "    - sectionId: ");
     yaml_string(&b, e->section_id);
+    som_buf_puts(&b, "\n      headline: ");
+    yaml_nullable_string(&b, e->headline);
     som_buf_puts(&b, "\n      path: ");
     yaml_string(&b, e->path);
     som_buf_puts(&b, "\n      className: ");
@@ -773,7 +777,13 @@ char *spec_codespecs_extract_to_markdown(const CodeSpecsExtract *x) {
       som_buf_putc(&b, '.');
       som_buf_puts(&b, e->form_field);
     }
-    som_buf_puts(&b, "`\n\n- path: `");
+    som_buf_puts(&b, "`\n\n");
+    if (e->headline != NULL) {
+      som_buf_puts(&b, "- headline: ");
+      md_cell(&b, e->headline);
+      som_buf_putc(&b, '\n');
+    }
+    som_buf_puts(&b, "- path: `");
     som_buf_puts(&b, e->path);
     som_buf_puts(&b, "`\n- routed by: `");
     som_buf_puts(&b, e->routed_by);
@@ -1079,7 +1089,8 @@ static int field_routing(const SpecClass *cls, const SpecField *field,
 static void emit_value(const CodeSpecsExtractor *e, EntryBuf *entries,
                        const CodeSpecsRouting *routing, const SpecClass *cls,
                        const SpecField *field, const char *path,
-                       const char *form_field, const char *value) {
+                       const char *form_field, const char *headline,
+                       const char *value) {
   if (entries == NULL || routing == NULL) {
     return;
   }
@@ -1095,6 +1106,7 @@ static void emit_value(const CodeSpecsExtractor *e, EntryBuf *entries,
     CodeSpecsExtractEntry entry;
     entry.area_code = som_strdup(area->code);
     entry.section_id = som_strdup(spec_reflection_field_segment(field));
+    entry.headline = dup_opt(headline);
     entry.path = som_strdup(path);
     entry.class_name = som_strdup(cls->name);
     entry.field_name = som_strdup(field->name);
@@ -1154,6 +1166,15 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
     return 0;
   }
 
+  /* The enclosing section instance's headline, resolved once per class node
+   * (YRD3 stored > YRD4 type default > NULL) and copied onto every entry
+   * emitted below it. Copy-only — never a name derivation. */
+  const char *stored_headline = spec_document_headline(e->document, path);
+  const char *headline =
+      stored_headline != NULL
+          ? stored_headline
+          : (cls->headline[0] != '\0' ? cls->headline : NULL);
+
   int ok = 1;
   for (size_t i = 0; ok && i < cls->fields_len; i++) {
     const SpecField *field = &cls->fields[i];
@@ -1167,12 +1188,12 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
     if (strcmp(field->kind, SPEC_FIELD_KIND_CONTENT) == 0 ||
         strcmp(field->kind, SPEC_FIELD_KIND_ENUM) == 0 ||
         strcmp(field->kind, SPEC_FIELD_KIND_SCALAR) == 0) {
-      emit_value(e, entries, routed, cls, field, field_path, NULL,
+      emit_value(e, entries, routed, cls, field, field_path, NULL, headline,
                  spec_document_content(e->document, field_path));
     } else if (strcmp(field->kind, SPEC_FIELD_KIND_FORM) == 0) {
       for (size_t f = 0; f < field->form_fields_len; f++) {
         const char *name = field->form_fields[f].name;
-        emit_value(e, entries, routed, cls, field, field_path, name,
+        emit_value(e, entries, routed, cls, field, field_path, name, headline,
                    spec_document_form_field(e->document, field_path, name));
       }
     } else if (strcmp(field->kind, SPEC_FIELD_KIND_LIST) == 0) {
@@ -1192,7 +1213,7 @@ static int walk(const CodeSpecsExtractor *e, const char *path,
                     &nested, routings, entries, strict, err);
           som_strlist_free(&nested);
         } else {
-          emit_value(e, entries, routed, cls, field, item_path, NULL,
+          emit_value(e, entries, routed, cls, field, item_path, NULL, headline,
                      spec_document_content(e->document, item_path));
         }
         free(item_path);

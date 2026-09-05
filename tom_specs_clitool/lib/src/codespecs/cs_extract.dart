@@ -28,7 +28,10 @@ import 'package:yaml/yaml.dart';
 /// Refusing an unknown version is the point: a later format that moved a key
 /// would otherwise read as an extract with no entries, and a check with no
 /// input passes.
-const int kCsExtractFormat = 1;
+///
+/// 2: entries carry `headline` — the enclosing section instance's headline,
+/// copy-only (stored headline, else the `@Headline` type default, else null).
+const int kCsExtractFormat = 2;
 
 /// The file name of the Stage-B gate record — `codespecs_prompt.md` §6.3's
 /// persisted verdicts, written beside the extracts.
@@ -129,6 +132,10 @@ class CsExtractEntry {
   /// The section id the value belongs to — the key a `DocRef` names.
   final String sectionId;
 
+  /// The enclosing section instance's headline, copy-only: the stored
+  /// headline, else the `@Headline` type default, else null.
+  final String? headline;
+
   /// The document path of the node the value was read from.
   final String path;
 
@@ -158,6 +165,7 @@ class CsExtractEntry {
     required this.areaCode,
     required this.sectionId,
     required this.value,
+    this.headline,
     this.path = '',
     this.className = '',
     this.fieldName = '',
@@ -504,6 +512,7 @@ CsExtract _readExtract(String name, String yamlText) {
         CsExtractEntry(
           areaCode: areaCode,
           sectionId: _string(raw['sectionId']),
+          headline: _nullableString(raw['headline']),
           path: _string(raw['path']),
           className: _string(raw['className']),
           fieldName: _string(raw['fieldName']),

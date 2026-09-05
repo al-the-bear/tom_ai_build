@@ -433,6 +433,7 @@ FR-04 five-minute confirmation
 
 ### 42. `content` — `ExtensionEntry.content.branchPoint`
 
+- headline: 2a Credit limit exceeded
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -443,6 +444,7 @@ MNSST-STEP-2
 
 ### 43. `content` — `ExtensionEntry.content.condition`
 
+- headline: 2a Credit limit exceeded
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -453,6 +455,7 @@ Customer credit limit would be exceeded
 
 ### 44. `content` — `ExtensionEntry.content.extensionType`
 
+- headline: 2a Credit limit exceeded
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -463,6 +466,7 @@ Exception
 
 ### 45. `content` — `ExtensionEntry.content.description`
 
+- headline: 2a Credit limit exceeded
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -473,6 +477,7 @@ Validation detects the order exceeds the customer credit limit.
 
 ### 46. `content` — `ExtensionEntry.content.outcome`
 
+- headline: 2a Credit limit exceeded
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -483,6 +488,7 @@ Order is placed on Hold for supervisor review (see UC-02).
 
 ### 47. `content` — `ExtensionEntry.content.returnKind`
 
+- headline: 2a Credit limit exceeded
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -493,6 +499,7 @@ resumeAtStep
 
 ### 48. `content` — `ExtensionEntry.content.severity`
 
+- headline: 2a Credit limit exceeded
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -503,6 +510,7 @@ High
 
 ### 49. `EXTEN-RESU` — `ExtensionEntry.resumePoint.resumeStep`
 
+- headline: 2a Credit limit exceeded
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-1/EXTEN-RESU`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -543,6 +551,7 @@ Order appears in the Hold filter of the work list with reason "Credit exceeded".
 
 ### 53. `content` — `ExtensionEntry.content.branchPoint`
 
+- headline: 4a Insufficient stock
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -553,6 +562,7 @@ MNSST-STEP-4
 
 ### 54. `content` — `ExtensionEntry.content.condition`
 
+- headline: 4a Insufficient stock
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -563,6 +573,7 @@ Insufficient stock for one or more lines
 
 ### 55. `content` — `ExtensionEntry.content.extensionType`
 
+- headline: 4a Insufficient stock
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -573,6 +584,7 @@ Exception
 
 ### 56. `content` — `ExtensionEntry.content.description`
 
+- headline: 4a Insufficient stock
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -583,6 +595,7 @@ Reservation cannot be fully satisfied for a line.
 
 ### 57. `content` — `ExtensionEntry.content.outcome`
 
+- headline: 4a Insufficient stock
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -593,6 +606,7 @@ The affected line is placed on Hold; other lines proceed.
 
 ### 58. `content` — `ExtensionEntry.content.returnKind`
 
+- headline: 4a Insufficient stock
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -603,6 +617,7 @@ resumeAtStep
 
 ### 59. `content` — `ExtensionEntry.content.severity`
 
+- headline: 4a Insufficient stock
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -613,6 +628,7 @@ Medium
 
 ### 60. `EXTEN-RESU` — `ExtensionEntry.resumePoint.resumeStep`
 
+- headline: 4a Insufficient stock
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/extensions/EXTEN-EXTE-LST-2/EXTEN-RESU`
 - routed by: `CodeSpecPart.action` declared on `ExtensionEntry`
 - routing note: CE-AC — an extension is an alternate/exception action branch of the use case. branchPoint names the main-scenario step the branch is emitted before; returnKind and its case subsection say where control goes when the branch finishes (codespecs_derivation_contract.md B5/B6).
@@ -1123,6 +1139,7 @@ FR-03 reserve before confirm
 
 ### 111. `SCID` — `ScenarioEntry.identification.scenarioType`
 
+- headline: SCN-01 Happy-path wholesale order, capture to fulfilment
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCID`
 - routed by: `CodeSpecPart.action` declared on `ScenarioEntry`
 - routing note: CE-AC — an end-to-end scenario is a goal-directed sequence of actions
@@ -1133,6 +1150,7 @@ End-to-end
 
 ### 112. `SCID` — `ScenarioEntry.identification.description`
 
+- headline: SCN-01 Happy-path wholesale order, capture to fulfilment
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCID`
 - routed by: `CodeSpecPart.action` declared on `ScenarioEntry`
 - routing note: CE-AC — an end-to-end scenario is a goal-directed sequence of actions
@@ -1143,6 +1161,7 @@ A clean wholesale order flows from EDI capture through to fulfilment with no hol
 
 ### 113. `SCID` — `ScenarioEntry.identification.businessGoal`
 
+- headline: SCN-01 Happy-path wholesale order, capture to fulfilment
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCID`
 - routed by: `CodeSpecPart.action` declared on `ScenarioEntry`
 - routing note: CE-AC — an end-to-end scenario is a goal-directed sequence of actions
@@ -1153,6 +1172,7 @@ Confirm and fulfil a wholesale order without manual intervention.
 
 ### 114. `SCID` — `ScenarioEntry.identification.primaryActor`
 
+- headline: SCN-01 Happy-path wholesale order, capture to fulfilment
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCID`
 - routed by: `CodeSpecPart.action` declared on `ScenarioEntry`
 - routing note: CE-AC — an end-to-end scenario is a goal-directed sequence of actions
@@ -1163,6 +1183,7 @@ ACT-04 EDI Integration Account
 
 ### 115. `SCID` — `ScenarioEntry.identification.supportingActors`
 
+- headline: SCN-01 Happy-path wholesale order, capture to fulfilment
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCID`
 - routed by: `CodeSpecPart.action` declared on `ScenarioEntry`
 - routing note: CE-AC — an end-to-end scenario is a goal-directed sequence of actions
@@ -1173,6 +1194,7 @@ ACT-01 Order Clerk
 
 ### 116. `SCID` — `ScenarioEntry.identification.priority`
 
+- headline: SCN-01 Happy-path wholesale order, capture to fulfilment
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCID`
 - routed by: `CodeSpecPart.action` declared on `ScenarioEntry`
 - routing note: CE-AC — an end-to-end scenario is a goal-directed sequence of actions
@@ -1183,6 +1205,7 @@ High
 
 ### 117. `SCID` — `ScenarioEntry.identification.complexity`
 
+- headline: SCN-01 Happy-path wholesale order, capture to fulfilment
 - path: `SBP/targetOperatingModelConcept/processStepsAndActorInteractions/keyScenarios/SCNRY-SCEN-LST-1/SCID`
 - routed by: `CodeSpecPart.action` declared on `ScenarioEntry`
 - routing note: CE-AC — an end-to-end scenario is a goal-directed sequence of actions
@@ -1323,6 +1346,7 @@ Order moves to Fulfilled and the public tracking page updates.
 
 ### 131. `content` — `ScreenActionEntry.content.actionId`
 
+- headline: Open order
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1333,6 +1357,7 @@ SCR-01-ACT-1
 
 ### 132. `content` — `ScreenActionEntry.content.actionType`
 
+- headline: Open order
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1343,6 +1368,7 @@ Navigate
 
 ### 133. `content` — `ScreenActionEntry.content.owningController`
 
+- headline: Open order
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1353,6 +1379,7 @@ Order
 
 ### 134. `content` — `ScreenActionEntry.content.description`
 
+- headline: Open order
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1363,6 +1390,7 @@ Opens the selected order's detail screen.
 
 ### 135. `content` — `ScreenActionEntry.content.contextType`
 
+- headline: Open order
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1373,6 +1401,7 @@ OrderViewModel
 
 ### 136. `SAEV` — `ScreenActionEntry.visual.labelResource`
 
+- headline: Open order
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/SAEV`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1383,6 +1412,7 @@ screen.orders.action.open
 
 ### 137. `SAEV` — `ScreenActionEntry.visual.placement`
 
+- headline: Open order
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/SAEV`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1393,6 +1423,7 @@ Row
 
 ### 138. `SAEV` — `ScreenActionEntry.visual.buttonStyle`
 
+- headline: Open order
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-1/actions/SCRAC-ITEM-LST-1/SAEV`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1403,6 +1434,7 @@ Primary
 
 ### 139. `content` — `ScreenActionEntry.content.actionId`
 
+- headline: Amend line
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1413,6 +1445,7 @@ SCR-02-ACT-1
 
 ### 140. `content` — `ScreenActionEntry.content.actionType`
 
+- headline: Amend line
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1423,6 +1456,7 @@ Submit
 
 ### 141. `content` — `ScreenActionEntry.content.owningController`
 
+- headline: Amend line
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1433,6 +1467,7 @@ Order
 
 ### 142. `content` — `ScreenActionEntry.content.description`
 
+- headline: Amend line
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1443,6 +1478,7 @@ Submits the amended line quantity for revalidation.
 
 ### 143. `content` — `ScreenActionEntry.content.contextType`
 
+- headline: Amend line
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1453,6 +1489,7 @@ OrderViewModel
 
 ### 144. `SAEV` — `ScreenActionEntry.visual.labelResource`
 
+- headline: Amend line
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/SAEV`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1463,6 +1500,7 @@ screen.order.action.amend
 
 ### 145. `SAEV` — `ScreenActionEntry.visual.placement`
 
+- headline: Amend line
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/SAEV`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1473,6 +1511,7 @@ Row
 
 ### 146. `SAEV` — `ScreenActionEntry.visual.buttonStyle`
 
+- headline: Amend line
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-1/SAEV`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1483,6 +1522,7 @@ Primary
 
 ### 147. `content` — `ScreenActionEntry.content.actionId`
 
+- headline: Release hold
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1493,6 +1533,7 @@ SCR-02-ACT-2
 
 ### 148. `content` — `ScreenActionEntry.content.actionType`
 
+- headline: Release hold
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1503,6 +1544,7 @@ Submit
 
 ### 149. `content` — `ScreenActionEntry.content.owningController`
 
+- headline: Release hold
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1513,6 +1555,7 @@ Order
 
 ### 150. `content` — `ScreenActionEntry.content.description`
 
+- headline: Release hold
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1523,6 +1566,7 @@ Releases the credit hold on the order.
 
 ### 151. `content` — `ScreenActionEntry.content.contextType`
 
+- headline: Release hold
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/content`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1533,6 +1577,7 @@ OrderViewModel
 
 ### 152. `SAEV` — `ScreenActionEntry.visual.labelResource`
 
+- headline: Release hold
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/SAEV`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1543,6 +1588,7 @@ screen.order.action.release
 
 ### 153. `SAEV` — `ScreenActionEntry.visual.placement`
 
+- headline: Release hold
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/SAEV`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.
@@ -1553,6 +1599,7 @@ Header
 
 ### 154. `SAEV` — `ScreenActionEntry.visual.buttonStyle`
 
+- headline: Release hold
 - path: `SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST-2/actions/SCRAC-ITEM-LST-2/SAEV`
 - routed by: `CodeSpecPart.action` declared on `ScreenActionEntry`
 - routing note: CE-AC — an action and its trigger.

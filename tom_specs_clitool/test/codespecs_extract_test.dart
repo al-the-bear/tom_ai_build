@@ -55,6 +55,27 @@ void main() {
       expect(set.entries.single.value, 'A person or organisation.');
     });
 
+    test('reads the entry headline, and its absence reads as null', () {
+      final buffer = StringBuffer()
+        ..writeln('extract:')
+        ..writeln('  formatVersion: $kCsExtractFormat')
+        ..writeln('  area:')
+        ..writeln('    code: "CE-DB"')
+        ..writeln('  document:')
+        ..writeln('    root: "IMO"')
+        ..writeln('  entries:')
+        ..writeln('    - sectionId: "IMO-014"')
+        ..writeln('      headline: "Business Partner"')
+        ..writeln('      value: "A person or organisation."')
+        ..writeln('    - sectionId: "IMO-015"')
+        ..writeln('      headline: null')
+        ..writeln('      value: "An address."');
+      final set = readCsExtracts({'CE-DB.extract.yaml': '$buffer'});
+      final entries = set.extracts.single.entries;
+      expect(entries[0].headline, 'Business Partner');
+      expect(entries[1].headline, isNull);
+    });
+
     test('indexes by section id across every area, in read order', () {
       final set = readCsExtracts({
         'CE-DB.extract.yaml': _yaml(entries: [('IMO-014', 'from the entity')]),
@@ -84,7 +105,7 @@ void main() {
       // no input passes — which is the one failure mode a validator may not
       // have.
       expect(
-        () => readCsExtracts({'x.extract.yaml': _yaml(version: 2)}),
+        () => readCsExtracts({'x.extract.yaml': _yaml(version: kCsExtractFormat + 1)}),
         throwsA(
           isA<CsExtractException>().having(
             (e) => e.message,
