@@ -190,6 +190,16 @@ class SpecChip {
   /// author's explanation of a mapping can surface.
   final String? tooltip;
 
+  /// [label] and [role] are positional and required: a chip that said nothing
+  /// or claimed no role would still be rendered, just uncoloured and
+  /// unexplainable. [tooltip] is named and optional because plenty of chips
+  /// are self-explanatory — but where an annotation carries a `note`, this is
+  /// the only place the author's own words reach the reader, so drop it only
+  /// when there genuinely is none.
+  ///
+  /// Const so both apps can hold the fixed chips (see [projectionChip],
+  /// [unusedChip], [referencesChip]) as compile-time constants and compare
+  /// them by identity.
   const SpecChip(this.label, this.role, {this.tooltip});
 
   @override
@@ -405,6 +415,15 @@ class SpecRowExtras {
   /// The `@SerializationOrder` ordinal.
   final int? serializationOrder;
 
+  /// Every argument defaults to *annotation absent*, which is what makes
+  /// [none] — a plain `const SpecRowExtras()` — the correct value for a
+  /// synthetic row rather than a special case the row widget has to test for.
+  /// [unused] defaults to `false` rather than being nullable because "not
+  /// marked `@Unused`" and "no annotation" are the same statement, whereas
+  /// every other field distinguishes an absent annotation (`null`) from one
+  /// carrying an empty value. Prefer [SpecRowExtras.of], which applies the
+  /// field-wins-over-class merge; this constructor applies no precedence at
+  /// all.
   const SpecRowExtras({
     this.unused = false,
     this.comment,

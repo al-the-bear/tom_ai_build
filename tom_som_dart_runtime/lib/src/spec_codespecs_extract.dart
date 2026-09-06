@@ -121,6 +121,11 @@ class CodeSpecsRouting {
   /// marker.
   final String declaredAt;
 
+  /// Records the verdict computed for one node. [path], [className] and
+  /// [verdict] are required because a routing row exists precisely to say
+  /// *which* node got *which* verdict. The three provenance fields default to
+  /// empty because two of the five verdicts — `documentRoot` and `unrouted` —
+  /// have no marker to take them from, and most markers carry no `note`.
   const CodeSpecsRouting({
     required this.path,
     required this.className,
@@ -195,6 +200,17 @@ class CodeSpecsExtractEntry {
   /// The stored value, **verbatim**. Never assembled, reformatted or trimmed.
   final String value;
 
+  /// The required arguments are what an entry cannot be traced or trusted
+  /// without: the area it was collected for, the section id and path it came
+  /// from, the declaring class and field, the `CodeSpecPart` that routed it
+  /// plus where that marker was declared, and the verbatim [value].
+  ///
+  /// The four optional ones are absent-by-nature, not defaulted-away:
+  /// [headline] and [instanceId] stay null when the document stores neither,
+  /// [formField] exists only for a `@Form` field, [routingNote] only when the
+  /// marker carries one. None is ever synthesised to fill the gap — composing
+  /// a value is exactly what C1 (`codespecs_derivation_contract.md` §2.8)
+  /// forbids the extract generator.
   const CodeSpecsExtractEntry({
     required this.areaCode,
     required this.sectionId,
@@ -229,6 +245,13 @@ class CodeSpecsSlice {
   /// closed by [CodeSpecsAreaCatalog.citableAreaCodes].
   final List<int> cites;
 
+  /// [number], [title] and [project] are required: a slice that did not name
+  /// the `codespecs_mapping.md` §4.2 project it emits into would not say where
+  /// its code lands, which is what the emission order exists to decide.
+  /// [cites] defaults to empty for slice 1, which cites nothing — and holds
+  /// only the *direct* edges. The transitive closure is computed by
+  /// [CodeSpecsAreaCatalog.citableAreaCodes]; pre-expanding it here would make
+  /// the authored graph disagree with the derived one.
   const CodeSpecsSlice({
     required this.number,
     required this.title,
@@ -236,6 +259,12 @@ class CodeSpecsSlice {
     this.cites = const [],
   });
 
+  /// Reads one slice from the authored catalogue. `number` is the only key
+  /// with no usable default — it throws when absent or non-numeric, because a
+  /// slice without its ordinal cannot be placed in the emission order at all.
+  /// `title`, `project` and `cites` fall back to empty, so a half-authored
+  /// catalogue loads and fails later against the specific missing fact rather
+  /// than refusing the whole file.
   factory CodeSpecsSlice.fromJson(Map<String, dynamic> j) => CodeSpecsSlice(
         number: (j['number'] as num).toInt(),
         title: j['title'] as String? ?? '',
@@ -280,6 +309,13 @@ class CodeSpecsArea {
   /// `CodeSpecPart` value but has no generated surface, so it gets no extract.
   final bool active;
 
+  /// [code], [canonicalId] and [part] are required — they are the area's three
+  /// identities (permanent registry key, PascalCase noun, `CodeSpecPart`
+  /// value) and every consumer keys on one of them. The catalogue-row detail
+  /// defaults to empty because a deferred area (`codespecs_mapping.md` §4.3)
+  /// legitimately has no annotations, slice or authoring step yet. [active]
+  /// defaults to `true`: an authored row gets an extract unless the catalogue
+  /// explicitly says the part is not live.
   const CodeSpecsArea({
     required this.code,
     required this.canonicalId,
@@ -292,6 +328,11 @@ class CodeSpecsArea {
     this.active = true,
   });
 
+  /// Reads one catalogue row. `code` and `part` are the only keys that throw
+  /// when missing: the code names the extract file and the part is the string
+  /// `@CodeSpecKind` values are matched against, so neither can be defaulted
+  /// without silently producing an area nothing routes to. `active` defaults
+  /// to `true`, matching the constructor — omission means live, not retired.
   factory CodeSpecsArea.fromJson(Map<String, dynamic> j) => CodeSpecsArea(
         code: j['code'] as String,
         canonicalId: j['canonicalId'] as String? ?? '',
@@ -329,12 +370,24 @@ class CodeSpecsAreaCatalog {
   /// `codespecs_mapping.md` §4.4.6 rule 2 uses, so it is load-bearing rather than cosmetic.
   final List<CodeSpecsArea> areas;
 
+  /// Every argument defaults to empty, so an empty catalogue is a legal value
+  /// rather than an error — a runtime can be constructed before its catalogue
+  /// file has been read. The order of [areas] is load-bearing input, not
+  /// presentation: catalogue order is the tie-break `codespecs_mapping.md`
+  /// §4.4.6 rule 2 applies, so a caller must pass the authored sequence
+  /// unsorted.
   const CodeSpecsAreaCatalog({
     this.source = '',
     this.slices = const [],
     this.areas = const [],
   });
 
+  /// Loads the authored catalogue as transcribed from `codespecs_mapping.md`
+  /// §4.1 / §4.4.3 / §4.4.6. Absent `slices` / `areas` keys yield empty lists,
+  /// but a malformed row inside them propagates that row's own failure: the
+  /// catalogue is authored input shared by all nine runtimes, and a row that
+  /// half-parsed would put a silently incomplete vocabulary into every
+  /// extract. Element order is preserved verbatim (see [areas]).
   factory CodeSpecsAreaCatalog.fromJson(Map<String, dynamic> j) =>
       CodeSpecsAreaCatalog(
         source: j['source'] as String? ?? '',
@@ -448,6 +501,13 @@ class CodeSpecsExtract {
   /// The routed entries, in SOM document order.
   final List<CodeSpecsExtractEntry> entries;
 
+  /// [area] and [documentRoot] are the two facts that make an extract
+  /// identifiable — which area it serves, and which document root it was
+  /// walked from — so neither has a default. Everything else defaults to empty
+  /// so an area with no routed content still yields a well-formed, empty
+  /// extract: an empty file honestly reports that the specification said
+  /// nothing for that area, whereas a missing file is indistinguishable from a
+  /// run that never covered it (`codespecs_prompt.md` §6.4).
   const CodeSpecsExtract({
     required this.area,
     required this.documentRoot,
@@ -589,6 +649,13 @@ class CodeSpecsExtractError implements Exception {
   /// The model class at [path].
   final String className;
 
+  /// All three fields are required, so there is deliberately no way to raise
+  /// an extraction failure that does not say where it happened. For the
+  /// `ROUTE-TOTAL` cause a real node is at fault and both location fields are
+  /// filled; for a root that cannot be resolved to exactly one there is no
+  /// such node, and callers pass an empty [path] with the requested root type
+  /// (or empty again, when the ambiguity is that several roots are populated)
+  /// as [className].
   const CodeSpecsExtractError({
     required this.message,
     required this.path,

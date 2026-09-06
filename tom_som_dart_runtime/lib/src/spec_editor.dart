@@ -42,6 +42,12 @@ class SpecEditor {
   /// The value-free meta-model queries the editor validates against.
   final SpecReflection reflection;
 
+  /// Takes an already-built [reflection], for the caller that holds one (a
+  /// query engine, a validator) and would otherwise pay for a second model
+  /// walk. When only a `SpecModel` is at hand use [SpecEditor.forModel]; the
+  /// two differ in nothing else. Neither checks that [document] was built
+  /// against the same model — a mismatch surfaces as [ArgumentError] on the
+  /// first path that fails to resolve.
   SpecEditor(this.document, this.reflection);
 
   /// Convenience: builds the editor for [document] over [model].

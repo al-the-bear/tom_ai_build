@@ -106,6 +106,9 @@ class SomDartEmitter {
       ..writeln('// ignore_for_file: type=lint, unused_import, '
           'document_ignores')
       ..writeln()
+      ..writeln(_libraryDoc())
+      ..writeln('library;')
+      ..writeln()
       ..writeln(
           "import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';")
       ..writeln()
@@ -228,7 +231,7 @@ class SomDartEmitter {
     required void Function(_FormClass) collectForm,
   }) {
     final b = StringBuffer();
-    _writeDoc(b, cls.doc, '');
+    _writeDocWithHelp(b, cls.doc, cls.help, '');
     b.writeln('class ${cls.name} extends SomNode {');
 
     if (isRoot) {
@@ -288,7 +291,16 @@ class SomDartEmitter {
             'documentVersion) =>')
         ..writeln('      somEditabilityFor(modelVersion, documentVersion);');
     } else {
-      b.writeln('  ${cls.name}(super.doc, super.path);');
+      b
+        ..writeln('  /// Names the `${cls.name}` section at [path] inside '
+            '[doc].')
+        ..writeln('  ///')
+        ..writeln('  /// Constructing a facade node neither allocates storage '
+            'nor validates —')
+        ..writeln('  /// it only names a path, so a node may be built for a '
+            'section the')
+        ..writeln('  /// document does not yet carry.')
+        ..writeln('  ${cls.name}(super.doc, super.path);');
     }
 
     // SOM §21: a content-bearing section overrides the `SomNode.canHaveContent`
@@ -328,12 +340,18 @@ class SomDartEmitter {
     // Structural-collision-safe accessor identifier; the path segment above is
     // derived from the model and stays untouched.
     final acc = _acc(f.name);
-    _writeDoc(b, f.doc, '  ');
+    _writeDocWithHelp(b, f.doc ?? _fallbackFieldDoc(f), f.help, '  ');
+    // The setter of a getter/setter pair is a separate member in the API
+    // reference, so it needs its own comment or it renders undocumented beside
+    // a documented getter. It is the same subject, so it points at the getter
+    // rather than restating it.
+    final setterDoc = '  /// Sets [$acc].';
     switch (f.kind) {
       case SpecFieldKind.content:
       case SpecFieldKind.scalar:
         b
           ..writeln('  String get $acc => doc.content($childPath) ?? \'\';')
+          ..writeln(setterDoc)
           ..writeln(
               '  set $acc(String value) => doc.setContent($childPath, value);');
         break;
@@ -342,12 +360,14 @@ class SomDartEmitter {
           // No enum type name available — fall back to a string leaf.
           b
             ..writeln('  String get $acc => doc.content($childPath) ?? \'\';')
+            ..writeln(setterDoc)
             ..writeln(
                 '  set $acc(String value) => doc.setContent($childPath, value);');
         } else {
           final et = f.enumType!;
           b
             ..writeln('  $et? get $acc => _parse$et(doc.content($childPath));')
+            ..writeln(setterDoc)
             ..writeln('  set $acc($et? value) => '
                 'doc.setContent($childPath, value?.name ?? \'\');');
         }
@@ -400,6 +420,8 @@ class SomDartEmitter {
       ..writeln('/// its own `content` text followed by one typed member per '
           'form field.')
       ..writeln('class $name extends SomNode {')
+      ..writeln('  /// Names the `${f.name}` form section at [path] inside '
+          '[doc].')
       ..writeln('  $name(super.doc, super.path);')
       ..writeln()
       ..writeln('  @override')
@@ -410,6 +432,7 @@ class SomDartEmitter {
         ..writeln('  /// The section\'s own free-text content, before the form '
             'fields.')
         ..writeln('  String get content => doc.content(path) ?? \'\';')
+        ..writeln('  /// Sets [content].')
         ..writeln('  set content(String value) => '
             'doc.setContent(path, value);');
     }
@@ -430,6 +453,8 @@ class SomDartEmitter {
     // accessor identifier is guarded against the structural surface.
     final n = _acc(ff.name);
     final key = _escape(ff.name);
+    _writeFormMemberDoc(b, ff);
+    final setterDoc = '  /// Sets [$n].';
     // YRD7: enum-typed form fields expose the generated enum natively; the
     // stored value stays the constant name (`_parse<Enum>` / `.name`).
     if (ff.enumValues.isNotEmpty) {
@@ -437,6 +462,7 @@ class SomDartEmitter {
       b
         ..writeln('  $et? get $n => '
             '_parse$et(doc.formField(path, \'$key\'));')
+        ..writeln(setterDoc)
         ..writeln('  set $n($et? value) => '
             'doc.setFormField(path, \'$key\', value?.name ?? \'\');');
       return;
@@ -449,31 +475,36 @@ class SomDartEmitter {
         b
           ..writeln('  int? get $n => '
               'somParseInt(doc.formField(path, \'$key\'));')
-          ..writeln('  set $n(int? value) => '
+          ..writeln(setterDoc)
+        ..writeln('  set $n(int? value) => '
               'doc.setFormField(path, \'$key\', somFormatInt(value));');
       case 'double':
         b
           ..writeln('  double? get $n => '
               'somParseDouble(doc.formField(path, \'$key\'));')
-          ..writeln('  set $n(double? value) => '
+          ..writeln(setterDoc)
+        ..writeln('  set $n(double? value) => '
               'doc.setFormField(path, \'$key\', somFormatDouble(value));');
       case 'num':
         b
           ..writeln('  num? get $n => '
               'somParseNum(doc.formField(path, \'$key\'));')
-          ..writeln('  set $n(num? value) => '
+          ..writeln(setterDoc)
+        ..writeln('  set $n(num? value) => '
               'doc.setFormField(path, \'$key\', somFormatNum(value));');
       case 'bool':
         b
           ..writeln('  bool? get $n => '
               'somParseBool(doc.formField(path, \'$key\'));')
-          ..writeln('  set $n(bool? value) => '
+          ..writeln(setterDoc)
+        ..writeln('  set $n(bool? value) => '
               'doc.setFormField(path, \'$key\', somFormatBool(value));');
       default:
         b
           ..writeln('  String get $n => '
               'doc.formField(path, \'$key\') ?? \'\';')
-          ..writeln('  set $n(String value) => '
+          ..writeln(setterDoc)
+        ..writeln('  set $n(String value) => '
               'doc.setFormField(path, \'$key\', value);');
     }
   }
@@ -499,6 +530,137 @@ class SomDartEmitter {
   static String _scalarBaseName(String typeName) => typeName.endsWith('?')
       ? typeName.substring(0, typeName.length - 1)
       : typeName;
+
+  /// The library-level doc comment of the generated facade.
+  ///
+  /// A barrel with no `///` is a package whose API reference opens on an empty
+  /// page, so this is emitted rather than left to a hand edit — a hand edit
+  /// would be overwritten by the next generation run. It names the two things
+  /// a reader arriving at the reference needs and cannot infer: that the file
+  /// is generated, and that the typed accessors are a facade over a generic
+  /// document rather than a data model of their own.
+  String _libraryDoc() => """
+/// The generated typed object model for the TomSpecs specification documents
+/// (`$versionLabel`), model version `$modelVersionString`.
+///
+/// **Generated — do not edit.** Regenerate with `generate_som.dart`; a hand
+/// edit is overwritten by the next run. The generator is
+/// `SomDartEmitter` in `tom_specs_clitool`.
+///
+/// Every class here is an **editing facade** over the generic
+/// `SpecDocument` of `tom_som_dart_runtime`, not a data holder: an accessor
+/// reads and writes through the document's path-keyed store, so a typed
+/// mutation is immediately visible through the generic path API and the other
+/// way round (SOM §6). Nothing is cached, and constructing a facade node
+/// neither allocates storage nor validates — it only names a path.
+///
+/// Start at a document root (`D00SolutionBlueprint` and its siblings), which
+/// additionally carries `loadYaml` / `loadFile` and performs the
+/// instantiation-time model-version check against the document's authoring
+/// stamp (SOM §4.2).""";
+
+  /// A doc comment for a member the model left undocumented, derived from what
+  /// the meta-data does say about it.
+  ///
+  /// Two kinds are worth deriving and the rest are not. A **form** member's
+  /// accessor returns a generated section class whose name is a mangling of
+  /// the owner and the member, so naming the form's own fields is the only
+  /// thing at the call site that says what the section holds. A **content**
+  /// member's format is carried as `contentType` and decides what an author
+  /// may write there — `Mermaid` and `SQL` sections are not free prose.
+  ///
+  /// Everything else returns null: a derived sentence that only restates the
+  /// identifier is what `tom_specs_documentation_standard.md` §5 excludes from
+  /// counting as documented, and emitting 10,000 of them would be worse than
+  /// leaving the gap visible.
+  String? _fallbackFieldDoc(SpecField f) {
+    switch (f.kind) {
+      case SpecFieldKind.form:
+        if (f.formFields.isEmpty) return null;
+        final labels = f.formFields
+            .map((ff) => ff.label.trim().isEmpty ? ff.name : ff.label.trim())
+            .join(', ');
+        return 'Form section. Fields: $labels.';
+      case SpecFieldKind.content:
+        final type = f.contentType?.trim();
+        if (type == null || type.isEmpty || type.toLowerCase() == 'text') {
+          return null;
+        }
+        return "The section's body text, in `$type` format.";
+      default:
+        return null;
+    }
+  }
+
+  /// Emits the doc comment of one `@Form` member from the model's own
+  /// authored text.
+  ///
+  /// `FormFieldSpec` carries a `label` for every form field and a `hint` for
+  /// most of them — 10,953 and 10,547 respectively in the current model — and
+  /// the emitter discarded both, so a generated form accessor was the one part
+  /// of the facade with no documentation at all despite the model having
+  /// written some. The label is the field's display name and the hint is the
+  /// author-facing note on what a valid value looks like; together they are
+  /// exactly what a caller of the accessor needs.
+  ///
+  /// `required` and the enum constants are added because they are contract,
+  /// not prose: neither is recoverable from the accessor's signature, whose
+  /// type is nullable either way.
+  void _writeFormMemberDoc(StringBuffer b, FormFieldSpec ff) {
+    // Every one of these is authored text that may contain newlines, so all
+    // of them go through _writeDoc rather than being interpolated into a
+    // single `///` line — see _writeDocWithHelp for what that costs.
+    final label = ff.label.trim();
+    _writeDoc(b, '${label.isEmpty ? ff.name : label}.', '  ');
+    final hint = ff.hint?.trim();
+    if (hint != null && hint.isNotEmpty) {
+      b.writeln('  ///');
+      _writeDoc(b, hint, '  ');
+    }
+    if (ff.required) {
+      b
+        ..writeln('  ///')
+        ..writeln('  /// **Required** — a document that leaves this empty '
+            'fails validation.');
+    }
+    if (ff.enumValues.isNotEmpty) {
+      b
+        ..writeln('  ///')
+        ..writeln('  /// Stored as one of: '
+            '${ff.enumValues.map((v) => '`$v`').join(', ')}.');
+    }
+  }
+
+  /// Renders a doc comment for a declaration, merging the model's own comment
+  /// with its `@ContentHelp` guidance.
+  ///
+  /// The two say different things and both are authored: [doc] is what the
+  /// section *is*, [help] is how to fill it in. The emitter carried only the
+  /// first until this was added, so 1,147 field and 128 class `@ContentHelp`
+  /// texts were reaching the meta-data and stopping there.
+  void _writeDocWithHelp(
+    StringBuffer b,
+    String? doc,
+    String? help,
+    String indent,
+  ) {
+    final hasDoc = doc != null && doc.trim().isNotEmpty;
+    final hasHelp = help != null && help.trim().isNotEmpty;
+    if (!hasDoc && !hasHelp) return;
+    if (hasDoc) _writeDoc(b, doc, indent);
+    if (!hasHelp) return;
+    if (hasDoc) b.writeln('$indent///');
+    // `@ContentHelp` texts are frequently MULTI-LINE — several carry bulleted
+    // lists. Emitting one as a single `///` line leaves every line after the
+    // first as bare prose in the generated source, which is 40k analyzer
+    // errors rather than a cosmetic fault. Each line gets its own marker.
+    final lines = help.trim().split('\n');
+    b.writeln('$indent/// **Authoring guidance.** ${lines.first.trimRight()}');
+    for (final line in lines.skip(1)) {
+      final text = line.trimRight();
+      b.writeln(text.isEmpty ? '$indent///' : '$indent/// $text');
+    }
+  }
 
   void _writeDoc(StringBuffer b, String? doc, String indent) {
     if (doc == null || doc.trim().isEmpty) return;

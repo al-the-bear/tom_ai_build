@@ -35,9 +35,33 @@ Map<String, dynamic> _fixtureJson() => {
               'name': 'owner',
               'kind': 'form',
               'sectionId': 'owner',
+              // A MULTI-LINE `@ContentHelp` and a multi-line form-field hint.
+              // Both are emitted as doc comments, and both used to be
+              // interpolated into a single `///` line — which left every line
+              // after the first as bare prose in the generated source. The
+              // real model carries several of these; this fixture did not, so
+              // the "analyzes clean" test passed while the generated facade
+              // had 40k analyzer errors. Keep the newlines.
+              'help': 'Name the accountable owner.\n\n'
+                  '- Use the role, not the person, where the role is stable\n'
+                  '- A team is acceptable; an empty value is not',
               'formFields': [
-                {'name': 'name', 'label': 'Name', 'type': 'String'},
-                {'name': 'role', 'label': 'Role', 'type': 'String'},
+                {
+                  'name': 'name',
+                  'label': 'Name',
+                  'type': 'String',
+                  'hint': 'Full legal name.\nSurname last.',
+                  'required': true,
+                },
+                {
+                  'name': 'role',
+                  'label': 'Role',
+                  // An enum-typed form field names its MODEL ENUM as the type
+                  // (YRD7). Writing `String` here makes the emitter generate
+                  // `enum String`, which shadows `dart:core`.
+                  'type': 'OwnerRole',
+                  'enumValues': ['sponsor', 'architect'],
+                },
               ],
             },
             {

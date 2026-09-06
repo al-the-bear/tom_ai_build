@@ -26,6 +26,11 @@ abstract class SomNode {
   /// The section path this node lives at.
   final String path;
 
+  /// Binds the facade to a live document and to the one section path it edits.
+  /// Nothing is read or validated here: a facade is a *pointer*, so building
+  /// one for a path the document holds no value at is legal and cheap — that
+  /// is the state [isEmpty] reports. Both fields are final, so a node never
+  /// drifts off the position it was made for; navigation constructs new ones.
   SomNode(this.doc, this.path);
 
   /// Whether this section holds no value at all — neither a
@@ -116,6 +121,10 @@ abstract class SomNode {
 /// store at its own item [path]. Used as the element facade for non-complex
 /// (`String`/scalar) lists.
 class SomScalar extends SomNode {
+  /// Forwards straight to [SomNode] — a scalar item needs no state beyond the
+  /// document and its own item path, because for a scalar the item path *is*
+  /// where the value lives. There is no nested `content` leaf underneath it,
+  /// which is why [value] reads the item path directly.
   SomScalar(super.doc, super.path);
 
   /// The string value at this item's path (`''` when unset).
@@ -138,6 +147,11 @@ class SomList<T> {
   /// The list container's section path (items hang off it as `$listPath-<seq>`).
   final String listPath;
 
+  /// Wraps one item path in the element facade `T`. Supplied by the generated
+  /// list field rather than derived, because Dart cannot construct a type
+  /// parameter. It is called afresh on every access — element facades are
+  /// disposable pointers, never cached, so they cannot go stale against a
+  /// document that was edited through some other path.
   final T Function(SpecDocument doc, String itemPath) _factory;
 
   /// The list field's `@SectionIdPattern` (e.g. `DACEN-ITEM-xxx`), or `null`
@@ -145,6 +159,12 @@ class SomList<T> {
   /// (AA1 criteria 3–5).
   final String? pattern;
 
+  /// Takes the document, the list **container** path (never an item path) and
+  /// the element factory positionally: without all three the view cannot
+  /// resolve a single item. [pattern] is optional because a scalar list
+  /// genuinely has no `@SectionIdPattern`, and its absence is load-bearing —
+  /// it is what makes [add] append without generating a section id at all,
+  /// rather than minting one the codecs would then have to serialize.
   SomList(this.doc, this.listPath, this._factory, {this.pattern});
 
   /// The number of items currently in the list.
@@ -217,7 +237,16 @@ class SomList<T> {
 /// Raised when a generated object model is instantiated against a document
 /// whose authoring model version it must not edit (SOM §4.2).
 class SomVersionException implements Exception {
+  /// The refusal, phrased for a human: it names both versions that disagreed
+  /// and which way the mismatch runs, because "wrong version" alone leaves a
+  /// caller unable to tell a stale object model from a document written by a
+  /// newer one. Free text — branch on [somEditabilityFor], never on this.
   final String message;
+  /// Const and message-only: the classification a caller might want to switch
+  /// on is deliberately *not* carried here, because the non-throwing
+  /// [somEditabilityFor] already returns it. Raising this exception is the
+  /// terminal path — a viewer that wants to open a cross-major document
+  /// read-only asks for the verdict instead of catching this.
   const SomVersionException(this.message);
 
   @override

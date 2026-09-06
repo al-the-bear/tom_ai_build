@@ -61,6 +61,11 @@ class SpecYamlFormatException implements Exception {
   /// What went wrong, naming the offending path/key where applicable.
   final String message;
 
+  /// Message-only by design. A format fault aborts the whole decode or encode
+  /// — the native format is all-or-nothing under the SOM §12.7 round-trip
+  /// contract — so there is no partial result to hang a machine-readable code
+  /// off and no degraded mode for a caller to branch into. The offending path
+  /// or key is named inside [message].
   SpecYamlFormatException(this.message);
 
   @override
@@ -71,6 +76,12 @@ class SpecYamlFormatException implements Exception {
 /// populated [SpecDocument], the `review:` pass as a raw map (the runtime is
 /// review-agnostic), and the optional authoring model-version stamp.
 class SpecYamlContents {
+  /// [document] and [review] are both required even though the `review:` pass
+  /// is optional in the file: an absent pass decodes to an empty map, so no
+  /// caller ever has to tell "no review pass" apart from "not decoded yet".
+  /// [modelVersion] is genuinely nullable — an unstamped or hand-written file
+  /// has no authoring version, and substituting one would let an object model
+  /// edit a document it has never checked itself against (SOM §4.2).
   SpecYamlContents({
     required this.document,
     required this.review,

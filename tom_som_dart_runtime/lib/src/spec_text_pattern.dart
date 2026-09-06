@@ -78,6 +78,11 @@ class SpecMatchSpan {
   /// Exclusive end offset into the matched string.
   final int end;
 
+  /// Takes the two offsets positionally, in order; both are code-unit indices
+  /// into the *matched value*, not into the document, and `end - start` is the
+  /// hit length. Const, and equality is structural, so a span from one runtime
+  /// compares equal to the corpus-expected span rather than merely printing
+  /// the same.
   const SpecMatchSpan(this.start, this.end);
 
   @override
@@ -103,6 +108,10 @@ class SomPatternError implements Exception {
   /// What is wrong with it.
   final String message;
 
+  /// Carries both halves a caller needs to act on the failure: the offending
+  /// [pattern] source, so the reason can be shown beside what was actually
+  /// typed, and the [message] itself. Positional and const — the class holds
+  /// nothing but the two strings.
   const SomPatternError(this.pattern, this.message);
 
   @override
@@ -110,10 +119,47 @@ class SomPatternError implements Exception {
 }
 
 /// What a single [_Term] matches.
-enum _AtomKind { literal, any, startAnchor, endAnchor, charClass }
+enum _AtomKind {
+  /// One code unit that must occur verbatim — compiled from a bare character
+  /// or from `\` + punctuation. Case-insensitive matching folds it ASCII-only,
+  /// so a non-ASCII literal is always compared exactly.
+  literal,
+
+  /// `.` — any single code unit. There is no "except newline" exemption: a
+  /// section value is matched as one text, never line by line.
+  any,
+
+  /// `^` — start of the whole text, not of a line. Zero-width, which is why a
+  /// quantifier on it is rejected at compile time rather than ignored.
+  startAnchor,
+
+  /// `$` — end of the whole text, under the same whole-value, zero-width and
+  /// quantifier-free rule as [_AtomKind.startAnchor].
+  endAnchor,
+
+  /// `[…]` — membership in the term's compiled inclusive ranges, inverted when
+  /// the class was written `[^…]`. Ranges are compared by code unit, so class
+  /// membership does not depend on the host language's collation.
+  charClass,
+}
 
 /// How many times a [_Term]'s atom may repeat.
-enum _Repeat { one, zeroOrOne, zeroOrMore, oneOrMore }
+enum _Repeat {
+  /// No quantifier was written: the atom must match exactly once.
+  one,
+
+  /// `?` — greedy, so the matcher tries *with* the atom first and only drops
+  /// it when the remainder of the pattern fails from there.
+  zeroOrOne,
+
+  /// `*` — greedy: takes as many repetitions as the text allows, then hands
+  /// them back one at a time while the rest of the pattern backtracks.
+  zeroOrMore,
+
+  /// `+` — as [_Repeat.zeroOrMore], except the first repetition is mandatory,
+  /// so a term with this quantifier can never succeed on empty input.
+  oneOrMore,
+}
 
 /// One inclusive `[lo, hi]` code-unit range inside a character class.
 class _Range {

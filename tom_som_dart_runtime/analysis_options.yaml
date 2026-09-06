@@ -1,1 +1,13 @@
 include: ../analysis_options.yaml
+
+linter:
+  rules:
+    # The package is at 100% public-API dartdoc coverage
+    # (tom_specs_documentation_standard.md §5 sets the bar at 95%). Enabling
+    # the lint makes `dart analyze` the ratchet: a new public member without a
+    # doc comment fails at edit time rather than waiting for a coverage sweep.
+    #
+    # This runtime is the reference member of a nine-language family and its
+    # readers are inherited by both Flutter apps, so its public surface is
+    # consumed by more code than any other runtime here.
+    public_member_api_docs: true

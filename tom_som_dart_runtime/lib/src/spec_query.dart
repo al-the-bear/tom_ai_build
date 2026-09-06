@@ -84,6 +84,14 @@ class SpecNodeProjection {
   /// `state` facet (empty vs non-empty).
   final bool hasValue;
 
+  /// [path] and [kind] are required because together they are what an index
+  /// row *is*: where the node sits and what it is. Everything else is
+  /// legitimately absent structure — a value leaf has no [classId], a node
+  /// declaring none of `@SectionId` / `@MapsTo` / `@DetailedIn` has no facet
+  /// to index, and a pure container contributes no [searchableStrings].
+  /// [hasValue] defaults to `false`, the conservative reading: a row that
+  /// over-claimed presence would hide an unfilled section from a
+  /// completeness sweep.
   const SpecNodeProjection({
     required this.path,
     required this.kind,
@@ -125,6 +133,12 @@ class SpecQueryMatch {
   /// non-text queries).
   final List<SpecMatchSpan> matchSpans;
 
+  /// [path] and [kind] identify the hit and are always known. [snippet] and
+  /// [matchSpans] are populated together and only for a query that carried a
+  /// `text` dimension — a purely structural query leaves both at their
+  /// defaults, so an empty [matchSpans] never has to be read as "searched but
+  /// found nothing". [headline] and [classId] mirror the node and stay null
+  /// where the node itself has neither.
   const SpecQueryMatch({
     required this.path,
     required this.kind,
@@ -181,6 +195,14 @@ class SpecQuery {
   /// The node's value-presence state must match this.
   final SpecStateFilter? state;
 
+  /// Every dimension is optional, and the default of each is *unconstrained*
+  /// rather than *excluded* — so `const SpecQuery()` means every node in the
+  /// structural closure, not the empty result. [regex] and [caseInsensitive]
+  /// both default to `false`, i.e. plain case-sensitive substring matching,
+  /// which is what a caller who supplied only [text] expects; turning [regex]
+  /// on reinterprets [text] as the portable [SomTextPattern] subset, which
+  /// **rejects** a construct outside that subset rather than quietly matching
+  /// it as a literal.
   const SpecQuery({
     this.text,
     this.regex = false,
@@ -210,6 +232,11 @@ class SpecQueryEngine {
   /// Model-declaration ordering for form fields — see [_searchableStrings].
   final SpecSerializationOrder _order;
 
+  /// Both arguments are required and named: an engine is meaningless without
+  /// the model that says what a path *is* and the document that says what it
+  /// holds. The two derived helpers are built once here rather than per query
+  /// because each walks the whole model — so construct one engine per
+  /// (model, document) pair and reuse it, instead of one per search.
   SpecQueryEngine({required this.model, required this.document})
       : _reflection = SpecReflection(model),
         _order = SpecSerializationOrder(model);

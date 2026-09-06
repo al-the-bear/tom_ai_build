@@ -72,6 +72,10 @@ enum SpecMarkdownRejectReason {
 /// dropped: each carries the source [line], the offending [anchor] (section
 /// path or id), the [reason], and a human-readable [message].
 class SpecMarkdownRejection {
+  /// Reports one rejected block. [anchor] is optional because the earliest
+  /// failure — text sitting before any root heading — has nothing to point
+  /// at; every other rejection site fills it with the offending section id or
+  /// the resolved document path.
   SpecMarkdownRejection({
     required this.line,
     required this.reason,
@@ -79,9 +83,24 @@ class SpecMarkdownRejection {
     this.anchor,
   });
 
+  /// 1-based source line of the offending heading (or of the orphaned text),
+  /// counted over the imported text split on `\n`. This is the coordinate an
+  /// editor jumps to, so it is the heading's own line even when the fault is
+  /// only detected when the section closes (a value leaf with no body).
   final int line;
+  /// The rejection class, for callers that group, count or filter the report
+  /// rather than printing it; the human sentence is [message]. Switch on this,
+  /// never on the message text.
   final SpecMarkdownRejectReason reason;
+  /// One display-ready sentence naming what was wrong, sometimes carrying
+  /// context the reason cannot (the list of known root ids, the parent path a
+  /// section failed to resolve under). Not a stable identifier — the wording
+  /// is free to change.
   final String message;
+  /// What the rejection points at: the section id for an unresolvable or
+  /// kind-mismatched heading, the resolved document path for a value section
+  /// left empty, the raw heading text when no `<!--[ID]-->` comment could be
+  /// read at all. Null only for orphan content, which has neither id nor path.
   final String? anchor;
 
   @override
@@ -95,6 +114,12 @@ class SpecMarkdownRejection {
 /// [SpecDocument.toJson] so a caller can merge them into a live document as a
 /// full overwrite of the covered scope.
 class SpecMarkdownResult {
+  /// Assembles the parse report. The five required maps/sets are always
+  /// determined by a parse (empty when nothing matched), whereas [headlines]
+  /// and [codeSpecs] default to empty because they are *staged only on
+  /// deviation* — a heading whose text equals the effective default title and
+  /// a heading with no `codeSpec` key contribute nothing, which is what keeps
+  /// an untouched document byte-stable across an import/export round trip.
   SpecMarkdownResult({
     required this.content,
     required this.forms,
@@ -144,9 +169,22 @@ class SpecMarkdownResult {
 /// Codec binding a [SpecModel] and a concrete [SpecDocument] to the DocSpecs
 /// Markdown import/export format (SOM §11).
 class SpecDocumentMarkdown {
+  /// Binds the codec to the schema it resolves headings against and to the
+  /// concrete instance it reads values from. Both are mandatory: emit needs
+  /// the model for section ids and member kinds and the document for values,
+  /// and parse needs the model to decide whether a heading is legal at its
+  /// nesting position. Neither is copied — the codec holds live references, so
+  /// later mutations are visible; only the per-root metadata trees are cached.
   SpecDocumentMarkdown(this.model, this.document);
 
+  /// The schema side of the codec: supplies the root types, section ids and
+  /// member kinds every heading is checked against. A heading id unknown to
+  /// this model is rejected (SOM §11.7), never guessed at, so importing a
+  /// document written against a newer model reports rather than silently drops.
   final SpecModel model;
+  /// The instance side: the source of values on emit. Parse never writes to
+  /// it — the staged [SpecMarkdownResult] is handed back for the caller to
+  /// apply — so a failed import cannot leave the document half-updated.
   final SpecDocument document;
 
   /// Metadata trees per root type, built lazily (the generated facades will
@@ -610,6 +648,12 @@ class SpecDocumentMarkdown {
   }
 
   // Shared with _Parser.
+  /// ATX heading matcher. Group 1 is the leading run of `#`, whose length is
+  /// the nesting level that closes open frames and opens a new one; group 2 is
+  /// the remainder, which must then yield an id via [headlineComment] or the
+  /// heading is rejected as malformed. Public because the DocSpecs validator's
+  /// generic parser has to split headings exactly as this codec does — two
+  /// heading regexes that disagree would disagree about what a section *is*.
   static final RegExp headingLine = RegExp(r'^(#+)\s+(.*)$');
 
   /// The heading HTML comment: `<!--[ID]--> Title` with an optional key=value
@@ -634,6 +678,11 @@ class SpecDocumentMarkdown {
   static final RegExp _codeSpecPattern =
       RegExp(r'''codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))''');
 
+  /// Matches the SOM §11.1 declaration line `<!-- docspec: <id>/<version> -->`.
+  /// The parser skips it while no root heading is open, so to this codec it is
+  /// informational only: the declared schema id and version are not checked
+  /// here (the DocSpecs validator owns that), and a document without the line
+  /// still parses.
   static final RegExp docspecComment =
       RegExp(r'^<!--\s*docspec:.*-->\s*$');
 }
@@ -648,10 +697,21 @@ class MarkdownFenceTracker {
   String? _char;
   int _len = 0;
 
+  /// Whether the lines fed so far have left an opened fence unclosed. Heading
+  /// detection is suppressed while this is true, so a `#` line inside a fenced
+  /// example is never mistaken for a section (SOM §11.3). Callers read this
+  /// *before* passing the line to [feed], which means a fence's own opening and
+  /// closing markers are themselves handled as ordinary content lines.
   bool get inFence => _char != null;
 
   static final RegExp _open = RegExp(r'^ {0,3}(`{3,}|~{3,})');
 
+  /// Advances the state machine by one **raw** source line — pass it
+  /// un-trimmed, because the up-to-3-space indent allowance is part of the
+  /// match. Lines that are not fence markers are ignored. A closing run must
+  /// use the same character as the opener, be at least as long, and be the
+  /// entire trimmed line, so an info string or a longer run of the other fence
+  /// character cannot close the block.
   void feed(String line) {
     final m = _open.firstMatch(line);
     if (m == null) return;

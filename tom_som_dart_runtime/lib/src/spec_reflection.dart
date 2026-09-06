@@ -66,6 +66,11 @@ class SpecResolution {
   /// and unresolved class references.
   final SpecClass? targetClass;
 
+  /// [path], [kind] and [root] are required because a resolution always knows
+  /// all three — even a bare-root resolution, which is why [field] is optional
+  /// rather than required-nullable. [targetClass] is null for every leaf and
+  /// also for a class reference the model cannot resolve, so a null here means
+  /// "no class to descend into", never "not looked up yet".
   const SpecResolution({
     required this.path,
     required this.kind,
@@ -85,8 +90,17 @@ class SpecResolution {
 
 /// Read-only queries over a [SpecModel].
 class SpecReflection {
+  /// The model every query answers against. Immutable for the lifetime of the
+  /// reflection, so a resolution stays valid as long as the model does — note
+  /// that reflection reads only the schema, so document edits never invalidate
+  /// a [SpecResolution] returned earlier.
   final SpecModel model;
 
+  /// Wraps a model positionally, and is `const` because the class caches
+  /// nothing: every query walks [model] afresh. That makes construction free,
+  /// so callers create one where they need it rather than threading a shared
+  /// instance — but it also means repeated resolution of the same path is
+  /// repeated work, which is why the hot paths hold one instance.
   const SpecReflection(this.model);
 
   // --- enumeration --------------------------------------------------------

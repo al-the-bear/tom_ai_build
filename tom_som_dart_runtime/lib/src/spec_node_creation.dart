@@ -62,6 +62,12 @@ class SpecCreationError implements Exception {
   /// A human-readable explanation.
   final String message;
 
+  /// All four fields are required. [code] is what a caller branches on and
+  /// [message] what it shows, while [parentPath] and [childSegment] say where:
+  /// a rejection with no location cannot be surfaced against the tree the user
+  /// is looking at. Note the pair names the *attempted* position, so joining
+  /// them does not yield a path that exists — the whole point is that the add
+  /// did not happen.
   const SpecCreationError({
     required this.parentPath,
     required this.childSegment,
@@ -152,9 +158,22 @@ SpecCreationError? checkAddNode(
 /// Holds the [model]/[document] pair so callers add children by parent path and
 /// child segment without re-supplying the context each time.
 class SpecNodeCreator {
+  /// The meta-model consulted for which children a class declares and what a
+  /// list field's `@SectionIdPattern` is. Held on the creator rather than
+  /// passed per call because every add re-resolves the parent path through it.
   final SpecModel model;
+  /// The document [add] mutates, and the one the cardinality rule reads: a
+  /// single-valued child is refused when a value already exists at or beneath
+  /// the child path. A live reference, not a snapshot, so two creators over
+  /// the same document see each other's additions.
   final SpecDocument document;
 
+  /// Takes the pair positionally and is `const` — the creator holds no state
+  /// beyond the two references, so constructing one per operation is free.
+  /// The two are not cross-checked: handing in a document built against a
+  /// different model yields [SpecCreationCode.notAContainer] /
+  /// [SpecCreationCode.unknownChild] rejections rather than a diagnosis of the
+  /// real mismatch, so bind both from the same source.
   const SpecNodeCreator(this.model, this.document);
 
   /// Adds child [childSegment] under [parentPath] and returns the new node's

@@ -58,6 +58,11 @@ class SpecDocument {
   /// store already holds.
   String Function(String path)? get pathNormalizer => _pathNormalizer;
 
+  /// The installed normalizer, or `null` for the identity behaviour every
+  /// non-projecting host wants. Private behind a read-only getter because
+  /// installing one is not a plain assignment: [installPathNormalizer] has to
+  /// re-key what the store already holds, and a direct write would strand
+  /// every earlier edit under its raw key.
   String Function(String path)? _pathNormalizer;
 
   /// Installs [normalizer] as the storage-key normalizer and **re-keys every

@@ -12,14 +12,54 @@ library;
 
 /// The render kind of a field, mirroring the exporter's classification.
 enum SpecFieldKind {
+  /// A `List<T>` member. The kind-specific keys are [SpecField.elementType],
+  /// [SpecField.elementIsComplex] and [SpecField.min]; in markdown the field
+  /// heads a `-LST` container heading whose items nest one level deeper
+  /// (SOM §11.5), so a path cannot descend through it without an item suffix.
   list,
+
+  /// A `@Form` member. [SpecField.formFields] carries the declared fields in
+  /// model order, and the section body is `FieldName: value` lines rather
+  /// than prose (SOM §11.4) — which is why free-text length rules do not
+  /// apply to it.
   form,
+
+  /// A section-typed member: a content leaf whose declared wrapper class is
+  /// named by [SpecField.sectionType] (`TextSection`, `FlowDiagramSection`,
+  /// …) and whose render classification is [SpecField.contentType]. The
+  /// wrapper classes live in `tom_specs_core` and are deliberately *not*
+  /// exported into [SpecModel.classes], so a traversal must treat this as a
+  /// leaf rather than trying to resolve the name.
   section,
+
+  /// A plain `String` member rendered as markdown prose under its own
+  /// heading (SOM §11.3). [SpecField.contentType] distinguishes ordinary
+  /// `text` from the fenced variants (`mermaid`, `code-dart`, …).
   content,
+
+  /// An enum-typed member. Named `enumValue` rather than `enum` only because
+  /// `enum` is a Dart keyword — the wire spelling is `enum`, which is why
+  /// [parse] has to translate it. [SpecField.enumType] and
+  /// [SpecField.enumValues] carry the constant set.
   enumValue,
+
+  /// A member whose type is another *exported* model class, i.e. one present
+  /// in [SpecModel.classes]. Unlike [section] this is the kind a traversal
+  /// descends through, resolving [SpecField.type] against the class graph.
   complex,
+
+  /// A primitive leaf (`int`, `double`, `bool`, `num`, `DateTime`), typed by
+  /// [SpecField.type]. Also the fallback [parse] returns for any unrecognised
+  /// kind name, so a snapshot from a newer exporter degrades to a renderable
+  /// leaf instead of failing to load.
   scalar;
 
+  /// Maps the meta file's `kind` string onto a constant, translating the wire
+  /// spelling `enum` to [enumValue].
+  ///
+  /// Deliberately total: an unrecognised name yields [scalar] rather than
+  /// throwing, because the meta file is a forward-compatible asset (SOM §20)
+  /// and one unknown kind must not make a whole snapshot unloadable.
   static SpecFieldKind parse(String raw) {
     switch (raw) {
       case 'list':
@@ -46,11 +86,28 @@ enum SpecFieldKind {
 /// curated convenience accessors ([SpecClass.sectionId], [SpecField.min], …)
 /// are projected from.
 class SpecAnnotation {
+  /// The annotation's source name **without** the `@` — `SectionId`, not
+  /// `@SectionId`. Every lookup on [AnnotatedSpecNode] matches on this string
+  /// exactly, so it is the stable key the whole annotation surface turns on.
   final String name;
+
+  /// The resolved argument map, keyed by the *declared parameter name* — the
+  /// exporter names positional arguments too, so `@Case(Kind.x)` reads as
+  /// `{'value': …}`. Values are the analyzer's resolved constants
+  /// (String / int / double / bool / type-name / List), never expressions, so
+  /// the map stays JSON-serializable.
+  ///
+  /// Empty for a marker annotation such as `@Unused`, where presence is the
+  /// whole statement.
   final Map<String, Object?> arguments;
 
+  /// [name] is required because an unnamed annotation cannot be looked up;
+  /// [arguments] defaults to empty so argumentless markers construct without
+  /// ceremony.
   const SpecAnnotation({required this.name, this.arguments = const {}});
 
+  /// Reads one `annotations[]` entry. A missing `arguments` key is read as
+  /// empty rather than as an error — the exporter omits it for markers.
   factory SpecAnnotation.fromJson(Map<String, dynamic> j) => SpecAnnotation(
         name: j['name'] as String,
         arguments: (j['arguments'] as Map?)?.cast<String, Object?>() ?? const {},
@@ -59,6 +116,13 @@ class SpecAnnotation {
   /// The argument named [key], or `null` when absent.
   Object? argument(String key) => arguments[key];
 
+  /// Reads a whole `annotations` block, preserving source order — which
+  /// matters because repeatable annotations such as `@Case` are read as a
+  /// sequence by [AnnotatedSpecNode.annotationsNamed].
+  ///
+  /// Accepts `null` and returns the empty list: the exporter omits the block
+  /// entirely when a node carries no annotations, so absent and empty must
+  /// load identically.
   static List<SpecAnnotation> listFromJson(Object? raw) =>
       (raw as List?)
           ?.map((e) => SpecAnnotation.fromJson(e as Map<String, dynamic>))
@@ -68,10 +132,35 @@ class SpecAnnotation {
 
 /// A single form field within a `@Form` content section.
 class FormFieldSpec {
+  /// The declared field name. This is the *machine* identity: it is the
+  /// storage key, and — first letter upper-cased — the `FieldName:` label the
+  /// markdown form format writes and matches case-insensitively
+  /// (SOM §11.4 rule 1). Renaming it breaks stored documents.
   final String name;
+
+  /// The human-facing caption: the field's declared description, or a
+  /// PascalCase split of [name] when none was authored. Never `null`, so a
+  /// renderer needs no fallback of its own — but it is display text only and
+  /// must not be used as a key.
   final String label;
+
+  /// Author-facing guidance for filling the field in, or `null` when none was
+  /// declared. Omitted from the export when empty, so `null` and "no hint"
+  /// are the same state.
   final String? hint;
+
+  /// The declared Dart type name (`String`, `int`, an enum type, …), defaulted
+  /// to `String` on load. Consumers convert values against this — with
+  /// [enumValues] supplying the legal set when it names a model enum.
   final String type;
+
+  /// Whether the field must be filled in.
+  ///
+  /// Nothing in this class enforces it — the flag is carried into the meta
+  /// tree and into the generated schema's `required:`, where the DocSpecs
+  /// instance tier turns an absent or empty value into a
+  /// `missingRequiredField` violation. It is a statement about a *filled*
+  /// document; an unfilled model is not thereby invalid.
   final bool required;
 
   /// Enum constant names when [type] is a model enum (YRD7); empty for
@@ -86,6 +175,10 @@ class FormFieldSpec {
   /// dangling id instead of generating broken code.
   final List<String> refersTo;
 
+  /// Only [name], [label] and [type] are required — the three a form line
+  /// cannot be written without. Everything else defaults to the "nothing was
+  /// declared" state: no [hint], not [required], and empty [enumValues] /
+  /// [refersTo], each of which the export omits rather than emitting empty.
   FormFieldSpec({
     required this.name,
     required this.label,
@@ -96,6 +189,13 @@ class FormFieldSpec {
     this.refersTo = const [],
   });
 
+  /// Reads one `formFields[]` entry
+  /// (`tom_specs_model_meta_schema.md`, "`formFields[]` entry").
+  ///
+  /// Every optional key degrades rather than throws: an absent `label` falls
+  /// back to [name], an absent `type` to `String`, an absent `required` to
+  /// `false`. `enumValues` / `refersTo` are stringified element-wise so a
+  /// numerically-spelled entry still loads.
   factory FormFieldSpec.fromJson(Map<String, dynamic> j) => FormFieldSpec(
         name: j['name'] as String,
         label: j['label'] as String? ?? j['name'] as String,
@@ -140,6 +240,10 @@ class KindLink {
   /// The annotation's free-text `note`, explaining the classification.
   final String? note;
 
+  /// Both arguments are optional, because *constructing* the link is already
+  /// the statement that the annotation was present: a link with no [kinds]
+  /// and no [note] records a classification that resolved to no member of the
+  /// taxonomy, which is a different fact from having no link at all.
   const KindLink({this.kinds = const [], this.note});
 
   /// Reads a link out of [annotation], taking the code list from the argument
@@ -182,6 +286,11 @@ class NoArtifactLink {
   /// the routed section that states the material normatively.
   final String? note;
 
+  /// [reason] is required and [note] is not, mirroring the annotation: the
+  /// verdict is only readable as a decision if it says *why*, whereas the
+  /// prose gloss is optional. [NoArtifactLink.fromAnnotation] accordingly
+  /// substitutes `container` for a missing argument rather than admitting a
+  /// reasonless verdict.
   const NoArtifactLink({required this.reason, this.note});
 
   /// Reads the verdict out of [annotation].
@@ -218,6 +327,10 @@ class StandardReferences {
   /// What the section means — its intent / what it owns.
   final String? connotation;
 
+  /// Both halves are optional and independent: `@StandardReferences` is used
+  /// both to cite standards without glossing them and to state a
+  /// [connotation] for a node that traces to no published standard, so
+  /// neither can be required without rejecting a legitimate annotation.
   const StandardReferences({this.standards = const [], this.connotation});
 
   /// Returns `null` for a missing block, so absent provenance stays
@@ -313,15 +426,48 @@ mixin AnnotatedSpecNode {
 
 /// A single field of a [SpecClass].
 class SpecField with AnnotatedSpecNode {
+  /// The exact source member name. It is the path segment a resolver matches
+  /// on when the field declares no [sectionId] (SOM §7.1), so it is part of
+  /// the stored document's addressing grammar, not merely a label.
   final String name;
+
+  /// How the field renders and which of the kind-specific members below are
+  /// populated — see [SpecFieldKind] for the per-kind key sets. A traversal
+  /// must branch on this before reading [type] / [elementType] /
+  /// [formFields], because only one group is ever filled.
   final SpecFieldKind kind;
+
+  /// The cleaned `///` doc comment from the model source, or `null`. Written
+  /// for a developer reading the model; [help] is what an *author* filling
+  /// the section in is shown.
   final String? doc;
+
+  /// The `@ContentHelp(guidance)` authoring guidance, or `null`. Distinct
+  /// from [doc]: this is instruction for whoever fills the section in, and it
+  /// is also what the schema generator emits as the section-type's
+  /// `description:` (SOM §13).
   final String? help;
 
   /// The `@Headline(text)` default headline (YRD4), or `null`. Render
   /// precedence: stored headline > this default > name derivation.
   final String? headline;
+  /// The field-level `@SectionId`, or `null` when the member declares none.
+  ///
+  /// When present it both keys the markdown heading comment
+  /// (`<!--[<id>]-->`) and replaces [name] as the path segment. When absent
+  /// the member is *transparent* — it keys on its target class's own section
+  /// id while still pathing on [name] (SOM §7.1, SOM §11.6).
   final String? sectionId;
+
+  /// The `@SectionIdPattern` the field's *items* take (e.g. `GOAL-ITEM-xxx`),
+  /// or `null`.
+  ///
+  /// Independent of [sectionId], not a fallback for it: a list field
+  /// routinely carries both — its own id and the pattern its elements are
+  /// numbered under — so a consumer must read the pair
+  /// (`tom_specs_model_meta_schema.md`, "`fields[]` entry"). The generated
+  /// schema compiles the `xxx` stem to `.+`, so any id that keeps the stem
+  /// validates (SOM §13).
   final String? sectionIdPattern;
 
   /// The member's serialization ordinal from `@SerializationOrder(n)` (SOM
@@ -330,24 +476,79 @@ class SpecField with AnnotatedSpecNode {
   final int? serializationOrder;
 
   // list
+  /// For [SpecFieldKind.list], the element's type name; `null` otherwise.
+  ///
+  /// Resolve it against [SpecModel.classes] only when [elementIsComplex] —
+  /// otherwise it names a scalar to render directly.
   final String? elementType;
+
+  /// Whether [elementType] names an exported model class (descend into it)
+  /// rather than a scalar (render it).
+  ///
+  /// Carried explicitly instead of being inferred from a class-graph lookup
+  /// so the eight non-Dart runtimes need no lookup at all, and so a
+  /// truncated snapshot cannot silently turn a complex element into a scalar
+  /// (`tom_specs_model_meta_schema.md`, "`fields[]` entry").
   final bool elementIsComplex;
+
+  /// The `@Min(count)` minimum item count for a list, or `null` when
+  /// unconstrained.
+  ///
+  /// Instance-tier only: the model is not invalid for having fewer, a
+  /// *filled document* is — `validateDocument` reports a shortfall as a
+  /// `minItems` error. It is also what the schema generator writes as the
+  /// subsection `min-count` (SOM §13).
   final int? min;
 
   // section / content
+  /// The `@ContentType(type)` render classification of a section-kind or
+  /// content-kind field — `text` by default, else a fenced form such as
+  /// `mermaid`, `mermaid-flow` or `code-dart`. `null` for every other kind.
+  ///
+  /// A renderer that ignores it will emit a diagram body as prose, and the
+  /// generated schema turns the non-`text` values into a `format:` that
+  /// *demands* a fenced block.
   final String? contentType;
+
+  /// For [SpecFieldKind.section], the declared wrapper class name with any
+  /// `?` stripped (`TextSection`, `FlowDiagramSection`, …); `null` otherwise.
+  ///
+  /// These wrappers belong to `tom_specs_core` and are deliberately absent
+  /// from [SpecModel.classes], so this is descriptive metadata — not a name
+  /// to look up. A section is a content leaf; [contentType] is what decides
+  /// how it renders.
   final String? sectionType;
 
   // enum
   /// The Dart enum type name backing an `enum` field (e.g. `Probability`), or
   /// `null` for non-enum fields. Mirrors the exporter's `enumType` key.
   final String? enumType;
+  /// The enum's constant names in declaration order, empty for a non-enum
+  /// field. Declaration order is load-bearing: [OneOfGroup] reports case
+  /// coverage against this sequence so the result reads against the enum a
+  /// reviewer is checking.
   final List<String> enumValues;
 
   // complex / scalar
+  /// The declared type name with any `?` stripped, for
+  /// [SpecFieldKind.complex] and [SpecFieldKind.scalar] fields only; `null`
+  /// for every other kind — notably for a section, whose class name lives in
+  /// [sectionType], and for a list, whose element name lives in
+  /// [elementType].
+  ///
+  /// For a complex field this is the key to look up in [SpecModel.classes] to
+  /// descend; for a scalar it is a primitive name (`int`, `bool`, `DateTime`,
+  /// …) to convert against.
   final String? type;
 
   // form
+  /// The `@Form` fields of a [SpecFieldKind.form] field, in **model
+  /// declaration order**; empty for every other kind.
+  ///
+  /// The order is the on-disk emission order of the form lines (SOM §11.4),
+  /// so it must be preserved rather than sorted. No entry ever restates the
+  /// section's title or id — those live solely in the heading and its id
+  /// comment.
   final List<FormFieldSpec> formFields;
 
   /// The lossless annotation list captured on this field (SOM §5.3).
@@ -357,6 +558,16 @@ class SpecField with AnnotatedSpecNode {
   @override
   final StandardReferences? standardReferences;
 
+  /// Only [name] and [kind] are required: they are the two every exported
+  /// field carries, and [kind] is what tells a reader which of the optional
+  /// groups below it may consult.
+  ///
+  /// Every remaining argument is kind-specific and defaults to the "not
+  /// applicable / not annotated" state, so constructing a field of one kind
+  /// never forces null placeholders for another kind's keys. Nothing here
+  /// cross-checks kind against the group actually supplied — the exporter is
+  /// the authority on that, and a hand-built field that mixes them will
+  /// simply be ignored by the traversal that branches on [kind].
   SpecField({
     required this.name,
     required this.kind,
@@ -379,6 +590,14 @@ class SpecField with AnnotatedSpecNode {
     this.standardReferences,
   });
 
+  /// Reads one `fields[]` entry
+  /// (`tom_specs_model_meta_schema.md`, "`fields[]` entry").
+  ///
+  /// `name` and `kind` are the only keys read as mandatory — an entry missing
+  /// either throws, because a nameless or kindless field cannot be addressed
+  /// or rendered. Every other key is optional and absent means "not
+  /// annotated"; unrecognised kind strings degrade via
+  /// [SpecFieldKind.parse] rather than failing the load.
   factory SpecField.fromJson(Map<String, dynamic> j) {
     return SpecField(
       name: j['name'] as String,
@@ -455,6 +674,15 @@ class OneOfGroup {
   /// fields are deliberately excluded — they are not alternatives.
   final List<SpecField> caseFields;
 
+  /// [discriminator] and [caseFields] are required — they are the choice
+  /// itself, and a group without them says nothing. [discriminatorField] is
+  /// optional so that an *unresolvable* discriminator still yields a group
+  /// rather than nothing at all — the case fields stay visible for review.
+  ///
+  /// Note the consequence: with no resolved field, [discriminatorValues] is
+  /// empty and every coverage answer is therefore vacuous — [isComplete]
+  /// reads `true`. A caller judging coverage must check
+  /// [discriminatorValues] is non-empty first.
   const OneOfGroup({
     required this.discriminator,
     required this.caseFields,
@@ -500,16 +728,56 @@ class OneOfGroup {
 
 /// A model class with its fields.
 class SpecClass with AnnotatedSpecNode {
+  /// The exact source class name. This is the key the class is filed under in
+  /// [SpecModel.classes] and the value [SpecField.type] /
+  /// [SpecField.elementType] refer back to, so it is the join key of the whole
+  /// graph — each class appears exactly once and every edge is this string.
   final String name;
+
+  /// The class-level `@SectionId`, or `null`.
+  ///
+  /// Used as the *key fallback*: a section or complex member whose own
+  /// [SpecField.sectionId] is absent keys its markdown heading on this id
+  /// while still pathing on the member name. The two ids are never merged
+  /// (SOM §7.1).
   final String? sectionId;
+
+  /// The cleaned class-level `///` doc comment, or `null` — developer-facing,
+  /// as against the author-facing [help].
   final String? doc;
+
+  /// The class-level `@ContentHelp(guidance)` authoring guidance, or `null`.
+  ///
+  /// A member-level [SpecField.help] on the instantiating field is the more
+  /// specific statement; unlike [headline], this one is *not* folded into a
+  /// per-member fallback chain, so a consumer that wants the class default
+  /// has to reach for it here deliberately.
   final String? help;
 
   /// The class-level `@Headline(text)` default headline (YRD4), or `null`.
   /// A field-level `@Headline` on the instantiating field wins over this.
   final String? headline;
+  /// The `@MapsTo` traceability target — the name of the class this one is
+  /// the counterpart of elsewhere in the model — or `null`.
+  ///
+  /// A documentation-level cross-link only: nothing in this runtime
+  /// dereferences it, and the named class may legitimately live outside
+  /// [SpecModel.classes].
   final String? mapsTo;
+
+  /// The `@DetailedIn` traceability target — the class that elaborates this
+  /// one — or `null`. Carried on the same terms as [mapsTo]: a cross-link
+  /// for readers and tooling, never followed here.
   final String? detailedIn;
+
+  /// The class's fields in source declaration order, as the exporter read
+  /// them.
+  ///
+  /// This is a *display* order, not the serialization contract: on-disk member
+  /// order is decided by the explicit [SpecField.serializationOrder] ordinals,
+  /// which `SpecSerializationOrder` sorts on. The two normally coincide, and a
+  /// consumer that needs the guarantee must use the ordinals rather than this
+  /// list's order.
   final List<SpecField> fields;
 
   /// The lossless annotation list captured on this class (SOM §5.3).
@@ -519,6 +787,13 @@ class SpecClass with AnnotatedSpecNode {
   @override
   final StandardReferences? standardReferences;
 
+  /// [name] alone is required — it is the graph's join key, and a class
+  /// without one could neither be filed in [SpecModel.classes] nor referred
+  /// to by a field.
+  ///
+  /// [fields] defaults to empty so a marker or projection class constructs
+  /// without ceremony; every remaining argument is an annotation projection
+  /// whose absence means "not annotated", never "empty".
   SpecClass({
     required this.name,
     this.sectionId,
@@ -532,6 +807,13 @@ class SpecClass with AnnotatedSpecNode {
     this.standardReferences,
   });
 
+  /// Reads one `classes[name]` entry
+  /// (`tom_specs_model_meta_schema.md`, "`classes[name]` entry").
+  ///
+  /// `name` and `fields` are read as mandatory and throw when absent —
+  /// `fields` deliberately so, because a class entry with the key omitted
+  /// rather than empty means the snapshot was truncated, and loading it as a
+  /// field-less class would present a mutilated document as a valid one.
   factory SpecClass.fromJson(Map<String, dynamic> j) => SpecClass(
         name: j['name'] as String,
         sectionId: j['sectionId'] as String?,
@@ -609,12 +891,36 @@ class SpecClass with AnnotatedSpecNode {
 
 /// A document root (a class carrying `@Document`).
 class SpecRoot {
+  /// The root's class name — the key into [SpecModel.classes], and what
+  /// [SpecModel.rootByType] and [SpecModel.isGenerationInput] resolve
+  /// against. A root whose type is absent from the class graph is a
+  /// truncated snapshot, not a documentless root.
   final String type;
+
+  /// The document's display name: `@Document(name:)`, or a PascalCase split
+  /// of [type] when the annotation named none. Never `null`, so a picker has
+  /// something to show without inventing a fallback — but it is display text,
+  /// and [type] is the identity.
   final String title;
+
+  /// The root's `@SectionId`, or `null`. It is the id the document's level-1
+  /// heading carries, and the schema's `title-format` demands it as the root
+  /// heading id (SOM §11.2, SOM §13) — so a mismatch is a `formatMismatch`,
+  /// not a cosmetic difference.
   final String? sectionId;
+
+  /// `@Document(description:)` when non-empty, else `null`. A one-line gloss
+  /// for a chooser; the substantive prose is [doc].
   final String? description;
+
+  /// The cleaned class doc comment of the root class, or `null` — the
+  /// developer-facing explanation of what the document is for.
   final String? doc;
 
+  /// [type] and [title] are required: the identity and the label, the two
+  /// keys the meta schema marks mandatory on a `roots[]` entry. The three
+  /// optional arguments are annotation projections whose absence means the
+  /// root simply was not annotated.
   SpecRoot({
     required this.type,
     required this.title,
@@ -623,6 +929,9 @@ class SpecRoot {
     this.doc,
   });
 
+  /// Reads one `roots[]` entry
+  /// (`tom_specs_model_meta_schema.md`, "`roots[]` entry"). `type` and
+  /// `title` throw when absent; the rest degrade to `null`.
   factory SpecRoot.fromJson(Map<String, dynamic> j) => SpecRoot(
         type: j['type'] as String,
         title: j['title'] as String,
@@ -752,6 +1061,13 @@ class SpecModelStampCheck {
   /// The number of document roots the payload actually carries.
   final int actualRootCount;
 
+  /// Every argument is required, including the three nullable ones.
+  ///
+  /// That is deliberate: each nullable field encodes "the snapshot declared
+  /// nothing here", and defaulting any of them would let a caller construct a
+  /// check that quietly reports no finding because a value was forgotten
+  /// rather than because the snapshot was silent. The check is only
+  /// meaningful when every input is stated.
   const SpecModelStampCheck({
     required this.age,
     required this.maxAge,
@@ -805,7 +1121,22 @@ class SpecModelStampCheck {
 
 /// The complete exported model.
 class SpecModel {
+  /// The document entry points, in export order — one per `@Document` class.
+  ///
+  /// These are the *authored* documents only; the canonical container named
+  /// by [containerRoot] is not among them, and a generation input such as a
+  /// CodeSpecs projection is (test it with [isGenerationInput] before
+  /// offering it to an author).
   final List<SpecRoot> roots;
+
+  /// The whole class graph keyed by [SpecClass.name] — each class exactly
+  /// once, with `type` / `elementType` edges followed on demand.
+  ///
+  /// A map rather than a list because resolution is the hot path: every
+  /// descent through a complex field is one lookup here. Note the graph is
+  /// *not* closed — [SpecField.sectionType], [SpecClass.mapsTo] and
+  /// [SpecClass.detailedIn] may name classes deliberately absent from it, so
+  /// a missing key is not automatically a corrupt snapshot.
   final Map<String, SpecClass> classes;
 
   /// The model-version counter the meta-data was generated against. `0` means
@@ -840,6 +1171,14 @@ class SpecModel {
   /// model has no container (e.g. a synthetic export).
   final String? containerRoot;
 
+  /// Only [roots] and [classes] — the payload — are required. Every stamp
+  /// argument is optional and defaults to the unstamped state ([modelVersion]
+  /// to `0`, the rest to `null`), so a hand-built or synthetic model
+  /// constructs without inventing provenance it does not have.
+  ///
+  /// The consequence is that [checkStamp] reports no count disagreement for
+  /// such a model: absent declarations are not compared. That is intended —
+  /// only a snapshot that *claimed* a size can contradict itself.
   SpecModel({
     required this.roots,
     required this.classes,
@@ -873,6 +1212,17 @@ class SpecModel {
     );
   }
 
+  /// The class named [name], or `null` when the graph does not carry it.
+  ///
+  /// Accepts `null` and answers `null` so callers can feed a nullable edge
+  /// ([SpecField.type], [SpecField.elementType], [SpecRoot.type]) straight in
+  /// — the traversals in this runtime chain these lookups per path segment,
+  /// and a null-check at every call site would be noise.
+  ///
+  /// An unresolved name is *not* an error here: an edge may legitimately
+  /// point outside the exported graph, so a caller that needs the distinction
+  /// between "absent by design" and "truncated snapshot" must draw it itself
+  /// (see [SpecModelStampCheck.countsDisagree]).
   SpecClass? classNamed(String? name) => name == null ? null : classes[name];
 
   /// Whether [root] is a **generation input** rather than an authored document.
@@ -922,6 +1272,19 @@ class SpecModel {
   String get modelVersionString =>
       somModelVersionString(modelVersion, modelVersionLabel);
 
+  /// Decodes a whole `meta/spec_model.meta.json` payload
+  /// (`tom_specs_model_meta_schema.md`, "Top-level keys").
+  ///
+  /// `classes` and `roots` are mandatory and throw when absent or of the
+  /// wrong shape — without them there is no model. Every stamp key is
+  /// optional so that snapshots exported before the keys existed still load,
+  /// and an empty `modelVersionLabel` is normalised to `null` so "unstamped"
+  /// has one representation rather than two.
+  ///
+  /// This constructor does **not** validate the payload; it only decodes it.
+  /// Run `validateSpecModelMeta` first when the file's conformance is in
+  /// question, and [checkStamp] afterwards to catch a file edited after
+  /// export.
   factory SpecModel.fromJson(Map<String, dynamic> j) {
     final classes = <String, SpecClass>{};
     (j['classes'] as Map<String, dynamic>).forEach((name, value) {

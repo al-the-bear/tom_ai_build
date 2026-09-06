@@ -20718,7 +20718,7 @@ form-types:
       - fieldname: assuranceLevel
         description: "AAL1 | AAL2 | AAL3 — NIST authentication assurance level"
       - fieldname: phishingResistant
-        description: "Yes | No — whether this method resists phishing per NIST SP 800-63B §3.2.5"
+        description: "Yes | No — whether this method resists phishing per NIST SP 800-63B, section 3.2.5"
       - fieldname: replayResistant
         description: "Yes | No — whether this method resists replay attacks"
       - fieldname: hardwareRequirement

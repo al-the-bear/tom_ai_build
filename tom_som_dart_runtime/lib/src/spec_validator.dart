@@ -48,6 +48,11 @@ class SpecValidationError {
   /// A human-readable description.
   final String message;
 
+  /// All three are required, so no finding can be reported without saying
+  /// where it is — validation returns a list rather than throwing, and an
+  /// entry with no [path] would be unactionable among dozens. [code] is the
+  /// stable half of the pair: the wording of [message] is free to improve, so
+  /// callers that group, count or suppress findings must key on the code.
   const SpecValidationError({
     required this.path,
     required this.code,

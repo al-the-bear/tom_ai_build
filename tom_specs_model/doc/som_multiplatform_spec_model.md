@@ -791,6 +791,71 @@ namespace, so neither can shadow. The table is checked against the reference
 Dart facade member for member, so a structural accessor added to `SomNode`
 without a table entry fails the build.
 
+### 10.2 Doc comments in a generated facade
+
+A generated facade is API-reference material like any other package, so its doc
+comments are the **emitter's** output: a gap there is one emitter bug, not nine
+per-package documentation debts. `tom_specs_documentation_standard.md` §5
+exempts the `tom_som_*_v0` packages from a coverage *threshold* for exactly this
+reason — the bar applies to the emitter's templates.
+
+**What the meta-data carries, and therefore what any language's emitter can
+render.** Four authored fields, all present in `spec_model.meta.json` (§5.3),
+none of them inferable from the model's structure:
+
+| Meta field | Carried on | Present in the current model | What it says |
+|---|---|---|---|
+| `doc` | class, field | 1254/1254 classes, 3773/5153 fields | what the section *is* |
+| `help` (`@ContentHelp`) | class, field | 128 classes, 1147 fields | how to *fill it in* |
+| `label` (`@Form` `Field`) | form field | 10953/10953 | the field's display name |
+| `hint` (`@Form` `Field`) | form field | 10547/10953 | what a valid value looks like |
+
+`doc` is the one every emitter already renders. The other three were reaching
+the meta-data and stopping there. The Dart reference emitter renders all four
+as of the tsdoc14 sweep, and **the other eight emitters should do the same**:
+the text is language-neutral, so each needs only its own comment syntax around
+the same strings. It is the largest single documentation win available in the
+generated tier, and it costs one change per emitter.
+
+Two further rules the Dart emitter now follows and the others should:
+
+- **A setter needs its own comment.** In an API reference a getter/setter pair
+  renders as two members, so a documented getter beside a bare setter reads as
+  half-undocumented. Pointing the setter at the getter (`Sets [x].`) is enough
+  and does not duplicate the text.
+- **The barrel needs a library-level comment.** Without one the package's
+  reference opens on an empty page. It has to be emitted: a hand edit is
+  overwritten by the next generation run.
+
+**What the meta cannot supply.** Enum *constants* are carried as bare names
+(`enumValues`), with no per-constant text, so no emitter can document them from
+the meta — the model's own per-constant comments stop at the exporter.
+Likewise the `@ContentType` *description* is dropped; only the type token
+reaches the meta. Both are model-side gaps rather than emitter gaps, and
+closing either means widening the exporter and the meta schema first.
+
+**A gap in the model stays visible as a gap in the facade.** Where a model
+field carries no `doc`, the emitter emits nothing rather than a derived
+placeholder. It could easily synthesise one — the section id and the
+`@Headline` are both to hand — and that would raise the facade's measured
+coverage while saying nothing a reader did not already know, and would hide the
+real gap: the *model* has not described that field. The residual undocumented
+accessors in the Dart facade are exactly the model's own undocumented fields,
+and they close when the model does, automatically and everywhere.
+
+The one exception is where the meta says something the accessor's signature
+cannot: a `form` member's accessor returns a mangled generated type, so the
+form's field labels are emitted; and a content member whose `contentType` is
+not `text` is emitted with its format, because `Mermaid` and `SQL` sections are
+not free prose. Both add a fact; neither restates a name.
+
+**Emitted model text is gated like any other citation.** Rendering `help` and
+`hint` into a generated facade carries the *model author's* prose into a source
+file, where `check_section_citations.dart` reads it. A bare `§N` that was
+unambiguous inside a model doc comment resolves to nothing once emitted, so the
+model's text has to name its document. That is a constraint on model authoring,
+not on the emitter.
+
 ## 11. The `*.md` format — strict DocSpecs, full fidelity
 
 The generated/authored markdown **is a genuine DocSpecs document**, readable

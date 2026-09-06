@@ -3892,7 +3892,7 @@ class AuthenticationMethodEntry extends DocSpecsSection {
       String,
       'Phishing Resistant',
       hint:
-          'Yes | No — whether this method resists phishing per NIST SP 800-63B §3.2.5',
+          'Yes | No — whether this method resists phishing per NIST SP 800-63B, section 3.2.5',
     ),
     Field(
       'replayResistant',
@@ -14656,7 +14656,7 @@ internal governance.
 **Compliance frameworks:**
 - SOC 2: CC6.1–CC6.3 (access controls), CC7.1–CC7.5 (monitoring)
 - PCI DSS 10: Track and monitor access
-- HIPAA §164.312: Access controls and audit
+- HIPAA, section 164.312: Access controls and audit
 - ISO 27001: A.9 Access control, A.12 Logging
 ''')
   @override

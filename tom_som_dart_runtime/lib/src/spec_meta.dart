@@ -60,6 +60,10 @@ class SomContentTypeMeta {
   /// The human/AI-facing description of the expected content.
   final String description;
 
+  /// Both halves of `@ContentType` are required. The [type] alone tells a
+  /// generic editor which content lane a leaf is in, but the [description] is
+  /// what an authoring agent is actually shown, so an annotation that carried
+  /// only the type would leave that prompt with nothing to say.
   const SomContentTypeMeta({required this.type, required this.description});
 }
 
@@ -96,6 +100,13 @@ class SomFormFieldMeta {
   /// dangling id instead of generating broken code.
   final List<String> refersTo;
 
+  /// [name], [typeName] and [order] are required — they are the field's
+  /// identity and its fixed place in the form's serialization and render
+  /// order. Everything else describes an annotation the model may simply not
+  /// carry: [required] defaults to `false` (a form field is optional unless
+  /// the model says otherwise), and the two list arguments default to empty,
+  /// which asserts *not enum-typed* and *not a reference* rather than
+  /// signalling that the information was unavailable.
   const SomFormFieldMeta({
     required this.name,
     required this.typeName,
@@ -113,6 +124,10 @@ class SomFormMeta {
   /// The form's fields in declaration order.
   final List<SomFormFieldMeta> fields;
 
+  /// Takes the fields already in declaration order. That order is the form's
+  /// serialization and render order in every codec, so this constructor
+  /// deliberately does not sort — passing an alphabetised list would reorder
+  /// the emitted document.
   const SomFormMeta({required this.fields});
 
   /// The field named [name], or `null` when absent.
@@ -135,6 +150,11 @@ class SomDocMeta {
   /// Class names of the documents this one is based on (`@Document.basedOn`).
   final List<String> basedOn;
 
+  /// [name] and [description] are required because a `@Document` root missing
+  /// either leaves the document picker and the authoring prompt with nothing
+  /// to display. [basedOn] defaults to empty for the common root that derives
+  /// from nothing; when populated it holds model **class** names, not file
+  /// names or section ids.
   const SomDocMeta({
     required this.name,
     required this.description,
@@ -152,6 +172,11 @@ class SomMetaExtra {
   /// The resolved constructor arguments (`{'count': 4}`).
   final Map<String, Object?> args;
 
+  /// [annotation] is the class name exactly as the model source writes it —
+  /// the only key a consumer can match on, since the tree deliberately does
+  /// not interpret annotations it has no slot for. [args] defaults to empty
+  /// for marker annotations that take none, and its values are already
+  /// resolved constants, so no consumer ever re-parses source text.
   const SomMetaExtra({required this.annotation, this.args = const {}});
 }
 
@@ -263,6 +288,16 @@ class SomMetaNode {
   /// (see [path]).
   final SomMetaNode? elementNode;
 
+  /// Only [className], [kind] and [typeName] are required; every other
+  /// argument stands for an annotation the model may not declare, and the
+  /// point of the tree is that an absent annotation stays absent rather than
+  /// being defaulted into a value a codec would then act on.
+  ///
+  /// Note what this does *not* do: it sets neither the parent link nor the
+  /// absolute path. [SomMetaTree] wires both once, when the node is placed —
+  /// which is why a node instance belongs to at most one tree and must not be
+  /// shared between two. [children] must already be in `@SerializationOrder`
+  /// order; nothing here sorts them.
   SomMetaNode({
     required this.className,
     this.memberName,
@@ -513,6 +548,11 @@ class SomMetaRef {
   /// The absolute document path of this position (SOM §8 path grammar).
   final String path;
 
+  /// Binds a position to its tree, positionally. The path is **not** resolved
+  /// against [tree] here: generated accessor chains build refs eagerly as they
+  /// are navigated, and a position past a recursive re-entry legitimately has
+  /// no node at all (SOM §8 cycle rule). That failure is raised later, by
+  /// [meta], so merely naming an unreachable position stays cheap and legal.
   SomMetaRef(this.tree, this.path);
 
   /// The metadata node at [path].
@@ -531,8 +571,18 @@ class SomMetaRef {
 /// position (`<path>-<seq>`), whose children are the element class's
 /// accessors.
 class SomListMetaRef<E> extends SomMetaRef {
+  /// Builds the accessor for one item position. Held as a function rather than
+  /// derived from `E` because Dart cannot instantiate a type parameter: the
+  /// generated facade closes over the element accessor's constructor and hands
+  /// it in here.
   final E Function(SomMetaTree tree, String path) _element;
 
+  /// Takes the **container** path — never an item path — plus the factory that
+  /// builds the element accessor. Emitted by the generated facades, which is
+  /// why the factory is positional and private: callers navigate through
+  /// [item], and hand-constructing a list ref with a factory for the wrong
+  /// element class would yield accessors that resolve to plausible-looking
+  /// paths of another class.
   SomListMetaRef(super.tree, super.path, this._element);
 
   /// The accessor at the item position `<path>-<seq>`.

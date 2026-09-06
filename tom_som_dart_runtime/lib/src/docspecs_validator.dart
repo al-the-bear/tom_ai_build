@@ -81,6 +81,16 @@ enum DocSpecsViolationRule {
 /// (when one exists), the bound runtime [path] (when resolvable), the 1-based
 /// source [line], and a human-readable [message].
 class DocSpecsViolation {
+  /// [rule], [line] and [message] are required — they are the three every
+  /// violation can always state, since even a heading too malformed to yield
+  /// an id still occupies a source line.
+  ///
+  /// [sectionId] and [path] are optional because each may genuinely not
+  /// exist: a `malformedHeading` has no id to name, and no violation raised
+  /// by this validator resolves a runtime [path] at all (binding is a
+  /// separate step — see [bindDocSpecsMarkdown]), so it is `null` throughout
+  /// the current implementation and reserved for callers that fold binding
+  /// results into the same list.
   DocSpecsViolation({
     required this.rule,
     required this.line,
@@ -89,10 +99,36 @@ class DocSpecsViolation {
     this.path,
   });
 
+  /// Which rule was broken. This — not [message] — is the machine-readable
+  /// verdict, and it is part of the cross-runtime contract: all nine
+  /// languages must report the same rule for the same document, so a
+  /// consumer that branches on the prose instead will diverge between ports.
   final DocSpecsViolationRule rule;
+
+  /// The DocSpecs id of the offending section, or `null` when none is
+  /// available (a malformed heading, or an empty document).
+  ///
+  /// For a cardinality or required-subsection finding this names the
+  /// **parent** — the section whose child count is wrong — because the
+  /// missing child has no id to point at.
   final String? sectionId;
+
+  /// The bound SOM runtime path, when one is resolvable. Always `null` from
+  /// [DocSpecsValidator.validate], which works schema-to-markdown and never
+  /// consults a [SpecModel]; it exists so binding-tier findings can share
+  /// this type.
   final String? path;
+
+  /// The **1-based** source line, so it can be handed to an editor unchanged.
+  ///
+  /// It points at the *heading* of the section at fault rather than at the
+  /// offending body line, with one exception: a `fieldPatternMismatch`
+  /// points at the form field's own line when that line was seen.
   final int line;
+
+  /// The human-readable explanation. Display text only — it is deliberately
+  /// not stable API, and an authored `error-message` on the failing
+  /// pattern-check replaces the generated wording when one exists.
   final String message;
 
   @override
@@ -110,6 +146,11 @@ class DocSpecsViolation {
 /// [line], accumulated [bodyLines] (each with its own source line =
 /// [bodyStartLine] + index), and nested [children].
 class DocSpecsSection {
+  /// All four arguments are required, [id] included even though it is
+  /// nullable: a heading always has a position and a title, and whether it
+  /// carries an id is exactly the fact the parse has to record, so leaving it
+  /// unstated is never right. [bodyLines] and [children] are filled in by
+  /// [DocSpecsDocument.parse] as it walks past the heading.
   DocSpecsSection({
     required this.id,
     required this.title,
@@ -117,9 +158,32 @@ class DocSpecsSection {
     required this.line,
   });
 
+  /// The `<!--[SECTION-ID]-->` machine identity, or `null` when the heading
+  /// carried no such comment (SOM §11.2).
+  ///
+  /// `null` is not merely "unknown": it has already been reported as a
+  /// [DocSpecsViolationRule.malformedHeading] by the parse, which is why the
+  /// validator skips such a section silently instead of reporting it twice.
   final String? id;
+
+  /// The heading text with the id comment stripped — the section's headline.
+  /// Never `null`: a heading with only an id comment yields the empty string.
+  ///
+  /// Note that the id, not this, is the identity; the title is authored prose
+  /// and no rule in this validator matches on it.
   final String title;
+
+  /// The markdown heading depth (`#` = 1). **Uncapped** — SOM §11.2 makes
+  /// depth 1 + section depth with no ceiling and requires DocSpecs tooling to
+  /// accept `#{7,}`, so a reader must not assume the CommonMark limit of 6.
+  ///
+  /// Nesting is derived from this alone: the parse pops its stack until the
+  /// top is shallower, so a skipped level nests rather than erroring.
   final int level;
+
+  /// The **1-based** source line of the heading itself. Every violation
+  /// raised against this section reports this line, so it is what an editor
+  /// jumps to.
   final int line;
 
   /// The raw body lines directly under this heading (before any child
@@ -129,6 +193,13 @@ class DocSpecsSection {
   /// The source line of the first body line (heading line + 1).
   int get bodyStartLine => line + 1;
 
+  /// The directly nested sections, in source order.
+  ///
+  /// Order is load-bearing for the reader, not for validation: cardinality is
+  /// counted per section-type name, so the same type may appear repeatedly
+  /// and interleaved with others without that alone being a violation. It is
+  /// the *counts*, matched against the parent type's `subsection-types`, that
+  /// decide.
   final List<DocSpecsSection> children = [];
 
   /// The trimmed body text (leading/trailing blank lines removed).
@@ -236,25 +307,77 @@ String docSpecsIdTransform(String id) =>
 /// A `pattern-check` / `pattern-check-id` rule: the regex [pattern] plus the
 /// authored [errorMessage].
 class DocSpecsPatternCheck {
+  /// [pattern] is required and [errorMessage] is not, mirroring the schema's
+  /// two spellings: a check written as a bare scalar carries only the regex,
+  /// while the map form adds authored wording. A check with no regex has no
+  /// meaning, so there is no default for it.
   DocSpecsPatternCheck({required this.pattern, this.errorMessage});
 
+  /// The regex source as authored in the schema, uncompiled.
+  ///
+  /// Held as a string rather than a `RegExp` because it crosses to eight
+  /// other runtimes verbatim; each compiles it with its own engine. The
+  /// corollary is that it is only validated when first applied — a
+  /// syntactically invalid pattern loads without complaint and throws from
+  /// [matches].
+  ///
+  /// It is applied with `hasMatch`, i.e. **unanchored**: a schema that means
+  /// "the whole id" must write `^…$` itself. Generated schemas do
+  /// (`^GOAL-ITEM-.+$`, SOM §13).
   final String pattern;
+
+  /// The schema's authored `error-message`, or `null`.
+  ///
+  /// When present it *replaces* the generated violation wording rather than
+  /// supplementing it, so it has to be a complete sentence about the failure
+  /// — the id and the pattern it failed are not appended.
   final String? errorMessage;
 
+  /// Whether [value] satisfies [pattern], compiling the regex on each call.
+  ///
+  /// Throws `FormatException` when the authored pattern is not valid regex —
+  /// deliberately not caught here, because a broken schema is a schema
+  /// defect, and swallowing it would silently pass every value the check was
+  /// meant to reject.
   bool matches(String value) => RegExp(pattern).hasMatch(value);
 }
 
 /// One subsection slot of a section-type: `min-count` (default 0) and
 /// `max-count` (`null` = infinite).
 class DocSpecsSubsectionRule {
+  /// Both bounds are required, [maxCount] included even though it is
+  /// nullable, so that "unbounded" is always an explicit `null` rather than
+  /// an omitted argument. The schema loader supplies the defaults (`0` and
+  /// `null`) when the YAML states neither.
   DocSpecsSubsectionRule({required this.minCount, required this.maxCount});
 
+  /// The minimum number of occurrences; `0` means optional.
+  ///
+  /// A shortfall is reported two different ways on purpose:
+  /// [DocSpecsViolationRule.missingRequiredSection] when the count is zero —
+  /// the subsection is absent — and
+  /// [DocSpecsViolationRule.tooFewItems] when some occur but not enough.
+  /// Derived from `@Min` (SOM §13).
   final int minCount;
+
+  /// The maximum number of occurrences, or `null` for unbounded.
+  ///
+  /// `null` covers both an absent `max-count` and the literal `infinite` a
+  /// generated list container writes, which is why the loader accepts only an
+  /// `int` here and treats everything else as no ceiling — an unparseable
+  /// bound must not silently become a strict one.
   final int? maxCount;
 }
 
 /// One `section-types:` entry of a DocSpecs schema.
 class DocSpecsSectionType {
+  /// Only [name] and [prefix] are required — the identity a
+  /// `subsection-types` entry refers to, and the string resolution matches
+  /// on. Without either, the type could be declared but never reached.
+  ///
+  /// Every other argument is a constraint that defaults to "unconstrained",
+  /// so a type that merely declares a slot in the tree needs none of them: no
+  /// id pattern, no children, no format, no text requirement.
   DocSpecsSectionType({
     required this.name,
     required this.prefix,
@@ -268,12 +391,27 @@ class DocSpecsSectionType {
     this.validationPrompt,
   });
 
+  /// The type's key in `section-types:` — its section id lower-cased
+  /// (SOM §13).
+  ///
+  /// This is the name `subsection-types:` and `document: sections:` refer to,
+  /// and the name that appears in violation messages, so it is the vocabulary
+  /// a schema author and a reader of the output share.
   final String name;
 
   /// The id prefix (in transformed grammar — see [docSpecsIdTransform]) a
   /// heading id must start with to resolve to this type.
   final String prefix;
 
+  /// The `pattern-check-id` a heading's id must satisfy, or `null` when the
+  /// prefix match is the whole requirement.
+  ///
+  /// Applied *after* resolution, not as part of it: a heading that matches
+  /// the prefix but fails this is an
+  /// [DocSpecsViolationRule.idPatternMismatch] against this type, never an
+  /// unknown section. Generated schemas carry it on list-element types, where
+  /// it is the `@SectionIdPattern` stem compiled to `.+` (SOM §13) — so it
+  /// checks that the stem survived, not how the item was numbered.
   final DocSpecsPatternCheck? patternCheckId;
 
   /// Allowed child section-type names → cardinality.
@@ -282,9 +420,31 @@ class DocSpecsSectionType {
   /// A form-type name (`*-form`) or a raw content format (`code`, `mermaid`).
   final String? format;
 
+  /// Whether an empty body is a [DocSpecsViolationRule.textRequired]
+  /// violation. Derived from `@TextRequired` (SOM §13).
+  ///
+  /// Ignored for a form-formatted section, whose body is field lines rather
+  /// than prose — see [format].
   final bool textRequired;
+
+  /// The minimum body length in **characters** of the trimmed body text
+  /// (`@MinLength`), or `null` for no floor.
+  ///
+  /// Checked only when the body is non-empty: an empty body is either
+  /// [textRequired]'s finding or no finding at all, so a floor cannot double
+  /// as a "must have text" rule. That asymmetry is what lets a generated list
+  /// container state `min-text-length: 0` / `max-text-length: 0` — an
+  /// always-empty body (SOM §13) — and have an empty one pass.
   final int? minTextLength;
+
+  /// The maximum body length in characters (`@MaxLength`), or `null` for no
+  /// ceiling. Reported together with [minTextLength] as one
+  /// [DocSpecsViolationRule.textLengthOut], never as two findings.
   final int? maxTextLength;
+
+  /// Author-facing guidance for the section, taken from `@ContentHelp` or the
+  /// model's doc comment (SOM §13). Carried for editors and prompts; no rule
+  /// here reads it.
   final String? description;
 
   /// Carried as data (SOM §14) — not interpreted by this validator.
@@ -293,6 +453,11 @@ class DocSpecsSectionType {
 
 /// One field of a `form-types:` entry.
 class DocSpecsFormField {
+  /// Only [name] is required; a field that is neither mandatory nor
+  /// pattern-checked still has to be declared, because an *undeclared* label
+  /// is not read as a field at all — [DocSpecsValidator] matches body lines
+  /// against this list, so anything missing from it is swallowed as
+  /// continuation text of the preceding field.
   DocSpecsFormField({
     required this.name,
     this.required = false,
@@ -300,26 +465,77 @@ class DocSpecsFormField {
     this.patternCheck,
   });
 
+  /// The schema's `fieldname`. Matching against a `FieldName:` body line is
+  /// **case-insensitive** (SOM §11.4 rule 1), so two fields differing only in
+  /// case would collide — the loader keeps whichever it read last.
   final String name;
+
+  /// Whether absence — or a present-but-empty value — is a
+  /// [DocSpecsViolationRule.missingRequiredField].
+  ///
+  /// Note that empty counts as missing: a bare `Field:` line satisfies
+  /// nothing, because the flush step drops a value that trims to nothing.
   final bool required;
+
+  /// Author-facing guidance, generated from the model field's `hint`
+  /// (SOM §13). Carried as data; no rule reads it.
   final String? description;
+
+  /// The `pattern-check` the field's value must satisfy, or `null`.
+  ///
+  /// Checked only when a value is present, and *skipped entirely* for a
+  /// missing required field — that case already reported
+  /// [DocSpecsViolationRule.missingRequiredField], and a second finding on
+  /// the same line would be noise. An optional field left empty is therefore
+  /// never a pattern violation.
   final DocSpecsPatternCheck? patternCheck;
 }
 
 /// One `form-types:` entry: an ordered field list.
 class DocSpecsFormType {
+  /// Both arguments are required: a form-type with no name could not be
+  /// referenced by a section-type's `format:`, and an empty [fields] list is
+  /// a legitimate (if vacuous) form, so it must be stated rather than
+  /// defaulted.
   DocSpecsFormType({required this.name, required this.fields});
 
+  /// The `form-types:` key — by generator convention `<id>-form` (SOM §13),
+  /// and the exact string a section-type's `format:` must carry to select
+  /// this form. A `format:` naming no known form-type is not an error: it
+  /// falls through to the fenced-block rule instead.
   final String name;
+
+  /// The declared fields in `@Form` order (SOM §13), which is the order the
+  /// markdown emitter writes them in.
+  ///
+  /// Validation itself is order-insensitive — a document may state the fields
+  /// in any order, and only the declared *set* is checked — so this order
+  /// matters for emission and display, not for the verdict.
   final List<DocSpecsFormField> fields;
 }
 
 /// One `document: sections:` slot: the backing section-type and whether the
 /// slot is optional.
 class DocSpecsDocumentSection {
+  /// Both arguments are required; in particular [optional] has no default,
+  /// so a slot's requiredness is always an explicit statement. The loader
+  /// supplies `false` — required — when the YAML says nothing, matching
+  /// SOM §13, where a top-level section is listed because `@Min` ≥ 1.
   DocSpecsDocumentSection({required this.sectionType, required this.optional});
 
+  /// The [DocSpecsSectionType.name] backing this slot.
+  ///
+  /// It defaults to the slot's own key when the YAML entry does not name one,
+  /// so slot key and type name usually coincide — but they are matched
+  /// separately: root children are matched by *type*, while a
+  /// [DocSpecsViolationRule.missingRequiredSection] names the *slot key*.
   final String sectionType;
+
+  /// Whether the document may omit this slot.
+  ///
+  /// A required slot with no occurrence is reported once against the document
+  /// root, not per missing heading. Note the counting is by section-type, so
+  /// two slots backed by the same type are both satisfied by one occurrence.
   final bool optional;
 }
 
@@ -331,13 +547,37 @@ class DocSpecsDocumentSection {
 class DocSpecsSchema {
   DocSpecsSchema._();
 
+  /// The schema's `title-format` — the literal level-1 heading a conforming
+  /// document must open with, e.g. `# <!--[DEMO]--> Demo Document`
+  /// (SOM §13).
+  ///
+  /// Only the id inside it is enforced ([rootSectionId]); the title text is
+  /// not compared, since a document names itself. `null` when the schema
+  /// declares none, in which case the root heading id is unconstrained.
   String? titleFormat;
 
   /// Section types in file order; resolution takes the **first** type whose
   /// [DocSpecsSectionType.prefix] is a prefix of the transformed id.
   final List<DocSpecsSectionType> sectionTypes = [];
+  /// The same types indexed by [DocSpecsSectionType.name], for the by-name
+  /// lookups `subsection-types:` and `document: sections:` need.
+  ///
+  /// A second view of [sectionTypes], not a second population: the two are
+  /// filled together, and this one loses file order — which is why prefix
+  /// resolution must go through the list and never through this map.
   final Map<String, DocSpecsSectionType> sectionTypesByName = {};
+
+  /// The `form-types:` keyed by name. A section-type's `format:` is looked up
+  /// here first; a miss means the format is a raw content format (`code`,
+  /// `mermaid`, …) demanding a fenced block instead.
   final Map<String, DocSpecsFormType> formTypes = {};
+
+  /// The `document: sections:` slots keyed by their YAML key.
+  ///
+  /// The key is what a [DocSpecsViolationRule.missingRequiredSection] names,
+  /// while membership of a root child is decided by
+  /// [DocSpecsDocumentSection.sectionType] — so the two differ whenever a
+  /// slot renames its type.
   final Map<String, DocSpecsDocumentSection> documentSections = {};
 
   /// Every schema feature encountered but not interpreted, named — nothing is
@@ -520,14 +760,42 @@ class DocSpecsSchema {
 /// (SOM §14). Stateless per document; [validate] always returns the complete
 /// violation list (never fail-fast); a document is valid iff it is empty.
 class DocSpecsValidator {
+  /// Binds the validator to one [schema]. The schema is the only state, so an
+  /// instance is reusable across any number of documents and safe to hold for
+  /// the life of a session — construct it once per schema, not per document.
   DocSpecsValidator(this.schema);
 
+  /// The schema every check is made against.
+  ///
+  /// Note that nothing here compares it to the document's own
+  /// `<!-- docspec: … -->` declaration
+  /// ([DocSpecsDocument.declaredSchema]) — picking the right schema for a
+  /// document is the caller's job, and validating against the wrong one
+  /// yields a long, plausible-looking violation list rather than an error.
   final DocSpecsSchema schema;
 
   /// Convenience: parse + validate in one call.
   List<DocSpecsViolation> validateMarkdown(String markdown) =>
       validate(DocSpecsDocument.parse(markdown));
 
+  /// Checks [doc] against [schema] and returns **every** finding; the
+  /// document is valid iff the list is empty (SOM §14).
+  ///
+  /// Never fails fast and never throws on a malformed document — a document
+  /// too broken to walk yields violations, not an exception. The one thing
+  /// that can throw is a schema whose `pattern` is invalid regex, which is a
+  /// schema defect rather than a document one.
+  ///
+  /// The result opens with the parse-time findings [doc] already carried
+  /// (malformed headings), then the root checks, then a depth-first walk — so
+  /// the list is *roughly* source order but not sorted; sort on
+  /// [DocSpecsViolation.line] if presentation order matters.
+  ///
+  /// Two structural rules bound the walk: a document with no heading at all
+  /// is a single [DocSpecsViolationRule.formatMismatch] and stops there, and
+  /// only the **first** top-level section is treated as the root — every
+  /// further one is an [DocSpecsViolationRule.unknownSection] and is not
+  /// descended into, so its subtree is never reported.
   List<DocSpecsViolation> validate(DocSpecsDocument doc) {
     final v = <DocSpecsViolation>[...doc.violations];
     if (doc.sections.isEmpty) {

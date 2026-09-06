@@ -29,6 +29,11 @@ const int _unorderedFallback = 1 << 30;
 class SpecSerializationOrder {
   final SpecReflection _refl;
 
+  /// Takes the model and builds its own reflection rather than accepting one,
+  /// so an ordering helper can never end up paired with reflection over a
+  /// different model. Note the cost this hides: [orderKey] re-walks the model
+  /// per call and the codecs sort whole documents, so hold one instance per
+  /// model instead of constructing one inside a comparator.
   SpecSerializationOrder(SpecModel model) : _refl = SpecReflection(model);
 
   /// The ordinal tuple for [path]: one entry per field crossed (its

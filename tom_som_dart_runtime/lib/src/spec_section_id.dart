@@ -88,6 +88,10 @@ class SpecSectionIdCollision implements Exception {
   /// The list path whose items must stay unique.
   final String listPath;
 
+  /// Takes the duplicate id and the list it duplicates *within*, in that
+  /// order. Both are needed because uniqueness is scoped per list rather than
+  /// per document — the same id under two different lists is legal — so a
+  /// report naming only the id would read as a false alarm.
   const SpecSectionIdCollision(this.id, this.listPath);
 
   @override
