@@ -363,6 +363,7 @@ the tool by hand:
 | **C / C++** | `INPUT` is the **public headers only**, never `src`. The generated `*_v0` implementation files run to tens of thousands of lines: including them took doxygen many minutes and produced a tree far larger still — a source browser, not a reference. Even headers-only the two C/C++ facades are among the slowest targets. |
 | **Go** | `go doc` renders **text**, not an HTML tree; `pkg.go.dev` is the hosted equivalent and there is no local site generator. The reference is therefore one `index.txt` per package, which is what the Go ecosystem actually offers locally. |
 | **Rust** | `cargo doc` insists on writing into the crate's target directory, so the driver copies the rendered tree out to `doc/api/reference/` — the same location every other language uses. |
+| **Dart** | The driver resolves (`dart pub get`) **only when there is no resolution**. Doing it unconditionally was observed to disturb a *sibling* package's resolution — these packages share a pub cache and resolve each other by path override — after which `tom_specs_clitool` failed to compile the analyzer until re-resolved. Generating a reference must not have side effects on packages it is not documenting. |
 
 ### When a toolchain is absent
 

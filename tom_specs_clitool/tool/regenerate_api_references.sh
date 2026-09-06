@@ -84,8 +84,15 @@ need() { command -v "$1" > /dev/null 2>&1; }
 
 gen_dart() {
   need dart || { echo "dart not on PATH"; return 3; }
-  ( cd "$1" && dart pub get --offline > /dev/null 2>&1 || dart pub get > /dev/null 2>&1
-    dart doc --output "doc/api/reference" > /dev/null 2>&1 )
+  # Resolve ONLY when there is no resolution. An unconditional `dart pub get`
+  # here was observed to disturb a *sibling* package's resolution — these
+  # packages share a pub cache and resolve each other by path override, and
+  # afterwards `tom_specs_clitool` failed to compile the analyzer until it was
+  # re-resolved. Generating a reference must not have side effects on packages
+  # it is not documenting.
+  ( cd "$1" \
+    && { [ -f .dart_tool/package_config.json ] || dart pub get > /dev/null 2>&1; } \
+    && dart doc --output "doc/api/reference" > /dev/null 2>&1 )
 }
 
 gen_python() {
