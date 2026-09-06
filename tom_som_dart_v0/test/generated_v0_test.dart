@@ -62,21 +62,26 @@ void main() {
       expect(doc.content('SBP/documentControl/probe'), 'x');
     });
 
-    test('reports the generated v0 model version (1.0)', () {
-      expect(D00SolutionBlueprint.modelVersion, '1.0');
-      expect(D00SolutionBlueprint(SpecDocument()).objectModelVersion, '1.0');
+    test('reports the generated v0 model version (1.1)', () {
+      expect(D00SolutionBlueprint.modelVersion, '1.1');
+      expect(D00SolutionBlueprint(SpecDocument()).objectModelVersion, '1.1');
     });
   });
 
   group('tom_som_dart_v0 instantiation-time version check (SOM §4.2)', () {
     test('a new / unstamped document is editable', () {
       expect(() => D00SolutionBlueprint(SpecDocument()), returnsNormally);
+      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.1'),
+          returnsNormally);
+    });
+
+    test('an older same-major document is editable', () {
       expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.0'),
           returnsNormally);
     });
 
     test('a newer same-major document is rejected', () {
-      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.1'),
+      expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.2'),
           throwsA(isA<SomVersionException>()));
     });
 
@@ -91,7 +96,9 @@ void main() {
       expect(D00SolutionBlueprint.editabilityFor(null), SomEditability.editable);
       expect(
           D00SolutionBlueprint.editabilityFor('1.0'), SomEditability.editable);
-      expect(D00SolutionBlueprint.editabilityFor('1.1'),
+      expect(
+          D00SolutionBlueprint.editabilityFor('1.1'), SomEditability.editable);
+      expect(D00SolutionBlueprint.editabilityFor('1.2'),
           SomEditability.rejectedNewerMinor);
       expect(D00SolutionBlueprint.editabilityFor('2.0'),
           SomEditability.readOnlyCrossMajor);
@@ -100,7 +107,7 @@ void main() {
     });
 
     test('editable iff the constructor accepts the same stamp', () {
-      for (final stamp in [null, '1.0', '1.1', '2.0', 'nope']) {
+      for (final stamp in [null, '1.0', '1.1', '1.2', '2.0', 'nope']) {
         final editable = D00SolutionBlueprint.editabilityFor(stamp) ==
             SomEditability.editable;
         var accepted = true;

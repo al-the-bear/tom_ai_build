@@ -4,7 +4,7 @@ description: >-
   of truth the SOM generator derives the nine language runtimes from.
 # Version is the TomSpecs model version (stamped by the versioner and read by
 # generate_som; the SOM runtime/facade packages are kept in lockstep with it).
-version: 1.0.0
+version: 1.1.0
 
 repository: https://github.com/al-the-bear/tom_ai_build
 homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_specs_model
@@ -15,7 +15,7 @@ environment:
 dependencies:
   # Co-developed siblings, resolved by path locally via pubspec_overrides.yaml
   # (excluded from publish); the published package uses the hosted constraints.
-  tom_som_dart_runtime: ^1.0.0
+  tom_som_dart_runtime: ^1.1.0
   tom_specs_core: ^0.1.0
 
 dev_dependencies:

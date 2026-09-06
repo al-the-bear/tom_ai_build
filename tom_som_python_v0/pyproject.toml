@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 name = "tom_som_python_v0"
 # Version is the TomSpecs model version — the facade is regenerated per model
 # version and always reports it (never maintained independently).
-version = "1.0.0"
+version = "1.1.0"
 description = "Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_python_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart."
 requires-python = ">=3.9"
 readme = "README.md"
@@ -19,7 +19,7 @@ license-files = ["LICENSE"]
 # The generic runtime this facade edits over, pinned to the same model version.
 # For local, unpublished development resolve it via `[tool.tom_som] runtime-path`
 # below (add it to PYTHONPATH) or `pip install -e ../tom_som_python_runtime`.
-dependencies = ["tom_som_python_runtime>=1.0.0"]
+dependencies = ["tom_som_python_runtime>=1.1.0"]
 
 # Three top-level modules (not a package) — the typed facade, its generated
 # metadata module and the data-file resolution module — listed explicitly so

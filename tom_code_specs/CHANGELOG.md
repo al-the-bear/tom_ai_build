@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.13.0
+
+- `@CsColumn` gains two optional facets mirrored from the SOM's
+  `DAATT-SECU` vocabulary: `sensitivityLevel` (the new `CsSensitivityLevel`
+  catalogue — the sixteenth closed catalogue) and `isPii`. Both additive;
+  existing annotations are unaffected.
+
 ## 0.12.0
 
 - **BREAKING — the last two catalogues without the family prefix are renamed:**

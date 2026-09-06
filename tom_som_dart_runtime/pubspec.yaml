@@ -9,7 +9,7 @@ description: >-
 # Version tracks the TomSpecs model version (kept in step by generate_som's
 # packaging hook, alignRuntimeManifestVersion). The typed `tom_som_dart_v0`
 # facade pins the same version.
-version: 1.0.0
+version: 1.1.0
 repository: https://github.com/al-the-bear/tom_ai_build
 homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_som_dart_runtime
 

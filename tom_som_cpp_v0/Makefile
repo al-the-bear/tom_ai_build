@@ -3,7 +3,7 @@
 
 # VERSION is the TomSpecs model version; the pkg-config Version and the
 # dist tarball both track it, matching the runtime.
-VERSION := 1.0.0
+VERSION := 1.1.0
 NAME := tom_som_cpp_v0
 
 RUNTIME_DIR ?= ../tom_som_cpp_runtime

@@ -7,7 +7,7 @@
 # every byte of output is under our control (see jsJSONString parity).
 [package]
 name = "tom_som_rust_runtime"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2021"
 description = "Generic TomSpecs object-model runtime (Rust port)."
 license = "BSD-3-Clause"

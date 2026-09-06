@@ -1,6 +1,6 @@
 {
   "name": "tom_som_javascript_v0",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "license": "BSD-3-Clause",
   "repository": {
@@ -30,7 +30,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "tom_som_javascript_runtime": ">=1.0.0"
+    "tom_som_javascript_runtime": ">=1.1.0"
   },
   "tomSom": {
     "runtimePath": "../tom_som_javascript_runtime"

@@ -31,4 +31,4 @@ package somruntime
 // Version is the semantic version of this runtime module (vMAJOR.MINOR.PATCH),
 // matching the TomSpecs object-model version it targets. It is the in-source
 // counterpart of the VCS tag used to pin the module.
-const Version = "v1.0.0"
+const Version = "v1.1.0"
