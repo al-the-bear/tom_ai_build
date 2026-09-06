@@ -24,6 +24,10 @@
 /// they depend on the server-only memory plane (`tom_brain_memory`), so they
 /// stay out of the Flutter compile until the embeddable memory plane is wired
 /// into the editor.
+/// @docImport 'src/scope/spec_controller.dart';
+/// @docImport 'src/scope/spec_file_facade.dart';
+/// @docImport 'src/tools/doc_tools.dart';
+/// @docImport 'src/tools/file_tools.dart';
 library;
 
 export 'src/scope/scope.dart'

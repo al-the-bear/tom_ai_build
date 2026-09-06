@@ -30,6 +30,20 @@ class DocSpec {
   /// influence.
   final List<DocRef> refs;
 
+  /// Declares the annotated CodeSpecs class or member as tracing back to
+  /// [refs].
+  ///
+  /// Positional and required: a `@DocSpec` carrying no entry claims a
+  /// back-trace it does not have. Each entry is a [DocRef] rather than a bare
+  /// section id because the *description* is half the trace — see [DocRef].
+  ///
+  /// The list is checked twice at generation time
+  /// (`codespecs_derivation_contract.md` §6). Check 7 requires the section ids
+  /// named here to equal the `@CodeSpec` source set of the emission unit this
+  /// declaration belongs to. Check 36 requires every token named here to exist
+  /// in the run's extracts — a trace to a section no area routed is stale or
+  /// invented, and is the one defect a reading of the generated code alone can
+  /// never expose.
   const DocSpec(this.refs);
 }
 
@@ -45,5 +59,17 @@ class DocRef {
   /// What the code takes from the section, and how it is influenced.
   final String description;
 
+  /// Declares one back-trace entry: [sectionId] shaped this code, in the way
+  /// [description] states.
+  ///
+  /// Both are positional and required. [sectionId] is the SOM `@SectionId`
+  /// **verbatim** — it is the join key on which the doc → code and code → doc
+  /// directions meet, so a re-cased or abbreviated id resolves to nothing and
+  /// fails `codespecs_derivation_contract.md` §6 check 36.
+  ///
+  /// [description] is the one string in this package the authoring agent
+  /// *composes* rather than copies: it says what the declaration takes from the
+  /// section and how it was influenced. The section's own title repeated back
+  /// is not a trace; "total must be non-negative" is.
   const DocRef(this.sectionId, this.description);
 }

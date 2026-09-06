@@ -14,6 +14,7 @@
 /// The conversational substrate (the live Agent SDK / LLM decision-maker) is, as
 /// in mode (a), an editor/bridge concern (decision D72); what the engine owns is
 /// the procedure host and — for mode (b) — the Tom Brain envelope around it.
+/// @docImport 'direct_agent_substrate.dart';
 library;
 
 import 'agent_procedure.dart';

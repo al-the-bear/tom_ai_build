@@ -1,3 +1,6 @@
+/// @docImport '../doc_scanner.dart';
+library;
+
 import 'document.dart';
 
 /// A folder containing parsed documents and subfolders.

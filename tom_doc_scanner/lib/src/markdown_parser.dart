@@ -31,6 +31,11 @@ class ParsedHeadline {
   /// `{'type': 'api', 'version': '2'}`.
   final Map<String, String> fields;
 
+  /// Records one parsed headline.
+  ///
+  /// [explicitId] and [fields] are optional because a headline need carry
+  /// neither — a plain `## Title` is legal, and the parser must represent it
+  /// without inventing an id.
   const ParsedHeadline({
     required this.level,
     required this.lineNumber,
@@ -52,7 +57,7 @@ class MarkdownParser {
   /// Pattern to extract HTML comment with optional content: <!--...-->
   static final _htmlCommentPattern = RegExp(r'<!--\s*(.*?)\s*-->');
 
-  /// Pattern to extract ID from square brackets: [id]
+  /// Pattern to extract ID from square brackets: `[id]`
   static final _squareBracketIdPattern = RegExp(r'\[([^\]]+)\]');
 
   /// Pattern to parse key=value pairs (supports quoted values)

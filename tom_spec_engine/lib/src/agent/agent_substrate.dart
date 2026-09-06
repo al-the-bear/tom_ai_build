@@ -5,7 +5,7 @@
 /// **Agent-SDK-through-`tom_brain`** mode (b) — both fed by the shared
 /// `tom_brain` procedure host + memory, with the application selecting the
 /// mode. [AgentSubstrate] is that interface: it names a single operation,
-/// [run], which executes an [AgentTask] (a natural-language goal plus
+/// [AgentSubstrate.run], which executes an [AgentTask] (a natural-language goal plus
 /// structured inputs) and returns an [AgentRunResult] (the procedure's captured
 /// output + transcript + error channel).
 ///
@@ -18,6 +18,8 @@
 /// ([BrainAgentSubstrate]) drives the *same* procedure wrapped by `tom_brain`.
 /// Keeping both behind this one interface is what lets a further mode be added
 /// without changing a single caller.
+/// @docImport 'brain_agent_substrate.dart';
+/// @docImport 'direct_agent_substrate.dart';
 library;
 
 /// A unit of agent work: a natural-language [goal] plus structured [inputs].

@@ -22,6 +22,8 @@
 /// a single engine-bound instance as the `search` global — so the bridge declares
 /// no constructors, only the query accessors. Every result a script touches is a
 /// compact, JSON-friendly value (`Map` / `List` / `int`).
+/// @docImport 'spec_api.dart';
+/// @docImport 'spec_model_api.dart';
 library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';

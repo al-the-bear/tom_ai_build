@@ -1,3 +1,6 @@
+/// @docImport 'models/spec_section.dart';
+library;
+
 import 'dart:io';
 
 import 'package:path/path.dart' as path;

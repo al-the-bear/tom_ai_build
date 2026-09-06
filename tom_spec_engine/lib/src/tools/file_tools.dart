@@ -5,7 +5,7 @@
 /// as `file_read` / `file_find` / `file_write`. It binds the audited
 /// [SpecFileFacade] (`llm_and_d4rt_tools.md` §7) — **read = any path, write =
 /// whitelist only** — and projects each operation to a typed value with a
-/// compact [toJson]. A `file_write` outside the whitelist is reported as a
+/// compact `toJson()`. A `file_write` outside the whitelist is reported as a
 /// failed result (the facade's [FilePermissionError] message), never a thrown
 /// stack, so the agent can react to it like any other tool error.
 library;
@@ -23,6 +23,13 @@ final class FileReadResult {
   /// The file's full text (`null` when it does not exist).
   final String? content;
 
+  /// Records a read.
+  ///
+  /// A missing file is a normal result (`exists: false`, `content: null`), not an
+  /// error: reads are unrestricted under the `llm_and_d4rt_tools.md` §7 facade, so
+  /// "not there" is information the agent acts on rather than a failure to recover
+  /// from. [content] is the file's full text — this surface has no range or line
+  /// window, so a caller reading a large file pays for all of it.
   const FileReadResult({
     required this.path,
     required this.exists,
@@ -45,6 +52,14 @@ final class FileFindResult {
   /// The matching paths.
   final List<String> matches;
 
+  /// Records a find.
+  ///
+  /// [glob] is echoed back because `file_find` is the one file tool
+  /// (`llm_and_d4rt_tools.md` §8.2) whose result is otherwise
+  /// indistinguishable across calls — an agent issuing several finds needs to
+  /// pair each result with its pattern. An
+  /// empty [matches] means "nothing matched", never "the search failed"; a search
+  /// that could not run is reported through the facade's permission error instead.
   const FileFindResult({required this.glob, required this.matches});
 
   /// A compact JSON view for the MCP tool result.
@@ -62,6 +77,14 @@ final class FileWriteResult {
   /// The permission-violation message when the write was rejected.
   final String? error;
 
+  /// Records a write attempt.
+  ///
+  /// A write outside the facade's whitelist comes back as `ok: false` with the
+  /// [FilePermissionError] message in [error] — never as a thrown stack — so the
+  /// audited **read-any / write-whitelist-only** boundary
+  /// (`llm_and_d4rt_tools.md` §7) reaches the agent as an ordinary tool result it
+  /// can reason about and route around. [path] is echoed even on rejection, which
+  /// is what makes the refusal diagnosable.
   const FileWriteResult({required this.ok, required this.path, this.error});
 
   /// A compact JSON view for the MCP tool result.

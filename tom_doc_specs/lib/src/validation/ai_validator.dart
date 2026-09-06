@@ -1,3 +1,6 @@
+/// @docImport 'prompt_expander.dart';
+library;
+
 import '../models/schema/doc_spec_schema.dart';
 import '../models/schema/section_type_def.dart';
 import '../models/spec_doc.dart';

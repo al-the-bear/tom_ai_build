@@ -1,3 +1,6 @@
+/// @docImport 'schema_loader.dart';
+library;
+
 /// Expands `[[...]]` generator and placeholder syntax in schema YAML.
 ///
 /// Called by [SchemaLoader] after YAML parsing, before model construction.

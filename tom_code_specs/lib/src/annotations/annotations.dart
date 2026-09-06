@@ -28,6 +28,8 @@
 ///   (`codespecs_derivation_contract.md` §5.3), enums rather than strings for
 ///   the same reason: a catalogue grows by a reviewed taxonomy edit, not by a
 ///   specification inventing a value in passing.
+///
+/// @docImport 'code_spec.dart';
 library;
 
 export 'client_settings_annotations.dart';

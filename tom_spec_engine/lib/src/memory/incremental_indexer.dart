@@ -9,10 +9,12 @@
 /// with the live edit stream rather than with a store, so
 /// [SpecIncrementalIndexer] owns them.
 ///
-/// A caller [touch]es the indexer with the section-id paths an edit changed
+/// A caller [SpecIncrementalIndexer.touch]es the indexer with the section-id
+/// paths an edit changed
 /// (the editor derives them from its document change log — the `ChangeEntry`
 /// section ids). The indexer **coalesces** a burst of touches and, after a quiet
-/// [debounce] window, runs a single [flush] **off the edit path** so typing
+/// [SpecIncrementalIndexer.debounce] window, runs a single
+/// [SpecIncrementalIndexer.flush] **off the edit path** so typing
 /// never blocks on a re-embed. One flush:
 ///
 ///   * snapshots and clears the pending set;
@@ -27,11 +29,13 @@
 ///     path. When no tier-2 callback is bound (degraded / tier-1-only) the
 ///     tier-2 result is `null`.
 ///
-/// Flushes are **serialized**: each [flush] chains after the previous so two
+/// Flushes are **serialized**: each [SpecIncrementalIndexer.flush] chains after
+/// the previous so two
 /// tier-2 re-embeds never interleave, and each reads the pending set at the
 /// moment it actually runs.
 ///
-/// The same serialized chain backs the **manual** refresh: [reindexAll] (item
+/// The same serialized chain backs the **manual** refresh:
+/// [SpecIncrementalIndexer.reindexAll] (item
 /// 16) reconciles an explicit path set (the document's current sections plus
 /// everything previously indexed) so a `mem_refresh` is just one more entry on
 /// the chain — it can never race an in-flight debounced flush, and both paths
@@ -80,6 +84,16 @@ final class SpecReindexResult {
   /// Dirty paths absent from the current projection (dropped from both tiers).
   final Set<String> removedPaths;
 
+  /// Records what one flush did across both tiers.
+  ///
+  /// [tier2] is **required yet nullable** on purpose: `null` is the meaningful
+  /// value for a tier-1-only (degraded) indexer with no re-embed callback bound,
+  /// so requiring it forces each construction site to state which case it is
+  /// instead of defaulting silently. [changedPaths] and [removedPaths] are
+  /// disjoint — a dirty path either still resolves in the current projection
+  /// (changed) or no longer does (removed) — and that classification is what keeps
+  /// a deleted section from being re-embedded rather than dropped
+  /// (`llm_and_d4rt_tools.md` §9.2).
   const SpecReindexResult({
     required this.tier1,
     required this.tier2,
@@ -127,6 +141,22 @@ final class SpecIncrementalIndexer {
   Future<void> _chain = Future<void>.value();
   bool _disposed = false;
 
+  /// Creates an indexer over the tier-1 [index], reading the document's current
+  /// sections from [projections] at flush time — never at touch time, so a burst
+  /// of edits is resolved once against the final state rather than once per
+  /// keystroke.
+  ///
+  /// Leaving [tier2] `null` selects tier-1-only mode: touches still refresh the
+  /// lexical index and every [SpecReindexResult.tier2] comes back `null`. That is
+  /// the documented graceful degradation while the vector tier is cold or absent,
+  /// not an error (`llm_and_d4rt_tools.md` §9.2).
+  ///
+  /// [debounce] is the quiet window that must pass after the last touch before a
+  /// flush fires; the 150 ms default coalesces typing without letting recall go
+  /// stale for a perceptible pause. Even `Duration.zero` defers the flush to a
+  /// later event-loop turn, so a touch can never run a re-embed on the edit path.
+  /// [onReindexed] is the only way to observe a debounced flush the host did not
+  /// explicitly await.
   SpecIncrementalIndexer({
     required this.index,
     required this.projections,

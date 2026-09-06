@@ -16,6 +16,7 @@
 /// (b) ([BrainAgentSubstrate]) runs the *same* procedure through the *same*
 /// host wrapped by a `tom_brain` session envelope; both satisfy
 /// [AgentSubstrate] and share [runAgentProcedure].
+/// @docImport 'brain_agent_substrate.dart';
 library;
 
 import 'agent_procedure.dart';

@@ -14,6 +14,7 @@
 /// identical procedure through the identical host whether the injected envelope
 /// is the recording stand-in or this live one. The only difference is where the
 /// run trail lands — an in-memory list versus the document's vector store.
+/// @docImport 'brain_agent_substrate.dart';
 library;
 
 import 'agent_substrate.dart';
@@ -30,7 +31,7 @@ import '../memory/spec_memory.dart';
 /// the run trail survives across sessions and is recoverable by recall. The
 /// same records are also kept in [runs] for direct in-process inspection.
 final class SpecBrainSessionEnvelope implements BrainSessionEnvelope {
-  /// Creates the envelope over the embeddable [memory] store.
+  /// Creates the envelope over the embeddable [SpecMemory] store.
   SpecBrainSessionEnvelope(this._memory);
 
   final SpecMemory _memory;

@@ -26,6 +26,9 @@
 /// live in [`agent_runtime.dart`](agent_runtime.dart), the run surface, which
 /// pulls the memory plane. This façade is the profile
 /// *binding* surface, not the run surface.
+/// @docImport 'src/agent/agent_context.dart';
+/// @docImport 'src/agent/brain_agent_substrate.dart';
+/// @docImport 'src/agent/brain_session_envelope.dart';
 library;
 
 export 'src/agent/agent_context.dart';

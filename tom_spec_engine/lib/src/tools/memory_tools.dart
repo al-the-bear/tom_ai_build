@@ -7,13 +7,14 @@
 /// `llm_and_d4rt_tools.md` §9.2) for recall, and an injected [MemRefreshFn] —
 /// wired by the editor to its change-tracking
 /// `SpecDocumentMemory.indexChangedSections` — for the manual re-index. Both
-/// return a typed value with a compact [toJson].
+/// return a typed value with a compact `toJson()`.
 ///
 /// `mem_recall(query, {mode})` runs the fused recall and, for a non-`fused`
 /// [MemRecallMode], **filters** the result to the hits that mode surfaced — an
 /// honest "recall via mode X" without a second retrieval path. `mem_refresh()`
 /// delegates to the bound callback, or reports `refreshed: false` when none is
 /// bound (the headless / not-yet-warm case).
+/// @docImport '../memory/spec_memory.dart';
 library;
 
 import '../memory/spec_recall.dart';
@@ -50,6 +51,13 @@ final class MemRecallHit {
   /// The doc-comment / label headline (`null` when unknown).
   final String? headline;
 
+  /// Records one hit in its JSON-projected form.
+  ///
+  /// [modes] and [kind] are `String`s here rather than the engine's enums: this is
+  /// the wire shape an MCP tool returns, so the values are the enum *names* and a
+  /// consumer must not assume the set is closed — a mode added to
+  /// [SpecRecallMode] later appears as a new string rather than breaking the
+  /// parse (`llm_and_d4rt_tools.md` §8.2).
   const MemRecallHit({
     required this.path,
     required this.score,
@@ -85,6 +93,13 @@ final class MemRecallResult {
   /// Whether the recall ran in degraded (tier-1-only) mode.
   final bool degraded;
 
+  /// Records a completed `mem_recall`.
+  ///
+  /// [degraded] is the inverted `tier2Warm` of the underlying recall: `true` says
+  /// the vector tier contributed nothing — no store bound, or nothing embedded
+  /// yet — so the hits are exact but lack semantic matches until tier 2 warms.
+  /// Surfacing it in the tool result is what lets an agent tell "no such section"
+  /// apart from "the index is still cold" (`llm_and_d4rt_tools.md` §9.2).
   const MemRecallResult({required this.hits, required this.degraded});
 
   /// A compact JSON view for the MCP tool result.
@@ -111,6 +126,14 @@ final class MemRefreshResult {
   /// Sections forgotten (removed from memory).
   final int removed;
 
+  /// Records a `mem_refresh`.
+  ///
+  /// [refreshed] `false` with all four counters at zero is the **headless /
+  /// not-yet-warm** case — no re-index callback was bound — and is deliberately
+  /// reported as a successful call rather than an error, so an agent running
+  /// without a live memory plane is not derailed by it. The counters default to
+  /// zero for exactly that construction; when [refreshed] is `true` they mirror
+  /// the underlying [SpecRagRefreshResult] section-for-section.
   const MemRefreshResult({
     required this.refreshed,
     this.embedded = 0,

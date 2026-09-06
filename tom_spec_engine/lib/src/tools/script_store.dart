@@ -5,6 +5,7 @@
 /// and diffable. [ScriptStore] is the engine-side port over that storage; the
 /// default [FileScriptStore] writes real files, and a test (or an in-memory
 /// editor binding) can substitute its own implementation.
+/// @docImport 'script_tools.dart';
 library;
 
 import 'dart:io';

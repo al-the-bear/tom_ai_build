@@ -6,7 +6,7 @@
 /// this partial library re-exports the in-process Tom Brain memory surface the
 /// editor needs to make the `memory` script scope and the **tier-2 vector**
 /// recall live: the profile-isolated [SpecMemory] / [SpecDocumentMemory] over
-/// the embeddable [SqliteTomBrainMemory] (with the bundled `vec0`), the
+/// the embeddable `SqliteTomBrainMemory` (with the bundled `vec0`), the
 /// [MemoryScope] addressing, the tier-1 [StructuralLexicalIndex], the
 /// [SpecRagGraph] section graph, the fused [SpecRecall], the read-only
 /// `memory` script scope ([memoryScope] / [MemoryApi]), and the `mem_*`
@@ -28,6 +28,16 @@
 ///
 /// [Vec] is re-exported (from `tom_brain_shared`) so a consumer can supply a
 /// [SpecEmbedder] without importing the shared package directly.
+/// @docImport 'package:tom_brain_shared/tom_brain_shared.dart';
+/// @docImport 'src/index/structural_lexical_index.dart';
+/// @docImport 'src/memory/memory_scope.dart';
+/// @docImport 'src/memory/provider_embedder.dart';
+/// @docImport 'src/memory/spec_memory.dart';
+/// @docImport 'src/memory/spec_rag_graph.dart';
+/// @docImport 'src/memory/spec_recall.dart';
+/// @docImport 'src/scope/memory_api.dart';
+/// @docImport 'src/scope/memory_scope.dart';
+/// @docImport 'src/tools/memory_tools.dart';
 library;
 
 export 'package:tom_brain_shared/tom_brain_shared.dart' show Vec;

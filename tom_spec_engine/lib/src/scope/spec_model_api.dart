@@ -22,6 +22,7 @@
 /// constructors, only the read accessors. Every accessor returns a compact,
 /// JSON-friendly value (`Map` / `List` / `String?` / `bool`) a script reads
 /// directly.
+/// @docImport 'spec_api.dart';
 library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';

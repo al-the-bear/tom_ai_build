@@ -16,6 +16,7 @@
 /// `tom_brain_memory`-backed envelope (live profile registry + named-memory run
 /// trail) is wired where the editor composes the agent plane — exactly as the
 /// memory plane (`llm_and_d4rt_tools.md` §9) injects its store/embedder ports.
+/// @docImport 'brain_agent_substrate.dart';
 library;
 
 import 'agent_substrate.dart';

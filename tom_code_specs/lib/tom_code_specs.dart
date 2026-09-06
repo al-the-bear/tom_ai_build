@@ -20,6 +20,10 @@
 /// vocabulary (`CodeSpecPart`) annotate the SOM model and therefore live in
 /// `tom_specs_core`; they are re-exported here for convenience so CodeSpecs
 /// authors have one import.
+///
+/// @docImport 'src/annotations/code_spec.dart';
+/// @docImport 'src/annotations/element_annotations.dart';
+/// @docImport 'src/annotations/service_annotations.dart';
 library;
 
 export 'package:tom_specs_core/tom_specs_core.dart'

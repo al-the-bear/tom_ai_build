@@ -4,9 +4,11 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
 import 'package:tom_spec_engine/memory.dart';
 
 /// `llm_and_d4rt_tools.md` §9.2: the
-/// **change-log-driven incremental re-indexer**. A host [touch]es the indexer
+/// **change-log-driven incremental re-indexer**. A host
+/// [SpecIncrementalIndexer.touch]es the indexer
 /// with the section paths an edit changed; the indexer coalesces a burst, runs
-/// one debounced [flush] off the edit path, and drives **both tiers**
+/// one debounced [SpecIncrementalIndexer.flush] off the edit path, and drives
+/// **both tiers**
 /// incrementally — tier-1 [StructuralLexicalIndex.update] over the changed
 /// projections + removed paths, and (when bound) the tier-2 re-embed callback
 /// over the same changed/removed split.

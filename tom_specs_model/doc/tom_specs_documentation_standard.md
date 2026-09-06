@@ -446,6 +446,41 @@ that the lint exempts `@override` members, and rightly — dartdoc inherits the
 supertype's comment, so re-documenting an override duplicates a sentence that
 has one home.
 
+**Enable `comment_references` beside it.** A dartdoc `[Reference]` that does
+not resolve is invisible until `dart doc` runs; with the lint on it fails at
+edit time. Three causes account for nearly all of them, and only the third is
+a real mistake:
+
+1. **A pure-export barrel.** An `export` does not bring a name into the
+   library's own scope, so a barrel's library comment cannot resolve the
+   symbols it re-exports — 18 of them in `tom_core_codespecs`, 13 in
+   `tom_spec_engine`'s `agent.dart` alone. The fix is `@docImport`, a doc-only
+   import with no runtime cost, one line per file whose symbols the comment
+   names, placed immediately above `library;`:
+
+   ```dart
+   /// @docImport 'src/agent/agent_context.dart';
+   library;
+
+   export 'src/agent/agent_context.dart';
+   ```
+
+   Prefer this to backticks everywhere the target is a real Dart identifier —
+   backticks silently downgrade a working link to plain text. Note that
+   `library;` must precede every other directive, so it goes above the imports,
+   not after them.
+2. **A cross-file reference within the same package.** Same fix, same reason.
+3. **Prose that happens to contain brackets.** A CLI usage line
+   (`docspecs scan <files...> [options]`), a regex's subject (`extract the ID
+   from [id]`), a map subscript (`fields['tags']`), a `@Form` field name. These
+   are not references and never were — backtick them.
+
+**Run `dart doc` as well as the lint; they disagree.** `dart doc` is the
+stricter of the two on bracketed prose — it flagged `fields['tags']` in
+`tom_doc_specs` that `comment_references` passed — and it is the tool whose
+output a reader actually sees. The lint catches things at edit time; `dart doc`
+is the acceptance check. Neither substitutes for the other.
+
 **The lint measures the exported surface, which is narrower than `lib/`.** It
 says nothing about a `lib/src/` library that no public barrel re-exports — in
 `tom_specs_clitool`, 70 of 130 `lib/src/` files. That is the *bar* behaving

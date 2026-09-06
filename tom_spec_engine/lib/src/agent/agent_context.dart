@@ -12,15 +12,16 @@
 ///
 /// [AgentContext] is that datum, pure engine-plane value data:
 ///
-///   * [application] → the Tom Brain **profile** name ([profileName]);
-///   * [guidelinesName] → the profile **prompt** (the agent briefing document,
+///   * [AgentContext.application] → the Tom Brain **profile** name
+///     ([AgentContext.profileName]);
+///   * [AgentContext.guidelinesName] → the profile **prompt** (the agent briefing document,
 ///     e.g. `llm_guidelines_specification.md`);
-///   * [toolset] → the [AgentToolGroup]s the profile exposes;
-///   * [scopeProfile] → the D4rt [ScopeProfile] the profile enables.
+///   * [AgentContext.toolset] → the [AgentToolGroup]s the profile exposes;
+///   * [AgentContext.scopeProfile] → the D4rt [ScopeProfile] the profile enables.
 ///
-/// [memoryScope] layers the per-run session + per-document memory on top,
+/// [AgentContext.memoryScope] layers the per-run session + per-document memory on top,
 /// yielding the [MemoryScope] the mode-(b) substrate runs under;
-/// [brainSubstrate] is the bridge that builds that substrate. The
+/// [AgentContext.brainSubstrate] is the bridge that builds that substrate. The
 /// **toolset ⊆ scopes** invariant is checked at construction so a context can
 /// never expose a tool whose required scope its profile omits — the guarantee
 /// that makes switching application safe.
@@ -55,6 +56,12 @@ enum AgentToolGroup {
   /// run scripts against the live document, so they need `spec`.
   script(requiredScope: 'spec');
 
+  /// Binds each tool family to the one base scope it cannot work without.
+  ///
+  /// The pairing is data, not policy: it is what lets [AgentContext] check the
+  /// **toolset ⊆ scopes** invariant at construction, so an application can
+  /// never be configured to expose a tool whose scope its profile omits
+  /// (`llm_and_d4rt_tools.md` §11).
   const AgentToolGroup({required this.requiredScope});
 
   /// The base-scope name this tool family needs to operate.

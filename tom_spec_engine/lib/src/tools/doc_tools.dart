@@ -17,7 +17,7 @@
 /// `doc_search` opens a [SpecQueryCursor] under a generated id and returns the
 /// first page; `doc_search_iterate` advances the *same* cursor, so the
 /// `llm_and_d4rt_tools.md` §6 edit-stable lazy iteration is preserved across
-/// calls. Every result is a typed value with a compact [toJson] — the JSON
+/// calls. Every result is a typed value with a compact `toJson()` — the JSON
 /// shape the MCP tool returns.
 library;
 
@@ -47,6 +47,14 @@ final class DocSearchMatch {
   /// The `[start, end)` spans within [snippet] the `text` pattern hit.
   final List<SpecMatchSpan> matchSpans;
 
+  /// Records one projected match.
+  ///
+  /// [snippet] and [matchSpans] are populated only when the query carried a `text`
+  /// dimension; a purely structural query yields a match with neither, which is
+  /// why both default away rather than being required. The spans are
+  /// `[start, end)` offsets **into [snippet]**, not into the section's stored
+  /// value — a caller that highlights against the original text will mis-position
+  /// them (`llm_and_d4rt_tools.md` §6).
   const DocSearchMatch({
     required this.path,
     required this.kind,
@@ -98,6 +106,14 @@ final class DocSearchPage {
   /// How many further matches remain after this page (re-validated live).
   final int remaining;
 
+  /// Records one page of results.
+  ///
+  /// [remaining] is re-validated against the *live* document each time a page is
+  /// produced, so it may shrink between pages when a concurrent edit removed
+  /// matches; treat it as a current estimate, never as a total fixed at query
+  /// time. [cursorId] is only usable while [done] is `false` — once the cursor is
+  /// exhausted it is dropped, and re-using it is rejected rather than silently
+  /// restarting the search (`llm_and_d4rt_tools.md` §6).
   const DocSearchPage({
     required this.cursorId,
     required this.matches,
@@ -122,6 +138,13 @@ final class DocAnnotation {
   /// The resolved argument map.
   final Map<String, Object?> arguments;
 
+  /// Records one annotation.
+  ///
+  /// [name] is the bare annotation name without the `@` (e.g. `MapsTo`), so it
+  /// matches the meta-model's own spelling and can be compared directly rather
+  /// than string-stripped. [arguments] defaults empty for a marker annotation and
+  /// holds already-resolved values — the reflection surface never hands back an
+  /// unevaluated expression (`llm_and_d4rt_tools.md` §8.2).
   const DocAnnotation({required this.name, this.arguments = const {}});
 
   factory DocAnnotation._from(SpecAnnotation a) =>
@@ -164,6 +187,14 @@ final class DocAllowedChild {
   /// The field's annotations.
   final List<DocAnnotation> annotations;
 
+  /// Records one model-permitted child of a container node.
+  ///
+  /// [segment] is the value a `doc_add_node` must pass, so the reflect → add
+  /// round-trip needs no name mangling by the caller. The list-shaped fields
+  /// ([elementType], [elementIsComplex], [sectionIdPattern]) are meaningless for a
+  /// non-list field and default away; [sectionIdPattern], when present, is the
+  /// `@SectionIdPattern` a new list item's id **must** match or the add is
+  /// rejected by the meta-model (`llm_and_d4rt_tools.md` §5).
   const DocAllowedChild({
     required this.segment,
     required this.field,
@@ -235,6 +266,15 @@ final class DocReflection {
   /// The model-permitted children (empty for leaves / unresolved).
   final List<DocAllowedChild> allowedChildren;
 
+  /// Records a resolved reflection.
+  ///
+  /// Everything but [path] and [resolved] is optional because an unresolved path
+  /// still produces a well-formed answer — use [DocReflection.unresolved] for that
+  /// case rather than passing `resolved: false` with nulls. An empty
+  /// [allowedChildren] is genuinely two situations at once: a value leaf, and a
+  /// container whose class did not resolve; [resolved] is the field that separates
+  /// them, so a caller must check it before reading "no children" as "nothing may
+  /// be added here" (`llm_and_d4rt_tools.md` §8.2).
   const DocReflection({
     required this.path,
     required this.resolved,
@@ -327,6 +367,14 @@ final class DocAddNodeResult {
   /// `llm_and_d4rt_tools.md` §5 rule (`null` for other failures).
   final String? code;
 
+  /// Records the outcome of an add.
+  ///
+  /// A rejected add is a **result, not a throw**: the meta-model's refusal comes
+  /// back as `ok: false` so the agent can read the reason and retry, exactly as it
+  /// would with any other tool error. [code] carries the `SpecCreationCode` name
+  /// only when a `llm_and_d4rt_tools.md` §5 creation rule was violated — it is
+  /// `null` for every other failure, so branching on it must always fall back to
+  /// [error]'s human-readable text.
   const DocAddNodeResult({
     required this.ok,
     this.path,

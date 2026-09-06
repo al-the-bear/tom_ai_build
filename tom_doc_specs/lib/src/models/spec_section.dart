@@ -20,7 +20,7 @@ class SpecSection extends Section {
   /// The section type from the schema (determined by prefix matching).
   final String? type;
 
-  /// Tags parsed from fields['tags'] (comma-separated in document).
+  /// Tags parsed from `fields['tags']` (comma-separated in document).
   final List<String> tags;
 
   /// Format specification from schema (code block language or form type).

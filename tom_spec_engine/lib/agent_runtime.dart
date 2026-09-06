@@ -18,6 +18,13 @@
 /// embeddable memory plane. Keeping the run surface in its own
 /// façade lets a consumer that only needs the AgentContext *binding* stay
 /// memory-light.
+/// @docImport 'src/agent/agent_substrate.dart';
+/// @docImport 'src/agent/agent_substrate_factory.dart';
+/// @docImport 'src/agent/brain_agent_substrate.dart';
+/// @docImport 'src/agent/direct_agent_substrate.dart';
+/// @docImport 'src/agent/brain_session_envelope.dart';
+/// @docImport 'src/agent/spec_brain_envelope.dart';
+/// @docImport 'src/memory/spec_memory.dart';
 library;
 
 export 'src/agent/agent_procedure.dart';

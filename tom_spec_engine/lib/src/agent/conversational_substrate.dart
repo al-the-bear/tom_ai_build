@@ -28,6 +28,10 @@
 /// editor binds the live `AgentSendController`-backed driver — exactly as the
 /// memory plane (`llm_and_d4rt_tools.md` §9) and the run envelope
 /// (`llm_and_d4rt_tools.md` §10) inject their live ports.
+/// @docImport 'brain_agent_substrate.dart';
+/// @docImport 'direct_agent_substrate.dart';
+/// @docImport 'agent_substrate_factory.dart';
+/// @docImport 'spec_brain_envelope.dart';
 library;
 
 import 'agent_procedure.dart';
@@ -186,7 +190,7 @@ final class RecordingConversationalDriver implements ConversationalDriver {
 /// Composition over a base substrate: each turn the substrate (1) recalls the
 /// RAG memory for the goal (the per-prompt augmentation), (2) asks the injected
 /// [ConversationalDriver] to decide the turn, and (3) — unless the driver stops —
-/// runs the chosen task through the [base] [AgentSubstrate]. The [base] is
+/// runs the chosen task through the base [AgentSubstrate]. That base substrate is
 /// usually a [DirectAgentSubstrate] (pure mode a) but may be a
 /// [BrainAgentSubstrate] (so every turn lands in that substrate's run trail).
 ///

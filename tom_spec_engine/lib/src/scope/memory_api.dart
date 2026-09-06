@@ -14,7 +14,7 @@
 /// methods return `Future`s the script `await`s and the host auto-awaits off
 /// `main()`.
 ///
-/// Beyond the query text and the result cap [k], a script may pass an
+/// Beyond the query text and the result cap `k`, a script may pass an
 /// **`options`** map to tune the fused recall — the fuller [SpecRecallQuery]
 /// surface (RRF / MMR weights, facet filters, tier / GraphWalk selection) the
 /// recall supports beyond the scope defaults.

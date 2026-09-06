@@ -21,6 +21,8 @@
 /// Brain memory-addressing key) and from `tom_brain`'s own `Scope`: it names a
 /// *D4rt scripting surface*, not a memory partition. See
 /// `llm_and_d4rt_tools.md` §4.
+/// @docImport 'scope_registry.dart';
+/// @docImport '../memory/memory_scope.dart';
 library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';

@@ -66,6 +66,15 @@ final class SpecRagNode {
   /// kind, class, headline) followed by the section's searchable content.
   final String text;
 
+  /// Records one section node.
+  ///
+  /// Every field is `required`, the nullable ones included: a node is built by
+  /// projecting an object-model node, and "this section carries no `@SectionId` /
+  /// no class / no headline" is a fact the projection *knows* rather than a
+  /// default to fall back on — requiring them stops a half-populated node reaching
+  /// the embedder. [text] must already be the rendered form (metadata header +
+  /// content) that will be embedded, because this graph is the input to the tier-2
+  /// index (`llm_and_d4rt_tools.md` §9.1).
   const SpecRagNode({
     required this.path,
     required this.sectionId,
@@ -93,6 +102,13 @@ final class SpecRagEdge {
   /// What the edge represents.
   final SpecRagEdgeKind kind;
 
+  /// Records one directed edge.
+  ///
+  /// Both endpoints are section *paths*, not node references, so an edge survives
+  /// a re-projection that rebuilt the node objects. The graph builder only emits
+  /// an edge whose [toPath] resolves inside the same document — a per-document
+  /// named memory has nowhere to put a cross-document target
+  /// (`llm_and_d4rt_tools.md` §9.1).
   const SpecRagEdge({
     required this.fromPath,
     required this.toPath,
@@ -112,6 +128,13 @@ final class SpecRagGraph {
   /// The directed edges: tree membership plus resolved projections.
   final List<SpecRagEdge> edges;
 
+  /// Assembles a graph from an already-built node and edge list.
+  ///
+  /// This direct constructor performs **no** resolution or validation: it will
+  /// hold an edge whose endpoint is absent from [nodes]. Prefer
+  /// [SpecRagGraph.fromProjections], which derives both lists together and drops
+  /// unresolvable projection edges; reach for this one only for tests and for a
+  /// graph rebuilt from a store that already guaranteed the invariant.
   const SpecRagGraph({required this.nodes, required this.edges});
 
   /// Builds the graph from a document's [SpecNodeProjection]s (the whole

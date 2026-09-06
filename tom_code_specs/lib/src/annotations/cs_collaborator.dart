@@ -43,5 +43,22 @@ class CsCollaborator {
   /// Optional note.
   final String? note;
 
+  /// Marks the annotated `abstract class` as the collaborator a form-3b body
+  /// calls (`codespecs_derivation_contract.md` §3.0.1).
+  ///
+  /// Note-only — one of the sixteen markers that gain no argument
+  /// (`codespecs_derivation_contract.md` §5.2) — and for the strongest reason
+  /// available: the method set *is* the declaration, and unlike every other
+  /// marker there is no substrate class underneath to hold anything either.
+  /// `@CsEnum` is the only other marker in that position.
+  ///
+  /// [note] is free prose and is **not** where behaviour goes. Each step's
+  /// behaviour belongs on the corresponding abstract method's own doc comment,
+  /// whose absence `codespecs_derivation_contract.md` §2.8 P3 calls a
+  /// generation error rather than a lapse of style (`codespecs_derivation_contract.md` §6
+/// check 25). The class
+  /// shape — abstract, abstract methods only, no field, constructor or static
+  /// member — is check 24, and that every method is actually called by a body
+  /// of the owning declaration is check 23.
   const CsCollaborator({this.note});
 }

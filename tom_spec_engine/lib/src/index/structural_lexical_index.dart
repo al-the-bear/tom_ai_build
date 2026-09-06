@@ -7,9 +7,9 @@
 /// [SpecQueryEngine.projectNodes] — with **zero model (LLM) calls**. It is the
 /// "always current, cheap" half of the two-tier memory: refreshed
 /// **incrementally** over the sections that changed after each prompt
-/// ([update]), never a full re-embed, never a model call.
+/// ([StructuralLexicalIndex.update]), never a full re-embed, never a model call.
 ///
-/// Search ([search]) ranks text matches by BM25 and AND-combines them with the
+/// Search ([StructuralLexicalIndex.search]) ranks text matches by BM25 and AND-combines them with the
 /// structural facet filters; a facet-only query returns its matches in document
 /// (path) order with a zero score.
 library;
@@ -58,6 +58,14 @@ class IndexQuery {
   /// Cap the number of hits returned (`null` = no cap).
   final int? limit;
 
+  /// Builds a facet query. Every omitted argument means "do not constrain this
+  /// facet", so `const IndexQuery()` deliberately matches every indexed section.
+  ///
+  /// The facets AND together, and AND again with the BM25 match when [text] is
+  /// supplied — the tier-1 search never ORs, so adding one more argument can only
+  /// narrow the result (`llm_and_d4rt_tools.md` §6). [limit] is applied *after*
+  /// ranking, so a capped query still returns the best-scoring matches rather than
+  /// an arbitrary prefix of the candidate set.
   const IndexQuery({
     this.text,
     this.kinds,
@@ -88,6 +96,14 @@ class IndexHit {
   /// The BM25 relevance score (`0.0` for facet-only matches).
   final double score;
 
+  /// Records one ranked match.
+  ///
+  /// [score] is a raw BM25 figure, not a normalised probability: it is comparable
+  /// only *within* one [StructuralLexicalIndex.search] result and must never be
+  /// compared across queries or arithmetically fused with another tier's score —
+  /// which is why the two-tier recall combines ranks rather than scores
+  /// (`llm_and_d4rt_tools.md` §9.2). Pass `0.0` for a facet-only match, where
+  /// there is no text to score and the hits come back in path order instead.
   const IndexHit({
     required this.path,
     required this.kind,
@@ -112,6 +128,14 @@ class IndexUpdateStats {
   /// Sections dropped from the index.
   final int removed;
 
+  /// Records the three disjoint outcomes of one incremental
+  /// [StructuralLexicalIndex.update], each counted in sections.
+  ///
+  /// All three default to zero so a refresh that changed nothing is expressible as
+  /// `const IndexUpdateStats()`. The split is what lets a caller *prove* the
+  /// refresh stayed incremental: re-indexing one edited section reports
+  /// `updated: 1` rather than re-adding the whole document — the tier-1 "no full
+  /// rebuild, no model call" guarantee (`llm_and_d4rt_tools.md` §9.2).
   const IndexUpdateStats({this.added = 0, this.updated = 0, this.removed = 0});
 }
 

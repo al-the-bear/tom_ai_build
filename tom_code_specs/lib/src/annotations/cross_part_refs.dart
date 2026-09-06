@@ -78,6 +78,26 @@ class CsOperationRef {
   /// The operation name, verbatim from the specification.
   final String id;
 
+  /// Wraps the CE-API operation name [id] as a typed reference.
+  ///
+  /// Positional and required. [id] is an **authored key** carried verbatim from
+  /// the specification (`codespecs_derivation_contract.md` §2.1 N5) rather than
+  /// a name derived from a declaration: `'customer.save'` stays
+  /// `'customer.save'`, dot and case intact.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
+  ///
+  /// One further check is specific to this type:
+  /// `codespecs_derivation_contract.md` §6 check 12 asserts a server handler's
+  /// `@CsEndpoint` operation string equals the shared half's ref, so the two
+  /// loci cannot drift into a declared operation nobody serves and a served one
+  /// nobody declared.
   const CsOperationRef(this.id);
 }
 
@@ -92,6 +112,26 @@ class CsCallRef {
   /// The camelCase declaration name of the `@CsServerCall` (N9).
   final String id;
 
+  /// Wraps the `@CsServerCall` declaration name [id] as a typed reference.
+  ///
+  /// Positional and required. [id] is the **camelCase declaration name** of the
+  /// target call (`codespecs_derivation_contract.md` §2.1 N9), which the
+  /// generator derives from the section's designated name field — so an author
+  /// never invents it, and hand-writing a plausible-looking name is how a ref
+  /// dangles.
+  ///
+  /// This is hop 1 of the two-hop CE-AC → CE-SC → CE-API chain
+  /// (`codespecs_mapping.md` §5.3): holding each hop as a reference rather than
+  /// by containment is what keeps an action, its server call and the operation
+  /// independently authorable.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsCallRef(this.id);
 }
 
@@ -105,6 +145,24 @@ class CsActionRef {
   /// The camelCase declaration name of the `@CsAction` (N9).
   final String id;
 
+  /// Wraps the `@CsAction` declaration name [id] as a typed reference.
+  ///
+  /// Positional and required, and the camelCase declaration name of the target
+  /// action (`codespecs_derivation_contract.md` §2.1 N9).
+  ///
+  /// This is the const a `@CsTrigger` cites in its action slot, which
+  /// `codespecs_mapping.md` §5.10 makes the **single authoring home** of the
+  /// element→action edge. A CE-EL element derives its action edge from the
+  /// trigger and never carries a copy, so naming the action a second time on
+  /// the element does not reinforce the link — it forks it.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsActionRef(this.id);
 }
 
@@ -117,6 +175,31 @@ class CsRouteRef {
   /// The route id, verbatim from the specification.
   final String id;
 
+  /// Wraps the CE-NV route id [id] as a typed reference.
+  ///
+  /// Positional and required, and verbatim: a route id is an **authored key**
+  /// (`codespecs_derivation_contract.md` §2.1 N5), not a derived declaration
+  /// name.
+  ///
+  /// The consts live on the navigation catalogue — the one file holding all of
+  /// a document's routes, which is the single several-declarations-per-file
+  /// case `codespecs_derivation_contract.md` §2.1 N7 sanctions — and are cited
+  /// from CE-AC navigation outcomes and CE-SC response handling.
+  ///
+  /// There is one route edge this type deliberately does **not** carry: a CE-RP
+  /// report column's drill-through target. The column is server-owned and
+  /// `codespecs_mapping.md` §5.23's locus rule bars it from citing a
+  /// client-owned route, so that edge stays an id string and
+  /// `codespecs_derivation_contract.md` §6 check 18 resolves it in the
+  /// compiler's place.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsRouteRef(this.id);
 }
 
@@ -131,6 +214,26 @@ class CsMessageKey {
   /// The message key, verbatim from the specification (e.g. `order.shipped`).
   final String id;
 
+  /// Wraps the dotted CE-TX message key [id] as a typed reference.
+  ///
+  /// Positional and required, and verbatim: a message key is an **authored
+  /// key** (`codespecs_derivation_contract.md` §2.1 N5), so `'order.shipped'`
+  /// is carried character for character and a missing one fails generation
+  /// under `codespecs_derivation_contract.md` §6 check 4.
+  ///
+  /// This is the const every "copy" argument in the framework takes — a
+  /// validation rule's error key, a notification's body, a job's failure alert.
+  /// None of them accepts a `String`, and that is the point: copy that never
+  /// entered the CE-TX catalogue is copy no `TomTextResourceProvider` lookup
+  /// can translate.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsMessageKey(this.id);
 }
 
@@ -143,6 +246,25 @@ class CsErrorCode {
   /// The error code, verbatim from the specification.
   final String id;
 
+  /// Wraps the CE-ER error code [id] as a typed reference.
+  ///
+  /// Positional and required, and verbatim from the specification — an error
+  /// code is an **authored key** (`codespecs_derivation_contract.md` §2.1 N5).
+  ///
+  /// The code doubles as the **lookup key for its own copy**:
+  /// `codespecs_mapping.md` §5.21 keys error copy by the error code rather than
+  /// by a separate message key, which is what makes the catalogue's two halves
+  /// load-bearing rather than cosmetic. A code changed here without its
+  /// `@CsText` entry following leaves the failure with nothing to show the
+  /// user.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsErrorCode(this.id);
 }
 
@@ -156,6 +278,25 @@ class CsRoleRef {
   /// The camelCase declaration name of the role in the CE-AZ role catalogue.
   final String id;
 
+  /// Wraps a CE-AZ role's declaration name [id] as a typed reference.
+  ///
+  /// Positional and required, and the camelCase declaration name of the role in
+  /// the CE-AZ role catalogue (`codespecs_derivation_contract.md` §2.1 N9). At
+  /// generation it is lowered to a `TomRoleAccess.roles` string; spec-level
+  /// code never writes that string itself.
+  ///
+  /// Roles are declared in the **shared** project because the client cites the
+  /// same catalogue the server enforces (`codespecs_derivation_contract.md`
+  /// §2.6) — a client-local role list would render an affordance the server
+  /// then refuses.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsRoleRef(this.id);
 }
 
@@ -169,6 +310,25 @@ class CsResourceKeyRef {
   /// The resource key, verbatim from the specification.
   final String id;
 
+  /// Wraps the CE-AZ resource key [id] as a typed reference.
+  ///
+  /// Positional and required, and verbatim from the specification — a resource
+  /// key is an **authored key** (`codespecs_derivation_contract.md` §2.1 N5).
+  /// Lowered at generation to `TomResourceKeyAccess.key`.
+  ///
+  /// This is the const that carries access control where there is no operation
+  /// to hang a requirement on: a CE-DB column's access key and a CE-ID identity
+  /// attribute's (`codespecs_mapping.md` §5.15, §5.24). On a *public* identity
+  /// attribute it is the only guard in existence, because the token carrying
+  /// the attribute is readable by anything holding it.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsResourceKeyRef(this.id);
 }
 
@@ -182,6 +342,24 @@ class CsServiceUnitRef {
   /// The camelCase declaration name of the `@CsServiceUnit` (N9).
   final String id;
 
+  /// Wraps the `@CsServiceUnit` declaration name [id] as a typed reference.
+  ///
+  /// Positional and required, and the camelCase declaration name of the target
+  /// unit (`codespecs_derivation_contract.md` §2.1 N9).
+  ///
+  /// Declared and cited **server-side only**. `codespecs_mapping.md` §4.2's
+  /// dependency arrows run shared → {client, server} and are never inverted
+  /// (`codespecs_derivation_contract.md` §6 check 11), so a client declaration
+  /// citing this const does not merely breach a convention — the const is not
+  /// on its side of the arrow and will not resolve.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsServiceUnitRef(this.id);
 }
 
@@ -193,6 +371,23 @@ class CsReportRef {
   /// The camelCase declaration name of the `@CsReport` (N9).
   final String id;
 
+  /// Wraps the `@CsReport` declaration name [id] as a typed reference.
+  ///
+  /// Positional and required, and the camelCase declaration name of the target
+  /// report definition (`codespecs_derivation_contract.md` §2.1 N9).
+  ///
+  /// Cited from CE-JB scheduled work (`codespecs_mapping.md` §5.29): a job that
+  /// produces a report names it here rather than restating its projection, so
+  /// the projection keeps exactly one home and a changed grouping cannot leave
+  /// a second description of it behind. Server locus, like the report itself.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsReportRef(this.id);
 }
 
@@ -205,6 +400,23 @@ class CsJobRef {
   /// The camelCase declaration name of the `@CsJob` (N9).
   final String id;
 
+  /// Wraps the `@CsJob` declaration name [id] as a typed reference.
+  ///
+  /// Positional and required, and the camelCase declaration name of the target
+  /// job (`codespecs_derivation_contract.md` §2.1 N9).
+  ///
+  /// Server locus for the same reason as [CsServiceUnitRef]: a job runs off the
+  /// request thread, entirely inside the server project, and the
+  /// `codespecs_mapping.md` §4.2 dependency arrows keep the client from citing
+  /// it (`codespecs_derivation_contract.md` §6 check 11).
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsJobRef(this.id);
 }
 
@@ -245,6 +457,31 @@ class CsElementRef {
   /// no qualifier.
   final String? form;
 
+  /// Wraps a CE-EL element's declaration name [id] as a typed reference,
+  /// qualified by [form] when the element is a form member.
+  ///
+  /// [id] is positional and required, the camelCase declaration name of the
+  /// element (`codespecs_derivation_contract.md` §2.1 N9) — for a form member,
+  /// the member name **alone**, because [form] carries the qualifier and [path]
+  /// joins them.
+  ///
+  /// [form] is the one thing to get right on this type. Omit it for a
+  /// standalone element — the class-level kinds *Button*, *MenuEntry*, *Label*,
+  /// *FormHost* — and supply the owning `@CsForm`'s camelCase declaration name
+  /// for a form-member kind (*TextInput*, *Number*, *Toggle*, *DateInput*,
+  /// *Choice*, *MultiChoice*, *FileInput*), which is a member of the form class
+  /// and is not resolvable on its own. The string the validator resolves is
+  /// [path], not [id], so an unqualified form member fails
+  /// `codespecs_derivation_contract.md` §6 check 2 rather than matching some
+  /// other declaration.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsElementRef(this.id, {this.form});
 
   /// The N9 const-string form: `<form>.<element>` for a form member, the bare
@@ -261,5 +498,24 @@ class CsFormRef {
   /// The camelCase declaration name of the `@CsForm` (N9).
   final String id;
 
+  /// Wraps the `@CsForm` declaration name [id] as a typed reference.
+  ///
+  /// Positional and required, and the camelCase declaration name of the target
+  /// form (`codespecs_derivation_contract.md` §2.1 N9). A form is always a
+  /// class-level target, so — unlike [CsElementRef] — there is no qualifier and
+  /// nothing to omit.
+  ///
+  /// Cited as the source of an `inFormEvent` trigger. Where that trigger is a
+  /// `fieldChange`, the field is a **separate** [CsElementRef] carrying this
+  /// same form as its qualifier; the two arguments are not interchangeable and
+  /// filling one with the other's value is the mistake this pairing invites.
+  ///
+  /// Declared **once**, as a `static const` on the owning part's generated
+  /// catalogue class, and cited from there (`codespecs_derivation_contract.md`
+  /// §2.6); re-constructing it at a call site compiles but puts the string
+  /// literal back into the code a rename must break.
+  /// `codespecs_derivation_contract.md` §6 check 2 resolves every ref string to
+  /// a generated declaration and calls an unresolved one a generation error,
+  /// never a warning.
   const CsFormRef(this.id);
 }

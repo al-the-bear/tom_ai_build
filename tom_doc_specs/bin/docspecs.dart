@@ -7,8 +7,8 @@ import 'package:tom_doc_specs/tom_doc_specs.dart';
 /// Command-line tool for validating and scanning DocSpec documents.
 ///
 /// Usage:
-///   docspecs validate `<files...>` [options]
-///   docspecs scan `<files...>` [options]
+///   docspecs validate `<files...>` `[options]`
+///   docspecs scan `<files...>` `[options]`
 ///   docspecs list-schemas
 ///
 /// Options:

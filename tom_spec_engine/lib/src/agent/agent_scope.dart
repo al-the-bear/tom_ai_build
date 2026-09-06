@@ -18,6 +18,7 @@
 /// document and memory access are in-memory operations gated by the toolsets,
 /// not filesystem/network capabilities. (The file surface, when bound, is itself
 /// whitelist-gated inside [AgentToolsApi.files]'s facade.)
+/// @docImport '../tools/doc_tools.dart';
 library;
 
 import 'agent_tools_api.dart';

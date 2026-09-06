@@ -140,6 +140,13 @@ def _skip_annotations(lines, start):
             # otherwise be consumed as an annotation's closing line.
             if stripped.startswith('///'):
                 break
+            # A declaration whose RETURN TYPE wrapped onto the line above it —
+            # `static List<({String source, ...})>` then `bridgeReExports() {`.
+            # The doc comment sits above the type, so the walk has to cross it.
+            # Narrow on purpose: only an unterminated generic type qualifies.
+            if stripped.endswith('>'):
+                j -= 1
+                continue
             # An ORDINARY `//` note may sit between the doc comment and the
             # declaration, or between two annotations. It is not the doc
             # comment and it does not end the block, so consume it — stopping
@@ -229,7 +236,7 @@ def public_decls(path):
                 if constant and not constant.startswith('_'):
                     out.append((constant, False, i + 1))
         if opened_paren == 0 and in_type_scope and s and not s.startswith(
-                ('//', '*', '}', '@')):
+                ('//', '*', '}', '@', '..')):
             depth = len(stack)
             indent = len(raw) - len(raw.lstrip())
             if depth in (0, 1) and indent in (0, 2):

@@ -18,6 +18,7 @@
 /// `recall` / `refresh` are asynchronous (the vector tier is a `Future`), so
 /// those bridged methods return `Future`s the procedure `await`s and the host
 /// auto-awaits off `main()`.
+/// @docImport '../scope/spec_controller.dart';
 library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';

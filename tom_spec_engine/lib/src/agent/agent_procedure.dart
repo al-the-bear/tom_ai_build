@@ -3,7 +3,8 @@
 /// `llm_and_d4rt_tools.md` §10 mode (a) is *driven by a complex agent procedure
 /// — a D4rt procedure that orchestrates the multi-step search → recall → edit →
 /// verify loop over the `llm_and_d4rt_tools.md` §8 tools*. [AgentProcedure] is
-/// that procedure as a value: a [name] plus the D4rt [source] an
+/// that procedure as a value: an [AgentProcedure.name] plus the D4rt
+/// [AgentProcedure.source] an
 /// [AgentSubstrate] executes under the `agent` scope. The canonical instance is
 /// [AgentProcedure.searchRecallEditVerify].
 ///
@@ -13,6 +14,7 @@
 /// `llm_and_d4rt_tools.md` §8.1 `script_*` tools, and so both
 /// `llm_and_d4rt_tools.md` §10 modes drive the *identical* loop body (the "same
 /// loop test").
+/// @docImport 'agent_substrate.dart';
 library;
 
 import 'agent_scope.dart';

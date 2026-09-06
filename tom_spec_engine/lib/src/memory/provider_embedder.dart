@@ -10,14 +10,17 @@
 /// incremental re-embed paths use the single-text call.
 ///
 /// **Identity discipline.** Both surfaces produce vectors under the same
-/// [EmbeddingModelIdentity] ([identity]); never mix this embedder's vectors
+/// [EmbeddingModelIdentity] ([SpecProviderEmbedder.identity]); never mix this
+/// embedder's vectors
 /// with another model's in one store (cosine math across identities is
 /// meaningless — see `memory_specification.md` § 7.4). The consumer picks the
-/// embedder **once** at boot via [probe] and keeps it for the store's lifetime;
+/// embedder **once** at boot via [SpecProviderEmbedder.probe] and keeps it for
+/// the store's lifetime;
 /// it must not fall back to a different embedder per call.
 ///
 /// The engine owns this adapter (and the substrate dependency) so the editor
 /// needs only `tom_spec_engine` to wire provider-backed embeddings.
+/// @docImport 'spec_memory.dart';
 library;
 
 import 'package:tom_brain_substrate/tom_brain_substrate.dart'
@@ -58,6 +61,18 @@ final class SpecProviderEmbedder {
   /// constructor, where the caller owns the service's collaborators.
   final Future<void> Function()? _onClose;
 
+  /// Adapts a caller-owned [EmbeddingService].
+  ///
+  /// The adapter takes over closing the service itself but registers no extra
+  /// teardown: any collaborator the service composes over (an HTTP provider, a
+  /// client pool) remains the caller's to close. Use
+  /// [SpecProviderEmbedder.ollama] when the adapter should own that chain too.
+  ///
+  /// Nothing connects here — the first reachability check is
+  /// [SpecProviderEmbedder.probe] — so construction cannot fail on a cold daemon.
+  /// The service passed in fixes this store's embedding identity for its lifetime;
+  /// substituting a different service per call mixes vector spaces and silently
+  /// corrupts cosine ranking (`llm_and_d4rt_tools.md` §9.3).
   SpecProviderEmbedder(this.service) : _onClose = null;
 
   SpecProviderEmbedder._({

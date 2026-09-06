@@ -119,6 +119,8 @@
 ///     groups + the three base scopes); and [AgentContextRegistry] is the
 ///     application switch — one `context(name)` call swaps guidelines + tools +
 ///     scopes + memory together (`llm_and_d4rt_tools.md` §11).
+/// @docImport 'src/agent/agent_context.dart';
+/// @docImport 'src/agent/agent_substrate.dart';
 library;
 
 export 'src/agent/agent_context.dart';

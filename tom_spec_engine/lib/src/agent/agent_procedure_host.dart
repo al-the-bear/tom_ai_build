@@ -7,6 +7,8 @@
 /// host pattern). [runAgentProcedure] is that machinery, extracted so mode (a)
 /// ([DirectAgentSubstrate]) and mode (b) ([BrainAgentSubstrate]) share one loop
 /// body verbatim (the "same loop test").
+/// @docImport 'brain_agent_substrate.dart';
+/// @docImport 'direct_agent_substrate.dart';
 library;
 
 import 'dart:async';

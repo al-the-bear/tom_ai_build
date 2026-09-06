@@ -65,6 +65,11 @@ final class RememberedItem {
   /// The remembered text (the carrier node's `summary`).
   final String text;
 
+  /// Wraps one recalled text.
+  ///
+  /// Deliberately a value class rather than a bare `String`: what recall returns
+  /// here is the carrier node's *summary*, and naming the type stops a caller
+  /// mistaking it for a section's full rendered text (which is [SpecRagHit.text]).
   const RememberedItem({required this.text});
 
   @override
@@ -83,6 +88,13 @@ final class SpecRagIndexResult {
   /// Edges linked (tree + resolved projections).
   final int edgeCount;
 
+  /// Records a full-document index pass, in sections and edges.
+  ///
+  /// [nodeCount] is one per [SpecRagNode] persisted. [edgeCount] counts only the
+  /// edges that actually linked, so it is *lower* than the graph's edge list
+  /// whenever a `@MapsTo` / `@DetailedIn` projection pointed outside this
+  /// document: the named memory is per-document, so such a target is left unlinked
+  /// rather than dangling (`llm_and_d4rt_tools.md` §9.1).
   const SpecRagIndexResult({required this.nodeCount, required this.edgeCount});
 
   @override
@@ -109,6 +121,14 @@ final class SpecRagRefreshResult {
   /// Sections forgotten (removed from memory).
   final int removed;
 
+  /// Records one incremental refresh pass.
+  ///
+  /// [embedded] and [unchanged] partition the sections the caller offered as
+  /// changed: a section whose content hash did not move is counted as [unchanged]
+  /// and costs no model call — the embed-changed-only guarantee
+  /// (`llm_and_d4rt_tools.md` §9.2). A refresh reporting a large [embedded] for a
+  /// one-character edit is the signature of a rendered section text carrying
+  /// volatile metadata, i.e. an unstable content hash rather than real churn.
   const SpecRagRefreshResult({
     required this.embedded,
     required this.unchanged,
@@ -129,6 +149,13 @@ final class SpecRagHit {
   /// The rendered section text (metadata header + content).
   final String text;
 
+  /// Records one recalled section.
+  ///
+  /// [text] is the *rendered* section text — the metadata header (path, section
+  /// id, kind, class, headline) followed by the content — i.e. exactly the string
+  /// that was embedded, not the raw model value. Keeping the two identical is what
+  /// makes a vector hit explainable: what the model matched is what the caller
+  /// reads back (`llm_and_d4rt_tools.md` §9.1).
   const SpecRagHit({required this.path, required this.text});
 
   @override
@@ -148,6 +175,13 @@ final class SpecRagStoredEdge {
   /// projection edge).
   final bool partOf;
 
+  /// Records one edge read back from the store.
+  ///
+  /// [partOf] is a two-way flag because the persisted alphabet is closed: Tom
+  /// Brain stores `part_of` for tree membership and `mentions` for everything
+  /// projected, so the original `@MapsTo`-versus-`@DetailedIn` distinction is
+  /// **not recoverable on read-back** and must be re-derived from the model when
+  /// it is needed (`llm_and_d4rt_tools.md` §9.1).
   const SpecRagStoredEdge({required this.toPath, required this.partOf});
 
   @override
@@ -172,7 +206,8 @@ final class SpecMemory {
 
   final SpecEmbedder _embedder;
 
-  /// Optional bulk-embedding surface. When supplied, [indexDocument] embeds all
+  /// Optional bulk-embedding surface. When supplied,
+  /// [SpecDocumentMemory.indexDocument] embeds all
   /// of a document's sections in one fan-out instead of one call per section.
   /// Absent (null) → the per-section [SpecEmbedder] path is used everywhere, so
   /// the batch surface is a pure throughput optimisation, never a behavioural
@@ -182,6 +217,21 @@ final class SpecMemory {
   final Map<String, SpecDocumentMemory> _open = <String, SpecDocumentMemory>{};
   bool _closed = false;
 
+  /// Creates the store rooted at [memoryRoot], loading the bundled sqlite-vec
+  /// (vec0) extension from [sqliteVecBinariesRoot].
+  ///
+  /// Neither directory is touched here: a document's profile is materialised on
+  /// first [SpecMemory.openDocument], so constructing a store for a document that
+  /// is never opened writes nothing. A wrong [sqliteVecBinariesRoot] therefore
+  /// surfaces at first open rather than at construction — the vector index is
+  /// loaded in-process from that platform-tupled directory, with no external
+  /// provisioning step (`llm_and_d4rt_tools.md` §9.3).
+  ///
+  /// [embedder] is the mandatory per-text surface; [batchEmbedder] is a pure
+  /// throughput option that lets a full-document index issue one fan-out instead
+  /// of one round-trip per section. **Both must be surfaces of the same model** —
+  /// mixing identities puts incomparable vectors in one store and makes the cosine
+  /// ranking meaningless.
   SpecMemory({
     required this.memoryRoot,
     required this.sqliteVecBinariesRoot,

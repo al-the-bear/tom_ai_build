@@ -15,7 +15,7 @@
 /// directly from the object model and is available the instant the document is
 /// projected; tier 2 lags, because embeddings are computed incrementally and
 /// out of band. When the vector tier returns nothing — no vector recall bound,
-/// or none embedded yet — [recall] falls back to tier-1 + symbolic (+ optional
+/// or none embedded yet — [SpecRecall.recall] falls back to tier-1 + symbolic (+ optional
 /// GraphWalk) and reports [SpecRecallResult.degraded]. The result is still
 /// exact and useful; it simply lacks semantic matches until tier 2 warms.
 library;
@@ -76,6 +76,14 @@ final class SpecRecallHit {
   /// unknown.
   final String? headline;
 
+  /// Records one fused hit.
+  ///
+  /// [modes] is a set, not a single mode, because a section surfaced by several
+  /// retrieval paths is the strongest signal RRF has — collapsing it to one mode
+  /// would discard exactly the agreement that lifted the hit. [kind] and
+  /// [headline] come from the tier-1 index and are `null` for a section the vector
+  /// tier knows but tier 1 has not yet projected, so neither may be treated as
+  /// always present (`llm_and_d4rt_tools.md` §9.2).
   const SpecRecallHit({
     required this.path,
     required this.score,
@@ -100,6 +108,14 @@ final class SpecRecallResult {
   /// recall ran in degraded (tier-1 + symbolic + GraphWalk) mode.
   final bool tier2Warm;
 
+  /// Records a completed fused recall.
+  ///
+  /// [tier2Warm] must reflect whether the vector tier produced **any** candidate,
+  /// not whether one was bound: a bound-but-empty tier 2 (nothing embedded yet) is
+  /// still a degraded recall, and reporting it as warm hides the one condition
+  /// a caller can act on by waiting or forcing a refresh
+  /// (`llm_and_d4rt_tools.md` §9.2). [hits] is already fused, ranked and
+  /// capped — the constructor does not re-sort or re-cap it.
   const SpecRecallResult({required this.hits, required this.tier2Warm});
 
   /// Whether the recall degraded to tier 1 because the vector tier was cold.
@@ -147,6 +163,20 @@ final class SpecRecallQuery {
   /// MMR's lambda: 1.0 favours pure relevance, 0.0 favours pure diversity.
   final double mmrLambda;
 
+  /// Builds a fused-recall request; every knob has a working default, so
+  /// `SpecRecallQuery(text: '…')` is the intended everyday call.
+  ///
+  /// The defaults encode the tuning `llm_and_d4rt_tools.md` §9.3 settles on:
+  /// [perModeK] `64` candidates per mode before fusion (wide enough that a hit
+  /// ranked low by one mode can still be rescued by another), [rrfK] `60` — the
+  /// `tom_brain_memory` RRF smoothing constant, which must match the store's so
+  /// scores stay comparable — and [k] `10` applied *after* fusion and MMR.
+  /// [diversify] defaults **on** with [mmrLambda] `0.7`, biased towards relevance:
+  /// recall over one document tends to return near-duplicate sibling sections, and
+  /// un-diversified results waste the agent's context on them. [graphWalk] is off
+  /// by default and is silently inert unless the [SpecRecall] was given a graph.
+  /// Modes omitted from [weights] fall back to [defaultWeights]; the map is a
+  /// partial override, never a replacement.
   const SpecRecallQuery({
     required this.text,
     this.facets = const IndexQuery(),
@@ -170,6 +200,13 @@ final class SpecRecallQuery {
     SpecRecallMode.graphWalk: 0.5,
   };
 
+  /// The fusion weight for [mode]: the per-query [weights] override if present,
+  /// else [defaultWeights], else `1.0`.
+  ///
+  /// The three-level fallback is what makes [weights] a *partial* override — a
+  /// caller can re-weight one mode without having to restate the others, and a
+  /// mode added to [SpecRecallMode] later still fuses (at full weight) instead of
+  /// vanishing from the ranking.
   double weightOf(SpecRecallMode mode) =>
       weights[mode] ?? defaultWeights[mode] ?? 1.0;
 }
@@ -186,6 +223,16 @@ final class SpecRecall {
   /// The optional section graph, used by the GraphWalk mode.
   final SpecRagGraph? graph;
 
+  /// Binds the always-available tier-1 [index] and, optionally, the tier-2
+  /// [vectorRecall] and the section [graph].
+  ///
+  /// Only [index] is required, and that asymmetry is the design: tier 1 is derived
+  /// straight from the object model and is available the instant the document is
+  /// projected, while tier 2 lags behind out-of-band embedding. A `null`
+  /// [vectorRecall] therefore yields a working tier-1 + symbolic recall reporting
+  /// [SpecRecallResult.degraded], not an error. A `null` [graph] makes
+  /// [SpecRecallQuery.graphWalk] inert — requesting a GraphWalk without a graph is
+  /// silently a no-op, not a failure (`llm_and_d4rt_tools.md` §9.2).
   SpecRecall({required this.index, this.vectorRecall, this.graph});
 
   /// Runs the fused recall for [query].

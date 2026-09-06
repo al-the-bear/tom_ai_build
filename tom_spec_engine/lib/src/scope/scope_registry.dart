@@ -6,6 +6,7 @@
 /// globals, and grants into a single [RunEnvironment] that knows how to apply
 /// itself to a `tom_d4rt` interpreter. A [ScopeProfile] is the declarative
 /// "which scopes this application enables" datum — data, not code.
+/// @docImport 'spec_file_facade.dart';
 library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';

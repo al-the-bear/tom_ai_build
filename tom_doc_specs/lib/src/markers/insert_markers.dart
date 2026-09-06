@@ -29,6 +29,11 @@ class InsertMarker {
   /// The current content between the markers (excluding marker lines).
   final String content;
 
+  /// Records one marker pair found in a document.
+  ///
+  /// Every argument is required: a marker is only meaningful as the complete
+  /// (variable, span, content) triple — a partially built one could not be
+  /// rewritten back into the document it came from.
   const InsertMarker({
     required this.variable,
     required this.startLine,

@@ -20,6 +20,7 @@
 /// (`llm_and_d4rt_tools.md` §5, req c). Scripting is strictly more expressive
 /// than the single-shot MCP tools, never a second source of truth
 /// (`llm_and_d4rt_tools.md` §8.3).
+/// @docImport '../scope/spec_controller.dart';
 library;
 
 import 'dart:async';
@@ -52,6 +53,13 @@ final class AuthoredScript {
   /// The scopes the script targets (recorded in its header).
   final List<String> scopes;
 
+  /// Records a stored script's identity.
+  ///
+  /// [scopes] is echoed back from the header the store actually wrote, not from
+  /// what the author call requested, so an agent can confirm which
+  /// `llm_and_d4rt_tools.md` §4 scopes the script will really be granted at
+  /// `script_run` — a scope named at authoring time but not registered would
+  /// otherwise only surface as a resolution failure much later.
   const AuthoredScript({
     required this.name,
     required this.path,
@@ -77,6 +85,12 @@ final class StoredScript {
   /// The scopes recorded in the header.
   final List<String> scopes;
 
+  /// Records a stored script with its contents.
+  ///
+  /// [source] is the **full stored file** — the `// tomspecs-scopes:` header plus
+  /// the script body — not the body alone, so a `script_get` followed by a
+  /// `script_author` round-trips without losing the scope declaration. [scopes] is
+  /// that header already parsed, so a caller never has to re-parse it.
   const StoredScript({
     required this.name,
     required this.path,
@@ -113,6 +127,17 @@ final class ScriptEntrypoint {
   /// The names of `main()`'s named parameters, in declaration order.
   final List<String> namedParameters;
 
+  /// Records an introspected `main()` contract.
+  ///
+  /// Not `const`: [namedParameters] is defensively copied into an unmodifiable
+  /// list, so the contract cannot be mutated after validation reported it. Use
+  /// [ScriptEntrypoint.absent] for a script with no `main()` rather than passing
+  /// `exists: false` with zeroed counts.
+  ///
+  /// [requiredPositional] and [maxPositional] are a range, not one arity —
+  /// `script_run` fail-fast-rejects an `args` list shorter than the first or
+  /// longer than the second, which is how a mis-called script fails before it runs
+  /// instead of throwing inside the interpreter (`llm_and_d4rt_tools.md` §8.1).
   ScriptEntrypoint({
     required this.exists,
     required this.isAsync,
@@ -157,6 +182,14 @@ final class ScriptValidation {
   /// / resolve before it could be introspected.
   final ScriptEntrypoint? entrypoint;
 
+  /// Records a validation outcome.
+  ///
+  /// [entrypoint] is `null` only when the source failed to parse or resolve before
+  /// introspection could run, so a `null` entrypoint on an otherwise-`ok` result
+  /// is a contradiction that should not occur. [diagnostics] is the agent's
+  /// iteration surface: validation deliberately returns them instead of throwing,
+  /// so a failed validate is a message to fix rather than an aborted tool call
+  /// (`llm_and_d4rt_tools.md` §8.1).
   const ScriptValidation({
     required this.ok,
     required this.diagnostics,
@@ -185,6 +218,16 @@ final class ScriptRunResult {
   /// The stack trace when the run threw, else `null`.
   final String? stack;
 
+  /// Records a run's three captured channels.
+  ///
+  /// All four fields are `required`, including the nullable ones, so no channel
+  /// can be forgotten at a construction site — the whole point of the
+  /// `llm_and_d4rt_tools.md` §8.1 host is that a run reports **stdout, the
+  /// auto-awaited `main()` return, and the error + stack** together. A script that
+  /// threw never escapes as a Dart exception: it comes back with [error] and
+  /// [stack] populated and [ok] `false`. [stdout] is newline-separated print
+  /// output in emission order, and is captured even for a failed run, so the
+  /// prints leading up to a throw are still readable.
   const ScriptRunResult({
     required this.stdout,
     required this.result,
