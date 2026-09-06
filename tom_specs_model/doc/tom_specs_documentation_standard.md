@@ -146,6 +146,17 @@ writing on.
 A package that genuinely embeds third-party work carries **both** blockquotes,
 attribution first.
 
+**Keep each file name on the same line as the `§` it qualifies.** This
+blockquote is the densest concentration of citations in a README, and it is the
+one place where the natural line break silently breaks one. `index.md`'s
+convention lets a leading document name govern the citations that follow it, but
+`check_section_citations.dart` recognises that qualifier only across `)`, a
+backtick and whitespace — **not across the `>` blockquote marker**. So a name
+ending one line does not reach a `§N` opening the next, and that `§N` resolves
+against the README's own (nonexistent) headings and fails the gate. Rewrap so
+that name and section sit together; repeating the file name on each line is
+correct and costs nothing.
+
 ### 2.3 "Where this fits" **[T]**
 
 One paragraph, three to six sentences, answering in order:
@@ -432,6 +443,8 @@ noted as not applicable.
 - [ ] Ecosystem diagram places the package among its real siblings
 - [ ] Further-documentation table has all three parts (§2.4) and links `index.md`
 - [ ] All links relative; all links resolve
+- [ ] Every `§` citation resolves; `check_section_citations.dart` passes (seven READMEs are in its corpus — `defaultCitedReadmes`)
+- [ ] Content the package's own tests hold is unchanged — grep `test/` for `README` before reshaping any table or list. Two are known: `tom_specs_clitool`'s `bin/` table (`entrypoint_options_test.dart`) and every public declaration of `tom_core_codespecs` (`gap_class_inventory_test.dart`); grep rather than trust the list
 - [ ] `## Status` version matches the manifest and test count matches a run
 
 **`doc/` folder**
