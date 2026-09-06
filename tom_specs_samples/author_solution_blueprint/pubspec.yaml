@@ -1,0 +1,15 @@
+name: author_solution_blueprint
+description: >-
+  TomSpecs sample — author a Solution Blueprint through the typed Dart facade,
+  serialize both renditions, round-trip the yaml, and validate.
+publish_to: none
+
+environment:
+  sdk: ^3.11.4
+
+# Hosted versions only. A sample that resolved against the workspace copy would
+# prove nothing about what a user gets from pub.dev, and proving exactly that is
+# the point of being a sample (tom_specs_documentation_standard.md §7.1).
+dependencies:
+  tom_som_dart_v0: ^1.1.0
+  tom_som_dart_runtime: ^1.1.0

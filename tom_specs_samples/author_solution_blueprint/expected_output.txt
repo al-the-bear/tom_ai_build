@@ -1,0 +1,27 @@
+1. A typed root over an empty document
+   object model version : 1.1
+   root path            : SBP
+
+2. Authoring, printing each section id as it is written
+   SBP                                            the blueprint itself
+   SBP/introductionAndScope                       introduction and scope
+   SBP/currentLandscape                           the current landscape
+   SBP/currentLandscape/CUOPME-OPER-LST           2 operational metrics
+
+3. Serialised both renditions into build/
+   blueprint.docspecs.yaml : 20 lines  (SOM §12)
+   blueprint.md            : 22 lines  (SOM §11)
+
+4. Round-tripped the yaml through D00SolutionBlueprint.loadFile
+   reload equals original  : true
+   a value read back typed : "Average order turnaround: 4.2 days."
+
+5. Instance-tier validation
+   violations              : 0
+
+6. The same document with one rule deliberately broken
+   violations              : 1
+   danglingPath: SBP/noSuchSection/content
+     path does not resolve to any model node
+
+Done. The two renditions are in build/.

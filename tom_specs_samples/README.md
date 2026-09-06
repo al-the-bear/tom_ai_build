@@ -18,7 +18,9 @@ alphabet.
 
 | # | Sample | Teaches | Phase | Language | Run |
 |---|--------|---------|-------|----------|-----|
-| — | *(none yet)* | — | — | — | — |
+| 1 | [`author_solution_blueprint`](author_solution_blueprint/README.md) | Author a specification end to end: write through the typed facade, serialise both renditions, round-trip, validate, and read a real diagnostic | 2 — Solution Blueprint | Dart | `cd author_solution_blueprint && dart pub get && dart run` |
+
+Sample 1 is the entry point; the others assume you have run it.
 
 Each row's **Phase** is a `tom_specs_project_flow.md` phase, so a reader
 looking for "how do I do Phase 4" can find the sample that shows it rather
