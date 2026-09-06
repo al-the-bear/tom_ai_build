@@ -231,6 +231,21 @@ click away from it.
 | [`tom_som_cpp_runtime`](../../tom_som_cpp_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_cpp_runtime/doc/index.md) | The generic, reflective access path in cpp |
 | [`tom_som_cpp_v0`](../../tom_som_cpp_v0/README.md) | [`doc/tutorial.md`](../../tom_som_cpp_v0/doc/index.md) | The typed access path in cpp, end to end |
 
+## Samples
+
+Runnable **sample projects** live in
+[`tom_ai/ai_build/tom_specs_samples/`](../../tom_specs_samples/README.md), one
+directory per sample, indexed by that folder's own README. A sample
+demonstrates *TomSpecs* — a task carried end to end across several packages —
+whereas a package's `example/` demonstrates *that package*; both exist and
+neither indexes the other.
+
+`tom_specs_documentation_standard.md` §7 is the authority for the folder, and
+`tom_specs_documentation_standard.md` §7.1 for the per-sample convention: task-shaped directory names, published
+dependencies only, an `expected_output.txt` per sample so the set is a gate
+rather than a demo, and the reasoning for keeping samples out of the release
+set. `tom_specs_samples/tool/run_all_samples.sh` runs them.
+
 ## Generated documentation
 
 Generated documents live **outside this folder**, under

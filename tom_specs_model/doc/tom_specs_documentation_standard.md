@@ -554,6 +554,49 @@ Samples exist **per language**, mirroring §4: the Dart set is authored first an
 is the reference, and each other language plane gets the same scenarios ported,
 so a Go reader and a Dart reader learn the same TomSpecs from equivalent code.
 
+### 7.1 The sample-project convention
+
+**Name a sample for the task**, in `snake_case` —
+`author_solution_blueprint`, not `sample_01` or `dart_typed_access`. The
+directory name is what appears in the index and on the driver's command line,
+so it should read as the thing being taught rather than as a position in a
+list or the API it happens to use.
+
+**Depend on the published packages only.** No `pubspec_overrides.yaml`, no
+`path:` dependencies, and the same for every other language's equivalent. A
+sample that resolves against the workspace copy proves nothing about what a
+user gets from the registry, and proving exactly that is what makes it a
+sample rather than a second `example/`. It is the release-closure discipline
+(`tom_specs_clitool/tool/release_set.yaml`) turned outward: that gate keeps the
+shipped set closed over what it ships, and this keeps a sample honest about
+what a consumer receives.
+
+**Samples are not members of the release set.** The release set is the
+dependency-closed unit that ships; a sample consumes that unit from the
+registry. Adding one would make every edge in it an approved crossing — which
+would say nothing, and would weaken a walk whose value is that a crossing is
+rare and reasoned. Samples are verified by
+`tom_specs_samples/tool/run_all_samples.sh` instead, which is the same
+arrangement the non-Dart runtimes have: outside the Dart closure walk, inside a
+driver of their own.
+
+**Every sample carries an `expected_output.txt`** and the driver compares
+against it. Without one a sample is a demo: nobody would notice it breaking,
+and documentation nobody would notice breaking quietly stops being true. The
+driver treats a missing one as a failure rather than skipping the sample, so
+the omission cannot pass as a pass.
+
+**Every sample carries a `README.md`** stating what it teaches, its
+prerequisites, the command to run it, and what the reader should see. The
+prerequisites line is what turns a failed run into a diagnosis instead of a
+puzzle.
+
+**Reuse the shared specification documents** in `tom_som_conformance/samples/`
+rather than authoring new ones. Those are already held by the decode and
+instantiation-coverage gates; new specification content written for a sample is
+content nothing gates, and it will drift from the model that the gated
+documents track.
+
 ---
 
 ## 8 The acceptance checklist

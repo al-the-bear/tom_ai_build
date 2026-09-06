@@ -380,6 +380,11 @@ annotation, so it lives in [`tom_specs_model`](../tom_specs_model) /
 | [tom_specs_project_flow.md](../tom_specs_model/doc/tom_specs_project_flow.md) | The phase model Phase 4 sits in, and the quality gate it must pass |
 | [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules behind the `@CodeSpecKind` routing this family consumes |
 
+**Runnable samples** — a whole task carried end to end across several
+packages, as opposed to this package's own `example/`:
+[`tom_specs_samples/`](../tom_specs_samples/README.md)
+(`tom_specs_documentation_standard.md` §7).
+
 **This package** — its own guides:
 
 | Guide | Covers |

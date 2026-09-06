@@ -110,6 +110,8 @@ Prints `A platform that unifies our fragmented order systems.` — the value jus
 
 [`examples/README.md`](examples/README.md) gives the run command for each.
 
+For complete, runnable **sample projects** — a whole task carried end to end across several packages rather than one package's API — see [`tom_specs_samples/`](../tom_specs_samples/README.md).
+
 ## Usage
 
 ### The generic store underneath

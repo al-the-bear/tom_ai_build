@@ -251,6 +251,11 @@ dart analyze
 | [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of `meta/spec_model.meta.json`, which `SpecModel` loads. |
 | [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules the class graph obeys — field shapes, section ids, annotations, invariants. |
 
+**Runnable samples** — a whole task carried end to end across several
+packages, as opposed to this package's own `example/`:
+[`tom_specs_samples/`](../tom_specs_samples/README.md)
+(`tom_specs_documentation_standard.md` §7).
+
 **This package** — its own guides:
 
 | Guide | Covers |

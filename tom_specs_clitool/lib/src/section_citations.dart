@@ -281,6 +281,10 @@ const defaultCitedReadmes = [
   'tom_ai/ai_build/tom_specs_model/README.md',
   'tom_ai/ai_build/tom_specs_reviewer/README.md',
   'tom_ai/ai_build/tom_som_conformance/README.md',
+  // The samples index. It cites the standard's §7 for the sample
+  // convention rather than restating it, so it is gated like any other
+  // citing README.
+  'tom_ai/ai_build/tom_specs_samples/README.md',
   'tom_ai/core/tom_core_codespecs/README.md',
   'tom_forge/tom_specs_editor/README.md',
   // The eighteen SOM language packages. The nine `_v0` READMEs are

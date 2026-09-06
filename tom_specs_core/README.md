@@ -391,6 +391,11 @@ it produced, not the package itself.
 | [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) | The CodeSpecs parts catalogue behind `CodeSpecPart`, and the routing verdicts behind `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` |
 | [tom_specs_project_flow.md](../tom_specs_model/doc/tom_specs_project_flow.md) | The TomSpecs creation process — the phases these documents are produced in |
 
+**Runnable samples** — a whole task carried end to end across several
+packages, as opposed to this package's own `example/`:
+[`tom_specs_samples/`](../tom_specs_samples/README.md)
+(`tom_specs_documentation_standard.md` §7).
+
 **This package** — its own guides:
 
 | Guide | Covers |

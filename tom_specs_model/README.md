@@ -274,6 +274,11 @@ package's own [`doc/`](doc) folder:
 | [doc/llm_guidelines_specification.md](doc/llm_guidelines_specification.md) | The in-editor agent's context prompt |
 | [doc/tom_specs_documentation_standard.md](doc/tom_specs_documentation_standard.md) | What documentation every TomSpecs package carries, and when it is finished |
 
+**Runnable samples** — a whole task carried end to end across several
+packages, as opposed to this package's own `example/`:
+[`tom_specs_samples/`](../tom_specs_samples/README.md)
+(`doc/tom_specs_documentation_standard.md` §7).
+
 **This package** — its own guides, in `doc/package/` so the two tiers stay
 visibly apart in the one folder that hosts both:
 
