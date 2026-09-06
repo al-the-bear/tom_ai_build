@@ -19,6 +19,23 @@ include: package:lints/recommended.yaml
 # design (doc/tom_specs_model_rules.md §5.2), so the lint is disabled.
 linter:
   rules:
+    # The package is at 100% public-API dartdoc coverage
+    # (tom_specs_documentation_standard.md §5 sets the bar at 95%). The lint
+    # makes `dart analyze` the ratchet: a new public member without a doc
+    # comment fails at edit time rather than waiting for a coverage sweep.
+    #
+    # It matters more here than anywhere else in the quest. This package is the
+    # single source of truth for NINE generated language runtimes, and a
+    # class's or member's doc comment is captured into `spec_model.meta.json`
+    # and rendered by every generated facade — so an undocumented member is an
+    # undocumented API in nine languages, not one.
+    public_member_api_docs: true
+
+    # Paired with it deliberately. The campaign adds `[Reference]` links at
+    # scale, and an unresolvable one is invisible until `dart doc` runs. A
+    # `@Form` field name is NOT a Dart identifier, so `[role]` can never
+    # resolve — see tom_specs_model_rules.md §9.6.
+    comment_references: true
     overridden_fields: false
 
 # analyzer:

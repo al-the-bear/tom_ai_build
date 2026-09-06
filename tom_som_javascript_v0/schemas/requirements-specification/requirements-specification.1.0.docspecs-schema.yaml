@@ -13,6 +13,7 @@ section-types:
     description: "Add one entry per data entity this requirement reads, creates, updates, or deletes."
   daenre-rela-ref:
     prefix: DAENRE_RELA_REF
+    description: "The data-model entity these operations act on, named by section id."
   rqbiru-rule-lst:
     prefix: RQBIRU_RULE_LST
     subsection-types:
@@ -63,8 +64,10 @@ section-types:
     description: Add one entry per dependency on another requirement.
   rqdep-rela-ref:
     prefix: RQDEP_RELA_REF
+    description: "The other requirement in this dependency, named by section id."
   rqtsc-rela-ref:
     prefix: RQTSC_RELA_REF
+    description: "The acceptance criterion this test case verifies, named by section id."
   rqtsc-test-lst:
     prefix: RQTSC_TEST_LST
     subsection-types:

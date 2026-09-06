@@ -58,6 +58,10 @@ Three exclusions, two of them matching the lint and for the lint's reasons:
   and the lint does not report them either;
 * the contents of a multi-line string literal — the bundled BSD licence text in
   `packaging.dart` is 25 lines that otherwise parse as declarations.
+
+Finding a declaration is only half the job; the other half is finding its doc
+comment, which means walking back over its annotations. That walk is by bracket
+depth, not by line prefix — see `_skip_annotations`.
 """
 import os
 import re
@@ -78,7 +82,12 @@ TYPE_BODY = re.compile(
 KEYWORDS = {'return', 'if', 'for', 'while', 'switch', 'assert', 'import',
             'export', 'part', 'library', 'else', 'throw', 'yield', 'await',
             'super', 'this', 'do', 'try', 'catch', 'finally', 'new', 'const',
-            'final', 'var', 'late', 'rethrow'}
+            'final', 'var', 'late', 'rethrow',
+            # A function-typed field — `Object? Function() _getNode;` — parses
+            # with the TYPE's `Function` as the declaration name, which then
+            # hides the real (often private) name. No declaration is ever
+            # called `Function`, so excluding it is safe and exact.
+            'Function'}
 
 # String literals and trailing line comments carry braces that are not scope.
 _STRINGS = re.compile(r'"""(?:.|\n)*?"""|\'\'\'(?:.|\n)*?\'\'\'|'
@@ -100,6 +109,66 @@ def _multiline_opener(line):
 def _strip(line):
     line = _STRINGS.sub('""', line)
     return line.split('//')[0]
+
+
+def _skip_annotations(lines, start):
+    """Walk back over a declaration's annotation block to the line before it.
+
+    Returns `(index, saw_override)`.
+
+    A line-prefix test is not enough. A `tom_specs_model` section class carries
+    annotation blocks tens of lines long — a `@ContentHelp(\'\'\'…\'\'\')` holding
+    markdown, a `@StandardReferences([...])` list, a `@NoArtifact(..., note: …)`
+    — whose interior lines start with prose, `note:`, `[`, `],` and anything
+    else. Stopping at the first such line reports a documented class as
+    undocumented, which it did for 1,249 of them.
+
+    So the walk is by BRACKET DEPTH, closing to opening: from the line above the
+    declaration, consume any line that is inside an unbalanced `(`/`[` run, then
+    the `@Name` line that opened it, and repeat.
+    """
+    j, override, depth = start, False, 0
+    while j >= 0:
+        stripped = lines[j].strip()
+        if depth == 0:
+            # A doc comment ENDS the walk — it is what the walk is looking for.
+            # Tested before the closer heuristic below, because a doc comment
+            # line often ends in `)` ("… supplies the default).") and would
+            # otherwise be consumed as an annotation's closing line.
+            if stripped.startswith('///'):
+                break
+            # An ORDINARY `//` note may sit between the doc comment and the
+            # declaration, or between two annotations. It is not the doc
+            # comment and it does not end the block, so consume it — stopping
+            # here reports a documented declaration as undocumented, which it
+            # did for three classes in `tom_specs_model`.
+            if stripped.startswith('//'):
+                j -= 1
+                continue
+            if not stripped.startswith('@'):
+                # Not an annotation line. It may still be the CLOSING line of a
+                # multi-line annotation, which we detect by its unbalanced
+                # closers; anything else ends the walk.
+                closing = (stripped.count(')') + stripped.count(']')
+                           - stripped.count('(') - stripped.count('['))
+                if closing <= 0:
+                    break
+                depth += closing
+                j -= 1
+                continue
+            if stripped.startswith('@override'):
+                override = True
+            j -= 1
+            continue
+        # Inside a multi-line annotation: consume until the openers balance.
+        depth += (stripped.count(')') + stripped.count(']')
+                  - stripped.count('(') - stripped.count('['))
+        if depth <= 0:
+            depth = 0
+            if stripped.startswith('@override'):
+                override = True
+        j -= 1
+    return j, override
 
 
 def public_decls(path):
@@ -165,11 +234,7 @@ def public_decls(path):
 
         if declaration and not declaration.startswith('_') \
                 and declaration not in KEYWORDS:
-            j, override = i - 1, False
-            while j >= 0 and lines[j].strip().startswith(('@', ')', "'", '"')):
-                if lines[j].strip().startswith('@override'):
-                    override = True
-                j -= 1
+            j, override = _skip_annotations(lines, i - 1)
             if not override:
                 documented = j >= 0 and lines[j].strip().startswith('///')
                 out.append((declaration, documented, i + 1))

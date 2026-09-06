@@ -231,6 +231,7 @@ section-types:
   eie-iden:
     prefix: EIE_IDEN
     format: eie-iden-form
+    description: "Which external system this interface reaches, and what kind of"
   inbuco:
     prefix: INBUCO
     subsection-types:

@@ -25,8 +25,23 @@ import '../document_stubs.dart';
 /// CodeSpecs surface realises (`codespecs_mapping.md` §5.29); a fourth arm
 /// would be a specification that cannot be generated.
 enum ScheduledJobTrigger {
+  /// The job fires on a recurring clock expression.
+  ///
+  /// Binds the cron case, whose payload is the recurrence expression itself,
+  /// verbatim — a job whose schedule can be written as one expression needs
+  /// nothing else said about when it runs.
   cron,
+  /// The job fires on a date rule no clock expression can state — month-end,
+  /// the third Monday of a quarter, the last working day before a holiday.
+  ///
+  /// A separate arm rather than a harder cron string, because the rule depends
+  /// on a calendar that a recurrence expression cannot see.
   calendar,
+  /// The job does not run on a clock at all: it runs when something in the
+  /// system happens, and what that occurrence carries is what the work reads.
+  ///
+  /// The arm with no schedule, so nothing about it can be answered by looking
+  /// at a clock — including when it will next run, or whether it ever will.
   event,
 }
 
@@ -28952,6 +28967,19 @@ class Monitoring extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Monitoring Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// The monitoring posture as a whole — the strategy, the platforms it runs
+  /// on, what must be covered, and what it is allowed to cost.
+  ///
+  /// The band that has to be settled before any subsection below can be
+  /// written, because they all inherit from it: a health check, an alert rule
+  /// and a dashboard are built on the same platforms, retained for the same
+  /// periods and paid for out of the same budget. Stating that once here is
+  /// what stops [alertingConfiguration], [metricsAndObservability] and
+  /// [dashboards] from each nominating a tool of their own.
+  ///
+  /// Retention and cost sit here rather than beside the signals they apply to
+  /// for the same reason: they are traded against each other across the whole
+  /// estate, never one signal at a time.
   @SectionId('MONITO-MONI')
   @Form([
     // Strategy
@@ -29078,6 +29106,19 @@ class AlertingConfiguration extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Alerting Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// What is worth waking someone for, and how quickly a human is expected to
+  /// answer.
+  ///
+  /// The policy band above the individual rules: the severity ladder, the
+  /// acknowledgement time each rung promises, the on-call shape that makes
+  /// those times achievable, and the hygiene process that keeps the ladder
+  /// honest. Every rule is written against it, which is why it is stated once
+  /// here — a severity that means different things in two rules is worse than
+  /// no severity at all, because it is still trusted.
+  ///
+  /// These response times are commitments to the people on call. The
+  /// customer-facing equivalents, with credits and exclusions attached, belong
+  /// to [SlaAndSloMonitoring].
   @SectionId('ALCO-ALER')
   @Form([
     // Philosophy
@@ -29769,6 +29810,19 @@ class MetricsAndObservability extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Metrics Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// Which telemetry signals are collected at all, in what format, and at what
+  /// resolution.
+  ///
+  /// The enabling band: metrics, logs, traces and profiles are each switched on
+  /// or off here, and the wire format, standard and collection method are fixed
+  /// once for all of them. It precedes the per-domain subsections because
+  /// turning a signal off here makes every downstream specification of it moot,
+  /// and because a shared format is what decides whether two services' output
+  /// can be read together at all.
+  ///
+  /// Scrape interval and sampling rate are the resolution the system is
+  /// observed at — the point where fidelity is traded against the retention and
+  /// cost budget agreed in [Monitoring].
   @SectionId('MEANOB-METR')
   @Form([
     // Pillars
@@ -30467,6 +30521,18 @@ class MonitoringDashboards extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The ground rules for the dashboard estate — platform, access, and the
+  /// conventions every dashboard follows.
+  ///
+  /// Conventions are why this band exists instead of being folded into the
+  /// catalog below: naming, layout and colour coding are only worth stating if
+  /// they hold everywhere, and an operator reading a dashboard under pressure
+  /// must not have to work out which way round the colours run. The category
+  /// flags record which audiences are served at all, so a missing executive
+  /// view is a decision on the record rather than an oversight nobody noticed.
+  ///
+  /// Which dashboards exist, and what each one shows, is the catalog — not
+  /// this.
   @SectionId('MODA-DASH')
   @Form([
     // Platform
@@ -30746,6 +30812,18 @@ class SlaAndSloMonitoring extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The service-level regime — the framework, the error-budget policy, and
+  /// what happens when a commitment is missed.
+  ///
+  /// The band that separates a measurement from an obligation. An SLO is an
+  /// internal target and its error budget is a spending decision the team makes
+  /// against itself; a customer-facing SLA is a contract, with credits owed and
+  /// exclusions claimed. Both are stated here so a reader can see in one place
+  /// which promises cost money to break and which cost only trust.
+  ///
+  /// The reporting fields are what makes either enforceable: a service level
+  /// nobody reports on, to a named audience, on a stated cadence, is not a
+  /// commitment.
   @SectionId('SASM-SLAO')
   @Form([
     // SLI/SLO framework

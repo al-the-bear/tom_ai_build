@@ -19,28 +19,161 @@ import '../document_stubs.dart';
 /// former free-text `elementType` so the choice is a real closed set.
 enum ScreenElementKind {
   // Action facet.
+  /// A standalone command control: activating it runs an action.
+  ///
+  /// The kind to pick when the element *is* the command — a separately
+  /// hit-testable target with its own label, weight and position in the
+  /// section. Selects the [ScreenElementAction] facet.
   actionButton,
+
+  /// An inline navigational control that reads as part of the surrounding
+  /// text.
+  ///
+  /// Selects the same [ScreenElementAction] facet as
+  /// [ScreenElementKind.actionButton]; choosing between the two records
+  /// prominence and reading flow, not capability — a link sits inside the
+  /// content and usually takes the user elsewhere, a button stands apart and
+  /// usually performs work on the screen the user is on.
   link,
   // Input facet.
+  /// A free-text input.
+  ///
+  /// The general-purpose input kind: pick it when the value has no narrower
+  /// structure the runtime could exploit. Selects the
+  /// [ScreenElementFieldSpec] facet, whose own [ScreenElementFieldKind] then
+  /// fixes the value type — so a text field still declares an email, phone or
+  /// password field kind when that is what it holds.
   textField,
+
+  /// A numeric input.
+  ///
+  /// Chosen over [ScreenElementKind.textField] when the value is a quantity,
+  /// so the runtime may supply a numeric keyboard, step controls and range
+  /// checks instead of the specification validating digits after the fact.
   numberField,
+
+  /// A date or time input.
+  ///
+  /// Chosen over [ScreenElementKind.textField] when the value is a point in
+  /// time, which lets the runtime offer a calendar or clock affordance and
+  /// parse in the user's locale rather than asking them to type a format.
   dateField,
+
+  /// An input that picks from a bounded set of options.
+  ///
+  /// Chosen when the valid values are enumerable at design time or come from
+  /// a named option source; the field spec's `selectOptions` then carries
+  /// where those options come from and whether one or several may be chosen.
   selectField,
+
+  /// A two-state input drawn as a tickable box with an adjacent label.
+  ///
+  /// Chosen over [ScreenElementKind.toggle] for a value the user is
+  /// *asserting* — consent, membership of a set, an option that only takes
+  /// effect when the surrounding form is submitted.
   checkbox,
+
+  /// A two-state input drawn as a switch.
+  ///
+  /// Chosen over [ScreenElementKind.checkbox] for a setting that takes effect
+  /// the moment it is flipped, so the control reads as turning something on
+  /// rather than as answering a question on a form.
   toggle,
   // Display facet.
+  /// A read-only rendering of a single bound value.
+  ///
+  /// The general display kind, and the fallback when no narrower one fits.
+  /// The value comes from the data binding rather than from authored copy,
+  /// which is what separates it from [ScreenElementKind.label]. Selects the
+  /// [ScreenElementDataDisplay] facet.
   dataDisplay,
+
+  /// A read-only rendering of a collection as rows and columns.
+  ///
+  /// Chosen over [ScreenElementKind.dataDisplay] when the bound value is a
+  /// collection whose members share a shape, so column identity, sorting and
+  /// paging become properties of the element rather than of the screen around
+  /// it.
   dataTable,
+
+  /// A bounded surface grouping several bound values as one visual unit.
+  ///
+  /// Chosen when the grouping itself carries meaning — the values belong to
+  /// one record and are read together — rather than merely sitting near each
+  /// other, which is a layout concern of the enclosing section.
   card,
+
+  /// A graphical rendering of a collection as a series, distribution or
+  /// proportion.
+  ///
+  /// Chosen over [ScreenElementKind.dataTable] when the shape of the data is
+  /// the message and individual values need not be read exactly. A chart is
+  /// declared here and rendered by whichever platform can
+  /// (`codespecs_mapping.md` §5.28).
   chart,
+
+  /// A compact rendering of a value as a condition — a health light, a
+  /// lifecycle or progress marker.
+  ///
+  /// Chosen over [ScreenElementKind.dataDisplay] when the user is meant to
+  /// read the state at a glance rather than read the underlying value.
+  /// Because the reading is usually carried by colour, it needs a second cue
+  /// as well: colour alone is not a usable channel for everyone (WCAG 2.2,
+  /// success criterion 1.4.1).
   statusIndicator,
+
+  /// A pictogram carrying no bound value.
+  ///
+  /// Chosen when the graphic is meaning rather than decoration but is not
+  /// itself interactive; an icon the user activates is an
+  /// [ScreenElementKind.actionButton] that happens to be drawn as one. It
+  /// still needs a text alternative, since a pictogram on its own is not
+  /// perceivable to assistive technology (WCAG 2.2, success criterion 1.1.1).
   icon,
+
+  /// Authored static text.
+  ///
+  /// Distinguished from [ScreenElementKind.dataDisplay] by where the text
+  /// comes from: a label's copy is authored, and therefore translatable
+  /// through the CE-TX message-key catalogue (`codespecs_mapping.md` §5.21),
+  /// while a data display renders whatever the binding produces.
   label,
+
+  /// A raster or vector graphic presented as content.
+  ///
+  /// Chosen over [ScreenElementKind.icon] when the graphic is content in its
+  /// own right — a photograph, a diagram, a supplied asset — rather than a
+  /// small symbol drawn from the interface's pictogram set.
   image,
+
+  /// A small count or marker attached to another element.
+  ///
+  /// Chosen over [ScreenElementKind.statusIndicator] when the value qualifies
+  /// a neighbouring element — an unread count on a navigation item, a "new"
+  /// marker on a tab — rather than standing on its own.
   badge,
   // Structural (no facet subsection).
+  /// A structural separator drawn between groups of elements.
+  ///
+  /// One of the three structural kinds that select no facet subsection: a
+  /// separator has no action, no value and no binding, so it carries only the
+  /// common element subsections. Pick it when the break between groups is
+  /// meant to be seen; if only distance is wanted, use
+  /// [ScreenElementKind.spacer].
   divider,
+
+  /// A structural gap that reserves space without drawing anything.
+  ///
+  /// Selects no facet subsection. Distinguished from
+  /// [ScreenElementKind.divider] by visibility: a spacer separates by
+  /// distance alone, so it adds no visual rule the reader has to account for.
   spacer,
+
+  /// A structural strip of tabs that switches which content is shown.
+  ///
+  /// Selects no facet subsection because the tabs themselves are specified
+  /// separately as a [TabBarDefinitionEntry]; naming the kind here only
+  /// places the strip within a screen section.
   tabBar,
 }
 
@@ -54,19 +187,109 @@ enum ScreenElementKind {
 /// carries `decimalPlaces` and a Number field no longer carries
 /// `optionsSource`. Replaces the former free-text `dataType`.
 enum ScreenElementFieldKind {
+  /// Free-form text with no narrower interpretation.
+  ///
+  /// The default text kind, and the one to pick when nothing about the value
+  /// constrains it beyond length and pattern. Selects the `textOptions`
+  /// subsection.
   string,
+
+  /// A whole number.
+  ///
+  /// Chosen over [ScreenElementFieldKind.decimal] when fractional input must
+  /// be rejected outright rather than rounded — counts, quantities, ordinals.
+  /// Selects the `numberOptions` subsection.
   integer,
+
+  /// A number with a fractional part.
+  ///
+  /// Selects the `numberOptions` subsection, where the precision the value is
+  /// captured and shown at is fixed. Leaving it unstated is what produces the
+  /// familiar mismatch between the figure a user entered and the figure the
+  /// system stored.
   decimal,
+
+  /// A monetary amount.
+  ///
+  /// Chosen over [ScreenElementFieldKind.decimal] when the figure carries a
+  /// currency: the amount alone is not the value, so the field must also
+  /// settle which currency applies and how the pair is presented. Selects the
+  /// `numberOptions` subsection.
   currency,
+
+  /// A calendar date with no time of day.
+  ///
+  /// Chosen over [ScreenElementFieldKind.dateTime] when the time of day is
+  /// not merely unknown but meaningless — a birth date, an invoice date — so
+  /// that no time-zone conversion can shift the value into a neighbouring
+  /// day. Selects the `dateOptions` subsection.
   date,
+
+  /// A calendar date together with a time of day.
+  ///
+  /// The kind for an instant that must be located exactly, and therefore the
+  /// one whose `dateOptions` have to settle the time zone the value is
+  /// recorded and displayed in.
   dateTime,
+
+  /// A time of day with no calendar date.
+  ///
+  /// Chosen for a recurring wall-clock value — an opening hour, a daily
+  /// reminder — that is not tied to one particular day. Selects the
+  /// `dateOptions` subsection.
   time,
+
+  /// A two-state true/false value.
+  ///
+  /// The one field kind that selects no promoted options subsection: a
+  /// boolean has no format, no bounds and no option source, so it carries the
+  /// field base alone. How it is drawn — tick box or switch — is the
+  /// enclosing element's [ScreenElementKind], not this kind.
   boolean,
+
+  /// A value chosen from a bounded set of options.
+  ///
+  /// Selects the `selectOptions` subsection, which names where the options
+  /// come from and whether one or several may be chosen. Pick it whenever the
+  /// valid values are enumerable, even when the interface renders them as
+  /// free text with completion.
   enumeration,
+
+  /// An email address.
+  ///
+  /// A text kind — it selects `textOptions` — named separately so the
+  /// generator can supply the address-shaped validation and the right
+  /// keyboard without the specification restating either.
   email,
+
+  /// A telephone number.
+  ///
+  /// A text kind, named separately so the generator can supply
+  /// dialling-friendly input and formatting. It is text rather than a number
+  /// because leading zeros, country prefixes and separators are part of the
+  /// value.
   phone,
+
+  /// A web address.
+  ///
+  /// A text kind, named separately so the generator can supply scheme
+  /// validation and an open affordance instead of treating the value as
+  /// opaque text.
   url,
+
+  /// A secret the user types and that must not be shown back.
+  ///
+  /// A text kind whose distinguishing property is display rather than shape:
+  /// the value is masked, kept out of ordinary autofill history, and never
+  /// echoed back in messages or logs.
   password,
+
+  /// Formatted text carrying its own markup.
+  ///
+  /// Chosen over [ScreenElementFieldKind.string] when the formatting is part
+  /// of the value rather than of the presentation. That makes the stored
+  /// value a document, and moves sanitising the markup into the field's
+  /// concern rather than the renderer's.
   richText,
 
   /// A colour value.
@@ -79,6 +302,12 @@ enum ScreenElementFieldKind {
   /// generator supply the pattern rule and the swatch preview without the
   /// specification restating them — it does not promise a picker.
   color,
+
+  /// A file the user supplies rather than types.
+  ///
+  /// The one field kind whose value is a reference to content held elsewhere,
+  /// which is why it has its own `fileOptions` subsection: which content
+  /// kinds are accepted, and how the chosen file is presented back.
   file,
 }
 
@@ -90,11 +319,49 @@ enum ScreenElementFieldKind {
 /// `dateFormat`, a boolean column `booleanFormat`, a text column `textFormat`.
 /// Replaces the former free-text `dataType`.
 enum ReportColumnKind {
+  /// A textual column.
+  ///
+  /// Selects the `textFormat` subsection. The fallback kind: a value with no
+  /// numeric, temporal or boolean reading is formatted, aligned and sorted as
+  /// text.
   string,
+
+  /// A whole-number column.
+  ///
+  /// Selects the `numericFormat` subsection alongside
+  /// [ReportColumnKind.decimal]; keeping the two apart lets a report state
+  /// that no fractional digits are to appear even when the underlying value
+  /// carries them.
   integer,
+
+  /// A fractional-number column.
+  ///
+  /// Selects the `numericFormat` subsection, where displayed precision,
+  /// digit grouping and the presentation of negative values are fixed. A
+  /// report that leaves them unstated is only reproducible by accident.
   decimal,
+
+  /// A monetary column.
+  ///
+  /// Chosen over [ReportColumnKind.decimal] when the figure carries a
+  /// currency. It selects `currencyFormat` rather than the numeric
+  /// subsection because the symbol, its position and the currency's own
+  /// minor-unit precision all have to be settled together.
   currency,
+
+  /// A temporal column.
+  ///
+  /// Selects the `dateFormat` subsection. A report is often read in a
+  /// different locale and time zone from the one that produced it, so the
+  /// format is authored here rather than inherited from the reader's
+  /// environment.
   date,
+
+  /// A two-state column.
+  ///
+  /// Selects the `booleanFormat` subsection, which fixes the words or marks
+  /// the two states are printed as — a report says "Yes"/"No" or
+  /// "Active"/"Closed", never `true`/`false`.
   boolean,
 }
 
@@ -105,12 +372,54 @@ enum ReportColumnKind {
 /// picks which per-type serialization subsection applies. Replaces the former
 /// free-text `dataType`.
 enum ExportFieldKind {
+  /// A textual export field.
+  ///
+  /// Selects the `textOutput` subsection, and the only kind that has to
+  /// settle quoting and escaping — text is what can contain the delimiter the
+  /// export file is built around.
   string,
+
+  /// A whole-number export field.
+  ///
+  /// Selects the `numericOutput` subsection together with
+  /// [ExportFieldKind.decimal].
   integer,
+
+  /// A fractional-number export field.
+  ///
+  /// Selects the `numericOutput` subsection, where the decimal separator and
+  /// digit grouping are fixed. Unlike a displayed number these serve a
+  /// consuming system, so the choice answers to the receiver's parser and not
+  /// to any reader's locale.
   decimal,
+
+  /// A calendar-date export field.
+  ///
+  /// Selects the `temporalOutput` subsection with [ExportFieldKind.dateTime].
+  /// The two are separate kinds so a date-only value is not given a spurious
+  /// time component on the way out.
   date,
+
+  /// An instant export field carrying both date and time.
+  ///
+  /// Selects the `temporalOutput` subsection, which has to settle the time
+  /// zone and the offset representation — the most common source of silently
+  /// shifted values in an interchange file.
   dateTime,
+
+  /// A two-state export field.
+  ///
+  /// Selects the `booleanOutput` subsection, which fixes the pair of tokens
+  /// the two states are written as; a receiving system rarely accepts more
+  /// than one such pair.
   boolean,
+
+  /// An export field whose value comes from a bounded set.
+  ///
+  /// Selects the `enumerationOutput` subsection. An export writes the stable
+  /// code rather than the label a user reads, and this kind exists so that
+  /// choice is made deliberately instead of falling out of whatever the
+  /// screen happened to show.
   enumeration,
 }
 
@@ -128,13 +437,60 @@ enum ExportFieldKind {
 /// choice of *control* on a temporal filter, so it is expressed by
 /// `dateFilterOptions.inputType`.
 enum ReportFilterValueKind {
+  /// A text-valued filter.
+  ///
+  /// Selects `textFilterOptions`, where the match is settled — exact,
+  /// prefix, contains. A text filter with no stated match rule is the one
+  /// whose results readers most often dispute.
   string,
+
+  /// A whole-number filter.
+  ///
+  /// Selects `numericFilterOptions` together with
+  /// [ReportFilterValueKind.decimal].
   integer,
+
+  /// A fractional-number filter.
+  ///
+  /// Selects `numericFilterOptions`, where the bounds and whether they are
+  /// inclusive are stated. An unstated bound convention makes two runs of the
+  /// same report disagree at the edges.
   decimal,
+
+  /// A calendar-date filter.
+  ///
+  /// Selects `dateFilterOptions` with [ReportFilterValueKind.dateTime]. A
+  /// range is not a separate kind — it is a choice of input control recorded
+  /// inside those options.
   date,
+
+  /// An instant filter carrying both date and time.
+  ///
+  /// Selects `dateFilterOptions`. Chosen over [ReportFilterValueKind.date]
+  /// when a boundary has to fall inside a day rather than at its edge.
   dateTime,
+
+  /// A two-state filter.
+  ///
+  /// Selects `booleanFilterOptions`. A boolean filter usually has three
+  /// user-visible positions rather than two — true, false, and not filtered
+  /// at all — and it is those options that have to say so.
   boolean,
+
+  /// A filter over a bounded set of option values.
+  ///
+  /// Selects `selectFilterOptions`, which names the option source and
+  /// whether several values may be selected at once. Pick it when the
+  /// candidates are a fixed vocabulary rather than records the user has to
+  /// look up.
   enumeration,
+
+  /// A filter whose value refers to a record in the domain model.
+  ///
+  /// Selects `entityFilterOptions`. Chosen over
+  /// [ReportFilterValueKind.enumeration] when the candidates are data rather
+  /// than vocabulary — a customer, an account — so the control has to search
+  /// and resolve instead of listing.
   entityRef,
 }
 
@@ -149,7 +505,19 @@ enum ReportFilterValueKind {
 /// `TomScreenPresentation.popup`; the longer name states that the overlay
 /// nature — not merely the popup chrome — is what the mode selects.
 enum ScreenPresentationMode {
+  /// The target screen takes the place of the current one in the navigation
+  /// stack.
+  ///
+  /// The ordinary reading of a transition: the source screen is left, so
+  /// nothing about its transient state is guaranteed to survive the move.
   replace,
+
+  /// The target screen is shown over the screen the user came from, which
+  /// stays alive underneath and is revealed again when the overlay closes.
+  ///
+  /// Chosen over [ScreenPresentationMode.replace] when the user must come
+  /// back to exactly the state they left — the overlay interrupts a task
+  /// rather than being a step in one.
   popupOverlay,
 }
 
@@ -162,8 +530,26 @@ enum ScreenPresentationMode {
 /// (CE-ER), and `validationError` the input-rejected path (CE-VA), which
 /// typically keeps the user on the source screen.
 enum ScreenFlowOutcome {
+  /// The transition taken when the action completed as intended.
+  ///
+  /// The path a flow diagram usually shows. A screen that specifies only this
+  /// outcome has left its failure paths undecided, not impossible.
   success,
+
+  /// The transition taken when the action failed while being processed.
+  ///
+  /// The CE-ER path: the input was accepted but the work did not complete, so
+  /// the destination is normally somewhere the user can retry or ask for
+  /// help, rather than back at the input.
   error,
+
+  /// The transition taken when the action's input was rejected before any
+  /// processing.
+  ///
+  /// The CE-VA path. Distinguished from [ScreenFlowOutcome.error] by who can
+  /// fix it: the user can, and only where the offending input is — which is
+  /// why this outcome typically keeps them on the source screen instead of
+  /// navigating away.
   validationError,
 }
 
@@ -8732,6 +9118,11 @@ class ErrorHandling extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Error Handling Philosophy
   // ─────────────────────────────────────────────────────────────────────────
+  /// The stance errors are written from, before the concrete categories below.
+  ///
+  /// Sets the tone and the prevention/recovery balance the sibling sections then
+  /// apply; it decides nothing on its own, so a rule that changes behaviour belongs
+  /// in validation, system-error or recovery, not here.
   @SectionId('ERHACO-ERRO')
   @Form([
     // Philosophy and approach
@@ -8926,6 +9317,10 @@ class ValidationFeedback extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How field-level validation feedback reaches the user.
+  ///
+  /// Scoped to *validation* — input the user can correct. A failure the user cannot
+  /// act on is a system error and belongs to the system-error section.
   @SectionId('VAFE-VALI')
   @Form([
     Field(
@@ -9243,6 +9638,10 @@ class SystemErrorDisplay extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // System Error Handling
   // ─────────────────────────────────────────────────────────────────────────
+  /// How failures the user cannot correct are surfaced.
+  ///
+  /// The counterpart to validation display: no user input fixes these, so the
+  /// question is what to disclose, what to log and whom to alert.
   @SectionId('SYERDI-SYST')
   @Form([
     Field(
@@ -9602,6 +10001,10 @@ class ErrorRecovery extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Recovery Mechanisms
   // ─────────────────────────────────────────────────────────────────────────
+  /// What the system offers after an error, so the user is not left stranded.
+  ///
+  /// Retry, undo, draft preservation and escalation paths. Distinct from the error
+  /// *message*, which the philosophy and category sections govern.
   @SectionId('ERRE-RECO')
   @Form([
     Field(
@@ -9945,6 +10348,10 @@ class UserAssistance extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Help System Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// The help model as a whole, before the delivery channels below.
+  ///
+  /// Which help exists and who maintains it; the contextual, onboarding and support
+  /// sections each specify one delivery route through it.
   @SectionId('USAS-HELP')
   @Form([
     // Help philosophy
@@ -10098,6 +10505,11 @@ class ContextualHelp extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// Help delivered in place, at the moment of use.
+  ///
+  /// Tooltips, inline hints and field-level guidance — the route that never takes
+  /// the user out of the task. Standalone documentation is the documentation
+  /// section's concern.
   @SectionId('COHE-CONT')
   @Form([
     Field(
@@ -10353,6 +10765,10 @@ class OnboardingHelp extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The guided first-run experience for a new user.
+  ///
+  /// One-time or milestone-triggered, unlike contextual help, which is always
+  /// available. Its success measure is time-to-first-value, not coverage.
   @SectionId('ONHE-ONBO')
   @Form([
     Field(
@@ -10705,6 +11121,10 @@ class SupportAccess extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How a user reaches a human when the product's own help runs out.
+  ///
+  /// The escalation boundary of the help system: channels, hours and what the user
+  /// must supply for support to act.
   @SectionId('SUAC-SUPP')
   @Form([
     Field(
@@ -10946,6 +11366,11 @@ class Accessibility extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// The accessibility commitment and its scope, before the specific conformance
+  /// targets below.
+  ///
+  /// States which standard applies and to what — the WCAG section then pins the
+  /// level and the checklist section the verification.
   @SectionId('ACCESS-ACCE')
   @Form([
     Field(
@@ -11127,6 +11552,10 @@ class WcagCompliance extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The conformance target and the evidence for it.
+  ///
+  /// Names the WCAG version and level the product claims, which is what an audit
+  /// checks against; the overview states the intent, this states the claim.
   @SectionId('WCCO-WCAG')
   @Form([
     Field(
@@ -11342,6 +11771,10 @@ class AccessibilityChecklist extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How conformance is verified, as opposed to claimed.
+  ///
+  /// The checklist's coverage and cadence — who runs it, against what, and how a
+  /// failure is recorded.
   @SectionId('ACCHLS-CHEC')
   @Form([
     Field(
@@ -11572,6 +12005,10 @@ class ResponsiveDesign extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsive Design Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// The responsive strategy: which approach the product takes and why.
+  ///
+  /// Frames the breakpoint and layout-adaptation sections below, which give the
+  /// concrete numbers and behaviours.
   @SectionId('REDE-RESP')
   @Form([
     // Philosophy
@@ -11672,6 +12109,10 @@ class BreakpointConfiguration extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The breakpoint set the layout switches at.
+  ///
+  /// These values are a contract with the component library — a component that
+  /// assumes a breakpoint not listed here has no defined behaviour between them.
   @SectionId('BC-BREA')
   @Form([
     // Standard breakpoints
@@ -11880,6 +12321,10 @@ class ResponsiveBehavior extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Layout Adaptation
   // ─────────────────────────────────────────────────────────────────────────
+  /// What actually changes at each breakpoint.
+  ///
+  /// The breakpoint section says *where* the layout switches; this says *what*
+  /// switches — reflow, disclosure, navigation shape.
   @SectionId('REBE-LAYO')
   @Form([
     Field(
@@ -12151,6 +12596,10 @@ class UiComponents extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Library Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// The library's scope and governance, before the individual components.
+  ///
+  /// Which library is used, who may add to it, and what a component must satisfy to
+  /// be admitted.
   @SectionId('UICO-COMP')
   @Form([
     Field(
@@ -12337,6 +12786,10 @@ class ComponentLibrary extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The design tokens every component draws on — colour, type, spacing, motion.
+  ///
+  /// Foundations are shared, so a change here reaches every component; a value that
+  /// only one component needs is that component's visual design, not a foundation.
   @StandardReferences(
     [
       'Material Design — design tokens capture reusable values for the design system',
@@ -12830,6 +13283,10 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Identity
   // ─────────────────────────────────────────────────────────────────────────
+  /// What this component is and where it is used.
+  ///
+  /// The identity band is the join key for the rest of the entry: the sibling bands
+  /// all describe the component named here.
   @SectionId('UICOM-IDEN')
   @Form([
     // Identity
@@ -12923,6 +13380,10 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Visual Design
   // ─────────────────────────────────────────────────────────────────────────
+  /// The component's appearance in its default state.
+  ///
+  /// Static presentation only; how it responds to input is interactive behaviour,
+  /// and how it reflows is responsiveness.
   @SectionId('UICOM-VISU')
   @Form([
     Field(
@@ -13062,6 +13523,10 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Interactive Behavior
   // ─────────────────────────────────────────────────────────────────────────
+  /// How the component responds to input, across its states.
+  ///
+  /// Hover, focus, press, disabled, loading and error states — the transitions a
+  /// user can trigger, as distinct from the static appearance.
   @SectionId('UICOM-INTE')
   @Form([
     Field(
@@ -13200,6 +13665,10 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsiveness
   // ─────────────────────────────────────────────────────────────────────────
+  /// How the component behaves across the declared breakpoints.
+  ///
+  /// Component-level adaptation, within the page-level rules the responsive-design
+  /// sections set.
   @SectionId('UICOM-RESP')
   @Form([
     Field(
@@ -13251,6 +13720,10 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility
   // ─────────────────────────────────────────────────────────────────────────
+  /// The component's accessibility contract: roles, names, keyboard model.
+  ///
+  /// Component-level obligations, which the product-level conformance claim depends
+  /// on being met by every component.
   @SectionId('UICOM-ACCE')
   @Form([
     Field(
@@ -13303,6 +13776,10 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Authorization Integration
   // ─────────────────────────────────────────────────────────────────────────
+  /// How the component behaves when the user lacks the right to use it.
+  ///
+  /// Hidden, disabled or read-only is a design decision with security consequences,
+  /// which is why it is specified per component rather than left to implementation.
   @SectionId('UICOM-AUTH')
   @Form([
     Field(
@@ -13354,6 +13831,10 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Resource Integration
   // ─────────────────────────────────────────────────────────────────────────
+  /// The assets the component needs — icons, images, fonts, media.
+  ///
+  /// Declared so the resource inventory is complete: a component referencing an
+  /// asset nobody registered is a build failure late rather than a spec gap early.
   @SectionId('UICOM-RESO')
   @Form([
     Field(
@@ -13423,6 +13904,10 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Data Binding
   // ─────────────────────────────────────────────────────────────────────────
+  /// What the component reads and writes, and against which model element.
+  ///
+  /// The link from the interface back to the information model; without it a screen
+  /// element has no defined source of truth.
   @SectionId('UICOM-DATA')
   @Form([
     Field(
@@ -14120,6 +14605,10 @@ class MultiLanguageSupport extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Multi-language Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// Which languages are supported and what support means.
+  ///
+  /// Scope and locale handling, before the process sections that say how the
+  /// translations are produced and kept current.
   @SectionId('MLAR-MULT')
   @Form([
     // Scope
@@ -14255,6 +14744,10 @@ class LocalizationProcess extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How locale-specific adaptation is carried out beyond translation.
+  ///
+  /// Formats, collation, currency and layout direction — the parts of localization
+  /// that are not the text itself.
   @SectionId('LOPR-LOCA')
   @Form([
     Field(
@@ -14432,6 +14925,10 @@ class TranslationProcess extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How translated text is produced, reviewed and shipped.
+  ///
+  /// The pipeline and its owners, as distinct from the *requirements* section, which
+  /// states what must be translated at all.
   @SectionId('TRPR-TRAN')
   @Form([
     Field(
@@ -14689,6 +15186,10 @@ class UserDocumentationRequirements extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// Which user-facing documentation is translated, and to what standard.
+  ///
+  /// Documentation follows a different cadence from interface text, which is why it
+  /// is scoped separately from the translation process.
   @SectionId('DOANTR-DOCU')
   @Form([
     Field(
@@ -14833,6 +15334,10 @@ class TrainingDeliverableRequirements extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The training materials that accompany a localized release.
+  ///
+  /// Scoped to *localization*: material that must be reproduced per language, as
+  /// distinct from the product-wide training plan.
   @SectionId('TRMAT-TRAI')
   @Form([
     // Training materials
@@ -15002,6 +15507,10 @@ class LanguageCountrySelection extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How a user's language is chosen and changed.
+  ///
+  /// Detection, override and persistence — the runtime behaviour, not the set of
+  /// languages, which the overview fixes.
   @SectionId('LACOSE-LANG')
   @Form([
     Field(
@@ -15210,6 +15719,10 @@ class TranslationRequirements extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// What must be translated, and what deliberately must not.
+  ///
+  /// The scope contract for translation: untranslated strings are a decision
+  /// recorded here, not an omission discovered in test.
   @SectionId('TRAREQ-TRAN')
   @Form([
     Field(
@@ -15523,6 +16036,10 @@ class Prototype extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Prototype Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// What the prototype is for and what it is not.
+  ///
+  /// A prototype's value depends on its question being stated; the goals and
+  /// feature-subset sections then narrow it.
   @SectionId('PROTOT-PROT')
   @Form([
     Field(
@@ -15680,6 +16197,10 @@ class PrototypeGoals extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The questions the prototype is built to answer.
+  ///
+  /// Validation goals, so the prototype can be judged finished — a prototype with no
+  /// stated goal cannot be.
   @SectionId('PG-GOAL')
   @Form([
     // Validation goals
@@ -15866,6 +16387,10 @@ class PrototypeFeatureSubset extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// Which features the prototype includes, and the criteria that chose them.
+  ///
+  /// The subset is a scoping decision, so recording the criteria matters as much as
+  /// the list: it is what makes a later addition arguable.
   @SectionId('PRFESU-FEAT')
   @Form([
     // Selection criteria
@@ -16051,6 +16576,10 @@ class PrototypeType extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// Whether the prototype is reusable or throwaway, and why.
+  ///
+  /// The choice governs how much engineering rigour the prototype carries, which the
+  /// two sibling sections then specify.
   @SectionId('PRTYSE-PROT')
   @Form([
     Field(
@@ -16125,6 +16654,10 @@ class ReusablePrototype extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The standards a reusable prototype must meet to graduate into the product.
+  ///
+  /// Code that will survive is held to production expectations from the start; this
+  /// section records which ones apply.
   @SectionId('REUPRO-REUS')
   @Form([
     Field(
@@ -16261,6 +16794,10 @@ class TrainingPrototype extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How knowledge from the prototype is transferred to the delivery team.
+  ///
+  /// A prototype's findings are its output; without a transfer step they stay with
+  /// whoever built it.
   @SectionId('TP-TRAI')
   @Form([
     // Knowledge transfer
@@ -16382,6 +16919,10 @@ class ThrowawayPrototype extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The explicit disposal terms for a throwaway prototype.
+  ///
+  /// What may be cut, and — more importantly — what must be rebuilt rather than
+  /// carried forward, so the prototype cannot quietly become the product.
   @SectionId('THPR-THRO')
   @Form([
     Field(

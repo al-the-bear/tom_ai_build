@@ -856,9 +856,11 @@ section-types:
   access-acce:
     prefix: ACCESS_ACCE
     format: access-acce-form
+    description: "The accessibility commitment and its scope, before the specific conformance"
   acchls-chec:
     prefix: ACCHLS_CHEC
     format: acchls-chec-form
+    description: "How conformance is verified, as opposed to claimed."
   azlvl-leve:
     prefix: AZLVL_LEVE_
     subsection-types:
@@ -899,6 +901,7 @@ section-types:
   erhaco-erro:
     prefix: ERHACO_ERRO
     format: erhaco-erro-form
+    description: "The stance errors are written from, before the concrete categories below."
   fldhp-fiel:
     prefix: FLDHP_FIEL_
     pattern-check-id:
@@ -916,6 +919,7 @@ section-types:
   lacose-lang:
     prefix: LACOSE_LANG
     format: lacose-lang-form
+    description: How a user's language is chosen and changed.
   peren-item:
     prefix: PEREN_ITEM_
     subsection-types:
@@ -950,12 +954,15 @@ section-types:
   prfesu-feat:
     prefix: PRFESU_FEAT
     format: prfesu-feat-form
+    description: "Which features the prototype includes, and the criteria that chose them."
   protot-prot:
     prefix: PROTOT_PROT
     format: protot-prot-form
+    description: What the prototype is for and what it is not.
   prtyse-prot:
     prefix: PRTYSE_PROT
     format: prtyse-prot-form
+    description: "Whether the prototype is reusable or throwaway, and why."
   pscen-item:
     prefix: PSCEN_ITEM_
     pattern-check-id:
@@ -965,6 +972,7 @@ section-types:
   reupro-reus:
     prefix: REUPRO_REUS
     format: reupro-reus-form
+    description: The standards a reusable prototype must meet to graduate into the product.
   scrac-item:
     prefix: SCRAC_ITEM_
     subsection-types:
@@ -1052,6 +1060,7 @@ section-types:
   syerdi-syst:
     prefix: SYERDI_SYST
     format: syerdi-syst-form
+    description: How failures the user cannot correct are surfaced.
   turst-step:
     prefix: TURST_STEP_
     pattern-check-id:
@@ -1225,27 +1234,35 @@ section-types:
   uicom-acce:
     prefix: UICOM_ACCE
     format: uicom-acce-form
+    description: "The component's accessibility contract: roles, names, keyboard model."
   uicom-auth:
     prefix: UICOM_AUTH
     format: uicom-auth-form
+    description: How the component behaves when the user lacks the right to use it.
   uicom-data:
     prefix: UICOM_DATA
     format: uicom-data-form
+    description: "What the component reads and writes, and against which model element."
   uicom-iden:
     prefix: UICOM_IDEN
     format: uicom-iden-form
+    description: What this component is and where it is used.
   uicom-inte:
     prefix: UICOM_INTE
     format: uicom-inte-form
+    description: "How the component responds to input, across its states."
   uicom-reso:
     prefix: UICOM_RESO
     format: uicom-reso-form
+    description: "The assets the component needs — icons, images, fonts, media."
   uicom-resp:
     prefix: UICOM_RESP
     format: uicom-resp-form
+    description: How the component behaves across the declared breakpoints.
   uicom-visu:
     prefix: UICOM_VISU
     format: uicom-visu-form
+    description: The component's appearance in its default state.
   vafe-fiel:
     prefix: VAFE_FIEL_
     pattern-check-id:
@@ -1255,6 +1272,7 @@ section-types:
   cohe-cont:
     prefix: COHE_CONT
     format: cohe-cont-form
+    description: "Help delivered in place, at the moment of use."
   cve-vari:
     prefix: CVE_VARI_
     subsection-types:
@@ -1320,6 +1338,7 @@ section-types:
   onhe-onbo:
     prefix: ONHE_ONBO
     format: onhe-onbo-form
+    description: The guided first-run experience for a new user.
   pfe-feat:
     prefix: PFE_FEAT_
     pattern-check-id:
@@ -1348,9 +1367,11 @@ section-types:
   rebe-layo:
     prefix: REBE_LAYO
     format: rebe-layo-form
+    description: What actually changes at each breakpoint.
   rede-resp:
     prefix: REDE_RESP
     format: rede-resp-form
+    description: "The responsive strategy: which approach the product takes and why."
   rfe-filt:
     prefix: RFE_FILT_
     subsection-types:
@@ -1411,9 +1432,11 @@ section-types:
   suac-supp:
     prefix: SUAC_SUPP
     format: suac-supp-form
+    description: How a user reaches a human when the product's own help runs out.
   thpr-thro:
     prefix: THPR_THRO
     format: thpr-thro-form
+    description: The explicit disposal terms for a throwaway prototype.
   tie-tabs:
     prefix: TIE_TABS_
     subsection-types:
@@ -1426,12 +1449,15 @@ section-types:
   uico-comp:
     prefix: UICO_COMP
     format: uico-comp-form
+    description: "The library's scope and governance, before the individual components."
   usas-help:
     prefix: USAS_HELP
     format: usas-help-form
+    description: "The help model as a whole, before the delivery channels below."
   vafe-vali:
     prefix: VAFE_VALI
     format: vafe-vali-form
+    description: How field-level validation feedback reaches the user.
   vmt-mess:
     prefix: VMT_MESS_
     pattern-check-id:
@@ -1441,6 +1467,7 @@ section-types:
   wcco-wcag:
     prefix: WCCO_WCAG
     format: wcco-wcag-form
+    description: The conformance target and the evidence for it.
   be-brea:
     prefix: BE_BREA_
     subsection-types:
@@ -1497,12 +1524,15 @@ section-types:
   bc-brea:
     prefix: BC_BREA
     format: bc-brea-form
+    description: The breakpoint set the layout switches at.
   pg-goal:
     prefix: PG_GOAL
     format: pg-goal-form
+    description: The questions the prototype is built to answer.
   tp-trai:
     prefix: TP_TRAI
     format: tp-trai-form
+    description: How knowledge from the prototype is transferred to the delivery team.
   access:
     prefix: ACCESS
     subsection-types:

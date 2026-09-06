@@ -1064,6 +1064,18 @@ class ExternalServiceDependencyEntry extends DocSpecsSection {
   @SerializationOrder(3)
   DocSpecsSection? risk;
 
+  /// The in-house system that stops working when this external service does,
+  /// named by section id.
+  ///
+  /// An external service is usually consumed by more than one system; this
+  /// names the one whose exposure is the reason the dependency is being
+  /// recorded at all, so the lock-in, fallback and outage facts above have a
+  /// blast radius attached to them instead of floating free. Expect an entry
+  /// from the existing-systems inventory at the far end.
+  ///
+  /// "Primary" is a deliberate narrowing, not a completeness claim. The full
+  /// consumer set is a property of the systems and is stated there; repeating
+  /// it here would only give it a second place to be wrong.
   @SectionId('EXSDE-PRIM-REF')
   @Reference('Primary Dependent System')
   @SerializationOrder(4)
@@ -1537,11 +1549,26 @@ class SystemDependencyEntry extends DocSpecsSection {
   @SerializationOrder(4)
   DocSpecsSection? operations;
 
+  /// The depending end — the system that stops working if the dependency
+  /// fails — named by section id.
+  ///
+  /// Direction is what this pair carries, and nothing else on the entry does.
+  /// A dependency is not symmetric: the availability requirement, the SLA and
+  /// the fallback procedure above are all obligations owed *to* this end *by*
+  /// [targetSystem], so reading the pair backwards inverts every one of them.
   @SectionId('SYDE-SOUR-REF')
   @Reference('Source System')
   @SerializationOrder(5)
   ExistingSystemEntry? sourceSystem;
 
+  /// The depended-upon end — the system that owes the availability and the SLA
+  /// — named by section id.
+  ///
+  /// Paired with [sourceSystem]; the two together *are* the direction of the
+  /// dependency, so neither means anything alone. Both point into the
+  /// existing-systems inventory of this document: a reliance on something
+  /// outside the current estate is an external-service dependency and is
+  /// recorded as one.
   @SectionId('SYDE-TARG-REF')
   @Reference('Target System')
   @SerializationOrder(6)
@@ -1787,11 +1814,23 @@ class SystemIntegrationEntry extends DocSpecsSection {
   @SerializationOrder(6)
   DocSpecsSection? ownership;
 
+  /// The system data flows out of, named by section id.
+  ///
+  /// For an integration the pair is the direction of *data*, not of dependency.
+  /// The source is where a record originates and is therefore where it is
+  /// authoritative — which is what a reader needs in order to decide which
+  /// side a discrepancy between the two copies is resolved against.
   @SectionId('SYIN-SOUR-REF')
   @Reference('Source System')
   @SerializationOrder(7)
   ExistingSystemEntry? sourceSystem;
 
+  /// The system data flows into, named by section id.
+  ///
+  /// The consuming end, holding the derived copy. Paired with [sourceSystem];
+  /// the protocol, format, throughput and error-handling facts above all
+  /// describe the movement between exactly these two systems and are not
+  /// properties of either one on its own.
   @SectionId('SYIN-TARG-REF')
   @Reference('Target System')
   @SerializationOrder(8)
@@ -2632,6 +2671,16 @@ class WorkflowStepSystem extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// Which system the step uses.
+  ///
+  /// Held as stored content rather than a `@Reference`, so it names the system
+  /// the way the people doing the work name it — including systems the
+  /// existing-systems inventory never profiled. Nothing resolves it, so a
+  /// reader reconciling it against that inventory is doing so by hand and
+  /// should expect near-misses: shadow IT, departmental spreadsheets, and
+  /// retired product names still in daily use.
+  ///
+  /// What the step *does* with the system is the entry's own content, not this.
   @SectionId('WOSTSY-NAME')
   @ContentHelp('Name of the system used in this workflow step.')
   @SerializationOrder(1)
@@ -3293,6 +3342,18 @@ class ProcessMetricEntry extends DocSpecsSection {
   @SerializationOrder(2)
   DocSpecsSection? targets;
 
+  /// The current business process this metric measures, named by section id.
+  ///
+  /// A metric only means something against the thing it is a metric *of*: the
+  /// same "average handling time" is a different number for two processes, and
+  /// comparing them across processes is the mistake this link exists to
+  /// prevent. Expect a [CurrentBusinessProcess] at the far end — a figure about
+  /// the estate as a whole is not a process metric and belongs with the
+  /// landscape assessment.
+  ///
+  /// It is also what makes the current value usable as a baseline: a target set
+  /// in the future state is only comparable to it if both are anchored to the
+  /// same process.
   @SectionId('PME-PROC-REF')
   @Reference('Process Reference')
   @SerializationOrder(3)

@@ -22,12 +22,15 @@ section-types:
   doantr-docu:
     prefix: DOANTR_DOCU
     format: doantr-docu-form
+    description: "Which user-facing documentation is translated, and to what standard."
   trmat-trai:
     prefix: TRMAT_TRAI
     format: trmat-trai-form
+    description: The training materials that accompany a localized release.
   lopr-loca:
     prefix: LOPR_LOCA
     format: lopr-loca-form
+    description: How locale-specific adaptation is carried out beyond translation.
   tme-trai:
     prefix: TME_TRAI_
     pattern-check-id:
@@ -37,6 +40,7 @@ section-types:
   trpr-tran:
     prefix: TRPR_TRAN
     format: trpr-tran-form
+    description: "How translated text is produced, reviewed and shipped."
   tve-vend:
     prefix: TVE_VEND_
     pattern-check-id:

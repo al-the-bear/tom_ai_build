@@ -38,6 +38,14 @@ class SystemQualityGoals extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The project's quality stance: the philosophy it works to, the standards it
+  /// claims to meet, and the single role accountable for the outcome.
+  ///
+  /// Distinct from [governance], which follows it and holds the *machinery* —
+  /// review board, meeting cadence, escalation path. This band is the position;
+  /// that one is how the position is held week to week. The accountable role is
+  /// what makes the rest actionable: a quality goal with no named owner is
+  /// reported on and never decided.
   @SectionId('SYQG-GOVE')
   @Form([
     Field(
@@ -341,6 +349,16 @@ class QualityFramework extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Framework Configuration
   // ─────────────────────────────────────────────────────────────────────────
+  /// Which published quality model this chapter's structure comes from, at
+  /// which version, and where the project departs from it.
+  ///
+  /// The band that makes the rest of the chapter legible. Everything below is
+  /// organised by the eight product-quality characteristics of ISO/IEC
+  /// 25010:2023, and a reader who knows that reads the sibling sections as a
+  /// checklist rather than as an arbitrary list. The adaptations field carries
+  /// the weight: a project that drops, merges or renames a characteristic has
+  /// to say so here, because a missing section is otherwise indistinguishable
+  /// from an oversight.
   @SectionId('QLFWK-FRAM')
   @Form([
     // Framework selection
@@ -713,6 +731,16 @@ class FunctionalSuitabilityCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Functional Suitability Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// The bar for "the right functions, working correctly" — the coverage target
+  /// and the correctness threshold.
+  ///
+  /// Functional suitability is the ISO/IEC 25010:2023 characteristic concerned
+  /// with *what* the product does, and it is the only one in this chapter whose
+  /// target can be read off the requirements themselves: coverage is measured
+  /// against the specified function set, correctness against the specified
+  /// results. Every other characteristic here constrains how well those same
+  /// functions behave, which is why they carry targets of their own and this
+  /// one carries a coverage figure.
   @SectionId('FNSU-FUNC')
   @Form([
     Field(
@@ -786,6 +814,18 @@ class InteractionCapabilityCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Interaction Capability Overview (migrated from the former user bucket)
   // ─────────────────────────────────────────────────────────────────────────
+  /// The user population whose experience sets the bar, and the level of
+  /// experience aimed at.
+  ///
+  /// Interaction capability is the ISO/IEC 25010:2023 successor to usability:
+  /// how well specified users can exchange information with the product to
+  /// complete their tasks. It differs from functional suitability in that a
+  /// product can offer every required function and still fail here, and from
+  /// performance efficiency in that the measure is ultimately a person's
+  /// judgement — which is why the band asks for the research basis and the
+  /// feedback channel alongside the target, rather than a number on its own.
+  /// Accessibility conformance belongs here because it is a floor on the same
+  /// axis, not a separate quality.
   @SectionId('INCP-INTE')
   @Form([
     Field(
@@ -1269,6 +1309,16 @@ class PerformanceEfficiencyCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Performance Efficiency Overview (migrated from the former technical bucket)
   // ─────────────────────────────────────────────────────────────────────────
+  /// The engineering stance the performance and structural targets are set
+  /// against.
+  ///
+  /// Performance efficiency in ISO/IEC 25010:2023 is behaviour *relative to the
+  /// resources used*, so a figure stated here means nothing without the load
+  /// profile the section narrative supplies. The band also carries the
+  /// code-quality and design-principle commitments inherited from the former
+  /// technical-quality grouping; they sit with performance rather than under
+  /// maintainability because they are stated once for the build as a whole,
+  /// whereas maintainability states what modifying that build must cost.
   @SectionId('PEEF-PERF')
   @Form([
     Field(
@@ -1348,6 +1398,15 @@ class CompatibilityCharacteristic extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// What the system must co-exist with, and what it must interoperate with.
+  ///
+  /// Compatibility in ISO/IEC 25010:2023 covers two distinct obligations, and
+  /// the band keeps them in separate fields on purpose. *Co-existence* is
+  /// sharing an environment and its resources without degrading a neighbour,
+  /// and is met by staying inside a resource budget. *Interoperability* is
+  /// exchanging information with another product and using what comes back, and
+  /// is met by conforming to a named protocol or format — which is why that
+  /// field asks for standards while the other asks for requirements.
   @SectionId('CMPT-COMP')
   @Form([
     Field(
@@ -1402,6 +1461,17 @@ class FlexibilityCharacteristic extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The changes the system must absorb without redesign, and the environments
+  /// it must run in.
+  ///
+  /// Flexibility in ISO/IEC 25010:2023 absorbs the former portability
+  /// characteristic, so this one band covers adaptability, scalability,
+  /// installability and replaceability together. It is about change to the
+  /// system's *context* — more load, a new platform, a different deployment —
+  /// where maintainability is about change to the *product* by someone
+  /// modifying it. A system can be highly flexible and hard to maintain, or the
+  /// reverse, and keeping the two targets apart is what stops either being
+  /// offered as evidence for the other.
   @SectionId('FLXC-FLEX')
   @Form([
     Field(
@@ -1466,6 +1536,17 @@ class SecurityCharacteristic extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The security posture the system is built to, and the compliance regime
+  /// that audits it.
+  ///
+  /// Security in ISO/IEC 25010:2023 is the degree to which data is reachable
+  /// only by those whose authorization matches. The approach field states the
+  /// model — least privilege, defence in depth, zero trust — because controls
+  /// chosen without one are a list rather than a design. The compliance target
+  /// names the external regime, which fixes the *evidence* that must exist as
+  /// well as the controls themselves. The operational side of security —
+  /// monitoring, incident response, patching — is a sibling subsection, not
+  /// this band.
   @SectionId('SECC-SECU')
   @Form([
     Field(
@@ -1529,6 +1610,17 @@ class MaintainabilityCharacteristic extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// What modification must cost, and the structural thresholds that keep it
+  /// there.
+  ///
+  /// Maintainability in ISO/IEC 25010:2023 is the effectiveness and efficiency
+  /// with which the product can be modified — corrected, improved, extended or
+  /// adapted. Its targets are unusual in this chapter in being measured on the
+  /// *source* rather than on the running system: complexity limits and test
+  /// coverage are the standard field's currency. That is also why it is stated
+  /// alongside who will maintain the system and over what horizon — a threshold
+  /// that is right for a team of thirty over ten years is wrong for a
+  /// prototype.
   @SectionId('MNTC-MAIN')
   @Form([
     Field(
@@ -2421,6 +2513,16 @@ class ReliabilityCharacteristic extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Reliability Overview (migrated from the former operations bucket)
   // ─────────────────────────────────────────────────────────────────────────
+  /// How the system will be run: the operating model, the responsible party,
+  /// and the processes an incident or a change passes through.
+  ///
+  /// Reliability in ISO/IEC 25010:2023 is the degree to which the system
+  /// performs its functions under stated conditions for a stated period — but
+  /// the number that expresses it is produced by an *operation*, not by the
+  /// code. This band therefore carries the operational model that the
+  /// availability, service-level and monitoring subsections below are only
+  /// meaningful against: an uptime target with no named incident process and no
+  /// responsible party is a wish, not a commitment.
   @SectionId('RELC-RELI')
   @Form([
     Field(
@@ -3267,6 +3369,16 @@ class DocumentationQualityCriteria extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Documentation Quality Overview
   // ─────────────────────────────────────────────────────────────────────────
+  /// How documentation is produced and kept current — strategy, ownership,
+  /// platform, review and cadence.
+  ///
+  /// Documentation quality is not one of the eight ISO/IEC 25010:2023 product
+  /// characteristics; it is carried in this chapter because a delivered system
+  /// whose documentation is wrong fails acceptance for reasons no product
+  /// metric catches. The band asks about *process* rather than about documents
+  /// on purpose: ownership and update cadence are what decide whether the
+  /// readability, completeness and correctness targets below are met once at
+  /// handover or continuously afterwards.
   @SectionId('DOQUCR-DOCU')
   @Form([
     Field(
@@ -3842,6 +3954,16 @@ class QualityPrioritization extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Prioritization Framework
   // ─────────────────────────────────────────────────────────────────────────
+  /// How quality attributes are ranked against one another, by whom, and how
+  /// often.
+  ///
+  /// Ranking is needed because the ISO/IEC 25010:2023 characteristics compete
+  /// for one budget — each can be improved at another's expense. This band
+  /// fixes the *procedure* before any answers, which is the point: a ranking
+  /// produced by a stated method with named participants can be re-run when
+  /// circumstances change, while one that simply appeared can only be argued
+  /// over. The conflict-resolution authority is what makes the procedure
+  /// terminate.
   @SectionId('QUPR-PRIO')
   @Form([
     Field(
@@ -3918,6 +4040,16 @@ class WeightedQualityMatrix extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The mechanics of the weighting: the scale, whether weights must sum, and
+  /// how a weight is changed.
+  ///
+  /// Weights are only comparable within a stated scheme — a 4 on a 1–5 scale
+  /// and a 4 on a 1–10 scale are different claims, and weights required to sum
+  /// to 100 force a trade-off that free weights let an author avoid. Fixing
+  /// that here rather than in the individual entries is what lets the entry
+  /// list be read as one ranking. The update process matters for the same
+  /// reason: in a summing scheme, re-weighting one attribute silently
+  /// re-weights every other.
   @SectionId('WEQUMA-MATR')
   @Form([
     Field(
@@ -4043,6 +4175,15 @@ class TradeOffDecisions extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// Who may decide a quality trade-off, how it is recorded, and how it is
+  /// undone.
+  ///
+  /// A trade-off accepts a worse outcome on one ISO/IEC 25010:2023
+  /// characteristic in order to gain another, so it is a decision with a losing
+  /// side that somebody must be entitled to accept on the project's behalf. The
+  /// reversal field is the one most often left empty and the one that matters
+  /// longest: trade-offs are made under constraints that expire, and with no
+  /// stated path back the accepted cost quietly becomes permanent.
   @SectionId('TROFDE-TRAD')
   @Form([
     Field(
@@ -4338,6 +4479,16 @@ class AcceptanceCriteriaSummary extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Acceptance Framework
   // ─────────────────────────────────────────────────────────────────────────
+  /// The shape of acceptance: who signs, over what scope, in which environment,
+  /// and on what basis it can be refused.
+  ///
+  /// The band that makes acceptance a decidable event rather than an opinion.
+  /// Two fields carry most of the weight — the partial-acceptance policy, which
+  /// settles in advance whether a known defect blocks sign-off, and the
+  /// rejection criteria, which are unusable unless stated before the review
+  /// starts. This governs the business-acceptance gate of the creation process
+  /// (`tom_specs_project_flow.md` §PF-GAT-G7); the must-pass and checklist
+  /// subsections below supply the criteria that gate is run against.
   @SectionId('ACCRSU-ACCE')
   @Form([
     Field(
@@ -4435,6 +4586,15 @@ class MustPassCriteria extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// What qualifies a criterion as must-pass, how many there are, and whether
+  /// one can be waived.
+  ///
+  /// A must-pass criterion is one whose failure stops delivery, so the band's
+  /// real subject is where that boundary falls. Without a stated criticality
+  /// definition every stakeholder's own criterion is critical, and the set
+  /// grows until failing it no longer stops anything. The waiver fields are the
+  /// pressure valve that keeps the boundary honest, and naming the waiver
+  /// authority is what keeps a waiver a decision rather than an omission.
   @SectionId('MUPACR-MUST')
   @Form([
     Field(
@@ -4694,6 +4854,15 @@ class QualityGateChecklist extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// What the checklist is used for, how completely it must be worked, and who
+  /// signs it off.
+  ///
+  /// A quality gate is a checkpoint work does not pass until its checks are
+  /// answered (`tom_specs_project_flow.md` §PF-GAT-MOD), and this band states
+  /// the terms of that check: at which milestone it runs, whether every item is
+  /// required or only the critical ones, whether the review is one person, a
+  /// committee or a tool, and how many signatures close it. The completeness
+  /// requirement is what separates a gate from a suggestion.
   @SectionId('QUGACH-CHEC')
   @Form([
     Field(

@@ -89,7 +89,7 @@ class DeliveryTransitionAndRollout extends DocSpecsSection {
 ///
 /// Bundles the localization and translation *workflow* concerns re-homed from
 /// the former `MultiLanguageSupport` cluster (their requirement counterparts
-/// live in SBP.9 [LocalizationTranslationRequirements]).
+/// live in SBP.9 `LocalizationTranslationRequirements`).
 @StandardReferences(
   ['ISO/IEC/IEEE 29148:2018 — transition requirements'],
   'The execution-side localization and translation workflows that put the '

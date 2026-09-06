@@ -6,7 +6,7 @@
 /// committed `spec_model.meta.json` via [buildSomMetaTree], which is the exact
 /// input the other eight runtimes read.
 ///
-/// A [SomMetaNode] belongs to **one** [SomMetaTree] — wiring it into a second
+/// A `SomMetaNode` belongs to **one** `SomMetaTree` — wiring it into a second
 /// throws — so [treeFor] builds a fresh tree on every call and only the parsed
 /// [SpecModel] is cached.
 library;

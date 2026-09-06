@@ -26,26 +26,99 @@ import '../document_stubs.dart';
 /// of value a user supplies, while the design names the concrete control.
 enum ScreenFieldKind {
   // Text facet.
+  /// A single-line free-text value.
+  ///
+  /// Binds the text constraints case (`SCFIVT`): length bounds plus a match
+  /// pattern. Any narrower grammar is stated as that pattern, so the kind
+  /// itself stays a statement about shape rather than about validation.
   text,
+  /// Free text the author expects to run to several lines.
+  ///
+  /// Carries the same constraints as [text]; what it records that [text] does
+  /// not is how much room the value needs, which the D09 design pass turns
+  /// into a concrete control.
   multilineText,
+  /// A text value that must be a routable e-mail address.
+  ///
+  /// The address grammar is stated as the text case's pattern rather than
+  /// implied by the kind, so a requirement that accepts only corporate
+  /// addresses can say so.
   email,
+  /// A text value that must be a dialable telephone number.
+  ///
+  /// Format and length live in the text case's pattern: no single grammar is
+  /// correct across locales, so the kind does not pretend to fix one.
   phone,
+  /// A text value that must be a resolvable URL.
+  ///
+  /// The accepted schemes belong in the text case's pattern — a requirement
+  /// that refuses anything but `https` says so there.
   url,
+  /// A secret text value.
+  ///
+  /// The kind is what tells the design pass to mask the input and keep it out
+  /// of logs; composition rules ride on the text case. How the value is stored
+  /// or hashed is the security model's decision, not this field's.
   password,
   // Numeric facet.
+  /// A whole number.
+  ///
+  /// Binds the numeric constraints case (`SCFIVN`): the permitted value range.
   integer,
+  /// A fractional number.
+  ///
+  /// Shares the numeric case with [integer]. The precision the value must keep
+  /// is a constraint on it, not a kind of its own.
   decimal,
+  /// A monetary amount.
+  ///
+  /// Shares the numeric case but is a distinct kind, because an amount is
+  /// incomplete without the currency it is denominated in and is not rounded
+  /// the way a plain [decimal] is.
   currency,
   // Temporal facet.
+  /// A calendar date with no time of day.
+  ///
+  /// Binds the temporal constraints case (`SCFIVD`), whose bounds are dates or
+  /// relative expressions rather than numbers.
   date,
+  /// An instant — a date together with a time of day.
+  ///
+  /// Kept apart from [date] because it is only unambiguous with a time zone,
+  /// which a date neither has nor needs.
   dateTime,
+  /// A time of day with no date.
+  ///
+  /// For recurring wall-clock values — an opening hour, a cut-off — where
+  /// pinning the value to one day would be wrong.
   time,
   // Choice facet.
+  /// A choice of exactly one option from a stated set.
+  ///
+  /// Binds the choice options case (`SCFICH`), which says where the option set
+  /// comes from — static values, an API, or an entity.
   singleSelect,
+  /// A choice of any number of options from a stated set.
+  ///
+  /// Shares the choice case with [singleSelect]; what differs is the
+  /// cardinality of the answer, which is what the design pass needs in order to
+  /// pick a control and what storage needs in order to shape the column.
   multiSelect,
   // Upload facet.
+  /// An uploaded file.
+  ///
+  /// Binds the file constraints case (`SCFIFI`) — what content kinds are
+  /// accepted and how large a file may be. Where the bytes end up is neither
+  /// this kind's business nor the design pass's: it is authored on the CE-DB
+  /// file-reference column (`codespecs_mapping.md` §5.13.1).
   file,
   // No per-kind attributes.
+  /// A truth value.
+  ///
+  /// The one kind that binds no case — it is the `noCase` arm of the group.
+  /// Once the question has been asked there is nothing left about a yes/no
+  /// answer to constrain, so an empty case subsection would be the only
+  /// honest one.
   boolean,
 }
 
@@ -91,10 +164,18 @@ a quick understanding without reading the full specification.
   @SerializationOrder(3)
   SystemDescription systemDescription = SystemDescription();
 
-  /// 4.2. Goals.
   // YRD4: field-level `@Headline` — the default heading title for this
   // section; it wins over the target class's class-level `@Headline`, and a
   // stored headline in a document wins over both.
+  /// 4.2. Goals — the outcomes the project is answerable for.
+  ///
+  /// The measurable objectives that decide whether the project succeeded, held
+  /// apart from [systemDescription], which says what the system *is*, and from
+  /// [requirements], which say what it must *do*. A goal is an outcome the
+  /// organization wants; a requirement is a capability that serves one. The
+  /// separation is what lets a requirement cite the goal it exists for, and it
+  /// is what makes an orphan requirement — scope with no outcome behind it —
+  /// visible instead of merely present.
   @Headline('Project Goals')
   @SerializationOrder(4)
   Goals goals = Goals();
@@ -731,7 +812,7 @@ class OpportunityStatement extends DocSpecsSection {
 /// A scope-framing *benefits lens* over the stakeholder landscape: who benefits
 /// from the system and what they gain. The canonical stakeholder register —
 /// with role, interest, influence, concerns and engagement strategy — lives in
-/// SBP.4 ([StakeholderRegisterEntry] list); those attributes are recorded there
+/// SBP.4 (`StakeholderRegisterEntry` list); those attributes are recorded there
 /// once and are not restated here (L34C-6 / SR-15).
 @StandardReferences(
   [
@@ -793,7 +874,7 @@ class StakeholdersAndBeneficiaries extends DocSpecsSection {
 ///
 /// Keeps only the scope-framing identity + benefit. Role, interest, influence,
 /// concerns and engagement strategy are owned by the canonical SBP.4
-/// [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
+/// `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
 @StandardReferences(
   ['BABOK v3 §10.43 — stakeholder list/map/personas'],
   'A single stakeholder or beneficiary, identified by name/type and the '
@@ -5143,6 +5224,20 @@ class SystemTaskEntry extends DocSpecsSection {
   @SerializationOrder(3)
   DocSpecsSection? context;
 
+  /// The use case this task appears in, named by section id.
+  ///
+  /// A task is written from the user's side — what a person sets out to do —
+  /// while a use case is written from the system's side, as an interaction
+  /// with actors, flows and an outcome. The link asserts that the two describe
+  /// the same piece of work seen from opposite ends, so a reader who follows
+  /// it should find the same actor and the same outcome restated in
+  /// interaction terms, not a wider or narrower slice of scope.
+  ///
+  /// A `@Reference` stores a section id and nothing else, and is never
+  /// followed in traversal (`tom_specs_model_rules.md` §9.2) — the use case is
+  /// not owned here and its text is never copied here. An empty link is itself
+  /// a finding: a task no use case accounts for is either out of scope or a
+  /// use case that was never written.
   @SectionId('SYTS-RELA-REF')
   @Reference('Related Use Case')
   @SerializationOrder(4)
@@ -5731,12 +5826,29 @@ class JourneyStageEntry extends DocSpecsSection {
 // 4.2 Goals
 // ---------------------------------------------------------------------------
 
-/// 4.2. Goals.
+// YRD4: class-level `@Headline` — used when a referencing field carries no
+// field-level `@Headline` (here the `goals` field does, so the field's
+// 'Project Goals' wins; this one documents the precedence).
+/// 4.2. Goals — the outcomes the project is answerable for, in three bands.
 ///
-/// Container for project goals organized by category. Goals provide measurable
-/// objectives that guide project execution and define success. This section
-/// supports OKR (Objectives and Key Results) methodology while also
-/// accommodating traditional goal structures.
+/// The goal set is split rather than held as one list, and the split is the
+/// substance of the section. [businessGoals] state outcomes the organization
+/// wants and that can only be judged in business terms — revenue moved, cost
+/// removed, an obligation discharged. [technicalGoals] state properties of the
+/// built system that no business reading would notice until they are missing.
+/// [successCriteria] state the thresholds at which either is agreed to have
+/// been reached, so that "improved" is never the whole claim.
+///
+/// A goal is not a requirement. A requirement ([RequirementsOverview]) is a
+/// capability the system must have; a goal is the reason a capability is worth
+/// having, and it outlives any particular way of reaching it. That is why
+/// goals are stated before the requirements they justify: a requirement with
+/// no goal behind it is scope nobody asked for, and a goal with no requirement
+/// under it is an intention nothing implements.
+///
+/// The structure carries OKR-style objectives and key results without
+/// mandating them — a key result is recorded as a success criterion — so a
+/// team that does not run OKRs loses nothing by using this section.
 @StandardReferences(
   [
     'ISO/IEC/IEEE 29148 §6 — system purpose & goals',
@@ -5750,9 +5862,6 @@ class JourneyStageEntry extends DocSpecsSection {
   'Organize goals by category (business, technical) and ensure each goal '
   'has specific success metrics and target dates.',
 )
-// YRD4: class-level `@Headline` — used when a referencing field carries no
-// field-level `@Headline` (here the `goals` field does, so the field's
-// 'Project Goals' wins; this one documents the precedence).
 @Headline('Goals & Objectives')
 @SectionId('GOALS')
 class Goals extends DocSpecsSection {
@@ -5794,11 +5903,21 @@ class Goals extends DocSpecsSection {
 // 4.2.1 Business Goals
 // ---------------------------------------------------------------------------
 
-/// 4.2.1. Business Goals.
+// YRD4: class-level `@Headline` with no competing field-level one — the
+// referencing `businessGoals` field renders this default title.
+/// 4.2.1. Business Goals — the outcomes that justify the spend.
 ///
-/// Container for business goal definitions. Business goals define what the
-/// organization wants to achieve through this project in terms of business
-/// outcomes, value delivery, and strategic advancement.
+/// The half of the goal set whose achievement is visible to someone who never
+/// sees the system: revenue moved, cost removed, a compliance obligation
+/// discharged, a market position held. It is separated from [TechnicalGoals]
+/// because the two are judged by different people against different evidence,
+/// and because a technical goal is always a means — holding both in one list
+/// invites a project to report a platform migration as a business outcome.
+///
+/// Each entry is a [BusinessGoalEntry] carrying its own owner and metrics.
+/// Ownership sits on the entry rather than on this section because a goal
+/// without a named owner is not a goal: there is nobody to ask whether it was
+/// met.
 @StandardReferences(
   [
     'BABOK v3 §6.1 — business goals & objectives',
@@ -5812,8 +5931,6 @@ class Goals extends DocSpecsSection {
   'relevant, and time-bound (SMART). Each goal should have clear ownership '
   'and success metrics.',
 )
-// YRD4: class-level `@Headline` with no competing field-level one — the
-// referencing `businessGoals` field renders this default title.
 @Headline('Business Goals & Value')
 @SectionId('BG')
 class BusinessGoals extends DocSpecsSection {
@@ -6344,6 +6461,18 @@ class GoalDependencyEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The goal whose achievement this dependency blocks, named by section id.
+  ///
+  /// A dependency entry is written from the dependency's side — what is
+  /// needed, who controls it, when it is expected, what happens if it does not
+  /// arrive — and this is the only thing on the entry that says what is at
+  /// risk. Expect a goal of this document at the far end; a dependency that
+  /// would have to name several goals is really several dependencies, because
+  /// each of those goals has a different exposure to it.
+  ///
+  /// The reference stores a section id and is not traversed
+  /// (`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and
+  /// metrics stay in one place and cannot drift into a second.
   @SectionId('GOLDE-RELA-REF')
   @Reference('Related Goal')
   @SerializationOrder(1)
@@ -8766,6 +8895,18 @@ class DataEntityReferenceEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The data-model entity these operations act on, named by section id.
+  ///
+  /// This entry describes *how a requirement touches* an entity — which CRUD
+  /// operations, which attributes, at what volume, under which quality rules —
+  /// and deliberately does not restate what the entity is. The link is what
+  /// makes that omission safe: the reader follows it to the information model
+  /// for the entity's fields, keys and relationships, stated once. Without it
+  /// the row names a string no schema is obliged to match.
+  ///
+  /// It is also the edge the CE-DB data-access derivation reads
+  /// (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
+  /// requirement whose data access cannot be generated.
   @SectionId('DAENRE-RELA-REF')
   @Reference('Related Data Model Entity')
   @SerializationOrder(1)
@@ -9717,6 +9858,19 @@ class RequirementDependencyEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The other requirement in this dependency, named by section id.
+  ///
+  /// The row states the *kind* of relation — prerequisite, bidirectional,
+  /// parent-child, conflict, refinement — and this names its far end; the
+  /// requirement that owns the entry is always the near end, so neither half
+  /// is readable alone. Expect another requirement of this document there. A
+  /// dependency on something that is not itself a requirement is a constraint
+  /// and belongs with the assumptions and constraints instead.
+  ///
+  /// The reference stores a section id and is never followed in traversal
+  /// (`tom_specs_model_rules.md` §9.2), which is what allows a requirement
+  /// graph containing cycles — a conflict pair is one — without making the
+  /// document unwalkable.
   @SectionId('RQDEP-RELA-REF')
   @Reference('Related Requirement')
   @SerializationOrder(1)
@@ -10003,6 +10157,18 @@ class RequirementTestCaseEntry extends DocSpecsSection {
   @SerializationOrder(2)
   DocSpecsSection? automation;
 
+  /// The acceptance criterion this test case verifies, named by section id.
+  ///
+  /// This is the link that turns a test case from a suggestion into evidence.
+  /// The criterion states the condition under which the requirement is agreed
+  /// to be met; the test states how that condition is demonstrated. Expect one
+  /// criterion at the far end — a test that would have to name several is
+  /// verifying more than one thing and reads better as several tests, each of
+  /// which can fail for its own reason.
+  ///
+  /// It is also the coverage measure in the other direction: a criterion that
+  /// no test case points at is an acceptance condition nobody has undertaken
+  /// to check, and that is only visible when this link is filled in.
   @SectionId('RQTSC-RELA-REF')
   @Reference('Related Acceptance Criterion')
   @SerializationOrder(3)
@@ -11486,6 +11652,16 @@ class SystemToReplaceEntry extends DocSpecsSection {
   // System Identification
   // -------------------------------------------------------------------------
 
+  /// Which legacy system this entry is about.
+  ///
+  /// The identity band, held apart from the assessment bands that follow
+  /// ([profile], [vendor] and the technical, business, data and migration
+  /// facets) because identity is the one part of the entry that is not a
+  /// judgement. It is the name and id the organisation already uses, owned
+  /// outside this document, and it is what a reader reconciling against an
+  /// existing application inventory matches on. Everything else on the entry
+  /// is this document's opinion about that system, and may be revised without
+  /// the system becoming a different system.
   @SectionId('SYTORE-IDEN')
   @Form([
     Field(
@@ -13178,6 +13354,20 @@ class MigrationConsiderations extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The portfolio-wide cutover approach — the decisions that bound every
+  /// individual system's migration.
+  ///
+  /// These are the choices no single system can make without contradicting its
+  /// neighbours: the cutover pattern, the order systems move in, how their
+  /// interdependencies are honoured, and when migration work is permitted to
+  /// run at all. They sit here rather than on each system's own entry so that
+  /// a reader checking one system's plan can see the programme-level
+  /// constraint it has to fit inside, and so that changing the sequencing is
+  /// one edit rather than one per system.
+  ///
+  /// [strategyNarrative] carries the reasoning behind these answers; this band
+  /// carries the answers themselves, so a change of approach is a change here
+  /// and not a rewrite of prose.
   @SectionId('MIGCON-STRA')
   @Form([
     Field(
@@ -13449,6 +13639,18 @@ class MigrationRisks extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// Who owns migration risk, and how often it is looked at.
+  ///
+  /// The standing machinery of risk management — the governance model, the
+  /// risk committee's mandate, the review cadence — as distinct from
+  /// [governance], which is the decision surface that machinery uses:
+  /// escalation path, tolerance, and who may accept a risk. The split is
+  /// worth having because the cadence is set once for the programme while the
+  /// tolerance is argued about per risk.
+  ///
+  /// A programme that leaves this empty has risks recorded with nobody
+  /// scheduled to read them, which is the failure this band exists to make
+  /// visible.
   @SectionId('MIRI-GOVE')
   @Form([
     Field(
@@ -14615,6 +14817,21 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   // Interface Identification
   // -------------------------------------------------------------------------
 
+  /// Which external system this interface reaches, and what kind of
+  /// integration it is.
+  ///
+  /// The identity band of an interface: the party on the far side, who
+  /// provides it, the functional category it falls in, and the integration
+  /// pattern that governs how the two ends exchange control. It is kept apart
+  /// from [technicalSpec] because the pattern is an architectural commitment —
+  /// request-reply and pub-sub imply different failure modes and different
+  /// operational obligations — while the technical band records how that
+  /// commitment is realised, which can change without the interface becoming a
+  /// different interface.
+  ///
+  /// It is also the band that fixes the CE-SU service-unit boundary this entry
+  /// maps to (`codespecs_mapping.md` §5.1): one external system, one cohesive
+  /// grouping of operations.
   @SectionId('EIE-IDEN')
   @Form([
     Field(
@@ -16495,6 +16712,16 @@ class OrganizationalEnvironment extends DocSpecsSection {
   // -------------------------------------------------------------------------
   // Organizational Overview
   // -------------------------------------------------------------------------
+  /// Who the organization is — the facts that set the scale everything else in
+  /// this section is read against.
+  ///
+  /// Size, sector, geographic reach and revenue band are not background
+  /// colour: they are what make a later statement about governance, decision
+  /// latency or change capacity interpretable at all. A weekly steering
+  /// committee means one thing in a forty-person company and another in a
+  /// global one. The band leads the section, and is separate from the maturity
+  /// band that follows it, because these are externally verifiable facts while
+  /// maturity is an assessment this document is making.
   @SectionId('OREN-ORGA')
   @Form([
     Field(
@@ -17308,6 +17535,20 @@ class TechnicalEnvironment extends DocSpecsSection {
   // -------------------------------------------------------------------------
   // Technical Landscape Overview
   // -------------------------------------------------------------------------
+  /// Where the organization stands technically today, before anything is said
+  /// about what the solution may use.
+  ///
+  /// The starting position — architectural maturity, and the cloud posture the
+  /// organization has already committed to — as distinct from [governance],
+  /// which says who decides technology questions, and from the platform
+  /// standards band, which says what is already mandated. The order is
+  /// deliberate: a mandated framework read without knowing whether the
+  /// organization is cloud-first or on-premises is a rule with its rationale
+  /// stripped off.
+  ///
+  /// These are observations about the estate as found. Whatever the solution is
+  /// obliged to do about them becomes a constraint in the architecture and
+  /// technology specification this section seeds.
   @SectionId('TEEN-TECH')
   @Form([
     Field(

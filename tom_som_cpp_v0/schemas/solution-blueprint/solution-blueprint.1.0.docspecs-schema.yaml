@@ -61,6 +61,7 @@ section-types:
     description: Add one entry per business rule reference.
   birure-rule-ref:
     prefix: BIRURE_RULE_REF
+    description: The resolved link to the business rule this entry cites.
   boinpa-boun-lst:
     prefix: BOINPA_BOUN_LST
     subsection-types:
@@ -224,6 +225,7 @@ section-types:
     description: "Add one entry per data entity this requirement reads, creates, updates, or deletes."
   daenre-rela-ref:
     prefix: DAENRE_RELA_REF
+    description: "The data-model entity these operations act on, named by section id."
   daowen-owne-lst:
     prefix: DAOWEN_OWNE_LST
     subsection-types:
@@ -1732,8 +1734,10 @@ section-types:
     description: Add one entry per entity relationship.
   enrle-sour-ref:
     prefix: ENRLE_SOUR_REF
+    description: The resolved link to the entity at the source end.
   enrle-targ-ref:
     prefix: ENRLE_TARG_REF
+    description: The resolved link to the entity at the target end.
   enven-item-lst:
     prefix: ENVEN_ITEM_LST
     subsection-types:
@@ -1810,7 +1814,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: "The in-house system that stops working when this external service does,"
   exten-exte-lst:
     prefix: EXTEN_EXTE_LST
     subsection-types:
@@ -1885,6 +1889,7 @@ section-types:
     description: "Add one entry per dependency, including its type and impact."
   golde-rela-ref:
     prefix: GOLDE_RELA_REF
+    description: "The goal whose achievement this dependency blocks, named by section id."
   golms-item-lst:
     prefix: GOLMS_ITEM_LST
     subsection-types:
@@ -1984,6 +1989,7 @@ section-types:
     description: Add one entry per key attribute.
   keatt-refe-ref:
     prefix: KEATT_REFE_REF
+    description: The resolved link to the entity a foreign key points at.
   kecon-conc-lst:
     prefix: KECON_CONC_LST
     subsection-types:
@@ -2546,8 +2552,10 @@ section-types:
     description: Add one entry per dependency on another requirement.
   rqdep-rela-ref:
     prefix: RQDEP_RELA_REF
+    description: "The other requirement in this dependency, named by section id."
   rqtsc-rela-ref:
     prefix: RQTSC_RELA_REF
+    description: "The acceptance criterion this test case verifies, named by section id."
   rqtsc-test-lst:
     prefix: RQTSC_TEST_LST
     subsection-types:
@@ -3046,6 +3054,7 @@ section-types:
     description: Add one entry per affected function.
   affn-func-ref:
     prefix: AFFN_FUNC_REF
+    description: The resolved link to the function in which this rule fires.
   afob-affe-lst:
     prefix: AFOB_AFFE_LST
     subsection-types:
@@ -3056,6 +3065,7 @@ section-types:
     description: Add one entry per affected object.
   afob-obje-ref:
     prefix: AFOB_OBJE_REF
+    description: The resolved link to the business object this rule acts on.
   alfl-alte-lst:
     prefix: ALFL_ALTE_LST
     subsection-types:
@@ -3780,7 +3790,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: The depending end — the system that stops working if the dependency
   syde-targ-ref:
     prefix: SYDE_TARG_REF
     subsection-types:
@@ -3800,7 +3810,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: The depended-upon end — the system that owes the availability and the SLA
   syin-item-lst:
     prefix: SYIN_ITEM_LST
     subsection-types:
@@ -3828,7 +3838,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: "The system data flows out of, named by section id."
   syin-targ-ref:
     prefix: SYIN_TARG_REF
     subsection-types:
@@ -3848,7 +3858,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: "The system data flows into, named by section id."
   syqg-attr-lst:
     prefix: SYQG_ATTR_LST
     subsection-types:
@@ -3867,6 +3877,7 @@ section-types:
     description: System-specific training.
   syts-rela-ref:
     prefix: SYTS_RELA_REF
+    description: "The use case this task appears in, named by section id."
   syts-syst-lst:
     prefix: SYTS_SYST_LST
     subsection-types:
@@ -6356,12 +6367,15 @@ section-types:
   access-acce:
     prefix: ACCESS_ACCE
     format: access-acce-form
+    description: "The accessibility commitment and its scope, before the specific conformance"
   acchls-chec:
     prefix: ACCHLS_CHEC
     format: acchls-chec-form
+    description: "How conformance is verified, as opposed to claimed."
   accrsu-acce:
     prefix: ACCRSU_ACCE
     format: accrsu-acce-form
+    description: "The shape of acceptance: who signs, over what scope, in which environment,"
   acrse-acce:
     prefix: ACRSE_ACCE_
     pattern-check-id:
@@ -6798,9 +6812,11 @@ section-types:
   doantr-docu:
     prefix: DOANTR_DOCU
     format: doantr-docu-form
+    description: "Which user-facing documentation is translated, and to what standard."
   doqucr-docu:
     prefix: DOQUCR_DOCU
     format: doqucr-docu-form
+    description: "How documentation is produced and kept current — strategy, ownership,"
   dsset-sett:
     prefix: DSSET_SETT_
     pattern-check-id:
@@ -6882,6 +6898,7 @@ section-types:
   erhaco-erro:
     prefix: ERHACO_ERRO
     format: erhaco-erro-form
+    description: "The stance errors are written from, before the concrete categories below."
   esent-syst:
     prefix: ESENT_SYST_
     subsection-types:
@@ -7162,6 +7179,7 @@ section-types:
   lacose-lang:
     prefix: LACOSE_LANG
     format: lacose-lang-form
+    description: How a user's language is chosen and changed.
   lftrs-life:
     prefix: LFTRS_LIFE_
     subsection-types:
@@ -7213,6 +7231,7 @@ section-types:
   meanob-metr:
     prefix: MEANOB_METR
     format: meanob-metr-form
+    description: "Which telemetry signals are collected at all, in what format, and at what"
   mgmls-mile:
     prefix: MGMLS_MILE_
     pattern-check-id:
@@ -7278,6 +7297,7 @@ section-types:
   migcon-stra:
     prefix: MIGCON_STRA
     format: migcon-stra-form
+    description: The portfolio-wide cutover approach — the decisions that bound every
   migme-migr:
     prefix: MIGME_MIGR_
     pattern-check-id:
@@ -7326,6 +7346,7 @@ section-types:
   monito-moni:
     prefix: MONITO_MONI
     format: monito-moni-form
+    description: "The monitoring posture as a whole — the strategy, the platforms it runs"
   msddo-mast:
     prefix: MSDDO_MAST_
     subsection-types:
@@ -7357,6 +7378,7 @@ section-types:
   mupacr-must:
     prefix: MUPACR_MUST
     format: mupacr-must-form
+    description: "What qualifies a criterion as must-pass, how many there are, and whether"
   ntfch-chan:
     prefix: NTFCH_CHAN_
     pattern-check-id:
@@ -7620,6 +7642,7 @@ section-types:
   prfesu-feat:
     prefix: PRFESU_FEAT
     format: prfesu-feat-form
+    description: "Which features the prototype includes, and the criteria that chose them."
   prinma-depe:
     prefix: PRINMA_DEPE
     format: mermaid-flowchart
@@ -7633,9 +7656,11 @@ section-types:
   protot-prot:
     prefix: PROTOT_PROT
     format: protot-prot-form
+    description: What the prototype is for and what it is not.
   prtyse-prot:
     prefix: PRTYSE_PROT
     format: prtyse-prot-form
+    description: "Whether the prototype is reusable or throwaway, and why."
   ps-rela-lst:
     prefix: PS_RELA_LST
     subsection-types:
@@ -7745,6 +7770,7 @@ section-types:
   qugach-chec:
     prefix: QUGACH_CHEC
     format: qugach-chec-form
+    description: "What the checklist is used for, how completely it must be worked, and who"
   rdrce-read:
     prefix: RDRCE_READ_
     pattern-check-id:
@@ -7793,6 +7819,7 @@ section-types:
   reupro-reus:
     prefix: REUPRO_REUS
     format: reupro-reus-form
+    description: The standards a reusable prototype must meet to graduate into the product.
   rfdoc-docu:
     prefix: RFDOC_DOCU_
     subsection-types:
@@ -8300,9 +8327,11 @@ section-types:
   syerdi-syst:
     prefix: SYERDI_SYST
     format: syerdi-syst-form
+    description: How failures the user cannot correct are surfaced.
   sytore-iden:
     prefix: SYTORE_IDEN
     format: sytore-iden-form
+    description: Which legacy system this entry is about.
   techn-tech:
     prefix: TECHN_TECH_
     pattern-check-id:
@@ -8405,6 +8434,7 @@ section-types:
   trareq-tran:
     prefix: TRAREQ_TRAN
     format: trareq-tran-form
+    description: "What must be translated, and what deliberately must not."
   trmil-mile:
     prefix: TRMIL_MILE_
     subsection-types:
@@ -8421,6 +8451,7 @@ section-types:
   trofde-trad:
     prefix: TROFDE_TRAD
     format: trofde-trad-form
+    description: "Who may decide a quality trade-off, how it is recorded, and how it is"
   trphe-phas:
     prefix: TRPHE_PHAS_
     subsection-types:
@@ -8568,6 +8599,7 @@ section-types:
   wequma-matr:
     prefix: WEQUMA_MATR
     format: wequma-matr-form
+    description: "The mechanics of the weighting: the scale, whether weights must sum, and"
   wostsy-name:
     prefix: WOSTSY_NAME
     description: Name of the system used in this workflow step.
@@ -8860,15 +8892,19 @@ section-types:
   bjoen-doma:
     prefix: BJOEN_DOMA
     format: bjoen-doma-form
+    description: "Which part of the business this object belongs to, and who speaks for it."
   bjoen-iden:
     prefix: BJOEN_IDEN
     format: bjoen-iden-form
+    description: "What this business object is called in the business, and which pattern it"
   bjoen-life:
     prefix: BJOEN_LIFE
     format: bjoen-life-form
+    description: "The object's states at a glance — the digest, not the authority."
   bjoen-owne:
     prefix: BJOEN_OWNE
     format: bjoen-owne-form
+    description: "Who is accountable for the object's data, and how concurrent change is"
   carch-arch:
     prefix: CARCH_ARCH
     format: mermaid-flowchart
@@ -9063,9 +9099,11 @@ section-types:
   daatt-data:
     prefix: DAATT_DATA
     format: daatt-data-form
+    description: "The logical type of the attribute, and the physical form it is realised"
   daatt-deri:
     prefix: DAATT_DERI
     format: daatt-deri-form
+    description: "Whether the attribute holds an authored value at all, or one produced from"
   daatt-dtbi:
     prefix: DAATT_DTBI
     format: daatt-dtbi-form
@@ -9093,12 +9131,15 @@ section-types:
   daatt-iden:
     prefix: DAATT_IDEN
     format: daatt-iden-form
+    description: "What this attribute is called and what it means, in business terms."
   daatt-migr:
     prefix: DAATT_MIGR
     format: daatt-migr-form
+    description: "Where this attribute's values come from — upstream system, source field"
   daatt-secu:
     prefix: DAATT_SECU
     format: daatt-secu-form
+    description: "How exposed this single attribute is, independently of its entity."
   dadu-dupl:
     prefix: DADU_DUPL_
     subsection-types:
@@ -9115,15 +9156,19 @@ section-types:
   daent-clas:
     prefix: DAENT_CLAS
     format: daent-clas-form
+    description: "Where this entity sits in the domain, and who answers for it."
   daent-iden:
     prefix: DAENT_IDEN
     format: daent-iden-form
+    description: "What this entity is called, in each vocabulary that needs a name for it."
   daent-life:
     prefix: DAENT_LIFE
     format: daent-life-form
+    description: "What becomes of this entity's rows over time: how long they are kept,"
   daent-rela:
     prefix: DAENT_RELA
     format: daent-rela-form
+    description: "The entity's relationships as seen from this entity — a digest, not the"
   dain-inte:
     prefix: DAIN_INTE_
     subsection-types:
@@ -9172,6 +9217,7 @@ section-types:
   datcl-over:
     prefix: DATCL_OVER
     format: datcl-over-form
+    description: "The framework the classification levels are drawn from, and who maintains"
   date-dash:
     prefix: DATE_DASH_
     pattern-check-id:
@@ -9198,18 +9244,23 @@ section-types:
   dclse-acce:
     prefix: DCLSE_ACCE
     format: dclse-acce-form
+    description: "Who may reach data at this level, how they prove who they are, and what is"
   dclse-comp:
     prefix: DCLSE_COMP
     format: dclse-comp-form
+    description: "The named regulations that impose this level, and the duties that come"
   dclse-iden:
     prefix: DCLSE_IDEN
     format: dclse-iden-form
+    description: What this level means and what belongs in it.
   dclse-rete:
     prefix: DCLSE_RETE
     format: dclse-rete-form
+    description: "How long data at this level is kept, and how it is destroyed."
   dclse-stor:
     prefix: DCLSE_STOR
     format: dclse-stor-form
+    description: "Where data at this level may physically live, and how it is protected on"
   dcse-clas:
     prefix: DCSE_CLAS_
     pattern-check-id:
@@ -9238,6 +9289,7 @@ section-types:
   dmfue-enti:
     prefix: DMFUE_ENTI
     format: dmfue-enti-form
+    description: Which entity these follow-up facets describe.
   doev-even:
     prefix: DOEV_EVEN_
     pattern-check-id:
@@ -9329,15 +9381,19 @@ section-types:
   enrle-card:
     prefix: ENRLE_CARD
     format: enrle-card-form
+    description: "How many instances may stand at each end, and whether either end may stand"
   enrle-iden:
     prefix: ENRLE_IDEN
     format: enrle-iden-form
+    description: "What kind of relationship this is, and why it exists."
   enrle-navi:
     prefix: ENRLE_NAVI
     format: enrle-navi-form
+    description: "How the relationship is traversed in code, and where the key physically"
   enrle-refe:
     prefix: ENRLE_REFE
     format: enrle-refe-form
+    description: "What happens to the far end when a row is deleted or its key changes, and"
   epnt-entr:
     prefix: EPNT_ENTR_
     pattern-check-id:
@@ -9502,6 +9558,7 @@ section-types:
   occhg-over:
     prefix: OCCHG_OVER
     format: occhg-over-form
+    description: "The reorganization in summary — how far it reaches, what is driving it,"
   oren-chan:
     prefix: OREN_CHAN_
     pattern-check-id:
@@ -9587,6 +9644,7 @@ section-types:
   qlfwk-fram:
     prefix: QLFWK_FRAM
     format: qlfwk-fram-form
+    description: "Which published quality model this chapter's structure comes from, at"
   reco-cont:
     prefix: RECO_CONT_
     pattern-check-id:
@@ -9936,6 +9994,7 @@ section-types:
   trmat-trai:
     prefix: TRMAT_TRAI
     format: trmat-trai-form
+    description: The training materials that accompany a localized release.
   trme-metr:
     prefix: TRME_METR_
     subsection-types:
@@ -9996,27 +10055,35 @@ section-types:
   uicom-acce:
     prefix: UICOM_ACCE
     format: uicom-acce-form
+    description: "The component's accessibility contract: roles, names, keyboard model."
   uicom-auth:
     prefix: UICOM_AUTH
     format: uicom-auth-form
+    description: How the component behaves when the user lacks the right to use it.
   uicom-data:
     prefix: UICOM_DATA
     format: uicom-data-form
+    description: "What the component reads and writes, and against which model element."
   uicom-iden:
     prefix: UICOM_IDEN
     format: uicom-iden-form
+    description: What this component is and where it is used.
   uicom-inte:
     prefix: UICOM_INTE
     format: uicom-inte-form
+    description: "How the component responds to input, across its states."
   uicom-reso:
     prefix: UICOM_RESO
     format: uicom-reso-form
+    description: "The assets the component needs — icons, images, fonts, media."
   uicom-resp:
     prefix: UICOM_RESP
     format: uicom-resp-form
+    description: How the component behaves across the declared breakpoints.
   uicom-visu:
     prefix: UICOM_VISU
     format: uicom-visu-form
+    description: The component's appearance in its default state.
   vafe-fiel:
     prefix: VAFE_FIEL_
     pattern-check-id:
@@ -10057,6 +10124,7 @@ section-types:
   alco-aler:
     prefix: ALCO_ALER
     format: alco-aler-form
+    description: "What is worth waking someone for, and how quickly a human is expected to"
   alfl-resu:
     prefix: ALFL_RESU
     format: alfl-resu-form
@@ -10136,21 +10204,27 @@ section-types:
   biru-clas:
     prefix: BIRU_CLAS
     format: biru-clas-form
+    description: "What kind of rule this is, how binding it is, and where it came from."
   biru-exce:
     prefix: BIRU_EXCE
     format: biru-exce-form
+    description: "What happens when the rule is violated, and whether it may be waived."
   biru-gove:
     prefix: BIRU_GOVE
     format: biru-gove-form
+    description: "Who owns the rule, and for how long it holds."
   biru-iden:
     prefix: BIRU_IDEN
     format: biru-iden-form
+    description: "The rule's own statement, in the words of the business, and its version."
   biru-impl:
     prefix: BIRU_IMPL
     format: biru-impl-form
+    description: "Where and how the rule is actually enforced, and whether that can be"
   biru-rule:
     prefix: BIRU_RULE
     format: biru-rule-form
+    description: "The rule as a condition and its consequences — IF, THEN, and otherwise."
   bpe-back:
     prefix: BPE_BACK_
     subsection-types:
@@ -10178,9 +10252,11 @@ section-types:
   cmpt-comp:
     prefix: CMPT_COMP
     format: cmpt-comp-form
+    description: "What the system must co-exist with, and what it must interoperate with."
   cohe-cont:
     prefix: COHE_CONT
     format: cohe-cont-form
+    description: "Help delivered in place, at the moment of use."
   coma-comm:
     prefix: COMA_COMM
     format: mermaid
@@ -10467,9 +10543,11 @@ section-types:
   flxc-flex:
     prefix: FLXC_FLEX
     format: flxc-flex-form
+    description: "The changes the system must absorb without redesign, and the environments"
   fnsu-func:
     prefix: FNSU_FUNC
     format: fnsu-func-form
+    description: "The bar for \"the right functions, working correctly\" — the coverage target"
   fpe-item:
     prefix: FPE_ITEM_
     subsection-types:
@@ -10546,9 +10624,11 @@ section-types:
   fumo-deco:
     prefix: FUMO_DECO
     format: fumo-deco-form
+    description: "How the function hierarchy was cut, and how deep it goes."
   fumo-matr:
     prefix: FUMO_MATR
     format: fumo-matr-form
+    description: "How to read the function-to-data matrix, and how much of the system it"
   gore-reso:
     prefix: GORE_RESO
     format: gore-reso-form
@@ -10581,6 +10661,7 @@ section-types:
   incp-inte:
     prefix: INCP_INTE
     format: incp-inte-form
+    description: "The user population whose experience sets the bar, and the level of"
   insc-syst:
     prefix: INSC_SYST
     format: mermaid
@@ -10662,18 +10743,23 @@ section-types:
   lopr-loca:
     prefix: LOPR_LOCA
     format: lopr-loca-form
+    description: How locale-specific adaptation is carried out beyond translation.
   miri-gove:
     prefix: MIRI_GOVE
     format: miri-gove-form
+    description: "Who owns migration risk, and how often it is looked at."
   mlar-mult:
     prefix: MLAR_MULT
     format: mlar-mult-form
+    description: Which languages are supported and what support means.
   mntc-main:
     prefix: MNTC_MAIN
     format: mntc-main-form
+    description: "What modification must cost, and the structural thresholds that keep it"
   moda-dash:
     prefix: MODA_DASH
     format: moda-dash-form
+    description: "The ground rules for the dashboard estate — platform, access, and the"
   mwe-main:
     prefix: MWE_MAIN_
     subsection-types:
@@ -10728,9 +10814,11 @@ section-types:
   onhe-onbo:
     prefix: ONHE_ONBO
     format: onhe-onbo-form
+    description: The guided first-run experience for a new user.
   oren-orga:
     prefix: OREN_ORGA
     format: oren-orga-form
+    description: Who the organization is — the facts that set the scale everything else in
   orip-plan:
     prefix: ORIP_PLAN
     format: orip-plan-form
@@ -10738,6 +10826,7 @@ section-types:
   peef-perf:
     prefix: PEEF_PERF
     format: peef-perf-form
+    description: The engineering stance the performance and structural targets are set
   pfe-feat:
     prefix: PFE_FEAT_
     pattern-check-id:
@@ -10834,6 +10923,7 @@ section-types:
   qupr-prio:
     prefix: QUPR_PRIO
     format: qupr-prio-form
+    description: "How quality attributes are ranked against one another, by whom, and how"
   rce-regu:
     prefix: RCE_REGU_
     subsection-types:
@@ -10865,12 +10955,15 @@ section-types:
   rebe-layo:
     prefix: REBE_LAYO
     format: rebe-layo-form
+    description: What actually changes at each breakpoint.
   rede-resp:
     prefix: REDE_RESP
     format: rede-resp-form
+    description: "The responsive strategy: which approach the product takes and why."
   relc-reli:
     prefix: RELC_RELI
     format: relc-reli-form
+    description: "How the system will be run: the operating model, the responsible party,"
   rfe-filt:
     prefix: RFE_FILT_
     subsection-types:
@@ -10944,6 +11037,7 @@ section-types:
   sasm-slao:
     prefix: SASM_SLAO
     format: sasm-slao-form
+    description: "The service-level regime — the framework, the error-budget policy, and"
   scbc-busi:
     prefix: SCBC_BUSI
     format: description
@@ -10990,6 +11084,7 @@ section-types:
   secc-secu:
     prefix: SECC_SECU
     format: secc-secu-form
+    description: "The security posture the system is built to, and the compliance regime"
   see-envi:
     prefix: SEE_ENVI_
     subsection-types:
@@ -11090,12 +11185,15 @@ section-types:
   suac-supp:
     prefix: SUAC_SUPP
     format: suac-supp-form
+    description: How a user reaches a human when the product's own help runs out.
   syqg-gove:
     prefix: SYQG_GOVE
     format: syqg-gove-form
+    description: "The project's quality stance: the philosophy it works to, the standards it"
   teen-tech:
     prefix: TEEN_TECH
     format: teen-tech-form
+    description: "Where the organization stands technically today, before anything is said"
   tge-goal:
     prefix: TGE_GOAL_
     subsection-types:
@@ -11122,6 +11220,7 @@ section-types:
   thpr-thro:
     prefix: THPR_THRO
     format: thpr-thro-form
+    description: The explicit disposal terms for a throwaway prototype.
   tie-tabs:
     prefix: TIE_TABS_
     subsection-types:
@@ -11140,6 +11239,7 @@ section-types:
   trpr-tran:
     prefix: TRPR_TRAN
     format: trpr-tran-form
+    description: "How translated text is produced, reviewed and shipped."
   tse-tech:
     prefix: TSE_TECH_
     subsection-types:
@@ -11190,6 +11290,7 @@ section-types:
   uico-comp:
     prefix: UICO_COMP
     format: uico-comp-form
+    description: "The library's scope and governance, before the individual components."
   unp-pref:
     prefix: UNP_PREF_
     pattern-check-id:
@@ -11206,9 +11307,11 @@ section-types:
   usas-help:
     prefix: USAS_HELP
     format: usas-help-form
+    description: "The help model as a whole, before the delivery channels below."
   vafe-vali:
     prefix: VAFE_VALI
     format: vafe-vali-form
+    description: How field-level validation feedback reaches the user.
   vmt-mess:
     prefix: VMT_MESS_
     pattern-check-id:
@@ -11242,6 +11345,7 @@ section-types:
   wcco-wcag:
     prefix: WCCO_WCAG
     format: wcco-wcag-form
+    description: The conformance target and the evidence for it.
   wode-work:
     prefix: WODE_WORK
     format: mermaid-flowchart
@@ -11448,6 +11552,7 @@ section-types:
   eie-iden:
     prefix: EIE_IDEN
     format: eie-iden-form
+    description: "Which external system this interface reaches, and what kind of"
   erhastre:
     prefix: ERHASTRE
     format: erhastre-form
@@ -11810,6 +11915,7 @@ section-types:
   bc-brea:
     prefix: BC_BREA
     format: bc-brea-form
+    description: The breakpoint set the layout switches at.
   cd-diag:
     prefix: CD_DIAG
     format: mermaid-flowchart
@@ -11853,6 +11959,7 @@ section-types:
   pg-goal:
     prefix: PG_GOAL
     format: pg-goal-form
+    description: The questions the prototype is built to answer.
   ro-requ:
     prefix: RO_REQU
     format: ro-requ-form
@@ -11876,6 +11983,7 @@ section-types:
   tp-trai:
     prefix: TP_TRAI
     format: tp-trai-form
+    description: How knowledge from the prototype is transferred to the delivery team.
   uj-jour:
     prefix: UJ_JOUR
     format: mermaid-flowchart

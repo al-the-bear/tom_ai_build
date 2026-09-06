@@ -2,7 +2,7 @@
 /// the nine SOM runtimes read (SOM §12).
 ///
 /// The shape is not asserted by describing it a second time here: `SpecYaml`
-/// projects onto a [SpecDocument] and hands it to the runtime's
+/// projects onto a `SpecDocument` and hands it to the runtime's
 /// [SpecDocumentYaml], so what these tests check is that the projection is
 /// *complete and faithful* — a document written through it decodes in the
 /// runtime and re-encodes byte-for-byte. A value the projection dropped, or

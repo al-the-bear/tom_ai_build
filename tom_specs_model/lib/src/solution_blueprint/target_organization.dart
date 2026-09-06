@@ -129,6 +129,22 @@ class ChangesFromCurrentStructure extends DocSpecsSection {
   // -------------------------------------------------------------------------
   // Change Overview
   // -------------------------------------------------------------------------
+  /// The reorganization in summary — how far it reaches, what is driving it,
+  /// and the principles it was designed against.
+  ///
+  /// The band a reader needs before any individual change below makes sense.
+  /// Scope and driver decide whether a given change is part of this programme
+  /// at all; the design principles are the only thing an individual change can
+  /// be checked against, and without them each change is an assertion with no
+  /// test. The governance, reporting-line, communication and collaboration
+  /// fields are the four dimensions along which a structure can actually
+  /// differ, stated at programme level so a change that moves one of them
+  /// without saying so is visible as an inconsistency.
+  ///
+  /// It is a summary and stays one: the impact figure here is the total, while
+  /// per-department detail belongs to the individual change entries.
+  /// [changeNarrative] carries the story; this band carries the facts that must
+  /// stay stable while the story is rewritten.
   @SectionId('OCCHG-OVER')
   @Form([
     Field(

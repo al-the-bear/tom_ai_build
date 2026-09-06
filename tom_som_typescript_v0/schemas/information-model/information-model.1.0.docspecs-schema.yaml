@@ -21,6 +21,7 @@ section-types:
     description: Add one entry per business rule reference.
   birure-rule-ref:
     prefix: BIRURE_RULE_REF
+    description: The resolved link to the business rule this entry cites.
   rulexm-exam-lst:
     prefix: RULEXM_EXAM_LST
     subsection-types:
@@ -147,8 +148,10 @@ section-types:
     description: Add one entry per entity relationship.
   enrle-sour-ref:
     prefix: ENRLE_SOUR_REF
+    description: The resolved link to the entity at the source end.
   enrle-targ-ref:
     prefix: ENRLE_TARG_REF
+    description: The resolved link to the entity at the target end.
   ercen-code-lst:
     prefix: ERCEN_CODE_LST
     subsection-types:
@@ -199,6 +202,7 @@ section-types:
     description: Add one entry per key attribute.
   keatt-refe-ref:
     prefix: KEATT_REFE_REF
+    description: The resolved link to the entity a foreign key points at.
   lftrs-life-lst:
     prefix: LFTRS_LIFE_LST
     subsection-types:
@@ -305,6 +309,7 @@ section-types:
     description: Add one entry per affected function.
   affn-func-ref:
     prefix: AFFN_FUNC_REF
+    description: The resolved link to the function in which this rule fires.
   afob-affe-lst:
     prefix: AFOB_AFFE_LST
     subsection-types:
@@ -315,6 +320,7 @@ section-types:
     description: Add one entry per affected object.
   afob-obje-ref:
     prefix: AFOB_OBJE_REF
+    description: The resolved link to the business object this rule acts on.
   biru-busi-lst:
     prefix: BIRU_BUSI_LST
     subsection-types:
@@ -812,21 +818,27 @@ section-types:
   bjoen-doma:
     prefix: BJOEN_DOMA
     format: bjoen-doma-form
+    description: "Which part of the business this object belongs to, and who speaks for it."
   bjoen-iden:
     prefix: BJOEN_IDEN
     format: bjoen-iden-form
+    description: "What this business object is called in the business, and which pattern it"
   bjoen-life:
     prefix: BJOEN_LIFE
     format: bjoen-life-form
+    description: "The object's states at a glance — the digest, not the authority."
   bjoen-owne:
     prefix: BJOEN_OWNE
     format: bjoen-owne-form
+    description: "Who is accountable for the object's data, and how concurrent change is"
   daatt-data:
     prefix: DAATT_DATA
     format: daatt-data-form
+    description: "The logical type of the attribute, and the physical form it is realised"
   daatt-deri:
     prefix: DAATT_DERI
     format: daatt-deri-form
+    description: "Whether the attribute holds an authored value at all, or one produced from"
   daatt-dtbi:
     prefix: DAATT_DTBI
     format: daatt-dtbi-form
@@ -854,54 +866,71 @@ section-types:
   daatt-iden:
     prefix: DAATT_IDEN
     format: daatt-iden-form
+    description: "What this attribute is called and what it means, in business terms."
   daatt-migr:
     prefix: DAATT_MIGR
     format: daatt-migr-form
+    description: "Where this attribute's values come from — upstream system, source field"
   daatt-secu:
     prefix: DAATT_SECU
     format: daatt-secu-form
+    description: "How exposed this single attribute is, independently of its entity."
   daent-clas:
     prefix: DAENT_CLAS
     format: daent-clas-form
+    description: "Where this entity sits in the domain, and who answers for it."
   daent-iden:
     prefix: DAENT_IDEN
     format: daent-iden-form
+    description: "What this entity is called, in each vocabulary that needs a name for it."
   daent-life:
     prefix: DAENT_LIFE
     format: daent-life-form
+    description: "What becomes of this entity's rows over time: how long they are kept,"
   daent-rela:
     prefix: DAENT_RELA
     format: daent-rela-form
+    description: "The entity's relationships as seen from this entity — a digest, not the"
   datcl-over:
     prefix: DATCL_OVER
     format: datcl-over-form
+    description: "The framework the classification levels are drawn from, and who maintains"
   dclse-acce:
     prefix: DCLSE_ACCE
     format: dclse-acce-form
+    description: "Who may reach data at this level, how they prove who they are, and what is"
   dclse-comp:
     prefix: DCLSE_COMP
     format: dclse-comp-form
+    description: "The named regulations that impose this level, and the duties that come"
   dclse-iden:
     prefix: DCLSE_IDEN
     format: dclse-iden-form
+    description: What this level means and what belongs in it.
   dclse-rete:
     prefix: DCLSE_RETE
     format: dclse-rete-form
+    description: "How long data at this level is kept, and how it is destroyed."
   dclse-stor:
     prefix: DCLSE_STOR
     format: dclse-stor-form
+    description: "Where data at this level may physically live, and how it is protected on"
   enrle-card:
     prefix: ENRLE_CARD
     format: enrle-card-form
+    description: "How many instances may stand at each end, and whether either end may stand"
   enrle-iden:
     prefix: ENRLE_IDEN
     format: enrle-iden-form
+    description: "What kind of relationship this is, and why it exists."
   enrle-navi:
     prefix: ENRLE_NAVI
     format: enrle-navi-form
+    description: "How the relationship is traversed in code, and where the key physically"
   enrle-refe:
     prefix: ENRLE_REFE
     format: enrle-refe-form
+    description: "What happens to the far end when a row is deleted or its key changes, and"
   obop-oper:
     prefix: OBOP_OPER_
     subsection-types:
@@ -942,21 +971,27 @@ section-types:
   biru-clas:
     prefix: BIRU_CLAS
     format: biru-clas-form
+    description: "What kind of rule this is, how binding it is, and where it came from."
   biru-exce:
     prefix: BIRU_EXCE
     format: biru-exce-form
+    description: "What happens when the rule is violated, and whether it may be waived."
   biru-gove:
     prefix: BIRU_GOVE
     format: biru-gove-form
+    description: "Who owns the rule, and for how long it holds."
   biru-iden:
     prefix: BIRU_IDEN
     format: biru-iden-form
+    description: "The rule's own statement, in the words of the business, and its version."
   biru-impl:
     prefix: BIRU_IMPL
     format: biru-impl-form
+    description: "Where and how the rule is actually enforced, and whether that can be"
   biru-rule:
     prefix: BIRU_RULE
     format: biru-rule-form
+    description: "The rule as a condition and its consequences — IF, THEN, and otherwise."
   fuencl:
     prefix: FUENCL
     format: fuencl-form

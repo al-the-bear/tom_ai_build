@@ -1338,6 +1338,50 @@ slotted set gets a field, and everything else rides `MetaNode.extra` with its
 full argument map. An editor built on any runtime therefore sees the whole
 vocabulary, not the schema-bound part of it.
 
+### 9.6 Doc comments vs annotation text — who says what
+
+A model declaration carries prose in up to three places, and they are **not**
+interchangeable. Each has one job, and writing the same thing twice is the
+failure this rule exists to prevent: two copies of a sentence drift, and the
+reader cannot tell which one is current.
+
+| Carrier | Answers | Reaches |
+|---|---|---|
+| the `///` doc comment | *What is this?* — the section's identity, and how it differs from its siblings | the meta as `doc`, and every generated facade in all nine languages |
+| `@ContentHelp` | *How do I fill it in?* — procedure, checklists, what good looks like | the meta as `help`; rendered beneath the doc comment under an **Authoring guidance** heading |
+| `@Form` `Field(…, 'Label', hint: …)` | *What is this one value?* | the meta as `label`/`hint`, rendered on each generated accessor |
+
+So:
+
+- **A doc comment must not paraphrase its own `@ContentHelp`.** The two are
+  rendered together, one after the other, so a paraphrase produces two
+  near-identical paragraphs in every language's API reference. Where the help
+  already says everything, the doc comment is one sentence of identity and
+  stops.
+- **A doc comment on a `@Form` member must not list the member's field labels
+  or hints.** Those are already carried and already rendered per accessor
+  (SOM §10.2). What the member's own comment owes the reader is what the
+  *group* is for — the question this band of fields answers, and what belongs
+  here rather than in a sibling section.
+- **A doc comment must not restate `@Headline` or `@SectionId`.** Both are
+  carried, and both are visible in the outline beside the member.
+
+**A `@Form` field name is not a Dart identifier.** `[role]`, `[valueId]`,
+`[MessageKeyEntry.key]` — these name entries of a `@Form([...])` annotation,
+not members of a class, so a dartdoc `[reference]` to one can never resolve and
+makes `dart doc` warn. Write them in backticks. The package enables
+`comment_references`, so an unresolvable reference fails `dart analyze` at edit
+time rather than surfacing later as a documentation-build warning.
+
+**Use `§` only for a TomSpecs document.** An external standard's clause is
+written out — "ISO/IEC 25010:2023, section 4.2", never "ISO/IEC 25010 §4.2".
+The section-citation gate reads every `///` comment in the model and resolves
+`§N` against the TomSpecs doc set, so a section mark aimed at an external
+standard is a gate failure. The `@StandardReferences` entries use `§` freely
+because they are annotation *arguments*, which the gate does not read — but see
+SOM §10.2: text that the emitter renders into generated source *is* read, so
+this constraint follows the text, not the carrier.
+
 ---
 
 ## 10. Traceability and structural invariants
@@ -1752,7 +1796,7 @@ An enum member is shown in place among the other leaf members, with its values
 inline:
 
 ```
-  - content, priority: Priority (must, should, could), status
+  - content, priority: Priority (must, should, could, wontThisTime), status
 ```
 
 Enum values are shown at **every occurrence** — this keeps the outline

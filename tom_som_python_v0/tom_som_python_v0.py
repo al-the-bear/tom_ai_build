@@ -62,6 +62,16 @@ class AcceptanceCriteriaSummary(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The shape of acceptance: who signs, over what scope, in which environment,
+    # and on what basis it can be refused.
+    #
+    # The band that makes acceptance a decidable event rather than an opinion.
+    # Two fields carry most of the weight — the partial-acceptance policy, which
+    # settles in advance whether a known defect blocks sign-off, and the
+    # rejection criteria, which are unusable unless stated before the review
+    # starts. This governs the business-acceptance gate of the creation process
+    # (`tom_specs_project_flow.md` §PF-GAT-G7); the must-pass and checklist
+    # subsections below supply the criteria that gate is run against.
     @property
     def acceptanceFrameworkContent(self):
         return AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm(self.doc, f"{self.path}/ACCRSU-ACCE")
@@ -493,6 +503,11 @@ class Accessibility(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The accessibility commitment and its scope, before the specific conformance
+    # targets below.
+    #
+    # States which standard applies and to what — the WCAG section then pins the
+    # level and the checklist section the verification.
     @property
     def accessibilityOverviewContent(self):
         return AccessibilityAccessibilityOverviewContentForm(self.doc, f"{self.path}/ACCESS-ACCE")
@@ -586,6 +601,10 @@ class AccessibilityChecklist(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How conformance is verified, as opposed to claimed.
+    #
+    # The checklist's coverage and cadence — who runs it, against what, and how a
+    # failure is recorded.
     @property
     def checklistOverviewContent(self):
         return AccessibilityChecklistChecklistOverviewContentForm(self.doc, f"{self.path}/ACCHLS-CHEC")
@@ -1039,6 +1058,13 @@ class AffectedFunctionEntry(SomNode):
     def content(self):
         return AffectedFunctionEntryContentForm(self.doc, f"{self.path}/content")
 
+    # The resolved link to the function in which this rule fires.
+    #
+    # The object side of a rule ([AffectedObjectEntry]) says what it acts on;
+    # this side says where in the flow it is evaluated, which is what gives the
+    # trigger point and the mandatory flag their meaning. Both are needed: one
+    # rule may guard an entity that three functions write, and only one of those
+    # functions may be entitled to skip the check.
     @property
     def functionRef(self):
         return self.doc.content(f"{self.path}/AFFN-FUNC-REF") or ""
@@ -1059,6 +1085,14 @@ class AffectedObjectEntry(SomNode):
     def content(self):
         return AffectedObjectEntryContentForm(self.doc, f"{self.path}/content")
 
+    # The resolved link to the business object this rule acts on.
+    #
+    # The surrounding entry says *how* the object is affected — which
+    # attributes, whether it is validated, constrained, modified or created, and
+    # whether the access is a read or a write. This member is the followable
+    # edge to the object itself, which is what lets a rule's impact set be
+    # computed rather than read: given a rule, every object it touches, and
+    # given an object, every rule that touches it.
     @property
     def objectRef(self):
         return self.doc.content(f"{self.path}/AFOB-OBJE-REF") or ""
@@ -1193,6 +1227,19 @@ class AlertingConfiguration(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What is worth waking someone for, and how quickly a human is expected to
+    # answer.
+    #
+    # The policy band above the individual rules: the severity ladder, the
+    # acknowledgement time each rung promises, the on-call shape that makes
+    # those times achievable, and the hygiene process that keeps the ladder
+    # honest. Every rule is written against it, which is why it is stated once
+    # here — a severity that means different things in two rules is worse than
+    # no severity at all, because it is still trusted.
+    #
+    # These response times are commitments to the people on call. The
+    # customer-facing equivalents, with credits and exclusions attached, belong
+    # to [SlaAndSloMonitoring].
     @property
     def alertingOverview(self):
         return AlertingConfigurationAlertingOverviewForm(self.doc, f"{self.path}/ALCO-ALER")
@@ -1290,6 +1337,25 @@ class AlternativeStepEntry(SomNode):
     def content(self):
         return AlternativeStepEntryContentForm(self.doc, f"{self.path}/content")
 
+    # How this alternative-flow step's server call is carried out, step by
+    # step.
+    #
+    # Present only where the step reaches the server — that is, where its
+    # `serverOperation` names an operation; a step that names none generates no
+    # call and has nothing to put here. The entries are read in document order,
+    # and each declares which of the three handling roles it belongs to, so one
+    # list describes all three of the generated method bodies rather than three
+    # parallel lists that could fall out of step with each other
+    # (`codespecs_derivation_contract.md` §3.5.7).
+    #
+    # An empty list is not an omission. It says the call has nothing to state
+    # beyond the step's own behaviour text, and the derivation falls back to
+    # exactly that (`codespecs_derivation_contract.md` §2.4).
+    #
+    # These steps are emitted inside the branch the flow entry opens, so a call
+    # made here runs only when the flow's trigger condition held — which is why
+    # its error handling can assume the abnormal case rather than re-test for
+    # it.
     @property
     def serverCallSteps(self):
         return SomList(self.doc, f"{self.path}/SVCST-STEP-LST", lambda d, p: ServerCallStepEntry(d, p), pattern="SVCST-STEP-xxx")
@@ -3182,6 +3248,10 @@ class BreakpointConfiguration(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The breakpoint set the layout switches at.
+    #
+    # These values are a contract with the component library — a component that
+    # assumes a breakpoint not listed here has no defined behaviour between them.
     @property
     def breakpointOverview(self):
         return BreakpointConfigurationBreakpointOverviewForm(self.doc, f"{self.path}/BC-BREA")
@@ -3487,11 +3557,19 @@ class BusinessGoalEntry(SomNode):
         return GoalResources(self.doc, f"{self.path}/resources")
 
 class BusinessGoals(SomNode):
-    """4.2.1. Business Goals.
+    """4.2.1. Business Goals — the outcomes that justify the spend.
     
-    Container for business goal definitions. Business goals define what the
-    organization wants to achieve through this project in terms of business
-    outcomes, value delivery, and strategic advancement.
+    The half of the goal set whose achievement is visible to someone who never
+    sees the system: revenue moved, cost removed, a compliance obligation
+    discharged, a market position held. It is separated from [TechnicalGoals]
+    because the two are judged by different people against different evidence,
+    and because a technical goal is always a means — holding both in one list
+    invites a project to report a platform migration as a business outcome.
+    
+    Each entry is a [BusinessGoalEntry] carrying its own owner and metrics.
+    Ownership sits on the entry rather than on this section because a goal
+    without a named owner is not a goal: there is nobody to ask whether it was
+    met.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -3592,26 +3670,81 @@ class BusinessObjectEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What this business object is called in the business, and which pattern it
+    # follows.
+    #
+    # The conceptual-side counterpart of [DataEntityEntry]'s identity band. A
+    # business object is named by the business and may have no table at all, so
+    # the band carries the glossary term and the domain-driven-design stereotype
+    # where the entity carries a physical name. Where the two chapters describe
+    # the same thing, the object is the meaning and the entity is the storage;
+    # the alias is what lets a reader line the two up.
     @property
     def identity(self):
         return BusinessObjectEntryIdentityForm(self.doc, f"{self.path}/BJOEN-IDEN")
 
+    # Which part of the business this object belongs to, and who speaks for it.
+    #
+    # The band that places the object in the ubiquitous language: its bounded
+    # context, the owning domain, the named expert who decides what it means,
+    # and the term the business actually uses. It is separate from the identity
+    # above because these fields are about *authority over the definition*
+    # rather than about the object. It is also what makes a word that means two
+    # different things in two contexts visible as such, instead of forcing one
+    # of the two to be renamed.
     @property
     def domainContext(self):
         return BusinessObjectEntryDomainContextForm(self.doc, f"{self.path}/BJOEN-DOMA")
 
+    # The object's states at a glance — the digest, not the authority.
+    #
+    # The authored lifecycle is the state list together with
+    # [LifecycleTransitionEntry], each transition carrying its own guard. This
+    # band is the summary a reader needs before descending into them: where an
+    # instance starts, which states end it, and who owns the progression.
+    # Because it is a digest it can go stale, and a state added below but not
+    # reflected here is a documentation defect rather than a change to the
+    # model.
     @property
     def lifecycleSummary(self):
         return BusinessObjectEntryLifecycleSummaryForm(self.doc, f"{self.path}/BJOEN-LIFE")
 
+    # What the object does, and what it refuses to do.
+    #
+    # Behaviour intrinsic to this object, as against the policies catalogued in
+    # [BusinessRuleEntry] and cited from [BusinessRuleReferenceEntry]. The
+    # dividing line is ownership: a catalogued rule may govern several objects
+    # and is versioned, owned and reviewed in its own right, while an entry here
+    # has no meaning apart from this object. A rule that starts here and turns
+    # out to govern a second object belongs in the catalogue instead — leaving
+    # it here is how one policy comes to have two divergent statements.
     @property
     def behaviorRules(self):
         return SomList(self.doc, f"{self.path}/BEHAV-BEHA-LST", lambda d, p: BehaviorRuleEntry(d, p), pattern="BEHAV-BEHA-xxx")
 
+    # Who is accountable for the object's data, and how concurrent change is
+    # handled.
+    #
+    # Two subjects share the band because both answer "what happens when this
+    # object changes": the human chain (owner, steward) and the mechanical one
+    # (versioning strategy, concurrency control, audit trail). The concurrency
+    # choice is the consequential one — optimistic and pessimistic control move
+    # the conflict to different places, one to the writer at commit time and one
+    # to the reader at lock time — and it should follow this object's usage
+    # pattern rather than a house style, which is why it is authored per object.
     @property
     def ownership(self):
         return BusinessObjectEntryOwnershipForm(self.doc, f"{self.path}/BJOEN-OWNE")
 
+    # Where this object is exposed outside its own service — the APIs it offers
+    # and the events it publishes or consumes.
+    #
+    # A list because each exposure is negotiated separately and has its own
+    # consumer: an object may be readable through one endpoint, published as
+    # three events, and subscribed to none. The list doubles as the object's
+    # stability contract — anything named here has an external consumer, so it
+    # can no longer be changed by reasoning about this chapter alone, and
+    # surfacing that fact is much of why the band exists.
     @property
     def integrationPoints(self):
         return SomList(self.doc, f"{self.path}/INTEG-INTE-LST", lambda d, p: IntegrationPointEntry(d, p), pattern="INTEG-INTE-xxx")
@@ -3866,26 +3999,81 @@ class BusinessRuleEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The rule's own statement, in the words of the business, and its version.
+    #
+    # Two statements are kept deliberately: a description precise enough to
+    # implement against, and the natural-language statement the business
+    # recognises as its own policy. They drift, and a rule whose two statements
+    # have drifted is the usual root of a "the system is wrong" dispute that
+    # turns out to be a specification defect. The version sits here rather than
+    # in the governance band because it identifies *which* statement is being
+    # cited when the rule is referenced from an object or a function.
     @property
     def identity(self):
         return BusinessRuleEntryIdentityForm(self.doc, f"{self.path}/BIRU-IDEN")
 
+    # What kind of rule this is, how binding it is, and where it came from.
+    #
+    # The band that decides how the rule is *treated* rather than what it says.
+    # The type and category say what the rule produces — a check, a computed
+    # value, an inference, an enabled action — and therefore which derivation
+    # reads it. The enforcement level separates a rule the system must refuse to
+    # violate from a guideline it may only warn about. The source decides who is
+    # entitled to change it, since a rule originating in a regulation cannot be
+    # relaxed by the project at all. Priority is the tiebreak when two
+    # applicable rules disagree.
     @property
     def classification(self):
         return BusinessRuleEntryClassificationForm(self.doc, f"{self.path}/BIRU-CLAS")
 
+    # The rule as a condition and its consequences — IF, THEN, and otherwise.
+    #
+    # The executable heart of the entry, held in a fixed shape so rules can be
+    # compared and tested rather than only read. Separating the trigger from the
+    # action is what makes the rule testable at all: a worked example
+    # ([RuleExampleEntry]) supplies inputs for the condition and asserts the
+    # action, which is the form a test derivation needs. Parameters are named
+    # apart from the condition text so a threshold can be changed without
+    # restating the rule.
     @property
     def ruleLogic(self):
         return BusinessRuleEntryRuleLogicForm(self.doc, f"{self.path}/BIRU-RULE")
 
+    # Where and how the rule is actually enforced, and whether that can be
+    # tested.
+    #
+    # The gap this band closes is that a rule can be stated perfectly and
+    # enforced nowhere. Naming the enforcing systems turns "the rule exists"
+    # into a checkable claim; the testability field states up front whether the
+    # check can be automated at all. A rule marked manual-only will never fail a
+    # build, and that is a fact the acceptance plan has to know before the rule
+    # is relied on as a control.
     @property
     def implementation(self):
         return BusinessRuleEntryImplementationForm(self.doc, f"{self.path}/BIRU-IMPL")
 
+    # What happens when the rule is violated, and whether it may be waived.
+    #
+    # Every enforceable rule eventually meets a legitimate exception, and a
+    # specification that says nothing about them gets one invented at runtime by
+    # whoever is under pressure. The band records both halves: the automatic
+    # consequence of a violation, and the human path — who may override, who
+    # approves it, where it escalates. An empty override policy means no
+    # override exists, which is a stronger statement than it looks and should be
+    # chosen rather than defaulted into.
     @property
     def exceptionHandling(self):
         return BusinessRuleEntryExceptionHandlingForm(self.doc, f"{self.path}/BIRU-EXCE")
 
+    # Who owns the rule, and for how long it holds.
+    #
+    # A business rule is not permanent: it takes effect on a date, may expire on
+    # another, and is re-examined on a cadence. Recording the dates is what
+    # makes the rule *temporal* — a decision taken before its effective date was
+    # not a violation, which is precisely what an audit has to be able to
+    # establish. The owner is whoever may change the statement above; the review
+    # frequency is what stops a policy that has lapsed from being enforced
+    # indefinitely because nobody looked.
     @property
     def governance(self):
         return BusinessRuleEntryGovernanceForm(self.doc, f"{self.path}/BIRU-GOVE")
@@ -3917,6 +4105,14 @@ class BusinessRuleReferenceEntry(SomNode):
     def content(self):
         return BusinessRuleReferenceEntryContentForm(self.doc, f"{self.path}/content")
 
+    # The resolved link to the business rule this entry cites.
+    #
+    # The entry's `ruleId` field holds the rule's section id as text; this
+    # member is the followable edge to that rule's section, so a citation can be
+    # validated rather than trusted. The outliner shows it without recursing —
+    # which is the whole point of the entry: the rule is stated once in
+    # [BusinessRuleEntry] and cited from every object it governs, instead of
+    # being copied into each of them and drifting.
     @property
     def ruleRef(self):
         return self.doc.content(f"{self.path}/BIRURE-RULE-REF") or ""
@@ -4629,6 +4825,22 @@ class ChangesFromCurrentStructure(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The reorganization in summary — how far it reaches, what is driving it,
+    # and the principles it was designed against.
+    #
+    # The band a reader needs before any individual change below makes sense.
+    # Scope and driver decide whether a given change is part of this programme
+    # at all; the design principles are the only thing an individual change can
+    # be checked against, and without them each change is an assertion with no
+    # test. The governance, reporting-line, communication and collaboration
+    # fields are the four dimensions along which a structure can actually
+    # differ, stated at programme level so a change that moves one of them
+    # without saying so is visible as an inconsistency.
+    #
+    # It is a summary and stays one: the impact figure here is the total, while
+    # per-department detail belongs to the individual change entries.
+    # [changeNarrative] carries the story; this band carries the facts that must
+    # stay stable while the story is rewritten.
     @property
     def overviewContent(self):
         return ChangesFromCurrentStructureOverviewContentForm(self.doc, f"{self.path}/OCCHG-OVER")
@@ -5426,6 +5638,15 @@ class CompatibilityCharacteristic(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What the system must co-exist with, and what it must interoperate with.
+    #
+    # Compatibility in ISO/IEC 25010:2023 covers two distinct obligations, and
+    # the band keeps them in separate fields on purpose. *Co-existence* is
+    # sharing an environment and its resources without degrading a neighbour,
+    # and is met by staying inside a resource budget. *Interoperability* is
+    # exchanging information with another product and using what comes back, and
+    # is met by conforming to a named protocol or format — which is why that
+    # field asks for standards while the other asks for requirements.
     @property
     def compatibilityContent(self):
         return CompatibilityCharacteristicCompatibilityContentForm(self.doc, f"{self.path}/CMPT-COMP")
@@ -5942,6 +6163,10 @@ class ComponentLibrary(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The design tokens every component draws on — colour, type, spacing, motion.
+    #
+    # Foundations are shared, so a change here reaches every component; a value that
+    # only one component needs is that component's visual design, not a foundation.
     @property
     def designFoundations(self):
         return SomList(self.doc, f"{self.path}/DESIG-DESI-LST", lambda d, p: DesignFoundationEntry(d, p), pattern="DESIG-DESI-xxx")
@@ -6663,6 +6888,11 @@ class ContextualHelp(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Help delivered in place, at the moment of use.
+    #
+    # Tooltips, inline hints and field-level guidance — the route that never takes
+    # the user out of the task. Standalone documentation is the documentation
+    # section's concern.
     @property
     def contextualHelpContent(self):
         return ContextualHelpContextualHelpContentForm(self.doc, f"{self.path}/COHE-CONT")
@@ -9444,10 +9674,29 @@ class DataAttributeEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What this attribute is called and what it means, in business terms.
+    #
+    # The band that answers "what is this field?" for a reader who is not
+    # looking at a database: the physical column name, the definition, the
+    # glossary term it maps to, and concrete example values. It is deliberately
+    # free of type and constraint information — those are the two bands below —
+    # because this is the part a domain expert reviews, and the only part that
+    # survives a change of storage technology unchanged. The attribute's own
+    # name is the entry headline, not a field here.
     @property
     def identity(self):
         return DataAttributeEntryIdentityForm(self.doc, f"{self.path}/DAATT-IDEN")
 
+    # The logical type of the attribute, and the physical form it is realised
+    # in.
+    #
+    # This band carries the `@OneOf` discriminator, so it is the one place in
+    # the entry that changes the entry's own shape: choosing the logical type
+    # selects which per-kind options subsection applies. What stays here is only
+    # what every kind has — the logical type, the database type it becomes
+    # (`codespecs_mapping.md` §5.13), and the display or storage format. A
+    # length, a precision or a timezone belongs to its kind's options, not here,
+    # so that an attribute can never carry a constraint its type cannot honour.
     @property
     def dataTypeSpec(self):
         return DataAttributeEntryDataTypeSpecForm(self.doc, f"{self.path}/DAATT-DATA")
@@ -9535,22 +9784,70 @@ class DataAttributeEntry(SomNode):
     def enumerationTypeOptions(self):
         return DataAttributeEntryEnumerationTypeOptionsForm(self.doc, f"{self.path}/DAATT-DTEN")
 
+    # The rules a value of this attribute must satisfy.
+    #
+    # A list rather than a band of fields because an attribute carries an open
+    # number of independent restrictions — nullability, a range, a pattern, an
+    # allowed value set — and each needs its own message and severity to be
+    # usable. This is the CE-VA field-rule surface (`codespecs_mapping.md`
+    # §5.19): a restriction stated here becomes a validator on the emitted
+    # field, whereas one stated only in the attribute's description becomes
+    # nothing. Narrowing an enumerated attribute to a subset of its domain
+    # enum's values belongs here too, not in the type options.
     @property
     def constraints(self):
         return SomList(self.doc, f"{self.path}/DATAA-CONS-LST", lambda d, p: DataAttributeConstraintEntry(d, p), pattern="DATAA-CONS-xxx")
 
+    # Whether the attribute holds an authored value at all, or one produced from
+    # other values.
+    #
+    # A computed or derived attribute inverts the usual contract: nothing writes
+    # it, so its constraints read as consequences rather than as checks, its
+    # migration mapping is empty by construction, and offering it for editing on
+    # a form is a defect. Left empty, the attribute is ordinary stored data —
+    # which is the common case, and the reason this is a band of its own rather
+    # than fields folded into the type specification, where an empty formula
+    # would look like a missing answer.
     @property
     def derivation(self):
         return DataAttributeEntryDerivationForm(self.doc, f"{self.path}/DAATT-DERI")
 
+    # How exposed this single attribute is, independently of its entity.
+    #
+    # Sensitivity is an attribute-level fact. An otherwise ordinary customer
+    # record holds one national-identifier column, and classifying the whole
+    # entity at that column's level over-protects everything else while
+    # classifying it at the entity's level under-protects the column. This band
+    # is therefore where masking, field-level encryption and audit depth are
+    # decided per column. The level names it uses come from the scheme authored
+    # in [DataClassification]; the rules that follow from each level are stated
+    # there once instead of being repeated on every attribute.
     @property
     def securityClassification(self):
         return DataAttributeEntrySecurityClassificationForm(self.doc, f"{self.path}/DAATT-SECU")
 
+    # Where this attribute's values come from — upstream system, source field
+    # and the transformation applied.
+    #
+    # Provenance, kept beside the attribute so it outlives the migration that
+    # produced it: months later the question is not "how do we load this?" but
+    # "why does this column say that?", and the transformation rule recorded
+    # here is the answer. It sits at attribute level because a transformation is
+    # per-field; the entity-level plan that scopes and schedules the load is
+    # [MigrationMappingEntry] in the follow-up section.
     @property
     def migrationLineage(self):
         return DataAttributeEntryMigrationLineageForm(self.doc, f"{self.path}/DAATT-MIGR")
 
+    # How this attribute is presented to a user.
+    #
+    # Labels, formatting, ordering and visibility — facts a screen needs and the
+    # data model does not, kept out of the identity band so that changing a
+    # label never looks like renaming a column. A list because one attribute is
+    # shown in more than one place — a grid column, a detail form, a report —
+    # and each presentation has its own label and ordering. This is the material
+    # the screen-element derivation reads (`codespecs_mapping.md` §5.18); an
+    # attribute with no entry here is not hidden, it merely takes the defaults.
     @property
     def displayProperties(self):
         return SomList(self.doc, f"{self.path}/DISPL-DISP-LST", lambda d, p: DisplayPropertyEntry(d, p), pattern="DISPL-DISP-xxx")
@@ -9572,6 +9869,15 @@ class DataClassification(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The framework the classification levels are drawn from, and who maintains
+    # them.
+    #
+    # Properties of the *scheme* rather than of any one level, which is why they
+    # sit above the level list: which published standard the levels come from,
+    # what unclassified data defaults to, who may classify or reclassify, and
+    # how often assignments are revisited. The default is the load-bearing
+    # field — without one, data nobody has classified is governed by nothing at
+    # all, which is the gap this whole section exists to close.
     @property
     def overview(self):
         return DataClassificationOverviewForm(self.doc, f"{self.path}/DATCL-OVER")
@@ -9601,22 +9907,72 @@ class DataClassificationEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What this level means and what belongs in it.
+    #
+    # The band a person uses to *assign* the level — its name, its definition,
+    # the categories of data it covers, and worked examples — as against the
+    # bands below, which say what follows once a level has been assigned.
+    # Examples carry more weight here than elsewhere in the model: a
+    # classification scheme is applied by people working quickly, and a level
+    # with no examples is applied inconsistently however precise its definition
+    # is.
     @property
     def identity(self):
         return DataClassificationEntryIdentityForm(self.doc, f"{self.path}/DCLSE-IDEN")
 
+    # Where data at this level may physically live, and how it is protected on
+    # the way there.
+    #
+    # Encryption at rest and in transit, permitted storage locations, data
+    # residency and backup handling. They are grouped because they are the
+    # controls a hosting and infrastructure decision has to satisfy, and they
+    # are verified once at deployment rather than per request — which is what
+    # separates them from the access-control band below. Geographic restriction
+    # is stated with the level rather than left to the deployment document
+    # because it can invalidate an otherwise-finished architecture, and by then
+    # the level is what has to be re-read.
     @property
     def storageTransmission(self):
         return DataClassificationEntryStorageTransmissionForm(self.doc, f"{self.path}/DCLSE-STOR")
 
+    # Who may reach data at this level, how they prove who they are, and what is
+    # recorded when they do.
+    #
+    # The per-request half of the level's controls: authentication strength,
+    # authorization model, audit depth, and the process by which access is
+    # granted in the first place. This is the material the authorization
+    # derivation reads (`codespecs_mapping.md` §5.15). Stating it once per level
+    # rather than per entity is the point of having levels at all — it is what
+    # stops the same access rule being re-invented, slightly differently, on
+    # every entity that happens to hold sensitive data.
     @property
     def accessControl(self):
         return DataClassificationEntryAccessControlForm(self.doc, f"{self.path}/DCLSE-ACCE")
 
+    # How long data at this level is kept, and how it is destroyed.
+    #
+    # Separated from the entity-level lifecycle policy (`DAENT-LIFE`) by scope
+    # and authority: this is the floor that applies to everything classified at
+    # the level, while an entity states its own period where a specific statute
+    # demands a different one. The disposal method matters as much as the
+    # period — deletion, anonymization and crypto-erase are not
+    # interchangeable once backups exist, and only some of them survive a
+    # restore.
     @property
     def retentionDisposal(self):
         return DataClassificationEntryRetentionDisposalForm(self.doc, f"{self.path}/DCLSE-RETE")
 
+    # The named regulations that impose this level, and the duties that come
+    # with them.
+    #
+    # The band that connects the scheme to the outside world: which regulations
+    # apply, what they require, how fast a breach must be reported, and which
+    # data-subject rights must be honoured. It is stated per level rather than
+    # per entity because the obligation attaches to the *kind* of data; an
+    # entity inherits it by being classified. The breach-notification field is a
+    # duration and must be authored as one — an answer like "as soon as
+    # possible" cannot be met or missed, which is the only thing the field is
+    # for.
     @property
     def compliance(self):
         return DataClassificationEntryComplianceForm(self.doc, f"{self.path}/DCLSE-COMP")
@@ -9771,18 +10127,58 @@ class DataEntityEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What this entity is called, in each vocabulary that needs a name for it.
+    #
+    # One entity is named four times over — logically, physically, in diagrams,
+    # and as a design pattern — and a model that keeps only one of those names
+    # makes every later reader re-derive the rest. The logical name is what the
+    # rest of the model refers to; the physical name is what the CE-DB table is
+    # emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
+    # deliberately not part of the stereotype recorded here: it is read from
+    # `DAENT-CLAS.aggregateRoot`, the only field that states it.
     @property
     def identity(self):
         return DataEntityEntryIdentityForm(self.doc, f"{self.path}/DAENT-IDEN")
 
+    # Where this entity sits in the domain, and who answers for it.
+    #
+    # Grouping and accountability, as against the naming in `DAENT-IDEN` and the
+    # shape in the attribute list. It is a band of its own because its first
+    # fields are read by something other than a human — the bounded context and
+    # the aggregate root fix the service-unit boundary and its ownership key
+    # (`codespecs_mapping.md` §5.1), as the class comment above sets out — while
+    # the owner, steward and source-system fields are governance facts no
+    # derivation reads. Both halves answer the same question, whose entity is
+    # this, which is why they share a band rather than being split apart.
     @property
     def classification(self):
         return DataEntityEntryClassificationForm(self.doc, f"{self.path}/DAENT-CLAS")
 
+    # What becomes of this entity's rows over time: how long they are kept,
+    # where they go next, and what is recorded about the change.
+    #
+    # Separate from the classification band because retention is decided by a
+    # different authority on a different clock — a statute or a privacy
+    # regulation sets the period, and it changes when the regulation changes,
+    # not when the model does. It is authored per entity rather than per
+    # sensitivity level because two entities at the same level routinely carry
+    # different statutory periods; where a level imposes a floor on all of them,
+    # that floor is stated once in [DataClassificationEntry] instead.
     @property
     def lifecyclePolicy(self):
         return DataEntityEntryLifecyclePolicyForm(self.doc, f"{self.path}/DAENT-LIFE")
 
+    # The entity's relationships as seen from this entity — a digest, not the
+    # authority.
+    #
+    # The authored relationship is [EntityRelationshipEntry], which states each
+    # one once with its cardinality, referential integrity and navigation. This
+    # band exists so a reader of a single entity can see what it depends on
+    # without assembling that list in their head. The consequence is that it
+    # must never be the only place a relationship appears: anything recorded
+    # here and nowhere else is invisible to every consumer that reads the
+    # relationship entries, and stale content here is a documentation defect
+    # rather than a model change.
     @property
     def relationshipSummary(self):
         return DataEntityEntryRelationshipSummaryForm(self.doc, f"{self.path}/DAENT-RELA")
@@ -9825,6 +10221,18 @@ class DataEntityReferenceEntry(SomNode):
     def content(self):
         return DataEntityReferenceEntryContentForm(self.doc, f"{self.path}/content")
 
+    # The data-model entity these operations act on, named by section id.
+    #
+    # This entry describes *how a requirement touches* an entity — which CRUD
+    # operations, which attributes, at what volume, under which quality rules —
+    # and deliberately does not restate what the entity is. The link is what
+    # makes that omission safe: the reader follows it to the information model
+    # for the entity's fields, keys and relationships, stated once. Without it
+    # the row names a string no schema is obliged to match.
+    #
+    # It is also the edge the CE-DB data-access derivation reads
+    # (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
+    # requirement whose data access cannot be generated.
     @property
     def relatedEntity(self):
         return self.doc.content(f"{self.path}/DAENRE-RELA-REF") or ""
@@ -12763,6 +13171,16 @@ class DocumentationQualityCriteria(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How documentation is produced and kept current — strategy, ownership,
+    # platform, review and cadence.
+    #
+    # Documentation quality is not one of the eight ISO/IEC 25010:2023 product
+    # characteristics; it is carried in this chapter because a delivered system
+    # whose documentation is wrong fails acceptance for reasons no product
+    # metric catches. The band asks about *process* rather than about documents
+    # on purpose: ownership and update cadence are what decide whether the
+    # readability, completeness and correctness targets below are met once at
+    # handover or continuously afterwards.
     @property
     def documentationOverviewContent(self):
         return DocumentationQualityCriteriaDocumentationOverviewContentForm(self.doc, f"{self.path}/DOQUCR-DOCU")
@@ -12993,7 +13411,7 @@ class DomainEnumRegistry(SomNode):
     2. **Closed-choice discriminator source** — because each enum is *named* and
        exposes an *enumerable* set of value ids, a future `@OneOf`
        discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
-       match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+       match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry
        provides that source; the `@OneOf`/`@Case` annotations themselves are a
        separate part.
     """
@@ -13515,22 +13933,67 @@ class EntityFollowUpEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Which entity these follow-up facets describe.
+    #
+    # The facets below are operational and governance material rather than part
+    # of the generation-owned entity schema, which is why the block sits outside
+    # [DataEntityEntry] rather than inside it — and that is exactly what makes a
+    # correlation key necessary. The entry headline carries the entity name and
+    # this band carries the short alias used in diagrams and narrative. Point it
+    # at the wrong entity and both halves stay well-formed on their own, so
+    # nothing detects the error; it is worth checking against
+    # `dataModel.entities` when the block is written.
     @property
     def entityRef(self):
         return EntityFollowUpEntryEntityRefForm(self.doc, f"{self.path}/DMFUE-ENTI")
 
+    # How much data this entity accumulates, and how fast.
+    #
+    # Sizing evidence rather than schema: record counts, growth rates and
+    # storage estimates are what an infrastructure, indexing or archival
+    # decision is argued from, and they change with the business rather than
+    # with the model. A list because one entity is sized differently per
+    # environment and per planning horizon, and each figure needs its own basis
+    # to be trusted. The retention policy that acts on these numbers is authored
+    # on the entity itself (`DAENT-LIFE`), not here.
     @property
     def volumeMetrics(self):
         return SomList(self.doc, f"{self.path}/VOLUM-VOLU-LST", lambda d, p: VolumeMetricEntry(d, p), pattern="VOLUM-VOLU-xxx")
 
+    # The regulatory obligations this entity's data carries.
+    #
+    # The per-entity view — "this entity holds PII, therefore these rules apply
+    # to it". The scheme the rules are drawn from is authored once in
+    # [DataClassification], and individual attributes carry their own
+    # sensitivity in `DAATT-SECU`; an entry here is what ties a named regulation
+    # to a named entity, which is the link an audit follows and the one a
+    # classification level on its own cannot supply.
     @property
     def complianceRequirements(self):
         return SomList(self.doc, f"{self.path}/CRE-COMP-LST", lambda d, p: ComplianceRequirementEntry(d, p), pattern="CRE-COMP-xxx")
 
+    # Runtime behaviour expected of this entity's storage — indexing, caching,
+    # consistency and scaling.
+    #
+    # Separated from the entity's `ENIDX` index list by who decides it: an index
+    # is a concrete schema object the data-access derivation emits
+    # (`codespecs_mapping.md` §5.13), while a characteristic here is an
+    # operational expectation an implementation may satisfy in more than one
+    # way. Keeping it out of the generation-owned model is deliberate — stated
+    # there it would read as an instruction to emit something.
     @property
     def technicalCharacteristics(self):
         return SomList(self.doc, f"{self.path}/TECHN-TECH-LST", lambda d, p: TechnicalCharacteristicEntry(d, p), pattern="TECHN-TECH-xxx")
 
+    # Where this entity's data comes from when a legacy system is replaced.
+    #
+    # Source-to-target field mappings, one per source field, so a cutover can be
+    # planned and its coverage checked field by field. Distinct from the
+    # per-attribute lineage in `DAATT-MIGR`, which records the standing
+    # provenance of one attribute; this list is the plan for a one-off load and
+    # is expected to be retired once it has run. Evolution of the *new* system's
+    # own schema is a third subject and lives in [SchemaMigrationStepEntry]
+    # (`codespecs_mapping.md` §5.27).
     @property
     def migrationMappings(self):
         return SomList(self.doc, f"{self.path}/MIGME-MIGR-LST", lambda d, p: MigrationMappingEntry(d, p), pattern="MIGME-MIGR-xxx")
@@ -13568,30 +14031,95 @@ class EntityRelationshipEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What kind of relationship this is, and why it exists.
+    #
+    # The band keeps apart two things that are easily conflated. The
+    # *conceptual* kind — association, aggregation, composition, generalization,
+    # dependency — decides whether one end can outlive the other. The
+    # *implementation* kind — foreign key, junction table, embedded, reference —
+    # decides what the schema looks like. Neither can be inferred from the
+    # other: a composition realised through a junction table is a legitimate
+    # combination. The business justification sits with them so the reason for
+    # the edge is recorded where the edge is, rather than only in the chapter
+    # narrative.
     @property
     def identity(self):
         return EntityRelationshipEntryIdentityForm(self.doc, f"{self.path}/ENRLE-IDEN")
 
+    # The entities at each end, with the role each one plays.
+    #
+    # A list rather than a source/target pair of fields, because the role name
+    # is per-participant and is what a navigation property ends up being named
+    # after — a self-relationship between two rows of one entity is
+    # distinguishable only by its roles, "employer" and "employee". The
+    # entities themselves are additionally reachable as resolved links
+    # ([sourceEntityRef], [targetEntityRef]).
     @property
     def participants(self):
         return SomList(self.doc, f"{self.path}/PARTI-PART-LST", lambda d, p: ParticipantEntry(d, p), pattern="PARTI-PART-xxx")
 
+    # How many instances may stand at each end, and whether either end may stand
+    # empty.
+    #
+    # Two independent questions, which is why the band carries two pairs of
+    # fields rather than one notation. *Cardinality* is the count on each side;
+    # *participation* is whether taking part is mandatory at all. `0..*` and
+    # `1..*` differ only in the second, and it is the second that decides
+    # whether the foreign key may be null — so a model that records only the
+    # count leaves the schema underdetermined.
     @property
     def cardinality(self):
         return EntityRelationshipEntryCardinalityForm(self.doc, f"{self.path}/ENRLE-CARD")
 
+    # What happens to the far end when a row is deleted or its key changes, and
+    # who enforces it.
+    #
+    # The band that turns the relationship from a description into a runtime
+    # guarantee. Its enforcement level is what decides whether the guarantee
+    # exists at all: enforced in the database, a violation is impossible;
+    # enforced in the application, only writers that go through the application
+    # are covered; enforced nowhere, the cardinality above is documentation.
+    # Cascade scope and orphan handling are stated separately from the delete
+    # action because a cascade that reaches every descendant and one that
+    # reaches only direct children are very different amounts of data loss under
+    # the same word.
     @property
     def referentialIntegrity(self):
         return EntityRelationshipEntryReferentialIntegrityForm(self.doc, f"{self.path}/ENRLE-REFE")
 
+    # How the relationship is traversed in code, and where the key physically
+    # sits.
+    #
+    # The implementation-facing band: which directions are navigable, whether
+    # the far end is loaded eagerly or on demand, which table actually holds the
+    # foreign key, and what the inverse is called. It is kept apart from the
+    # cardinality band because none of it changes what the data means — a
+    # relationship is the same relationship whether it is navigated from one
+    # side or both — while all of it changes how the relationship performs, and
+    # it is revisited on that basis alone.
     @property
     def navigation(self):
         return EntityRelationshipEntryNavigationForm(self.doc, f"{self.path}/ENRLE-NAVI")
 
+    # Attributes belonging to the relationship itself rather than to either end.
+    #
+    # A many-to-many link that carries data — an enrolment date on
+    # student-to-course, a quantity on order-to-product — has nowhere to put it
+    # on either participant without misstating who owns it. This list is that
+    # place, and a non-empty list is the signal that the junction table is a
+    # real entity with columns of its own rather than a pure join. Empty for
+    # every relationship that carries no data, which is most of them.
     @property
     def relationshipAttributes(self):
         return SomList(self.doc, f"{self.path}/RELAT-RELA-LST", lambda d, p: RelationshipAttributeEntry(d, p), pattern="RELAT-RELA-xxx")
 
+    # The resolved link to the entity at the source end.
+    #
+    # The participant list names the ends for a reader; this is the
+    # machine-followable edge to the source entity's section, shown by the
+    # outliner without recursing into it and validated by the schema generator
+    # against the entity list. It is what makes an entity name that resolves to
+    # nothing a detected error instead of a dangling string.
     @property
     def sourceEntityRef(self):
         return self.doc.content(f"{self.path}/ENRLE-SOUR-REF") or ""
@@ -13600,6 +14128,14 @@ class EntityRelationshipEntry(SomNode):
     def sourceEntityRef(self, value):
         self.doc.set_content(f"{self.path}/ENRLE-SOUR-REF", value)
 
+    # The resolved link to the entity at the target end.
+    #
+    # The mirror of [sourceEntityRef], with one asymmetry worth knowing: which
+    # end is "source" is not arbitrary. It is the end the relationship is read
+    # from, and it is what `ENRLE-CARD.sourceCardinality` and
+    # `ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the
+    # two ends changes what the cardinality band asserts even though the
+    # business fact is unchanged.
     @property
     def targetEntityRef(self):
         return self.doc.content(f"{self.path}/ENRLE-TARG-REF") or ""
@@ -13875,7 +14411,7 @@ class ErrorBudgetTracking(SomNode):
 class ErrorCodeEntry(SomNode):
     """A single shared application error code (form).
     
-    One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+    One entry in the [ErrorCodeRegistry]: a stable machine `code` (the join key
     referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
     a default severity, a retryable hint, an optional HTTP-status hint and a
     copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
@@ -13950,6 +14486,11 @@ class ErrorHandling(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The stance errors are written from, before the concrete categories below.
+    #
+    # Sets the tone and the prevention/recovery balance the sibling sections then
+    # apply; it decides nothing on its own, so a rule that changes behaviour belongs
+    # in validation, system-error or recovery, not here.
     @property
     def errorPhilosophyContent(self):
         return ErrorHandlingErrorPhilosophyContentForm(self.doc, f"{self.path}/ERHACO-ERRO")
@@ -14054,6 +14595,10 @@ class ErrorRecovery(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What the system offers after an error, so the user is not left stranded.
+    #
+    # Retry, undo, draft preservation and escalation paths. Distinct from the error
+    # *message*, which the philosophy and category sections govern.
     @property
     def recoveryMechanismsContent(self):
         return ErrorRecoveryRecoveryMechanismsContentForm(self.doc, f"{self.path}/ERRE-RECO")
@@ -14708,6 +15253,23 @@ class ExtensionStepEntry(SomNode):
     def content(self):
         return ExtensionStepEntryContentForm(self.doc, f"{self.path}/content")
 
+    # How this extension step's server call is carried out, step by step.
+    #
+    # Present only where the step reaches the server — that is, where its
+    # `serverOperation` names an operation; a step that names none generates no
+    # call and has nothing to put here. The entries are read in document order,
+    # and each declares which of the three handling roles it belongs to, so one
+    # list describes all three of the generated method bodies rather than three
+    # parallel lists that could fall out of step with each other
+    # (`codespecs_derivation_contract.md` §3.5.7).
+    #
+    # An empty list is not an omission. It says the call has nothing to state
+    # beyond the step's own behaviour text, and the derivation falls back to
+    # exactly that (`codespecs_derivation_contract.md` §2.4).
+    #
+    # An extension runs instead of the main flow at its branch point, so the
+    # call stated here belongs to that path alone — it neither shares nor
+    # inherits the steps of the main-flow step the extension replaces.
     @property
     def serverCallSteps(self):
         return SomList(self.doc, f"{self.path}/SVCST-STEP-LST", lambda d, p: ServerCallStepEntry(d, p), pattern="SVCST-STEP-xxx")
@@ -14838,6 +15400,21 @@ class ExternalInterfaceEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Which external system this interface reaches, and what kind of
+    # integration it is.
+    #
+    # The identity band of an interface: the party on the far side, who
+    # provides it, the functional category it falls in, and the integration
+    # pattern that governs how the two ends exchange control. It is kept apart
+    # from [technicalSpec] because the pattern is an architectural commitment —
+    # request-reply and pub-sub imply different failure modes and different
+    # operational obligations — while the technical band records how that
+    # commitment is realised, which can change without the interface becoming a
+    # different interface.
+    #
+    # It is also the band that fixes the CE-SU service-unit boundary this entry
+    # maps to (`codespecs_mapping.md` §5.1): one external system, one cohesive
+    # grouping of operations.
     @property
     def identificationContent(self):
         return ExternalInterfaceEntryIdentificationContentForm(self.doc, f"{self.path}/EIE-IDEN")
@@ -15057,6 +15634,18 @@ class ExternalServiceDependencyEntry(SomNode):
     def risk(self):
         return ExternalServiceDependencyEntryRiskForm(self.doc, f"{self.path}/EXSRK")
 
+    # The in-house system that stops working when this external service does,
+    # named by section id.
+    #
+    # An external service is usually consumed by more than one system; this
+    # names the one whose exposure is the reason the dependency is being
+    # recorded at all, so the lock-in, fallback and outage facts above have a
+    # blast radius attached to them instead of floating free. Expect an entry
+    # from the existing-systems inventory at the far end.
+    #
+    # "Primary" is a deliberate narrowing, not a completeness claim. The full
+    # consumer set is a property of the systems and is stated there; repeating
+    # it here would only give it a second place to be wrong.
     @property
     def primaryDependentSystem(self):
         return ExistingSystemEntry(self.doc, f"{self.path}/EXSDE-PRIM-REF")
@@ -15702,6 +16291,17 @@ class FlexibilityCharacteristic(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The changes the system must absorb without redesign, and the environments
+    # it must run in.
+    #
+    # Flexibility in ISO/IEC 25010:2023 absorbs the former portability
+    # characteristic, so this one band covers adaptability, scalability,
+    # installability and replaceability together. It is about change to the
+    # system's *context* — more load, a new platform, a different deployment —
+    # where maintainability is about change to the *product* by someone
+    # modifying it. A system can be highly flexible and hard to maintain, or the
+    # reverse, and keeping the two targets apart is what stops either being
+    # offered as evidence for the other.
     @property
     def flexibilityContent(self):
         return FlexibilityCharacteristicFlexibilityContentForm(self.doc, f"{self.path}/FLXC-FLEX")
@@ -15863,10 +16463,29 @@ class FunctionModel(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How the function hierarchy was cut, and how deep it goes.
+    #
+    # Method rather than content: the criterion by which a function was split
+    # into sub-functions, the number of levels, and the top-level areas the tree
+    # starts from. It is a band of its own because the criterion has to be
+    # chosen once and applied throughout — a hierarchy whose first level is
+    # business capability and whose second is organizational unit cannot be
+    # compared across branches, and no individual function entry can reveal
+    # that.
     @property
     def decompositionOverview(self):
         return FunctionModelDecompositionOverviewForm(self.doc, f"{self.path}/FUMO-DECO")
 
+    # How to read the function-to-data matrix, and how much of the system it
+    # covers.
+    #
+    # The matrix entries are dense and close to unreadable without this band:
+    # which notation the cells use, which functions were included, and which
+    # access patterns the result is meant to expose. Scope is the field that
+    # fixes what an empty cell means — in a matrix scoped to core functions a
+    # blank is "not examined", while in one scoped to all functions it is "this
+    # function does not touch this entity", which is a far stronger claim and
+    # the one a data-ownership argument rests on.
     @property
     def matrixOverview(self):
         return FunctionModelMatrixOverviewForm(self.doc, f"{self.path}/FUMO-MATR")
@@ -16059,6 +16678,16 @@ class FunctionalSuitabilityCharacteristic(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The bar for "the right functions, working correctly" — the coverage target
+    # and the correctness threshold.
+    #
+    # Functional suitability is the ISO/IEC 25010:2023 characteristic concerned
+    # with *what* the product does, and it is the only one in this chapter whose
+    # target can be read off the requirements themselves: coverage is measured
+    # against the specified function set, correctness against the specified
+    # results. Every other characteristic here constrains how well those same
+    # functions behave, which is why they carry targets of their own and this
+    # one carries a coverage figure.
     @property
     def functionalSuitabilityContent(self):
         return FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm(self.doc, f"{self.path}/FNSU-FUNC")
@@ -16219,6 +16848,18 @@ class GoalDependencyEntry(SomNode):
     def content(self):
         return GoalDependencyEntryContentForm(self.doc, f"{self.path}/content")
 
+    # The goal whose achievement this dependency blocks, named by section id.
+    #
+    # A dependency entry is written from the dependency's side — what is
+    # needed, who controls it, when it is expected, what happens if it does not
+    # arrive — and this is the only thing on the entry that says what is at
+    # risk. Expect a goal of this document at the far end; a dependency that
+    # would have to name several goals is really several dependencies, because
+    # each of those goals has a different exposure to it.
+    #
+    # The reference stores a section id and is not traversed
+    # (`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and
+    # metrics stay in one place and cannot drift into a second.
     @property
     def relatedGoal(self):
         return self.doc.content(f"{self.path}/GOLDE-RELA-REF") or ""
@@ -16363,12 +17004,26 @@ class GoalRisks(SomNode):
         return SomList(self.doc, f"{self.path}/GOLRS-ITEM-LST", lambda d, p: GoalRiskEntry(d, p), pattern="GOLRS-ITEM-xxx")
 
 class Goals(SomNode):
-    """4.2. Goals.
+    """4.2. Goals — the outcomes the project is answerable for, in three bands.
     
-    Container for project goals organized by category. Goals provide measurable
-    objectives that guide project execution and define success. This section
-    supports OKR (Objectives and Key Results) methodology while also
-    accommodating traditional goal structures.
+    The goal set is split rather than held as one list, and the split is the
+    substance of the section. [businessGoals] state outcomes the organization
+    wants and that can only be judged in business terms — revenue moved, cost
+    removed, an obligation discharged. [technicalGoals] state properties of the
+    built system that no business reading would notice until they are missing.
+    [successCriteria] state the thresholds at which either is agreed to have
+    been reached, so that "improved" is never the whole claim.
+    
+    A goal is not a requirement. A requirement ([RequirementsOverview]) is a
+    capability the system must have; a goal is the reason a capability is worth
+    having, and it outlives any particular way of reaching it. That is why
+    goals are stated before the requirements they justify: a requirement with
+    no goal behind it is scope nobody asked for, and a goal with no requirement
+    under it is an intention nothing implements.
+    
+    The structure carries OKR-style objectives and key results without
+    mandating them — a key result is recorded as a success criterion — so a
+    team that does not run OKRs loses nothing by using this section.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -17585,6 +18240,18 @@ class InteractionCapabilityCharacteristic(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The user population whose experience sets the bar, and the level of
+    # experience aimed at.
+    #
+    # Interaction capability is the ISO/IEC 25010:2023 successor to usability:
+    # how well specified users can exchange information with the product to
+    # complete their tasks. It differs from functional suitability in that a
+    # product can offer every required function and still fail here, and from
+    # performance efficiency in that the measure is ultimately a person's
+    # judgement — which is why the band asks for the research basis and the
+    # feedback channel alongside the target, rather than a number on its own.
+    # Accessibility conformance belongs here because it is a floor on the same
+    # axis, not a separate quality.
     @property
     def interactionCapabilityContent(self):
         return InteractionCapabilityCharacteristicInteractionCapabilityContentForm(self.doc, f"{self.path}/INCP-INTE")
@@ -18266,7 +18933,15 @@ class IntroductionAndScope(SomNode):
     def systemDescription(self):
         return SystemDescription(self.doc, f"{self.path}/systemDescription")
 
-    # 4.2. Goals.
+    # 4.2. Goals — the outcomes the project is answerable for.
+    #
+    # The measurable objectives that decide whether the project succeeded, held
+    # apart from [systemDescription], which says what the system *is*, and from
+    # [requirements], which say what it must *do*. A goal is an outcome the
+    # organization wants; a requirement is a capability that serves one. The
+    # separation is what lets a requirement cite the goal it exists for, and it
+    # is what makes an orphan requirement — scope with no outcome behind it —
+    # visible instead of merely present.
     @property
     def goals(self):
         return Goals(self.doc, f"{self.path}/goals")
@@ -18579,6 +19254,15 @@ class KeyAttributeEntry(SomNode):
     def governance(self):
         return KeyAttributeEntryGovernanceForm(self.doc, f"{self.path}/KEAGV")
 
+    # The resolved link to the entity a foreign key points at.
+    #
+    # The `referencedEntity` field of the reference band holds the target's name
+    # as text; this member is the followable edge to that entity's section,
+    # which the outliner shows in place of the target subtree rather than
+    # recursing into it, and which the schema generator validates. It is what
+    # makes an entity name that resolves to nothing a detected error rather than
+    # a dangling string. Empty for every key type but a foreign key — a primary
+    # or alternate key references nothing outside its own entity.
     @property
     def referencedEntityRef(self):
         return self.doc.content(f"{self.path}/KEATT-REFE-REF") or ""
@@ -18877,6 +19561,10 @@ class LanguageCountrySelection(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How a user's language is chosen and changed.
+    #
+    # Detection, override and persistence — the runtime behaviour, not the set of
+    # languages, which the overview fixes.
     @property
     def languageSelectionContent(self):
         return LanguageCountrySelectionLanguageSelectionContentForm(self.doc, f"{self.path}/LACOSE-LANG")
@@ -19230,6 +19918,10 @@ class LocalizationProcess(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How locale-specific adaptation is carried out beyond translation.
+    #
+    # Formats, collation, currency and layout direction — the parts of localization
+    # that are not the text itself.
     @property
     def localizationProcessContent(self):
         return LocalizationProcessLocalizationProcessContentForm(self.doc, f"{self.path}/LOPR-LOCA")
@@ -19264,7 +19956,7 @@ class LocalizationTranslationProcess(SomNode):
     
     Bundles the localization and translation *workflow* concerns re-homed from
     the former `MultiLanguageSupport` cluster (their requirement counterparts
-    live in SBP.9 [LocalizationTranslationRequirements]).
+    live in SBP.9 `LocalizationTranslationRequirements`).
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -19294,7 +19986,7 @@ class LocalizationTranslationProcess(SomNode):
 class LocalizationTranslationRequirements(SomNode):
     """Localization & Translation requirements (the requirement side of i18n).
     
-    Cross-mapped from SBP.14 via [Iso25010Coverage].
+    Cross-mapped from SBP.14 via `Iso25010Coverage`.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -19506,6 +20198,24 @@ class MainScenarioStepEntry(SomNode):
     def content(self):
         return MainScenarioStepEntryContentForm(self.doc, f"{self.path}/content")
 
+    # How this main-flow step's server call is carried out, step by step.
+    #
+    # Present only where the step reaches the server — that is, where its
+    # `serverOperation` names an operation; a step that names none generates no
+    # call and has nothing to put here. The entries are read in document order,
+    # and each declares which of the three handling roles it belongs to, so one
+    # list describes all three of the generated method bodies rather than three
+    # parallel lists that could fall out of step with each other
+    # (`codespecs_derivation_contract.md` §3.5.7).
+    #
+    # An empty list is not an omission. It says the call has nothing to state
+    # beyond the step's own behaviour text, and the derivation falls back to
+    # exactly that (`codespecs_derivation_contract.md` §2.4).
+    #
+    # On the main success scenario the call is the happy path: the response
+    # steps describe the outcome the scenario claims, and the error steps
+    # describe what the user sees when that claim fails without the scenario
+    # itself branching.
     @property
     def serverCallSteps(self):
         return SomList(self.doc, f"{self.path}/SVCST-STEP-LST", lambda d, p: ServerCallStepEntry(d, p), pattern="SVCST-STEP-xxx")
@@ -19580,6 +20290,17 @@ class MaintainabilityCharacteristic(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What modification must cost, and the structural thresholds that keep it
+    # there.
+    #
+    # Maintainability in ISO/IEC 25010:2023 is the effectiveness and efficiency
+    # with which the product can be modified — corrected, improved, extended or
+    # adapted. Its targets are unusual in this chapter in being measured on the
+    # *source* rather than on the running system: complexity limits and test
+    # coverage are the standard field's currency. That is also why it is stated
+    # alongside who will maintain the system and over what horizon — a threshold
+    # that is right for a team of thirty over ten years is wrong for a
+    # prototype.
     @property
     def maintainabilityContent(self):
         return MaintainabilityCharacteristicMaintainabilityContentForm(self.doc, f"{self.path}/MNTC-MAIN")
@@ -19873,7 +20594,7 @@ class MessageFormatStandards(SomNode):
 class MessageKeyEntry(SomNode):
     """A single message key (form + locale variants).
     
-    One author-once copy string: a stable [key] (the token every consumer
+    One author-once copy string: a stable `key` (the token every consumer
     references), the default base-locale copy, an optional list of named
     placeholders the copy interpolates, and its
     [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
@@ -19908,13 +20629,13 @@ class MessageKeyRegistry(SomNode):
     carrying inline copy and instead reference a key here:
     
     - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
-    - **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);
-    - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+    - **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);
+    - **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);
     - **CE-VA** validation-failure messages.
     
     csmb3 and csmb5 already modelled their `copyKey` references as plain
     message-key strings anticipating this registry; those keys now resolve
-    against [MessageKeyEntry.key].
+    against `MessageKeyEntry.key`.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -19941,7 +20662,7 @@ class MessageLocaleVariantEntry(SomNode):
     
     One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
     copy for that locale. The base-locale copy lives on
-    [MessageKeyEntry.defaultCopy]; each variant here overrides it for one
+    `MessageKeyEntry.defaultCopy`; each variant here overrides it for one
     locale.
     """
     def __init__(self, doc, path):
@@ -19972,6 +20693,19 @@ class MetricsAndObservability(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Which telemetry signals are collected at all, in what format, and at what
+    # resolution.
+    #
+    # The enabling band: metrics, logs, traces and profiles are each switched on
+    # or off here, and the wire format, standard and collection method are fixed
+    # once for all of them. It precedes the per-domain subsections because
+    # turning a signal off here makes every downstream specification of it moot,
+    # and because a shared format is what decides whether two services' output
+    # can be read together at all.
+    #
+    # Scrape interval and sampling rate are the resolution the system is
+    # observed at — the point where fidelity is traded against the retention and
+    # cost budget agreed in [Monitoring].
     @property
     def metricsOverview(self):
         return MetricsAndObservabilityMetricsOverviewForm(self.doc, f"{self.path}/MEANOB-METR")
@@ -20151,6 +20885,20 @@ class MigrationConsiderations(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The portfolio-wide cutover approach — the decisions that bound every
+    # individual system's migration.
+    #
+    # These are the choices no single system can make without contradicting its
+    # neighbours: the cutover pattern, the order systems move in, how their
+    # interdependencies are honoured, and when migration work is permitted to
+    # run at all. They sit here rather than on each system's own entry so that
+    # a reader checking one system's plan can see the programme-level
+    # constraint it has to fit inside, and so that changing the sequencing is
+    # one edit rather than one per system.
+    #
+    # [strategyNarrative] carries the reasoning behind these answers; this band
+    # carries the answers themselves, so a change of approach is a change here
+    # and not a rewrite of prose.
     @property
     def strategyContent(self):
         return MigrationConsiderationsStrategyContentForm(self.doc, f"{self.path}/MIGCON-STRA")
@@ -20523,6 +21271,18 @@ class MigrationRisks(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Who owns migration risk, and how often it is looked at.
+    #
+    # The standing machinery of risk management — the governance model, the
+    # risk committee's mandate, the review cadence — as distinct from
+    # [governance], which is the decision surface that machinery uses:
+    # escalation path, tolerance, and who may accept a risk. The split is
+    # worth having because the cadence is set once for the programme while the
+    # tolerance is argued about per risk.
+    #
+    # A programme that leaves this empty has risks recorded with nobody
+    # scheduled to read them, which is the failure this band exists to make
+    # visible.
     @property
     def governanceContent(self):
         return MigrationRisksGovernanceContentForm(self.doc, f"{self.path}/MIRI-GOVE")
@@ -20791,6 +21551,19 @@ class Monitoring(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The monitoring posture as a whole — the strategy, the platforms it runs
+    # on, what must be covered, and what it is allowed to cost.
+    #
+    # The band that has to be settled before any subsection below can be
+    # written, because they all inherit from it: a health check, an alert rule
+    # and a dashboard are built on the same platforms, retained for the same
+    # periods and paid for out of the same budget. Stating that once here is
+    # what stops [alertingConfiguration], [metricsAndObservability] and
+    # [dashboards] from each nominating a tool of their own.
+    #
+    # Retention and cost sit here rather than beside the signals they apply to
+    # for the same reason: they are traded against each other across the whole
+    # estate, never one signal at a time.
     @property
     def monitoringOverview(self):
         return MonitoringMonitoringOverviewForm(self.doc, f"{self.path}/MONITO-MONI")
@@ -20921,6 +21694,18 @@ class MonitoringDashboards(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The ground rules for the dashboard estate — platform, access, and the
+    # conventions every dashboard follows.
+    #
+    # Conventions are why this band exists instead of being folded into the
+    # catalog below: naming, layout and colour coding are only worth stating if
+    # they hold everywhere, and an operator reading a dashboard under pressure
+    # must not have to work out which way round the colours run. The category
+    # flags record which audiences are served at all, so a missing executive
+    # view is a decision on the record rather than an oversight nobody noticed.
+    #
+    # Which dashboards exist, and what each one shows, is the catalog — not
+    # this.
     @property
     def dashboardOverview(self):
         return MonitoringDashboardsDashboardOverviewForm(self.doc, f"{self.path}/MODA-DASH")
@@ -21072,6 +21857,10 @@ class MultiLanguageSupport(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Which languages are supported and what support means.
+    #
+    # Scope and locale handling, before the process sections that say how the
+    # translations are produced and kept current.
     @property
     def multiLanguageOverview(self):
         return MultiLanguageSupportMultiLanguageOverviewForm(self.doc, f"{self.path}/MLAR-MULT")
@@ -21111,6 +21900,15 @@ class MustPassCriteria(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What qualifies a criterion as must-pass, how many there are, and whether
+    # one can be waived.
+    #
+    # A must-pass criterion is one whose failure stops delivery, so the band's
+    # real subject is where that boundary falls. Without a stated criticality
+    # definition every stakeholder's own criterion is critical, and the set
+    # grows until failing it no longer stops anything. The waiver fields are the
+    # pressure valve that keeps the boundary honest, and naming the waiver
+    # authority is what keeps a waiver a decision rather than an omission.
     @property
     def mustPassOverviewContent(self):
         return MustPassCriteriaMustPassOverviewContentForm(self.doc, f"{self.path}/MUPACR-MUST")
@@ -22010,6 +22808,10 @@ class OnboardingHelp(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The guided first-run experience for a new user.
+    #
+    # One-time or milestone-triggered, unlike contextual help, which is always
+    # available. Its success measure is time-to-first-value, not coverage.
     @property
     def onboardingContent(self):
         return OnboardingHelpOnboardingContentForm(self.doc, f"{self.path}/ONHE-ONBO")
@@ -22476,6 +23278,16 @@ class OrganizationalEnvironment(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Who the organization is — the facts that set the scale everything else in
+    # this section is read against.
+    #
+    # Size, sector, geographic reach and revenue band are not background
+    # colour: they are what make a later statement about governance, decision
+    # latency or change capacity interpretable at all. A weekly steering
+    # committee means one thing in a forty-person company and another in a
+    # global one. The band leads the section, and is separate from the maturity
+    # band that follows it, because these are externally verifiable facts while
+    # maturity is an assessment this document is making.
     @property
     def organizationContent(self):
         return OrganizationalEnvironmentOrganizationContentForm(self.doc, f"{self.path}/OREN-ORGA")
@@ -23240,6 +24052,16 @@ class PerformanceEfficiencyCharacteristic(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The engineering stance the performance and structural targets are set
+    # against.
+    #
+    # Performance efficiency in ISO/IEC 25010:2023 is behaviour *relative to the
+    # resources used*, so a figure stated here means nothing without the load
+    # profile the section narrative supplies. The band also carries the
+    # code-quality and design-principle commitments inherited from the former
+    # technical-quality grouping; they sit with performance rather than under
+    # maintainability because they are stated once for the build as a whole,
+    # whereas maintainability states what modifying that build must cost.
     @property
     def performanceEfficiencyContent(self):
         return PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm(self.doc, f"{self.path}/PEEF-PERF")
@@ -24531,6 +25353,18 @@ class ProcessMetricEntry(SomNode):
     def targets(self):
         return ProcessMetricEntryTargetsForm(self.doc, f"{self.path}/PMET")
 
+    # The current business process this metric measures, named by section id.
+    #
+    # A metric only means something against the thing it is a metric *of*: the
+    # same "average handling time" is a different number for two processes, and
+    # comparing them across processes is the mistake this link exists to
+    # prevent. Expect a [CurrentBusinessProcess] at the far end — a figure about
+    # the estate as a whole is not a process metric and belongs with the
+    # landscape assessment.
+    #
+    # It is also what makes the current value usable as a baseline: a target set
+    # in the future state is only comparable to it if both are anchored to the
+    # same process.
     @property
     def processReference(self):
         return CurrentBusinessProcess(self.doc, f"{self.path}/PME-PROC-REF")
@@ -25258,6 +26092,10 @@ class Prototype(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What the prototype is for and what it is not.
+    #
+    # A prototype's value depends on its question being stated; the goals and
+    # feature-subset sections then narrow it.
     @property
     def prototypeOverview(self):
         return PrototypePrototypeOverviewForm(self.doc, f"{self.path}/PROTOT-PROT")
@@ -25331,6 +26169,10 @@ class PrototypeFeatureSubset(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Which features the prototype includes, and the criteria that chose them.
+    #
+    # The subset is a scoping decision, so recording the criteria matters as much as
+    # the list: it is what makes a later addition arguable.
     @property
     def featureSubsetContent(self):
         return PrototypeFeatureSubsetFeatureSubsetContentForm(self.doc, f"{self.path}/PRFESU-FEAT")
@@ -25384,6 +26226,10 @@ class PrototypeGoals(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The questions the prototype is built to answer.
+    #
+    # Validation goals, so the prototype can be judged finished — a prototype with no
+    # stated goal cannot be.
     @property
     def goalsContent(self):
         return PrototypeGoalsGoalsContentForm(self.doc, f"{self.path}/PG-GOAL")
@@ -25428,6 +26274,10 @@ class PrototypeType(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Whether the prototype is reusable or throwaway, and why.
+    #
+    # The choice governs how much engineering rigour the prototype carries, which the
+    # two sibling sections then specify.
     @property
     def prototypeTypeOverview(self):
         return PrototypeTypePrototypeTypeOverviewForm(self.doc, f"{self.path}/PRTYSE-PROT")
@@ -25568,6 +26418,16 @@ class QualityFramework(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Which published quality model this chapter's structure comes from, at
+    # which version, and where the project departs from it.
+    #
+    # The band that makes the rest of the chapter legible. Everything below is
+    # organised by the eight product-quality characteristics of ISO/IEC
+    # 25010:2023, and a reader who knows that reads the sibling sections as a
+    # checklist rather than as an arbitrary list. The adaptations field carries
+    # the weight: a project that drops, merges or renames a characteristic has
+    # to say so here, because a missing section is otherwise indistinguishable
+    # from an oversight.
     @property
     def frameworkContent(self):
         return QualityFrameworkFrameworkContentForm(self.doc, f"{self.path}/QLFWK-FRAM")
@@ -25745,6 +26605,15 @@ class QualityGateChecklist(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What the checklist is used for, how completely it must be worked, and who
+    # signs it off.
+    #
+    # A quality gate is a checkpoint work does not pass until its checks are
+    # answered (`tom_specs_project_flow.md` §PF-GAT-MOD), and this band states
+    # the terms of that check: at which milestone it runs, whether every item is
+    # required or only the critical ones, whether the review is one person, a
+    # committee or a tool, and how many signatures close it. The completeness
+    # requirement is what separates a gate from a suggestion.
     @property
     def checklistOverviewContent(self):
         return QualityGateChecklistChecklistOverviewContentForm(self.doc, f"{self.path}/QUGACH-CHEC")
@@ -25780,6 +26649,16 @@ class QualityPrioritization(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How quality attributes are ranked against one another, by whom, and how
+    # often.
+    #
+    # Ranking is needed because the ISO/IEC 25010:2023 characteristics compete
+    # for one budget — each can be improved at another's expense. This band
+    # fixes the *procedure* before any answers, which is the point: a ranking
+    # produced by a stated method with named participants can be re-run when
+    # circumstances change, while one that simply appeared can only be argued
+    # over. The conflict-resolution authority is what makes the procedure
+    # terminate.
     @property
     def prioritizationFrameworkContent(self):
         return QualityPrioritizationPrioritizationFrameworkContentForm(self.doc, f"{self.path}/QUPR-PRIO")
@@ -26299,6 +27178,16 @@ class ReliabilityCharacteristic(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How the system will be run: the operating model, the responsible party,
+    # and the processes an incident or a change passes through.
+    #
+    # Reliability in ISO/IEC 25010:2023 is the degree to which the system
+    # performs its functions under stated conditions for a stated period — but
+    # the number that expresses it is produced by an *operation*, not by the
+    # code. This band therefore carries the operational model that the
+    # availability, service-level and monitoring subsections below are only
+    # meaningful against: an uptime target with no named incident process and no
+    # responsible party is a wish, not a commitment.
     @property
     def reliabilityContent(self):
         return ReliabilityCharacteristicReliabilityContentForm(self.doc, f"{self.path}/RELC-RELI")
@@ -27017,6 +27906,19 @@ class RequirementDependencyEntry(SomNode):
     def content(self):
         return RequirementDependencyEntryContentForm(self.doc, f"{self.path}/content")
 
+    # The other requirement in this dependency, named by section id.
+    #
+    # The row states the *kind* of relation — prerequisite, bidirectional,
+    # parent-child, conflict, refinement — and this names its far end; the
+    # requirement that owns the entry is always the near end, so neither half
+    # is readable alone. Expect another requirement of this document there. A
+    # dependency on something that is not itself a requirement is a constraint
+    # and belongs with the assumptions and constraints instead.
+    #
+    # The reference stores a section id and is never followed in traversal
+    # (`tom_specs_model_rules.md` §9.2), which is what allows a requirement
+    # graph containing cycles — a conflict pair is one — without making the
+    # document unwalkable.
     @property
     def relatedRequirement(self):
         return self.doc.content(f"{self.path}/RQDEP-RELA-REF") or ""
@@ -27081,6 +27983,18 @@ class RequirementTestCaseEntry(SomNode):
     def automation(self):
         return RequirementTestCaseEntryAutomationForm(self.doc, f"{self.path}/RTCEA")
 
+    # The acceptance criterion this test case verifies, named by section id.
+    #
+    # This is the link that turns a test case from a suggestion into evidence.
+    # The criterion states the condition under which the requirement is agreed
+    # to be met; the test states how that condition is demonstrated. Expect one
+    # criterion at the far end — a test that would have to name several is
+    # verifying more than one thing and reads better as several tests, each of
+    # which can fail for its own reason.
+    #
+    # It is also the coverage measure in the other direction: a criterion that
+    # no test case points at is an acceptance condition nobody has undertaken
+    # to check, and that is only visible when this link is filled in.
     @property
     def relatedCriterion(self):
         return self.doc.content(f"{self.path}/RQTSC-RELA-REF") or ""
@@ -27569,6 +28483,10 @@ class ResponsiveBehavior(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What actually changes at each breakpoint.
+    #
+    # The breakpoint section says *where* the layout switches; this says *what*
+    # switches — reflow, disclosure, navigation shape.
     @property
     def layoutAdaptation(self):
         return ResponsiveBehaviorLayoutAdaptationForm(self.doc, f"{self.path}/REBE-LAYO")
@@ -27624,6 +28542,10 @@ class ResponsiveDesign(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The responsive strategy: which approach the product takes and why.
+    #
+    # Frames the breakpoint and layout-adaptation sections below, which give the
+    # concrete numbers and behaviours.
     @property
     def responsiveOverview(self):
         return ResponsiveDesignResponsiveOverviewForm(self.doc, f"{self.path}/REDE-RESP")
@@ -27837,6 +28759,10 @@ class ReusablePrototype(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The standards a reusable prototype must meet to graduate into the product.
+    #
+    # Code that will survive is held to production expectations from the start; this
+    # section records which ones apply.
     @property
     def reusableContent(self):
         return ReusablePrototypeReusableContentForm(self.doc, f"{self.path}/REUPRO-REUS")
@@ -28860,6 +29786,23 @@ class ScenarioStepEntry(SomNode):
     def execution(self):
         return ScenarioStepEntryExecutionForm(self.doc, f"{self.path}/SCSTENEX")
 
+    # How this scenario step's server call is carried out, step by step.
+    #
+    # Present only where the step reaches the server — that is, where its
+    # `serverOperation` names an operation; a step that names none generates no
+    # call and has nothing to put here. The entries are read in document order,
+    # and each declares which of the three handling roles it belongs to, so one
+    # list describes all three of the generated method bodies rather than three
+    # parallel lists that could fall out of step with each other
+    # (`codespecs_derivation_contract.md` §3.5.7).
+    #
+    # An empty list is not an omission. It says the call has nothing to state
+    # beyond the step's own behaviour text, and the derivation falls back to
+    # exactly that (`codespecs_derivation_contract.md` §2.4).
+    #
+    # Where the flow branches is not stated here: that is the `ALFL` entry's
+    # business, via its branch point and trigger condition. This list only says
+    # what the step does across the boundary when it does run.
     @property
     def serverCallSteps(self):
         return SomList(self.doc, f"{self.path}/SVCST-STEP-LST", lambda d, p: ServerCallStepEntry(d, p), pattern="SVCST-STEP-xxx")
@@ -30043,6 +30986,17 @@ class SecurityCharacteristic(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The security posture the system is built to, and the compliance regime
+    # that audits it.
+    #
+    # Security in ISO/IEC 25010:2023 is the degree to which data is reachable
+    # only by those whose authorization matches. The approach field states the
+    # model — least privilege, defence in depth, zero trust — because controls
+    # chosen without one are a list rather than a design. The compliance target
+    # names the external regime, which fixes the *evidence* that must exist as
+    # well as the controls themselves. The operational side of security —
+    # monitoring, incident response, patching — is a sibling subsection, not
+    # this band.
     @property
     def securityContent(self):
         return SecurityCharacteristicSecurityContentForm(self.doc, f"{self.path}/SECC-SECU")
@@ -30606,7 +31560,7 @@ class ServerCallStepEntry(SomNode):
     separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
     assembled before the wire, a successful response is applied after it, and a
     failure is surfaced instead. This entry is where each of those is stated,
-    and [role] is the field that says which. Without it a generator would have
+    and `role` is the field that says which. Without it a generator would have
     to split one sentence three ways by guessing, which
     `codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies
     could only throw the same text.
@@ -30623,7 +31577,7 @@ class ServerCallStepEntry(SomNode):
     step's own order field), and each role's steps are read in document order
     within the list.
     
-    **[condition] is a precondition, not a case label.** It becomes a guard on
+    **`condition` is a precondition, not a case label.** It becomes a guard on
     the step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not
     the way an error code is turned into user-visible wording: B7 forbids the
     `switch` that would need, and the message a code maps to belongs in the
@@ -30699,7 +31653,7 @@ class ServerOperationEntry(SomNode):
     The operation name is the join token the rest of the model references: the
     ISC step entries cite it as the target of a client call (CE-SC), and the
     service unit that owns the operation follows from
-    [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+    `ServerOperationEntry.primaryDataEntity` rather than from a hand-written
     list (`codespecs_mapping.md` §5.17).
     """
     def __init__(self, doc, path):
@@ -31546,6 +32500,18 @@ class SlaAndSloMonitoring(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The service-level regime — the framework, the error-budget policy, and
+    # what happens when a commitment is missed.
+    #
+    # The band that separates a measurement from an obligation. An SLO is an
+    # internal target and its error budget is a spending decision the team makes
+    # against itself; a customer-facing SLA is a contract, with credits owed and
+    # exclusions claimed. Both are stated here so a reader can see in one place
+    # which promises cost money to break and which cost only trust.
+    #
+    # The reporting fields are what makes either enforceable: a service level
+    # nobody reports on, to a named audience, on a stated cadence, is not a
+    # commitment.
     @property
     def slaOverview(self):
         return SlaAndSloMonitoringSlaOverviewForm(self.doc, f"{self.path}/SASM-SLAO")
@@ -32492,7 +33458,7 @@ class StakeholderEntry(SomNode):
     
     Keeps only the scope-framing identity + benefit. Role, interest, influence,
     concerns and engagement strategy are owned by the canonical SBP.4
-    [StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).
+    `StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -32520,7 +33486,7 @@ class StakeholdersAndBeneficiaries(SomNode):
     A scope-framing *benefits lens* over the stakeholder landscape: who benefits
     from the system and what they gain. The canonical stakeholder register —
     with role, interest, influence, concerns and engagement strategy — lives in
-    SBP.4 ([StakeholderRegisterEntry] list); those attributes are recorded there
+    SBP.4 (`StakeholderRegisterEntry` list); those attributes are recorded there
     once and are not restated here (L34C-6 / SR-15).
     """
     def __init__(self, doc, path):
@@ -33099,6 +34065,10 @@ class SupportAccess(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How a user reaches a human when the product's own help runs out.
+    #
+    # The escalation boundary of the help system: channels, hours and what the user
+    # must supply for support to act.
     @property
     def supportAccessContent(self):
         return SupportAccessSupportAccessContentForm(self.doc, f"{self.path}/SUAC-SUPP")
@@ -33511,10 +34481,25 @@ class SystemDependencyEntry(SomNode):
     def operations(self):
         return SystemDependencyEntryOperationsForm(self.doc, f"{self.path}/SDEO")
 
+    # The depending end — the system that stops working if the dependency
+    # fails — named by section id.
+    #
+    # Direction is what this pair carries, and nothing else on the entry does.
+    # A dependency is not symmetric: the availability requirement, the SLA and
+    # the fallback procedure above are all obligations owed *to* this end *by*
+    # [targetSystem], so reading the pair backwards inverts every one of them.
     @property
     def sourceSystem(self):
         return ExistingSystemEntry(self.doc, f"{self.path}/SYDE-SOUR-REF")
 
+    # The depended-upon end — the system that owes the availability and the SLA
+    # — named by section id.
+    #
+    # Paired with [sourceSystem]; the two together *are* the direction of the
+    # dependency, so neither means anything alone. Both point into the
+    # existing-systems inventory of this document: a reliance on something
+    # outside the current estate is an external-service dependency and is
+    # recorded as one.
     @property
     def targetSystem(self):
         return ExistingSystemEntry(self.doc, f"{self.path}/SYDE-TARG-REF")
@@ -33635,6 +34620,10 @@ class SystemErrorDisplay(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How failures the user cannot correct are surfaced.
+    #
+    # The counterpart to validation display: no user input fixes these, so the
+    # question is what to disclose, what to log and whom to alert.
     @property
     def systemErrorContent(self):
         return SystemErrorDisplaySystemErrorContentForm(self.doc, f"{self.path}/SYERDI-SYST")
@@ -33718,10 +34707,22 @@ class SystemIntegrationEntry(SomNode):
     def ownership(self):
         return SystemIntegrationEntryOwnershipForm(self.doc, f"{self.path}/SYINOW")
 
+    # The system data flows out of, named by section id.
+    #
+    # For an integration the pair is the direction of *data*, not of dependency.
+    # The source is where a record originates and is therefore where it is
+    # authoritative — which is what a reader needs in order to decide which
+    # side a discrepancy between the two copies is resolved against.
     @property
     def sourceSystem(self):
         return ExistingSystemEntry(self.doc, f"{self.path}/SYIN-SOUR-REF")
 
+    # The system data flows into, named by section id.
+    #
+    # The consuming end, holding the derived copy. Paired with [sourceSystem];
+    # the protocol, format, throughput and error-handling facts above all
+    # describe the movement between exactly these two systems and are not
+    # properties of either one on its own.
     @property
     def targetSystem(self):
         return ExistingSystemEntry(self.doc, f"{self.path}/SYIN-TARG-REF")
@@ -33978,6 +34979,14 @@ class SystemQualityGoals(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The project's quality stance: the philosophy it works to, the standards it
+    # claims to meet, and the single role accountable for the outcome.
+    #
+    # Distinct from [governance], which follows it and holds the *machinery* —
+    # review board, meeting cadence, escalation path. This band is the position;
+    # that one is how the position is held week to week. The accountable role is
+    # what makes the rest actionable: a quality goal with no named owner is
+    # reported on and never decided.
     @property
     def governanceContent(self):
         return SystemQualityGoalsGovernanceContentForm(self.doc, f"{self.path}/SYQG-GOVE")
@@ -34324,6 +35333,20 @@ class SystemTaskEntry(SomNode):
     def context(self):
         return SystemTaskEntryContextForm(self.doc, f"{self.path}/STEC")
 
+    # The use case this task appears in, named by section id.
+    #
+    # A task is written from the user's side — what a person sets out to do —
+    # while a use case is written from the system's side, as an interaction
+    # with actors, flows and an outcome. The link asserts that the two describe
+    # the same piece of work seen from opposite ends, so a reader who follows
+    # it should find the same actor and the same outcome restated in
+    # interaction terms, not a wider or narrower slice of scope.
+    #
+    # A `@Reference` stores a section id and nothing else, and is never
+    # followed in traversal (`tom_specs_model_rules.md` §9.2) — the use case is
+    # not owned here and its text is never copied here. An empty link is itself
+    # a finding: a task no use case accounts for is either out of scope or a
+    # use case that was never written.
     @property
     def relatedUseCase(self):
         return self.doc.content(f"{self.path}/SYTS-RELA-REF") or ""
@@ -34399,6 +35422,16 @@ class SystemToReplaceEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Which legacy system this entry is about.
+    #
+    # The identity band, held apart from the assessment bands that follow
+    # ([profile], [vendor] and the technical, business, data and migration
+    # facets) because identity is the one part of the entry that is not a
+    # judgement. It is the name and id the organisation already uses, owned
+    # outside this document, and it is what a reader reconciling against an
+    # existing application inventory matches on. Everything else on the entry
+    # is this document's opinion about that system, and may be revised without
+    # the system becoming a different system.
     @property
     def identificationContent(self):
         return SystemToReplaceEntryIdentificationContentForm(self.doc, f"{self.path}/SYTORE-IDEN")
@@ -34795,6 +35828,20 @@ class TechnicalEnvironment(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Where the organization stands technically today, before anything is said
+    # about what the solution may use.
+    #
+    # The starting position — architectural maturity, and the cloud posture the
+    # organization has already committed to — as distinct from [governance],
+    # which says who decides technology questions, and from the platform
+    # standards band, which says what is already mandated. The order is
+    # deliberate: a mandated framework read without knowing whether the
+    # organization is cloud-first or on-premises is a rule with its rationale
+    # stripped off.
+    #
+    # These are observations about the estate as found. Whatever the solution is
+    # obliged to do about them becomes a constraint in the architecture and
+    # technology specification this section seeds.
     @property
     def technicalOverviewContent(self):
         return TechnicalEnvironmentTechnicalOverviewContentForm(self.doc, f"{self.path}/TEEN-TECH")
@@ -35744,6 +36791,10 @@ class ThrowawayPrototype(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The explicit disposal terms for a throwaway prototype.
+    #
+    # What may be cut, and — more importantly — what must be rebuilt rather than
+    # carried forward, so the prototype cannot quietly become the product.
     @property
     def throwawayContent(self):
         return ThrowawayPrototypeThrowawayContentForm(self.doc, f"{self.path}/THPR-THRO")
@@ -36076,6 +37127,15 @@ class TradeOffDecisions(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Who may decide a quality trade-off, how it is recorded, and how it is
+    # undone.
+    #
+    # A trade-off accepts a worse outcome on one ISO/IEC 25010:2023
+    # characteristic in order to gain another, so it is a decision with a losing
+    # side that somebody must be entitled to accept on the project's behalf. The
+    # reversal field is the one most often left empty and the one that matters
+    # longest: trade-offs are made under constraints that expire, and with no
+    # stated path back the accepted cost quietly becomes permanent.
     @property
     def tradeOffGovernanceContent(self):
         return TradeOffDecisionsTradeOffGovernanceContentForm(self.doc, f"{self.path}/TROFDE-TRAD")
@@ -36140,6 +37200,10 @@ class TrainingDeliverableRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The training materials that accompany a localized release.
+    #
+    # Scoped to *localization*: material that must be reproduced per language, as
+    # distinct from the product-wide training plan.
     @property
     def trainingContent(self):
         return TrainingDeliverableRequirementsTrainingContentForm(self.doc, f"{self.path}/TRMAT-TRAI")
@@ -36250,6 +37314,10 @@ class TrainingPrototype(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How knowledge from the prototype is transferred to the delivery team.
+    #
+    # A prototype's findings are its output; without a transfer step they stay with
+    # whoever built it.
     @property
     def trainingContent(self):
         return TrainingPrototypeTrainingContentForm(self.doc, f"{self.path}/TP-TRAI")
@@ -36630,6 +37698,10 @@ class TranslationProcess(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How translated text is produced, reviewed and shipped.
+    #
+    # The pipeline and its owners, as distinct from the *requirements* section, which
+    # states what must be translated at all.
     @property
     def translationProcessContent(self):
         return TranslationProcessTranslationProcessContentForm(self.doc, f"{self.path}/TRPR-TRAN")
@@ -36684,6 +37756,10 @@ class TranslationRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What must be translated, and what deliberately must not.
+    #
+    # The scope contract for translation: untranslated strings are a decision
+    # recorded here, not an omission discovered in test.
     @property
     def translationRequirementsContent(self):
         return TranslationRequirementsTranslationRequirementsContentForm(self.doc, f"{self.path}/TRAREQ-TRAN")
@@ -36891,6 +37967,10 @@ class UiComponentEntry(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # What this component is and where it is used.
+    #
+    # The identity band is the join key for the rest of the entry: the sibling bands
+    # all describe the component named here.
     @property
     def identity(self):
         return UiComponentEntryIdentityForm(self.doc, f"{self.path}/UICOM-IDEN")
@@ -36905,6 +37985,10 @@ class UiComponentEntry(SomNode):
     def classification(self):
         return UiComponentEntryClassificationForm(self.doc, f"{self.path}/UCEC")
 
+    # The component's appearance in its default state.
+    #
+    # Static presentation only; how it responds to input is interactive behaviour,
+    # and how it reflows is responsiveness.
     @property
     def visualDesign(self):
         return UiComponentEntryVisualDesignForm(self.doc, f"{self.path}/UICOM-VISU")
@@ -36929,6 +38013,10 @@ class UiComponentEntry(SomNode):
     def visualDiagram(self):
         return None  # (skipped: no target type)
 
+    # How the component responds to input, across its states.
+    #
+    # Hover, focus, press, disabled, loading and error states — the transitions a
+    # user can trigger, as distinct from the static appearance.
     @property
     def interactiveBehavior(self):
         return UiComponentEntryInteractiveBehaviorForm(self.doc, f"{self.path}/UICOM-INTE")
@@ -36948,22 +38036,42 @@ class UiComponentEntry(SomNode):
     def scroll(self):
         return UiComponentEntryScrollForm(self.doc, f"{self.path}/UICOENSC")
 
+    # How the component behaves across the declared breakpoints.
+    #
+    # Component-level adaptation, within the page-level rules the responsive-design
+    # sections set.
     @property
     def responsiveness(self):
         return UiComponentEntryResponsivenessForm(self.doc, f"{self.path}/UICOM-RESP")
 
+    # The component's accessibility contract: roles, names, keyboard model.
+    #
+    # Component-level obligations, which the product-level conformance claim depends
+    # on being met by every component.
     @property
     def accessibility(self):
         return UiComponentEntryAccessibilityForm(self.doc, f"{self.path}/UICOM-ACCE")
 
+    # How the component behaves when the user lacks the right to use it.
+    #
+    # Hidden, disabled or read-only is a design decision with security consequences,
+    # which is why it is specified per component rather than left to implementation.
     @property
     def authorization(self):
         return UiComponentEntryAuthorizationForm(self.doc, f"{self.path}/UICOM-AUTH")
 
+    # The assets the component needs — icons, images, fonts, media.
+    #
+    # Declared so the resource inventory is complete: a component referencing an
+    # asset nobody registered is a build failure late rather than a spec gap early.
     @property
     def resourceIntegration(self):
         return UiComponentEntryResourceIntegrationForm(self.doc, f"{self.path}/UICOM-RESO")
 
+    # What the component reads and writes, and against which model element.
+    #
+    # The link from the interface back to the information model; without it a screen
+    # element has no defined source of truth.
     @property
     def dataBinding(self):
         return UiComponentEntryDataBindingForm(self.doc, f"{self.path}/UICOM-DATA")
@@ -37020,6 +38128,10 @@ class UiComponents(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The library's scope and governance, before the individual components.
+    #
+    # Which library is used, who may add to it, and what a component must satisfy to
+    # be admitted.
     @property
     def componentLibraryOverview(self):
         return UiComponentsComponentLibraryOverviewForm(self.doc, f"{self.path}/UICO-COMP")
@@ -37346,6 +38458,10 @@ class UserAssistance(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The help model as a whole, before the delivery channels below.
+    #
+    # Which help exists and who maintains it; the contextual, onboarding and support
+    # sections each specify one delivery route through it.
     @property
     def helpOverviewContent(self):
         return UserAssistanceHelpOverviewContentForm(self.doc, f"{self.path}/USAS-HELP")
@@ -37564,6 +38680,10 @@ class UserDocumentationRequirements(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Which user-facing documentation is translated, and to what standard.
+    #
+    # Documentation follows a different cadence from interface text, which is why it
+    # is scoped separately from the translation process.
     @property
     def documentationContent(self):
         return UserDocumentationRequirementsDocumentationContentForm(self.doc, f"{self.path}/DOANTR-DOCU")
@@ -38308,6 +39428,10 @@ class ValidationFeedback(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # How field-level validation feedback reaches the user.
+    #
+    # Scoped to *validation* — input the user can correct. A failure the user cannot
+    # act on is a system error and belongs to the system-error section.
     @property
     def validationDisplayContent(self):
         return ValidationFeedbackValidationDisplayContentForm(self.doc, f"{self.path}/VAFE-VALI")
@@ -38612,6 +39736,10 @@ class WcagCompliance(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The conformance target and the evidence for it.
+    #
+    # Names the WCAG version and level the product claims, which is what an audit
+    # checks against; the overview states the intent, this states the claim.
     @property
     def wcagComplianceContent(self):
         return WcagComplianceWcagComplianceContentForm(self.doc, f"{self.path}/WCCO-WCAG")
@@ -38667,6 +39795,16 @@ class WeightedQualityMatrix(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # The mechanics of the weighting: the scale, whether weights must sum, and
+    # how a weight is changed.
+    #
+    # Weights are only comparable within a stated scheme — a 4 on a 1–5 scale
+    # and a 4 on a 1–10 scale are different claims, and weights required to sum
+    # to 100 force a trade-off that free weights let an author avoid. Fixing
+    # that here rather than in the individual entries is what lets the entry
+    # list be read as one ranking. The update process matters for the same
+    # reason: in a summing scheme, re-weighting one attribute silently
+    # re-weights every other.
     @property
     def matrixConfigContent(self):
         return WeightedQualityMatrixMatrixConfigContentForm(self.doc, f"{self.path}/WEQUMA-MATR")
@@ -38897,6 +40035,16 @@ class WorkflowStepSystem(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
+    # Which system the step uses.
+    #
+    # Held as stored content rather than a `@Reference`, so it names the system
+    # the way the people doing the work name it — including systems the
+    # existing-systems inventory never profiled. Nothing resolves it, so a
+    # reader reconciling it against that inventory is doing so by hand and
+    # should expect near-misses: shadow IT, departmental spreadsheets, and
+    # retired product names still in daily use.
+    #
+    # What the step *does* with the system is the entry's own content, not this.
     @property
     def name(self):
         return self.doc.content(f"{self.path}/WOSTSY-NAME") or ""

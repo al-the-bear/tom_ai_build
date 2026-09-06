@@ -14,7 +14,32 @@ import '../document_stubs.dart';
 /// `ScreenElementFieldSpec`, an `ObjectStateEntry` carries no per-kind
 /// alternative subsections, so this is modelled as a plain closed-choice enum
 /// form field (no `@OneOf`/`@Case` group).
-enum ObjectLifecycleKind { initial, intermediate, terminal, error }
+enum ObjectLifecycleKind {
+  /// The state an instance is created in. Exactly one per lifecycle, and the
+  /// one `BJOEN-LIFE.initialState` names; nothing may transition *into* it,
+  /// because arriving there a second time would mean the instance had been
+  /// re-created rather than moved.
+  initial,
+
+  /// A state the instance passes through — entered and left again. The only
+  /// role for which both an inbound and an outbound transition are expected,
+  /// which is what makes "this state can never be left" a detectable defect
+  /// rather than a design choice.
+  intermediate,
+
+  /// A state in which the lifecycle ends by design: the order was closed, the
+  /// claim was settled. It has no outbound transition, so marking a state
+  /// terminal is also the assertion that no further business event can move
+  /// the instance.
+  terminal,
+
+  /// A state reached because something failed rather than because the intended
+  /// path completed. Kept apart from [terminal] because it is not necessarily
+  /// an end: an instance may be repaired and resume. What distinguishes it is
+  /// the reason for arrival, not whether anything leads out — which is why the
+  /// two cannot be collapsed into one "final" flag.
+  error,
+}
 
 /// The closed set of logical attribute data types (`DataAttributeEntry`,
 /// csra4).
@@ -29,14 +54,45 @@ enum ObjectLifecycleKind { initial, intermediate, terminal, error }
 /// decision rather than an omission. Replaces the former free-text `dataType`.
 enum DataAttributeKind {
   // Text facet.
+  /// Character data of bounded length. Binds
+  /// [DataAttributeEntry.textTypeOptions], whose two attributes are what a text
+  /// column cannot be emitted without: the length fixes the physical
+  /// `VARCHAR(n)`, and the collation fixes how comparison and sorting behave
+  /// (`codespecs_mapping.md` §5.13).
   string,
   // Numeric facet.
+  /// An exact whole number. Shares [DataAttributeEntry.numericTypeOptions] with
+  /// [decimal], which carries precision and scale; an integer attribute leaves
+  /// the scale at zero. It stays a constant of its own rather than a decimal
+  /// with scale zero because the emitted column type differs, and because
+  /// "whole number" is a statement about the domain that a zero scale only
+  /// implies.
   integer,
+  /// An exact fixed-point number. The distinction from [integer] is the scale:
+  /// only a decimal may set a non-zero one, and the scale is a business fact —
+  /// a monetary amount rounded to two places and one rounded to four are
+  /// different specifications, and the difference is invisible in the physical
+  /// type alone.
   decimal,
   // Temporal facet.
+  /// A calendar date with no time of day. Shares
+  /// [DataAttributeEntry.temporalTypeOptions] with [dateTime], but the timezone
+  /// attribute that option set carries is inert here: a date names a day, not
+  /// an instant, so it must not shift when read in another zone. Storing a date
+  /// as an instant to reuse one type is the classic way to make a birthday
+  /// move.
   date,
+  /// An instant — a date together with a time of day. The kind for which the
+  /// shared temporal timezone attribute is load-bearing: one instant renders as
+  /// two different wall-clock readings in two zones, so the specification has
+  /// to say which reading is stored (`ISO 8601-1:2019` is the representation
+  /// authority named on that option set).
   dateTime,
   // Binary facet.
+  /// Raw bytes held in the record itself, so what a specification constrains is
+  /// their stored size — see [DataAttributeEntry.binaryTypeOptions]. Bytes held
+  /// *outside* the record are [fileReference], which is a separate kind rather
+  /// than a storage mode of this one.
   binary,
 
   /// An attribute whose stored value is the **address of a stored file**, not
@@ -374,6 +430,16 @@ class EntityFollowUpEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Entity reference (2 fields)
   // ---------------------------------------------------------------------------
+  /// Which entity these follow-up facets describe.
+  ///
+  /// The facets below are operational and governance material rather than part
+  /// of the generation-owned entity schema, which is why the block sits outside
+  /// [DataEntityEntry] rather than inside it — and that is exactly what makes a
+  /// correlation key necessary. The entry headline carries the entity name and
+  /// this band carries the short alias used in diagrams and narrative. Point it
+  /// at the wrong entity and both halves stay well-formed on their own, so
+  /// nothing detects the error; it is worth checking against
+  /// `dataModel.entities` when the block is written.
   @SectionId('DMFUE-ENTI')
   @Form([
     Field(
@@ -389,6 +455,15 @@ class EntityFollowUpEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Volume and Growth
   // ---------------------------------------------------------------------------
+  /// How much data this entity accumulates, and how fast.
+  ///
+  /// Sizing evidence rather than schema: record counts, growth rates and
+  /// storage estimates are what an infrastructure, indexing or archival
+  /// decision is argued from, and they change with the business rather than
+  /// with the model. A list because one entity is sized differently per
+  /// environment and per planning horizon, and each figure needs its own basis
+  /// to be trusted. The retention policy that acts on these numbers is authored
+  /// on the entity itself (`DAENT-LIFE`), not here.
   @StandardReferences(
     [
       'DAMA-DMBOK2 — data management body of knowledge',
@@ -405,6 +480,14 @@ class EntityFollowUpEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Compliance and Security
   // ---------------------------------------------------------------------------
+  /// The regulatory obligations this entity's data carries.
+  ///
+  /// The per-entity view — "this entity holds PII, therefore these rules apply
+  /// to it". The scheme the rules are drawn from is authored once in
+  /// [DataClassification], and individual attributes carry their own
+  /// sensitivity in `DAATT-SECU`; an entry here is what ties a named regulation
+  /// to a named entity, which is the link an audit follows and the one a
+  /// classification level on its own cannot supply.
   @StandardReferences(
     [
       'GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)',
@@ -421,6 +504,15 @@ class EntityFollowUpEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Technical Characteristics
   // ---------------------------------------------------------------------------
+  /// Runtime behaviour expected of this entity's storage — indexing, caching,
+  /// consistency and scaling.
+  ///
+  /// Separated from the entity's `ENIDX` index list by who decides it: an index
+  /// is a concrete schema object the data-access derivation emits
+  /// (`codespecs_mapping.md` §5.13), while a characteristic here is an
+  /// operational expectation an implementation may satisfy in more than one
+  /// way. Keeping it out of the generation-owned model is deliberate — stated
+  /// there it would read as an instruction to emit something.
   @StandardReferences(
     [
       'DAMA-DMBOK2 — data management body of knowledge',
@@ -437,6 +529,15 @@ class EntityFollowUpEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Migration Mappings
   // ---------------------------------------------------------------------------
+  /// Where this entity's data comes from when a legacy system is replaced.
+  ///
+  /// Source-to-target field mappings, one per source field, so a cutover can be
+  /// planned and its coverage checked field by field. Distinct from the
+  /// per-attribute lineage in `DAATT-MIGR`, which records the standing
+  /// provenance of one attribute; this list is the plan for a one-off load and
+  /// is expected to be retired once it has run. Evolution of the *new* system's
+  /// own schema is a third subject and lives in [SchemaMigrationStepEntry]
+  /// (`codespecs_mapping.md` §5.27).
   @StandardReferences(
     [
       'DAMA-DMBOK2 — data management body of knowledge',
@@ -501,6 +602,15 @@ class DataEntityEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
   // ---------------------------------------------------------------------------
+  /// What this entity is called, in each vocabulary that needs a name for it.
+  ///
+  /// One entity is named four times over — logically, physically, in diagrams,
+  /// and as a design pattern — and a model that keeps only one of those names
+  /// makes every later reader re-derive the rest. The logical name is what the
+  /// rest of the model refers to; the physical name is what the CE-DB table is
+  /// emitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is
+  /// deliberately not part of the stereotype recorded here: it is read from
+  /// `DAENT-CLAS.aggregateRoot`, the only field that states it.
   @SectionId('DAENT-IDEN')
   @Form([
     Field(
@@ -543,6 +653,16 @@ class DataEntityEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification (6 fields)
   // ---------------------------------------------------------------------------
+  /// Where this entity sits in the domain, and who answers for it.
+  ///
+  /// Grouping and accountability, as against the naming in `DAENT-IDEN` and the
+  /// shape in the attribute list. It is a band of its own because its first
+  /// fields are read by something other than a human — the bounded context and
+  /// the aggregate root fix the service-unit boundary and its ownership key
+  /// (`codespecs_mapping.md` §5.1), as the class comment above sets out — while
+  /// the owner, steward and source-system fields are governance facts no
+  /// derivation reads. Both halves answer the same question, whose entity is
+  /// this, which is why they share a band rather than being split apart.
   @SectionId('DAENT-CLAS')
   @Form([
     Field(
@@ -615,6 +735,16 @@ class DataEntityEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Lifecycle and Retention (8 fields)
   // ---------------------------------------------------------------------------
+  /// What becomes of this entity's rows over time: how long they are kept,
+  /// where they go next, and what is recorded about the change.
+  ///
+  /// Separate from the classification band because retention is decided by a
+  /// different authority on a different clock — a statute or a privacy
+  /// regulation sets the period, and it changes when the regulation changes,
+  /// not when the model does. It is authored per entity rather than per
+  /// sensitivity level because two entities at the same level routinely carry
+  /// different statutory periods; where a level imposes a floor on all of them,
+  /// that floor is stated once in [DataClassificationEntry] instead.
   @SectionId('DAENT-LIFE')
   @Form([
     Field(
@@ -676,6 +806,17 @@ class DataEntityEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Relationships Summary (4 fields)
   // ---------------------------------------------------------------------------
+  /// The entity's relationships as seen from this entity — a digest, not the
+  /// authority.
+  ///
+  /// The authored relationship is [EntityRelationshipEntry], which states each
+  /// one once with its cardinality, referential integrity and navigation. This
+  /// band exists so a reader of a single entity can see what it depends on
+  /// without assembling that list in their head. The consequence is that it
+  /// must never be the only place a relationship appears: anything recorded
+  /// here and nowhere else is invisible to every consumer that reads the
+  /// relationship entries, and stale content here is a documentation defect
+  /// rather than a model change.
   @SectionId('DAENT-RELA')
   @Form([
     Field(
@@ -798,6 +939,15 @@ class DataAttributeEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Core Identity (5 fields)
   // ---------------------------------------------------------------------------
+  /// What this attribute is called and what it means, in business terms.
+  ///
+  /// The band that answers "what is this field?" for a reader who is not
+  /// looking at a database: the physical column name, the definition, the
+  /// glossary term it maps to, and concrete example values. It is deliberately
+  /// free of type and constraint information — those are the two bands below —
+  /// because this is the part a domain expert reviews, and the only part that
+  /// survives a change of storage technology unchanged. The attribute's own
+  /// name is the entry headline, not a field here.
   @SectionId('DAATT-IDEN')
   @Form([
     Field(
@@ -832,6 +982,16 @@ class DataAttributeEntry extends DocSpecsSection {
   // Data Type Specification — the @OneOf discriminator plus the attributes
   // that apply to every logical type (csra4).
   // ---------------------------------------------------------------------------
+  /// The logical type of the attribute, and the physical form it is realised
+  /// in.
+  ///
+  /// This band carries the `@OneOf` discriminator, so it is the one place in
+  /// the entry that changes the entry's own shape: choosing the logical type
+  /// selects which per-kind options subsection applies. What stays here is only
+  /// what every kind has — the logical type, the database type it becomes
+  /// (`codespecs_mapping.md` §5.13), and the display or storage format. A
+  /// length, a precision or a timezone belongs to its kind's options, not here,
+  /// so that an attribute can never carry a constraint its type cannot honour.
   @SectionId('DAATT-DATA')
   @Form([
     Field(
@@ -1083,6 +1243,16 @@ class DataAttributeEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Constraints and Validation (8 fields)
   // ---------------------------------------------------------------------------
+  /// The rules a value of this attribute must satisfy.
+  ///
+  /// A list rather than a band of fields because an attribute carries an open
+  /// number of independent restrictions — nullability, a range, a pattern, an
+  /// allowed value set — and each needs its own message and severity to be
+  /// usable. This is the CE-VA field-rule surface (`codespecs_mapping.md`
+  /// §5.19): a restriction stated here becomes a validator on the emitted
+  /// field, whereas one stated only in the attribute's description becomes
+  /// nothing. Narrowing an enumerated attribute to a subset of its domain
+  /// enum's values belongs here too, not in the type options.
   @StandardReferences(
     ['SBVR — business rule statements', 'ISO/IEC 25012 — data quality'],
     'Validation constraints on this attribute, such as nullability, ranges, patterns, and default values.',
@@ -1096,6 +1266,16 @@ class DataAttributeEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Computed and Derived (4 fields)
   // ---------------------------------------------------------------------------
+  /// Whether the attribute holds an authored value at all, or one produced from
+  /// other values.
+  ///
+  /// A computed or derived attribute inverts the usual contract: nothing writes
+  /// it, so its constraints read as consequences rather than as checks, its
+  /// migration mapping is empty by construction, and offering it for editing on
+  /// a form is a defect. Left empty, the attribute is ordinary stored data —
+  /// which is the common case, and the reason this is a band of its own rather
+  /// than fields folded into the type specification, where an empty formula
+  /// would look like a missing answer.
   @SectionId('DAATT-DERI')
   @Form([
     Field(
@@ -1129,6 +1309,16 @@ class DataAttributeEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification and Security (5 fields)
   // ---------------------------------------------------------------------------
+  /// How exposed this single attribute is, independently of its entity.
+  ///
+  /// Sensitivity is an attribute-level fact. An otherwise ordinary customer
+  /// record holds one national-identifier column, and classifying the whole
+  /// entity at that column's level over-protects everything else while
+  /// classifying it at the entity's level under-protects the column. This band
+  /// is therefore where masking, field-level encryption and audit depth are
+  /// decided per column. The level names it uses come from the scheme authored
+  /// in [DataClassification]; the rules that follow from each level are stated
+  /// there once instead of being repeated on every attribute.
   @SectionId('DAATT-SECU')
   @Form([
     Field(
@@ -1168,6 +1358,15 @@ class DataAttributeEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Migration and Lineage (5 fields)
   // ---------------------------------------------------------------------------
+  /// Where this attribute's values come from — upstream system, source field
+  /// and the transformation applied.
+  ///
+  /// Provenance, kept beside the attribute so it outlives the migration that
+  /// produced it: months later the question is not "how do we load this?" but
+  /// "why does this column say that?", and the transformation rule recorded
+  /// here is the answer. It sits at attribute level because a transformation is
+  /// per-field; the entity-level plan that scopes and schedules the load is
+  /// [MigrationMappingEntry] in the follow-up section.
   @SectionId('DAATT-MIGR')
   @Form([
     Field(
@@ -1207,6 +1406,15 @@ class DataAttributeEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // UI and Display (4 fields)
   // ---------------------------------------------------------------------------
+  /// How this attribute is presented to a user.
+  ///
+  /// Labels, formatting, ordering and visibility — facts a screen needs and the
+  /// data model does not, kept out of the identity band so that changing a
+  /// label never looks like renaming a column. A list because one attribute is
+  /// shown in more than one place — a grid column, a detail form, a report —
+  /// and each presentation has its own label and ordering. This is the material
+  /// the screen-element derivation reads (`codespecs_mapping.md` §5.18); an
+  /// attribute with no entry here is not hidden, it merely takes the defaults.
   @StandardReferences(
     ['ISO/IEC 11179 — metadata registries / data element definitions'],
     'UI and display properties for this attribute, such as labels, formatting, ordering, and visibility.',
@@ -1342,6 +1550,15 @@ class KeyAttributeEntry extends DocSpecsSection {
   @SerializationOrder(3)
   DocSpecsSection? governance;
 
+  /// The resolved link to the entity a foreign key points at.
+  ///
+  /// The `referencedEntity` field of the reference band holds the target's name
+  /// as text; this member is the followable edge to that entity's section,
+  /// which the outliner shows in place of the target subtree rather than
+  /// recursing into it, and which the schema generator validates. It is what
+  /// makes an entity name that resolves to nothing a detected error rather than
+  /// a dangling string. Empty for every key type but a foreign key — a primary
+  /// or alternate key references nothing outside its own entity.
   @SectionId('KEATT-REFE-REF')
   @Reference('referencedEntity')
   @SerializationOrder(4)
@@ -1630,6 +1847,17 @@ class EntityRelationshipEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Relationship Identity (5 fields)
   // ---------------------------------------------------------------------------
+  /// What kind of relationship this is, and why it exists.
+  ///
+  /// The band keeps apart two things that are easily conflated. The
+  /// *conceptual* kind — association, aggregation, composition, generalization,
+  /// dependency — decides whether one end can outlive the other. The
+  /// *implementation* kind — foreign key, junction table, embedded, reference —
+  /// decides what the schema looks like. Neither can be inferred from the
+  /// other: a composition realised through a junction table is a legitimate
+  /// combination. The business justification sits with them so the reason for
+  /// the edge is recorded where the edge is, rather than only in the chapter
+  /// narrative.
   @SectionId('ENRLE-IDEN')
   @Form([
     Field(
@@ -1664,6 +1892,14 @@ class EntityRelationshipEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Participating Entities (4 fields)
   // ---------------------------------------------------------------------------
+  /// The entities at each end, with the role each one plays.
+  ///
+  /// A list rather than a source/target pair of fields, because the role name
+  /// is per-participant and is what a navigation property ends up being named
+  /// after — a self-relationship between two rows of one entity is
+  /// distinguishable only by its roles, "employer" and "employee". The
+  /// entities themselves are additionally reachable as resolved links
+  /// ([sourceEntityRef], [targetEntityRef]).
   @StandardReferences([
     'ER modeling (Chen / Barker notation)',
     'UML 2.5.1 (ISO/IEC 19505) — class/object modeling',
@@ -1677,6 +1913,15 @@ class EntityRelationshipEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Cardinality and Participation (6 fields)
   // ---------------------------------------------------------------------------
+  /// How many instances may stand at each end, and whether either end may stand
+  /// empty.
+  ///
+  /// Two independent questions, which is why the band carries two pairs of
+  /// fields rather than one notation. *Cardinality* is the count on each side;
+  /// *participation* is whether taking part is mandatory at all. `0..*` and
+  /// `1..*` differ only in the second, and it is the second that decides
+  /// whether the foreign key may be null — so a model that records only the
+  /// count leaves the schema underdetermined.
   @SectionId('ENRLE-CARD')
   @Form([
     Field(
@@ -1722,6 +1967,18 @@ class EntityRelationshipEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Referential Integrity (6 fields)
   // ---------------------------------------------------------------------------
+  /// What happens to the far end when a row is deleted or its key changes, and
+  /// who enforces it.
+  ///
+  /// The band that turns the relationship from a description into a runtime
+  /// guarantee. Its enforcement level is what decides whether the guarantee
+  /// exists at all: enforced in the database, a violation is impossible;
+  /// enforced in the application, only writers that go through the application
+  /// are covered; enforced nowhere, the cardinality above is documentation.
+  /// Cascade scope and orphan handling are stated separately from the delete
+  /// action because a cascade that reaches every descendant and one that
+  /// reaches only direct children are very different amounts of data loss under
+  /// the same word.
   @SectionId('ENRLE-REFE')
   @Form([
     Field(
@@ -1767,6 +2024,16 @@ class EntityRelationshipEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Navigation and Implementation (5 fields)
   // ---------------------------------------------------------------------------
+  /// How the relationship is traversed in code, and where the key physically
+  /// sits.
+  ///
+  /// The implementation-facing band: which directions are navigable, whether
+  /// the far end is loaded eagerly or on demand, which table actually holds the
+  /// foreign key, and what the inverse is called. It is kept apart from the
+  /// cardinality band because none of it changes what the data means — a
+  /// relationship is the same relationship whether it is navigated from one
+  /// side or both — while all of it changes how the relationship performs, and
+  /// it is revisited on that basis alone.
   @SectionId('ENRLE-NAVI')
   @Form([
     Field(
@@ -1806,6 +2073,14 @@ class EntityRelationshipEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Relationship Attributes (3 fields) — for relationships with properties
   // ---------------------------------------------------------------------------
+  /// Attributes belonging to the relationship itself rather than to either end.
+  ///
+  /// A many-to-many link that carries data — an enrolment date on
+  /// student-to-course, a quantity on order-to-product — has nowhere to put it
+  /// on either participant without misstating who owns it. This list is that
+  /// place, and a non-empty list is the signal that the junction table is a
+  /// real entity with columns of its own rather than a pure join. Empty for
+  /// every relationship that carries no data, which is most of them.
   @StandardReferences(
     [
       'ER modeling (Chen / Barker notation)',
@@ -1819,11 +2094,26 @@ class EntityRelationshipEntry extends DocSpecsSection {
   @SerializationOrder(6)
   List<RelationshipAttributeEntry> relationshipAttributes = [];
 
+  /// The resolved link to the entity at the source end.
+  ///
+  /// The participant list names the ends for a reader; this is the
+  /// machine-followable edge to the source entity's section, shown by the
+  /// outliner without recursing into it and validated by the schema generator
+  /// against the entity list. It is what makes an entity name that resolves to
+  /// nothing a detected error instead of a dangling string.
   @SectionId('ENRLE-SOUR-REF')
   @Reference('sourceEntityName')
   @SerializationOrder(7)
   DocSpecsSection? sourceEntityRef;
 
+  /// The resolved link to the entity at the target end.
+  ///
+  /// The mirror of [sourceEntityRef], with one asymmetry worth knowing: which
+  /// end is "source" is not arbitrary. It is the end the relationship is read
+  /// from, and it is what `ENRLE-CARD.sourceCardinality` and
+  /// `ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the
+  /// two ends changes what the cardinality band asserts even though the
+  /// business fact is unchanged.
   @SectionId('ENRLE-TARG-REF')
   @Reference('targetEntityName')
   @SerializationOrder(8)
@@ -1856,6 +2146,15 @@ class DataClassification extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification Overview (4 fields)
   // ---------------------------------------------------------------------------
+  /// The framework the classification levels are drawn from, and who maintains
+  /// them.
+  ///
+  /// Properties of the *scheme* rather than of any one level, which is why they
+  /// sit above the level list: which published standard the levels come from,
+  /// what unclassified data defaults to, who may classify or reclassify, and
+  /// how often assignments are revisited. The default is the load-bearing
+  /// field — without one, data nobody has classified is governed by nothing at
+  /// all, which is the gap this whole section exists to close.
   @SectionId('DATCL-OVER')
   @Form([
     Field(
@@ -1926,6 +2225,15 @@ class DataClassificationEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification Identity (5 fields)
   // ---------------------------------------------------------------------------
+  /// What this level means and what belongs in it.
+  ///
+  /// The band a person uses to *assign* the level — its name, its definition,
+  /// the categories of data it covers, and worked examples — as against the
+  /// bands below, which say what follows once a level has been assigned.
+  /// Examples carry more weight here than elsewhere in the model: a
+  /// classification scheme is applied by people working quickly, and a level
+  /// with no examples is applied inconsistently however precise its definition
+  /// is.
   @SectionId('DCLSE-IDEN')
   @Form([
     Field(
@@ -1961,6 +2269,17 @@ class DataClassificationEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Storage and Transmission (5 fields)
   // ---------------------------------------------------------------------------
+  /// Where data at this level may physically live, and how it is protected on
+  /// the way there.
+  ///
+  /// Encryption at rest and in transit, permitted storage locations, data
+  /// residency and backup handling. They are grouped because they are the
+  /// controls a hosting and infrastructure decision has to satisfy, and they
+  /// are verified once at deployment rather than per request — which is what
+  /// separates them from the access-control band below. Geographic restriction
+  /// is stated with the level rather than left to the deployment document
+  /// because it can invalidate an otherwise-finished architecture, and by then
+  /// the level is what has to be re-read.
   @SectionId('DCLSE-STOR')
   @Form([
     Field(
@@ -2001,6 +2320,16 @@ class DataClassificationEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Access Control (5 fields)
   // ---------------------------------------------------------------------------
+  /// Who may reach data at this level, how they prove who they are, and what is
+  /// recorded when they do.
+  ///
+  /// The per-request half of the level's controls: authentication strength,
+  /// authorization model, audit depth, and the process by which access is
+  /// granted in the first place. This is the material the authorization
+  /// derivation reads (`codespecs_mapping.md` §5.15). Stating it once per level
+  /// rather than per entity is the point of having levels at all — it is what
+  /// stops the same access rule being re-invented, slightly differently, on
+  /// every entity that happens to hold sensitive data.
   @SectionId('DCLSE-ACCE')
   @Form([
     Field(
@@ -2042,6 +2371,15 @@ class DataClassificationEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Retention and Disposal (5 fields)
   // ---------------------------------------------------------------------------
+  /// How long data at this level is kept, and how it is destroyed.
+  ///
+  /// Separated from the entity-level lifecycle policy (`DAENT-LIFE`) by scope
+  /// and authority: this is the floor that applies to everything classified at
+  /// the level, while an entity states its own period where a specific statute
+  /// demands a different one. The disposal method matters as much as the
+  /// period — deletion, anonymization and crypto-erase are not
+  /// interchangeable once backups exist, and only some of them survive a
+  /// restore.
   @SectionId('DCLSE-RETE')
   @Form([
     Field(
@@ -2081,6 +2419,17 @@ class DataClassificationEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Compliance (4 fields)
   // ---------------------------------------------------------------------------
+  /// The named regulations that impose this level, and the duties that come
+  /// with them.
+  ///
+  /// The band that connects the scheme to the outside world: which regulations
+  /// apply, what they require, how fast a breach must be reported, and which
+  /// data-subject rights must be honoured. It is stated per level rather than
+  /// per entity because the obligation attaches to the *kind* of data; an
+  /// entity inherits it by being classified. The breach-notification field is a
+  /// duration and must be authored as one — an answer like "as soon as
+  /// possible" cannot be met or missed, which is the only thing the field is
+  /// for.
   @SectionId('DCLSE-COMP')
   @Form([
     Field(
@@ -2333,6 +2682,15 @@ class BusinessObjectEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Core Identity (6 fields)
   // ---------------------------------------------------------------------------
+  /// What this business object is called in the business, and which pattern it
+  /// follows.
+  ///
+  /// The conceptual-side counterpart of [DataEntityEntry]'s identity band. A
+  /// business object is named by the business and may have no table at all, so
+  /// the band carries the glossary term and the domain-driven-design stereotype
+  /// where the entity carries a physical name. Where the two chapters describe
+  /// the same thing, the object is the meaning and the entity is the storage;
+  /// the alias is what lets a reader line the two up.
   @SectionId('BJOEN-IDEN')
   @Form([
     Field(
@@ -2374,6 +2732,15 @@ class BusinessObjectEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Domain Context (5 fields)
   // ---------------------------------------------------------------------------
+  /// Which part of the business this object belongs to, and who speaks for it.
+  ///
+  /// The band that places the object in the ubiquitous language: its bounded
+  /// context, the owning domain, the named expert who decides what it means,
+  /// and the term the business actually uses. It is separate from the identity
+  /// above because these fields are about *authority over the definition*
+  /// rather than about the object. It is also what makes a word that means two
+  /// different things in two contexts visible as such, instead of forcing one
+  /// of the two to be renamed.
   @SectionId('BJOEN-DOMA')
   @Form([
     Field(
@@ -2414,6 +2781,15 @@ class BusinessObjectEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Lifecycle Summary (5 fields)
   // ---------------------------------------------------------------------------
+  /// The object's states at a glance — the digest, not the authority.
+  ///
+  /// The authored lifecycle is the state list together with
+  /// [LifecycleTransitionEntry], each transition carrying its own guard. This
+  /// band is the summary a reader needs before descending into them: where an
+  /// instance starts, which states end it, and who owns the progression.
+  /// Because it is a digest it can go stale, and a state added below but not
+  /// reflected here is a documentation defect rather than a change to the
+  /// model.
   @SectionId('BJOEN-LIFE')
   @Form([
     Field(
@@ -2454,6 +2830,15 @@ class BusinessObjectEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Behavior and Rules (5 fields)
   // ---------------------------------------------------------------------------
+  /// What the object does, and what it refuses to do.
+  ///
+  /// Behaviour intrinsic to this object, as against the policies catalogued in
+  /// [BusinessRuleEntry] and cited from [BusinessRuleReferenceEntry]. The
+  /// dividing line is ownership: a catalogued rule may govern several objects
+  /// and is versioned, owned and reviewed in its own right, while an entry here
+  /// has no meaning apart from this object. A rule that starts here and turns
+  /// out to govern a second object belongs in the catalogue instead — leaving
+  /// it here is how one policy comes to have two divergent statements.
   @StandardReferences([
     'SBVR — business rule statements',
     'Domain-Driven Design — aggregates/entities/value objects',
@@ -2467,6 +2852,16 @@ class BusinessObjectEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Ownership and Versioning (5 fields)
   // ---------------------------------------------------------------------------
+  /// Who is accountable for the object's data, and how concurrent change is
+  /// handled.
+  ///
+  /// Two subjects share the band because both answer "what happens when this
+  /// object changes": the human chain (owner, steward) and the mechanical one
+  /// (versioning strategy, concurrency control, audit trail). The concurrency
+  /// choice is the consequential one — optimistic and pessimistic control move
+  /// the conflict to different places, one to the writer at commit time and one
+  /// to the reader at lock time — and it should follow this object's usage
+  /// pattern rather than a house style, which is why it is authored per object.
   @SectionId('BJOEN-OWNE')
   @Form([
     Field(
@@ -2507,6 +2902,15 @@ class BusinessObjectEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Integration Points (4 fields)
   // ---------------------------------------------------------------------------
+  /// Where this object is exposed outside its own service — the APIs it offers
+  /// and the events it publishes or consumes.
+  ///
+  /// A list because each exposure is negotiated separately and has its own
+  /// consumer: an object may be readable through one endpoint, published as
+  /// three events, and subscribed to none. The list doubles as the object's
+  /// stability contract — anything named here has an external consumer, so it
+  /// can no longer be changed by reasoning about this chapter alone, and
+  /// surfacing that fact is much of why the band exists.
   @StandardReferences(
     [
       'Domain-Driven Design — aggregates/entities/value objects',
@@ -2844,6 +3248,14 @@ class BusinessRuleReferenceEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The resolved link to the business rule this entry cites.
+  ///
+  /// The entry's `ruleId` field holds the rule's section id as text; this
+  /// member is the followable edge to that rule's section, so a citation can be
+  /// validated rather than trusted. The outliner shows it without recursing —
+  /// which is the whole point of the entry: the rule is stated once in
+  /// [BusinessRuleEntry] and cited from every object it governs, instead of
+  /// being copied into each of them and drifting.
   @SectionId('BIRURE-RULE-REF')
   @Reference('ruleId')
   @SerializationOrder(1)
@@ -3189,6 +3601,15 @@ class FunctionModel extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Function Decomposition Overview (4 fields)
   // ---------------------------------------------------------------------------
+  /// How the function hierarchy was cut, and how deep it goes.
+  ///
+  /// Method rather than content: the criterion by which a function was split
+  /// into sub-functions, the number of levels, and the top-level areas the tree
+  /// starts from. It is a band of its own because the criterion has to be
+  /// chosen once and applied throughout — a hierarchy whose first level is
+  /// business capability and whose second is organizational unit cannot be
+  /// compared across branches, and no individual function entry can reveal
+  /// that.
   @SectionId('FUMO-DECO')
   @Form([
     Field(
@@ -3224,6 +3645,16 @@ class FunctionModel extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Function-to-Data Matrix Overview (4 fields)
   // ---------------------------------------------------------------------------
+  /// How to read the function-to-data matrix, and how much of the system it
+  /// covers.
+  ///
+  /// The matrix entries are dense and close to unreadable without this band:
+  /// which notation the cells use, which functions were included, and which
+  /// access patterns the result is meant to expose. Scope is the field that
+  /// fixes what an empty cell means — in a matrix scoped to core functions a
+  /// blank is "not examined", while in one scoped to all functions it is "this
+  /// function does not touch this entity", which is a far stronger claim and
+  /// the one a data-ownership argument rests on.
   @SectionId('FUMO-MATR')
   @Form([
     Field(
@@ -3514,6 +3945,15 @@ class BusinessRuleEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Rule Identity (5 fields)
   // ---------------------------------------------------------------------------
+  /// The rule's own statement, in the words of the business, and its version.
+  ///
+  /// Two statements are kept deliberately: a description precise enough to
+  /// implement against, and the natural-language statement the business
+  /// recognises as its own policy. They drift, and a rule whose two statements
+  /// have drifted is the usual root of a "the system is wrong" dispute that
+  /// turns out to be a specification defect. The version sits here rather than
+  /// in the governance band because it identifies *which* statement is being
+  /// cited when the rule is referenced from an object or a function.
   @SectionId('BIRU-IDEN')
   @Form([
     Field(
@@ -3541,6 +3981,16 @@ class BusinessRuleEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Classification (5 fields)
   // ---------------------------------------------------------------------------
+  /// What kind of rule this is, how binding it is, and where it came from.
+  ///
+  /// The band that decides how the rule is *treated* rather than what it says.
+  /// The type and category say what the rule produces — a check, a computed
+  /// value, an inference, an enabled action — and therefore which derivation
+  /// reads it. The enforcement level separates a rule the system must refuse to
+  /// violate from a guideline it may only warn about. The source decides who is
+  /// entitled to change it, since a rule originating in a regulation cannot be
+  /// relaxed by the project at all. Priority is the tiebreak when two
+  /// applicable rules disagree.
   @SectionId('BIRU-CLAS')
   @Form([
     Field(
@@ -3582,6 +4032,15 @@ class BusinessRuleEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Rule Logic (5 fields)
   // ---------------------------------------------------------------------------
+  /// The rule as a condition and its consequences — IF, THEN, and otherwise.
+  ///
+  /// The executable heart of the entry, held in a fixed shape so rules can be
+  /// compared and tested rather than only read. Separating the trigger from the
+  /// action is what makes the rule testable at all: a worked example
+  /// ([RuleExampleEntry]) supplies inputs for the condition and asserts the
+  /// action, which is the form a test derivation needs. Parameters are named
+  /// apart from the condition text so a threshold can be changed without
+  /// restating the rule.
   @SectionId('BIRU-RULE')
   @Form([
     Field(
@@ -3621,6 +4080,15 @@ class BusinessRuleEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Implementation (5 fields)
   // ---------------------------------------------------------------------------
+  /// Where and how the rule is actually enforced, and whether that can be
+  /// tested.
+  ///
+  /// The gap this band closes is that a rule can be stated perfectly and
+  /// enforced nowhere. Naming the enforcing systems turns "the rule exists"
+  /// into a checkable claim; the testability field states up front whether the
+  /// check can be automated at all. A rule marked manual-only will never fail a
+  /// build, and that is a fact the acceptance plan has to know before the rule
+  /// is relied on as a control.
   @SectionId('BIRU-IMPL')
   @Form([
     Field(
@@ -3663,6 +4131,15 @@ class BusinessRuleEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Exception Handling (4 fields)
   // ---------------------------------------------------------------------------
+  /// What happens when the rule is violated, and whether it may be waived.
+  ///
+  /// Every enforceable rule eventually meets a legitimate exception, and a
+  /// specification that says nothing about them gets one invented at runtime by
+  /// whoever is under pressure. The band records both halves: the automatic
+  /// consequence of a violation, and the human path — who may override, who
+  /// approves it, where it escalates. An empty override policy means no
+  /// override exists, which is a stronger statement than it looks and should be
+  /// chosen rather than defaulted into.
   @SectionId('BIRU-EXCE')
   @Form([
     Field(
@@ -3696,6 +4173,15 @@ class BusinessRuleEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   // Governance (4 fields)
   // ---------------------------------------------------------------------------
+  /// Who owns the rule, and for how long it holds.
+  ///
+  /// A business rule is not permanent: it takes effect on a date, may expire on
+  /// another, and is re-examined on a cadence. Recording the dates is what
+  /// makes the rule *temporal* — a decision taken before its effective date was
+  /// not a violation, which is precisely what an audit has to be able to
+  /// establish. The owner is whoever may change the statement above; the review
+  /// frequency is what stops a policy that has lapsed from being enforced
+  /// indefinitely because nobody looked.
   @SectionId('BIRU-GOVE')
   @Form([
     Field(
@@ -3787,6 +4273,14 @@ class AffectedObjectEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The resolved link to the business object this rule acts on.
+  ///
+  /// The surrounding entry says *how* the object is affected — which
+  /// attributes, whether it is validated, constrained, modified or created, and
+  /// whether the access is a read or a write. This member is the followable
+  /// edge to the object itself, which is what lets a rule's impact set be
+  /// computed rather than read: given a rule, every object it touches, and
+  /// given an object, every rule that touches it.
   @SectionId('AFOB-OBJE-REF')
   @Reference('objectName')
   @SerializationOrder(1)
@@ -3822,6 +4316,13 @@ class AffectedFunctionEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// The resolved link to the function in which this rule fires.
+  ///
+  /// The object side of a rule ([AffectedObjectEntry]) says what it acts on;
+  /// this side says where in the flow it is evaluated, which is what gives the
+  /// trigger point and the mandatory flag their meaning. Both are needed: one
+  /// rule may guard an entity that three functions write, and only one of those
+  /// functions may be entitled to skip the check.
   @SectionId('AFFN-FUNC-REF')
   @Reference('functionName')
   @SerializationOrder(1)
@@ -4835,7 +5336,7 @@ Author the further change as a new entry with the next version.
 /// 2. **Closed-choice discriminator source** — because each enum is *named* and
 ///    exposes an *enumerable* set of value ids, a future `@OneOf`
 ///    discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and
-///    match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry
+///    match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry
 ///    provides that source; the `@OneOf`/`@Case` annotations themselves are a
 ///    separate part.
 @StandardReferences(
@@ -5061,7 +5562,7 @@ from D09's system/network/display error catalogue.
 
 /// A single shared application error code (form).
 ///
-/// One entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key
+/// One entry in the [ErrorCodeRegistry]: a stable machine `code` (the join key
 /// referenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,
 /// a default severity, a retryable hint, an optional HTTP-status hint and a
 /// copy-key reference into the CE-TX message registry (csm-7-3). Maps to the
@@ -5284,13 +5785,13 @@ class ResultFieldDetailEntry extends DocSpecsSection {
 /// carrying inline copy and instead reference a key here:
 ///
 /// - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
-/// - **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);
-/// - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
+/// - **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);
+/// - **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);
 /// - **CE-VA** validation-failure messages.
 ///
 /// csmb3 and csmb5 already modelled their `copyKey` references as plain
 /// message-key strings anticipating this registry; those keys now resolve
-/// against [MessageKeyEntry.key].
+/// against `MessageKeyEntry.key`.
 @StandardReferences(
   [
     'ISO/IEC 11179 — metadata registries / data element definitions',
@@ -5336,7 +5837,7 @@ validated — no more free-text `*Resource` keys that can silently diverge.
 
 /// A single message key (form + locale variants).
 ///
-/// One author-once copy string: a stable [key] (the token every consumer
+/// One author-once copy string: a stable `key` (the token every consumer
 /// references), the default base-locale copy, an optional list of named
 /// placeholders the copy interpolates, and its
 /// [MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy
@@ -5406,7 +5907,7 @@ class MessageKeyEntry extends DocSpecsSection {
 ///
 /// One localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the
 /// copy for that locale. The base-locale copy lives on
-/// [MessageKeyEntry.defaultCopy]; each variant here overrides it for one
+/// `MessageKeyEntry.defaultCopy`; each variant here overrides it for one
 /// locale.
 @StandardReferences(
   [
@@ -5530,7 +6031,7 @@ systems are inventoried under External Interfaces (EXIN) instead.
 /// The operation name is the join token the rest of the model references: the
 /// ISC step entries cite it as the target of a client call (CE-SC), and the
 /// service unit that owns the operation follows from
-/// [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+/// `ServerOperationEntry.primaryDataEntity` rather than from a hand-written
 /// list (`codespecs_mapping.md` §5.17).
 @StandardReferences(
   [

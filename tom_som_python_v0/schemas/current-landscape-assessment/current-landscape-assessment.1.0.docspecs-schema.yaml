@@ -387,7 +387,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: "The in-house system that stops working when this external service does,"
   limet-know-lst:
     prefix: LIMET_KNOW_LST
     subsection-types:
@@ -607,7 +607,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: The depending end — the system that stops working if the dependency
   syde-targ-ref:
     prefix: SYDE_TARG_REF
     subsection-types:
@@ -627,7 +627,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: The depended-upon end — the system that owes the availability and the SLA
   syin-item-lst:
     prefix: SYIN_ITEM_LST
     subsection-types:
@@ -655,7 +655,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: "The system data flows out of, named by section id."
   syin-targ-ref:
     prefix: SYIN_TARG_REF
     subsection-types:
@@ -675,7 +675,7 @@ section-types:
         max-count: 1
       esqua:
         max-count: 1
-    description: An existing system entry (form).
+    description: "The system data flows into, named by section id."
   cubipr-proc:
     prefix: CUBIPR_PROC_
     subsection-types:
@@ -1166,6 +1166,7 @@ section-types:
   migcon-stra:
     prefix: MIGCON_STRA
     format: migcon-stra-form
+    description: The portfolio-wide cutover approach — the decisions that bound every
   msddo-mast:
     prefix: MSDDO_MAST_
     subsection-types:
@@ -1218,6 +1219,7 @@ section-types:
   sytore-iden:
     prefix: SYTORE_IDEN
     format: sytore-iden-form
+    description: Which legacy system this entry is about.
   wostsy-name:
     prefix: WOSTSY_NAME
     description: Name of the system used in this workflow step.
@@ -1477,6 +1479,7 @@ section-types:
   miri-gove:
     prefix: MIRI_GOVE
     format: miri-gove-form
+    description: "Who owns migration risk, and how often it is looked at."
   pme-item:
     prefix: PME_ITEM_
     subsection-types:

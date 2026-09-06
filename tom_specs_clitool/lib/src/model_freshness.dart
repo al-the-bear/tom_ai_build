@@ -156,9 +156,12 @@ class LibrarySurface {
 
   /// The hash over the rendered token stream of every file in the set.
   ///
-  /// Over *tokens*, not bytes, so reformatting or a comment edit leaves it
-  /// unchanged — the guard is asking whether the surface moved, not whether
-  /// the file did.
+  /// Over *tokens*, not bytes, so reformatting and function-body edits leave
+  /// it unchanged — the guard asks whether the surface moved, not whether the
+  /// file did. **Doc comments are the deliberate exception and are included**,
+  /// because the reader captures them into the meta and every generated
+  /// package renders them, so rewording one really does change all nine.
+  /// Ordinary `//` comments reach nothing and are skipped.
   final String hash;
 
   /// How many files went into [hash].

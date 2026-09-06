@@ -19,7 +19,7 @@
 /// [cloneShallowOf] / [yamlScalarOf]:
 ///
 ///  - **Mix in [SpecNode]** and override the methods directly. Used by the one
-///    real hand-written leaf ([DocumentHeader]) and by tests.
+///    real hand-written leaf (`DocumentHeader`) and by tests.
 ///  - **Register a [SpecClassOps]** in [SpecRegistry] keyed by the concrete
 ///    type. This is how the ~3000 generated model classes adopt the contract
 ///    *without any edit to their source* (OE-2): Dart 3.11 has no augmentation
@@ -96,11 +96,41 @@ mixin SpecNode {
 /// `cloneShallow`, [yamlScalar] ↔ `yamlScalar`, plus the optional [connect]
 /// binding for projection roots (the registry equivalent of `SpecProjection`).
 class SpecClassOps {
+  /// Enumerates the node's child relationships, in model declaration order.
+  ///
+  /// Order is the contract: it fixes the serialized member order and the order
+  /// the snapshotter walks children in, so a generated body must not sort.
   final List<SpecSlot> Function(Object node) slots;
+
+  /// Copies the node one level deep — a new instance whose slots still point
+  /// at the *same* child objects.
+  ///
+  /// Shallow is the whole point: structural sharing means only the path from
+  /// an edited leaf to the root is cloned, so a deep copy here would make
+  /// every snapshot O(document) instead of O(depth).
   final Object Function(Object node) cloneShallow;
+
+  /// The node's own scalar value for serialization, or null when it has none.
+  ///
+  /// Null-valued (rather than absent) for a node that *has* the concept but
+  /// currently holds nothing, which is why the callback returns `String?`
+  /// rather than the whole callback being omitted.
   final String? Function(Object node)? yamlScalar;
+
+  /// Re-points a projection root's members onto the live sections of the
+  /// source node passed to the callback.
+  ///
+  /// Only projection roots carry one; null for an ordinary class. Without it a
+  /// projection serializes its own default-constructed sections rather than
+  /// the document's — the registry equivalent of `SpecProjection`.
   final void Function(Object node, Object source)? connect;
 
+  /// Declares one class's contract.
+  ///
+  /// [slots] and [cloneShallow] are required because the snapshotter cannot
+  /// walk or copy without them; [yamlScalar] and [connect] are omitted by the
+  /// classes that have no scalar and are not projection roots, which is most
+  /// of them.
   const SpecClassOps({
     required this.slots,
     required this.cloneShallow,
@@ -182,6 +212,11 @@ void markCleanNode(Object node) => _dirtySinceSnapshot[node] = false;
 /// contract via the registry (not the [SpecNode] mixin) fit without change; the
 /// engine never needs them to share a base type.
 class SpecSlot {
+  /// Whether this slot holds a list of children rather than a single child.
+  ///
+  /// Selects which pair of hooks is live: a list slot's [node]/`node=` are
+  /// inert and a single slot's [list]/`list=` are, so a caller must branch on
+  /// this rather than probing for null.
   final bool isList;
 
   /// The model member name this slot reads and writes, or `null` when the slot
@@ -199,6 +234,10 @@ class SpecSlot {
   /// with no class fallback (SOM §12.2).
   final String? sectionId;
 
+  // The four hooks. Exactly one pair is live per slot; the other pair is bound
+  // to the inert statics below, so reading it is safe and writing it is a
+  // no-op rather than an error — the snapshotter walks uniformly and branches
+  // on `isList` only where the distinction matters.
   final Object? Function() _getNode;
   final void Function(Object?) _setNode;
   final List<Object> Function() _getList;
@@ -241,10 +280,26 @@ class SpecSlot {
     return id == null ? name : '$id $name';
   }
 
+  /// The single child this slot holds, or null when the member is unset.
+  ///
+  /// Always null on a list slot ([isList] true) — that is the inert pair, not
+  /// an empty child.
   Object? get node => _getNode();
+
+  /// Replaces the single child. A no-op on a list slot.
   set node(Object? value) => _setNode(value);
 
+  /// The children this slot holds, in document order.
+  ///
+  /// Always empty on a single-child slot ([isList] false) — that is the inert
+  /// pair, not a childless list.
   List<Object> get list => _getList();
+
+  /// Replaces the whole child list. A no-op on a single-child slot.
+  ///
+  /// Whole-list replacement rather than mutation in place, because the
+  /// snapshotter's structural sharing depends on the previous list object
+  /// staying untouched for the previous snapshot to keep pointing at.
   set list(List<Object> value) => _setList(value);
 
   static List<Object> _emptyList() => const [];

@@ -151,6 +151,7 @@ section-types:
   accrsu-acce:
     prefix: ACCRSU_ACCE
     format: accrsu-acce-form
+    description: "The shape of acceptance: who signs, over what scope, in which environment,"
   dacen-item:
     prefix: DACEN_ITEM_
     subsection-types:
@@ -171,9 +172,11 @@ section-types:
   doqucr-docu:
     prefix: DOQUCR_DOCU
     format: doqucr-docu-form
+    description: "How documentation is produced and kept current — strategy, ownership,"
   mupacr-must:
     prefix: MUPACR_MUST
     format: mupacr-must-form
+    description: "What qualifies a criterion as must-pass, how many there are, and whether"
   qcate-qual:
     prefix: QCATE_QUAL_
     subsection-types:
@@ -221,9 +224,11 @@ section-types:
   qugach-chec:
     prefix: QUGACH_CHEC
     format: qugach-chec-form
+    description: "What the checklist is used for, how completely it must be worked, and who"
   trofde-trad:
     prefix: TROFDE_TRAD
     format: trofde-trad-form
+    description: "Who may decide a quality trade-off, how it is recorded, and how it is"
   uatcy-test:
     prefix: UATCY_TEST_
     subsection-types:
@@ -238,6 +243,7 @@ section-types:
   wequma-matr:
     prefix: WEQUMA_MATR
     format: wequma-matr-form
+    description: "The mechanics of the weighting: the scale, whether weights must sum, and"
   acst-step:
     prefix: ACST_STEP_
     subsection-types:
@@ -252,6 +258,7 @@ section-types:
   qlfwk-fram:
     prefix: QLFWK_FRAM
     format: qlfwk-fram-form
+    description: "Which published quality model this chapter's structure comes from, at"
   slae-slae:
     prefix: SLAE_SLAE_
     pattern-check-id:
@@ -301,30 +308,39 @@ section-types:
   cmpt-comp:
     prefix: CMPT_COMP
     format: cmpt-comp-form
+    description: "What the system must co-exist with, and what it must interoperate with."
   flxc-flex:
     prefix: FLXC_FLEX
     format: flxc-flex-form
+    description: "The changes the system must absorb without redesign, and the environments"
   fnsu-func:
     prefix: FNSU_FUNC
     format: fnsu-func-form
+    description: "The bar for \"the right functions, working correctly\" — the coverage target"
   incp-inte:
     prefix: INCP_INTE
     format: incp-inte-form
+    description: "The user population whose experience sets the bar, and the level of"
   mntc-main:
     prefix: MNTC_MAIN
     format: mntc-main-form
+    description: "What modification must cost, and the structural thresholds that keep it"
   peef-perf:
     prefix: PEEF_PERF
     format: peef-perf-form
+    description: The engineering stance the performance and structural targets are set
   qupr-prio:
     prefix: QUPR_PRIO
     format: qupr-prio-form
+    description: "How quality attributes are ranked against one another, by whom, and how"
   relc-reli:
     prefix: RELC_RELI
     format: relc-reli-form
+    description: "How the system will be run: the operating model, the responsible party,"
   secc-secu:
     prefix: SECC_SECU
     format: secc-secu-form
+    description: "The security posture the system is built to, and the compliance regime"
   accrsu:
     prefix: ACCRSU
     subsection-types:

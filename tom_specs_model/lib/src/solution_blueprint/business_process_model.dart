@@ -35,7 +35,15 @@ import '../document_stubs.dart';
 /// two because a branch either rejoins somewhere nameable or it terminates;
 /// a third arm would be a control transfer the emitted body cannot express.
 enum FlowReturnPoint {
+  /// The branch hands control back to a named step of the flow it left.
+  ///
+  /// Binds a case subsection, because the generated body cannot rejoin
+  /// anywhere until the step it rejoins at has been named.
   resumeAtStep,
+  /// The branch is the end of the scenario — control goes back to nobody.
+  ///
+  /// The `noCase` arm: there is no step to name and no payload to carry, so a
+  /// case subsection here would have nothing in it.
   endFlow,
 }
 
@@ -57,8 +65,22 @@ enum FlowReturnPoint {
 /// handling. A fourth arm would have to name a moment that is neither before
 /// the call nor after one of its two outcomes.
 enum ServerCallRole {
+  /// Steps that run before the call leaves — the ones that build the request.
+  ///
+  /// Emitted into the `assembleRequest` method. A step here may read view
+  /// state and validate, but it can say nothing about a response, because none
+  /// exists yet.
   assembleRequest,
+  /// Steps that run after a successful response — the ones that apply it.
+  ///
+  /// Emitted into the `handleResponse` method. It is reached only on success,
+  /// so a step here never has to ask whether the call worked.
   handleResponse,
+  /// Steps that run after a failed call — the ones that surface the failure.
+  ///
+  /// Emitted into the `handleError` method, which is the sibling of
+  /// `handleResponse` rather than a branch inside it: the two are separate
+  /// bodies and exactly one of them runs.
   handleError,
 }
 
@@ -4781,6 +4803,24 @@ class MainScenarioStepEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How this main-flow step's server call is carried out, step by step.
+  ///
+  /// Present only where the step reaches the server — that is, where its
+  /// `serverOperation` names an operation; a step that names none generates no
+  /// call and has nothing to put here. The entries are read in document order,
+  /// and each declares which of the three handling roles it belongs to, so one
+  /// list describes all three of the generated method bodies rather than three
+  /// parallel lists that could fall out of step with each other
+  /// (`codespecs_derivation_contract.md` §3.5.7).
+  ///
+  /// An empty list is not an omission. It says the call has nothing to state
+  /// beyond the step's own behaviour text, and the derivation falls back to
+  /// exactly that (`codespecs_derivation_contract.md` §2.4).
+  ///
+  /// On the main success scenario the call is the happy path: the response
+  /// steps describe the outcome the scenario claims, and the error steps
+  /// describe what the user sees when that claim fails without the scenario
+  /// itself branching.
   @SectionId('SVCST-STEP-LST')
   @SectionIdPattern('SVCST-STEP-xxx')
   @ContentHelp('Fill this in only where the step reaches the server. Add one '
@@ -4798,7 +4838,7 @@ class MainScenarioStepEntry extends DocSpecsSection {
 /// separate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is
 /// assembled before the wire, a successful response is applied after it, and a
 /// failure is surfaced instead. This entry is where each of those is stated,
-/// and [role] is the field that says which. Without it a generator would have
+/// and `role` is the field that says which. Without it a generator would have
 /// to split one sentence three ways by guessing, which
 /// `codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies
 /// could only throw the same text.
@@ -4815,7 +4855,7 @@ class MainScenarioStepEntry extends DocSpecsSection {
 /// step's own order field), and each role's steps are read in document order
 /// within the list.
 ///
-/// **[condition] is a precondition, not a case label.** It becomes a guard on
+/// **`condition` is a precondition, not a case label.** It becomes a guard on
 /// the step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not
 /// the way an error code is turned into user-visible wording: B7 forbids the
 /// `switch` that would need, and the message a code maps to belongs in the
@@ -5105,6 +5145,23 @@ class ExtensionStepEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How this extension step's server call is carried out, step by step.
+  ///
+  /// Present only where the step reaches the server — that is, where its
+  /// `serverOperation` names an operation; a step that names none generates no
+  /// call and has nothing to put here. The entries are read in document order,
+  /// and each declares which of the three handling roles it belongs to, so one
+  /// list describes all three of the generated method bodies rather than three
+  /// parallel lists that could fall out of step with each other
+  /// (`codespecs_derivation_contract.md` §3.5.7).
+  ///
+  /// An empty list is not an omission. It says the call has nothing to state
+  /// beyond the step's own behaviour text, and the derivation falls back to
+  /// exactly that (`codespecs_derivation_contract.md` §2.4).
+  ///
+  /// An extension runs instead of the main flow at its branch point, so the
+  /// call stated here belongs to that path alone — it neither shares nor
+  /// inherits the steps of the main-flow step the extension replaces.
   @SectionId('SVCST-STEP-LST')
   @SectionIdPattern('SVCST-STEP-xxx')
   @ContentHelp('Fill this in only where the step reaches the server. Add one '
@@ -5852,6 +5909,23 @@ class ScenarioStepEntry extends DocSpecsSection {
   @SerializationOrder(2)
   DocSpecsSection? execution;
 
+  /// How this scenario step's server call is carried out, step by step.
+  ///
+  /// Present only where the step reaches the server — that is, where its
+  /// `serverOperation` names an operation; a step that names none generates no
+  /// call and has nothing to put here. The entries are read in document order,
+  /// and each declares which of the three handling roles it belongs to, so one
+  /// list describes all three of the generated method bodies rather than three
+  /// parallel lists that could fall out of step with each other
+  /// (`codespecs_derivation_contract.md` §3.5.7).
+  ///
+  /// An empty list is not an omission. It says the call has nothing to state
+  /// beyond the step's own behaviour text, and the derivation falls back to
+  /// exactly that (`codespecs_derivation_contract.md` §2.4).
+  ///
+  /// Where the flow branches is not stated here: that is the `ALFL` entry's
+  /// business, via its branch point and trigger condition. This list only says
+  /// what the step does across the boundary when it does run.
   @SectionId('SVCST-STEP-LST')
   @SectionIdPattern('SVCST-STEP-xxx')
   @ContentHelp('Fill this in only where the step reaches the server. Add one '
@@ -6045,6 +6119,25 @@ class AlternativeStepEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// How this alternative-flow step's server call is carried out, step by
+  /// step.
+  ///
+  /// Present only where the step reaches the server — that is, where its
+  /// `serverOperation` names an operation; a step that names none generates no
+  /// call and has nothing to put here. The entries are read in document order,
+  /// and each declares which of the three handling roles it belongs to, so one
+  /// list describes all three of the generated method bodies rather than three
+  /// parallel lists that could fall out of step with each other
+  /// (`codespecs_derivation_contract.md` §3.5.7).
+  ///
+  /// An empty list is not an omission. It says the call has nothing to state
+  /// beyond the step's own behaviour text, and the derivation falls back to
+  /// exactly that (`codespecs_derivation_contract.md` §2.4).
+  ///
+  /// These steps are emitted inside the branch the flow entry opens, so a call
+  /// made here runs only when the flow's trigger condition held — which is why
+  /// its error handling can assume the abnormal case rather than re-test for
+  /// it.
   @SectionId('SVCST-STEP-LST')
   @SectionIdPattern('SVCST-STEP-xxx')
   @ContentHelp('Fill this in only where the step reaches the server. Add one '

@@ -113,7 +113,7 @@ class RequirementsFollowUp extends DocSpecsSection {
 
 /// Localization & Translation requirements (the requirement side of i18n).
 ///
-/// Cross-mapped from SBP.14 via [Iso25010Coverage].
+/// Cross-mapped from SBP.14 via `Iso25010Coverage`.
 @StandardReferences(
   [
     'ISO/IEC 25010:2023 — portability / adaptability',

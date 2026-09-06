@@ -728,8 +728,10 @@ section-types:
     description: Add one entry per entity relationship.
   enrle-sour-ref:
     prefix: ENRLE_SOUR_REF
+    description: The resolved link to the entity at the source end.
   enrle-targ-ref:
     prefix: ENRLE_TARG_REF
+    description: The resolved link to the entity at the target end.
   ercen-code-lst:
     prefix: ERCEN_CODE_LST
     subsection-types:
@@ -812,6 +814,7 @@ section-types:
     description: Add one entry per key attribute.
   keatt-refe-ref:
     prefix: KEATT_REFE_REF
+    description: The resolved link to the entity a foreign key points at.
   lgfls-logi-lst:
     prefix: LGFLS_LOGI_LST
     subsection-types:
@@ -2648,6 +2651,7 @@ section-types:
   erhaco-erro:
     prefix: ERHACO_ERRO
     format: erhaco-erro-form
+    description: "The stance errors are written from, before the concrete categories below."
   etets-endt:
     prefix: ETETS_ENDT_
     pattern-check-id:
@@ -2778,6 +2782,7 @@ section-types:
   meanob-metr:
     prefix: MEANOB_METR
     format: meanob-metr-form
+    description: "Which telemetry signals are collected at all, in what format, and at what"
   migtg-targ:
     prefix: MIGTG_TARG_
     pattern-check-id:
@@ -2796,6 +2801,7 @@ section-types:
   monito-moni:
     prefix: MONITO_MONI
     format: monito-moni-form
+    description: "The monitoring posture as a whole — the strategy, the platforms it runs"
   msgke-mkey:
     prefix: MSGKE_MKEY_
     subsection-types:
@@ -3103,6 +3109,7 @@ section-types:
   syerdi-syst:
     prefix: SYERDI_SYST
     format: syerdi-syst-form
+    description: How failures the user cannot correct are surfaced.
   tgplt-targ:
     prefix: TGPLT_TARG_
     subsection-types:
@@ -3439,9 +3446,11 @@ section-types:
   daatt-data:
     prefix: DAATT_DATA
     format: daatt-data-form
+    description: "The logical type of the attribute, and the physical form it is realised"
   daatt-deri:
     prefix: DAATT_DERI
     format: daatt-deri-form
+    description: "Whether the attribute holds an authored value at all, or one produced from"
   daatt-dtbi:
     prefix: DAATT_DTBI
     format: daatt-dtbi-form
@@ -3469,24 +3478,31 @@ section-types:
   daatt-iden:
     prefix: DAATT_IDEN
     format: daatt-iden-form
+    description: "What this attribute is called and what it means, in business terms."
   daatt-migr:
     prefix: DAATT_MIGR
     format: daatt-migr-form
+    description: "Where this attribute's values come from — upstream system, source field"
   daatt-secu:
     prefix: DAATT_SECU
     format: daatt-secu-form
+    description: "How exposed this single attribute is, independently of its entity."
   daent-clas:
     prefix: DAENT_CLAS
     format: daent-clas-form
+    description: "Where this entity sits in the domain, and who answers for it."
   daent-iden:
     prefix: DAENT_IDEN
     format: daent-iden-form
+    description: "What this entity is called, in each vocabulary that needs a name for it."
   daent-life:
     prefix: DAENT_LIFE
     format: daent-life-form
+    description: "What becomes of this entity's rows over time: how long they are kept,"
   daent-rela:
     prefix: DAENT_RELA
     format: daent-rela-form
+    description: "The entity's relationships as seen from this entity — a digest, not the"
   dasurimaau:
     prefix: DASURIMAAU
     format: dasurimaau-form
@@ -3494,6 +3510,7 @@ section-types:
   datcl-over:
     prefix: DATCL_OVER
     format: datcl-over-form
+    description: "The framework the classification levels are drawn from, and who maintains"
   date-dash:
     prefix: DATE_DASH_
     pattern-check-id:
@@ -3503,18 +3520,23 @@ section-types:
   dclse-acce:
     prefix: DCLSE_ACCE
     format: dclse-acce-form
+    description: "Who may reach data at this level, how they prove who they are, and what is"
   dclse-comp:
     prefix: DCLSE_COMP
     format: dclse-comp-form
+    description: "The named regulations that impose this level, and the duties that come"
   dclse-iden:
     prefix: DCLSE_IDEN
     format: dclse-iden-form
+    description: What this level means and what belongs in it.
   dclse-rete:
     prefix: DCLSE_RETE
     format: dclse-rete-form
+    description: "How long data at this level is kept, and how it is destroyed."
   dclse-stor:
     prefix: DCLSE_STOR
     format: dclse-stor-form
+    description: "Where data at this level may physically live, and how it is protected on"
   deosreenso:
     prefix: DEOSREENSO
     format: deosreenso-form
@@ -3539,15 +3561,19 @@ section-types:
   enrle-card:
     prefix: ENRLE_CARD
     format: enrle-card-form
+    description: "How many instances may stand at each end, and whether either end may stand"
   enrle-iden:
     prefix: ENRLE_IDEN
     format: enrle-iden-form
+    description: "What kind of relationship this is, and why it exists."
   enrle-navi:
     prefix: ENRLE_NAVI
     format: enrle-navi-form
+    description: "How the relationship is traversed in code, and where the key physically"
   enrle-refe:
     prefix: ENRLE_REFE
     format: enrle-refe-form
+    description: "What happens to the far end when a row is deleted or its key changes, and"
   epnt-entr:
     prefix: EPNT_ENTR_
     pattern-check-id:
@@ -3712,27 +3738,35 @@ section-types:
   uicom-acce:
     prefix: UICOM_ACCE
     format: uicom-acce-form
+    description: "The component's accessibility contract: roles, names, keyboard model."
   uicom-auth:
     prefix: UICOM_AUTH
     format: uicom-auth-form
+    description: How the component behaves when the user lacks the right to use it.
   uicom-data:
     prefix: UICOM_DATA
     format: uicom-data-form
+    description: "What the component reads and writes, and against which model element."
   uicom-iden:
     prefix: UICOM_IDEN
     format: uicom-iden-form
+    description: What this component is and where it is used.
   uicom-inte:
     prefix: UICOM_INTE
     format: uicom-inte-form
+    description: "How the component responds to input, across its states."
   uicom-reso:
     prefix: UICOM_RESO
     format: uicom-reso-form
+    description: "The assets the component needs — icons, images, fonts, media."
   uicom-resp:
     prefix: UICOM_RESP
     format: uicom-resp-form
+    description: How the component behaves across the declared breakpoints.
   uicom-visu:
     prefix: UICOM_VISU
     format: uicom-visu-form
+    description: The component's appearance in its default state.
   vafe-fiel:
     prefix: VAFE_FIEL_
     pattern-check-id:
@@ -3742,6 +3776,7 @@ section-types:
   alco-aler:
     prefix: ALCO_ALER
     format: alco-aler-form
+    description: "What is worth waking someone for, and how quickly a human is expected to"
   alfl-resu:
     prefix: ALFL_RESU
     format: alfl-resu-form
@@ -3942,6 +3977,7 @@ section-types:
   moda-dash:
     prefix: MODA_DASH
     format: moda-dash-form
+    description: "The ground rules for the dashboard estate — platform, access, and the"
   mwe-main:
     prefix: MWE_MAIN_
     subsection-types:
@@ -4033,9 +4069,11 @@ section-types:
   rebe-layo:
     prefix: REBE_LAYO
     format: rebe-layo-form
+    description: What actually changes at each breakpoint.
   rede-resp:
     prefix: REDE_RESP
     format: rede-resp-form
+    description: "The responsive strategy: which approach the product takes and why."
   rfe-filt:
     prefix: RFE_FILT_
     subsection-types:
@@ -4109,6 +4147,7 @@ section-types:
   sasm-slao:
     prefix: SASM_SLAO
     format: sasm-slao-form
+    description: "The service-level regime — the framework, the error-budget policy, and"
   scjob-cal:
     prefix: SCJOB_CAL
     format: scjob-cal-form
@@ -4183,6 +4222,7 @@ section-types:
   uico-comp:
     prefix: UICO_COMP
     format: uico-comp-form
+    description: "The library's scope and governance, before the individual components."
   unp-pref:
     prefix: UNP_PREF_
     pattern-check-id:
@@ -4193,6 +4233,7 @@ section-types:
   vafe-vali:
     prefix: VAFE_VALI
     format: vafe-vali-form
+    description: How field-level validation feedback reaches the user.
   vmt-mess:
     prefix: VMT_MESS_
     pattern-check-id:
@@ -4535,6 +4576,7 @@ section-types:
   bc-brea:
     prefix: BC_BREA
     format: bc-brea-form
+    description: The breakpoint set the layout switches at.
   accasu:
     prefix: ACCASU
     format: accasu-form

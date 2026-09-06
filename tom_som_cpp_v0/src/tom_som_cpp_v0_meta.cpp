@@ -1353,6 +1353,7 @@ void buildAcceptanceCriteriaSummaryChildren(som::SomMetaNode& parent, std::vecto
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The shape of acceptance: who signs, over what scope, in which environment,\nand on what basis it can be refused.\n\nThe band that makes acceptance a decidable event rather than an opinion.\nTwo fields carry most of the weight — the partial-acceptance policy, which\nsettles in advance whether a known defect blocks sign-off, and the\nrejection criteria, which are unusable unless stated before the review\nstarts. This governs the business-acceptance gate of the creation process\n(`tom_specs_project_flow.md` §PF-GAT-G7); the must-pass and checklist\nsubsections below supply the criteria that gate is run against.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptanceProcess", "String", "Acceptance Process", false, "Formal UAT, continuous acceptance", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptanceAuthority", "String", "Acceptance Authority", false, "Who signs off on acceptance", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -2224,6 +2225,7 @@ void buildAccessibilityChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The accessibility commitment and its scope, before the specific conformance\ntargets below.\n\nStates which standard applies and to what — the WCAG section then pins the\nlevel and the checklist section the verification.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"wcagComplianceTarget", "String", "WCAG Compliance Target", false, "A, AA, AAA", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"wcagVersion", "String", "WCAG Version", false, "2.0, 2.1, 2.2", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -2460,6 +2462,7 @@ void buildAccessibilityChecklistChildren(som::SomMetaNode& parent, std::vector<s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How conformance is verified, as opposed to claimed.\n\nThe checklist's coverage and cadence — who runs it, against what, and how a\nfailure is recorded.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"checklistStandard", "String", "Checklist Standard", false, "Based on WCAG, custom additions", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"checklistOwner", "String", "Checklist Owner", false, "Who maintains the checklist", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -3430,6 +3433,7 @@ void buildAffectedFunctionEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The resolved link to the function in which this rule fires.\n\nThe object side of a rule ([AffectedObjectEntry]) says what it acts on;\nthis side says where in the flow it is evaluated, which is what gives the\ntrigger point and the mandatory flag their meaning. Both are needed: one\nrule may guard an entity that three functions write, and only one of those\nfunctions may be entitled to skip the check.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"functionName\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -3461,6 +3465,7 @@ void buildAffectedObjectEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The resolved link to the business object this rule acts on.\n\nThe surrounding entry says *how* the object is affected — which\nattributes, whether it is validated, constrained, modified or created, and\nwhether the access is a read or a write. This member is the followable\nedge to the object itself, which is what lets a rule's impact set be\ncomputed rather than read: given a rule, every object it touches, and\ngiven an object, every rule that touches it.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"objectName\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -3798,6 +3803,7 @@ void buildAlertingConfigurationChildren(som::SomMetaNode& parent, std::vector<st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What is worth waking someone for, and how quickly a human is expected to\nanswer.\n\nThe policy band above the individual rules: the severity ladder, the\nacknowledgement time each rung promises, the on-call shape that makes\nthose times achievable, and the hygiene process that keeps the ladder\nhonest. Every rule is written against it, which is why it is stated once\nhere — a severity that means different things in two rules is worse than\nno severity at all, because it is still trusted.\n\nThese response times are commitments to the people on call. The\ncustomer-facing equivalents, with credits and exclusions attached, belong\nto [SlaAndSloMonitoring].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"alertingPhilosophy", "String", "Alerting Philosophy", false, "Page on symptoms, not causes; reduce noise", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"alertSeverityLevels", "String", "Alert Severity Levels", false, "Critical, Warning, Info", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -4101,14 +4107,15 @@ void buildAlternativeStepEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 1;
     (*ln).contentHelp = "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.";
+    (*ln).docComment = "How this alternative-flow step's server call is carried out, step by\nstep.\n\nPresent only where the step reaches the server — that is, where its\n`serverOperation` names an operation; a step that names none generates no\ncall and has nothing to put here. The entries are read in document order,\nand each declares which of the three handling roles it belongs to, so one\nlist describes all three of the generated method bodies rather than three\nparallel lists that could fall out of step with each other\n(`codespecs_derivation_contract.md` §3.5.7).\n\nAn empty list is not an omission. It says the call has nothing to state\nbeyond the step's own behaviour text, and the derivation falls back to\nexactly that (`codespecs_derivation_contract.md` §2.4).\n\nThese steps are emitted inside the branch the flow entry opens, so a call\nmade here runs only when the flow's trigger condition held — which is why\nits error handling can assume the abnormal case rather than re-test for\nit.";
     ln->elementNode = metaCx("ServerCallStepEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ServerCallStepEntry";
         n.classSectionId = "SVCST";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ServerCallStepEntry";
-        n.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
-        n.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+        n.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand `role` is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**`condition` is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+        n.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand `role` is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**`condition` is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
       },
       buildServerCallStepEntryChildren);
     parent.addChild(std::move(ln));
@@ -8297,6 +8304,7 @@ void buildBreakpointConfigurationChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The breakpoint set the layout switches at.\n\nThese values are a contract with the component library — a component that\nassumes a breakpoint not listed here has no defined behaviour between them.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mobileMax", "String", "Mobile Max Width", false, "Maximum width for mobile (e.g., 599)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tabletMin", "String", "Tablet Min Width", false, "Minimum width for tablet (e.g., 600)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -9382,6 +9390,7 @@ void buildBusinessObjectEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What this business object is called in the business, and which pattern it\nfollows.\n\nThe conceptual-side counterpart of [DataEntityEntry]'s identity band. A\nbusiness object is named by the business and may have no table at all, so\nthe band carries the glossary term and the domain-driven-design stereotype\nwhere the entity carries a physical name. Where the two chapters describe\nthe same thing, the object is the meaning and the entity is the storage;\nthe alias is what lets a reader line the two up.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"objectAlias", "String", "Alias/Abbreviation", false, "Short alias for diagrams (e.g., ORD, CUST)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Clear business definition of what this object represents", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -9399,6 +9408,7 @@ void buildBusinessObjectEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 2;
+    (*n).docComment = "Which part of the business this object belongs to, and who speaks for it.\n\nThe band that places the object in the ubiquitous language: its bounded\ncontext, the owning domain, the named expert who decides what it means,\nand the term the business actually uses. It is separate from the identity\nabove because these fields are about *authority over the definition*\nrather than about the object. It is also what makes a word that means two\ndifferent things in two contexts visible as such, instead of forcing one\nof the two to be renamed.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"boundedContext", "String", "Bounded Context", false, "Context Name of the bounded context this object belongs to", 0, std::vector<std::string>{}, std::vector<std::string>{"BCE.contextName"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"owningDomain", "String", "Owning Domain", false, "Business domain responsible for this object", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -9416,6 +9426,7 @@ void buildBusinessObjectEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 3;
+    (*n).docComment = "The object's states at a glance — the digest, not the authority.\n\nThe authored lifecycle is the state list together with\n[LifecycleTransitionEntry], each transition carrying its own guard. This\nband is the summary a reader needs before descending into them: where an\ninstance starts, which states end it, and who owns the progression.\nBecause it is a digest it can go stale, and a state added below but not\nreflected here is a documentation defect rather than a change to the\nmodel.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"keyStates", "String", "Key States", false, "Primary lifecycle states (e.g., Draft → Submitted → Confirmed → Closed)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"initialState", "String", "Initial State", false, "State when object is created", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -9435,6 +9446,7 @@ void buildBusinessObjectEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 4;
     (*ln).contentHelp = "Add one entry per behavior rule.";
+    (*ln).docComment = "What the object does, and what it refuses to do.\n\nBehaviour intrinsic to this object, as against the policies catalogued in\n[BusinessRuleEntry] and cited from [BusinessRuleReferenceEntry]. The\ndividing line is ownership: a catalogued rule may govern several objects\nand is versioned, owned and reviewed in its own right, while an entry here\nhas no meaning apart from this object. A rule that starts here and turns\nout to govern a second object belongs in the catalogue instead — leaving\nit here is how one policy comes to have two divergent statements.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"SBVR — business rule statements\",\"Domain-Driven Design — aggregates/entities/value objects\"],\"connotation\":\"The behavior rules that govern how this object acts.\"}", nullptr)});
     ln->elementNode = metaCx("BehaviorRuleEntry", stack,
       [](som::SomMetaNode& n) {
@@ -9457,6 +9469,7 @@ void buildBusinessObjectEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 5;
+    (*n).docComment = "Who is accountable for the object's data, and how concurrent change is\nhandled.\n\nTwo subjects share the band because both answer \"what happens when this\nobject changes\": the human chain (owner, steward) and the mechanical one\n(versioning strategy, concurrency control, audit trail). The concurrency\nchoice is the consequential one — optimistic and pessimistic control move\nthe conflict to different places, one to the writer at commit time and one\nto the reader at lock time — and it should follow this object's usage\npattern rather than a house style, which is why it is authored per object.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataOwner", "String", "Data Owner", false, "Business role accountable for this object", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataSteward", "String", "Data Steward", false, "Role responsible for data quality", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -9476,6 +9489,7 @@ void buildBusinessObjectEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 6;
     (*ln).contentHelp = "Add one entry per integration point.";
+    (*ln).docComment = "Where this object is exposed outside its own service — the APIs it offers\nand the events it publishes or consumes.\n\nA list because each exposure is negotiated separately and has its own\nconsumer: an object may be readable through one endpoint, published as\nthree events, and subscribed to none. The list doubles as the object's\nstability contract — anything named here has an external consumer, so it\ncan no longer be changed by reasoning about this chapter alone, and\nsurfacing that fact is much of why the band exists.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Domain-Driven Design — aggregates/entities/value objects\",\"BPMN 2.0 — business process model & notation\"],\"connotation\":\"The integration points where this object exposes APIs or publishes and subscribes to events.\"}", nullptr)});
     ln->elementNode = metaCx("IntegrationPointEntry", stack,
       [](som::SomMetaNode& n) {
@@ -10152,6 +10166,7 @@ void buildBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The rule's own statement, in the words of the business, and its version.\n\nTwo statements are kept deliberately: a description precise enough to\nimplement against, and the natural-language statement the business\nrecognises as its own policy. They drift, and a rule whose two statements\nhave drifted is the usual root of a \"the system is wrong\" dispute that\nturns out to be a specification defect. The version sits here rather than\nin the governance band because it identifies *which* statement is being\ncited when the rule is referenced from an object or a function.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleVersion", "String", "Rule Version", false, "Version number for change tracking", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Full statement of the business rule", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -10167,6 +10182,7 @@ void buildBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 2;
+    (*n).docComment = "What kind of rule this is, how binding it is, and where it came from.\n\nThe band that decides how the rule is *treated* rather than what it says.\nThe type and category say what the rule produces — a check, a computed\nvalue, an inference, an enabled action — and therefore which derivation\nreads it. The enforcement level separates a rule the system must refuse to\nviolate from a guideline it may only warn about. The source decides who is\nentitled to change it, since a rule originating in a regulation cannot be\nrelaxed by the project at all. Priority is the tiebreak when two\napplicable rules disagree.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleType", "String", "Rule Type", false, "Structural | Derivation | Constraint | Authorization | Workflow | Calculation", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleCategory", "String", "Rule Category", false, "Validation | Computation | Inference | Action-Enabling", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -10184,6 +10200,7 @@ void buildBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 3;
+    (*n).docComment = "The rule as a condition and its consequences — IF, THEN, and otherwise.\n\nThe executable heart of the entry, held in a fixed shape so rules can be\ncompared and tested rather than only read. Separating the trigger from the\naction is what makes the rule testable at all: a worked example\n([RuleExampleEntry]) supplies inputs for the condition and asserts the\naction, which is the form a test derivation needs. Parameters are named\napart from the condition text so a threshold can be changed without\nrestating the rule.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"condition", "String", "Condition (IF)", false, "Trigger condition in natural language or pseudo-code", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"action", "String", "Action (THEN)", false, "What happens when condition is true", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -10201,6 +10218,7 @@ void buildBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 4;
+    (*n).docComment = "Where and how the rule is actually enforced, and whether that can be\ntested.\n\nThe gap this band closes is that a rule can be stated perfectly and\nenforced nowhere. Naming the enforcing systems turns \"the rule exists\"\ninto a checkable claim; the testability field states up front whether the\ncheck can be automated at all. A rule marked manual-only will never fail a\nbuild, and that is a fact the acceptance plan has to know before the rule\nis relied on as a control.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcement", "String", "Enforcement", false, "How enforced: DatabaseConstraint | ApplicationLogic | Workflow | Manual", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"implementationPoint", "String", "Implementation Point", false, "Where implemented: UI | API | Service | Database | Integration", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -10218,6 +10236,7 @@ void buildBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 5;
+    (*n).docComment = "What happens when the rule is violated, and whether it may be waived.\n\nEvery enforceable rule eventually meets a legitimate exception, and a\nspecification that says nothing about them gets one invented at runtime by\nwhoever is under pressure. The band records both halves: the automatic\nconsequence of a violation, and the human path — who may override, who\napproves it, where it escalates. An empty override policy means no\noverride exists, which is a stronger statement than it looks and should be\nchosen rather than defaulted into.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptionHandling", "String", "Exception Handling", false, "How violations are handled", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"overridePolicy", "String", "Override Policy", false, "Whether and how rule can be overridden", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -10234,6 +10253,7 @@ void buildBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 6;
+    (*n).docComment = "Who owns the rule, and for how long it holds.\n\nA business rule is not permanent: it takes effect on a date, may expire on\nanother, and is re-examined on a cadence. Recording the dates is what\nmakes the rule *temporal* — a decision taken before its effective date was\nnot a violation, which is precisely what an audit has to be able to\nestablish. The owner is whoever may change the statement above; the review\nfrequency is what stops a policy that has lapsed from being enforced\nindefinitely because nobody looked.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleOwner", "String", "Rule Owner", false, "Business owner responsible for this rule", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"effectiveDate", "String", "Effective Date", false, "When rule becomes/became effective", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -10348,6 +10368,7 @@ void buildBusinessRuleReferenceEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The resolved link to the business rule this entry cites.\n\nThe entry's `ruleId` field holds the rule's section id as text; this\nmember is the followable edge to that rule's section, so a citation can be\nvalidated rather than trusted. The outliner shows it without recursing —\nwhich is the whole point of the entry: the rule is stated once in\n[BusinessRuleEntry] and cited from every object it governs, instead of\nbeing copied into each of them and drifting.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"ruleId\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -12124,6 +12145,7 @@ void buildChangesFromCurrentStructureChildren(som::SomMetaNode& parent, std::vec
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The reorganization in summary — how far it reaches, what is driving it,\nand the principles it was designed against.\n\nThe band a reader needs before any individual change below makes sense.\nScope and driver decide whether a given change is part of this programme\nat all; the design principles are the only thing an individual change can\nbe checked against, and without them each change is an assertion with no\ntest. The governance, reporting-line, communication and collaboration\nfields are the four dimensions along which a structure can actually\ndiffer, stated at programme level so a change that moves one of them\nwithout saying so is visible as an inconsistency.\n\nIt is a summary and stays one: the impact figure here is the total, while\nper-department detail belongs to the individual change entries.\n[changeNarrative] carries the story; this band carries the facts that must\nstay stable while the story is rewritten.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"changeScope", "String", "Change Scope", false, "Departments and functions affected by restructuring", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"changeDriver", "String", "Change Driver", false, "System implementation, process optimization, strategy shift", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -14142,6 +14164,7 @@ void buildCompatibilityCharacteristicChildren(som::SomMetaNode& parent, std::vec
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What the system must co-exist with, and what it must interoperate with.\n\nCompatibility in ISO/IEC 25010:2023 covers two distinct obligations, and\nthe band keeps them in separate fields on purpose. *Co-existence* is\nsharing an environment and its resources without degrading a neighbour,\nand is met by staying inside a resource budget. *Interoperability* is\nexchanging information with another product and using what comes back, and\nis met by conforming to a named protocol or format — which is why that\nfield asks for standards while the other asks for requirements.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"coExistenceRequirements", "String", "Co-existence Requirements", false, "Other products sharing the environment without adverse impact", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"interoperabilityStandards", "String", "Interoperability Standards", false, "Protocols/formats for exchanging and using information", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -15504,6 +15527,7 @@ void buildComponentLibraryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 1;
     (*ln).contentHelp = "Add one entry per design foundation.";
+    (*ln).docComment = "The design tokens every component draws on — colour, type, spacing, motion.\n\nFoundations are shared, so a change here reaches every component; a value that\nonly one component needs is that component's visual design, not a foundation.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Material Design — design tokens capture reusable values for the design system\",\"W3C CSS — foundational style values are expressed as reusable declarations\",\"ISO/IEC 25010:2023 — shared foundations support maintainability through reuse\"],\"connotation\":\"The collection of design-foundation entries defining the base design tokens.\"}", nullptr)});
     ln->elementNode = metaCx("DesignFoundationEntry", stack,
       [](som::SomMetaNode& n) {
@@ -17284,6 +17308,7 @@ void buildContextualHelpChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Help delivered in place, at the moment of use.\n\nTooltips, inline hints and field-level guidance — the route that never takes\nthe user out of the task. Standalone documentation is the documentation\nsection's concern.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tooltipTrigger", "String", "Tooltip Trigger", false, "Hover, click, focus, icon click", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tooltipDelay", "String", "Tooltip Delay", false, "Milliseconds before showing", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -19903,7 +19928,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.hasSerializationOrder = true;
         n.serializationOrder = 14;
         n.docComment = "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).";
-        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
       },
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
@@ -19951,7 +19976,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.hasSerializationOrder = true;
         n.serializationOrder = 17;
         n.docComment = "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -22032,7 +22057,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.serializationOrder = 2;
         n.comment = "locus: shared — domainEnum (member kind)";
         n.docComment = "Domain enum registry — the closed value sets, shared by client & server.\n\n`domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`\n§4.1): each enum is authored once here and realised as a plain Dart `enum`\nmarked `@CsEnum`, placed in the shared project iff a shared contract type\nreferences it — which is what this registry's shared locus assumes —\notherwise in the project of the part that introduces it.";
-        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
       },
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
@@ -22083,7 +22108,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.serializationOrder = 5;
         n.comment = "locus: shared — CE-TX";
         n.docComment = "Message key registry — CE-TX author-copy-once keys, shared.";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -22674,6 +22699,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What this attribute is called and what it means, in business terms.\n\nThe band that answers \"what is this field?\" for a reader who is not\nlooking at a database: the physical column name, the definition, the\nglossary term it maps to, and concrete example values. It is deliberately\nfree of type and constraint information — those are the two bands below —\nbecause this is the part a domain expert reviews, and the only part that\nsurvives a change of storage technology unchanged. The attribute's own\nname is the entry headline, not a field here.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"columnName", "String", "Physical Column Name", false, "Database column name if different (e.g., snake_case)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Clear definition of what this attribute represents", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22690,6 +22716,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 2;
+    (*n).docComment = "The logical type of the attribute, and the physical form it is realised\nin.\n\nThis band carries the `@OneOf` discriminator, so it is the one place in\nthe entry that changes the entry's own shape: choosing the logical type\nselects which per-kind options subsection applies. What stays here is only\nwhat every kind has — the logical type, the database type it becomes\n(`codespecs_mapping.md` §5.13), and the display or storage format. A\nlength, a precision or a timezone belongs to its kind's options, not here,\nso that an attribute can never carry a constraint its type cannot honour.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "DataAttributeKind", "Data Type", false, "The logical type — selects the promoted options subsection.", 0, std::vector<std::string>{"string", "integer", "decimal", "date", "dateTime", "binary", "fileReference", "boolean", "uuid", "json", "enumeration"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"physicalType", "String", "Physical Type", false, "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22812,6 +22839,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 9;
     (*ln).contentHelp = "Add one entry per attribute constraint.";
+    (*ln).docComment = "The rules a value of this attribute must satisfy.\n\nA list rather than a band of fields because an attribute carries an open\nnumber of independent restrictions — nullability, a range, a pattern, an\nallowed value set — and each needs its own message and severity to be\nusable. This is the CE-VA field-rule surface (`codespecs_mapping.md`\n§5.19): a restriction stated here becomes a validator on the emitted\nfield, whereas one stated only in the attribute's description becomes\nnothing. Narrowing an enumerated attribute to a subset of its domain\nenum's values belongs here too, not in the type options.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"SBVR — business rule statements\",\"ISO/IEC 25012 — data quality\"],\"connotation\":\"Validation constraints on this attribute, such as nullability, ranges, patterns, and default values.\"}", nullptr)});
     ln->elementNode = metaCx("DataAttributeConstraintEntry", stack,
       [](som::SomMetaNode& n) {
@@ -22834,6 +22862,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 10;
+    (*n).docComment = "Whether the attribute holds an authored value at all, or one produced from\nother values.\n\nA computed or derived attribute inverts the usual contract: nothing writes\nit, so its constraints read as consequences rather than as checks, its\nmigration mapping is empty by construction, and offering it for editing on\na form is a defect. Left empty, the attribute is ordinary stored data —\nwhich is the common case, and the reason this is a band of its own rather\nthan fields folded into the type specification, where an empty formula\nwould look like a missing answer.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isComputed", "String", "Is Computed", false, "Whether value is computed: Yes | No", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"computeFormula", "String", "Compute Formula", false, "Formula or expression for computed fields", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22850,6 +22879,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 11;
+    (*n).docComment = "How exposed this single attribute is, independently of its entity.\n\nSensitivity is an attribute-level fact. An otherwise ordinary customer\nrecord holds one national-identifier column, and classifying the whole\nentity at that column's level over-protects everything else while\nclassifying it at the entity's level under-protects the column. This band\nis therefore where masking, field-level encryption and audit depth are\ndecided per column. The level names it uses come from the scheme authored\nin [DataClassification]; the rules that follow from each level are stated\nthere once instead of being repeated on every attribute.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitivityLevel", "String", "Sensitivity Level", false, "Public | Internal | Confidential | Restricted | PII | PHI", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isPii", "String", "Is PII", false, "Personally identifiable information: Yes | No", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22867,6 +22897,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 12;
+    (*n).docComment = "Where this attribute's values come from — upstream system, source field\nand the transformation applied.\n\nProvenance, kept beside the attribute so it outlives the migration that\nproduced it: months later the question is not \"how do we load this?\" but\n\"why does this column say that?\", and the transformation rule recorded\nhere is the answer. It sits at attribute level because a transformation is\nper-field; the entity-level plan that scopes and schedules the load is\n[MigrationMappingEntry] in the follow-up section.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceSystem", "String", "Source System", false, "Originating system for data lineage", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceAttribute", "String", "Source Attribute", false, "Source field name for migration mapping", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22886,6 +22917,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 13;
     (*ln).contentHelp = "Add one entry per display property.";
+    (*ln).docComment = "How this attribute is presented to a user.\n\nLabels, formatting, ordering and visibility — facts a screen needs and the\ndata model does not, kept out of the identity band so that changing a\nlabel never looks like renaming a column. A list because one attribute is\nshown in more than one place — a grid column, a detail form, a report —\nand each presentation has its own label and ordering. This is the material\nthe screen-element derivation reads (`codespecs_mapping.md` §5.18); an\nattribute with no entry here is not hidden, it merely takes the defaults.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"UI and display properties for this attribute, such as labels, formatting, ordering, and visibility.\"}", nullptr)});
     ln->elementNode = metaCx("DisplayPropertyEntry", stack,
       [](som::SomMetaNode& n) {
@@ -22923,6 +22955,7 @@ void buildDataClassificationChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The framework the classification levels are drawn from, and who maintains\nthem.\n\nProperties of the *scheme* rather than of any one level, which is why they\nsit above the level list: which published standard the levels come from,\nwhat unclassified data defaults to, who may classify or reclassify, and\nhow often assignments are revisited. The default is the load-bearing\nfield — without one, data nobody has classified is governed by nothing at\nall, which is the gap this whole section exists to close.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"classificationFramework", "String", "Classification Framework", false, "Standard used: Custom | ISO27001 | NIST | IndustrySpecific", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultClassification", "String", "Default Classification", false, "Default sensitivity for unclassified data", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22979,6 +23012,7 @@ void buildDataClassificationEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What this level means and what belongs in it.\n\nThe band a person uses to *assign* the level — its name, its definition,\nthe categories of data it covers, and worked examples — as against the\nbands below, which say what follows once a level has been assigned.\nExamples carry more weight here than elsewhere in the model: a\nclassification scheme is applied by people working quickly, and a level\nwith no examples is applied inconsistently however precise its definition\nis.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"classificationLevel", "String", "Classification Level", false, "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this classification means", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22995,6 +23029,7 @@ void buildDataClassificationEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 2;
+    (*n).docComment = "Where data at this level may physically live, and how it is protected on\nthe way there.\n\nEncryption at rest and in transit, permitted storage locations, data\nresidency and backup handling. They are grouped because they are the\ncontrols a hosting and infrastructure decision has to satisfy, and they\nare verified once at deployment rather than per request — which is what\nseparates them from the access-control band below. Geographic restriction\nis stated with the level rather than left to the deployment document\nbecause it can invalidate an otherwise-finished architecture, and by then\nthe level is what has to be re-read.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptionAtRest", "String", "Encryption At Rest", false, "Encryption requirement for storage: None | Standard | Strong | FieldLevel", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptionInTransit", "String", "Encryption In Transit", false, "Encryption for transmission: TLS | mTLS | EndToEnd", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -23012,6 +23047,7 @@ void buildDataClassificationEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 3;
+    (*n).docComment = "Who may reach data at this level, how they prove who they are, and what is\nrecorded when they do.\n\nThe per-request half of the level's controls: authentication strength,\nauthorization model, audit depth, and the process by which access is\ngranted in the first place. This is the material the authorization\nderivation reads (`codespecs_mapping.md` §5.15). Stating it once per level\nrather than per entity is the point of having levels at all — it is what\nstops the same access rule being re-invented, slightly differently, on\nevery entity that happens to hold sensitive data.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"accessLevels", "String", "Access Levels", false, "Who can access: AllEmployees | RoleRestricted | NeedToKnow | SystemOnly", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"authenticationRequirements", "String", "Authentication Requirements", false, "Required auth: Basic | MFA | CertificateBased | Biometric", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -23029,6 +23065,7 @@ void buildDataClassificationEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 4;
+    (*n).docComment = "How long data at this level is kept, and how it is destroyed.\n\nSeparated from the entity-level lifecycle policy (`DAENT-LIFE`) by scope\nand authority: this is the floor that applies to everything classified at\nthe level, while an entity states its own period where a specific statute\ndemands a different one. The disposal method matters as much as the\nperiod — deletion, anonymization and crypto-erase are not\ninterchangeable once backups exist, and only some of them survive a\nrestore.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"retentionPeriod", "String", "Retention Period", false, "How long data is retained (e.g., 7 years)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"retentionBasis", "String", "Retention Basis", false, "Legal | Regulatory | Business | CustomerContract", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -23046,6 +23083,7 @@ void buildDataClassificationEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 5;
+    (*n).docComment = "The named regulations that impose this level, and the duties that come\nwith them.\n\nThe band that connects the scheme to the outside world: which regulations\napply, what they require, how fast a breach must be reported, and which\ndata-subject rights must be honoured. It is stated per level rather than\nper entity because the obligation attaches to the *kind* of data; an\nentity inherits it by being classified. The breach-notification field is a\nduration and must be authored as one — an answer like \"as soon as\npossible\" cannot be met or missed, which is the only thing the field is\nfor.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"applicableRegulations", "String", "Applicable Regulations", false, "Regulations: GDPR | HIPAA | SOX | PCI-DSS | CCPA | FERPA", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"complianceRequirements", "String", "Compliance Requirements", false, "Specific compliance requirements", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -23332,6 +23370,7 @@ void buildDataEntityEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What this entity is called, in each vocabulary that needs a name for it.\n\nOne entity is named four times over — logically, physically, in diagrams,\nand as a design pattern — and a model that keeps only one of those names\nmakes every later reader re-derive the rest. The logical name is what the\nrest of the model refers to; the physical name is what the CE-DB table is\nemitted as (`codespecs_mapping.md` §5.13). Aggregate-root-ness is\ndeliberately not part of the stereotype recorded here: it is read from\n`DAENT-CLAS.aggregateRoot`, the only field that states it.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"entityName", "String", "Entity Name", true, "Singular noun or noun phrase (e.g., Customer, OrderItem)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tableName", "String", "Physical Table Name", false, "Database table name if different from logical name", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -23349,6 +23388,7 @@ void buildDataEntityEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 2;
+    (*n).docComment = "Where this entity sits in the domain, and who answers for it.\n\nGrouping and accountability, as against the naming in `DAENT-IDEN` and the\nshape in the attribute list. It is a band of its own because its first\nfields are read by something other than a human — the bounded context and\nthe aggregate root fix the service-unit boundary and its ownership key\n(`codespecs_mapping.md` §5.1), as the class comment above sets out — while\nthe owner, steward and source-system fields are governance facts no\nderivation reads. Both halves answer the same question, whose entity is\nthis, which is why they share a band rather than being split apart.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Data category: MasterData | TransactionData | ReferenceData | ConfigurationData | AuditData", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"boundedContext", "String", "Bounded Context", false, "Context Name of the bounded context this entity belongs to. This is the outer bound on service-unit grouping: aggregates in different contexts are never served by one service unit", 1, std::vector<std::string>{}, std::vector<std::string>{"BCE.contextName"}});
@@ -23369,6 +23409,7 @@ void buildDataEntityEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 3;
+    (*n).docComment = "What becomes of this entity's rows over time: how long they are kept,\nwhere they go next, and what is recorded about the change.\n\nSeparate from the classification band because retention is decided by a\ndifferent authority on a different clock — a statute or a privacy\nregulation sets the period, and it changes when the regulation changes,\nnot when the model does. It is authored per entity rather than per\nsensitivity level because two entities at the same level routinely carry\ndifferent statutory periods; where a level imposes a floor on all of them,\nthat floor is stated once in [DataClassificationEntry] instead.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"lifecyclePhases", "String", "Lifecycle Phases", false, "Phases: Active → Archived → Purged, or Active → Soft-deleted → Hard-deleted", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"retentionPolicy", "String", "Retention Policy", false, "How long data is retained and why (e.g., 7 years per tax regulations)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -23389,6 +23430,7 @@ void buildDataEntityEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 4;
+    (*n).docComment = "The entity's relationships as seen from this entity — a digest, not the\nauthority.\n\nThe authored relationship is [EntityRelationshipEntry], which states each\none once with its cardinality, referential integrity and navigation. This\nband exists so a reader of a single entity can see what it depends on\nwithout assembling that list in their head. The consequence is that it\nmust never be the only place a relationship appears: anything recorded\nhere and nowhere else is invisible to every consumer that reads the\nrelationship entries, and stale content here is a documentation defect\nrather than a model change.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"parentEntities", "String", "Parent Entities", false, "Entities this depends on (e.g., Order depends on Customer)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"childEntities", "String", "Child Entities", false, "Entities that depend on this (e.g., OrderItem depends on Order)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -23546,6 +23588,7 @@ void buildDataEntityReferenceEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The data-model entity these operations act on, named by section id.\n\nThis entry describes *how a requirement touches* an entity — which CRUD\noperations, which attributes, at what volume, under which quality rules —\nand deliberately does not restate what the entity is. The link is what\nmakes that omission safe: the reader follows it to the information model\nfor the entity's fields, keys and relationships, stated once. Without it\nthe row names a string no schema is obliged to match.\n\nIt is also the edge the CE-DB data-access derivation reads\n(`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a\nrequirement whose data access cannot be generated.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Related Data Model Entity\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -27270,7 +27313,7 @@ void buildDeliveryTransitionAndRolloutChildren(som::SomMetaNode& parent, std::ve
         n.hasSerializationOrder = true;
         n.serializationOrder = 3;
         n.docComment = "Localization & translation *execution* processes (re-homed from MLAR in\nIP-6: the execution side of i18n, as opposed to the requirements that\nlive in SBP.9).";
-        n.classDocComment = "Localization & Translation execution processes.\n\nBundles the localization and translation *workflow* concerns re-homed from\nthe former `MultiLanguageSupport` cluster (their requirement counterparts\nlive in SBP.9 [LocalizationTranslationRequirements]).";
+        n.classDocComment = "Localization & Translation execution processes.\n\nBundles the localization and translation *workflow* concerns re-homed from\nthe former `MultiLanguageSupport` cluster (their requirement counterparts\nlive in SBP.9 `LocalizationTranslationRequirements`).";
       },
       buildLocalizationTranslationProcessChildren);
     parent.addChild(std::move(n));
@@ -30712,6 +30755,7 @@ void buildDocumentationQualityCriteriaChildren(som::SomMetaNode& parent, std::ve
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How documentation is produced and kept current — strategy, ownership,\nplatform, review and cadence.\n\nDocumentation quality is not one of the eight ISO/IEC 25010:2023 product\ncharacteristics; it is carried in this chapter because a delivered system\nwhose documentation is wrong fails acceptance for reasons no product\nmetric catches. The band asks about *process* rather than about documents\non purpose: ownership and update cadence are what decide whether the\nreadability, completeness and correctness targets below are met once at\nhandover or continuously afterwards.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"documentationStrategy", "String", "Documentation Strategy", false, "Comprehensive, minimal, just-in-time", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"documentationOwnership", "String", "Documentation Ownership", false, "Technical writers, developers, shared", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -32239,6 +32283,7 @@ void buildEntityFollowUpEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Which entity these follow-up facets describe.\n\nThe facets below are operational and governance material rather than part\nof the generation-owned entity schema, which is why the block sits outside\n[DataEntityEntry] rather than inside it — and that is exactly what makes a\ncorrelation key necessary. The entry headline carries the entity name and\nthis band carries the short alias used in diagrams and narrative. Point it\nat the wrong entity and both halves stay well-formed on their own, so\nnothing detects the error; it is worth checking against\n`dataModel.entities` when the block is written.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"entityAlias", "String", "Alias/Abbreviation", false, "Short alias of the referenced entity (e.g., CUST, ORD)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -32254,6 +32299,7 @@ void buildEntityFollowUpEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 2;
     (*ln).contentHelp = "Add one entry per volume metric.";
+    (*ln).docComment = "How much data this entity accumulates, and how fast.\n\nSizing evidence rather than schema: record counts, growth rates and\nstorage estimates are what an infrastructure, indexing or archival\ndecision is argued from, and they change with the business rather than\nwith the model. A list because one entity is sized differently per\nenvironment and per planning horizon, and each figure needs its own basis\nto be trusted. The retention policy that acts on these numbers is authored\non the entity itself (`DAENT-LIFE`), not here.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"DAMA-DMBOK2 — data management body of knowledge\",\"ISO/IEC 25012 — data quality\"],\"connotation\":\"Volume and growth metrics for the entity, such as record counts, growth rate, and storage estimates.\"}", nullptr)});
     ln->elementNode = metaCx("VolumeMetricEntry", stack,
       [](som::SomMetaNode& n) {
@@ -32278,6 +32324,7 @@ void buildEntityFollowUpEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 3;
     (*ln).contentHelp = "Add one entry per compliance requirement.";
+    (*ln).docComment = "The regulatory obligations this entity's data carries.\n\nThe per-entity view — \"this entity holds PII, therefore these rules apply\nto it\". The scheme the rules are drawn from is authored once in\n[DataClassification], and individual attributes carry their own\nsensitivity in `DAATT-SECU`; an entry here is what ties a named regulation\nto a named entity, which is the link an audit follows and the one a\nclassification level on its own cannot supply.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"GDPR / HIPAA / SOX / PCI-DSS — compliance (PII/PHI)\",\"ISO/IEC 27001 / NIST — data classification\"],\"connotation\":\"Compliance and security requirements for the entity, covering sensitivity, PII/PHI, encryption, and access.\"}", nullptr)});
     ln->elementNode = metaCx("ComplianceRequirementEntry", stack,
       [](som::SomMetaNode& n) {
@@ -32302,6 +32349,7 @@ void buildEntityFollowUpEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 4;
     (*ln).contentHelp = "Add one entry per technical characteristic.";
+    (*ln).docComment = "Runtime behaviour expected of this entity's storage — indexing, caching,\nconsistency and scaling.\n\nSeparated from the entity's `ENIDX` index list by who decides it: an index\nis a concrete schema object the data-access derivation emits\n(`codespecs_mapping.md` §5.13), while a characteristic here is an\noperational expectation an implementation may satisfy in more than one\nway. Keeping it out of the generation-owned model is deliberate — stated\nthere it would read as an instruction to emit something.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"DAMA-DMBOK2 — data management body of knowledge\",\"ISO/IEC 25012 — data quality\"],\"connotation\":\"Technical characteristics of the entity, such as indexing, caching, consistency, and scaling behavior.\"}", nullptr)});
     ln->elementNode = metaCx("TechnicalCharacteristicEntry", stack,
       [](som::SomMetaNode& n) {
@@ -32326,6 +32374,7 @@ void buildEntityFollowUpEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 5;
     (*ln).contentHelp = "Add one entry per migration mapping.";
+    (*ln).docComment = "Where this entity's data comes from when a legacy system is replaced.\n\nSource-to-target field mappings, one per source field, so a cutover can be\nplanned and its coverage checked field by field. Distinct from the\nper-attribute lineage in `DAATT-MIGR`, which records the standing\nprovenance of one attribute; this list is the plan for a one-off load and\nis expected to be retired once it has run. Evolution of the *new* system's\nown schema is a third subject and lives in [SchemaMigrationStepEntry]\n(`codespecs_mapping.md` §5.27).";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"DAMA-DMBOK2 — data management body of knowledge\",\"ISO/IEC 25012 — data quality\"],\"connotation\":\"Source-to-target field mappings for planning the migration of data into this entity.\"}", nullptr)});
     ln->elementNode = metaCx("MigrationMappingEntry", stack,
       [](som::SomMetaNode& n) {
@@ -32386,6 +32435,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What kind of relationship this is, and why it exists.\n\nThe band keeps apart two things that are easily conflated. The\n*conceptual* kind — association, aggregation, composition, generalization,\ndependency — decides whether one end can outlive the other. The\n*implementation* kind — foreign key, junction table, embedded, reference —\ndecides what the schema looks like. Neither can be inferred from the\nother: a composition realised through a junction table is a legitimate\ncombination. The business justification sits with them so the reason for\nthe edge is recorded where the edge is, rather than only in the chapter\nnarrative.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relationshipType", "String", "Relationship Type", false, "Association | Aggregation | Composition | Generalization | Dependency", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Business meaning of this relationship", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -32404,6 +32454,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 2;
     (*ln).contentHelp = "Add one entry per participating entity.";
+    (*ln).docComment = "The entities at each end, with the role each one plays.\n\nA list rather than a source/target pair of fields, because the role name\nis per-participant and is what a navigation property ends up being named\nafter — a self-relationship between two rows of one entity is\ndistinguishable only by its roles, \"employer\" and \"employee\". The\nentities themselves are additionally reachable as resolved links\n([sourceEntityRef], [targetEntityRef]).";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ER modeling (Chen / Barker notation)\",\"UML 2.5.1 (ISO/IEC 19505) — class/object modeling\"],\"connotation\":\"The entities participating in this relationship, with their role names.\"}", nullptr)});
     ln->elementNode = metaCx("ParticipantEntry", stack,
       [](som::SomMetaNode& n) {
@@ -32426,6 +32477,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 3;
+    (*n).docComment = "How many instances may stand at each end, and whether either end may stand\nempty.\n\nTwo independent questions, which is why the band carries two pairs of\nfields rather than one notation. *Cardinality* is the count on each side;\n*participation* is whether taking part is mandatory at all. `0..*` and\n`1..*` differ only in the second, and it is the second that decides\nwhether the foreign key may be null — so a model that records only the\ncount leaves the schema underdetermined.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceCardinality", "String", "Source Cardinality", false, "Source side: 1 | 0..1 | 0..* | 1..* | n..m", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetCardinality", "String", "Target Cardinality", false, "Target side: 1 | 0..1 | 0..* | 1..* | n..m", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -32444,6 +32496,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 4;
+    (*n).docComment = "What happens to the far end when a row is deleted or its key changes, and\nwho enforces it.\n\nThe band that turns the relationship from a description into a runtime\nguarantee. Its enforcement level is what decides whether the guarantee\nexists at all: enforced in the database, a violation is impossible;\nenforced in the application, only writers that go through the application\nare covered; enforced nowhere, the cardinality above is documentation.\nCascade scope and orphan handling are stated separately from the delete\naction because a cascade that reaches every descendant and one that\nreaches only direct children are very different amounts of data loss under\nthe same word.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"onDeleteAction", "String", "On Delete Action", false, "Cascade | SetNull | Restrict | NoAction | SetDefault | Archive", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"onUpdateAction", "String", "On Update Action", false, "Cascade | SetNull | Restrict | NoAction", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -32462,6 +32515,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 5;
+    (*n).docComment = "How the relationship is traversed in code, and where the key physically\nsits.\n\nThe implementation-facing band: which directions are navigable, whether\nthe far end is loaded eagerly or on demand, which table actually holds the\nforeign key, and what the inverse is called. It is kept apart from the\ncardinality band because none of it changes what the data means — a\nrelationship is the same relationship whether it is navigated from one\nside or both — while all of it changes how the relationship performs, and\nit is revisited on that basis alone.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"navigability", "String", "Navigability", false, "Bidirectional | SourceToTarget | TargetToSource", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"loadingStrategy", "String", "Loading Strategy", false, "Eager | Lazy | Explicit | None", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -32481,6 +32535,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 6;
     (*ln).contentHelp = "Add one entry per relationship attribute.";
+    (*ln).docComment = "Attributes belonging to the relationship itself rather than to either end.\n\nA many-to-many link that carries data — an enrolment date on\nstudent-to-course, a quantity on order-to-product — has nowhere to put it\non either participant without misstating who owns it. This list is that\nplace, and a non-empty list is the signal that the junction table is a\nreal entity with columns of its own rather than a pure join. Empty for\nevery relationship that carries no data, which is most of them.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ER modeling (Chen / Barker notation)\",\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"Attributes that belong to the relationship itself, for relationships that carry their own properties.\"}", nullptr)});
     ln->elementNode = metaCx("RelationshipAttributeEntry", stack,
       [](som::SomMetaNode& n) {
@@ -32504,6 +32559,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 7;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The resolved link to the entity at the source end.\n\nThe participant list names the ends for a reader; this is the\nmachine-followable edge to the source entity's section, shown by the\noutliner without recursing into it and validated by the schema generator\nagainst the entity list. It is what makes an entity name that resolves to\nnothing a detected error instead of a dangling string.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"sourceEntityName\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -32517,6 +32573,7 @@ void buildEntityRelationshipEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 8;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The resolved link to the entity at the target end.\n\nThe mirror of [sourceEntityRef], with one asymmetry worth knowing: which\nend is \"source\" is not arbitrary. It is the end the relationship is read\nfrom, and it is what `ENRLE-CARD.sourceCardinality` and\n`ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the\ntwo ends changes what the cardinality band asserts even though the\nbusiness fact is unchanged.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"targetEntityName\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -33346,8 +33403,8 @@ void buildErrorCodeRegistryChildren(som::SomMetaNode& parent, std::vector<std::s
         n.classSectionId = "ERCEN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ErrorCodeEntry";
-        n.docComment = "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.";
-        n.classDocComment = "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine [code] (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.";
+        n.docComment = "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine `code` (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.";
+        n.classDocComment = "A single shared application error code (form).\n\nOne entry in the [ErrorCodeRegistry]: a stable machine `code` (the join key\nreferenced by CE-VA rules, the CE-ER error arm and CE-TX copy), a category,\na default severity, a retryable hint, an optional HTTP-status hint and a\ncopy-key reference into the CE-TX message registry (csm-7-3). Maps to the\nCE-ER `errorResult` part — the code vocabulary the Result envelope's error\narm draws from.";
       },
       buildErrorCodeEntryChildren);
     parent.addChild(std::move(ln));
@@ -33376,6 +33433,7 @@ void buildErrorHandlingChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The stance errors are written from, before the concrete categories below.\n\nSets the tone and the prevention/recovery balance the sibling sections then\napply; it decides nothing on its own, so a rule that changes behaviour belongs\nin validation, system-error or recovery, not here.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"errorPhilosophy", "String", "Error Handling Philosophy", false, "Prevention-first, graceful degradation, user empowerment", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"errorToneOfVoice", "String", "Error Tone of Voice", false, "Friendly, professional, apologetic, neutral", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -33649,6 +33707,7 @@ void buildErrorRecoveryChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What the system offers after an error, so the user is not left stranded.\n\nRetry, undo, draft preservation and escalation paths. Distinct from the error\n*message*, which the philosophy and category sections govern.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"formDataPreservation", "String", "Form Data Preservation", false, "How unsaved form data is preserved on error", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionRecovery", "String", "Session Recovery", false, "How expired sessions are handled", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -35243,14 +35302,15 @@ void buildExtensionStepEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 1;
     (*ln).contentHelp = "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.";
+    (*ln).docComment = "How this extension step's server call is carried out, step by step.\n\nPresent only where the step reaches the server — that is, where its\n`serverOperation` names an operation; a step that names none generates no\ncall and has nothing to put here. The entries are read in document order,\nand each declares which of the three handling roles it belongs to, so one\nlist describes all three of the generated method bodies rather than three\nparallel lists that could fall out of step with each other\n(`codespecs_derivation_contract.md` §3.5.7).\n\nAn empty list is not an omission. It says the call has nothing to state\nbeyond the step's own behaviour text, and the derivation falls back to\nexactly that (`codespecs_derivation_contract.md` §2.4).\n\nAn extension runs instead of the main flow at its branch point, so the\ncall stated here belongs to that path alone — it neither shares nor\ninherits the steps of the main-flow step the extension replaces.";
     ln->elementNode = metaCx("ServerCallStepEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ServerCallStepEntry";
         n.classSectionId = "SVCST";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ServerCallStepEntry";
-        n.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
-        n.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+        n.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand `role` is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**`condition` is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+        n.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand `role` is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**`condition` is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
       },
       buildServerCallStepEntryChildren);
     parent.addChild(std::move(ln));
@@ -35520,6 +35580,7 @@ void buildExternalInterfaceEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Which external system this interface reaches, and what kind of\nintegration it is.\n\nThe identity band of an interface: the party on the far side, who\nprovides it, the functional category it falls in, and the integration\npattern that governs how the two ends exchange control. It is kept apart\nfrom [technicalSpec] because the pattern is an architectural commitment —\nrequest-reply and pub-sub imply different failure modes and different\noperational obligations — while the technical band records how that\ncommitment is realised, which can change without the interface becoming a\ndifferent interface.\n\nIt is also the band that fixes the CE-SU service-unit boundary this entry\nmaps to (`codespecs_mapping.md` §5.1): one external system, one cohesive\ngrouping of operations.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"externalSystem", "String", "External System Name", true, "Name of the external system being integrated", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"externalSystemVendor", "String", "Vendor/Provider", false, "Vendor or provider that owns the external system", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -36097,7 +36158,7 @@ void buildExternalServiceDependencyEntryChildren(som::SomMetaNode& parent, std::
         n.typeName = "ExistingSystemEntry";
         n.hasSerializationOrder = true;
         n.serializationOrder = 4;
-        n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.docComment = "The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.";
         n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
         n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Primary Dependent System\"}", nullptr)});
       },
@@ -37554,6 +37615,7 @@ void buildFlexibilityCharacteristicChildren(som::SomMetaNode& parent, std::vecto
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The changes the system must absorb without redesign, and the environments\nit must run in.\n\nFlexibility in ISO/IEC 25010:2023 absorbs the former portability\ncharacteristic, so this one band covers adaptability, scalability,\ninstallability and replaceability together. It is about change to the\nsystem's *context* — more load, a new platform, a different deployment —\nwhere maintainability is about change to the *product* by someone\nmodifying it. A system can be highly flexible and hard to maintain, or the\nreverse, and keeping the two targets apart is what stops either being\noffered as evidence for the other.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"flexibilityApproach", "String", "Flexibility Approach", false, "How adaptability, scalability and portability are achieved", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"portabilityTarget", "String", "Portability Target", false, "Target environments/platforms the product must run on", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -37935,6 +37997,7 @@ void buildFunctionModelChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How the function hierarchy was cut, and how deep it goes.\n\nMethod rather than content: the criterion by which a function was split\ninto sub-functions, the number of levels, and the top-level areas the tree\nstarts from. It is a band of its own because the criterion has to be\nchosen once and applied throughout — a hierarchy whose first level is\nbusiness capability and whose second is organizational unit cannot be\ncompared across branches, and no individual function entry can reveal\nthat.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"decompositionApproach", "String", "Decomposition Approach", false, "How functions are decomposed: Hierarchical | ProcessBased | CapabilityBased", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"decompositionDepth", "String", "Decomposition Depth", false, "Number of levels in the hierarchy", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -37951,6 +38014,7 @@ void buildFunctionModelChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 2;
+    (*n).docComment = "How to read the function-to-data matrix, and how much of the system it\ncovers.\n\nThe matrix entries are dense and close to unreadable without this band:\nwhich notation the cells use, which functions were included, and which\naccess patterns the result is meant to expose. Scope is the field that\nfixes what an empty cell means — in a matrix scoped to core functions a\nblank is \"not examined\", while in one scoped to all functions it is \"this\nfunction does not touch this entity\", which is a far stronger claim and\nthe one a data-ownership argument rests on.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"crudNotation", "String", "CRUD Notation", false, "Notation used: CRUD | CRUDx | Custom", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"matrixScope", "String", "Matrix Scope", false, "What's covered: CoreFunctions | AllFunctions | UserFacing", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -38444,6 +38508,7 @@ void buildFunctionalSuitabilityCharacteristicChildren(som::SomMetaNode& parent, 
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The bar for \"the right functions, working correctly\" — the coverage target\nand the correctness threshold.\n\nFunctional suitability is the ISO/IEC 25010:2023 characteristic concerned\nwith *what* the product does, and it is the only one in this chapter whose\ntarget can be read off the requirements themselves: coverage is measured\nagainst the specified function set, correctness against the specified\nresults. Every other characteristic here constrains how well those same\nfunctions behave, which is why they carry targets of their own and this\none carries a coverage figure.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"functionalSuitabilityApproach", "String", "Functional Suitability Approach", false, "How functional completeness and correctness are assured", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"functionalCoverageTarget", "String", "Functional Coverage Target", false, "Required vs. optional feature coverage", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -38822,6 +38887,7 @@ void buildGoalDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The goal whose achievement this dependency blocks, named by section id.\n\nA dependency entry is written from the dependency's side — what is\nneeded, who controls it, when it is expected, what happens if it does not\narrive — and this is the only thing on the entry that says what is at\nrisk. Expect a goal of this document at the far end; a dependency that\nwould have to name several goals is really several dependencies, because\neach of those goals has a different exposure to it.\n\nThe reference stores a section id and is not traversed\n(`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and\nmetrics stay in one place and cannot drift into a second.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Related Goal\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -39117,7 +39183,7 @@ void buildGoalsChildren(som::SomMetaNode& parent, std::vector<std::string>& stac
         n.serializationOrder = 2;
         n.headline = "Business Goals & Value";
         n.docComment = "4.2.1. Business Goals.";
-        n.classDocComment = "4.2.1. Business Goals.\n\nContainer for business goal definitions. Business goals define what the\norganization wants to achieve through this project in terms of business\noutcomes, value delivery, and strategic advancement.";
+        n.classDocComment = "4.2.1. Business Goals — the outcomes that justify the spend.\n\nThe half of the goal set whose achievement is visible to someone who never\nsees the system: revenue moved, cost removed, a compliance obligation\ndischarged, a market position held. It is separated from [TechnicalGoals]\nbecause the two are judged by different people against different evidence,\nand because a technical goal is always a means — holding both in one list\ninvites a project to report a platform migration as a business outcome.\n\nEach entry is a [BusinessGoalEntry] carrying its own owner and metrics.\nOwnership sits on the entry rather than on this section because a goal\nwithout a named owner is not a goal: there is nobody to ask whether it was\nmet.";
       },
       buildBusinessGoalsChildren);
     parent.addChild(std::move(n));
@@ -40848,7 +40914,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.hasSerializationOrder = true;
         n.serializationOrder = 5;
         n.docComment = "7.5. Domain Enum Registry.";
-        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to `DomainEnumValueEntry.valueId`. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
       },
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
@@ -40896,7 +40962,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.hasSerializationOrder = true;
         n.serializationOrder = 8;
         n.docComment = "7.8. Message Key Registry.";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels (`DomainEnumValueEntry.copyKey`);\n- **CE-ER** error copy keyed by error code (`ErrorCodeEntry.copyKey`);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst `MessageKeyEntry.key`.";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -41992,6 +42058,7 @@ void buildInteractionCapabilityCharacteristicChildren(som::SomMetaNode& parent, 
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The user population whose experience sets the bar, and the level of\nexperience aimed at.\n\nInteraction capability is the ISO/IEC 25010:2023 successor to usability:\nhow well specified users can exchange information with the product to\ncomplete their tasks. It differs from functional suitability in that a\nproduct can offer every required function and still fail here, and from\nperformance efficiency in that the measure is ultimately a person's\njudgement — which is why the band asks for the research basis and the\nfeedback channel alongside the target, rather than a number on its own.\nAccessibility conformance belongs here because it is a floor on the same\naxis, not a separate quality.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"userQualityPhilosophy", "String", "User Quality Philosophy", false, "User-first, balanced, efficiency-focused", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetUserExperience", "String", "Target User Experience", false, "Delightful, efficient, adequate, minimal", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -43784,8 +43851,8 @@ void buildIntroductionAndScopeChildren(som::SomMetaNode& parent, std::vector<std
         n.hasSerializationOrder = true;
         n.serializationOrder = 4;
         n.headline = "Project Goals";
-        n.docComment = "4.2. Goals.";
-        n.classDocComment = "4.2. Goals.\n\nContainer for project goals organized by category. Goals provide measurable\nobjectives that guide project execution and define success. This section\nsupports OKR (Objectives and Key Results) methodology while also\naccommodating traditional goal structures.";
+        n.docComment = "4.2. Goals — the outcomes the project is answerable for.\n\nThe measurable objectives that decide whether the project succeeded, held\napart from [systemDescription], which says what the system *is*, and from\n[requirements], which say what it must *do*. A goal is an outcome the\norganization wants; a requirement is a capability that serves one. The\nseparation is what lets a requirement cite the goal it exists for, and it\nis what makes an orphan requirement — scope with no outcome behind it —\nvisible instead of merely present.";
+        n.classDocComment = "4.2. Goals — the outcomes the project is answerable for, in three bands.\n\nThe goal set is split rather than held as one list, and the split is the\nsubstance of the section. [businessGoals] state outcomes the organization\nwants and that can only be judged in business terms — revenue moved, cost\nremoved, an obligation discharged. [technicalGoals] state properties of the\nbuilt system that no business reading would notice until they are missing.\n[successCriteria] state the thresholds at which either is agreed to have\nbeen reached, so that \"improved\" is never the whole claim.\n\nA goal is not a requirement. A requirement ([RequirementsOverview]) is a\ncapability the system must have; a goal is the reason a capability is worth\nhaving, and it outlives any particular way of reaching it. That is why\ngoals are stated before the requirements they justify: a requirement with\nno goal behind it is scope nobody asked for, and a goal with no requirement\nunder it is an intention nothing implements.\n\nThe structure carries OKR-style objectives and key results without\nmandating them — a key result is recorded as a success criterion — so a\nteam that does not run OKRs loses nothing by using this section.";
       },
       buildGoalsChildren);
     parent.addChild(std::move(n));
@@ -44569,6 +44636,7 @@ void buildKeyAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 4;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The resolved link to the entity a foreign key points at.\n\nThe `referencedEntity` field of the reference band holds the target's name\nas text; this member is the followable edge to that entity's section,\nwhich the outliner shows in place of the target subtree rather than\nrecursing into it, and which the schema generator validates. It is what\nmakes an entity name that resolves to nothing a detected error rather than\na dangling string. Empty for every key type but a foreign key — a primary\nor alternate key references nothing outside its own entity.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"referencedEntity\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -45078,6 +45146,7 @@ void buildLanguageCountrySelectionChildren(som::SomMetaNode& parent, std::vector
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How a user's language is chosen and changed.\n\nDetection, override and persistence — the runtime behaviour, not the set of\nlanguages, which the overview fixes.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"pickerLocation", "String", "Picker Location", false, "Header, footer, settings, onboarding", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"pickerStyle", "String", "Picker Style", false, "Dropdown, modal, full page", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -46010,6 +46079,7 @@ void buildLocalizationProcessChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How locale-specific adaptation is carried out beyond translation.\n\nFormats, collation, currency and layout direction — the parts of localization\nthat are not the text itself.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"contentIdentification", "String", "Content Identification", false, "How localizable content is identified", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stringExternalization", "String", "String Externalization", false, "Approach to externalizing strings", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -46586,14 +46656,15 @@ void buildMainScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 1;
     (*ln).contentHelp = "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.";
+    (*ln).docComment = "How this main-flow step's server call is carried out, step by step.\n\nPresent only where the step reaches the server — that is, where its\n`serverOperation` names an operation; a step that names none generates no\ncall and has nothing to put here. The entries are read in document order,\nand each declares which of the three handling roles it belongs to, so one\nlist describes all three of the generated method bodies rather than three\nparallel lists that could fall out of step with each other\n(`codespecs_derivation_contract.md` §3.5.7).\n\nAn empty list is not an omission. It says the call has nothing to state\nbeyond the step's own behaviour text, and the derivation falls back to\nexactly that (`codespecs_derivation_contract.md` §2.4).\n\nOn the main success scenario the call is the happy path: the response\nsteps describe the outcome the scenario claims, and the error steps\ndescribe what the user sees when that claim fails without the scenario\nitself branching.";
     ln->elementNode = metaCx("ServerCallStepEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ServerCallStepEntry";
         n.classSectionId = "SVCST";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ServerCallStepEntry";
-        n.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
-        n.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+        n.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand `role` is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**`condition` is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+        n.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand `role` is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**`condition` is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
       },
       buildServerCallStepEntryChildren);
     parent.addChild(std::move(ln));
@@ -46765,6 +46836,7 @@ void buildMaintainabilityCharacteristicChildren(som::SomMetaNode& parent, std::v
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What modification must cost, and the structural thresholds that keep it\nthere.\n\nMaintainability in ISO/IEC 25010:2023 is the effectiveness and efficiency\nwith which the product can be modified — corrected, improved, extended or\nadapted. Its targets are unusual in this chapter in being measured on the\n*source* rather than on the running system: complexity limits and test\ncoverage are the standard field's currency. That is also why it is stated\nalongside who will maintain the system and over what horizon — a threshold\nthat is right for a team of thirty over ten years is wrong for a\nprototype.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maintainabilityApproach", "String", "Maintainability Approach", false, "Modularity, analyzability, testability priorities", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maintainabilityStandard", "String", "Maintainability Standard", false, "Complexity thresholds, test-coverage targets", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -47548,8 +47620,8 @@ void buildMessageKeyEntryChildren(som::SomMetaNode& parent, std::vector<std::str
         n.classSectionId = "MSGLV";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MessageLocaleVariantEntry";
-        n.docComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one\nlocale.";
-        n.classDocComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n[MessageKeyEntry.defaultCopy]; each variant here overrides it for one\nlocale.";
+        n.docComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n`MessageKeyEntry.defaultCopy`; each variant here overrides it for one\nlocale.";
+        n.classDocComment = "A single locale variant of a message key (form).\n\nOne localized rendering of a [MessageKeyEntry]: a BCP-47 locale tag and the\ncopy for that locale. The base-locale copy lives on\n`MessageKeyEntry.defaultCopy`; each variant here overrides it for one\nlocale.";
       },
       buildMessageLocaleVariantEntryChildren);
     parent.addChild(std::move(ln));
@@ -47588,8 +47660,8 @@ void buildMessageKeyRegistryChildren(som::SomMetaNode& parent, std::vector<std::
         n.classSectionId = "MSGKE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MessageKeyEntry";
-        n.docComment = "A single message key (form + locale variants).\n\nOne author-once copy string: a stable [key] (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.";
-        n.classDocComment = "A single message key (form + locale variants).\n\nOne author-once copy string: a stable [key] (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.";
+        n.docComment = "A single message key (form + locale variants).\n\nOne author-once copy string: a stable `key` (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.";
+        n.classDocComment = "A single message key (form + locale variants).\n\nOne author-once copy string: a stable `key` (the token every consumer\nreferences), the default base-locale copy, an optional list of named\nplaceholders the copy interpolates, and its\n[MessageKeyEntry.localeVariants]. Maps to the CE-TX `text` part — the copy\nthe generated code resolves per locale.";
       },
       buildMessageKeyEntryChildren);
     parent.addChild(std::move(ln));
@@ -47635,6 +47707,7 @@ void buildMetricsAndObservabilityChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Which telemetry signals are collected at all, in what format, and at what\nresolution.\n\nThe enabling band: metrics, logs, traces and profiles are each switched on\nor off here, and the wire format, standard and collection method are fixed\nonce for all of them. It precedes the per-domain subsections because\nturning a signal off here makes every downstream specification of it moot,\nand because a shared format is what decides whether two services' output\ncan be read together at all.\n\nScrape interval and sampling rate are the resolution the system is\nobserved at — the point where fidelity is traded against the retention and\ncost budget agreed in [Monitoring].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"metricsEnabled", "bool", "Metrics Enabled", false, "Whether metrics collection is enabled", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"logsEnabled", "bool", "Logs Enabled", false, "Whether log collection is enabled", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -48048,6 +48121,7 @@ void buildMigrationConsiderationsChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The portfolio-wide cutover approach — the decisions that bound every\nindividual system's migration.\n\nThese are the choices no single system can make without contradicting its\nneighbours: the cutover pattern, the order systems move in, how their\ninterdependencies are honoured, and when migration work is permitted to\nrun at all. They sit here rather than on each system's own entry so that\na reader checking one system's plan can see the programme-level\nconstraint it has to fit inside, and so that changing the sequencing is\none edit rather than one per system.\n\n[strategyNarrative] carries the reasoning behind these answers; this band\ncarries the answers themselves, so a change of approach is a change here\nand not a rewrite of prose.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"overallStrategy", "String", "Overall Strategy (Big Bang, Phased, Parallel, Strangler)", false, "Chosen cutover pattern for the migration program", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sequencingApproach", "String", "Sequencing Approach", false, "Order in which systems are migrated and why", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -48990,6 +49064,7 @@ void buildMigrationRisksChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Who owns migration risk, and how often it is looked at.\n\nThe standing machinery of risk management — the governance model, the\nrisk committee's mandate, the review cadence — as distinct from\n[governance], which is the decision surface that machinery uses:\nescalation path, tolerance, and who may accept a risk. The split is\nworth having because the cadence is set once for the programme while the\ntolerance is argued about per risk.\n\nA programme that leaves this empty has risks recorded with nobody\nscheduled to read them, which is the failure this band exists to make\nvisible.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskGovernanceModel", "String", "Risk Governance Model", false, "Centralized, federated, hybrid approach", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskCommitteeCharter", "String", "Risk Committee Charter", false, "Mandate and remit of the risk committee", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -49716,6 +49791,7 @@ void buildMonitoringChildren(som::SomMetaNode& parent, std::vector<std::string>&
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The monitoring posture as a whole — the strategy, the platforms it runs\non, what must be covered, and what it is allowed to cost.\n\nThe band that has to be settled before any subsection below can be\nwritten, because they all inherit from it: a health check, an alert rule\nand a dashboard are built on the same platforms, retained for the same\nperiods and paid for out of the same budget. Stating that once here is\nwhat stops [alertingConfiguration], [metricsAndObservability] and\n[dashboards] from each nominating a tool of their own.\n\nRetention and cost sit here rather than beside the signals they apply to\nfor the same reason: they are traded against each other across the whole\nestate, never one signal at a time.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"monitoringStrategy", "String", "Monitoring Strategy", false, "Proactive, reactive, hybrid approach", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"observabilityMaturity", "String", "Observability Maturity", false, "Current maturity level (L1-L4)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -50042,6 +50118,7 @@ void buildMonitoringDashboardsChildren(som::SomMetaNode& parent, std::vector<std
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The ground rules for the dashboard estate — platform, access, and the\nconventions every dashboard follows.\n\nConventions are why this band exists instead of being folded into the\ncatalog below: naming, layout and colour coding are only worth stating if\nthey hold everywhere, and an operator reading a dashboard under pressure\nmust not have to work out which way round the colours run. The category\nflags record which audiences are served at all, so a missing executive\nview is a decision on the record rather than an oversight nobody noticed.\n\nWhich dashboards exist, and what each one shows, is the catalog — not\nthis.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dashboardPlatform", "String", "Dashboard Platform", false, "Grafana, Datadog, CloudWatch, custom", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dashboardAccessControl", "String", "Dashboard Access Control", false, "Who can view, edit dashboards", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -50396,6 +50473,7 @@ void buildMultiLanguageSupportChildren(som::SomMetaNode& parent, std::vector<std
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Which languages are supported and what support means.\n\nScope and locale handling, before the process sections that say how the\ntranslations are produced and kept current.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"supportedLanguages", "String", "Supported Languages", false, "List of supported languages (e.g., en, de, fr, es)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryLanguage", "String", "Primary Language", false, "Default/fallback language", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -50483,6 +50561,7 @@ void buildMustPassCriteriaChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What qualifies a criterion as must-pass, how many there are, and whether\none can be waived.\n\nA must-pass criterion is one whose failure stops delivery, so the band's\nreal subject is where that boundary falls. Without a stated criticality\ndefinition every stakeholder's own criterion is critical, and the set\ngrows until failing it no longer stops anything. The waiver fields are the\npressure valve that keeps the boundary honest, and naming the waiver\nauthority is what keeps a waiver a decision rather than an omission.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mustPassPhilosophy", "String", "Must-Pass Philosophy", false, "All must pass, weighted approach", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mustPassCount", "int", "Number of Must-Pass Criteria", false, "Total count of must-pass criteria", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -52765,6 +52844,7 @@ void buildOnboardingHelpChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The guided first-run experience for a new user.\n\nOne-time or milestone-triggered, unlike contextual help, which is always\navailable. Its success measure is time-to-first-value, not coverage.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"welcomeFlowEnabled", "bool", "Welcome Flow Enabled", false, "Whether the welcome flow is enabled", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"welcomeFlowStyle", "String", "Welcome Flow Style", false, "Modal wizard, full-page, inline", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -53758,6 +53838,7 @@ void buildOrganizationalEnvironmentChildren(som::SomMetaNode& parent, std::vecto
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Who the organization is — the facts that set the scale everything else in\nthis section is read against.\n\nSize, sector, geographic reach and revenue band are not background\ncolour: they are what make a later statement about governance, decision\nlatency or change capacity interpretable at all. A weekly steering\ncommittee means one thing in a forty-person company and another in a\nglobal one. The band leads the section, and is separate from the maturity\nband that follows it, because these are externally verifiable facts while\nmaturity is an assessment this document is making.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"organizationName", "String", "Organization Name", false, "Legal or common name of the organization", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"organizationType", "String", "Organization Type (Enterprise, SMB, Startup, Government, Non-profit)", false, "Category that best describes the organization", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -55541,6 +55622,7 @@ void buildPerformanceEfficiencyCharacteristicChildren(som::SomMetaNode& parent, 
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The engineering stance the performance and structural targets are set\nagainst.\n\nPerformance efficiency in ISO/IEC 25010:2023 is behaviour *relative to the\nresources used*, so a figure stated here means nothing without the load\nprofile the section narrative supplies. The band also carries the\ncode-quality and design-principle commitments inherited from the former\ntechnical-quality grouping; they sit with performance rather than under\nmaintainability because they are stated once for the build as a whole,\nwhereas maintainability states what modifying that build must cost.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"technicalQualityPhilosophy", "String", "Technical Quality Philosophy", false, "Performance-first, maintainability-first, balanced", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"architecturalQualityGoals", "String", "Architectural Quality Goals", false, "Key architectural quality attributes", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -58613,7 +58695,7 @@ void buildProcessMetricEntryChildren(som::SomMetaNode& parent, std::vector<std::
         n.typeName = "CurrentBusinessProcess";
         n.hasSerializationOrder = true;
         n.serializationOrder = 3;
-        n.docComment = "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.";
+        n.docComment = "The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.";
         n.classDocComment = "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.";
         n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Process Reference\"}", nullptr)});
       },
@@ -60409,6 +60491,7 @@ void buildPrototypeChildren(som::SomMetaNode& parent, std::vector<std::string>& 
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What the prototype is for and what it is not.\n\nA prototype's value depends on its question being stated; the goals and\nfeature-subset sections then narrow it.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"prototypePurpose", "String", "Prototype Purpose", false, "Primary goal: validation, alignment, feasibility", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"prototypeScope", "String", "Prototype Scope", false, "What is included in prototype", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -60586,6 +60669,7 @@ void buildPrototypeFeatureSubsetChildren(som::SomMetaNode& parent, std::vector<s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Which features the prototype includes, and the criteria that chose them.\n\nThe subset is a scoping decision, so recording the criteria matters as much as\nthe list: it is what makes a later addition arguable.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"selectionCriteria", "String", "Selection Criteria", false, "How features were selected", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskBasedSelection", "String", "Risk-Based Selection", false, "High-risk features included", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -60711,6 +60795,7 @@ void buildPrototypeGoalsChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The questions the prototype is built to answer.\n\nValidation goals, so the prototype can be judged finished — a prototype with no\nstated goal cannot be.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"usabilityValidation", "bool", "Usability Validation", false, "Validate usability of key workflows", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholderAlignment", "bool", "Stakeholder Alignment", false, "Align stakeholders on UI/UX", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -60814,6 +60899,7 @@ void buildPrototypeTypeChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Whether the prototype is reusable or throwaway, and why.\n\nThe choice governs how much engineering rigour the prototype carries, which the\ntwo sibling sections then specify.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"prototypeType", "String", "Prototype Type", true, "Reusable, Training, Throwaway", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"typeRationale", "String", "Type Rationale", false, "Why this type was chosen", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -61146,6 +61232,7 @@ void buildQualityFrameworkChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Which published quality model this chapter's structure comes from, at\nwhich version, and where the project departs from it.\n\nThe band that makes the rest of the chapter legible. Everything below is\norganised by the eight product-quality characteristics of ISO/IEC\n25010:2023, and a reader who knows that reads the sibling sections as a\nchecklist rather than as an arbitrary list. The adaptations field carries\nthe weight: a project that drops, merges or renames a characteristic has\nto say so here, because a missing section is otherwise indistinguishable\nfrom an oversight.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityModel", "String", "Quality Model", false, "ISO 25010, McCall, Boehm, custom", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityModelVersion", "String", "Model Version", false, "Specific version of quality model", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -61592,6 +61679,7 @@ void buildQualityGateChecklistChildren(som::SomMetaNode& parent, std::vector<std
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What the checklist is used for, how completely it must be worked, and who\nsigns it off.\n\nA quality gate is a checkpoint work does not pass until its checks are\nanswered (`tom_specs_project_flow.md` §PF-GAT-MOD), and this band states\nthe terms of that check: at which milestone it runs, whether every item is\nrequired or only the critical ones, whether the review is one person, a\ncommittee or a tool, and how many signatures close it. The completeness\nrequirement is what separates a gate from a suggestion.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"checklistPurpose", "String", "Checklist Purpose", false, "Gate review, final acceptance, milestone", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"checklistCompleteness", "String", "Completeness Requirement", false, "All checks required, critical only", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -61662,6 +61750,7 @@ void buildQualityPrioritizationChildren(som::SomMetaNode& parent, std::vector<st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How quality attributes are ranked against one another, by whom, and how\noften.\n\nRanking is needed because the ISO/IEC 25010:2023 characteristics compete\nfor one budget — each can be improved at another's expense. This band\nfixes the *procedure* before any answers, which is the point: a ranking\nproduced by a stated method with named participants can be re-run when\ncircumstances change, while one that simply appeared can only be argued\nover. The conflict-resolution authority is what makes the procedure\nterminate.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"prioritizationMethod", "String", "Prioritization Method", false, "Weighted scoring, AHP, forced ranking", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"prioritizationStakeholders", "String", "Prioritization Stakeholders", false, "Who participates in prioritization", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -62894,6 +62983,7 @@ void buildReliabilityCharacteristicChildren(som::SomMetaNode& parent, std::vecto
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How the system will be run: the operating model, the responsible party,\nand the processes an incident or a change passes through.\n\nReliability in ISO/IEC 25010:2023 is the degree to which the system\nperforms its functions under stated conditions for a stated period — but\nthe number that expresses it is produced by an *operation*, not by the\ncode. This band therefore carries the operational model that the\navailability, service-level and monitoring subsections below are only\nmeaningful against: an uptime target with no named incident process and no\nresponsible party is a wish, not a commitment.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"operationsMaturityModel", "String", "Operations Maturity Model", false, "ITIL, DevOps, SRE", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"operationsPhilosophy", "String", "Operations Philosophy", false, "Ops-driven, DevOps, NoOps", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -64703,6 +64793,7 @@ void buildRequirementDependencyEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The other requirement in this dependency, named by section id.\n\nThe row states the *kind* of relation — prerequisite, bidirectional,\nparent-child, conflict, refinement — and this names its far end; the\nrequirement that owns the entry is always the near end, so neither half\nis readable alone. Expect another requirement of this document there. A\ndependency on something that is not itself a requirement is a constraint\nand belongs with the assumptions and constraints instead.\n\nThe reference stores a section id and is never followed in traversal\n(`tom_specs_model_rules.md` §9.2), which is what allows a requirement\ngraph containing cycles — a conflict pair is one — without making the\ndocument unwalkable.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Related Requirement\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -64842,6 +64933,7 @@ void buildRequirementTestCaseEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 3;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The acceptance criterion this test case verifies, named by section id.\n\nThis is the link that turns a test case from a suggestion into evidence.\nThe criterion states the condition under which the requirement is agreed\nto be met; the test states how that condition is demonstrated. Expect one\ncriterion at the far end — a test that would have to name several is\nverifying more than one thing and reads better as several tests, each of\nwhich can fail for its own reason.\n\nIt is also the coverage measure in the other direction: a criterion that\nno test case points at is an acceptance condition nobody has undertaken\nto check, and that is only visible when this link is filled in.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Related Acceptance Criterion\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -65142,7 +65234,7 @@ void buildRequirementsFollowUpChildren(som::SomMetaNode& parent, std::vector<std
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Localization & Translation requirements (NFR-L10N-NNN).";
-        n.classDocComment = "Localization & Translation requirements (the requirement side of i18n).\n\nCross-mapped from SBP.14 via [Iso25010Coverage].";
+        n.classDocComment = "Localization & Translation requirements (the requirement side of i18n).\n\nCross-mapped from SBP.14 via `Iso25010Coverage`.";
       },
       buildLocalizationTranslationRequirementsChildren);
     parent.addChild(std::move(n));
@@ -65844,6 +65936,7 @@ void buildResponsiveBehaviorChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What actually changes at each breakpoint.\n\nThe breakpoint section says *where* the layout switches; this says *what*\nswitches — reflow, disclosure, navigation shape.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mobileColumnLayout", "String", "Mobile Column Layout", false, "Single column, stacked", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tabletColumnLayout", "String", "Tablet Column Layout", false, "2-column, master-detail", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -65981,6 +66074,7 @@ void buildResponsiveDesignChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The responsive strategy: which approach the product takes and why.\n\nFrames the breakpoint and layout-adaptation sections below, which give the\nconcrete numbers and behaviours.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"responsivePhilosophy", "String", "Responsive Philosophy", false, "Mobile-first, desktop-first, adaptive", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryTargetDevice", "String", "Primary Target Device", false, "Mobile phone, tablet, desktop", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -66498,6 +66592,7 @@ void buildReusablePrototypeChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The standards a reusable prototype must meet to graduate into the product.\n\nCode that will survive is held to production expectations from the start; this\nsection records which ones apply.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"codeQualityRequirements", "String", "Code Quality Requirements", false, "Standards prototype code must meet", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"testCoverageRequirement", "String", "Test Coverage Requirement", false, "Required test coverage", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -68868,14 +68963,15 @@ void buildScenarioStepEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 3;
     (*ln).contentHelp = "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to.";
+    (*ln).docComment = "How this scenario step's server call is carried out, step by step.\n\nPresent only where the step reaches the server — that is, where its\n`serverOperation` names an operation; a step that names none generates no\ncall and has nothing to put here. The entries are read in document order,\nand each declares which of the three handling roles it belongs to, so one\nlist describes all three of the generated method bodies rather than three\nparallel lists that could fall out of step with each other\n(`codespecs_derivation_contract.md` §3.5.7).\n\nAn empty list is not an omission. It says the call has nothing to state\nbeyond the step's own behaviour text, and the derivation falls back to\nexactly that (`codespecs_derivation_contract.md` §2.4).\n\nWhere the flow branches is not stated here: that is the `ALFL` entry's\nbusiness, via its branch point and trigger condition. This list only says\nwhat the step does across the boundary when it does run.";
     ln->elementNode = metaCx("ServerCallStepEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ServerCallStepEntry";
         n.classSectionId = "SVCST";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ServerCallStepEntry";
-        n.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
-        n.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand [role] is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**[condition] is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+        n.docComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand `role` is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**`condition` is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
+        n.classDocComment = "One step of a server call's handling, in one of its three roles.\n\nA step that reaches the server states the call in one sentence — *submits\nthe order to the ordering service* — but the code that performs it is three\nseparate bodies (`codespecs_derivation_contract.md` §3.5.7): the request is\nassembled before the wire, a successful response is applied after it, and a\nfailure is surfaced instead. This entry is where each of those is stated,\nand `role` is the field that says which. Without it a generator would have\nto split one sentence three ways by guessing, which\n`codespecs_derivation_contract.md` §2.4 B8 forbids — so the three bodies\ncould only throw the same text.\n\nThe steps hang off the interaction step that issues the call (`MNSST`,\n`SCNST`, `ALST`, `EXTST`), because the call has no identity of its own: it\n*is* that step's reach across the boundary. Leaving the list empty leaves\nthe call's bodies as they were — an unstated role falls back to form 3a over\nthe issuing step's own behaviour text (`codespecs_derivation_contract.md`\n§2.4).\n\n**No step number.** The list position *is* the order\n(`codespecs_derivation_contract.md` §2.4 B1 reads document order and never a\nstep's own order field), and each role's steps are read in document order\nwithin the list.\n\n**`condition` is a precondition, not a case label.** It becomes a guard on\nthe step's statement (`codespecs_derivation_contract.md` §2.4 B4). It is not\nthe way an error code is turned into user-visible wording: B7 forbids the\n`switch` that would need, and the message a code maps to belongs in the\nCE-TX message-key registry (`codespecs_mapping.md` §5.3), not in a chain of\nconditions here.";
       },
       buildServerCallStepEntryChildren);
     parent.addChild(std::move(ln));
@@ -71495,6 +71591,7 @@ void buildSecurityCharacteristicChildren(som::SomMetaNode& parent, std::vector<s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The security posture the system is built to, and the compliance regime\nthat audits it.\n\nSecurity in ISO/IEC 25010:2023 is the degree to which data is reachable\nonly by those whose authorization matches. The approach field states the\nmodel — least privilege, defence in depth, zero trust — because controls\nchosen without one are a list rather than a design. The compliance target\nnames the external regime, which fixes the *evidence* that must exist as\nwell as the controls themselves. The operational side of security —\nmonitoring, incident response, patching — is a sibling subsection, not\nthis band.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"securityApproach", "String", "Security Approach", false, "Zero-trust, defence-in-depth, least-privilege", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"securityComplianceTarget", "String", "Security Compliance Target", false, "ISO 27001, SOC 2, GDPR, sector-specific", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -72982,8 +73079,8 @@ void buildServerOperationRegistryChildren(som::SomMetaNode& parent, std::vector<
         n.classSectionId = "SVOPE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ServerOperationEntry";
-        n.docComment = "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).";
-        n.classDocComment = "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).";
+        n.docComment = "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n`ServerOperationEntry.primaryDataEntity` rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).";
+        n.classDocComment = "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n`ServerOperationEntry.primaryDataEntity` rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).";
       },
       buildServerOperationEntryChildren);
     parent.addChild(std::move(ln));
@@ -74643,6 +74740,7 @@ void buildSlaAndSloMonitoringChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The service-level regime — the framework, the error-budget policy, and\nwhat happens when a commitment is missed.\n\nThe band that separates a measurement from an obligation. An SLO is an\ninternal target and its error budget is a spending decision the team makes\nagainst itself; a customer-facing SLA is a contract, with credits owed and\nexclusions claimed. Both are stated here so a reader can see in one place\nwhich promises cost money to break and which cost only trust.\n\nThe reporting fields are what makes either enforceable: a service level\nnobody reports on, to a named audience, on a stated cadence, is not a\ncommitment.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sloFramework", "String", "SLO Framework", false, "Google SRE, custom", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"errorBudgetPolicy", "String", "Error Budget Policy", false, "How error budget is managed", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -77260,8 +77358,8 @@ void buildStakeholdersAndBeneficiariesChildren(som::SomMetaNode& parent, std::ve
         n.classSectionId = "STKNT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "StakeholderEntry";
-        n.docComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n[StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).";
-        n.classDocComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n[StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).";
+        n.docComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).";
+        n.classDocComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).";
       },
       buildStakeholderEntryChildren);
     parent.addChild(std::move(ln));
@@ -77285,8 +77383,8 @@ void buildStakeholdersAndBeneficiariesChildren(som::SomMetaNode& parent, std::ve
         n.classSectionId = "STKNT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "StakeholderEntry";
-        n.docComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n[StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).";
-        n.classDocComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n[StakeholderRegisterEntry] and are not restated here (L34C-6 / SR-15).";
+        n.docComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).";
+        n.classDocComment = "A stakeholder or beneficiary entry — benefits lens (form).\n\nKeeps only the scope-framing identity + benefit. Role, interest, influence,\nconcerns and engagement strategy are owned by the canonical SBP.4\n`StakeholderRegisterEntry` and are not restated here (L34C-6 / SR-15).";
       },
       buildStakeholderEntryChildren);
     parent.addChild(std::move(ln));
@@ -78487,6 +78585,7 @@ void buildSupportAccessChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How a user reaches a human when the product's own help runs out.\n\nThe escalation boundary of the help system: channels, hours and what the user\nmust supply for support to act.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"helpCenterAvailable", "bool", "Help Center Available", false, "Whether a help centre is provided", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"liveChatAvailable", "bool", "Live Chat Available", false, "Whether live chat support is provided", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -79602,7 +79701,7 @@ void buildSystemDependencyEntryChildren(som::SomMetaNode& parent, std::vector<st
         n.typeName = "ExistingSystemEntry";
         n.hasSerializationOrder = true;
         n.serializationOrder = 5;
-        n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.docComment = "The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.";
         n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
         n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Source System\"}", nullptr)});
       },
@@ -79620,7 +79719,7 @@ void buildSystemDependencyEntryChildren(som::SomMetaNode& parent, std::vector<st
         n.typeName = "ExistingSystemEntry";
         n.hasSerializationOrder = true;
         n.serializationOrder = 6;
-        n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.docComment = "The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.";
         n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
         n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Target System\"}", nullptr)});
       },
@@ -79909,6 +80008,7 @@ void buildSystemErrorDisplayChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How failures the user cannot correct are surfaced.\n\nThe counterpart to validation display: no user input fixes these, so the\nquestion is what to disclose, what to log and whom to alert.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"networkErrorHandling", "String", "Network Error Handling", false, "How connectivity issues are displayed", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemErrorDisplayMethod", "String", "Display Method", false, "Modal, snackbar, banner, full-page", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -80177,7 +80277,7 @@ void buildSystemIntegrationEntryChildren(som::SomMetaNode& parent, std::vector<s
         n.typeName = "ExistingSystemEntry";
         n.hasSerializationOrder = true;
         n.serializationOrder = 7;
-        n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.docComment = "The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.";
         n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
         n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Source System\"}", nullptr)});
       },
@@ -80195,7 +80295,7 @@ void buildSystemIntegrationEntryChildren(som::SomMetaNode& parent, std::vector<s
         n.typeName = "ExistingSystemEntry";
         n.hasSerializationOrder = true;
         n.serializationOrder = 8;
-        n.docComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.docComment = "The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.";
         n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
         n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Target System\"}", nullptr)});
       },
@@ -80619,7 +80719,7 @@ void buildSystemPurposeChildren(som::SomMetaNode& parent, std::vector<std::strin
         n.hasSerializationOrder = true;
         n.serializationOrder = 4;
         n.docComment = "4.1.1.3. Stakeholders and Beneficiaries.";
-        n.classDocComment = "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who benefits\nfrom the system and what they gain. The canonical stakeholder register —\nwith role, interest, influence, concerns and engagement strategy — lives in\nSBP.4 ([StakeholderRegisterEntry] list); those attributes are recorded there\nonce and are not restated here (L34C-6 / SR-15).";
+        n.classDocComment = "4.1.1.3. Stakeholders and Beneficiaries.\n\nA scope-framing *benefits lens* over the stakeholder landscape: who benefits\nfrom the system and what they gain. The canonical stakeholder register —\nwith role, interest, influence, concerns and engagement strategy — lives in\nSBP.4 (`StakeholderRegisterEntry` list); those attributes are recorded there\nonce and are not restated here (L34C-6 / SR-15).";
       },
       buildStakeholdersAndBeneficiariesChildren);
     parent.addChild(std::move(n));
@@ -80696,6 +80796,7 @@ void buildSystemQualityGoalsChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The project's quality stance: the philosophy it works to, the standards it\nclaims to meet, and the single role accountable for the outcome.\n\nDistinct from [governance], which follows it and holds the *machinery* —\nreview board, meeting cadence, escalation path. This band is the position;\nthat one is how the position is held week to week. The accountable role is\nwhat makes the rest actionable: a quality goal with no named owner is\nreported on and never decided.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityApproach", "String", "Quality Approach", false, "Overall quality philosophy: proactive, reactive, hybrid", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityStandards", "String", "Applicable Quality Standards", false, "ISO 25010, ISO 9001, CMMI, industry-specific", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -81694,6 +81795,7 @@ void buildSystemTaskEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 4;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
+    (*n).docComment = "The use case this task appears in, named by section id.\n\nA task is written from the user's side — what a person sets out to do —\nwhile a use case is written from the system's side, as an interaction\nwith actors, flows and an outcome. The link asserts that the two describe\nthe same piece of work seen from opposite ends, so a reader who follows\nit should find the same actor and the same outcome restated in\ninteraction terms, not a wider or narrower slice of scope.\n\nA `@Reference` stores a section id and nothing else, and is never\nfollowed in traversal (`tom_specs_model_rules.md` §9.2) — the use case is\nnot owned here and its text is never copied here. An empty link is itself\na finding: a task no use case accounts for is either out of scope or a\nuse case that was never written.";
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Related Use Case\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -81855,6 +81957,7 @@ void buildSystemToReplaceEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Which legacy system this entry is about.\n\nThe identity band, held apart from the assessment bands that follow\n([profile], [vendor] and the technical, business, data and migration\nfacets) because identity is the one part of the entry that is not a\njudgement. It is the name and id the organisation already uses, owned\noutside this document, and it is what a reader reconciling against an\nexisting application inventory matches on. Everything else on the entry\nis this document's opinion about that system, and may be revised without\nthe system becoming a different system.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemId", "String", "System ID (e.g., SYS-CRM-001)", true, "The identifier the organisation already uses for the legacy system being replaced, e.g. SYS-CRM-001 — owned outside this document", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"officialName", "String", "Official/Vendor Name", false, "Vendor/product name and edition, if a commercial system", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -82854,6 +82957,7 @@ void buildTechnicalEnvironmentChildren(som::SomMetaNode& parent, std::vector<std
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Where the organization stands technically today, before anything is said\nabout what the solution may use.\n\nThe starting position — architectural maturity, and the cloud posture the\norganization has already committed to — as distinct from [governance],\nwhich says who decides technology questions, and from the platform\nstandards band, which says what is already mandated. The order is\ndeliberate: a mandated framework read without knowing whether the\norganization is cloud-first or on-premises is a rule with its rationale\nstripped off.\n\nThese are observations about the estate as found. Whatever the solution is\nobliged to do about them becomes a constraint in the architecture and\ntechnology specification this section seeds.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"architectureMaturity", "String", "Architecture Maturity", false, "TOGAF maturity level or equivalent", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"cloudStrategy", "String", "Cloud Strategy", false, "Cloud-first, hybrid, on-premises, multi-cloud", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -85026,6 +85130,7 @@ void buildThrowawayPrototypeChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The explicit disposal terms for a throwaway prototype.\n\nWhat may be cut, and — more importantly — what must be rebuilt rather than\ncarried forward, so the prototype cannot quietly become the product.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"evaluationCriteria", "String", "Evaluation Criteria", false, "Criteria for evaluation", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"evaluationMethod", "String", "Evaluation Method", false, "How prototype is evaluated", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -85906,6 +86011,7 @@ void buildTradeOffDecisionsChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Who may decide a quality trade-off, how it is recorded, and how it is\nundone.\n\nA trade-off accepts a worse outcome on one ISO/IEC 25010:2023\ncharacteristic in order to gain another, so it is a decision with a losing\nside that somebody must be entitled to accept on the project's behalf. The\nreversal field is the one most often left empty and the one that matters\nlongest: trade-offs are made under constraints that expire, and with no\nstated path back the accepted cost quietly becomes permanent.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tradeOffGovernance", "String", "Trade-off Governance", false, "Who can make trade-off decisions", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tradeOffDocumentation", "String", "Trade-off Documentation", false, "How decisions are documented", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -86044,6 +86150,7 @@ void buildTrainingDeliverableRequirementsChildren(som::SomMetaNode& parent, std:
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The training materials that accompany a localized release.\n\nScoped to *localization*: material that must be reproduced per language, as\ndistinct from the product-wide training plan.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"trainingMaterials", "String", "Training Materials", false, "Slides, workbooks, exercises", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"trainingFormat", "String", "Training Format", false, "In-person, virtual, self-paced", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -86285,6 +86392,7 @@ void buildTrainingPrototypeChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How knowledge from the prototype is transferred to the delivery team.\n\nA prototype's findings are its output; without a transfer step they stay with\nwhoever built it.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"designDecisionsCarriedForward", "String", "Design Decisions Carried Forward", false, "What design decisions are preserved", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"patternsDocumented", "String", "Patterns Documented", false, "Patterns documented from prototype", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -87273,6 +87381,7 @@ void buildTranslationProcessChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How translated text is produced, reviewed and shipped.\n\nThe pipeline and its owners, as distinct from the *requirements* section, which\nstates what must be translated at all.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"translationManagementSystem", "String", "Translation Management System", false, "TMS tool (Phrase, Lokalise, Crowdin)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"translationMemory", "String", "Translation Memory", false, "TM usage and maintenance", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -87410,6 +87519,7 @@ void buildTranslationRequirementsChildren(som::SomMetaNode& parent, std::vector<
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What must be translated, and what deliberately must not.\n\nThe scope contract for translation: untranslated strings are a decision\nrecorded here, not an omission discovered in test.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"i18nFramework", "String", "I18N Framework", false, "flutter_localizations, intl, easy_localization", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stringExternalizationFormat", "String", "String Externalization Format", false, "ARB, JSON, YAML, Gettext", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -87834,6 +87944,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "What this component is and where it is used.\n\nThe identity band is the join key for the rest of the entry: the sibling bands\nall describe the component named here.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"componentFamily", "String", "Component Family", false, "Button, Input, Table, Navigation, etc.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"baseComponent", "String", "Base Component", false, "Base component of the shared library this one specialises (Data Table, Text Input)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -87883,6 +87994,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 4;
+    (*n).docComment = "The component's appearance in its default state.\n\nStatic presentation only; how it responds to input is interactive behaviour,\nand how it reflows is responsiveness.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultAppearance", "String", "Default Appearance", false, "Visual description of default state", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"colorScheme", "String", "Color Scheme", false, "Primary, secondary, surface colors used", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -87965,6 +88077,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 9;
+    (*n).docComment = "How the component responds to input, across its states.\n\nHover, focus, press, disabled, loading and error states — the transitions a\nuser can trigger, as distinct from the static appearance.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tapBehavior", "String", "Tap Behavior", false, "What happens on tap/click", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"longPressBehavior", "String", "Long Press Behavior", false, "What happens on long press", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -88034,6 +88147,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 13;
+    (*n).docComment = "How the component behaves across the declared breakpoints.\n\nComponent-level adaptation, within the page-level rules the responsive-design\nsections set.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mobileLayout", "String", "Mobile Layout", false, "Layout on mobile (< 600dp)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tabletLayout", "String", "Tablet Layout", false, "Layout on tablet (600-1024dp)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -88053,6 +88167,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 14;
+    (*n).docComment = "The component's accessibility contract: roles, names, keyboard model.\n\nComponent-level obligations, which the product-level conformance claim depends\non being met by every component.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"semanticRole", "String", "Semantic Role", false, "ARIA role or semantic meaning", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"screenReaderLabel", "String", "Screen Reader Label", false, "How screen readers announce", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -88073,6 +88188,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 15;
+    (*n).docComment = "How the component behaves when the user lacks the right to use it.\n\nHidden, disabled or read-only is a design decision with security consequences,\nwhich is why it is specified per component rather than left to implementation.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"authBasePath", "String", "Auth Base Path", false, "Base path for authorization lookup", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"authVisibilityBehavior", "String", "Visibility Behavior", false, "Hidden, visible, conditionally visible", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -88092,6 +88208,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 16;
+    (*n).docComment = "The assets the component needs — icons, images, fonts, media.\n\nDeclared so the resource inventory is complete: a component referencing an\nasset nobody registered is a build failure late rather than a spec gap early.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"resourceBasePath", "String", "Resource Base Path", false, "Base path for resource lookup", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for label text", 1, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
@@ -88113,6 +88230,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 17;
+    (*n).docComment = "What the component reads and writes, and against which model element.\n\nThe link from the interface back to the information model; without it a screen\nelement has no defined source of truth.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "String", "Data Type", false, "Type of data component displays/edits", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"bindingPattern", "String", "Binding Pattern", false, "Observable, form field, direct", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -88285,6 +88403,7 @@ void buildUiComponentsChildren(som::SomMetaNode& parent, std::vector<std::string
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The library's scope and governance, before the individual components.\n\nWhich library is used, who may add to it, and what a component must satisfy to\nbe admitted.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"designSystemName", "String", "Design System Name", false, "Name of the design system (e.g., \"Acme Design System\")", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"designSystemVersion", "String", "Design System Version", false, "Semantic version of the design system (e.g., \"2.1.0\")", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -89058,6 +89177,7 @@ void buildUserAssistanceChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The help model as a whole, before the delivery channels below.\n\nWhich help exists and who maintains it; the contextual, onboarding and support\nsections each specify one delivery route through it.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"helpPhilosophy", "String", "Help Philosophy", false, "Self-service first, guided, on-demand", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"helpAccessibility", "String", "Help Accessibility", false, "Always visible, contextual, searchable", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -89626,6 +89746,7 @@ void buildUserDocumentationRequirementsChildren(som::SomMetaNode& parent, std::v
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "Which user-facing documentation is translated, and to what standard.\n\nDocumentation follows a different cadence from interface text, which is why it\nis scoped separately from the translation process.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"documentationFormat", "String", "Documentation Format", false, "HTML, PDF, in-app, wiki", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"documentationPlatform", "String", "Documentation Platform", false, "GitBook, Notion, custom, Confluence", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -91061,6 +91182,7 @@ void buildValidationFeedbackChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "How field-level validation feedback reaches the user.\n\nScoped to *validation* — input the user can correct. A failure the user cannot\nact on is a system error and belongs to the system-error section.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"validationTiming", "String", "Validation Timing", false, "Real-time, on-blur, on-submit, debounced", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"debounceDelay", "String", "Debounce Delay", false, "Milliseconds before validation triggers", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -91856,6 +91978,7 @@ void buildWcagComplianceChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The conformance target and the evidence for it.\n\nNames the WCAG version and level the product claims, which is what an audit\nchecks against; the overview states the intent, this states the claim.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"textAlternatives", "String", "Text Alternatives (1.1)", false, "Alt text for non-text content", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"timeBasedMedia", "String", "Time-Based Media (1.2)", false, "Captions, audio descriptions", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -91997,6 +92120,7 @@ void buildWeightedQualityMatrixChildren(som::SomMetaNode& parent, std::vector<st
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
+    (*n).docComment = "The mechanics of the weighting: the scale, whether weights must sum, and\nhow a weight is changed.\n\nWeights are only comparable within a stated scheme — a 4 on a 1–5 scale\nand a 4 on a 1–10 scale are different claims, and weights required to sum\nto 100 force a trade-off that free weights let an author avoid. Fixing\nthat here rather than in the individual entries is what lets the entry\nlist be read as one ranking. The update process matters for the same\nreason: in a summing scheme, re-weighting one attribute silently\nre-weights every other.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"matrixFormat", "String", "Matrix Format", false, "Spreadsheet, radar chart, heatmap", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"weightingScale", "String", "Weighting Scale", false, "1-5, 1-10, percentage", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -92519,6 +92643,7 @@ void buildWorkflowStepSystemChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).serializationOrder = 1;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Name of the system used in this workflow step.";
+    (*n).docComment = "Which system the step uses.\n\nHeld as stored content rather than a `@Reference`, so it names the system\nthe way the people doing the work name it — including systems the\nexisting-systems inventory never profiled. Nothing resolves it, so a\nreader reconciling it against that inventory is doing so by hand and\nshould expect near-misses: shadow IT, departmental spreadsheets, and\nretired product names still in daily use.\n\nWhat the step *does* with the system is the entry's own content, not this.";
     parent.addChild(std::move(n));
   }
 }

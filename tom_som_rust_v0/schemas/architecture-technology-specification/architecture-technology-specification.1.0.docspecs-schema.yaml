@@ -1192,6 +1192,7 @@ section-types:
   meanob-metr:
     prefix: MEANOB_METR
     format: meanob-metr-form
+    description: "Which telemetry signals are collected at all, in what format, and at what"
   mndep-item:
     prefix: MNDEP_ITEM_
     subsection-types:
@@ -1208,6 +1209,7 @@ section-types:
   monito-moni:
     prefix: MONITO_MONI
     format: monito-moni-form
+    description: "The monitoring posture as a whole — the strategy, the platforms it runs"
   pe-prot-lst:
     prefix: PE_PROT_LST
     subsection-types:
@@ -1333,6 +1335,7 @@ section-types:
   trareq-tran:
     prefix: TRAREQ_TRAN
     format: trareq-tran-form
+    description: "What must be translated, and what deliberately must not."
   usset-sett:
     prefix: USSET_SETT_
     pattern-check-id:
@@ -1570,6 +1573,7 @@ section-types:
   alco-aler:
     prefix: ALCO_ALER
     format: alco-aler-form
+    description: "What is worth waking someone for, and how quickly a human is expected to"
   bce-boun:
     prefix: BCE_BOUN_
     subsection-types:
@@ -1695,6 +1699,7 @@ section-types:
   moda-dash:
     prefix: MODA_DASH
     format: moda-dash-form
+    description: "The ground rules for the dashboard estate — platform, access, and the"
   mwe-main:
     prefix: MWE_MAIN_
     subsection-types:
@@ -1786,6 +1791,7 @@ section-types:
   sasm-slao:
     prefix: SASM_SLAO
     format: sasm-slao-form
+    description: "The service-level regime — the framework, the error-budget policy, and"
   scjob-cal:
     prefix: SCJOB_CAL
     format: scjob-cal-form
@@ -1851,6 +1857,7 @@ section-types:
   teen-tech:
     prefix: TEEN_TECH
     format: teen-tech-form
+    description: "Where the organization stands technically today, before anything is said"
   tse-tech:
     prefix: TSE_TECH_
     subsection-types:
