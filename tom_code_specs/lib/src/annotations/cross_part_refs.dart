@@ -5,8 +5,10 @@
 /// reference or `Type` literal — never a string literal**. The part that owns a
 /// referenceable element declares its identity **exactly once** as a `static
 /// const` on that part's generated catalogue class
-/// (`codespecs_derivation_contract.md` §2.1 N7); every citing annotation holds
-/// that const. A dangling or renamed reference is therefore a **compile error**
+/// (`codespecs_derivation_contract.md` §2.6 for which type carries which edge;
+/// `codespecs_derivation_contract.md` §2.1 rule N7 puts each catalogue in one
+/// file of its own);
+/// every citing annotation holds that const. A dangling or renamed reference is therefore a **compile error**
 /// — the Dart compiler is the `codespecs_mapping.md` §4.2 cross-part integrity
 /// checker.
 ///
