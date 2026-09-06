@@ -273,6 +273,8 @@ const String somDocument = 'som_multiplatform_spec_model.md';
 /// rather than two that drift.
 const defaultCitedReadmes = [
   'tom_ai/ai_build/tom_code_specs/README.md',
+  'tom_ai/ai_build/tom_doc_scanner/README.md',
+  'tom_ai/ai_build/tom_doc_specs/README.md',
   'tom_ai/ai_build/tom_spec_engine/README.md',
   'tom_ai/ai_build/tom_specs_clitool/README.md',
   'tom_ai/ai_build/tom_specs_core/README.md',

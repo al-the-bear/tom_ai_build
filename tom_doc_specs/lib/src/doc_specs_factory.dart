@@ -12,10 +12,13 @@ import 'models/schema/doc_spec_schema.dart';
 /// ## Example
 ///
 /// ```dart
-/// final schema = DocSpecs.loadSchema(schemaId: 'quest-overview-1.0');
+/// final schema = DocSpecs.loadSchemaSync(
+///   schemaId: 'quest-overview/1.0',
+///   documentPath: 'quest_overview.md',
+/// );
 /// final factory = DocSpecsFactory(schema: schema);
 ///
-/// final doc = DocScanner.scanDocument(
+/// final doc = DocScanner.scanDocumentSync(
 ///   filepath: 'quest_overview.md',
 ///   factory: factory,
 /// ) as SpecDoc;

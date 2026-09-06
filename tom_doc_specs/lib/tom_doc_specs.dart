@@ -8,7 +8,9 @@
 /// ```dart
 /// import 'package:tom_doc_specs/tom_doc_specs.dart';
 ///
-/// final doc = await DocSpecs.scanDocument(path: 'quest_overview.docspec.md');
+/// final doc = await DocSpecs.scanDocument(
+///   filePath: 'quest_overview.docspec.md',
+/// );
 /// if (!doc.isValid) {
 ///   print('Errors: ${doc.validationErrors}');
 /// }

@@ -21,7 +21,9 @@ import 'validation/validator.dart';
 ///
 /// ```dart
 /// // Scan and validate a document
-/// final doc = await DocSpecs.scanDocument(path: 'quest_overview.docspec.md');
+/// final doc = await DocSpecs.scanDocument(
+///   filePath: 'quest_overview.docspec.md',
+/// );
 ///
 /// if (!doc.isValid) {
 ///   print('Validation errors: ${doc.validationErrors}');
@@ -34,7 +36,7 @@ import 'validation/validator.dart';
 /// }
 ///
 /// // List available schemas
-/// final schemas = DocSpecs.listSchemas(documentPath: 'docs/');
+/// final schemas = await DocSpecs.listSchemas(documentPath: 'docs/');
 /// for (final schema in schemas) {
 ///   print('Schema: ${schema.fullId}');
 /// }

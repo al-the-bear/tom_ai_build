@@ -10,11 +10,9 @@ import 'models/section.dart';
 /// ## Example
 ///
 /// ```dart
-/// // Using the default factory
-/// final scanner = DocScanner();
-///
-/// // Using a custom factory
 /// class MyDocScannerFactory extends DocScannerFactory {
+///   const MyDocScannerFactory();
+///
 ///   @override
 ///   Section createSection({
 ///     required int index,
@@ -40,7 +38,10 @@ import 'models/section.dart';
 ///   }
 /// }
 ///
-/// final scanner = DocScanner(factory: MyDocScannerFactory());
+/// final doc = DocScanner.scanDocumentSync(
+///   filepath: 'guide.md',
+///   factory: const MyDocScannerFactory(),
+/// );
 /// ```
 class DocScannerFactory {
   /// Creates a new [DocScannerFactory].
