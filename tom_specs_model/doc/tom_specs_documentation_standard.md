@@ -218,6 +218,16 @@ Both are promises: a version that no longer matches the manifest, or a test
 count that no longer matches a run, is worse than an absent section, because a
 reader who checks one and finds it stale stops trusting the rest of the page.
 
+**A generated README states no test count.** It cannot keep one: the file is
+rewritten by a generator that does not run the suite, so any number in it would
+be a number nothing updates — and the promise above is exactly what a
+never-updated number breaks. In its place a generated `## Status` carries the
+version, the counts the generator does hold as facts (document roots and
+generated types, read back from the meta-data file it has just written), and
+the command that runs the package's suite. The command is the standing answer a
+fixed number was only ever standing in for. This is the one carve-out; a
+hand-written README states the count.
+
 ---
 
 ## 3 The `doc/` folder
@@ -334,6 +344,23 @@ carry it and none can lose it in a regeneration. A per-language sentence about
 the tutorial belongs on the `PackagingDescriptor`, not in the shared template
 body.
 
+That rule generalises: **every per-language nuance of a generated README is a
+descriptor field, never a branch on the language.** `renderFacadeReadme()`
+emits the whole §2 template, and the three kinds of input it needs come from
+three different places, each for a reason:
+
+| Input | Source | Why there |
+|-------|--------|-----------|
+| Anything the same in all nine (the §2.2 blockquote, "Where this fits", the architecture and ecosystem diagrams, the cross-link block) | The shared template body | One copy, so a wording fix lands in nine files at once. |
+| Anything true of one language only (`manifestDescription`, `whereThisFitsSentence`, `tutorialSentence`, `examples`, `usageSections`, `verifyCommand`) | A `PackagingDescriptor` field | Required fields, so a tenth language cannot be registered with the section silently missing. |
+| Anything decided by the *model* (the document-roots table, the generated-type count) | Read back from the emitted `meta/spec_model.meta.json` | These are not per-language facts. Nine hand-kept copies would be nine things to keep current, and drift would read as a README describing a model its package no longer implements. |
+
+The descriptor fields are held to their targets by `packaging_test.dart`, which
+checks each listed example file exists and each `manifestDescription` still
+occurs in the manifest it names — so a renamed sample or a reworded manifest
+fails a test rather than leaving a dead link or a false claim on a registry
+page.
+
 ---
 
 ## 5 The API reference
@@ -445,7 +472,7 @@ noted as not applicable.
 - [ ] All links relative; all links resolve
 - [ ] Every `§` citation resolves; `check_section_citations.dart` passes (nine READMEs are in its corpus — `defaultCitedReadmes`)
 - [ ] Content the package's own tests hold is unchanged — grep `test/` for `README` before reshaping any table or list. Two are known: `tom_specs_clitool`'s `bin/` table (`entrypoint_options_test.dart`) and every public declaration of `tom_core_codespecs` (`gap_class_inventory_test.dart`); grep rather than trust the list
-- [ ] `## Status` version matches the manifest and test count matches a run
+- [ ] `## Status` version matches the manifest and test count matches a run — or, for a generated README, carries the verify command in place of a count (§2.5)
 
 **`doc/` folder**
 

@@ -6,7 +6,7 @@
 
 ## Quick start
 
-Add `tom_som_go_v0` to your module (`go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@v1.0.0`), then:
+Add `tom_som_go_v0` to your module (`go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@v1.1.0`), then:
 
 ```go
 import (
@@ -36,18 +36,18 @@ fmt.Println(blueprint.Content())
 Fetch the facade at a version tag (it pulls in `tom_som_go_runtime`):
 
 ```bash
-go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@vVERSION
+go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@v1.1.0
 ```
 
 or pin it in your `go.mod`:
 
 ```
-require github.com/al-the-bear/tom_ai_build/tom_som_go_v0 vVERSION
+require github.com/al-the-bear/tom_ai_build/tom_som_go_v0 v1.1.0
 ```
 
 ### Version tags
 
-Go has no central registry — a module version *is* a VCS tag. Both `tom_som_go_runtime` and `tom_som_go_v0` are tagged `vMAJOR.MINOR.PATCH` at the TomSpecs model version (currently `vVERSION`), matching the in-source `Version` constant each module exports. Fetch a specific version with `go get <module-path>@vMAJOR.MINOR.PATCH`.
+Go has no central registry — a module version *is* a VCS tag. Both `tom_som_go_runtime` and `tom_som_go_v0` are tagged `vMAJOR.MINOR.PATCH` at the TomSpecs model version (currently `v1.1.0`), matching the in-source `Version` constant each module exports. Fetch a specific version with `go get <module-path>@vMAJOR.MINOR.PATCH`.
 
 ### Path replace (monorepo / vendored)
 
@@ -73,3 +73,14 @@ dart run tom_specs_clitool/bin/generate_som.dart
 cd tom_som_go_runtime && go build ./... && go vet ./...
 cd ../tom_som_go_v0 && go build ./... && go vet ./...
 ```
+
+## Further documentation
+
+| Document | Covers |
+|----------|--------|
+| [README.md](README.md) | What this package is, its document roots, and how to use them. |
+| [doc/tutorial.md](doc/tutorial.md) | A Go walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown. |
+| [examples/README.md](examples/README.md) | The runnable samples. |
+| [tom_specs_model/doc/som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The SOM authority: the model, the formats, and `SOM §17` — the packaging rules this guide implements. |
+| [tom_specs_model/doc/index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document. |
+| [tom_som_go_runtime](../tom_som_go_runtime) | The generic runtime this facade depends on. |

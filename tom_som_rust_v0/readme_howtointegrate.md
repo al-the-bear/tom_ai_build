@@ -41,7 +41,7 @@ or pin it in your `Cargo.toml`:
 
 ```toml
 [dependencies]
-tom_som_rust_v0 = "VERSION"
+tom_som_rust_v0 = "1.1.0"
 ```
 
 ### Git dependency
@@ -61,7 +61,7 @@ When the SOM crates sit alongside your crate, depend by path (the facade already
 
 ```toml
 [dependencies]
-tom_som_rust_v0 = { path = "../tom_som_rust_v0", version = "VERSION" }
+tom_som_rust_v0 = { path = "../tom_som_rust_v0", version = "1.1.0" }
 ```
 
 ## Pinning the version
@@ -79,3 +79,14 @@ cd ../tom_som_rust_v0 && cargo build
 ```
 
 The runtime `cargo package`s standalone. The facade depends on the `publish = false` runtime, and `cargo package` requires every dependency to resolve from a registry — so the facade is packaged only when the runtime is available in one (e.g. a private registry / workspace publish). Locally the facade builds against the runtime by path, which is the correctness check.
+
+## Further documentation
+
+| Document | Covers |
+|----------|--------|
+| [README.md](README.md) | What this package is, its document roots, and how to use them. |
+| [doc/tutorial.md](doc/tutorial.md) | A Rust walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown. |
+| [examples/README.md](examples/README.md) | The runnable samples. |
+| [tom_specs_model/doc/som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The SOM authority: the model, the formats, and `SOM §17` — the packaging rules this guide implements. |
+| [tom_specs_model/doc/index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document. |
+| [tom_som_rust_runtime](../tom_som_rust_runtime) | The generic runtime this facade depends on. |

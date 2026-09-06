@@ -38,7 +38,7 @@ or pin it explicitly in `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_som_dart_v0: ^VERSION
+  tom_som_dart_v0: ^1.1.0
 ```
 
 ### Git dependency
@@ -75,3 +75,14 @@ Regenerate the facade and dry-run the package from the workspace:
 dart run tom_specs_clitool/bin/generate_som.dart
 cd tom_som_dart_v0 && dart pub get && dart pub publish --dry-run
 ```
+
+## Further documentation
+
+| Document | Covers |
+|----------|--------|
+| [README.md](README.md) | What this package is, its document roots, and how to use them. |
+| [doc/tutorial.md](doc/tutorial.md) | A Dart walkthrough end to end — add the dependency, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown. |
+| [example/README.md](example/README.md) | The runnable samples. |
+| [tom_specs_model/doc/som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The SOM authority: the model, the formats, and `SOM §17` — the packaging rules this guide implements. |
+| [tom_specs_model/doc/index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document. |
+| [tom_som_dart_runtime](../tom_som_dart_runtime) | The generic runtime this facade depends on. |

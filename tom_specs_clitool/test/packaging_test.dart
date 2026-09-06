@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 import 'package:test/test.dart';
 
@@ -20,7 +23,52 @@ PackagingDescriptor _sampleDescriptor() => const PackagingDescriptor(
       buildArtifactIgnores: ['.dart_tool/', 'doc/api/'],
       runtimeManifestFileName: 'pubspec.yaml',
       runtimeManifestFormat: ManifestFormat.pubspec,
+      manifestDescription: 'A sample facade.',
+      manifestDescriptionFile: 'pubspec.yaml',
+      whereThisFitsSentence: 'Dart is the reference plane.',
+      tutorialSentence: 'A Dart walkthrough end to end.',
+      exampleDirName: 'example',
+      examples: [
+        PackagingExample(
+          file: 'a_typed_access.dart',
+          demonstrates: 'The generated typed facade.',
+        ),
+      ],
+      usageSections: [
+        PackagingUsage(
+          heading: 'The generic store underneath',
+          intro: 'A facade is a view; the document is the value.',
+          snippet: 'final doc = SpecDocument();',
+        ),
+      ],
+      verifyCommand: 'dart test',
     );
+
+/// A minimal generated surface for the renderer tests — two roots, standing in
+/// for the fourteen a real `meta/spec_model.meta.json` carries.
+FacadeSurface _sampleSurface() => const FacadeSurface(
+      classCount: 1254,
+      roots: [
+        FacadeDocumentRoot(
+          type: 'D00SolutionBlueprint',
+          sectionId: 'SBP',
+          title: 'Solution Blueprint',
+        ),
+        FacadeDocumentRoot(
+          type: 'D01CurrentLandscapeAssessment',
+          sectionId: 'CLA',
+          title: 'Current Landscape Assessment',
+        ),
+      ],
+    );
+
+/// The workspace's `tom_ai/ai_build` directory, which holds every SOM package
+/// beside this one. `null` when the test runs outside a checkout of the
+/// repository, in which case the tree-reading tests skip rather than fail.
+Directory? _aiBuildDir() {
+  final dir = Directory(p.normalize(p.join(Directory.current.path, '..')));
+  return dir.existsSync() ? dir : null;
+}
 
 void main() {
   group('packageVersionFromModel (SOM §17)', () {
@@ -104,17 +152,186 @@ void main() {
     });
   });
 
-  group('renderFacadeReadme (SOM §17)', () {
-    test('leads with the how-to block and the version', () {
-      final md = renderFacadeReadme(_sampleDescriptor(), version: '1.0.0');
-      expect(md, startsWith('# tom_som_dart_v0'));
+  group('renderFacadeReadme — the §2 template (SOM §17)', () {
+    String render() => renderFacadeReadme(
+          _sampleDescriptor(),
+          version: '1.0.0',
+          surface: _sampleSurface(),
+        );
+
+    test('emits the §2.1 sections in order, and no others', () {
+      final headings = [
+        for (final line in render().split('\n'))
+          if (line.startsWith('## ')) line.substring(3),
+      ];
+      expect(headings, [
+        'Where this fits',
+        'Overview',
+        'Installation',
+        'Features',
+        'Quick start',
+        'Examples',
+        'Usage',
+        'Architecture',
+        'Ecosystem',
+        'Further documentation',
+        'Status',
+      ]);
+    });
+
+    test('title, banner and the §2.2 cross-references blockquote lead', () {
+      final md = render();
+      expect(md, startsWith('# tom_som_dart_v0 — typed TomSpecs object model'));
       expect(md, contains('do not edit by hand'));
-      expect(md, contains('## How to use'));
+      expect(md, contains('> **Cross-references.**'));
+      // The §1.2 boundary sentence closes the blockquote.
+      expect(md, contains('nothing here restates them.'));
+    });
+
+    test('the one-line description is the manifest description verbatim', () {
+      expect(render(), contains('\nA sample facade.\n'));
+    });
+
+    test('the document-roots table is the surface, not a hand-kept copy', () {
+      final md = render();
+      expect(md, contains('| `SBP` | Solution Blueprint | `D00SolutionBlueprint` |'));
+      expect(md, contains('| `CLA` | Current Landscape Assessment | '
+          '`D01CurrentLandscapeAssessment` |'));
+      expect(md, contains('1254 generated types'));
+    });
+
+    test('the §4.2 tutorial link is emitted with its per-language sentence', () {
+      final md = render();
+      expect(md, contains('[doc/tutorial.md](doc/tutorial.md)'));
+      expect(md, contains('A Dart walkthrough end to end.'));
+    });
+
+    test('the §2.4 cross-link block has all three parts and links index.md', () {
+      final md = render();
+      expect(md, contains('**TomSpecs subject matter**'));
+      expect(md, contains('**This package**'));
+      expect(md, contains('**Siblings**'));
+      expect(md, contains('](../tom_specs_model/doc/index.md)'));
+      expect(md, contains('](../tom_som_dart_runtime)'));
+    });
+
+    test('quick start, examples and usage carry the descriptor content', () {
+      final md = render();
       expect(md, contains('Add `tom_som_dart_v0`'));
-      expect(md, contains('(v1.0.0)'));
       expect(md, contains('```dart'));
+      expect(md, contains('[`a_typed_access.dart`](example/a_typed_access.dart)'));
+      expect(md, contains('### The generic store underneath'));
       expect(md, contains('readme_howtointegrate.md'));
     });
+
+    test('Status carries the lockstep version and the verify command', () {
+      final md = render();
+      expect(md, contains('Version **1.0.0**'));
+      expect(md, contains('dart test'));
+      // A generated file states no fixed test count — see the §2.5 carve-out.
+      expect(md, isNot(contains('tests passed')));
+    });
+
+    test('no emitted document keeps the VERSION placeholder', () {
+      const withPlaceholder = PackagingRoute(
+        heading: 'From pub.dev',
+        body: 'tom_som_dart_v0: ^VERSION',
+      );
+      final md = renderFacadeReadme(
+        const PackagingDescriptor(
+          language: SomLanguage.dart,
+          displayName: 'Dart',
+          runtimePackageName: 'tom_som_dart_runtime',
+          facadePackageName: 'tom_som_dart_v0',
+          codeFence: 'dart',
+          installShort: 'Pin `^VERSION`, then:',
+          usageSnippet: 'final doc = SpecDocument();',
+          integrateRoutes: [withPlaceholder],
+          buildFromSource: 'dart pub publish --dry-run',
+          buildArtifactIgnores: ['.dart_tool/'],
+          runtimeManifestFileName: 'pubspec.yaml',
+          runtimeManifestFormat: ManifestFormat.pubspec,
+          manifestDescription: 'A sample facade.',
+          manifestDescriptionFile: 'pubspec.yaml',
+          whereThisFitsSentence: 'Dart is the reference plane.',
+          tutorialSentence: 'A Dart walkthrough.',
+          exampleDirName: 'example',
+          examples: [],
+          usageSections: [],
+          verifyCommand: 'dart test',
+        ),
+        version: '1.0.0',
+        surface: _sampleSurface(),
+      );
+      expect(md, contains('tom_som_dart_v0: ^1.0.0'));
+      expect(md, isNot(contains('VERSION')));
+    });
+  });
+
+  group('every registered descriptor carries the §2 template inputs', () {
+    for (final lang in SomLanguage.values) {
+      final d = packagingDescriptorFor(lang);
+      if (d == null) continue;
+
+      test('${lang.slug}: the mandatory per-language sentences are present', () {
+        // §4.2: the tutorial link is emitted from the template, so a tenth
+        // language cannot be registered without a sentence describing its
+        // tutorial. Same for the §2.1 row 3 description and the §2.3 closer.
+        expect(d.tutorialSentence, isNotEmpty);
+        expect(d.manifestDescription, isNotEmpty);
+        expect(d.manifestDescriptionFile, isNotEmpty);
+        expect(d.whereThisFitsSentence, isNotEmpty);
+        expect(d.verifyCommand, isNotEmpty);
+        expect(d.exampleDirName, anyOf('example', 'examples'));
+        expect(d.examples, isNotEmpty);
+        expect(d.usageSections, isNotEmpty);
+        for (final usage in d.usageSections) {
+          expect(usage.heading, isNotEmpty);
+          expect(usage.intro, isNotEmpty);
+          expect(usage.snippet.trim(), isNotEmpty);
+        }
+      });
+
+      test('${lang.slug}: every listed example file exists', () {
+        final root = _aiBuildDir();
+        if (root == null) return;
+        final dir = Directory(
+            p.join(root.path, d.facadePackageName, d.exampleDirName));
+        if (!dir.existsSync()) {
+          fail('examples directory not found: ${dir.path}');
+        }
+        for (final example in d.examples) {
+          final entry = p.join(dir.path, example.file);
+          expect(
+            File(entry).existsSync() || Directory(entry).existsSync(),
+            isTrue,
+            reason: 'README Examples table names a sample that does not '
+                'exist: $entry',
+          );
+        }
+      });
+
+      test('${lang.slug}: the manifest still carries the README description',
+          () {
+        final root = _aiBuildDir();
+        if (root == null) return;
+        final file = File(p.join(
+            root.path, d.facadePackageName, d.manifestDescriptionFile));
+        if (!file.existsSync()) {
+          fail('manifest not found: ${file.path}');
+        }
+        // Whitespace-insensitive: pubspec wraps its description across lines,
+        // so the comparison is of words, not of line breaks.
+        String flat(String t) => t.replaceAll(RegExp(r'\s+'), ' ').trim();
+        expect(
+          flat(file.readAsStringSync()),
+          contains(flat(d.manifestDescription)),
+          reason: 'the README one-line description must match '
+              '${d.manifestDescriptionFile} word for word '
+              '(tom_specs_documentation_standard.md §2.1 row 3)',
+        );
+      });
+    }
   });
 
   group('renderHowToIntegrate (SOM §17)', () {
@@ -127,6 +344,12 @@ void main() {
       expect(md, contains('`1.0.0`'));
       expect(md, contains('## Building from source'));
       expect(md, contains('dart pub publish --dry-run'));
+      // The outbound links tsdoc7 added — the guide is reachable in both
+      // directions and points at the subject-matter authority.
+      expect(md, contains('## Further documentation'));
+      expect(md, contains('[README.md](README.md)'));
+      expect(md, contains('[doc/tutorial.md](doc/tutorial.md)'));
+      expect(md, contains('som_multiplatform_spec_model.md'));
     });
   });
 

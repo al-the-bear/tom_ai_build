@@ -43,15 +43,15 @@ make install
 c++ myapp.cpp $(pkg-config --cflags --libs tom_som_cpp_v0) -o myapp
 ```
 
-The facade `.pc` declares `Requires: tom_som_cpp_runtime`, so a single `pkg-config tom_som_cpp_v0` pulls in the runtime flags too. Both `.pc` files report `Version VERSION`.
+The facade `.pc` declares `Requires: tom_som_cpp_runtime`, so a single `pkg-config tom_som_cpp_v0` pulls in the runtime flags too. Both `.pc` files report `Version 1.1.0`.
 
 ### Source tarball (vendored)
 
 Produce versioned source tarballs and vendor them into your build:
 
 ```bash
-make -C ../tom_som_cpp_runtime dist   # tom_som_cpp_runtime-VERSION.tar.gz
-make dist                             # tom_som_cpp_v0-VERSION.tar.gz
+make -C ../tom_som_cpp_runtime dist   # tom_som_cpp_runtime-1.1.0.tar.gz
+make dist                             # tom_som_cpp_v0-1.1.0.tar.gz
 ```
 
 Unpack both alongside your project and add each `include/` to your include path plus the built libraries to your link line.
@@ -82,3 +82,14 @@ cd ../tom_som_cpp_v0 && make && make dist
 ```
 
 Each `make` builds the static + shared library and the pkg-config file; each `make dist` writes `build/<name>-<version>.tar.gz`.
+
+## Further documentation
+
+| Document | Covers |
+|----------|--------|
+| [README.md](README.md) | What this package is, its document roots, and how to use them. |
+| [doc/tutorial.md](doc/tutorial.md) | A C++ walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown. |
+| [examples/README.md](examples/README.md) | The runnable samples. |
+| [tom_specs_model/doc/som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The SOM authority: the model, the formats, and `SOM §17` — the packaging rules this guide implements. |
+| [tom_specs_model/doc/index.md](../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs subject-matter document. |
+| [tom_som_cpp_runtime](../tom_som_cpp_runtime) | The generic runtime this facade depends on. |
