@@ -66,7 +66,9 @@ export 'src/section_citations.dart'
         somDocument,
         defaultCitedReadmes,
         defaultCitedSourceRoots,
+        defaultCitedDocFolders,
         listDartSources,
+        listMarkdownSources,
         dartDocComments,
         SectionHeading,
         DocumentSections,
@@ -84,6 +86,10 @@ export 'src/section_citations.dart'
 // source, so a citation that resolves to no register row fails here rather than
 // promising a referent that does not exist. One direction only — see the
 // library doc.
+// The gate over the gates: a file that cites the doc set but that no default
+// scan set reaches is ungated, and nothing else says so.
+export 'src/scan_set_coverage.dart'
+    show ScanSetGap, findScanSetGaps, tomSpecsPackageRoots;
 export 'src/oe_citations.dart'
     show
         oeIdPattern,

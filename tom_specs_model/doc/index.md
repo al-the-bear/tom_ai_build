@@ -189,8 +189,47 @@ Two subjects this folder uses but does not own:
 | Where | Authority for |
 |-------|---------------|
 | [`_ai/quests/doc_specs/doc_specs_specification.md`](../../../../_ai/quests/doc_specs/doc_specs_specification.md) | The DocSpecs format itself — schemas, section types, validation. |
-| Per-project `README.md` files and `doc/` folders | Per-project usage: [`tom_specs_core`](../../tom_specs_core/README.md) (the annotation catalogue), [`tom_specs_clitool`](../../tom_specs_clitool/README.md) (CLI usage), `tom_code_specs`, `tom_core_codespecs`, [`tom_som_conformance`](../../tom_som_conformance) (the harness), and the nine `tom_som_*_v0` / `tom_som_*_runtime` pairs. Their shape is decided by [tom_specs_documentation_standard.md](tom_specs_documentation_standard.md); their content is decided by each package. |
+| Per-package `README.md` files and `doc/` folders | Per-package usage — how to use *that package's code*. Their shape is decided by [tom_specs_documentation_standard.md](tom_specs_documentation_standard.md); their content is decided by each package. **Every one is linked below**, so a reader reaches any package's documentation from here in one hop. |
 | [`package/index.md`](package/index.md) | **This package's own package-tier documentation** — authoring a model class in Dart, the container root and its fourteen entry points, and the snapshot/serialization engine. It lives in a subfolder of this one because `tom_specs_model` is the only package whose `doc/` hosts both tiers ([tom_specs_documentation_standard.md](tom_specs_documentation_standard.md) §3.1); its API summaries are in [`api/`](api/api_summary_index.md). |
+
+### The package tier, package by package
+
+`tom_specs_documentation_standard.md` owns the *shape* of these; the table is
+here so this index is a complete map of TomSpecs documentation rather than of
+half of it. A reader who lands on this page looking for "how do I use X" is one
+click away from it.
+
+| Package | Its `doc/` | Covers |
+|---------|-----------|--------|
+| [`tom_specs_core`](../../tom_specs_core/README.md) | [`doc/`](../../tom_specs_core/doc/index.md) | The annotation vocabulary and the section base types |
+| [`tom_specs_model`](../../tom_specs_model/README.md) | [`doc/package/`](package/index.md) | Authoring a model class, the container root and its fourteen entry points, snapshot and serialization |
+| [`tom_code_specs`](../../tom_code_specs/README.md) | [`doc/`](../../tom_code_specs/doc/index.md) | The `Cs*` marker family, the typed cross-part references, the closed catalogues |
+| [`tom_core_codespecs`](../../../core/tom_core_codespecs/README.md) | [`doc/`](../../../core/tom_core_codespecs/doc/index.md) | The concrete `tom_core`-family gap classes a CodeSpec is built on |
+| [`tom_specs_clitool`](../../tom_specs_clitool/README.md) | [`doc/`](../../tom_specs_clitool/doc/index.md) | Generating, inspecting the model, and running the gates |
+| [`tom_spec_engine`](../../tom_spec_engine/README.md) | [`doc/`](../../tom_spec_engine/doc/index.md) | The D4rt scripting plane: scopes, search, memory, the tool surface |
+| [`tom_som_conformance`](../../tom_som_conformance/README.md) | [`doc/`](../../tom_som_conformance/doc/index.md) | Running the cross-language harness and reading a failure |
+| [`tom_specs_reviewer`](../../tom_specs_reviewer/README.md) | [`doc/review_workflow.md`](../../tom_specs_reviewer/doc/review_workflow.md) | Reviewing the object model — the workflow, one file |
+| [`tom_specs_editor`](../../../../tom_forge/tom_specs_editor/README.md) | *(none — by design)* | Out of scope for the package tier; [tom_specs_editor_specification.md](tom_specs_editor_specification.md) is the documentation a reader needs ([tom_specs_documentation_standard.md](tom_specs_documentation_standard.md) §6) |
+| [`tom_doc_scanner`](../../tom_doc_scanner/README.md) | *(README only)* | The markdown parser TomSpecs builds on |
+| [`tom_doc_specs`](../../tom_doc_specs/README.md) | *(README only)* | Schema validation over the document trees |
+| [`tom_som_dart_runtime`](../../tom_som_dart_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_dart_runtime/doc/index.md) | The generic, reflective access path in dart |
+| [`tom_som_dart_v0`](../../tom_som_dart_v0/README.md) | [`doc/tutorial.md`](../../tom_som_dart_v0/doc/index.md) | The typed access path in dart, end to end |
+| [`tom_som_python_runtime`](../../tom_som_python_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_python_runtime/doc/index.md) | The generic, reflective access path in python |
+| [`tom_som_python_v0`](../../tom_som_python_v0/README.md) | [`doc/tutorial.md`](../../tom_som_python_v0/doc/index.md) | The typed access path in python, end to end |
+| [`tom_som_javascript_runtime`](../../tom_som_javascript_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_javascript_runtime/doc/index.md) | The generic, reflective access path in javascript |
+| [`tom_som_javascript_v0`](../../tom_som_javascript_v0/README.md) | [`doc/tutorial.md`](../../tom_som_javascript_v0/doc/index.md) | The typed access path in javascript, end to end |
+| [`tom_som_typescript_runtime`](../../tom_som_typescript_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_typescript_runtime/doc/index.md) | The generic, reflective access path in typescript |
+| [`tom_som_typescript_v0`](../../tom_som_typescript_v0/README.md) | [`doc/tutorial.md`](../../tom_som_typescript_v0/doc/index.md) | The typed access path in typescript, end to end |
+| [`tom_som_go_runtime`](../../tom_som_go_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_go_runtime/doc/index.md) | The generic, reflective access path in go |
+| [`tom_som_go_v0`](../../tom_som_go_v0/README.md) | [`doc/tutorial.md`](../../tom_som_go_v0/doc/index.md) | The typed access path in go, end to end |
+| [`tom_som_rust_runtime`](../../tom_som_rust_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_rust_runtime/doc/index.md) | The generic, reflective access path in rust |
+| [`tom_som_rust_v0`](../../tom_som_rust_v0/README.md) | [`doc/tutorial.md`](../../tom_som_rust_v0/doc/index.md) | The typed access path in rust, end to end |
+| [`tom_som_java_runtime`](../../tom_som_java_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_java_runtime/doc/index.md) | The generic, reflective access path in java |
+| [`tom_som_java_v0`](../../tom_som_java_v0/README.md) | [`doc/tutorial.md`](../../tom_som_java_v0/doc/index.md) | The typed access path in java, end to end |
+| [`tom_som_c_runtime`](../../tom_som_c_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_c_runtime/doc/index.md) | The generic, reflective access path in c |
+| [`tom_som_c_v0`](../../tom_som_c_v0/README.md) | [`doc/tutorial.md`](../../tom_som_c_v0/doc/index.md) | The typed access path in c, end to end |
+| [`tom_som_cpp_runtime`](../../tom_som_cpp_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_cpp_runtime/doc/index.md) | The generic, reflective access path in cpp |
+| [`tom_som_cpp_v0`](../../tom_som_cpp_v0/README.md) | [`doc/tutorial.md`](../../tom_som_cpp_v0/doc/index.md) | The typed access path in cpp, end to end |
 
 ## Generated documentation
 

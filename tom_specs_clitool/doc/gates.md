@@ -185,8 +185,8 @@ sweeping the workspace:
 
 | Gate | Default corpus | Where |
 |------|---------------|-------|
-| Section citations | The doc folder + the project READMEs that cite it + the Dart doc comments of the TomSpecs source trees | `defaultCitedReadmes`, `defaultCitedSourceRoots` |
-| Todo citations | The doc folder + the same READMEs | `defaultCitedReadmes` |
+| Section citations | The doc folder + every TomSpecs README + every package `doc/` folder + the Dart doc comments of the citing source trees | `defaultCitedReadmes`, `defaultCitedDocFolders`, `defaultCitedSourceRoots` |
+| Todo citations | The doc folder + the same READMEs + the same `doc/` folders | `defaultCitedReadmes`, `defaultCitedDocFolders` |
 | OE citations | The editor project + the doc folder + the quest bookkeeping | `defaultCitingRoots` |
 
 The consequence to know: **a newly documented package that cites `§` sections is

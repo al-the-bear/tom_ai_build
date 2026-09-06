@@ -38,6 +38,15 @@ Future<void> main(List<String> arguments) async {
         defaultsTo: true,
         help: 'Also scan the project READMEs that cite the doc set.')
     ..addMultiOption(
+      'doc-folder',
+      help: 'Additional package `doc/` folder whose `*.md` files are scanned, '
+          'recursively. Repeatable. Defaults to the package doc folders that '
+          'cite the doc set; pass --no-default-doc-folders to drop them.',
+    )
+    ..addFlag('default-doc-folders',
+        defaultsTo: true,
+        help: 'Also scan the package `doc/` folders that cite the doc set.')
+    ..addMultiOption(
       'source',
       help: 'Additional Dart file — or a directory of them — whose `///` '
           'comments are scanned. Repeatable. Defaults to the CodeSpecs source '
@@ -81,6 +90,11 @@ Future<void> main(List<String> arguments) async {
         if (results.flag('default-readmes'))
           for (final readme in defaultCitedReadmes)
             p.normalize(p.join(containerRoot, readme)),
+        if (results.flag('default-doc-folders'))
+          for (final root in defaultCitedDocFolders)
+            ...listMarkdownSources(p.normalize(p.join(containerRoot, root))),
+        for (final root in results.multiOption('doc-folder'))
+          ...listMarkdownSources(p.normalize(p.absolute(root))),
         for (final path in results.multiOption('extra'))
           p.normalize(p.absolute(path)),
       ],

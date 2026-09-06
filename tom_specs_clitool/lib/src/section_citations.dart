@@ -279,8 +279,84 @@ const defaultCitedReadmes = [
   'tom_ai/ai_build/tom_specs_clitool/README.md',
   'tom_ai/ai_build/tom_specs_core/README.md',
   'tom_ai/ai_build/tom_specs_model/README.md',
+  'tom_ai/ai_build/tom_specs_reviewer/README.md',
   'tom_ai/ai_build/tom_som_conformance/README.md',
   'tom_ai/core/tom_core_codespecs/README.md',
+  'tom_forge/tom_specs_editor/README.md',
+  // The eighteen SOM language packages. The nine `_v0` READMEs are
+  // **generated** by `packaging.dart`'s `renderFacadeReadme`, which is why they
+  // are gated as a set: a citation broken there is broken in nine files at once
+  // and is fixed in the emitter, never in the output.
+  'tom_ai/ai_build/tom_som_dart_runtime/README.md',
+  'tom_ai/ai_build/tom_som_dart_v0/README.md',
+  'tom_ai/ai_build/tom_som_python_runtime/README.md',
+  'tom_ai/ai_build/tom_som_python_v0/README.md',
+  'tom_ai/ai_build/tom_som_javascript_runtime/README.md',
+  'tom_ai/ai_build/tom_som_javascript_v0/README.md',
+  'tom_ai/ai_build/tom_som_typescript_runtime/README.md',
+  'tom_ai/ai_build/tom_som_typescript_v0/README.md',
+  'tom_ai/ai_build/tom_som_go_runtime/README.md',
+  'tom_ai/ai_build/tom_som_go_v0/README.md',
+  'tom_ai/ai_build/tom_som_rust_runtime/README.md',
+  'tom_ai/ai_build/tom_som_rust_v0/README.md',
+  'tom_ai/ai_build/tom_som_java_runtime/README.md',
+  'tom_ai/ai_build/tom_som_java_v0/README.md',
+  'tom_ai/ai_build/tom_som_c_runtime/README.md',
+  'tom_ai/ai_build/tom_som_c_v0/README.md',
+  'tom_ai/ai_build/tom_som_cpp_runtime/README.md',
+  'tom_ai/ai_build/tom_som_cpp_v0/README.md',
+];
+
+/// The **package-tier `doc/` folders** that cite the doc set,
+/// container-root-relative.
+///
+/// The third scan set, and the one the tsdoc series made necessary: every
+/// package now carries its own `doc/` folder, and those files cite the
+/// subject-matter documents as densely as the READMEs above them — a package
+/// guide's whole job is to state its own API and *cite* the authority for
+/// everything else (`tom_specs_documentation_standard.md` §1.2). Until they
+/// were listed here they were held by no gate at all.
+///
+/// **Roots are enumerated; files beneath them are discovered**, the same split
+/// [defaultCitedSourceRoots] uses and for the same two reasons: an enumerated
+/// root keeps the gate's subject coherent, and discovery means a guide added
+/// tomorrow is gated the day it is written rather than the day someone
+/// remembers to list it. [listMarkdownSources] does the discovery, and excludes
+/// the generated `doc/api/reference/` tree.
+///
+/// `tom_specs_model/doc` is deliberately **absent**: it is the doc folder
+/// itself, already the gate's corpus. Its two package-tier subfolders are named
+/// instead — `doc/package` and `doc/api` — because `SectionCorpus.loadFolder`
+/// reads only the files directly inside the folder it is given, so a subfolder
+/// of the corpus is not in the corpus.
+const defaultCitedDocFolders = [
+  'tom_ai/ai_build/tom_code_specs/doc',
+  'tom_ai/ai_build/tom_spec_engine/doc',
+  'tom_ai/ai_build/tom_som_conformance/doc',
+  'tom_ai/ai_build/tom_specs_clitool/doc',
+  'tom_ai/ai_build/tom_specs_core/doc',
+  'tom_ai/ai_build/tom_specs_model/doc/api',
+  'tom_ai/ai_build/tom_specs_model/doc/package',
+  'tom_ai/ai_build/tom_specs_reviewer/doc',
+  'tom_ai/core/tom_core_codespecs/doc',
+  'tom_ai/ai_build/tom_som_dart_runtime/doc',
+  'tom_ai/ai_build/tom_som_dart_v0/doc',
+  'tom_ai/ai_build/tom_som_python_runtime/doc',
+  'tom_ai/ai_build/tom_som_python_v0/doc',
+  'tom_ai/ai_build/tom_som_javascript_runtime/doc',
+  'tom_ai/ai_build/tom_som_javascript_v0/doc',
+  'tom_ai/ai_build/tom_som_typescript_runtime/doc',
+  'tom_ai/ai_build/tom_som_typescript_v0/doc',
+  'tom_ai/ai_build/tom_som_go_runtime/doc',
+  'tom_ai/ai_build/tom_som_go_v0/doc',
+  'tom_ai/ai_build/tom_som_rust_runtime/doc',
+  'tom_ai/ai_build/tom_som_rust_v0/doc',
+  'tom_ai/ai_build/tom_som_java_runtime/doc',
+  'tom_ai/ai_build/tom_som_java_v0/doc',
+  'tom_ai/ai_build/tom_som_c_runtime/doc',
+  'tom_ai/ai_build/tom_som_c_v0/doc',
+  'tom_ai/ai_build/tom_som_cpp_runtime/doc',
+  'tom_ai/ai_build/tom_som_cpp_v0/doc',
 ];
 
 /// The source trees whose doc comments cite the doc set,
@@ -309,10 +385,14 @@ const defaultCitedReadmes = [
 const defaultCitedSourceRoots = [
   'tom_ai/ai_build/tom_code_specs/lib',
   'tom_ai/ai_build/tom_spec_engine/lib',
+  'tom_ai/ai_build/tom_som_dart_runtime/lib',
+  'tom_ai/ai_build/tom_som_dart_v0/lib',
   'tom_ai/ai_build/tom_specs_clitool/lib',
   'tom_ai/ai_build/tom_specs_core/lib',
   'tom_ai/ai_build/tom_specs_model/lib',
+  'tom_ai/ai_build/tom_specs_reviewer/lib',
   'tom_ai/core/tom_core_codespecs/lib',
+  'tom_forge/tom_specs_editor/lib',
 ];
 
 /// Every `.dart` file under [root], recursively, in path order.
@@ -324,6 +404,31 @@ List<String> listDartSources(String root) {
       .whereType<File>()
       .map((f) => f.path)
       .where((path) => p.extension(path) == '.dart')
+      .toList()
+    ..sort();
+}
+
+/// Every `*.md` beneath [root], recursively, sorted — the markdown twin of
+/// [listDartSources].
+///
+/// **`doc/api/reference/` is excluded.** That tree is the *generated* API
+/// reference (`tom_specs_documentation_standard.md` §5), it is gitignored, and
+/// two of the generators emit markdown into it — typedoc writes a
+/// `media/index.md` per package. Scanning it would hold a generated artefact to
+/// a convention its generator has never heard of, and would report violations
+/// that regenerate straight back.
+///
+/// Returns the empty list for a root that does not exist, so a scan set may
+/// name a package that is not checked out.
+List<String> listMarkdownSources(String root) {
+  final dir = Directory(root);
+  if (!dir.existsSync()) return const [];
+  return dir
+      .listSync(recursive: true)
+      .whereType<File>()
+      .map((f) => f.path)
+      .where((path) => p.extension(path) == '.md')
+      .where((path) => !p.split(path).contains('reference'))
       .toList()
     ..sort();
 }

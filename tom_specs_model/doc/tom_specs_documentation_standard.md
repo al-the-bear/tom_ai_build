@@ -505,7 +505,7 @@ noted as not applicable.
 - [ ] Ecosystem diagram places the package among its real siblings
 - [ ] Further-documentation table has all three parts (§2.4) and links `index.md`
 - [ ] All links relative; all links resolve
-- [ ] Every `§` citation resolves; `check_section_citations.dart` passes (nine READMEs are in its corpus — `defaultCitedReadmes`)
+- [ ] Every `§` citation resolves; `check_section_citations.dart` passes. Its default corpus is **closed over the package tier**: every TomSpecs README (`defaultCitedReadmes`), every package `doc/` folder (`defaultCitedDocFolders`) and every citing source tree (`defaultCitedSourceRoots`). A newly documented package is gated the moment its folder is added to that list, and not before
 - [ ] Content the package's own tests hold is unchanged — grep `test/` for `README` before reshaping any table or list. Two are known: `tom_specs_clitool`'s `bin/` table (`entrypoint_options_test.dart`) and every public declaration of `tom_core_codespecs` (`gap_class_inventory_test.dart`); grep rather than trust the list
 - [ ] `## Status` version matches the manifest and test count matches a run — or, for a generated README, carries the verify command in place of a count (§2.5)
 

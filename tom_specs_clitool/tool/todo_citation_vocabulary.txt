@@ -25,3 +25,10 @@ sqlite3_flutter_libs          # a pub.dev package
 sqlite3_load_extension        # SQLite C API
 sqlite3_vec_init              # the sqlite-vec entry point
 vec0                          # the sqlite-vec extension's virtual-table module
+csex7                         # a deliberately non-existent id, used in
+                              #   check_todo_citations' own prose to show what
+                              #   an unknown *series* reads like
+csrb99                        # likewise, a wrong *number* in a real series
+tier1                         # the lexical retrieval tier (SpecRecall)
+tier2                         # the vector retrieval tier (SpecRecall)
+utf16_units                   # a tom_som_python_runtime identifier

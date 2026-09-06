@@ -451,7 +451,7 @@ class SpecDocumentMarkdown {
   /// Emitting it is impossible: the DocSpecs markdown grammar has no spelling
   /// for a field outside the model, and omitting it would lose a stored value
   /// in a file that looks complete. On import a partial document is normal and
-  /// the codec reports-and-skips (§11.7); on export the document is complete
+  /// the codec reports-and-skips (SOM §11.7); on export the document is complete
   /// and a lossy rendering is a trap, so the codec refuses instead.
   void _checkFormDeclared(SomMetaNode node, String path) {
     final undeclared = _undeclaredFormFields(node, path);

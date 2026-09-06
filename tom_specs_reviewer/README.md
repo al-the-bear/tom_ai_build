@@ -328,6 +328,13 @@ graph, never a document (`tom_specs_reviewer_specification.md` §2.4).
 | [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) | The `CodeSpecPart` catalogue and the three routing verdicts `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` that this app records judgements against |
 | [tom_specs_editor_specification.md](../tom_specs_model/doc/tom_specs_editor_specification.md) | The *other* app — what a specification editor is, and why this one is not it |
 
+
+**This package** — its own guide:
+
+| Guide | Covers |
+|-------|--------|
+| [doc/review_workflow.md](doc/review_workflow.md) | The reviewer's path through the tool: refresh the snapshot, open a root, walk the tree, record a finding, and find the review file afterwards |
+
 **Siblings** — packages you will reach for next:
 
 | Package | What it is |

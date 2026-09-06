@@ -66,6 +66,13 @@ const defaultCitingRoots = [
   'tom_forge/tom_specs_editor/pubspec.yaml',
   'tom_forge/tom_specs_editor/buildkit.yaml',
   'tom_ai/ai_build/tom_specs_model/doc',
+  // The package-tier `doc/` folders. A package guide cites an `OE-` id for the
+  // same reason the editor's source does — to name an open end rather than
+  // silently work around it — and until the tsdoc series wrote them there was
+  // nothing here to hold. Only the folders that actually cite one are listed:
+  // the membership rule is *citing*, not *kind*.
+  'tom_ai/ai_build/tom_specs_clitool/doc',
+  'tom_ai/ai_build/tom_specs_model/README.md',
   '_ai/quests/tom_specs/deferred.tom_specs.md',
   '_ai/quests/tom_specs/overview.tom_specs.md',
 ];

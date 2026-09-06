@@ -25,18 +25,18 @@
 ///     [CodeSpecsExtractError], the `ROUTE-TOTAL` invariant
 ///     (`tom_specs_model_rules.md` §10.2) failing loudly at the one place that
 ///     depends on it.
-///   * **`@CodeSpecKind` is list-valued** (§9.1), and extracts are **not**
+///   * **`@CodeSpecKind` is list-valued** (`codespecs_mapping.md` §9.1), and extracts are **not**
 ///     deduplicated across areas: a section feeding three areas appears, whole,
 ///     in three extracts. Each area's prompt must be self-sufficient.
 ///   * **Every entry carries its provenance** — section id, class, field, the
 ///     routing marker that put it here and where that marker was declared — so
-///     the `@DocSpec`/`DocRef` back-links (§9.3) can be written from the
+///     the `@DocSpec`/`DocRef` back-links (`codespecs_mapping.md` §9.3) can be written from the
 ///     extract alone.
 ///
 /// The area catalogue ([CodeSpecsAreaCatalog]) is an **input**, not a table
 /// baked into the runtime: it is the machine-readable form of
-/// `codespecs_mapping.md` §4.1 (the parts catalogue), §4.4.3 (the emission
-/// slices) and §4.4.6 (the authoring steps), authored once and read by all nine
+/// `codespecs_mapping.md` §4.1 (the parts catalogue), `codespecs_mapping.md` §4.4.3 (the emission
+/// slices) and `codespecs_mapping.md` §4.4.6 (the authoring steps), authored once and read by all nine
 /// runtimes. Carrying it beside the content is what stops an agent having to
 /// open the mapping document to find out what `CE-FM` means.
 library;
@@ -61,7 +61,7 @@ const int kCodeSpecsExtractFormat = 3;
 
 /// The annotation names of the three routing verdicts (`codespecs_mapping.md`
 /// §8.3). All three ride the generic annotation bag in every SOM runtime
-/// (§8.4), so they are read by name rather than through a meta slot.
+/// (`codespecs_mapping.md` §8.4), so they are read by name rather than through a meta slot.
 const String kCodeSpecKindAnnotation = 'CodeSpecKind';
 
 /// See [kCodeSpecKindAnnotation].
@@ -219,13 +219,13 @@ class CodeSpecsSlice {
   /// The slice's number, 1–7.
   final int number;
 
-  /// The slice's name as §4.4.3 gives it.
+  /// The slice's name as `codespecs_mapping.md` §4.4.3 gives it.
   final String title;
 
-  /// The §4.2 project the slice emits into.
+  /// The `codespecs_mapping.md` §4.2 project the slice emits into.
   final String project;
 
-  /// The slices this one may cite — §4.4.3's across-slice edges. Transitively
+  /// The slices this one may cite — `codespecs_mapping.md` §4.4.3's across-slice edges. Transitively
   /// closed by [CodeSpecsAreaCatalog.citableAreaCodes].
   final List<int> cites;
 
@@ -244,39 +244,39 @@ class CodeSpecsSlice {
       );
 }
 
-/// One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the §4.4.3
-/// slice and §4.4.6 authoring steps that place it. This is the **per-area
+/// One row of the `codespecs_mapping.md` §4.1 parts catalogue, plus the `codespecs_mapping.md` §4.4.3
+/// slice and `codespecs_mapping.md` §4.4.6 authoring steps that place it. This is the **per-area
 /// context** an extract carries beside its content.
 class CodeSpecsArea {
   /// The permanent registry key — `CE-FM`, `CE-API`. Never reused, never
   /// renamed, and the extract file's name.
   final String code;
 
-  /// The §4.1 canonical id — the PascalCase noun (`Form`, `ServerApi`).
+  /// The `codespecs_mapping.md` §4.1 canonical id — the PascalCase noun (`Form`, `ServerApi`).
   final String canonicalId;
 
   /// The `CodeSpecPart` value, camelCase and **without** the enum prefix
   /// (`form`, `serverApi`).
   final String part;
 
-  /// The `Cs*` annotation names of the §4.1 row.
+  /// The `Cs*` annotation names of the `codespecs_mapping.md` §4.1 row.
   final List<String> annotations;
 
-  /// The §4.1 "Built on" cell, verbatim.
+  /// The `codespecs_mapping.md` §4.1 "Built on" cell, verbatim.
   final String builtOn;
 
-  /// Where the area's spec-authorable attribute surface is stated — a §5.x
-  /// citation.
+  /// Where the area's spec-authorable attribute surface is stated — a
+  /// subsection of `codespecs_mapping.md` §5.
   final String attributeSurface;
 
-  /// The §4.4.3 slice(s) the area's emission units sit in. More than one when
+  /// The `codespecs_mapping.md` §4.4.3 slice(s) the area's emission units sit in. More than one when
   /// the area is split by locus.
   final List<int> slices;
 
-  /// The §4.4.6 authoring step(s) that write the area.
+  /// The `codespecs_mapping.md` §4.4.6 authoring step(s) that write the area.
   final List<int> authoringSteps;
 
-  /// Whether the part is active. A deferred part (§4.3) holds a reserved
+  /// Whether the part is active. A deferred part (`codespecs_mapping.md` §4.3) holds a reserved
   /// `CodeSpecPart` value but has no generated surface, so it gets no extract.
   final bool active;
 
@@ -322,11 +322,11 @@ class CodeSpecsAreaCatalog {
   /// Where the catalogue was transcribed from, for the extract header.
   final String source;
 
-  /// The §4.4.3 slices, in emission order.
+  /// The `codespecs_mapping.md` §4.4.3 slices, in emission order.
   final List<CodeSpecsSlice> slices;
 
-  /// The §4.1 areas, in catalogue order. Catalogue order is the tie-break
-  /// §4.4.6 rule 2 uses, so it is load-bearing rather than cosmetic.
+  /// The `codespecs_mapping.md` §4.1 areas, in catalogue order. Catalogue order is the tie-break
+  /// `codespecs_mapping.md` §4.4.6 rule 2 uses, so it is load-bearing rather than cosmetic.
   final List<CodeSpecsArea> areas;
 
   const CodeSpecsAreaCatalog({
@@ -379,9 +379,9 @@ class CodeSpecsAreaCatalog {
     return null;
   }
 
-  /// The §4.2 projects [area]'s code lands in, in slice order.
+  /// The `codespecs_mapping.md` §4.2 projects [area]'s code lands in, in slice order.
   ///
-  /// Derived from the area's slices rather than authored on the area: §4.4.3
+  /// Derived from the area's slices rather than authored on the area: `codespecs_mapping.md` §4.4.3
   /// already fixes one project per slice, so a per-area project column would be
   /// a second place for the same fact to be stated — and the areas that would
   /// need it are exactly the locus-split ones, where getting it wrong is
@@ -397,7 +397,7 @@ class CodeSpecsAreaCatalog {
   }
 
   /// The area codes [area] may cite — every other active area whose emission
-  /// units sit in a slice [area]'s slices reach, following §4.4.3's edges
+  /// units sit in a slice [area]'s slices reach, following `codespecs_mapping.md` §4.4.3's edges
   /// transitively. Within-slice citation is legal, so an area's own slices are
   /// part of the reachable set; the area itself is excluded.
   ///
@@ -439,10 +439,10 @@ class CodeSpecsExtract {
   /// The section segment of the document root the entries were collected from.
   final String documentRoot;
 
-  /// The area codes this area may cite (§4.4.3), for the agent's prompt.
+  /// The area codes this area may cite (`codespecs_mapping.md` §4.4.3), for the agent's prompt.
   final List<String> citableParts;
 
-  /// The §4.2 projects the area's code lands in (§4.4.3, via the slices).
+  /// The `codespecs_mapping.md` §4.2 projects the area's code lands in (`codespecs_mapping.md` §4.4.3, via the slices).
   final List<String> projects;
 
   /// The routed entries, in SOM document order.
@@ -892,7 +892,7 @@ class CodeSpecsExtractor {
   }
 
   /// Appends one entry **per area the routing names** — never deduplicated,
-  /// because each area's prompt must be self-sufficient (§1.1.1).
+  /// because each area's prompt must be self-sufficient (`codespecs_mapping.md` §1.1.1).
   void _emitValue({
     required List<CodeSpecsExtractEntry>? entries,
     required CodeSpecsRouting? routing,
