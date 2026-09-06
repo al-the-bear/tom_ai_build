@@ -2,24 +2,25 @@
 
 Cross-language conformance assets for the SOM (Spec Object Model) runtimes and
 generated `tom_som_<lang>_v0` facades. Everything here is **language-agnostic**:
-one shared sample, one shared corpus, and one golden harness that proves the
-nine language APIs agree **on everything the sample and corpus exercise** — see
-"The parity claim's bound" below for exactly how far that reaches.
+shared samples, one shared corpus, and one golden harness that proves the
+nine language APIs agree **on everything the Meridian sample and the corpus
+exercise** — see "The parity claim's bound" below for exactly how far that
+reaches, and how it relates to the (wider) sample instantiation coverage.
 
 ## Layout
 
 | Path | Purpose |
 | ---- | ------- |
-| `samples/` | The shared specification sample (`meridian_order_management.docspecs.yaml` + `.md`), authored once through the Dart typed facade and loaded by every language. See `samples/README.md`. |
+| `samples/` | The shared specification samples: the Meridian pair (`meridian_order_management.docspecs.yaml` + `.md`, authored through the Dart typed facade and loaded by every language's golden generator), the hand-authored UAM access-hub sample, the generated full-model exercise sample, and the deliberately invalid companion fixture. Together the `*.docspecs.yaml` samples instantiate the **full** SBP-reachable model (the coverage manifest is empty); only the Meridian pair feeds the golden harness. See `samples/README.md`. |
 | `corpus/` | Language-agnostic case tables plus their expected outputs, consumed by each runtime's conformance runner. **Every tier has a `#### …and so does the <tier>` subsection below, and each one names its own tables** — the tiers are not listed here, because a list in two places is a list that goes stale in one of them (it did: the scripting tier and the version check were both added without this row noticing). What keeps the tables *complete* is the enum-coverage guard — see below before adding a check to any runtime. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand (see below). |
-| `tool/` | The two cross-language drivers — `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the eighteen test suites) — plus the `sample_coverage` gate: `check_sample_coverage.dart` and its committed remaining set `sample_coverage_manifest.yaml` (see "The parity claim's bound"). |
+| `tool/` | The two cross-language drivers — `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the two sample gates + eighteen test suites) — plus the `sample_coverage` gate (`check_sample_coverage.dart` and its committed remaining set `sample_coverage_manifest.yaml`, now empty — see "The parity claim's bound") and the exercise-sample generator `build_exercise_sample.dart`. The `sample_decode` gate's tool lives with the Dart facade (`tom_som_dart_v0/tool/verify_samples.dart`). |
 
 ## Cross-language golden harness (SOM §19)
 
 Each `tom_som_<lang>_v0` project ships a golden generator that loads the shared
-sample and emits a canonical, deterministic reading of *essentially every
-section* through the generic string-path API, the typed facade, **and** the
+Meridian sample and emits a canonical, deterministic reading of *essentially
+every section* through the generic string-path API, the typed facade, **and** the
 generated metadata tree — then validates the sample's markdown against the
 facade's generated DocSpecs schema:
 
@@ -113,28 +114,43 @@ all nine language APIs yield exactly the same reading of the same specification
 
 #### The parity claim's bound
 
-The proof extends exactly as far as the shared samples and corpus reach, and no
-further. Within the exercised slice the byte-identity proof is exact: every
-value the samples carry is read identically nine ways, byte for byte. Outside
-it, a construct is proven only to *exist* in all nine ports — the generators
-compile against it — not to *behave* identically; an uninstantiated structure
-can be wrong in one language and the logs stay green, because the logs never
-mention it.
+The nine-way byte-identity proof extends exactly as far as what the golden
+generators load — **the Meridian sample** — plus the shared corpus, and no
+further. Within that slice the proof is exact: every value the Meridian sample
+carries is read identically nine ways, byte for byte. Outside it, a construct
+is proven to a **weaker, tiered** degree, because the sample set is wider than
+the harness's diet:
 
-The bound is measured and enforced by `tool/check_sample_coverage.dart`, which
-`run_all_suites.sh` runs first (as the `sample_coverage` gate): it walks the
-full model meta (`tom_som_dart_v0/meta/spec_model.meta.json`) from the
-`D00SolutionBlueprint` root, computes both coverage metrics — instantiated
-list structures and instantiated section ids, where *instantiated* means the
-id appears as a mapping key in some `samples/*.docspecs.yaml` (never in prose)
-— and holds them against the committed remaining set in
-`tool/sample_coverage_manifest.yaml`. Red on any disagreement: an uncovered id
-the manifest does not record (a structure added and never instantiated), a
-manifest entry that became covered (coverage only ratchets forward — delete
-the line), or a manifest entry the model no longer reaches. The check's report
-carries the current ratios; an empty manifest is full coverage. Populating the
-samples is the act that brings a construct under the proof (SOM §19 states the
-same rule from the model's side).
+* **Instantiated somewhere in the sample set, Dart-decoded.** The samples
+  under `samples/` together instantiate the *full* SBP-reachable model — the
+  `sample_coverage` gate (`tool/check_sample_coverage.dart`, run first by
+  `run_all_suites.sh`) walks the model meta
+  (`tom_som_dart_v0/meta/spec_model.meta.json`) from the
+  `D00SolutionBlueprint` root and holds both metrics (instantiated list
+  structures, instantiated section ids, where *instantiated* means the id
+  appears as a mapping key in some `samples/*.docspecs.yaml`, never in prose)
+  against the committed remaining set in `tool/sample_coverage_manifest.yaml`,
+  which is **empty**: full instantiation coverage, ratcheted — a structure
+  added to the model without a sample instantiating it goes red. Every sample
+  also decodes through the typed Dart loader (the `sample_decode` gate,
+  `tom_som_dart_v0/tool/verify_samples.dart`). That is a *single-language*
+  guarantee: the structure round-trips in Dart, and exists in all nine ports —
+  the generators compile against it — but is not proven to behave identically
+  in the other eight.
+* **Loaded by the golden harness, byte-compared nine ways.** Only what the
+  Meridian sample (and the corpus tables) exercise gets this. Joining the
+  harness is a per-sample opt-in: widening the parity bound means pointing the
+  nine golden generators at a further sample and regenerating, not growing
+  `samples/` — the coverage gate counts a new sample the moment it lands, the
+  harness never does on its own.
+
+Coverage and parity are therefore different quantities and only the second is
+the parity bound. Full instantiation coverage (the empty manifest) closes the
+worst gap the old bound statement named — no reachable structure is
+uninstantiated and undecoded — but a structure instantiated only outside the
+Meridian sample can still be wrong in one non-Dart language while the golden
+logs stay green, because the logs never mention it. SOM §19 states the
+coverage rule from the model's side.
 
 **This subsection is the canonical statement of the bound.** Release-facing
 wording that claims nine-way parity must cite it rather than restating the
@@ -626,7 +642,11 @@ so a suite could stay red without anyone noticing.
 
 `tool/run_all_suites.sh` closes that: every SOM package now carries a uniform
 `run_tests.sh` that runs everything hand-authored in it, whatever the ecosystem
-underneath, and this driver is the aggregate over all eighteen.
+underneath, and this driver is the aggregate over all eighteen. Before the
+suites it runs the two sample gates — `sample_coverage`
+(`tool/check_sample_coverage.dart`) and `sample_decode`
+(`tom_som_dart_v0/tool/verify_samples.dart`) — so a run reports twenty
+results in total.
 
 ```bash
 ./tool/run_all_suites.sh                    # everything, skipping absent toolchains
