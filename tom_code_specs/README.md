@@ -1,22 +1,91 @@
-# tom_code_specs
+# tom_code_specs — the CodeSpecs annotation framework
 
-The **CodeSpecs framework** for TomSpecs **Phase 4** — the code home for the
-`Cs*` **annotation family** and the code-side DocSpecs↔CodeSpecs link annotations.
+> **Cross-references.**
+> [`tom_specs_model/doc/codespecs_mapping.md`](../tom_specs_model/doc/codespecs_mapping.md)
+> owns the **parts catalogue** (`codespecs_mapping.md` §4.1), the per-part
+> **spec-authorable attribute surfaces** (`codespecs_mapping.md` §5) and the
+> **DocSpecs↔CodeSpecs link** (`codespecs_mapping.md` §9).
+> [`tom_specs_model/doc/codespecs_derivation_contract.md`](../tom_specs_model/doc/codespecs_derivation_contract.md)
+> owns **what code each marker produces** — its inputs, the exact Dart emitted,
+> its `tom_core`-family superclass, the naming rules and the validator checks.
+> This README is the catalogue of *what each annotation is and how to write
+> it*; those documents own *which specification section it comes from* and
+> *what the generator must emit for it*.
 
-CodeSpecs turns the Phase 3 specification documents (the DocSpecs, typed by the
-**SOM** — `tom_specs_model`) into a **skeletal, compilable Dart application**
-whose every element carries traceability annotations back to its source spec.
+CodeSpecs framework — the Cs* annotation family (no base classes) and the
+code-side DocSpecs↔CodeSpecs link annotations for TomSpecs Phase 4.
+
+## Where this fits
+
+**TomSpecs** builds software from structured specification documents in
+phases. **Phase 4 — CodeSpecs** is the step that turns the Phase-3
+specification documents into a **skeletal, compilable Dart application**: every
+form, table, endpoint, route and error the specification describes appears as a
+real declaration that compiles but does not yet execute. `tom_code_specs` is
+the vocabulary that skeleton is written in — the `Cs*` annotations that say
+*what each declaration is*, plus the annotations that trace it back to the
+specification section it came from.
+
+It exists so the skeleton is machine-checkable rather than merely plausible. A
+generated declaration with no marker is a declaration nobody can validate,
+count, or trace; with a marker, a generation-time validator can ask whether
+every routed specification section produced a declaration and whether every
+declaration cites a section. Phase 5 (test derivation) and Phase 6
+(implementation) then read the code rather than reopening the Phase-3
+documents.
+
+So it sits between the model and the generated application: it depends only on
+[`tom_specs_core`](../tom_specs_core) for the shared kind vocabulary, and the
+concrete classes a CodeSpec is *built on* come from the `tom_core` family —
+with the gaps `tom_core` genuinely lacks supplied by
+[`tom_core_codespecs`](../../core/tom_core_codespecs).
+
+## Overview
 
 > **This is a code framework, not a document model**, and it carries
 > **annotations only, no base classes**. All CodeSpecs annotations
 > use the `Cs*` prefix (`@CsForm`, `@CsTable`, `@CsEndpoint`, …); there is **no
 > `Ca*` prefix and no `Cs*` base class**. A CodeSpec is built on an existing
 > `tom_core`-family class marked by `Cs*` annotations; the concrete classes
-> `tom_core` lacks live in `tom_core_codespecs`. The framework is owned by the
-> **`tom_specs` quest** (the former `code_spec` quest is retired — see
-> `../tom_specs_model/doc/codespecs_mapping.md` §1.1/§12).
+> `tom_core` lacks live in [`tom_core_codespecs`](../../core/tom_core_codespecs).
+> The framework is owned by the **`tom_specs` quest** (the former `code_spec`
+> quest is retired — see
+> [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) §1.1/§12).
 
-## What lives here
+A CodeSpec declaration is therefore an ordinary Dart class or member with three
+layers of information on it:
+
+1. **What part it is** — one `Cs*` marker, from the catalogue below.
+2. **Its authored attributes** — the marker's arguments, drawn from closed
+   catalogues and typed cross-part references rather than free strings.
+3. **Where it came from** — `@CodeSpec` forward and `@DocSpec`/`DocRef`
+   backward, so a reader of the code can find the section that specified it and
+   a reader of the specification can find the code it produced.
+
+## Installation
+
+```yaml
+dependencies:
+  tom_code_specs: ^0.13.0
+```
+
+or
+
+```bash
+dart pub add tom_code_specs
+```
+
+```dart
+import 'package:tom_code_specs/tom_code_specs.dart';
+```
+
+The barrel also re-exports `@CodeSpecKind` and `CodeSpecPart` from
+[`tom_specs_core`](../tom_specs_core), so a CodeSpecs author has a single
+import.
+
+## Features
+
+### What lives here
 
 | Symbol | Role | Reference |
 |--------|------|-----------|
@@ -46,11 +115,14 @@ belongs to **no** part, locus or slice. It marks the abstract class a form-3b
 body calls: one per emitting declaration, holding one abstract method per
 contributing step and nothing else, reached through the declaration's single
 `late final … collaborator;` field. It is a marker rather than a naming
-convention because `codespecs_derivation_contract.md` §2.7 point 4 requires one
+convention because
+[`codespecs_derivation_contract.md`](../tom_specs_model/doc/codespecs_derivation_contract.md)
+§2.7 point 4 requires one
 on every generated top-level declaration and because the
 `codespecs_derivation_contract.md` §6 checks have to find collaborators.
 
-The `codespecs_mapping.md` §4.3 **deferred** candidate — **CE-WF alone** —
+The [`codespecs_mapping.md`](../tom_specs_model/doc/codespecs_mapping.md) §4.3
+**deferred** candidate — **CE-WF alone** —
 deliberately has **no marker**: a deferred part is mapping-only, so its
 `CodeSpecPart` value is reserved and a SOM section can already carry
 `@CodeSpecKind`, but there is no annotation, no built-on `tom_core` class and no
@@ -103,7 +175,8 @@ fallback — which names a **sibling channel**. That is why the family has no
 ### The closed catalogues
 
 `vocabulary.dart` holds the sixteen enums a marker's arguments select from
-(`codespecs_derivation_contract.md` §5.3). They are enums rather than strings for
+([`codespecs_derivation_contract.md`](../tom_specs_model/doc/codespecs_derivation_contract.md)
+§5.3). They are enums rather than strings for
 the same reason the refs are consts: a catalogue grows by a reviewed taxonomy
 edit, not by a specification inventing a value in passing.
 
@@ -127,10 +200,134 @@ depend on `tom_core` (`codespecs_mapping.md` §9.5), so every catalogue with a
 `tom_core` counterpart is a local mirror, and a named generation-time validator
 check asserts the mirror stays complete.
 
-## What lives in `tom_specs_core` instead
+## Quick start
+
+A generated CodeSpecs declaration marks what it is, declares its identities as
+consts, and traces itself back to the specification section that produced it.
+
+```dart
+// dart run example.dart
+import 'package:tom_code_specs/tom_code_specs.dart';
+
+/// The operations this application's client may invoke.
+class Operations {
+  static const registerCustomer = CsOperationRef('customer.register');
+}
+
+/// The customer registration form (CE-FM), as Phase 4 emits it.
+@CodeSpec('customerForm')
+@DocSpec([DocRef('XDS-FRM-001', 'Customer registration form')])
+@CsForm()
+class CustomerForm {
+  @CsElement(kind: CsElementKind.textInput)
+  String email = '';
+
+  static const submits = Operations.registerCustomer;
+}
+
+void main() {
+  print(CustomerForm.submits.id); // customer.register
+  print(CodeSpecPart.values.length); // 28
+}
+```
+
+## Usage
+
+### Marking a part
+
+Every generated top-level declaration carries exactly one part marker. Which
+marker a specification section produces is decided by its `@CodeSpecKind` in
+the model, not chosen here.
+
+```dart
+@CsTable()
+class Customer {
+  @CsColumn(sensitivityLevel: CsSensitivityLevel.personal)
+  String email = '';
+}
+```
+
+### Referring to another part
+
+Cross-part edges are typed consts, so a rename fails to compile instead of
+leaving a dangling id.
+
+```dart
+class Routes {
+  static const customerDetail = CsRouteRef('customer.detail');
+}
+
+@CsAction()
+class OpenCustomerDetail {
+  static const target = Routes.customerDetail;
+}
+```
+
+An edge that lands *inside* the part that authors it is a local coordinate and
+stays a plain id string — that is why there is no `CsChannelRef`.
+
+### Tracing back to the specification
+
+`@DocSpec` carries one `DocRef` per section that shaped the declaration, so
+Phases 5 and 6 read the code rather than reopening the Phase-3 documents. That
+self-sufficiency rule is
+[`codespecs_mapping.md`](../tom_specs_model/doc/codespecs_mapping.md) §9.6, and
+two of the validator's checks exist to enforce it in both directions.
+
+```dart
+@CodeSpec('customerRepository', source: ['IFM-ENT-014'])
+@DocSpec([
+  DocRef('IFM-ENT-014', 'Customer entity'),
+  DocRef('SAS-ACC-003', 'Customer data access rules'),
+])
+@CsRepository()
+class CustomerRepository {}
+```
+
+## Architecture
+
+```
+tom_code_specs                       (depends only on tom_specs_core)
+└── lib/src/annotations/
+    ├── code_spec.dart               @CodeSpec — identity + forward trace
+    ├── doc_spec.dart                @DocSpec / DocRef — back-trace
+    ├── element_annotations.dart     14 client / UI markers
+    ├── service_annotations.dart     16 server markers
+    ├── contract_annotations.dart     2 shared markers
+    ├── client_settings_annotations.dart  7 client-app / config / identity markers
+    ├── cs_collaborator.dart         @CsCollaborator — the one non-part marker
+    ├── cross_part_refs.dart         13 typed cross-part reference consts
+    └── vocabulary.dart              16 closed catalogues + 2 facet value classes
+
+  Phase 3 documents ──@CodeSpecKind──▶ routing ──▶ per-area extract
+                                                        │
+                                                        ▼
+                                              authoring agent writes Dart
+                                                        │
+                                              marked with tom_code_specs
+                                                        │
+                                                        ▼
+                                    shared / client / server project trio
+                                                        │
+                                                        ▼
+                                      validator checks (derivation contract §6)
+```
+
+| Type | Responsibility |
+| --- | --- |
+| `CodeSpec` | Identity of a CodeSpec class plus its forward trace to source sections and requirements. |
+| `DocSpec` / `DocRef` | The code → document back-trace: one entry per section that shaped the declaration. |
+| The 39 `Cs*` part markers | Say which catalogue part a declaration is, and carry that part's authored attributes. |
+| `CsCollaborator` | Marks the abstract collaborator a stub body calls — one per emitting top-level declaration; not a part. |
+| The 13 `Cs*Ref` consts | Typed cross-part references; distinct types with no shared supertype, so a wrong kind is a compile error. |
+| The 16 `vocabulary.dart` enums | The closed arms a marker's argument selects from — a value cannot be invented in passing. |
+| `CsFileReference`, `CsGradedAccess` | The two facet value classes, for arguments that are structures rather than scalars. |
+
+### What lives in `tom_specs_core` instead
 
 The **forward**, model-side half of the link annotates the SOM, so it lives with
-the other SOM annotations in `tom_specs_core` (which `tom_specs_model` already
+the other SOM annotations in [`tom_specs_core`](../tom_specs_core) (which
+[`tom_specs_model`](../tom_specs_model) already
 depends on — keeping the model → core dependency direction):
 
 - `@CodeSpecKind(List<CodeSpecPart> kinds, {String? note})` — the type-level
@@ -145,15 +342,57 @@ depends on — keeping the model → core dependency direction):
 Both are re-exported from `package:tom_code_specs/tom_code_specs.dart` so a
 CodeSpecs author has a single import.
 
-## The concrete instance-level link
+### The concrete instance-level link
 
 The concrete forward link — the `codeSpec` `List<String>` member on
 `DocSpecsSection`, serialized comma-separated inside the `sectionId` HTML
 comment (`codespecs_mapping.md` §9.2) — is a **model member**, not an
-annotation, so it lives in `tom_specs_model` / `tom_specs_core`. It is wired
-separately.
+annotation, so it lives in [`tom_specs_model`](../tom_specs_model) /
+[`tom_specs_core`](../tom_specs_core). It is wired separately.
+
+## Ecosystem
+
+```
+              tom_specs_core            @CodeSpecKind + CodeSpecPart
+                     │
+                     ▼
+              tom_code_specs            ← this package: the Cs* markers
+                     │
+     marks ┌─────────┴──────────┐ built on
+           ▼                    ▼
+  generated CodeSpecs     tom_core family (kernel / flutter / server / d4rt,
+  project trio            tom_flutter_ui) + tom_core_codespecs for the gaps
+           │
+           ▼
+  tom_specs_clitool  bin/validate_codespecs.dart — the derivation-contract checks
+```
+
+## Further documentation
+
+**TomSpecs subject matter** — the authorities this package implements:
+
+| Document | Authority for |
+|----------|---------------|
+| [index.md](../tom_specs_model/doc/index.md) | The catalogue of the whole TomSpecs document set, and the `§` citation convention |
+| [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) | Which SOM section feeds which part — the catalogue, the attribute surfaces, the generation slices, the DocSpecs↔CodeSpecs link |
+| [codespecs_derivation_contract.md](../tom_specs_model/doc/codespecs_derivation_contract.md) | What code comes out per marker — inputs, emitted Dart, superclass, naming rules, stub bodies, constructor shapes, validator checks |
+| [codespecs_prompt.md](../tom_specs_model/doc/codespecs_prompt.md) | When a Phase-4 run may begin at all — the mechanical gate and the per-area judgment |
+| [tom_specs_project_flow.md](../tom_specs_model/doc/tom_specs_project_flow.md) | The phase model Phase 4 sits in, and the quality gate it must pass |
+| [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules behind the `@CodeSpecKind` routing this family consumes |
+
+**Siblings** — packages you will reach for next:
+
+| Package | What it is |
+|---------|-----------|
+| [tom_specs_core](../tom_specs_core) | The SOM annotation vocabulary, and the home of `@CodeSpecKind` / `CodeSpecPart` |
+| [tom_core_codespecs](../../core/tom_core_codespecs) | The concrete `tom_core`-family gap classes a CodeSpec is built on |
+| [tom_specs_model](../tom_specs_model) | The SOM source model whose sections route into these parts |
+| [tom_specs_clitool](../tom_specs_clitool) | The CodeSpecs validator and the area-catalogue generator |
 
 ## Status
+
+Version **0.13.0**, published on pub.dev. Test suite: **87 tests, all passing**
+(`dart test`).
 
 `@CodeSpec`, `@DocSpec`/`DocRef`, the **39-marker `Cs*` family** plus
 `@CsCollaborator`, the **13-const `Cs*Ref` family** and the **16 closed
@@ -167,7 +406,8 @@ surface; the other **16 carry a single optional `note`** — a design decision, 
 an omission, because everything their part authors is already carried by the
 annotated declaration itself or by a `tom_core` substrate constructor. Which
 attributes become constructor parameters is decided by
-`../tom_specs_model/doc/codespecs_derivation_contract.md` §2.3's three tests, and
+[`codespecs_derivation_contract.md`](../tom_specs_model/doc/codespecs_derivation_contract.md)
+§2.3's three tests, and
 `codespecs_derivation_contract.md` §5.1–§5.3 give the resulting shape of every
 marker.
 
