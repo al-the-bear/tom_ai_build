@@ -1,0 +1,329 @@
+==========================================================================
+TomSpecs, end to end: a room-booking service for one office
+==========================================================================
+
+Six phases, six gates. `tom_specs_project_flow.md` is the authority
+for all of them; this run executes them against real artifacts.
+
+The project is deliberately small — two entities, one business rule,
+one server operation — so that every artifact from idea to code fits
+in one reading without losing the thread.
+
+--------------------------------------------------------------------------
+PHASE 1 — Project Idea
+--------------------------------------------------------------------------
+  artifact: spec/01_project_idea.md
+
+  IN   a business decision, plus whatever exists: conversations,
+       the paper sheets on the doors, one complaint from sales
+  OUT  a free-form document. No structure is required and none is
+       imposed — filtering is the Blueprint's job (PF-PHA-P1).
+
+  The document records two CONTRADICTIONS rather than resolving
+  them, which is Phase 1 working correctly: who may add a room, and
+  who may cancel a booking. Both are carried into Phase 2 as
+  clarifications.
+
+
+  ══ G1 ══  Project Idea Captured   ·   review: business (light)
+     [PASS] Idea document exists
+     [PASS] Problem statement present
+     [PASS] Users and stakeholders named
+     [PASS] Rough scope stated
+     [PASS] Sources recorded
+     [PASS] No blocking clarifications
+            both are recorded and neither blocks Blueprint work
+     → G1 PASSED (6 criteria)
+
+--------------------------------------------------------------------------
+PHASE 2 — Solution Blueprint
+--------------------------------------------------------------------------
+  artifact: build/02_solution_blueprint.{md,yaml}
+
+  IN   the Project Idea, plus the answers to its two clarifications
+  OUT  ONE schema-bound DocSpecs document covering the whole system
+       at overview depth — the first binding definition of what will
+       be built, and the hinge the other twelve documents hang from
+       (PF-FLW-SBP).
+
+  The two clarifications came back answered, and the Blueprint
+  records the answers rather than the questions:
+    · the office manager owns the room list  → one role, one owner
+    · staff cancel their own bookings only   → no approval flow
+
+
+  ══ G2 ══  Solution Blueprint Complete   ·   review: business (human review)
+     [PASS] Blueprint schema-valid
+            0 violation(s)
+     [PASS] Document values valid
+            0 error(s) — the instance tier, which is a different question
+            from the one above
+     [PASS] Scope defined
+     [PASS] Stakeholders identified
+     [PASS] System context documented
+     [PASS] Requirements traceable
+            FR-001 carries its id into Phase 3
+     [PASS] Architecture decisions recorded
+     [PASS] Business review recorded
+            a human gate — the sample records it, it cannot perform it
+     → G2 PASSED (8 criteria)
+  WHY THIS GATE IS HEAVY (PF-GAT-G2): twelve documents are derived
+  from this one, so every defect that survives G2 is multiplied by
+  the Phase-3 expansion.
+
+--------------------------------------------------------------------------
+PHASE 3 — Detailed Specifications
+--------------------------------------------------------------------------
+  artifact: build/03_*.md
+
+  IN   the accepted Blueprint and the SBP → target section mapping
+  OUT  the twelve specification documents, each at the depth needed
+       to derive code and tests without further interpretation.
+
+  Phase 3 is NOT "write twelve documents from scratch" — it is
+  "expand each mapped SBP region to specification depth"
+  (PF-FLW-SBP). This walkthrough carries two of the twelve, chosen
+  because between them they show both halves of the mapping:
+    IFM  Information Model         ← SBP.8, the entities
+    RSP  Requirements Specification ← SBP.9, FR-001
+
+  THE MAPPING, read off the model rather than asserted:
+    → D03InformationModel
+        BusinessObjectModel (@MapsTo)
+        DataClassification (@DetailedIn)
+        DataDictionary (@DetailedIn)
+        DataModel (@MapsTo)
+        … and 5 more SBP section class(es)
+    → D04RequirementsSpecification
+        FunctionalRequirements (@DetailedIn)
+        OrganizationalRequirements (@DetailedIn)
+        RequirementCoverage (@DetailedIn)
+        RequirementRelationships (@DetailedIn)
+        … and 3 more SBP section class(es)
+
+  Both documents, both validation tiers:
+    IFM  schema 0 violation(s), values 0 error(s)
+    RSP  schema 0 violation(s), values 0 error(s)
+
+  Cross-document consistency, checked rather than asserted:
+    SBP.8 entities : Room, Booking
+    IFM  entities  : Room, Booking
+    same set       : true
+
+
+  ══ G3 ══  Detailed Specifications Complete   ·   review: business (human review)
+     [PASS] All required documents present
+            2 of 12 carried here; a real project needs every document its
+            scope requires
+     [PASS] All documents schema-valid
+     [PASS] Document values valid
+     [PASS] Blueprint coverage complete
+            every SBP.8 entity is expanded in the IFM
+     [PASS] Cross-document consistency
+            no value contradiction, no terminology drift
+     [PASS] No placeholder sections
+     [PASS] All documents ACCEPTED
+            a human status board — recorded, not performed
+     → G3 PASSED (7 criteria)
+
+--------------------------------------------------------------------------
+PHASE 4 — CodeSpecs
+--------------------------------------------------------------------------
+  artifact: codespec/{shared,client,server}/
+
+  IN   the accepted specification
+  OUT  a skeletal application that COMPILES BUT DOES NOT EXECUTE,
+       in three projects: shared, client, server.
+
+  Phase 4 runs in two passes — a mechanical extract generator and a
+  judgment-bearing authoring agent — and `phase4_codespecs_run`
+  beside this sample walks that in full. This one runs the extract
+  pass to produce the input, and then measures the OUTPUT PROPERTY
+  the methodology stakes itself on.
+
+  Extract pass: 27 areas, 3 populated (CE-API, CE-SU, CE-DB).
+
+  SELF-SUFFICIENCY — the methodology's main promise to a reader.
+  After Phase 4 the trio carries every fact its parts were routed
+  from, so Phases 5 and 6 read CODE rather than reopening the
+  Phase-3 documents (`codespecs_mapping.md` §9.6). It is not a
+  claim anyone has to take on trust: two of the derivation
+  contract's checks decide it mechanically, in both directions —
+
+    check 35  every token the extracts hold a value for is cited by
+              a back-link in the trio — an uncited token is a
+              specification fact that reached no code
+    check 36  every token a back-link names exists in the extracts —
+              a trace to a token no area routed is stale or invented
+
+  Both need the extracts, so both run only when `--extracts` is
+  given. `tool/validate.sh` runs the validator twice for exactly
+  that reason; its recorded output is below.
+
+  $ validate_codespecs --shared codespec/shared --client codespec/client \
+                        --server codespec/server
+    codespecs: check 13 (migration convergence) not run — pass --migrations pointing at the run's CE-MG artifacts.
+    codespecs: check 9 (mirrored catalogues) not run — pass both --cs-vocabulary and --core-source; a catalogue neither side declares mirrors an empty one, which compares equal.
+    codespecs: check 31 (determinism) not run — pass --regenerated-shared/--regenerated-client/--regenerated-server pointing at a second generation run over the same model.
+    codespecs: check 19 (secret is declared), checks 32, 33 and 34 (comment source, template and fidelity) and checks 35 and 36 (extract coverage and back-link resolution) not run — pass --extracts pointing at the run's generated-doc/codespecs_extracts directory.
+    codespecs: 37 checks passed
+
+  $ validate_codespecs --shared codespec/shared --client codespec/client \
+                        --server codespec/server \
+                        --extracts build/codespecs_extracts
+    codespecs: check 13 (migration convergence) not run — pass --migrations pointing at the run's CE-MG artifacts.
+    codespecs: check 9 (mirrored catalogues) not run — pass both --cs-vocabulary and --core-source; a catalogue neither side declares mirrors an empty one, which compares equal.
+    codespecs: check 31 (determinism) not run — pass --regenerated-shared/--regenerated-client/--regenerated-server pointing at a second generation run over the same model.
+    codespecs: 37 checks passed
+
+
+  ══ G4 ══  CodeSpecs Complete   ·   review: software engineering, AI+script
+     [PASS] Derivation contract satisfied
+     [PASS] Trio is self-sufficient
+            checks 35 and 36 ran in the second invocation — the one given
+            --extracts — and passed there
+     [PASS] Back-trace complete
+            check 7: @CodeSpec.source equals the @DocSpec token set
+     [PASS] Built on `tom_core`
+            every class a CodeSpec instantiates is a tom_core-family class
+     [PASS] Locus split correct
+            CE-DB and CE-SU are server-only; shared and client are empty
+            and their READMEs say why
+     [PASS] No ambiguity markers
+            no TODO / TBD / FIXME
+     [PASS] Skeleton compiles
+            excluded from `dart analyze` here — it imports tom_code_specs
+            and tom_core_server, which are not this sample's dependencies
+     → G4 PASSED (7 criteria)
+
+--------------------------------------------------------------------------
+PHASE 5 — Test Derivation
+--------------------------------------------------------------------------
+  artifact: test/booking_rules_test.dart
+
+  IN   the CodeSpecs code COMBINED WITH the Phase-3 specification.
+       Neither alone is sufficient (PF-PHA-P5): the CodeSpecs supply
+       the surface — what exists, with what types — and the
+       specification supplies the semantics: what it must do, at
+       what boundaries, with what errors.
+  OUT  a test suite in which every test FAILS or SKIPS, because
+       there is no implementation yet, plus a recorded baseline.
+
+  FR-001 alone yields twelve tests in three groups. The split is
+  the point: the rule, its boundaries, and its error paths —
+  PF-PHA-P5 derives boundary tests and error paths as separate
+  activities, not as an afterthought to the happy case.
+
+    the rule        5 tests  overlapping, enclosing, enclosed, and
+                             that it names WHICH booking clashed
+    boundaries      5 tests  touching intervals do NOT conflict —
+                             10:00–11:00 beside 11:00–12:00 is two
+                             bookings, not a clash. Only the
+                             specification says so; the CodeSpecs
+                             surface cannot.
+    error paths     2 tests  a zero-length or inverted candidate is
+                             REJECTED, not reported conflict-free
+
+  The baseline is a real recorded run, not a claim: the
+  implementation was stripped back to the bodies Phase 4 emits
+  (form 3a, `throw UnsupportedError(<the specification's own
+  words>)`) and `dart test` was run. Result: +0 -12.
+
+
+  ══ G5 ══  Test Suite Derived   ·   review: software engineering, AI+script
+     [PASS] Every requirement has tests
+            FR-001 → 12 tests; every group names the requirement it
+            derives from
+     [PASS] Boundary conditions covered
+            both touching directions, other room, other day, empty set
+     [PASS] Error paths covered
+            zero-length and inverted intervals
+     [PASS] Tests currently RED
+            spec/05_phase5_baseline.txt records +0 -12
+     [PASS] Baseline recorded
+     [PASS] Conventions followed
+            group names carry the requirement id
+     → G5 PASSED (6 criteria)
+
+--------------------------------------------------------------------------
+PHASE 6 — Implementation
+--------------------------------------------------------------------------
+  artifact: lib/booking_rules.dart
+
+  IN   the CodeSpec elements, the derived tests, the dependency
+       analysis
+  OUT  code, written until the tests pass — and nothing more.
+
+  WHAT PHASE 6 ACTUALLY WRITES IS SMALL, and that is the
+  methodology's claim rather than an accident of this example. The
+  Tom Framework owns authentication, authorization, transport,
+  serialization, persistence and input handling; Phase 4 emitted the
+  entities, the service unit and the wire shapes. What is left for a
+  person to write here is a rule about intervals — which is why
+  `lib/booking_rules.dart` has no framework dependency at all and
+  runs under plain `dart test`.
+
+  It is also why PF-GAT-G6 calls its security criterion tractable:
+  the surface on which a security defect can be introduced is the
+  business code, and the business code is this one file.
+
+  THE TRACEABILITY CHAIN, which G6 checks as unbroken:
+    requirement   FR-001  a booking must not overlap another
+                          booking of the same room
+    spec section  RSP FRE-REQU-…  ← SBP.9  ← the Project Idea
+    CodeSpec      codespec/server/lib/src/services/booking_service.dart
+    test          test/booking_rules_test.dart  (Phase 5)
+    code          lib/booking_rules.dart        (Phase 6)
+
+  $ dart test
+    +12: All tests passed!
+
+  $ dart analyze
+    No issues found!
+
+  $ dart format --output=none --set-exit-if-changed .
+    all files already formatted
+
+
+  ══ G6 ══  Implementation Complete   ·   review: software engineering
+     [PASS] All tests pass
+     [PASS] No regressions
+            the Phase-5 baseline was +0 -12; every one of the twelve now
+            passes and none was changed to make it
+     [PASS] Static analysis clean
+     [PASS] Formatting clean
+     [PASS] Traceability complete
+            the chain above, stated in the implementation's own doc
+            comment so it travels with the code
+     [PASS] Framework compliance
+            no hand-rolled substitute for a framework service — the
+            business rule is all that is hand-written
+     [PASS] No untracked markers
+     → G6 PASSED (7 criteria)
+
+==========================================================================
+What the walkthrough produced
+==========================================================================
+
+  phase  artifact                                    where
+  1      Project Idea, free-form                     spec/
+  2      Solution Blueprint, schema-bound            build/ (generated)
+  3      IFM + RSP, at specification depth           build/ (generated)
+  4      the shared/client/server trio + extracts    codespec/, build/
+  5      12 derived tests + the RED baseline         test/, spec/
+  6      the one business rule                       lib/
+
+  Six gates ran. Every one of them can fail, and a failed gate
+  returns the work to its phase — that rework loop is the normal
+  case, not the exception (PF-FLW-OVE).
+
+  Phases 7 (Application Candidate) and 8 (Release Candidate) are
+  deployment, test-environment execution and business sign-off.
+  They have no artifact a sample can carry and G7 requires a human
+  signature by definition, so this walkthrough stops at G6 and says
+  so rather than simulating them.
+
+  THE POINT, in one line: every artifact above was DERIVED from the
+  one before it, and each derivation was CHECKED before the next
+  began. That is the whole difference between a methodology and a
+  document template.

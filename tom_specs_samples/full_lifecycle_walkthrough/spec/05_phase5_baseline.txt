@@ -1,0 +1,46 @@
+Phase 5 test baseline — recorded before any implementation existed.
+'tom_specs_project_flow.md' PF-PHA-P5: "All tests initially FAIL or SKIP —
+there is no implementation yet. A test baseline is recorded for Phase 6."
+
+Produced by stripping lib/booking_rules.dart back to the bodies Phase 4
+emits — form 3a, 'throw UnsupportedError(<the specification's own words>)' —
+and running `dart test`. That is the real Phase-5 state: the CodeSpecs give
+the surface, and nothing gives the behaviour.
+
+$ dart test
++0: loading test/booking_rules_test.dart
++0: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room an identical interval conflicts
++0 -1: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room an identical interval conflicts [E]
++0 -1: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room a partially overlapping interval conflicts
++0 -2: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room a partially overlapping interval conflicts [E]
++0 -2: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room an enclosing interval conflicts
++0 -3: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room an enclosing interval conflicts [E]
++0 -3: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room an enclosed interval conflicts
++0 -4: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room an enclosed interval conflicts [E]
++0 -4: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room it names WHICH booking it clashed with, not merely that it did
++0 -5: test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room it names WHICH booking it clashed with, not merely that it did [E]
++0 -5: test/booking_rules_test.dart: FR-001 boundaries touching at the end does NOT conflict
++0 -6: test/booking_rules_test.dart: FR-001 boundaries touching at the end does NOT conflict [E]
++0 -6: test/booking_rules_test.dart: FR-001 boundaries touching at the start does NOT conflict
++0 -7: test/booking_rules_test.dart: FR-001 boundaries touching at the start does NOT conflict [E]
++0 -7: test/booking_rules_test.dart: FR-001 boundaries a different room does not conflict
++0 -8: test/booking_rules_test.dart: FR-001 boundaries a different room does not conflict [E]
++0 -8: test/booking_rules_test.dart: FR-001 boundaries a different day does not conflict
++0 -9: test/booking_rules_test.dart: FR-001 boundaries a different day does not conflict [E]
++0 -9: test/booking_rules_test.dart: FR-001 boundaries no existing bookings means no conflict
++0 -10: test/booking_rules_test.dart: FR-001 boundaries no existing bookings means no conflict [E]
++0 -10: test/booking_rules_test.dart: FR-001 error paths a zero-length candidate is rejected, not reported conflict-free
++0 -11: test/booking_rules_test.dart: FR-001 error paths a zero-length candidate is rejected, not reported conflict-free [E]
+  Expected: throws <Instance of 'ArgumentError'>
+    Actual: <Closure: () => Booking?>
+     Which: threw UnsupportedError:<Unsupported operation: The first booking the candidate would clash with, or null.>
++0 -11: test/booking_rules_test.dart: FR-001 error paths an end before its start is rejected
++0 -12: test/booking_rules_test.dart: FR-001 error paths an end before its start is rejected [E]
+  Expected: throws <Instance of 'ArgumentError'>
+    Actual: <Closure: () => Booking?>
+     Which: threw UnsupportedError:<Unsupported operation: The first booking the candidate would clash with, or null.>
++0 -12: Some tests failed.
+  test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room a partially overlapping interval conflicts
+  test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room an enclosed interval conflicts
+  test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room an enclosing interval conflicts
+  test/booking_rules_test.dart: FR-001 a booking must not overlap another booking of the same room an identical interval conflicts

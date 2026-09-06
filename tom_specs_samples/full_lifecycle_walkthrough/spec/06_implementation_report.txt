@@ -1,0 +1,8 @@
+$ dart test
+  +12: All tests passed!
+
+$ dart analyze
+  No issues found!
+
+$ dart format --output=none --set-exit-if-changed .
+  all files already formatted

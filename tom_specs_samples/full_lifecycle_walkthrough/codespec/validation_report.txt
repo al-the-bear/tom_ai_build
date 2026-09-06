@@ -1,0 +1,15 @@
+$ validate_codespecs --shared codespec/shared --client codespec/client \
+                      --server codespec/server
+  codespecs: check 13 (migration convergence) not run — pass --migrations pointing at the run's CE-MG artifacts.
+  codespecs: check 9 (mirrored catalogues) not run — pass both --cs-vocabulary and --core-source; a catalogue neither side declares mirrors an empty one, which compares equal.
+  codespecs: check 31 (determinism) not run — pass --regenerated-shared/--regenerated-client/--regenerated-server pointing at a second generation run over the same model.
+  codespecs: check 19 (secret is declared), checks 32, 33 and 34 (comment source, template and fidelity) and checks 35 and 36 (extract coverage and back-link resolution) not run — pass --extracts pointing at the run's generated-doc/codespecs_extracts directory.
+  codespecs: 37 checks passed
+
+$ validate_codespecs --shared codespec/shared --client codespec/client \
+                      --server codespec/server \
+                      --extracts build/codespecs_extracts
+  codespecs: check 13 (migration convergence) not run — pass --migrations pointing at the run's CE-MG artifacts.
+  codespecs: check 9 (mirrored catalogues) not run — pass both --cs-vocabulary and --core-source; a catalogue neither side declares mirrors an empty one, which compares equal.
+  codespecs: check 31 (determinism) not run — pass --regenerated-shared/--regenerated-client/--regenerated-server pointing at a second generation run over the same model.
+  codespecs: 37 checks passed

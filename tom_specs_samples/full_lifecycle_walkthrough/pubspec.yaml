@@ -1,0 +1,22 @@
+name: full_lifecycle_walkthrough
+description: >-
+  TomSpecs sample — one small project carried through the phases in order,
+  with every quality gate run: idea, blueprint, detailed specifications,
+  CodeSpecs, derived tests, implementation.
+publish_to: none
+
+environment:
+  sdk: ^3.11.4
+
+# Hosted versions only (tom_specs_documentation_standard.md §7.1).
+# tom_specs_model is here for its shipped DATA, not its Dart: Phase 4's extract
+# pass reads generated-doc/codespecs/codespecs_areas.json out of that package.
+dependencies:
+  tom_som_dart_v0: ^1.1.0
+  tom_som_dart_runtime: ^1.1.0
+  tom_specs_model: ^1.1.0
+
+# Phase 5 derives a test suite and Phase 6 implements against it, so unlike the
+# other samples this one has a real `test/` folder and needs a test runner.
+dev_dependencies:
+  test: ^1.25.0

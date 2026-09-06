@@ -603,6 +603,16 @@ number the sample prints can be checked against the code that produced it, and
 small enough that the drift a shared document would have prevented is visible
 on one screen. State in the sample's README that it authors its own and why.
 
+**A sample may carry runnable source and a test suite of its own** — a `lib/`
+and a `test/` — where producing them is part of the task it teaches. The
+lifecycle walkthrough does: its Phase 5 derives tests and its Phase 6 implements
+against them, and a walkthrough that only *described* that would be teaching the
+opposite of what the phase says. Keep such source free of workspace
+dependencies, so `dart test` runs it from a clean checkout; the driver runs the
+sample's `tool/validate.sh`, which is where the test run belongs (shelling out
+to a test runner from the sample itself would make its stdout host-dependent,
+and the driver diffs that stdout).
+
 **Where a sample's output records something a workspace tool produced, carry a
 `tool/validate.sh` beside it.** The `expected_output.txt` diff proves the sample
 still *prints* its record; it says nothing about whether the record is still

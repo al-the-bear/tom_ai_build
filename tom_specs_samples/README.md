@@ -21,10 +21,14 @@ alphabet.
 | 1 | [`author_solution_blueprint`](author_solution_blueprint/README.md) | Author a specification end to end: write through the typed facade, serialise both renditions, round-trip, validate, and read a real diagnostic | 2 — Solution Blueprint | Dart | `cd author_solution_blueprint && dart pub get && dart run` |
 | 2 | [`phase4_codespecs_run`](phase4_codespecs_run/README.md) | Run Phase 4 end to end: the starting prompt's quality gate (passing and rejecting), the extract generator, the authoring agent, and validation of the emitted trio — with every step marked mechanical or judgment | 4 — CodeSpecs | Dart | `cd phase4_codespecs_run && dart pub get && dart run` |
 | 3 | [`build_a_specification_tool`](build_a_specification_tool/README.md) | Build tooling *on* TomSpecs: reflective access to the model, generic access to a document, the generated schema, the three validation tiers and which two are reachable at runtime, and a completeness report built on all of it | any — tooling | Dart | `cd build_a_specification_tool && dart pub get && dart run` |
+| 4 | [`full_lifecycle_walkthrough`](full_lifecycle_walkthrough/README.md) | **Start here to understand TomSpecs.** One small project from idea to code — the free-form idea, the Blueprint, two detailed specifications, the CodeSpecs trio, the derived tests and the implementation — with all six quality gates actually run, and a failing gate stopping the walk | 1–6 — the process | Dart | `cd full_lifecycle_walkthrough && dart pub get && dart run` |
 
-Sample 1 is the entry point; the others assume you have run it. Sample 3 is
-for a different reader — someone writing programs that read specifications
-rather than writing specifications — and needs only sample 1 before it.
+**Read sample 4 first if you want to understand TomSpecs at all** — it is the
+only one that shows the methodology rather than an API, and it needs nothing
+before it. Samples 1–3 are then the depth behind three of its phases: 1 is the
+entry point for authoring, 2 expands its Phase 4, and 3 is for a different
+reader again — someone writing programs that read specifications rather than
+writing them.
 
 Each row's **Phase** is a `tom_specs_project_flow.md` phase, so a reader
 looking for "how do I do Phase 4" can find the sample that shows it rather
