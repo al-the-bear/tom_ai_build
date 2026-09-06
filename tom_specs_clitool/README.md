@@ -1,26 +1,51 @@
-# TomSpecs Spec Object Model (`tom_som`) — generator + generated component
+# tom_specs_clitool — the TomSpecs generator and gate suite
 
-`tom_specs_clitool` is the **generation host** for the multi-platform TomSpecs
-Spec Object Model (`tom_som`). From the single source of truth — the annotated
-Dart model in [`tom_specs_model`](../tom_specs_model) — it emits, **per
-language**, a lossless meta-data file, DocSpecs/YAML schemas, and a typed
-document-editing facade layered over a hand-written generic runtime.
+> **Cross-references.**
+> [`tom_specs_model/doc/som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
+> is the authority for the Spec Object Model this package generates — naming,
+> versioning and the committed artefacts (SOM §4), what the generator produces
+> (SOM §5), the two access paths (SOM §6) and the generated surfaces themselves
+> (SOM §8).
+> [`tom_specs_model/doc/som_generator_config.md`](../tom_specs_model/doc/som_generator_config.md)
+> owns the `tom-spec-object-model` config grammar in full;
+> [`tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)
+> owns the per-language build and verify toolchains;
+> [`tom_specs_model/doc/tom_specs_model_rules.md`](../tom_specs_model/doc/tom_specs_model_rules.md)
+> owns the model-authoring rules and the structural invariants the static
+> validator here enforces; and
+> [`tom_specs_model/doc/index.md`](../tom_specs_model/doc/index.md) owns the `§`
+> citation convention the gates in this package resolve. This README is the
+> catalogue of *what the package ships and how to run it*; those documents own
+> *what it must produce* and *why*.
 
-This README lets a reader **configure, generate, and consume** the component in
-any supported language from this file alone. It covers the config structure,
-how to run the generators, what is produced, how the generated code is used, and
-the versioning rules. Deeper references are linked inline.
+CLI tools for TomSpecs model analysis, validation, and SOM code generation.
 
-- Architecture & rationale: [`som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
-  (the quest spec; section numbers below, e.g. *SOM §4.2*, refer to it).
-- Config grammar in full: [`../tom_specs_model/doc/som_generator_config.md`](../tom_specs_model/doc/som_generator_config.md).
-- Toolchain inventory per language: [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md).
+## Where this fits
 
----
+**TomSpecs** is a method for building software from structured specification
+documents: a project is written up as a set of typed documents — the
+Specification Object Model, or SOM — and the code skeleton is generated from
+them. Those documents have to be readable and editable from whatever language a
+consuming system happens to be written in, which means the model cannot live
+only as Dart classes. `tom_specs_clitool` is the **generation host** that closes
+that gap: from the single source of truth — the annotated Dart model in
+[`tom_specs_model`](../tom_specs_model) — it emits, **per language**, a lossless
+meta-data file, DocSpecs and YAML schemas, and a typed document-editing facade
+layered over a hand-written generic runtime.
 
-## 1. The two layers
+It exists as its own package because the model must not depend on the machinery
+that reads it. `tom_specs_model` is annotated data with no analyzer dependency
+and no tools; everything that *inspects* it — the analyzer-backed reader, the
+nine emitter triples, the static validator, the outliner, the JSON exporter and
+the four correspondence gates — lives here. So this package sits directly above
+the model and below everything else in the TomSpecs tree: the nine
+`tom_som_<lang>_runtime` / `tom_som_<lang>_v0` pairs are its output, and the
+editor, the reviewer and `tom_spec_engine` all consume that output rather than
+the model itself.
 
-The component is split into a **fixed, hand-written runtime** and a
+## Overview
+
+The generated component is split into a **fixed, hand-written runtime** and a
 **generated, typed facade** — one project each, per language:
 
 | Layer | Project | Authored | Role |
@@ -35,17 +60,92 @@ generic path alone can read, write, validate, load, and save any document.
 
 **All nine languages are shipped.** Every target — Dart, Python, Java,
 JavaScript, TypeScript, Go, Rust, C, and C++ — has a hand-written generic
-runtime (`tom_som_<lang>_runtime`) and a generated typed facade
-(`tom_som_<lang>_v0`). `generate_som` has a typed emitter + generator for each;
-none is skipped. All nine build and run their generated `v0` projects against
-3989 classes and 14 document roots (see
-[`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md) for the per-language toolchain
-matrix). Dart and Python are the reference ports; the other seven were ported
-from them (quest decisions D32–D38).
+runtime and a generated typed facade. `generate_som.dart` has a typed emitter, a
+generic generator and a meta emitter for each; none is skipped. Dart and Python
+are the reference ports; the other seven were ported from them.
 
----
+The second half of the package is **correspondence**. A generated tree goes
+stale the moment the model moves, and a documentation claim goes stale the moment
+what it describes moves — silently, in both cases. So every claim this package
+and its documents make is held by something that fails: a model fingerprint for
+the nine packages, an invariant-id cross-check for the validator, an
+`ArgParser` cross-check for the entrypoint table below, and three citation gates
+for the ids the TomSpecs documents cite inline.
 
-## 2. Configuration (`tom_som.yaml`)
+## Installation
+
+Published to pub.dev. As a command-line tool it is normally a dev dependency:
+
+```yaml
+dev_dependencies:
+  tom_specs_clitool: ^0.2.0
+```
+
+Most use is from a checkout of this workspace rather than from a package
+consumer, because the generator reads and writes sibling directories:
+
+```bash
+cd tom_ai/ai_build/tom_specs_clitool
+dart pub get
+```
+
+## Features
+
+### Generation
+
+| Capability | Entry point | Produces |
+| --- | --- | --- |
+| Nine-language SOM emission | `bin/generate_som.dart` | `tom_som_<slug>_v0` per configured language: typed facade, `meta/spec_model.meta.json`, `schemas/`, language-native manifest |
+| Serialization-order stamping | `bin/stamp_serialization_order.dart` | `@SerializationOrder(n)` renumbered across the model, 0-based per class in source-declaration order |
+| Spec-ops registry | `bin/spec_ops.dart` | `tom_specs_model/lib/src/generated/spec_ops.g.dart` — every class's child slots, shallow clone, yaml scalar, and each projection root's `connect:` binding |
+| DocSpecs + YAML schemas | `bin/docspecs_schema.dart`, `bin/docspecs_yaml_schema.dart` | The schema folders, standalone, for a single model package |
+| CodeSpecs area catalogue | `bin/codespecs_areas.dart` | `codespecs_areas.json` — the 27-area catalogue the nine runtimes' extract surface reads |
+
+### Model inspection and export
+
+| Capability | Entry point | Produces |
+| --- | --- | --- |
+| Class-tree outlines | `bin/outliner.dart` | A compact outline of the model from any of the 14 document roots, or from the container root |
+| Class-graph export | `bin/model_json.dart` | `spec_model.json` — the resolved graph the editor and reviewer apps browse |
+| Static validation | `SpecModelValidator` (`lib/src/validator.dart`) | Field-type rules, `@ContentType` compatibility, cycle detection, the `content: String?` override, and all seventeen `tom_specs_model_rules.md` §10.2 structural invariants |
+
+### Gates
+
+Each fails a build step rather than reporting a warning.
+
+| Gate | Holds | Runs from |
+| --- | --- | --- |
+| Model freshness | The nine generated packages against a fingerprint of the model **source** | `test/model_freshness_test.dart`, default suite |
+| Invariant correspondence | `tom_specs_model_rules.md` §10.2's invariant list against the validator's implementation, in both directions | `test/invariant_correspondence_test.dart` |
+| Entrypoint options | This README's `bin/` table against each entrypoint's own `ArgParser`, in both directions | `test/entrypoint_options_test.dart` |
+| Todo citations | Every cited quest-todo id resolves to exactly one open todo | `bin/check_todo_citations.dart`, `test/todo_citations_test.dart` |
+| Section citations | Every `§` citation resolves to a real heading under `index.md`'s convention | `bin/check_section_citations.dart`, `test/section_citations_test.dart` |
+| `OE-` citations | Every cited open-ends id has a register row | `bin/check_oe_citations.dart`, `test/oe_citations_test.dart` |
+| Release closure | The release-1 package set is dependency-closed | `bin/check_release_closure.dart`, `test/release_closure_test.dart` |
+| CodeSpecs derivation | A generated CodeSpecs trio against the `codespecs_derivation_contract.md` §6 checks | `bin/validate_codespecs.dart` |
+
+## Quick start
+
+From the `tom_specs_clitool` package root:
+
+```bash
+# Regenerate all nine language packages from the annotated Dart model.
+dart run bin/generate_som.dart
+# → ../tom_som_{dart,python,java,javascript,typescript,go,rust,c,cpp}_v0
+#   each with lib/ (or src/), meta/spec_model.meta.json, schemas/, manifest
+
+# Re-render the committed outlines, then run the three citation gates.
+./tool/regenerate_outlines.sh
+# → 16 outlines under ../tom_specs_model/generated-doc/outlines/
+# → exits non-zero if any cited todo id, § section or OE- id has gone stale
+```
+
+Both are idempotent: a second run with an unchanged model rewrites the same
+bytes. Commit the diff.
+
+## Usage
+
+### Configuration (`tom_som.yaml`)
 
 The generator reads one top-level `tom-spec-object-model` block. The default
 config lives at [`tom_som.yaml`](tom_som.yaml) beside this README. Full grammar:
@@ -82,11 +182,7 @@ Each resolves to a package-safe **slug** used in the project name
 language, a wrong-typed value, a non-string `document-roots` entry, or a
 document lacking the `tom-spec-object-model` block.
 
----
-
-## 3. Running the generator
-
-From the `tom_specs_clitool` package root:
+### Running the generator
 
 ```bash
 # Generate every configured language target from the default config:
@@ -145,6 +241,16 @@ The same run also regenerates `tom_specs_model`'s own
 generated from the same model by the same reader, so it goes stale at the same
 moment, and one stamp certifies both.
 
+**Member serialization order.** `stamp_serialization_order.dart --package
+../tom_specs_model` rewrites the model source to pin each member's on-disk
+emission order (0-based, per class, source-declaration order). The ordinal flows
+through `ModelReader` → `ModelJsonExporter` into the meta-data, so every language
+serialises members in the authored order. Re-run it after any model edit that
+adds, removes, or reorders fields; it is idempotent (old annotations are stripped
+and renumbered).
+
+### Entrypoints
+
 Related entrypoints in `bin/`:
 
 The **Options** column is the entrypoint's whole input surface bar `--help`, and
@@ -157,7 +263,7 @@ silently skipped.
 
 | Entrypoint | Purpose | Options |
 | --- | --- | --- |
-| `generate_som.dart` | Generate the per-language `tom_som_<slug>_<label>` projects (this section). | `--config` `--model` `--model-version` `--runtime` `--py-runtime` `--java-runtime` `--js-runtime` `--ts-runtime` `--go-runtime` `--rust-runtime` `--c-runtime` `--cpp-runtime` |
+| `generate_som.dart` | Generate the per-language `tom_som_<slug>_<label>` projects ("Running the generator" above). | `--config` `--model` `--model-version` `--runtime` `--py-runtime` `--java-runtime` `--js-runtime` `--ts-runtime` `--go-runtime` `--rust-runtime` `--c-runtime` `--cpp-runtime` |
 | `model_json.dart` | Export the resolved meta-data class graph alone. Refresh either **committed** asset with `--target editor` / `--target reviewer` — the target owns both the path and the version stamp, which the two assets pin differently (`tom_specs_model/doc/tom_specs_model_meta_schema.md`, "Refreshing the committed assets"). `--package` + `--output` is for ad-hoc exports elsewhere, and `--model-version` / `--model-label` override the stamp it writes. | `--target` `--package` `--output` `--model-version` `--model-label` |
 | `outliner.dart` | Render a class-tree outline of the model from any document root. `--root-type` picks the root; the two `--show-schema-annotations` / `--stop-at-detailed-in` flags set how much of each class is rendered, and `--max-line-length` wraps it. | `--package` `--root-type` `--output` `--max-line-length` `--show-schema-annotations` `--stop-at-detailed-in` |
 | `check_todo_citations.dart` | Check that every quest-todo id cited inline in `tom_specs_model/doc` and in the cited project READMEs still names **exactly one open** todo. Exits `1` on a citation of closed or non-existent work, and on a bare stem that several todos answer to. `--no-default-readmes` scans the doc folder alone; `--doc` retargets it, `--extra` adds a file, `--quest` names the todo corpora to resolve against and `--vocabulary` the token allowlist; `--verbose` lists every resolution. Run by `tool/regenerate_outlines.sh` and by `test/todo_citations_test.dart` (see below). | `--doc` `--extra` `--default-readmes` `--quest` `--vocabulary` `--verbose` |
@@ -173,7 +279,7 @@ silently skipped.
 | `summaries.dart` | Build an analyzer `sdk_summary.sum` (and, with `--package`, a one-off grouped `packages.sum`) for a single consumer. This is **not** the producer of `tom_specs_editor`'s scoped summary asset set — that set has one generator, `tom_forge/tom_dart_editor_bundler`, which also emits the `summary_scopes.g.dart` helper naming its asset keys. Here it serves `--sdk-only`, writing into `--out-dir` (see `split_sdk_summary.dart` below). | `--package` `--out-dir` `--sdk-only` |
 | `build.dart` | Build orchestration for the editor app. Its `--generate-summaries` step *invokes* the bundler against `tom_specs_editor/buildkit.yaml` rather than generating the asset set itself, so the assets and the paths the app asks for cannot disagree. `--os` picks the target platform, `--buildkit` the config, `--model` / `--editor` / `--summaries` the paths it reads, and `--no-flutter-build` stops before the Flutter step. | `--os` `--model` `--editor` `--summaries` `--generate-summaries` `--buildkit` `--no-flutter-build` |
 
-And in `tool/` — four entries: two scripts, both still run, and two data files a
+And in `tool/` — five entries: three scripts, all still run, and two data files a
 gate reads. A script here is a maintained entry point, not a scratch file:
 one-shot census and codemod tooling is deleted once its campaign closes, because
 a script that reads a shape the model no longer has is worse than absent — it
@@ -183,25 +289,185 @@ still looks runnable.
 | --- | --- | --- |
 | `regenerate_outlines.sh` | The drift-proof batch entry point: renders all 16 committed outlines (`DocSpecsProject` + D00–D13, plus the compact `SolutionBlueprint`) into `tom_specs_model/generated-doc/outlines/`, then runs **all three** citation gates — `check_todo_citations.dart`, `check_section_citations.dart` and `check_oe_citations.dart` — as blocking steps under `set -e`. | Any model-shape change, and any documentation pass. Commit the diff. |
 | `split_sdk_summary.dart` | Turns `assets/sdk_summary.sum` into the committed `lib/src/sdk_summary/` chunk set that `analyzer_bootstrap.dart` loads — the only producer of it. Pairs with `bin/summaries.dart --sdk-only`, which builds the `.sum`. | The Dart SDK version moves (`tom_specs_model/doc/som_toolchains.md`, "Regenerating after an SDK change"). |
+| `release_set.yaml` | Data, not a script: the committed manifest of the release-1 package set — the nine-package Dart chain, the source-only non-Dart runtime directories, and the approved published crossings, each with its required reason. Read by `bin/check_release_closure.dart` and by `test/release_closure_test.dart`. | The release scope changes, or a crossing is approved. |
 | `model_surface.stamp.json` | Data, not a script: the model fingerprint a canonical `generate_som.dart` run writes, against which `test/model_freshness_test.dart` checks in the default suite. | Written by the generator; commit it with the regenerated packages. |
 | `todo_citation_vocabulary.txt` | Data, not a script: the token allowlist that keeps ordinary technical terms from colliding with the discovered todo-id shapes. A **token** list, never a path list. | A false positive appears — add the one token. |
 
-**Member serialization order.** `stamp_serialization_order.dart --package
-../tom_specs_model` rewrites the model source to pin each member's on-disk
-emission order (0-based, per class, source-declaration order). The ordinal flows
-through `ModelReader` → `ModelJsonExporter` into the meta-data, so every language
-serialises members in the authored order. Re-run it after any model edit that
-adds, removes, or reorders fields; it is idempotent (old annotations are stripped
-and renumbered).
+### What is generated (per language)
 
-**Todo citations.** The TomSpecs documents cite quest-todo ids inline,
-as a backticked id, to say who owns an open question. Such a citation decays
-silently: the todo completes, is archived, and the document goes on pointing a
-reader at finished work. `check_todo_citations.dart` closes that by resolving every
-backticked id-shaped token in `tom_specs_model/doc` — **plus the project READMEs
-that cite it** (`defaultCitedReadmes`, the same closed set the section gate
-holds) — against the active, archived and deleted todo files of the quests those
-documents cite (`defaultCitedQuests` — `tom_specs` and `tom_core`).
+Each target lands at `<output-base>/tom_som_<slug>_<version-label>`. For Dart:
+
+```
+tom_som_dart_v0/
+├── pubspec.yaml              # depends on tom_som_dart_runtime
+├── lib/tom_som_dart_v0.dart  # the typed facade
+├── meta/spec_model.meta.json # lossless meta-data: every class, member, annotation
+├── schemas/                  # 14 DocSpecs schema folders (one per document root)
+│   ├── solution-blueprint/ … └── transition-rollout-plan/
+├── example/                  # hand-authored samples (a/b/c) — survives regen
+└── test/                     # hand-authored generated-tree suite — survives regen
+```
+
+Every other language mirrors this shape — the same `meta/`, `schemas/`,
+hand-authored samples, and tests — differing only in the facade file and the
+language-native manifest that declares the runtime dependency:
+
+| Language | Facade | Manifest | Runtime dependency mechanism |
+| --- | --- | --- | --- |
+| Dart | `lib/tom_som_dart_v0.dart` | `pubspec.yaml` | path/hosted dep on `tom_som_dart_runtime` |
+| Python | `tom_som_python_v0.py` | `pyproject.toml` | dep on `tom_som_python_runtime` |
+| Java | `src/…` | `pom.xml` | dep on `tom_som_java_runtime` |
+| JavaScript | `index.js` (module) | `package.json` | dep on `tom_som_javascript_runtime` |
+| TypeScript | `index.ts` (module) | `package.json` + `tsconfig.json` | `file:` dep on `tom_som_typescript_runtime` |
+| Go | package source | `go.mod` | `replace` → `tom_som_go_runtime` |
+| Rust | `src/lib.rs` | `Cargo.toml` | path dep on `tom_som_rust_runtime` |
+| C | header + source | `Makefile` | `RUNTIME_DIR` → `tom_som_c_runtime` |
+| C++ | header + source | `Makefile` | `RUNTIME_DIR` → `tom_som_cpp_runtime` |
+
+- **Meta-data file** (`meta/spec_model.meta.json`) — the resolved model graph
+  the generic runtime loads. Lossless per SOM §5.3: it carries `modelVersion`
+  (integer major), `modelVersionLabel` (build stamp), `containerRoot`, and for
+  every reachable class its name, doc-comment, identity annotations, and for
+  every field its type, nullability, list/enum-ness, render classification, and
+  **all** annotation arguments.
+- **Typed facade** — typed document-editing classes (see *Consuming the
+  generated code* below): the `D00SolutionBlueprint` root plus every reachable
+  section, form, list and enum class.
+- **Schemas** — the DocSpecs schema and the `*.docspecs.yaml` YAML schema, per
+  document root.
+
+**Two class counts, and they measure different things.** The meta-data reports
+`classCount: 1254` — the model classes, including the `DocSpecsProject`
+container root. The Dart facade declares **3989** classes. The difference is not
+a discrepancy: the facade emits the 1253 model classes it can instantiate (the
+container root is not one of them) **plus one small accessor class per form**,
+named `<Owner><Form>Form`, giving the form's fields typed getters. That is 2736
+accessor classes, and 1253 + 2736 = 3989. Quote `classCount` when you mean the
+model's size and the facade count when you mean the generated Dart surface.
+
+### Consuming the generated code
+
+The same document is reachable three ways. (Dart shown; Python is the literal
+mirror — `field.element_type`, `kind.value`, `SpecModel.from_json`, etc.)
+
+#### Typed path — `tom_som_<lang>_v0`
+
+The typed classes are an **editing facade** over the runtime's `SpecDocument`.
+They are instantiated **with the memory root** and perform a version check at
+construction time (SOM §4.2). Loading/saving is always done through the document,
+never through the facade.
+
+```dart
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
+
+final doc = SpecDocument();
+final sbp = D00SolutionBlueprint(doc);       // instantiation-time SOM §4.2 check
+sbp.content = 'The system vision …';          // typed setter → writes the store
+final csa = sbp.currentLandscape;            // nested section navigation
+final metrics = csa.operationalMetrics;      // typed SomList: add()/length/[i]/items
+metrics.add().content = 'Order turnaround: 4.2 days.';
+sbp.objectModelVersion;                      // '0.0' — which _vN surface this is
+```
+
+Every typed root exposes `static const String modelVersion` and an
+`objectModelVersion` getter returning its own `major.minor` (`'0.0'` for the
+`_v0` pre-release surface). The instantiation check compares this against the
+document's recorded stamp and throws `SomVersionException` (Dart) /
+`SomVersionError` (Python) when an older facade is asked to edit a newer
+document.
+
+#### Generic path — `tom_som_<lang>_runtime`
+
+No typed classes required — address sections by string path:
+
+```dart
+final doc = SpecDocument();
+doc.setContent('SBP/content', 'The system vision …');
+// List paths use the field's section-id (the meta-data names it):
+final item = doc.addListItem('SBP/currentLandscape/CUOPME-OPER-LST');
+doc.setContent('$item/content', 'Order turnaround: 4.2 days.');
+doc.content('SBP/content');                  // read back
+final yaml = SpecDocumentYaml.encode(document: doc, modelVersion: '0.0');
+final json = doc.toJson();
+```
+
+Load/save: `SpecDocumentYaml.decode` / `.encode` for `*.docspecs.yaml`, and
+`SpecDocumentMarkdown` for the Markdown route (also the self-contained scanner —
+no external DocScanner binding required).
+
+#### Reflection path — meta-model introspection
+
+Load the package's own `meta/spec_model.meta.json` and traverse the schema
+value-free:
+
+```dart
+final meta = File('meta/spec_model.meta.json').readAsStringSync();
+final model = SpecModel.fromJson(json.decode(meta));
+final reflection = SpecReflection(model);
+for (final root in model.roots) { /* 14 roots: type, title, sectionId, doc */ }
+reflection.fieldsOf('D00SolutionBlueprint'); // each SpecField: kind, type, …
+reflection.resolve('SBP/currentLandscape');  // path → model node
+```
+
+This is what lets a consumer modify a document **generically and correctly** —
+discover sections, field types, validation, form decomposition, and mapping
+targets — without compiling against the typed classes.
+
+### Versioning rules (SOM §4.2)
+
+- The generated typed projects carry a **version-label suffix**
+  (`tom_som_<slug>_v0`). Projects are generated **per major version** of the
+  model; multiple majors (`_v1`, `_v2`, …) can coexist in one codebase.
+- The **generic runtime carries no suffix** — one runtime per language, shared
+  across majors.
+- A document records the **model version it was authored with**; the facade's
+  instantiation check enforces:
+  - a newer facade **may edit older documents of the same major**, upgrading the
+    stamp on edit;
+  - an older facade **rejects editing newer documents** of the same major;
+  - **different majors are never editable across each other** — cross-major is
+    read/convert only.
+- **`_vN` trigger.** While a major is pre-release the suffix stays `v0` and the
+  typed surface may change freely between regenerations. Backward-compatibility
+  observation — and the move to `_v1` — begins when a `release.md` is added to
+  the model major.
+
+### Samples
+
+Each language's runnable samples live in the generated `v0` package (they
+survive regeneration) and are tabled in that package's own example README:
+
+| Language | Location | Run |
+| --- | --- | --- |
+| Dart | [`tom_som_dart_v0/example/`](../tom_som_dart_v0/example/) | `dart run example/<file>.dart` |
+| Python | [`tom_som_python_v0/examples/`](../tom_som_python_v0/examples/) | `python3 examples/<file>.py` |
+| Java | [`tom_som_java_v0/`](../tom_som_java_v0) | see the package's example README |
+| JavaScript | [`tom_som_javascript_v0/`](../tom_som_javascript_v0) | `node examples/<file>.js` |
+| TypeScript | [`tom_som_typescript_v0/`](../tom_som_typescript_v0) | `tsc && node examples/<file>.js` |
+| Go | [`tom_som_go_v0/`](../tom_som_go_v0) | `go run ./examples/<file>` |
+| Rust | [`tom_som_rust_v0/`](../tom_som_rust_v0) | `cargo run --example <file>` |
+| C | [`tom_som_c_v0/`](../tom_som_c_v0) | `make && ./examples/<file>` |
+| C++ | [`tom_som_cpp_v0/`](../tom_som_cpp_v0) | `make && ./examples/<file>` |
+
+Each provides the same triplet — `a_typed_access`, `b_generic_document`,
+`c_reflection_metadata` (the three access paths above) — building the same
+document shape so the three paths visibly converge across every language.
+
+### The three citation gates
+
+The TomSpecs documents cite each other, the quest's todos and the editor's
+open-ends register by inline id. Every such citation decays **silently**: what
+it points at is renamed, archived or deleted, and the sentence goes on reading
+as if it were still true. Three commands close that, and each is also a test, so
+the corpus is held at zero violations in the default `dart test` run.
+
+**Todo citations.** A quest-todo id is cited to say who owns an open question.
+`check_todo_citations.dart` resolves every backticked id-shaped token in
+`tom_specs_model/doc` — **plus the project READMEs that cite it**
+(`defaultCitedReadmes`, the same closed set the section gate holds) — against
+the active, archived and deleted todo files of the quests those documents cite
+(`defaultCitedQuests` — `tom_specs` and `tom_core`).
 
 Four things about it are deliberate:
 
@@ -339,179 +605,109 @@ Two things about it are deliberate:
 **and closes the gate**: its last test holds the live corpus at zero violations
 over the same roots the command scans by default (`defaultCitingRoots`).
 
----
-
-## 4. What is generated (per language)
-
-Each target lands at `<output-base>/tom_som_<slug>_<version-label>`. For Dart:
+## Architecture
 
 ```
-tom_som_dart_v0/
-├── pubspec.yaml              # depends on tom_som_dart_runtime
-├── lib/tom_som_dart_v0.dart  # the typed facade (D00SolutionBlueprint + 3988 classes)
-├── meta/spec_model.meta.json # lossless meta-data: every class, member, annotation
-├── schemas/                  # 14 DocSpecs schema folders (one per document root)
-│   ├── solution-blueprint/ … └── transition-rollout-plan/
-├── example/                  # hand-authored samples (a/b/c) — survives regen
-└── test/                     # hand-authored generated-tree suite — survives regen
+tom_specs_clitool
+├── bin/                      15 entrypoints — see "Entrypoints" above
+├── tool/                     batch scripts + the two data files a gate reads
+└── lib/src/
+    ├── model_reader.dart     analyzer-backed read of tom_specs_model → ModelClass graph
+    ├── validator.dart        the STATIC tier: the model's own annotations
+    ├── meta_tree.dart        the resolved graph → the language-neutral meta tree
+    ├── som_<lang>_generator  ┐ nine emitter triples, one per language:
+    ├── som_<lang>_emitter    ├─ generator = project + manifest + packaging
+    ├── som_<lang>_meta_emit… ┘ emitter = typed facade · meta emitter = meta/
+    ├── packaging.dart        the generated README / doc / manifest boilerplate
+    ├── docspecs_*_generator  DocSpecs and YAML schema emission
+    ├── spec_ops_generator    the SpecClassOps registry for tom_specs_model
+    ├── serialization_order   the @SerializationOrder re-stamper
+    ├── outline_writer.dart   the class-tree outline renderer
+    ├── model_json_exporter   the class graph the editor and reviewer browse
+    ├── model_freshness.dart  the model-source fingerprint behind the stamp
+    ├── {todo,section,oe}_citations.dart · release_closure.dart · entrypoint_options.dart
+    └── codespecs/            the CodeSpecs derivation-contract checks
+
+   tom_specs_model ──ModelReader──▶ ModelClass graph ──▶ meta tree
+                                          │                 │
+                              validator ◀─┘                 ├──▶ 9 × typed emitter
+                              outliner  ◀─┘                 └──▶ 9 × meta emitter
 ```
 
-Every other language mirrors this shape — the same `meta/`, `schemas/`,
-hand-authored samples, and tests — differing only in the facade file and the
-language-native manifest that declares the runtime dependency:
-
-| Language | Facade | Manifest | Runtime dependency mechanism |
-| --- | --- | --- | --- |
-| Dart | `lib/tom_som_dart_v0.dart` | `pubspec.yaml` | path/hosted dep on `tom_som_dart_runtime` |
-| Python | `tom_som_python_v0.py` | `pyproject.toml` | dep on `tom_som_python_runtime` |
-| Java | `src/…` | `pom.xml` | dep on `tom_som_java_runtime` |
-| JavaScript | `index.js` (module) | `package.json` | dep on `tom_som_javascript_runtime` |
-| TypeScript | `index.ts` (module) | `package.json` + `tsconfig.json` | `file:` dep on `tom_som_typescript_runtime` |
-| Go | package source | `go.mod` | `replace` → `tom_som_go_runtime` |
-| Rust | `src/lib.rs` | `Cargo.toml` | path dep on `tom_som_rust_runtime` |
-| C | header + source | `Makefile` | `RUNTIME_DIR` → `tom_som_c_runtime` |
-| C++ | header + source | `Makefile` | `RUNTIME_DIR` → `tom_som_cpp_runtime` |
-
-- **Meta-data file** (`meta/spec_model.meta.json`) — the resolved model graph
-  the generic runtime loads. Lossless per SOM §5.3: it carries `modelVersion`
-  (integer major), `modelVersionLabel` (build stamp), `containerRoot`, and for
-  every reachable class its name, doc-comment, identity annotations, and for
-  every field its type, nullability, list/enum-ness, render classification, and
-  **all** annotation arguments.
-- **Typed facade** — typed document-editing classes (see this README's §5).
-  The
-  `D00SolutionBlueprint` root plus every reachable section/form/list/enum class.
-- **Schemas** — the DocSpecs schema and the `*.docspecs.yaml` YAML schema, per
-  document root.
-
----
-
-## 5. Consuming the generated code
-
-The same document is reachable three ways. (Dart shown; Python is the literal
-mirror — `field.element_type`, `kind.value`, `SpecModel.from_json`, etc.)
-
-### 5a. Typed path — `tom_som_<lang>_v0`
-
-The typed classes are an **editing facade** over the runtime's `SpecDocument`.
-They are instantiated **with the memory root** and perform a version check at
-construction time (SOM §4.2). Loading/saving is always done through the document,
-never through the facade.
-
-```dart
-import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
-import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
-
-final doc = SpecDocument();
-final sbp = D00SolutionBlueprint(doc);       // instantiation-time SOM §4.2 check
-sbp.content = 'The system vision …';          // typed setter → writes the store
-final csa = sbp.currentLandscape;            // nested section navigation
-final metrics = csa.operationalMetrics;      // typed SomList: add()/length/[i]/items
-metrics.add().content = 'Order turnaround: 4.2 days.';
-sbp.objectModelVersion;                      // '0.0' — which _vN surface this is
-```
-
-Every typed root exposes `static const String modelVersion` and an
-`objectModelVersion` getter returning its own `major.minor` (`'0.0'` for the
-`_v0` pre-release surface). The instantiation check compares this against the
-document's recorded stamp and throws `SomVersionException` (Dart) /
-`SomVersionError` (Python) when an older facade is asked to edit a newer
-document.
-
-### 5b. Generic path — `tom_som_<lang>_runtime`
-
-No typed classes required — address sections by string path:
-
-```dart
-final doc = SpecDocument();
-doc.setContent('SBP/content', 'The system vision …');
-// List paths use the field's section-id (the meta-data names it):
-final item = doc.addListItem('SBP/currentLandscape/CUOPME-OPER-LST');
-doc.setContent('$item/content', 'Order turnaround: 4.2 days.');
-doc.content('SBP/content');                  // read back
-final yaml = SpecDocumentYaml.encode(document: doc, modelVersion: '0.0');
-final json = doc.toJson();
-```
-
-Load/save: `SpecDocumentYaml.decode` / `.encode` for `*.docspecs.yaml`, and
-`SpecDocumentMarkdown` for the Markdown route (also the self-contained scanner —
-no external DocScanner binding required).
-
-### 5c. Reflection path — meta-model introspection
-
-Load the package's own `meta/spec_model.meta.json` and traverse the schema
-value-free:
-
-```dart
-final meta = File('meta/spec_model.meta.json').readAsStringSync();
-final model = SpecModel.fromJson(json.decode(meta));
-final reflection = SpecReflection(model);
-for (final root in model.roots) { /* 14 roots: type, title, sectionId, doc */ }
-reflection.fieldsOf('D00SolutionBlueprint'); // each SpecField: kind, type, …
-reflection.resolve('SBP/currentLandscape');  // path → model node
-```
-
-This is what lets a consumer modify a document **generically and correctly** —
-discover sections, field types, validation, form decomposition, and mapping
-targets — without compiling against the typed classes.
-
----
-
-## 6. Versioning rules (SOM §4.2)
-
-- The generated typed projects carry a **version-label suffix**
-  (`tom_som_<slug>_v0`). Projects are generated **per major version** of the
-  model; multiple majors (`_v1`, `_v2`, …) can coexist in one codebase.
-- The **generic runtime carries no suffix** — one runtime per language, shared
-  across majors.
-- A document records the **model version it was authored with**; the facade's
-  instantiation check enforces:
-  - a newer facade **may edit older documents of the same major**, upgrading the
-    stamp on edit;
-  - an older facade **rejects editing newer documents** of the same major;
-  - **different majors are never editable across each other** — cross-major is
-    read/convert only.
-- **`_vN` trigger.** While a major is pre-release the suffix stays `v0` and the
-  typed surface may change freely between regenerations. Backward-compatibility
-  observation — and the move to `_v1` — begins when a `release.md` is added to
-  the model major. (Quest decisions D3/D10.)
-
----
-
-## 7. Samples
-
-Each language's runnable samples live in the generated `v0` package (they
-survive regeneration) and are tabled in that package's own example README:
-
-| Language | Location | Run |
-| --- | --- | --- |
-| Dart | [`tom_som_dart_v0/example/`](../tom_som_dart_v0/example/) | `dart run example/<file>.dart` |
-| Python | [`tom_som_python_v0/examples/`](../tom_som_python_v0/examples/) | `python3 examples/<file>.py` |
-| Java | `tom_som_java_v0/` | see the package's example README |
-| JavaScript | `tom_som_javascript_v0/` | `node examples/<file>.js` |
-| TypeScript | `tom_som_typescript_v0/` | `tsc && node examples/<file>.js` |
-| Go | `tom_som_go_v0/` | `go run ./examples/<file>` |
-| Rust | `tom_som_rust_v0/` | `cargo run --example <file>` |
-| C | `tom_som_c_v0/` | `make && ./examples/<file>` |
-| C++ | `tom_som_cpp_v0/` | `make && ./examples/<file>` |
-
-Each provides the same triplet — `a_typed_access`, `b_generic_document`,
-`c_reflection_metadata` (this README's §5) — building the same document shape so
-the
-three access paths visibly converge across every language.
-
----
-
-## 8. Status
-
-| Concern | State |
+| Type | Responsibility |
 | --- | --- |
-| Generator + config | Complete; `dart run bin/generate_som.dart`, idempotent. |
-| Dart runtime + `v0` | Complete (reference); 3989 classes, 14 roots. |
-| Python runtime + `v0` | Complete (reference port); camelCase accessors preserved. |
-| Java / JS / TS / Go / Rust / C / C++ runtime + `v0` | Complete — typed emitter + generic runtime for each; each builds and runs its `v0` project (3989 classes; see [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md)). |
+| `ModelReader` | The one analyzer-backed read of `tom_specs_model`. Everything downstream works on its `ModelClass` graph, so no other component parses Dart. |
+| `SpecModelValidator` | The **static** tier — whether the *model's own annotations* are well-formed. Runs at generation time only; the *instance* tier (a concrete document's values) is each runtime's `validateDocument`. |
+| `MetaTree` | The language-neutral resolved graph. Every one of the nine languages derives from this, which is why one freshness stamp covers all nine. |
+| `Som<Lang>Generator` / `Emitter` / `MetaEmitter` | The nine emitter triples: project + manifest, typed facade, and `meta/spec_model.meta.json` respectively. |
+| `writeFacadePackaging` (`packaging.dart`) | The generated `README.md` / `readme_howtointegrate.md` / manifest boilerplate each `tom_som_*_v0` ships. Hand-written `doc/` folders survive it. |
+| `SpecOpsGenerator` | `spec_ops.g.dart` — every class's snapshot/serialization contract, keyed by section id rather than Dart field name, plus each projection root's `connect:` binding. |
+| `ModelJsonExporter` | The `spec_model.json` class graph the editor and reviewer apps browse. |
+| `ModelSurfaceFingerprint` (`model_freshness.dart`) | Fingerprints the model **source**, never the generated output — fingerprinting the output would let a stale package match a stamp taken over its own stale self. |
+| `TodoCitations` / `SectionCitations` / `OeCitations` | The three inline-citation resolvers, each with a closed default corpus so the command and the test cover the same files. |
+| `ReleaseClosure` | The dependency-closure walk over `tool/release_set.yaml`. |
+| `EntrypointOptions` | Holds this README's `bin/` table against each entrypoint's `ArgParser`, in both directions. |
 
-The per-language project layout and emitter conventions this table reports on
-are specified in
-[`som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
-SOM §6 and SOM §8.
+## Ecosystem
+
+```
+                       tom_specs_core        (the annotations the model is written in)
+                             │
+                             ▼
+                       tom_specs_model       (the annotated Dart model — data only)
+                             │  read once by ModelReader
+                             ▼
+                    ▶ tom_specs_clitool ◀    (this package: read · validate · emit)
+                             │ emits
+      ┌──────────────────────┼──────────────────────┐
+      ▼                      ▼                      ▼
+ tom_som_dart_v0    tom_som_python_v0   …  tom_som_cpp_v0     (9 typed facades)
+      │                      │                      │
+      ▼                      ▼                      ▼
+ tom_som_dart_runtime  tom_som_python_runtime  … (9 hand-written runtimes)
+      │
+      ├──▶ tom_spec_engine ──▶ tom_forge/tom_specs_editor
+      └──▶ tom_specs_reviewer
+```
+
+## Further documentation
+
+**TomSpecs subject matter** — the authorities this package implements:
+
+| Document | Authority for |
+|----------|---------------|
+| [index.md](../tom_specs_model/doc/index.md) | The catalogue of the whole TomSpecs document set, and the `§` citation convention the gates here resolve |
+| [som_multiplatform_spec_model.md](../tom_specs_model/doc/som_multiplatform_spec_model.md) | The nine-language generation, the metadata tree, the generated/runtime/meta classes, serialization, schema generation, the embedded validator and language packaging |
+| [som_generator_config.md](../tom_specs_model/doc/som_generator_config.md) | The `tom-spec-object-model` config block — languages, output roots, version label, document roots |
+| [som_toolchains.md](../tom_specs_model/doc/som_toolchains.md) | The per-language build and verify toolchains, and running the Dart host with no installed SDK |
+| [tom_specs_model_meta_schema.md](../tom_specs_model/doc/tom_specs_model_meta_schema.md) | The on-disk schema of the emitted `spec_model.meta.json`, its two version stamps, and the committed-asset refresh procedure |
+| [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules, the seventeen structural invariants the validator enforces, and the outliner |
+| [codespecs_derivation_contract.md](../tom_specs_model/doc/codespecs_derivation_contract.md) | What `bin/validate_codespecs.dart` checks, and why each corroborating input is needed |
+| [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) | The parts catalogue `bin/codespecs_areas.dart` transcribes |
+
+**This package** — its own guides:
+
+| Guide | Covers |
+|-------|--------|
+| [_copilot_guidelines/index.md](_copilot_guidelines/index.md) | The index of this package's development guidelines |
+| [_copilot_guidelines/som_regeneration.md](_copilot_guidelines/som_regeneration.md) | When to re-run `generate_som.dart`, what the freshness fingerprint covers, and what it deliberately ignores |
+
+**Siblings** — packages you will reach for next:
+
+| Package | What it is |
+|---------|-----------|
+| [tom_specs_model](../tom_specs_model) | The annotated Dart model this package reads — and the home of all TomSpecs subject-matter documentation |
+| [tom_specs_core](../tom_specs_core) | The annotation library the model is written against |
+| [tom_som_dart_runtime](../tom_som_dart_runtime) | The hand-written generic Dart runtime the emitted facade layers over |
+| [tom_som_dart_v0](../tom_som_dart_v0) | The generated typed Dart facade — the reference output of this generator |
+| [tom_som_conformance](../tom_som_conformance) | The cross-language harness that holds all nine ports to the same behaviour |
+| [tom_spec_engine](../tom_spec_engine) | The scripting and agent plane built on the generated Dart pair |
+
+## Status
+
+Version **0.2.0**, published to pub.dev.
+
+**923 tests passing, 22 skipped.** The skips are toolchain-gated — a suite that
+needs a language runtime this host does not have reports as skipped with the
+reason stated rather than as a red suite. Run them with `dart test` or
+`testkit :test`.

@@ -1,11 +1,11 @@
 name: tom_spec_engine
+# One line, and the README repeats it word for word
+# (tom_specs_documentation_standard.md §2.1, row 3). The detail this used to
+# carry — the two doors, the in-process linking, the specification pointer —
+# now lives in README.md, which is where a reader looks for it.
 description: >-
-  TomSpecs scripting/engine plane — the pure-Dart host behind the editor's D4rt
-  scripting & LLM tooling: the D4rt scope registry, the restricted dcli file
-  facade, the structural/lexical search index, and the Tom-Brain-backed RAG
-  memory + agent substrate. Linked in-process by the TomSpecs editor; usable
-  headless (CLI/tests). See
-  tom_ai/ai_build/tom_specs_model/doc/llm_and_d4rt_tools.md.
+  TomSpecs scripting/engine plane — the pure-Dart D4rt scope host, search index,
+  tool surface, RAG memory and agent substrate behind the TomSpecs editor.
 version: 0.0.1
 # Internal engine consumed by path from the editor; depends by path on
 # unpublished sibling SOM packages. Never published to pub.dev.
