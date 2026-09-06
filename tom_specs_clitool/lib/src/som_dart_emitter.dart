@@ -345,13 +345,11 @@ class SomDartEmitter {
     // reference, so it needs its own comment or it renders undocumented beside
     // a documented getter. It is the same subject, so it points at the getter
     // rather than restating it.
-    final setterDoc = '  /// Sets [$acc].';
     switch (f.kind) {
       case SpecFieldKind.content:
       case SpecFieldKind.scalar:
         b
           ..writeln('  String get $acc => doc.content($childPath) ?? \'\';')
-          ..writeln(setterDoc)
           ..writeln(
               '  set $acc(String value) => doc.setContent($childPath, value);');
         break;
@@ -360,14 +358,12 @@ class SomDartEmitter {
           // No enum type name available — fall back to a string leaf.
           b
             ..writeln('  String get $acc => doc.content($childPath) ?? \'\';')
-            ..writeln(setterDoc)
             ..writeln(
                 '  set $acc(String value) => doc.setContent($childPath, value);');
         } else {
           final et = f.enumType!;
           b
             ..writeln('  $et? get $acc => _parse$et(doc.content($childPath));')
-            ..writeln(setterDoc)
             ..writeln('  set $acc($et? value) => '
                 'doc.setContent($childPath, value?.name ?? \'\');');
         }
@@ -432,7 +428,6 @@ class SomDartEmitter {
         ..writeln('  /// The section\'s own free-text content, before the form '
             'fields.')
         ..writeln('  String get content => doc.content(path) ?? \'\';')
-        ..writeln('  /// Sets [content].')
         ..writeln('  set content(String value) => '
             'doc.setContent(path, value);');
     }
@@ -454,7 +449,6 @@ class SomDartEmitter {
     final n = _acc(ff.name);
     final key = _escape(ff.name);
     _writeFormMemberDoc(b, ff);
-    final setterDoc = '  /// Sets [$n].';
     // YRD7: enum-typed form fields expose the generated enum natively; the
     // stored value stays the constant name (`_parse<Enum>` / `.name`).
     if (ff.enumValues.isNotEmpty) {
@@ -462,7 +456,6 @@ class SomDartEmitter {
       b
         ..writeln('  $et? get $n => '
             '_parse$et(doc.formField(path, \'$key\'));')
-        ..writeln(setterDoc)
         ..writeln('  set $n($et? value) => '
             'doc.setFormField(path, \'$key\', value?.name ?? \'\');');
       return;
@@ -475,35 +468,30 @@ class SomDartEmitter {
         b
           ..writeln('  int? get $n => '
               'somParseInt(doc.formField(path, \'$key\'));')
-          ..writeln(setterDoc)
         ..writeln('  set $n(int? value) => '
               'doc.setFormField(path, \'$key\', somFormatInt(value));');
       case 'double':
         b
           ..writeln('  double? get $n => '
               'somParseDouble(doc.formField(path, \'$key\'));')
-          ..writeln(setterDoc)
         ..writeln('  set $n(double? value) => '
               'doc.setFormField(path, \'$key\', somFormatDouble(value));');
       case 'num':
         b
           ..writeln('  num? get $n => '
               'somParseNum(doc.formField(path, \'$key\'));')
-          ..writeln(setterDoc)
         ..writeln('  set $n(num? value) => '
               'doc.setFormField(path, \'$key\', somFormatNum(value));');
       case 'bool':
         b
           ..writeln('  bool? get $n => '
               'somParseBool(doc.formField(path, \'$key\'));')
-          ..writeln(setterDoc)
         ..writeln('  set $n(bool? value) => '
               'doc.setFormField(path, \'$key\', somFormatBool(value));');
       default:
         b
           ..writeln('  String get $n => '
               'doc.formField(path, \'$key\') ?? \'\';')
-          ..writeln(setterDoc)
         ..writeln('  set $n(String value) => '
               'doc.setFormField(path, \'$key\', value);');
     }

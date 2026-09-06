@@ -817,15 +817,22 @@ the text is language-neutral, so each needs only its own comment syntax around
 the same strings. It is the largest single documentation win available in the
 generated tier, and it costs one change per emitter.
 
-Two further rules the Dart emitter now follows and the others should:
+One further rule the Dart emitter follows and the others should:
 
-- **A setter needs its own comment.** In an API reference a getter/setter pair
-  renders as two members, so a documented getter beside a bare setter reads as
-  half-undocumented. Pointing the setter at the getter (`Sets [x].`) is enough
-  and does not duplicate the text.
 - **The barrel needs a library-level comment.** Without one the package's
   reference opens on an empty page. It has to be emitted: a hand edit is
   overwritten by the next generation run.
+
+And one that looked like a rule and is not. **A setter does not need its own
+comment** where the language treats a getter/setter pair as one member. Dart
+does: `dart doc` renders the pair as a single read/write property carrying the
+getter's text, and `public_member_api_docs` never asks for the setter. The Dart
+emitter briefly emitted a `Sets [x].` line on every setter — 14,253 of them —
+before this was checked against a real `dart doc` run rather than against a
+coverage scanner that counted the two halves separately. Each language's
+emitter should ask the same question of *its* documentation tool before
+deciding: a language whose reference does list a setter separately genuinely
+needs the line, and one whose reference does not gains 14,000 lines of nothing.
 
 **What the meta cannot supply.** Enum *constants* are carried as bare names
 (`enumValues`), with no per-constant text, so no emitter can document them from

@@ -21,6 +21,17 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
+    # The reviewer is at 100% public-API dartdoc coverage against a 90% bar
+    # (tom_specs_documentation_standard.md §5/§6). The lint makes `dart analyze`
+    # the ratchet: a new public member without a doc comment fails at edit time
+    # rather than waiting for a coverage sweep.
+    public_member_api_docs: true
+
+    # Paired with it. A dartdoc `[reference]` that does not resolve is invisible
+    # until `dart doc` runs; here it is a build-time failure. Note that the
+    # parameters of a FUNCTION TYPE (`void Function(String targetRoot)`) are not
+    # in scope for a reference — write those in backticks.
+    comment_references: true
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 

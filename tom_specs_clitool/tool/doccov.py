@@ -56,6 +56,9 @@ Three exclusions, two of them matching the lint and for the lint's reasons:
   the exclusion the first version lacked;
 * the members of a private type — `class _Block`'s fields are not public API,
   and the lint does not report them either;
+* the setter half of a getter/setter pair, and a top-level `main` — `dart doc`
+  renders a pair as one read/write property carrying the getter's comment, and
+  an entry point is not API;
 * the contents of a multi-line string literal — the bundled BSD licence text in
   `packaging.dart` is 25 lines that otherwise parse as declarations.
 
@@ -174,6 +177,12 @@ def _skip_annotations(lines, start):
 def public_decls(path):
     """Yield (name, documented, line_number) for each public declaration."""
     lines = open(path).read().split('\n')
+    # A getter/setter PAIR is ONE member. `dart doc` renders it as a single
+    # read/write property carrying the getter's comment, and
+    # `public_member_api_docs` agrees — so counting the setter separately
+    # invents a member nobody can document. (A write-only setter has no getter
+    # to inherit from and is counted.)
+    getters = set(re.findall(r'\bget\s+(\w+)', open(path).read()))
     out = []
     # Stack of booleans: is each currently open block a *type* body? A
     # declaration counts only when every enclosing block is one.
@@ -232,6 +241,11 @@ def public_decls(path):
                     if m2:
                         declaration = m2.group(1)
 
+        if declaration and re.match(r'^\s*set\s+' + re.escape(declaration or '')
+                                    + r'\b', raw) and declaration in getters:
+            declaration = None  # the getter of the pair carries the comment
+        if declaration == 'main' and not stack:
+            declaration = None  # an entry point is not API; the lint agrees
         if declaration and not declaration.startswith('_') \
                 and declaration not in KEYWORDS:
             j, override = _skip_annotations(lines, i - 1)

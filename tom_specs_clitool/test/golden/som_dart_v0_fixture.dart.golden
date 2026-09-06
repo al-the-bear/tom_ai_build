@@ -66,7 +66,6 @@ class CurrentLandscapeAssessment extends SomNode {
   CurrentLandscapeAssessment(super.doc, super.path);
 
   String get summary => doc.content('$path/summary') ?? '';
-  /// Sets [summary].
   set summary(String value) => doc.setContent('$path/summary', value);
 }
 
@@ -79,11 +78,9 @@ class Risk extends SomNode {
   Risk(super.doc, super.path);
 
   String get title => doc.content('$path/title') ?? '';
-  /// Sets [title].
   set title(String value) => doc.setContent('$path/title', value);
 
   Probability? get probability => _parseProbability(doc.content('$path/prob'));
-  /// Sets [probability].
   set probability(Probability? value) => doc.setContent('$path/prob', value?.name ?? '');
 }
 
@@ -126,7 +123,6 @@ class SolutionBlueprint extends SomNode {
 
   /// Why the system exists.
   String get vision => doc.content('$path/vision') ?? '';
-  /// Sets [vision].
   set vision(String value) => doc.setContent('$path/vision', value);
 
   /// Form section. Fields: Name, Role.
@@ -155,7 +151,6 @@ class SolutionBlueprintOwnerForm extends SomNode {
 
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
-  /// Sets [content].
   set content(String value) => doc.setContent(path, value);
 
   /// Name.
@@ -165,14 +160,12 @@ class SolutionBlueprintOwnerForm extends SomNode {
   ///
   /// **Required** — a document that leaves this empty fails validation.
   String get name => doc.formField(path, 'name') ?? '';
-  /// Sets [name].
   set name(String value) => doc.setFormField(path, 'name', value);
 
   /// Role.
   ///
   /// Stored as one of: `sponsor`, `architect`.
   OwnerRole? get role => _parseOwnerRole(doc.formField(path, 'role'));
-  /// Sets [role].
   set role(OwnerRole? value) => doc.setFormField(path, 'role', value?.name ?? '');
 }
 

@@ -7,13 +7,20 @@ import 'spec_tree.dart';
 /// The application start page. Hosts a tab bar whose first tab is the
 /// "Document Structures" browser; further tabs are reserved for later.
 class StartPage extends StatelessWidget {
+  /// The class graph whose document roots become the browsable trees.
   final SpecModel model;
+
+  /// The observation store the tree reads markings from and writes them to.
   final ReviewStore store;
 
   /// Evaluation instant for the snapshot-age check, injectable so tests can
   /// age a fixture without touching the clock.
   final DateTime? now;
 
+  /// Builds the start page.
+  ///
+  /// [now] is the only optional argument, and exists solely so a test can age
+  /// a fixture without touching the clock.
   const StartPage({
     super.key,
     required this.model,
@@ -73,9 +80,17 @@ class StartPage extends StatelessWidget {
 /// superseded snapshot is silently mis-filed. The reviewer has to be able to
 /// see which model they are judging without going looking for it.
 class ModelStampBar extends StatelessWidget {
+  /// The snapshot being reported on — its `generatedAt`, counts and container
+  /// root are what the bar displays.
   final SpecModel model;
+
+  /// The staleness verdict for [model], computed once by the caller.
+  ///
+  /// Passed in rather than recomputed here so the bar and the page it sits on
+  /// cannot disagree about whether the snapshot is stale.
   final SpecModelStampCheck check;
 
+  /// Builds the bar for [model] under the already-computed [check].
   const ModelStampBar({super.key, required this.model, required this.check});
 
   @override

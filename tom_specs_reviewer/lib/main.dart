@@ -17,9 +17,25 @@ Future<void> main() async {
 
 /// Root application widget for the TomSpecs structure reviewer.
 class SpecsReviewerApp extends StatelessWidget {
+  /// The exported class graph being reviewed, decoded from the bundled
+  /// `assets/spec_model.json` snapshot.
+  ///
+  /// A committed snapshot, not a live read of `tom_specs_model` — which is why
+  /// `ModelStampBar` exists to say which one, and why an observation recorded
+  /// against a superseded snapshot is a real hazard rather than a theoretical
+  /// one.
   final SpecModel model;
+
+  /// The review observations, already loaded from disk.
+  ///
+  /// Loaded before `runApp` rather than during the first build, so the tree
+  /// never renders a frame with empty markings that then fill in.
   final ReviewStore store;
 
+  /// Builds the application over an already-loaded [model] and [store].
+  ///
+  /// Both are required: this widget performs no loading of its own, so there
+  /// is no sensible default for either.
   const SpecsReviewerApp({super.key, required this.model, required this.store});
 
   @override

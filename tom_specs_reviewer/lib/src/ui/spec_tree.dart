@@ -104,10 +104,15 @@ class SpecTreeScope extends InheritedWidget {
   /// Key attached to the single navigation-target row for `ensureVisible`.
   final GlobalKey? navTargetKey;
 
-  /// Invoked when a hand-off marker is clicked: jump to [targetRoot] document
-  /// and reveal the [targetType] subsection within it.
+  /// Invoked when a hand-off marker is clicked: jump to the `targetRoot`
+  /// document and reveal the `targetType` subsection within it.
   final void Function(String targetRoot, String targetType) onHandoffTap;
 
+  /// Publishes the tree-wide view settings to every row below.
+  ///
+  /// Every argument is required: this scope is the single source of the
+  /// settings each row reads, so a defaulted one would silently disagree with
+  /// the toolbar that owns it.
   const SpecTreeScope({
     super.key,
     required this.cutAtDetails,
@@ -122,6 +127,11 @@ class SpecTreeScope extends InheritedWidget {
     required super.child,
   });
 
+  /// The nearest enclosing scope, which every row depends on for its settings.
+  ///
+  /// Asserts rather than returning null: a row rendered outside the scope is a
+  /// wiring mistake, and failing at the point of the mistake beats every row
+  /// silently falling back to defaults.
   static SpecTreeScope of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<SpecTreeScope>();
     assert(scope != null, 'SpecTreeScope not found in context');
@@ -209,8 +219,16 @@ List<_Chip> _caseChips(SpecField f) => _paint(caseChips(f));
 
 /// Renders the structure tree for a single document root.
 class SpecTree extends StatefulWidget {
+  /// The class graph the tree resolves member types against.
   final SpecModel model;
+
+  /// The document root this tree is rooted at — one tree per root.
   final SpecRoot root;
+
+  /// The observation store backing each row's markings.
+  ///
+  /// Keyed by structural path, so the same node reached through two documents
+  /// carries two independent markings by design.
   final ReviewStore store;
 
   /// Suppress subsections at `@DetailedIn` hand-off points (2b).
@@ -228,6 +246,11 @@ class SpecTree extends StatefulWidget {
   /// Called when a hand-off marker is tapped, to switch documents.
   final void Function(String targetRoot, String targetType) onHandoffTap;
 
+  /// Builds the tree for one document [root].
+  ///
+  /// Every argument is required, including the view switches: the tree is
+  /// always rendered inside a toolbar that owns them, so a default here could
+  /// only ever contradict it.
   const SpecTree({
     super.key,
     required this.model,

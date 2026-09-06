@@ -142,10 +142,21 @@ String noArtifactReasonLabel(NoArtifactReason? reason) {
 /// has been made, [neither] is the judgement that the subtree drives no
 /// downstream work at all.
 enum ReviewDestination {
+  /// No judgement has been made yet. The default, and distinct from [neither].
   unset,
+
+  /// The subtree becomes generated code and nothing else.
   codeSpecs,
+
+  /// The subtree feeds a downstream follow-up process and produces no code.
   followUp,
+
+  /// The subtree splits: part of it becomes code, part feeds a follow-up.
   both,
+
+  /// The judgement that the subtree drives no downstream work at all — the
+  /// reviewer's counterpart to `@NoArtifact`. Distinct from [unset]: this is a
+  /// decision, not its absence.
   neither;
 
   /// The YAML / persistence token for this destination.
@@ -180,6 +191,11 @@ enum ReviewDestination {
     }
   }
 
+  /// Reads a persisted token back, defaulting to [unset].
+  ///
+  /// An unrecognised token yields [unset] rather than throwing: the review file
+  /// is hand-editable, and losing one node's judgement is a better failure than
+  /// refusing to open the whole file.
   static ReviewDestination parse(String? raw) {
     switch (raw) {
       case 'code_specs':
@@ -202,9 +218,18 @@ enum ReviewDestination {
 /// the Project Definition, become a global (shared) section, become global but
 /// with per-document adaptations, or is it not yet decided?
 enum ReviewScope {
+  /// Not yet decided. The default for an untouched node.
   none,
+
+  /// Stays in the Project Definition only — not promoted to a shared section.
   onlyPd,
+
+  /// Becomes a global section, identical wherever it is used.
   global,
+
+  /// Becomes a global section that individual documents adapt. The costliest
+  /// of the three outcomes, so it is a separate verdict rather than a note on
+  /// [global].
   globalWithAdaptations;
 
   /// The YAML / persistence token for this scope.
@@ -235,6 +260,8 @@ enum ReviewScope {
     }
   }
 
+  /// Reads a persisted token back, defaulting to [none] on anything
+  /// unrecognised — see [ReviewDestination.parse] for why it does not throw.
   static ReviewScope parse(String? raw) {
     switch (raw) {
       case 'only_pd':
@@ -255,8 +282,16 @@ enum ReviewScope {
 /// `D00SolutionBlueprint/systemQualityGoals/§item/content`. The three visual
 /// instances rendered for a list therefore share one entry.
 class ReviewEntry {
+  /// Where this node should end up — the primary review decision.
   ReviewScope scope;
+
+  /// The subtree below this node needs no further review; stop descending.
   bool stopHere;
+
+  /// This node is underspecified and needs more detail modelled beneath it.
+  ///
+  /// The opposite finding to [stopHere], and the two are independent flags: a
+  /// node can want detail in one place and be finished in another.
   bool addDetails;
 
   /// This node must be modelled as a list.
@@ -352,6 +387,10 @@ class ReviewEntry {
   /// This node should carry `@StandardReferences` and does not.
   bool standardRefMissing;
 
+  /// The reviewer's free text for this node.
+  ///
+  /// Trimmed on save and omitted from the file when empty, so an entry touched
+  /// and cleared does not persist a blank key.
   String comment;
 
   List<String> _suggestedCodeSpecKinds;
@@ -363,6 +402,12 @@ class ReviewEntry {
   /// The `@Unused` marking on this node is wrong — the node must be kept.
   bool _unusedRejected;
 
+  /// Creates an entry with every judgement at its unset default.
+  ///
+  /// All arguments are optional because an entry is created the moment a node
+  /// is first touched, before any judgement exists — the defaults *are* the
+  /// "no opinion recorded" state, which is what makes an empty entry safe to
+  /// drop on save.
   ReviewEntry({
     this.scope = ReviewScope.none,
     this.stopHere = false,
@@ -451,6 +496,11 @@ class ReviewEntry {
           if (!kFollowUpProcessTokens.contains(kind)) kind,
       ];
 
+  /// Whether any proposed follow-up code is outside `FollowUpProcess`.
+  ///
+  /// Drives the warning in the dialog. Not an error — the taxonomy is
+  /// extensible, so this tells the reviewer they are extending it rather than
+  /// picking from it.
   bool get hasUnknownFollowUpKind => unknownFollowUpKinds.isNotEmpty;
 
   /// The `CodeSpecPart` kinds the reviewer proposes for this node.
@@ -509,7 +559,8 @@ class ReviewEntry {
       _suggestedFollowUpKinds.isEmpty &&
       comment.trim().isEmpty;
 
-  /// The persisted form of this entry — the write counterpart of [fromMap], and
+  /// The persisted form of this entry — the write counterpart of
+  /// [ReviewEntry.fromMap], and
   /// the single source `ReviewStore` emits from.
   ///
   /// Every axis is threaded through exactly one writer, because it was
@@ -554,6 +605,11 @@ class ReviewEntry {
         if (comment.trim().isNotEmpty) 'comment': comment.trim(),
       };
 
+  /// Rebuilds an entry from its persisted map.
+  ///
+  /// Every field is read defensively — a missing key yields the unset default
+  /// rather than throwing — because the review file is hand-editable and a
+  /// partially written entry must still open.
   factory ReviewEntry.fromMap(Map map) => ReviewEntry(
         scope: ReviewScope.parse(map['scope'] as String?),
         stopHere: map['stop_here'] == true,
@@ -623,9 +679,16 @@ class ReviewEntry {
 /// reviewed node) and the guarantee that nothing is lost on crash is worth more
 /// than micro-optimising writes.
 class ReviewStore extends ChangeNotifier {
+  /// The YAML file the observations live in.
+  ///
+  /// Held rather than resolved per save, so a store constructed against a
+  /// temporary path in a test cannot drift onto the real review file.
   final File file;
+
   final Map<String, ReviewEntry> _entries = {};
 
+  /// Creates a store over [file]. Does not read it — call `load` for that, so
+  /// construction cannot fail on a missing or malformed file.
   ReviewStore(this.file);
 
   /// Resolves the review file location. Honors `TOM_SPECS_REVIEW_FILE`; falls

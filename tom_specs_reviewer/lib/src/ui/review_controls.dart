@@ -20,7 +20,13 @@ const String kProjectionDetailSubtitle =
 /// value opens expanded — a collapsed section hiding recorded feedback is the
 /// one failure mode this layout must not have.
 const String kStructureSectionLabel = 'Structure';
+
+/// Heading of the section holding the annotation-level judgements — the ones
+/// about what a section *declares*, as opposed to how it is shaped.
 const String kAnnotationsSectionLabel = 'Annotations';
+
+/// Heading of the CodeSpecs routing section: whether the section becomes code
+/// at all, and as which parts.
 const String kCodeSpecsSectionLabel = 'CodeSpecs mapping';
 /// Note the trailing noun: the *destination* choice already offers a plain
 /// "Follow-up", and two identical labels in one dialog would name two different
@@ -42,15 +48,37 @@ const String kDestinationLabel = 'Destination';
 /// Named constants rather than inline literals so the tests assert the same
 /// strings the dialog renders.
 const String kCodeSpecKindMissingLabel = 'Should carry a kind (none declared)';
+
+/// Records that the section *is* routed but to the wrong parts, or to too few.
+///
+/// Distinct from the missing case above: something was declared, so the finding
+/// is a correction rather than an omission.
 const String kCodeSpecKindWrongLabel = 'Declared kinds are wrong or incomplete';
+
+/// Records the opposite verdict — the section should not become code at all.
+///
+/// Not the same as the no-artifact verdict, which says it should produce
+/// nothing anywhere; this one leaves the follow-up axis open.
 const String kNotCodeSpecsLabel = 'Not CodeSpecs — do not realise as code';
+
+/// Label of the picker that carries the reviewer's proposed kinds.
+///
+/// A suggestion, not a decision: the reviewer names parts, and whoever fixes
+/// the model decides.
 const String kSuggestedKindsLabel = 'Suggested kinds';
 
 /// Labels of the follow-up judgements and their picker.
 const String kFollowUpKindMissingLabel =
     'Should carry a follow-up process (none declared)';
+/// Records that the subtree is routed to follow-up but to the wrong processes.
 const String kFollowUpKindWrongLabel =
     'Declared follow-up processes are wrong or incomplete';
+
+/// Label of the picker carrying the reviewer's proposed processes.
+///
+/// Accepts a code outside `FollowUpProcess` on purpose — the taxonomy is
+/// extensible, and `kUnknownFollowUpWarning` marks that case rather than
+/// rejecting it.
 const String kSuggestedFollowUpKindsLabel = 'Suggested follow-up processes';
 
 /// Shown when a proposed follow-up code is outside `FollowUpProcess`.
@@ -71,22 +99,55 @@ const String kUnknownFollowUpWarning =
 /// rather than a hazard worth silently resolving.
 const String kNoArtifactMissingLabel =
     'Feeds nothing — should carry @NoArtifact';
+/// The converse of the label above: `@NoArtifact` is declared and is wrong.
+///
+/// Deliberately an independent flag rather than clearing its counterpart — see
+/// the group comment: neither verdict authorises anything, so a reviewer who
+/// ticks both has recorded a muddle worth seeing.
 const String kNoArtifactWrongLabel =
     'Declared to feed nothing, but it does';
+
+/// Accepts the verdict but disputes which of the three reasons applies.
 const String kNoArtifactReasonWrongLabel = 'Declared reason is the wrong one';
+
+/// Label of the picker carrying the reason the reviewer would have used.
 const String kSuggestedNoArtifactReasonLabel = 'Suggested reason';
 
 /// Labels of the closed-choice judgements (`@OneOf` / `@Case`).
 const String kShouldBeOneOfLabel = 'These siblings are really alternatives';
+/// Records that an existing `@OneOf` group does not cover every discriminator
+/// constant — the case the static validator cannot always tell from a
+/// deliberate `noCase` entry.
 const String kCaseSetIncompleteLabel = 'The closed set is missing a case';
 
 /// Labels of the annotation-level judgements.
 const String kIdPatternWrongLabel = 'Section id / pattern is wrong or collides';
+/// Records that a `@MapsTo` or `@DetailedIn` names the wrong document.
 const String kHandoffWrongLabel = 'Handoff points at the wrong target';
+
+/// Records that `@ContentType` declares a shape the section's body is not.
 const String kContentTypeWrongLabel = 'Content type is wrong for this content';
+
+/// Records that the cited standards are the wrong ones, or cite the wrong
+/// clause.
 const String kStandardRefWrongLabel = 'Standard references are wrong';
+
+/// Records that the section traces to a public standard and says so nowhere.
+///
+/// Separate from the "wrong" flag because the repairs differ: one is an edit,
+/// the other is research.
 const String kStandardRefMissingLabel = 'Standard references are missing';
+
+/// Confirms an `@Unused` marking — the node can be dropped.
+///
+/// One half of the only counterpart-clearing pair in the dialog. It clears
+/// [kUnusedRejectedLabel]'s flag because confirming this authorises a
+/// deletion, and two contradictory verdicts on a deletion is a hazard rather
+/// than a finding.
 const String kUnusedConfirmedLabel = 'Unused is correct — can be dropped';
+
+/// Rejects an `@Unused` marking — the node must be kept. Clears its
+/// counterpart, for the reason given above.
 const String kUnusedRejectedLabel = 'Unused is wrong — must be kept';
 
 /// Colour associated with each review scope, used for the indicator dot.
@@ -111,14 +172,32 @@ Color scopeColor(ReviewScope scope) {
 /// compact **summary** of the comment and any checked boxes. All three reflect
 /// the live [ReviewEntry] for [path] and update when the store changes.
 class ReviewControls extends StatelessWidget {
+  /// The observation store these controls read and write.
+  ///
+  /// Listened to, so a marking made in the dialog is reflected in the inline
+  /// summary without the tree rebuilding from the top.
   final ReviewStore store;
+
+  /// The structural path this node's observations are keyed by.
+  ///
+  /// The key is the path, not the class: the same class reached through two
+  /// documents carries two independent sets of markings, which is deliberate —
+  /// a section can be right in one document and wrong in another.
   final String path;
+
+  /// The node's headline, shown in the dialog so the reviewer can see what
+  /// they are judging without looking back at the tree behind it.
   final String nodeLabel;
 
   /// Whether this node sits inside a `@CodeSpecsProjection` root, in which case
   /// the detail-oriented controls are caveated rather than offered plainly.
   final bool isProjection;
 
+  /// Builds the inline controls for one tree node.
+  ///
+  /// [isProjection] is the only optional argument and defaults to false, so a
+  /// caller that has not thought about projections gets the plain controls
+  /// rather than the caveated ones.
   const ReviewControls({
     super.key,
     required this.store,
