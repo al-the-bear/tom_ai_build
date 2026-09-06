@@ -21,11 +21,12 @@ linter:
     # doc comment fails at edit time rather than waiting for a coverage sweep
     # to notice it.
     #
-    # The lint measures the *exported* surface, which is the standard's own
-    # definition of public API. It is therefore narrower than
-    # `tool/doccov.py`, which counts everything under `lib/` — 70 of this
-    # package's 130 `lib/src/` files are not exported, and their declarations
-    # are documented too but are not what the bar is about.
+    # The lint checks everything under `lib/`, including a `lib/src/` library
+    # no barrel re-exports — tested directly, not inferred. An earlier version
+    # of this comment said it measured only the exported surface; that was a
+    # conclusion drawn from a scanner count that turned out to be the
+    # scanner's own defect. `tool/doc_coverage_manifest.yaml` measures the
+    # same set for the same reason.
     public_member_api_docs: true
 
 analyzer:

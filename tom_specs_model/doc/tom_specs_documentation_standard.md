@@ -481,16 +481,26 @@ stricter of the two on bracketed prose — it flagged `fields['tags']` in
 output a reader actually sees. The lint catches things at edit time; `dart doc`
 is the acceptance check. Neither substitutes for the other.
 
-**The lint measures the exported surface, which is narrower than `lib/`.** It
-says nothing about a `lib/src/` library that no public barrel re-exports — in
-`tom_specs_clitool`, 70 of 130 `lib/src/` files. That is the *bar* behaving
-correctly: the bar is defined over exported declarations, and this paragraph's
-first sentence is what "public API" means. But a package can sit at its bar
-with a large undocumented internal module behind it, so the sweeps measure both
-— the lint for the bar, and `tom_specs_clitool/tool/doccov.py` for everything
-under `lib/`, which also supplies the denominator the lint cannot. Where the
-two disagree, read the code: the lint has a semantic model and the scanner does
-not.
+**The lint checks everything under `lib/`, not only the exported surface.**
+Tested directly rather than inferred: a public member of a `lib/src/` library
+that no barrel re-exports is still reported. So the enforced set is wider than
+the "every exported declaration" wording above, and deliberately so — an
+undocumented internal module is a maintenance cost whether or not a consumer
+can name it, and for an application like `tom_specs_reviewer`, which has no
+barrel at all, the exported surface is nearly empty and would make the bar
+meaningless.
+
+The gate measures the same set for the same reason. Read the wording above as
+naming the *minimum* — what a consumer sees — and `lib/` as what is actually
+held.
+
+**This corrects an earlier claim.** Until the gate was built, this section said
+the lint measured only the exported surface, on the strength of a count that
+differed from a scanner's. The difference was the scanner's own defects, not a
+narrower lint: twelve of them were found and fixed over the campaign, and once
+they were, the two agreed. The lesson is the one this section already gives —
+where two measurements disagree, read the code — and it applies to a conclusion
+drawn from them just as much as to the numbers.
 
 ---
 

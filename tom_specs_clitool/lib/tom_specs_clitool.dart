@@ -285,6 +285,11 @@ export 'src/codespecs/areas_catalog.dart'
         writeAreasCatalog,
         kSliceCites,
         kAuthoringSliceOrder;
+// The public-API dartdoc coverage gate — the §5 bars of
+// tom_specs_documentation_standard.md, held against reality by a walker over
+// the committed manifest, in the shape of the release-closure gate beside it.
+export 'src/doc_coverage.dart';
+
 export 'src/packaging.dart'
     show
         ManifestFormat,

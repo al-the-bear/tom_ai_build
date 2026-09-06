@@ -11,19 +11,18 @@ WHAT THIS COUNTS, AND WHAT THE BAR IS
 These are two different sets, and conflating them is the mistake this section
 exists to prevent.
 
-`tom_specs_documentation_standard.md` §5 defines the bar over **exported**
-declarations: "every exported declaration and every public member of one". The
-`public_member_api_docs` analyzer lint implements exactly that — it stays quiet
-about a `lib/src/` library that no public barrel re-exports. **The lint is the
-authority for whether a package has met its bar.**
+**Superseded.** The gate this script prototyped now exists as
+`lib/src/doc_coverage.dart` + `bin/check_doc_coverage.dart`, driven by
+`tool/doc_coverage_manifest.yaml` and run in the default `dart test`. That one
+parses with the analyzer instead of matching text, so it is the authority; this
+script survives as a quick per-package reading, nothing more.
 
-This script counts every public declaration in `lib/`, exported or not. That is
-a **superset**, and deliberately: a package can meet its bar while an
-undocumented 3,500-line internal module sits behind it, and the sweeps want to
-see that module. Read this number as a maintainability figure, never as the
-bar. The two sets can differ by a lot — on `tom_specs_clitool` the lint sees
-373 undocumented declarations and this script sees ~1,000, because 70 of its
-130 `lib/src/` files are not exported.
+Both count every public declaration under `lib/`, which is also what
+`public_member_api_docs` checks — verified directly: the lint reports a public
+member of a `lib/src/` library that no barrel re-exports. (An earlier version
+of this docstring said the lint measured only the *exported* surface. That was
+wrong, and wrong for an instructive reason: it was inferred from a count
+difference that was this script's own defect, not the lint's narrowness.)
 
 USE BOTH, ALWAYS
 ----------------

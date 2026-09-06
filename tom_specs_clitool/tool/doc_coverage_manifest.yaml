@@ -1,0 +1,96 @@
+# Public-API dartdoc coverage manifest
+# (tom_specs_documentation_standard.md §5), read by
+# bin/check_doc_coverage.dart (lib/src/doc_coverage.dart).
+#
+# The committed record of the agreed documentation bar, held against reality by
+# a walker — the same shape as tool/release_set.yaml beside it. Documentation
+# coverage was the one quality claim in this quest with no gate, and a sweep
+# without a gate is a photograph rather than a standard: tom_specs_clitool
+# reached 51% by nobody noticing.
+#
+# RATCHET ONLY. A `floor:` may rise and may never fall, exactly like
+# tom_som_conformance/tool/sample_coverage_manifest.yaml. Wind one forward with
+#
+#   dart run bin/check_doc_coverage.dart --raise
+#
+# which refuses to lower any. Lowering a floor by hand is not a shortcut around
+# a red gate; it is the gate being switched off, and the diff says so.
+#
+# `target:` is the §5 bar the entry climbs to — 95% for the libraries, the
+# tools and the SOM runtimes, 90% for tom_specs_reviewer. It is carried beside
+# the floor so the remaining gap is visible without opening the standard. Every
+# entry currently sits at 100%, above its target: the tsdoc12..tsdoc17 sweeps
+# finished the Dart chain, and this manifest is what stops it decaying again.
+#
+# WHAT THE MEASUREMENT CAN AND CANNOT SEE. The walker resolves each package's
+# `lib/*.dart` entry libraries with the analyzer and counts the export
+# namespace — §5's "every exported declaration" — plus each exported type's
+# public members, which is §5's "and every public member of one". It excludes
+# what `public_member_api_docs` excludes and for the same reasons: a synthetic
+# member has no source to document, an `@override` member inherits its
+# supertype's comment, and a setter whose getter exists is half of one
+# read/write property that `dart doc` renders as a single entry.
+#
+# It counts a doc comment's PRESENCE. §5 also says a comment that merely
+# restates its identifier (`/// The name.` on `String name`) does not count as
+# documented, and no mechanical check can see that — this one included. Read
+# the percentage as the floor of the truth, never as the truth.
+#
+# Every measured package must ALSO enable `public_member_api_docs` in its own
+# analysis_options.yaml, and the walker fails it if it does not. The two are
+# complementary: this gate records the bar and gives the denominator the lint
+# cannot; the lint holds the bar at edit time, which one check per test run
+# cannot.
+
+packages:
+  tom_ai/ai_build/tom_specs_core:
+    floor: 100
+    target: 95
+  tom_ai/ai_build/tom_specs_clitool:
+    floor: 100
+    target: 95
+  tom_ai/ai_build/tom_specs_model:
+    floor: 100
+    target: 95
+  tom_ai/ai_build/tom_som_dart_runtime:
+    floor: 100
+    target: 95
+  tom_ai/ai_build/tom_code_specs:
+    floor: 100
+    target: 95
+  tom_ai/ai_build/tom_spec_engine:
+    floor: 100
+    target: 95
+  tom_ai/ai_build/tom_doc_scanner:
+    floor: 100
+    target: 95
+  tom_ai/ai_build/tom_doc_specs:
+    floor: 100
+    target: 95
+  tom_ai/core/tom_core_codespecs:
+    floor: 100
+    target: 95
+  tom_ai/ai_build/tom_specs_reviewer:
+    floor: 100
+    target: 90
+
+# EXEMPT — generated packages (§5). Their public surface is emitted by
+# generate_som.dart, so a coverage failure there is an EMITTER bug and belongs
+# to the emitter's own tests, not to a per-package threshold that would blame
+# the wrong artifact. An entry for one of these fails the gate.
+exempt:
+  - tom_ai/ai_build/tom_som_dart_v0
+  - tom_ai/ai_build/tom_som_python_v0
+  - tom_ai/ai_build/tom_som_java_v0
+  - tom_ai/ai_build/tom_som_javascript_v0
+  - tom_ai/ai_build/tom_som_typescript_v0
+  - tom_ai/ai_build/tom_som_go_v0
+  - tom_ai/ai_build/tom_som_rust_v0
+  - tom_ai/ai_build/tom_som_c_v0
+  - tom_ai/ai_build/tom_som_cpp_v0
+
+# EXCLUDED — out of documentation scope entirely (§6). Absent rather than
+# present-at-zero deliberately: a zero entry reads as a standing debt, and this
+# is a decision. An entry for one fails the gate.
+excluded:
+  - tom_forge/tom_specs_editor
