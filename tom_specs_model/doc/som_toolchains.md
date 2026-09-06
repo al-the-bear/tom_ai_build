@@ -99,6 +99,33 @@ macOS-specific notes:
 - Toolchain wiring lives in `~/.zshrc` (nvm block, cargo env, openjdk@21
   `PATH`/`JAVA_HOME`) — the macOS mirror of bomber's `.bashrc`/`.profile`.
 
+### Documentation toolchains on `mbp`
+
+The build matrix above is about compiling and testing; these are the eight
+generators "Documentation generation" below drives, as installed on this host.
+All eighteen packages generate here under `--strict`.
+
+| Generator | On `mbp` | How obtained |
+| --- | --- | --- |
+| `dart doc` | ships with Dart `3.12.2` | fleet-managed SDK |
+| `pdoc` | `16.0.0` on **CPython 3.14.5** | `python3 -m pip install --break-system-packages pdoc` against Homebrew's default `python3` |
+| `typedoc` | pinned `0.28.15`, **no host install** | `npx --yes typedoc@0.28.15`, the same never-install-globally rule the TypeScript build toolchain follows |
+| `go doc` | ships with Go `1.26.5` | Homebrew `go` |
+| `cargo doc` | ships with `1.96.0` | rustup |
+| `javadoc` | JDK `21.0.11` | Homebrew `openjdk@21`; the driver resolves it via `/usr/libexec/java_home` when it is not on `PATH` |
+| `doxygen` | `1.18.0` | `brew install doxygen` |
+
+**The documentation interpreter is not the harness interpreter**, and on this
+host that distinction is load-bearing. The conformance harness must run under
+Homebrew's **3.12** (see the note above); `pdoc` must run under **≥ 3.10**
+because the Python runtime's sources use PEP 604 `X | Y` annotations that pdoc
+evaluates — and it *imports* the module rather than parsing it, so that
+interpreter also needs the runtime's own dependencies. Both conditions are met
+by installing `pdoc` **and `PyYAML`** into Homebrew's default `python3` (3.14)
+and leaving the 3.12 harness path alone. Installing pdoc into the framework
+Python 3.11, or into 3.9, produces either an import failure or silently
+degraded type rendering.
+
 ## Language coverage
 
 **Every one of the nine target languages is covered:** its toolchain builds its
