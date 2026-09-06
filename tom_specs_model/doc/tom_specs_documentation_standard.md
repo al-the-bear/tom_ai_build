@@ -591,11 +591,29 @@ prerequisites, the command to run it, and what the reader should see. The
 prerequisites line is what turns a failed run into a diagnosis instead of a
 puzzle.
 
-**Reuse the shared specification documents** in `tom_som_conformance/samples/`
-rather than authoring new ones. Those are already held by the decode and
-instantiation-coverage gates; new specification content written for a sample is
-content nothing gates, and it will drift from the model that the gated
-documents track.
+**A sample authors the smallest specification that shows its point.** The
+shared documents in `tom_som_conformance/samples/` — the Meridian Order
+Management blueprint above all — would be the better source, and they are held
+by the decode and instantiation-coverage gates. They are also **not reachable
+from a sample**: `tom_som_conformance` is not published, so depending on it
+would break the published-packages-only rule two paragraphs up. Until that is
+resolved (`tsdocb14_aiga-shipped-tool-scripts-resolve-into-an-unpublished-package`),
+a sample writes its own document and keeps it minimal — small enough that every
+number the sample prints can be checked against the code that produced it, and
+small enough that the drift a shared document would have prevented is visible
+on one screen. State in the sample's README that it authors its own and why.
+
+**Where a sample's output records something a workspace tool produced, carry a
+`tool/validate.sh` beside it.** The `expected_output.txt` diff proves the sample
+still *prints* its record; it says nothing about whether the record is still
+*true*. A workspace tool cannot be a sample's dependency — it is a development
+tool, and shelling out to it would make the sample's stdout depend on whether
+the workspace happens to sit beside it — so the tool's output is recorded as a
+committed artifact and `tool/validate.sh` re-derives it and fails when it has
+gone stale. `--record` overwrites it after a deliberate change. Its SKIP and
+`--strict` semantics are `run_all_samples.sh`'s, and that driver runs it
+automatically for any sample that has one, so the second gate needs no
+registration.
 
 ---
 

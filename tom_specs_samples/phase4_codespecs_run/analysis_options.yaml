@@ -1,0 +1,17 @@
+# `lints` is not a dependency of this sample — see the pubspec: a sample's
+# dependency list is part of what it teaches, and adding a dev-only lint
+# package would suggest a Phase 4 run needs one.
+
+analyzer:
+  exclude:
+    # `codespec/` is Phase 4's OUTPUT, not this sample's source. It imports
+    # `tom_code_specs` and `tom_core_server`, neither of which is a dependency
+    # of this sample — deliberately: `validate_codespecs.dart` parses emitted
+    # Dart and never resolves it, precisely so a generator can validate its own
+    # output before anything fetches a dependency
+    # (tom_specs_clitool/lib/src/codespecs/cs_reader.dart states the reasoning).
+    # Analyzing the trio here would report unresolved imports that are not
+    # defects, and adding the packages to the pubspec to silence them would
+    # misrepresent what a Phase 4 run needs.
+    - codespec/**
+    - build/**

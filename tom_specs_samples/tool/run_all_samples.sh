@@ -153,6 +153,24 @@ run_one() {
   fi
 
   if diff -q "$dir/expected_output.txt" "$log" > /dev/null 2>&1; then
+    # A sample whose output records something a workspace tool produced needs a
+    # second gate: the stdout diff proves the sample still prints its record,
+    # not that the record is still true. `tool/validate.sh` is the convention
+    # for that — it re-derives the recorded artifact and fails when it is
+    # stale. Optional, and its own SKIP/--strict semantics are the same as this
+    # script's, so an absent toolchain is reported rather than passed.
+    if [ -x "$dir/tool/validate.sh" ]; then
+      local vlog="$LOG_DIR/$name.validate.log"
+      local vargs=()
+      [ "$STRICT" -eq 1 ] && vargs+=(--strict)
+      if ! (cd "$dir" && ./tool/validate.sh "${vargs[@]+"${vargs[@]}"}") \
+          > "$vlog" 2>&1; then
+        echo "  FAIL     $name — tool/validate.sh reported a stale record"
+        cat "$vlog" | head -n 20 | sed 's/^/             /'
+        FAILED+=("$name"); return
+      fi
+      sed 's/^  /           /' "$vlog"
+    fi
     echo "  PASS     $name"
     PASSED+=("$name")
   else

@@ -32,3 +32,5 @@ csrb99                        # likewise, a wrong *number* in a real series
 tier1                         # the lexical retrieval tier (SpecRecall)
 tier2                         # the vector retrieval tier (SpecRecall)
 utf16_units                   # a tom_som_python_runtime identifier
+phase4_codespecs_run          # a tom_specs_samples directory name; `phase4` reads
+                              #   as a todo series and the rest as a slug

@@ -1,0 +1,17 @@
+name: phase4_codespecs_run
+description: >-
+  TomSpecs sample — a complete Phase 4 CodeSpecs run: the prompt gate, the
+  extract pass, the authoring pass, and validation of the emitted trio.
+publish_to: none
+
+environment:
+  sdk: ^3.11.4
+
+# Hosted versions only (tom_specs_documentation_standard.md §7.1).
+# tom_specs_model is here for its shipped data, not its Dart: the area
+# catalogue the extractor reads is generated-doc/codespecs/codespecs_areas.json
+# inside that package.
+dependencies:
+  tom_som_dart_v0: ^1.1.0
+  tom_som_dart_runtime: ^1.1.0
+  tom_specs_model: ^1.1.0

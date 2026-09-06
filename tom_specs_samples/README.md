@@ -19,6 +19,7 @@ alphabet.
 | # | Sample | Teaches | Phase | Language | Run |
 |---|--------|---------|-------|----------|-----|
 | 1 | [`author_solution_blueprint`](author_solution_blueprint/README.md) | Author a specification end to end: write through the typed facade, serialise both renditions, round-trip, validate, and read a real diagnostic | 2 — Solution Blueprint | Dart | `cd author_solution_blueprint && dart pub get && dart run` |
+| 2 | [`phase4_codespecs_run`](phase4_codespecs_run/README.md) | Run Phase 4 end to end: the starting prompt's quality gate (passing and rejecting), the extract generator, the authoring agent, and validation of the emitted trio — with every step marked mechanical or judgment | 4 — CodeSpecs | Dart | `cd phase4_codespecs_run && dart pub get && dart run` |
 
 Sample 1 is the entry point; the others assume you have run it.
 
