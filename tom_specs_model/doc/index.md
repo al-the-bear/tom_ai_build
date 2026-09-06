@@ -243,8 +243,11 @@ neither indexes the other.
 `tom_specs_documentation_standard.md` §7 is the authority for the folder, and
 `tom_specs_documentation_standard.md` §7.1 for the per-sample convention: task-shaped directory names, published
 dependencies only, an `expected_output.txt` per sample so the set is a gate
-rather than a demo, and the reasoning for keeping samples out of the release
-set. `tom_specs_samples/tool/run_all_samples.sh` runs them.
+rather than a demo, a `tool/validate.sh` beside it where the output *records*
+what a workspace tool produced, a self-authored minimal specification (the
+shared documents are not published, so a sample cannot reach them), and the
+reasoning for keeping samples out of the release set.
+`tom_specs_samples/tool/run_all_samples.sh` runs them.
 
 ## Generated documentation
 

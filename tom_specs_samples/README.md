@@ -70,11 +70,22 @@ command, and what you should see), the runnable source, and an
 makes a sample a test rather than a demo — a sample nobody would notice
 breaking is documentation that will quietly stop being true.
 
-**Reuse the shared specification documents.** `tom_som_conformance/samples/`
-already holds `meridian_order_management.docspecs.yaml`,
-`uam_access_hub.docspecs.yaml` and their renditions, and they are gated by the
-decode and instantiation-coverage checks. Authoring new specification content
-for a sample means authoring content nothing gates.
+**A sample whose output records a workspace tool's result also carries a
+`tool/validate.sh`.** The output diff proves the sample still *prints* its
+record; it says nothing about whether the record is still *true*. A workspace
+tool can never be a sample's dependency — shelling out to one would make the
+sample's stdout depend on whether the workspace happens to sit beside it — so
+the tool's output is a committed artifact and `tool/validate.sh` re-derives it
+and fails when it has gone stale. `--record` overwrites it after a deliberate
+change; `run_all_samples.sh` runs it for any sample that has one.
+
+**A sample authors its own specification, and keeps it minimal.** The shared
+documents in `tom_som_conformance/samples/` would be the better source and are
+gated by the decode and instantiation-coverage checks — but `tom_som_conformance`
+is **not published**, so depending on it would break the published-only rule
+above. Until that is resolved, write the smallest document that shows the point:
+small enough that every number the sample prints can be checked against the code
+that produced it. Say so in the sample's README.
 
 **Per language, mirroring the runtimes.** The Dart set is authored first and is
 the reference; each other language plane gets the same scenarios, so a Go
