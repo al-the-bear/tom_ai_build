@@ -276,6 +276,106 @@ skip with its reason, so the driver stays usable on partially-provisioned hosts.
 Both drivers add `~/.cargo/bin` to `PATH` when needed, because rustup wires
 cargo into the interactive profile only.
 
+## Documentation generation
+
+`tom_specs_documentation_standard.md` §5 puts a **generated API reference** in
+every SOM package's `doc/api/reference/`, and names a generator per language.
+This section records the eight tools, how each is obtained, the exact
+invocation, and what happens when one is absent.
+
+**One driver reaches all eighteen packages**
+([`tom_specs_clitool/tool/regenerate_api_references.sh`](../../tom_specs_clitool/tool/regenerate_api_references.sh)):
+
+```bash
+cd tom_ai/ai_build/tom_specs_clitool
+./tool/regenerate_api_references.sh                    # every available language
+./tool/regenerate_api_references.sh --strict           # a skip is a failure
+./tool/regenerate_api_references.sh dart_runtime rust_v0
+./tool/regenerate_api_references.sh --list             # the eighteen target names
+```
+
+It lives beside the generator rather than in `tom_som_conformance` because its
+subject is the *eighteen packages*, which is `tom_specs_clitool`'s subject
+already — the conformance package's subject is the corpus. Its shape is
+deliberately `run_all_suites.sh`'s: one entry point, per-target selection, and a
+**skip with the reason stated** when a toolchain is missing, never a silent
+pass. `--strict` turns a skip into a failure, which is what a host claiming full
+coverage should use. The driver prepends `~/.cargo/bin`, the Go tarball
+locations and `JAVA_HOME/bin` when those are not already resolvable, for the
+same reason the conformance drivers do: rustup and the Go tarball wire
+themselves into the *interactive* profile only.
+
+### The generated reference is **gitignored**, deliberately
+
+`**/doc/api/**` is excluded in `tom_ai/ai_build/.gitignore` and
+`tom_ai/core/.gitignore`, with `api_summary_*.md` / `api_reference_*.md`
+re-included — the hand-written summaries are source, the rendered reference is
+output.
+
+The quest's own precedent cuts both ways: `generated-doc/` is committed because
+the outlines are *read in review*, while `testlog/` is fully ignored because an
+artefact nothing updates cannot be told from a current one. The reference falls
+on the second side, for three measured reasons:
+
+- **Size.** The eighteen trees together measure **1.8 GB** on this host — not an
+  estimate, a `du -shc` over a full run. The distribution is lopsided, and not
+  where intuition puts it: the *runtime* trees are small (dartdoc over
+  `tom_som_dart_runtime` is ~7 MB), while the generated **facades** dominate —
+  `tom_som_dart_v0` alone is 670 MB, `tom_som_rust_v0` 262 MB, `tom_som_c_v0`
+  96 MB — because a facade declares roughly 1250 types and every generator
+  writes a page per entity.
+- **Reviewability.** It is HTML, so every source edit would produce a large diff
+  nobody reads — the opposite of the outlines, whose whole value is that a
+  reviewer *can* read them.
+- **Reproducibility.** Every byte regenerates from source in seconds to minutes
+  by the command above, so nothing is lost by not holding it.
+
+Because the folder is not committed,
+[`tom_specs_documentation_standard.md`](tom_specs_documentation_standard.md)
+§3.1 and §8 say so explicitly — a checklist line asking for a folder the repo
+refuses to hold is a line nobody can satisfy.
+
+### Per-language generators
+
+| Language | Tool | Obtain it with | Output |
+| --- | --- | --- | --- |
+| **Dart** | `dart doc` | Ships with the Dart SDK | HTML tree (~7 MB) |
+| **Python** | `pdoc` | `python3 -m pip install pdoc` — **on Python ≥ 3.10** | HTML tree |
+| **JavaScript** | `typedoc` | `npx typedoc@<pinned>` (no host install) | HTML tree |
+| **TypeScript** | `typedoc` | `npx typedoc@<pinned>` (no host install) | HTML tree |
+| **Go** | `go doc` | Ships with the Go toolchain | One rendered **text** file |
+| **Rust** | `cargo doc` | Ships with rustup | HTML tree (~7.7 MB) |
+| **Java** | `javadoc` | Ships with the JDK | HTML tree |
+| **C** | `doxygen` | `apt-get install doxygen` / `brew install doxygen` | HTML tree |
+| **C++** | `doxygen` | Same | HTML tree |
+
+The exact invocations are in the driver, one `gen_<tool>` function each. Six of
+them needed a non-obvious adjustment, and each is worth knowing before invoking
+the tool by hand:
+
+| Language | The adjustment, and why |
+| --- | --- |
+| **Python** | The importable name is **not** the directory name — the runtime ships the package `tom_som_runtime/`, the facade the module `tom_som_python_v0.py` — so the driver discovers it. And **pdoc imports the module rather than parsing it**, so the interpreter running pdoc needs the runtime's own dependencies (`pyyaml`) installed *for that interpreter*. |
+| **Python** | It must run on **Python ≥ 3.10**. The sources use PEP 604 `X \| Y` annotations, which pdoc evaluates; on 3.9 it warns and degrades the types. On a host whose default `python3` is 3.9 (macOS), install pdoc into a newer interpreter. |
+| **JavaScript** | `allowJs` is a *TypeScript compiler* option, so it cannot be a typedoc flag — it has to arrive through a `tsconfig`, and that tsconfig must `include` the entry point or typedoc reports "unable to find any entry points". The driver writes a scoped one beside the entry and removes it afterwards. |
+| **JS / TS** | typedoc exits **non-zero on warnings** as well as errors, and these sources warn routinely (doc links to built-in types they do not export). The driver asks whether `index.html` was rendered instead of reading a status that conflates the two. |
+| **Java** | The facade's sources reference the runtime's types, so `tom_som_java_runtime/src` must be on the `-sourcepath` — without it javadoc reports a hundred unresolved symbols and writes nothing. Only the named subpackages are documented, so this widens resolution without widening output. |
+| **C / C++** | `INPUT` is the **public headers only**, never `src`. The generated `*_v0` implementation files run to tens of thousands of lines: including them took doxygen many minutes and produced a tree far larger still — a source browser, not a reference. Even headers-only the two C/C++ facades are among the slowest targets. |
+| **Go** | `go doc` renders **text**, not an HTML tree; `pkg.go.dev` is the hosted equivalent and there is no local site generator. The reference is therefore one `index.txt` per package, which is what the Go ecosystem actually offers locally. |
+| **Rust** | `cargo doc` insists on writing into the crate's target directory, so the driver copies the rendered tree out to `doc/api/reference/` — the same location every other language uses. |
+
+### When a toolchain is absent
+
+The driver reports `SKIP <target> <reason>` and continues; the closing line
+names how many were skipped. Nothing is reported as generated that was not. On a
+host that claims full coverage, run with `--strict`, which turns every such skip
+into a `FAIL`.
+
+The reasons are specific enough to act on — `pdoc not installed (pip install
+pdoc)`, `doxygen not installed (brew install doxygen)`, `javadoc not on PATH (no
+JDK)` — because a skip whose reason is "unavailable" tells an operator nothing
+they did not already know.
+
 ## Verification commands
 
 The exact checks used to populate the matrix (re-runnable on any host):
