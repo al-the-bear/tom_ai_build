@@ -119,6 +119,10 @@ still produces a trio a validator will accept. Being small is the point — the
 whole run fits on two screens, and every number the sample prints can be checked
 against the code that produced it.
 
+For scale, `codespecs_prompt.md` §10.1 records the same pipeline over the
+Meridian blueprint: 345 classes walked, 690 entries across 12 areas, 14 areas
+empty. The stages are the ones below; only the numbers differ.
+
 ## Files
 
 | Path | |
