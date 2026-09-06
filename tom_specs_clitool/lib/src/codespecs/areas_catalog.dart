@@ -16,7 +16,7 @@
 /// "Why this order (the across-slice edges it satisfies)", and that paragraph
 /// contains sentences a regex reads backwards ("5 cites 1 and 2 **and never 3
 /// or 4**"). So the seven edge lists are transcribed as [kSliceCites] and
-/// guarded *structurally* instead — see [_checkCites].
+/// guarded *structurally* instead — see `_checkCites`.
 library;
 
 import 'dart:convert';
@@ -28,7 +28,7 @@ import 'package:path/path.dart' as p;
 /// "Why this order" prose.
 ///
 /// Not parsed, because the paragraph states one of them by negation. Guarded by
-/// [_checkCites]: every edge must point strictly backwards, and the
+/// `_checkCites`: every edge must point strictly backwards, and the
 /// `codespecs_mapping.md` §4.4.6 authoring serialisation must be a topological
 /// order of the relation. A transcription slip that matters shows up as one of
 /// those failing.
@@ -78,7 +78,16 @@ const Map<String, dynamic> kMemberKindArea = {
 /// A failure to transcribe the mapping document — a missing table, a row that
 /// does not parse, or a cross-table disagreement.
 class AreasCatalogException implements Exception {
+  /// What could not be transcribed, phrased in the mapping document's own
+  /// vocabulary — the section number and the row — so the fix is made in the
+  /// document rather than in this builder.
   final String message;
+
+  /// Refuses the transcription with [message].
+  ///
+  /// Every parse failure throws rather than degrading: a catalogue built from
+  /// a table that half-parsed is a smaller catalogue, not a broken-looking
+  /// one, and nothing downstream could tell the two apart.
   const AreasCatalogException(this.message);
   @override
   String toString() => 'AreasCatalogException: $message';
@@ -97,12 +106,22 @@ class AreasCatalog {
   /// load-bearing rather than cosmetic.
   final List<Map<String, dynamic>> areas;
 
+  /// Holds an already-transcribed catalogue.
+  ///
+  /// The cross-table agreement checks run in [buildAreasCatalog], not here —
+  /// this is the transcription's result, and it is also what the tests build
+  /// by hand when they need a catalogue without a document behind it.
   const AreasCatalog({
     required this.source,
     required this.slices,
     required this.areas,
   });
 
+  /// The extract's JSON shape: [source] first, then [slices], then [areas].
+  ///
+  /// Key order is deliberate and load-bearing for review, not for parsing —
+  /// the header states which document sections were transcribed before the
+  /// reader meets a single transcribed cell. [toJsonText] is what writes it.
   Map<String, dynamic> toJson() => {
         'source': source,
         'slices': slices,
@@ -189,7 +208,7 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
   );
 }
 
-/// Reads `codespecs_mapping.md` beside [modelDoc] and writes the catalogue to
+/// Reads the mapping document at [mappingPath] and writes the catalogue to
 /// [outputPath], returning the text written.
 String writeAreasCatalog({
   required String mappingPath,

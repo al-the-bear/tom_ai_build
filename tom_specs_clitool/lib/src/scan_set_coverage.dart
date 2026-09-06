@@ -34,6 +34,11 @@ import 'section_citations.dart'
 
 /// One file that cites the doc set but no default scan set reaches.
 class ScanSetGap {
+  /// Records one citing file that no scan set reaches.
+  ///
+  /// [kind] is required alongside [path] because the repair differs by kind:
+  /// the three sets are separate lists, and the gap is only actionable once a
+  /// reader knows which one to add the file to.
   const ScanSetGap({required this.path, required this.kind});
 
   /// The offending file, container-root-relative.

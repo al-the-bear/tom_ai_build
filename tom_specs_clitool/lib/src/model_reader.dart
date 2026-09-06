@@ -10,9 +10,28 @@ import 'package:path/path.dart' as p;
 
 /// Annotation data extracted from the analyzer element model.
 class AnnotationData {
+  /// The annotation's class name without the leading `@` (`SectionId`,
+  /// `Form`, `MapsTo`). It is taken from the resolved constructor's
+  /// enclosing element, so a prefixed or aliased import still yields the
+  /// declaring class name. An annotation whose element does not resolve is
+  /// dropped entirely rather than recorded under a guessed name.
   final String name;
+
+  /// The constant-folded arguments, keyed by the annotation class's own
+  /// *field* names rather than by the call-site parameter names — so a
+  /// positional argument arrives under the field it initialises.
+  ///
+  /// Values are `String`, `int`, `bool` or `double`; a `Type` argument
+  /// becomes its class name, so `@MapsTo(InformationModel)` yields
+  /// `'InformationModel'`; an enum argument becomes the qualified
+  /// `EnumType.constant`; and lists
+  /// hold any of those. An argument that is null or does not constant-fold
+  /// is **absent** from the map, so a missing key and a null value are the
+  /// same fact here.
   final Map<String, Object?> arguments;
 
+  /// [arguments] is optional so that marker annotations (`@Unused()`) need
+  /// no empty map at the call site.
   AnnotationData(this.name, [this.arguments = const {}]);
 
   @override
@@ -21,9 +40,31 @@ class AnnotationData {
 
 /// A form field extracted from a `@Form([Field(...)])` annotation.
 class FormFieldInfo {
+  /// The slot name declared as `Field('name', ...)`, used verbatim as the
+  /// `Name: value` key of the serialized form section and as the resolution
+  /// target of any `refersTo` entry naming it
+  /// (`tom_specs_model_rules.md` §6.2 rule 1). A `Field` whose name does not
+  /// constant-fold is skipped by the reader, so this is never empty.
   final String name;
+
+  /// Dart type name of the slot's value, read from the `Field` type
+  /// literal. Falls back to `String` when the literal is absent or does not
+  /// resolve to an interface type — `String` being the model's default form
+  /// field type — so a consumer always has a type to parse against. When it
+  /// names a model enum, [enumValues] is populated too.
   final String typeName;
+
+  /// The declared display label for the slot. Empty — not null — when the
+  /// `Field` omitted it, in which case consumers derive the label by
+  /// splitting [name] on PascalCase
+  /// (`tom_specs_model_meta_schema.md`, `formFields[]` entry).
   final String description;
+
+  /// Whether the slot must be filled in. Beyond marking the schema field
+  /// required, this gates registry membership: only a `required` field may
+  /// be named as a `refersTo` target, because an entry could omit an
+  /// optional id and so it could never be a key
+  /// (`tom_specs_model_rules.md` §6.2 rule 4).
   final bool required;
 
   /// Optional hint text guiding valid values/formats for this form field.
@@ -40,6 +81,11 @@ class FormFieldInfo {
   /// cross-registry reference. See `Field.refersTo` in `tom_specs_core`.
   final List<String> refersTo;
 
+  /// [name] and [typeName] are required — a slot without either is not
+  /// addressable and not parseable. Every remaining property defaults to
+  /// its *empty* value (`''` / `const []`) rather than null, so consumers
+  /// test with `isEmpty` throughout and an omitted `Field` argument is
+  /// indistinguishable from an explicitly empty one.
   FormFieldInfo({
     required this.name,
     required this.typeName,
@@ -53,12 +99,51 @@ class FormFieldInfo {
 
 /// A resolved field from a model class.
 class ModelField {
+  /// The Dart member name exactly as declared. It is the identity used for
+  /// `@SerializationOrder` stamping, for the path segment when no
+  /// `@SectionId` overrides it, and for the PascalCase-split fallback
+  /// headline — so renaming a member is an observable change to every
+  /// generated surface, not a refactor.
   final String name;
+
+  /// Display name of the *declared* type: `?` preserved for nullable types,
+  /// list types written `List<Inner>`, and interface types reduced to their
+  /// bare class name (no library prefix, no type arguments beyond the list
+  /// element). Use [metaTypeName] for what the exported meta tree should
+  /// report — the two differ for `DocSpecsSection` members (YRD5).
   final String typeName;
+
+  /// Whether the declared type is `List<T>`. This is tested before every
+  /// other classification rule, so a `List<TextSection>` is a list member
+  /// rather than a section member; the element type is in
+  /// [listElementTypeName].
   final bool isList;
+
+  /// Whether the declared type carries `?`. Nullability deliberately does
+  /// not change a member's kind and is not shown in the outline
+  /// (`tom_specs_model_rules.md` §11.2.7); its only structural effect is
+  /// choosing `String?` over `String` in [metaTypeName].
   final bool isNullable;
+
+  /// Whether the declared type resolves to an enum declaration. The flag is
+  /// what keeps an enum-typed member off the class-expansion path — without
+  /// it an enum would look like any other non-primitive class type.
   final bool isEnum;
+
+  /// The enum's constant names in **declaration order**, resolved at read
+  /// time so no downstream consumer needs the analyzer. The order is part
+  /// of the contract: enum-valued annotation arguments are decoded by
+  /// indexing this list with the constant's `index`, so reordering
+  /// constants in the model reinterprets already-exported metadata. Empty
+  /// unless [isEnum].
   final List<String> enumValues;
+
+  /// Every annotation on the member, in source order, captured losslessly.
+  /// The meta tree keeps the ones with dedicated slots and routes the rest
+  /// into its `extra` list, and the exported meta file carries this whole
+  /// block beside its curated projection
+  /// (`tom_specs_model_meta_schema.md`, `fields[]` entry). Look one up with
+  /// [getAnnotation].
   final List<AnnotationData> annotations;
 
   /// For list fields, the inner type name.
@@ -92,6 +177,14 @@ class ModelField {
   /// The cleaned doc-comment text on the field declaration, if any.
   final String docComment;
 
+  /// [name] and [typeName] are the only required arguments — they are the
+  /// two facts the analyzer can never fail to supply for a member it
+  /// reported at all.
+  ///
+  /// Every classification flag defaults to its *unclassified* value
+  /// (false / null / `const []`), so a member built from a type the reader
+  /// did not recognise degrades to a plain scalar leaf rather than being
+  /// mis-typed as a section, an enum or a content member.
   ModelField({
     required this.name,
     required this.typeName,
@@ -110,9 +203,28 @@ class ModelField {
     this.docComment = '',
   });
 
+  /// Whether this member expands into its target class's own subtree rather
+  /// than terminating the tree.
+  ///
+  /// This is deliberately a *negation* — not a leaf, not a list, not a
+  /// section — rather than a positive test for "names a model class", so an
+  /// unresolved type is treated as expandable. The consequence is that
+  /// primitive members other than `String` (`int`, `bool`, `DateTime`, …)
+  /// also report true here, because [isLeaf] does not admit them. Kind
+  /// classification therefore applies a primitive guard *before* consulting
+  /// this getter (`MetaTreeBuilder.classifyField`); any other caller must
+  /// do the same or an `int` member will be expanded as a class.
   bool get isComplex =>
       !isLeaf && !isList && !isSectionType;
 
+  /// Whether this member terminates the tree: a `DocSpecsSection` content
+  /// member (YRD5), or a non-complex `String` / `String?` / enum member.
+  ///
+  /// Note the narrowness — this is *not* "any non-class type". Numeric,
+  /// boolean and `DateTime` members are **not** leaves by this test; they
+  /// reach their scalar classification through the primitive guard in kind
+  /// classification instead. See [isComplex] for the other half of that
+  /// split.
   bool get isLeaf =>
       !isList &&
       (isContentSection ||
@@ -144,6 +256,13 @@ class ModelField {
   String? get metaListElementTypeName =>
       listElementIsContentSection ? 'String' : listElementTypeName;
 
+  /// The first annotation whose class name is [name] (written without the
+  /// `@`), or null when the member carries none.
+  ///
+  /// First-wins, not last-wins: a member with a repeated annotation keeps
+  /// the earliest declaration and the duplicate is silently ignored, so
+  /// repeated annotations are an authoring error this does not report.
+  /// Callers commonly use it as a presence test rather than a value lookup.
   AnnotationData? getAnnotation(String name) {
     for (final a in annotations) {
       if (a.name == name) return a;
@@ -170,8 +289,27 @@ class ModelField {
 
 /// A resolved model class.
 class ModelClass {
+  /// The exact declared class name. It is both the registry key this class
+  /// is stored under and the name every complex member type, `@MapsTo` and
+  /// `@DetailedIn` target is resolved against — so class names must be
+  /// unique across the whole scanned source; a second declaration of the
+  /// same name silently replaces the first in the registry.
   final String name;
+
+  /// The class's **own** instance members, in declaration order.
+  ///
+  /// Statics and enum constants are skipped, and inherited members are not
+  /// included: the members a class gains from the `DocSpecsSection` base
+  /// type (YRD5) are runtime infrastructure, not document sections, and
+  /// deliberately never appear as nodes. Pulling a member up into a base
+  /// class therefore removes it from the model.
   final List<ModelField> fields;
+
+  /// Every class-level annotation in source order, captured losslessly. The
+  /// meta tree consults these as the *fallback* level for any slot the
+  /// instantiating member did not supply, and the exported meta file
+  /// carries the whole block beside its curated projection
+  /// (`tom_specs_model_meta_schema.md`, `classes[name]` entry).
   final List<AnnotationData> annotations;
 
   /// The cleaned doc-comment text on the class declaration, if any.
@@ -188,6 +326,12 @@ class ModelClass {
   /// model has adopted the base.
   final bool extendsDocSpecsSection;
 
+  /// Only [name] is required: a class contributes its identity to the
+  /// registry even when it declares nothing else, and a complex member
+  /// pointing at such a class still resolves — to an empty subtree — rather
+  /// than degrading to an unresolved leaf. Every other property defaults to
+  /// the empty/false value, so "not annotated" and "annotation not read"
+  /// are indistinguishable to consumers.
   ModelClass({
     required this.name,
     this.fields = const [],
@@ -197,6 +341,12 @@ class ModelClass {
     this.extendsDocSpecsSection = false,
   });
 
+  /// The first class-level annotation named [name] (written without the
+  /// `@`), or null. Same first-wins rule as `ModelField.getAnnotation`.
+  ///
+  /// It is used as a presence test at least as often as a value lookup:
+  /// `getAnnotation('Document') != null` is exactly what marks a class a
+  /// document root, both here and in [findContainerRoot].
   AnnotationData? getAnnotation(String name) {
     for (final a in annotations) {
       if (a.name == name) return a;
@@ -234,16 +384,45 @@ String? findContainerRoot(Map<String, ModelClass> classes) {
 
 /// A resolved enum type.
 class ModelEnum {
+  /// The declared enum type name and the key this enum is registered under.
+  /// It is what a `List<T>` element type or a `Field` type literal is
+  /// matched against when a consumer needs the constants without running
+  /// the analyzer.
   final String name;
+
+  /// The constant names in **declaration order**. The order is part of the
+  /// contract: an enum-valued annotation argument is exported as
+  /// `EnumType.constant` by indexing this list with the constant's `index`,
+  /// so reordering constants in the model changes the meaning of metadata
+  /// that was already exported.
   final List<String> values;
 
+  /// Both properties are required: an enum with no name cannot be looked
+  /// up, and one with no constants cannot validate a value, so neither has
+  /// a meaningful default.
   ModelEnum({required this.name, required this.values});
 }
 
 /// Reads model classes from Dart source files using the analyzer.
 class ModelReader {
   final AnalysisDriver _driver;
+
+  /// Every class declaration read so far, keyed by class name.
+  ///
+  /// The map accumulates across all files of an [analyzePackage] run and is
+  /// never cleared, so calling [analyzePackage] twice on one reader yields
+  /// the union of both packages — reuse an instance only when that is what
+  /// you want. Consumers treat it as the complete class graph: a type name
+  /// missing from it is what makes a member degrade to a leaf.
   final Map<String, ModelClass> classes = {};
+
+  /// Every enum declaration read so far, keyed by type name.
+  ///
+  /// Kept separate from [classes] because the two are consulted for
+  /// different reasons — a class name resolves an expandable subtree, an
+  /// enum name resolves a closed value set — and a given name legitimately
+  /// appears in only one of them. Accumulates on the same terms as
+  /// [classes].
   final Map<String, ModelEnum> enums = {};
 
   /// Known section types and their content type markers.
@@ -260,6 +439,11 @@ class ModelReader {
     'DdlCodeSection': 'code-ddl',
   };
 
+  /// Takes an already-configured analyzer `AnalysisDriver` rather than
+  /// building one, because resolution needs the scanned package's own
+  /// `package_config.json`, SDK and resource provider — facts only the
+  /// caller knows. Passing a shared driver also reuses its file-resolution
+  /// cache across readers, which dominates the cost of a whole-model scan.
   ModelReader(this._driver);
 
   /// Subtrees of `lib/src` that hold the snapshot/serialization engine

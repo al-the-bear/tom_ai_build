@@ -58,6 +58,11 @@ List<File> collectModelSourceFiles(String packagePath) {
 
 /// Outcome of a [stampSerializationOrder] run.
 class SerializationStampResult {
+  /// Records the outcome of one stamping run.
+  ///
+  /// All four counts are required, including the zeroes: the idempotent run —
+  /// everything already stamped, nothing rewritten — is the expected outcome
+  /// and has to be reported as such rather than as an absent result.
   const SerializationStampResult({
     required this.filesChanged,
     required this.membersStamped,

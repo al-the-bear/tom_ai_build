@@ -93,6 +93,13 @@ const modelSurfaceStampPath = 'tool/model_surface.stamp.json';
 /// The state of `tom_specs_model` at the moment the committed `tom_som_*`
 /// packages were generated from it.
 class ModelSurface {
+  /// Records one stamp: the fingerprint plus the three facts that make a stamp
+  /// diff readable.
+  ///
+  /// All four are required. The three descriptive counts are not optional
+  /// decoration — without them a stamp diff is one hex string replacing
+  /// another, which tells a reviewer that something changed and nothing about
+  /// what.
   const ModelSurface({
     required this.fingerprint,
     required this.fileCount,
@@ -117,6 +124,10 @@ class ModelSurface {
   /// thing it guards has grown — see [somPackageCoverageMismatch].
   final List<String> packages;
 
+  /// Serializes the stamp for `tool/model_surface.stamp.json`.
+  ///
+  /// The key names are the on-disk contract: [fromJson] requires every one of
+  /// them, so renaming a key here invalidates every committed stamp.
   Map<String, Object?> toJson() => {
         'fingerprint': fingerprint,
         'fileCount': fileCount,
@@ -124,6 +135,12 @@ class ModelSurface {
         'packages': packages,
       };
 
+  /// Reads a stamp back from its JSON form.
+  ///
+  /// Every field is required and unchecked (`!`): a stamp missing a key is a
+  /// corrupt or hand-edited file, and failing loudly is right — silently
+  /// defaulting would let the guard compare against a stamp that means
+  /// something other than it says.
   static ModelSurface fromJson(Map<String, Object?> json) => ModelSurface(
         fingerprint: json['fingerprint']! as String,
         fileCount: json['fileCount']! as int,
@@ -134,9 +151,24 @@ class ModelSurface {
 
 /// The fingerprint of one set of Dart source files.
 class LibrarySurface {
+  /// Records one fingerprinting run over a file set.
   const LibrarySurface(this.hash, this.fileCount, this.declarationCount);
+
+  /// The hash over the rendered token stream of every file in the set.
+  ///
+  /// Over *tokens*, not bytes, so reformatting or a comment edit leaves it
+  /// unchanged — the guard is asking whether the surface moved, not whether
+  /// the file did.
   final String hash;
+
+  /// How many files went into [hash].
   final int fileCount;
+
+  /// How many top-level declarations went into [hash].
+  ///
+  /// Carried alongside [fileCount] so a changed hash can be attributed: a
+  /// declaration count that moved says the surface grew, one that did not says
+  /// an existing declaration changed shape.
   final int declarationCount;
 }
 

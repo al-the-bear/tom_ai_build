@@ -22,6 +22,8 @@ import 'spec_object_model_config.dart' show SomLanguage;
 
 /// Generates the `tom_som_python_v0` package module source for a [SpecModel].
 class SomPythonEmitter {
+  /// The resolved model to emit. The emitter only reads it, so a single model
+  /// instance can drive every language emitter of one generation run.
   final SpecModel model;
   final SpecReflection _ref;
 
@@ -33,6 +35,11 @@ class SomPythonEmitter {
   /// The document-root type names to generate. Empty ⇒ every root in the model.
   final List<String> documentRoots;
 
+  /// [model] is the only required argument; the defaults describe the
+  /// canonical run — the `v0` project label and *every* document root.
+  /// Narrowing [documentRoots] shrinks the emitted module to those roots plus
+  /// the classes reachable from them, and must match the metadata emitter's
+  /// selection or the generated module pair references a class nobody emitted.
   SomPythonEmitter(
     this.model, {
     this.versionLabel = 'v0',
@@ -617,13 +624,27 @@ class SomPythonEmitter {
 }
 
 class _EnumType {
+  /// The model enum's type name, emitted verbatim as the Python `Enum`
+  /// subclass name.
   final String name;
+
+  /// The enum's constant names in model order. Each becomes a member whose
+  /// *value* is this exact token; the member identifier may be
+  /// keyword-sanitised, so parsing round-trips through `.value` and the token
+  /// stored in a document stays byte-identical to the Dart facade's.
   final List<String> values;
   _EnumType(this.name, this.values);
 }
 
 class _FormClass {
+  /// The generated class name, made unique across the run by
+  /// `_allocFormName` — form classes share the module's flat namespace with
+  /// the emitted model classes.
   final String name;
+
+  /// The complete emitted `class` block. Form classes are collected while
+  /// their owning class is emitted, then appended name-sorted after all model
+  /// classes, so the module text does not depend on visit order.
   final String source;
   _FormClass(this.name, this.source);
 }

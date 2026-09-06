@@ -38,6 +38,9 @@ import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the Go generator.
 class SomGoGenerationResult {
+  /// Every field is required: the record is only built at the end of a
+  /// successful [writeSomGoProject], where every path and count is already
+  /// known, so there is no partial form worth constructing.
   SomGoGenerationResult({
     required this.outputRoot,
     required this.goModPath,
@@ -51,17 +54,52 @@ class SomGoGenerationResult {
     required this.modelLabel,
   });
 
+  /// The created `tom_som_go_<label>` module directory; every other path in
+  /// this result lies inside it.
   final String outputRoot;
+
+  /// The emitted `go.mod`. It `require`s the runtime by its domain-qualified
+  /// module path — so an external `go get` resolves it over VCS — and adds a
+  /// `replace` aiming that path at the local runtime **relative** to
+  /// [outputRoot], which is what makes an in-repo build work on any checkout
+  /// root (SOM §17.3).
   final String goModPath;
+
+  /// The emitted `tom_som_go_<label>.go` — the typed facade, one struct per
+  /// reachable model class embedding the runtime's node type (SOM §5.2). It
+  /// shares its `package` clause with [metaModulePath]; the two files only
+  /// compile together.
   final String modulePath;
 
   /// The generated metadata module (`tom_som_go_<label>_meta.go`).
   final String metaModulePath;
+  /// The lossless model graph at `meta/spec_model.meta.json` (SOM §5.3). It is
+  /// written first and then re-read to drive both emitters, so the committed
+  /// meta-data and the committed source cannot describe different models.
   final String metaJsonPath;
+
+  /// The written DocSpecs schema files, one per `@Document` root (SOM §5.4).
+  /// Its length is the schema count the CLI reports for the run.
   final List<String> schemaPaths;
+
+  /// How many classes the analysed model graph holds. This is the *model*
+  /// size, not the emitted surface: the facade only emits the closure
+  /// reachable from [SomGoEmitter.documentRoots].
   final int classCount;
+
+  /// How many `@Document` roots the meta-data declares, read back from the
+  /// exporter's own `rootCount` stamp rather than recounted, so it cannot
+  /// disagree with the committed file.
   final int rootCount;
+
+  /// The model version stamped into the meta-data and into every generated
+  /// DocSpecs schema. The generated roots check a document's authoring stamp
+  /// against it at construction time (SOM §4.2).
   final int modelVersion;
+
+  /// The full model version label (`<version>+<build>`). Its pre-`+` part
+  /// becomes the runtime version required by the emitted `go.mod`, so the
+  /// module version is never maintained independently of the model.
   final String modelLabel;
 }
 

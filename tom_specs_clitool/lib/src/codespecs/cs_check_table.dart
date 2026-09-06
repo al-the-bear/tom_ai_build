@@ -58,9 +58,9 @@ List<CsCheckRow> parseCsCheckRows(String markdown) {
     if (line.startsWith('## ')) break;
     if (!line.startsWith('|')) continue;
     final cells = line.split('|').map((c) => c.trim()).toList();
-    // A row is `` | 1 | … | … | `Class` | `` — seven cells with the two the
-    // split adds at the ends. The header and its separator have no numeric
-    // first cell, so they fall out here.
+    // A row is `` | 1 | … | … | `Class` | `` — six cells: the four written
+    // ones plus the two empty ones the split adds at the ends. The header and
+    // its separator have no numeric first cell, so they fall out here.
     if (cells.length < 6) continue;
     final number = int.tryParse(cells[1]);
     if (number == null) continue;

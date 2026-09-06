@@ -124,6 +124,11 @@ const defaultCitedQuests = ['tom_specs', 'tom_core'];
 
 /// One todo as found in the corpus.
 class TodoRecord {
+  /// Records one todo as read off disk.
+  ///
+  /// [stem] and [closed] are stored rather than derived on demand because both
+  /// are computed from the file the todo was found in — a record separated
+  /// from its file could not recompute either.
   const TodoRecord({
     required this.id,
     required this.stem,
@@ -268,6 +273,11 @@ bool _isClosedTodoFile(String path) {
 
 /// One todo-id citation found in one document line.
 class TodoCitation {
+  /// Records one citation and the verdict it resolved to.
+  ///
+  /// [matchedIds] defaults to empty and [exemption] to null, so the ordinary
+  /// case — a citation that resolved to exactly one open todo and needed no
+  /// exemption — is the five-argument form.
   const TodoCitation({
     required this.token,
     required this.stem,
@@ -291,6 +301,11 @@ class TodoCitation {
   /// 1-based line number.
   final int line;
 
+  /// What the citation resolved to: open, closed, ambiguous, unresolved, or a
+  /// series the corpus does not know.
+  ///
+  /// Only some verdicts are defects — see `isViolation`, which is the
+  /// predicate to test rather than comparing this directly.
   final CitationVerdict verdict;
 
   /// The full on-disk ids [token] resolved to, in corpus order.
@@ -347,12 +362,23 @@ class TodoCitation {
 /// appears, and exempts nothing else on the line. A file-scoped exemption would
 /// hide the next real citation defect in that file.
 class TodoCitationVocabulary {
+  /// Wraps an already-read token set.
   const TodoCitationVocabulary(this.tokens);
 
+  /// The empty vocabulary — nothing is exempt.
+  ///
+  /// Named rather than left to `const TodoCitationVocabulary({})` so a caller
+  /// that deliberately runs with no exemptions reads as deliberate, and so the
+  /// absent-file case in `load` has an obvious value to return.
   const TodoCitationVocabulary.empty() : tokens = const {};
 
+  /// The exempt tokens, matched whole and case-sensitively.
   final Set<String> tokens;
 
+  /// Whether [token] is exempt.
+  ///
+  /// Whole-token equality: a vocabulary entry never exempts a token that
+  /// merely contains it, or one exemption would silently cover a family.
   bool contains(String token) => tokens.contains(token);
 
   /// Reads a newline-separated token list. `#` starts a comment; blank lines are
@@ -501,6 +527,11 @@ CitationVerdict _verdictFor(List<TodoRecord> records, String stem,
 
 /// The result of checking a whole documentation folder.
 class TodoCitationReport {
+  /// Records one scan: its citations, its coverage and the corpus it used.
+  ///
+  /// [documentCount] and [corpus] are required alongside the citations because
+  /// an empty violation list is equally the shape of a clean corpus and of a
+  /// scan that read no documents.
   const TodoCitationReport({
     required this.citations,
     required this.documentCount,
@@ -513,13 +544,25 @@ class TodoCitationReport {
   /// Markdown files scanned.
   final int documentCount;
 
+  /// The todo corpus the citations were resolved against.
+  ///
+  /// Kept on the report so a caller can tell "nothing cited a closed todo"
+  /// from "no todo files were found", which produce the same empty violation
+  /// list.
   final TodoCorpus corpus;
 
+  /// The citations that are defects, in document then line order.
   List<TodoCitation> get violations =>
       [for (final c in citations) if (c.isViolation) c];
 
+  /// Whether the scan found nothing to report.
   bool get isClean => violations.isEmpty;
 
+  /// How many citations landed on [verdict].
+  ///
+  /// Used for the per-verdict summary the CLI prints, which is what makes a
+  /// clean run legible: the counts show the scan resolved real citations
+  /// rather than finding none.
   int countOf(CitationVerdict verdict) =>
       citations.where((c) => c.verdict == verdict).length;
 }

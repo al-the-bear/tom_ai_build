@@ -87,6 +87,10 @@ String packageVersionFromModel(String modelVersion) {
 /// One documented way to add the library as a dependency (registry, git, path,
 /// vendored, …) rendered into `readme_howtointegrate.md`.
 class PackagingRoute {
+  /// Declares one integration route.
+  ///
+  /// Both parts are required: a heading with no body documents nothing, and a
+  /// body with no heading cannot be placed among the other routes.
   const PackagingRoute({required this.heading, required this.body});
 
   /// The route's sub-heading (e.g. `'From the package registry'`).
@@ -100,6 +104,13 @@ class PackagingRoute {
 /// language supplies one of these (SOM §17.3) and registers it in
 /// [packagingDescriptorFor]; everything else is language-agnostic.
 class PackagingDescriptor {
+  /// Declares one language's packaging facts.
+  ///
+  /// Every argument is required, deliberately: this is the *only* per-language
+  /// input the shared renderers get, so a field left to a default would be a
+  /// field silently wrong for eight of the nine languages. A new field added
+  /// here breaks all nine descriptors at compile time, which is the point —
+  /// the compiler asks each language for its answer rather than inventing one.
   const PackagingDescriptor({
     required this.language,
     required this.displayName,
@@ -272,6 +283,7 @@ String renderChangelog(PackagingDescriptor d, {required String version}) {
 /// rendered as a row of the README's Examples table
 /// (`tom_specs_documentation_standard.md` §2.1 row 9).
 class PackagingExample {
+  /// Declares one sample row of the README's Examples table.
   const PackagingExample({required this.file, required this.demonstrates});
 
   /// The sample's path relative to the examples directory (e.g.
@@ -290,6 +302,10 @@ class PackagingExample {
 /// from the package's own examples tree, which its test suite compiles and
 /// runs, so the README cannot show code that does not work.
 class PackagingUsage {
+  /// Declares one `## Usage` sub-section.
+  ///
+  /// All three parts are required because a snippet without its heading and
+  /// intro is a code block a reader has to reverse-engineer the purpose of.
   const PackagingUsage({
     required this.heading,
     required this.intro,
@@ -309,6 +325,11 @@ class PackagingUsage {
 /// One `@Document` root of the generated facade, read back from the meta-data
 /// file the emitter has just written.
 class FacadeDocumentRoot {
+  /// Records one root as read back from the emitted meta-data.
+  ///
+  /// Constructed only by `readFacadeSurface`, never hand-written: these are
+  /// model facts, and hand-writing one would reintroduce the drift that
+  /// reading the meta-data exists to prevent.
   const FacadeDocumentRoot({
     required this.type,
     required this.sectionId,
@@ -336,6 +357,7 @@ class FacadeDocumentRoot {
 /// implements. The meta-data file is the same thing every runtime already
 /// loads, so reading it here is reading the package's own answer.
 class FacadeSurface {
+  /// Records the surface read back from one emitted facade.
   const FacadeSurface({required this.roots, required this.classCount});
 
   /// Every `@Document` root the facade generates, in model order.

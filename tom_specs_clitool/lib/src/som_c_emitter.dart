@@ -51,6 +51,10 @@ const String _metaHeaderBasename = 'tom_som_c_v0_meta.h';
 
 /// Generates the `tom_som_c_v0` header + source for a [SpecModel].
 class SomCEmitter {
+  /// The resolved model the emission walks: its `@Document` roots seed the
+  /// reachability set, and only the classes, enums and `@Form` fields reachable
+  /// from the selected roots are emitted — an unreferenced model class produces
+  /// no C at all.
   final SpecModel model;
   final SpecReflection _ref;
 
@@ -60,6 +64,15 @@ class SomCEmitter {
   /// The document-root type names to generate. Empty ⇒ every root in the model.
   final List<String> documentRoots;
 
+  /// Binds the emitter to [model] — the one required argument, because every
+  /// name, path segment and version string is derived from it.
+  ///
+  /// Both named arguments default to the whole-model case: [versionLabel] `v0`
+  /// names the output project only (the reported model version comes from the
+  /// model's own stamp), and an empty [documentRoots] means "every root in the
+  /// model". Narrowing [documentRoots] shrinks the reachability set, so it
+  /// changes which classes are emitted — not just which roots get a
+  /// constructor.
   SomCEmitter(
     this.model, {
     this.versionLabel = 'v0',
@@ -968,56 +981,178 @@ class SomCEmitter {
 }
 
 class _EnumType {
+  /// The model enum's type name. C emits no enum type — the name only seeds the
+  /// SCREAMING_SNAKE `#define` prefix and the `parse_<snake>` helper name.
   final String name;
+
+  /// The stored document tokens, in model declaration order. They are emitted
+  /// verbatim as the `#define` values, so they are the on-disk encoding shared
+  /// with every other language port — not display labels.
   final List<String> values;
   _EnumType(this.name, this.values);
 }
 
 class _EnumConst {
+  /// The `#define` identifier (`<ENUM>_<VALUE>`, or `<ENUM>_VALUE_<n>` when the
+  /// token snake-cases to nothing). Allocated from the shared value namespace,
+  /// so it may carry a `_2` suffix if the obvious name was already taken.
   final String ident;
+
+  /// The document token the identifier expands to — the literal string stored
+  /// in the YAML, which must stay byte-identical across language ports.
   final String token;
   _EnumConst(this.ident, this.token);
 }
 
 class _PendingForm {
+  /// The model class declaring the `@Form` field. Kept so the allocated struct
+  /// name can be written back into that class's `formTypeFor` map after the
+  /// forms have been sorted.
   final String owner;
+
+  /// The `@Form` field itself: its `formFields` are the emitted typed members
+  /// and its name is the document segment they hang off.
   final SpecField field;
+
+  /// The struct name already allocated from the shared type namespace. Forms
+  /// are sorted by it before any function name is allocated, so the flat C
+  /// function namespace fills in an order independent of model declaration
+  /// order — which is what makes re-runs byte-stable.
   final String typeName;
   _PendingForm(this.owner, this.field, this.typeName);
 }
 
 class _ClassPlan {
+  /// The resolved model class being emitted — the field list walked by both the
+  /// header and the source pass, so the two stay in the same order.
   final SpecClass cls;
+
+  /// The emitted struct typedef name. Model class names are taken verbatim, so
+  /// this is the one generated type name that is never allocated; form struct
+  /// names are allocated around it.
   final String typeName;
+
+  /// The model class name under which the plan is registered. Also the stem of
+  /// every emitted function prefix and of the metadata module's
+  /// `<snake>_meta_tree` accessor this facade calls into, so it must match the
+  /// name `SomCMetaEmitter` derived its tree function from.
   final String name;
+
+  /// Whether the class is one of the selected `@Document` roots. Roots get the
+  /// version-checking constructor, the load helpers and a per-root model-version
+  /// constant (SOM §4.2); non-roots get only a path-binding initialiser.
   final bool isRoot;
+
+  /// The binding function: `<prefix>_new` on a root, which checks the document's
+  /// authoring stamp (SOM §4.2) and returns non-zero with an owned message
+  /// through `char **err` when the stamp is not editable; `<prefix>_init` on a
+  /// child facade, which returns `void` because binding a child cannot fail.
   late String lifecycleFn; // `_init` (non-root) or `_new` (root)
+
+  /// The `<prefix>_free` releasing the bound node. Emitted for every type so a
+  /// caller can pair it with the binder without knowing whether it holds a root.
   late String freeFn;
+
+  /// The `<prefix>_can_have_content` **schema** predicate (SOM §21) — "does this
+  /// section type declare the standard `content` leaf?", compiled in as a
+  /// literal. Deliberately distinct from the runtime state queries
+  /// (`spec_document_has_content`, `som_node_is_empty`): it describes the model,
+  /// not the data.
   late String canHaveContentFn; // `_can_have_content` (every type)
+
+  /// The root's `<prefix>_object_model_version` accessor, returning the model
+  /// version the generated facade reports (SOM §4.2). `null` on a non-root —
+  /// only a document root carries a version.
   String? omvFn;
+
+  /// The root's `<prefix>_editability_for`: the read-only companion to the
+  /// SOM §4.2 check in `lifecycleFn`, so a caller can classify a document stamp
+  /// without constructing (and failing). `null` on a non-root.
   String? editabilityFn; // `_editability_for` (root only)
+
+  /// The `<ROOT>_MODEL_VERSION` `#define` name holding the generated model
+  /// version string that the constructor compares the document stamp against.
+  /// `null` on a non-root.
   String? mvConst;
+
+  /// The document path segment the root binds at. Every accessor path below the
+  /// facade is built from it, so it has to be the same segment the generic
+  /// runtime and the other language ports store — it is read from the model, not
+  /// derived from the class name. `null` on a non-root.
   String? rootSeg;
+
+  /// The root's `<prefix>_load_yaml`: parses YAML through the generic runtime
+  /// (threading this root's metadata tree into the decoder) and binds the
+  /// result, failing on a non-editable stamp. `null` on a non-root.
   String? loadYamlFn; // `_load_yaml` (root only)
+
+  /// The root's `<prefix>_load_file` — `loadYamlFn` over a file's contents,
+  /// reporting through the same `char **err` out-parameter when the file cannot
+  /// be read. `null` on a non-root.
   String? loadFileFn; // `_load_file` (root only)
+
+  /// Getter function name per model field name; every field has an entry. The
+  /// C return type follows the field kind — owned `char *` for a value leaf, a
+  /// child facade or form struct by value, `SomList` for a list.
   final Map<String, String> getFn = {};
+
+  /// Setter function name per model field name, present only for the kinds the
+  /// facade can write (value leaves, enums, content). A missing key therefore
+  /// means "this accessor is read-only", not "not allocated yet" — the field
+  /// emitter dereferences it unconditionally for the writable kinds.
   final Map<String, String> setFn = {};
+
+  /// Form struct name per `@Form` field name, filled only after the form plans
+  /// have been sorted and named. It is what tells the field emitter which struct
+  /// the owning class's accessor returns by value.
   final Map<String, String> formTypeFor = {};
   _ClassPlan(this.cls, this.name, this.isRoot) : typeName = cls.name;
 }
 
 class _FormPlan {
+  /// The generated struct name for this form section (`<Owner><Field>Form`),
+  /// allocated against the shared type namespace so it cannot shadow a model
+  /// class or an enum helper.
   final String typeName;
+
+  /// The owning `@Form` field. Its `formFields` list fixes the emission order of
+  /// the typed members, and each member is read back out of the document by
+  /// name, not by position.
   final SpecField field;
+
+  /// `<prefix>_init`, binding the struct to a document and an absolute path. A
+  /// form is always a child facade, so binding cannot fail and it returns
+  /// `void`.
   late String initFn;
+
+  /// `<prefix>_free`, releasing the bound node's path storage. Pairing it with
+  /// `initFn` is the caller's job — the struct is returned by value and owns
+  /// heap state.
   late String freeFn;
-  // The form section's own `content` text accessor (before the form fields).
-  // Absent when the form itself declares a field literally named `content`.
+
+  /// The form section's own `content` text getter — the prose that precedes the
+  /// form fields. `null` exactly when [hasContentMember] is true, because the
+  /// form's own field of that name would otherwise claim the same accessor name.
   String? contentGetFn;
+
+  /// The setter paired with [contentGetFn], and `null` under the same
+  /// condition; the two are always allocated together.
   String? contentSetFn;
+
+  /// Getter function name per form-field name. The C return type follows the
+  /// declared scalar type (`long`, `double`, `int` for bool, owned `char *` for
+  /// text), and a missing or unparsable stored value yields the type's zero
+  /// rather than an error.
   final Map<String, String> getFn = {};
+
+  /// Setter function name per form-field name. Every form field is writable, so
+  /// this map always has the same keys as [getFn].
   final Map<String, String> setFn = {};
+
   _FormPlan(this.typeName, this.field);
 
+  /// True when the form declares a field literally named `content`, which
+  /// shadows the section's own body text: the generated struct then omits the
+  /// `_content` / `_set_content` pair so a single C name cannot mean two things.
   bool get hasContentMember => field.formFields.any((ff) => ff.name == 'content');
 }

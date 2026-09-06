@@ -43,6 +43,10 @@ import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the TypeScript generator.
 class SomTypeScriptGenerationResult {
+  /// Every field is required: this is the *complete* record of one run, so a
+  /// caller can report and check the written project without re-walking it.
+  /// There is no partial success — [writeSomTypeScriptProject] either throws or
+  /// returns a fully populated result.
   SomTypeScriptGenerationResult({
     required this.outputRoot,
     required this.packageJsonPath,
@@ -56,15 +60,58 @@ class SomTypeScriptGenerationResult {
     required this.modelLabel,
   });
 
+  /// The created `tom_som_typescript_<label>` project directory. Every other
+  /// path in this result lies underneath it.
   final String outputRoot;
+
+  /// The written `package.json`. It carries a relative `file:` dependency on
+  /// `tom_som_typescript_runtime`: the generated module imports the runtime by
+  /// a **fixed bare specifier**, so without an `npm install` against this file
+  /// neither `tsc` (`dist/src/index.d.ts`) nor `node` (`dist/src/index.js`) can
+  /// resolve it. The path is relative so the committed file stays portable.
   final String packageJsonPath;
+
+  /// The written `tsconfig.json` — deterministic, and compiling the generated
+  /// module together with the committed tests/examples into `dist/`. It is
+  /// generated rather than hand-kept so a checkout type-checks identically to
+  /// the emitter's own clean-compile guarantee.
   final String tsconfigPath;
+
+  /// The generated typed facade module, `tom_som_typescript_<label>.ts` at the
+  /// project root. The metadata module written beside it (`..._meta.ts`) is not
+  /// reported separately, but it is not optional: the facade imports it.
   final String modulePath;
+
+  /// The lossless object-model graph, `meta/spec_model.meta.json` (SOM §5.3).
+  /// It is validated by `validateSpecModelMeta` *before* it is written, so a
+  /// path returned here always names a file that passed validation. Being
+  /// language-agnostic, it is byte-identical to the Dart/Python/Rust path's.
   final String metaJsonPath;
+
+  /// One written `*.docspecs-schema.yaml` per `@Document` root (SOM §5.4), in
+  /// the order `DocSpecsSchemaGenerator.writeSchemaTree` produced them. Also
+  /// language-agnostic: identical to what every other language path writes.
   final List<String> schemaPaths;
+
+  /// How many classes the analyzer resolved in the model package — **not** how
+  /// many classes were emitted. The emitter walks only what is reachable from
+  /// the selected roots, so the generated module can hold fewer.
   final int classCount;
+
+  /// How many `@Document` roots the exported meta-data declares. Read from the
+  /// meta rather than from the emitter, so it counts every root in the model
+  /// even when `documentRoots` narrowed the typed module to a subset.
   final int rootCount;
+
+  /// The model major version stamped into the meta-data and into every
+  /// generated DocSpecs schema. Each generated root class checks a document's
+  /// authoring stamp against it at construction time, which is what makes an
+  /// out-of-date document fail loudly instead of mis-reading (SOM §4.2).
   final int modelVersion;
+
+  /// The model's full version label (`1.2.3+45`) as recorded in the meta-data.
+  /// The `+build` tail is stripped before it becomes the npm package version,
+  /// so a rebuild of the same source version publishes the same version.
   final String modelLabel;
 }
 

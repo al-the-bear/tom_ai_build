@@ -111,8 +111,17 @@ class OeRegister {
   /// forbids.
   final List<String> duplicates;
 
+  /// Whether the register carries a row defining [id].
+  ///
+  /// Exact match, never prefix: `OE-2` and `OE-24` are unrelated ids, and a
+  /// prefix test would quietly accept the second wherever the first is meant.
   bool defines(String id) => ids.contains(id);
 
+  /// How many ids the register defines.
+  ///
+  /// Reported on stdout so a run that parsed the heading but no rows — the
+  /// signature of a restructured register — is visible rather than passing as
+  /// a corpus with nothing to check.
   int get length => ids.length;
 
   /// Reads the register out of [markdown].
@@ -169,6 +178,10 @@ bool _isWholeOeId(String token) =>
 
 /// One `OE-` citation found in one line of one file.
 class OeCitation {
+  /// Records one citation and whether the register defines it.
+  ///
+  /// [defined] is resolved at construction rather than looked up later, so a
+  /// citation carries its verdict and the register is read exactly once.
   const OeCitation({
     required this.id,
     required this.file,
@@ -188,6 +201,11 @@ class OeCitation {
   /// True when the register carries a row for [id].
   final bool defined;
 
+  /// Whether this citation is a defect.
+  ///
+  /// The gate runs cited → defined only: an id nothing cites is not a
+  /// violation, because an id is allocated once and a retired row is what
+  /// reserves its number.
   bool get isViolation => !defined;
 
   /// A one-line, `file:line`-prefixed description suitable for a build log.
@@ -248,6 +266,11 @@ List<OeCitation> findOeCitations(
 
 /// The result of checking a whole corpus.
 class OeCitationReport {
+  /// Records one scan: its citations, its coverage and the register it used.
+  ///
+  /// [fileCount] and [register] are required alongside the citations because
+  /// zero violations means nothing without them — it is equally the shape of a
+  /// clean corpus and of a scan that read no files or an empty register.
   const OeCitationReport({
     required this.citations,
     required this.fileCount,
@@ -260,14 +283,25 @@ class OeCitationReport {
   /// Files scanned.
   final int fileCount;
 
+  /// The register the citations were resolved against.
+  ///
+  /// Kept on the report so a caller can distinguish "nothing cited an
+  /// undefined id" from "the register parsed no rows", which produce the same
+  /// empty violation list.
   final OeRegister register;
 
+  /// The citations that resolve to no register row, in file then line order.
   List<OeCitation> get violations =>
       [for (final c in citations) if (c.isViolation) c];
 
   /// The distinct ids cited anywhere in the corpus.
   Set<String> get citedIds => {for (final c in citations) c.id};
 
+  /// Whether the scan found nothing to report.
+  ///
+  /// Both halves matter: a corpus can cite only defined ids while the register
+  /// itself defines one id twice, and that is a defect in the register even
+  /// though every citation resolves.
   bool get isClean => violations.isEmpty && register.duplicates.isEmpty;
 }
 

@@ -30,6 +30,9 @@ import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the Python generator.
 class SomPythonGenerationResult {
+  /// Every field is required: the record is only built at the end of a
+  /// successful [writeSomPythonProject], where every path and count is already
+  /// known, so there is no partial form worth constructing.
   SomPythonGenerationResult({
     required this.outputRoot,
     required this.pyprojectPath,
@@ -42,14 +45,47 @@ class SomPythonGenerationResult {
     required this.modelLabel,
   });
 
+  /// The created `tom_som_python_<label>` project directory; every other path
+  /// in this result lies inside it.
   final String outputRoot;
+
+  /// The emitted `pyproject.toml`. It records the generic runtime by a path
+  /// **relative** to [outputRoot], so the committed manifest still resolves on
+  /// a machine whose checkout root differs (SOM §17.3).
   final String pyprojectPath;
+
+  /// The emitted typed-facade module — the document-editing facade layered
+  /// over the generic runtime's `SpecDocument` (SOM §5.2).
   final String modulePath;
+
+  /// The lossless model graph at `meta/spec_model.meta.json` (SOM §5.3). It is
+  /// written first and then re-read to drive the two emitters, so the
+  /// committed meta-data and the committed source cannot describe different
+  /// models.
   final String metaJsonPath;
+
+  /// The written DocSpecs schema files, one per `@Document` root (SOM §5.4).
+  /// Its length is the schema count the CLI reports for the run.
   final List<String> schemaPaths;
+
+  /// How many classes the analysed model graph holds. This is the *model*
+  /// size, not the emitted surface: the facade only emits the closure
+  /// reachable from [SomPythonEmitter.documentRoots].
   final int classCount;
+
+  /// How many `@Document` roots the meta-data declares, read back from the
+  /// exporter's own `rootCount` stamp rather than recounted, so it cannot
+  /// disagree with the committed file.
   final int rootCount;
+
+  /// The model version stamped into the meta-data and into every generated
+  /// DocSpecs schema. The generated roots check a document's authoring stamp
+  /// against it at instantiation time (SOM §4.2).
   final int modelVersion;
+
+  /// The full model version label (`<version>+<build>`). Its pre-`+` part
+  /// becomes the distribution version in the emitted `pyproject.toml`, so the
+  /// package version is never maintained independently of the model.
   final String modelLabel;
 }
 

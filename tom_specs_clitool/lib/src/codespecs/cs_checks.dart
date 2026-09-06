@@ -3489,41 +3489,182 @@ class CsReflectionWrittenNotFinalCheck extends CodeSpecsCheck {
 /// The thirty-seven checks, in `codespecs_derivation_contract.md` §6 table
 /// order.
 const codeSpecsChecks = <CodeSpecsCheck>[
+  /// Check 1 — two sections in one locus project deriving the same identifier.
+  /// N4 never auto-suffixes, so the generator may not quietly merge them.
   CsIdentifierCollisionCheck(),
+
+  /// Check 2 — an inline `Cs*Ref('…')` naming no generated declaration. A
+  /// citation through a declared const is the compiler's problem; an inline id
+  /// is nothing else's.
   CsReferenceResolutionCheck(),
+
+  /// Check 3 — a section with no designated name field or headline, which
+  /// leaves the identifier derivation nothing to work from.
   CsMissingNameCheck(),
+
+  /// Check 4 — a marker missing the external key an author had to supply:
+  /// message key, error code, setting key, operation name, route id.
   CsMissingAuthoredKeyCheck(),
+
+  /// Check 5 — a form-3a body whose SOM description is empty. Declared and not
+  /// implemented is admissible; declared and unexplained is not.
   CsEmptyExplicationCheck(),
+
+  /// Check 6 — a body returning a value that came out of no collaborator or
+  /// substrate call, which is the generator inventing behaviour instead of
+  /// deferring it.
   CsFabricatedValueCheck(),
+
+  /// Check 7 — a `@CodeSpec` that does not sit on the emission unit beside a
+  /// `@DocSpec`, or a pair whose token sets differ, so the two halves of the
+  /// trace disagree about which sections the unit realises.
   CsBackLinkAgreementCheck(),
+
+  /// Check 8 — a `@CsTrigger`, `@CsAuthorize` or `@CsJob` filling a slot
+  /// outside its declared kind. The argument list is a sum type Dart cannot
+  /// express, so nothing else rejects the wrong arm.
   CsSlotExclusivityCheck(),
+
+  /// Check 9 — a mirrored enum drifting from its `tom_core` counterpart. One of
+  /// the four checks with a corroborating input: it reads the catalogue pair,
+  /// not the trio alone.
   CsMirroredCatalogueCheck(),
+
+  /// Check 10 — a `@CsText` whose role is `error` but whose category is not
+  /// `errorCopy`, leaving an error message classified as ordinary copy.
   CsErrorCopyCategoryCheck(),
+
+  /// Check 11 — a reference that inverts the shared → {client, server}
+  /// dependency arrow, so the project everything else is built on reaches back
+  /// into one of its dependants.
   CsLocusArrowCheck(),
+
+  /// Check 12 — a server handler whose operation string differs from the shared
+  /// `CsOperationRef` it answers, so the two halves of one endpoint name
+  /// different operations.
   CsOperationAgreementCheck(),
+
+  /// Check 13 — cumulative CE-MG DDL that does not converge on the `@CsTable` /
+  /// `@CsColumn` model. Reads the migration set beside the trio; without it the
+  /// two descriptions of one schema are never compared.
   CsMigrationConvergenceCheck(),
+
+  /// Check 14 — a `@CsValidation` emitting the `compose` token, which its
+  /// declaration string cannot express.
   CsComposeTokenCheck(),
+
+  /// Check 15 — an `overridableBy` naming a scope that is not strictly narrower
+  /// than the marker's own, which would let a setting be overridden at the
+  /// level that defines it.
   CsOverridableScopeCheck(),
+
+  /// Check 16 — a `@CsServerConfig(secret: true)` member with an initialiser. A
+  /// secret declares presence and shape only; a default for one is a credential
+  /// in the source tree.
   CsSecretInitialiserCheck(),
+
+  /// Check 17 — a `fallbackChannelId` naming no channel declared in the same
+  /// catalogue, so a delivery that falls back falls back to nothing.
   CsFallbackChannelCheck(),
+
+  /// Check 18 — a report column's `drillThroughRouteId` naming no CE-NV route
+  /// in the client project. The column and the route sit in different loci, so
+  /// only a pass across the trio can see the mismatch.
   CsDrillThroughRouteCheck(),
+
+  /// Check 19 — a secret whose key matches no declared `SCSET` entry in the
+  /// extracts. Reads the extracts: a secret is only ever authored on the
+  /// declared path, so an unmatched key means the slot was invented in a policy
+  /// section.
   CsSecretIsDeclaredCheck(),
+
+  /// Check 20 — two `@CsServerConfig` members claiming one setting key. Derived
+  /// and authored keys share a single namespace, and neither shape can see the
+  /// other while it is being written.
   CsSettingKeyCollisionCheck(),
+
+  /// Check 21 — a `CsGradedAccess` slot whose own `@CsAuthorize` is graded. On
+  /// the SOM side the type makes a second level unauthorable; on the code side
+  /// the slots are all one type, so the bound has to be re-imposed here.
   CsGradedDepthCheck(),
+
+  /// Check 22 — a `@CsColumn` member typed as a `TomN*` or any other
+  /// observable, which the shipped repository can read but cannot write back.
   CsColumnNotObservableCheck(),
+
+  /// Check 23 — a form-3b call that resolves to nothing, or a collaborator
+  /// method no body calls. The two halves fail in opposite directions, neither
+  /// implies the other, and both are otherwise silent until much later.
   CsCollaboratorCallResolutionCheck(),
+
+  /// Check 24 — a `@CsCollaborator` class that is not abstract, or that carries
+  /// a field, constructor, static member or implemented method. The seam
+  /// declares what Phase 6 must supply and nothing else.
   CsCollaboratorShapeCheck(),
+
+  /// Check 25 — a form-3a, form-3b or collaborator method with no doc comment.
+  /// C2 calls the absence a generation error rather than a lapse of style: the
+  /// comment is where the specification text arrives in the code.
   CsMethodCommentCheck(),
+
+  /// Check 26 — any non-documentation comment beyond the generated file's
+  /// three-line banner. Prose outside a doc comment is prose no extract can be
+  /// held against.
   CsNoInBodyCommentCheck(),
+
+  /// Check 27 — a doc comment with trailing whitespace, a blank line between it
+  /// and the first annotation, or an unescaped `[`, `]` or `<` outside a fenced
+  /// code block.
   CsDocCommentShapeCheck(),
+
+  /// Check 28 — a form-3b body outside the five admissible statement kinds, a
+  /// local that is not `final` and initialised from a call, or one that binds a
+  /// collaborator result.
   CsBodyStatementShapeCheck(),
+
+  /// Check 29 — a branch that is not an `if` on a `…Applies` guard call, or a
+  /// `for`, `while` or `switch` in a generated body. A skeleton states which
+  /// decisions exist, never how one is computed.
   CsBranchConditionCheck(),
+
+  /// Check 30 — a collaborator method whose parameters do not repeat its
+  /// calling body's name-for-name and type-for-type, or whose return type does
+  /// not follow the call's position in that body.
   CsCollaboratorSignatureCheck(),
+
+  /// Check 31 — two generation runs over one model differing in file set or in
+  /// bytes. Reads a second run; when none is supplied the driver announces the
+  /// check unrun, because a silent pass would read as a verified one.
   CsDeterminismCheck(),
+
+  /// Check 32 — a doc-comment line occurring in no extract of a section the
+  /// declaration traces to. Reads the extracts: only they hold what the agent
+  /// was given, so only they separate a copied line from a composed one.
   CsCommentSourceCheck(),
+
+  /// Check 33 — a grouped holder, a top-level declaration with no `@DocSpec`,
+  /// carrying generated prose other than C3's one-line template. It traces to
+  /// no section, so any further sentence has no source to have come from.
   CsGroupedHolderCommentCheck(),
+
+  /// Check 34 — a doc-comment line that re-wraps its source line or stops
+  /// rendering a value part-way. Check 32 asks whether the line came from an
+  /// extract; this one asks whether it arrived entire.
   CsCommentFidelityCheck(),
+
+  /// Check 35 — a token the extracts hold a value for that no back-link cites:
+  /// a specification fact that reached no code. The extract tree is given whole
+  /// or not at all, since a partial one understates this check's own left-hand
+  /// set.
   CsExtractCoverageCheck(),
+
+  /// Check 36 — a back-link naming a token the extracts do not hold, which is a
+  /// trace that is either stale or invented.
   CsBackLinkExtractedCheck(),
+
+  /// Check 37 — a reflection-written member declared `final`, which has no
+  /// setter for reflection to assign through. A static holder, the
+  /// `collaborator` seam and a member the declaration assigns in its own body
+  /// are the carve-outs.
   CsReflectionWrittenNotFinalCheck(),
 ];

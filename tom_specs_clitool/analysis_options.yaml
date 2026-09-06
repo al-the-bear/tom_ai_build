@@ -13,6 +13,21 @@
 
 include: package:lints/recommended.yaml
 
+linter:
+  rules:
+    # The package is at 100% public-API dartdoc coverage
+    # (tom_specs_documentation_standard.md §5 sets the bar at 95%). Enabling
+    # the lint makes `dart analyze` the ratchet: a new public member without a
+    # doc comment fails at edit time rather than waiting for a coverage sweep
+    # to notice it.
+    #
+    # The lint measures the *exported* surface, which is the standard's own
+    # definition of public API. It is therefore narrower than
+    # `tool/doccov.py`, which counts everything under `lib/` — 70 of this
+    # package's 130 `lib/src/` files are not exported, and their declarations
+    # are documented too but are not what the bar is about.
+    public_member_api_docs: true
+
 analyzer:
   errors:
     implementation_imports: ignore

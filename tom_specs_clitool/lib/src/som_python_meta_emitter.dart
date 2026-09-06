@@ -65,10 +65,23 @@ const Set<String> _reservedAccessorNames = {
 /// Emits the Python source of the generated metadata module (see the library
 /// doc above) for [model].
 class SomPythonMetaEmitter {
+  /// The resolved model whose classes become the generated metadata trees and
+  /// accessor classes. Must be the same model the facade emitter saw — the two
+  /// generated modules are one importable unit.
   final SpecModel model;
+
+  /// The `v0`/`v1` project label. It only spells the sibling module names in
+  /// the generated banner and imports; the model version the facade reports
+  /// comes from the model's own stamp, not from here.
   final String versionLabel;
+
+  /// The document-root type names to build trees for. Empty ⇒ every root,
+  /// which is what a full generation run passes.
   final List<String> documentRoots;
 
+  /// Takes [model] positionally and defaults to the full `v0` surface. Keep
+  /// [documentRoots] identical to the facade emitter's: a root emitted by one
+  /// and not the other leaves an unresolvable name in the module pair.
   SomPythonMetaEmitter(
     this.model, {
     this.versionLabel = 'v0',
@@ -671,9 +684,24 @@ class SomPythonMetaEmitter {
 
 /// One ID-tree child position of a class (see `_idChildren`).
 class _IdChild {
+  /// The generated `@property` name: the section id with `-` → `_`, suffixed
+  /// `_2`, `_3`, … when two hoisted ids would collide. Generation fails loudly
+  /// if it lands on a reserved `SomMetaRef` member.
   final String name;
+
+  /// The path from the owning class down to this id — the member names of the
+  /// id-less complex members it was hoisted through, `/`-joined, ending in
+  /// this position's own section id. Appended to the accessor's own `path`.
   final String relPath;
+
+  /// The model class this position descends into, or `null` for a leaf. When
+  /// set, the getter returns that class's `…Id` accessor, so the ID-tree keeps
+  /// descending instead of stopping at a bare metadata reference.
   final String? targetClass;
+
+  /// Whether the position is a list. The getter then returns a
+  /// `SomListMetaRef` — over [targetClass]'s accessor for a complex element,
+  /// over the plain metadata reference for a scalar one.
   final bool isList;
 
   const _IdChild({

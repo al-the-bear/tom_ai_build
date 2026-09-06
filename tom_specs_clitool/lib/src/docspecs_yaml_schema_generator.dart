@@ -49,6 +49,11 @@ class DocspecsYamlSchemaGenerator {
   /// the schema and the writer stay in lockstep.
   final int formatVersion;
 
+  /// Builds the generator, defaulting the format version to the codec's own.
+  ///
+  /// Pass [formatVersion] only to generate a schema for a version other than
+  /// the one this build writes — normally a test. Leaving it null is what
+  /// keeps the schema and the writer in lockstep.
   DocspecsYamlSchemaGenerator({int? formatVersion})
       : formatVersion = formatVersion ?? SpecDocumentYaml.formatVersion;
 

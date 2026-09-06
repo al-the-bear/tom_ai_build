@@ -102,14 +102,28 @@ class SomGoMetaEmitter {
   static const String _runtimeModulePath =
       'github.com/al-the-bear/tom_ai_build/tom_som_go_runtime';
 
+  /// The resolved model whose classes become the generated metadata trees and
+  /// accessor structs. Must be the same model `SomGoEmitter` saw — the two
+  /// emitted files are one Go package and reference each other by name.
   final SpecModel model;
+
+  /// The `v0`/`v1` project label. It only spells the sibling file names in the
+  /// generated banner; the model version the facade reports comes from the
+  /// model's own stamp, not from here.
   final String versionLabel;
+
+  /// The document-root type names to build trees for. Empty ⇒ every root,
+  /// which is what a full generation run passes.
   final List<String> documentRoots;
 
   /// The Go package name — must equal the facade's package clause, the two
   /// generated files form one package.
   final String packageName;
 
+  /// Takes [model] positionally and defaults to the full `v0` surface with the
+  /// `somv0` package clause. Keep [documentRoots] and [packageName] identical
+  /// to the facade emitter's — the two files compile as one package, and a
+  /// root emitted by only one of them leaves an undefined reference.
   SomGoMetaEmitter(
     this.model, {
     this.versionLabel = 'v0',
@@ -907,16 +921,41 @@ class SomGoMetaEmitter {
 
 /// A generated accessor method's Go return type + body lines.
 class _TypedBody {
+  /// The declared Go return type of the generated method, picked from the
+  /// member's field kind — a `*<Class>Nav` accessor for a complex or section
+  /// member, a `*som.SomListMetaRef[…]` for a list, `*som.SomMetaRef` for any
+  /// leaf.
   final String type;
+
+  /// The method body, one entry per emitted line, written against the
+  /// receiver's `Tree` and `Path`. The emitter supplies the outer tab; lines
+  /// nested inside a closure carry their own leading tab so the result is
+  /// gofmt-stable.
   final List<String> body;
   const _TypedBody(this.type, this.body);
 }
 
 /// One ID-tree child position of a class (see `_idChildren`).
 class _IdChild {
+  /// The generated method name: the section id with `-` → `_`, `ID`-prefixed
+  /// when it starts with a digit, then suffixed `_2`, `_3`, … when two hoisted
+  /// ids would collide. Generation fails loudly if it lands on a reserved
+  /// `som.SomMetaRef` member.
   final String name;
+
+  /// The path from the owning class down to this id — the member names of the
+  /// id-less complex members it was hoisted through, `/`-joined, ending in
+  /// this position's own section id. Appended to the accessor's own `Path`.
   final String relPath;
+
+  /// The model class this position descends into, or `null` for a leaf. When
+  /// set, the method returns that class's `…ID` accessor, so the ID-tree keeps
+  /// descending instead of stopping at a bare metadata reference.
   final String? targetClass;
+
+  /// Whether the position is a list. The method then returns a
+  /// `som.SomListMetaRef` — over [targetClass]'s accessor for a complex
+  /// element, over the plain metadata reference for a scalar one.
   final bool isList;
 
   const _IdChild({

@@ -68,8 +68,21 @@ const Set<String> _slottedAnnotations = {
 /// above) for [model]. Produces a header/source pair via [generateHeader] /
 /// [generateSource]; both share one deterministic name allocation.
 class SomCMetaEmitter {
+  /// The resolved model both surfaces are derived from. It is the same
+  /// [SpecModel] the typed facade emitter is given, which is what makes the
+  /// generated trees match the facade's paths byte for byte; the meta test
+  /// additionally diffs them against the runtime's meta-JSON bridge.
   final SpecModel model;
+
+  /// Names the `_vN` output project only — it appears in the generated file
+  /// banner and nowhere in the emitted data. The model version reported to
+  /// callers comes from the model's own stamp (SOM §4.2), never from here.
   final String versionLabel;
+
+  /// The `@Document` roots to emit trees and entry points for. Empty ⇒ every
+  /// root in the model. Narrowing it also narrows the reachability walk, so
+  /// classes reachable only from an excluded root get no builder and no
+  /// accessor struct.
   final List<String> documentRoots;
 
   final SpecReflection _ref;
@@ -78,6 +91,14 @@ class SomCMetaEmitter {
   static const String _headerBasename = 'tom_som_c_v0_meta.h';
   static const String _headerGuard = 'TOM_SOM_C_V0_META_H';
 
+  /// [model] is the only required argument — every emitted name, path and node
+  /// value is derived from it, so there is nothing to construct without one.
+  ///
+  /// The named arguments default to the whole-model case, and both must be
+  /// given the *same* values as the matching `SomCEmitter` run: the facade
+  /// calls into the entry points named here, so a mismatch in [documentRoots]
+  /// produces a facade that refers to a tree function this module never
+  /// emitted.
   SomCMetaEmitter(
     this.model, {
     this.versionLabel = 'v0',
@@ -1217,9 +1238,28 @@ class SomCMetaEmitter {
 
 /// One ID-tree child position of a class (see `_idChildren`).
 class _IdChild {
+  /// The accessor name tail, derived from the section id (`-` → `_`, a
+  /// digit-leading id prefixed with `id`, a keyword collision suffixed `_`).
+  /// Deduped within the owning class with a `_2`, `_3`, … suffix, because two
+  /// nested sections can carry ids that normalise to the same identifier.
   final String name;
+
+  /// The path from the owning class's node down to this child, ending in the
+  /// section id. Sections without an id of their own are *walked through*
+  /// rather than exposed, so this is generally several segments — that
+  /// flattening is what makes the ID-tree a shortcut over the dot-notation
+  /// tree while both still resolve to the same node (SOM §8).
   final String relPath;
+
+  /// The class the child navigates into, or `null` for a leaf. For a list it is
+  /// the *element* class, and it is `null` when the elements are scalars — so
+  /// `null` with [isList] true still yields a list ref, just one whose elements
+  /// are plain `SomMetaRef`s.
   final String? targetClass;
+
+  /// Whether the child is a list position, which changes the accessor's return
+  /// type to a list ref carrying an element factory instead of a single
+  /// navigable struct.
   final bool isList;
 
   const _IdChild({
@@ -1232,7 +1272,14 @@ class _IdChild {
 
 /// A deferred build-function definition (the body populating a `SomMetaNode *n`).
 class _PendingBuild {
+  /// The `static void <fn>(SomMetaNode *n)` name. It is forward-declared ahead
+  /// of every builder and defined later in the same translation unit, so the
+  /// mutually recursive builders can be emitted in any order.
   final String fnName;
+
+  /// Produces the function body. It is a thunk rather than a string because the
+  /// body is composed while the surrounding walk is still allocating names —
+  /// calling it early would capture a half-built name table.
   final String Function() body;
   const _PendingBuild(this.fnName, this.body);
 }

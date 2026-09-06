@@ -10,6 +10,11 @@ import 'package:path/path.dart' as p;
 /// schema version — derives it from this one file, so they cannot disagree
 /// about which model they were generated against.
 class ModelVersionStamp {
+  /// Records one parsed stamp.
+  ///
+  /// [buildTime] alone defaults to empty: a stamp always has a version, a
+  /// build number and a commit, but the timestamp is absent from stamps
+  /// produced where the build environment does not supply one.
   const ModelVersionStamp({
     required this.version,
     required this.buildNumber,
@@ -41,7 +46,14 @@ class ModelVersionStamp {
 
 /// Thrown when the version stamp is missing or unparseable.
 class ModelVersionStampException implements Exception {
+  /// Reports a missing or unparseable stamp, described by [message].
   ModelVersionStampException(this.message);
+
+  /// What went wrong, phrased so the reader knows whether to re-run
+  /// `buildkit :versioner` or to look at a corrupted generated file.
+  ///
+  /// Surfaced verbatim by `toString`, with no exception-class prefix: this
+  /// reaches a build log, where the class name adds nothing.
   final String message;
   @override
   String toString() => message;

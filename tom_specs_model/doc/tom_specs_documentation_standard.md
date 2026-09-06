@@ -446,6 +446,17 @@ that the lint exempts `@override` members, and rightly — dartdoc inherits the
 supertype's comment, so re-documenting an override duplicates a sentence that
 has one home.
 
+**The lint measures the exported surface, which is narrower than `lib/`.** It
+says nothing about a `lib/src/` library that no public barrel re-exports — in
+`tom_specs_clitool`, 70 of 130 `lib/src/` files. That is the *bar* behaving
+correctly: the bar is defined over exported declarations, and this paragraph's
+first sentence is what "public API" means. But a package can sit at its bar
+with a large undocumented internal module behind it, so the sweeps measure both
+— the lint for the bar, and `tom_specs_clitool/tool/doccov.py` for everything
+under `lib/`, which also supplies the denominator the lint cannot. Where the
+two disagree, read the code: the lint has a semantic model and the scanner does
+not.
+
 ---
 
 ## 6 The two Flutter applications

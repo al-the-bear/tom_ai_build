@@ -5,10 +5,26 @@ import 'model_reader.dart';
 /// occurs more than once), the Dart [expr]ession that reads it from the local
 /// `b`, and whether that expression can yield null.
 class SbpPath {
+  /// The dotted member chain from the Solution Blueprint root, e.g.
+  /// `b.informationAndDataModel.entities`.
   final String path;
+
+  /// The Dart expression that reads the field from the local `b`, emitted
+  /// verbatim into the generated registry.
+  ///
+  /// Not derivable from [path] by string substitution: a nullable link in the
+  /// chain needs `?.`, so the expression and the path diverge exactly where
+  /// [nullable] is true.
   final String expr;
+
+  /// Whether [expr] can evaluate to null.
+  ///
+  /// Drives the null guard the generator emits around the connect assignment;
+  /// getting it wrong produces a registry that throws at connect time rather
+  /// than one that fails to compile.
   final bool nullable;
 
+  /// Records one reachable field.
   const SbpPath(this.path, this.expr, this.nullable);
 
   /// The last segment of [path] — the field's own member name.
@@ -21,10 +37,10 @@ class SbpPath {
 ///
 /// ## Why a registry instead of a mixin
 ///
-/// The engine ([SpecNode]/`SpecSnapshotter`/`SpecYaml` in `tom_specs_model`)
+/// The engine (`SpecNode`/`SpecSnapshotter`/`SpecYaml` in `tom_specs_model`)
 /// drives the model through a reflection-free per-class contract: child
-/// relationships ([specSlots]), a shallow clone ([cloneShallow]) and a node's
-/// own scalar ([yamlScalar]). Hand-written leaves adopt it by mixing in
+/// relationships (`specSlots`), a shallow clone (`cloneShallow`) and a node's
+/// own scalar (`yamlScalar`). Hand-written leaves adopt it by mixing in
 /// `SpecNode`; the ~3000 generated model classes cannot — Dart 3.11 has no
 /// augmentation support, so generated code cannot add a mixin or methods to a
 /// hand-written class declaration. Instead, this generator emits one
@@ -62,6 +78,12 @@ class SbpPath {
 /// one for **every** projection root (see [_writeConnect] for the derivation
 /// and [_documentLocalTypes] / [_sourceRoot] for the two decisions it encodes).
 class SpecOpsGenerator {
+  /// The resolved model classes the registry is emitted over, keyed by type
+  /// name.
+  ///
+  /// Every class here gets a registry entry except the leaves listed in
+  /// `_mixinLeaves`, so a class missing from this map is silently absent from
+  /// the registry rather than reported.
   final Map<String, ModelClass> classes;
 
   /// Leaves that already mix in `SpecNode` — excluded from the registry because
@@ -99,8 +121,14 @@ class SpecOpsGenerator {
     'DdlCodeSection',
   ];
 
+  /// Builds a generator over a resolved model.
   SpecOpsGenerator(this.classes);
 
+  /// Renders the whole `spec_ops.g.dart` source.
+  ///
+  /// Deterministic: classes are emitted in sorted name order, not map order, so
+  /// two runs over the same model produce byte-identical output and the
+  /// committed file only ever changes when the model does.
   String generate() {
     final buffer = StringBuffer();
     _writeHeader(buffer);
@@ -415,7 +443,7 @@ class SpecOpsGenerator {
     return f.isSectionType || f.isComplex || f.isContentSection;
   }
 
-  /// The String field used for [yamlScalar]: the canonical `content`, or the
+  /// The String field used for `yamlScalar`: the canonical `content`, or the
   /// lone String scalar when the class has exactly one. Multi-scalar classes
   /// without a `content` field return `null` (deferred fuller packing).
   String? _yamlScalarField(ModelClass cls) {

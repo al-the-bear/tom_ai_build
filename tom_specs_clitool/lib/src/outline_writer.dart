@@ -2,9 +2,33 @@ import 'model_reader.dart';
 
 /// Generates the outline text from the model class tree.
 class OutlineWriter {
+  /// The resolved model classes, keyed by type name.
+  ///
+  /// The writer resolves member types by looking them up here, so a tree whose
+  /// members reference a type this map lacks cannot be expanded — the root
+  /// lookup in `generate` throws rather than emitting a partial outline.
   final Map<String, ModelClass> classes;
+
+  /// The resolved model enums, keyed by type name.
+  ///
+  /// Separate from [classes] because an enum member renders as its constant
+  /// list rather than as an expandable subtree
+  /// (`tom_specs_model_rules.md` §11.2.5). Empty is legal: a model with no
+  /// enums simply never looks one up.
   final Map<String, ModelEnum> enums;
+
+  /// The column the outline wraps and aligns to.
+  ///
+  /// Not a hint — inline comments are aligned against it, so changing it moves
+  /// every committed outline and produces a whole-file diff.
   final int maxLineLength;
+
+  /// Whether to render the schema-only annotations
+  /// (`tom_specs_model_rules.md` §11.2.14).
+  ///
+  /// Off by default because those annotations say what the *schema* enforces
+  /// rather than what the model *holds*, and the outline's ordinary reader is
+  /// asking the second question.
   final bool showSchemaAnnotations;
   final StringBuffer _buffer = StringBuffer();
 
@@ -27,6 +51,12 @@ class OutlineWriter {
   /// reader knows where to find the full expansion.
   final bool stopAtDetailedIn;
 
+  /// Builds a writer over a resolved model.
+  ///
+  /// Only [classes] is required: it is the map the root is looked up in, and
+  /// without it there is no tree to walk. Every other argument has the default
+  /// the committed outlines were generated with, so constructing with one
+  /// argument reproduces them.
   OutlineWriter({
     required this.classes,
     this.enums = const {},
@@ -35,6 +65,11 @@ class OutlineWriter {
     this.stopAtDetailedIn = false,
   });
 
+  /// Renders the outline for the tree rooted at [rootTypeName].
+  ///
+  /// Throws [StateError] when [classes] holds no such type — a caller that
+  /// mistypes a root gets that, rather than an outline containing only a
+  /// heading, which reads like a model with one empty document.
   String generate(String rootTypeName) {
     _buffer.clear();
     _buffer.writeln('# ${_splitPascalCase(rootTypeName)} Outline');

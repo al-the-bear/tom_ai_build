@@ -21,7 +21,17 @@ import 'spec_object_model_config.dart' show SomLanguage;
 
 /// Generates the `tom_som_dart_v0` library source for a [SpecModel].
 class SomDartEmitter {
+  /// The resolved object-model graph this emitter walks. It is the same
+  /// [SpecModel] the generator decodes back out of `meta/spec_model.meta.json`,
+  /// so the emitted source and the committed meta-data can never disagree about
+  /// the model, and it also carries the version stamp reported by
+  /// [modelVersionString].
   final SpecModel model;
+
+  /// The structural-accessor reflection over [model]. It backs the
+  /// reachability walk that decides which classes are emitted at all, and
+  /// it is built in the constructor from [model] rather than passed in, so
+  /// the two can never describe different graphs.
   final SpecReflection _ref;
 
   /// The version label of the generated project (`v0`, `v1`, …); names the
@@ -32,6 +42,12 @@ class SomDartEmitter {
   /// The document-root type names to generate. Empty ⇒ every root in the model.
   final List<String> documentRoots;
 
+  /// [model] is the only thing an emitter cannot default: everything else
+  /// describes *which slice* of it to emit. [versionLabel] and [documentRoots]
+  /// carry the CLI's own defaults — `v0` and "every root" — so a caller that
+  /// wants the whole model needs only the positional argument. The
+  /// `SpecReflection` used for the reachability walk is derived from [model]
+  /// here rather than injected, so the two can never describe different graphs.
   SomDartEmitter(
     this.model, {
     this.versionLabel = 'v0',
@@ -529,13 +545,31 @@ class SomDartEmitter {
 }
 
 class _EnumType {
+  /// The model's enum type name. It names the generated `enum` and the
+  /// `_parse<Name>` helper beside it, so it must be unique among the module's
+  /// type names — the reachability walk dedupes it by name for that reason.
   final String name;
+
+  /// The declared member names, in model declaration order. Each is emitted
+  /// twice over: once as the enum member and once as the **stored token**, and
+  /// they are deliberately the same string — the token is what lands in the
+  /// document, and it is byte-identical across every language port, which is
+  /// what lets a document written by one be read by all of them.
   final List<String> values;
   _EnumType(this.name, this.values);
 }
 
 class _FormClass {
+  /// The allocated `<Owner><Field>Form` name of the generated section facade
+  /// for one `@Form` field (SOM §11.4), already deduped against every other
+  /// form class in this run — two distinct `(class, form-field)` pairs can
+  /// derive the same base name.
   final String name;
+
+  /// The complete generated text of that class. Form classes are discovered
+  /// while walking the *owning* class's fields but must sit at module level,
+  /// so they are collected here during the walk and appended afterwards
+  /// rather than written inline.
   final String source;
   _FormClass(this.name, this.source);
 }

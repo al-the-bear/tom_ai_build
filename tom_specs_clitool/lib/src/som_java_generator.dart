@@ -30,6 +30,9 @@ import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the Java generator.
 class SomJavaGenerationResult {
+  /// Every field is required: the record is only built at the end of a
+  /// successful [writeSomJavaProject], where every path and count is already
+  /// known, so there is no partial form worth constructing.
   SomJavaGenerationResult({
     required this.outputRoot,
     required this.manifestPath,
@@ -45,7 +48,14 @@ class SomJavaGenerationResult {
     required this.modelLabel,
   });
 
+  /// The created `tom_som_java_<label>` project directory; every other path in
+  /// this result lies inside it.
   final String outputRoot;
+
+  /// The emitted `tom_som_build.json` — the Java stand-in for a pubspec. The
+  /// facade has no external dependencies, so the manifest only records the
+  /// generic runtime's `src/` **relative** to [outputRoot], which is what
+  /// `build_jar.sh` puts on the javac source path (SOM §17.3).
   final String manifestPath;
 
   /// The generator-emitted Maven `pom.xml` for the facade.
@@ -53,16 +63,43 @@ class SomJavaGenerationResult {
 
   /// The generator-emitted JDK-only `build_jar.sh` fallback for the facade.
   final String buildScriptPath;
+
+  /// The emitted `TomSomV0.java`. Java allows one public class per file, so the
+  /// whole facade is a single outer class whose generated classes, enums and
+  /// form classes are `public static` nested types; the folder mirrors the
+  /// `tom_som_java_<label>` package (SOM §5.2).
   final String sourcePath;
 
   /// The generated metadata module (`TomSomV0Meta.java`): populated
   /// `SomMetaTree`s plus the dot-notation / ID-tree access surfaces.
   final String metaModulePath;
+  /// The lossless model graph at `meta/spec_model.meta.json` (SOM §5.3). It is
+  /// written first and then re-read to drive both emitters, so the committed
+  /// meta-data and the committed source cannot describe different models.
   final String metaJsonPath;
+
+  /// The written DocSpecs schema files, one per `@Document` root (SOM §5.4).
+  /// Its length is the schema count the CLI reports for the run.
   final List<String> schemaPaths;
+
+  /// How many classes the analysed model graph holds. This is the *model*
+  /// size, not the emitted surface: the facade only emits the closure
+  /// reachable from [SomJavaEmitter.documentRoots].
   final int classCount;
+
+  /// How many `@Document` roots the meta-data declares, read back from the
+  /// exporter's own `rootCount` stamp rather than recounted, so it cannot
+  /// disagree with the committed file.
   final int rootCount;
+
+  /// The model version stamped into the meta-data and into every generated
+  /// DocSpecs schema. The generated roots check a document's authoring stamp
+  /// against it at instantiation time (SOM §4.2).
   final int modelVersion;
+
+  /// The full model version label (`<version>+<build>`). Its pre-`+` part
+  /// becomes the Maven `<version>` of the emitted `pom.xml`, so the artifact
+  /// version is never maintained independently of the model.
   final String modelLabel;
 }
 

@@ -14,6 +14,12 @@ import 'spec_model_meta_validator.dart';
 /// needs for a section field (its `contentType`) is carried on the field of
 /// kind `section`, mirroring how the outliner renders them inline.
 class ModelJsonExporter {
+  /// The resolved model classes to export, keyed by type name.
+  ///
+  /// Section types (`TextSection`, the diagram and code sections) live outside
+  /// the model package and are deliberately absent — a field of kind `section`
+  /// carries everything a renderer needs, so a lookup here for one is expected
+  /// to miss.
   final Map<String, ModelClass> classes;
 
   /// The S2 model-version counter (counts up as the object model changes). The
@@ -26,6 +32,12 @@ class ModelJsonExporter {
   /// `TomSpecsModelVersionInfo.versionMedium`). Null when unstamped.
   final String? modelVersionLabel;
 
+  /// Builds an exporter over a resolved model.
+  ///
+  /// The two stamp arguments default to the unstamped values, so a manual run
+  /// needs one argument. A build passes both — an export carrying a version
+  /// but no label, or the reverse, would describe a model build that cannot be
+  /// identified.
   ModelJsonExporter(
     this.classes, {
     this.modelVersion = 0,

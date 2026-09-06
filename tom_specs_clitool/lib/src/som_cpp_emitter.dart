@@ -53,6 +53,10 @@ const String _metaNamespace = 'tom_som_v0_meta';
 
 /// Generates the `tom_som_cpp_v0` header + source for a [SpecModel].
 class SomCppEmitter {
+  /// The resolved model the emission walks: its `@Document` roots seed the
+  /// reachability set, and only the classes, enums and `@Form` fields reachable
+  /// from the selected roots are emitted — an unreferenced model class produces
+  /// no C++ at all.
   final SpecModel model;
   final SpecReflection _ref;
 
@@ -62,6 +66,16 @@ class SomCppEmitter {
   /// The document-root type names to generate. Empty ⇒ every root in the model.
   final List<String> documentRoots;
 
+  /// Binds the emitter to [model] — the one required argument, because every
+  /// class name, path segment and version string is derived from it.
+  ///
+  /// The named arguments default to the whole-model case: [versionLabel] `v0`
+  /// names the output project only (the reported model version comes from the
+  /// model's own stamp), and an empty [documentRoots] means "every root in the
+  /// model". Narrowing [documentRoots] shrinks the reachability set, so it
+  /// changes which classes are emitted, not just which of them get a
+  /// version-checking constructor — and it must match what `SomCppMetaEmitter`
+  /// was given, since the generated load functions call its entry points.
   SomCppEmitter(
     this.model, {
     this.versionLabel = 'v0',
@@ -837,28 +851,70 @@ class SomCppEmitter {
 }
 
 class _EnumType {
+  /// The model enum's type name, emitted verbatim as a scoped `enum class` in
+  /// the generated namespace. It shares the type namespace with model classes,
+  /// so form-class names are allocated around it.
   final String name;
+
+  /// The stored document tokens, in model declaration order. The enumerator
+  /// *members* are identifier-sanitised, but these strings are what is written
+  /// to and read from the document, so they must stay byte-identical across
+  /// every language port.
   final List<String> values;
   _EnumType(this.name, this.values);
 }
 
 class _PendingForm {
+  /// The model class declaring the `@Form` field. Recorded during the walk so
+  /// the form can be sorted independently of the class it came from.
   final String owner;
+
+  /// The `@Form` field itself: its `formFields` are the emitted typed members
+  /// and its name is the document segment they hang off.
   final SpecField field;
+
+  /// The class name already allocated for the form. Forms are sorted by it
+  /// before their plans are built, so the emitted order is independent of model
+  /// declaration order — which is what keeps re-runs byte-stable.
   final String typeName;
   _PendingForm(this.owner, this.field, this.typeName);
 }
 
 class _ClassPlan {
+  /// The resolved model class being emitted — the field list walked by both the
+  /// declaration pass and the out-of-line definition pass, so the two stay in
+  /// the same order.
   final SpecClass cls;
+
+  /// Whether the class is one of the selected `@Document` roots. A root gets a
+  /// constructor that checks the document's authoring stamp (SOM §4.2) and the
+  /// static `loadYaml` / `loadFile` helpers; a child facade gets only the
+  /// path-binding constructor.
   final bool isRoot;
+
+  /// The document path segment the root binds at — the prefix every accessor
+  /// path below the facade is built from, so it must be the segment the generic
+  /// runtime and the other language ports store. Read from the model, not
+  /// derived from the class name; `null` on a non-root.
   String? rootSeg;
+
+  /// Form class name per `@Form` field name. It is what tells the field emitter
+  /// which generated class the owning accessor returns by value — and because
+  /// C++ forbids an incomplete type by value, that class must be forward
+  /// declared before this class's declaration.
   final Map<String, String> formTypeFor = {};
   _ClassPlan(this.cls, this.isRoot);
 }
 
 class _FormPlan {
+  /// The generated class name for this form section (`<Owner><Field>Form`),
+  /// allocated against the set of model-class and enum names so the one
+  /// definition rule cannot be violated by a collision.
   final String typeName;
+
+  /// The owning `@Form` field. Its `formFields` list fixes the emission order of
+  /// the typed members; each member is read back out of the document by name,
+  /// not by position.
   final SpecField field;
   _FormPlan(this.typeName, this.field);
 }

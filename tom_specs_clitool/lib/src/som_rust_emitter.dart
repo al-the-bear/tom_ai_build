@@ -42,7 +42,17 @@ import 'spec_object_model_config.dart' show SomLanguage;
 
 /// Generates the `tom_som_rust_v0` crate-root source for a [SpecModel].
 class SomRustEmitter {
+  /// The resolved object-model graph this emitter walks. It is the same
+  /// [SpecModel] the generator decodes back out of `meta/spec_model.meta.json`,
+  /// so the emitted source and the committed meta-data can never disagree about
+  /// the model, and it also carries the version stamp reported by
+  /// [modelVersionString].
   final SpecModel model;
+
+  /// The structural-accessor reflection over [model]. It backs the
+  /// reachability walk that decides which classes are emitted at all, and
+  /// it is built in the constructor from [model] rather than passed in, so
+  /// the two can never describe different graphs.
   final SpecReflection _ref;
 
   /// The version label of the generated project (`v0`, `v1`, …); names the
@@ -53,6 +63,12 @@ class SomRustEmitter {
   /// The document-root type names to generate. Empty ⇒ every root in the model.
   final List<String> documentRoots;
 
+  /// [model] is the only thing an emitter cannot default: everything else
+  /// describes *which slice* of it to emit. [versionLabel] and [documentRoots]
+  /// carry the CLI's own defaults — `v0` and "every root" — so a caller that
+  /// wants the whole model needs only the positional argument. The
+  /// `SpecReflection` used for the reachability walk is derived from [model]
+  /// here rather than injected, so the two can never describe different graphs.
   SomRustEmitter(
     this.model, {
     this.versionLabel = 'v0',
@@ -849,19 +865,44 @@ class SomRustEmitter {
 }
 
 class _EnumType {
+  /// The model's enum type name. Rust has no enum *type* here — the name is
+  /// screaming-snake-cased into the shared prefix of the emitted `&str`
+  /// constants and snake-cased into the `parse_<enum>` helper's name.
   final String name;
+
+  /// The declared member names, in model declaration order. Order is
+  /// load-bearing: a member whose name screaming-snake-cases to the empty
+  /// string falls back to a positional `_VALUE_<i>` identifier, so reordering
+  /// the model would rename constants rather than merely reorder them.
   final List<String> values;
   _EnumType(this.name, this.values);
 }
 
 class _EnumConst {
+  /// The allocated Rust constant identifier. It has already been through the
+  /// crate-wide value-namespace allocator, so it is collision-free and can be
+  /// emitted verbatim without a further uniqueness check.
   final String ident;
+
+  /// The value stored in the document — the model's member name, unaltered.
+  /// It is deliberately *not* derived from [ident]: the token is byte-identical
+  /// across every language port, which is what keeps documents readable by all
+  /// of them, so it must never be re-cased to match the Rust identifier.
   final String token;
   _EnumConst(this.ident, this.token);
 }
 
 class _FormClass {
+  /// The allocated `<Owner><Field>Form` name of the generated section struct
+  /// for one `@Form` field (SOM §11.4). Allocated through the crate-wide type
+  /// allocator, so it is unique against model structs and other form structs
+  /// alike.
   final String name;
+
+  /// The complete generated `struct` + `impl` text. A form struct is
+  /// discovered from the accessor that returns it but cannot be nested inside
+  /// the owner's `impl`, so it is collected during the walk and written at
+  /// module level afterwards.
   final String source;
   _FormClass(this.name, this.source);
 }

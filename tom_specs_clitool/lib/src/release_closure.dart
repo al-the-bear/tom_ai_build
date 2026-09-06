@@ -55,6 +55,11 @@ import 'package:yaml/yaml.dart';
 /// One approved boundary crossing: a workspace-authored package already
 /// published to pub.dev.
 class ReleaseAllowEntry {
+  /// Approves one crossing out of the release set.
+  ///
+  /// [reason] is required and [path] is not, which is the whole shape of the
+  /// approval: every crossing must justify itself, but only a crossing with
+  /// local source can be walked through.
   const ReleaseAllowEntry({required this.name, this.path, required this.reason});
 
   /// Package name.
@@ -72,6 +77,11 @@ class ReleaseAllowEntry {
 
 /// The committed release-set manifest (`tool/release_set.yaml`).
 class ReleaseManifest {
+  /// Builds a manifest from its five already-parsed sections.
+  ///
+  /// All five are required, including the empty cases: a manifest with no
+  /// forbid patterns and a manifest that forgot to parse them are different
+  /// facts, and only an explicit empty list distinguishes them.
   const ReleaseManifest({
     required this.releaseSet,
     required this.sourceOnly,
@@ -158,7 +168,23 @@ class ReleaseManifest {
 }
 
 /// What kind of edge carried the violation.
-enum ClosureEdgeKind { dependency, devDependency, override }
+///
+/// All three are walked and all three can break the closure — a dev-dependency
+/// or an override that leaves the set is as much a release-blocking edge as a
+/// runtime one, because it changes what a member resolves against.
+enum ClosureEdgeKind {
+  /// A `dependencies:` entry — the edge that ships.
+  dependency,
+
+  /// A `dev_dependencies:` entry. It does not ship, but it must still resolve
+  /// for a member to be testable from a clean checkout of the release set.
+  devDependency,
+
+  /// A `dependency_overrides:` entry, from the pubspec or from
+  /// `pubspec_overrides.yaml`. This is where a path edge onto an unpublished
+  /// sibling hides, which is why overrides are classified rather than skipped.
+  override,
+}
 
 /// The distinct ways the closure can fail.
 enum ClosureViolationKind {
@@ -182,6 +208,10 @@ enum ClosureViolationKind {
 
 /// One violation, naming the offending edge.
 class ClosureViolation {
+  /// Records one broken edge.
+  ///
+  /// [edgeKind] is the only optional argument: a `manifest` violation is a
+  /// fault in the manifest itself and has no edge to attribute it to.
   const ClosureViolation({
     required this.kind,
     required this.from,
@@ -190,6 +220,7 @@ class ClosureViolation {
     required this.detail,
   });
 
+  /// Which of the four failure modes this is.
   final ClosureViolationKind kind;
 
   /// The package (or `manifest`) the edge leaves from.
@@ -198,10 +229,21 @@ class ClosureViolation {
   /// The dependency name (or path) the edge lands on.
   final String to;
 
+  /// Which dependency section carried the edge, or null for a `manifest`
+  /// violation, which is not attributable to an edge at all.
   final ClosureEdgeKind? edgeKind;
 
+  /// The specifics a reader needs to act: the offending value, the path that
+  /// was expected against the one found, or the contradiction in the manifest.
+  ///
+  /// [kind] says which rule broke; this says what broke it. Neither is
+  /// sufficient alone, which is why the report prints both.
   final String detail;
 
+  /// Renders the violation as the single line the CLI prints.
+  ///
+  /// Format: `from -> to [edgeKind] — kind: detail`, with the bracketed edge
+  /// kind omitted when there is none.
   String describe() {
     final edge = edgeKind == null ? '' : ' [${edgeKind!.name}]';
     return '$from -> $to$edge — ${kind.name}: $detail';
@@ -210,6 +252,11 @@ class ClosureViolation {
 
 /// The result of one closure walk.
 class ClosureReport {
+  /// Records the outcome of one walk, violations and coverage counts together.
+  ///
+  /// The counts are required rather than optional because they are what makes
+  /// a clean report meaningful: zero violations over zero edges is a walk that
+  /// did not happen, and only the counts tell the two apart.
   const ClosureReport({
     required this.violations,
     required this.packagesWalked,
@@ -217,6 +264,8 @@ class ClosureReport {
     required this.edgesChecked,
   });
 
+  /// Every edge that broke the closure, in discovery order. Empty means the
+  /// set is closed.
   final List<ClosureViolation> violations;
 
   /// Release-set members whose pubspec was walked.
@@ -228,6 +277,10 @@ class ClosureReport {
   /// Dependency edges classified (all kinds).
   final int edgesChecked;
 
+  /// Whether the release set is closed — no violations of any kind.
+  ///
+  /// Read this rather than testing [violations] directly: it is the predicate
+  /// the gate's exit code is derived from.
   bool get isClosed => violations.isEmpty;
 }
 

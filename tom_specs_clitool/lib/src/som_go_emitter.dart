@@ -51,6 +51,8 @@ class SomGoEmitter {
   static const String _runtimeModulePath =
       'github.com/al-the-bear/tom_ai_build/tom_som_go_runtime';
 
+  /// The resolved model to emit. The emitter only reads it, so a single model
+  /// instance can drive every language emitter of one generation run.
   final SpecModel model;
   final SpecReflection _ref;
 
@@ -65,6 +67,11 @@ class SomGoEmitter {
   /// The Go package name of the generated module (the emitted `package` clause).
   final String packageName;
 
+  /// [model] is the only required argument; the defaults describe the
+  /// canonical run — the `v0` project label, *every* document root, and the
+  /// `somv0` package clause. [packageName] must equal the one given to the
+  /// metadata emitter, because both generated files form a single Go package;
+  /// and [documentRoots], if narrowed, must match its selection too.
   SomGoEmitter(
     this.model, {
     this.versionLabel = 'v0',
@@ -825,19 +832,41 @@ class SomGoEmitter {
 }
 
 class _EnumType {
+  /// The model enum's type name. Go has no enum type, so this only prefixes
+  /// the emitted constant identifiers and names the `parse<Enum>` helper.
   final String name;
+
+  /// The enum's constant names in model order. Each yields one exported string
+  /// constant whose value is this exact token, so a document written by the Go
+  /// facade stays readable by every other language port.
   final List<String> values;
   _EnumType(this.name, this.values);
 }
 
 class _EnumConst {
+  /// The allocated Go constant identifier (`<Enum><PascalValue>`), unique in
+  /// the module's single flat package namespace. Falls back to
+  /// `<Enum>Value<n>` when the value Pascal-cases to nothing or collides with
+  /// the enum name itself.
   final String ident;
+
+  /// The value the constant carries — the model's constant name, unchanged.
+  /// [ident] may be renamed to satisfy Go, but the token written into a
+  /// document must stay byte-identical across the language ports or documents
+  /// stop being cross-compatible.
   final String token;
   _EnumConst(this.ident, this.token);
 }
 
 class _FormClass {
+  /// The allocated Go type name of the form struct, unique in the module's one
+  /// flat package namespace (it competes there with the model structs, the
+  /// enum constants and the `New…` constructors).
   final String name;
+
+  /// The complete emitted struct plus its methods, collected while the owning
+  /// class is emitted and appended in a deterministic order, so the generated
+  /// file does not depend on visit order.
   final String source;
   _FormClass(this.name, this.source);
 }

@@ -53,6 +53,11 @@ String specOpsOutputFor(String modelPackagePath) =>
 
 /// What one [generateSpecOpsRegistry] run produced.
 class SpecOpsResult {
+  /// Records what one generation run produced.
+  ///
+  /// [changed] is carried separately from the counts because a run that
+  /// regenerated an identical file and one that rewrote it are the same size
+  /// and mean different things to a build that stages its output.
   const SpecOpsResult({
     required this.outputPath,
     required this.classCount,

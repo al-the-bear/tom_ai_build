@@ -102,6 +102,11 @@ class DocSpecsSchemaGenerator {
   /// Enum registry, forwarded to the [MetaTreeBuilder].
   final Map<String, ModelEnum> enums;
 
+  /// Builds a schema generator over a resolved model.
+  ///
+  /// [enums] defaults to empty because a model with no enums needs none; when
+  /// the model does have them, omitting the map silently renders every enum
+  /// form field as a free-text one, so the caller that has them must pass them.
   DocSpecsSchemaGenerator(this.classes, {this.enums = const {}});
 
   /// Builds every document-root schema, keyed by schema id.

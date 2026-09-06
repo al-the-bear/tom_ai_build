@@ -69,6 +69,10 @@ const List<String> _foreignIdNamespaces = ['CE-'];
 /// A citation naming an invariant of `tom_specs_model_rules.md` §10.2, found in
 /// some source.
 class InvariantCitation {
+  /// Records one citation as found by the corpus scan.
+  ///
+  /// [text] is carried whole rather than reduced to the id, because the
+  /// failure message has to show the reader the line they must edit.
   InvariantCitation({
     required this.id,
     required this.source,
@@ -101,6 +105,12 @@ class InvariantCitation {
 /// One numbered entry of the invariant list in `tom_specs_model_rules.md`
 /// §10.2.
 class InvariantEntry {
+  /// Records one entry parsed out of the `tom_specs_model_rules.md` §10.2
+  /// list.
+  ///
+  /// [number] is positional alongside [id] despite being non-citable: the
+  /// parser reads both off the same line, and dropping it would leave a
+  /// failure message unable to say where in the list to look.
   InvariantEntry(this.id, this.number, this.title);
 
   /// The stable invariant id — the entry's first inline-code span, and the only
@@ -121,6 +131,13 @@ class InvariantEntry {
 
 /// The result of comparing the two sides, plus the corpus citation scan.
 class InvariantCorrespondence {
+  /// Records one comparison of the document against the implementation.
+  ///
+  /// The three defect lists are separate arguments rather than one merged list
+  /// because they are three different repairs: an undocumented invariant needs
+  /// a `tom_specs_model_rules.md` §10.2 entry written, an unimplemented one
+  /// needs a validator step, and a
+  /// malformed citation needs the citing line fixed.
   InvariantCorrespondence({
     required this.entries,
     required this.tags,
@@ -157,6 +174,13 @@ class InvariantCorrespondence {
   /// The ids `tom_specs_model_rules.md` §10.2 defines.
   Set<String> get definedIds => entries.map((e) => e.id).toSet();
 
+  /// Whether the document and the implementation agree, with every citation
+  /// well formed.
+  ///
+  /// All three lists must be empty. The correspondence is checked in *both*
+  /// directions on purpose: an invariant implemented but undocumented is as
+  /// much a defect as one documented but unimplemented, and only the first
+  /// looks like working software.
   bool get isConsistent =>
       undocumented.isEmpty && unimplemented.isEmpty && malformed.isEmpty;
 

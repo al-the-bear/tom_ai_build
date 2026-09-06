@@ -5,8 +5,14 @@ import 'package:yaml/yaml.dart';
 /// unknown/duplicate language, an empty target set, a wrong-typed value, or a
 /// missing top-level block in a YAML document.
 class SpecObjectModelConfigException implements Exception {
+  /// Reports a malformed config block, describing the fault in [message].
   SpecObjectModelConfigException(this.message);
 
+  /// What is wrong with the block, phrased for someone editing the YAML.
+  ///
+  /// It names the offending key and value rather than the parser state: the
+  /// reader is an author who mistyped a language token, not a maintainer of
+  /// this parser.
   final String message;
 
   @override
@@ -20,16 +26,39 @@ class SpecObjectModelConfigException implements Exception {
 /// directory/package identifier) and the set of **config [tokens]** accepted for
 /// it (case-insensitive, with the common aliases `js`/`ts`/`cpp`/`py`).
 enum SomLanguage {
+  /// Dart — the model's own language, and the only target whose generated
+  /// facade the rest of this package can itself consume.
   dart('dart', ['dart']),
+
+  /// Java.
   java('java', ['java']),
+
+  /// JavaScript. Accepts `js`, which is what most configs write.
   javascript('javascript', ['javascript', 'js']),
+
+  /// TypeScript. Accepts `ts`. Distinct from [javascript] despite sharing a
+  /// registry: the two emit different facades and are separate targets.
   typescript('typescript', ['typescript', 'ts']),
+
+  /// Go. Accepts `golang`, the spelling the toolchain itself uses.
   go('go', ['go', 'golang']),
+
+  /// Rust. Accepts `rs`, matching the file extension.
   rust('rust', ['rust', 'rs']),
+
+  /// C.
   c('c', ['c']),
+
+  /// C++. The slug is `cpp`, not `c++` — the slug becomes a directory and
+  /// package name, and `+` is legal in neither. `c++` is still accepted as a
+  /// config token, since that is what an author writes.
   cpp('cpp', ['c++', 'cpp', 'cxx']),
+
+  /// Python. Accepts `py`.
   python('python', ['python', 'py']);
 
+  /// Binds a language to its package-safe [slug] and the config [tokens] that
+  /// resolve to it.
   const SomLanguage(this.slug, this.tokens);
 
   /// The package-name-safe identifier used in `tom_som_<slug>_<label>`.
@@ -53,9 +82,22 @@ enum SomLanguage {
 /// `tom_som_<slug>_<label>` project is written into (an explicit `output:`
 /// override, or the default `<output-base>/tom_som_<slug>_<label>`).
 class SomLanguageTarget {
+  /// Pairs a [language] with the [outputRoot] its generated project lands in.
+  ///
+  /// Both are required and neither is derivable from the other: the language
+  /// alone does not fix a path, and a path alone does not say which emitter
+  /// writes into it.
   const SomLanguageTarget({required this.language, required this.outputRoot});
 
+  /// The language to generate.
   final SomLanguage language;
+
+  /// The directory the generated `tom_som_<slug>_<label>` project is written
+  /// into — already resolved, so a consumer never re-applies `output-base`.
+  ///
+  /// It is either an explicit `output:` override from the config or the
+  /// default `<output-base>/tom_som_<slug>_<label>`; by the time a target
+  /// exists the distinction has been made and is no longer recoverable.
   final String outputRoot;
 
   @override
@@ -69,6 +111,11 @@ class SomLanguageTarget {
 /// ([configKey]) out of a YAML config; [fromMap] is the pure parser over a
 /// decoded block and [fromYaml] extracts the block from a full document first.
 class SpecObjectModelConfig {
+  /// Builds a config from already-validated parts.
+  ///
+  /// Every argument is required because a partially specified config has no
+  /// sensible completion here — the defaults belong to the parsers
+  /// ([fromMap] / [fromYaml]), which know which keys the author omitted.
   const SpecObjectModelConfig({
     required this.versionLabel,
     required this.outputBase,

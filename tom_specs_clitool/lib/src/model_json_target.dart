@@ -10,6 +10,11 @@ import 'model_version_stamp.dart';
 /// that ever existed. [from] is the only derivation that can produce a
 /// consistent pair, which is why every committed artifact goes through it.
 class ModelJsonStamp {
+  /// Records a version/label pair directly.
+  ///
+  /// Prefer `ModelJsonStamp.from`, which derives both from one versioner stamp
+  /// and so cannot produce the inconsistent pair this constructor allows. This
+  /// one exists for tests and for reading a stamp back off disk.
   const ModelJsonStamp(this.version, this.label);
 
   /// The stamp describing the model build [versioner] was generated from.
@@ -74,6 +79,7 @@ enum ModelJsonTarget {
     'tom_ai/ai_build/tom_specs_reviewer/assets/spec_model.json',
   );
 
+  /// Binds a `--target` id to the committed asset path it writes.
   const ModelJsonTarget(this.id, this.containerRelativePath);
 
   /// The `--target` value naming this asset.

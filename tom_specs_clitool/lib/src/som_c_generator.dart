@@ -46,6 +46,10 @@ import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the C generator.
 class SomCGenerationResult {
+  /// Every field is `required`: the result is a record of what a completed run
+  /// actually wrote, so there is no meaningful default for any of it. Callers
+  /// (the CLI reporter, the golden tests) read the paths back to verify the
+  /// committed tree (SOM §4.3) rather than re-deriving them from [outputRoot].
   SomCGenerationResult({
     required this.outputRoot,
     required this.makefilePath,
@@ -61,21 +65,66 @@ class SomCGenerationResult {
     required this.modelLabel,
   });
 
+  /// The created `tom_som_c_<label>` project directory, as the resolved
+  /// `Directory.path` — not the caller's argument string, so it is safe to join
+  /// further paths onto even when the caller passed a trailing separator or a
+  /// relative path.
   final String outputRoot;
+
+  /// The written `Makefile`. C has no module system, so this file — not the
+  /// generated source — is what wires `RUNTIME_DIR` to the `tom_som_c_runtime`
+  /// checkout; a consumer that builds without it will fail to find the runtime
+  /// header.
   final String makefilePath;
+
+  /// The generated typed facade header (`include/tom_som_c_v0.h`): the
+  /// declarations a consumer includes.
   final String headerPath;
+
+  /// The generated typed facade translation unit (`src/tom_som_c_v0.c`),
+  /// holding the out-of-line definitions. It carries no on-disk path, so it
+  /// stays layout-independent and golden-stable.
   final String sourcePath;
 
   /// The generated metadata module header/source pair (`tom_som_c_v0_meta.h` /
   /// `.c`): the populated SomMetaTrees plus the dot-notation and ID-tree
   /// access surfaces.
   final String metaModuleHeaderPath;
+  /// The metadata module's translation unit (`src/tom_som_c_v0_meta.c`),
+  /// paired with [metaModuleHeaderPath]. The facade's load functions thread the
+  /// per-root tree defined here into the generic runtime decoder, so a build
+  /// that omits this file links but cannot parse a document.
   final String metaModuleSourcePath;
+
+  /// The lossless object-model meta-data file (`meta/spec_model.meta.json`).
+  /// It is language-agnostic and byte-identical to the one every other language
+  /// path writes, which is what lets the ports be diffed against each other.
   final String metaJsonPath;
+
+  /// The written DocSpecs schema files, one per `@Document` root, sorted by
+  /// path. The write step also **prunes** stale schema directories and stale
+  /// per-major filenames, so a path absent here has been deleted from the tree,
+  /// not merely left alone.
   final List<String> schemaPaths;
+
+  /// The number of classes in the analysed model graph. This counts what was
+  /// read, not what was emitted — narrowing `documentRoots` shrinks the emitted
+  /// facade without changing this figure.
   final int classCount;
+
+  /// The number of `@Document` roots in the exported meta-data. Like
+  /// [classCount] this is a property of the model, so it stays the full root
+  /// count even when only a subset of roots was generated.
   final int rootCount;
+
+  /// The model version major baked into the meta-data and the DocSpecs
+  /// schemas — the number a document's authoring stamp is checked against at
+  /// instantiation (SOM §4.2).
   final int modelVersion;
+
+  /// The full model version label (e.g. `1.2.3+4`). Its pre-`+` part becomes
+  /// the package version stamped into the `Makefile` `VERSION` and the emitted
+  /// pkg-config `Version`, so the facade, the runtime and the `.pc` agree.
   final String modelLabel;
 }
 

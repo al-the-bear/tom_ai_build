@@ -1,31 +1,107 @@
 /// The canonical language-neutral metadata tree (SOM §7.1).
 ///
 /// [MetaTreeBuilder] projects the resolved [ModelClass] graph into one
-/// fully-expanded [MetaNode] tree per document root. This tree is the single
-/// source that the nine facade emitters and the schema generator (SOM §13) consume —
-/// no emitter re-reads the Dart model. It carries *every* `tom_specs_core`
-/// annotation: the ones this spec defines dedicated slots for, plus a lossless
-/// [MetaNode.extra] catch-all for the rest.
+/// fully-expanded [MetaNode] tree per document root, carrying *every*
+/// `tom_specs_core` annotation: the ones SOM §7.1 defines dedicated slots for,
+/// plus a lossless [MetaNode.extra] catch-all for the rest.
+///
+/// **Its one consumer in this package is the DocSpecs schema generator**
+/// (SOM §13). The nine facade emitters do *not* read this tree — they build
+/// from `SpecClass` / `SpecField`, the model decoded back out of the emitted
+/// `meta/spec_model.meta.json`. Both routes originate in the same resolved
+/// [ModelClass] graph, so they agree, but they are two projections of it and
+/// not one: a slot added here reaches the schema, and reaches a facade only
+/// once the meta-data emitters carry it too.
 library;
 
 import 'model_reader.dart';
 
 /// Field/section render kind (SOM §7.1: list | form | section | content |
 /// enum | complex | scalar). `enum` is a Dart keyword, hence [enumValue].
-enum MetaNodeKind { list, form, section, content, enumValue, complex, scalar }
+enum MetaNodeKind {
+  /// A `List<T>` member: a repeating `-LST` container whose items are
+  /// described once by [MetaNode.elementNode] rather than by one child per
+  /// item. Tested before every other rule, so `List<TextSection>` is a list
+  /// node, not a section node.
+  list,
+
+  /// A member — or a class — carrying `@Form([Field(...)])`: its value is a
+  /// fixed set of named scalar slots serialized as `FieldName: value` lines
+  /// instead of free prose (`tom_specs_model_rules.md` §9.2). The slots are
+  /// in [MetaNode.form]; no slot ever holds the section title or id, which
+  /// are stored by the heading and the id comment alone (SOM §7.1).
+  form,
+
+  /// A member whose declared type is one of the known typed section classes
+  /// (`TextSection`, `ErDiagramSection`, `DartCodeSection`, …).
+  /// Structurally a content leaf, but the class fixes the medium, so
+  /// [MetaNode.contentType] is filled in from the class rather than from an
+  /// explicit `@ContentType`.
+  section,
+
+  /// A free-prose content leaf: a plain `String` member, or a
+  /// `DocSpecsSection` member (YRD5). The two classify identically — the
+  /// runtime representation of a simple section *is* its String content — so
+  /// the exported tree is unchanged by the YRD5 refactor.
+  content,
+
+  /// An enum-typed member. Its legal values are listed in
+  /// [MetaNode.enumValues], resolved at read time so that no consumer needs
+  /// the analyzer to validate a value. Exported under the SOM §7.1 label
+  /// `enum` by [MetaNode.kindLabel]; `enum` is a Dart keyword, hence the
+  /// constant name used here.
+  enumValue,
+
+  /// A member whose type is another model class, expanded in place into that
+  /// class's own subtree. Also the kind of a class node that carries no
+  /// class-level `@Form`, and of the reference node that breaks a cycle
+  /// ([MetaNode.recursive] set, [MetaNode.children] empty).
+  complex,
+
+  /// A non-prose primitive leaf (`int`, `double`, `bool`, `num`,
+  /// `DateTime`). Also the terminal fallback for a member whose type the
+  /// reader could not resolve to a model class, so an unknown type degrades
+  /// to a leaf instead of aborting the tree build.
+  scalar,
+}
 
 /// `@ContentType(type, description)` — or the implied content type of a
 /// known section type (`TextSection` → `text`, …) with an empty description.
 class MetaContentType {
+  /// The content medium token (`text`, `markdown`, `mermaid-er`,
+  /// `code-dart`, …) that tells a renderer, an editor and the schema
+  /// generator how the section body is to be interpreted
+  /// (`tom_specs_model_rules.md` §9.2). Falls back to `text` when the
+  /// annotation argument could not be constant-folded, so the value is
+  /// always a usable medium rather than an empty string.
   final String type;
+
+  /// The prose half of `@ContentType(type, description)`, explaining what
+  /// belongs in the section. Empty — never null — when the content type was
+  /// implied by a section class rather than annotated;
+  /// [MetaNode.toJson] omits the key in that case.
   final String description;
 
+  /// [type] is positional and required because a content type without a
+  /// medium says nothing; [description] is optional so that the content
+  /// types implied by a section class (which carry no prose) can be built
+  /// with a single argument.
   const MetaContentType(this.type, [this.description = '']);
 }
 
 /// One `Field(...)` entry of a `@Form([...])` annotation.
 class MetaFormField {
+  /// The slot name declared as `Field('name', ...)`. It is written verbatim
+  /// as the `Name: value` key of the serialized form section, and it is what
+  /// a `refersTo` target of the form `<SECTIONID>.<slot>` resolves against
+  /// (`tom_specs_model_rules.md` §6.2 rule 1).
   final String name;
+
+  /// Dart type name of the slot's value (`String`, `int`, a model enum
+  /// name), taken from the `Field` type literal; `String` when the literal
+  /// was absent or unresolvable. When it names a model enum, [enumValues]
+  /// carries the constants so a non-Dart runtime can validate the value
+  /// without an analyzer.
   final String typeName;
 
   /// Human-readable display label of the field; null when absent.
@@ -50,6 +126,12 @@ class MetaFormField {
   /// the instance-tier dangling-reference check too.
   final List<String> refersTo;
 
+  /// [name], [typeName] and [order] are required: a slot is not addressable
+  /// without a name and a type, and [order] is the authored position, which
+  /// the caller knows and this class cannot recompute. Everything else
+  /// defaults to the *declared-absent* value — nullable text slots to null,
+  /// [required] to false, the lists to `const []` — so an omitted `Field`
+  /// argument and an explicitly empty one behave identically.
   const MetaFormField({
     required this.name,
     required this.typeName,
@@ -64,19 +146,39 @@ class MetaFormField {
 
 /// `@Form([...])` metadata for a `kind == form` node.
 class MetaFormInfo {
+  /// The form's slots in authored `@Form([...])` order.
+  /// [MetaFormField.order] restates each position, so a consumer that
+  /// re-sorts or re-keys the list can still recover the declared order. An
+  /// empty list never reaches here — a node with no form fields gets a null
+  /// [MetaNode.form] instead.
   final List<MetaFormField> fields;
 
+  /// Single positional argument: the slot list is the entirety of a form's
+  /// metadata, since the section title and id are deliberately not form
+  /// fields (SOM §7.1).
   const MetaFormInfo(this.fields);
 }
 
 /// `@Document(name, description, basedOn)` — present on document root nodes.
 class MetaDocumentInfo {
+  /// The document's human title from `@Document(name:)`. Its kebab-case
+  /// form is also the generated schema's id, so changing it renames a
+  /// published artefact (`tom_specs_model_rules.md` §9.2).
   final String name;
+
+  /// The document's one-line purpose from `@Document(description:)`. Empty
+  /// rather than null when the annotation omitted it, because the exported
+  /// document block always emits the key.
   final String description;
 
   /// Class names of the upstream documents this one is based on.
   final List<String> basedOn;
 
+  /// [name] and [description] are required because the annotation always
+  /// supplies both (missing arguments are degraded to `''` by the collector
+  /// rather than dropped), while [basedOn] defaults to empty — most
+  /// documents derive from nothing, and an empty list and an absent
+  /// `basedOn:` mean the same thing.
   const MetaDocumentInfo({
     required this.name,
     required this.description,
@@ -87,9 +189,22 @@ class MetaDocumentInfo {
 /// A captured annotation without a dedicated slot (SOM §7.1: `extra`), kept
 /// losslessly as its name plus the analyzer-resolved constant arguments.
 class MetaExtraAnnotation {
+  /// The annotation's class name without the leading `@` (`Prefix`,
+  /// `MaxLength`, `ValidationPrompt`, …) — anything not listed in
+  /// [MetaTreeBuilder.slottedAnnotationNames]. Consumers dispatch on this
+  /// string, so adding a dedicated slot for an annotation later removes it
+  /// from here and is a breaking change for whoever matched on it.
   final String name;
+
+  /// The annotation's constant-folded arguments, keyed by the annotation
+  /// class's own field names rather than by call-site parameter names, so a
+  /// positional argument still arrives under the field it initialises. An
+  /// argument that is null or does not fold is absent from the map.
   final Map<String, Object?> arguments;
 
+  /// [arguments] is optional so that marker annotations (`@Unused()`,
+  /// `@CodeSpecsProjection()`) can be captured without constructing an empty
+  /// map at every call site.
   const MetaExtraAnnotation(this.name, [this.arguments = const {}]);
 }
 
@@ -113,6 +228,11 @@ class MetaNode {
   /// `@SectionIdPattern` on the field (list element ids).
   final String? sectionIdPattern;
 
+  /// How this node renders and serializes (SOM §7.1). Decided by
+  /// [MetaTreeBuilder.classifyField] for member nodes, and by the presence
+  /// of a class-level `@Form` for class nodes. It also decides which of the
+  /// optional slots are meaningful: [form], [elementNode], [enumValues] and
+  /// [contentType] are each populated for one kind only.
   final MetaNodeKind kind;
 
   /// Dart type name of the field/class (`String`, `GoalEntry`,
@@ -128,6 +248,11 @@ class MetaNode {
   /// Whether `@Unused` is present (field- or class-level).
   final bool unused;
 
+  /// The medium of this node's body: the explicit `@ContentType` when the
+  /// member or class carries one, otherwise the marker implied by a known
+  /// section class (`TextSection` → `text`). Null on nodes that hold no
+  /// prose at all, which is how a consumer distinguishes a structural node
+  /// from an unannotated content node defaulting to text.
   final MetaContentType? contentType;
 
   /// `@ContentHelp(guidance)`.
@@ -176,6 +301,16 @@ class MetaNode {
   /// For `kind == list`: the element class subtree.
   final MetaNode? elementNode;
 
+  /// Only [className], [kind] and [typeName] are required — every node has
+  /// a backing type name and a render kind, while every other slot is an
+  /// annotation that most nodes do not carry. [memberName] is left null for
+  /// the two node shapes that are not reached through a field: the document
+  /// root and a list element node.
+  ///
+  /// The absent-value defaults are the *empty* value rather than null
+  /// ([enumValues], [extra] and [children] to `const []`, [unused] and
+  /// [recursive] to false), so "annotation absent" and "annotation present
+  /// but empty" behave identically downstream — [toJson] omits both.
   const MetaNode({
     required this.className,
     this.memberName,
@@ -284,9 +419,24 @@ class MetaNode {
 
 /// Builds [MetaNode] trees from the resolved [ModelClass] graph.
 class MetaTreeBuilder {
+  /// The resolved class graph, keyed by exact class name. Complex members
+  /// and complex list element types are expanded by looking their base type
+  /// name up here; a name that is missing is not an error — the member
+  /// degrades to a leaf node — so a partially resolvable model still yields
+  /// a tree instead of throwing mid-walk.
   final Map<String, ModelClass> classes;
+
+  /// The model's enums, keyed by type name. Consulted only for *list
+  /// element* types (`List<SomeEnum>`), where there is no [ModelField] to
+  /// read the constants from; the element node's kind and
+  /// [MetaNode.enumValues] come from here. Left empty, such elements fall
+  /// back to [MetaNodeKind.scalar] with no values.
   final Map<String, ModelEnum> enums;
 
+  /// [classes] is positional and required because the class graph is the
+  /// whole input — nothing can be expanded without it. [enums] is named and
+  /// optional because only enum-element lists consult it, so a model without
+  /// one can omit it entirely.
   MetaTreeBuilder(this.classes, {this.enums = const {}});
 
   /// Annotation names that have dedicated [MetaNode] slots; everything else
@@ -334,7 +484,7 @@ class MetaTreeBuilder {
   // -------------------------------------------------------------------------
 
   /// A node standing for an instance of [cls] (document root, complex field
-  /// target, or list element). [fieldAnnotations] / [field] carry the
+  /// target, or list element). `fieldAnnotations` / [field] carry the
   /// instantiating field's metadata when there is one.
   MetaNode _classNode(
     ModelClass cls, {
@@ -535,7 +685,15 @@ class MetaTreeBuilder {
 /// Merges field- and class-level annotations into the SOM §7.1 slots with
 /// field-first precedence, routing everything unslotted into `extra`.
 class _SlotCollector {
+  /// Annotations on the member through which the node is reached. Searched
+  /// first, which is what makes a field-level `@SectionId` or `@Headline`
+  /// win over the target class's. Empty for the document root and for list
+  /// element nodes, neither of which is reached through a member.
   final List<AnnotationData> fieldAnnotations;
+
+  /// Annotations on the class the node stands for, used as the fallback
+  /// level. Empty for leaf member nodes, whose slots may legitimately come
+  /// only from the member itself.
   final List<AnnotationData> classAnnotations;
 
   _SlotCollector({
@@ -555,18 +713,46 @@ class _SlotCollector {
 
   bool _present(String name) => _first(name) != null;
 
+  /// The effective `@SectionId(id)` — the stable, human-readable id the
+  /// `*.md` heading comment and the yaml key are written from
+  /// (`tom_specs_model_rules.md` §7.1). Null when neither level carries the
+  /// annotation, and also null rather than throwing when the `id` argument
+  /// failed to constant-fold.
   String? get sectionId => _first('SectionId')?.arguments['id'] as String?;
 
+  /// `@SectionIdPattern(pattern)` — the per-item numbering template of a
+  /// `List<T>` member, mirroring the container's `-LST` id
+  /// (`tom_specs_model_rules.md` §7.2). Independent of [sectionId]: a list
+  /// routinely carries both, so this is never a fallback for a missing id.
   String? get sectionIdPattern =>
       _first('SectionIdPattern')?.arguments['pattern'] as String?;
 
+  /// `@SerializationOrder(order)` — the member's sibling emission position
+  /// in every observable surface (`*.md`, yaml, schema, all nine facades).
+  /// It is stamped in bulk by `bin/stamp_serialization_order.dart`, not
+  /// hand-written; null on an unstamped model, where declaration order is
+  /// the fallback.
   int? get serializationOrder =>
       _first('SerializationOrder')?.arguments['order'] as int?;
 
+  /// `@Min(count)` — the minimum number of items a `List<T>` member must
+  /// hold, forwarded to the generated schema as `min-count`
+  /// (`tom_specs_model_rules.md` §9.2). Null means *no declared bound*,
+  /// which is not the same as a declared bound of zero.
   int? get min => _first('Min')?.arguments['count'] as int?;
 
+  /// Whether `@Unused()` is present at either level: the section is a
+  /// structural container, so no prose is *expected* in it
+  /// (`tom_specs_model_rules.md` §5.6). Advisory only — the section, its
+  /// content slot and its ability to hold content are untouched; only
+  /// authoring and review tooling reacts to it.
   bool get unused => _present('Unused');
 
+  /// `@ContentType(type, description)` as a [MetaContentType], or null when
+  /// unannotated — in which case a `section` member still picks up the
+  /// medium implied by its section class. Both arguments are defaulted here
+  /// rather than propagated as null (`text` and `''`), so consumers never
+  /// have to null-check inside the pair.
   MetaContentType? get contentType {
     final a = _first('ContentType');
     if (a == null) return null;
@@ -576,19 +762,45 @@ class _SlotCollector {
     );
   }
 
+  /// `@ContentHelp(guidance)` — authoring guidance for whoever fills the
+  /// section in. The schema generator emits it as the node's `description`
+  /// (`tom_specs_model_rules.md` §9.2), so it reaches authors through the
+  /// schema even when the outline is not rendered.
   String? get contentHelp =>
       _first('ContentHelp')?.arguments['guidance'] as String?;
 
+  /// `@Headline(text)` — a *default* headline only
+  /// (`tom_specs_model_rules.md` §8): a headline stored in the document
+  /// always wins over it, and where neither exists the headline is derived
+  /// from the member or class name. A field-level annotation beats the
+  /// target class's.
   String? get headline => _first('Headline')?.arguments['text'] as String?;
 
+  /// `@Comment(text)` — an inline note for humans, surfaced by the outliner
+  /// and used for `Seeds → XX` provenance (`tom_specs_model_rules.md`
+  /// §9.2). It is metadata about the section, never part of its content.
   String? get comment => _first('Comment')?.arguments['text'] as String?;
 
+  /// `@MapsTo(Type)` target class name — the reader has already reduced the
+  /// `Type` literal to its class name. Marks the node as the seed of a
+  /// Phase 3 DocSpec: its whole subtree flows into that document
+  /// (`tom_specs_model_rules.md` §9.2).
   String? get mapsTo =>
       _first('MapsTo')?.arguments['documentClass'] as String?;
 
+  /// `@DetailedIn(Type)` target class name — promotes the node to a
+  /// top-level entry of that Phase 3 DocSpec. The structural validator
+  /// requires such a node to have a `@MapsTo` ancestor
+  /// (`tom_specs_model_rules.md` §10.2), so this slot is never meaningful
+  /// on its own.
   String? get detailedIn =>
       _first('DetailedIn')?.arguments['documentClass'] as String?;
 
+  /// `@Document(name, description, basedOn)` projected into a
+  /// [MetaDocumentInfo]; null on every node that is not a document root, so
+  /// this doubles as the root test. Unresolvable arguments degrade — `name`
+  /// and `description` to `''`, a non-`List` `basedOn` to `const []` —
+  /// rather than failing the build on a malformed annotation.
   MetaDocumentInfo? get document {
     final a = _first('Document');
     if (a == null) return null;

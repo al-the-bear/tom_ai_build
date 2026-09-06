@@ -40,6 +40,10 @@ import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by the Rust generator.
 class SomRustGenerationResult {
+  /// Every field is required: this is the *complete* record of one run, so a
+  /// caller can report and check the written crate without re-walking it.
+  /// There is no partial success — [writeSomRustProject] either throws or
+  /// returns a fully populated result.
   SomRustGenerationResult({
     required this.outputRoot,
     required this.cargoTomlPath,
@@ -53,18 +57,56 @@ class SomRustGenerationResult {
     required this.modelLabel,
   });
 
+  /// The created `tom_som_rust_<label>` crate directory. Every other path in
+  /// this result lies underneath it.
   final String outputRoot;
+
+  /// The written `Cargo.toml`. It declares `tom_som_rust_runtime` in both
+  /// `[dependencies]` and `[dev-dependencies]` (a crate's regular dependencies
+  /// are not in scope by name for its integration tests) and gives each a
+  /// relative `path` *and* a `version`, because `cargo package` rejects a
+  /// dependency without one.
   final String cargoTomlPath;
+
+  /// The generated typed crate root, `src/lib.rs`. It declares `pub mod meta;`,
+  /// so [metaModulePath] must exist beside it or the crate does not compile —
+  /// the two files are written as a pair, never independently.
   final String libPath;
 
   /// The generated metadata module (`src/meta.rs`): populated SOM §7.2 metadata
   /// trees plus the dot-notation and ID-tree navigation surfaces (SOM §8).
   final String metaModulePath;
+  /// The lossless object-model graph, `meta/spec_model.meta.json` (SOM §5.3).
+  /// It is validated by `validateSpecModelMeta` *before* it is written, so a
+  /// path returned here always names a file that passed validation. Being
+  /// language-agnostic, it is byte-identical to the Dart/Python/Go path's.
   final String metaJsonPath;
+
+  /// One written `*.docspecs-schema.yaml` per `@Document` root (SOM §5.4), in
+  /// the order `DocSpecsSchemaGenerator.writeSchemaTree` produced them. Also
+  /// language-agnostic: identical to what every other language path writes.
   final List<String> schemaPaths;
+
+  /// How many classes the analyzer resolved in the model package — **not** how
+  /// many structs were emitted. The emitter walks only what is reachable from
+  /// the selected roots, so the generated crate can hold fewer.
   final int classCount;
+
+  /// How many `@Document` roots the exported meta-data declares. Read from the
+  /// meta rather than from the emitter, so it counts every root in the model
+  /// even when `documentRoots` narrowed the typed crate to a subset.
   final int rootCount;
+
+  /// The model major version stamped into the meta-data and into every
+  /// generated DocSpecs schema. Each generated root struct checks a document's
+  /// authoring stamp against it at construction time and returns
+  /// `Err(SomVersionError)` on a mismatch rather than mis-reading (SOM §4.2).
   final int modelVersion;
+
+  /// The model's full version label (`1.2.3+45`) as recorded in the meta-data.
+  /// The `+build` tail is stripped before it becomes the crate `version` and
+  /// the runtime dependency's version requirement, so both sides of that
+  /// requirement move together.
   final String modelLabel;
 }
 

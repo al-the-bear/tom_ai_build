@@ -43,7 +43,7 @@ const String _sectionIdSlot = '@sectionId';
 /// warnings are reported but don't block generation.
 ///
 /// Also runs [validateStructuralInvariants] for the `tom_specs_model_rules.md`
-/// §10.2 structural checks whenever [D00SolutionBlueprint] is present in
+/// §10.2 structural checks whenever `D00SolutionBlueprint` is present in
 /// [classes].
 ({List<String> errors, List<String> warnings}) validateModel(
   Map<String, ModelClass> classes,
@@ -260,7 +260,7 @@ const String _sectionIdSlot = '@sectionId';
 /// Validates the `tom_specs_model_rules.md` §10.2 structural invariants of the
 /// TomSpecs object model.
 ///
-/// These checks operate globally from [D00SolutionBlueprint] as the root and
+/// These checks operate globally from `D00SolutionBlueprint` as the root and
 /// are independent of the `rootTypeName` passed to [validateModel]:
 ///
 /// - **`@SectionId` global uniqueness** — no two classes reachable from
@@ -330,7 +330,7 @@ const String _sectionIdSlot = '@sectionId';
 ///   shared/multi-referrer) are canonical shape (4)/(5) sections and are NOT
 ///   flagged. Reported as a warning (a design smell), not an error.
 ///
-/// If [D00SolutionBlueprint] is not present in [classes] the function is a
+/// If `D00SolutionBlueprint` is not present in [classes] the function is a
 /// no-op (useful for unit tests against small synthetic models that don't
 /// include a full SBP tree).
 ({List<String> errors, List<String> warnings}) validateStructuralInvariants(
