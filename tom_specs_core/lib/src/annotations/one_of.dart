@@ -79,9 +79,11 @@ class OneOf {
   /// Optional explanation of the closed choice this group models.
   final String? note;
 
-  const OneOf({
-    required this.discriminator,
-    this.noCase = const [],
-    this.note,
-  });
+  /// Declares the annotated container as a closed choice discriminated by
+  /// [discriminator].
+  ///
+  /// [discriminator] is required because the group has no meaning without the
+  /// field that picks between its alternatives; [noCase] defaults to empty, so
+  /// a group in which every constant carries a case is the one-argument form.
+  const OneOf({required this.discriminator, this.noCase = const [], this.note});
 }

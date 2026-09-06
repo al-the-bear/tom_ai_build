@@ -17,5 +17,6 @@ class ContentHelp {
   /// The guidance text explaining how to create or populate this content.
   final String guidance;
 
+  /// Attaches authoring [guidance] to the annotated section or field.
   const ContentHelp(this.guidance);
 }

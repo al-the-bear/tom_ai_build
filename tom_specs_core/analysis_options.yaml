@@ -19,6 +19,16 @@ linter:
     # @ContentType annotation. This is by design, not an error.
     overridden_fields: false
 
+    # The package is at 100% public-API dartdoc coverage
+    # (tom_specs_documentation_standard.md §5 sets the bar at 95%). Enabling
+    # the lint makes `dart analyze` the ratchet: a new public member without a
+    # doc comment fails at edit time rather than waiting for a coverage sweep
+    # to notice it. This package is the annotation vocabulary the whole quest
+    # is written in, so a comment on an argument is the nearest thing to a
+    # specification a reader gets at the call site — which is why it is worth
+    # holding here mechanically.
+    public_member_api_docs: true
+
 # analyzer:
 #   exclude:
 #     - path/to/excluded/files/**

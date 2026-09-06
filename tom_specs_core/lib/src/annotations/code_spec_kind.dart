@@ -49,6 +49,11 @@ class CodeSpecKind {
   /// shapes the named CodeSpecs part(s)).
   final String? note;
 
+  /// Declares that every section of the annotated type is realised as [kinds]
+  /// during Phase 4.
+  ///
+  /// [kinds] must name at least one part: an empty list would read as "routed
+  /// to nothing", which is `@NoArtifact`'s verdict and not this one.
   const CodeSpecKind(this.kinds, {this.note});
 }
 

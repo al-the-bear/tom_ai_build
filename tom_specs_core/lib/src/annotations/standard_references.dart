@@ -30,5 +30,7 @@ class StandardReferences {
   /// author-facing guidance in [ContentHelp] / the `@Form` field `hint:`.
   final String connotation;
 
+  /// Records the public [standards] the annotated section derives from and
+  /// what the section means ([connotation]).
   const StandardReferences(this.standards, this.connotation);
 }

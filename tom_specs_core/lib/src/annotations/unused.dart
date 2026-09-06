@@ -4,5 +4,9 @@
 /// Applied to the `content` field of classes where the section serves only as
 /// a structural container for subsections, with no narrative text of its own.
 class Unused {
+  /// Marks the annotated `content` field as carrying no text.
+  ///
+  /// Takes no arguments — the marker's presence is the whole statement. It is
+  /// the opposite verdict to `@TextRequired`, and the two never co-occur.
   const Unused();
 }

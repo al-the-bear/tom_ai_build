@@ -23,5 +23,6 @@ class MapsTo {
   /// The Phase 3 DocSpec document class that this section maps to.
   final Type documentClass;
 
+  /// Declares the annotated class as the seed node for [documentClass].
   const MapsTo(this.documentClass);
 }

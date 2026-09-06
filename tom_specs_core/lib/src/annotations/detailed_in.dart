@@ -24,5 +24,7 @@ class DetailedIn {
   /// The Phase 3 DocSpec document class that details this section.
   final Type documentClass;
 
+  /// Declares the annotated class as one that is promoted to a top-level entry
+  /// of [documentClass].
   const DetailedIn(this.documentClass);
 }

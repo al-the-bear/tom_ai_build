@@ -8,7 +8,13 @@
 /// top-level sections have such an entry, so an access key on a deeper
 /// section has no DocSpecs representation.
 class AccessKey {
+  /// The key the section is addressed by.
+  ///
+  /// Compared literally, never resolved: a `@ForEach` naming this registry
+  /// matches its entries on the same string, so a key changed here and not
+  /// there silently stops pairing rather than failing to resolve.
   final String key;
 
+  /// Declares [key] as the annotated section's access key.
   const AccessKey(this.key);
 }

@@ -5,8 +5,13 @@
 /// declares a named form value with its Dart type and a human-readable
 /// description.
 class Form {
+  /// The form's fields, in the order the section body writes them.
+  ///
+  /// Order is significant: it is the order of the name-value lines in the
+  /// serialized document and the order an editor renders the fields in.
   final List<Field> fields;
 
+  /// Declares [fields] as the form carried by the annotated `content` field.
   const Form(this.fields);
 }
 
@@ -86,6 +91,11 @@ class Field {
   /// never apply to the same declaration.
   final List<String> refersTo;
 
+  /// Declares a form field called [name] holding a value of [type].
+  ///
+  /// The three positional arguments are the ones every field has; the named
+  /// ones are the qualifiers a field may do without, so a plain optional
+  /// free-text field is the three-argument form.
   const Field(
     this.name,
     this.type,

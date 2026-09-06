@@ -24,5 +24,10 @@ class Case {
   /// The discriminator enum constant this subsection is bound to.
   final Object value;
 
+  /// Binds the annotated subsection to the discriminator constant [value].
+  ///
+  /// Repeat the annotation to bind one subsection to several constants; omit
+  /// it entirely to make the subsection *common* — present whichever case the
+  /// document chooses.
   const Case(this.value);
 }

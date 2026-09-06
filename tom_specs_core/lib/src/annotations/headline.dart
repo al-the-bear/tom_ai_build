@@ -10,7 +10,13 @@
 /// document carries no stored headline. A stored headline always wins and
 /// stays editable.
 class Headline {
+  /// The default headline text.
+  ///
+  /// The *default* only: a headline stored in the document always wins. This
+  /// is what an editor prefills into a newly created section and what a codec
+  /// renders when the document carries no stored headline.
   final String text;
 
+  /// Declares [text] as the default headline of the annotated section.
   const Headline(this.text);
 }

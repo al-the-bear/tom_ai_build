@@ -40,6 +40,8 @@ class NoArtifact {
   /// where it is specified normatively.
   final String? note;
 
+  /// Declares that the annotated section produces no downstream artifact,
+  /// for [reason].
   const NoArtifact(this.reason, {this.note});
 }
 

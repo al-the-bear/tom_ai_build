@@ -26,5 +26,9 @@
 /// class D13CodeSpecsProjection extends DocSpecsSection { ... }
 /// ```
 class CodeSpecsProjection {
+  /// Marks the annotated `@Document` root as the CodeSpecs generation
+  /// projection.
+  ///
+  /// Takes no arguments — the marker carries no state beyond its presence.
   const CodeSpecsProjection();
 }

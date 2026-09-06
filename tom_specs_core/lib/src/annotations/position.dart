@@ -14,7 +14,12 @@
 /// which is keyed by document-section name — so a position binds one level
 /// below the root and deeper ordering stays declaration order.
 class Position {
+  /// The ordering constraint: `'first'`, `'last'` or `'any'`.
+  ///
+  /// No other value is meaningful; omitting the annotation altogether is what
+  /// selects the default, which is declaration order.
   final String position;
 
+  /// Fixes the annotated subsection's ordering to [position].
   const Position(this.position);
 }

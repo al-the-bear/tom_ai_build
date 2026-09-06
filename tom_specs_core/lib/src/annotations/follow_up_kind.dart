@@ -40,6 +40,10 @@ class FollowUpKind {
   /// process(es).
   final String? note;
 
+  /// Declares that the annotated subtree feeds [processes].
+  ///
+  /// [processes] must name at least one process: a subtree that feeds none
+  /// carries `@NoArtifact` instead.
   const FollowUpKind(this.processes, {this.note});
 }
 

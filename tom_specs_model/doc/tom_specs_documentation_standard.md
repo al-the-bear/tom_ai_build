@@ -433,6 +433,19 @@ Coverage is measured, not estimated. `tom_specs_clitool` carries the gate; the
 bar above is what it enforces, and a package below its bar fails the default
 test run rather than passing unnoticed.
 
+**A Dart package that has reached the bar holds itself there with the lint.**
+`public_member_api_docs` in the package's own `analysis_options.yaml` makes
+`dart analyze` the ratchet, so a new public member without a doc comment fails
+at edit time instead of waiting for the next coverage sweep to find it. Enable
+it in the same change that closes the gap — before that it reports the whole
+backlog on every run and is ignored, which is worse than not having it. It does
+not replace the cross-package gate: the gate measures every package including
+the ones still below their bar, and it is what a *reader* of the bar can check.
+The lint is what stops a package that has passed from quietly regressing. Note
+that the lint exempts `@override` members, and rightly — dartdoc inherits the
+supertype's comment, so re-documenting an override duplicates a sentence that
+has one home.
+
 ---
 
 ## 6 The two Flutter applications

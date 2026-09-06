@@ -28,6 +28,12 @@
 /// id are stored per node by the YRD3 runtime), which keeps the exported meta
 /// tree identical to the pre-YRD5 `String`-member model.
 class DocSpecsSection {
+  /// Creates a section.
+  ///
+  /// Every argument is optional: a section under construction may have neither
+  /// a headline nor an id nor a body yet, and a parser fills them in as it
+  /// reads. [codeSpec] defaults to an empty **growable** list rather than a
+  /// const one, so links can be added to a freshly built section in place.
   DocSpecsSection({
     this.headline,
     this.id,
@@ -74,6 +80,10 @@ class DocSpecsSection {
 /// `Object?` — YRD7 introduces the *typed* per-field members on the generated
 /// SOM classes; this class is the generic model-side holder.
 class DocSpecsForm {
+  /// Creates a form-value holder.
+  ///
+  /// [values] defaults to an empty **growable** map, so a parser can fill it in
+  /// place as it reads the section's field lines.
   DocSpecsForm({Map<String, Object?>? values})
     : values = values ?? <String, Object?>{};
 
