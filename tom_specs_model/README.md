@@ -274,6 +274,17 @@ package's own [`doc/`](doc) folder:
 | [doc/llm_guidelines_specification.md](doc/llm_guidelines_specification.md) | The in-editor agent's context prompt |
 | [doc/tom_specs_documentation_standard.md](doc/tom_specs_documentation_standard.md) | What documentation every TomSpecs package carries, and when it is finished |
 
+**This package** — its own guides, in `doc/package/` so the two tiers stay
+visibly apart in the one folder that hosts both:
+
+| Guide | Covers |
+|-------|--------|
+| [doc/package/index.md](doc/package/index.md) | The catalogue of this package's own documentation |
+| [doc/package/authoring_a_section_class.md](doc/package/authoring_a_section_class.md) | Writing a model class, and the stamp/regenerate/outline sequence that must follow |
+| [doc/package/document_roots.md](doc/package/document_roots.md) | `DocSpecsProject`, the fourteen entry points, the projections and the two save paths |
+| [doc/package/snapshot_and_serialization.md](doc/package/snapshot_and_serialization.md) | The per-class contract, copy-on-write snapshotting, and the projection onto the wire format |
+| [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
+
 **Siblings** — packages you will reach for next:
 
 | Package | What it is |

@@ -248,6 +248,20 @@ A package's `doc/` holds **its own** documentation and nothing else:
 gitignored. Generator output other than the API reference never goes in `doc/`
 — it belongs in a `generated-doc/` sibling.
 
+**The one package whose `doc/` hosts both tiers.**
+`tom_ai/ai_build/tom_specs_model/doc/` is the subject-matter tier's home (§1),
+so its `doc/index.md` is already the catalogue of *that* tier and its files are
+already the authorities. That package's own package-tier documentation — how to
+author a model class in Dart, the generated ops registry, the projection roots
+— therefore lands in **`doc/package/`**, with **`doc/package/index.md`** as its
+catalogue, and its API summaries in the usual `doc/api/` (a path no
+subject-matter document uses). Two catalogues, one folder, and each says which
+tier it belongs to in its first paragraph. The alternative — mixing package
+guides in among the fourteen authorities — would leave `index.md` catalogueing
+two different things and a reader unable to tell which tier a file is in.
+`doc/index.md` carries one row pointing at `doc/package/index.md`, so the
+§3.4 reachability rule still closes.
+
 ### 3.2 Which packages get one
 
 | Package kind | `doc/` | Rationale |
@@ -386,6 +400,13 @@ the reference. The bar:
 | Libraries, tools, SOM runtimes | **95 %** |
 | `tom_specs_reviewer` | **90 %** |
 | Generated packages (`tom_som_*_v0`) | exempt — coverage is the **emitter's** responsibility and is measured on the emitter's templates, not on its output |
+
+**Committed or not.** The hand-written `doc/api/api_summary_<module>.md` files
+are source and are committed; the generated `doc/api/reference/` is output and
+is not. The workspace `.gitignore`s encode exactly that, and encode it by
+excluding the *contents* of `doc/api/` rather than the directory — git cannot
+re-include a file whose parent directory is excluded, so a directory-level
+`**/doc/api/` would silently swallow every summary written under it.
 
 "Public API" means every exported declaration and every public member of one.
 A comment that restates the identifier (`/// The name.` on `String name`) does

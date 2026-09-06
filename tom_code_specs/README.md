@@ -380,6 +380,16 @@ annotation, so it lives in [`tom_specs_model`](../tom_specs_model) /
 | [tom_specs_project_flow.md](../tom_specs_model/doc/tom_specs_project_flow.md) | The phase model Phase 4 sits in, and the quality gate it must pass |
 | [tom_specs_model_rules.md](../tom_specs_model/doc/tom_specs_model_rules.md) | The model-authoring rules behind the `@CodeSpecKind` routing this family consumes |
 
+**This package** — its own guides:
+
+| Guide | Covers |
+|-------|--------|
+| [doc/index.md](doc/index.md) | The catalogue of this package's documentation |
+| [doc/marking_code.md](doc/marking_code.md) | Applying `@CodeSpec`, the part markers and `@CsCollaborator` |
+| [doc/cross_references.md](doc/cross_references.md) | The typed `Cs*Ref` family and the `@DocSpec` back-links |
+| [doc/vocabulary.md](doc/vocabulary.md) | The sixteen closed catalogues and the per-kind slot rule |
+| [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
+
 **Siblings** — packages you will reach for next:
 
 | Package | What it is |

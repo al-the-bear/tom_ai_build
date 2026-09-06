@@ -190,6 +190,7 @@ Two subjects this folder uses but does not own:
 |-------|---------------|
 | [`_ai/quests/doc_specs/doc_specs_specification.md`](../../../../_ai/quests/doc_specs/doc_specs_specification.md) | The DocSpecs format itself — schemas, section types, validation. |
 | Per-project `README.md` files and `doc/` folders | Per-project usage: [`tom_specs_core`](../../tom_specs_core/README.md) (the annotation catalogue), [`tom_specs_clitool`](../../tom_specs_clitool/README.md) (CLI usage), `tom_code_specs`, `tom_core_codespecs`, [`tom_som_conformance`](../../tom_som_conformance) (the harness), and the nine `tom_som_*_v0` / `tom_som_*_runtime` pairs. Their shape is decided by [tom_specs_documentation_standard.md](tom_specs_documentation_standard.md); their content is decided by each package. |
+| [`package/index.md`](package/index.md) | **This package's own package-tier documentation** — authoring a model class in Dart, the container root and its fourteen entry points, and the snapshot/serialization engine. It lives in a subfolder of this one because `tom_specs_model` is the only package whose `doc/` hosts both tiers ([tom_specs_documentation_standard.md](tom_specs_documentation_standard.md) §3.1); its API summaries are in [`api/`](api/api_summary_index.md). |
 
 ## Generated documentation
 

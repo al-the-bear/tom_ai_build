@@ -391,6 +391,15 @@ it produced, not the package itself.
 | [codespecs_mapping.md](../tom_specs_model/doc/codespecs_mapping.md) | The CodeSpecs parts catalogue behind `CodeSpecPart`, and the routing verdicts behind `@CodeSpecKind` / `@FollowUpKind` / `@NoArtifact` |
 | [tom_specs_project_flow.md](../tom_specs_model/doc/tom_specs_project_flow.md) | The TomSpecs creation process — the phases these documents are produced in |
 
+**This package** — its own guides:
+
+| Guide | Covers |
+|-------|--------|
+| [doc/index.md](doc/index.md) | The catalogue of this package's documentation |
+| [doc/annotations.md](doc/annotations.md) | The annotation vocabulary, organised by authoring task |
+| [doc/sections.md](doc/sections.md) | `DocSpecsSection` and the ten content-typed leaves |
+| [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
+
 **Siblings** — packages you will reach for next:
 
 | Package | What it is |
