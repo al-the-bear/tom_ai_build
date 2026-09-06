@@ -180,6 +180,13 @@ SerializationStampResult stampSerializationOrder({
       out = out.substring(0, e.start) + e.replacement + out.substring(e.end);
     }
 
+    // Compare before counting. Stamping is remove-and-rewrite, so a file whose
+    // stamps are already correct still produces a full edit list — counting the
+    // edit list would report every stamped file as changed on every run, which
+    // is exactly what [filesChanged]'s contract says it does not do. Not writing
+    // an identical file also keeps mtimes still, so a re-stamp does not look
+    // like a model edit to anything watching the tree.
+    if (out == source) continue;
     filesChanged++;
     if (!dryRun) file.writeAsStringSync(out);
   }

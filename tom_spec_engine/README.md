@@ -138,6 +138,7 @@ Future<void> main() async {
   final run = await tools.run(
     scopes: const ['spec'],
     source: '''
+      import 'package:tom_spec_engine/spec_api.dart';
       String main() => spec.content('D00.OV') ?? '(empty)';
     ''',
   );
@@ -146,6 +147,11 @@ Future<void> main() async {
   print(run.result);  // the section's content, read from the live document
 }
 ```
+
+The script's `import` is what surfaces the scope's globals: each base scope
+binds its API into one library, and a script that does not import it fails with
+`Undefined variable: spec` rather than reading a null
+(`llm_guidelines_specification.md` §3 lists the library per scope).
 
 Adding `'files'` to `scopes` would let the same script write a report under
 `agent/scratchpad`; leaving it out means `File` is not a name the script can
@@ -158,7 +164,7 @@ resolve.
 ```dart
 final registry = ScopeRegistry()
   ..register(specScope(controller))
-  ..register(filesScope(SpecFileFacade(root: projectRoot)));
+  ..register(filesScope(SpecFileFacade(workspaceRoot: projectRoot)));
 ```
 
 A `ScriptScope` is immutable once registered. Changing what a script may reach
@@ -326,6 +332,12 @@ than as a red suite.
 
 | Guide | Covers |
 |-------|--------|
+| [doc/index.md](doc/index.md) | The catalogue of this package's documentation |
+| [doc/scripting.md](doc/scripting.md) | Running a script, the scope model, the import a script needs, and choosing a barrel |
+| [doc/searching.md](doc/searching.md) | The free tier-1 index: text and structural queries, and when a question needs memory |
+| [doc/memory.md](doc/memory.md) | The RAG plane, its degradation path, and the vector-runtime precondition |
+| [doc/tools.md](doc/tools.md) | The four tool families and why results are values rather than exceptions |
+| [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
 | [_copilot_guidelines/bridge_regeneration.md](_copilot_guidelines/bridge_regeneration.md) | When and how to re-run `tool/regenerate_bridges.dart`, and what the freshness stamp holds |
 
 **Siblings** — packages you will reach for next:

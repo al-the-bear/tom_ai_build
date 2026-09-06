@@ -894,6 +894,8 @@ harness enforces:
 
 | Document | Covers |
 | -------- | ------ |
+| [doc/index.md](doc/index.md) | The catalogue of this package's documentation |
+| [doc/running_the_harness.md](doc/running_the_harness.md) | The drivers, the corpus layout, reading a golden mismatch, and proving a corpus table is load-bearing |
 | [samples/README.md](samples/README.md) | Each shared sample, the two wire formats, the gates over them, and how to regenerate |
 
 **Siblings:**

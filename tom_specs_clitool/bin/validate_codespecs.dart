@@ -93,6 +93,23 @@ Future<void> main(List<String> arguments) async {
     exit(0);
   }
 
+  // `mandatory: true` throws at *read* time, not at parse time, so a missing
+  // one escapes the FormatException handler above and would surface as an
+  // unhandled ArgumentError with a stack trace and exit 255. Bad usage is
+  // documented as exit 2, so check the three before reading any of them and
+  // name all that are missing rather than only the first.
+  final missing = [
+    for (final name in ['shared', 'client', 'server'])
+      if (!results.wasParsed(name)) name,
+  ];
+  if (missing.isNotEmpty) {
+    stderr.writeln('Error: the CodeSpecs trio is the pass\'s subject; '
+        'missing required option(s): ${missing.map((n) => '--$n').join(', ')}.');
+    stderr.writeln();
+    _printUsage(parser);
+    exit(2);
+  }
+
   final regeneration = _regeneration(results);
   final extracts = _extracts(results.option('extracts'));
   final migrations = _migrations(results.option('migrations'));

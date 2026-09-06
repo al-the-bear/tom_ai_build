@@ -29,6 +29,13 @@ library;
 export 'src/scope/scope.dart'
     show BridgedLibrary, ScopeGlobal, ScriptScope, ScopeError;
 export 'src/scope/scope_registry.dart';
+// The `files` base scope. Memory-free — it bridges only the audited
+// SpecFileFacade, whose type this barrel already exports — so a Flutter host
+// that wants a script to write under `agent/scratchpad` can register it
+// without pulling the memory plane in. Omitting the factory while exporting
+// the facade left `filesScope(SpecFileFacade(...))` uncompilable behind this
+// door, which is the form the README shows.
+export 'src/scope/files_scope.dart';
 export 'src/scope/spec_api.dart';
 export 'src/scope/spec_controller.dart';
 export 'src/scope/spec_file_facade.dart';

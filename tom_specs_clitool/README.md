@@ -689,6 +689,11 @@ tom_specs_clitool
 
 | Guide | Covers |
 |-------|--------|
+| [doc/index.md](doc/index.md) | The catalogue of this package's documentation |
+| [doc/generating.md](doc/generating.md) | The canonical regeneration, stamping, the ad-hoc entry points and the freshness stamp |
+| [doc/inspecting_the_model.md](doc/inspecting_the_model.md) | The outliner, the JSON exporter, and reading an outline's notation |
+| [doc/gates.md](doc/gates.md) | Running each gate, reading a citation failure, and why the scan sets are closed |
+| [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
 | [_copilot_guidelines/index.md](_copilot_guidelines/index.md) | The index of this package's development guidelines |
 | [_copilot_guidelines/som_regeneration.md](_copilot_guidelines/som_regeneration.md) | When to re-run `generate_som.dart`, what the freshness fingerprint covers, and what it deliberately ignores |
 
