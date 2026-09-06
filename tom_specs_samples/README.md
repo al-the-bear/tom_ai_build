@@ -20,8 +20,11 @@ alphabet.
 |---|--------|---------|-------|----------|-----|
 | 1 | [`author_solution_blueprint`](author_solution_blueprint/README.md) | Author a specification end to end: write through the typed facade, serialise both renditions, round-trip, validate, and read a real diagnostic | 2 — Solution Blueprint | Dart | `cd author_solution_blueprint && dart pub get && dart run` |
 | 2 | [`phase4_codespecs_run`](phase4_codespecs_run/README.md) | Run Phase 4 end to end: the starting prompt's quality gate (passing and rejecting), the extract generator, the authoring agent, and validation of the emitted trio — with every step marked mechanical or judgment | 4 — CodeSpecs | Dart | `cd phase4_codespecs_run && dart pub get && dart run` |
+| 3 | [`build_a_specification_tool`](build_a_specification_tool/README.md) | Build tooling *on* TomSpecs: reflective access to the model, generic access to a document, the generated schema, the three validation tiers and which two are reachable at runtime, and a completeness report built on all of it | any — tooling | Dart | `cd build_a_specification_tool && dart pub get && dart run` |
 
-Sample 1 is the entry point; the others assume you have run it.
+Sample 1 is the entry point; the others assume you have run it. Sample 3 is
+for a different reader — someone writing programs that read specifications
+rather than writing specifications — and needs only sample 1 before it.
 
 Each row's **Phase** is a `tom_specs_project_flow.md` phase, so a reader
 looking for "how do I do Phase 4" can find the sample that shows it rather

@@ -1,0 +1,17 @@
+name: build_a_specification_tool
+description: >-
+  TomSpecs sample — for the reader building tooling ON TomSpecs: reflective
+  access to the model, generic access to a document, the generated schema, both
+  validation tiers, and a small tool built on all of it.
+publish_to: none
+
+environment:
+  sdk: ^3.11.4
+
+# Hosted versions only (tom_specs_documentation_standard.md §7.1). Two packages
+# is the whole dependency list a tooling author needs: the runtime carries the
+# model, the document, reflection and both validators; the facade carries the
+# generated metadata tree, the shipped schemas and the typed accessors.
+dependencies:
+  tom_som_dart_v0: ^1.1.0
+  tom_som_dart_runtime: ^1.1.0

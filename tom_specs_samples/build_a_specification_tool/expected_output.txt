@@ -1,0 +1,236 @@
+
+==========================================================================
+0. The document this run inspects
+==========================================================================
+A Solution Blueprint with a handful of sections written and the
+rest left blank — small enough that every number below can be
+checked by reading `_authorFixture` in this file.
+
+  content leaves written : 5
+  form sections written  : 2
+  lists with items       : 2
+
+==========================================================================
+1. Reflection — what the model CAN hold
+==========================================================================
+`SpecModel` is the exported class graph; `SpecReflection` is the
+value-free query surface over it. No document is involved here.
+
+THE TWO VERSION STAMPS. They answer different questions and a tool
+that checks one for the other will accept a file it cannot read:
+  modelVersion      = 1  — WHICH MODEL this snapshot describes
+  metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
+  modelVersionLabel = 1.1.0+5.a15517b3
+  generatedAt       = 2026-09-06T08:01:24.305288Z
+
+A tool reads `metaSchemaVersion` to decide whether it can parse the
+file at all, and `modelVersion` to decide whether the documents it
+holds are the ones this model describes. `modelVersionLabel` is a
+build label for humans — never branch on it.
+
+SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
+  age                 : 0 days (aged: false)
+  classes  declared/actual : 1254/1254  disagrees: false
+  roots    declared/actual : 14/14  disagrees: false
+  Declared-vs-actual is not redundant: the declared value is what
+  the exporter recorded, the actual value is what survived to the
+  reader, and a truncated file is exactly where they part.
+
+SHAPE:
+  document roots : 14
+  classes        : 1254
+  container root : DocSpecsProject — the one true tree root, which is not itself a document
+
+FIELDS of D00SolutionBlueprint (15 total, first 4):
+  content                  kind=content  
+  documentControl          kind=complex  DocumentControl
+  introductionAndScope     kind=complex  IntroductionAndScope
+  glossaryAndAbbreviations kind=complex  GlossaryAndAbbreviations
+
+FORM SLOTS of DataEntityEntry.identity (section id DAENT-IDEN):
+  entityName       Entity Name
+  tableName        Physical Table Name
+  entityAlias      Alias/Abbreviation
+  description      Description
+  entityStereoType Stereotype
+
+ANNOTATIONS the meta carries — the model's own metadata, exported
+into the snapshot and therefore visible in ALL NINE language
+runtimes, not just Dart:
+  @StandardReferences(standards, connotation)
+  @Document(name, description)
+  @SectionId(id)
+  21 annotation names have declared display semantics
+  (`kRenderedAnnotations`), so two apps cannot disagree about what
+  a marker means while each renders it in its own idiom.
+
+PATH RESOLUTION — a document path to the model node it lands on:
+  SBP                                                kind=root  leaf=false
+  SBP/content                                        kind=content  leaf=true
+  SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST kind=list  leaf=false
+  SBP/informationAndDataModel/nosuchthing            (unresolved)
+
+==========================================================================
+2. Generic access — what the document DOES hold
+==========================================================================
+`SpecDocument` is a sparse, path-keyed store. A tool reads it
+without knowing the document's shape, and asks the model what each
+path means. That pairing is the whole of generic access.
+
+EVERY written content leaf, resolved against the model:
+  SBP/content                                          content
+      A platform that unifies our fragmented order systems.
+  SBP/currentLandscape/CUOPME-OPER-LST-1/content       content
+      Average order turnaround: 4.2 days.
+  SBP/currentLandscape/CUOPME-OPER-LST-2/content       content
+      Manual reconciliation: ~12 hours per week.
+  SBP/currentLandscape/content                         content
+      Three legacy systems with no shared customer record.
+  SBP/introductionAndScope/content                     content
+      Replace three regional order desks with one intake service.
+
+EVERY written form section, slot by slot:
+  SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS
+      category         MasterData
+  SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-IDEN
+      description      A party that places orders.
+      entityName       Customer
+      tableName        customers
+
+EVERY list, with its items' section ids:
+  SBP/currentLandscape/CUOPME-OPER-LST                 2 item(s)
+      CUOPME-OPER-AA1
+      CUOPME-OPER-AA2
+  SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST 1 item(s)
+      DAENT-ENTI-AA1
+
+WHERE PATHS COME FROM. A tool must never hard-code a path literal —
+a literal is undiscoverable and rots silently when the model moves.
+Two safe sources, both compiler-checked (see example/f_sample_hybrid_access.dart):
+
+  1. the generated metadata refs —
+     d00SolutionBlueprint.informationAndDataModel.dataModel.path
+       = SBP/informationAndDataModel/dataModel
+  2. the id-keyed metadata tree, for a path known only at runtime —
+     d00SolutionBlueprintMetaTree.byId('DAENT-ENTI-LST')
+       = SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST
+
+  The tree also goes the other way: byPath gives the node, and with
+  it the class, kind and children a generic renderer needs.
+     byPath('SBP/informationAndDataModel/dataModel')
+       class=DataModel kind=complex children=7
+
+==========================================================================
+3. The generated schema
+==========================================================================
+Each of the 14 document roots has a schema GENERATED from the model
+and SHIPPED as data inside the facade package, under
+`schemas/<document>/<document>.1.0.docspecs-schema.yaml`. A tool
+loads one; it never writes one, and never derives one itself.
+
+IT IS A DocSpecs SCHEMA, NOT JSON SCHEMA. It describes a *markdown*
+document — headings, their ids, their formats, the form fields a
+section carries and which of them are required. A tool reaching for
+a JSON-Schema validator will not find one, because the artifact the
+schema governs is not JSON.
+
+  root section id : SBP
+  section types   : 3915
+
+  That count is large because a Solution Blueprint SEEDS the twelve
+  Phase-3 documents: its own section classes ARE those documents'
+  types, so its schema covers every section id they define. Step 5
+  meets the same fact from the other side.
+
+  A section type resolves by ID PREFIX, which is how a generated id
+  like `DAENT-ENTI-7` finds its type without the schema listing
+  every instance:
+    DAENT-IDEN       -> DAENT_IDEN
+    DAENT-ENTI-7     -> DAENT_ENTI_
+    NOSUCH-1         -> (no type — a tool treats this as unknownSection)
+
+==========================================================================
+4. Validation — three tiers, two of them here
+==========================================================================
+THIS IS THE DISTINCTION TOOLING AUTHORS MISS. A tool that wants one
+tier and calls another gets nothing useful — not an error, just an
+empty list that reads like a pass.
+
+  STATIC tier   — checks the MODEL'S OWN ANNOTATIONS: field-type
+                  rules, @ContentType compatibility, cycles, the
+                  §10.2 structural invariants. Runs ONCE at
+                  generation time, in
+                  `tom_specs_clitool/lib/src/validator.dart`, and is
+                  deliberately NOT part of the nine-language runtime
+                  surface. Not reachable from this sample, and that
+                  is the point: by the time a document exists, this
+                  tier has already run.
+  INSTANCE tier — checks A DOCUMENT'S VALUES against the model:
+                  `validateDocument` (SOM §9). In every runtime.
+  DOCUMENT tier — checks a MARKDOWN RENDITION against the generated
+                  schema: `DocSpecsValidator` (SOM §14).
+
+The two runtime tiers ask disjoint questions and neither implies the
+other: `validateDocument` is not a completeness check (an absent
+required field holds no value, so there is nothing invalid to
+report), and the schema validator does not follow a reference it
+sees filled. A tool that wants "is this document good?" runs BOTH.
+
+THE FIXTURE, both tiers:
+  instance tier : 0 error(s)
+  document tier : 1 violation(s)
+    line 38: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-fo…
+
+A DELIBERATELY BROKEN COPY — one path the model does not have, one
+form slot the form does not declare:
+  danglingPath         SBP/informationAndDataModel/nosuchsection/content
+  unknownFormField     SBP/informationAndDataModel/dataModel/DAENT-ENTI-…
+
+THE CLOSED VERDICT SETS. Both are enums, so a tool switches over
+them exhaustively rather than matching on message text:
+  SpecValidationCode  (6): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference
+  DocSpecsViolationRule (11):
+    unknownSection, missingRequiredSection, idPatternMismatch, tooFewItems
+    tooManyItems, missingRequiredField, fieldPatternMismatch, textRequired
+    textLengthOut, formatMismatch, malformedHeading
+
+==========================================================================
+5. A tool: the completeness report
+==========================================================================
+Built on all four surfaces above, and it reports something NEITHER
+validator can. The schema names what is REQUIRED and missing; an
+optional section left blank is perfectly valid and no validator will
+ever mention it. But "which parts of this specification has nobody
+written yet?" is the question a specification author actually has,
+and answering it means walking the model and asking the document.
+
+  SECTION                                WRITTEN / OFFERED
+  SBP.1 Document Control (header + revi…     0 /    11    0%
+  SBP.2 Introduction & Scope                 1 /   410    0%
+  SBP.3 Glossary & Abbreviations             0 /     2    0%
+  SBP.4 Stakeholders & Governance            0 /   201    0%
+  SBP.5 Current Landscape                    2 /   222    1%
+  SBP.6 Assumptions, Constraints & Depe…     0 /     5    0%
+  SBP.7 Target Operating Model concept       0 /   245    0%
+  SBP.8 Information & Data Model             1 /    50    2%
+  SBP.9 Requirements (functional + NFR …     0 /    55    0%
+  SBP.11 Solution Architecture & Techno…     0 /  2529    0%
+  SBP.12 Security & Access Model             0 /   308    0%
+  SBP.13 Experience & Interface Design       0 /   488    0%
+  SBP.14 Quality & Acceptance Model          0 /   517    0%
+  SBP.15 Delivery, Transition & Rollout      0 /   372    0%
+  -------------------------------------- -------------------
+  TOTAL                                      4 /  5415    0%
+
+  SBP.11 offers 2529 positions because a Solution Blueprint SEEDS
+  the twelve Phase-3 documents: its section classes ARE those
+  documents' types, so the model surface under an SBP root includes
+  everything it seeds. A tool that reports "0 %" against a number
+  like that should say what the denominator is — which is why the
+  report is per section and not one headline figure.
+
+  Required-and-missing, from the schema tier, for contrast:
+    1 missing required field(s) — the only gaps a validator
+    will name, out of 5411 unwritten positions.
+
+That gap between the two numbers is the tool's reason to exist.
