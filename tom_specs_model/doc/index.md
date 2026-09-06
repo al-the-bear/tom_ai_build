@@ -3,11 +3,20 @@
 This is the **single folder for all TomSpecs subject-matter documentation** —
 the specification object model (SOM), the multi-language access API, the file
 formats, the CodeSpecs mapping, the creation process and the applications built
-on them. Documentation for tools that live in other projects
-(`tom_specs_clitool`, `tom_spec_engine`, `tom_som_conformance`, …) is here too;
-only per-project `README.md` files stay with their projects.
+on them. A subject belongs here when it would still be the same subject if any
+one package were deleted, which is why the documentation of tools that live in
+other projects (`tom_specs_clitool`, `tom_spec_engine`, `tom_som_conformance`,
+…) is here too.
 
-**Thirteen documents plus this index.** Each holds exactly one authority and is
+TomSpecs documentation is **two tiers, and this folder is one of them.** The
+other is the package tier — each package's `README.md` and its `doc/` folder,
+covering how to use *that package's code*: its API, its usage guides, its
+samples. [tom_specs_documentation_standard.md](tom_specs_documentation_standard.md)
+is the authority for that tier, and it owns the membership test that assigns a
+fact to one tier or the other. The two never restate each other: a package
+document cites a document in this folder, it does not paraphrase one.
+
+**Fourteen documents plus this index.** Each holds exactly one authority and is
 listed exactly once below — if two documents could answer the same question, one
 of them is wrong. Read the *Authority for* column, not the title: the title says
 what a document is about, the authority says what it decides.
@@ -162,6 +171,17 @@ generated language runtimes and two file formats.
 | [llm_and_d4rt_tools.md](llm_and_d4rt_tools.md) | **The `tom_spec_engine` scripting plane** — the D4rt host and its `spec` / `files` / `memory` scopes, the controller-bound editing facade, grep-like search, the audited file facade, the tool surface and the two-tier memory. |
 | [llm_guidelines_specification.md](llm_guidelines_specification.md) | **The agent's context prompt** — what the in-editor agent is, and how it authors D4rt scripts that process a TomSpecs document. Its worked examples are executed verbatim by `tom_spec_engine`'s test suite. |
 
+## The packages' own documentation
+
+| Document | Authority for |
+|----------|---------------|
+| [tom_specs_documentation_standard.md](tom_specs_documentation_standard.md) | **What documentation a TomSpecs package carries and when it is finished.** The two-tier split and the membership test that assigns a fact to a tier, the README template — cross-references blockquote, "Where this fits", the cross-link block — the `doc/` folder standard and its reachability and resolution rules, the nine language planes and hand-written files inside a generated package, the generated API reference and its per-package-kind coverage bars, the treatment of the two Flutter applications, the samples folder, and the acceptance checklist a documentation task is measured against. |
+
+The documents *produced* under that standard are the packages' own
+`README.md` files and `doc/` folders. They are not listed here — this catalogue
+indexes the subject-matter tier, and a package's documentation is reachable from
+its package, which is where its reader already is.
+
 ## Authorities outside this folder
 
 Two subjects this folder uses but does not own:
@@ -169,7 +189,7 @@ Two subjects this folder uses but does not own:
 | Where | Authority for |
 |-------|---------------|
 | [`_ai/quests/doc_specs/doc_specs_specification.md`](../../../../_ai/quests/doc_specs/doc_specs_specification.md) | The DocSpecs format itself — schemas, section types, validation. |
-| Per-project `README.md` files | Per-project usage: [`tom_specs_core`](../../tom_specs_core/README.md) (the annotation catalogue), [`tom_specs_clitool`](../../tom_specs_clitool/README.md) (CLI usage), `tom_code_specs`, `tom_core_codespecs`, [`tom_som_conformance`](../../tom_som_conformance) (the harness), and the nine `tom_som_*_v0` / `tom_som_*_runtime` pairs. |
+| Per-project `README.md` files and `doc/` folders | Per-project usage: [`tom_specs_core`](../../tom_specs_core/README.md) (the annotation catalogue), [`tom_specs_clitool`](../../tom_specs_clitool/README.md) (CLI usage), `tom_code_specs`, `tom_core_codespecs`, [`tom_som_conformance`](../../tom_som_conformance) (the harness), and the nine `tom_som_*_v0` / `tom_som_*_runtime` pairs. Their shape is decided by [tom_specs_documentation_standard.md](tom_specs_documentation_standard.md); their content is decided by each package. |
 
 ## Generated documentation
 

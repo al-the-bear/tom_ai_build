@@ -300,7 +300,7 @@ const defaultCitedReadmes = [
 ///
 /// The membership rule is *citing*, not *kind*. The three CodeSpecs packages
 /// came first because the framework's annotations are almost nothing but
-/// citations; but the model, the tooling and the engine cite the same fourteen
+/// citations; but the model, the tooling and the engine cite the same fifteen
 /// documents just as densely — a little over two hundred citations between them
 /// — and a rule that admitted only the framework would have left the larger half
 /// of the corpus decaying in the silence this gate exists to break.
