@@ -225,21 +225,8 @@ class ModelJsonExporter {
     return 'scalar';
   }
 
-  static const _primitiveTypes = {
-    'int',
-    'double',
-    'bool',
-    'num',
-    'DateTime',
-    'String',
-  };
-
-  bool _isPrimitive(String typeName) {
-    final base = typeName.endsWith('?')
-        ? typeName.substring(0, typeName.length - 1)
-        : typeName;
-    return _primitiveTypes.contains(base);
-  }
+  /// Delegates to the model layer's single statement of the primitive set.
+  bool _isPrimitive(String typeName) => isPrimitiveTypeName(typeName);
 
   /// Emits the full, lossless annotation list for a class or field: **every**
   /// annotation [ModelReader] captured, each as `{name, arguments}` with its

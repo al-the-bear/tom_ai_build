@@ -110,7 +110,16 @@ class OutlineWriter {
       } else if (field.isComplex) {
         complexFields.add(field);
       } else {
-        // String, String? without being recognized as complex
+        // Scalars: a non-`String` primitive member (`int`, `bool`, `num`,
+        // `double`, `DateTime`). They are neither leaves — `isLeaf` means
+        // "holds text I can render" — nor complex, so they land here and are
+        // rendered on the leaf line.
+        //
+        // Until `ModelField.isComplex` gained its primitive term this branch
+        // was unreachable for them: they satisfied `isComplex` and were
+        // rendered as expandable classes, giving `capacity: `int`` a line of
+        // its own with nothing under it. Silent, not a crash, which is how it
+        // survived.
         leafFields.add(field);
       }
     }

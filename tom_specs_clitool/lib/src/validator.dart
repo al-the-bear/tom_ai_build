@@ -2065,19 +2065,17 @@ String? _detectCycles(Map<String, ModelClass> classes, String rootTypeName) {
   return null;
 }
 
-bool _isPrimitive(String typeName) {
-  final base = typeName.replaceAll('?', '');
-  return const {
-    'String',
-    'int',
-    'double',
-    'bool',
-    'num',
-    'DateTime',
-  }.contains(base);
-}
+/// Delegates to the model layer's single statement of the primitive set
+/// ([isPrimitiveTypeName]).
+///
+/// Kept as a local name because the call sites read better for it, but no
+/// longer as a local *set*: four copies of that list is four things to keep
+/// current, and the copy in `ModelField` was the one the classification
+/// actually needed.
+bool _isPrimitive(String typeName) => isPrimitiveTypeName(typeName);
 
-bool _isNonStringPrimitive(String typeName) {
-  final base = typeName.replaceAll('?', '');
-  return const {'int', 'double', 'bool', 'num', 'DateTime'}.contains(base);
-}
+/// A primitive that is not `String` — the member shape
+/// `tom_specs_model_rules.md` §5.1 rejects, since a `String?` plus an `@Form`
+/// field type is the sanctioned way to hold a number or a date.
+bool _isNonStringPrimitive(String typeName) =>
+    isPrimitiveTypeName(typeName) && typeName.replaceAll('?', '') != 'String';

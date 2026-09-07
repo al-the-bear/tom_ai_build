@@ -97,7 +97,12 @@ void main() {
       // Root node: class-level slots.
       expect(root.className, 'Root');
       expect(root.memberName, isNull);
-      expect(root.sectionId, 'DEMO');
+      // SOM §7.1 keeps the two ids apart: the root has no member, so `DEMO` is
+      // its CLASS id. Its path segment is still `DEMO` — the root is its class,
+      // which is why `pathSegment` treats it as the one non-member exception.
+      expect(root.sectionId, isNull);
+      expect(root.classSectionId, 'DEMO');
+      expect(root.pathSegment, 'DEMO');
       expect(root.document, isNotNull);
       expect(root.document!.name, 'Demo Document');
       expect(root.document!.description, 'A demo.');
@@ -256,7 +261,10 @@ void main() {
       expect(child.recursive, isTrue);
       expect(child.children, isEmpty);
       // Slots still populated on the reference node.
-      expect(child.sectionId, 'NODE');
+      // A class-level id, so it lands in `classSectionId` (SOM §7.1). The
+      // member carries none, so the node paths on its member name.
+      expect(child.sectionId, isNull);
+      expect(child.classSectionId, 'NODE');
     });
   });
 
@@ -283,7 +291,10 @@ void main() {
       expect(roots, hasLength(14));
       expect(roots.keys, contains('D00SolutionBlueprint'));
       final sbp = roots['D00SolutionBlueprint']!;
-      expect(sbp.sectionId, 'SBP');
+      // A document root is its class, so `SBP` is a class-level id — and it is
+      // still the root's path segment (SOM §7.1).
+      expect(sbp.classSectionId, 'SBP');
+      expect(sbp.pathSegment, 'SBP');
       expect(sbp.document, isNotNull);
       expect(sbp.document!.name, 'Solution Blueprint');
       expect(sbp.children, isNotEmpty);
@@ -364,7 +375,10 @@ void main() {
 /// The annotation names a node represents: dedicated slots that are populated
 /// plus the lossless `extra` names.
 Set<String> _representedAnnotationNames(MetaNode node) => {
-  if (node.sectionId != null) 'SectionId',
+  // Either slot represents a `@SectionId`: SOM §7.1 keeps the field-level and
+  // class-level ids apart, and this guard asks whether the annotation reached
+  // the node at all, not which of the two rules it feeds.
+  if (node.sectionId != null || node.classSectionId != null) 'SectionId',
   if (node.sectionIdPattern != null) 'SectionIdPattern',
   if (node.serializationOrder != null) 'SerializationOrder',
   if (node.min != null) 'Min',

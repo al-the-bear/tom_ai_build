@@ -203,32 +203,55 @@ class ModelField {
     this.docComment = '',
   });
 
+  /// Whether this member's declared type is one of Dart's primitives —
+  /// `String`, `int`, `double`, `bool`, `num`, `DateTime` — nullable or not.
+  ///
+  /// **The single statement of that set.** It used to be written out four
+  /// times: here (as the negation `_isComplexType`), in `MetaTreeBuilder`, in
+  /// `ModelJsonExporter` and in `validator.dart`. Four copies of one fact is
+  /// four things to keep current, and the copies were not the problem by
+  /// themselves — [isComplex] not consulting any of them was.
+  ///
+  /// A list is never primitive whatever it holds: `List<int>` is a list, and
+  /// its element type is [listElementTypeName]'s business.
+  bool get isPrimitive => !isList && isPrimitiveTypeName(typeName);
+
   /// Whether this member expands into its target class's own subtree rather
   /// than terminating the tree.
   ///
-  /// This is deliberately a *negation* — not a leaf, not a list, not a
-  /// section — rather than a positive test for "names a model class", so an
-  /// unresolved type is treated as expandable. The consequence is that
-  /// primitive members other than `String` (`int`, `bool`, `DateTime`, …)
-  /// also report true here, because [isLeaf] does not admit them. Kind
-  /// classification therefore applies a primitive guard *before* consulting
-  /// this getter (`MetaTreeBuilder.classifyField`); any other caller must
-  /// do the same or an `int` member will be expanded as a class.
-  bool get isComplex => !isLeaf && !isList && !isSectionType;
+  /// Still largely a *negation* — not a leaf, not a list, not a section, not a
+  /// primitive — rather than a positive test for "names a model class", so an
+  /// unresolved type is treated as expandable. That default is deliberate: a
+  /// type the reader could not resolve is far more likely to be a model class
+  /// it has not scanned than a primitive it does not know.
+  ///
+  /// **The primitive term is the fix this getter needed.** Without it an
+  /// `int`, `bool`, `num`, `double` or `DateTime` member satisfied all three
+  /// negations and reported `true` — the reader claiming a primitive was an
+  /// expandable class. Three consumers guarded against that with their own
+  /// primitive test before consulting this getter; roughly fifteen did not,
+  /// and would have descended into an `int` as though it named a class. It
+  /// never fired only because `tom_specs_model` declares no non-`String`
+  /// primitive section member, which is safety by accident rather than by
+  /// construction.
+  bool get isComplex => !isLeaf && !isList && !isSectionType && !isPrimitive;
 
   /// Whether this member terminates the tree: a `DocSpecsSection` content
-  /// member (YRD5), or a non-complex `String` / `String?` / enum member.
+  /// member (YRD5), or a `String` / `String?` / enum member.
   ///
-  /// Note the narrowness — this is *not* "any non-class type". Numeric,
-  /// boolean and `DateTime` members are **not** leaves by this test; they
-  /// reach their scalar classification through the primitive guard in kind
-  /// classification instead. See [isComplex] for the other half of that
-  /// split.
+  /// Note the narrowness — this is *not* "any non-class type", and it is not
+  /// the complement of [isComplex] either. Numeric, boolean and `DateTime`
+  /// members are **scalars**: neither leaves nor complex, and
+  /// [isPrimitive] is the test that names them. Widening this getter to admit
+  /// them would have been the smaller edit and the wrong one — a consumer
+  /// asking `isLeaf` means "does this hold text I can render", and an `int`
+  /// does not answer that question the way a `String` does.
   bool get isLeaf =>
       !isList &&
       (isContentSection ||
-          (!_isComplexType(typeName) &&
-              (typeName == 'String' || typeName == 'String?' || isEnum)));
+          (isPrimitiveTypeName(typeName) &&
+              (typeName == 'String' || typeName == 'String?')) ||
+          isEnum);
 
   /// Whether this is a String or String? field (not enum).
   bool get isString =>
@@ -274,17 +297,33 @@ class ModelField {
   /// position in source declaration order within its declaring class.
   int? get serializationOrder =>
       getAnnotation('SerializationOrder')?.arguments['order'] as int?;
-
-  static bool _isComplexType(String name) {
-    final base = name.endsWith('?') ? name.substring(0, name.length - 1) : name;
-    return base != 'String' &&
-        base != 'int' &&
-        base != 'double' &&
-        base != 'bool' &&
-        base != 'num' &&
-        base != 'DateTime';
-  }
 }
+
+/// Dart's primitive type names, as they appear in a model member's declared
+/// type — the one place the set is written.
+///
+/// `String` is in it: it is a primitive for classification purposes even though
+/// it is also the type of every content leaf. The two facts are separate
+/// questions and [ModelField.isLeaf] asks the second one.
+const modelPrimitiveTypeNames = {
+  'String',
+  'int',
+  'double',
+  'bool',
+  'num',
+  'DateTime',
+};
+
+/// Whether [typeName] — with or without a trailing `?` — names a primitive.
+///
+/// Free rather than a `ModelField` member so the emitters and the validator can
+/// ask it of a bare type name (a list's element type, say) without inventing a
+/// field to hang it on.
+bool isPrimitiveTypeName(String typeName) => modelPrimitiveTypeNames.contains(
+  typeName.endsWith('?')
+      ? typeName.substring(0, typeName.length - 1)
+      : typeName,
+);
 
 /// A resolved model class.
 class ModelClass {

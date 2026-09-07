@@ -511,7 +511,10 @@ class _SchemaBuilder {
 
     if (node.kind == MetaNodeKind.list) return _visitList(node);
 
-    final id = node.sectionId;
+    // The yaml/md key id, which SOM §7.1 lets fall back to the class's own
+    // `@SectionId` for a section-like node. `sectionId` alone is the PATH
+    // rule and would make every transparent section look identity-less here.
+    final id = node.keyId;
     if (id == null) {
       // No section identity: transparent container — bubble descendants up.
       final refs = <_ChildRef>[];
@@ -544,9 +547,7 @@ class _SchemaBuilder {
     // The element's own @SectionId is a fallback when the list carries no
     // pattern (the pattern is the `tom_specs_model_rules.md` §10.2-preferred
     // coverage mechanism).
-    final exactId = pattern != null
-        ? _patternStem(pattern)
-        : element?.sectionId;
+    final exactId = pattern != null ? _patternStem(pattern) : element?.keyId;
     if (exactId == null || element == null || element.unused) {
       // Scalar/enum lists (or uncovered lists) have no section representation.
       return const [];
@@ -573,7 +574,7 @@ class _SchemaBuilder {
     // The `*-LST` container. When the list has no own @SectionId (legacy
     // uncovered list) there is no container level, so hoist the item type
     // directly under the parent (pre-DRA1 behaviour).
-    final containerId = node.sectionId;
+    final containerId = node.keyId;
     if (containerId == null) {
       return [
         _ChildRef(itemTypeName, minCount: node.min, maxCount: maxItemCount),

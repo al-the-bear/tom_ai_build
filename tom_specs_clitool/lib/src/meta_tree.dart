@@ -222,11 +222,62 @@ class MetaNode {
   /// list element nodes.
   final String? memberName;
 
-  /// Effective `@SectionId` (field-level wins over class-level).
+  /// **Field-level** `@SectionId` only (SOM §7.1).
+  ///
+  /// Not merged with [classSectionId], and the difference is load-bearing: the
+  /// **path segment** uses this and never the class fallback, while the yaml/md
+  /// **key id** does fall back. Merging them — which this node did until the
+  /// two getters below were written — leaves a consumer unable to apply either
+  /// rule, because it cannot tell which level an id came from.
   final String? sectionId;
+
+  /// The target class's **own** `@SectionId` (SOM §7.1), or null.
+  ///
+  /// Populated for every node whose class carries one, whether or not the
+  /// member does. It is the fallback [keyId] uses and the one [pathSegment]
+  /// must not.
+  final String? classSectionId;
 
   /// `@SectionIdPattern` on the field (list element ids).
   final String? sectionIdPattern;
+
+  /// The **yaml/md key id** (SOM §7.1): [sectionId], falling back to
+  /// [classSectionId] for a section-like node.
+  ///
+  /// One of the two rules SOM §7.1 states over the pair, named here so a
+  /// consumer applies it rather than re-deriving it — and so the fallback's
+  /// *scope* is stated once. It is section-like nodes only: a content leaf or a
+  /// scalar that keyed on its class's id would be claiming a section identity
+  /// it does not have.
+  String? get keyId =>
+      sectionId ??
+      (const {
+            MetaNodeKind.section,
+            MetaNodeKind.complex,
+            MetaNodeKind.form,
+            MetaNodeKind.list,
+          }.contains(kind)
+          ? classSectionId
+          : null);
+
+  /// The **path segment** this node contributes (SOM §7.1): [sectionId], else
+  /// the member name.
+  ///
+  /// The other of the two rules, and the one the merged field made impossible:
+  /// for a *member* node it **never** falls back to [classSectionId]. A
+  /// transparent section keys on its class id and paths on its member name, and
+  /// only a node that keeps the two ids apart can do both.
+  ///
+  /// **The document root is the one exception, and it is not a fallback.** The
+  /// root has no member — it *is* its class — so its segment is the class id
+  /// (`SBP/…`), exactly as every runtime's `rootSegment` computes it. [document]
+  /// is non-null on the root and nowhere else, which is what makes that
+  /// distinguishable here rather than left to the caller.
+  ///
+  /// Null on a list element node, whose segment comes from the container's
+  /// [sectionIdPattern] and its position, not from either id.
+  String? get pathSegment =>
+      sectionId ?? memberName ?? (document != null ? classSectionId : null);
 
   /// How this node renders and serializes (SOM §7.1). Decided by
   /// [MetaTreeBuilder.classifyField] for member nodes, and by the presence
@@ -315,6 +366,7 @@ class MetaNode {
     required this.className,
     this.memberName,
     this.sectionId,
+    this.classSectionId,
     this.sectionIdPattern,
     required this.kind,
     required this.typeName,
@@ -357,6 +409,7 @@ class MetaNode {
     'className': className,
     if (memberName != null) 'memberName': memberName,
     if (sectionId != null) 'sectionId': sectionId,
+    if (classSectionId != null) 'classSectionId': classSectionId,
     if (sectionIdPattern != null) 'sectionIdPattern': sectionIdPattern,
     'kind': kindLabel,
     'typeName': typeName,
@@ -523,6 +576,7 @@ class MetaTreeBuilder {
       className: cls.name,
       memberName: memberName,
       sectionId: slots.sectionId,
+      classSectionId: slots.classSectionId,
       sectionIdPattern: slots.sectionIdPattern,
       kind: form != null ? MetaNodeKind.form : MetaNodeKind.complex,
       typeName: field?.typeName ?? cls.name,
@@ -585,6 +639,7 @@ class MetaTreeBuilder {
       ),
       memberName: field.name,
       sectionId: slots.sectionId,
+      classSectionId: slots.classSectionId,
       sectionIdPattern: slots.sectionIdPattern,
       kind: kind,
       typeName: field.metaTypeName,
@@ -655,17 +710,8 @@ class MetaTreeBuilder {
     return MetaNodeKind.scalar;
   }
 
-  static const _primitiveTypes = {
-    'int',
-    'double',
-    'bool',
-    'num',
-    'DateTime',
-    'String',
-  };
-
-  static bool _isPrimitive(String typeName) =>
-      _primitiveTypes.contains(_baseTypeName(typeName));
+  /// Delegates to the model layer's single statement of the primitive set.
+  static bool _isPrimitive(String typeName) => isPrimitiveTypeName(typeName);
 
   static String _baseTypeName(String typeName) => typeName.endsWith('?')
       ? typeName.substring(0, typeName.length - 1)
@@ -704,11 +750,11 @@ class _SlotCollector {
     required this.classAnnotations,
   });
 
-  AnnotationData? _first(String name) {
-    for (final a in fieldAnnotations) {
-      if (a.name == name) return a;
-    }
-    for (final a in classAnnotations) {
+  AnnotationData? _first(String name) =>
+      _firstOf(fieldAnnotations, name) ?? _firstOf(classAnnotations, name);
+
+  static AnnotationData? _firstOf(List<AnnotationData> from, String name) {
+    for (final a in from) {
       if (a.name == name) return a;
     }
     return null;
@@ -716,12 +762,21 @@ class _SlotCollector {
 
   bool _present(String name) => _first(name) != null;
 
-  /// The effective `@SectionId(id)` — the stable, human-readable id the
-  /// `*.md` heading comment and the yaml key are written from
-  /// (`tom_specs_model_rules.md` §7.1). Null when neither level carries the
-  /// annotation, and also null rather than throwing when the `id` argument
-  /// failed to constant-fold.
-  String? get sectionId => _first('SectionId')?.arguments['id'] as String?;
+  /// The **field-level** `@SectionId(id)` (SOM §7.1) — null when the member
+  /// carries none, and null rather than throwing when the `id` argument failed
+  /// to constant-fold.
+  ///
+  /// Deliberately **not** `_first`: that searches the field annotations and
+  /// then the class ones, which is right for every slot whose value a class may
+  /// supply on a member's behalf, and wrong for this one. The class's own id is
+  /// [classSectionId], and keeping them apart is what lets a consumer apply
+  /// SOM §7.1's two different rules.
+  String? get sectionId =>
+      _firstOf(fieldAnnotations, 'SectionId')?.arguments['id'] as String?;
+
+  /// The **class-level** `@SectionId(id)` of the node's own class (SOM §7.1).
+  String? get classSectionId =>
+      _firstOf(classAnnotations, 'SectionId')?.arguments['id'] as String?;
 
   /// `@SectionIdPattern(pattern)` — the per-item numbering template of a
   /// `List<T>` member, mirroring the container's `-LST` id

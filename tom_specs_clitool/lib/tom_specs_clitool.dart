@@ -10,7 +10,9 @@ export 'src/model_reader.dart'
         ModelEnum,
         AnnotationData,
         FormFieldInfo,
-        findContainerRoot;
+        findContainerRoot,
+        isPrimitiveTypeName,
+        modelPrimitiveTypeNames;
 export 'src/model_json_exporter.dart' show ModelJsonExporter;
 // The single source of the model version stamp, and the target/stamp pairing
 // that keeps the two committed spec_model.json assets from being re-exported at
