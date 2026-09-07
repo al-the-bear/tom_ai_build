@@ -56,7 +56,7 @@ class CsCollaborator {
   /// behaviour belongs on the corresponding abstract method's own doc comment,
   /// whose absence `codespecs_derivation_contract.md` §2.8 P3 calls a
   /// generation error rather than a lapse of style (`codespecs_derivation_contract.md` §6
-/// check 25). The class
+  /// check 25). The class
   /// shape — abstract, abstract methods only, no field, constructor or static
   /// member — is check 24, and that every method is actually called by a body
   /// of the owning declaration is check 23.

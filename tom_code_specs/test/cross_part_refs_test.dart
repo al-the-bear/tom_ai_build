@@ -164,7 +164,8 @@ void main() {
       expect(
         refs.length,
         13,
-        reason: 'codespecs_mapping.md §5.23 declares the family CLOSED at '
+        reason:
+            'codespecs_mapping.md §5.23 declares the family CLOSED at '
             'thirteen. A fourteenth entry here without that table changing '
             'means the set was widened silently.',
       );

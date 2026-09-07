@@ -62,7 +62,7 @@ class CodeSpec {
   /// the contract keys on. `codespecs_derivation_contract.md` §2.1 N4 fails
   /// generation outright when two sections yield the same identifier inside one
   /// locus project, and `codespecs_derivation_contract.md` §6 check 1 is the pass that reports both
-/// offending
+  /// offending
   /// section ids rather than auto-suffixing one of them.
   ///
   /// [source] and [requirements] are lists, and they account for the **whole**

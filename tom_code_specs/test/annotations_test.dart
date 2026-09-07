@@ -487,11 +487,7 @@ class AppServerConfig {
 @CodeSpec('MG-CRM-INITIAL', source: ['SCHMG'])
 class CrmInitialSchema {}
 
-@CsMigration(
-  datasource: 'crm',
-  schema: 'sales',
-  kind: CsMigrationKind.baseData,
-)
+@CsMigration(datasource: 'crm', schema: 'sales', kind: CsMigrationKind.baseData)
 @CodeSpec('MG-CRM-SEED', source: ['SCHMG'])
 class CrmSeedData {}
 
@@ -1029,10 +1025,10 @@ void main() {
         ],
       );
       expect(job.targetReports, isA<List<CsReportRef>>());
-      expect(
-        job.targetReports.map((r) => r.id),
-        ['monthlyRevenue', 'agedDebtors'],
-      );
+      expect(job.targetReports.map((r) => r.id), [
+        'monthlyRevenue',
+        'agedDebtors',
+      ]);
     });
 
     // Most jobs produce no report, so the empty set must be the default rather
@@ -1163,8 +1159,7 @@ void main() {
       expect(fatal.note, 'store unreachable');
     });
 
-    test('CsErrorSeverity is a closed four-value catalogue in rising order',
-        () {
+    test('CsErrorSeverity is a closed four-value catalogue in rising order', () {
       // It mirrored the kernel's TomErrorSeverity until the result module was
       // removed as application domain (codespecs_mapping.md §7); it is now the
       // authority for CE-ER severity, so this is the only place the catalogue
@@ -1300,12 +1295,15 @@ void main() {
       expect(attribute.accessKey, isNull);
     });
 
-    test('CsIdentityAttributePlacement is the closed public|encrypted pair', () {
-      expect(CsIdentityAttributePlacement.values, [
-        CsIdentityAttributePlacement.public,
-        CsIdentityAttributePlacement.encrypted,
-      ]);
-    });
+    test(
+      'CsIdentityAttributePlacement is the closed public|encrypted pair',
+      () {
+        expect(CsIdentityAttributePlacement.values, [
+          CsIdentityAttributePlacement.public,
+          CsIdentityAttributePlacement.encrypted,
+        ]);
+      },
+    );
   });
 
   // ── csrb4: the 16 note-only markers ───────────────────────────────────────
@@ -1337,8 +1335,10 @@ void main() {
     });
 
     test('shared: CsEnum', () {
-      expect(const CsEnum(note: 'shared contract type').note,
-          'shared contract type');
+      expect(
+        const CsEnum(note: 'shared contract type').note,
+        'shared contract type',
+      );
     });
 
     test('identity/auth: CsIdentity, CsAuth', () {
