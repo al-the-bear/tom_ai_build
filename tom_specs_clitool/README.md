@@ -721,7 +721,7 @@ tom_specs_clitool
 
 Version **0.2.0**, published to pub.dev.
 
-**1002 tests passing, 6 skipped.** The skips are toolchain-gated — a suite that
+**1006 tests passing, 6 skipped.** The skips are toolchain-gated — a suite that
 needs a language runtime this host does not have reports as skipped with the
 reason stated rather than as a red suite. Run them with `dart test` or
 `testkit :test`.
