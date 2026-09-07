@@ -1,0 +1,64 @@
+# Formatting manifest — the packages held to `dart format`, read by
+# bin/check_format.dart (lib/src/format_check.dart).
+#
+# The committed record of which trees the formatter governs, held against
+# reality by a walker — the same shape as tool/release_set.yaml and
+# tool/doc_coverage_manifest.yaml beside it.
+#
+# WHY A MANIFEST AND NOT "EVERY DART FILE UNDER THE QUEST". The formatter is a
+# whole-file rewrite, so a tree it governs is a tree whose diffs it owns. That
+# is a decision per package, not a property of the file system: a package the
+# quest does not own, or one whose sources some other generator writes, would
+# have its diffs churned by a gate nobody agreed to. Listing them makes the
+# subject of the gate explicit and reviewable.
+#
+# THE STYLE IS THE SDK'S DEFAULT, deliberately unpinned. Dart 3.7 replaced the
+# short style with the tall one and offers no switch back; `formatter:
+# page_width` is the only knob and its default of 80 is what these files were
+# already written to. Pinning it in ten analysis_options.yaml files would be
+# ten more places for one fact to drift, so the default stands and this comment
+# is the record of that choice.
+#
+# GENERATED DART IS INSIDE THE GATE, and its generator is therefore obliged to
+# emit formatted output. `tom_specs_model/lib/src/generated/spec_ops.g.dart` is
+# the one such file today, and `generateSpecOpsRegistry` runs `dart format` over
+# what it writes for exactly this reason: a generator whose output the formatter
+# would change makes the gate unaddable — clean until the next regeneration, red
+# after it, and red for something nobody did.
+#
+# NOT LISTED: the nine `tom_som_*_v0` facades. They are generator output end to
+# end, and holding them would mean teaching nine emitters to format rather than
+# formatting nine trees. That is real work with a real benefit and it is not
+# this manifest's; if it is ever done, they belong here.
+
+# Source directories checked in each package. A package that lacks one is not
+# an error — `tom_specs_core` has no `bin/`, and a manifest that demanded one
+# would be describing a shape rather than a rule.
+directories:
+  - lib
+  - bin
+  - tool
+  - test
+  - example
+
+# NOT GOVERNED, by file-name suffix. `*.b.dart` is D4rt bridge output from
+# `tom_d4rt_generator`, and `tom_spec_engine/lib/src/bridges/som_v0_bridges.b.dart`
+# alone is 973,181 lines: formatting it takes FIVE MINUTES against four seconds
+# for every other governed package put together. A gate that cost five minutes
+# would not survive in the default test run, and a generated file nobody opens
+# is the wrong thing to spend it on. Suffixes rather than paths, so a second
+# bridge file is excluded the day it is generated.
+exclude-suffixes:
+  - .b.dart
+
+packages:
+  - tom_ai/ai_build/tom_specs_clitool
+  - tom_ai/ai_build/tom_specs_core
+  - tom_ai/ai_build/tom_specs_model
+  - tom_ai/ai_build/tom_spec_engine
+  - tom_ai/ai_build/tom_som_dart_runtime
+  - tom_ai/ai_build/tom_code_specs
+  - tom_ai/ai_build/tom_doc_scanner
+  - tom_ai/ai_build/tom_doc_specs
+  - tom_ai/ai_build/tom_specs_reviewer
+  - tom_ai/core/tom_core_codespecs

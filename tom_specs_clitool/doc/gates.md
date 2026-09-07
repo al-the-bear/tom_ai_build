@@ -32,10 +32,20 @@ every offender when it is not.
 | `check_todo_citations.dart` | Does every cited quest-todo id name exactly one open todo? | yes |
 | `check_oe_citations.dart` | Does every cited `OE-` id have a register row? | yes |
 | `check_release_closure.dart` | Is the release-1 package set dependency-closed? | yes |
+| `check_doc_coverage.dart` | Is every measured package at or above its ratchet floor? | yes |
+| `check_format.dart` | Is every governed package what `dart format` would write? | yes |
 | `validate_codespecs.dart` | Does a generated CodeSpecs trio satisfy the `codespecs_derivation_contract.md` §6 checks? | no — needs a trio |
 
-The four that run in the suite are the ones with a fixed subject. The CodeSpecs
+The ones that run in the suite are those with a fixed subject. The CodeSpecs
 validator needs a generated trio to point at, so it is invoked per Phase-4 run.
+
+**The formatting gate reports and never repairs.** `dart format <path>` is the
+repair; a gate that rewrote files would edit a branch at a moment nobody chose,
+and would destroy the very diff it exists to protect. It also shells out to the
+installed `dart format` rather than linking `package:dart_style`, because a
+pinned formatter and the SDK binary drift apart at every SDK bump — and a gate
+asserting a different style from the command developers actually run fails work
+that is correct.
 
 All of these check that a claim's *machinery* still holds — that a citation
 resolves, that an edge stays inside the set. None checks that the claim is still

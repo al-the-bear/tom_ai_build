@@ -78,6 +78,43 @@ class SpecOpsResult {
   final bool changed;
 }
 
+/// Runs `dart format` over [path], so generated Dart satisfies the same
+/// formatting gate hand-written Dart does.
+///
+/// **A generator whose output the formatter would change makes the gate
+/// unaddable**: the tree is clean until the next regeneration and red after it,
+/// which is worse than no gate at all — a red suite nobody caused teaches
+/// people to ignore it. `spec_ops.g.dart` lives inside `tom_specs_model`, so it
+/// is inside the gate whether or not anyone intended it to be.
+///
+/// Shelled out rather than done in-process with `package:dart_style`
+/// **deliberately**. A pinned formatter package and the SDK's `dart format`
+/// drift apart at every SDK bump, and then the generator and the gate disagree
+/// about what formatted means — with the generator winning, silently, on the
+/// files nobody hand-edits. Using the same binary a developer runs makes that
+/// impossible.
+///
+/// A missing or failing `dart format` is reported and does not fail the
+/// generation: the registry itself was produced correctly, and turning a
+/// formatting hiccup into a generation failure would block work for a cosmetic
+/// reason.
+Future<void> formatGeneratedDart(String path) async {
+  try {
+    final result = await Process.run('dart', ['format', path]);
+    if (result.exitCode != 0) {
+      stderr.writeln(
+        'spec_ops: `dart format` exited ${result.exitCode} for '
+        '$path; the file is generated but unformatted.',
+      );
+    }
+  } on ProcessException catch (e) {
+    stderr.writeln(
+      'spec_ops: could not run `dart format` ($e); the file is '
+      'generated but unformatted.',
+    );
+  }
+}
+
 /// Regenerates the `spec_ops.g.dart` registry from the model package at
 /// [modelPackagePath], writing it to [specOpsOutputFor] unless [outputPath]
 /// names somewhere else.
@@ -93,15 +130,18 @@ Future<SpecOpsResult> generateSpecOpsRegistry({
     throw StateError('lib/ directory not found at $libPath');
   }
   final target = p.normalize(
-      p.absolute(outputPath ?? specOpsOutputFor(packageRoot)));
+    p.absolute(outputPath ?? specOpsOutputFor(packageRoot)),
+  );
 
   final reader = ModelReader(createAnalysisDriver(packageRoot));
   await reader.analyzePackage(libPath);
   final source = SpecOpsGenerator(reader.classes).generate();
 
   final file = File(target)..parent.createSync(recursive: true);
-  final changed = !file.existsSync() || file.readAsStringSync() != source;
-  if (changed) file.writeAsStringSync(source);
+  final previous = file.existsSync() ? file.readAsStringSync() : null;
+  file.writeAsStringSync(source);
+  await formatGeneratedDart(target);
+  final changed = previous != file.readAsStringSync();
 
   return SpecOpsResult(
     outputPath: target,
