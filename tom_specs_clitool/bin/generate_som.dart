@@ -285,8 +285,8 @@ Future<void> main(List<String> arguments) async {
           documentRoots: config.documentRoots,
         );
         stdout.writeln(
-          '  classes: ${result.classCount}  '
-          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+          '  classes: ${result.emittedClassCount}  '
+          'roots: ${result.emittedRootCount}  schemas: ${result.schemaPaths.length}',
         );
         stdout.writeln('  meta:    ${result.metaJsonPath}');
         stdout.writeln('  lib:     ${result.libPath}');
@@ -304,8 +304,8 @@ Future<void> main(List<String> arguments) async {
           documentRoots: config.documentRoots,
         );
         stdout.writeln(
-          '  classes: ${result.classCount}  '
-          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+          '  classes: ${result.emittedClassCount}  '
+          'roots: ${result.emittedRootCount}  schemas: ${result.schemaPaths.length}',
         );
         stdout.writeln('  meta:      ${result.metaJsonPath}');
         stdout.writeln('  module:    ${result.modulePath}');
@@ -323,8 +323,8 @@ Future<void> main(List<String> arguments) async {
           documentRoots: config.documentRoots,
         );
         stdout.writeln(
-          '  classes: ${result.classCount}  '
-          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+          '  classes: ${result.emittedClassCount}  '
+          'roots: ${result.emittedRootCount}  schemas: ${result.schemaPaths.length}',
         );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  source:   ${result.sourcePath}');
@@ -342,8 +342,8 @@ Future<void> main(List<String> arguments) async {
           documentRoots: config.documentRoots,
         );
         stdout.writeln(
-          '  classes: ${result.classCount}  '
-          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+          '  classes: ${result.emittedClassCount}  '
+          'roots: ${result.emittedRootCount}  schemas: ${result.schemaPaths.length}',
         );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  module:   ${result.modulePath}');
@@ -361,8 +361,8 @@ Future<void> main(List<String> arguments) async {
           documentRoots: config.documentRoots,
         );
         stdout.writeln(
-          '  classes: ${result.classCount}  '
-          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+          '  classes: ${result.emittedClassCount}  '
+          'roots: ${result.emittedRootCount}  schemas: ${result.schemaPaths.length}',
         );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  module:   ${result.modulePath}');
@@ -381,8 +381,8 @@ Future<void> main(List<String> arguments) async {
           documentRoots: config.documentRoots,
         );
         stdout.writeln(
-          '  classes: ${result.classCount}  '
-          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+          '  classes: ${result.emittedClassCount}  '
+          'roots: ${result.emittedRootCount}  schemas: ${result.schemaPaths.length}',
         );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  module:   ${result.modulePath}');
@@ -400,8 +400,8 @@ Future<void> main(List<String> arguments) async {
           documentRoots: config.documentRoots,
         );
         stdout.writeln(
-          '  classes: ${result.classCount}  '
-          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+          '  classes: ${result.emittedClassCount}  '
+          'roots: ${result.emittedRootCount}  schemas: ${result.schemaPaths.length}',
         );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  lib:      ${result.libPath}');
@@ -419,8 +419,8 @@ Future<void> main(List<String> arguments) async {
           documentRoots: config.documentRoots,
         );
         stdout.writeln(
-          '  classes: ${result.classCount}  '
-          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+          '  classes: ${result.emittedClassCount}  '
+          'roots: ${result.emittedRootCount}  schemas: ${result.schemaPaths.length}',
         );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  header:   ${result.headerPath}');
@@ -441,8 +441,8 @@ Future<void> main(List<String> arguments) async {
           documentRoots: config.documentRoots,
         );
         stdout.writeln(
-          '  classes: ${result.classCount}  '
-          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+          '  classes: ${result.emittedClassCount}  '
+          'roots: ${result.emittedRootCount}  schemas: ${result.schemaPaths.length}',
         );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  header:   ${result.headerPath}');

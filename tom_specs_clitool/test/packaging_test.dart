@@ -50,7 +50,7 @@ PackagingDescriptor _sampleDescriptor() => const PackagingDescriptor(
 /// A minimal generated surface for the renderer tests — two roots, standing in
 /// for the fourteen a real `meta/spec_model.meta.json` carries.
 FacadeSurface _sampleSurface() => const FacadeSurface(
-  classCount: 1254,
+  modelClassCount: 1254,
   roots: [
     FacadeDocumentRoot(
       type: 'D00SolutionBlueprint',
@@ -230,7 +230,13 @@ void main() {
           '`D01CurrentLandscapeAssessment` |',
         ),
       );
-      expect(md, contains('1254 generated types'));
+      // "model classes", not "generated types": the figure is the meta-data's
+      // own class count, and every language emits MORE types than that (a
+      // `@Form` field and an enum each add one) while any single run covers
+      // FEWER (a class no root reaches is never emitted). The old wording was
+      // wrong in both directions at once.
+      expect(md, contains('1254 model classes'));
+      expect(md, isNot(contains('generated types')));
     });
 
     test(

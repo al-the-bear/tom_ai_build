@@ -37,6 +37,7 @@ import 'docspecs_schema_generator.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
+import 'som_emitted_surface.dart';
 import 'som_typescript_emitter.dart';
 import 'som_typescript_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
@@ -52,10 +53,11 @@ class SomTypeScriptGenerationResult {
     required this.packageJsonPath,
     required this.tsconfigPath,
     required this.modulePath,
+    required this.metaModulePath,
     required this.metaJsonPath,
     required this.schemaPaths,
-    required this.classCount,
-    required this.rootCount,
+    required this.emittedClassCount,
+    required this.emittedRootCount,
     required this.modelVersion,
     required this.modelLabel,
   });
@@ -78,9 +80,16 @@ class SomTypeScriptGenerationResult {
   final String tsconfigPath;
 
   /// The generated typed facade module, `tom_som_typescript_<label>.ts` at the
-  /// project root. The metadata module written beside it (`..._meta.ts`) is not
-  /// reported separately, but it is not optional: the facade imports it.
+  /// project root. The metadata module written beside it is not optional — the
+  /// facade imports it — and is reported as [metaModulePath].
   final String modulePath;
+
+  /// The generated metadata module, `<package>_meta.ts` — the populated SOM §7.2
+  /// metadata trees plus the SOM §8 navigation surfaces. The facade imports it,
+  /// so it is not optional; it is reported here because a caller verifying the
+  /// committed tree from this result alone otherwise cannot check that the file
+  /// the facade depends on exists.
+  final String metaModulePath;
 
   /// The lossless object-model graph, `meta/spec_model.meta.json` (SOM §5.3).
   /// It is validated by `validateSpecModelMeta` *before* it is written, so a
@@ -91,17 +100,29 @@ class SomTypeScriptGenerationResult {
   /// One written `*.docspecs-schema.yaml` per `@Document` root (SOM §5.4), in
   /// the order `DocSpecsSchemaGenerator.writeSchemaTree` produced them. Also
   /// language-agnostic: identical to what every other language path writes.
+  ///
+  /// **Written for every `@Document` root, filter or no filter** — schemas
+  /// are selection-agnostic by design, so this list is the one place a
+  /// narrowed run still reports the model's full root count.
   final List<String> schemaPaths;
 
-  /// How many classes the analyzer resolved in the model package — **not** how
-  /// many classes were emitted. The emitter walks only what is reachable from
-  /// the selected roots, so the generated module can hold fewer.
-  final int classCount;
+  /// How many **model classes** this run's module covers — the closure
+  /// reachable from the [emittedRootCount] selected roots.
+  ///
+  /// Not the number of generated classes: a `@Form` field and an enum each add
+  /// a type beyond their model class, so the emitted module always holds more.
+  /// Not the model's own size either — that is stamped in the meta-data named
+  /// by [metaJsonPath], and is *higher* even for an unfiltered run, because a
+  /// model class no `@Document` root reaches is never emitted.
+  final int emittedClassCount;
 
-  /// How many `@Document` roots the exported meta-data declares. Read from the
-  /// meta rather than from the emitter, so it counts every root in the model
-  /// even when `documentRoots` narrowed the typed module to a subset.
-  final int rootCount;
+  /// How many `@Document` roots this run generated a typed root class for —
+  /// every root in the model unless `documentRoots` narrowed it.
+  ///
+  /// The model's *full* root count is [schemaPaths].length: schemas are written
+  /// for every root regardless of the filter, so under a narrowed run the two
+  /// deliberately disagree.
+  final int emittedRootCount;
 
   /// The model major version stamped into the meta-data and into every
   /// generated DocSpecs schema. Each generated root class checks a document's
@@ -200,6 +221,11 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
 
   // ── typed TypeScript facade (editing facade over the generic runtime) ──────
   final model = SpecModel.fromJson(meta);
+  // What this run covers — the selected roots and the model classes
+  // reachable from them. Computed once, from the same two rules the
+  // emitters below apply, so the reported figures cannot disagree with
+  // what was written.
+  final emitted = somEmittedSurface(model, documentRoots: documentRoots);
   final source = SomTypeScriptEmitter(
     model,
     versionLabel: versionLabel,
@@ -217,9 +243,8 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
     versionLabel: versionLabel,
     documentRoots: documentRoots,
   ).generateLibrary();
-  File(
-    p.join(outputRoot, '${packageName}_meta.ts'),
-  ).writeAsStringSync(metaModuleSource);
+  final metaModulePath = p.join(outputRoot, '${packageName}_meta.ts');
+  File(metaModulePath).writeAsStringSync(metaModuleSource);
 
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to the Dart/Python/Java/JavaScript path — schemas are
@@ -255,10 +280,11 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
     packageJsonPath: packageJsonPath,
     tsconfigPath: tsconfigPath,
     modulePath: modulePath,
+    metaModulePath: metaModulePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
-    classCount: classes.length,
-    rootCount: meta['rootCount'] as int,
+    emittedClassCount: emitted.classCount,
+    emittedRootCount: emitted.rootCount,
     modelVersion: modelVersion,
     modelLabel: modelLabel,
   );

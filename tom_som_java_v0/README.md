@@ -45,7 +45,7 @@ Declare the dependency (it pulls in `tom_som_java_runtime`):
 
 ### Document roots
 
-Each root is a whole TomSpecs document, and the first segment of every path beneath it is its section id. Construct the root you need over a `SpecDocument`; the 1254 generated types are reached through it.
+Each root is a whole TomSpecs document, and the first segment of every path beneath it is its section id. Construct the root you need over a `SpecDocument`; the 1254 model classes are reached through it.
 
 | Section id | Document | Generated root type |
 | ---------- | -------- | ------------------- |
@@ -233,7 +233,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version and matching `tom_som_java_runtime`. Generated surface: 14 document roots, 1254 types. Verify the package with:
+Version **1.1.0**, tracking the TomSpecs model version and matching `tom_som_java_runtime`. Generated surface: 14 document roots, 1254 model classes. Verify the package with:
 
 ```bash
 ./build_jar.sh

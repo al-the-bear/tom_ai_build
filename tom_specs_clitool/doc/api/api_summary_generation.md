@@ -48,7 +48,7 @@ emitted per language, see
 
 ## Overview
 
-The module declares **23 classes** and **6 enums** across 10 source file(s).
+The module declares **24 classes** and **6 enums** across 11 source file(s).
 
 | Source file | Holds |
 |-------------|-------|
@@ -56,6 +56,7 @@ The module declares **23 classes** and **6 enums** across 10 source file(s).
 | `meta_tree.dart` | The language-neutral metadata tree — `MetaContentType`, `MetaFormField`, `MetaFormInfo`, `MetaDocumentInfo`, `MetaExtraAnnotation`, `MetaNode`, `MetaTreeBuilder`, `MetaNodeKind` |
 | `som_structural_accessors.dart` | The structural-accessor surface — `SomStructuralMember` |
 | `spec_model_meta_validator.dart` | The emitted-meta validator — *(no public types)* |
+| `som_emitted_surface.dart` | What one generation run covers — `SomEmittedSurface` |
 | `docspecs_schema_generator.dart` | The DocSpecs schema generator — `DocSpecsSchemaGenerator` |
 | `docspecs_yaml_schema_generator.dart` | The YAML schema generator — `DocspecsYamlSchemaGenerator` |
 | `docspecs_annotation_mapping.dart` | The annotation/schema correspondence — `DocSpecsAnnotationBinding`, `AnnotationCatalogueCorrespondence`, `ModelOnlyReason`, `DocSpecsOwner` |
@@ -645,11 +646,11 @@ const FacadeDocumentRoot({
 
 ### FacadeSurface
 
-The generated surface a facade README reports: its document roots and its class count.
+The surface a facade README reports: its document roots and the model's class count.
 
 #### Constructors
 ```dart
-const FacadeSurface({required this.roots, required this.classCount});
+const FacadeSurface({required this.roots, required this.modelClassCount});
 ```
 
 #### Properties
@@ -657,7 +658,28 @@ const FacadeSurface({required this.roots, required this.classCount});
 | Property | Type | Description |
 |----------|------|-------------|
 | `roots` | `List<FacadeDocumentRoot>` | Every `@Document` root the facade generates, in model order. |
-| `classCount` | `int` | The number of generated classes across all roots. |
+| `modelClassCount` | `int` | The number of **model classes** the meta-data declares — neither the generated type count (higher) nor what one run covered (lower). |
+
+### SomEmittedSurface
+
+What one generation run covers: the `@Document` roots it emitted a typed root
+type for, and the model classes reachable from them. This is what the nine
+`Som*GenerationResult` classes report as `emittedRootCount` /
+`emittedClassCount`.
+
+#### Constructors
+```dart
+const SomEmittedSurface({required this.roots, required this.classNames});
+```
+
+#### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `roots` | `List<SpecRoot>` | The selected roots, in model order. |
+| `classNames` | `Set<String>` | The names of the model classes reachable from `roots`. |
+| `rootCount` | `int` | How many roots this run generated a typed root type for. |
+| `classCount` | `int` | How many model classes the emitted facade covers. |
 
 ## Enums
 
@@ -736,3 +758,15 @@ The manifest a runtime package uses to declare its own version.
 | `pomXml` | A Maven `pom.xml` — the project `<version>X.Y.Z</version>` element. |
 
 ## Global Functions and Constants
+
+The two rules that decide the emitted slice of the model. They live in
+`som_emitted_surface.dart` and are stated **once**: the nine facade emitters,
+the nine metadata emitters and the nine generators all call them, so a run's
+reported coverage cannot disagree with what it wrote.
+
+| Function | Signature | Description |
+|----------|-----------|-------------|
+| `somSelectedRoots` | `List<SpecRoot> somSelectedRoots(SpecModel, List<String>)` | The `@Document` roots a run with those `documentRoots` generates for; empty ⇒ every root. A named root the model does not declare is silently absent — the filter selects, it does not assert. |
+| `somReachableClasses` | `Set<String> somReachableClasses(SpecModel, Set<String>)` | The model classes reachable from those root types, following `complex`/`section` through `type` and `list` through `elementType`. `form`, `content`, `enum` and `scalar` terminate the walk. |
+| `somEmittedSurface` | `SomEmittedSurface somEmittedSurface(SpecModel, {List<String> documentRoots})` | The two composed — what one generation run covers. |
+

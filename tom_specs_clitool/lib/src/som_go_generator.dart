@@ -32,6 +32,7 @@ import 'docspecs_schema_generator.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
+import 'som_emitted_surface.dart';
 import 'som_go_emitter.dart';
 import 'som_go_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
@@ -48,8 +49,8 @@ class SomGoGenerationResult {
     required this.metaModulePath,
     required this.metaJsonPath,
     required this.schemaPaths,
-    required this.classCount,
-    required this.rootCount,
+    required this.emittedClassCount,
+    required this.emittedRootCount,
     required this.modelVersion,
     required this.modelLabel,
   });
@@ -81,17 +82,29 @@ class SomGoGenerationResult {
 
   /// The written DocSpecs schema files, one per `@Document` root (SOM §5.4).
   /// Its length is the schema count the CLI reports for the run.
+  ///
+  /// **Written for every `@Document` root, filter or no filter** — schemas
+  /// are selection-agnostic by design, so this list is the one place a
+  /// narrowed run still reports the model's full root count.
   final List<String> schemaPaths;
 
-  /// How many classes the analysed model graph holds. This is the *model*
-  /// size, not the emitted surface: the facade only emits the closure
-  /// reachable from [SomGoEmitter.documentRoots].
-  final int classCount;
+  /// How many **model classes** this run's module covers — the closure
+  /// reachable from the [emittedRootCount] selected roots.
+  ///
+  /// Not the number of generated structs: a `@Form` field and an enum each add
+  /// a type beyond their model class, so the emitted module always holds more.
+  /// Not the model's own size either — that is stamped in the meta-data named
+  /// by [metaJsonPath], and is *higher* even for an unfiltered run, because a
+  /// model class no `@Document` root reaches is never emitted.
+  final int emittedClassCount;
 
-  /// How many `@Document` roots the meta-data declares, read back from the
-  /// exporter's own `rootCount` stamp rather than recounted, so it cannot
-  /// disagree with the committed file.
-  final int rootCount;
+  /// How many `@Document` roots this run generated a typed root struct for —
+  /// every root in the model unless `documentRoots` narrowed it.
+  ///
+  /// The model's *full* root count is [schemaPaths].length: schemas are written
+  /// for every root regardless of the filter, so under a narrowed run the two
+  /// deliberately disagree.
+  final int emittedRootCount;
 
   /// The model version stamped into the meta-data and into every generated
   /// DocSpecs schema. The generated roots check a document's authoring stamp
@@ -192,6 +205,11 @@ SomGoGenerationResult writeSomGoProject({
 
   // ── typed Go facade (editing facade over the generic runtime) ──────────────
   final model = SpecModel.fromJson(meta);
+  // What this run covers — the selected roots and the model classes
+  // reachable from them. Computed once, from the same two rules the
+  // emitters below apply, so the reported figures cannot disagree with
+  // what was written.
+  final emitted = somEmittedSurface(model, documentRoots: documentRoots);
   final source = SomGoEmitter(
     model,
     versionLabel: versionLabel,
@@ -248,8 +266,8 @@ SomGoGenerationResult writeSomGoProject({
     metaModulePath: metaModulePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
-    classCount: classes.length,
-    rootCount: meta['rootCount'] as int,
+    emittedClassCount: emitted.classCount,
+    emittedRootCount: emitted.rootCount,
     modelVersion: modelVersion,
     modelLabel: modelLabel,
   );

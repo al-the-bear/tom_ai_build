@@ -43,6 +43,7 @@
 library;
 
 import 'dart:convert';
+import 'som_emitted_surface.dart';
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
@@ -105,11 +106,7 @@ class SomCMetaEmitter {
     this.documentRoots = const [],
   }) : _ref = SpecReflection(model);
 
-  List<SpecRoot> get _roots {
-    if (documentRoots.isEmpty) return model.roots;
-    final wanted = documentRoots.toSet();
-    return model.roots.where((r) => wanted.contains(r.type)).toList();
-  }
+  List<SpecRoot> get _roots => somSelectedRoots(model, documentRoots);
 
   /// Reserved C keywords (C11); a section-id-derived accessor tail matching one
   /// gains a trailing underscore so it stays a legal identifier.

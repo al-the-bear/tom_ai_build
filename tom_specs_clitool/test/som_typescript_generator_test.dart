@@ -82,10 +82,11 @@ void main() {
     expect(result.modulePath, endsWith('tom_som_typescript_v0.ts'));
 
     // The generated metadata module (SOM §8) is written alongside the
-    // facade and carries the populated trees + access surfaces.
-    final metaModule = File(
-      p.join(p.dirname(result.modulePath), 'tom_som_typescript_v0_meta.ts'),
-    );
+    // facade and carries the populated trees + access surfaces. Read from the
+    // result rather than re-derived from [modulePath]: the result names the
+    // file precisely so a caller need not reconstruct where it went.
+    final metaModule = File(result.metaModulePath);
+    expect(result.metaModulePath, endsWith('tom_som_typescript_v0_meta.ts'));
     expect(metaModule.existsSync(), isTrue);
     expect(
       metaModule.readAsStringSync(),

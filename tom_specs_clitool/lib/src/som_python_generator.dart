@@ -24,6 +24,7 @@ import 'docspecs_schema_generator.dart';
 import 'model_json_exporter.dart';
 import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
+import 'som_emitted_surface.dart';
 import 'som_python_emitter.dart';
 import 'som_python_meta_emitter.dart';
 import 'spec_model_meta_validator.dart';
@@ -37,10 +38,11 @@ class SomPythonGenerationResult {
     required this.outputRoot,
     required this.pyprojectPath,
     required this.modulePath,
+    required this.metaModulePath,
     required this.metaJsonPath,
     required this.schemaPaths,
-    required this.classCount,
-    required this.rootCount,
+    required this.emittedClassCount,
+    required this.emittedRootCount,
     required this.modelVersion,
     required this.modelLabel,
   });
@@ -58,6 +60,13 @@ class SomPythonGenerationResult {
   /// over the generic runtime's `SpecDocument` (SOM §5.2).
   final String modulePath;
 
+  /// The generated metadata module, `<package>_meta.py` — the populated SOM §7.2
+  /// metadata trees plus the SOM §8 navigation surfaces. The facade re-exports
+  /// it, so a consumer never imports it directly; it is reported here because a
+  /// caller verifying the committed tree from this result alone otherwise
+  /// cannot check that the file it depends on exists.
+  final String metaModulePath;
+
   /// The lossless model graph at `meta/spec_model.meta.json` (SOM §5.3). It is
   /// written first and then re-read to drive the two emitters, so the
   /// committed meta-data and the committed source cannot describe different
@@ -66,17 +75,29 @@ class SomPythonGenerationResult {
 
   /// The written DocSpecs schema files, one per `@Document` root (SOM §5.4).
   /// Its length is the schema count the CLI reports for the run.
+  ///
+  /// **Written for every `@Document` root, filter or no filter** — schemas
+  /// are selection-agnostic by design, so this list is the one place a
+  /// narrowed run still reports the model's full root count.
   final List<String> schemaPaths;
 
-  /// How many classes the analysed model graph holds. This is the *model*
-  /// size, not the emitted surface: the facade only emits the closure
-  /// reachable from [SomPythonEmitter.documentRoots].
-  final int classCount;
+  /// How many **model classes** this run's module covers — the closure
+  /// reachable from the [emittedRootCount] selected roots.
+  ///
+  /// Not the number of generated classes: a `@Form` field and an enum each add
+  /// a type beyond their model class, so the emitted module always holds more.
+  /// Not the model's own size either — that is stamped in the meta-data named
+  /// by [metaJsonPath], and is *higher* even for an unfiltered run, because a
+  /// model class no `@Document` root reaches is never emitted.
+  final int emittedClassCount;
 
-  /// How many `@Document` roots the meta-data declares, read back from the
-  /// exporter's own `rootCount` stamp rather than recounted, so it cannot
-  /// disagree with the committed file.
-  final int rootCount;
+  /// How many `@Document` roots this run generated a typed root class for —
+  /// every root in the model unless `documentRoots` narrowed it.
+  ///
+  /// The model's *full* root count is [schemaPaths].length: schemas are written
+  /// for every root regardless of the filter, so under a narrowed run the two
+  /// deliberately disagree.
+  final int emittedRootCount;
 
   /// The model version stamped into the meta-data and into every generated
   /// DocSpecs schema. The generated roots check a document's authoring stamp
@@ -173,6 +194,11 @@ SomPythonGenerationResult writeSomPythonProject({
 
   // ── typed Python facade (editing facade over the generic runtime) ──────────
   final model = SpecModel.fromJson(meta);
+  // What this run covers — the selected roots and the model classes
+  // reachable from them. Computed once, from the same two rules the
+  // emitters below apply, so the reported figures cannot disagree with
+  // what was written.
+  final emitted = somEmittedSurface(model, documentRoots: documentRoots);
   final source = SomPythonEmitter(
     model,
     versionLabel: versionLabel,
@@ -191,9 +217,8 @@ SomPythonGenerationResult writeSomPythonProject({
     versionLabel: versionLabel,
     documentRoots: documentRoots,
   ).generateLibrary();
-  File(
-    p.join(outputRoot, '${packageName}_meta.py'),
-  ).writeAsStringSync(metaSource);
+  final metaModulePath = p.join(outputRoot, '${packageName}_meta.py');
+  File(metaModulePath).writeAsStringSync(metaSource);
 
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to the Dart path — schemas are language-agnostic.
@@ -252,10 +277,11 @@ SomPythonGenerationResult writeSomPythonProject({
     outputRoot: outDir.path,
     pyprojectPath: pyprojectPath,
     modulePath: modulePath,
+    metaModulePath: metaModulePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
-    classCount: classes.length,
-    rootCount: meta['rootCount'] as int,
+    emittedClassCount: emitted.classCount,
+    emittedRootCount: emitted.rootCount,
     modelVersion: modelVersion,
     modelLabel: modelLabel,
   );

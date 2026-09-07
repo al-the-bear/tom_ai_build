@@ -351,7 +351,7 @@ class FacadeDocumentRoot {
   final String title;
 }
 
-/// The generated surface a facade README reports: its document roots and its
+/// The surface a facade README reports: its document roots and the model's
 /// class count.
 ///
 /// **Read from the emitted `meta/spec_model.meta.json` (SOM §5.3), never
@@ -362,13 +362,19 @@ class FacadeDocumentRoot {
 /// loads, so reading it here is reading the package's own answer.
 class FacadeSurface {
   /// Records the surface read back from one emitted facade.
-  const FacadeSurface({required this.roots, required this.classCount});
+  const FacadeSurface({required this.roots, required this.modelClassCount});
 
   /// Every `@Document` root the facade generates, in model order.
   final List<FacadeDocumentRoot> roots;
 
-  /// The number of generated classes across all roots.
-  final int classCount;
+  /// The number of **model classes** the meta-data declares.
+  ///
+  /// A model fact, like [roots] — not a count of generated types, which is
+  /// higher in every language (a `@Form` field and an enum each add a type
+  /// beyond their model class) and not a count of what one run covered, which
+  /// is lower (a class no `@Document` root reaches is never emitted). The
+  /// emitted READMEs word it as "model classes" for exactly that reason.
+  final int modelClassCount;
 }
 
 /// Reads the [FacadeSurface] from the `meta/spec_model.meta.json` under
@@ -405,7 +411,7 @@ FacadeSurface readFacadeSurface(String outputRoot) {
   ];
   return FacadeSurface(
     roots: roots,
-    classCount: (decoded['classCount'] as num?)?.toInt() ?? 0,
+    modelClassCount: (decoded['classCount'] as num?)?.toInt() ?? 0,
   );
 }
 
@@ -547,8 +553,8 @@ String renderFacadeReadme(
     ..writeln(
       'Each root is a whole TomSpecs document, and the first segment '
       'of every path beneath it is its section id. Construct the root you '
-      'need over a `SpecDocument`; the ${surface.classCount} generated types '
-      'are reached through it.',
+      'need over a `SpecDocument`; the '
+      '${surface.modelClassCount} model classes are reached through it.',
     )
     ..writeln()
     ..writeln('| Section id | Document | Generated root type |')
@@ -783,8 +789,8 @@ String renderFacadeReadme(
     ..writeln(
       'Version **$version**, tracking the TomSpecs model version and '
       'matching `${d.runtimePackageName}`. Generated surface: '
-      '${surface.roots.length} document roots, ${surface.classCount} types. '
-      'Verify the package with:',
+      '${surface.roots.length} document roots, '
+      '${surface.modelClassCount} model classes. Verify the package with:',
     )
     ..writeln()
     ..writeln('```bash')

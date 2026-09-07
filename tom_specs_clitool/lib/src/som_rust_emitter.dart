@@ -37,6 +37,7 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_emitted_surface.dart';
 import 'som_structural_accessors.dart';
 import 'spec_object_model_config.dart' show SomLanguage;
 
@@ -82,11 +83,7 @@ class SomRustEmitter {
   String get modelVersionString => model.modelVersionString;
 
   /// The roots to generate, resolved against [documentRoots] (empty ⇒ all).
-  List<SpecRoot> get _selectedRoots {
-    if (documentRoots.isEmpty) return model.roots;
-    final wanted = documentRoots.toSet();
-    return model.roots.where((r) => wanted.contains(r.type)).toList();
-  }
+  List<SpecRoot> get _selectedRoots => somSelectedRoots(model, documentRoots);
 
   /// Reserved Rust keywords (strict + reserved-for-future). A snake-cased
   /// accessor matching one of these gains a trailing underscore so it stays a
@@ -325,35 +322,8 @@ class SomRustEmitter {
 
   // --- reachability -------------------------------------------------------
 
-  Set<String> _reachableClasses(Set<String> rootTypes) {
-    final visited = <String>{};
-    final queue = <String>[...rootTypes];
-    while (queue.isNotEmpty) {
-      final name = queue.removeLast();
-      if (!visited.add(name)) continue;
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        switch (f.kind) {
-          case SpecFieldKind.complex:
-          case SpecFieldKind.section:
-            if (f.type != null) queue.add(f.type!);
-            break;
-          case SpecFieldKind.list:
-            if (f.elementIsComplex && f.elementType != null) {
-              queue.add(f.elementType!);
-            }
-            break;
-          case SpecFieldKind.form:
-          case SpecFieldKind.content:
-          case SpecFieldKind.enumValue:
-          case SpecFieldKind.scalar:
-            break;
-        }
-      }
-    }
-    return visited;
-  }
+  Set<String> _reachableClasses(Set<String> rootTypes) =>
+      somReachableClasses(model, rootTypes);
 
   /// The distinct enum types referenced by reachable classes, with their values.
   List<_EnumType> _reachableEnums(Set<String> reachable) {

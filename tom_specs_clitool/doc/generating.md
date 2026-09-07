@@ -90,7 +90,7 @@ generate_som: config <…>/tom_specs_clitool/tom_som.yaml
   roots:   all
 
 ── generating dart → <…>/tom_som_dart_v0
-  classes: 1254  roots: 14  schemas: 14
+  classes: 1253  roots: 14  schemas: 14
   meta:    <…>/tom_som_dart_v0/meta/spec_model.meta.json
   lib:     <…>/tom_som_dart_v0/lib/tom_som_dart_v0.dart
   pubspec: <…>/tom_som_dart_v0/pubspec.yaml
@@ -107,6 +107,14 @@ Three numbers are worth reading every time:
 - **`classes` / `roots` / `schemas`** should be identical across all nine
   blocks. They are all derived from one model, so a language that disagrees is
   an emitter defect, not a model one.
+
+`classes` and `roots` describe **what the run covered**, not the model. With no
+`document-roots:` filter that is 1253, one fewer than the model's 1254, because
+the `DocSpecsProject` container root is reachable from no `@Document` and so is
+never emitted. Under a filter both numbers drop; `schemas` does not, because
+schemas are written for every root regardless of the filter. The three figures
+that measure different things — model size, run coverage, generated type count
+— are laid out in the package README under *Three class counts*.
 
 The run closes with the fingerprint and, when the Dart facade moved, a note that
 `tom_spec_engine`'s D4rt bridges are now stale.

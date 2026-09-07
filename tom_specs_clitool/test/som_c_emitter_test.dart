@@ -577,6 +577,48 @@ void main() {
       );
     });
 
+    test('a model class becomes its C struct name verbatim, never allocated', () {
+      // The rule `_ClassPlan` rests on. Model class names are the model's own
+      // map keys, so they are unique and already valid C identifiers: there is
+      // nothing to deduplicate and nothing to sanitise, which is why the plan
+      // carries one name (`cls.name`) rather than a separately-allocated
+      // struct name beside it. `_prepare` seeds the type namespace with them so
+      // the *form* structs — which are allocated — are allocated around them.
+      final model = SpecModel.fromJson(_fixtureJson());
+      final header = SomCEmitter(model).generateHeader();
+      final decls = RegExp(
+        r'typedef struct \{ SomNode node; \} (\w+);',
+        multiLine: true,
+      ).allMatches(header).map((m) => m.group(1)!).toSet();
+
+      for (final name in model.classes.keys) {
+        expect(
+          decls,
+          contains(name),
+          reason:
+              'the struct for $name must carry the model name unchanged — a '
+              'consumer includes it by that name',
+        );
+      }
+    });
+
+    test('the meta-tree accessor is derived from the same one name', () {
+      // `_treeFnName` snake-cases the plan's name. When the plan carried two
+      // fields holding the same value, one of them fed this and the other fed
+      // the struct typedef — so a divergence between them would have split the
+      // facade from the metadata module it calls into, silently.
+      final source = SomCEmitter(_fixtureModel()).generateSource();
+      final header = SomCEmitter(_fixtureModel()).generateHeader();
+      expect(
+        header,
+        contains(
+          'typedef struct { SomNode node; } '
+          'SolutionBlueprint;',
+        ),
+      );
+      expect(source, contains('solution_blueprint_meta_tree()'));
+    });
+
     test('no flat path-constant holder is emitted (SOM §8)', () {
       // Path addressing lives solely in the generated metadata module's
       // populated trees + dot-notation / ID-tree access surfaces. No holder

@@ -144,6 +144,12 @@ export 'src/som_structural_accessors.dart'
         SomStructuralMember,
         somStructuralAccessorNames,
         somReservedAccessorNames;
+export 'src/som_emitted_surface.dart'
+    show
+        SomEmittedSurface,
+        somEmittedSurface,
+        somSelectedRoots,
+        somReachableClasses;
 export 'src/som_dart_emitter.dart' show SomDartEmitter;
 export 'src/som_dart_meta_emitter.dart' show SomDartMetaEmitter;
 export 'src/som_python_emitter.dart' show SomPythonEmitter;

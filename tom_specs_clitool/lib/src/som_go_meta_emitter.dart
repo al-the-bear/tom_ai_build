@@ -63,6 +63,8 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_emitted_surface.dart';
+
 /// Annotation names with a dedicated `SomMetaNode` slot — everything else is
 /// captured into `Extra`. Must stay identical to the bridge's set.
 const Set<String> _slottedAnnotations = {
@@ -131,11 +133,7 @@ class SomGoMetaEmitter {
     this.packageName = 'somv0',
   });
 
-  List<SpecRoot> get _roots {
-    if (documentRoots.isEmpty) return model.roots;
-    final wanted = documentRoots.toSet();
-    return model.roots.where((r) => wanted.contains(r.type)).toList();
-  }
+  List<SpecRoot> get _roots => somSelectedRoots(model, documentRoots);
 
   /// The complete generated metadata module source.
   String generateLibrary() {

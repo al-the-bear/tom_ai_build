@@ -23,6 +23,7 @@ import 'model_reader.dart';
 import 'packaging.dart' show packageVersionFromModel;
 import 'som_dart_emitter.dart';
 import 'som_dart_meta_emitter.dart';
+import 'som_emitted_surface.dart';
 import 'spec_model_meta_validator.dart';
 
 /// The committed paths and counts produced by [generateSomDartProject].
@@ -36,10 +37,11 @@ class SomGenerationResult {
     required this.outputRoot,
     required this.pubspecPath,
     required this.libPath,
+    required this.metaModulePath,
     required this.metaJsonPath,
     required this.schemaPaths,
-    required this.classCount,
-    required this.rootCount,
+    required this.emittedClassCount,
+    required this.emittedRootCount,
     required this.modelVersion,
     required this.modelLabel,
   });
@@ -55,9 +57,16 @@ class SomGenerationResult {
   final String pubspecPath;
 
   /// The generated typed facade library, `lib/tom_som_dart_<label>.dart`. The
-  /// metadata library written beside it (`..._meta.dart`) is not reported
-  /// separately: the facade exports it, so one import reaches both.
+  /// facade exports the metadata library written beside it, so one import
+  /// reaches both; that file is reported as [metaModulePath].
   final String libPath;
+
+  /// The generated metadata library, `lib/<package>_meta.dart` — the populated
+  /// SOM §7.2 metadata trees plus the SOM §8 navigation surfaces. The facade
+  /// exports it, so a consumer never imports it directly; it is reported here
+  /// because a caller verifying the committed tree from this result alone
+  /// otherwise cannot check that the file it depends on exists.
+  final String metaModulePath;
 
   /// The lossless object-model graph, `meta/spec_model.meta.json` (SOM §5.3).
   /// It is validated by `validateSpecModelMeta` *before* it is written, so a
@@ -68,17 +77,29 @@ class SomGenerationResult {
   /// the order `DocSpecsSchemaGenerator.writeSchemaTree` produced them. Schemas
   /// are language-agnostic, so this set is byte-identical to the one the Rust /
   /// TypeScript / JavaScript generators write for the same model.
+  ///
+  /// **Written for every `@Document` root, filter or no filter** — schemas
+  /// are selection-agnostic by design, so this list is the one place a
+  /// narrowed run still reports the model's full root count.
   final List<String> schemaPaths;
 
-  /// How many classes the analyzer resolved in the model package — **not** how
-  /// many types were emitted. The emitter walks only what is reachable from the
-  /// selected roots, so the generated library can hold fewer.
-  final int classCount;
+  /// How many **model classes** this run's library covers — the closure
+  /// reachable from the [emittedRootCount] selected roots.
+  ///
+  /// Not the number of generated classes: a `@Form` field and an enum each add
+  /// a type beyond their model class, so the emitted library always holds more.
+  /// Not the model's own size either — that is stamped in the meta-data named
+  /// by [metaJsonPath], and is *higher* even for an unfiltered run, because a
+  /// model class no `@Document` root reaches is never emitted.
+  final int emittedClassCount;
 
-  /// How many `@Document` roots the exported meta-data declares. Read from the
-  /// meta rather than from the emitter, so it counts every root in the model
-  /// even when `documentRoots` narrowed the typed facade to a subset.
-  final int rootCount;
+  /// How many `@Document` roots this run generated a typed root class for —
+  /// every root in the model unless `documentRoots` narrowed it.
+  ///
+  /// The model's *full* root count is [schemaPaths].length: schemas are written
+  /// for every root regardless of the filter, so under a narrowed run the two
+  /// deliberately disagree.
+  final int emittedRootCount;
 
   /// The model major version stamped into the meta-data and into every
   /// generated DocSpecs schema. A document's authoring stamp is checked against
@@ -180,6 +201,11 @@ SomGenerationResult writeSomDartProject({
 
   // ── typed Dart facade (editing facade over the generic runtime) ────────────
   final model = SpecModel.fromJson(meta);
+  // What this run covers — the selected roots and the model classes
+  // reachable from them. Computed once, from the same two rules the
+  // emitters below apply, so the reported figures cannot disagree with
+  // what was written.
+  final emitted = somEmittedSurface(model, documentRoots: documentRoots);
   final source = SomDartEmitter(
     model,
     versionLabel: versionLabel,
@@ -198,9 +224,8 @@ SomGenerationResult writeSomDartProject({
     versionLabel: versionLabel,
     documentRoots: documentRoots,
   ).generateLibrary();
-  File(
-    p.join(outputRoot, 'lib', '${packageName}_meta.dart'),
-  ).writeAsStringSync(metaSource);
+  final metaModulePath = p.join(outputRoot, 'lib', '${packageName}_meta.dart');
+  File(metaModulePath).writeAsStringSync(metaSource);
 
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   final schemas = DocSpecsSchemaGenerator(
@@ -236,10 +261,11 @@ SomGenerationResult writeSomDartProject({
     outputRoot: outDir.path,
     pubspecPath: pubspecPath,
     libPath: libPath,
+    metaModulePath: metaModulePath,
     metaJsonPath: metaJsonPath,
     schemaPaths: schemaPaths,
-    classCount: classes.length,
-    rootCount: meta['rootCount'] as int,
+    emittedClassCount: emitted.classCount,
+    emittedRootCount: emitted.rootCount,
     modelVersion: modelVersion,
     modelLabel: modelLabel,
   );

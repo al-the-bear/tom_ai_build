@@ -41,6 +41,7 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_emitted_surface.dart';
 import 'som_structural_accessors.dart';
 import 'spec_object_model_config.dart' show SomLanguage;
 
@@ -85,11 +86,7 @@ class SomCEmitter {
   /// only names the `_vN` output project.
   String get modelVersionString => model.modelVersionString;
 
-  List<SpecRoot> get _selectedRoots {
-    if (documentRoots.isEmpty) return model.roots;
-    final wanted = documentRoots.toSet();
-    return model.roots.where((r) => wanted.contains(r.type)).toList();
-  }
+  List<SpecRoot> get _selectedRoots => somSelectedRoots(model, documentRoots);
 
   /// Reserved C keywords (C11). A snake-cased accessor matching one of these
   /// gains a trailing underscore so it stays a legal identifier.
@@ -238,7 +235,7 @@ class SomCEmitter {
       if (cls == null) continue;
       final isRoot = rootTypes.contains(n);
       final prefix = _snake(n).isEmpty ? 'class' : _snake(n);
-      final plan = _ClassPlan(cls, n, isRoot);
+      final plan = _ClassPlan(cls, isRoot);
       if (isRoot) {
         plan.lifecycleFn = _alloc(_funcNames, '${prefix}_new');
         plan.omvFn = _alloc(_funcNames, '${prefix}_object_model_version');
@@ -382,12 +379,12 @@ class SomCEmitter {
 
     // model-version constants
     final roots = _classPlans.values.where((p) => p.isRoot).toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
+      ..sort((a, b) => a.typeName.compareTo(b.typeName));
     if (roots.isNotEmpty) {
       for (final r in roots) {
         b
           ..writeln(
-            '// ${r.mvConst} is the model version the ${r.name} object '
+            '// ${r.mvConst} is the model version the ${r.typeName} object '
             'model was generated against (SOM §4.2).',
           )
           ..writeln('#define ${r.mvConst} "$modelVersionString"');
@@ -996,35 +993,8 @@ class SomCEmitter {
 
   // --- reachability --------------------------------------------------------
 
-  Set<String> _reachableClasses(Set<String> rootTypes) {
-    final visited = <String>{};
-    final queue = <String>[...rootTypes];
-    while (queue.isNotEmpty) {
-      final name = queue.removeLast();
-      if (!visited.add(name)) continue;
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        switch (f.kind) {
-          case SpecFieldKind.complex:
-          case SpecFieldKind.section:
-            if (f.type != null) queue.add(f.type!);
-            break;
-          case SpecFieldKind.list:
-            if (f.elementIsComplex && f.elementType != null) {
-              queue.add(f.elementType!);
-            }
-            break;
-          case SpecFieldKind.form:
-          case SpecFieldKind.content:
-          case SpecFieldKind.enumValue:
-          case SpecFieldKind.scalar:
-            break;
-        }
-      }
-    }
-    return visited;
-  }
+  Set<String> _reachableClasses(Set<String> rootTypes) =>
+      somReachableClasses(model, rootTypes);
 
   List<_EnumType> _reachableEnums(Set<String> reachable) {
     final byName = <String, _EnumType>{};
@@ -1130,7 +1100,7 @@ class SomCEmitter {
 
   /// The generated per-root meta-tree accessor name of a root plan — must match
   /// `SomCMetaEmitter._treeFn` (`<snake(rootType)>_meta_tree`).
-  String _treeFnName(_ClassPlan plan) => '${_snake(plan.name)}_meta_tree';
+  String _treeFnName(_ClassPlan plan) => '${_snake(plan.typeName)}_meta_tree';
 
   bool _isUpper(String c) => c.toUpperCase() == c && c.toLowerCase() != c;
   bool _isLower(String c) => c.toLowerCase() == c && c.toUpperCase() != c;
@@ -1184,16 +1154,18 @@ class _ClassPlan {
   /// header and the source pass, so the two stay in the same order.
   final SpecClass cls;
 
-  /// The emitted struct typedef name. Model class names are taken verbatim, so
-  /// this is the one generated type name that is never allocated; form struct
-  /// names are allocated around it.
-  final String typeName;
-
-  /// The model class name under which the plan is registered. Also the stem of
-  /// every emitted function prefix and of the metadata module's
-  /// `<snake>_meta_tree` accessor this facade calls into, so it must match the
-  /// name `SomCMetaEmitter` derived its tree function from.
-  final String name;
+  /// The emitted struct typedef name — the model class name, verbatim.
+  ///
+  /// It is the one generated type name that is **never allocated**: model class
+  /// names are unique by construction (they are the model's own map keys) and
+  /// are already valid C identifiers, so there is nothing to deduplicate or
+  /// sanitise. `_prepare` seeds `_typeNames` with them precisely so the *form*
+  /// struct names, which are allocated, are allocated around them.
+  ///
+  /// It is also the stem of every emitted function prefix and of the metadata
+  /// module's `<snake>_meta_tree` accessor this facade calls into, so it must
+  /// match the name `SomCMetaEmitter` derived its tree function from.
+  String get typeName => cls.name;
 
   /// Whether the class is one of the selected `@Document` roots. Roots get the
   /// version-checking constructor, the load helpers and a per-root model-version
@@ -1263,7 +1235,7 @@ class _ClassPlan {
   /// have been sorted and named. It is what tells the field emitter which struct
   /// the owning class's accessor returns by value.
   final Map<String, String> formTypeFor = {};
-  _ClassPlan(this.cls, this.name, this.isRoot) : typeName = cls.name;
+  _ClassPlan(this.cls, this.isRoot);
 }
 
 class _FormPlan {

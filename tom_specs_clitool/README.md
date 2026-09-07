@@ -342,14 +342,20 @@ language-native manifest that declares the runtime dependency:
 - **Schemas** — the DocSpecs schema and the `*.docspecs.yaml` YAML schema, per
   document root.
 
-**Two class counts, and they measure different things.** The meta-data reports
-`classCount: 1254` — the model classes, including the `DocSpecsProject`
-container root. The Dart facade declares **3989** classes. The difference is not
-a discrepancy: the facade emits the 1253 model classes it can instantiate (the
-container root is not one of them) **plus one small accessor class per form**,
-named `<Owner><Form>Form`, giving the form's fields typed getters. That is 2736
-accessor classes, and 1253 + 2736 = 3989. Quote `classCount` when you mean the
-model's size and the facade count when you mean the generated Dart surface.
+**Three class counts, and they measure different things.** The meta-data
+reports `classCount: 1254` — the model classes, including the `DocSpecsProject`
+container root. A generation run covers **1253** of them: the container root is
+reachable from no `@Document`, so no run can ever emit it. That figure is what
+each `Som*GenerationResult.emittedClassCount` reports and what
+`generate_som.dart` prints per language, and under a `document-roots:` filter it
+drops further. The Dart facade then declares **3989** classes — the 1253 it can
+instantiate **plus one small accessor class per form**, named
+`<Owner><Form>Form`, giving the form's fields typed getters. That is 2736
+accessor classes, and 1253 + 2736 = 3989.
+
+So: quote the meta's `classCount` for the model's size, `emittedClassCount` for
+what a run covered, and the facade count for the generated Dart surface. The
+generated READMEs quote the first and say "model classes" for it.
 
 ### Consuming the generated code
 

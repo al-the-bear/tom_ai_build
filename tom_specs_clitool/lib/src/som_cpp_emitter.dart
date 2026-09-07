@@ -32,6 +32,7 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_emitted_surface.dart';
 import 'som_structural_accessors.dart';
 import 'spec_object_model_config.dart' show SomLanguage;
 
@@ -88,11 +89,7 @@ class SomCppEmitter {
   /// only names the `_vN` output project.
   String get modelVersionString => model.modelVersionString;
 
-  List<SpecRoot> get _selectedRoots {
-    if (documentRoots.isEmpty) return model.roots;
-    final wanted = documentRoots.toSet();
-    return model.roots.where((r) => wanted.contains(r.type)).toList();
-  }
+  List<SpecRoot> get _selectedRoots => somSelectedRoots(model, documentRoots);
 
   /// Reserved C++ keywords (C++17, plus the literals). A field name that is a
   /// keyword cannot be a member-function name, so its accessor gains a trailing
@@ -901,35 +898,8 @@ class SomCppEmitter {
 
   // --- reachability --------------------------------------------------------
 
-  Set<String> _reachableClasses(Set<String> rootTypes) {
-    final visited = <String>{};
-    final queue = <String>[...rootTypes];
-    while (queue.isNotEmpty) {
-      final name = queue.removeLast();
-      if (!visited.add(name)) continue;
-      final cls = model.classNamed(name);
-      if (cls == null) continue;
-      for (final f in cls.fields) {
-        switch (f.kind) {
-          case SpecFieldKind.complex:
-          case SpecFieldKind.section:
-            if (f.type != null) queue.add(f.type!);
-            break;
-          case SpecFieldKind.list:
-            if (f.elementIsComplex && f.elementType != null) {
-              queue.add(f.elementType!);
-            }
-            break;
-          case SpecFieldKind.form:
-          case SpecFieldKind.content:
-          case SpecFieldKind.enumValue:
-          case SpecFieldKind.scalar:
-            break;
-        }
-      }
-    }
-    return visited;
-  }
+  Set<String> _reachableClasses(Set<String> rootTypes) =>
+      somReachableClasses(model, rootTypes);
 
   List<_EnumType> _reachableEnums(Set<String> reachable) {
     final byName = <String, _EnumType>{};
