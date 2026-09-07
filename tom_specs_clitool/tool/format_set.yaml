@@ -30,6 +30,12 @@
 # end, and holding them would mean teaching nine emitters to format rather than
 # formatting nine trees. That is real work with a real benefit and it is not
 # this manifest's; if it is ever done, they belong here.
+#
+# NOT LISTED: `tom_forge/tom_specs_editor`, 59 of its 68 files non-conforming.
+# It is a Flutter application outside this quest's documentation scope
+# (`tom_specs_documentation_standard.md` §6), it builds on a different
+# toolchain, and reformatting it is a change to a codebase this gate's authors
+# do not otherwise touch. Tracked as `tsdocc3_aigk`.
 
 # Source directories checked in each package. A package that lacks one is not
 # an error — `tom_specs_core` has no `bin/`, and a manifest that demanded one
@@ -62,3 +68,12 @@ packages:
   - tom_ai/ai_build/tom_doc_specs
   - tom_ai/ai_build/tom_specs_reviewer
   - tom_ai/core/tom_core_codespecs
+  # The quest's own Dart beyond the ten libraries: the conformance harness's
+  # drivers and the four sample projects. Small, hand-written, and ours — a gate
+  # whose subject is "the quest's Dart" is easier to keep true than one whose
+  # subject is a list somebody drew up once.
+  - tom_ai/ai_build/tom_som_conformance
+  - tom_ai/ai_build/tom_specs_samples/author_solution_blueprint
+  - tom_ai/ai_build/tom_specs_samples/build_a_specification_tool
+  - tom_ai/ai_build/tom_specs_samples/full_lifecycle_walkthrough
+  - tom_ai/ai_build/tom_specs_samples/phase4_codespecs_run
