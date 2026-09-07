@@ -457,7 +457,7 @@ def test_dr7_acceptance() -> None:
     # The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode
     # it against the metadata tree bridged from the exported model.
     sample_path = os.path.join(
-        _SIBLINGS, "tom_som_conformance", "samples",
+        _SIBLINGS, "tom_som_dart_v0", "documents",
         "meridian_order_management.docspecs.yaml",
     )
     document = SpecDocument.from_file(

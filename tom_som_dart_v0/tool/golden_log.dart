@@ -1,7 +1,7 @@
 // Cross-language golden-log generator (SOM §19).
 //
 // Loads the language-agnostic shared sample
-// (`tom_som_conformance/samples/meridian_order_management.docspecs.yaml`) and
+// (`documents/meridian_order_management.docspecs.yaml`) and
 // emits a canonical, deterministic log of *essentially every section* read
 // through **both** the generic string-path API and the typed facade. The nine
 // per-language generators (one per `tom_som_<lang>_v0`) all emit the identical
@@ -27,9 +27,9 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
 const _defaultSample =
-    '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+    'documents/meridian_order_management.docspecs.yaml';
 const _defaultSampleMd =
-    '../tom_som_conformance/samples/meridian_order_management.md';
+    'documents/meridian_order_management.md';
 const _defaultSchema =
     'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
 // The deliberately-invalid companion fixture and the hand-authored demo schema

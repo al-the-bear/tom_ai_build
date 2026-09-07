@@ -3,7 +3,8 @@
 // Builds a broad, coherent `D00SolutionBlueprint` (Solution Blueprint) for a
 // fictional "Meridian Order Management" programme via the typed facade, then
 // serialises it to the language-agnostic `*.docspecs.yaml` wire format (and a
-// human-readable markdown rendition) under `tom_som_conformance/samples/`.
+// human-readable markdown rendition) under this package's own `documents/`,
+// so that the examples which load it keep working from a hosted install.
 //
 // The YAML file is the single artifact every language runtime loads for the
 // `d_sample_*`/`e_sample_*` access examples, so it must be produced through the
@@ -269,7 +270,7 @@ parallel-run gate passes.''');
   doc.setHeadline(frSection, 'Functional Requirements (FR)');
 
   // --- Serialise ----------------------------------------------------------
-  final samplesDir = Directory('../tom_som_conformance/samples');
+  final samplesDir = Directory('documents');
   samplesDir.createSync(recursive: true);
 
   final yaml = SpecDocumentYaml.encode(

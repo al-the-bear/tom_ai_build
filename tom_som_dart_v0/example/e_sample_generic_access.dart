@@ -19,7 +19,7 @@ void main() {
   // Load the shared sample (hierarchical v2 yaml) against the SBP metadata
   // tree — the generic one-call loader, no typed facade involved.
   final sampleFile = File.fromUri(Platform.script.resolve(
-      '../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml'));
+      '../documents/meridian_order_management.docspecs.yaml'));
   final doc =
       SpecDocument.fromFile(sampleFile.path, d00SolutionBlueprintMetaTree);
 

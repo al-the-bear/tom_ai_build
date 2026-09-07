@@ -1,0 +1,14 @@
+# Files kept in the repository but NOT shipped in the published archive.
+#
+# `tool/` holds workspace authoring tools, not consumer tools: they build the
+# shared sample document, drive the golden-log comparison, and emit the
+# CodeSpecs extracts. Every one of them reads or writes paths in sibling
+# workspace projects (`tom_som_conformance`, `tom_specs_model`) that are not
+# published, so from a hosted install they resolve onto directories that do not
+# exist. Shipping a script that cannot run is worse than not shipping it — it
+# reads as a supported entry point.
+#
+# `example/` is deliberately NOT excluded. Those scripts are the first thing a
+# consumer runs, so they must work from a hosted install; they load
+# `samples/meridian_order_management.docspecs.yaml`, which ships beside them.
+tool/

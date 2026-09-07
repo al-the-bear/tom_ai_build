@@ -22,7 +22,7 @@ schema is described by the reflection model (c).
 ## Shared-sample samples (load a real, broad document)
 
 Samples (d), (e) and (f) all load the **shared, language-agnostic** sample
-`../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml` — a
+`../documents/meridian_order_management.docspecs.yaml` — a
 broad Solution Blueprint for a fictional order-management programme, authored by
 [`tool/build_shared_sample.dart`](../tool/build_shared_sample.dart) and reused by
 every language's SOM examples. They read the same key sections three ways and

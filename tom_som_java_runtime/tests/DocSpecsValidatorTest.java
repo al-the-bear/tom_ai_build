@@ -545,7 +545,7 @@ public final class DocSpecsValidatorTest {
     // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
     // against the metadata tree bridged from the exported model.
     String samplePath =
-        SIBLINGS + "/tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+        SIBLINGS + "/tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
     SomMetaTree tree = SomMetaBridge.buildSomMetaTree(model, "D00SolutionBlueprint");
     SpecDocument document = SpecDocument.fromFile(samplePath, tree);
     String md = document.toMarkdown(model);

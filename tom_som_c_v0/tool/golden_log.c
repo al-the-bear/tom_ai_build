@@ -279,7 +279,7 @@ static void meta_id(SomStrList *out, const SomMetaRef *id_ref,
 int main(int argc, char **argv) {
   const char *sample = argc > 1
       ? argv[1]
-      : "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+      : "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
   const char *output = argc > 2 ? argv[2] : "../tom_som_conformance/golden/c.log";
 
   char *load_generic_err = NULL;
@@ -681,7 +681,7 @@ int main(int argc, char **argv) {
         read_text_file("schemas/solution-blueprint/"
                        "solution-blueprint.1.0.docspecs-schema.yaml");
     char *sample_md =
-        read_text_file("../tom_som_conformance/samples/meridian_order_management.md");
+        read_text_file("../tom_som_dart_v0/documents/meridian_order_management.md");
     DocSpecsSchema *schema = NULL;
     char *ds_err = NULL;
     if (!docspecs_schema_from_yaml_text(schema_text, &schema, &ds_err)) {

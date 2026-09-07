@@ -83,7 +83,7 @@ void main() {
 
       test('parses SOM shared sample end-to-end (nests to level 12)', () async {
         // Regression fixture: snapshot of
-        // tom_som_conformance/samples/meridian_order_management.md, the SOM
+        // tom_som_dart_v0/documents/meridian_order_management.md, the SOM
         // shared conformance sample. SOM documents nest far past CommonMark's
         // 6 heading levels; DocScanner must be a conforming reader (YRD2).
         final doc = await DocScanner.scanDocument(

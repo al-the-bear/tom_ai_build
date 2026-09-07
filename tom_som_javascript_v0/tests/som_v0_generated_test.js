@@ -281,7 +281,7 @@ function testAbsenceSemantics() {
 // from the project root, so the sample is reached via the sibling conformance
 // project.
 const _samplePath =
-  '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+  '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml';
 
 function testOneCallLoading() {
   // 4. loadYaml collapses decode → loadJson → thread-version to one call.
@@ -454,9 +454,9 @@ function testCanHaveContent() {
 // golden run. Mirrors the Dart (dsa7) and Python (dsa8) durability guards.
 function testLiveDocumentCase() {
   const sample =
-    '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+    '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml';
   const sampleMd =
-    '../tom_som_conformance/samples/meridian_order_management.md';
+    '../tom_som_dart_v0/documents/meridian_order_management.md';
   const schemaPath =
     'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
   const tree = m.d00SolutionBlueprintMetaTree;

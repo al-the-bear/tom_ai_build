@@ -70,16 +70,26 @@ void main(List<String> args) {
   final metaFile = File(
     '${Directory(confDir).parent.path}/tom_som_dart_v0/meta/spec_model.meta.json',
   );
-  final samplesDir = Directory('$confDir/samples');
+  // Two sample directories. The Meridian Solution Blueprint lives in
+  // `tom_som_dart_v0/documents/` because the examples that load it ship, and a
+  // shipped example cannot read a file from this unpublished project; the
+  // coverage-oriented fixtures stay here. Both are scanned, so the coverage
+  // this gate measures did not shrink when the document moved.
+  final samplesDirs = [
+    Directory('$confDir/samples'),
+    Directory('${Directory(confDir).parent.path}/tom_som_dart_v0/documents'),
+  ];
   final manifestFile = File('$confDir/tool/sample_coverage_manifest.yaml');
 
   if (!metaFile.existsSync()) {
     stderr.writeln('model meta missing: ${metaFile.path}');
     exit(1);
   }
-  if (!samplesDir.existsSync()) {
-    stderr.writeln('samples folder missing: ${samplesDir.path}');
-    exit(1);
+  for (final d in samplesDirs) {
+    if (!d.existsSync()) {
+      stderr.writeln('samples folder missing: ${d.path}');
+      exit(1);
+    }
   }
 
   // --- Walk the model: reachable list structures and section ids. ---
@@ -114,15 +124,17 @@ void main(List<String> args) {
   walk(_root);
 
   // --- Scan the samples: every id token appearing as a mapping key. ---
-  final sampleFiles =
-      samplesDir
-          .listSync()
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.docspecs.yaml'))
-          .toList()
-        ..sort((a, b) => a.path.compareTo(b.path));
+  final sampleFiles = [
+    for (final d in samplesDirs)
+      ...d.listSync().whereType<File>().where(
+        (f) => f.path.endsWith('.docspecs.yaml'),
+      ),
+  ]..sort((a, b) => a.path.compareTo(b.path));
   if (sampleFiles.isEmpty) {
-    stderr.writeln('no *.docspecs.yaml samples under ${samplesDir.path}');
+    stderr.writeln(
+      'no *.docspecs.yaml samples under '
+      '${samplesDirs.map((d) => d.path).join(', ')}',
+    );
     exit(1);
   }
   final keyTokens = <String>{};

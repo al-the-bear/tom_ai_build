@@ -630,8 +630,8 @@ fn test_docspecs_dr7_acceptance(c: &mut Checker) {
     // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
     // against the metadata tree bridged from the exported model.
     let sample_path = dv_siblings()
-        .join("tom_som_conformance")
-        .join("samples")
+        .join("tom_som_dart_v0")
+        .join("documents")
         .join("meridian_order_management.docspecs.yaml");
     let tree = build_som_meta_tree(&model, "D00SolutionBlueprint").expect("build_som_meta_tree");
     let sample_text = std::fs::read_to_string(&sample_path)

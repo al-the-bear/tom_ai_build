@@ -604,7 +604,7 @@ void TestDocspecsDr7Acceptance() {
 
   std::string samplePath =
       std::string(DV_SIBLINGS) +
-      "/tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+      "/tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
   auto document = som::SpecDocument::fromFile(samplePath, *tree, &err);
   if (!document.has_value()) {
     fatal("FromFile", err);

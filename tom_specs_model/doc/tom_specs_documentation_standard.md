@@ -591,17 +591,31 @@ prerequisites, the command to run it, and what the reader should see. The
 prerequisites line is what turns a failed run into a diagnosis instead of a
 puzzle.
 
-**A sample authors the smallest specification that shows its point.** The
-shared documents in `tom_som_conformance/samples/` — the Meridian Order
-Management blueprint above all — would be the better source, and they are held
-by the decode and instantiation-coverage gates. They are also **not reachable
-from a sample**: `tom_som_conformance` is not published, so depending on it
-would break the published-packages-only rule two paragraphs up. Until that is
-resolved (`tsdocb14_aiga-shipped-tool-scripts-resolve-into-an-unpublished-package`),
-a sample writes its own document and keeps it minimal — small enough that every
-number the sample prints can be checked against the code that produced it, and
-small enough that the drift a shared document would have prevented is visible
-on one screen. State in the sample's README that it authors its own and why.
+**Which document a sample reaches for.** Two answers, and the choice is about
+what the sample teaches rather than about convenience.
+
+*For a realistic document, use the Meridian Order Management Solution
+Blueprint.* It ships as
+`tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml` (with a
+markdown rendition beside it), so a sample reaches it by depending on
+`tom_som_dart_v0` — the published-packages-only rule above is satisfied rather
+than bent. It is a broad, coherent blueprint held by the decode and
+instantiation-coverage gates, which is what makes it worth reusing: a shared
+document that several samples read cannot drift under any one of them. It lives
+in the facade package rather than in the conformance corpus precisely because
+the package's own `d_`/`e_`/`f_` examples load it and a shipped example cannot
+read a file from an unpublished project.
+
+*For a minimal document, author one.* Where the point is the authoring itself,
+or where every number the sample prints should be checkable against the code
+that produced it on one screen, a sample writes its own and keeps it small.
+State in the sample's README that it authors its own and why — a reader who
+finds a hand-rolled document where a shared one exists should not have to guess
+whether that was a decision.
+
+The coverage-oriented fixtures that remain in `tom_som_conformance/samples/`
+are **not** reachable from a sample: that project is not published. They are
+harness inputs, not consumer documents, and nothing about them needs to ship.
 
 **A sample may carry runnable source and a test suite of its own** — a `lib/`
 and a `test/` — where producing them is part of the task it teaches. The

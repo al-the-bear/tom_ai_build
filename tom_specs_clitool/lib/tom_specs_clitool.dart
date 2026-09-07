@@ -112,6 +112,11 @@ export 'src/oe_citations.dart'
 // The ratchet over the two spec-tree surfaces: the reviewer is
 // documentation-gated and the editor is not, so a doc line stated in both will
 // be maintained on one side only and drift on the other with nothing saying so.
+// The gate over what a published package invites a consumer to run: a shipped
+// example whose path literals leave the package fails the first thing a new
+// consumer tries, and says nothing until they try it.
+export 'src/shipped_script_paths.dart'
+    show shippedScriptDirs, EscapingPath, readPubignoreDirs, findEscapingPaths;
 export 'src/spec_tree_duplication.dart'
     show
         sharedDocMinLength,

@@ -31,7 +31,7 @@ import {
 // __dirname at runtime is dist/tool; the project root is two levels up.
 const PROJECT = path.resolve(__dirname, '..', '..');
 const DEFAULT_SAMPLE = path.resolve(
-  PROJECT, '..', 'tom_som_conformance', 'samples',
+  PROJECT, '..', 'tom_som_dart_v0', 'documents',
   'meridian_order_management.docspecs.yaml');
 const DEFAULT_OUTPUT = path.resolve(
   PROJECT, '..', 'tom_som_conformance', 'golden', 'typescript.log');
@@ -39,7 +39,7 @@ const DEFAULT_SCHEMA = path.resolve(
   PROJECT, 'schemas', 'solution-blueprint',
   'solution-blueprint.1.0.docspecs-schema.yaml');
 const DEFAULT_SAMPLE_MD = path.resolve(
-  PROJECT, '..', 'tom_som_conformance', 'samples',
+  PROJECT, '..', 'tom_som_dart_v0', 'documents',
   'meridian_order_management.md');
 // The deliberately-invalid companion fixture and the hand-authored demo schema
 // it is written against (the same schema the runtime conformance corpus uses).

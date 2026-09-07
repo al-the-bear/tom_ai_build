@@ -5,7 +5,8 @@
 // (`codespecs_mapping.md` §1.1.1 item 1) via the Dart runtime's
 // `spec_codespecs_extract` surface, writing to the §1.1.1 location:
 // `tom_som_conformance/generated-doc/codespecs_extracts/` — the spec-root of
-// the Meridian sample being the `tom_som_conformance` project that holds it.
+// the Meridian sample being the `tom_som_conformance` project that holds the
+// extracts (the document itself ships in this package's `documents/`).
 //
 // Gate tiers reported (all must pass before extracts are written):
 //   A1 — DocSpecs schema completeness of the committed markdown rendition
@@ -32,7 +33,7 @@ void main() {
   File at(String relative) => File.fromUri(Platform.script.resolve(relative));
 
   // --- Load the three inputs ------------------------------------------------
-  final sampleFile = at('../../tom_som_conformance/samples/'
+  final sampleFile = at('../documents/'
       'meridian_order_management.docspecs.yaml');
   final doc =
       SpecDocument.fromFile(sampleFile.path, d00SolutionBlueprintMetaTree);
@@ -48,7 +49,7 @@ void main() {
 
   // --- Gate, tier A1 — schema completeness ----------------------------------
   final markdown =
-      at('../../tom_som_conformance/samples/meridian_order_management.md')
+      at('../documents/meridian_order_management.md')
           .readAsStringSync();
   final schema = DocSpecsSchema.fromYamlText(at(
           '../schemas/solution-blueprint/'

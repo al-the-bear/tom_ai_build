@@ -352,7 +352,7 @@ document:
         // The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12):
         // decode it against the metadata tree bridged from the exported model.
         final document = SpecDocument.fromFile(
-          '../tom_som_conformance/samples/meridian_order_management'
+          '../tom_som_dart_v0/documents/meridian_order_management'
           '.docspecs.yaml',
           buildSomMetaTree(model, rootType: 'D00SolutionBlueprint'),
         );

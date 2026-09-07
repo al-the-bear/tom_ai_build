@@ -41,7 +41,7 @@ from tom_som_runtime import (  # noqa: E402
 import tom_som_python_v0 as m  # noqa: E402
 
 _DEFAULT_SAMPLE_MD = os.path.normpath(os.path.join(
-    _PROJECT, "..", "tom_som_conformance", "samples",
+    _PROJECT, "..", "tom_som_dart_v0", "documents",
     "meridian_order_management.md"))
 _DEFAULT_SCHEMA = os.path.join(
     _PROJECT, "schemas", "solution-blueprint",
@@ -70,7 +70,7 @@ _KIND_DART_NAME = {
 }
 
 _DEFAULT_SAMPLE = os.path.normpath(os.path.join(
-    _PROJECT, "..", "tom_som_conformance", "samples",
+    _PROJECT, "..", "tom_som_dart_v0", "documents",
     "meridian_order_management.docspecs.yaml"))
 _DEFAULT_OUTPUT = os.path.normpath(os.path.join(
     _PROJECT, "..", "tom_som_conformance", "golden", "python.log"))

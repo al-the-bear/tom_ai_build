@@ -1344,7 +1344,7 @@ document:
 `decode(encode(doc))` reproduces every value byte-identically, except the
 blank-line collapse. `encode` output is deterministic (stable key order,
 stable scalar styles). The shared conformance sample
-(`tom_som_conformance/samples/meridian_order_management.*`) round-trips in
+(`tom_som_dart_v0/documents/meridian_order_management.*`) round-trips in
 md, yaml, and the schema identically across all nine languages.
 
 ### 12.8 One encoder, per language

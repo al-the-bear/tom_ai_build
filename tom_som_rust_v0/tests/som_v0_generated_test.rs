@@ -346,7 +346,7 @@ fn can_have_content_ignores_document_state() {
 
 /// The shared conformance sample, resolved relative to the crate root (which is
 /// `cargo test`'s cwd).
-const SAMPLE_PATH: &str = "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+const SAMPLE_PATH: &str = "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
 
 /// `load_yaml` collapses the former parse-into-document → thread-version
 /// incantation into one call, applying the document stamp automatically and
@@ -451,7 +451,7 @@ fn unstamped_document_has_empty_model_version() {
 /// Java (dsa12) durability guards.
 #[test]
 fn live_document_case() {
-    const SAMPLE_MD: &str = "../tom_som_conformance/samples/meridian_order_management.md";
+    const SAMPLE_MD: &str = "../tom_som_dart_v0/documents/meridian_order_management.md";
     const SCHEMA_PATH: &str =
         "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
     const MODEL_META_PATH: &str = "meta/spec_model.meta.json";

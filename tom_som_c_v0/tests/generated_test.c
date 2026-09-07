@@ -405,7 +405,7 @@ static char *read_file(const char *path) {
  * Dart "one-call loading" group. */
 static void test_one_call_loading(void) {
   const char *sample_path =
-      "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
 
   /* load_yaml collapses decode -> load_json -> thread-version into one call. */
   {
@@ -717,9 +717,9 @@ static int strlist_eq(const SomStrList *a, const SomStrList *b) {
  * guards. */
 static void test_live_document_case(void) {
   const char *sample_path =
-      "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
   const char *sample_md_path =
-      "../tom_som_conformance/samples/meridian_order_management.md";
+      "../tom_som_dart_v0/documents/meridian_order_management.md";
   const char *schema_path =
       "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
   const char *model_meta_path = "meta/spec_model.meta.json";

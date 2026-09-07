@@ -134,7 +134,7 @@ void main() {
       // it with the generated one-call loader, which decodes against the SBP
       // metadata tree and applies the yaml's modelVersion stamp.
       sbp = D00SolutionBlueprint.loadFile(
-          '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml');
+          'documents/meridian_order_management.docspecs.yaml');
       doc = sbp.doc;
     });
 
@@ -410,9 +410,9 @@ void main() {
   // not only a full nine-toolchain golden run.
   group('shared sample: live-document case durability (YRD8 / dsa7)', () {
     const samplePath =
-        '../tom_som_conformance/samples/meridian_order_management.docspecs.yaml';
+        'documents/meridian_order_management.docspecs.yaml';
     const sampleMdPath =
-        '../tom_som_conformance/samples/meridian_order_management.md';
+        'documents/meridian_order_management.md';
     const schemaPath =
         'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
     const modelMetaPath = 'meta/spec_model.meta.json';

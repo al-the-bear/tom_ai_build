@@ -39,7 +39,7 @@ DocSpecs YAML and markdown:
 dart run tool/build_shared_sample.dart
 ```
 
-writes `tom_som_conformance/samples/meridian_order_management.docspecs.yaml`
+writes `tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml`
 and `.md`. Open either file to see what an authored Solution Blueprint looks
 like on disk; open `tool/build_shared_sample.dart` to see the same document
 authored through the typed API.

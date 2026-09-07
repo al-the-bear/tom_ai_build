@@ -290,7 +290,7 @@ def test_one_call_loading() -> None:
     from tom_som_runtime.spec_document_yaml import decode
 
     # The suite runs from the project root; this relative path resolves there.
-    sample_path = "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml"
+    sample_path = "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml"
 
     # 4) load_yaml collapses decode → load_json → thread-version to one call.
     with open(sample_path, "r", encoding="utf-8") as f:
@@ -362,8 +362,8 @@ def test_live_document_case() -> None:
     regression fails ``python3 tests/som_v0_generated_test.py`` without needing
     a full nine-toolchain golden run.
     """
-    sample = "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml"
-    sample_md = "../tom_som_conformance/samples/meridian_order_management.md"
+    sample = "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml"
+    sample_md = "../tom_som_dart_v0/documents/meridian_order_management.md"
     schema_path = ("schemas/solution-blueprint/"
                    "solution-blueprint.1.0.docspecs-schema.yaml")
     tree = m.d00SolutionBlueprintMetaTree

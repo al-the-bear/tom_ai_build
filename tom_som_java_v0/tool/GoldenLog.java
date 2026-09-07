@@ -56,7 +56,7 @@ public final class GoldenLog {
 
   public static void main(String[] args) throws IOException {
     String sample = args.length > 0 ? args[0]
-        : "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+        : "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
     String output = args.length > 1 ? args[1]
         : "../tom_som_conformance/golden/java.log";
 
@@ -279,7 +279,7 @@ public final class GoldenLog {
         StandardCharsets.UTF_8);
     DocSpecsSchema schema = DocSpecsSchema.fromYamlText(schemaText);
     String sampleMd = new String(Files.readAllBytes(Paths.get(
-        "../tom_som_conformance/samples/meridian_order_management.md")),
+        "../tom_som_dart_v0/documents/meridian_order_management.md")),
         StandardCharsets.UTF_8);
     List<DocSpecsViolation> violations = new DocSpecsValidator(schema).validateMarkdown(sampleMd);
     String rootSid = schema.rootSectionId();

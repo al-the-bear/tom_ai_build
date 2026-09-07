@@ -748,7 +748,7 @@ static void TestDocspecsDr7Acceptance(void) {
 
   const char *samplePath =
       DV_SIBLINGS
-      "/tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+      "/tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
   SpecDocument *document = spec_document_from_file(samplePath, tree, &err);
   if (document == NULL) fatal("FromFile", err);
 

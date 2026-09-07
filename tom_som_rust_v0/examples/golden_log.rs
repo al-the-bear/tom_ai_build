@@ -32,7 +32,7 @@ fn main() {
     let sample = if args.len() > 1 {
         args[1].clone()
     } else {
-        "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml".to_string()
+        "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml".to_string()
     };
     let output = if args.len() > 2 {
         args[2].clone()
@@ -460,7 +460,7 @@ fn main() {
         fs::read_to_string(schema_path).unwrap_or_else(|e| die(&format!("read schema: {}", e)));
     let schema = som::DocSpecsSchema::from_yaml_text(&schema_text)
         .unwrap_or_else(|e| die(&format!("from_yaml_text: {}", e)));
-    let sample_md_path = "../tom_som_conformance/samples/meridian_order_management.md";
+    let sample_md_path = "../tom_som_dart_v0/documents/meridian_order_management.md";
     let sample_md =
         fs::read_to_string(sample_md_path).unwrap_or_else(|e| die(&format!("read sample md: {}", e)));
     let root_id = schema.root_section_id();

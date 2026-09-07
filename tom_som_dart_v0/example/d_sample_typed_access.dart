@@ -1,7 +1,7 @@
 // Sample (d) — CONCRETE / typed access over the shared sample document.
 //
 // Loads the language-agnostic shared sample
-// (`tom_som_conformance/samples/meridian_order_management.docspecs.yaml`) into a
+// (`documents/meridian_order_management.docspecs.yaml`, shipped with this package) into a
 // `SpecDocument`, then wraps it in the generated `D00SolutionBlueprint` facade
 // and reads key sections through typed getters. Contrast with
 // `e_sample_generic_access.dart`, which reaches the same values via raw string
@@ -17,7 +17,7 @@ void main() {
   // three levels up, in one call. The sample is stamped 1.0; the facade
   // verifies it is editable for its own model version.
   final sampleFile = File.fromUri(Platform.script.resolve(
-      '../../tom_som_conformance/samples/meridian_order_management.docspecs.yaml'));
+      '../documents/meridian_order_management.docspecs.yaml'));
   final sbp = D00SolutionBlueprint.loadFile(sampleFile.path);
 
   stdout.writeln('=== Typed access: Meridian Order Management (SBP) ===\n');

@@ -444,7 +444,7 @@ int main(int argc, char** argv) {
         "schemas/solution-blueprint/"
         "solution-blueprint.1.0.docspecs-schema.yaml";
     const std::string sampleMdPath =
-        "../tom_som_conformance/samples/meridian_order_management.md";
+        "../tom_som_dart_v0/documents/meridian_order_management.md";
     std::string schemaErr;
     std::optional<som::DocSpecsSchema> schema =
         som::docspecsSchemaFromYamlText(readFile(schemaPath), &schemaErr);

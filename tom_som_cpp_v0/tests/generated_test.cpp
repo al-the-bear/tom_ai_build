@@ -406,7 +406,7 @@ void testCanHaveContent() {
 // sentinel when absent). Mirrors the Dart "one-call loading" group.
 void testOneCallLoading() {
   const std::string samplePath =
-      "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
 
   // (4) loadYaml collapses decode -> loadJson -> thread-version to one call.
   {
@@ -507,7 +507,7 @@ void testOneCallLoading() {
 }
 
 // YRD8 conformance (dsa15): the shared live-document case the C++ golden
-// generator processes — the Meridian sample in tom_som_conformance/samples. The
+// generator processes — the Meridian sample in tom_som_dart_v0/documents. The
 // golden log itself is git-ignored, so this committed test pins the three
 // live-document guarantees (round-trip stability, DocSpecs validation, node
 // operations) plus a fourth the golden has no section for — instance-tier
@@ -516,9 +516,9 @@ void testOneCallLoading() {
 void testLiveDocumentCase() {
   namespace m = tom_som_v0_meta;
   const std::string samplePath =
-      "../tom_som_conformance/samples/meridian_order_management.docspecs.yaml";
+      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
   const std::string sampleMdPath =
-      "../tom_som_conformance/samples/meridian_order_management.md";
+      "../tom_som_dart_v0/documents/meridian_order_management.md";
   const std::string schemaPath =
       "schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml";
   const std::string modelMetaPath = "meta/spec_model.meta.json";

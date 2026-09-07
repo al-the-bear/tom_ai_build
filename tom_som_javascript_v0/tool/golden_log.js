@@ -23,10 +23,10 @@ const {
 const m = require(path.join(_PROJECT, 'tom_som_javascript_v0.js'));
 
 const DEFAULT_SAMPLE = path.resolve(
-  _PROJECT, '..', 'tom_som_conformance', 'samples',
+  _PROJECT, '..', 'tom_som_dart_v0', 'documents',
   'meridian_order_management.docspecs.yaml');
 const DEFAULT_SAMPLE_MD = path.resolve(
-  _PROJECT, '..', 'tom_som_conformance', 'samples',
+  _PROJECT, '..', 'tom_som_dart_v0', 'documents',
   'meridian_order_management.md');
 const DEFAULT_SCHEMA = path.resolve(
   _PROJECT, 'schemas', 'solution-blueprint',

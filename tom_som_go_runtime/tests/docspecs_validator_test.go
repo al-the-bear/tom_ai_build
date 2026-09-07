@@ -453,7 +453,7 @@ func TestDocspecsDr7Acceptance(t *testing.T) {
 	// The shared sample is a hierarchical-v2 `*.docspecs.yaml` (SOM §12): decode it
 	// against the metadata tree bridged from the exported model.
 	samplePath := filepath.Join(
-		dvSiblings, "tom_som_conformance", "samples",
+		dvSiblings, "tom_som_dart_v0", "documents",
 		"meridian_order_management.docspecs.yaml")
 	tree, err := som.BuildSomMetaTree(model, "D00SolutionBlueprint")
 	if err != nil {

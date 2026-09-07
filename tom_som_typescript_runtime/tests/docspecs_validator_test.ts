@@ -443,8 +443,8 @@ function testDr7Acceptance(): void {
   // against the metadata tree bridged from the exported model.
   const samplePath = path.join(
     _SIBLINGS,
-    'tom_som_conformance',
-    'samples',
+    'tom_som_dart_v0',
+    'documents',
     'meridian_order_management.docspecs.yaml',
   );
   const document = SpecDocument.fromFile(
