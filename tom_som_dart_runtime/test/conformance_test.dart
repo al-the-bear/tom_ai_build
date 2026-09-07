@@ -1085,7 +1085,7 @@ SpecQuery _queryFromJson(Map<String, dynamic> j) => SpecQuery(
 /// fixture, see the `realistic (convention-conformant) model` group in
 /// `spec_document_yaml_test.dart`.
 ///
-/// The kind coverage is **total**: all seven §7.1 field kinds are declared —
+/// The kind coverage is **total**: all seven SOM §7.1 field kinds are declared —
 /// content (incl. a multi-line block-scalar value), enum, scalar, a two-field
 /// `@Form`, a `@Min`-constrained complex list, a nested complex section, a
 /// `section` member (`notes` → `Notes`), and a (declared-but-unpopulated)
@@ -2577,7 +2577,7 @@ Map<String, dynamic> _stampCases() {
   };
 }
 
-/// The §4.2/§21 editability corpus: what `somEditabilityFor` classifies a
+/// The SOM §4.2/§21 editability corpus: what `somEditabilityFor` classifies a
 /// `(generated, documentVersion)` pair as, and what `checkSomModelVersion` then
 /// does about it.
 ///
@@ -2596,7 +2596,8 @@ Map<String, dynamic> _stampCases() {
 ///   non-nullable string (Go, Rust, C, C++) read `null` as `""`, the CS4-D2
 ///   empty-string sentinel, so those two cases coincide there and are separate
 ///   cases everywhere else.
-/// * `editability` — the §21 classification, spelled as the Dart constant name
+/// * `editability` — the SOM §21 classification, spelled as the Dart constant
+///   name
 ///   (the corpus convention; each port maps it to its own spelling).
 /// * `rejects` — whether `checkSomModelVersion` refuses. Not "throws": C returns
 ///   non-zero, Go returns an `error`, Rust returns `Err`. The refusal is the
@@ -2749,14 +2750,15 @@ Map<String, dynamic> _editabilityCases() {
 ///
 ///  * `rejections` — every block the importer could not place, in the order it
 ///    reports them, pinned on the full `(line, reason, anchor, message)`. The
-///    message is pinned for the same reason the §21 version table pins it: a
+///    message is pinned for the same reason the SOM §21 version table pins it: a
 ///    reason is one classification with several causes, and the message is
 ///    where they separate. `unknownSection` alone has three causes (no match at
 ///    this position, an unresolvable parent, no such document root) and
 ///    `orphanContent` two (before the root, before a form's first field label);
 ///    a table that pinned only the reason would let a port collapse them.
 ///  * `document` — what *did* land, as the `toJson()` document map. This is the
-///    half that catches the failure §11.7 exists to prevent. A port that drops
+///    half that catches the failure SOM §11.7 exists to prevent. A port that
+///    drops
 ///    an unplaceable block silently fails `rejections`; a port that reports the
 ///    block and then abandons the rest of the parse fails `document`. Neither
 ///    assertion alone says "reported, **not** dropped, and the rest still
@@ -3323,7 +3325,7 @@ Map<String, dynamic> _serializationOrderCase() {
 
 /// The corpus schema for the DocSpecs tier — hand-authored in the
 /// schema-generator output shape (SOM §13), deliberately small and shaped so a
-/// single schema can provoke every one of the eleven §14 rules.
+/// single schema can provoke every one of the eleven SOM §14 rules.
 ///
 /// It is a *fixture input*, not a golden: the ports load this exact YAML and
 /// must reach the same verdicts on the same markdown. The `pattern-check-id`
@@ -3431,7 +3433,7 @@ Second goal.
 ''';
 
 /// The hand-authored markdown inputs, one per named case. Every one of the
-/// eleven §14 rules is provoked by at least one of these; the final case
+/// eleven SOM §14 rules is provoked by at least one of these; the final case
 /// provokes three at once, pinning the "never fail-fast" contract as a
 /// cross-language obligation rather than a Dart-only unit test.
 List<Map<String, String>> _docSpecsMarkdownCases() {
@@ -3779,8 +3781,10 @@ List<Map<String, dynamic>> _projectionCases(SpecModel model, SpecDocument doc) {
 /// fixture's routing verdicts name.
 ///
 /// The `CE-*` codes, canonical ids, `@CodeSpecKind` values, `Cs*` annotations
-/// and "Built on" cells are the **real** §4.1 rows, and the seven slices are the
-/// real §4.4.3 table with its real citation edges: the catalogue is an *input*
+/// and "Built on" cells are the **real** `codespecs_mapping.md` §4.1 rows, and
+/// the seven slices are that document's real `codespecs_mapping.md` §4.4.3
+/// table with its real
+/// citation edges: the catalogue is an *input*
 /// to the extractor, so a synthetic one would pin the plumbing while leaving the
 /// vocabulary — the half a port can get wrong in nine identical ways — unpinned.
 /// What is cut down is only *how many* rows, never what a row says.

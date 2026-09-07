@@ -6,13 +6,15 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// The gate over `tom_specs_model_rules.md` §10.2 and everything that cites it.
 ///
 /// Two properties, both checked against the real documents by the first test:
-/// §10.2 and `validator.dart` name the same set of invariants in both
-/// directions, and every `§10.2 invariant <ID>` citation in the corpus resolves
-/// to an id §10.2 defines. The synthetic cases below pin each failure mode
-/// independently of the real documents, so they keep testing the same thing
-/// after the model moves on.
+/// `tom_specs_model_rules.md` §10.2 and `validator.dart` name the same set of
+/// invariants in both directions, and every `tom_specs_model_rules.md`
+/// `§10.2 invariant <ID>` citation in the corpus resolves to an id
+/// `tom_specs_model_rules.md` §10.2 defines. The synthetic cases below pin each
+/// failure mode independently of the real documents, so they keep testing the
+/// same thing after the model moves on.
 ///
-/// The corpus scan is what makes §10.2's ordinals free to move: a citation names
+/// The corpus scan is what makes `tom_specs_model_rules.md` §10.2's ordinals
+/// free to move: a citation names
 /// an id, an id outlives a reordering, and a citation of an id that was never
 /// allocated (or has been retired) fails here rather than pointing at whatever
 /// now occupies that list position.
@@ -246,7 +248,8 @@ void main() {
   });
 }
 
-/// A minimal §10.2 section defining [ids], in order.
+/// A minimal `tom_specs_model_rules.md` §10.2 section defining [ids], in
+/// order.
 String _rulesWith(List<String> ids) {
   final buffer = StringBuffer(
     '### 10.2 The mechanical structural invariants\n\n',

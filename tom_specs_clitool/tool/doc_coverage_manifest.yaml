@@ -16,7 +16,8 @@
 # which refuses to lower any. Lowering a floor by hand is not a shortcut around
 # a red gate; it is the gate being switched off, and the diff says so.
 #
-# `target:` is the §5 bar the entry climbs to — 95% for the libraries, the
+# `target:` is the `tom_specs_documentation_standard.md` §5 bar the entry
+# climbs to — 95% for the libraries, the
 # tools and the SOM runtimes, 90% for tom_specs_reviewer. It is carried beside
 # the floor so the remaining gap is visible without opening the standard. Every
 # entry currently sits at 100%, above its target: the tsdoc12..tsdoc17 sweeps
@@ -24,14 +25,16 @@
 #
 # WHAT THE MEASUREMENT CAN AND CANNOT SEE. The walker resolves each package's
 # `lib/*.dart` entry libraries with the analyzer and counts the export
-# namespace — §5's "every exported declaration" — plus each exported type's
-# public members, which is §5's "and every public member of one". It excludes
+# namespace — `tom_specs_documentation_standard.md` §5's "every exported
+# declaration" — plus each exported type's public members, which is that
+# section's "and every public member of one". It excludes
 # what `public_member_api_docs` excludes and for the same reasons: a synthetic
 # member has no source to document, an `@override` member inherits its
 # supertype's comment, and a setter whose getter exists is half of one
 # read/write property that `dart doc` renders as a single entry.
 #
-# It counts a doc comment's PRESENCE. §5 also says a comment that merely
+# It counts a doc comment's PRESENCE. `tom_specs_documentation_standard.md` §5
+# also says a comment that merely
 # restates its identifier (`/// The name.` on `String name`) does not count as
 # documented, and no mechanical check can see that — this one included. Read
 # the percentage as the floor of the truth, never as the truth.
@@ -74,7 +77,8 @@ packages:
     floor: 100
     target: 90
 
-# EXEMPT — generated packages (§5). Their public surface is emitted by
+# EXEMPT — generated packages (`tom_specs_documentation_standard.md` §5). Their
+# public surface is emitted by
 # generate_som.dart, so a coverage failure there is an EMITTER bug and belongs
 # to the emitter's own tests, not to a per-package threshold that would blame
 # the wrong artifact. An entry for one of these fails the gate.
@@ -89,7 +93,8 @@ exempt:
   - tom_ai/ai_build/tom_som_c_v0
   - tom_ai/ai_build/tom_som_cpp_v0
 
-# EXCLUDED — out of documentation scope entirely (§6). Absent rather than
+# EXCLUDED — out of documentation scope entirely
+# (`tom_specs_documentation_standard.md` §6). Absent rather than
 # present-at-zero deliberately: a zero entry reads as a standing debt, and this
 # is a decision. An entry for one fails the gate.
 excluded:

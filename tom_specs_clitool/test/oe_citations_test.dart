@@ -4,7 +4,8 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// A minimal register document with the same shape as the real §22.
+/// A minimal register document with the same shape as the real
+/// `tom_specs_editor_specification.md` §22.
 const _register = '''
 # Some Specification
 

@@ -100,7 +100,8 @@ void main() {
   });
 }
 
-/// A §6 stand-in carrying [entries] as its table.
+/// A `codespecs_derivation_contract.md` §6 stand-in carrying [entries] as its
+/// table.
 String _tableOf(List<(int, String)> entries) => [
       '## 6. Validator checks this contract creates',
       '',

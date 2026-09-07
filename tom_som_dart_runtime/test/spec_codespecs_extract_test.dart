@@ -668,7 +668,7 @@ SpecDocument _document() {
 /// The `CE-*` codes, canonical ids and kind values are the real registry keys
 /// (they are permanent, so inventing one here would put a key in circulation
 /// that means nothing); the slice numbers and authoring steps are a cut-down
-/// synthetic graph, not §4.4.3's.
+/// synthetic graph, not `codespecs_mapping.md` §4.4.3's.
 CodeSpecsAreaCatalog _catalog() => const CodeSpecsAreaCatalog(
       source: 'codespecs_mapping.md §4.1 (test fixture)',
       slices: [

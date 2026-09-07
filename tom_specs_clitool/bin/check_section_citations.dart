@@ -12,9 +12,10 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///   dart run bin/check_section_citations.dart --no-default-readmes
 ///
 /// The project READMEs that cite the doc set ([defaultCitedReadmes]) and the
-/// doc comments of the CodeSpecs source packages ([defaultCitedSourceRoots])
-/// are scanned by default, so the command and the gate test cover the same
-/// files without the lists having to be repeated on a command line.
+/// comments of every citing source tree ([defaultCitedSourceRoots] — each
+/// package's `lib/`, `bin/`, `test/` and `tool/`) are scanned by default, so
+/// the command and the gate test cover the same files without the lists having
+/// to be repeated on a command line.
 ///
 /// A bare `§N` means *this* document, so it resolves against the headings of
 /// the file it is written in; a citation with a document name in front of it
@@ -48,13 +49,14 @@ Future<void> main(List<String> arguments) async {
         help: 'Also scan the package `doc/` folders that cite the doc set.')
     ..addMultiOption(
       'source',
-      help: 'Additional Dart file — or a directory of them — whose `///` '
-          'comments are scanned. Repeatable. Defaults to the CodeSpecs source '
-          'packages; pass --no-default-sources to scan markdown alone.',
+      help: 'Additional source file — or a directory of them — whose comments '
+          'are scanned: `///` in Dart, `#` in shell/Python/YAML, `//` in the '
+          'C family. Repeatable. Defaults to the citing source trees; pass '
+          '--no-default-sources to scan markdown alone.',
     )
     ..addFlag('default-sources',
         defaultsTo: true,
-        help: 'Also scan the doc comments of the CodeSpecs source packages.')
+        help: 'Also scan the comments of the citing source trees.')
     ..addFlag('verbose', abbr: 'v',
         help: 'List every citation, not only the unresolved ones.',
         negatable: false)
@@ -101,7 +103,7 @@ Future<void> main(List<String> arguments) async {
       extraSources: [
         if (results.flag('default-sources'))
           for (final root in defaultCitedSourceRoots)
-            ...listDartSources(p.normalize(p.join(containerRoot, root))),
+            ...listScannedSources(p.normalize(p.join(containerRoot, root))),
         // A `--source` may name a file or a directory. Expanding a directory
         // here rather than rejecting it keeps the option the same shape as
         // [defaultCitedSourceRoots], and stops a directory argument from
@@ -110,7 +112,7 @@ Future<void> main(List<String> arguments) async {
           ...(() {
             final resolved = p.normalize(p.absolute(path));
             return Directory(resolved).existsSync()
-                ? listDartSources(resolved)
+                ? listScannedSources(resolved)
                 : [resolved];
           })(),
       ],

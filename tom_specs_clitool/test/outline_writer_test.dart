@@ -7,9 +7,11 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// Covers `lib/src/outline_writer.dart` and the `tom_specs_model_rules.md` §11
 /// specification of it.
 ///
-/// Two halves, for two different ways §11 went stale at once.
+/// Two halves, for two different ways `tom_specs_model_rules.md` §11 went
+/// stale at once.
 ///
-/// **The excerpt guard** is the one that would have caught the drift. §11.4's
+/// **The excerpt guard** is the one that would have caught the drift.
+/// `tom_specs_model_rules.md` §11.4's
 /// worked sample was hand-written in a notation the outliner had stopped
 /// emitting — `->` / `-:` arrows, 4-space indents, a bare comma list of form
 /// fields — and named classes the model no longer has. Nothing compared it to a
@@ -20,7 +22,8 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// generated outline, so an excerpt cannot restate generated output inaccurately
 /// -- it either is that output or the suite is red.
 ///
-/// **The notation cases** cover the rules §11.2 states that the current model
+/// **The notation cases** cover the rules `tom_specs_model_rules.md` §11.2
+/// states that the current model
 /// never exercises: the model declares no enum member and uses no `@Position`,
 /// `@ForEach`, `@TextRequired` or `@Max` anywhere, so those renderings appear in
 /// no committed outline and the excerpt guard cannot reach them. They are

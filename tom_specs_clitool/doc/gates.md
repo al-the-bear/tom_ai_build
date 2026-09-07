@@ -185,9 +185,16 @@ sweeping the workspace:
 
 | Gate | Default corpus | Where |
 |------|---------------|-------|
-| Section citations | The doc folder + every TomSpecs README + every package `doc/` folder + the Dart doc comments of the citing source trees | `defaultCitedReadmes`, `defaultCitedDocFolders`, `defaultCitedSourceRoots` |
+| Section citations | The doc folder + every TomSpecs README + every package `doc/` folder + the comments of the citing source trees — each package's `lib/`, `bin/`, `test/` and `tool/` | `defaultCitedReadmes`, `defaultCitedDocFolders`, `defaultCitedSourceRoots` |
 | Todo citations | The doc folder + the same READMEs + the same `doc/` folders | `defaultCitedReadmes`, `defaultCitedDocFolders` |
 | OE citations | The editor project + the doc folder + the quest bookkeeping | `defaultCitingRoots` |
+
+A source tree's comments are read **per kind**: Dart's `///` through a parse —
+a line scan reads a test fixture's string literal as a doc comment, which is
+what kept `test/` out of the sets — `#` in the shell, Python and YAML that
+`tool/` is made of, and `//` in the C family the eight non-Dart SOM planes are
+written in. A citation in a form no lift reads is outside every gate; the four
+roots in that position are named beside `defaultCitedSourceRoots`.
 
 The consequence to know: **a newly documented package that cites `§` sections is
 not held by any gate until it is added to those lists.** Until then, run it

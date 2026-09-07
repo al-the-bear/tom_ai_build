@@ -539,6 +539,14 @@ class A {}
       // annotation packages unnoticed while the doc folder was clean — and a
       // package's doc comments are the first thing a reader of that package
       // sees, so they decay in exactly the same silence.
+      //
+      // The roots are no longer all `lib/` and no longer all Dart:
+      // `defaultCitedSourceRoots` now names each package's `bin/`, `test/` and
+      // `tool/` too, and `tool/` is shell, Python and YAML. So the sources are
+      // collected with `listScannedSources` and the violation filter below
+      // takes every scanned kind — filtering to `.dart` would have quietly
+      // stopped asserting anything about the trees this suite had just been
+      // widened to cover.
       final roots = {
         for (final root in defaultCitedSourceRoots)
           root: p.normalize(p.join(containerRoot, root)),
@@ -551,14 +559,14 @@ class A {}
 
       final byRoot = {
         for (final entry in roots.entries)
-          entry.key: listDartSources(entry.value),
+          entry.key: listScannedSources(entry.value),
       };
       final sources = [for (final files in byRoot.values) ...files];
       final report = checkSectionCitations(docDir: docDir, extraSources: sources);
 
       expect(
         report.violations
-            .where((c) => p.extension(c.file) == '.dart')
+            .where((c) => isScannedSource(c.file))
             .map((c) => c.describe(relativeTo: containerRoot)),
         isEmpty,
       );
@@ -568,7 +576,7 @@ class A {}
       // direction — so the gate is only clean when both are empty.
       expect(
         report.staleExemptions
-            .where((e) => p.extension(e.file) == '.dart')
+            .where((e) => isScannedSource(e.file))
             .map((e) => e.describe(relativeTo: containerRoot)),
         isEmpty,
       );
@@ -843,6 +851,113 @@ class A {}
 
       expect(report.violations, isEmpty);
       expect(report.isClean, isFalse);
+    });
+  });
+
+  group('SCC9: the comment lift', () {
+    test('a `///` inside a string literal is not a doc comment', () {
+      // The case that made `test/` unlistable: a test for a doc-comment scanner
+      // writes its fixtures as string literals full of `///` lines, and a line
+      // scanner reads them as the containing file's own doc comments. The
+      // line-scoped exhibit marker cannot excuse them either — it sits at the
+      // fixture's line numbers, not the file's.
+      final source = [
+        'void main() {',
+        "  const fixture = r'''",
+        '/// A bare §4.1 that only the fixture is meant to carry.',
+        "''';",
+        '  print(fixture);',
+        '}',
+      ].join('\n');
+      expect(dartDocComments(source).contains('§4.1'), isFalse);
+    });
+
+    test('a real doc comment beside a fixture is still lifted', () {
+      // The other half: suppressing the literal must not suppress the file.
+      final source = [
+        '/// Real documentation citing `codespecs_mapping.md` §4.1.',
+        'void main() {',
+        "  const fixture = r'''",
+        '/// A bare §9.9 inside the literal.',
+        "''';",
+        '  print(fixture);',
+        '}',
+      ].join('\n');
+      final lifted = dartDocComments(source);
+      expect(lifted, contains('§4.1'));
+      expect(lifted.contains('§9.9'), isFalse);
+    });
+
+    test('line numbers survive the lift', () {
+      final source = [
+        '// not documentation',
+        '/// On line three, citing `codespecs_mapping.md` §4.1.',
+        'class A {}',
+      ].join('\n');
+      final lines = dartDocComments(source).split('\n');
+      expect(lines[0], isEmpty);
+      expect(lines[1], contains('§4.1'));
+      expect(lines[2], isEmpty);
+    });
+
+    test('a source that will not parse still gets the line scan', () {
+      // A silent skip is the failure this gate exists to prevent, so a source
+      // too broken to parse falls back rather than dropping out unreported.
+      final source = [
+        '/// Citing `codespecs_mapping.md` §4.1.',
+        'class A { ( ) ] unparseable',
+      ].join('\n');
+      expect(dartDocComments(source), contains('§4.1'));
+    });
+
+    test('hashComments lifts a whole-line `#` comment', () {
+      final source = [
+        '#!/usr/bin/env bash',
+        '# Per `codespecs_mapping.md` §4.1.',
+        'echo hello',
+      ].join('\n');
+      final lines = hashComments(source).split('\n');
+      expect(lines[1], contains('§4.1'));
+      expect(lines[2], isEmpty);
+    });
+
+    test('a trailing comment after code is not lifted', () {
+      // A trailing note is not documentation, and a marker inside a quoted
+      // string is not a comment at all — which a line scanner cannot tell
+      // apart. Requiring the marker to open the line keeps the scanner out of
+      // that question entirely.
+      expect(hashComments('echo "see §4.1"  # and §4.2\n').trim(), isEmpty);
+      expect(slashComments('go(); // and §4.2\n').trim(), isEmpty);
+    });
+
+    test('slashComments lifts the C-family line comment', () {
+      final source = [
+        '// Cross-language generator (`codespecs_mapping.md` §9.2).',
+        'int main() { return 0; }',
+      ].join('\n');
+      expect(slashComments(source), contains('§9.2'));
+    });
+
+    test('liftComments picks the lift by extension', () {
+      expect(liftComments('a.dart', '/// Cites §4.1.\nclass A {}'),
+          contains('§4.1'));
+      expect(liftComments('a.sh', '# Cites §4.1.\nexit 0'), contains('§4.1'));
+      expect(liftComments('a.go', '// Cites §4.1.\nfunc main() {}'),
+          contains('§4.1'));
+      // A `//` in a Dart file is a note, not documentation — the one place the
+      // two line lifts deliberately disagree.
+      expect(liftComments('a.dart', '// Cites §4.1.\nclass A {}').trim(),
+          isEmpty);
+    });
+
+    test('isScannedSource admits the kinds these packages write', () {
+      for (final ok in ['a.dart', 'a.sh', 'a.py', 'a.yaml', 'a.c', 'a.go',
+        'a.java', 'a.js', 'a.ts', 'a.rs', 'a.cpp']) {
+        expect(isScannedSource(ok), isTrue, reason: ok);
+      }
+      for (final no in ['a.png', 'a.md', 'a.json', 'a.txt']) {
+        expect(isScannedSource(no), isFalse, reason: no);
+      }
     });
   });
 }

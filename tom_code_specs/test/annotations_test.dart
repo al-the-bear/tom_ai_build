@@ -182,14 +182,16 @@ class CustomerEditForm {
 class SaveButton {}
 
 /// CE-LO — the layout node model. The node id is the one thing the `Acl*`
-/// substrate lacks and is what the §5.22 delta grammar addresses nodes by.
+/// substrate lacks and is what `codespecs_mapping.md` §5.22's delta grammar
+/// addresses nodes by.
 @CsLayout('customerEditRoot', note: 'two-column above 900dp')
 @CodeSpec('LO-CUSTOMER-EDIT', source: ['XDS-CUSTLAYOUT'])
 class CustomerEditLayout {}
 
 /// CE-AC — one action, several triggers. Each `@CsTrigger` fills exactly the
 /// slots its `kind` declares (`codespecs_derivation_contract.md` §6 check 8) —
-/// the annotation-level rendering of §8.2's `@OneOf`/`@Case` closed choice.
+/// the annotation-level rendering of `codespecs_mapping.md` §8.2's
+/// `@OneOf`/`@Case` closed choice.
 @CsAction(note: 'validates, then calls the server')
 @CsTrigger(
   kind: CsTriggerKind.userGesture,
@@ -516,7 +518,8 @@ class CrmAddCreditLimit {}
 @CodeSpec('JB-NIGHTLY-CLEANUP', source: ['TOM-JOBS'])
 class NightlyCleanupJob {}
 
-/// A scheduled report run — the §5.28 case where a CE-RP definition names a
+/// A scheduled report run — the `codespecs_mapping.md` §5.28 case where a
+/// CE-RP definition names a
 /// schedule and the CE-JB job realises it. Its target report is a
 /// [CsReportRef] const, so a renamed report is a compile error.
 @CsJob(
@@ -544,7 +547,8 @@ class NotificationCatalog {
 }
 
 /// CE-RP — a report authors four independently-shaped things, so it has four
-/// markers. All are note-only: §5.28's surface maps onto
+/// markers. All are note-only: `codespecs_mapping.md` §5.28's surface maps
+/// onto
 /// `TomReportDefinition`'s constructor and its dimension/measure members.
 @CsReport(note: 'sales by region, quarterly')
 @CodeSpec('RP-SALES-BY-REGION', source: ['REPENT'])

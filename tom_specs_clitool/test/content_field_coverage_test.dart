@@ -2,9 +2,10 @@
 ///
 /// `tom_specs_model_rules.md` §5.2 makes the `content` override part of what a
 /// section *is*: the prose between its headline and the next one, independent
-/// of whichever form fields the class also carries. §5.4 grades a missing one
+/// of whichever form fields the class also carries. `tom_specs_model_rules.md`
+/// §5.4 grades a missing one
 /// as an **error**, so `validator.dart` refuses to generate past it — and
-/// grades an *undocumented* one the same way (§5.6).
+/// grades an *undocumented* one the same way (`tom_specs_model_rules.md` §5.6).
 ///
 /// This test is the second net. The validator guards the path from model source
 /// to meta; this guards the committed meta itself, so a hand-edited artifact or

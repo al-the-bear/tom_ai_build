@@ -149,6 +149,9 @@ library;
 
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:path/path.dart' as p;
 
 /// The shape of a section id: a dotted number, or an upper-case symbolic id.
@@ -375,7 +378,7 @@ const defaultCitedDocFolders = [
 /// **Roots are enumerated; files beneath them are discovered.** The two halves
 /// answer different risks. Enumerating the roots keeps the gate's subject
 /// coherent — these are the TomSpecs source trees that cite the doc set, and a
-/// workspace-wide sweep for Dart files would pull in projects whose unrelated
+/// workspace-wide sweep for source files would pull in projects whose unrelated
 /// `§` usage would need exempting one by one. Discovering the files beneath
 /// them means a new annotation file is covered the day it is added, rather than
 /// the day someone remembers to list it.
@@ -386,17 +389,70 @@ const defaultCitedDocFolders = [
 /// documents just as densely — a little over two hundred citations between them
 /// — and a rule that admitted only the framework would have left the larger half
 /// of the corpus decaying in the silence this gate exists to break.
+///
+/// **`lib/` is not the whole of a package's source, and the rule above says so.**
+/// A package's `bin/`, `test/` and `tool/` cite the doc set as densely as its
+/// library — a test's doc comment is usually where the *reason* for the test
+/// lives, which is exactly where a citation carries weight — and holding
+/// `lib/` alone would have been a rule of kind wearing the words of a rule of
+/// citing. Listing them found thirty-three dangling citations that had been
+/// accumulating in files no gate had ever read.
+///
+/// **`tool/` is not Dart**, and it is listed anyway: [listScannedSources] takes
+/// the shell, Python and YAML those directories are made of, and
+/// [hashComments] lifts their `#` comments the way [dartDocComments] lifts a
+/// `///`. A `regenerate_*.sh` documents itself in a header block and a manifest
+/// documents each entry above it; both cite, so both are held.
+///
+/// **A generated tree is listed like any other**, on the same reasoning the
+/// nine generated `_v0` READMEs are: a citation broken in an emitted file is
+/// broken in every copy at once, and is fixed in the emitter
+/// (`tom_specs_clitool/lib/src/packaging.dart`) rather than in the output.
+///
+/// **Four citing roots are deliberately absent**, and for one reason: they cite
+/// from a comment form no lift reads. `tom_som_dart_v0/test`,
+/// `tom_som_dart_v0/example` and `tom_specs_editor/test` head their files with
+/// plain `//` notes, and the Dart lift reads `///` alone — a decision this
+/// corpus made on purpose and one this list is not the place to reverse.
+/// `tom_som_c_v0/tool` comments in `/* … */`, a fourth syntax.
+///
+/// Listing any of them would turn the SCC6 anti-vacuity guard red, which is
+/// that guard working: a root contributing no citation is a root nobody can
+/// tell is being scanned. Their citations are well-formed today; what is
+/// missing is a rule about which comment forms are documentation, which is
+/// `tsdocc2_aigj` rather than a list entry.
 const defaultCitedSourceRoots = [
   'tom_ai/ai_build/tom_code_specs/lib',
+  'tom_ai/ai_build/tom_code_specs/test',
   'tom_ai/ai_build/tom_spec_engine/lib',
+  'tom_ai/ai_build/tom_spec_engine/test',
+  'tom_ai/ai_build/tom_spec_engine/tool',
+  'tom_ai/ai_build/tom_som_conformance/tool',
   'tom_ai/ai_build/tom_som_dart_runtime/lib',
+  'tom_ai/ai_build/tom_som_dart_runtime/test',
   'tom_ai/ai_build/tom_som_dart_v0/lib',
+  'tom_ai/ai_build/tom_som_dart_v0/tool',
+  'tom_ai/ai_build/tom_specs_clitool/bin',
   'tom_ai/ai_build/tom_specs_clitool/lib',
+  'tom_ai/ai_build/tom_specs_clitool/test',
+  'tom_ai/ai_build/tom_specs_clitool/tool',
   'tom_ai/ai_build/tom_specs_core/lib',
   'tom_ai/ai_build/tom_specs_model/lib',
+  'tom_ai/ai_build/tom_specs_model/test',
   'tom_ai/ai_build/tom_specs_reviewer/lib',
+  'tom_ai/ai_build/tom_specs_reviewer/test',
   'tom_ai/core/tom_core_codespecs/lib',
+  'tom_ai/core/tom_core_codespecs/test',
   'tom_forge/tom_specs_editor/lib',
+  // The eight non-Dart planes' `tool/golden_log.*`, emitted by
+  // `packaging.dart` — see the generated-tree paragraph above.
+  'tom_ai/ai_build/tom_som_cpp_v0/tool',
+  'tom_ai/ai_build/tom_som_go_v0/tool',
+  'tom_ai/ai_build/tom_som_java_v0/tool',
+  'tom_ai/ai_build/tom_som_javascript_v0/tool',
+  'tom_ai/ai_build/tom_som_python_v0/tool',
+  'tom_ai/ai_build/tom_som_rust_v0/examples',
+  'tom_ai/ai_build/tom_som_typescript_v0/tool',
 ];
 
 /// Every `.dart` file under [root], recursively, in path order.
@@ -408,6 +464,29 @@ List<String> listDartSources(String root) {
       .whereType<File>()
       .map((f) => f.path)
       .where((path) => p.extension(path) == '.dart')
+      .toList()
+    ..sort();
+}
+
+/// Every source file under [root] a scan set reads, recursively, in path order.
+///
+/// [listDartSources] widened to the kinds [isScannedSource] admits, so a
+/// `tool/` root brings its shell and YAML with it. `.dart_tool` and `build` are
+/// skipped: both hold generated copies of files that are already scanned where
+/// they are written, and a violation reported against a copy is fixed in the
+/// original or not at all.
+List<String> listScannedSources(String root) {
+  final dir = Directory(root);
+  if (!dir.existsSync()) return const [];
+  return dir
+      .listSync(recursive: true)
+      .whereType<File>()
+      .map((f) => f.path)
+      .where(isScannedSource)
+      .where((path) {
+        final parts = p.split(p.relative(path, from: root));
+        return !parts.contains('.dart_tool') && !parts.contains('build');
+      })
       .toList()
     ..sort();
 }
@@ -455,16 +534,137 @@ List<String> listMarkdownSources(String root) {
 /// line would read as bare: the lookback crosses a soft wrap but not a `///`.
 /// Only `///` is lifted; these packages document with it exclusively, and a
 /// `/** */` block would need brace tracking to no benefit.
+///
+/// **The lift is a parse, not a line scan, and that becomes load-bearing the
+/// moment `test/` is in scope.** A test that exercises this gate writes its
+/// fixtures as Dart string literals whose contents are `///` lines — that is
+/// what a fixture for a doc-comment scanner has to look like. A line scanner
+/// reads those as doc comments of the file containing them, so every
+/// deliberately-malformed fixture is reported as a defect of the test, and the
+/// line-scoped exhibit marker cannot excuse them: the marker sits at the
+/// fixture's own line numbers, not the file's. Asking the analyzer which tokens
+/// are *actually* doc comments is what makes the third paragraph above true —
+/// it claimed to keep a string literal out of the scan and did not.
 String dartDocComments(String source) {
-  final lines = source.split('\n');
-  return [
-    for (final line in lines)
-      _docLine.firstMatch(line)?.group(1) ?? '',
-  ].join('\n');
+  final ParseStringResult parsed;
+  try {
+    parsed = parseString(content: source, throwIfDiagnostics: false);
+  } on Object {
+    return _dartDocCommentsByLine(source);
+  }
+
+  final lines = List<String>.filled(source.split('\n').length, '');
+  final lineInfo = parsed.lineInfo;
+  final seen = <int>{};
+
+  for (Token? token = parsed.unit.beginToken;
+      token != null && token.type != TokenType.EOF;
+      token = token.next) {
+    for (Token? comment = token.precedingComments;
+        comment != null;
+        comment = comment.next) {
+      if (!seen.add(comment.offset)) continue;
+      if (!comment.lexeme.startsWith('///')) continue;
+      final line = lineInfo.getLocation(comment.offset).lineNumber - 1;
+      if (line < 0 || line >= lines.length) continue;
+      lines[line] = _docLine.firstMatch(comment.lexeme)?.group(1) ?? '';
+    }
+  }
+  return lines.join('\n');
 }
+
+/// The pre-parse lift, kept as the fallback for a source that will not parse.
+///
+/// A source too broken to parse is exactly where dropping the file silently
+/// would hurt — it would leave the file in no scan set with nothing said — so
+/// the line scan still runs and the gate still reports.
+String _dartDocCommentsByLine(String source) => [
+      for (final line in source.split('\n'))
+        _docLine.firstMatch(line)?.group(1) ?? '',
+    ].join('\n');
 
 /// A `///` documentation line, capturing what follows the marker.
 final RegExp _docLine = RegExp(r'^\s*///[ \t]?(.*)$');
+
+/// Lifts the `#` comments of a shell script, Python script or YAML manifest out
+/// of the lines around them — the non-Dart twin of [dartDocComments].
+///
+/// Those three are the languages `tool/` is written in, and in all three the
+/// `#` comment *is* the documentation, exactly as `///` is in Dart: a
+/// `regenerate_*.sh` explains itself in a header block, and a manifest explains
+/// each entry above it. A gate that read only `.dart` would hold a package's
+/// library to the citation convention and leave the scripts that drive it
+/// unchecked.
+///
+/// Line count is preserved and non-comment lines become empty, for the same two
+/// reasons [dartDocComments] gives. Only a **whole-line** comment is lifted: a
+/// trailing `# …` after code is a note rather than documentation, and — more to
+/// the point — a `#` inside a quoted string is not a comment at all, which a
+/// line scanner cannot tell apart. Requiring the `#` to open the line keeps the
+/// scanner out of that question entirely.
+String hashComments(String source) => [
+      for (final line in source.split('\n'))
+        _hashLine.firstMatch(line)?.group(1) ?? '',
+    ].join('\n');
+
+/// A whole-line `#` comment, capturing what follows the marker.
+final RegExp _hashLine = RegExp(r'^\s*#[ \t]?(.*)$');
+
+/// Lifts the whole-line `//` comments of a C-family source — the third comment
+/// syntax the corpus writes.
+///
+/// The eight non-Dart SOM planes are C, C++, Go, Java, JavaScript, TypeScript
+/// and Rust (Python is [hashComments]' business), and all of them comment with
+/// `//`. Their generated `golden_log.*` cite the doc set from those comments,
+/// so a lift that knew only `///` and `#` would leave seven files uncovered and
+/// — worse — would let the coverage walk report them as needing no gate, since
+/// it asks the same lift.
+///
+/// Whole-line only, for [hashComments]' reason: a trailing `//` after code is a
+/// note, and a `//` inside a string is not a comment at all.
+String slashComments(String source) => [
+      for (final line in source.split('\n'))
+        _slashLine.firstMatch(line)?.group(1) ?? '',
+    ].join('\n');
+
+/// A whole-line `//` comment, capturing what follows the marker.
+///
+/// `///` is matched too — a Dart-style doc comment in a C-family file is still
+/// a comment — because the optional third slash costs nothing and excluding it
+/// would drop lines for no reason.
+final RegExp _slashLine = RegExp(r'^\s*//+[ \t]?(.*)$');
+
+/// The extensions [hashComments] reads.
+const _hashKinds = {'.sh', '.bash', '.py', '.yaml', '.yml'};
+
+/// The extensions [slashComments] reads.
+const _slashKinds = {
+  '.c', '.h', '.cpp', '.hpp', '.cc', //
+  '.go', '.java', '.js', '.mjs', '.ts', '.rs',
+};
+
+/// Whether [path] is a source file a scan set reads, by extension.
+///
+/// Dart, the two `#` languages `tool/` is written in, and the C-family eight
+/// the SOM planes are written in — every kind these packages actually author or
+/// emit.
+bool isScannedSource(String path) {
+  final ext = p.extension(path);
+  return ext == '.dart' || _hashKinds.contains(ext) || _slashKinds.contains(ext);
+}
+
+/// Lifts [source]'s comments according to [path]'s kind.
+///
+/// Dart goes through the parse; everything else through the line lift its
+/// comment marker names. An unknown extension gets [hashComments], which finds
+/// nothing in a file that does not use `#` — a quiet no rather than a crash,
+/// since [isScannedSource] is what decides membership.
+String liftComments(String path, String source) {
+  final ext = p.extension(path);
+  if (ext == '.dart') return dartDocComments(source);
+  if (_slashKinds.contains(ext)) return slashComments(source);
+  return hashComments(source);
+}
 
 /// Text that joins two citations of one run rather than separating two
 /// thoughts.
@@ -1067,8 +1267,8 @@ class SectionCitationReport {
 /// documents in that same folder.
 ///
 /// [extraFiles] are markdown outside the folder — project READMEs.
-/// [extraSources] are Dart files, whose `///` comments are lifted by
-/// [dartDocComments] before they are resolved.
+/// [extraSources] are source files of any kind [isScannedSource] admits, whose
+/// comments are lifted by [liftComments] before they are resolved.
 SectionCitationReport checkSectionCitations({
   required String docDir,
   SectionCorpus? corpus,
@@ -1105,14 +1305,14 @@ SectionCitationReport checkSectionCitations({
     scan(file.readAsStringSync(), path: path);
   }
 
-  // Source files carry citations in their doc comments. `own` is stated
-  // empty rather than inferred: a Dart file declares no sections, so the
+  // Source files carry citations in their comments. `own` is stated empty
+  // rather than inferred: a source file declares no sections, so the
   // self-reference carve-out has nothing to resolve against and every citation
   // in source must name its document.
   for (final path in extraSources) {
     final file = File(path);
     if (!file.existsSync()) continue;
-    scan(dartDocComments(file.readAsStringSync()),
+    scan(liftComments(path, file.readAsStringSync()),
         path: path,
         own: DocumentSections(
             path: path, name: p.basename(path), byId: const {}));

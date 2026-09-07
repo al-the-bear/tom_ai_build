@@ -165,19 +165,22 @@ CsExtractSet _scopedExtracts({List<(String, String, String?)>? gate}) =>
       if (gate != null) kCsGateRecordFile: _gateYaml(gate),
     });
 
-/// `IMO-014`'s `content` from the §4 worked example — carried as a constant so
+/// `IMO-014`'s `content` from `codespecs_derivation_contract.md` §4's worked
+/// example — carried as a constant so
 /// the fixture's Dart source and the extract it is checked against cannot drift
 /// apart in the one character that matters, the em dash C4.5 leaves alone.
 const _customerContent =
     'Customers are never deleted — a closed account keeps its orders.';
 
-/// The two values §2.8 P1 turns into the class doc comment of the §4 example.
+/// The two values `codespecs_derivation_contract.md` §2.8 P1 turns into the
+/// class doc comment of `codespecs_derivation_contract.md` §4's example.
 const _customerEntries = <(String, String, String)>[
   ('IMO-014', 'description', 'A person or organisation that places orders.'),
   ('IMO-014', 'content', _customerContent),
 ];
 
-/// The violations of §6 check [number] raised by [input].
+/// The violations of `codespecs_derivation_contract.md` §6 check [number]
+/// raised by [input].
 List<CodeSpecsViolation> _forCheck(int number, CodeSpecsValidationInput input) =>
     runCodeSpecsChecks(input).forCheck(number);
 

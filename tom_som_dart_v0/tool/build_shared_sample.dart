@@ -1032,7 +1032,8 @@ void _extStep(ExtensionStepEntry s, String number, String action, String respons
 /// reaches across the client/server boundary. There is no step number: the list
 /// position *is* the order, and each role's steps are read in document order
 /// within the list. The [headline] is the step's name — the sole source for the
-/// collaborator method identifier the derivation contract's §3.0.1 N1 derives
+/// collaborator method identifier `codespecs_derivation_contract.md` §3.0.1's
+/// N1 derives
 /// from it (an unheadlined step fails Phase-4 generation).
 void _svcStep(ServerCallStepEntry s, String headline, ServerCallRole role,
     String systemAction,
@@ -1258,7 +1259,8 @@ void _attr(DataAttributeEntry a, String name, String column, String description,
 }
 
 /// Fills one structured attribute constraint (DATAA). The `rules` string is
-/// the §5.19 validation grammar CE-VA derives `@CsValidation` from; `check` is
+/// the `codespecs_mapping.md` §5.19 validation grammar CE-VA derives
+/// `@CsValidation` from; `check` is
 /// the SQL CHECK expression the schema carries; both are *derivable*
 /// restatements of rules that elsewhere appear only as step prose.
 void _constraint(DataAttributeConstraintEntry c, String headline,

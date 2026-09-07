@@ -217,12 +217,14 @@ void main() {
   });
 }
 
-/// A CE-NT channel declaration in the shape §3.2.9 emits: the marker carries
+/// A CE-NT channel declaration in the shape
+/// `codespecs_derivation_contract.md` §3.2.9 emits: the marker carries
 /// nothing, the substrate carries `channelId` and the sibling-channel fallback.
 ///
 /// Resolution of that fallback is `codespecs_derivation_contract.md` §6
-/// check 17's job — a generation-time validator check, because §5.23 rules the
-/// edge a local coordinate and so no compile-time guard will ever cover it.
+/// check 17's job — a generation-time validator check, because
+/// `codespecs_mapping.md` §5.23 rules the edge a local coordinate and so no
+/// compile-time guard will ever cover it.
 @CsNotificationChannel()
 @CodeSpec('NT-SMS', source: ['NTFCH'])
 class _SmsChannel {

@@ -17,6 +17,18 @@
 /// citations needs no gate, and listing it would only add files to scan. The
 /// rule is *citing*, not *kind*, the same rule
 /// [defaultCitedSourceRoots] already states for source trees.
+///
+/// **The walk covers every source directory a package writes, not only
+/// `lib/`.** It used to walk three kinds — `README.md`, `doc/**.md` and
+/// `lib/**.dart` — while stating the rule above, and the gap between the two
+/// was the more serious half of the defect: a citing `tool/` script is
+/// precisely the case the stated rule covers and the implementation did not, so
+/// a reader of this comment had no way to learn the hole existed. A hundred and
+/// forty-four files were ungated, and listing them surfaced thirty-three
+/// dangling citations. [_sourceDirs] now names the directories, and a
+/// package that grows a new one is caught by the same argument that motivated
+/// this library: the cost of a closed set is that it fixes today and not
+/// tomorrow.
 library;
 
 import 'dart:io';
@@ -29,7 +41,9 @@ import 'section_citations.dart'
         defaultCitedDocFolders,
         defaultCitedReadmes,
         defaultCitedSourceRoots,
+        liftComments,
         listMarkdownSources,
+        listScannedSources,
         sectionIdPattern;
 
 /// One file that cites the doc set but no default scan set reaches.
@@ -68,18 +82,27 @@ bool _cites(File file) {
   }
 }
 
-bool _citesDartDoc(File file) {
+/// The per-package source directories the walk inspects.
+///
+/// Enumerated rather than "every directory that is not `doc`", because a
+/// package root also holds `build/`, `.dart_tool/` and language-specific output
+/// trees whose citations are copies of ones already scanned where they were
+/// written. These five are where a person writes source.
+const _sourceDirs = ['lib', 'bin', 'test', 'tool', 'example'];
+
+/// Whether [file] cites the doc set from a **comment**.
+///
+/// Comments only, because that is what the gate reads: a `§` in a string
+/// literal or in code is not a citation a reader follows, and reporting the
+/// file as an unheld scan-set member would send someone to add a root that then
+/// finds nothing. Uses the same per-kind lift the gate uses, so the two cannot
+/// disagree about what counts as a comment.
+bool _citesInComments(File file) {
   try {
-    for (final line in file.readAsLinesSync()) {
-      final trimmed = line.trimLeft();
-      if (trimmed.startsWith('///') && _anyCitation.hasMatch(trimmed)) {
-        return true;
-      }
-    }
+    return _anyCitation.hasMatch(liftComments(file.path, file.readAsStringSync()));
   } on FileSystemException {
     return false;
   }
-  return false;
 }
 
 /// Every citing file under [containerRoot] that no default scan set reaches.
@@ -129,15 +152,14 @@ List<ScanSetGap> findScanSetGaps({
       }
     }
 
-    final lib = Directory(p.join(dir.path, 'lib'));
-    if (lib.existsSync() && !sources.contains(rel(lib.path))) {
-      final citing = lib
-          .listSync(recursive: true)
-          .whereType<File>()
-          .where((f) => p.extension(f.path) == '.dart')
-          .any(_citesDartDoc);
+    for (final name in _sourceDirs) {
+      final source = Directory(p.join(dir.path, name));
+      if (!source.existsSync() || sources.contains(rel(source.path))) continue;
+      final citing = listScannedSources(source.path)
+          .map(File.new)
+          .any(_citesInComments);
       if (citing) {
-        gaps.add(ScanSetGap(path: rel(lib.path), kind: 'source tree'));
+        gaps.add(ScanSetGap(path: rel(source.path), kind: 'source tree'));
       }
     }
   }
