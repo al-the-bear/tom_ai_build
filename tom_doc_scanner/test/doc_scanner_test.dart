@@ -5,11 +5,7 @@ import 'package:test/test.dart';
 import 'package:tom_doc_scanner/tom_doc_scanner.dart';
 
 void main() {
-  final fixturesPath = path.join(
-    Directory.current.path,
-    'test',
-    'fixtures',
-  );
+  final fixturesPath = path.join(Directory.current.path, 'test', 'fixtures');
 
   group('DocScanner', () {
     group('scanDocument', () {
@@ -42,8 +38,9 @@ void main() {
 
         // Check nested sections
         expect(features.sections, isNotNull);
-        final feature1 =
-            features.sections!.firstWhere((s) => s.id == 'feature1');
+        final feature1 = features.sections!.firstWhere(
+          (s) => s.id == 'feature1',
+        );
         expect(feature1.name, equals('Feature One'));
       });
 
@@ -140,9 +137,7 @@ void main() {
 
       test('throws for non-existent file', () async {
         expect(
-          () => DocScanner.scanDocument(
-            filepath: '/nonexistent/file.md',
-          ),
+          () => DocScanner.scanDocument(filepath: '/nonexistent/file.md'),
           throwsArgumentError,
         );
       });
@@ -159,7 +154,10 @@ void main() {
         );
 
         expect(docs.length, equals(2));
-        expect(docs.map((d) => d.filename), containsAll(['simple.md', 'nested.md']));
+        expect(
+          docs.map((d) => d.filename),
+          containsAll(['simple.md', 'nested.md']),
+        );
       });
     });
 

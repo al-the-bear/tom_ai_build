@@ -111,7 +111,10 @@ void main() {
 
       final allDocs = root.allDocuments;
       expect(allDocs.length, equals(2));
-      expect(allDocs.map((d) => d.filename), containsAll(['root.md', 'doc.md']));
+      expect(
+        allDocs.map((d) => d.filename),
+        containsAll(['root.md', 'doc.md']),
+      );
     });
 
     group('JSON serialization', () {

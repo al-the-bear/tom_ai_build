@@ -58,7 +58,8 @@ void main() {
         lineNumber: 1,
         name: 'Test Section',
         id: 'test_section',
-        rawHeadline: '# Test Section <!-- [test_section] type=guide version=1.0 -->',
+        rawHeadline:
+            '# Test Section <!-- [test_section] type=guide version=1.0 -->',
         fields: {'type': 'guide', 'version': '1.0'},
         text: 'Some content',
       );

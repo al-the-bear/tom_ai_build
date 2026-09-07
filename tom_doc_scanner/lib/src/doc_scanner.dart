@@ -200,8 +200,10 @@ class DocScanner {
 
     // Calculate workspace-relative paths
     final workspacePath = _relativePath(absolutePath, wsRoot);
-    final (project, projectPath, projectRoot) =
-        _extractProjectInfo(absolutePath, wsRoot);
+    final (project, projectPath, projectRoot) = _extractProjectInfo(
+      absolutePath,
+      wsRoot,
+    );
 
     // Parse the document
     final headlines = MarkdownParser.parseHeadlines(content);
@@ -214,7 +216,9 @@ class DocScanner {
     final docName = _extractDocumentName(headlines, filename);
     final docId = _extractDocumentId(headlines, filename);
     final docText = _extractDocumentText(content, headlines);
-    final docLineNumber = headlines.isNotEmpty ? headlines.first.$1.lineNumber : 1;
+    final docLineNumber = headlines.isNotEmpty
+        ? headlines.first.$1.lineNumber
+        : 1;
     final docRawHeadline = _extractDocumentRawHeadline(headlines, filename);
     final docFields = _extractDocumentFields(headlines);
 
@@ -338,7 +342,8 @@ class DocScanner {
     if (headlines.isEmpty) return [];
 
     // Check if document has a level 1 headline at the start
-    final hasDocHeadline = headlines.isNotEmpty && headlines.first.$1.level == 1;
+    final hasDocHeadline =
+        headlines.isNotEmpty && headlines.first.$1.level == 1;
 
     if (hasDocHeadline) {
       // Skip the first headline (it's the document title)
@@ -346,13 +351,14 @@ class DocScanner {
       final remainingHeadlines = headlines.sublist(1);
       if (remainingHeadlines.isEmpty) return [];
 
-      final docId = headlines.first.$1.explicitId ??
+      final docId =
+          headlines.first.$1.explicitId ??
           MarkdownParser.generateId(headlines.first.$1.text, null, 0);
 
       // Find the minimum level in remaining headlines
-      final minLevel = remainingHeadlines.map((h) => h.$1.level).reduce(
-            (a, b) => a < b ? a : b,
-          );
+      final minLevel = remainingHeadlines
+          .map((h) => h.$1.level)
+          .reduce((a, b) => a < b ? a : b);
 
       return _buildSectionsAtLevel(
         content,
@@ -366,9 +372,9 @@ class DocScanner {
     }
 
     // No level 1 headline - build from minimum level found
-    final minLevel = headlines.map((h) => h.$1.level).reduce(
-          (a, b) => a < b ? a : b,
-        );
+    final minLevel = headlines
+        .map((h) => h.$1.level)
+        .reduce((a, b) => a < b ? a : b);
 
     return _buildSectionsAtLevel(
       content,
@@ -404,7 +410,8 @@ class DocScanner {
 
       if (headline.level == targetLevel) {
         // This is a section at our target level
-        final id = headline.explicitId ??
+        final id =
+            headline.explicitId ??
             MarkdownParser.generateId(headline.text, parentId, sectionIndex);
 
         // Find subsections
@@ -438,18 +445,24 @@ class DocScanner {
           }
         }
 
-        final text = MarkdownParser.extractText(content, startLine, textEndLine);
+        final text = MarkdownParser.extractText(
+          content,
+          startLine,
+          textEndLine,
+        );
 
-        sections.add(factory.createSection(
-          index: sectionIndex,
-          lineNumber: headline.lineNumber,
-          rawHeadline: headline.rawHeadline,
-          name: headline.text,
-          id: id,
-          text: text,
-          fields: headline.fields,
-          sections: subsections.isNotEmpty ? subsections : null,
-        ));
+        sections.add(
+          factory.createSection(
+            index: sectionIndex,
+            lineNumber: headline.lineNumber,
+            rawHeadline: headline.rawHeadline,
+            name: headline.text,
+            id: id,
+            text: text,
+            fields: headline.fields,
+            sections: subsections.isNotEmpty ? subsections : null,
+          ),
+        );
 
         sectionIndex++;
       }
@@ -555,7 +568,7 @@ class DocScanner {
 
   /// Extracts project information from a file path.
   static (String project, String projectPath, String projectRoot)
-      _extractProjectInfo(String filepath, String workspaceRoot) {
+  _extractProjectInfo(String filepath, String workspaceRoot) {
     final relativePath = _relativePath(filepath, workspaceRoot);
     final parts = path.split(relativePath);
 

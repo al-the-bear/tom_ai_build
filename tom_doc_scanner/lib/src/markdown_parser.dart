@@ -63,7 +63,11 @@ class MarkdownParser {
   /// Pattern to parse key=value pairs (supports quoted values)
   /// Matches: key=value, key="quoted value", key='quoted value'
   /// Unquoted values stop at commas, spaces, and HTML comment closing brackets.
-  static final _keyValuePattern = RegExp(r'([\w-]+)=(?:"([^"]+)"|' r"'([^']+)'" r'|([^,\s>]+))');
+  static final _keyValuePattern = RegExp(
+    r'([\w-]+)=(?:"([^"]+)"|'
+    r"'([^']+)'"
+    r'|([^,\s>]+))',
+  );
 
   /// Parses a markdown string and returns parsed headlines with their positions.
   static List<(ParsedHeadline, int startLine, int endLine)> parseHeadlines(
@@ -91,16 +95,20 @@ class MarkdownParser {
 
         if (htmlMatch != null) {
           commentContent = htmlMatch.group(1)!;
-          textOutsideComment =
-              headlineText.replaceFirst(_htmlCommentPattern, '').trim();
+          textOutsideComment = headlineText
+              .replaceFirst(_htmlCommentPattern, '')
+              .trim();
 
           // Check for [id] inside the comment
-          final idInComment = _squareBracketIdPattern.firstMatch(commentContent);
+          final idInComment = _squareBracketIdPattern.firstMatch(
+            commentContent,
+          );
           if (idInComment != null) {
             explicitId = idInComment.group(1);
             // Parse key=value from remaining comment content
-            final remainingComment =
-                commentContent.replaceFirst(_squareBracketIdPattern, '').trim();
+            final remainingComment = commentContent
+                .replaceFirst(_squareBracketIdPattern, '')
+                .trim();
             _parseKeyValuePairs(remainingComment, fields);
           } else {
             // No ID in comment - parse entire comment for key=value pairs
@@ -110,11 +118,14 @@ class MarkdownParser {
 
         // If no ID found in comment, check for [id] outside comment
         if (explicitId == null) {
-          final idOutside = _squareBracketIdPattern.firstMatch(textOutsideComment);
+          final idOutside = _squareBracketIdPattern.firstMatch(
+            textOutsideComment,
+          );
           if (idOutside != null) {
             explicitId = idOutside.group(1);
-            textOutsideComment =
-                textOutsideComment.replaceFirst(_squareBracketIdPattern, '').trim();
+            textOutsideComment = textOutsideComment
+                .replaceFirst(_squareBracketIdPattern, '')
+                .trim();
           }
         }
 
@@ -173,11 +184,7 @@ class MarkdownParser {
   }
 
   /// Extracts text content between headlines.
-  static String extractText(
-    String content,
-    int startLine,
-    int endLine,
-  ) {
+  static String extractText(String content, int startLine, int endLine) {
     final lines = content.split('\n');
 
     // Start from the line after the headline
@@ -217,7 +224,8 @@ class MarkdownParser {
 
   /// Calculates the maximum hierarchy depth from headlines.
   static int calculateMaxDepth(
-      List<(ParsedHeadline, int startLine, int endLine)> headlines) {
+    List<(ParsedHeadline, int startLine, int endLine)> headlines,
+  ) {
     if (headlines.isEmpty) return 0;
     return headlines.map((h) => h.$1.level).reduce((a, b) => a > b ? a : b);
   }

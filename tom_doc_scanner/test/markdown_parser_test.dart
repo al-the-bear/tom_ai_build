@@ -126,7 +126,10 @@ Not a headline
         const content = '## [my_id] My Section Title';
         final headlines = MarkdownParser.parseHeadlines(content);
 
-        expect(headlines.first.$1.rawHeadline, equals('## [my_id] My Section Title'));
+        expect(
+          headlines.first.$1.rawHeadline,
+          equals('## [my_id] My Section Title'),
+        );
         expect(headlines.first.$1.text, equals('My Section Title'));
       });
 
@@ -134,11 +137,15 @@ Not a headline
         const content = '## <!--[section_id]--> Section Title';
         final headlines = MarkdownParser.parseHeadlines(content);
 
-        expect(headlines.first.$1.rawHeadline, equals('## <!--[section_id]--> Section Title'));
+        expect(
+          headlines.first.$1.rawHeadline,
+          equals('## <!--[section_id]--> Section Title'),
+        );
       });
 
       test('parses key=value pairs from HTML comment', () {
-        const content = '## Section Title <!-- [my_id] type=guide version=1.0 -->';
+        const content =
+            '## Section Title <!-- [my_id] type=guide version=1.0 -->';
         final headlines = MarkdownParser.parseHeadlines(content);
 
         expect(headlines.first.$1.explicitId, equals('my_id'));
@@ -148,10 +155,14 @@ Not a headline
       });
 
       test('parses quoted values in key=value pairs', () {
-        const content = '## Title <!-- [id] description="A longer description" -->';
+        const content =
+            '## Title <!-- [id] description="A longer description" -->';
         final headlines = MarkdownParser.parseHeadlines(content);
 
-        expect(headlines.first.$1.fields['description'], equals('A longer description'));
+        expect(
+          headlines.first.$1.fields['description'],
+          equals('A longer description'),
+        );
       });
 
       test('parses key=value pairs from text after ID', () {
@@ -223,14 +234,17 @@ Final content.
 
     group('generateId', () {
       test('lowercases single word', () {
-        expect(MarkdownParser.generateId('Introduction', null, 0),
-            equals('introduction'));
+        expect(
+          MarkdownParser.generateId('Introduction', null, 0),
+          equals('introduction'),
+        );
       });
 
       test('uses parent.index for multiple words', () {
         expect(
-            MarkdownParser.generateId('My Section Title', 'parent', 2),
-            equals('parent.2'));
+          MarkdownParser.generateId('My Section Title', 'parent', 2),
+          equals('parent.2'),
+        );
       });
 
       test('handles empty text with parent', () {
@@ -238,8 +252,10 @@ Final content.
       });
 
       test('converts to snake_case for multi-word without parent', () {
-        expect(MarkdownParser.generateId('Hello World', null, 0),
-            equals('hello_world'));
+        expect(
+          MarkdownParser.generateId('Hello World', null, 0),
+          equals('hello_world'),
+        );
       });
 
       test('removes special characters from single word', () {

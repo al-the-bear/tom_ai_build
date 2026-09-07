@@ -97,8 +97,8 @@ class Section {
           : const {},
       sections: json['sections'] != null
           ? (json['sections'] as List)
-              .map((s) => Section.fromJson(s as Map<String, dynamic>))
-              .toList()
+                .map((s) => Section.fromJson(s as Map<String, dynamic>))
+                .toList()
           : null,
     );
   }

@@ -222,7 +222,8 @@ Future<void> _writeDocument(
     final key = basename.toLowerCase();
     if (usedNames.containsKey(key)) {
       usedNames[key] = usedNames[key]! + 1;
-      outputName = '${basename}_${doc.workspacePath.replaceAll(p.separator, '_').replaceAll('/', '_')}.json';
+      outputName =
+          '${basename}_${doc.workspacePath.replaceAll(p.separator, '_').replaceAll('/', '_')}.json';
 
       // Check if that name also exists
       var outputPath = p.join(targetDir, outputName);

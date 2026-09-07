@@ -74,12 +74,14 @@ class Document extends Section {
       name: json['name'] as String,
       id: json['id'] as String,
       rawHeadline: (json['rawHeadline'] as String?) ?? '',
-      fields: (json['fields'] as Map<String, dynamic>?)?.cast<String, String>() ?? const {},
+      fields:
+          (json['fields'] as Map<String, dynamic>?)?.cast<String, String>() ??
+          const {},
       text: json['text'] as String,
       sections: json['sections'] != null
           ? (json['sections'] as List)
-              .map((s) => Section.fromJson(s as Map<String, dynamic>))
-              .toList()
+                .map((s) => Section.fromJson(s as Map<String, dynamic>))
+                .toList()
           : null,
       filenameWithPath: json['filenameWithPath'] as String,
       loadTimestamp: json['loadTimestamp'] as String,
