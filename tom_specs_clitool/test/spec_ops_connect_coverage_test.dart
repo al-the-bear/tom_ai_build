@@ -141,7 +141,7 @@ Map<String, Map<String, String>> _readConnectBindings(String source) {
     final body = m.group(2)!;
     final assignments = <String, String>{};
     for (final a in _assignmentPattern.allMatches(body)) {
-      assignments[a.group(1)!] = a.group(2)!;
+      assignments[a.group(1)!] = _joinWrapped(a.group(2)!);
     }
     out[m.group(1)!] = assignments;
   }
@@ -150,12 +150,26 @@ Map<String, Map<String, String>> _readConnectBindings(String source) {
 
 /// Matches an emitted `connect: (o, s) { final n = o as <Root>; ... },` block.
 final RegExp _connectPattern = RegExp(
-  r'connect: \(o, s\) \{\n      final n = o as (\w+);\n(.*?)\n    \},',
+  r'connect: \(o, s\) \{\n\s*final n = o as (\w+);\n(.*?)\n\s*\},',
   dotAll: true,
 );
 
+/// Undoes the tall formatter's line breaks inside one assignment's right-hand
+/// side, so a bound path reads as the single dotted expression it is.
+///
+/// Two break points to close: after the `=`, and — for a long member chain —
+/// *before* each `.`. Collapsing whitespace alone would leave `b .foo .bar`,
+/// which is not a path any assertion here can match.
+String _joinWrapped(String expression) => expression
+    .replaceAll(RegExp(r'\s*\.\s*'), '.')
+    .replaceAll(RegExp(r'\s+'), ' ')
+    .trim();
+
 /// Matches `n.<member> = <expression>;` inside a connect body.
-final RegExp _assignmentPattern = RegExp(r'n\.(\w+) = ([^;]+);');
+///
+/// `\s*` around the `=` rather than a literal space: the tall formatter breaks
+/// a long assignment straight after the operator.
+final RegExp _assignmentPattern = RegExp(r'n\.(\w+)\s*=\s*([^;]+);');
 
 /// Whether a meta field is a child node the connect pass must bind — the same
 /// classification the codegen's `_isChildNode` applies.

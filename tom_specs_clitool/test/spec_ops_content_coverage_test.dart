@@ -193,6 +193,6 @@ Map<String, String> _readRegistrations(String source) => {
 };
 
 final RegExp _registrationPattern = RegExp(
-  r'  SpecRegistry\.register\((\w+), SpecClassOps\(\n(.*?)\n  \)\);',
+  r'SpecRegistry\.register\(\s*(\w+),\s*SpecClassOps\(\n(.*?)\n\s*\),\s*\);',
   dotAll: true,
 );

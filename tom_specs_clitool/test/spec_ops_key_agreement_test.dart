@@ -131,7 +131,9 @@ Map<String, Map<String, String?>> _readRegistrySlots(String source) {
   final out = <String, Map<String, String?>>{};
   final blocks = source.split('  SpecRegistry.register(');
   for (final block in blocks.skip(1)) {
-    final className = block.substring(0, block.indexOf(','));
+    // The class name follows the call on its own line under the tall
+    // formatter, so it is trimmed rather than taken verbatim.
+    final className = block.substring(0, block.indexOf(',')).trim();
     final slots = <String, String?>{};
     for (final m in _slotPattern.allMatches(block)) {
       slots[m.group(1)!] = m.group(2);
@@ -144,7 +146,7 @@ Map<String, Map<String, String?>> _readRegistrySlots(String source) {
 /// Matches the tail of an emitted `SpecSlot.node`/`SpecSlot.list`:
 /// `label: '<member>'` optionally followed by `, sectionId: '<id>'`.
 final RegExp _slotPattern = RegExp(
-  r"label: '(\w+)'(?:, sectionId: '([^']+)')?\)",
+  r"label: '(\w+)',(?:\s*sectionId: '([^']+)',)?\s*\)",
 );
 
 String? _annotationArg(Map<String, dynamic> node, String name, String arg) {
