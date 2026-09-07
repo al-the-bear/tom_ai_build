@@ -165,14 +165,17 @@ class SomDartEmitter {
         if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
           byName.putIfAbsent(
             f.enumType!,
-            () => _EnumType(f.enumType!, f.enumValues),
+            () => _EnumType(f.enumType!, f.enumValues, f.enumValueDocs),
           );
         }
         if (f.kind == SpecFieldKind.form) {
           for (final ff in f.formFields) {
             if (ff.enumValues.isNotEmpty) {
               final et = _scalarBaseName(ff.type);
-              byName.putIfAbsent(et, () => _EnumType(et, ff.enumValues));
+              byName.putIfAbsent(
+                et,
+                () => _EnumType(et, ff.enumValues, ff.enumValueDocs),
+              );
             }
           }
         }
@@ -191,6 +194,15 @@ class SomDartEmitter {
       ..writeln('enum ${e.name} {');
     for (var i = 0; i < e.values.length; i++) {
       final sep = i == e.values.length - 1 ? ';' : ',';
+      // The model documents what each constant means and how it differs from
+      // its neighbours. That is the half of a closed vocabulary a consumer
+      // cannot infer from the token, so it is carried onto the constant
+      // rather than left in the model.
+      final doc = e.docs[e.values[i]];
+      if (doc != null && doc.isNotEmpty) {
+        if (i > 0) b.writeln();
+        _writeDoc(b, doc, '  ');
+      }
       b.writeln('  ${e.values[i]}$sep');
     }
     b
@@ -778,7 +790,16 @@ class _EnumType {
   /// document, and it is byte-identical across every language port, which is
   /// what lets a document written by one be read by all of them.
   final List<String> values;
-  _EnumType(this.name, this.values);
+
+  /// Each constant's model doc comment, keyed by constant name; a constant
+  /// with no comment is absent.
+  ///
+  /// [values] alone tells a consumer *which* tokens are legal. For a closed
+  /// vocabulary that is the smaller half of the question: the author's choice
+  /// is between adjacent constants, and what separates them lives only here.
+  final Map<String, String> docs;
+
+  _EnumType(this.name, this.values, [this.docs = const {}]);
 }
 
 class _FormClass {

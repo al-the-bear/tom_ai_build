@@ -76,6 +76,19 @@ class FormFieldInfo {
   /// needing the analyzer.
   final List<String> enumValues;
 
+  /// Each constant's doc comment, keyed by the constant name — the same
+  /// vocabulary as [enumValues], resolved at read time for the same reason.
+  ///
+  /// Keyed rather than positional: a parallel list would be silently wrong the
+  /// moment its length diverged, and a consumer that only wants one constant's
+  /// text should not have to index. A constant with no comment is simply
+  /// absent.
+  ///
+  /// This is the text that makes a **closed** vocabulary usable: the choice a
+  /// document author has to make is between adjacent constants, and what
+  /// distinguishes them lives nowhere else.
+  final Map<String, String> enumValueDocs;
+
   /// The registry key(s) this field's value is an id drawn from, each
   /// `<SECTIONID>.<formFieldName>` (csrb3). Empty for a field that is not a
   /// cross-registry reference. See `Field.refersTo` in `tom_specs_core`.
@@ -93,6 +106,7 @@ class FormFieldInfo {
     this.required = false,
     this.hint = '',
     this.enumValues = const [],
+    this.enumValueDocs = const {},
     this.refersTo = const [],
   });
 }
@@ -137,6 +151,11 @@ class ModelField {
   /// constants in the model reinterprets already-exported metadata. Empty
   /// unless [isEnum].
   final List<String> enumValues;
+
+  /// Each constant's doc comment, keyed by constant name — the counterpart of
+  /// [enumValues], and empty for a non-enum field. See
+  /// [FormFieldInfo.enumValueDocs] for why it is keyed rather than positional.
+  final Map<String, String> enumValueDocs;
 
   /// Every annotation on the member, in source order, captured losslessly.
   /// The meta tree keeps the ones with dedicated slots and routes the rest
@@ -192,6 +211,7 @@ class ModelField {
     this.isNullable = false,
     this.isEnum = false,
     this.enumValues = const [],
+    this.enumValueDocs = const {},
     this.annotations = const [],
     this.listElementTypeName,
     this.listElementIsComplex = false,
@@ -578,7 +598,7 @@ class ModelReader {
           fieldType,
           fieldAnnotations,
           formFields,
-          _cleanDocComment(field.documentationComment),
+          _resolveFieldDoc(element, fieldName, field.documentationComment),
         ),
       );
     }
@@ -593,6 +613,42 @@ class ModelReader {
           : const <FormFieldInfo>[],
       extendsDocSpecsSection: _extendsDocSpecsSection(element),
     );
+  }
+
+  /// The documentation for [fieldName] on [owner]: its own comment when it has
+  /// one, else the nearest documented declaration of the same name in the
+  /// superclass chain.
+  ///
+  /// **This is what dartdoc does, and what the meta used not to.** Every
+  /// section class re-declares `content` as `@override String? content;` purely
+  /// to attach its `@Form` / `@ContentType`, with no comment of its own —
+  /// dartdoc resolves those by inheritance from `DocSpecsSection.content` and
+  /// the `public_member_api_docs` lint correctly stays silent, so the model
+  /// reads as fully documented. The exporter recorded only the member's *own*
+  /// comment, so it wrote `doc: null` for every one of them: 810 of the model's
+  /// 5,153 fields, all of them `content`, documented in Dart and blank in the
+  /// other eight languages.
+  ///
+  /// The walk is over resolved supertypes, so it reaches `DocSpecsSection` in
+  /// `tom_specs_core` even though that package is outside the scanned one. It
+  /// stops at the first documented declaration — the nearest override wins,
+  /// which is the same precedence dartdoc applies.
+  static String _resolveFieldDoc(
+    ClassElement owner,
+    String fieldName,
+    String? ownComment,
+  ) {
+    final own = _cleanDocComment(ownComment);
+    if (own.isNotEmpty) return own;
+
+    var supertype = owner.supertype;
+    while (supertype != null) {
+      final inherited = supertype.element.getField(fieldName);
+      final doc = _cleanDocComment(inherited?.documentationComment);
+      if (doc.isNotEmpty) return doc;
+      supertype = supertype.element.supertype;
+    }
+    return '';
   }
 
   /// Whether [element] extends `DocSpecsSection` anywhere in its superclass
@@ -694,6 +750,7 @@ class ModelReader {
         isNullable: isNullable,
         isEnum: true,
         enumValues: enumValues,
+        enumValueDocs: _getEnumValueDocs(type),
         annotations: annotations,
         docComment: docComment,
       );
@@ -738,6 +795,27 @@ class ModelReader {
       return type.element is EnumElement;
     }
     return false;
+  }
+
+  /// Each constant's cleaned doc comment for an enum [type], keyed by constant
+  /// name; constants with no comment are omitted.
+  ///
+  /// The model documents all 163 of its constants across 25 enums, and none of
+  /// that text reached the meta before: an enum arrived as a bare list of
+  /// names, so the other eight languages could show a consumer *which* values
+  /// are legal but nothing about what they mean.
+  Map<String, String> _getEnumValueDocs(DartType type) {
+    if (type is! InterfaceType) return const {};
+    final element = type.element;
+    if (element is! EnumElement) return const {};
+    final docs = <String, String>{};
+    for (final constant in element.constants) {
+      final name = constant.name;
+      if (name == null) continue;
+      final doc = _cleanDocComment(constant.documentationComment);
+      if (doc.isNotEmpty) docs[name] = doc;
+    }
+    return docs;
   }
 
   List<String> _getEnumValues(DartType type) {
@@ -879,11 +957,13 @@ class ModelReader {
         // names right here (YRD7) so downstream consumers need no analyzer.
         String typeName = 'String';
         var enumValues = const <String>[];
+        var enumValueDocs = const <String, String>{};
         final typeVal = item.getField('type')?.toTypeValue();
         if (typeVal is InterfaceType) {
           typeName = typeVal.element.name ?? 'String';
           if (_isEnumType(typeVal)) {
             enumValues = _getEnumValues(typeVal);
+            enumValueDocs = _getEnumValueDocs(typeVal);
           }
         }
 
@@ -895,6 +975,7 @@ class ModelReader {
             required: required,
             hint: hint,
             enumValues: enumValues,
+            enumValueDocs: enumValueDocs,
             refersTo: refersTo,
           ),
         );

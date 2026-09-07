@@ -155,7 +155,8 @@ Always carries `name` and a render `kind` (`list`, `form`, `section`,
 model has been stamped; kind-specific keys follow (`elementType` + `elementIsComplex` and optional `min`
 for lists, `formFields` for forms, `contentType` for sections/content plus
 `sectionType` — the section's declared class name, `?` stripped — for sections,
-`enumType`/`enumValues` for enums, `type` for complex/scalar). `elementIsComplex`
+`enumType`/`enumValues`/`enumValueDocs` for enums, `type` for complex/scalar).
+`elementIsComplex`
 tells a consumer whether `elementType` names a model class to resolve or a scalar
 to render directly, without it having to look the name up.
 
@@ -167,6 +168,16 @@ its items take — so a consumer must read them as a pair rather than treating t
 pattern as a fallback for a missing id. See `ModelJsonExporter` for the exact
 per-kind shape.
 
+**`doc` is resolved through the superclass chain, as dartdoc resolves it.** A
+member that overrides a documented one without adding a comment of its own
+carries the inherited text, not `null`. This is not a nicety: every section
+class re-declares `content` as `@override String? content;` purely to attach its
+`@Form` / `@ContentType`, so before this the meta wrote `doc: null` for 1,249 of
+the model's 5,153 fields — every one of them `content`, and 810 of them with no
+`help` to fall back on either — and the eight non-Dart facades rendered those
+1,249 accessors each with no documentation at all, while Dart's own
+emitter happened to have a fallback that hid it.
+
 ### `formFields[]` entry
 
 Present on `form`-kind fields only. Each entry always carries `name`, `label`
@@ -175,7 +186,16 @@ Dart type name) and `required`; `hint`, `enumValues` and `refersTo` are omitted
 when empty.
 
 `enumValues` lists the constant names when `type` is a model enum, so a runtime
-can validate and convert a value without the analyzer.
+can validate and convert a value without the analyzer. `enumValueDocs` is its
+companion — an object keyed by constant name holding each constant's doc
+comment, omitted entirely when the enum documents none of them and omitting the
+individual constants it has no text for.
+
+The two answer different questions and a closed vocabulary needs both:
+`enumValues` says *which* tokens are legal, `enumValueDocs` says what they mean.
+The author's choice is between adjacent constants, and what separates them
+exists nowhere else in the meta. It is keyed rather than positional so a length
+divergence cannot silently pair a constant with its neighbour's description.
 
 `refersTo` states that the field's value is **an id drawn from another section's
 registry** rather than free text. It is a list of registry keys, each written

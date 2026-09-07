@@ -805,10 +805,22 @@ none of them inferable from the model's structure:
 
 | Meta field | Carried on | Present in the current model | What it says |
 |---|---|---|---|
-| `doc` | class, field | 1254/1254 classes, 3773/5153 fields | what the section *is* |
+| `doc` | class, field | 1254/1254 classes, **5153/5153** fields | what the section *is* |
 | `help` (`@ContentHelp`) | class, field | 128 classes, 1147 fields | how to *fill it in* |
 | `label` (`@Form` `Field`) | form field | 10953/10953 | the field's display name |
 | `hint` (`@Form` `Field`) | form field | 10547/10953 | what a valid value looks like |
+| `enumValueDocs` | form field, enum field | 22/22 enum-typed form fields | what each **constant** means |
+
+`doc` reached 5153/5153 from **3904/5153** by being **resolved through the
+superclass chain**, as dartdoc resolves it. Every section class re-declares
+`content` as `@override String? content;` purely to attach its `@Form` /
+`@ContentType`; the exporter recorded only a member's own comment, so it wrote
+`doc: null` for 1249 fields — every one of them `content`, of which 810 had no
+`help` to fall back on either. Dart hid it (its
+emitter had a fallback, so 3224 of 3234 `content` accessors carried *something*),
+and the eight other facades did not: each rendered 1,249 accessors with no
+documentation at all. A one-line resolution rule in the exporter closed it in
+nine languages at once.
 
 `doc` is the one every emitter already renders. The other three were reaching
 the meta-data and stopping there. The Dart reference emitter renders all four
@@ -834,12 +846,26 @@ emitter should ask the same question of *its* documentation tool before
 deciding: a language whose reference does list a setter separately genuinely
 needs the line, and one whose reference does not gains 14,000 lines of nothing.
 
-**What the meta cannot supply.** Enum *constants* are carried as bare names
-(`enumValues`), with no per-constant text, so no emitter can document them from
-the meta — the model's own per-constant comments stop at the exporter.
-Likewise the `@ContentType` *description* is dropped; only the type token
-reaches the meta. Both are model-side gaps rather than emitter gaps, and
-closing either means widening the exporter and the meta schema first.
+**Enum constants now carry their own text.** `enumValues` gives the legal
+tokens; `enumValueDocs` — an object keyed by constant name — gives each
+constant's model doc comment. For a **closed** vocabulary that second half is
+the load-bearing one: an author's choice is between adjacent constants, and
+what separates them exists nowhere else. The model documents all 163 of its
+constants across 25 enums; 20 of those enums reach the meta, through the 22
+enum-typed `@Form` fields that use them.
+
+Only the **Dart** facade renders them today, and that is not an emitter
+oversight — it is because only the Dart facade has an enum to render them onto.
+YRD7's typed enums were implemented in the Dart emitter alone: the other eight
+collect enum types from `enum`-kind *fields*, of which the model has none, so
+they emit no enum type at all and render an enum-typed form field as a plain
+string accessor. Attaching the docs there means porting YRD7 first, which is a
+change to eight generated APIs rather than to eight comment templates.
+
+**What the meta still cannot supply.** The `@ContentType` *description* is
+dropped; only the type token reaches the meta. That is a model-side gap rather
+than an emitter gap, and closing it means widening the exporter and the meta
+schema first.
 
 **A gap in the model stays visible as a gap in the facade.** Where a model
 field carries no `doc`, the emitter emits nothing rather than a derived

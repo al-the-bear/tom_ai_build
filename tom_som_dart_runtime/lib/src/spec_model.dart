@@ -182,6 +182,16 @@ class FormFieldSpec {
   /// without the analyzer.
   final List<String> enumValues;
 
+  /// Each constant's documentation, keyed by constant name; empty for a
+  /// non-enum field and for a constant with no comment.
+  ///
+  /// This is the text that makes a **closed** vocabulary usable. The values
+  /// alone say *which* choices are legal; the author's decision is between
+  /// adjacent ones, and what distinguishes them lives nowhere else. Keyed
+  /// rather than positional so a length divergence cannot silently misalign
+  /// a constant with another's description.
+  final Map<String, String> enumValueDocs;
+
   /// The registry key(s) this field's value is an id drawn from, each written
   /// `<SECTIONID>.<formFieldName>` (csrb3); empty for a non-reference field. A
   /// reference field holds a free-text id that must already be declared by some
@@ -200,6 +210,7 @@ class FormFieldSpec {
     this.hint,
     this.required = false,
     this.enumValues = const [],
+    this.enumValueDocs = const {},
     this.refersTo = const [],
   });
 
@@ -219,6 +230,7 @@ class FormFieldSpec {
     enumValues:
         (j['enumValues'] as List?)?.map((e) => e.toString()).toList() ??
         const [],
+    enumValueDocs: _stringMap(j['enumValueDocs']),
     refersTo:
         (j['refersTo'] as List?)?.map((e) => e.toString()).toList() ?? const [],
   );
@@ -561,6 +573,11 @@ class SpecField with AnnotatedSpecNode {
   /// reviewer is checking.
   final List<String> enumValues;
 
+  /// Each constant's documentation, keyed by constant name; empty for a
+  /// non-enum field and for a constant with no comment. The counterpart of
+  /// [enumValues] — see [FormFieldSpec.enumValueDocs] for why it is keyed.
+  final Map<String, String> enumValueDocs;
+
   // complex / scalar
   /// The declared type name with any `?` stripped, for
   /// [SpecFieldKind.complex] and [SpecFieldKind.scalar] fields, and for a
@@ -621,6 +638,7 @@ class SpecField with AnnotatedSpecNode {
     this.sectionType,
     this.enumType,
     this.enumValues = const [],
+    this.enumValueDocs = const {},
     this.type,
     this.formFields = const [],
     this.annotations = const [],
@@ -654,6 +672,7 @@ class SpecField with AnnotatedSpecNode {
       enumValues:
           (j['enumValues'] as List?)?.map((e) => e.toString()).toList() ??
           const [],
+      enumValueDocs: _stringMap(j['enumValueDocs']),
       type: j['type'] as String?,
       formFields:
           (j['formFields'] as List?)
@@ -776,6 +795,16 @@ class OneOfGroup {
   /// *not complete*: nothing is known about the coverage, and "unknown" must
   /// not read as "fine".
   bool get isComplete => hasDiscriminatorValues && uncoveredValues.isEmpty;
+}
+
+/// Reads a `{name: text}` JSON object into a string map, tolerating absence.
+///
+/// Used for the `enumValueDocs` blocks. An absent or non-object value yields
+/// the empty map rather than throwing: the key is additive and optional, so a
+/// meta written before it existed must still load.
+Map<String, String> _stringMap(Object? raw) {
+  if (raw is! Map) return const {};
+  return {for (final e in raw.entries) '${e.key}': '${e.value}'};
 }
 
 /// A model class with its fields.

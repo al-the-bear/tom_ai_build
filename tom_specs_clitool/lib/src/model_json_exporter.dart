@@ -175,6 +175,13 @@ class ModelJsonExporter {
                 // YRD7: enum-typed form fields carry their constant names
                 // so runtimes can validate/convert without the analyzer.
                 if (ff.enumValues.isNotEmpty) 'enumValues': ff.enumValues,
+                // The per-constant text that makes a CLOSED vocabulary
+                // usable: the author's choice is between adjacent constants,
+                // and what distinguishes them lives nowhere else. Keyed by
+                // constant name, so a missing entry is simply "undocumented"
+                // and no consumer has to index two lists in step.
+                if (ff.enumValueDocs.isNotEmpty)
+                  'enumValueDocs': ff.enumValueDocs,
                 // csrb3: the registry key(s) this field's id value is drawn
                 // from, each `<SECTIONID>.<formFieldName>`. Carried across so
                 // the eight non-Dart runtimes can run the instance-tier
@@ -196,6 +203,9 @@ class ModelJsonExporter {
       case 'enum':
         out['enumType'] = f.typeName.replaceAll('?', '');
         out['enumValues'] = f.enumValues;
+        if (f.enumValueDocs.isNotEmpty) {
+          out['enumValueDocs'] = f.enumValueDocs;
+        }
         break;
       case 'complex':
         out['type'] = f.typeName.replaceAll('?', '');
