@@ -5576,9 +5576,7 @@ class TrainingRequirements extends DocSpecsSection {
 /// Initial training entry (form).
 @SectionId('ITE')
 class InitialTrainingEntry extends DocSpecsSection {
-  @Form([
-    Field('description', String, 'Description'),
-  ])
+  @Form([Field('description', String, 'Description')])
   @override
   @SerializationOrder(0)
   String? content;
@@ -5828,9 +5826,7 @@ class SystemTrainingEntry extends DocSpecsSection {
 /// Certification entry (form).
 @SectionId('CRT')
 class CertificationEntry extends DocSpecsSection {
-  @Form([
-    Field('issuingBody', String, 'Issuing Body — who certifies'),
-  ])
+  @Form([Field('issuingBody', String, 'Issuing Body — who certifies')])
   @override
   @SerializationOrder(0)
   String? content;

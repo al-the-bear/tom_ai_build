@@ -25,7 +25,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Transition & Rollout Plan',
-  description: 'End-to-end rollout specification — localization, '
+  description:
+      'End-to-end rollout specification — localization, '
       'translation, documentation and training, rollout plan, migration '
       'plan, user manuals, training materials, pilot, cutover, knowledge '
       'transfer, and warranty/support.',

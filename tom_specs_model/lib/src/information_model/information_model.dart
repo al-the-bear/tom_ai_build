@@ -26,7 +26,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Information Model',
-  description: 'Complete business data model — entities, relationships, '
+  description:
+      'Complete business data model — entities, relationships, '
       'data classification, business objects, functions, rules, '
       'dictionary, and validation/integrity constraints.',
   basedOn: [D00SolutionBlueprint],

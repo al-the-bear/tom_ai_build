@@ -179,10 +179,12 @@ class SystemInventory extends DocSpecsSection {
 )
 @SectionId('CARCH')
 class CurrentArchitecture extends DocSpecsSection {
-  @ContentHelp('Describe the architecture as it stands today, not as it was '
-      'designed: deployment topology, integration patterns, shared services '
-      'and data stores. Note where the running system has drifted from its '
-      'documentation.')
+  @ContentHelp(
+    'Describe the architecture as it stands today, not as it was '
+    'designed: deployment topology, integration patterns, shared services '
+    'and data stores. Note where the running system has drifted from its '
+    'documentation.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -265,7 +267,8 @@ class ExistingSystemEntry extends DocSpecsSection {
       'systemId',
       String,
       'System ID/Code (internal identifier)',
-      hint: 'The catalogue or CMDB code the organisation already uses for this '
+      hint:
+          'The catalogue or CMDB code the organisation already uses for this '
           'system, if any — owned outside this document',
     ),
     Field(
@@ -781,10 +784,12 @@ class LimitationEntry extends DocSpecsSection {
 )
 @SectionId('DEPNT')
 class DependenciesAndIntegrations extends DocSpecsSection {
-  @ContentHelp('Name each dependency between current systems, on external '
-      'services and on shared infrastructure, and say which of them are '
-      'fragile. A fragile integration point is a migration risk, so record why '
-      'it is fragile, not just that it is.')
+  @ContentHelp(
+    'Name each dependency between current systems, on external '
+    'services and on shared infrastructure, and say which of them are '
+    'fragile. A fragile integration point is a migration risk, so record why '
+    'it is fragile, not just that it is.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -1861,9 +1866,11 @@ class SystemIntegrationEntry extends DocSpecsSection {
       'directly by a detail-document path',
 )
 class CurrentBusinessProcesses extends DocSpecsSection {
-  @ContentHelp('Introduce the processes the project will impact, replace or '
-      'enhance, and say how they were established — workshops, observation, '
-      'existing documentation. One subsection per process follows below.')
+  @ContentHelp(
+    'Introduce the processes the project will impact, replace or '
+    'enhance, and say how they were established — workshops, observation, '
+    'existing documentation. One subsection per process follows below.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -1989,7 +1996,8 @@ class ProcessScopeEntry extends DocSpecsSection {
       'rationale',
       String,
       'Rationale - why this scope decision',
-      hint: 'Why the process is in or out of scope, and to what extent — '
+      hint:
+          'Why the process is in or out of scope, and to what extent — '
           'record here if it is only partially included',
     ),
     Field('impactIfExcluded', String, 'Impact If Excluded'),
@@ -2013,9 +2021,11 @@ class ProcessScopeEntry extends DocSpecsSection {
 )
 @SectionId('PRINMA')
 class ProcessInterdependencyMatrix extends DocSpecsSection {
-  @ContentHelp('Show which processes trigger, feed or block each other; a '
-      'table or matrix reads better than prose here. Call out the couplings '
-      'that constrain migration sequencing.')
+  @ContentHelp(
+    'Show which processes trigger, feed or block each other; a '
+    'table or matrix reads better than prose here. Call out the couplings '
+    'that constrain migration sequencing.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -2325,9 +2335,11 @@ class CurrentProcessImprovementEntry extends DocSpecsSection {
 )
 @SectionId('WODE')
 class WorkflowDescriptions extends DocSpecsSection {
-  @ContentHelp('Introduce the workflows of this business process and add one '
-      'subsection per workflow relevant to the project. Say which workflows '
-      'are in scope for change and which are recorded only as context.')
+  @ContentHelp(
+    'Introduce the workflows of this business process and add one '
+    'subsection per workflow relevant to the project. Say which workflows '
+    'are in scope for change and which are recorded only as context.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -2717,7 +2729,8 @@ class WorkflowStepEntry extends DocSpecsSection {
       'isManual',
       bool,
       'Is Manual (requires human intervention)',
-      hint: 'Whether carrying the step out needs a person; an automated step '
+      hint:
+          'Whether carrying the step out needs a person; an automated step '
           'runs without human intervention',
     ),
     Field('isAutomatable', bool, 'Is Automatable'),
@@ -2725,7 +2738,8 @@ class WorkflowStepEntry extends DocSpecsSection {
       'isErrorProne',
       bool,
       'Is Error-Prone (high error or failure rate)',
-      hint: 'Whether the step fails or is got wrong often enough to matter; '
+      hint:
+          'Whether the step fails or is got wrong often enough to matter; '
           'the known issues below record which failures and how often',
     ),
     Field('averageDuration', String, 'Average Duration'),
@@ -3294,7 +3308,8 @@ class ProcessMetricEntry extends DocSpecsSection {
       'metricCategory',
       String,
       'Category (e.g., Efficiency, Quality, Volume, Cost)',
-      hint: 'Only for metrics listed on their own — a metric listed inside a '
+      hint:
+          'Only for metrics listed on their own — a metric listed inside a '
           'metric category takes that category and leaves this empty',
     ),
     Field('currentValue', String, 'Current Value'),
@@ -4207,7 +4222,8 @@ class PainPointGapCorrelationEntry extends DocSpecsSection {
       'gapId',
       String,
       'Gap ID',
-      hint: 'The gap this pain point correlates to — a gap section id '
+      hint:
+          'The gap this pain point correlates to — a gap section id '
           '(GAPE-ITEM-…)',
       required: true,
       refersTo: ['GAPE.@sectionId'],

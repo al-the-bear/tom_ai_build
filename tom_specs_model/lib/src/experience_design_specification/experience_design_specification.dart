@@ -24,7 +24,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Experience Design Specification',
-  description: 'Full UI design and prototype specification — vision, '
+  description:
+      'Full UI design and prototype specification — vision, '
       'screens, flow, print, errors, help, accessibility, responsive '
       'design, components, language selection, prototype, and '
       'wireframes/mockups.',

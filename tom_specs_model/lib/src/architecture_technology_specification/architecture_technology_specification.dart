@@ -25,7 +25,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Architecture & Technology Specification',
-  description: 'Comprehensive technical requirements — platform, '
+  description:
+      'Comprehensive technical requirements — platform, '
       'software design, standard software, hardware, operations, '
       'communication, system operation, security, architecture, '
       'components, framework conditions, and translation handling.',
@@ -94,8 +95,7 @@ class D06ArchitectureTechnologySpecification extends DocSpecsSection {
 
   /// Technical framework conditions (whole).
   @SerializationOrder(12)
-  TechnicalEnvironment technicalEnvironment =
-      TechnicalEnvironment();
+  TechnicalEnvironment technicalEnvironment = TechnicalEnvironment();
 
   /// Translation handling requirements (whole).
   @SerializationOrder(13)

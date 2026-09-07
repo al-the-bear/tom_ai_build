@@ -20,7 +20,8 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
 /// The committed meta export the nine runtimes are generated from. Resolved
 /// relative to the package root (tests run with that as the cwd), the same way
 /// `tom_specs_clitool`'s meta-driven tests resolve it.
-final String realModelMetaPath = Directory.current.path.endsWith('tom_specs_model')
+final String realModelMetaPath =
+    Directory.current.path.endsWith('tom_specs_model')
     ? '${Directory.current.path}/../tom_som_dart_v0/meta/spec_model.meta.json'
     : '${Directory.current.path}/tom_som_dart_v0/meta/spec_model.meta.json';
 
@@ -28,8 +29,9 @@ SpecModel? _cached;
 
 /// The parsed meta export, read once per test process.
 SpecModel realModel() => _cached ??= SpecModel.fromJson(
-    jsonDecode(File(realModelMetaPath).readAsStringSync())
-        as Map<String, dynamic>);
+  jsonDecode(File(realModelMetaPath).readAsStringSync())
+      as Map<String, dynamic>,
+);
 
 /// A freshly wired metadata tree for [rootType] (one of the fourteen document
 /// roots, e.g. `D00SolutionBlueprint`).

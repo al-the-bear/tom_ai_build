@@ -768,7 +768,8 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
       'requirementRef',
       String,
       'Requirement Reference',
-      hint: 'Requirement ids, comma-separated — each is a requirement section '
+      hint:
+          'Requirement ids, comma-separated — each is a requirement section '
           'id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)',
       refersTo: [
         'FRE.@sectionId',
@@ -781,8 +782,7 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
       'deliverableRef',
       String,
       'Deliverable Reference',
-      hint:
-          'The linked deliverable — a deliverable section id (DLVEN-ITEM-…)',
+      hint: 'The linked deliverable — a deliverable section id (DLVEN-ITEM-…)',
       refersTo: ['DLVEN.@sectionId'],
     ),
     Field(
@@ -1960,7 +1960,8 @@ class TestScenarioEntry extends DocSpecsSection {
       'requirementRef',
       String,
       'Requirement Reference',
-      hint: 'Requirement ids, comma-separated — each is a requirement section '
+      hint:
+          'Requirement ids, comma-separated — each is a requirement section '
           'id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)',
       refersTo: [
         'FRE.@sectionId',
@@ -1973,8 +1974,7 @@ class TestScenarioEntry extends DocSpecsSection {
       'useCaseRef',
       String,
       'Use Case Reference',
-      hint:
-          'The related interaction — an interaction section id (INEN-INTE-…)',
+      hint: 'The related interaction — an interaction section id (INEN-INTE-…)',
       refersTo: ['INEN.@sectionId'],
     ),
     Field(

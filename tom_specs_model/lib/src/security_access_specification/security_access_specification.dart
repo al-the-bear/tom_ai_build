@@ -24,7 +24,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Security & Access Specification',
-  description: 'Complete access and authorization specification — user '
+  description:
+      'Complete access and authorization specification — user '
       'management, authentication, resource protection, authorization, '
       'encryption, audit, role matrix, and compliance framework.',
   basedOn: [D00SolutionBlueprint],

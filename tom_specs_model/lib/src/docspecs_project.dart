@@ -139,8 +139,11 @@ class DocSpecsProject extends DocSpecsSection {
   /// [tree] is the metadata tree of [D00SolutionBlueprint]; the output is the
   /// hierarchical-v2 `*.docspecs.yaml` every SOM runtime reads (SOM §12).
   String toYaml({required SomMetaTree tree, String? modelVersion}) =>
-      SpecYaml.toYaml(solutionBlueprint,
-          tree: tree, modelVersion: modelVersion);
+      SpecYaml.toYaml(
+        solutionBlueprint,
+        tree: tree,
+        modelVersion: modelVersion,
+      );
 
   /// Per-root save. For [solutionBlueprint] this is the global [toYaml]; for a
   /// projection root it runs the connect pass first — re-pointing the
@@ -163,7 +166,11 @@ class DocSpecsProject extends DocSpecsSection {
     if (identical(root, solutionBlueprint)) {
       return toYaml(tree: tree, modelVersion: modelVersion);
     }
-    return SpecYaml.toYamlForProjection(root, solutionBlueprint,
-        tree: tree, modelVersion: modelVersion);
+    return SpecYaml.toYamlForProjection(
+      root,
+      solutionBlueprint,
+      tree: tree,
+      modelVersion: modelVersion,
+    );
   }
 }

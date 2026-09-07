@@ -23,7 +23,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Interaction Scenarios',
-  description: 'Use cases derived from the target process steps and actor '
+  description:
+      'Use cases derived from the target process steps and actor '
       'interactions — catalog, scenarios, diagrams, end-to-end test '
       'scenarios, and traceability.',
   basedOn: [D00SolutionBlueprint],

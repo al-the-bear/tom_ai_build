@@ -20,11 +20,11 @@ void main() {
     /// The thirteen projection roots: every entry point of the container
     /// except the [D00SolutionBlueprint] master it projects from.
     List<Object> projectionRootsOf(DocSpecsProject project) => [
-          for (final slot in specSlotsOf(project))
-            if (slot.node case final node?
-                when !identical(node, project.solutionBlueprint))
-              node,
-        ];
+      for (final slot in specSlotsOf(project))
+        if (slot.node case final node?
+            when !identical(node, project.solutionBlueprint))
+          node,
+    ];
 
     test('every projection root has a connect binding', () {
       final project = DocSpecsProject();
@@ -33,18 +33,26 @@ void main() {
       // The count is asserted, not just the per-root outcome: a codegen change
       // that stops recognizing a root would otherwise shrink both sides
       // together and still pass.
-      expect(roots, hasLength(13),
-          reason: 'the container carries the SBP master plus thirteen '
-              'projection roots');
+      expect(
+        roots,
+        hasLength(13),
+        reason:
+            'the container carries the SBP master plus thirteen '
+            'projection roots',
+      );
 
       final unbound = [
         for (final root in roots)
           if (!connectProjection(root, project.solutionBlueprint))
             root.runtimeType.toString(),
       ];
-      expect(unbound, isEmpty,
-          reason: 'these projection roots serialize unresolved '
-              'default-constructed sections');
+      expect(
+        unbound,
+        isEmpty,
+        reason:
+            'these projection roots serialize unresolved '
+            'default-constructed sections',
+      );
     });
 
     test('connect re-points a projection at the live Solution Blueprint', () {
@@ -54,46 +62,70 @@ void main() {
 
       // Before the pass the projection holds its own default instance.
       expect(
-          identical(projection.userManagement,
-              sbp.securityAndAccessModel.accessControl.userManagement),
-          isFalse);
+        identical(
+          projection.userManagement,
+          sbp.securityAndAccessModel.accessControl.userManagement,
+        ),
+        isFalse,
+      );
 
       connectProjection(projection, sbp);
 
       expect(
-          identical(projection.userManagement,
-              sbp.securityAndAccessModel.accessControl.userManagement),
-          isTrue,
-          reason: 'the projection must reference the SBP section, not a copy');
+        identical(
+          projection.userManagement,
+          sbp.securityAndAccessModel.accessControl.userManagement,
+        ),
+        isTrue,
+        reason: 'the projection must reference the SBP section, not a copy',
+      );
     });
 
     test('toYamlForRoot emits content authored on the Solution Blueprint', () {
       final project = DocSpecsProject();
-      project.solutionBlueprint.securityAndAccessModel.accessControl
-          .userManagement.content = 'user-management: authored-in-sbp';
+      project
+              .solutionBlueprint
+              .securityAndAccessModel
+              .accessControl
+              .userManagement
+              .content =
+          'user-management: authored-in-sbp';
 
-      final yaml = project.toYamlForRoot(project.securityAccessSpecification,
-          tree: treeFor('D08SecurityAccessSpecification'));
-
-      expect(yaml, contains('user-management: authored-in-sbp'),
-          reason: 'a per-root write runs the connect pass first, so it '
-              'reflects current SBP content (N11)');
-    });
-
-    test('an edit made through a projection lands in the shared SBP section',
-        () {
-      final project = DocSpecsProject();
-      final projection = project.securityAccessSpecification;
-      connectProjection(projection, project.solutionBlueprint);
-
-      projection.userManagement.content = 'edited-through-the-projection';
+      final yaml = project.toYamlForRoot(
+        project.securityAccessSpecification,
+        tree: treeFor('D08SecurityAccessSpecification'),
+      );
 
       expect(
-          project.solutionBlueprint.securityAndAccessModel.accessControl
-              .userManagement.content,
-          'edited-through-the-projection',
-          reason: 'projections do not own copies — one shared tree (N12)');
+        yaml,
+        contains('user-management: authored-in-sbp'),
+        reason:
+            'a per-root write runs the connect pass first, so it '
+            'reflects current SBP content (N11)',
+      );
     });
+
+    test(
+      'an edit made through a projection lands in the shared SBP section',
+      () {
+        final project = DocSpecsProject();
+        final projection = project.securityAccessSpecification;
+        connectProjection(projection, project.solutionBlueprint);
+
+        projection.userManagement.content = 'edited-through-the-projection';
+
+        expect(
+          project
+              .solutionBlueprint
+              .securityAndAccessModel
+              .accessControl
+              .userManagement
+              .content,
+          'edited-through-the-projection',
+          reason: 'projections do not own copies — one shared tree (N12)',
+        );
+      },
+    );
 
     test('the D13 CodeSpecs projection is bound like the other twelve', () {
       // D13 is `@CodeSpecsProjection()`-marked, which exempts it from the
@@ -106,9 +138,12 @@ void main() {
 
       expect(connectProjection(project.codeSpecsProjection, sbp), isTrue);
       expect(
-          identical(project.codeSpecsProjection.dataModel,
-              sbp.informationAndDataModel.dataModel),
-          isTrue);
+        identical(
+          project.codeSpecsProjection.dataModel,
+          sbp.informationAndDataModel.dataModel,
+        ),
+        isTrue,
+      );
     });
 
     test('a document header stays document-local', () {
@@ -121,9 +156,12 @@ void main() {
       connectProjection(project.securityAccessSpecification, sbp);
 
       expect(
-          identical(project.securityAccessSpecification.header,
-              sbp.documentControl.header),
-          isFalse);
+        identical(
+          project.securityAccessSpecification.header,
+          sbp.documentControl.header,
+        ),
+        isFalse,
+      );
     });
   });
 }

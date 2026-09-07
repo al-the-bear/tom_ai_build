@@ -38,61 +38,89 @@ void main() {
       filler = _Filler(realModel())..fill(project.solutionBlueprint);
     });
 
-    test('a populated Solution Blueprint is a fixed point of the runtime codec',
-        () {
-      final written =
-          SpecYaml.toYaml(project.solutionBlueprint, tree: treeFor(_sbp));
+    test(
+      'a populated Solution Blueprint is a fixed point of the runtime codec',
+      () {
+        final written = SpecYaml.toYaml(
+          project.solutionBlueprint,
+          tree: treeFor(_sbp),
+        );
 
-      // Non-triviality: this must be the real document, not an empty shell a
-      // trivially-correct encoder would also round-trip.
-      // 707 text sections and 233 forms: every section the default-constructed
-      // tree reaches. The remaining model classes are list *element* types,
-      // unreachable until a list has items — the third test covers those.
-      //
-      // Asserted exactly rather than as a floor, for the same reason
-      // `registry_snapshot_test` asserts its class count exactly: a `>=` bound
-      // is silent in the direction the model actually moves.
-      expect(filler.contentLeaves, 707,
-          reason: 'the fixture must exercise the whole reachable model');
-      expect(filler.formSections, 233);
-      expect(written.split('\n').length, greaterThan(3000));
+        // Non-triviality: this must be the real document, not an empty shell a
+        // trivially-correct encoder would also round-trip.
+        // 707 text sections and 233 forms: every section the default-constructed
+        // tree reaches. The remaining model classes are list *element* types,
+        // unreachable until a list has items — the third test covers those.
+        //
+        // Asserted exactly rather than as a floor, for the same reason
+        // `registry_snapshot_test` asserts its class count exactly: a `>=` bound
+        // is silent in the direction the model actually moves.
+        expect(
+          filler.contentLeaves,
+          707,
+          reason: 'the fixture must exercise the whole reachable model',
+        );
+        expect(filler.formSections, 233);
+        expect(written.split('\n').length, greaterThan(3000));
 
-      final reloaded = SpecDocumentYaml.decode(written, treeFor(_sbp));
-      final rewritten = SpecDocumentYaml.encode(
-          document: reloaded.document, tree: treeFor(_sbp));
+        final reloaded = SpecDocumentYaml.decode(written, treeFor(_sbp));
+        final rewritten = SpecDocumentYaml.encode(
+          document: reloaded.document,
+          tree: treeFor(_sbp),
+        );
 
-      expect(rewritten, written,
-          reason: 'a document SpecYaml wrote is not a fixed point of the '
-              'runtime codec — the two derivations of SOM §12 have drifted');
-    });
+        expect(
+          rewritten,
+          written,
+          reason:
+              'a document SpecYaml wrote is not a fixed point of the '
+              'runtime codec — the two derivations of SOM §12 have drifted',
+        );
+      },
+    );
 
     test('every authored value survives the round trip, by path', () {
-      final projected =
-          SpecYaml.toDocument(project.solutionBlueprint, tree: treeFor(_sbp));
-      final written =
-          SpecYaml.toYaml(project.solutionBlueprint, tree: treeFor(_sbp));
+      final projected = SpecYaml.toDocument(
+        project.solutionBlueprint,
+        tree: treeFor(_sbp),
+      );
+      final written = SpecYaml.toYaml(
+        project.solutionBlueprint,
+        tree: treeFor(_sbp),
+      );
       final reloaded = SpecDocumentYaml.decode(written, treeFor(_sbp)).document;
 
       // Path-for-path, not only byte-for-byte: a codec that dropped a whole
       // subtree symmetrically would still be a fixed point of itself.
-      expect(reloaded.contentPaths.toSet(), projected.contentPaths.toSet(),
-          reason: 'the reloaded document is keyed differently from the one '
-              'SpecYaml projected');
+      expect(
+        reloaded.contentPaths.toSet(),
+        projected.contentPaths.toSet(),
+        reason:
+            'the reloaded document is keyed differently from the one '
+            'SpecYaml projected',
+      );
       expect(reloaded.headlinePaths.toSet(), projected.headlinePaths.toSet());
       expect(reloaded.formPaths.toSet(), projected.formPaths.toSet());
 
       for (final path in projected.contentPaths) {
-        expect(reloaded.content(path), projected.content(path),
-            reason: 'content differs at $path');
+        expect(
+          reloaded.content(path),
+          projected.content(path),
+          reason: 'content differs at $path',
+        );
       }
       for (final path in projected.formPaths) {
-        expect(reloaded.formFieldNames(path).toSet(),
-            projected.formFieldNames(path).toSet(),
-            reason: 'form fields differ at $path');
+        expect(
+          reloaded.formFieldNames(path).toSet(),
+          projected.formFieldNames(path).toSet(),
+          reason: 'form fields differ at $path',
+        );
         for (final field in projected.formFieldNames(path)) {
-          expect(reloaded.formField(path, field),
-              projected.formField(path, field),
-              reason: 'form value differs at $path.$field');
+          expect(
+            reloaded.formField(path, field),
+            projected.formField(path, field),
+            reason: 'form value differs at $path.$field',
+          );
         }
       }
     });
@@ -108,18 +136,24 @@ void main() {
             ..form = DocSpecsForm(values: {'version': v, 'author': 'test'}),
       ];
 
-      final written =
-          SpecYaml.toYaml(project.solutionBlueprint, tree: treeFor(_sbp));
+      final written = SpecYaml.toYaml(
+        project.solutionBlueprint,
+        tree: treeFor(_sbp),
+      );
 
-      expect(written, isNot(contains('\n      - ')),
-          reason: 'the v2 format keys list items, it never emits a sequence');
+      expect(
+        written,
+        isNot(contains('\n      - ')),
+        reason: 'the v2 format keys list items, it never emits a sequence',
+      );
       for (final v in ['10', '11', '20']) {
         expect(written, contains('RVENT-REVS-$v:'));
       }
 
       final rewritten = SpecDocumentYaml.encode(
-          document: SpecDocumentYaml.decode(written, treeFor(_sbp)).document,
-          tree: treeFor(_sbp));
+        document: SpecDocumentYaml.decode(written, treeFor(_sbp)).document,
+        tree: treeFor(_sbp),
+      );
       expect(rewritten, written);
     });
 
@@ -127,12 +161,15 @@ void main() {
       // A per-root write runs the connect pass first, so it carries the live
       // SBP content but is keyed by the projection's own root (N11).
       const root = 'D08SecurityAccessSpecification';
-      final written = project.toYamlForRoot(project.securityAccessSpecification,
-          tree: treeFor(root));
+      final written = project.toYamlForRoot(
+        project.securityAccessSpecification,
+        tree: treeFor(root),
+      );
 
       final rewritten = SpecDocumentYaml.encode(
-          document: SpecDocumentYaml.decode(written, treeFor(root)).document,
-          tree: treeFor(root));
+        document: SpecDocumentYaml.decode(written, treeFor(root)).document,
+        tree: treeFor(root),
+      );
       expect(rewritten, written);
     });
   });
@@ -154,12 +191,12 @@ const String _sbp = 'D00SolutionBlueprint';
 /// and [DocSpecsSection.form], and the round trip has to carry the pair.
 class _Filler {
   _Filler(SpecModel model)
-      : _formFields = {
-          for (final cls in model.classes.values)
-            for (final f in cls.fields)
-              if (f.name == 'content' && f.kind == SpecFieldKind.form)
-                cls.name: [for (final ff in f.formFields) ff.name],
-        };
+    : _formFields = {
+        for (final cls in model.classes.values)
+          for (final f in cls.fields)
+            if (f.name == 'content' && f.kind == SpecFieldKind.form)
+              cls.name: [for (final ff in f.formFields) ff.name],
+      };
 
   /// Class name → the `@Form` field names of its `content` member.
   final Map<String, List<String>> _formFields;

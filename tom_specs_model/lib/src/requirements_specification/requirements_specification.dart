@@ -20,15 +20,18 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Requirements Specification',
-  description: 'Complete requirements catalog — functional, technical, '
+  description:
+      'Complete requirements catalog — functional, technical, '
       'security, organizational — with traceability, relationships, and '
       'coverage against goals, use cases, and tests.',
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('RSP')
 class D04RequirementsSpecification extends DocSpecsSection {
-  @ContentHelp('Executive overview of the requirements catalog and its '
-      'traceability model.')
+  @ContentHelp(
+    'Executive overview of the requirements catalog and its '
+    'traceability model.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -60,8 +63,11 @@ class D04RequirementsSpecification extends DocSpecsSection {
   /// reaches it directly. The authoritative content lives on the Solution
   /// Blueprint side.
   @SectionId('RSP-TRAC')
-  @ContentType('description', 'Summary of traceability matrix showing '
-      'connections between requirements, goals, use cases, and tests.')
+  @ContentType(
+    'description',
+    'Summary of traceability matrix showing '
+        'connections between requirements, goals, use cases, and tests.',
+  )
   @SerializationOrder(6)
   DocSpecsSection? traceabilityMatrix;
 

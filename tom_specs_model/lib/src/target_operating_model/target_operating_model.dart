@@ -23,7 +23,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Target Operating Model',
-  description: 'Target business process specification — vision, design '
+  description:
+      'Target business process specification — vision, design '
       'principles, catalog, diagrams, improvements, relationships, '
       'workflows, cross-process analysis, exceptions, and KPIs.',
   basedOn: [D00SolutionBlueprint],

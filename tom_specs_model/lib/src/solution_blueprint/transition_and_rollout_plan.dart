@@ -98,7 +98,12 @@ localization, translation, and documentation subtrees.
 @SectionId('RLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -145,7 +150,12 @@ pre-go-live to production.
 @SectionId('MIGPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -192,7 +202,12 @@ mapping. Focuses on the execution plan.
 @SectionId('USRMAN')
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -240,7 +255,12 @@ the help-concept section).
 @SectionId('RLTTM')
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -281,7 +301,12 @@ captures the catalog of training modules.
 @SectionId('PLTPLN')
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -323,7 +348,12 @@ success is measured, and the decision gate that authorizes rollout.
 @SectionId('CUTPRC')
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -366,7 +396,12 @@ waves — and than the Migration Plan — which covers data execution.
 @SectionId('KNTFR')
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -406,7 +441,12 @@ Formal handover of system knowledge to operations and support teams.
 @SectionId('WRTSP')
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',

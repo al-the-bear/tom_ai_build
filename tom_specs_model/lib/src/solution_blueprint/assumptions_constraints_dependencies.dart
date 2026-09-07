@@ -16,22 +16,25 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 @FollowUpKind([FollowUpProcess.doc])
 @SectionId('ACDP')
 class AssumptionsConstraintsDependencies extends DocSpecsSection {
-  @ContentType('description', 'Summarize the key assumptions the solution '
-      'relies on and the constraints it must operate within.')
+  @ContentType(
+    'description',
+    'Summarize the key assumptions the solution '
+        'relies on and the constraints it must operate within.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
 
   /// The consolidated assumption / constraint register.
   @SerializationOrder(1)
-  AssumptionConstraintDependencyRegister register = AssumptionConstraintDependencyRegister();
+  AssumptionConstraintDependencyRegister register =
+      AssumptionConstraintDependencyRegister();
 }
 
 /// A consolidated register of assumptions and constraints.
-@StandardReferences(
-  ['ISO/IEC/IEEE 29148:2018 — assumptions and constraints'],
-  'The consolidated register of assumptions, constraints, and dependencies.',
-)
+@StandardReferences([
+  'ISO/IEC/IEEE 29148:2018 — assumptions and constraints',
+], 'The consolidated register of assumptions, constraints, and dependencies.')
 @SectionId('ACRG')
 class AssumptionConstraintDependencyRegister extends DocSpecsSection {
   @Unused()
@@ -122,7 +125,11 @@ class ConstraintRegisterEntry extends DocSpecsSection {
 class DependencyRegisterEntry extends DocSpecsSection {
   @Form([
     Field('description', String, 'Description', required: true),
-    Field('type', String, 'Type (System, Team, Vendor, Deliverable, Framework)'),
+    Field(
+      'type',
+      String,
+      'Type (System, Team, Vendor, Deliverable, Framework)',
+    ),
     Field('dependsOn', String, 'Depends on (the external party / artifact)'),
     Field('criticality', String, 'Criticality (Low, Medium, High, Blocking)'),
     Field('status', String, 'Status (Open, Confirmed, Resolved, At risk)'),

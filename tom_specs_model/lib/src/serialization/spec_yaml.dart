@@ -130,12 +130,11 @@ abstract final class SpecYaml {
     Object solutionBlueprintRoot, {
     required SomMetaTree tree,
     String? modelVersion,
-  }) =>
-      SpecDocumentYaml.encode(
-        document: toDocument(solutionBlueprintRoot, tree: tree),
-        tree: tree,
-        modelVersion: modelVersion,
-      );
+  }) => SpecDocumentYaml.encode(
+    document: toDocument(solutionBlueprintRoot, tree: tree),
+    tree: tree,
+    modelVersion: modelVersion,
+  );
 
   /// Connects [projection] onto the live [solutionBlueprintRoot] (N11) and then
   /// serializes the projection — the per-root individual-file write
@@ -166,10 +165,7 @@ abstract final class SpecYaml {
   /// Free text on a `@Form` section is *not* such a value: it is the form's
   /// preamble (SOM §11.4 rule 7), and it binds to the node's `content` key like
   /// any other section's body (SOM §12.2).
-  static SpecDocument toDocument(
-    Object root, {
-    required SomMetaTree tree,
-  }) {
+  static SpecDocument toDocument(Object root, {required SomMetaTree tree}) {
     final doc = SpecDocument();
     _Projector(doc).bind(tree.root, tree.root.segment, root);
     return doc;
@@ -207,8 +203,9 @@ class _Projector {
         }
       case SomMetaKind.list:
         throw SpecYamlFormatException(
-            'list node ${node.debugName} reached as a single value at "$path"; '
-            'lists are bound from their owning section');
+          'list node ${node.debugName} reached as a single value at "$path"; '
+          'lists are bound from their owning section',
+        );
     }
   }
 
@@ -241,9 +238,10 @@ class _Projector {
       final held = slot.isList ? slot.list.isNotEmpty : slot.node != null;
       if (held) {
         throw SpecYamlFormatException(
-            'no home for ${slot.label ?? '<unlabelled>'} beneath "$path": '
-            '${node.debugName} is a leaf in the metadata tree'
-            '${node.recursive ? ' (recursive re-entry)' : ''}');
+          'no home for ${slot.label ?? '<unlabelled>'} beneath "$path": '
+          '${node.debugName} is a leaf in the metadata tree'
+          '${node.recursive ? ' (recursive re-entry)' : ''}',
+        );
       }
     }
   }
@@ -265,13 +263,15 @@ class _Projector {
     final meta = node.form;
     if (meta == null) {
       throw SpecYamlFormatException(
-          'form values at "$path" but ${node.debugName} carries no form '
-          'metadata');
+        'form values at "$path" but ${node.debugName} carries no form '
+        'metadata',
+      );
     }
     form.values.forEach((name, value) {
       if (meta.fieldNamed(name) == null) {
         throw SpecYamlFormatException(
-            'unknown form field "$name" at "$path" (${node.debugName})');
+          'unknown form field "$name" at "$path" (${node.debugName})',
+        );
       }
       if (value == null) return;
       doc.setFormField(path, name, '$value');
@@ -294,8 +294,9 @@ class _Projector {
       final label = slot.label;
       if (label == null) {
         throw SpecYamlFormatException(
-            'unlabelled slot beneath "$path" (${node.debugName}); a slot must '
-            'name its member to be serialized');
+          'unlabelled slot beneath "$path" (${node.debugName}); a slot must '
+          'name its member to be serialized',
+        );
       }
       slots[label] = slot;
     }
@@ -305,7 +306,8 @@ class _Projector {
       final member = child.memberName;
       if (member == null) {
         throw SpecYamlFormatException(
-            'metadata child of ${node.debugName} at "$path" has no member name');
+          'metadata child of ${node.debugName} at "$path" has no member name',
+        );
       }
       final slot = slots.remove(member);
       if (slot == null) {
@@ -321,16 +323,18 @@ class _Projector {
       if (child.kind == SomMetaKind.list) {
         if (!slot.isList) {
           throw SpecYamlFormatException(
-              'slot "$member" at "$childPath" holds a single node but '
-              '${child.debugName} is a list');
+            'slot "$member" at "$childPath" holds a single node but '
+            '${child.debugName} is a list',
+          );
         }
         _bindList(child, childPath, slot.list);
         continue;
       }
       if (slot.isList) {
         throw SpecYamlFormatException(
-            'slot "$member" at "$childPath" holds a list but '
-            '${child.debugName} is ${child.kind.name}');
+          'slot "$member" at "$childPath" holds a list but '
+          '${child.debugName} is ${child.kind.name}',
+        );
       }
       final value = slot.node;
       if (value == null) continue; // sparse: an unset section writes nothing
@@ -339,9 +343,10 @@ class _Projector {
 
     if (slots.isNotEmpty) {
       throw SpecYamlFormatException(
-          'slots ${slots.keys.join(', ')} beneath "$path" have no metadata '
-          'child of ${node.debugName}; the model and its exported metadata '
-          'disagree');
+        'slots ${slots.keys.join(', ')} beneath "$path" have no metadata '
+        'child of ${node.debugName}; the model and its exported metadata '
+        'disagree',
+      );
     }
     _bindOwnValue(node, path, object, ownValue);
   }
@@ -358,13 +363,15 @@ class _Projector {
     if (candidates.length == 1) {
       own = candidates.single;
     } else if (candidates.length > 1) {
-      final content =
-          candidates.where((c) => c.memberName == 'content').toList();
+      final content = candidates
+          .where((c) => c.memberName == 'content')
+          .toList();
       if (content.length != 1) {
         throw SpecYamlFormatException(
-            '${node.debugName} at "$path" has ${candidates.length} value '
-            'members (${candidates.map((c) => c.memberName).join(', ')}) and no '
-            'single `content`; which one carries the section value is ambiguous');
+          '${node.debugName} at "$path" has ${candidates.length} value '
+          'members (${candidates.map((c) => c.memberName).join(', ')}) and no '
+          'single `content`; which one carries the section value is ambiguous',
+        );
       }
       own = content.single;
     }
@@ -373,8 +380,9 @@ class _Projector {
       final scalar = _scalarOf(object);
       if (scalar != null && scalar.isNotEmpty) {
         throw SpecYamlFormatException(
-            '${node.debugName} at "$path" carries a scalar value but its '
-            'metadata declares no value member to write it under');
+          '${node.debugName} at "$path" carries a scalar value but its '
+          'metadata declares no value member to write it under',
+        );
       }
       _assertNoForm(node, path, object);
       return;
@@ -396,8 +404,9 @@ class _Projector {
       case SomMetaKind.complex:
       case SomMetaKind.list:
         throw SpecYamlFormatException(
-            'value member ${own.debugName} of ${node.debugName} at "$path" is '
-            '${own.kind.name}, but it has no slot to walk');
+          'value member ${own.debugName} of ${node.debugName} at "$path" is '
+          '${own.kind.name}, but it has no slot to walk',
+        );
     }
   }
 
@@ -436,8 +445,9 @@ class _Projector {
     final expected = SpecDocumentYaml.nodeKey(child);
     if (slot.key != expected) {
       throw SpecYamlFormatException(
-          'key disagreement beneath "$path" (${parent.debugName}): slot writes '
-          '"${slot.key}", metadata writes "$expected"');
+        'key disagreement beneath "$path" (${parent.debugName}): slot writes '
+        '"${slot.key}", metadata writes "$expected"',
+      );
     }
   }
 
@@ -447,7 +457,8 @@ class _Projector {
     if (form == null) return;
     if (form.values.values.every((v) => v == null || '$v'.isEmpty)) return;
     throw SpecYamlFormatException(
-        'form values at "$path" but ${node.debugName} is not a @Form section');
+      'form values at "$path" but ${node.debugName} is not a @Form section',
+    );
   }
 
   /// The object's own scalar payload: the reflection-free contract first (it

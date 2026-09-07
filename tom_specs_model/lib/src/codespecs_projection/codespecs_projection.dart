@@ -68,7 +68,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'CodeSpecs Generation Projection',
-  description: 'The Phase-4 CodeSpecs generation input — a projection over the '
+  description:
+      'The Phase-4 CodeSpecs generation input — a projection over the '
       'Solution Blueprint that reaches only the isolated CodeSpecs subtrees, '
       'grouped by the shared/client/server locus of their CE-parts.',
   basedOn: [D00SolutionBlueprint],
@@ -76,9 +77,11 @@ import '../solution_blueprint/solution_blueprint.dart';
 @CodeSpecsProjection()
 @SectionId('CGP')
 class D13CodeSpecsProjection extends DocSpecsSection {
-  @ContentHelp('Executive overview of the CodeSpecs generation input: which '
-      'blueprint subtrees feed generation and how they route across the '
-      'shared/client/server split.')
+  @ContentHelp(
+    'Executive overview of the CodeSpecs generation input: which '
+    'blueprint subtrees feed generation and how they route across the '
+    'shared/client/server split.',
+  )
   @override
   @SerializationOrder(0)
   String? content;

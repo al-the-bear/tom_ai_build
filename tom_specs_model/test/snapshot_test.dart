@@ -12,10 +12,10 @@ class _Section with SpecNode {
 
   @override
   List<SpecSlot> specSlots() => [
-        SpecSlot.node(() => headerA, (v) => headerA = v as DocumentHeader),
-        SpecSlot.node(() => headerB, (v) => headerB = v as DocumentHeader),
-        SpecSlot.list(() => metas, (v) => metas = v.cast<DocumentHeader>()),
-      ];
+    SpecSlot.node(() => headerA, (v) => headerA = v as DocumentHeader),
+    SpecSlot.node(() => headerB, (v) => headerB = v as DocumentHeader),
+    SpecSlot.list(() => metas, (v) => metas = v.cast<DocumentHeader>()),
+  ];
 
   @override
   _Section cloneShallow() => _Section()

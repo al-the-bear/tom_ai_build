@@ -202,7 +202,12 @@ class SystemStagePlan extends DocSpecsSection {
 @SectionId('STAGST')
 @DetailedIn(D11DeliveryRoadmap)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -857,7 +862,12 @@ class StagingDependencies extends DocSpecsSection {
 @SectionId('STAGOV')
 @DetailedIn(D11DeliveryRoadmap)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -1842,7 +1852,12 @@ class StageSummaryDependencies extends DocSpecsSection {
 /// planning, and PRINCE2 stage boundary management.
 @SectionId('STAGE')
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -2655,7 +2670,12 @@ class StageSuccessCriterionEntry extends DocSpecsSection {
 @SectionId('FEPR')
 @DetailedIn(D11DeliveryRoadmap)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -3170,7 +3190,8 @@ class MoscowEntry extends DocSpecsSection {
       'linkedRequirements',
       String,
       'Linked Requirements',
-      hint: 'Requirement ids this feature traces to, comma-separated — each is '
+      hint:
+          'Requirement ids this feature traces to, comma-separated — each is '
           'a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / '
           'ORRQ-REQU-…)',
       refersTo: [
@@ -3892,7 +3913,8 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'linkedRequirements',
       String,
       'Linked Requirements',
-      hint: 'Requirement ids, comma-separated — each is a requirement section '
+      hint:
+          'Requirement ids, comma-separated — each is a requirement section '
           'id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)',
       refersTo: [
         'FRE.@sectionId',
@@ -3929,7 +3951,8 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'linkedUserStories',
       String,
       'Linked User Stories (external)',
-      hint: 'Story ids from the delivery backlog — owned by the delivery '
+      hint:
+          'Story ids from the delivery backlog — owned by the delivery '
           'tooling, not declared in this blueprint',
     ),
     Field(
@@ -4249,7 +4272,12 @@ class FeatureDependencyEntry extends DocSpecsSection {
 @SectionId('DAMIST')
 @DetailedIn(D11DeliveryRoadmap)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -6374,7 +6402,12 @@ class StageGovernance extends DocSpecsSection {
 @SectionId('PHGARE')
 @DetailedIn(D11DeliveryRoadmap)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -6949,7 +6982,12 @@ class ReviewCriterionEntry extends DocSpecsSection {
 @SectionId('DEPO')
 @DetailedIn(D11DeliveryRoadmap)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -7540,7 +7578,12 @@ class DecisionOptionEntry extends DocSpecsSection {
 @SectionId('INDEFL')
 @DetailedIn(D11DeliveryRoadmap)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -7582,7 +7625,12 @@ dependencies, parallel work streams, and synchronization points.
 @SectionId('UPCYFR')
 @DetailedIn(D11DeliveryRoadmap)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -7606,5 +7654,3 @@ finishes. Provides the project-specific bridge to the static
   @SerializationOrder(0)
   String? content;
 }
-
-

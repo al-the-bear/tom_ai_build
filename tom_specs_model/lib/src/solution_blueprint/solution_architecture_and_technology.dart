@@ -32,8 +32,7 @@ import 'components_and_dependencies.dart';
 @SectionId('SOAT')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'chapter node over the technical framework concept and its follow-up',
+  note: 'chapter node over the technical framework concept and its follow-up',
 )
 class SolutionArchitectureAndTechnology extends DocSpecsSection {
   @Unused()
@@ -70,8 +69,11 @@ class SolutionArchitectureAndTechnology extends DocSpecsSection {
 @FollowUpKind([FollowUpProcess.doc])
 @SectionId('SATF')
 class SolutionArchitectureFollowUp extends DocSpecsSection {
-  @ContentType('description', 'Summarize the descriptive-architecture follow-up: '
-      'the component-reuse rationale and dependency strategy.')
+  @ContentType(
+    'description',
+    'Summarize the descriptive-architecture follow-up: '
+        'the component-reuse rationale and dependency strategy.',
+  )
   @override
   @SerializationOrder(0)
   String? content;

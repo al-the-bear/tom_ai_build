@@ -34,8 +34,7 @@ import 'business_process_model.dart';
 @SectionId('TOMC')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'chapter node over the organization concept and the process steps',
+  note: 'chapter node over the organization concept and the process steps',
 )
 class TargetOperatingModel extends DocSpecsSection {
   @Unused()

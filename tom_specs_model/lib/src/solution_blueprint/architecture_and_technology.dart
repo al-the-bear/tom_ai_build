@@ -31,12 +31,14 @@ enum ScheduledJobTrigger {
   /// verbatim — a job whose schedule can be written as one expression needs
   /// nothing else said about when it runs.
   cron,
+
   /// The job fires on a date rule no clock expression can state — month-end,
   /// the third Monday of a quarter, the last working day before a holiday.
   ///
   /// A separate arm rather than a harder cron string, because the rule depends
   /// on a calendar that a recurrence expression cannot see.
   calendar,
+
   /// The job does not run on a clock at all: it runs when something in the
   /// system happens, and what that occurrence carries is what the work reads.
   ///
@@ -83,8 +85,7 @@ the security and access model.
 @SectionId('TECH')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'chapter node over the eight technical requirement bands below',
+  note: 'chapter node over the eight technical requirement bands below',
 )
 class TechnicalFrameworkConcept extends DocSpecsSection {
   @ContentHelp('''
@@ -181,8 +182,7 @@ OWASP guidelines, IEEE 1471 architectural description.
 @SectionId('BTREQ')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over platform, architecture style and design standards',
+  note: 'grouping node over platform, architecture style and design standards',
 )
 class BasicTechnicalRequirements extends DocSpecsSection {
   @ContentHelp('''
@@ -2079,11 +2079,9 @@ class ArchitecturePrincipleEntry extends DocSpecsSection {
   'C4 model — software architecture diagrams',
 ], 'How system components are organized and how their boundaries are defined.')
 @SectionId('COOR')
-@CodeSpecKind(
-  [CodeSpecPart.serviceUnit],
-  note:
-      'how components are organized into service units',
-)
+@CodeSpecKind([
+  CodeSpecPart.serviceUnit,
+], note: 'how components are organized into service units')
 class ComponentOrganization extends DocSpecsSection {
   @Form([
     Field(
@@ -2424,11 +2422,9 @@ class ArchitectureComponentEntry extends DocSpecsSection {
   'ISO/IEC/IEEE 42010 — architecture description',
 ], 'The communication patterns and protocols used between components.')
 @SectionId('COMPAT')
-@CodeSpecKind(
-  [CodeSpecPart.serverCall],
-  note:
-      'the call patterns between client and server components',
-)
+@CodeSpecKind([
+  CodeSpecPart.serverCall,
+], note: 'the call patterns between client and server components')
 class CommunicationPatterns extends DocSpecsSection {
   @Form([
     Field(
@@ -2597,11 +2593,9 @@ class CommunicationPatterns extends DocSpecsSection {
   'The data strategy, ownership model, and governance that shape the data architecture.',
 )
 @SectionId('DAAR')
-@CodeSpecKind(
-  [CodeSpecPart.dataAccess],
-  note:
-      'the data architecture behind the data-access layer',
-)
+@CodeSpecKind([
+  CodeSpecPart.dataAccess,
+], note: 'the data architecture behind the data-access layer')
 class DataArchitecture extends DocSpecsSection {
   @Form([
     Field(
@@ -2981,11 +2975,9 @@ class ScalabilityArchitecture extends DocSpecsSection {
   'The integration strategy, patterns, and API management for external systems.',
 )
 @SectionId('INAR')
-@CodeSpecKind(
-  [CodeSpecPart.serverApi],
-  note:
-      'the integration surface exposed and consumed as server APIs',
-)
+@CodeSpecKind([
+  CodeSpecPart.serverApi,
+], note: 'the integration surface exposed and consumed as server APIs')
 class IntegrationArchitecture extends DocSpecsSection {
   @Form([
     Field(
@@ -4710,11 +4702,9 @@ class DocumentationStandards extends DocSpecsSection {
   'Defines the error-handling philosophy, fail-fast approach, and graceful-degradation standards.',
 )
 @SectionId('ERHAST')
-@CodeSpecKind(
-  [CodeSpecPart.errorResult],
-  note:
-      'the error-handling standard the result envelope implements',
-)
+@CodeSpecKind([
+  CodeSpecPart.errorResult,
+], note: 'the error-handling standard the result envelope implements')
 class ErrorHandlingStandards extends DocSpecsSection {
   @Form([
     Field(
@@ -5126,8 +5116,7 @@ SOLID principles, Twelve-Factor App methodology.
 @SectionId('SDR')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over layering, development environment and reuse',
+  note: 'grouping node over layering, development environment and reuse',
 )
 class SoftwareDesignRequirements extends DocSpecsSection {
   @ContentHelp('''
@@ -5625,11 +5614,14 @@ class LayerCommunicationRules extends DocSpecsSection {
 /// in the specification names one of these entries, so a context exists in
 /// exactly one place and a misspelt name is reported rather than silently
 /// creating a second context.
-@StandardReferences([
-  'Domain-Driven Design — bounded contexts / modules',
-  'SOLID principles — object-oriented design',
-], 'Describes a single DDD bounded context — its name, domain area, and owning '
-    'team — and is the registry every Bounded Context reference resolves against.')
+@StandardReferences(
+  [
+    'Domain-Driven Design — bounded contexts / modules',
+    'SOLID principles — object-oriented design',
+  ],
+  'Describes a single DDD bounded context — its name, domain area, and owning '
+  'team — and is the registry every Bounded Context reference resolves against.',
+)
 @SectionId('BCE')
 class BoundedContextEntry extends DocSpecsSection {
   @Form([
@@ -5638,7 +5630,8 @@ class BoundedContextEntry extends DocSpecsSection {
       String,
       'Context Name',
       required: true,
-      hint: 'PascalCase noun or noun phrase naming this context (e.g., Sales, '
+      hint:
+          'PascalCase noun or noun phrase naming this context (e.g., Sales, '
           'OrderFulfilment). This is the name every Bounded Context field '
           'elsewhere in the specification refers to, so it is written once here '
           'and quoted exactly thereafter',
@@ -6998,11 +6991,10 @@ ensures consistent quality across the team.
   'Describes the development environment including required IDEs, build tools, version control, CI/CD, and workflow.',
 )
 @SectionId('DEEN')
-@FollowUpKind(
-  [FollowUpProcess.ops, FollowUpProcess.trn],
-  note:
-      'IDE, build, CI/CD and onboarding setup drive tooling and enablement',
-)
+@FollowUpKind([
+  FollowUpProcess.ops,
+  FollowUpProcess.trn,
+], note: 'IDE, build, CI/CD and onboarding setup drive tooling and enablement')
 class DevelopmentEnvironment extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the development environment philosophy.
@@ -9119,11 +9111,9 @@ consistency, and accelerates development.
   'Captures the overall strategy for creating, cataloguing, and governing reusable components across the system.',
 )
 @SectionId('RCS')
-@FollowUpKind(
-  [FollowUpProcess.doc],
-  note:
-      'the reuse catalogue and its governance are documentation',
-)
+@FollowUpKind([
+  FollowUpProcess.doc,
+], note: 'the reuse catalogue and its governance are documentation')
 class ReusableComponentsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of the reusability strategy and component library.
@@ -9545,11 +9535,7 @@ class SharedLibraryComponentEntry extends DocSpecsSection {
   'Captures a reusable UI widget or pattern, its category, and its purpose within the design system.',
 )
 @SectionId('RUCE')
-@CodeSpecKind(
-  [CodeSpecPart.screenElement],
-  note:
-      'one reusable UI component',
-)
+@CodeSpecKind([CodeSpecPart.screenElement], note: 'one reusable UI component')
 class ReusableUiComponentEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10615,8 +10601,7 @@ often requires alignment with established platforms and protocols.
 @SectionId('SSR')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over compatibility and standards compliance',
+  note: 'grouping node over compatibility and standards compliance',
 )
 class StandardSoftwareRequirements extends DocSpecsSection {
   @ContentHelp('''
@@ -11453,11 +11438,9 @@ class EnterpriseSystemCompatibilityEntry extends DocSpecsSection {
   'Describes an API or protocol and version range the system must remain compatible with.',
 )
 @SectionId('APCP')
-@CodeSpecKind(
-  [CodeSpecPart.serverApi],
-  note:
-      'one API compatibility requirement on a server operation',
-)
+@CodeSpecKind([
+  CodeSpecPart.serverApi,
+], note: 'one API compatibility requirement on a server operation')
 class ApiCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12569,11 +12552,10 @@ is often mandatory for enterprise and regulated industries.
   'Describes the IT, industry, regulatory, security, accessibility, and quality standards the system must comply with.',
 )
 @SectionId('STCOSE')
-@FollowUpKind(
-  [FollowUpProcess.cmp, FollowUpProcess.doc],
-  note:
-      'standards and regulatory compliance with its evidence',
-)
+@FollowUpKind([
+  FollowUpProcess.cmp,
+  FollowUpProcess.doc,
+], note: 'standards and regulatory compliance with its evidence')
 class StandardsComplianceSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of standards compliance strategy and roadmap.
@@ -12715,7 +12697,8 @@ class ItStandardComplianceEntry extends DocSpecsSection {
       'standardId',
       String,
       'Standard ID',
-      hint: 'The identifier the issuing body gives this standard, e.g. ISO/IEC '
+      hint:
+          'The identifier the issuing body gives this standard, e.g. ISO/IEC '
           '27001 — owned outside this document',
     ),
     Field('version', String, 'Version', hint: 'Standard version'),
@@ -14346,8 +14329,7 @@ and operational complexity.
 @SectionId('HR')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over server, client and network requirements',
+  note: 'grouping node over server, client and network requirements',
 )
 class HardwareRequirements extends DocSpecsSection {
   @ContentHelp('''
@@ -16021,10 +16003,13 @@ Provide an overview of client requirements and support strategy.
   TextSection overview = TextSection();
 
   /// The client applications the system consists of (CE-CL).
-  @StandardReferences([
-    'ISO/IEC/IEEE 42010 — architecture description',
-    'ISO/IEC 25010 — portability / installability',
-  ], 'The client applications the system consists of, each with its kind, platform targets, entry route and the screens it comprises.')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 42010 — architecture description',
+      'ISO/IEC 25010 — portability / installability',
+    ],
+    'The client applications the system consists of, each with its kind, platform targets, entry route and the screens it comprises.',
+  )
   @SectionId('CLIAPP-CLIE-LST')
   @SectionIdPattern('CLIAPP-CLIE-xxx')
   @ContentHelp(
@@ -16189,7 +16174,8 @@ declared makes the reference dangle.
       String,
       'Client Id',
       required: true,
-      hint: 'The one identifier for this client application (e.g. backoffice) '
+      hint:
+          'The one identifier for this client application (e.g. backoffice) '
           '— cited wherever the client is referenced',
     ),
     Field(
@@ -16197,7 +16183,8 @@ declared makes the reference dangle.
       ClientApplicationKind,
       'Client Kind',
       required: true,
-      hint: 'What kind of application this client is — decides which other '
+      hint:
+          'What kind of application this client is — decides which other '
           'parts it can carry (a command-line client has no screens)',
     ),
     Field(
@@ -16205,19 +16192,17 @@ declared makes the reference dangle.
       String,
       'Purpose',
       required: true,
-      hint: 'Who uses this client and what for — the reason it exists '
+      hint:
+          'Who uses this client and what for — the reason it exists '
           'separately from the system\'s other clients',
     ),
     Field(
       'platformTargets',
       String,
       'Platform Targets',
-      refersTo: [
-        'BROREQ.browserName',
-        'DEOSRE.osName',
-        'MODERE.platform',
-      ],
-      hint: 'The platforms this client runs on, by id from the browser, '
+      refersTo: ['BROREQ.browserName', 'DEOSRE.osName', 'MODERE.platform'],
+      hint:
+          'The platforms this client runs on, by id from the browser, '
           'desktop-OS and mobile-platform requirement lists below',
     ),
     Field(
@@ -16225,7 +16210,8 @@ declared makes the reference dangle.
       String,
       'Entry Route',
       refersTo: ['SCRTEN.routeId'],
-      hint: 'The route this client opens on, by id from the screen route map. '
+      hint:
+          'The route this client opens on, by id from the screen route map. '
           'Empty for a client with no routes',
     ),
     Field(
@@ -16279,10 +16265,13 @@ the shape and the policy.
   String? content;
 
   /// The declared client configuration settings.
-  @StandardReferences([
-    'Twelve-Factor App — config stored in the environment, per deployment',
-    'ISO/IEC 25010 — portability / installability',
-  ], 'The client configuration settings declared by the system\'s client applications, one entry per key.')
+  @StandardReferences(
+    [
+      'Twelve-Factor App — config stored in the environment, per deployment',
+      'ISO/IEC 25010 — portability / installability',
+    ],
+    'The client configuration settings declared by the system\'s client applications, one entry per key.',
+  )
   @SectionId('CCSET-SETT-LST')
   @SectionIdPattern('CCSET-SETT-xxx')
   @ContentHelp(
@@ -16311,11 +16300,9 @@ the shape and the policy.
   'Declares one client configuration setting: its key, value type, default, and which narrower scopes may shadow it.',
 )
 @SectionId('CCSET')
-@CodeSpecKind(
-  [CodeSpecPart.clientConfiguration],
-  note:
-      'one client configuration setting',
-)
+@CodeSpecKind([
+  CodeSpecPart.clientConfiguration,
+], note: 'one client configuration setting')
 class ClientConfigurationSettingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16330,7 +16317,8 @@ class ClientConfigurationSettingEntry extends DocSpecsSection {
       String,
       'Client',
       refersTo: ['CLIAPP.clientId'],
-      hint: 'The client application that declares this setting, by id. CE-CC '
+      hint:
+          'The client application that declares this setting, by id. CE-CC '
           'is keyed by (client app, machine), so the owning client is part of '
           'the key. Empty where the system has a single client',
     ),
@@ -16428,19 +16416,12 @@ policy and the reasoning for the device scope.
 /// wider-scope declaration says so — and CE-DS is the narrowest scope, so it
 /// has nothing below it to open. Declaring the same relation from both ends
 /// would be two authored fields that can disagree.
-@StandardReferences(
-  [
-    'ISO 9241-110 — suitability for individualization (user-tailored settings)',
-    'ISO/IEC 25010 — usability / operability',
-  ],
-  'Declares one device setting: its key, value type and default.',
-)
+@StandardReferences([
+  'ISO 9241-110 — suitability for individualization (user-tailored settings)',
+  'ISO/IEC 25010 — usability / operability',
+], 'Declares one device setting: its key, value type and default.')
 @SectionId('DSSET')
-@CodeSpecKind(
-  [CodeSpecPart.deviceSettings],
-  note:
-      'one device setting',
-)
+@CodeSpecKind([CodeSpecPart.deviceSettings], note: 'one device setting')
 class DeviceSettingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16541,11 +16522,7 @@ policy, and to how the settings are re-materialised at sign-in.
   'Declares one user setting: its key, value type, default, and whether a per-device value may shadow it.',
 )
 @SectionId('USSET')
-@CodeSpecKind(
-  [CodeSpecPart.userSettings],
-  note:
-      'one user setting',
-)
+@CodeSpecKind([CodeSpecPart.userSettings], note: 'one user setting')
 class UserSettingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16592,11 +16569,9 @@ class UserSettingEntry extends DocSpecsSection {
   'Describes a single browser requirement entry across support, features, testing, and known issues.',
 )
 @SectionId('BROREQ')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'browser support required of the web client',
-)
+@CodeSpecKind([
+  CodeSpecPart.client,
+], note: 'browser support required of the web client')
 class BrowserRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16755,11 +16730,9 @@ class BrowserRequirementEntry extends DocSpecsSection {
   'Describes a single desktop operating-system requirement entry across support, hardware, software, and testing.',
 )
 @SectionId('DEOSRE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'desktop OS support required of the client',
-)
+@CodeSpecKind([
+  CodeSpecPart.client,
+], note: 'desktop OS support required of the client')
 class DesktopOsRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16895,11 +16868,9 @@ class DesktopOsRequirementEntry extends DocSpecsSection {
   'Describes a single mobile-platform requirement entry across support, device coverage, hardware, and capabilities.',
 )
 @SectionId('MODERE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'mobile device support required of the client',
-)
+@CodeSpecKind([
+  CodeSpecPart.client,
+], note: 'mobile device support required of the client')
 class MobileDeviceRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -17048,11 +17019,9 @@ class MobileDeviceRequirementEntry extends DocSpecsSection {
   'Describes the client display and screen requirements across resolution, layout, scaling, color, and multi-display support.',
 )
 @SectionId('DIRE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'display sizes and densities the client must support',
-)
+@CodeSpecKind([
+  CodeSpecPart.client,
+], note: 'display sizes and densities the client must support')
 class DisplayRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17194,11 +17163,9 @@ class DisplayRequirements extends DocSpecsSection {
   'Describes the client-side network requirements across bandwidth, latency, connection type, protocols, and proxy/firewall.',
 )
 @SectionId('CLNERE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'network conditions the client must operate under',
-)
+@CodeSpecKind([
+  CodeSpecPart.client,
+], note: 'network conditions the client must operate under')
 class ClientNetworkRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17349,11 +17316,7 @@ class ClientNetworkRequirements extends DocSpecsSection {
   'Describes the minimum client hardware requirements across CPU, memory, storage, graphics, and peripherals.',
 )
 @SectionId('CLHARE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'client hardware minimums',
-)
+@CodeSpecKind([CodeSpecPart.client], note: 'client hardware minimums')
 class ClientHardwareRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17490,11 +17453,9 @@ class ClientHardwareRequirements extends DocSpecsSection {
   'Describes the accessibility requirements the end-user client must satisfy across visual, motor, cognitive support, and conformance standards.',
 )
 @SectionId('CLACRE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'accessibility the client must provide',
-)
+@CodeSpecKind([
+  CodeSpecPart.client,
+], note: 'accessibility the client must provide')
 class ClientAccessibilityRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17642,11 +17603,9 @@ class ClientAccessibilityRequirements extends DocSpecsSection {
   'Describes the Progressive Web App requirements the browser client must satisfy across manifest, icons, installation, offline, and updates.',
 )
 @SectionId('PWRE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'progressive-web-app capabilities of the client',
-)
+@CodeSpecKind([
+  CodeSpecPart.client,
+], note: 'progressive-web-app capabilities of the client')
 class PwaRequirements extends DocSpecsSection {
   @Form([
     Field('pwaEnabled', bool, 'PWA Enabled', hint: 'PWA functionality enabled'),
@@ -17770,11 +17729,9 @@ class PwaRequirements extends DocSpecsSection {
   'Describes the native mobile app requirements the client must satisfy across distribution, stores, SDK versions, performance, and deep-linking.',
 )
 @SectionId('NAAPRE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'native packaging and capabilities of the client',
-)
+@CodeSpecKind([
+  CodeSpecPart.client,
+], note: 'native packaging and capabilities of the client')
 class NativeAppRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -17900,11 +17857,9 @@ class NativeAppRequirements extends DocSpecsSection {
   'Describes the security requirements the end-user client must satisfy across storage, authentication, device, network, and code protection.',
 )
 @SectionId('CLSERE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'client-side security the client must enforce',
-)
+@CodeSpecKind([
+  CodeSpecPart.client,
+], note: 'client-side security the client must enforce')
 class ClientSecurityRequirements extends DocSpecsSection {
   @Form([
     Field(
@@ -19745,8 +19700,7 @@ restate it here.
 @SectionId('OPRE')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over backup, deployment, monitoring and maintenance',
+  note: 'grouping node over backup, deployment, monitoring and maintenance',
 )
 class OperationsRequirements extends DocSpecsSection {
   @ContentHelp('''
@@ -21129,11 +21083,9 @@ procedures. Reliable deployments enable fast iteration and reduce risk.
   'Describes the overall deployment strategy for releasing the system, including pipeline, release strategy, and rollback.',
 )
 @SectionId('DSS')
-@FollowUpKind(
-  [FollowUpProcess.ops],
-  note:
-      'deployment model, environments, release and rollback are operational',
-)
+@FollowUpKind([
+  FollowUpProcess.ops,
+], note: 'deployment model, environments, release and rollback are operational')
 class DeploymentStrategySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of deployment strategy and pipeline.
@@ -24199,11 +24151,9 @@ disruption while enabling necessary system updates.
   'Describes the maintenance window requirements for the system, including scheduling, communication, and change management.',
 )
 @SectionId('MWS')
-@FollowUpKind(
-  [FollowUpProcess.ops],
-  note:
-      'maintenance policy, windows and change management are operational',
-)
+@FollowUpKind([
+  FollowUpProcess.ops,
+], note: 'maintenance policy, windows and change management are operational')
 class MaintenanceWindowsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of maintenance strategy and policies.
@@ -25124,8 +25074,7 @@ security, and integration capabilities.
 @SectionId('COMREQ')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over protocols and external connectivity',
+  note: 'grouping node over protocols and external connectivity',
 )
 class CommunicationRequirements extends DocSpecsSection {
   @ContentHelp('''
@@ -25607,11 +25556,7 @@ class CertificateManagement extends DocSpecsSection {
   'OpenAPI Specification — REST API description',
 ], 'Defines the overall API versioning scheme, format, and current version.')
 @SectionId('APVEST')
-@CodeSpecKind(
-  [CodeSpecPart.serverApi],
-  note:
-      'how server APIs are versioned',
-)
+@CodeSpecKind([CodeSpecPart.serverApi], note: 'how server APIs are versioned')
 class ApiVersioningStrategy extends DocSpecsSection {
   @Form([
     // Scheme
@@ -27307,8 +27252,7 @@ Google SRE practices, Azure operational best practices.
 @SectionId('SOAM')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over system operation, monitoring and capacity',
+  note: 'grouping node over system operation, monitoring and capacity',
 )
 class SystemOperationAndMonitoring extends DocSpecsSection {
   @ContentHelp('''
@@ -27389,8 +27333,7 @@ improve system reliability.
 @SectionId('SO')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over the administration requirements',
+  note: 'grouping node over the administration requirements',
 )
 class SystemOperation extends DocSpecsSection {
   @ContentHelp('''
@@ -27925,10 +27868,13 @@ class SystemConfigurationManagement extends DocSpecsSection {
   DocSpecsSection? governance;
 
   /// The declared server configuration settings.
-  @StandardReferences([
-    'Twelve-Factor App — config stored in the environment',
-    'CIS Controls — secure configuration and administration',
-  ], 'The server / system configuration settings declared for this system, one entry per key.')
+  @StandardReferences(
+    [
+      'Twelve-Factor App — config stored in the environment',
+      'CIS Controls — secure configuration and administration',
+    ],
+    'The server / system configuration settings declared for this system, one entry per key.',
+  )
   @SectionId('SCSET-SETT-LST')
   @SectionIdPattern('SCSET-SETT-xxx')
   @ContentHelp(
@@ -27971,11 +27917,9 @@ class SystemConfigurationManagement extends DocSpecsSection {
   'Declares one server configuration setting: its key, value type, default, deployment source aliases, secret marking, and which narrower scopes may shadow it.',
 )
 @SectionId('SCSET')
-@CodeSpecKind(
-  [CodeSpecPart.serverConfiguration],
-  note:
-      'one server configuration setting',
-)
+@CodeSpecKind([
+  CodeSpecPart.serverConfiguration,
+], note: 'one server configuration setting')
 class ServerConfigurationSettingEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -28211,11 +28155,9 @@ class UserProvisioningTools extends DocSpecsSection {
   'Batch job management specifies how scheduled and background jobs are defined and operated.',
 )
 @SectionId('BAJOMA')
-@CodeSpecKind(
-  [CodeSpecPart.backgroundJob],
-  note:
-      'the batch jobs the system runs and how they are managed',
-)
+@CodeSpecKind([
+  CodeSpecPart.backgroundJob,
+], note: 'the batch jobs the system runs and how they are managed')
 class BatchJobManagement extends DocSpecsSection {
   @ContentHelp('''
 Describe the ground rules every scheduled job runs under.
@@ -28237,7 +28179,8 @@ subsections below carry the defaults those declarations inherit.
       String,
       'Time Zone Handling',
       required: true,
-      hint: 'The clock zone every schedule is interpreted in — UTC or the '
+      hint:
+          'The clock zone every schedule is interpreted in — UTC or the '
           "server's local zone",
     ),
   ])
@@ -28275,11 +28218,13 @@ subsections below carry the defaults those declarations inherit.
     ],
     'The shape of the scheduled workload — what kind of batch surface the system has, as orientation above the job list.',
   )
-  @ContentHelp('Describe the shape of the scheduled workload in a short '
-      'paragraph: what the batch surface of this system is mostly made of, and '
-      'why it exists. This is orientation, not the job inventory — every job is '
-      'declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; '
-      'a list in two places is a list that can disagree with itself.')
+  @ContentHelp(
+    'Describe the shape of the scheduled workload in a short '
+    'paragraph: what the batch surface of this system is mostly made of, and '
+    'why it exists. This is orientation, not the job inventory — every job is '
+    'declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; '
+    'a list in two places is a list that can disagree with itself.',
+  )
   @SerializationOrder(1)
   DocSpecsSection? workloadShape;
 
@@ -28297,9 +28242,11 @@ subsections below carry the defaults those declarations inherit.
     ],
     'Execution controls define how batch jobs run, retry, and enforce timeouts.',
   )
-  @ContentHelp('State the controls that apply to every job. A job that needs '
-      'different retry, backoff or timeout numbers overrides them in its own '
-      'entry (SCJOB); what is stated here is what every other job inherits.')
+  @ContentHelp(
+    'State the controls that apply to every job. A job that needs '
+    'different retry, backoff or timeout numbers overrides them in its own '
+    'entry (SCJOB); what is stated here is what every other job inherits.',
+  )
   @Form([
     Field(
       'concurrencyControl',
@@ -28317,7 +28264,8 @@ subsections below carry the defaults those declarations inherit.
       'retryPolicy',
       String,
       'Default Retry Policy',
-      hint: 'The retry count and backoff a job inherits unless it overrides '
+      hint:
+          'The retry count and backoff a job inherits unless it overrides '
           'them, plus what happens after the last attempt',
     ),
     Field(
@@ -28362,7 +28310,8 @@ subsections below carry the defaults those declarations inherit.
       'failureAlerts',
       String,
       'Default Failure Alerting',
-      hint: 'What is raised when a job fails, for jobs that do not name their '
+      hint:
+          'What is raised when a job fails, for jobs that do not name their '
           'own alert message. The destination the alert is delivered to is a '
           'deployment setting, not authored here.',
     ),
@@ -28387,15 +28336,20 @@ subsections below carry the defaults those declarations inherit.
   ///
   /// The declaration layer. Everything above is policy that applies to all
   /// jobs; this is where a job actually comes into existence.
-  @StandardReferences([
-    'Google SRE — eliminating toil and operational procedures',
-    'ISO/IEC 11179 — metadata registries / data element definitions',
-  ], 'The declared background jobs: each with its trigger, the work it performs, the data it acts on, its failure policy and the environments it runs in.')
+  @StandardReferences(
+    [
+      'Google SRE — eliminating toil and operational procedures',
+      'ISO/IEC 11179 — metadata registries / data element definitions',
+    ],
+    'The declared background jobs: each with its trigger, the work it performs, the data it acts on, its failure policy and the environments it runs in.',
+  )
   @SectionId('SCJOB-JOB-LST')
   @SectionIdPattern('SCJOB-JOB-xxx')
-  @ContentHelp('Add one entry per job the system runs off the request thread. '
-      'A job that is not listed here does not exist, however thoroughly the '
-      'policy sections above describe how jobs are run.')
+  @ContentHelp(
+    'Add one entry per job the system runs off the request thread. '
+    'A job that is not listed here does not exist, however thoroughly the '
+    'policy sections above describe how jobs are run.',
+  )
   @SerializationOrder(4)
   List<ScheduledJobEntry> scheduledJobs = [];
 }
@@ -28453,7 +28407,8 @@ subsections below carry the defaults those declarations inherit.
 )
 @OneOf(
   discriminator: 'triggerKind',
-  note: 'Job trigger closed choice: the kind selects its promoted trigger '
+  note:
+      'Job trigger closed choice: the kind selects its promoted trigger '
       'subsection — a recurring clock expression, a calendar date rule, or a '
       'named system event. Each kind is started by a different thing and '
       'states a different rule, so every kind binds a case.',
@@ -28477,7 +28432,8 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       String,
       'Purpose',
       required: true,
-      hint: 'Why this job exists — the operational or business reason it runs '
+      hint:
+          'Why this job exists — the operational or business reason it runs '
           'on its own rather than as part of a request',
     ),
     Field(
@@ -28493,21 +28449,24 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       'Primary Data Entity',
       required: true,
       refersTo: ['DAENT.entityName'],
-      hint: 'The Data Model entity this job primarily writes. This determines '
+      hint:
+          'The Data Model entity this job primarily writes. This determines '
           'which service unit owns the job — never state ownership by hand.',
     ),
     Field(
       'enabled',
       bool,
       'Enabled',
-      hint: 'Whether the job is deployed to run. A declared job is meant to '
+      hint:
+          'Whether the job is deployed to run. A declared job is meant to '
           'run, so clear this only for a deliberately dormant job.',
     ),
     Field(
       'environments',
       String,
       'Environments',
-      hint: 'Comma-separated deployment environments this job runs in, or '
+      hint:
+          'Comma-separated deployment environments this job runs in, or '
           'empty to run in every environment',
     ),
   ])
@@ -28523,13 +28482,10 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
   /// [BatchJobManagement], and catch-up behaviour after a missed window is a
   /// scheduler setting rather than a specification statement.
   @SectionId('SCJOB-CRON')
-  @StandardReferences(
-    [
-      'POSIX crontab — the recurring-schedule expression convention',
-      'Google SRE — eliminating toil and operational procedures',
-    ],
-    'The recurring clock expression that starts this job.',
-  )
+  @StandardReferences([
+    'POSIX crontab — the recurring-schedule expression convention',
+    'Google SRE — eliminating toil and operational procedures',
+  ], 'The recurring clock expression that starts this job.')
   @Case(ScheduledJobTrigger.cron)
   @Form([
     Field(
@@ -28537,7 +28493,8 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       String,
       'Recurrence Expression',
       required: true,
-      hint: 'The recurrence expression, verbatim (e.g. 0 2 * * * for daily at '
+      hint:
+          'The recurrence expression, verbatim (e.g. 0 2 * * * for daily at '
           '02:00)',
     ),
   ])
@@ -28549,13 +28506,10 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
   /// Present only for the `calendar` kind: a date rule a clock expression
   /// cannot state — the last day of the month, the third Monday of a quarter.
   @SectionId('SCJOB-CAL')
-  @StandardReferences(
-    [
-      'ISO 8601 — date and time representation',
-      'Google SRE — eliminating toil and operational procedures',
-    ],
-    'The calendar date rule that starts this job.',
-  )
+  @StandardReferences([
+    'ISO 8601 — date and time representation',
+    'Google SRE — eliminating toil and operational procedures',
+  ], 'The calendar date rule that starts this job.')
   @Case(ScheduledJobTrigger.calendar)
   @Form([
     Field(
@@ -28563,7 +28517,8 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       String,
       'Calendar Rule',
       required: true,
-      hint: 'The date rule and time of day (e.g. last day of each month at '
+      hint:
+          'The date rule and time of day (e.g. last day of each month at '
           '02:00; third Monday of each quarter at 06:00)',
     ),
   ])
@@ -28576,13 +28531,10 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
   /// time at all, so it has no schedule; what it has instead — and what neither
   /// other arm has — is an occurrence carrying data the work reads.
   @SectionId('SCJOB-EVNT')
-  @StandardReferences(
-    [
-      'Enterprise Integration Patterns — event-driven consumer',
-      'Google SRE — eliminating toil and operational procedures',
-    ],
-    'The system event that starts this job and the data that event carries.',
-  )
+  @StandardReferences([
+    'Enterprise Integration Patterns — event-driven consumer',
+    'Google SRE — eliminating toil and operational procedures',
+  ], 'The system event that starts this job and the data that event carries.')
   @Case(ScheduledJobTrigger.event)
   @Form([
     Field(
@@ -28590,14 +28542,16 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       String,
       'Event Name',
       required: true,
-      hint: 'The system occurrence that starts the job (e.g. '
+      hint:
+          'The system occurrence that starts the job (e.g. '
           'order.payment.settled)',
     ),
     Field(
       'eventPayload',
       String,
       'Event Payload',
-      hint: 'What each occurrence carries that the work reads — typically the '
+      hint:
+          'What each occurrence carries that the work reads — typically the '
           'identity of the record the event is about',
     ),
   ])
@@ -28616,23 +28570,23 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
   /// work happens in belongs to [workSteps], which holds it as addressable
   /// entries rather than as sentences inside a paragraph.
   @SectionId('SCJOB-WORK')
-  @StandardReferences(
-    [
-      'ISO/IEC/IEEE 29148:2018 — requirements specification',
-      'DAMA-DMBOK2 — data management body of knowledge',
-    ],
-    'What the job does and which entities and reports it acts on.',
+  @StandardReferences([
+    'ISO/IEC/IEEE 29148:2018 — requirements specification',
+    'DAMA-DMBOK2 — data management body of knowledge',
+  ], 'What the job does and which entities and reports it acts on.')
+  @ContentHelp(
+    'State what the job achieves and over which data. Do not write '
+    'the sequence here — the ordered steps go in Work Steps below, one entry '
+    'each — and do not write code: the work body is written in the CodeSpec.',
   )
-  @ContentHelp('State what the job achieves and over which data. Do not write '
-      'the sequence here — the ordered steps go in Work Steps below, one entry '
-      'each — and do not write code: the work body is written in the CodeSpec.')
   @Form([
     Field(
       'workSummary',
       String,
       'Work Summary',
       required: true,
-      hint: 'What the job achieves, in one paragraph — the intent the work '
+      hint:
+          'What the job achieves, in one paragraph — the intent the work '
           'body must realise. The sequence goes in Work Steps.',
     ),
     Field(
@@ -28676,18 +28630,17 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
   /// fallback then emits the form-3a body from `workSummary` exactly as before.
   /// The list is how a job that *is* multi-step stops having to say so in a
   /// sentence.
-  @StandardReferences(
-    [
-      'Cockburn — Writing Effective Use Cases: numbered step sequences',
-      'Google SRE — eliminating toil and operational procedures',
-    ],
-    'The ordered steps a background job performs its work in.',
-  )
+  @StandardReferences([
+    'Cockburn — Writing Effective Use Cases: numbered step sequences',
+    'Google SRE — eliminating toil and operational procedures',
+  ], 'The ordered steps a background job performs its work in.')
   @SectionId('SCJOST-WORK-LST')
   @SectionIdPattern('SCJOST-WORK-xxx')
-  @ContentHelp('Add one entry per step of the work, in the order it runs. '
-      'Leave the list empty for a job whose work is a single action — the Work '
-      'Summary then stands alone.')
+  @ContentHelp(
+    'Add one entry per step of the work, in the order it runs. '
+    'Leave the list empty for a job whose work is a single action — the Work '
+    'Summary then stands alone.',
+  )
   @SerializationOrder(5)
   List<ScheduledJobStepEntry> workSteps = [];
 
@@ -28704,9 +28657,11 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
     ],
     'This job\'s retry, backoff, timeout and alerting overrides of the system-wide execution policy.',
   )
-  @ContentHelp('Fill in only what differs from the Execution Controls (BJME) '
-      'default. An empty field means the job inherits the default, which is '
-      'the normal case.')
+  @ContentHelp(
+    'Fill in only what differs from the Execution Controls (BJME) '
+    'default. An empty field means the job inherits the default, which is '
+    'the normal case.',
+  )
   @Form([
     Field(
       'maxRetries',
@@ -28718,14 +28673,16 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       'retryBackoff',
       String,
       'Retry Backoff',
-      hint: 'The delay before the first retry and how it grows, if not the '
+      hint:
+          'The delay before the first retry and how it grows, if not the '
           'default',
     ),
     Field(
       'timeout',
       String,
       'Timeout',
-      hint: 'How long a single run may take before it is abandoned, if not '
+      hint:
+          'How long a single run may take before it is abandoned, if not '
           'the default',
     ),
     Field(
@@ -28733,7 +28690,8 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       String,
       'Failure Alert Message',
       refersTo: ['MSGKE.key'],
-      hint: 'The message raised when this job fails permanently. The job names '
+      hint:
+          'The message raised when this job fails permanently. The job names '
           'the message; the deployment names where it is delivered.',
     ),
   ])
@@ -28776,24 +28734,28 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       'declaration of its own, it is part of one job.',
 )
 class ScheduledJobStepEntry extends DocSpecsSection {
-  @ContentHelp('Say what the job does at this point in the sequence, as one '
-      'action. Give the step a headline that names that action — it is what '
-      'the generated method is named after. Fill in Condition only where the '
-      'step is conditional; a step with no condition always runs.')
+  @ContentHelp(
+    'Say what the job does at this point in the sequence, as one '
+    'action. Give the step a headline that names that action — it is what '
+    'the generated method is named after. Fill in Condition only where the '
+    'step is conditional; a step with no condition always runs.',
+  )
   @Form([
     Field(
       'systemAction',
       String,
       'System Action',
       required: true,
-      hint: 'What the job does in this step — one action, stated as what '
+      hint:
+          'What the job does in this step — one action, stated as what '
           'happens rather than how it is coded',
     ),
     Field(
       'condition',
       String,
       'Condition',
-      hint: 'The condition under which this step runs, if it is not '
+      hint:
+          'The condition under which this step runs, if it is not '
           'unconditional (e.g. only when the previous run left unsettled '
           'records). Leave empty for a step that always runs.',
     ),
@@ -33106,8 +33068,7 @@ CIS Controls, OWASP ASVS, SOC 2 Trust Criteria.
 @SectionId('TSR')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over security standards, privacy and audit',
+  note: 'grouping node over security standards, privacy and audit',
 )
 class TechnicalSecurityRequirements extends DocSpecsSection {
   @ContentHelp('''
@@ -33196,11 +33157,10 @@ Following established standards reduces security risk systematically.
 - Postmortem process
 ''')
 @SectionId('ISSS')
-@FollowUpKind(
-  [FollowUpProcess.cmp, FollowUpProcess.ops],
-  note:
-      'security standards, hardening and vulnerability management',
-)
+@FollowUpKind([
+  FollowUpProcess.cmp,
+  FollowUpProcess.ops,
+], note: 'security standards, hardening and vulnerability management')
 class ItSecurityStandardsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of IT security standards approach.
@@ -34212,11 +34172,9 @@ Privacy compliance is mandatory in most jurisdictions.
 - Privacy-preserving technologies
 ''')
 @SectionId('DPAPS')
-@FollowUpKind(
-  [FollowUpProcess.cmp],
-  note:
-      'privacy regulation, residency, consent and data-subject rights',
-)
+@FollowUpKind([
+  FollowUpProcess.cmp,
+], note: 'privacy regulation, residency, consent and data-subject rights')
 class DataProtectionAndPrivacySection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of data protection and privacy strategy.
@@ -35627,11 +35585,10 @@ validates security controls and identifies weaknesses.
 - Compliance as code
 ''')
 @SectionId('SARS')
-@FollowUpKind(
-  [FollowUpProcess.cmp, FollowUpProcess.acc],
-  note:
-      'penetration testing, audit schedule and certification evidence',
-)
+@FollowUpKind([
+  FollowUpProcess.cmp,
+  FollowUpProcess.acc,
+], note: 'penetration testing, audit schedule and certification evidence')
 class SecurityAuditRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of security audit strategy.
@@ -36847,11 +36804,9 @@ class SecurityAuditEntry extends DocSpecsSection {
 )
 @SectionId('SYARSP')
 @DetailedIn(D06ArchitectureTechnologySpecification)
-@FollowUpKind(
-  [FollowUpProcess.doc],
-  note:
-      'the consolidated architecture specification document',
-)
+@FollowUpKind([
+  FollowUpProcess.doc,
+], note: 'the consolidated architecture specification document')
 class SystemArchitectureSpec extends DocSpecsSection {
   @ContentHelp('''
 System-level architecture description: layering, package structure,

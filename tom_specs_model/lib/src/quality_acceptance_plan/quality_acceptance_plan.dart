@@ -24,7 +24,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Quality & Acceptance Plan',
-  description: 'Business-facing quality plan — quality framework, the '
+  description:
+      'Business-facing quality plan — quality framework, the '
       'eight ISO/IEC 25010:2023 product-quality characteristics plus an '
       'ISO/IEC 26514 documentation annex, prioritization, acceptance '
       'criteria summary, test strategy, and the full acceptance plan '

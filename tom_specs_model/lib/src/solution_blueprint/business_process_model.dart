@@ -40,6 +40,7 @@ enum FlowReturnPoint {
   /// Binds a case subsection, because the generated body cannot rejoin
   /// anywhere until the step it rejoins at has been named.
   resumeAtStep,
+
   /// The branch is the end of the scenario — control goes back to nobody.
   ///
   /// The `noCase` arm: there is no step to name and no payload to carry, so a
@@ -71,11 +72,13 @@ enum ServerCallRole {
   /// state and validate, but it can say nothing about a response, because none
   /// exists yet.
   assembleRequest,
+
   /// Steps that run after a successful response — the ones that apply it.
   ///
   /// Emitted into the `handleResponse` method. It is reached only on success,
   /// so a step here never has to ask whether the call worked.
   handleResponse,
+
   /// Steps that run after a failed call — the ones that surface the failure.
   ///
   /// Emitted into the `handleError` method, which is the sibling of
@@ -3217,8 +3220,7 @@ Feeds BQP test strategy and the Phase 5 test derivation step.
 @DetailedIn(D05InteractionScenarios)
 @NoArtifact(
   NoArtifactReason.overview,
-  note:
-      'introduces the actor entries below; every actor fact is in ACEN',
+  note: 'introduces the actor entries below; every actor fact is in ACEN',
 )
 class ActorOverview extends DocSpecsSection {
   @ContentHelp('''
@@ -3891,11 +3893,9 @@ class ActorPermissions extends DocSpecsSection {
 )
 @SectionId('INCA')
 @DetailedIn(D05InteractionScenarios)
-@CodeSpecKind(
-  [CodeSpecPart.action],
-  note:
-      'each catalogued interaction seeds a client action',
-)
+@CodeSpecKind([
+  CodeSpecPart.action,
+], note: 'each catalogued interaction seeds a client action')
 class InteractionCatalog extends DocSpecsSection {
   @ContentHelp('''
 Container for key interaction descriptions. Each interaction seeds a use case
@@ -4426,7 +4426,8 @@ class InteractionEntry extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements',
-      hint: 'Requirement ids satisfied here, comma-separated — each is a '
+      hint:
+          'Requirement ids satisfied here, comma-separated — each is a '
           'requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / '
           'ORRQ-REQU-…)',
       refersTo: [
@@ -4487,11 +4488,9 @@ class InteractionEntry extends DocSpecsSection {
   'system to protect.',
 )
 @SectionId('STANIN')
-@FollowUpKind(
-  [FollowUpProcess.org],
-  note:
-      'stakeholder interests drive governance, not code',
-)
+@FollowUpKind([
+  FollowUpProcess.org,
+], note: 'stakeholder interests drive governance, not code')
 class StakeholdersAndInterests extends DocSpecsSection {
   @Form([
     Field(
@@ -4742,7 +4741,8 @@ class MainScenarioStepEntry extends DocSpecsSection {
       int,
       'Step Number',
       required: true,
-      hint: 'Sequential step number within the flow. This is the number the '
+      hint:
+          'Sequential step number within the flow. This is the number the '
           'step is read by, not the handle it is referred to by: a branch '
           'names the step it attaches to by section id.',
     ),
@@ -4762,7 +4762,8 @@ class MainScenarioStepEntry extends DocSpecsSection {
       'serverOperation',
       String,
       'Server Operation',
-      hint: 'ServerOperationEntry.operationName (SVOPR registry) this step '
+      hint:
+          'ServerOperationEntry.operationName (SVOPR registry) this step '
           'calls. State it only where the step reaches the server: the client '
           'call is generated exactly where this is present, so a step that '
           'names nothing generates no call.',
@@ -4823,10 +4824,12 @@ class MainScenarioStepEntry extends DocSpecsSection {
   /// itself branching.
   @SectionId('SVCST-STEP-LST')
   @SectionIdPattern('SVCST-STEP-xxx')
-  @ContentHelp('Fill this in only where the step reaches the server. Add one '
-      'entry per thing that has to happen to assemble the request, to apply '
-      'the response, or to surface an error — in the order it happens, each '
-      'entry saying which of the three it belongs to.')
+  @ContentHelp(
+    'Fill this in only where the step reaches the server. Add one '
+    'entry per thing that has to happen to assemble the request, to apply '
+    'the response, or to surface an error — in the order it happens, each '
+    'entry saying which of the three it belongs to.',
+  )
   @SerializationOrder(1)
   List<ServerCallStepEntry> serverCallSteps = [];
 }
@@ -4883,18 +4886,21 @@ class MainScenarioStepEntry extends DocSpecsSection {
       'declaration of its own, it is part of one call.',
 )
 class ServerCallStepEntry extends DocSpecsSection {
-  @ContentHelp('Say which of the three handling roles this step belongs to, '
-      'then what happens in it, as one action. Give the step a headline that '
-      'names that action — it is what the generated method is named after. '
-      'Fill in Condition only where the step is conditional; a step with no '
-      'condition always runs.')
+  @ContentHelp(
+    'Say which of the three handling roles this step belongs to, '
+    'then what happens in it, as one action. Give the step a headline that '
+    'names that action — it is what the generated method is named after. '
+    'Fill in Condition only where the step is conditional; a step with no '
+    'condition always runs.',
+  )
   @Form([
     Field(
       'role',
       ServerCallRole,
       'Role',
       required: true,
-      hint: 'Which of the call\'s three handling roles this step belongs to: '
+      hint:
+          'Which of the call\'s three handling roles this step belongs to: '
           'assembleRequest (before the call), handleResponse (after a '
           'successful one) or handleError (after a failed one).',
     ),
@@ -4903,7 +4909,8 @@ class ServerCallStepEntry extends DocSpecsSection {
       String,
       'System Action',
       required: true,
-      hint: 'What happens in this step — one action, stated as what happens '
+      hint:
+          'What happens in this step — one action, stated as what happens '
           'rather than how it is coded. Nothing outside the system acts here: '
           'assembling, applying and surfacing are system work throughout.',
     ),
@@ -4911,7 +4918,8 @@ class ServerCallStepEntry extends DocSpecsSection {
       'condition',
       String,
       'Condition',
-      hint: 'The condition under which this step runs, if it is not '
+      hint:
+          'The condition under which this step runs, if it is not '
           'unconditional (e.g. only when the customer has a stored address). '
           'Leave empty for a step that always runs.',
     ),
@@ -4931,11 +4939,9 @@ class ServerCallStepEntry extends DocSpecsSection {
   'success scenario.',
 )
 @SectionId('USCAEX')
-@CodeSpecKind(
-  [CodeSpecPart.action],
-  note:
-      'alternate and exception flows seed further actions',
-)
+@CodeSpecKind([
+  CodeSpecPart.action,
+], note: 'alternate and exception flows seed further actions')
 class UseCaseExtensions extends DocSpecsSection {
   @Form([
     Field(
@@ -4987,7 +4993,8 @@ class UseCaseExtensions extends DocSpecsSection {
 @OneOf(
   discriminator: 'returnKind',
   noCase: [FlowReturnPoint.endFlow],
-  note: 'Branch return closed choice: an extension either resumes the main '
+  note:
+      'Branch return closed choice: an extension either resumes the main '
       'scenario at a named step — which needs that step, so it binds a case — '
       'or ends the use case, which needs nothing and binds none.',
 )
@@ -4999,7 +5006,8 @@ class ExtensionEntry extends DocSpecsSection {
       'Branch Point — main-scenario step',
       required: true,
       refersTo: ['MNSST.@sectionId'],
-      hint: 'The main-scenario step this branch leaves from, as that step\'s '
+      hint:
+          'The main-scenario step this branch leaves from, as that step\'s '
           'section id (MNSST-STEP-…). The branch is taken instead of that '
           'step, so name the step the condition is evaluated before — not the '
           'step before it, and not a restated step number.',
@@ -5033,7 +5041,8 @@ class ExtensionEntry extends DocSpecsSection {
       FlowReturnPoint,
       'Return Kind — resume the scenario, or end it',
       required: true,
-      hint: 'Where control goes when this branch finishes — back to a named '
+      hint:
+          'Where control goes when this branch finishes — back to a named '
           'main-scenario step, or nowhere because the use case ends here',
     ),
     Field(
@@ -5061,13 +5070,10 @@ class ExtensionEntry extends DocSpecsSection {
   /// the whole reason the two are a closed choice rather than one `String` in
   /// which `"end"` and a step reference were indistinguishable.
   @SectionId('EXTEN-RESU')
-  @StandardReferences(
-    [
-      'Cockburn — Writing Effective Use Cases: extensions',
-      'UML 2.5.1 (ISO/IEC 19505) — use cases',
-    ],
-    'The main-scenario step this extension returns control to.',
-  )
+  @StandardReferences([
+    'Cockburn — Writing Effective Use Cases: extensions',
+    'UML 2.5.1 (ISO/IEC 19505) — use cases',
+  ], 'The main-scenario step this extension returns control to.')
   @Case(FlowReturnPoint.resumeAtStep)
   @Form([
     Field(
@@ -5076,7 +5082,8 @@ class ExtensionEntry extends DocSpecsSection {
       'Resume Step',
       required: true,
       refersTo: ['MNSST.@sectionId'],
-      hint: 'The main-scenario step control resumes at, as that step\'s '
+      hint:
+          'The main-scenario step control resumes at, as that step\'s '
           'section id (MNSST-STEP-…). That step and everything after it run '
           'again from here.',
     ),
@@ -5134,7 +5141,8 @@ class ExtensionStepEntry extends DocSpecsSection {
       'serverOperation',
       String,
       'Server Operation',
-      hint: 'ServerOperationEntry.operationName (SVOPR registry) this step '
+      hint:
+          'ServerOperationEntry.operationName (SVOPR registry) this step '
           'calls. State it only where the step reaches the server: the client '
           'call is generated exactly where this is present, so a step that '
           'names nothing generates no call.',
@@ -5164,10 +5172,12 @@ class ExtensionStepEntry extends DocSpecsSection {
   /// inherits the steps of the main-flow step the extension replaces.
   @SectionId('SVCST-STEP-LST')
   @SectionIdPattern('SVCST-STEP-xxx')
-  @ContentHelp('Fill this in only where the step reaches the server. Add one '
-      'entry per thing that has to happen to assemble the request, to apply '
-      'the response, or to surface an error — in the order it happens, each '
-      'entry saying which of the three it belongs to.')
+  @ContentHelp(
+    'Fill this in only where the step reaches the server. Add one '
+    'entry per thing that has to happen to assemble the request, to apply '
+    'the response, or to surface an error — in the order it happens, each '
+    'entry saying which of the three it belongs to.',
+  )
   @SerializationOrder(1)
   List<ServerCallStepEntry> serverCallSteps = [];
 }
@@ -5182,11 +5192,10 @@ class ExtensionStepEntry extends DocSpecsSection {
   'which the same interaction may run.',
 )
 @SectionId('TEDAVA')
-@CodeSpecKind(
-  [CodeSpecPart.action, CodeSpecPart.layout],
-  note:
-      'data, technology, channel and accessibility variations of a step',
-)
+@CodeSpecKind([
+  CodeSpecPart.action,
+  CodeSpecPart.layout,
+], note: 'data, technology, channel and accessibility variations of a step')
 class TechnologyDataVariations extends DocSpecsSection {
   @Form([
     Field(
@@ -5380,11 +5389,7 @@ class InteractionBusinessRules extends DocSpecsSection {
 )
 @SectionId('KESC')
 @DetailedIn(D05InteractionScenarios)
-@CodeSpecKind(
-  [CodeSpecPart.action],
-  note:
-      'scenario steps seed client actions',
-)
+@CodeSpecKind([CodeSpecPart.action], note: 'scenario steps seed client actions')
 class KeyScenarios extends DocSpecsSection {
   @ContentHelp('''
 End-to-end scenario descriptions showing how users achieve business goals
@@ -5806,7 +5811,8 @@ class ScenarioStepEntry extends DocSpecsSection {
       int,
       'Step Number',
       required: true,
-      hint: 'Sequential position of this step. This is the number the step is '
+      hint:
+          'Sequential position of this step. This is the number the step is '
           'read by, not the handle it is referred to by: a branch names the '
           'step it attaches to by section id.',
     ),
@@ -5832,7 +5838,8 @@ class ScenarioStepEntry extends DocSpecsSection {
       'serverOperation',
       String,
       'Server Operation',
-      hint: 'ServerOperationEntry.operationName (SVOPR registry) this step '
+      hint:
+          'ServerOperationEntry.operationName (SVOPR registry) this step '
           'calls. State it only where the step reaches the server: the client '
           'call is generated exactly where this is present, so a step that '
           'names nothing generates no call.',
@@ -5928,10 +5935,12 @@ class ScenarioStepEntry extends DocSpecsSection {
   /// what the step does across the boundary when it does run.
   @SectionId('SVCST-STEP-LST')
   @SectionIdPattern('SVCST-STEP-xxx')
-  @ContentHelp('Fill this in only where the step reaches the server. Add one '
-      'entry per thing that has to happen to assemble the request, to apply '
-      'the response, or to surface an error — in the order it happens, each '
-      'entry saying which of the three it belongs to.')
+  @ContentHelp(
+    'Fill this in only where the step reaches the server. Add one '
+    'entry per thing that has to happen to assemble the request, to apply '
+    'the response, or to surface an error — in the order it happens, each '
+    'entry saying which of the three it belongs to.',
+  )
   @SerializationOrder(3)
   List<ServerCallStepEntry> serverCallSteps = [];
 }
@@ -5956,7 +5965,8 @@ class ScenarioStepEntry extends DocSpecsSection {
 @OneOf(
   discriminator: 'returnKind',
   noCase: [FlowReturnPoint.endFlow],
-  note: 'Branch return closed choice: an alternative flow either resumes the '
+  note:
+      'Branch return closed choice: an alternative flow either resumes the '
       'main flow at a named step — which needs that step, so it binds a case '
       '— or ends the scenario, which needs nothing and binds none.',
 )
@@ -5974,7 +5984,8 @@ class AlternativeFlowEntry extends DocSpecsSection {
       'Branch Point — main-flow step',
       required: true,
       refersTo: ['SCNST.@sectionId'],
-      hint: 'The main-flow step this branch diverges at, as that step\'s '
+      hint:
+          'The main-flow step this branch diverges at, as that step\'s '
           'section id (SCNST-STEP-…). The branch is taken instead of that '
           'step, so name the step the trigger condition is evaluated before — '
           'not the step before it, and not a restated step number.',
@@ -6002,7 +6013,8 @@ class AlternativeFlowEntry extends DocSpecsSection {
       FlowReturnPoint,
       'Return Kind — resume the main flow, or end it',
       required: true,
-      hint: 'Where control goes when this flow finishes — back to a named '
+      hint:
+          'Where control goes when this flow finishes — back to a named '
           'main-flow step, or nowhere because the scenario ends here',
     ),
     Field(
@@ -6030,13 +6042,10 @@ class AlternativeFlowEntry extends DocSpecsSection {
   /// whole reason the two are a closed choice rather than one `String` in
   /// which `"end"` and a step reference were indistinguishable.
   @SectionId('ALFL-RESU')
-  @StandardReferences(
-    [
-      'Cockburn — Writing Effective Use Cases: extensions & alternative flows',
-      'BPMN 2.0 — sequence flow / activities (scenario steps)',
-    ],
-    'The main-flow step this alternative flow returns control to.',
-  )
+  @StandardReferences([
+    'Cockburn — Writing Effective Use Cases: extensions & alternative flows',
+    'BPMN 2.0 — sequence flow / activities (scenario steps)',
+  ], 'The main-flow step this alternative flow returns control to.')
   @Case(FlowReturnPoint.resumeAtStep)
   @Form([
     Field(
@@ -6045,7 +6054,8 @@ class AlternativeFlowEntry extends DocSpecsSection {
       'Resume Step',
       required: true,
       refersTo: ['SCNST.@sectionId'],
-      hint: 'The main-flow step control resumes at, as that step\'s section '
+      hint:
+          'The main-flow step control resumes at, as that step\'s section '
           'id (SCNST-STEP-…). That step and everything after it run again '
           'from here.',
     ),
@@ -6108,7 +6118,8 @@ class AlternativeStepEntry extends DocSpecsSection {
       'serverOperation',
       String,
       'Server Operation',
-      hint: 'ServerOperationEntry.operationName (SVOPR registry) this step '
+      hint:
+          'ServerOperationEntry.operationName (SVOPR registry) this step '
           'calls. State it only where the step reaches the server: the client '
           'call is generated exactly where this is present, so a step that '
           'names nothing generates no call.',
@@ -6140,10 +6151,12 @@ class AlternativeStepEntry extends DocSpecsSection {
   /// it.
   @SectionId('SVCST-STEP-LST')
   @SectionIdPattern('SVCST-STEP-xxx')
-  @ContentHelp('Fill this in only where the step reaches the server. Add one '
-      'entry per thing that has to happen to assemble the request, to apply '
-      'the response, or to surface an error — in the order it happens, each '
-      'entry saying which of the three it belongs to.')
+  @ContentHelp(
+    'Fill this in only where the step reaches the server. Add one '
+    'entry per thing that has to happen to assemble the request, to apply '
+    'the response, or to surface an error — in the order it happens, each '
+    'entry saying which of the three it belongs to.',
+  )
   @SerializationOrder(1)
   List<ServerCallStepEntry> serverCallSteps = [];
 }

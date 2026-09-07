@@ -56,10 +56,13 @@ class QualityAndAcceptanceModel extends DocSpecsSection {
 )
 @SectionId('I25CV')
 class Iso25010Coverage extends DocSpecsSection {
-  @ContentType('description', 'Summarize how the quality goals cover the '
-      'eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned '
-      'by the SystemQualityGoals characteristic spine; this is a derived '
-      'coverage view, not a second copy of the taxonomy.')
+  @ContentType(
+    'description',
+    'Summarize how the quality goals cover the '
+        'eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned '
+        'by the SystemQualityGoals characteristic spine; this is a derived '
+        'coverage view, not a second copy of the taxonomy.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -67,10 +70,12 @@ class Iso25010Coverage extends DocSpecsSection {
   /// One entry per ISO/IEC 25010:2023 characteristic addressed.
   @SectionId('I25CE-CHAR-LST')
   @SectionIdPattern('I25CE-CHAR-xxx')
-  @ContentHelp('Add one entry per ISO/IEC 25010:2023 characteristic '
-      '(functional suitability, performance efficiency, compatibility, '
-      'interaction capability, reliability, security, maintainability, '
-      'flexibility).')
+  @ContentHelp(
+    'Add one entry per ISO/IEC 25010:2023 characteristic '
+    '(functional suitability, performance efficiency, compatibility, '
+    'interaction capability, reliability, security, maintainability, '
+    'flexibility).',
+  )
   @SerializationOrder(1)
   List<Iso25010CoverageEntry> characteristics = [];
 }
@@ -84,9 +89,12 @@ class Iso25010Coverage extends DocSpecsSection {
 @SectionId('I25CE')
 class Iso25010CoverageEntry extends DocSpecsSection {
   @Form([
-    Field('characteristic', Iso25010Characteristic,
-        'ISO/IEC 25010:2023 Characteristic',
-        required: true),
+    Field(
+      'characteristic',
+      Iso25010Characteristic,
+      'ISO/IEC 25010:2023 Characteristic',
+      required: true,
+    ),
     Field('addressedBy', String, 'Addressed By (which quality goals / NFRs)'),
     Field('targetMetric', String, 'Target Metric'),
   ])

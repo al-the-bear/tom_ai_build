@@ -46,12 +46,14 @@ import 'experience_and_interface_design.dart'
 @SectionId('REQS')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'chapter node over the requirements follow-up subtree',
+  note: 'chapter node over the requirements follow-up subtree',
 )
 class Requirements extends DocSpecsSection {
-  @ContentType('description', 'Summarize the functional and non-functional '
-      'requirement landscape; seeds the Requirements Specification (RSP).')
+  @ContentType(
+    'description',
+    'Summarize the functional and non-functional '
+        'requirement landscape; seeds the Requirements Specification (RSP).',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -89,8 +91,11 @@ class Requirements extends DocSpecsSection {
 @FollowUpKind([FollowUpProcess.l10n, FollowUpProcess.doc, FollowUpProcess.trn])
 @SectionId('REQFU')
 class RequirementsFollowUp extends DocSpecsSection {
-  @ContentType('description', 'Summarize the follow-up (non-generated) NFR '
-      'sub-areas: localization, information-for-use, and training.')
+  @ContentType(
+    'description',
+    'Summarize the follow-up (non-generated) NFR '
+        'sub-areas: localization, information-for-use, and training.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -124,8 +129,11 @@ class RequirementsFollowUp extends DocSpecsSection {
 )
 @SectionId('LCTR')
 class LocalizationTranslationRequirements extends DocSpecsSection {
-  @ContentType('description', 'Localization and translation requirements: '
-      'supported locales, i18n framework, formatting, RTL, pluralization.')
+  @ContentType(
+    'description',
+    'Localization and translation requirements: '
+        'supported locales, i18n framework, formatting, RTL, pluralization.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -136,8 +144,7 @@ class LocalizationTranslationRequirements extends DocSpecsSection {
 
   /// Locale modeling and fallback requirements (re-homed from MLAR).
   @SerializationOrder(2)
-  LocaleHandlingRequirements localeHandling =
-      LocaleHandlingRequirements();
+  LocaleHandlingRequirements localeHandling = LocaleHandlingRequirements();
 }
 
 /// Information-for-Use (user documentation) requirements.
@@ -159,8 +166,11 @@ class LocalizationTranslationRequirements extends DocSpecsSection {
 )
 @SectionId('IFUR')
 class InformationForUseRequirements extends DocSpecsSection {
-  @ContentType('description', 'User documentation requirements: deliverables, '
-      'formats, platforms, versioning, and documentation localization.')
+  @ContentType(
+    'description',
+    'User documentation requirements: deliverables, '
+        'formats, platforms, versioning, and documentation localization.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -177,24 +187,33 @@ class InformationForUseRequirements extends DocSpecsSection {
 /// The detailed training-material content and module catalogue is the training
 /// half of the former `DocumentationAndTraining`, split out in L34C-7 and
 /// re-homed here as [TrainingDeliverableRequirements].
-@StandardReferences(
-  [
-    'ISO/IEC/IEEE 29148:2018 — transition requirements',
-    'PMBOK — transition / enablement',
-  ],
-  'The requirements for training and enabling users to adopt the solution.',
-)
+@StandardReferences([
+  'ISO/IEC/IEEE 29148:2018 — transition requirements',
+  'PMBOK — transition / enablement',
+], 'The requirements for training and enabling users to adopt the solution.')
 @SectionId('TREQ')
 class TrainingEnablementRequirements extends DocSpecsSection {
   /// Training & enablement requirement form.
   @Form([
-    Field('targetAudiences', String, 'Target Audiences',
-        hint: 'End users, admins, power users, support'),
-    Field('competencyOutcomes', String, 'Competency Outcomes',
-        hint: 'What learners must be able to do'),
+    Field(
+      'targetAudiences',
+      String,
+      'Target Audiences',
+      hint: 'End users, admins, power users, support',
+    ),
+    Field(
+      'competencyOutcomes',
+      String,
+      'Competency Outcomes',
+      hint: 'What learners must be able to do',
+    ),
     Field('certificationRequired', bool, 'Certification Required'),
-    Field('ongoingEnablement', String, 'Ongoing Enablement',
-        hint: 'Refresher and continuous-enablement expectations'),
+    Field(
+      'ongoingEnablement',
+      String,
+      'Ongoing Enablement',
+      hint: 'Refresher and continuous-enablement expectations',
+    ),
   ])
   @override
   @SerializationOrder(0)

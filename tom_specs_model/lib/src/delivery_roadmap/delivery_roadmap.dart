@@ -25,7 +25,8 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Delivery Roadmap',
-  description: 'Comprehensive project phase plan — staging strategy, '
+  description:
+      'Comprehensive project phase plan — staging strategy, '
       'stages, feature prioritization, migration, gates, decisions, '
       'initial development flow, and upgrade cycle framework (bridge '
       'to tom_specs_project_flow.md §PF-UPG).',

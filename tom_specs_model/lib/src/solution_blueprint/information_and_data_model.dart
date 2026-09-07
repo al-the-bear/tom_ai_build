@@ -68,6 +68,7 @@ enum DataAttributeKind {
   /// "whole number" is a statement about the domain that a zero scale only
   /// implies.
   integer,
+
   /// An exact fixed-point number. The distinction from [integer] is the scale:
   /// only a decimal may set a non-zero one, and the scale is a business fact —
   /// a monetary amount rounded to two places and one rounded to four are
@@ -82,6 +83,7 @@ enum DataAttributeKind {
   /// as an instant to reuse one type is the classic way to make a birthday
   /// move.
   date,
+
   /// An instant — a date together with a time of day. The kind for which the
   /// shared temporal timezone attribute is load-bearing: one instant renders as
   /// two different wall-clock readings in two zones, so the specification has
@@ -394,10 +396,13 @@ core entity/attribute schema.
   ErDiagramSection erDiagram = ErDiagramSection();
 
   /// 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
-  @StandardReferences([
-    'DAMA-DMBOK2 — data management body of knowledge',
-    'ISO/IEC 25012 — data quality',
-  ], 'Per-entity operational, compliance, technical, and migration facets keyed to the source entity.')
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — data management body of knowledge',
+      'ISO/IEC 25012 — data quality',
+    ],
+    'Per-entity operational, compliance, technical, and migration facets keyed to the source entity.',
+  )
   @SectionId('DMFUE-ENFU-LST')
   @SectionIdPattern('DMFUE-ENFU-xxx')
   @ContentHelp('Add one entry per entity that carries follow-up facets.')
@@ -583,7 +588,8 @@ class EntityFollowUpEntry extends DocSpecsSection {
 @SectionId('DAENT')
 @CodeSpecKind(
   [CodeSpecPart.dataAccess, CodeSpecPart.serviceUnit, CodeSpecPart.serverApi],
-  note: 'Entity + attributes → CE-DB table/columns; the aggregate fields in '
+  note:
+      'Entity + attributes → CE-DB table/columns; the aggregate fields in '
       'DAENT-CLAS → the CE-SU unit boundary and its ownership key '
       '(codespecs_mapping.md §5.1). An entity a server-operation member is '
       'typed by (SVOPM.dataEntity) also crosses the wire as the shared '
@@ -642,7 +648,8 @@ class DataEntityEntry extends DocSpecsSection {
       'entityStereoType',
       String,
       'Stereotype',
-      hint: 'Entity pattern: Entity | ValueObject | Event | View | Bridge. '
+      hint:
+          'Entity pattern: Entity | ValueObject | Event | View | Bridge. '
           'Aggregate-root-ness is not a stereotype here — it is read from '
           'aggregateRoot below, which is the only field that states it',
     ),
@@ -677,7 +684,8 @@ class DataEntityEntry extends DocSpecsSection {
       String,
       'Bounded Context',
       refersTo: ['BCE.contextName'],
-      hint: 'Context Name of the bounded context this entity belongs to. This '
+      hint:
+          'Context Name of the bounded context this entity belongs to. This '
           'is the outer bound on service-unit grouping: aggregates in different '
           'contexts are never served by one service unit',
     ),
@@ -687,7 +695,8 @@ class DataEntityEntry extends DocSpecsSection {
       'Aggregate Root',
       required: true,
       refersTo: ['DAENT.entityName'],
-      hint: 'Entity Name of the root of the aggregate this entity belongs to '
+      hint:
+          'Entity Name of the root of the aggregate this entity belongs to '
           '— a root names itself, so an entity with no enclosing aggregate '
           'names its own Entity Name. This is the ownership key: the service '
           'unit that owns the aggregate owns this entity, its repository, and '
@@ -698,7 +707,8 @@ class DataEntityEntry extends DocSpecsSection {
       String,
       'Service Unit Aggregate',
       refersTo: ['DAENT.entityName'],
-      hint: 'Only when business-process cohesion overrides the default '
+      hint:
+          'Only when business-process cohesion overrides the default '
           'grouping: Entity Name of the aggregate root whose service unit '
           'serves this entity. Several aggregates naming one root is a merge; '
           'one aggregate whose entities name different roots is a split. '
@@ -921,12 +931,15 @@ class DataEntityEntry extends DocSpecsSection {
       'type and constraint subsections, each for the reason stated at its '
       'constant.',
 )
-@CodeSpecKind([CodeSpecPart.dataAccess, CodeSpecPart.serverApi],
-    note: 'A persisted attribute becomes a table column; a file-reference '
-        'attribute becomes a file-reference column (csra10); display/label '
-        'detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute '
-        'set also types the CE-API entity wire DTO of an entity that '
-        'crosses the wire (codespecs_derivation_contract.md §3.2.11).')
+@CodeSpecKind(
+  [CodeSpecPart.dataAccess, CodeSpecPart.serverApi],
+  note:
+      'A persisted attribute becomes a table column; a file-reference '
+      'attribute becomes a file-reference column (csra10); display/label '
+      'detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute '
+      'set also types the CE-API entity wire DTO of an entity that '
+      'crosses the wire (codespecs_derivation_contract.md §3.2.11).',
+)
 class DataAttributeEntry extends DocSpecsSection {
   @ContentHelp(
     'Narrative for this attribute — what it means and how it is used, '
@@ -1021,21 +1034,13 @@ class DataAttributeEntry extends DocSpecsSection {
   /// Present only for the `string` logical type; carries only the character
   /// length and collation attributes (no numeric precision, no timezone).
   @SectionId('DAATT-DTTX')
-  @StandardReferences(
-    [
-      'ISO/IEC 11179 — permissible value and representation of a data element',
-      'ISO/IEC 25012 — data quality characteristics for stored text',
-    ],
-    'The character length and collation constraints for a text attribute.',
-  )
+  @StandardReferences([
+    'ISO/IEC 11179 — permissible value and representation of a data element',
+    'ISO/IEC 25012 — data quality characteristics for stored text',
+  ], 'The character length and collation constraints for a text attribute.')
   @Case(DataAttributeKind.string)
   @Form([
-    Field(
-      'length',
-      String,
-      'Length',
-      hint: 'Maximum character length',
-    ),
+    Field('length', String, 'Length', hint: 'Maximum character length'),
     Field(
       'collation',
       String,
@@ -1051,13 +1056,10 @@ class DataAttributeEntry extends DocSpecsSection {
   /// Present only for numeric logical types; carries only the precision and
   /// scale attributes (no length, collation or timezone).
   @SectionId('DAATT-DTNU')
-  @StandardReferences(
-    [
-      'ISO/IEC 11179 — permissible value and representation of a data element',
-      'ISO 80000-1 — quantities and units, on numeric precision',
-    ],
-    'The precision and scale constraints for a numeric attribute.',
-  )
+  @StandardReferences([
+    'ISO/IEC 11179 — permissible value and representation of a data element',
+    'ISO 80000-1 — quantities and units, on numeric precision',
+  ], 'The precision and scale constraints for a numeric attribute.')
   @Case(DataAttributeKind.integer)
   @Case(DataAttributeKind.decimal)
   @Form([
@@ -1077,13 +1079,10 @@ class DataAttributeEntry extends DocSpecsSection {
   /// Present only for date/time logical types; carries only the timezone
   /// handling attribute.
   @SectionId('DAATT-DTTM')
-  @StandardReferences(
-    [
-      'ISO 8601-1:2019 — representation of dates and times',
-      'ISO 8601-2:2019 — extensions including time-zone offsets',
-    ],
-    'The timezone handling for a date or date-time attribute.',
-  )
+  @StandardReferences([
+    'ISO 8601-1:2019 — representation of dates and times',
+    'ISO 8601-2:2019 — extensions including time-zone offsets',
+  ], 'The timezone handling for a date or date-time attribute.')
   @Case(DataAttributeKind.date)
   @Case(DataAttributeKind.dateTime)
   @Form([
@@ -1107,10 +1106,9 @@ class DataAttributeEntry extends DocSpecsSection {
   /// of this one: a mode field would restate the logical type and could then
   /// disagree with it.
   @SectionId('DAATT-DTBI')
-  @StandardReferences(
-    ['ISO/IEC 11179 — permissible value and representation of a data element'],
-    'The stored size constraints for a binary attribute.',
-  )
+  @StandardReferences([
+    'ISO/IEC 11179 — permissible value and representation of a data element',
+  ], 'The stored size constraints for a binary attribute.')
   @Case(DataAttributeKind.binary)
   @Form([
     Field(
@@ -1157,28 +1155,32 @@ class DataAttributeEntry extends DocSpecsSection {
       String,
       'Storage Group',
       required: true,
-      hint: 'Naming group the files are filed under — sets their retention and '
+      hint:
+          'Naming group the files are filed under — sets their retention and '
           'access partition (e.g. documents/attachment)',
     ),
     Field(
       'fileStore',
       String,
       'File Store',
-      hint: 'Name of the configured file store holding the files; empty means '
+      hint:
+          'Name of the configured file store holding the files; empty means '
           'the deployment default store',
     ),
     Field(
       'deleteWithRecord',
       String,
       'Delete With Record',
-      hint: 'Yes | No — whether deleting the record also deletes the file '
+      hint:
+          'Yes | No — whether deleting the record also deletes the file '
           '(Yes unless the file outlives its reference by design)',
     ),
     Field(
       'acceptedContentKinds',
       String,
       'Accepted Content Kinds',
-      hint: 'Comma-separated content kinds accepted on upload (e.g. PDF, PNG); '
+      hint:
+          'Comma-separated content kinds accepted on upload (e.g. PDF, PNG); '
           'empty means unrestricted',
     ),
     Field(
@@ -1218,12 +1220,9 @@ class DataAttributeEntry extends DocSpecsSection {
   /// some of the enum's values — is a constraint, authored in the `constraints`
   /// list where every other per-attribute restriction lives.
   @SectionId('DAATT-DTEN')
-  @StandardReferences(
-    [
-      'ISO/IEC 11179 — permissible value and representation of a data element',
-    ],
-    'The declared value set a domain-enum attribute draws from.',
-  )
+  @StandardReferences([
+    'ISO/IEC 11179 — permissible value and representation of a data element',
+  ], 'The declared value set a domain-enum attribute draws from.')
   @Case(DataAttributeKind.enumeration)
   @Form([
     Field(
@@ -1231,7 +1230,8 @@ class DataAttributeEntry extends DocSpecsSection {
       String,
       'Domain Enum',
       required: true,
-      hint: 'DomainEnumEntry.enumName this attribute is typed by (e.g. '
+      hint:
+          'DomainEnumEntry.enumName this attribute is typed by (e.g. '
           'OrderStatus) — declared once in the domain enum register, not '
           'restated here',
       refersTo: ['DMENE.enumName'],
@@ -1642,8 +1642,9 @@ class EntityIndexEntry extends DocSpecsSection {
   'A single entity constraint (check, unique, exclusion) with its expression, enforcement level, and business rule reference.',
 )
 @SectionId('ENCNS')
-@CodeSpecKind([CodeSpecPart.dataAccess],
-    note: 'DB-level constraint on the table; distinct from CE-VA field rules.')
+@CodeSpecKind([
+  CodeSpecPart.dataAccess,
+], note: 'DB-level constraint on the table; distinct from CE-VA field rules.')
 class EntityConstraintEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -1833,8 +1834,9 @@ referential integrity rules, and navigation patterns.
   'A single entity relationship with its participants, cardinality, referential integrity, navigation, and relationship attributes.',
 )
 @SectionId('ENRLE')
-@CodeSpecKind([CodeSpecPart.dataAccess],
-    note: 'Foreign-key / association between tables.')
+@CodeSpecKind([
+  CodeSpecPart.dataAccess,
+], note: 'Foreign-key / association between tables.')
 class EntityRelationshipEntry extends DocSpecsSection {
   @ContentHelp(
     'Narrative for this relationship — the business fact it records, beyond '
@@ -2130,9 +2132,12 @@ class EntityRelationshipEntry extends DocSpecsSection {
 )
 @SectionId('DATCL')
 @DetailedIn(D03InformationModel)
-@CodeSpecKind([CodeSpecPart.authorization],
-    note: 'Data classification drives access restrictions → authorization; '
-        'retention/handling policy is governance (non-codespecs).')
+@CodeSpecKind(
+  [CodeSpecPart.authorization],
+  note:
+      'Data classification drives access restrictions → authorization; '
+      'retention/handling policy is governance (non-codespecs).',
+)
 class DataClassification extends DocSpecsSection {
   @ContentHelp(
     'Introduce the classification framework before the individual levels '
@@ -2494,11 +2499,9 @@ class DataClassificationEntry extends DocSpecsSection {
   'A single handling requirement (processing, storage, transmission, display, disposal) with its rationale and enforcement.',
 )
 @SectionId('HNDRE')
-@CodeSpecKind(
-  [CodeSpecPart.authorization],
-  note:
-      'one handling requirement constraining access to classified data',
-)
+@CodeSpecKind([
+  CodeSpecPart.authorization,
+], note: 'one handling requirement constraining access to classified data')
 class HandlingRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -2610,10 +2613,13 @@ class AccessRestrictionEntry extends DocSpecsSection {
 )
 @SectionId('BJOMD')
 @MapsTo(D03InformationModel)
-@CodeSpecKind([CodeSpecPart.viewState],
-    note: 'DDD domain object catalog → observable view-model (CE-ST). Physical '
-        'persistence is DataEntity (CE-DB); AggregateRoot entries are the CE-SU '
-        'root aggregate (codespecs_mapping.md §5.17).')
+@CodeSpecKind(
+  [CodeSpecPart.viewState],
+  note:
+      'DDD domain object catalog → observable view-model (CE-ST). Physical '
+      'persistence is DataEntity (CE-DB); AggregateRoot entries are the CE-SU '
+      'root aggregate (codespecs_mapping.md §5.17).',
+)
 class BusinessObjectModel extends DocSpecsSection {
   @ContentHelp('''
 Key business objects, their properties, states, and behaviors. Following
@@ -3123,8 +3129,9 @@ class BusinessObjectAttributeEntry extends DocSpecsSection {
   'A single lifecycle state of a business object, with its entry/exit conditions and allowed operations.',
 )
 @SectionId('OBST')
-@CodeSpecKind([CodeSpecPart.domainEnum],
-    note: 'Closed lifecycle state set → domain enum.')
+@CodeSpecKind([
+  CodeSpecPart.domainEnum,
+], note: 'Closed lifecycle state set → domain enum.')
 class ObjectStateEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3270,9 +3277,12 @@ class BusinessRuleReferenceEntry extends DocSpecsSection {
   'A single state transition in an object lifecycle, from a source state to a target state.',
 )
 @SectionId('LFTRS')
-@CodeSpecKind([CodeSpecPart.action],
-    note: 'Guarded state transition → action; the state-machine/workflow view '
-        'is deferred to CE-WF.')
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note:
+      'Guarded state transition → action; the state-machine/workflow view '
+      'is deferred to CE-WF.',
+)
 class LifecycleTransitionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3387,9 +3397,12 @@ class LifecycleTransitionEntry extends DocSpecsSection {
   'A single domain operation that can be performed on the object, as a command, query or event.',
 )
 @SectionId('OBOP')
-@CodeSpecKind([CodeSpecPart.action],
-    note: 'Domain operation (pre/post) → action; the server realisation is '
-        'CE-SC/CE-SU (derived).')
+@CodeSpecKind(
+  [CodeSpecPart.action],
+  note:
+      'Domain operation (pre/post) → action; the server realisation is '
+      'CE-SC/CE-SU (derived).',
+)
 class ObjectOperationEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3523,8 +3536,9 @@ class ObjectOperationEntry extends DocSpecsSection {
   'A single business invariant that must always hold true, with its expression, scope and violation action.',
 )
 @SectionId('OBINV')
-@CodeSpecKind([CodeSpecPart.validation],
-    note: 'Object invariant (must-always-hold) → validation rule.')
+@CodeSpecKind([
+  CodeSpecPart.validation,
+], note: 'Object invariant (must-always-hold) → validation rule.')
 class ObjectInvariantEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3586,8 +3600,11 @@ class ObjectInvariantEntry extends DocSpecsSection {
 )
 @SectionId('FUMO')
 @MapsTo(D03InformationModel)
-@CodeSpecKind([CodeSpecPart.serviceUnit],
-    note: 'Business function decomposition → logical service unit (codespecs_mapping.md §5.17).')
+@CodeSpecKind(
+  [CodeSpecPart.serviceUnit],
+  note:
+      'Business function decomposition → logical service unit (codespecs_mapping.md §5.17).',
+)
 class FunctionModel extends DocSpecsSection {
   @ContentHelp(
     'Introduce the function model before the decomposition, matrix and rule '
@@ -3878,9 +3895,12 @@ class SubFunctionEntry extends DocSpecsSection {
   'A single cell of the CRUD matrix, recording how one function accesses one data entity.',
 )
 @SectionId('FNDMX')
-@CodeSpecKind([CodeSpecPart.serviceUnit],
-    note: 'Function×data CRUD matrix → feeds CE-SU owned-entity/operation '
-        'derivation.')
+@CodeSpecKind(
+  [CodeSpecPart.serviceUnit],
+  note:
+      'Function×data CRUD matrix → feeds CE-SU owned-entity/operation '
+      'derivation.',
+)
 class FunctionDataMatrixEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3931,8 +3951,9 @@ class FunctionDataMatrixEntry extends DocSpecsSection {
   'A single business rule with its logic, enforcement, exceptions, and governance.',
 )
 @SectionId('BIRU')
-@CodeSpecKind([CodeSpecPart.validation],
-    note: 'Business rule → validation (field/form rule).')
+@CodeSpecKind([
+  CodeSpecPart.validation,
+], note: 'Business rule → validation (field/form rule).')
 class BusinessRuleEntry extends DocSpecsSection {
   @ContentHelp(
     'Narrative for this business rule — the intent behind it, beyond the '
@@ -4336,8 +4357,9 @@ class AffectedFunctionEntry extends DocSpecsSection {
   'SBVR — business rule statements',
 ], 'A worked example illustrating how a rule evaluates for given inputs.')
 @SectionId('RULEXM')
-@CodeSpecKind([CodeSpecPart.validation],
-    note: 'Rule example → validation test case (Phase 5 derivation).')
+@CodeSpecKind([
+  CodeSpecPart.validation,
+], note: 'Rule example → validation test case (Phase 5 derivation).')
 class RuleExampleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4478,8 +4500,9 @@ integrity constraints must hold in every persistent state.
   'The business rules, invariants, key operations, and derived properties that govern a domain object\'s behavior.',
 )
 @SectionId('BEHAV')
-@CodeSpecKind([CodeSpecPart.validation],
-    note: 'Behavior rule governing an object → validation rule.')
+@CodeSpecKind([
+  CodeSpecPart.validation,
+], note: 'Behavior rule governing an object → validation rule.')
 class BehaviorRuleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4531,11 +4554,14 @@ class BehaviorRuleEntry extends DocSpecsSection {
   'How a domain object connects to the outside world: the APIs that expose it, events it publishes or subscribes to, and external-system mappings.',
 )
 @SectionId('INTEG')
-@CodeSpecKind([CodeSpecPart.serverCall],
-    note: 'CE-SC — the consumed side of an integration point: the external '
-        "systems this object is exchanged with. The application's own "
-        'operations are declared in the server operation registry (SVOPR), '
-        'not here.')
+@CodeSpecKind(
+  [CodeSpecPart.serverCall],
+  note:
+      'CE-SC — the consumed side of an integration point: the external '
+      "systems this object is exchanged with. The application's own "
+      'operations are declared in the server operation registry (SVOPR), '
+      'not here.',
+)
 class IntegrationPointEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4577,14 +4603,14 @@ class IntegrationPointEntry extends DocSpecsSection {
   'The constraints on a single data attribute: nullability, uniqueness, defaults, allowed values, and validation expressions.',
 )
 @SectionId('DATAA')
-@CodeSpecKind([
-  CodeSpecPart.validation,
-  CodeSpecPart.dataAccess,
-  CodeSpecPart.serverApi,
-], note: 'Attribute-level constraint → CE-VA field rule (required, range, '
-    'pattern, type). The storage facts (nullable, length, format) feed the '
-    'CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API '
-    'entity wire DTO (§3.2.11), so both extracts carry them.')
+@CodeSpecKind(
+  [CodeSpecPart.validation, CodeSpecPart.dataAccess, CodeSpecPart.serverApi],
+  note:
+      'Attribute-level constraint → CE-VA field rule (required, range, '
+      'pattern, type). The storage facts (nullable, length, format) feed the '
+      'CE-DB column (codespecs_derivation_contract.md §3.3.2) and the CE-API '
+      'entity wire DTO (§3.2.11), so both extracts carry them.',
+)
 class DataAttributeConstraintEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4633,7 +4659,8 @@ class DataAttributeConstraintEntry extends DocSpecsSection {
       'allowedValues',
       String,
       'Allowed Values',
-      hint: 'The subset of values this attribute permits — value ids from the '
+      hint:
+          'The subset of values this attribute permits — value ids from the '
           'domain enum it is typed by, or the permitted literals for a '
           'non-enumerated attribute; empty means unrestricted',
     ),
@@ -4655,9 +4682,12 @@ class DataAttributeConstraintEntry extends DocSpecsSection {
   'How an attribute is presented in the UI: its label, ordering, grouping, and help text.',
 )
 @SectionId('DISPL')
-@CodeSpecKind([CodeSpecPart.viewState],
-    note: 'Display/formatting properties bind an attribute to view-model state; '
-        'label/help copy also feeds CE-TX.')
+@CodeSpecKind(
+  [CodeSpecPart.viewState],
+  note:
+      'Display/formatting properties bind an attribute to view-model state; '
+      'label/help copy also feeds CE-TX.',
+)
 class DisplayPropertyEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4848,11 +4878,9 @@ class TechnicalCharacteristicEntry extends DocSpecsSection {
   'The two ends of a relationship: the source and target entities and the role each plays.',
 )
 @SectionId('PARTI')
-@CodeSpecKind(
-  [CodeSpecPart.dataAccess],
-  note:
-      'one participant in a data relationship',
-)
+@CodeSpecKind([
+  CodeSpecPart.dataAccess,
+], note: 'one participant in a data relationship')
 class ParticipantEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -4944,14 +4972,17 @@ class RelationshipAttributeEntry extends DocSpecsSection {
   'Captures the schema versioning strategy, the data source / schema targets, and the ordered migration artifacts derived from the data model’s evolution — the schema’s own history, not business-data migration between systems.',
 )
 @SectionId('SCHMG')
-@CodeSpecKind([CodeSpecPart.schemaMigration],
-    note: 'CE-MG — schema migration artifacts derived from the data model '
-        'evolution: @CsMigration-marked SQL files (initial DDL, base/seed '
-        'data, iteration scripts), server locus, built on the '
-        'tom_core_server migration engine (TomDbMigrations, mapping doc '
-        'codespecs_mapping.md §5.27). MIGTG supplies the datasource/schema '
-        'directory placement; SCMST.artifactKind supplies CsMigrationKind and '
-        'SCMST.environments the filename environment tag.')
+@CodeSpecKind(
+  [CodeSpecPart.schemaMigration],
+  note:
+      'CE-MG — schema migration artifacts derived from the data model '
+      'evolution: @CsMigration-marked SQL files (initial DDL, base/seed '
+      'data, iteration scripts), server locus, built on the '
+      'tom_core_server migration engine (TomDbMigrations, mapping doc '
+      'codespecs_mapping.md §5.27). MIGTG supplies the datasource/schema '
+      'directory placement; SCMST.artifactKind supplies CsMigrationKind and '
+      'SCMST.environments the filename environment tag.',
+)
 class SchemaVersioningAndMigration extends DocSpecsSection {
   @ContentHelp('''
 Describe how the database schema is versioned and how schema changes are
@@ -5023,21 +5054,27 @@ legacy systems stay in the migration-mapping sections (MIGME).
 
   /// 7.4.1. Migration Targets — the data source / schema pairs artifacts apply
   /// to.
-  @StandardReferences([
-    'ISO/IEC 9075 (SQL) — schema as the named container of database objects',
-    'DAMA-DMBOK2 — data management body of knowledge',
-  ], 'The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one.')
+  @StandardReferences(
+    [
+      'ISO/IEC 9075 (SQL) — schema as the named container of database objects',
+      'DAMA-DMBOK2 — data management body of knowledge',
+    ],
+    'The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one.',
+  )
   @SectionId('MIGTG-TARG-LST')
   @SectionIdPattern('MIGTG-TARG-xxx')
-  @ContentHelp('Add one entry per data source / schema pair that migration '
-      'artifacts apply to. Every artifact in 7.4.2 names one of these targets.')
+  @ContentHelp(
+    'Add one entry per data source / schema pair that migration '
+    'artifacts apply to. Every artifact in 7.4.2 names one of these targets.',
+  )
   @SerializationOrder(1)
   List<MigrationTargetEntry> migrationTargets = [];
 
   /// 7.4.2. Schema Migration Steps — one entry per versioned artifact.
-  @StandardReferences([
-    'Evolutionary Database Design (Ambler & Sadalage) — database refactoring',
-  ], 'The ordered schema migration artifacts that establish and evolve the database over releases.')
+  @StandardReferences(
+    ['Evolutionary Database Design (Ambler & Sadalage) — database refactoring'],
+    'The ordered schema migration artifacts that establish and evolve the database over releases.',
+  )
   @SectionId('SCMST-STEP-LST')
   @SectionIdPattern('SCMST-STEP-xxx')
   @ContentHelp('Add one entry per versioned migration artifact.')
@@ -5059,11 +5096,9 @@ legacy systems stay in the migration-mapping sections (MIGME).
   'A named data source / schema pair that migration artifacts are filed under and applied to.',
 )
 @SectionId('MIGTG')
-@CodeSpecKind(
-  [CodeSpecPart.schemaMigration],
-  note:
-      'one migration target schema',
-)
+@CodeSpecKind([
+  CodeSpecPart.schemaMigration,
+], note: 'one migration target schema')
 class MigrationTargetEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5121,11 +5156,9 @@ class MigrationTargetEntry extends DocSpecsSection {
       'definition, or a schema change. Each kind authors a different thing, so '
       'every kind binds a case.',
 )
-@CodeSpecKind(
-  [CodeSpecPart.schemaMigration],
-  note:
-      'one step of a schema migration',
-)
+@CodeSpecKind([
+  CodeSpecPart.schemaMigration,
+], note: 'one step of a schema migration')
 class SchemaMigrationStepEntry extends DocSpecsSection {
   @ContentHelp('''
 One artifact in the migration set.
@@ -5175,7 +5208,8 @@ Author the further change as a new entry with the next version.
       'environments',
       String,
       'Environments',
-      hint: 'Comma-separated deployment environments this is restricted to, '
+      hint:
+          'Comma-separated deployment environments this is restricted to, '
           'or empty to apply everywhere',
     ),
   ])
@@ -5251,14 +5285,16 @@ Author the further change as a new entry with the next version.
       String,
       'Value Set',
       required: true,
-      hint: 'The reference values loaded — lookup values, defaults, built-in '
+      hint:
+          'The reference values loaded — lookup values, defaults, built-in '
           'roles — or where the authoritative list is kept',
     ),
     Field(
       'identityKey',
       String,
       'Identity Key',
-      hint: 'The key that identifies an existing row, so that re-applying the '
+      hint:
+          'The key that identifies an existing row, so that re-applying the '
           'artifact updates rather than duplicates',
     ),
   ])
@@ -5285,7 +5321,8 @@ Author the further change as a new entry with the next version.
       String,
       'Schema Statements',
       required: true,
-      hint: 'The schema changes performed on tables, columns, indexes and '
+      hint:
+          'The schema changes performed on tables, columns, indexes and '
           'constraints',
     ),
     Field(
@@ -5300,7 +5337,8 @@ Author the further change as a new entry with the next version.
       'dataBackfill',
       String,
       'Data Backfill',
-      hint: 'Any data population or transformation performed as part of the '
+      hint:
+          'Any data population or transformation performed as part of the '
           'change, or None',
     ),
     Field(
@@ -5347,11 +5385,7 @@ Author the further change as a new entry with the next version.
   'The registry of domain enums (closed value sets): each enum with its named, backed values — the `domainEnum` home and the closed-choice discriminator source.',
 )
 @SectionId('DOMEN')
-@CodeSpecKind(
-  [CodeSpecPart.domainEnum],
-  note:
-      'the registry of domain enums',
-)
+@CodeSpecKind([CodeSpecPart.domainEnum], note: 'the registry of domain enums')
 class DomainEnumRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the domain enums — the closed value sets the data model relies on
@@ -5394,11 +5428,14 @@ Domain enums authored here are the single source for:
   'A single domain enum: its name, backing type, default, and named member values.',
 )
 @SectionId('DMENE')
-@CodeSpecKind([CodeSpecPart.domainEnum],
-    note: 'A closed value set becomes a domain enum / value type: the '
-        'enum name is the generated type, each value id + backing value a '
-        'constant, and each member copy resolves via CE-TX. The enum also '
-        'serves as the closed-choice (@OneOf) discriminator source (csm-7-4).')
+@CodeSpecKind(
+  [CodeSpecPart.domainEnum],
+  note:
+      'A closed value set becomes a domain enum / value type: the '
+      'enum name is the generated type, each value id + backing value a '
+      'constant, and each member copy resolves via CE-TX. The enum also '
+      'serves as the closed-choice (@OneOf) discriminator source (csm-7-4).',
+)
 class DomainEnumEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5432,9 +5469,10 @@ class DomainEnumEntry extends DocSpecsSection {
   String? content;
 
   /// 7.5.x. Enum Values — one entry per member of the value set.
-  @StandardReferences([
-    'ISO/IEC 11179 — metadata registries / value-domain enumerations',
-  ], 'The member values of this domain enum, each with a stable id, backing value, and copy reference.')
+  @StandardReferences(
+    ['ISO/IEC 11179 — metadata registries / value-domain enumerations'],
+    'The member values of this domain enum, each with a stable id, backing value, and copy reference.',
+  )
   @SectionId('DMEVA-VALU-LST')
   @SectionIdPattern('DMEVA-VALU-xxx')
   @Min(1)
@@ -5459,11 +5497,7 @@ class DomainEnumEntry extends DocSpecsSection {
   'A single domain-enum member: its stable value id, backing value, and copy-key reference.',
 )
 @SectionId('DMEVA')
-@CodeSpecKind(
-  [CodeSpecPart.domainEnum],
-  note:
-      'one value of a domain enum',
-)
+@CodeSpecKind([CodeSpecPart.domainEnum], note: 'one value of a domain enum')
 class DomainEnumValueEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5477,22 +5511,19 @@ class DomainEnumValueEntry extends DocSpecsSection {
       'backingValue',
       String,
       'Backing Value',
-      hint: 'Persisted/serialized code (int or string), if distinct from the id',
+      hint:
+          'Persisted/serialized code (int or string), if distinct from the id',
     ),
     Field(
       'copyKey',
       String,
       'Copy Key',
-      hint: 'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) '
+      hint:
+          'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) '
           'for the display label (author copy once, reference here)',
       refersTo: ['MSGKE.key'],
     ),
-    Field(
-      'description',
-      String,
-      'Description',
-      hint: 'What this value means',
-    ),
+    Field('description', String, 'Description', hint: 'What this value means'),
   ])
   @override
   @SerializationOrder(0)
@@ -5528,11 +5559,7 @@ class DomainEnumValueEntry extends DocSpecsSection {
   'The registry of shared application error codes referenced by validation rules (CE-VA), the Result envelope (CE-ER), and error copy (CE-TX).',
 )
 @SectionId('ERCRG')
-@CodeSpecKind(
-  [CodeSpecPart.errorResult],
-  note:
-      'the registry of error codes',
-)
+@CodeSpecKind([CodeSpecPart.errorResult], note: 'the registry of error codes')
 class ErrorCodeRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the shared application error codes. Add one entry per code; each
@@ -5576,10 +5603,13 @@ from D09's system/network/display error catalogue.
   'A single shared application error code: its stable id, category, default severity, retryable hint, HTTP-status hint, and copy-key reference.',
 )
 @SectionId('ERCEN')
-@CodeSpecKind([CodeSpecPart.errorResult],
-    note: 'CE-ER — the shared error-code vocabulary the Result envelope error '
-        'arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX '
-        'error copy (one code, three consumers).')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'CE-ER — the shared error-code vocabulary the Result envelope error '
+      'arm carries. Also cross-referenced by CE-VA rule error codes and CE-TX '
+      'error copy (one code, three consumers).',
+)
 class ErrorCodeEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5587,14 +5617,16 @@ class ErrorCodeEntry extends DocSpecsSection {
       String,
       'Code',
       required: true,
-      hint: 'Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) '
+      hint:
+          'Stable machine error code (e.g. USER_NOT_FOUND, VALIDATION_FAILED) '
           '— the join key for CE-VA rules, CE-ER and CE-TX copy',
     ),
     Field(
       'category',
       String,
       'Category',
-      hint: 'Grouping: Validation | Authorization | NotFound | Conflict | '
+      hint:
+          'Grouping: Validation | Authorization | NotFound | Conflict | '
           'BusinessRule | System',
     ),
     Field(
@@ -5613,14 +5645,16 @@ class ErrorCodeEntry extends DocSpecsSection {
       'httpStatusHint',
       int,
       'HTTP Status Hint',
-      hint: 'Optional transport-status hint (application errors ride in a 2xx '
+      hint:
+          'Optional transport-status hint (application errors ride in a 2xx '
           'body; 5xx are transport failures)',
     ),
     Field(
       'copyKey',
       String,
       'Copy Key',
-      hint: 'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) '
+      hint:
+          'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) '
           'for the default user-facing message (author copy once, reference here)',
       refersTo: ['MSGKE.key'],
     ),
@@ -5657,12 +5691,15 @@ class ErrorCodeEntry extends DocSpecsSection {
   'The canonical success-or-error Result envelope (CE-ER, codespecs_mapping.md §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm.',
 )
 @SectionId('RSLTE')
-@CodeSpecKind([CodeSpecPart.errorResult],
-    note: 'CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm '
-        'or a structured error arm carrying a code (from the error-code '
-        'registry), field-level details, and retryable/severity. Realised per '
-        'application in <app>_codespec_shared; no framework counterpart '
-        '(csmb4).')
+@CodeSpecKind(
+  [CodeSpecPart.errorResult],
+  note:
+      'CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm '
+      'or a structured error arm carrying a code (from the error-code '
+      'registry), field-level details, and retryable/severity. Realised per '
+      'application in <app>_codespec_shared; no framework counterpart '
+      '(csmb4).',
+)
 class ResultEnvelope extends DocSpecsSection {
   @Form([
     Field(
@@ -5676,14 +5713,16 @@ class ResultEnvelope extends DocSpecsSection {
       'successArm',
       String,
       'Success Arm',
-      hint: 'The success payload — the value type carried when success is true '
+      hint:
+          'The success payload — the value type carried when success is true '
           '(may be empty for operations returning nothing)',
     ),
     Field(
       'errorArm',
       String,
       'Error Arm',
-      hint: 'The structured error carried when success is false — its code '
+      hint:
+          'The structured error carried when success is false — its code '
           'references the error-code registry (ERCRG)',
     ),
     Field(
@@ -5730,11 +5769,9 @@ class ResultEnvelope extends DocSpecsSection {
   'A single field-level error detail: the offending field path, an error-code reference, and an optional default message.',
 )
 @SectionId('RSFDE')
-@CodeSpecKind(
-  [CodeSpecPart.errorResult],
-  note:
-      'one field detail carried by a result envelope',
-)
+@CodeSpecKind([
+  CodeSpecPart.errorResult,
+], note: 'one field detail carried by a result envelope')
 class ResultFieldDetailEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5742,21 +5779,24 @@ class ResultFieldDetailEntry extends DocSpecsSection {
       String,
       'Field Path',
       required: true,
-      hint: 'The field (or dotted path) the error applies to (e.g. email, '
+      hint:
+          'The field (or dotted path) the error applies to (e.g. email, '
           'address.postalCode)',
     ),
     Field(
       'errorCodeRef',
       String,
       'Error Code',
-      hint: 'Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code',
+      hint:
+          'Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code',
       refersTo: ['ERCEN.code'],
     ),
     Field(
       'message',
       String,
       'Default Message',
-      hint: 'Optional default message; user-facing copy resolves from the code '
+      hint:
+          'Optional default message; user-facing copy resolves from the code '
           'via CE-TX',
     ),
   ])
@@ -5801,11 +5841,7 @@ class ResultFieldDetailEntry extends DocSpecsSection {
   'The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes.',
 )
 @SectionId('MSGKR')
-@CodeSpecKind(
-  [CodeSpecPart.text],
-  note:
-      'the registry of message keys',
-)
+@CodeSpecKind([CodeSpecPart.text], note: 'the registry of message keys')
 class MessageKeyRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the user-facing copy as message keys. Add one entry per key; each key
@@ -5825,9 +5861,12 @@ validated — no more free-text `*Resource` keys that can silently diverge.
   String? content;
 
   /// 7.8.1. Message Keys — one entry per author-once copy string.
-  @StandardReferences([
-    'W3C Internationalization (i18n) — message catalogues / externalised strings',
-  ], 'The catalogued message keys, each with its default copy and locale variants.')
+  @StandardReferences(
+    [
+      'W3C Internationalization (i18n) — message catalogues / externalised strings',
+    ],
+    'The catalogued message keys, each with its default copy and locale variants.',
+  )
   @SectionId('MSGKE-MKEY-LST')
   @SectionIdPattern('MSGKE-MKEY-xxx')
   @ContentHelp('Add one entry per message key (author-once copy string).')
@@ -5850,12 +5889,15 @@ validated — no more free-text `*Resource` keys that can silently diverge.
   'A single message key: its stable token, default copy, placeholders, and locale variants.',
 )
 @SectionId('MSGKE')
-@CodeSpecKind([CodeSpecPart.text],
-    note: 'CE-TX — the author-once copy string every consumer references. The '
-        'key is the join token: CE-EL/CE-AC labels, domainEnum value copy '
-        '(DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) '
-        'and CE-VA messages all resolve here. The default copy plus locale '
-        'variants become the generated message catalogue.')
+@CodeSpecKind(
+  [CodeSpecPart.text],
+  note:
+      'CE-TX — the author-once copy string every consumer references. The '
+      'key is the join token: CE-EL/CE-AC labels, domainEnum value copy '
+      '(DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) '
+      'and CE-VA messages all resolve here. The default copy plus locale '
+      'variants become the generated message catalogue.',
+)
 class MessageKeyEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5863,7 +5905,8 @@ class MessageKeyEntry extends DocSpecsSection {
       String,
       'Message Key',
       required: true,
-      hint: 'Stable message key referenced everywhere (e.g. '
+      hint:
+          'Stable message key referenced everywhere (e.g. '
           'order.status.pending, error.user.notFound). Dotted, namespaced.',
     ),
     Field(
@@ -5871,14 +5914,16 @@ class MessageKeyEntry extends DocSpecsSection {
       String,
       'Default Copy',
       required: true,
-      hint: 'The default (base-locale) user-facing text. May contain named '
+      hint:
+          'The default (base-locale) user-facing text. May contain named '
           'placeholders like {count} or {name}.',
     ),
     Field(
       'placeholders',
       String,
       'Placeholders',
-      hint: 'Comma-separated named parameters the copy interpolates (e.g. '
+      hint:
+          'Comma-separated named parameters the copy interpolates (e.g. '
           'count, name), if any',
     ),
     Field(
@@ -5893,9 +5938,12 @@ class MessageKeyEntry extends DocSpecsSection {
   String? content;
 
   /// 7.8.x. Locale Variants — one entry per non-default locale.
-  @StandardReferences([
-    'Unicode CLDR / BCP 47 — locale identification and localized message data',
-  ], 'The per-locale copy variants of this message key (the default copy is the base locale).')
+  @StandardReferences(
+    [
+      'Unicode CLDR / BCP 47 — locale identification and localized message data',
+    ],
+    'The per-locale copy variants of this message key (the default copy is the base locale).',
+  )
   @SectionId('MSGLV-LOCV-LST')
   @SectionIdPattern('MSGLV-LOCV-xxx')
   @ContentHelp('Add one entry per non-default locale.')
@@ -5909,19 +5957,12 @@ class MessageKeyEntry extends DocSpecsSection {
 /// copy for that locale. The base-locale copy lives on
 /// `MessageKeyEntry.defaultCopy`; each variant here overrides it for one
 /// locale.
-@StandardReferences(
-  [
-    'Unicode CLDR / BCP 47 — locale identification and localized message data',
-    'W3C Internationalization (i18n) — message catalogues / externalised strings',
-  ],
-  'A single locale variant: a BCP-47 locale tag and the copy for that locale.',
-)
+@StandardReferences([
+  'Unicode CLDR / BCP 47 — locale identification and localized message data',
+  'W3C Internationalization (i18n) — message catalogues / externalised strings',
+], 'A single locale variant: a BCP-47 locale tag and the copy for that locale.')
 @SectionId('MSGLV')
-@CodeSpecKind(
-  [CodeSpecPart.text],
-  note:
-      'one locale variant of a message key',
-)
+@CodeSpecKind([CodeSpecPart.text], note: 'one locale variant of a message key')
 class MessageLocaleVariantEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5983,11 +6024,9 @@ class MessageLocaleVariantEntry extends DocSpecsSection {
   "The registry of the application's own server operations (CE-API): each with its operation name, request and response members, primary written data entity, and authorization requirement.",
 )
 @SectionId('SVOPR')
-@CodeSpecKind(
-  [CodeSpecPart.serverApi],
-  note:
-      'the registry of server operations',
-)
+@CodeSpecKind([
+  CodeSpecPart.serverApi,
+], note: 'the registry of server operations')
 class ServerOperationRegistry extends DocSpecsSection {
   @ContentHelp('''
 Catalogue the operations the system itself answers. Add one entry per
@@ -6059,7 +6098,8 @@ class ServerOperationEntry extends DocSpecsSection {
       String,
       'Operation Name',
       required: true,
-      hint: 'The single identifier callers use, e.g., placeOrder — a stable '
+      hint:
+          'The single identifier callers use, e.g., placeOrder — a stable '
           'token of the specified system, not a restatement of the headline',
     ),
     Field(
@@ -6072,7 +6112,8 @@ class ServerOperationEntry extends DocSpecsSection {
       'primaryDataEntity',
       String,
       'Primary Data Entity',
-      hint: 'DataEntityEntry.entityName of the entity this operation primarily '
+      hint:
+          'DataEntityEntry.entityName of the entity this operation primarily '
           'writes — the service unit that owns that entity owns this '
           'operation (ownership is derived, never listed by hand)',
       refersTo: ['DAENT.entityName'],
@@ -6081,7 +6122,8 @@ class ServerOperationEntry extends DocSpecsSection {
       'descriptionKey',
       String,
       'Description Copy Key',
-      hint: 'MessageKeyEntry.key into the message key registry (MSGKR) for the '
+      hint:
+          'MessageKeyEntry.key into the message key registry (MSGKR) for the '
           "operation's user-facing description (author copy once, reference "
           'here)',
       refersTo: ['MSGKE.key'],
@@ -6090,7 +6132,8 @@ class ServerOperationEntry extends DocSpecsSection {
       'errorCodes',
       String,
       'Error Codes',
-      hint: 'Comma-separated ErrorCodeEntry.code values from the error-code '
+      hint:
+          'Comma-separated ErrorCodeEntry.code values from the error-code '
           'registry (ERCRG) that this operation may return in the error arm '
           'of the Result envelope',
       refersTo: ['ERCEN.code'],
@@ -6129,8 +6172,10 @@ class ServerOperationEntry extends DocSpecsSection {
   ], 'The members that make up the success payload this operation returns.')
   @SectionId('SVOPM-RESM-LST')
   @SectionIdPattern('SVOPM-RESM-xxx')
-  @ContentHelp('Add one entry per member of the success payload. Leave empty '
-      'for an operation that returns nothing but success or error.')
+  @ContentHelp(
+    'Add one entry per member of the success payload. Leave empty '
+    'for an operation that returns nothing but success or error.',
+  )
   @SerializationOrder(3)
   List<ServerOperationMemberEntry> responseMembers = [];
 }
@@ -6152,7 +6197,8 @@ class ServerOperationEntry extends DocSpecsSection {
 @SectionId('SVOPM')
 @CodeSpecKind(
   [CodeSpecPart.serverApi],
-  note: 'CE-API — one member of an operation request or response shape. The '
+  note:
+      'CE-API — one member of an operation request or response shape. The '
       'members of a shape become the shared request/response type both sides '
       'depend on (§4.2 shared locus); a member typed by a domain enum reuses '
       'that declaration by plain type, and a member typed by a data entity is '
@@ -6167,7 +6213,8 @@ class ServerOperationMemberEntry extends DocSpecsSection {
       String,
       'Member Type',
       required: true,
-      hint: 'Text | Number | Integer | Decimal | Boolean | Date | Timestamp | '
+      hint:
+          'Text | Number | Integer | Decimal | Boolean | Date | Timestamp | '
           'Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, '
           'name the source in the field below.',
     ),
@@ -6175,7 +6222,8 @@ class ServerOperationMemberEntry extends DocSpecsSection {
       'multiValued',
       bool,
       'Multi-Valued',
-      hint: 'Whether the member carries a collection of the type rather than a '
+      hint:
+          'Whether the member carries a collection of the type rather than a '
           'single value',
     ),
     Field(
@@ -6188,7 +6236,8 @@ class ServerOperationMemberEntry extends DocSpecsSection {
       'dataEntity',
       String,
       'Data Entity',
-      hint: 'DataEntityEntry.entityName the member is typed by, when its type '
+      hint:
+          'DataEntityEntry.entityName the member is typed by, when its type '
           'is DataEntity',
       refersTo: ['DAENT.entityName'],
     ),
@@ -6196,7 +6245,8 @@ class ServerOperationMemberEntry extends DocSpecsSection {
       'domainEnum',
       String,
       'Domain Enum',
-      hint: 'DomainEnumEntry.enumName the member is typed by, when its type is '
+      hint:
+          'DomainEnumEntry.enumName the member is typed by, when its type is '
           'DomainEnum',
       refersTo: ['DMENE.enumName'],
     ),

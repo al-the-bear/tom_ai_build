@@ -20,15 +20,18 @@ import '../solution_blueprint/solution_blueprint.dart';
 )
 @Document(
   name: 'Integration & Interface Specification',
-  description: 'Complete specification of interactions between the target '
+  description:
+      'Complete specification of interactions between the target '
       'system and external systems — inventory, patterns, testing, '
       'dependencies, migration, operations, and error handling.',
   basedOn: [D00SolutionBlueprint],
 )
 @SectionId('IIS')
 class D07IntegrationInterfaceSpecification extends DocSpecsSection {
-  @ContentHelp('Executive overview of the system-boundary interaction '
-      'specification.')
+  @ContentHelp(
+    'Executive overview of the system-boundary interaction '
+    'specification.',
+  )
   @override
   @SerializationOrder(0)
   String? content;

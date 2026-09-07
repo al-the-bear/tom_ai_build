@@ -566,8 +566,7 @@ enum ScreenFlowOutcome {
 @Comment('Seeds → XDS')
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'chapter node over the experience CodeSpecs and reports',
+  note: 'chapter node over the experience CodeSpecs and reports',
 )
 class ExperienceAndInterfaceDesign extends DocSpecsSection {
   @ContentHelp('''
@@ -660,15 +659,14 @@ to pixel-perfect designs with exact typography and spacing.
   'model, with their sections, columns, charts, filters and distribution.',
 )
 @SectionId('REDF')
-@CodeSpecKind(
-  [CodeSpecPart.reporting],
-  note:
-      'the report definitions',
-)
+@CodeSpecKind([CodeSpecPart.reporting], note: 'the report definitions')
 class ReportDefinitions extends DocSpecsSection {
-  @ContentType('description', 'Summarize the report definitions: which reports '
-      'exist, what each projects over the domain model, and how they are '
-      'delivered.')
+  @ContentType(
+    'description',
+    'Summarize the report definitions: which reports '
+        'exist, what each projects over the domain model, and how they are '
+        'delivered.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -711,8 +709,11 @@ class ReportDefinitions extends DocSpecsSection {
       'individually',
 )
 class ExperienceCodeSpecs extends DocSpecsSection {
-  @ContentType('description', 'Summarize the CodeSpecs UI-generation subtree: '
-      'screens, navigation, error handling, responsive design, and components.')
+  @ContentType(
+    'description',
+    'Summarize the CodeSpecs UI-generation subtree: '
+        'screens, navigation, error handling, responsive design, and components.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -774,8 +775,11 @@ class ExperienceCodeSpecs extends DocSpecsSection {
 @FollowUpKind([FollowUpProcess.doc])
 @SectionId('XDFU')
 class ExperienceDesignFollowUp extends DocSpecsSection {
-  @ContentType('description', 'Summarize the design follow-up: vision, print '
-      'layout, user assistance, accessibility, prototype, and wireframes.')
+  @ContentType(
+    'description',
+    'Summarize the design follow-up: vision, print '
+        'layout, user assistance, accessibility, prototype, and wireframes.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -829,8 +833,11 @@ class ExperienceDesignFollowUp extends DocSpecsSection {
 @FollowUpKind([FollowUpProcess.l10n])
 @SectionId('XLFU')
 class ExperienceLocalizationFollowUp extends DocSpecsSection {
-  @ContentType('description', 'Summarize the localization follow-up: the '
-      'multi-language / internationalization approach.')
+  @ContentType(
+    'description',
+    'Summarize the localization follow-up: the '
+        'multi-language / internationalization approach.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -860,8 +867,11 @@ class ExperienceLocalizationFollowUp extends DocSpecsSection {
 @FollowUpKind([FollowUpProcess.cmp])
 @SectionId('XCFU')
 class AuthorizationComplianceFollowUp extends DocSpecsSection {
-  @ContentType('description', 'Summarize the authorization-compliance follow-up: '
-      'UI adaptation to roles and permissions.')
+  @ContentType(
+    'description',
+    'Summarize the authorization-compliance follow-up: '
+        'UI adaptation to roles and permissions.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -1635,8 +1645,7 @@ class PersonaScenarioEntry extends DocSpecsSection {
 @DetailedIn(D09ExperienceDesignSpecification)
 @NoArtifact(
   NoArtifactReason.container,
-  note:
-      'grouping node over the screen inventory and its entries',
+  note: 'grouping node over the screen inventory and its entries',
 )
 class ScreenDescriptions extends DocSpecsSection {
   @ContentHelp('''
@@ -1809,7 +1818,8 @@ class ScreenEntry extends DocSpecsSection {
       'routePattern',
       String,
       'Route Pattern',
-      hint: 'Route ID (SCRTEN registry) this screen is reached by — the path '
+      hint:
+          'Route ID (SCRTEN registry) this screen is reached by — the path '
           'itself is declared once in the screen route map',
       refersTo: ['SCRTEN.routeId'],
     ),
@@ -1846,7 +1856,8 @@ class ScreenEntry extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements',
-      hint: 'Requirement ids this screen satisfies, comma-separated — each is '
+      hint:
+          'Requirement ids this screen satisfies, comma-separated — each is '
           'a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / '
           'ORRQ-REQU-…)',
       refersTo: [
@@ -1914,7 +1925,8 @@ class ScreenEntry extends DocSpecsSection {
       'helpTopicId',
       String,
       'Help Topic ID (external)',
-      hint: 'Topic id in the documentation system — owned by the documentation '
+      hint:
+          'Topic id in the documentation system — owned by the documentation '
           'process, not declared in this blueprint',
     ),
     Field(
@@ -2002,11 +2014,7 @@ class ScreenEntry extends DocSpecsSection {
   'The container that holds the logical zones grouping related elements within a screen.',
 )
 @SectionId('SCSE')
-@CodeSpecKind(
-  [CodeSpecPart.layout],
-  note:
-      'the section structure of a screen',
-)
+@CodeSpecKind([CodeSpecPart.layout], note: 'the section structure of a screen')
 class ScreenSections extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Sections (10.2.1.n.1)
@@ -2076,7 +2084,8 @@ class ScreenSectionEntry extends DocSpecsSection {
       String,
       'Section ID',
       required: true,
-      hint: 'The symbol the built screen carries for this section — unique '
+      hint:
+          'The symbol the built screen carries for this section — unique '
           'within the screen, e.g. header, filter-bar, main-content',
     ),
     Field('purpose', String, 'Purpose', hint: 'What this zone contains'),
@@ -2214,7 +2223,8 @@ class ScreenElementEntry extends DocSpecsSection {
       String,
       'Element ID',
       required: true,
-      hint: 'The symbol the built screen carries for this element — unique '
+      hint:
+          'The symbol the built screen carries for this element — unique '
           'within the screen, e.g. btn-submit, fld-customer-name',
     ),
     Field(
@@ -2595,10 +2605,7 @@ class ScreenElementAction extends DocSpecsSection {
 @SectionId('SEFS')
 @OneOf(
   discriminator: 'dataType',
-  noCase: [
-    ScreenElementFieldKind.boolean,
-    ScreenElementFieldKind.color,
-  ],
+  noCase: [ScreenElementFieldKind.boolean, ScreenElementFieldKind.color],
   note:
       'CE-EL field kind closed choice: the data type selects its promoted '
       'options subsection (number / date / select / text / file). Two kinds '
@@ -2608,13 +2615,14 @@ class ScreenElementAction extends DocSpecsSection {
       '(codespecs_mapping.md §5.18) and so is configured by whichever arm it '
       'lowers to.',
 )
-@CodeSpecKind([
-  CodeSpecPart.form,
-  CodeSpecPart.screenElement,
-], note: 'CE-FM — a form field / input specification. Also CE-EL: the '
-    'per-kind extras (number/date/select/text/file options, incl. the select '
-    "arm's option source) are the widget-config surface `@CsWidget` carries "
-    '(codespecs_mapping.md §5.18).')
+@CodeSpecKind(
+  [CodeSpecPart.form, CodeSpecPart.screenElement],
+  note:
+      'CE-FM — a form field / input specification. Also CE-EL: the '
+      'per-kind extras (number/date/select/text/file options, incl. the select '
+      "arm's option source) are the widget-config surface `@CsWidget` carries "
+      '(codespecs_mapping.md §5.18).',
+)
 class ScreenElementFieldSpec extends DocSpecsSection {
   @Form([
     Field(
@@ -3071,11 +3079,7 @@ class ElementValidationRuleEntry extends DocSpecsSection {
   'The set of top-level actions available on the screen through the toolbar, app bar, or FAB.',
 )
 @SectionId('SCAC')
-@CodeSpecKind(
-  [CodeSpecPart.action],
-  note:
-      'the actions offered by a screen',
-)
+@CodeSpecKind([CodeSpecPart.action], note: 'the actions offered by a screen')
 class ScreenActions extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Actions (10.2.1.n.2)
@@ -3131,7 +3135,8 @@ class ScreenActionEntry extends DocSpecsSection {
       String,
       'Action ID',
       required: true,
-      hint: 'The symbol the built screen carries for this action — unique '
+      hint:
+          'The symbol the built screen carries for this action — unique '
           'within the screen, e.g. act-submit-order',
     ),
     Field(
@@ -3145,14 +3150,16 @@ class ScreenActionEntry extends DocSpecsSection {
       String,
       'Owning Controller',
       required: true,
-      hint: 'The action controller this action belongs to — the source of '
+      hint:
+          'The action controller this action belongs to — the source of '
           'the controller class name, e.g. Order',
     ),
     Field(
       'description',
       String,
       'Description',
-      hint: 'What the action does — the stated behavior of an action no '
+      hint:
+          'What the action does — the stated behavior of an action no '
           'scenario step contributes to',
     ),
     Field(
@@ -3160,7 +3167,8 @@ class ScreenActionEntry extends DocSpecsSection {
       String,
       'Context Type',
       required: true,
-      hint: 'The view-model type the action requires as its context, '
+      hint:
+          'The view-model type the action requires as its context, '
           'e.g. OrderViewModel',
     ),
   ])
@@ -3272,7 +3280,8 @@ class ScreenActionEntry extends DocSpecsSection {
       'navigateTo',
       String,
       'Navigate To',
-      hint: 'Route ID (SCRTEN registry) reached after the action succeeds — '
+      hint:
+          'Route ID (SCRTEN registry) reached after the action succeeds — '
           'when the target depends on the outcome, declare the edges in the '
           'screen route map instead',
       refersTo: ['SCRTEN.routeId'],
@@ -3301,11 +3310,7 @@ class ScreenActionEntry extends DocSpecsSection {
   'ISO 9241-161:2016 — visual user-interface elements and their states',
 ], 'The set of visual and behavioral states the screen can present to the user.')
 @SectionId('SCST')
-@CodeSpecKind(
-  [CodeSpecPart.viewState],
-  note:
-      'the states a screen can be in',
-)
+@CodeSpecKind([CodeSpecPart.viewState], note: 'the states a screen can be in')
 class ScreenStates extends DocSpecsSection {
   @ContentHelp('''
 ## Screen States (10.2.1.n.3)
@@ -3372,7 +3377,8 @@ class ScreenStateEntry extends DocSpecsSection {
       String,
       'State Id',
       required: true,
-      hint: 'The symbol the built screen carries for this state — unique '
+      hint:
+          'The symbol the built screen carries for this state — unique '
           'within the screen, and the source of the state class name '
           '(distinct from the entry headline, which names it for people), '
           'e.g. empty-queue',
@@ -3432,11 +3438,10 @@ class ScreenStateEntry extends DocSpecsSection {
   'A single user category describing how screen content varies for one class of users.',
 )
 @SectionId('SUCE')
-@CodeSpecKind(
-  [CodeSpecPart.authorization, CodeSpecPart.viewState],
-  note:
-      'what a user category may see and do on a screen',
-)
+@CodeSpecKind([
+  CodeSpecPart.authorization,
+  CodeSpecPart.viewState,
+], note: 'what a user category may see and do on a screen')
 class ScreenUserCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3643,11 +3648,7 @@ Overall content organization and navigation structure.
 @SectionId('SCFLST')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@CodeSpecKind(
-  [CodeSpecPart.navigation],
-  note:
-      'the flows between screens',
-)
+@CodeSpecKind([CodeSpecPart.navigation], note: 'the flows between screens')
 class ScreenFlowStructure extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Flow Structure (10.3)
@@ -3707,11 +3708,7 @@ Screen flow drives:
   'The registry of application routes, the placement of forms on them, and the action-triggered transitions between them.',
 )
 @SectionId('SCRTMP')
-@CodeSpecKind(
-  [CodeSpecPart.navigation],
-  note:
-      'the screen-to-route mapping',
-)
+@CodeSpecKind([CodeSpecPart.navigation], note: 'the screen-to-route mapping')
 class ScreenRouteMap extends DocSpecsSection {
   @ContentHelp('''
 ## Screen Route Map (10.3.3)
@@ -3789,10 +3786,9 @@ specification must name a route ID declared here.
   'A single addressable route: its stable identifier, its path, its title, and the screen it renders.',
 )
 @SectionId('SCRTEN')
-@CodeSpecKind(
-  [CodeSpecPart.navigation],
-  note: 'CE-NV — a route definition: the stable target of every navigation.',
-)
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'CE-NV — a route definition: the stable target of every navigation.')
 class ScreenRouteEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -3800,14 +3796,16 @@ class ScreenRouteEntry extends DocSpecsSection {
       String,
       'Route ID',
       required: true,
-      hint: 'Stable identifier referenced by every navigation target, '
+      hint:
+          'Stable identifier referenced by every navigation target, '
           'e.g., order-edit',
     ),
     Field(
       'routePath',
       String,
       'Route Path',
-      hint: 'URL path pattern, e.g., /orders/:id/edit — presentation only, '
+      hint:
+          'URL path pattern, e.g., /orders/:id/edit — presentation only, '
           'never used as a reference',
     ),
     Field(
@@ -3822,7 +3820,8 @@ class ScreenRouteEntry extends DocSpecsSection {
       'routeParameters',
       String,
       'Route Parameters',
-      hint: 'Comma-separated parameter names carried by the route, '
+      hint:
+          'Comma-separated parameter names carried by the route, '
           'e.g., orderId,mode',
     ),
   ])
@@ -3852,7 +3851,8 @@ class FormScreenAssignmentEntry extends DocSpecsSection {
       String,
       'Form ID',
       required: true,
-      hint: 'The form shown on this route — a screen section id '
+      hint:
+          'The form shown on this route — a screen section id '
           '(SCREN-ITEM-…) whose screen category is Form',
       refersTo: ['SCREN.@sectionId'],
     ),
@@ -3869,7 +3869,8 @@ class FormScreenAssignmentEntry extends DocSpecsSection {
       ScreenPresentationMode,
       'Presentation Mode',
       required: true,
-      hint: 'replace — the form takes over the screen; popupOverlay — the '
+      hint:
+          'replace — the form takes over the screen; popupOverlay — the '
           'form is shown over the calling screen, which stays underneath',
     ),
   ])
@@ -3908,7 +3909,8 @@ class ScreenTransitionEntry extends DocSpecsSection {
       String,
       'Action ID',
       required: true,
-      hint: 'ID of the triggering action (SCRAC registry) or of the screen '
+      hint:
+          'ID of the triggering action (SCRAC registry) or of the screen '
           'element that raises it',
       refersTo: ['SCRAC.actionId'],
     ),
@@ -3917,7 +3919,8 @@ class ScreenTransitionEntry extends DocSpecsSection {
       ScreenFlowOutcome,
       'Outcome',
       required: true,
-      hint: 'success — the action completed; error — processing failed; '
+      hint:
+          'success — the action completed; error — processing failed; '
           'validationError — the input was rejected',
     ),
     Field(
@@ -3925,7 +3928,8 @@ class ScreenTransitionEntry extends DocSpecsSection {
       String,
       'Target Route ID',
       required: true,
-      hint: 'Route ID (SCRTEN registry) reached for this outcome — name the '
+      hint:
+          'Route ID (SCRTEN registry) reached for this outcome — name the '
           'source route itself when the user stays put',
       refersTo: ['SCRTEN.routeId'],
     ),
@@ -3934,7 +3938,8 @@ class ScreenTransitionEntry extends DocSpecsSection {
       ScreenPresentationMode,
       'Presentation Mode',
       required: true,
-      hint: 'replace — the target takes over the screen; popupOverlay — the '
+      hint:
+          'replace — the target takes over the screen; popupOverlay — the '
           'target is shown over the source screen, which stays underneath',
     ),
     Field(
@@ -3969,11 +3974,9 @@ class ScreenTransitionEntry extends DocSpecsSection {
   'The comprehensive navigation structure covering primary, secondary, utility, and contextual navigation, deep linking, and guards.',
 )
 @SectionId('NAMO')
-@CodeSpecKind(
-  [CodeSpecPart.navigation],
-  note:
-      'the navigation model as a whole',
-)
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'the navigation model as a whole')
 class NavigationModel extends DocSpecsSection {
   @ContentHelp('''
 ## Navigation Model (10.3.1)
@@ -4128,11 +4131,9 @@ class NavigationOverview extends DocSpecsSection {
   'The full navigation tree of groups and items forming the application navigation structure.',
 )
 @SectionId('NAHI')
-@CodeSpecKind(
-  [CodeSpecPart.navigation],
-  note:
-      'the primary navigation hierarchy',
-)
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'the primary navigation hierarchy')
 class NavigationHierarchy extends DocSpecsSection {
   @ContentHelp('''
 ## Navigation Hierarchy (10.3.1.2)
@@ -4194,7 +4195,8 @@ class NavigationGroupEntry extends DocSpecsSection {
       String,
       'Group ID',
       required: true,
-      hint: 'The symbol the built navigation carries for this group, e.g. '
+      hint:
+          'The symbol the built navigation carries for this group, e.g. '
           'nav-grp-sales',
     ),
     Field(
@@ -4342,7 +4344,8 @@ class NavigationItemEntry extends DocSpecsSection {
       String,
       'Item ID',
       required: true,
-      hint: 'The symbol the built navigation carries for this item, e.g. '
+      hint:
+          'The symbol the built navigation carries for this item, e.g. '
           'nav-customers',
     ),
     Field(
@@ -4710,11 +4713,7 @@ class PrimaryNavigation extends DocSpecsSection {
   'The secondary-navigation configuration providing in-page tab bars and segmented controls.',
 )
 @SectionId('SENA')
-@CodeSpecKind(
-  [CodeSpecPart.navigation],
-  note:
-      'secondary navigation surfaces',
-)
+@CodeSpecKind([CodeSpecPart.navigation], note: 'secondary navigation surfaces')
 class SecondaryNavigation extends DocSpecsSection {
   @ContentHelp('''
 ## Secondary Navigation (10.3.1.4)
@@ -4779,7 +4778,8 @@ class TabBarDefinitionEntry extends DocSpecsSection {
       String,
       'Tab Bar ID',
       required: true,
-      hint: 'The symbol the built client carries for this tab bar, e.g. '
+      hint:
+          'The symbol the built client carries for this tab bar, e.g. '
           'tabs-customer-detail',
     ),
     Field(
@@ -4895,7 +4895,8 @@ class TabItemEntry extends DocSpecsSection {
       String,
       'Tab ID',
       required: true,
-      hint: 'The symbol the built tab bar carries for this tab — unique within '
+      hint:
+          'The symbol the built tab bar carries for this tab — unique within '
           'the tab bar, e.g. tab-orders',
     ),
     Field(
@@ -4953,11 +4954,7 @@ class TabItemEntry extends DocSpecsSection {
   'The utility-navigation configuration for always-visible entry points such as help, settings, and the user menu.',
 )
 @SectionId('UTNA')
-@CodeSpecKind(
-  [CodeSpecPart.navigation],
-  note:
-      'utility navigation surfaces',
-)
+@CodeSpecKind([CodeSpecPart.navigation], note: 'utility navigation surfaces')
 class UtilityNavigation extends DocSpecsSection {
   @ContentHelp('''
 ## Utility Navigation (10.3.1.5)
@@ -5023,7 +5020,8 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       String,
       'Utility ID',
       required: true,
-      hint: 'The symbol the built navigation carries for this utility, e.g. '
+      hint:
+          'The symbol the built navigation carries for this utility, e.g. '
           'util-user-menu, util-notifications',
     ),
     Field(
@@ -5064,7 +5062,8 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       'visibilityCondition',
       String,
       'Visibility Condition',
-      hint: 'Business condition for when it is shown — who may see it is '
+      hint:
+          'Business condition for when it is shown — who may see it is '
           'authored in the access section',
     ),
   ])
@@ -5104,8 +5103,7 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       'targetScreenId',
       String,
       'Target Screen ID',
-      hint:
-          'The navigation target — a screen section id (SCREN-ITEM-…)',
+      hint: 'The navigation target — a screen section id (SCREN-ITEM-…)',
       refersTo: ['SCREN.@sectionId'],
     ),
   ])
@@ -5147,7 +5145,8 @@ class UtilityMenuItemEntry extends DocSpecsSection {
       String,
       'Menu Item ID',
       required: true,
-      hint: 'The symbol the built menu carries for this item, e.g. '
+      hint:
+          'The symbol the built menu carries for this item, e.g. '
           'menu-item-logout',
     ),
     Field('icon', String, 'Icon Resource', hint: 'Leading icon'),
@@ -5199,7 +5198,8 @@ class UtilityMenuItemEntry extends DocSpecsSection {
       'visibilityCondition',
       String,
       'Visibility Condition',
-      hint: 'Business condition for when it is shown — who may use it is '
+      hint:
+          'Business condition for when it is shown — who may use it is '
           'authored in the access section',
     ),
     Field(
@@ -5367,11 +5367,9 @@ Breadcrumbs, back navigation, related links.
   'The deep-linking configuration for external entry points, URL patterns, and shareable links.',
 )
 @SectionId('DELI')
-@CodeSpecKind(
-  [CodeSpecPart.navigation],
-  note:
-      'deep-link routes into the application',
-)
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+], note: 'deep-link routes into the application')
 class DeepLinking extends DocSpecsSection {
   @ContentHelp('''
 ## Deep Linking (10.3.1.7)
@@ -5434,7 +5432,8 @@ class DeepLinkPatternEntry extends DocSpecsSection {
       String,
       'Pattern ID',
       required: true,
-      hint: 'The symbol the built client carries for this deep-link pattern, '
+      hint:
+          'The symbol the built client carries for this deep-link pattern, '
           'e.g. pattern-order-detail',
     ),
     Field(
@@ -5448,8 +5447,7 @@ class DeepLinkPatternEntry extends DocSpecsSection {
       'targetScreenId',
       String,
       'Target Screen ID',
-      hint:
-          'The screen to open — a screen section id (SCREN-ITEM-…)',
+      hint: 'The screen to open — a screen section id (SCREN-ITEM-…)',
       refersTo: ['SCREN.@sectionId'],
     ),
     Field(
@@ -5499,11 +5497,10 @@ class DeepLinkPatternEntry extends DocSpecsSection {
   'The navigation-guard configuration that protects routes for unsaved changes, authentication, and permissions.',
 )
 @SectionId('NAGU')
-@CodeSpecKind(
-  [CodeSpecPart.navigation, CodeSpecPart.authorization],
-  note:
-      'guards gate a route on an authorization decision',
-)
+@CodeSpecKind([
+  CodeSpecPart.navigation,
+  CodeSpecPart.authorization,
+], note: 'guards gate a route on an authorization decision')
 class NavigationGuards extends DocSpecsSection {
   @ContentHelp('''
 ## Navigation Guards (10.3.1.8)
@@ -5572,7 +5569,8 @@ class NavigationGuardEntry extends DocSpecsSection {
       String,
       'Guard ID',
       required: true,
-      hint: 'The symbol the built navigation carries for this guard, e.g. '
+      hint:
+          'The symbol the built navigation carries for this guard, e.g. '
           'guard-unsaved-changes',
     ),
     Field(
@@ -6361,7 +6359,8 @@ class ReportEntry extends DocSpecsSection {
       'dataLevelSecurity',
       String,
       'Data-Level Security',
-      hint: 'Row/column level security rules narrowing what the report shows '
+      hint:
+          'Row/column level security rules narrowing what the report shows '
           'a caller who is already permitted to generate it',
     ),
   ])
@@ -6500,7 +6499,8 @@ class ReportSectionEntry extends DocSpecsSection {
       'sectionId',
       String,
       'Section ID',
-      hint: 'The identifier this section carries in the generated report — '
+      hint:
+          'The identifier this section carries in the generated report — '
           'unique within the report, e.g. SEC-01',
       required: true,
     ),
@@ -6739,7 +6739,8 @@ class ReportColumnEntry extends DocSpecsSection {
       'columnId',
       String,
       'Column ID',
-      hint: 'The identifier this column carries in the generated report — '
+      hint:
+          'The identifier this column carries in the generated report — '
           'unique within the section, e.g. COL-01',
       required: true,
     ),
@@ -6850,10 +6851,13 @@ class ReportColumnEntry extends DocSpecsSection {
   /// Present only for currency columns; this is the only case in which a
   /// currency code is meaningful.
   @SectionId('RECOFC')
-  @StandardReferences([
-    'ISO 4217:2015 — codes for the representation of currencies',
-    'ISO 80000-1:2022 — general principles for quantities units and their symbols',
-  ], 'The currency code and monetary display pattern for a currency report column.')
+  @StandardReferences(
+    [
+      'ISO 4217:2015 — codes for the representation of currencies',
+      'ISO 80000-1:2022 — general principles for quantities units and their symbols',
+    ],
+    'The currency code and monetary display pattern for a currency report column.',
+  )
   @Case(ReportColumnKind.currency)
   @Form([
     Field(
@@ -7351,7 +7355,8 @@ class ReportFilterEntry extends DocSpecsSection {
       'filterId',
       String,
       'Filter ID',
-      hint: 'The identifier this filter carries in the generated report — '
+      hint:
+          'The identifier this filter carries in the generated report — '
           'unique within the report, e.g. FLT-01',
       required: true,
     ),
@@ -7406,12 +7411,7 @@ class ReportFilterEntry extends DocSpecsSection {
   ], 'The input control and match semantics for a text report filter.')
   @Case(ReportFilterValueKind.string)
   @Form([
-    Field(
-      'inputType',
-      String,
-      'Input Type',
-      hint: 'Text-Field / Autocomplete',
-    ),
+    Field('inputType', String, 'Input Type', hint: 'Text-Field / Autocomplete'),
     Field(
       'matchMode',
       String,
@@ -7562,10 +7562,13 @@ class ReportFilterEntry extends DocSpecsSection {
   /// the entity query that backs it. Distinct from the enumeration case
   /// because the value set is resolved from an entity, not a declared list.
   @SectionId('RFEIE')
-  @StandardReferences([
-    'ISO 9241-143:2012 — form fields with input assistance and lookup',
-    'ER modeling (Chen / Barker notation)',
-  ], 'The lookup control and backing entity query for an entity-reference report filter.')
+  @StandardReferences(
+    [
+      'ISO 9241-143:2012 — form fields with input assistance and lookup',
+      'ER modeling (Chen / Barker notation)',
+    ],
+    'The lookup control and backing entity query for an entity-reference report filter.',
+  )
   @Case(ReportFilterValueKind.entityRef)
   @Form([
     Field(
@@ -7708,7 +7711,8 @@ class ReportScheduleEntry extends DocSpecsSection {
       'scheduleId',
       String,
       'Schedule ID',
-      hint: 'The identifier this schedule carries in the running report job — '
+      hint:
+          'The identifier this schedule carries in the running report job — '
           'unique within the report, e.g. SCH-01',
       required: true,
     ),
@@ -8102,7 +8106,8 @@ class ReportRecipientEntry extends DocSpecsSection {
       'recipientId',
       String,
       'Recipient ID',
-      hint: 'The identifier this recipient carries in the running report job — '
+      hint:
+          'The identifier this recipient carries in the running report job — '
           'unique within the report, e.g. REC-01',
       required: true,
     ),
@@ -8614,7 +8619,8 @@ class ExportFieldMappingEntry extends DocSpecsSection {
       'mappingId',
       String,
       'Mapping ID',
-      hint: 'The identifier this mapping carries in the generated export — '
+      hint:
+          'The identifier this mapping carries in the generated export — '
           'unique within the export, e.g. FLD-01',
       required: true,
     ),
@@ -8696,10 +8702,13 @@ class ExportFieldMappingEntry extends DocSpecsSection {
   /// Present only for date and date-time fields; carries only the temporal
   /// output pattern and timezone handling.
   @SectionId('EFMEFD')
-  @StandardReferences([
-    'ISO 8601-1:2019 — representation of dates and times',
-    'ISO 8601-2:2019 — extensions including time-zone offsets',
-  ], 'The temporal output pattern and timezone handling for an exported date field.')
+  @StandardReferences(
+    [
+      'ISO 8601-1:2019 — representation of dates and times',
+      'ISO 8601-2:2019 — extensions including time-zone offsets',
+    ],
+    'The temporal output pattern and timezone handling for an exported date field.',
+  )
   @Case(ExportFieldKind.date)
   @Case(ExportFieldKind.dateTime)
   @Form([
@@ -8750,9 +8759,12 @@ class ExportFieldMappingEntry extends DocSpecsSection {
   /// Present only for enumeration fields; carries which face of the value set
   /// is emitted and what happens to a value outside it.
   @SectionId('EFMEFE')
-  @StandardReferences([
-    'ISO/IEC 11179 — permissible values of a data element and their representation',
-  ], 'The emitted representation of an exported enumeration field and its unmapped-value behaviour.')
+  @StandardReferences(
+    [
+      'ISO/IEC 11179 — permissible values of a data element and their representation',
+    ],
+    'The emitted representation of an exported enumeration field and its unmapped-value behaviour.',
+  )
   @Case(ExportFieldKind.enumeration)
   @Form([
     Field(
@@ -10700,7 +10712,8 @@ class FieldHelpEntry extends DocSpecsSection {
       String,
       'Field ID',
       required: true,
-      hint: 'Element ID (SCREL registry) of the input element this help is '
+      hint:
+          'Element ID (SCREL registry) of the input element this help is '
           'attached to, e.g. fld-customer-name',
       refersTo: ['SCREL.elementId'],
     ),
@@ -11714,7 +11727,8 @@ class WcagSuccessCriterionEntry extends DocSpecsSection {
       String,
       'Criterion ID',
       required: true,
-      hint: 'The WCAG success criterion number, e.g. 1.4.3 — owned by the WCAG '
+      hint:
+          'The WCAG success criterion number, e.g. 1.4.3 — owned by the WCAG '
           'specification',
     ),
     Field('level', String, 'Level', hint: 'A, AA, AAA'),
@@ -12214,7 +12228,8 @@ class BreakpointEntry extends DocSpecsSection {
       String,
       'Breakpoint ID',
       required: true,
-      hint: 'The symbol the built layout carries for this breakpoint, e.g. '
+      hint:
+          'The symbol the built layout carries for this breakpoint, e.g. '
           'TOM-MOBILE',
     ),
     Field(
@@ -12624,7 +12639,8 @@ class UiComponents extends DocSpecsSection {
       'sharedLibraryIntegration',
       bool,
       'Shared Library Integration',
-      hint: 'Builds on the organisation-wide shared component library rather than bespoke components',
+      hint:
+          'Builds on the organisation-wide shared component library rather than bespoke components',
     ),
   ])
   @SerializationOrder(1)
@@ -13051,11 +13067,7 @@ class ComponentLibrary extends DocSpecsSection {
   'A colour palette describing the colour set, variants, and contrast guidance used across the interface.',
 )
 @SectionId('COPA')
-@CodeSpecKind(
-  [CodeSpecPart.screenElement],
-  note:
-      'one palette colour',
-)
+@CodeSpecKind([CodeSpecPart.screenElement], note: 'one palette colour')
 class ColorPaletteEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -13112,11 +13124,7 @@ class ColorPaletteEntry extends DocSpecsSection {
   'A single typography style describing font, size, weight, and spacing for a text role.',
 )
 @SectionId('TYST')
-@CodeSpecKind(
-  [CodeSpecPart.screenElement],
-  note:
-      'one typography style',
-)
+@CodeSpecKind([CodeSpecPart.screenElement], note: 'one typography style')
 class TypographyStyleEntry extends DocSpecsSection {
   @Form([
     Field('fontFamily', String, 'Font Family', hint: 'Typeface family name'),
@@ -13217,11 +13225,9 @@ class ComponentFamilyEntry extends DocSpecsSection {
   'ISO/IEC 25010:2023 — grouping related components as a family supports modularity and reuse',
 ], 'A reference identifying one component that belongs to a component family.')
 @SectionId('FAMREF')
-@CodeSpecKind(
-  [CodeSpecPart.screenElement],
-  note:
-      'a reference to a component family member',
-)
+@CodeSpecKind([
+  CodeSpecPart.screenElement,
+], note: 'a reference to a component family member')
 class FamilyComponentRef extends DocSpecsSection {
   @Form([
     Field(
@@ -13229,8 +13235,7 @@ class FamilyComponentRef extends DocSpecsSection {
       String,
       'Component ID',
       required: true,
-      hint:
-          'The referenced component — a component section id (CMPNT-COMP-…)',
+      hint: 'The referenced component — a component section id (CMPNT-COMP-…)',
       refersTo: ['CMPNT.@sectionId'],
     ),
     Field(
@@ -13300,7 +13305,8 @@ class UiComponentEntry extends DocSpecsSection {
       'baseComponent',
       String,
       'Base Component',
-      hint: 'Base component of the shared library this one specialises (Data Table, Text Input)',
+      hint:
+          'Base component of the shared library this one specialises (Data Table, Text Input)',
     ),
   ])
   @SerializationOrder(1)
@@ -14059,7 +14065,8 @@ class ComponentStateEntry extends DocSpecsSection {
       String,
       'State ID',
       required: true,
-      hint: 'The symbol the built component carries for this state, e.g. '
+      hint:
+          'The symbol the built component carries for this state, e.g. '
           'disabled',
     ),
     Field(
@@ -14207,7 +14214,8 @@ class ComponentVariantEntry extends DocSpecsSection {
       String,
       'Variant ID',
       required: true,
-      hint: 'The symbol the built component carries for this variant, e.g. '
+      hint:
+          'The symbol the built component carries for this variant, e.g. '
           'primary',
     ),
     Field(
@@ -14294,7 +14302,8 @@ class ComponentVariantEntry extends DocSpecsSection {
       'libraryVariant',
       String,
       'Library Variant',
-      hint: 'Corresponding variant in the shared component library, if one exists',
+      hint:
+          'Corresponding variant in the shared component library, if one exists',
     ),
   ])
   @SerializationOrder(2)
@@ -14729,7 +14738,12 @@ class LocaleHandlingRequirements extends DocSpecsSection {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -14910,7 +14924,12 @@ class LocalizationProcess extends DocSpecsSection {
 @MapsTo(D12TransitionRolloutPlan)
 @DetailedIn(D12TransitionRolloutPlan)
 @FollowUpKind(
-  [FollowUpProcess.mig, FollowUpProcess.ops, FollowUpProcess.org, FollowUpProcess.l10n],
+  [
+    FollowUpProcess.mig,
+    FollowUpProcess.ops,
+    FollowUpProcess.org,
+    FollowUpProcess.l10n,
+  ],
   note:
       'follow-up material under DeliveryTransitionAndRollout in the SBP; '
       'reached here directly by a detail-document path',
@@ -15598,7 +15617,8 @@ class LanguageCountrySelection extends DocSpecsSection {
       'guestRetention',
       String,
       'Guest Retention',
-      hint: 'Whether and for how long a preference chosen before sign-in is retained',
+      hint:
+          'Whether and for how long a preference chosen before sign-in is retained',
     ),
     Field(
       'signInCarryOver',
@@ -15611,7 +15631,8 @@ class LanguageCountrySelection extends DocSpecsSection {
       'reselectionPrompt',
       String,
       'Re-Selection Prompt',
-      hint: 'When the user is asked to confirm or re-pick the retained preference',
+      hint:
+          'When the user is asked to confirm or re-pick the retained preference',
     ),
   ])
   @SerializationOrder(3)
@@ -17091,11 +17112,9 @@ comparison, and narrative-flow views.
   'A single design-foundation entry recording a colour, font, and spacing choice for the interface.',
 )
 @SectionId('DESIG')
-@CodeSpecKind(
-  [CodeSpecPart.screenElement],
-  note:
-      'a design foundation shared by screen elements',
-)
+@CodeSpecKind([
+  CodeSpecPart.screenElement,
+], note: 'a design foundation shared by screen elements')
 class DesignFoundationEntry extends DocSpecsSection {
   @Form([
     Field(

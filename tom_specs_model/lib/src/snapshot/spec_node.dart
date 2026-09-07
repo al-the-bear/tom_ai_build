@@ -244,24 +244,30 @@ class SpecSlot {
   final void Function(List<Object>) _setList;
 
   /// A slot for a single (possibly null) child node.
-  SpecSlot.node(Object? Function() get, void Function(Object?) set,
-      {this.label, this.sectionId})
-      : isList = false,
-        _getNode = get,
-        _setNode = set,
-        _getList = _emptyList,
-        _setList = _ignoreList;
+  SpecSlot.node(
+    Object? Function() get,
+    void Function(Object?) set, {
+    this.label,
+    this.sectionId,
+  }) : isList = false,
+       _getNode = get,
+       _setNode = set,
+       _getList = _emptyList,
+       _setList = _ignoreList;
 
   /// A slot for a list of child nodes. The [set] closure receives a
   /// `List<Object>` and is responsible for narrowing it back to the field's
   /// concrete element type (e.g. `(v) => goals = v.cast<BusinessGoalEntry>()`).
-  SpecSlot.list(List<Object> Function() get, void Function(List<Object>) set,
-      {this.label, this.sectionId})
-      : isList = true,
-        _getList = get,
-        _setList = set,
-        _getNode = _nullNode,
-        _setNode = _ignoreNode;
+  SpecSlot.list(
+    List<Object> Function() get,
+    void Function(List<Object>) set, {
+    this.label,
+    this.sectionId,
+  }) : isList = true,
+       _getList = get,
+       _setList = set,
+       _getNode = _nullNode,
+       _setNode = _ignoreNode;
 
   /// The mapping key this slot's child is written under (SOM §12.2): its
   /// [sectionId], one space, then the member name — or the bare member name
@@ -329,10 +335,9 @@ abstract final class SpecSnapshotter {
 
   static Object _snap(Object live, Object? prev) {
     final slots = specSlotsOf(live);
-    final prevSlots =
-        (prev != null && prev.runtimeType == live.runtimeType)
-            ? specSlotsOf(prev)
-            : null;
+    final prevSlots = (prev != null && prev.runtimeType == live.runtimeType)
+        ? specSlotsOf(prev)
+        : null;
 
     var changed = (_dirtySinceSnapshot[live] ?? true) || prevSlots == null;
     final snappedChildren = <Object?>[]; // Object? | List<Object>
@@ -347,8 +352,9 @@ abstract final class SpecSnapshotter {
         }
         final out = <Object>[];
         for (var j = 0; j < liveList.length; j++) {
-          final prevChild =
-              (prevList != null && j < prevList.length) ? prevList[j] : null;
+          final prevChild = (prevList != null && j < prevList.length)
+              ? prevList[j]
+              : null;
           final snapChild = _snap(liveList[j], prevChild);
           if (!identical(snapChild, prevChild)) changed = true;
           out.add(snapChild);
@@ -357,8 +363,9 @@ abstract final class SpecSnapshotter {
       } else {
         final liveChild = slot.node;
         final prevChild = prevSlots?[i].node;
-        final snapChild =
-            liveChild == null ? null : _snap(liveChild, prevChild);
+        final snapChild = liveChild == null
+            ? null
+            : _snap(liveChild, prevChild);
         if (!identical(snapChild, prevChild)) changed = true;
         snappedChildren.add(snapChild);
       }

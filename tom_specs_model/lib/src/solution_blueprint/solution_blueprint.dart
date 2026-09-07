@@ -5,7 +5,6 @@
 /// the new SBP.1/3/6/9/10 sections are added in IP-6.
 library;
 
-
 export 'architecture_and_technology.dart';
 export 'assumptions_constraints_dependencies.dart';
 export 'business_process_model.dart';
@@ -63,7 +62,8 @@ import 'target_operating_model.dart';
 )
 @Document(
   name: 'Solution Blueprint',
-  description: 'Comprehensive specification document covering all aspects of '
+  description:
+      'Comprehensive specification document covering all aspects of '
       'the system from current landscape through target operating model, '
       'information model, solution architecture, security, experience design, '
       'quality & acceptance, and delivery / transition planning.',
@@ -104,8 +104,7 @@ class D00SolutionBlueprint extends DocSpecsSection {
 
   /// SBP.7 Target Operating Model concept. Seeds → TOM.
   @SerializationOrder(7)
-  TargetOperatingModel targetOperatingModelConcept =
-      TargetOperatingModel();
+  TargetOperatingModel targetOperatingModelConcept = TargetOperatingModel();
 
   /// SBP.8 Information & Data Model. Seeds → IFM.
   @SerializationOrder(8)

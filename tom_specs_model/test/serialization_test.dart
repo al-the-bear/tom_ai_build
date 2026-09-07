@@ -44,9 +44,12 @@ class _SbpRoot extends DocSpecsSection with SpecNode {
 
   @override
   List<SpecSlot> specSlots() => [
-        SpecSlot.node(() => section, (v) => section = v as _SbpSection?,
-            label: 'section'),
-      ];
+    SpecSlot.node(
+      () => section,
+      (v) => section = v as _SbpSection?,
+      label: 'section',
+    ),
+  ];
 
   @override
   _SbpRoot cloneShallow() => _SbpRoot()..section = section;
@@ -66,9 +69,12 @@ class _Projection extends DocSpecsSection with SpecNode, SpecProjection {
 
   @override
   List<SpecSlot> specSlots() => [
-        SpecSlot.node(() => section, (v) => section = v as _SbpSection?,
-            label: 'section'),
-      ];
+    SpecSlot.node(
+      () => section,
+      (v) => section = v as _SbpSection?,
+      label: 'section',
+    ),
+  ];
 
   @override
   _Projection cloneShallow() => _Projection()..section = section;
@@ -83,13 +89,24 @@ class _KeyedRoot extends DocSpecsSection with SpecNode {
 
   @override
   List<SpecSlot> specSlots() => [
-        SpecSlot.node(() => keyed, (v) => keyed = v as _SbpSection?,
-            label: 'keyed', sectionId: 'SEC'),
-        SpecSlot.node(() => unkeyed, (v) => unkeyed = v as _SbpSection?,
-            label: 'unkeyed'),
-        SpecSlot.list(() => entries, (v) => entries = v.cast<_SbpSection>(),
-            label: 'entries', sectionId: 'ENT-LST'),
-      ];
+    SpecSlot.node(
+      () => keyed,
+      (v) => keyed = v as _SbpSection?,
+      label: 'keyed',
+      sectionId: 'SEC',
+    ),
+    SpecSlot.node(
+      () => unkeyed,
+      (v) => unkeyed = v as _SbpSection?,
+      label: 'unkeyed',
+    ),
+    SpecSlot.list(
+      () => entries,
+      (v) => entries = v.cast<_SbpSection>(),
+      label: 'entries',
+      sectionId: 'ENT-LST',
+    ),
+  ];
 
   @override
   _KeyedRoot cloneShallow() => _KeyedRoot()
@@ -104,8 +121,9 @@ class _UnlabelledRoot extends DocSpecsSection with SpecNode {
   _SbpSection? child;
 
   @override
-  List<SpecSlot> specSlots() =>
-      [SpecSlot.node(() => child, (v) => child = v as _SbpSection?)];
+  List<SpecSlot> specSlots() => [
+    SpecSlot.node(() => child, (v) => child = v as _SbpSection?),
+  ];
 
   @override
   _UnlabelledRoot cloneShallow() => _UnlabelledRoot()..child = child;
@@ -117,9 +135,13 @@ class _FormRoot extends DocSpecsSection with SpecNode {
 
   @override
   List<SpecSlot> specSlots() => [
-        SpecSlot.node(() => header, (v) => header = v as _SbpSection?,
-            label: 'header', sectionId: 'HDR'),
-      ];
+    SpecSlot.node(
+      () => header,
+      (v) => header = v as _SbpSection?,
+      label: 'header',
+      sectionId: 'HDR',
+    ),
+  ];
 
   @override
   _FormRoot cloneShallow() => _FormRoot()..header = header;
@@ -131,22 +153,24 @@ class _FormRoot extends DocSpecsSection with SpecNode {
 // each test wires its own tree.
 
 SomMetaNode _content(String member, {String? id}) => SomMetaNode(
-      className: '_SbpSection',
-      memberName: member,
-      sectionId: id,
-      kind: SomMetaKind.content,
-      typeName: 'String',
-    );
+  className: '_SbpSection',
+  memberName: member,
+  sectionId: id,
+  kind: SomMetaKind.content,
+  typeName: 'String',
+);
 
 SomMetaTree _root(String id, String className, List<SomMetaNode> children) =>
-    SomMetaTree(SomMetaNode(
-      className: className,
-      sectionId: id,
-      kind: SomMetaKind.section,
-      typeName: className,
-      document: SomDocMeta(name: className, description: ''),
-      children: children,
-    ));
+    SomMetaTree(
+      SomMetaNode(
+        className: className,
+        sectionId: id,
+        kind: SomMetaKind.section,
+        typeName: className,
+        document: SomDocMeta(name: className, description: ''),
+        children: children,
+      ),
+    );
 
 SomMetaTree _sbpTree() => _root('SBP', '_SbpRoot', [_content('section')]);
 
@@ -170,18 +194,20 @@ SomMetaTree _keyedTree({bool describeUnkeyed = true}) =>
     ]);
 
 SomMetaTree _formTree() => _root('FRM', '_FormRoot', [
-      SomMetaNode(
-        className: '_SbpSection',
-        memberName: 'header',
-        sectionId: 'HDR',
-        kind: SomMetaKind.form,
-        typeName: 'String',
-        form: const SomFormMeta(fields: [
-          SomFormFieldMeta(name: 'author', typeName: 'String', order: 0),
-          SomFormFieldMeta(name: 'version', typeName: 'String', order: 1),
-        ]),
-      ),
-    ]);
+  SomMetaNode(
+    className: '_SbpSection',
+    memberName: 'header',
+    sectionId: 'HDR',
+    kind: SomMetaKind.form,
+    typeName: 'String',
+    form: const SomFormMeta(
+      fields: [
+        SomFormFieldMeta(name: 'author', typeName: 'String', order: 0),
+        SomFormFieldMeta(name: 'version', typeName: 'String', order: 1),
+      ],
+    ),
+  ),
+]);
 
 /// Encodes [root] and asserts the result survives a runtime decode → re-encode
 /// unchanged, then returns it. This is the DONE-WHEN check in one line: a
@@ -190,10 +216,17 @@ SomMetaTree _formTree() => _root('FRM', '_FormRoot', [
 String _roundTripped(Object root, SomMetaTree Function() tree) {
   final written = SpecYaml.toYaml(root, tree: tree());
   final reloaded = SpecDocumentYaml.decode(written, tree());
-  final rewritten =
-      SpecDocumentYaml.encode(document: reloaded.document, tree: tree());
-  expect(rewritten, written, reason: 'the written document is not a fixed '
-      'point of the runtime codec — SpecYaml and SpecDocumentYaml disagree');
+  final rewritten = SpecDocumentYaml.encode(
+    document: reloaded.document,
+    tree: tree(),
+  );
+  expect(
+    rewritten,
+    written,
+    reason:
+        'the written document is not a fixed '
+        'point of the runtime codec — SpecYaml and SpecDocumentYaml disagree',
+  );
   return written;
 }
 
@@ -219,22 +252,29 @@ void main() {
 
       // Connect-before-write binds to the live SBP section, so the projection
       // write reflects whatever SBP currently holds.
-      final firstWrite =
-          SpecYaml.toYamlForProjection(projection, sbp, tree: _sbpTree());
+      final firstWrite = SpecYaml.toYamlForProjection(
+        projection,
+        sbp,
+        tree: _sbpTree(),
+      );
       expect(firstWrite, contains('v1'));
 
       // Edit SBP, connect again before the next write: the projection write now
       // reflects the new content — no stale copy is kept in sync.
       sbp.section!.content = 'v2';
-      final secondWrite =
-          SpecYaml.toYamlForProjection(projection, sbp, tree: _sbpTree());
+      final secondWrite = SpecYaml.toYamlForProjection(
+        projection,
+        sbp,
+        tree: _sbpTree(),
+      );
       expect(secondWrite, contains('v2'));
       expect(secondWrite, isNot(contains('v1')));
     });
 
     test('(c) a null SBP section stays null in the projection', () {
       final sbp = _SbpRoot()..section = null;
-      final projection = _Projection()..section = (_SbpSection()..content = 'x');
+      final projection = _Projection()
+        ..section = (_SbpSection()..content = 'x');
 
       projection.connect(sbp);
 
@@ -260,8 +300,7 @@ void main() {
 
     test('stamps the authoring model version when the caller knows it', () {
       final sbp = _SbpRoot()..section = (_SbpSection()..content = 'hello');
-      final yaml =
-          SpecYaml.toYaml(sbp, tree: _sbpTree(), modelVersion: '2.7');
+      final yaml = SpecYaml.toYaml(sbp, tree: _sbpTree(), modelVersion: '2.7');
       expect(yaml, contains('modelVersion: '));
       expect(SpecDocumentYaml.decode(yaml, _sbpTree()).modelVersion, '2.7');
     });
@@ -369,33 +408,39 @@ void main() {
       expect(doc.content('SBP/section'), 'line one\n\nline two\n');
     });
 
-    test('a scalar no literal block can hold falls back to a quoted scalar',
-        () {
-      // Trailing spaces cannot be represented by a block scalar; the runtime
-      // encoder detects that and quotes instead. The projection must not
-      // pre-empt that decision — it hands over the string unchanged.
-      final sbp = _SbpRoot()..section = (_SbpSection()..content = 'trails   ');
-      final yaml = _roundTripped(sbp, _sbpTree);
-      final doc = SpecDocumentYaml.decode(yaml, _sbpTree()).document;
-      expect(doc.content('SBP/section'), 'trails   ');
-    });
+    test(
+      'a scalar no literal block can hold falls back to a quoted scalar',
+      () {
+        // Trailing spaces cannot be represented by a block scalar; the runtime
+        // encoder detects that and quotes instead. The projection must not
+        // pre-empt that decision — it hands over the string unchanged.
+        final sbp = _SbpRoot()
+          ..section = (_SbpSection()..content = 'trails   ');
+        final yaml = _roundTripped(sbp, _sbpTree);
+        final doc = SpecDocumentYaml.decode(yaml, _sbpTree()).document;
+        expect(doc.content('SBP/section'), 'trails   ');
+      },
+    );
   });
 
   group('SpecYaml — values the format has no home for are refused', () {
-    test('an unlabelled slot is refused rather than given a positional key', () {
-      final root = _UnlabelledRoot()..child = (_SbpSection()..content = 'z');
-      final tree = _root('UNL', '_UnlabelledRoot', [_content('child')]);
-      expect(
-        () => SpecYaml.toDocument(root, tree: tree),
-        throwsA(isA<SpecYamlFormatException>()),
-      );
-    });
+    test(
+      'an unlabelled slot is refused rather than given a positional key',
+      () {
+        final root = _UnlabelledRoot()..child = (_SbpSection()..content = 'z');
+        final tree = _root('UNL', '_UnlabelledRoot', [_content('child')]);
+        expect(
+          () => SpecYaml.toDocument(root, tree: tree),
+          throwsA(isA<SpecYamlFormatException>()),
+        );
+      },
+    );
 
     test('a slot the metadata does not describe is refused', () {
       final root = _KeyedRoot()..unkeyed = (_SbpSection()..content = 'y');
       expect(
-        () => SpecYaml.toDocument(root,
-            tree: _keyedTree(describeUnkeyed: false)),
+        () =>
+            SpecYaml.toDocument(root, tree: _keyedTree(describeUnkeyed: false)),
         throwsA(isA<SpecYamlFormatException>()),
       );
     });

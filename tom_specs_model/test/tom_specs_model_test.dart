@@ -27,8 +27,7 @@ void main() {
     });
 
     test('form entry classes use content with @Form', () {
-      final goal = BusinessGoalEntry()
-        ..content = 'BG-001 — Increase revenue';
+      final goal = BusinessGoalEntry()..content = 'BG-001 — Increase revenue';
       final goals = Goals()..businessGoals = (BusinessGoals()..goals = [goal]);
       final overview = IntroductionAndScope()..goals = goals;
       expect(overview.goals.businessGoals.goals, hasLength(1));
@@ -55,8 +54,10 @@ void main() {
       // Solution Blueprint master + the 12 Phase 3 projection roots + the
       // D13 CodeSpecs generation projection.
       expect(spec.solutionBlueprint, isA<D00SolutionBlueprint>());
-      expect(spec.securityAccessSpecification,
-          isA<D08SecurityAccessSpecification>());
+      expect(
+        spec.securityAccessSpecification,
+        isA<D08SecurityAccessSpecification>(),
+      );
       expect(spec.informationModel, isA<D03InformationModel>());
       expect(spec.targetOperatingModel, isA<D02TargetOperatingModel>());
       expect(spec.qualityAcceptancePlan, isA<D10QualityAcceptancePlan>());
@@ -64,17 +65,25 @@ void main() {
         spec.integrationInterfaceSpecification,
         isA<D07IntegrationInterfaceSpecification>(),
       );
-      expect(spec.currentLandscapeAssessment,
-          isA<D01CurrentLandscapeAssessment>());
+      expect(
+        spec.currentLandscapeAssessment,
+        isA<D01CurrentLandscapeAssessment>(),
+      );
       expect(spec.deliveryRoadmap, isA<D11DeliveryRoadmap>());
-      expect(spec.requirementsSpecification,
-          isA<D04RequirementsSpecification>());
+      expect(
+        spec.requirementsSpecification,
+        isA<D04RequirementsSpecification>(),
+      );
       expect(spec.transitionRolloutPlan, isA<D12TransitionRolloutPlan>());
-      expect(spec.architectureTechnologySpecification,
-          isA<D06ArchitectureTechnologySpecification>());
+      expect(
+        spec.architectureTechnologySpecification,
+        isA<D06ArchitectureTechnologySpecification>(),
+      );
       expect(spec.interactionScenarios, isA<D05InteractionScenarios>());
-      expect(spec.experienceDesignSpecification,
-          isA<D09ExperienceDesignSpecification>());
+      expect(
+        spec.experienceDesignSpecification,
+        isA<D09ExperienceDesignSpecification>(),
+      );
       expect(spec.codeSpecsProjection, isA<D13CodeSpecsProjection>());
     });
 
@@ -82,8 +91,9 @@ void main() {
       // The container is the canonical tree root, not a 14th sibling document,
       // so it must not be annotated. Tooling relies on this to exempt it from
       // @SectionId coverage/uniqueness (T1).
-      final annotations =
-          reflectClass(DocSpecsProject).metadata.map((m) => m.reflectee);
+      final annotations = reflectClass(
+        DocSpecsProject,
+      ).metadata.map((m) => m.reflectee);
       expect(annotations.whereType<Document>(), isEmpty);
       expect(annotations.whereType<SectionId>(), isEmpty);
     });

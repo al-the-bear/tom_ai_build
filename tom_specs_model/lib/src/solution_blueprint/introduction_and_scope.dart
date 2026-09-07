@@ -32,28 +32,33 @@ enum ScreenFieldKind {
   /// pattern. Any narrower grammar is stated as that pattern, so the kind
   /// itself stays a statement about shape rather than about validation.
   text,
+
   /// Free text the author expects to run to several lines.
   ///
   /// Carries the same constraints as [text]; what it records that [text] does
   /// not is how much room the value needs, which the D09 design pass turns
   /// into a concrete control.
   multilineText,
+
   /// A text value that must be a routable e-mail address.
   ///
   /// The address grammar is stated as the text case's pattern rather than
   /// implied by the kind, so a requirement that accepts only corporate
   /// addresses can say so.
   email,
+
   /// A text value that must be a dialable telephone number.
   ///
   /// Format and length live in the text case's pattern: no single grammar is
   /// correct across locales, so the kind does not pretend to fix one.
   phone,
+
   /// A text value that must be a resolvable URL.
   ///
   /// The accepted schemes belong in the text case's pattern — a requirement
   /// that refuses anything but `https` says so there.
   url,
+
   /// A secret text value.
   ///
   /// The kind is what tells the design pass to mask the input and keep it out
@@ -65,11 +70,13 @@ enum ScreenFieldKind {
   ///
   /// Binds the numeric constraints case (`SCFIVN`): the permitted value range.
   integer,
+
   /// A fractional number.
   ///
   /// Shares the numeric case with [integer]. The precision the value must keep
   /// is a constraint on it, not a kind of its own.
   decimal,
+
   /// A monetary amount.
   ///
   /// Shares the numeric case but is a distinct kind, because an amount is
@@ -82,11 +89,13 @@ enum ScreenFieldKind {
   /// Binds the temporal constraints case (`SCFIVD`), whose bounds are dates or
   /// relative expressions rather than numbers.
   date,
+
   /// An instant — a date together with a time of day.
   ///
   /// Kept apart from [date] because it is only unambiguous with a time zone,
   /// which a date neither has nor needs.
   dateTime,
+
   /// A time of day with no date.
   ///
   /// For recurring wall-clock values — an opening hour, a cut-off — where
@@ -98,6 +107,7 @@ enum ScreenFieldKind {
   /// Binds the choice options case (`SCFICH`), which says where the option set
   /// comes from — static values, an API, or an entity.
   singleSelect,
+
   /// A choice of any number of options from a stated set.
   ///
   /// Shares the choice case with [singleSelect]; what differs is the
@@ -565,9 +575,11 @@ that all stakeholders can refer to.
 )
 @SectionId('SYPUP')
 class SystemPurpose extends DocSpecsSection {
-  @ContentHelp('State in a few sentences why the system exists and who '
-      'benefits. Keep it readable by someone outside the project — the '
-      'problem, opportunity and value subsections below carry the detail.')
+  @ContentHelp(
+    'State in a few sentences why the system exists and who '
+    'benefits. Keep it readable by someone outside the project — the '
+    'problem, opportunity and value subsections below carry the detail.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -629,9 +641,11 @@ class SystemPurpose extends DocSpecsSection {
 )
 @SectionId('PS')
 class ProblemStatement extends DocSpecsSection {
-  @ContentHelp('Describe the problem concretely: who suffers it, how often, '
-      'and what it costs today. Quantify the impact where you can, and say how '
-      'urgent a fix is.')
+  @ContentHelp(
+    'Describe the problem concretely: who suffers it, how often, '
+    'and what it costs today. Quantify the impact where you can, and say how '
+    'urgent a fix is.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -738,9 +752,11 @@ class ProblemStatement extends DocSpecsSection {
 )
 @SectionId('OPPST')
 class OpportunityStatement extends DocSpecsSection {
-  @ContentHelp('Describe what becomes possible that is not possible today — '
-      'new capabilities, new markets, better economics. Keep it distinct from '
-      'the problem statement: this is upside, not pain.')
+  @ContentHelp(
+    'Describe what becomes possible that is not possible today — '
+    'new capabilities, new markets, better economics. Keep it distinct from '
+    'the problem statement: this is upside, not pain.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -921,9 +937,11 @@ class StakeholderEntry extends DocSpecsSection {
 )
 @SectionId('VALPX')
 class ValueProposition extends DocSpecsSection {
-  @ContentHelp('Articulate the value in the terms the funding decision uses: '
-      'quantified benefits, cost avoided, and the return-on-investment '
-      'argument. State the assumptions the numbers rest on.')
+  @ContentHelp(
+    'Articulate the value in the terms the funding decision uses: '
+    'quantified benefits, cost avoided, and the return-on-investment '
+    'argument. State the assumptions the numbers rest on.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -1057,9 +1075,11 @@ class ValueProposition extends DocSpecsSection {
 )
 @SectionId('STRAL')
 class StrategicAlignment extends DocSpecsSection {
-  @ContentHelp('Name the organizational strategies, goals or initiatives this '
-      'system serves and show the link to each. If it also competes with an '
-      'initiative for the same resources, say so.')
+  @ContentHelp(
+    'Name the organizational strategies, goals or initiatives this '
+    'system serves and show the link to each. If it also competes with an '
+    'initiative for the same resources, say so.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -1144,9 +1164,11 @@ class StrategicAlignment extends DocSpecsSection {
 )
 @SectionId('SCBND')
 class ScopeBoundaries extends DocSpecsSection {
-  @ContentHelp('State explicitly what is in scope and — more importantly — '
-      'what is out. Out-of-scope items are the ones that prevent scope creep, '
-      'so name them even when they seem obvious.')
+  @ContentHelp(
+    'State explicitly what is in scope and — more importantly — '
+    'what is out. Out-of-scope items are the ones that prevent scope creep, '
+    'so name them even when they seem obvious.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -1236,7 +1258,8 @@ class ScopeItemEntry extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements (requirement IDs if applicable)',
-      hint: 'Requirement ids related to this item, comma-separated — each is a '
+      hint:
+          'Requirement ids related to this item, comma-separated — each is a '
           'requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / '
           'ORRQ-REQU-…)',
       refersTo: [
@@ -2374,9 +2397,11 @@ class BusinessDomain extends DocSpecsSection {
 )
 @SectionId('DO')
 class DomainOverview extends DocSpecsSection {
-  @ContentHelp('Describe the business domain in its own vocabulary: what it is '
-      'responsible for, where it sits in the business, and who owns it. Avoid '
-      'solution language here.')
+  @ContentHelp(
+    'Describe the business domain in its own vocabulary: what it is '
+    'responsible for, where it sits in the business, and who owns it. Avoid '
+    'solution language here.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -2576,9 +2601,11 @@ class DomainTermEntry extends DocSpecsSection {
 )
 @SectionId('KC')
 class KeyConcepts extends DocSpecsSection {
-  @ContentHelp('Define the core concepts and entities of the domain with their '
-      'attributes and relationships — a conceptual model, not a data model. '
-      'Use the terms the business actually uses.')
+  @ContentHelp(
+    'Define the core concepts and entities of the domain with their '
+    'attributes and relationships — a conceptual model, not a data model. '
+    'Use the terms the business actually uses.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -2712,9 +2739,11 @@ class KeyConceptEntry extends DocSpecsSection {
 )
 @SectionId('DB')
 class DomainBoundaries extends DocSpecsSection {
-  @ContentHelp('Draw the bounded context: what belongs to this domain, what '
-      'belongs to neighbouring ones, and what the shared language is at each '
-      'seam.')
+  @ContentHelp(
+    'Draw the bounded context: what belongs to this domain, what '
+    'belongs to neighbouring ones, and what the shared language is at each '
+    'seam.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -3007,9 +3036,11 @@ class DomainBusinessRuleEntry extends DocSpecsSection {
 )
 @SectionId('DP')
 class DomainProcesses extends DocSpecsSection {
-  @ContentHelp('Describe the domain\'s main workflows at a level a business '
-      'reader recognises. The detail belongs in the business process model; '
-      'here, show how the activities fit together.')
+  @ContentHelp(
+    'Describe the domain\'s main workflows at a level a business '
+    'reader recognises. The detail belongs in the business process model; '
+    'here, show how the activities fit together.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -4407,7 +4438,8 @@ class NotificationChannelEntry extends DocSpecsSection {
       'channelId',
       String,
       'Channel ID',
-      hint: 'The channel name the built system carries — the TomMessageChannel '
+      hint:
+          'The channel name the built system carries — the TomMessageChannel '
           'name, e.g. email',
     ),
     Field(
@@ -4928,9 +4960,11 @@ class UserCategoryEntry extends DocSpecsSection {
 )
 @SectionId('UPD')
 class UserPersonaDetails extends DocSpecsSection {
-  @ContentHelp('Sketch the person, not the role: working context, technical '
-      'confidence, goals and frustrations. A persona is only useful if a '
-      'designer can picture them.')
+  @ContentHelp(
+    'Sketch the person, not the role: working context, technical '
+    'confidence, goals and frustrations. A persona is only useful if a '
+    'designer can picture them.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -5286,9 +5320,11 @@ class SystemTaskEntry extends DocSpecsSection {
 )
 @SectionId('UAP')
 class UserAccessPermissions extends DocSpecsSection {
-  @ContentHelp('State what this user category may see and do, and what it must '
-      'never be able to do. Record the reasoning — the access model later has '
-      'to justify each grant.')
+  @ContentHelp(
+    'State what this user category may see and do, and what it must '
+    'never be able to do. Record the reasoning — the access model later has '
+    'to justify each grant.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -5465,9 +5501,11 @@ class PermissionMatrixEntry extends DocSpecsSection {
 @SectionId('USTRRE')
 @ContentHelp('Define the training and support needs for this user category.')
 class UserTrainingRequirements extends DocSpecsSection {
-  @ContentHelp('Say what this category must learn before it can work with the '
-      'system, how the training is delivered, and how much of it is ongoing '
-      'rather than one-off.')
+  @ContentHelp(
+    'Say what this category must learn before it can work with the '
+    'system, how the training is delivered, and how much of it is ongoing '
+    'rather than one-off.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -5607,9 +5645,11 @@ class TrainingTopicEntry extends DocSpecsSection {
 )
 @SectionId('UAN')
 class UserAccessibilityNeeds extends DocSpecsSection {
-  @ContentHelp('Record the accessibility requirements this category actually '
-      'has — vision, motor, cognitive, situational — and the accommodations '
-      'that follow. Name the WCAG level committed to.')
+  @ContentHelp(
+    'Record the accessibility requirements this category actually '
+    'has — vision, motor, cognitive, situational — and the accommodations '
+    'that follow. Name the WCAG level committed to.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -5687,9 +5727,11 @@ class UserAccessibilityNeeds extends DocSpecsSection {
 )
 @SectionId('UJ')
 class UserJourney extends DocSpecsSection {
-  @ContentHelp('Map this category\'s touchpoints end to end, including what '
-      'happens before and after they use the system. Mark the moments where '
-      'the experience currently breaks.')
+  @ContentHelp(
+    'Map this category\'s touchpoints end to end, including what '
+    'happens before and after they use the system. Mark the moments where '
+    'the experience currently breaks.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -5865,9 +5907,11 @@ class JourneyStageEntry extends DocSpecsSection {
 @Headline('Goals & Objectives')
 @SectionId('GOALS')
 class Goals extends DocSpecsSection {
-  @ContentHelp('Introduce the goal set and the methodology behind it, OKR or '
-      'otherwise. Each goal gets its own subsection below; use this text for '
-      'how the goals were agreed and how progress is reviewed.')
+  @ContentHelp(
+    'Introduce the goal set and the methodology behind it, OKR or '
+    'otherwise. Each goal gets its own subsection below; use this text for '
+    'how the goals were agreed and how progress is reviewed.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -6622,8 +6666,10 @@ class GoalRiskEntry extends DocSpecsSection {
 @SectionId('GORE')
 @ContentHelp('Define resources (people, budget, tools) needed for this goal.')
 class GoalResources extends DocSpecsSection {
-  @ContentHelp('List what achieving the goal needs — people, budget, systems, '
-      'external parties — and say which of them are not yet secured.')
+  @ContentHelp(
+    'List what achieving the goal needs — people, budget, systems, '
+    'external parties — and say which of them are not yet secured.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -8007,7 +8053,8 @@ class SuccessCriterionRelationships extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements',
-      hint: 'Requirement ids that contribute to this criterion, '
+      hint:
+          'Requirement ids that contribute to this criterion, '
           'comma-separated — each is a requirement section id (FRE-REQU-… / '
           'TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)',
       refersTo: [
@@ -8064,9 +8111,11 @@ class SuccessCriterionRelationships extends DocSpecsSection {
 )
 @SectionId('RO')
 class RequirementsOverview extends DocSpecsSection {
-  @ContentHelp('Introduce the requirements set: how requirements were '
-      'gathered, how they are identified, and how they will be carried into '
-      'the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere.')
+  @ContentHelp(
+    'Introduce the requirements set: how requirements were '
+    'gathered, how they are identified, and how they will be carried into '
+    'the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -8210,9 +8259,11 @@ class RequirementsOverview extends DocSpecsSection {
       'below carry the routing',
 )
 class FunctionalRequirements extends DocSpecsSection {
-  @ContentHelp('Introduce the functional requirement set and how it is '
-      'organised. Individual requirements go in the subsections below; use '
-      'this text for scope, conventions and how completeness was judged.')
+  @ContentHelp(
+    'Introduce the functional requirement set and how it is '
+    'organised. Individual requirements go in the subsections below; use '
+    'this text for scope, conventions and how completeness was judged.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -8938,9 +8989,11 @@ class DataEntityReferenceEntry extends DocSpecsSection {
       'the entries below carry the routing',
 )
 class RequirementUiSpecification extends DocSpecsSection {
-  @ContentHelp('Describe the screens, forms and interactions this requirement '
-      'needs, in Tom UI terms: what the user sees, what they can do, and what '
-      'feedback the system gives.')
+  @ContentHelp(
+    'Describe the screens, forms and interactions this requirement '
+    'needs, in Tom UI terms: what the user sees, what they can do, and what '
+    'feedback the system gives.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -9087,7 +9140,8 @@ class ScreenFieldEntry extends DocSpecsSection {
       ScreenFieldKind,
       'Field Type',
       required: true,
-      hint: 'The kind of value the user supplies — selects the type-specific '
+      hint:
+          'The kind of value the user supplies — selects the type-specific '
           'constraint and presentation subsections',
     ),
   ])
@@ -9302,7 +9356,8 @@ class ScreenFieldEntry extends DocSpecsSection {
       'latestValue',
       String,
       'Latest Accepted Value',
-      hint: 'Latest accepted date/time, absolute or relative (e.g. today + 30d)',
+      hint:
+          'Latest accepted date/time, absolute or relative (e.g. today + 30d)',
     ),
   ])
   @SerializationOrder(6)
@@ -9515,7 +9570,8 @@ class RequirementScreenActionEntry extends DocSpecsSection {
       String,
       'Action ID',
       required: true,
-      hint: 'The symbol the built screen carries for this action — unique '
+      hint:
+          'The symbol the built screen carries for this action — unique '
           'within the screen, e.g. act-save',
     ),
     Field(
@@ -9712,7 +9768,8 @@ class ScreenBehaviorEntry extends DocSpecsSection {
       String,
       'Behavior ID',
       required: true,
-      hint: 'The symbol the built screen carries for this behaviour — unique '
+      hint:
+          'The symbol the built screen carries for this behaviour — unique '
           'within the screen, e.g. bhv-autosave',
     ),
     Field(
@@ -9897,9 +9954,11 @@ class RequirementDependencyEntry extends DocSpecsSection {
       'the requirement entries it indexes',
 )
 class RequirementTraceability extends DocSpecsSection {
-  @ContentHelp('Link this requirement upward to goals and business drivers and '
-      'downward to use cases, processes and tests. A requirement that traces '
-      'to nothing is a requirement nobody asked for.')
+  @ContentHelp(
+    'Link this requirement upward to goals and business drivers and '
+    'downward to use cases, processes and tests. A requirement that traces '
+    'to nothing is a requirement nobody asked for.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -10208,9 +10267,11 @@ class RequirementTestCaseEntry extends DocSpecsSection {
       'below carry the routing',
 )
 class TechnicalRequirements extends DocSpecsSection {
-  @ContentHelp('Introduce the technical requirement set — the constraints on '
-      'how the system is built. Say which are externally imposed and which are '
-      'choices, since only the choices are negotiable.')
+  @ContentHelp(
+    'Introduce the technical requirement set — the constraints on '
+    'how the system is built. Say which are externally imposed and which are '
+    'choices, since only the choices are negotiable.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -10564,9 +10625,11 @@ class TechnicalRequirementEntry extends DocSpecsSection {
       'below carry the routing',
 )
 class SecurityRequirements extends DocSpecsSection {
-  @ContentHelp('Introduce the security requirement set and the frameworks it '
-      'follows, such as OWASP and ISO 27001. Record the threat model or risk '
-      'assessment the requirements were derived from.')
+  @ContentHelp(
+    'Introduce the security requirement set and the frameworks it '
+    'follows, such as OWASP and ISO 27001. Record the threat model or risk '
+    'assessment the requirements were derived from.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -11062,9 +11125,11 @@ class SecurityControlEntry extends DocSpecsSection {
       'entries below carry the routing',
 )
 class OrganizationalRequirements extends DocSpecsSection {
-  @ContentHelp('Introduce the changes the organization itself must make for '
-      'the system to succeed — process, roles, training, support. These fail '
-      'projects more often than technical requirements do.')
+  @ContentHelp(
+    'Introduce the changes the organization itself must make for '
+    'the system to succeed — process, roles, training, support. These fail '
+    'projects more often than technical requirements do.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -11369,8 +11434,10 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
       'here directly by a detail-document path',
 )
 class OrgRequirementImplementationPlan extends DocSpecsSection {
-  @ContentHelp('Set out how this organizational change is actually made: '
-      'sequence, owner, timing, and what has to be true before it can start.')
+  @ContentHelp(
+    'Set out how this organizational change is actually made: '
+    'sequence, owner, timing, and what has to be true before it can start.',
+  )
   @override
   @SerializationOrder(0)
   String? content;
@@ -12188,7 +12255,8 @@ class SystemBusinessProcessEntry extends DocSpecsSection {
       'processId',
       String,
       'Process ID',
-      hint: 'The code the organisation already uses for this process, if one '
+      hint:
+          'The code the organisation already uses for this process, if one '
           'exists — owned outside this document',
     ),
     Field(
@@ -14449,7 +14517,8 @@ class MigrationRiskEntry extends DocSpecsSection {
       'relatedIssues',
       String,
       'Related Issues (external)',
-      hint: 'Issue ids from the project issue tracker — owned by the tracker, '
+      hint:
+          'Issue ids from the project issue tracker — owned by the tracker, '
           'not declared in this blueprint',
     ),
     // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Unlike the
@@ -15263,7 +15332,8 @@ class InterfaceOperationEntry extends DocSpecsSection {
       String,
       'Operation ID',
       required: true,
-      hint: 'The name the built interface exposes for this operation, e.g. '
+      hint:
+          'The name the built interface exposes for this operation, e.g. '
           'createOrder',
     ),
     Field(
@@ -18966,7 +19036,8 @@ class RiskRelationships extends DocSpecsSection {
       'relatedIssues',
       String,
       'Related Issues (external tracker) — issues arising from this risk',
-      hint: 'Issues arising from this risk, named or cited by their tracker id '
+      hint:
+          'Issues arising from this risk, named or cited by their tracker id '
           '— the issue log is owned outside this blueprint',
     ),
     // Why: deliberately no `refersTo` — same reason as the risk register's

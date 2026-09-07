@@ -1,7 +1,6 @@
 /// Enums shared across TomSpecs document models.
 library;
 
-
 /// Section type in DocSpecs annotations.
 ///
 /// Names the *shape of a section's body*, which decides what may be parsed out

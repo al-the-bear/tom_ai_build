@@ -186,7 +186,8 @@ framework. It is not something to restate per site.
       AuthorizationRequirementKind,
       'Requirement Kind',
       required: true,
-      hint: 'What the caller must satisfy — selects the payload subsection '
+      hint:
+          'What the caller must satisfy — selects the payload subsection '
           'below. Denied | Public | Authenticated | Guest carry no payload.',
     ),
     Field(
@@ -210,7 +211,8 @@ framework. It is not something to restate per site.
       'Roles',
       required: true,
       refersTo: ['AZRO.roleName'],
-      hint: 'Comma-separated role names from the role catalogue; the caller '
+      hint:
+          'Comma-separated role names from the role catalogue; the caller '
           'must hold at least one',
     ),
   ])
@@ -226,7 +228,8 @@ framework. It is not something to restate per site.
       String,
       'Groups',
       required: true,
-      hint: 'Comma-separated group names the caller must belong to (at least '
+      hint:
+          'Comma-separated group names the caller must belong to (at least '
           'one). Groups are runtime principal data, so these are not checked '
           'against a catalogue.',
     ),
@@ -243,7 +246,8 @@ framework. It is not something to restate per site.
       String,
       'Entitlement Patterns',
       required: true,
-      hint: 'Comma-separated entitlement match patterns; the caller must match '
+      hint:
+          'Comma-separated entitlement match patterns; the caller must match '
           'at least one',
     ),
   ])
@@ -260,7 +264,8 @@ framework. It is not something to restate per site.
       'Resource Key',
       required: true,
       refersTo: ['RESKEY.resourceKey'],
-      hint: 'The resource key from the resource-key catalogue the caller must '
+      hint:
+          'The resource key from the resource-key catalogue the caller must '
           'hold a grant on',
     ),
   ])
@@ -289,7 +294,8 @@ framework. It is not something to restate per site.
       String,
       'Decision Rule',
       required: true,
-      hint: 'What the handler must decide, in business terms — this is the '
+      hint:
+          'What the handler must decide, in business terms — this is the '
           'specification the handler is implemented against',
     ),
   ])
@@ -420,7 +426,8 @@ itself be graded.
       GradedAccessLevel,
       'Access Level',
       required: true,
-      hint: 'The state this requirement earns. Full | Read | Disabled — each '
+      hint:
+          'The state this requirement earns. Full | Read | Disabled — each '
           'authored at most once per graded requirement.',
     ),
     Field(
@@ -428,7 +435,8 @@ itself be graded.
       BasicAuthorizationRequirementKind,
       'Requirement Kind',
       required: true,
-      hint: 'What the caller must satisfy to reach this access state — selects '
+      hint:
+          'What the caller must satisfy to reach this access state — selects '
           'the payload subsection below',
     ),
   ])
@@ -446,7 +454,8 @@ itself be graded.
       'Roles',
       required: true,
       refersTo: ['AZRO.roleName'],
-      hint: 'Comma-separated role names from the role catalogue; the caller '
+      hint:
+          'Comma-separated role names from the role catalogue; the caller '
           'must hold at least one',
     ),
   ])
@@ -462,7 +471,8 @@ itself be graded.
       String,
       'Groups',
       required: true,
-      hint: 'Comma-separated group names the caller must belong to (at least '
+      hint:
+          'Comma-separated group names the caller must belong to (at least '
           'one)',
     ),
   ])
@@ -478,7 +488,8 @@ itself be graded.
       String,
       'Entitlement Patterns',
       required: true,
-      hint: 'Comma-separated entitlement match patterns; the caller must match '
+      hint:
+          'Comma-separated entitlement match patterns; the caller must match '
           'at least one',
     ),
   ])
@@ -495,7 +506,8 @@ itself be graded.
       'Resource Key',
       required: true,
       refersTo: ['RESKEY.resourceKey'],
-      hint: 'The resource key from the resource-key catalogue the caller must '
+      hint:
+          'The resource key from the resource-key catalogue the caller must '
           'hold a grant on',
     ),
   ])
