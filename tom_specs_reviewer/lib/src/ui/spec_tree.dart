@@ -138,13 +138,17 @@ class SpecTreeScope extends InheritedWidget {
     return scope!;
   }
 
-  /// Whether [cls] is a cut point under the current switch settings: it carries
-  /// a marker pointing to a *different* document and that marker's switch is on.
-  bool isCut(SpecClass cls) {
-    final detailHandoff = cls.detailedIn != null && cls.detailedIn != rootType;
-    final mapsHandoff = cls.mapsTo != null && cls.mapsTo != rootType;
-    return (cutAtDetails && detailHandoff) || (cutAtMaps && mapsHandoff);
-  }
+  /// Whether [cls] is a cut point under the current switch settings.
+  ///
+  /// The rule itself is [isHandoffAway] in `tom_som_dart_runtime`, shared with
+  /// the editor: what a marker *means* must not differ between the two
+  /// surfaces, even though what it looks like may.
+  bool isCut(SpecClass cls) => isHandoffAway(
+    cls,
+    rootType,
+    cutAtDetails: cutAtDetails,
+    cutAtMaps: cutAtMaps,
+  );
 
   @override
   bool updateShouldNotify(SpecTreeScope old) =>
@@ -155,45 +159,6 @@ class SpecTreeScope extends InheritedWidget {
       isProjection != old.isProjection ||
       navTargetType != old.navTargetType ||
       !setEquals(navPathTypes, old.navPathTypes);
-}
-
-/// Computes the shortest chain of class names from [rootType] to [targetType]
-/// by following `elementType` / `type` references (BFS over the class graph).
-///
-/// Returns the set of every class name on that path (inclusive). Empty when the
-/// target is unreachable.
-Set<String> pathToType(SpecModel model, String rootType, String targetType) {
-  if (rootType == targetType) return {rootType};
-  final parent = <String, String>{};
-  final visited = <String>{rootType};
-  final queue = <String>[rootType];
-  while (queue.isNotEmpty) {
-    final current = queue.removeAt(0);
-    final cls = model.classNamed(current);
-    if (cls == null) continue;
-    for (final field in cls.fields) {
-      for (final ref in [field.elementType, field.type]) {
-        if (ref == null ||
-            !model.classes.containsKey(ref) ||
-            visited.contains(ref)) {
-          continue;
-        }
-        visited.add(ref);
-        parent[ref] = current;
-        if (ref == targetType) {
-          final path = <String>{targetType};
-          var cur = targetType;
-          while (parent.containsKey(cur)) {
-            cur = parent[cur]!;
-            path.add(cur);
-          }
-          return path;
-        }
-        queue.add(ref);
-      }
-    }
-  }
-  return const {};
 }
 
 /// Marks the root of a `@CodeSpecsProjection` document in the tree, echoing the

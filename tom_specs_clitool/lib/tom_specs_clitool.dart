@@ -109,6 +109,19 @@ export 'src/oe_citations.dart'
         firstInlineCodeOf,
         findOeCitations,
         checkOeCitations;
+// The ratchet over the two spec-tree surfaces: the reviewer is
+// documentation-gated and the editor is not, so a doc line stated in both will
+// be maintained on one side only and drift on the other with nothing saying so.
+export 'src/spec_tree_duplication.dart'
+    show
+        sharedDocMinLength,
+        reviewerTreeRoot,
+        editorTreeRoot,
+        sharedDocBaselinePath,
+        docCommentLines,
+        sharedSpecTreeDocs,
+        readSharedDocBaseline,
+        writeSharedDocBaseline;
 export 'src/entrypoint_options.dart'
     show
         kUniversalOption,

@@ -488,3 +488,86 @@ class SpecRowExtras {
   /// Whether the row has provenance to show behind the [referencesChip].
   bool get hasReferences => reference != null || standardReferences != null;
 }
+
+// ---------------------------------------------------------------------------
+// Structural navigation, shared because it is a property of the model
+// ---------------------------------------------------------------------------
+
+/// Whether [cls] hands off to a *different* document — the rule both surfaces
+/// cut their trees on.
+///
+/// A hand-off is a `@DetailedIn` (the detail lives in another document) or a
+/// `@MapsTo` (the whole section maps onto another document) whose target root
+/// is not [rootType]. Cutting at one shows the section and suppresses the
+/// subsections beneath it, so the reader sees *that* the hand-off happens
+/// without the tree descending into material another document owns.
+///
+/// The two switches are separate because the two markers answer different
+/// questions — "where is the detail?" and "what does this become?" — and a
+/// review usually wants one cut and not the other.
+///
+/// Lives here rather than in either app for the reason the library doc gives:
+/// what a marker *means* must not differ between the two surfaces, even though
+/// what it looks like may.
+bool isHandoffAway(
+  SpecClass cls,
+  String rootType, {
+  required bool cutAtDetails,
+  required bool cutAtMaps,
+}) {
+  final detail = cls.detailedIn;
+  if (cutAtDetails &&
+      detail != null &&
+      detail.isNotEmpty &&
+      detail != rootType) {
+    return true;
+  }
+  final maps = cls.mapsTo;
+  return cutAtMaps && maps != null && maps.isNotEmpty && maps != rootType;
+}
+
+/// The shortest chain of class names from [rootType] to [targetType], following
+/// `elementType` / `type` references — a breadth-first walk of the class graph.
+///
+/// Returns every class name on that path, both ends included, or the empty set
+/// when the target is unreachable. Both surfaces use it to decide which nodes
+/// to auto-expand when the user navigates to a type, so it is a property of the
+/// **model** rather than of either tree: two apps computing "the path to this
+/// class" differently would disagree about the document's own shape.
+///
+/// Shortest rather than any path, because the chain is shown to a reader as the
+/// route to the target; a longer one that happens to arrive is not wrong so
+/// much as unhelpful.
+Set<String> pathToType(SpecModel model, String rootType, String targetType) {
+  if (rootType == targetType) return {rootType};
+  final parent = <String, String>{};
+  final visited = <String>{rootType};
+  final queue = <String>[rootType];
+  while (queue.isNotEmpty) {
+    final current = queue.removeAt(0);
+    final cls = model.classNamed(current);
+    if (cls == null) continue;
+    for (final field in cls.fields) {
+      for (final ref in [field.elementType, field.type]) {
+        if (ref == null ||
+            !model.classes.containsKey(ref) ||
+            visited.contains(ref)) {
+          continue;
+        }
+        visited.add(ref);
+        parent[ref] = current;
+        if (ref == targetType) {
+          final path = <String>{targetType};
+          var cur = targetType;
+          while (parent.containsKey(cur)) {
+            cur = parent[cur]!;
+            path.add(cur);
+          }
+          return path;
+        }
+        queue.add(ref);
+      }
+    }
+  }
+  return const {};
+}

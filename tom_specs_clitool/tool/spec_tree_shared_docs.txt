@@ -1,0 +1,122 @@
+# Doc lines stated in BOTH spec-tree surfaces — the reviewer's and the
+# editor's. Generated; see `lib/src/spec_tree_duplication.dart` for what
+# it is for and why it is a ratchet.
+#
+# The set may SHRINK and never GROW. A new line here is a new forked
+# explanation: move the rule to `tom_som_dart_runtime` and have both trees
+# cite it. When it shrinks, re-record this file in the same commit.
+#
+# Regenerate: dart run bin/check_spec_tree_duplication.dart --record
+
+(if any) folded into a single choice-group node at the position of the
+**navigation** target (2c). Navigation is expressed as a chain of class
+2b: suppress subsections at `@DetailedIn` hand-off points.
+2c: class to reveal/scroll-to after a hand-off jump (cleared on manual
+2d: suppress subsections at `@MapsTo` hand-off points.
+A `@Form` field that should be lifted into its own content-string
+A class is a hand-off when it carries a `@DetailedIn` (detail lives in
+A complex-class instance: a header row plus its fields when expanded.
+A faint banner separating the three rendered instances of a list element.
+A field-level `@CodeSpecKind` overrides the class's for that one usage, so
+A path identifies a node in the *structure* (not a data instance), e.g.
+A single field. Rendering depends on [SpecField.kind].
+A small coloured chip used for annotations (mapsTo, recursive, …).
+Applies [mutate] to the entry at [path] and persists immediately.
+Called when a hand-off marker is tapped, to switch documents.
+Carries the two hand-off **cut** flags (2b/2d) and the in-tree
+Class names on the navigation chain root→target (empty when not
+Class to reveal and scroll to within this document (2c).
+Colour associated with each review scope, used for the indicator dot.
+Doc text to prefer over the class's own (the owning field's doc).
+Double-quotes and escapes a string for safe YAML emission.
+Each form field is independently reviewable: its [ReviewControls] use the
+Editing dialog for a single node's review entry. Each change is written
+Handles a hand-off marker tap: switch to [targetRoot] and reveal
+Holds all review entries and persists them to a YAML file on every edit.
+If the resulting entry is empty it is removed (keeping the file tidy and
+Inline review controls shown on every tree node, immediately behind its
+It is a node rather than a chip on each alternative because exclusivity is a
+Key attached to the single navigation-target row for `ensureVisible`.
+Layout: an **edit** button (scope dot + pencil — opens the flags/comment
+Loads entries from disk if the file exists. Safe to call once at startup.
+Number of non-empty review entries currently held.
+Off by default: nearly five thousand members carry one, so showing them
+One-line summary of the comment and checked boxes, shown behind the
+Owning class path the alternatives' own paths are built from, so grouping
+Paints the shared [SpecChip] descriptors in this surface's palette.
+Render a `recursive` marker (this class re-enters an ancestor type).
+Renders a single [_Chip], clickable when it carries an `onTap`.
+Renders all fields of a `@Form` content section so they are visible at once.
+Renders the structure tree for a single document root.
+Resolves the review file location. Honors `TOM_SPECS_REVIEW_FILE`; falls
+Returns the entry for [path], creating an empty one if absent. The
+Returns the entry for [path], or `null` if none has been recorded.
+Reveal `@SerializationOrder` ordinals in the tree.
+Reveal `@SerializationOrder` ordinals on the rows that carry one.
+Reveal the `@SerializationOrder` ordinal on every annotated row.
+Section id to prefer over the class's own (the owning field's id).
+Set via a dedicated checkmark control, independent of the flags above.
+Shared tree-wide state read by every node via the element tree.
+Shown only on demand — the standards are full sentences, and inlining them
+Suppress subsections at `@DetailedIn` hand-off points (2b).
+Suppress subsections at `@MapsTo` hand-off points (2d).
+The `@Case` bindings alone, for the merged field+class row of a complex
+The `@OneOf` closed choice of a class, rendered as a group whose children
+The alternatives actually rendered — [OneOfGroup.caseFields] minus any the
+The annotations rendered beside the structural label. Defaults to
+The chips a field row carries: which alternative of a closed choice it is,
+The class the user navigated to, highlighted and scrolled into view.
+The class's fields in declaration order, with the `@OneOf` alternatives
+The colour this surface gives each kind of statement a chip makes.
+The common single-line header used by every node kind.
+The complex class this field descends into, if any.
+The intro content paragraph that every list/subsection-bearing section
+The owning field, when this class node is the collapsed field+class row.
+The provenance a node records: what the section means, which public
+The review decision recorded against a single structural path.
+The reviewer has checked this node off as reviewed (progress tracking).
+The root document type currently rendered (used to decide whether a
+The rule itself is [isHandoffAway] in `tom_som_dart_runtime`, shared with
+The store is keyed by structural path so a reviewer's decision can later be
+This is the primary review decision: does this structural node stay only in
+This node is only a single entry and should *not* be a list.
+This node must be a plain content string, not a `@Form` field.
+True when the *owning class* is on the navigation chain — a child class
+True when this node sits on the active navigation chain.
+Variable (field) name shown as the node label when this class is reached
+When [onTap] is set the chip becomes clickable (used for hand-off markers).
+Where a reviewed node belongs in the eventual document set.
+Whether [cls] is a cut point under the current switch settings.
+Whether the provenance panel is open. Per row and off by default — the
+Whether this entry carries any information worth persisting.
+[SpecRowExtras.none] for the synthetic rows that have no model node.
+[navTargetKey] so the tree can scroll it into view.
+[tooltip] carries detail too long for the chip itself — the `@CodeSpecKind`
+alternative where the binding has nowhere else to be stated.
+another document) or a `@MapsTo` (the whole section maps onto another
+are the mutually exclusive alternatives (`codespecs_mapping.md` §8.2).
+carries. It renders a `content`-styled header row plus a disabled three-line
+compact **summary** of the comment and any checked boxes. All three reflect
+dialog), a separate **reviewed** checkmark toggle (progress tracking), and a
+document) marker pointing *away* from the current [rootType]. Cutting a
+flag individual fields (e.g. "convert to content subsection").
+group header is the only place the discriminator and its coverage have to
+hand-off shows the section but suppresses its descending subsections.
+instances rendered for a list therefore share one entry.
+mapping note, for instance, which explains *why* a section maps where it
+names ([navPathTypes]) from the document root down to [navTargetType];
+never ask. Lives on the scope — and therefore above the tree — so it keeps
+nodes on that chain auto-expand and the endpoint is tagged with
+reached through this field is on the chain iff its name is also in
+returned object is *not* yet stored — call [update] to persist edits.
+reviewed node) and the guarantee that nothing is lost on crash is worth more
+separates them from the common sections that apply to every case, and the
+standards it derives from, and what it cross-references in the model.
+statement about the *set*: nesting the alternatives one level in is what
+straight through to the store (which persists immediately).
+structural path `<formPath>/<fieldName>`, so the reviewer can comment on and
+synchronously after each mutation — the data set is small (one entry per
+text area, and is independently reviewable through its own `§content` path.
+the live [ReviewEntry] for [path] and update when the store changes.
+the merged row must state the field's mapping when it has one and fall
+through a field, collapsing the field row and the class row into one.
