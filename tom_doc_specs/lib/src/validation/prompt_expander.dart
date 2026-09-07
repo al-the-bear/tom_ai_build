@@ -60,8 +60,7 @@ class PromptExpander {
       while (remaining.startsWith('parent.')) {
         remaining = remaining.substring('parent.'.length);
         current = current != null
-            ? _findParent(
-                current is SpecSection ? current : null, document)
+            ? _findParent(current is SpecSection ? current : null, document)
             : null;
         if (current == null) return '';
       }
@@ -131,10 +130,7 @@ class PromptExpander {
     return _findParentInChildren(target, document.sections);
   }
 
-  Section? _findParentInChildren(
-    SpecSection target,
-    List<Section>? children,
-  ) {
+  Section? _findParentInChildren(SpecSection target, List<Section>? children) {
     if (children == null) return null;
 
     for (final child in children) {

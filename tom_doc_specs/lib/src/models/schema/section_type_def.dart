@@ -9,10 +9,7 @@ class PatternCheckDef {
   final String errorMessage;
 
   /// Creates a new PatternCheckDef.
-  const PatternCheckDef({
-    required this.pattern,
-    required this.errorMessage,
-  });
+  const PatternCheckDef({required this.pattern, required this.errorMessage});
 
   /// Creates a PatternCheckDef from a YAML map.
   factory PatternCheckDef.fromYaml(Map<String, dynamic> yaml) {
@@ -24,10 +21,7 @@ class PatternCheckDef {
 
   /// Converts to a YAML-compatible map.
   Map<String, dynamic> toYaml() {
-    return {
-      'pattern': pattern,
-      'error-message': errorMessage,
-    };
+    return {'pattern': pattern, 'error-message': errorMessage};
   }
 }
 
@@ -55,7 +49,9 @@ class SubsectionConstraint {
 
   /// Creates a SubsectionConstraint from a YAML map.
   factory SubsectionConstraint.fromYaml(
-      String typeName, Map<String, dynamic> yaml) {
+    String typeName,
+    Map<String, dynamic> yaml,
+  ) {
     final maxCountValue = yaml['max-count'];
     int? maxCount;
     if (maxCountValue != null && maxCountValue != 'infinite') {

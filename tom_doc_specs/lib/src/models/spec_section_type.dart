@@ -35,10 +35,7 @@ class SpecSectionType {
   final Map<SpecSection, List<SpecSection>> sections;
 
   /// Creates a new SpecSectionType.
-  const SpecSectionType({
-    required this.type,
-    required this.sections,
-  });
+  const SpecSectionType({required this.type, required this.sections});
 
   /// Creates an empty SpecSectionType for a given type name.
   factory SpecSectionType.empty(String type) {

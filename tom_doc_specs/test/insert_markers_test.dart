@@ -52,7 +52,12 @@ More response
     });
 
     test('supports various variable names', () {
-      for (final varName in ['chat.lastReply', 'meta.timestamp', 'section.id', 'a1.b2.c3']) {
+      for (final varName in [
+        'chat.lastReply',
+        'meta.timestamp',
+        'section.id',
+        'a1.b2.c3',
+      ]) {
         final text = '<!--\$insert:$varName-->\n<!--\$end-insert-->';
         final markers = parser.parse(text);
         expect(markers, hasLength(1));
@@ -168,9 +173,7 @@ Keep this
 Old content
 <!--\$end-insert-->''';
 
-      final result = processor.process(input, {
-        'chat.lastReply': '',
-      });
+      final result = processor.process(input, {'chat.lastReply': ''});
 
       expect(result, '''<!--\$insert:chat.lastReply-->
 <!--\$end-insert-->''');

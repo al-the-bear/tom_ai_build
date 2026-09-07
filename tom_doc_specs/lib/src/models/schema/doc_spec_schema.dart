@@ -65,11 +65,7 @@ class DocSpecSchema {
     required String version,
   }) {
     // Known schema keys
-    const knownKeys = {
-      'section-types',
-      'document',
-      'form-types',
-    };
+    const knownKeys = {'section-types', 'document', 'form-types'};
 
     // Parse section types
     final sectionTypesYaml = yaml['section-types'] as Map<String, dynamic>?;
@@ -104,8 +100,7 @@ class DocSpecSchema {
 
     // Parse subsection declarations (top-level blocks that aren't known keys)
     Map<String, Map<String, SubsectionDef>>? subsectionDeclarations;
-    final documentSectionNames =
-        document.sections.keys.toSet();
+    final documentSectionNames = document.sections.keys.toSet();
 
     for (final entry in yaml.entries) {
       if (!knownKeys.contains(entry.key) &&

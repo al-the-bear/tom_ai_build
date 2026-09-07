@@ -73,7 +73,9 @@ class DocSpecsSkeletonGenerator {
     final headingMarker = '#' * level;
 
     buffer.writeln();
-    buffer.writeln('$headingMarker [$headingId] ${_formatSectionName(sectionName)}');
+    buffer.writeln(
+      '$headingMarker [$headingId] ${_formatSectionName(sectionName)}',
+    );
     buffer.writeln();
 
     // Add placeholder text
@@ -142,9 +144,11 @@ class DocSpecsSkeletonGenerator {
     return name
         .replaceAll(RegExp(r'[-_]'), ' ')
         .split(' ')
-        .map((word) => word.isEmpty
-            ? word
-            : '${word[0].toUpperCase()}${word.substring(1)}')
+        .map(
+          (word) => word.isEmpty
+              ? word
+              : '${word[0].toUpperCase()}${word.substring(1)}',
+        )
         .join(' ');
   }
 }

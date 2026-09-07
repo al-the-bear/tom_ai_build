@@ -159,10 +159,9 @@ class DocSpecs {
   }) async {
     final results = <SpecDoc>[];
     for (final filePath in filePaths) {
-      results.add(await scanDocument(
-        filePath: filePath,
-        workspaceRoot: workspaceRoot,
-      ));
+      results.add(
+        await scanDocument(filePath: filePath, workspaceRoot: workspaceRoot),
+      );
     }
     return results;
   }
@@ -174,10 +173,9 @@ class DocSpecs {
   }) {
     final results = <SpecDoc>[];
     for (final filePath in filePaths) {
-      results.add(scanDocumentSync(
-        filePath: filePath,
-        workspaceRoot: workspaceRoot,
-      ));
+      results.add(
+        scanDocumentSync(filePath: filePath, workspaceRoot: workspaceRoot),
+      );
     }
     return results;
   }
@@ -248,10 +246,7 @@ class DocSpecs {
   }
 
   /// Re-scans all documents in a folder tree synchronously.
-  static void _rescanFolderDocumentsSync(
-    DocumentFolder folder,
-    String wsRoot,
-  ) {
+  static void _rescanFolderDocumentsSync(DocumentFolder folder, String wsRoot) {
     for (var i = 0; i < folder.documents.length; i++) {
       final doc = folder.documents[i];
       try {
@@ -404,8 +399,9 @@ class DocSpecs {
   /// What `DocSpecsSkeletonGenerator` emits, what `CLAUDE.md` documents as the
   /// workspace convention, and what every document in `test/fixtures/documents`
   /// is written with.
-  static final RegExp _docspecComment =
-      RegExp(r'<!--\s*docspec:\s*([^\s>]+)\s*-->');
+  static final RegExp _docspecComment = RegExp(
+    r'<!--\s*docspec:\s*([^\s>]+)\s*-->',
+  );
 
   /// The in-headline form: `# <!-- schema=<id> --> Title`.
   ///

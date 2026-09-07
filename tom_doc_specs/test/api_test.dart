@@ -28,8 +28,10 @@ void main() {
     test('min-count-in-document is omitted when unset', () {
       const def = SectionTypeDef(name: 'note', prefix: 'note');
       expect(def.toYaml().containsKey('min-count-in-document'), isFalse);
-      expect(SectionTypeDef.fromYaml('note', def.toYaml()).minCountInDocument,
-          isNull);
+      expect(
+        SectionTypeDef.fromYaml('note', def.toYaml()).minCountInDocument,
+        isNull,
+      );
     });
   });
 
@@ -127,7 +129,9 @@ void main() {
         final errors = validator.validate(doc);
 
         expect(
-          errors.any((e) => e.category == ValidationErrorCategory.schemaDeclaration),
+          errors.any(
+            (e) => e.category == ValidationErrorCategory.schemaDeclaration,
+          ),
           isTrue,
         );
       });
@@ -140,7 +144,9 @@ void main() {
         final errors = validator.validate(doc);
 
         expect(
-          errors.where((e) => e.category == ValidationErrorCategory.schemaDeclaration),
+          errors.where(
+            (e) => e.category == ValidationErrorCategory.schemaDeclaration,
+          ),
           isEmpty,
         );
       });
@@ -148,14 +154,16 @@ void main() {
 
     group('section types', () {
       test('reports unknown section type when no prefix matches', () {
-        final schema = makeSchema(sectionTypes: {
-          'requirement': SectionTypeDef(name: 'requirement', prefix: 'req'),
-        });
+        final schema = makeSchema(
+          sectionTypes: {
+            'requirement': SectionTypeDef(name: 'requirement', prefix: 'req'),
+          },
+        );
 
         // Section with null type and an ID that doesn't match any prefix
-        final doc = makeDocument(sections: [
-          makeSection(id: 'unk-001', type: null),
-        ]);
+        final doc = makeDocument(
+          sections: [makeSection(id: 'unk-001', type: null)],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -170,10 +178,12 @@ void main() {
     group('unique IDs', () {
       test('reports duplicate section IDs', () {
         final schema = makeSchema();
-        final doc = makeDocument(sections: [
-          makeSection(id: 'dup-001', lineNumber: 10),
-          makeSection(id: 'dup-001', lineNumber: 20, index: 1),
-        ]);
+        final doc = makeDocument(
+          sections: [
+            makeSection(id: 'dup-001', lineNumber: 10),
+            makeSection(id: 'dup-001', lineNumber: 20, index: 1),
+          ],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -187,14 +197,22 @@ void main() {
 
     group('count limits', () {
       test('reports exceeding max count in document', () {
-        final schema = makeSchema(sectionTypes: {
-          'note': SectionTypeDef(name: 'note', prefix: 'note', maxCountInDocument: 1),
-        });
+        final schema = makeSchema(
+          sectionTypes: {
+            'note': SectionTypeDef(
+              name: 'note',
+              prefix: 'note',
+              maxCountInDocument: 1,
+            ),
+          },
+        );
 
-        final doc = makeDocument(sections: [
-          makeSection(id: 'note-001', type: 'note'),
-          makeSection(id: 'note-002', type: 'note', index: 1),
-        ]);
+        final doc = makeDocument(
+          sections: [
+            makeSection(id: 'note-001', type: 'note'),
+            makeSection(id: 'note-002', type: 'note', index: 1),
+          ],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -208,13 +226,19 @@ void main() {
 
     group('text requirements', () {
       test('reports missing required text', () {
-        final schema = makeSchema(sectionTypes: {
-          'content': SectionTypeDef(name: 'content', prefix: 'cnt', textRequired: true),
-        });
+        final schema = makeSchema(
+          sectionTypes: {
+            'content': SectionTypeDef(
+              name: 'content',
+              prefix: 'cnt',
+              textRequired: true,
+            ),
+          },
+        );
 
-        final doc = makeDocument(sections: [
-          makeSection(id: 'cnt-001', type: 'content', text: ''),
-        ]);
+        final doc = makeDocument(
+          sections: [makeSection(id: 'cnt-001', type: 'content', text: '')],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -226,13 +250,21 @@ void main() {
       });
 
       test('reports text below minimum length', () {
-        final schema = makeSchema(sectionTypes: {
-          'content': SectionTypeDef(name: 'content', prefix: 'cnt', minTextLength: 20),
-        });
+        final schema = makeSchema(
+          sectionTypes: {
+            'content': SectionTypeDef(
+              name: 'content',
+              prefix: 'cnt',
+              minTextLength: 20,
+            ),
+          },
+        );
 
-        final doc = makeDocument(sections: [
-          makeSection(id: 'cnt-001', type: 'content', text: 'Short'),
-        ]);
+        final doc = makeDocument(
+          sections: [
+            makeSection(id: 'cnt-001', type: 'content', text: 'Short'),
+          ],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -246,17 +278,21 @@ void main() {
 
     group('tags', () {
       test('reports invalid tags', () {
-        final schema = makeSchema(sectionTypes: {
-          'item': SectionTypeDef(
-            name: 'item',
-            prefix: 'item',
-            allowedTags: ['urgent', 'low'],
-          ),
-        });
+        final schema = makeSchema(
+          sectionTypes: {
+            'item': SectionTypeDef(
+              name: 'item',
+              prefix: 'item',
+              allowedTags: ['urgent', 'low'],
+            ),
+          },
+        );
 
-        final doc = makeDocument(sections: [
-          makeSection(id: 'item-001', type: 'item', tags: ['invalid_tag']),
-        ]);
+        final doc = makeDocument(
+          sections: [
+            makeSection(id: 'item-001', type: 'item', tags: ['invalid_tag']),
+          ],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -268,17 +304,21 @@ void main() {
       });
 
       test('passes with valid tags', () {
-        final schema = makeSchema(sectionTypes: {
-          'item': SectionTypeDef(
-            name: 'item',
-            prefix: 'item',
-            allowedTags: ['urgent', 'low'],
-          ),
-        });
+        final schema = makeSchema(
+          sectionTypes: {
+            'item': SectionTypeDef(
+              name: 'item',
+              prefix: 'item',
+              allowedTags: ['urgent', 'low'],
+            ),
+          },
+        );
 
-        final doc = makeDocument(sections: [
-          makeSection(id: 'item-001', type: 'item', tags: ['urgent']),
-        ]);
+        final doc = makeDocument(
+          sections: [
+            makeSection(id: 'item-001', type: 'item', tags: ['urgent']),
+          ],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -292,20 +332,22 @@ void main() {
 
     group('ID patterns', () {
       test('reports ID not matching pattern', () {
-        final schema = makeSchema(sectionTypes: {
-          'requirement': SectionTypeDef(
-            name: 'requirement',
-            prefix: 'req',
-            patternCheckId: const PatternCheckDef(
-              pattern: r'^REQ-\d{3}$',
-              errorMessage: 'ID must match REQ-NNN',
+        final schema = makeSchema(
+          sectionTypes: {
+            'requirement': SectionTypeDef(
+              name: 'requirement',
+              prefix: 'req',
+              patternCheckId: const PatternCheckDef(
+                pattern: r'^REQ-\d{3}$',
+                errorMessage: 'ID must match REQ-NNN',
+              ),
             ),
-          ),
-        });
+          },
+        );
 
-        final doc = makeDocument(sections: [
-          makeSection(id: 'req-bad', type: 'requirement'),
-        ]);
+        final doc = makeDocument(
+          sections: [makeSection(id: 'req-bad', type: 'requirement')],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -319,21 +361,21 @@ void main() {
 
     group('required fields', () {
       test('reports missing required fields', () {
-        final schema = makeSchema(sectionTypes: {
-          'endpoint': SectionTypeDef(
-            name: 'endpoint',
-            prefix: 'ep',
-            requiredFields: ['method', 'path'],
-          ),
-        });
+        final schema = makeSchema(
+          sectionTypes: {
+            'endpoint': SectionTypeDef(
+              name: 'endpoint',
+              prefix: 'ep',
+              requiredFields: ['method', 'path'],
+            ),
+          },
+        );
 
-        final doc = makeDocument(sections: [
-          makeSection(
-            id: 'ep-001',
-            type: 'endpoint',
-            text: 'Method: GET',
-          ),
-        ]);
+        final doc = makeDocument(
+          sections: [
+            makeSection(id: 'ep-001', type: 'endpoint', text: 'Method: GET'),
+          ],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -348,18 +390,22 @@ void main() {
 
     group('nesting depth', () {
       test('reports exceeding max nesting depth', () {
-        final schema = makeSchema(sectionTypes: {
-          'item': SectionTypeDef(
-            name: 'item',
-            prefix: 'item',
-            maxSubsectionLevels: 0,
-          ),
-        });
+        final schema = makeSchema(
+          sectionTypes: {
+            'item': SectionTypeDef(
+              name: 'item',
+              prefix: 'item',
+              maxSubsectionLevels: 0,
+            ),
+          },
+        );
 
         final child = makeSection(id: 'item-child', type: 'item');
-        final doc = makeDocument(sections: [
-          makeSection(id: 'item-parent', type: 'item', sections: [child]),
-        ]);
+        final doc = makeDocument(
+          sections: [
+            makeSection(id: 'item-parent', type: 'item', sections: [child]),
+          ],
+        );
 
         final validator = DocSpecsValidator(schema: schema);
         final errors = validator.validate(doc);
@@ -381,14 +427,16 @@ void main() {
 
         // Only structural errors possible, no section-level errors
         expect(
-          errors.where((e) =>
-              e.category == ValidationErrorCategory.sectionType ||
-              e.category == ValidationErrorCategory.sectionId ||
-              e.category == ValidationErrorCategory.countLimit ||
-              e.category == ValidationErrorCategory.nestingDepth ||
-              e.category == ValidationErrorCategory.tags ||
-              e.category == ValidationErrorCategory.textContent ||
-              e.category == ValidationErrorCategory.format),
+          errors.where(
+            (e) =>
+                e.category == ValidationErrorCategory.sectionType ||
+                e.category == ValidationErrorCategory.sectionId ||
+                e.category == ValidationErrorCategory.countLimit ||
+                e.category == ValidationErrorCategory.nestingDepth ||
+                e.category == ValidationErrorCategory.tags ||
+                e.category == ValidationErrorCategory.textContent ||
+                e.category == ValidationErrorCategory.format,
+          ),
           isEmpty,
         );
       });
@@ -653,9 +701,7 @@ void main() {
     });
 
     test('toString with only message', () {
-      const error = ValidationError(
-        message: 'Test error',
-      );
+      const error = ValidationError(message: 'Test error');
 
       expect(error.toString(), 'Test error');
     });

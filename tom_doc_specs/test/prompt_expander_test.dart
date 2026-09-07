@@ -33,9 +33,7 @@ void main() {
       );
     }
 
-    SpecDoc makeDocument({
-      List<SpecSection>? sections,
-    }) {
+    SpecDoc makeDocument({List<SpecSection>? sections}) {
       return SpecDoc(
         index: 0,
         lineNumber: 1,
@@ -74,7 +72,11 @@ void main() {
       final section = makeSection(text: 'Hello world');
       document = makeDocument(sections: [section]);
       expect(
-        expander.expand(r'Content: ${text}', section: section, document: document),
+        expander.expand(
+          r'Content: ${text}',
+          section: section,
+          document: document,
+        ),
         'Content: Hello world',
       );
     });
@@ -83,7 +85,11 @@ void main() {
       final section = makeSection(index: 3);
       document = makeDocument(sections: [section]);
       expect(
-        expander.expand(r'Index: ${index}', section: section, document: document),
+        expander.expand(
+          r'Index: ${index}',
+          section: section,
+          document: document,
+        ),
         'Index: 3',
       );
     });
@@ -92,7 +98,11 @@ void main() {
       final section = makeSection(lineNumber: 42);
       document = makeDocument(sections: [section]);
       expect(
-        expander.expand(r'Line: ${lineNumber}', section: section, document: document),
+        expander.expand(
+          r'Line: ${lineNumber}',
+          section: section,
+          document: document,
+        ),
         'Line: 42',
       );
     });
@@ -118,15 +128,25 @@ void main() {
     test('expands \${fields}', () {
       final section = makeSection(fields: {'status': 'open'});
       document = makeDocument(sections: [section]);
-      final result = expander.expand(r'Fields: ${fields}', section: section, document: document);
+      final result = expander.expand(
+        r'Fields: ${fields}',
+        section: section,
+        document: document,
+      );
       expect(result, contains('"status":"open"'));
     });
 
     test('expands \${fields.fieldName}', () {
-      final section = makeSection(fields: {'status': 'open', 'priority': 'high'});
+      final section = makeSection(
+        fields: {'status': 'open', 'priority': 'high'},
+      );
       document = makeDocument(sections: [section]);
       expect(
-        expander.expand(r'Status: ${fields.status}', section: section, document: document),
+        expander.expand(
+          r'Status: ${fields.status}',
+          section: section,
+          document: document,
+        ),
         'Status: open',
       );
     });
@@ -135,7 +155,11 @@ void main() {
       final section = makeSection(text: 'Method: POST\nPath: /api/users');
       document = makeDocument(sections: [section]);
       expect(
-        expander.expand(r'Method: ${text[method]}', section: section, document: document),
+        expander.expand(
+          r'Method: ${text[method]}',
+          section: section,
+          document: document,
+        ),
         'Method: POST',
       );
     });
@@ -144,13 +168,21 @@ void main() {
       final section = makeSection(text: 'Preamble text here.\nField: value');
       document = makeDocument(sections: [section]);
       expect(
-        expander.expand(r'Preamble: ${text[]}', section: section, document: document),
+        expander.expand(
+          r'Preamble: ${text[]}',
+          section: section,
+          document: document,
+        ),
         'Preamble: Preamble text here.',
       );
     });
 
     test('expands multiple placeholders', () {
-      final section = makeSection(id: 'REQ-001', lineNumber: 10, type: 'requirement');
+      final section = makeSection(
+        id: 'REQ-001',
+        lineNumber: 10,
+        type: 'requirement',
+      );
       document = makeDocument(sections: [section]);
       expect(
         expander.expand(
@@ -172,7 +204,11 @@ void main() {
         );
         document = makeDocument(sections: [parent]);
         expect(
-          expander.expand(r'Parent: ${parent.id}', section: child, document: document),
+          expander.expand(
+            r'Parent: ${parent.id}',
+            section: child,
+            document: document,
+          ),
           'Parent: parent-001',
         );
       });
@@ -186,7 +222,11 @@ void main() {
         );
         document = makeDocument(sections: [parent]);
         expect(
-          expander.expand(r'Parent type: ${parent.type}', section: child, document: document),
+          expander.expand(
+            r'Parent type: ${parent.type}',
+            section: child,
+            document: document,
+          ),
           'Parent type: component',
         );
       });
@@ -195,7 +235,11 @@ void main() {
         final section = makeSection(id: 'top-001');
         document = makeDocument(sections: [section]);
         expect(
-          expander.expand(r'Parent: ${parent.id}', section: section, document: document),
+          expander.expand(
+            r'Parent: ${parent.id}',
+            section: section,
+            document: document,
+          ),
           'Parent: ',
         );
       });
@@ -261,7 +305,11 @@ void main() {
       final section = makeSection();
       document = makeDocument(sections: [section]);
       expect(
-        expander.expand(r'Unknown: ${unknown}', section: section, document: document),
+        expander.expand(
+          r'Unknown: ${unknown}',
+          section: section,
+          document: document,
+        ),
         r'Unknown: ${unknown}',
       );
     });

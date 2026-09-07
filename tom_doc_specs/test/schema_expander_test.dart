@@ -8,9 +8,7 @@ void main() {
         final expander = SchemaExpander({
           'colors': ['red', 'green', 'blue'],
         });
-        final result = expander.expand({
-          'value': '[[colors;, ]]',
-        });
+        final result = expander.expand({'value': '[[colors;, ]]'});
         expect(result['value'], 'red, green, blue');
       });
 
@@ -21,9 +19,7 @@ void main() {
             {'name': 'orders', 'method': 'POST'},
           ],
         });
-        final result = expander.expand({
-          'value': '[[endpoints:name;, ]]',
-        });
+        final result = expander.expand({'value': '[[endpoints:name;, ]]'});
         expect(result['value'], 'users, orders');
       });
 
@@ -45,17 +41,13 @@ void main() {
         final expander = SchemaExpander({
           'tags': ['alpha', 'beta'],
         });
-        final result = expander.expand({
-          'value': '[[tags|uppercase;-]]',
-        });
+        final result = expander.expand({'value': '[[tags|uppercase;-]]'});
         expect(result['value'], 'ALPHA-BETA');
       });
 
       test('returns original for unknown key', () {
         final expander = SchemaExpander({});
-        final result = expander.expand({
-          'value': '[[unknown;, ]]',
-        });
+        final result = expander.expand({'value': '[[unknown;, ]]'});
         expect(result['value'], '[[unknown;, ]]');
       });
     });
@@ -65,9 +57,7 @@ void main() {
         final expander = SchemaExpander({
           'config': {'name': 'test', 'version': '1.0'},
         });
-        final result = expander.expand({
-          'value': '[[config.name]]',
-        });
+        final result = expander.expand({'value': '[[config.name]]'});
         expect(result['value'], 'test');
       });
 
@@ -78,9 +68,7 @@ void main() {
             {'name': 'second'},
           ],
         });
-        final result = expander.expand({
-          'value': '[[items.0.name]]',
-        });
+        final result = expander.expand({'value': '[[items.0.name]]'});
         expect(result['value'], 'first');
       });
 
@@ -88,25 +76,19 @@ void main() {
         final expander = SchemaExpander({
           'items': [1, 2, 3],
         });
-        final result = expander.expand({
-          'value': '[[items.length]]',
-        });
+        final result = expander.expand({'value': '[[items.length]]'});
         expect(result['value'], '3');
       });
 
       test('returns default value with |default', () {
         final expander = SchemaExpander({});
-        final result = expander.expand({
-          'value': '[[missing.field|N/A]]',
-        });
+        final result = expander.expand({'value': '[[missing.field|N/A]]'});
         expect(result['value'], 'N/A');
       });
 
       test('returns original for missing key without default', () {
         final expander = SchemaExpander({});
-        final result = expander.expand({
-          'value': '[[missing.field]]',
-        });
+        final result = expander.expand({'value': '[[missing.field]]'});
         expect(result['value'], '[[missing.field]]');
       });
     });
@@ -117,9 +99,7 @@ void main() {
           'section-types': {'req': {}},
           'colors': ['red'],
         });
-        final result = expander.expand({
-          'value': '[[colors;, ]]',
-        });
+        final result = expander.expand({'value': '[[colors;, ]]'});
         expect(result['value'], 'red');
       });
     });
@@ -142,14 +122,9 @@ void main() {
           'tags': ['a', 'b'],
         });
         final result = expander.expand({
-          'outer': {
-            'inner': '[[tags;, ]]',
-          },
+          'outer': {'inner': '[[tags;, ]]'},
         });
-        expect(
-          (result['outer'] as Map<String, dynamic>)['inner'],
-          'a, b',
-        );
+        expect((result['outer'] as Map<String, dynamic>)['inner'], 'a, b');
       });
 
       test('expands in lists', () {

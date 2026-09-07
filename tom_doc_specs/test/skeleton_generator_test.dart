@@ -36,8 +36,11 @@ void main() {
       final md = DocSpecsSkeletonGenerator.generate(_chainSchema(6));
 
       for (var level = 1; level <= 6; level++) {
-        expect(md, contains('\n${'#' * level} '),
-            reason: 'level $level heading missing');
+        expect(
+          md,
+          contains('\n${'#' * level} '),
+          reason: 'level $level heading missing',
+        );
       }
     });
 
@@ -45,8 +48,11 @@ void main() {
       final md = DocSpecsSkeletonGenerator.generate(_chainSchema(9));
 
       for (var level = 1; level <= 9; level++) {
-        expect(md, contains('\n${'#' * level} '),
-            reason: 'level $level heading missing');
+        expect(
+          md,
+          contains('\n${'#' * level} '),
+          reason: 'level $level heading missing',
+        );
       }
       // No spurious deeper level.
       expect(md, isNot(contains('\n${'#' * 10} ')));

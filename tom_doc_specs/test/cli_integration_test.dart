@@ -24,12 +24,12 @@ void main() {
     outputDir = Directory.systemTemp.createTempSync('docspecs_cli_out');
 
     // Create a .docspecs-schemas directory with a test schema
-    final schemaDir =
-        Directory(p.join(fixtureDir.path, '.docspecs-schemas'));
+    final schemaDir = Directory(p.join(fixtureDir.path, '.docspecs-schemas'));
     schemaDir.createSync(recursive: true);
 
-    File(p.join(schemaDir.path, 'test-1.0.docspecs-schema.yaml'))
-        .writeAsStringSync('''
+    File(
+      p.join(schemaDir.path, 'test-1.0.docspecs-schema.yaml'),
+    ).writeAsStringSync('''
 section-types:
   requirement:
     prefix: req
@@ -47,19 +47,23 @@ document:
 ''');
 
     // Create a valid document
-    File(p.join(fixtureDir.path, 'valid.md')).writeAsStringSync('''# <!--[doc] schema=test/1.0--> Test Document
+    File(p.join(fixtureDir.path, 'valid.md')).writeAsStringSync(
+      '''# <!--[doc] schema=test/1.0--> Test Document
 
 ## <!--[note-001]--> Overview
 
 This is a valid document.
-''');
+''',
+    );
 
     // Create an invalid document (missing required text)
-    File(p.join(fixtureDir.path, 'invalid.md')).writeAsStringSync('''# <!--[doc] schema=test/1.0--> Test Document
+    File(p.join(fixtureDir.path, 'invalid.md')).writeAsStringSync(
+      '''# <!--[doc] schema=test/1.0--> Test Document
 
 ## <!--[REQ-001]--> Requirement
 
-''');
+''',
+    );
   });
 
   tearDownAll(() {
@@ -72,11 +76,11 @@ This is a valid document.
   });
 
   Future<ProcessResult> runCli(List<String> args) async {
-    return Process.run(
-      'dart',
-      ['run', 'bin/docspecs.dart', ...args],
-      workingDirectory: projectRoot,
-    );
+    return Process.run('dart', [
+      'run',
+      'bin/docspecs.dart',
+      ...args,
+    ], workingDirectory: projectRoot);
   }
 
   group('CLI docspecs', () {
@@ -116,8 +120,11 @@ This is a valid document.
       expect(out, contains('nothing was validated'));
       expect(out, contains('not validated'));
       expect(out, contains('does not mean they are correct'));
-      expect(result.exitCode, 0,
-          reason: 'an undeclared schema is a gap to report, not a failure');
+      expect(
+        result.exitCode,
+        0,
+        reason: 'an undeclared schema is a gap to report, not a failure',
+      );
     });
 
     test('scan command produces JSON output', () async {

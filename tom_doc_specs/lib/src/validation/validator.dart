@@ -126,8 +126,8 @@ class DocSpecsValidator {
 
       // Determine the raw prompt: SectionDef.validationPrompt overrides type's
       final sectionDef = sectionDefById[specSection.id];
-      final rawPrompt = sectionDef?.validationPrompt ??
-          typeDef?.validationPrompt;
+      final rawPrompt =
+          sectionDef?.validationPrompt ?? typeDef?.validationPrompt;
 
       if (rawPrompt != null && rawPrompt.isNotEmpty) {
         await _runAiValidation(
@@ -191,20 +191,24 @@ class DocSpecsValidator {
       );
 
       if (result != null) {
-        errors.add(ValidationError(
-          message: 'AI validation: $result',
+        errors.add(
+          ValidationError(
+            message: 'AI validation: $result',
+            lineNumber: specSection.lineNumber,
+            sectionId: specSection.id,
+            category: ValidationErrorCategory.aiValidation,
+          ),
+        );
+      }
+    } catch (e) {
+      errors.add(
+        ValidationError(
+          message: 'AI validation failed: $e',
           lineNumber: specSection.lineNumber,
           sectionId: specSection.id,
           category: ValidationErrorCategory.aiValidation,
-        ));
-      }
-    } catch (e) {
-      errors.add(ValidationError(
-        message: 'AI validation failed: $e',
-        lineNumber: specSection.lineNumber,
-        sectionId: specSection.id,
-        category: ValidationErrorCategory.aiValidation,
-      ));
+        ),
+      );
     }
   }
 
@@ -218,7 +222,8 @@ class DocSpecsValidator {
 
     return [
       const ValidationError(
-        message: 'Document must declare a schema using <!-- schema=<schema-id> --> or <!-- docspec: <id>/<version> -->',
+        message:
+            'Document must declare a schema using <!-- schema=<schema-id> --> or <!-- docspec: <id>/<version> -->',
         category: ValidationErrorCategory.schemaDeclaration,
       ),
     ];
@@ -229,11 +234,7 @@ class DocSpecsValidator {
     final result = <_SectionInfo>[];
 
     void collect(Section section, int depth, Section? parent) {
-      result.add(_SectionInfo(
-        section: section,
-        depth: depth,
-        parent: parent,
-      ));
+      result.add(_SectionInfo(section: section, depth: depth, parent: parent));
 
       if (section.sections != null) {
         for (final child in section.sections!) {
@@ -288,13 +289,16 @@ class DocSpecsValidator {
               .where((e) => e.value.prefix != null)
               .map((e) => "'${e.value.prefix}' (${e.key})")
               .join(', ');
-          errors.add(ValidationError(
-            message: "Unknown section type: section '$id' does not match any known prefix. "
-                "The section ID must start with one of: $prefixes",
-            lineNumber: section.lineNumber,
-            sectionId: id,
-            category: ValidationErrorCategory.sectionType,
-          ));
+          errors.add(
+            ValidationError(
+              message:
+                  "Unknown section type: section '$id' does not match any known prefix. "
+                  "The section ID must start with one of: $prefixes",
+              lineNumber: section.lineNumber,
+              sectionId: id,
+              category: ValidationErrorCategory.sectionType,
+            ),
+          );
         }
       }
     }
@@ -312,12 +316,15 @@ class DocSpecsValidator {
       final lineNumber = info.section.lineNumber;
 
       if (seenIds.containsKey(id)) {
-        errors.add(ValidationError(
-          message: "Duplicate section ID '$id' (first occurrence at line ${seenIds[id]})",
-          lineNumber: lineNumber,
-          sectionId: id,
-          category: ValidationErrorCategory.sectionId,
-        ));
+        errors.add(
+          ValidationError(
+            message:
+                "Duplicate section ID '$id' (first occurrence at line ${seenIds[id]})",
+            lineNumber: lineNumber,
+            sectionId: id,
+            category: ValidationErrorCategory.sectionId,
+          ),
+        );
       } else {
         seenIds[id] = lineNumber;
       }
@@ -335,10 +342,15 @@ class DocSpecsValidator {
       // Check for required sections
       for (final entry in docSections.entries) {
         if (entry.value.optional != true) {
-          errors.add(ValidationError(
-            message: _missingRequiredSectionMessage(entry.key, entry.value.sectionType),
-            category: ValidationErrorCategory.structure,
-          ));
+          errors.add(
+            ValidationError(
+              message: _missingRequiredSectionMessage(
+                entry.key,
+                entry.value.sectionType,
+              ),
+              category: ValidationErrorCategory.structure,
+            ),
+          );
         }
       }
       return errors;
@@ -356,25 +368,35 @@ class DocSpecsValidator {
       final sectionDef = entry.value;
       if (sectionDef.optional != true &&
           !presentTypes.contains(sectionDef.sectionType)) {
-        errors.add(ValidationError(
-          message: _missingRequiredSectionMessage(entry.key, sectionDef.sectionType),
-          category: ValidationErrorCategory.structure,
-        ));
+        errors.add(
+          ValidationError(
+            message: _missingRequiredSectionMessage(
+              entry.key,
+              sectionDef.sectionType,
+            ),
+            category: ValidationErrorCategory.structure,
+          ),
+        );
       }
     }
 
     // Check section order by matching resolved types to expected order.
     // Use a consumed-index to handle types that appear multiple times
     // (e.g. 'overview' for both 'title' and 'overview' entries).
-    final expectedTypeOrder =
-        docSections.values.map((d) => d.sectionType).toList();
+    final expectedTypeOrder = docSections.values
+        .map((d) => d.sectionType)
+        .toList();
     var lastIndex = -1;
 
     for (final section in doc.sections!) {
       if (section is! SpecSection || section.type == null) continue;
       // Find the first occurrence of this type at or after lastIndex.
       var expectedIdx = -1;
-      for (var i = (lastIndex < 0 ? 0 : lastIndex); i < expectedTypeOrder.length; i++) {
+      for (
+        var i = (lastIndex < 0 ? 0 : lastIndex);
+        i < expectedTypeOrder.length;
+        i++
+      ) {
         if (expectedTypeOrder[i] == section.type) {
           expectedIdx = i;
           break;
@@ -386,12 +408,14 @@ class DocSpecsValidator {
       }
       if (expectedIdx != -1) {
         if (expectedIdx < lastIndex) {
-          errors.add(ValidationError(
-            message: "Section '${section.id}' appears out of order",
-            lineNumber: section.lineNumber,
-            sectionId: section.id,
-            category: ValidationErrorCategory.structure,
-          ));
+          errors.add(
+            ValidationError(
+              message: "Section '${section.id}' appears out of order",
+              lineNumber: section.lineNumber,
+              sectionId: section.id,
+              category: ValidationErrorCategory.structure,
+            ),
+          );
         } else {
           lastIndex = expectedIdx;
         }
@@ -424,17 +448,23 @@ class DocSpecsValidator {
       final count = typeCounts[entry.key] ?? 0;
       final maxCount = typeDef.maxCountInDocument;
       if (maxCount != null && count > maxCount) {
-        errors.add(ValidationError(
-          message: "Section type '${entry.key}' appears $count times, but max-count-in-document is $maxCount",
-          category: ValidationErrorCategory.countLimit,
-        ));
+        errors.add(
+          ValidationError(
+            message:
+                "Section type '${entry.key}' appears $count times, but max-count-in-document is $maxCount",
+            category: ValidationErrorCategory.countLimit,
+          ),
+        );
       }
       final minCount = typeDef.minCountInDocument;
       if (minCount != null && count < minCount) {
-        errors.add(ValidationError(
-          message: "Section type '${entry.key}' appears $count times, but min-count-in-document is $minCount",
-          category: ValidationErrorCategory.countLimit,
-        ));
+        errors.add(
+          ValidationError(
+            message:
+                "Section type '${entry.key}' appears $count times, but min-count-in-document is $minCount",
+            category: ValidationErrorCategory.countLimit,
+          ),
+        );
       }
     }
 
@@ -457,22 +487,30 @@ class DocSpecsValidator {
               final count = childCounts[subEntry.key] ?? 0;
 
               if (constraint.maxCount != null && count > constraint.maxCount!) {
-                errors.add(ValidationError(
-                  message: "Section '${section.id}' has $count children of type '${subEntry.key}', but max-count is ${constraint.maxCount}",
-                  lineNumber: section.lineNumber,
-                  sectionId: section.id,
-                  category: ValidationErrorCategory.countLimit,
-                ));
+                errors.add(
+                  ValidationError(
+                    message:
+                        "Section '${section.id}' has $count children of type '${subEntry.key}', but max-count is ${constraint.maxCount}",
+                    lineNumber: section.lineNumber,
+                    sectionId: section.id,
+                    category: ValidationErrorCategory.countLimit,
+                  ),
+                );
               }
 
-              final minCount = constraint.minCount ?? (constraint.required == true ? 1 : null);
+              final minCount =
+                  constraint.minCount ??
+                  (constraint.required == true ? 1 : null);
               if (minCount != null && count < minCount) {
-                errors.add(ValidationError(
-                  message: "Section '${section.id}' has $count children of type '${subEntry.key}', but min-count is $minCount",
-                  lineNumber: section.lineNumber,
-                  sectionId: section.id,
-                  category: ValidationErrorCategory.countLimit,
-                ));
+                errors.add(
+                  ValidationError(
+                    message:
+                        "Section '${section.id}' has $count children of type '${subEntry.key}', but min-count is $minCount",
+                    lineNumber: section.lineNumber,
+                    sectionId: section.id,
+                    category: ValidationErrorCategory.countLimit,
+                  ),
+                );
               }
             }
           }
@@ -497,12 +535,15 @@ class DocSpecsValidator {
             final actualDepth = _getSubsectionDepth(section);
 
             if (actualDepth > maxLevels) {
-              errors.add(ValidationError(
-                message: "Section '${section.id}' has subsections nested $actualDepth levels deep, but max-subsection-levels is $maxLevels",
-                lineNumber: section.lineNumber,
-                sectionId: section.id,
-                category: ValidationErrorCategory.nestingDepth,
-              ));
+              errors.add(
+                ValidationError(
+                  message:
+                      "Section '${section.id}' has subsections nested $actualDepth levels deep, but max-subsection-levels is $maxLevels",
+                  lineNumber: section.lineNumber,
+                  sectionId: section.id,
+                  category: ValidationErrorCategory.nestingDepth,
+                ),
+              );
             }
           }
         }
@@ -536,12 +577,15 @@ class DocSpecsValidator {
           if (typeDef?.allowedTags != null) {
             for (final tag in section.tags) {
               if (!typeDef!.allowedTags!.contains(tag)) {
-                errors.add(ValidationError(
-                  message: "Tag '$tag' is not allowed for section type '${section.type}'. Allowed tags: ${typeDef.allowedTags!.join(', ')}",
-                  lineNumber: section.lineNumber,
-                  sectionId: section.id,
-                  category: ValidationErrorCategory.tags,
-                ));
+                errors.add(
+                  ValidationError(
+                    message:
+                        "Tag '$tag' is not allowed for section type '${section.type}'. Allowed tags: ${typeDef.allowedTags!.join(', ')}",
+                    lineNumber: section.lineNumber,
+                    sectionId: section.id,
+                    category: ValidationErrorCategory.tags,
+                  ),
+                );
               }
             }
           }
@@ -566,37 +610,47 @@ class DocSpecsValidator {
 
             // text-required — skip for container sections that have
             // subsections, since their content lives in children.
-            final isContainer = section.sections != null &&
-                section.sections!.isNotEmpty;
+            final isContainer =
+                section.sections != null && section.sections!.isNotEmpty;
             if (typeDef.textRequired == true &&
                 text.trim().isEmpty &&
                 !isContainer) {
-              errors.add(ValidationError(
-                message: "Section '${section.id}' requires text content",
-                lineNumber: section.lineNumber,
-                sectionId: section.id,
-                category: ValidationErrorCategory.textContent,
-              ));
+              errors.add(
+                ValidationError(
+                  message: "Section '${section.id}' requires text content",
+                  lineNumber: section.lineNumber,
+                  sectionId: section.id,
+                  category: ValidationErrorCategory.textContent,
+                ),
+              );
             }
 
             // min-text-length
-            if (typeDef.minTextLength != null && text.length < typeDef.minTextLength!) {
-              errors.add(ValidationError(
-                message: "Section '${section.id}' text is ${text.length} characters, but min-text-length is ${typeDef.minTextLength}",
-                lineNumber: section.lineNumber,
-                sectionId: section.id,
-                category: ValidationErrorCategory.textContent,
-              ));
+            if (typeDef.minTextLength != null &&
+                text.length < typeDef.minTextLength!) {
+              errors.add(
+                ValidationError(
+                  message:
+                      "Section '${section.id}' text is ${text.length} characters, but min-text-length is ${typeDef.minTextLength}",
+                  lineNumber: section.lineNumber,
+                  sectionId: section.id,
+                  category: ValidationErrorCategory.textContent,
+                ),
+              );
             }
 
             // max-text-length
-            if (typeDef.maxTextLength != null && text.length > typeDef.maxTextLength!) {
-              errors.add(ValidationError(
-                message: "Section '${section.id}' text is ${text.length} characters, but max-text-length is ${typeDef.maxTextLength}",
-                lineNumber: section.lineNumber,
-                sectionId: section.id,
-                category: ValidationErrorCategory.textContent,
-              ));
+            if (typeDef.maxTextLength != null &&
+                text.length > typeDef.maxTextLength!) {
+              errors.add(
+                ValidationError(
+                  message:
+                      "Section '${section.id}' text is ${text.length} characters, but max-text-length is ${typeDef.maxTextLength}",
+                  lineNumber: section.lineNumber,
+                  sectionId: section.id,
+                  category: ValidationErrorCategory.textContent,
+                ),
+              );
             }
           }
         }
@@ -620,12 +674,15 @@ class DocSpecsValidator {
             final regex = RegExp(pattern.pattern, caseSensitive: false);
 
             if (!regex.hasMatch(section.id)) {
-              errors.add(ValidationError(
-                message: "Invalid ID format for type '${section.type}': ${pattern.errorMessage}",
-                lineNumber: section.lineNumber,
-                sectionId: section.id,
-                category: ValidationErrorCategory.sectionId,
-              ));
+              errors.add(
+                ValidationError(
+                  message:
+                      "Invalid ID format for type '${section.type}': ${pattern.errorMessage}",
+                  lineNumber: section.lineNumber,
+                  sectionId: section.id,
+                  category: ValidationErrorCategory.sectionId,
+                ),
+              );
             }
           }
         }
@@ -649,12 +706,15 @@ class DocSpecsValidator {
             final regex = RegExp(pattern.pattern, caseSensitive: false);
 
             if (!regex.hasMatch(section.text)) {
-              errors.add(ValidationError(
-                message: "Text pattern check failed for section '${section.id}': ${pattern.errorMessage}",
-                lineNumber: section.lineNumber,
-                sectionId: section.id,
-                category: ValidationErrorCategory.textContent,
-              ));
+              errors.add(
+                ValidationError(
+                  message:
+                      "Text pattern check failed for section '${section.id}': ${pattern.errorMessage}",
+                  lineNumber: section.lineNumber,
+                  sectionId: section.id,
+                  category: ValidationErrorCategory.textContent,
+                ),
+              );
             }
           }
         }
@@ -704,21 +764,27 @@ class DocSpecsValidator {
     final match = codeBlockPattern.firstMatch(section.text);
 
     if (match == null) {
-      errors.add(ValidationError(
-        message: "Section '${section.id}' must contain a code block with format: $format",
-        lineNumber: section.lineNumber,
-        sectionId: section.id,
-        category: ValidationErrorCategory.format,
-      ));
-    } else {
-      final language = match.group(1);
-      if (language != null && !allowedLanguages.contains(language)) {
-        errors.add(ValidationError(
-          message: "Section '${section.id}' has code block with language '$language', but expected one of: $format",
+      errors.add(
+        ValidationError(
+          message:
+              "Section '${section.id}' must contain a code block with format: $format",
           lineNumber: section.lineNumber,
           sectionId: section.id,
           category: ValidationErrorCategory.format,
-        ));
+        ),
+      );
+    } else {
+      final language = match.group(1);
+      if (language != null && !allowedLanguages.contains(language)) {
+        errors.add(
+          ValidationError(
+            message:
+                "Section '${section.id}' has code block with language '$language', but expected one of: $format",
+            lineNumber: section.lineNumber,
+            sectionId: section.id,
+            category: ValidationErrorCategory.format,
+          ),
+        );
       }
     }
 
@@ -733,15 +799,18 @@ class DocSpecsValidator {
     final errors = <ValidationError>[];
     // Look up by full format name first, then without '-form' suffix for compatibility
     final formTypeName = format;
-    final formType = schema.formTypes?[formTypeName] ??
+    final formType =
+        schema.formTypes?[formTypeName] ??
         schema.formTypes?[format.substring(0, format.length - 5)];
     if (formType == null) {
-      errors.add(ValidationError(
-        message: "Form type '$formTypeName' not found in schema",
-        lineNumber: section.lineNumber,
-        sectionId: section.id,
-        category: ValidationErrorCategory.format,
-      ));
+      errors.add(
+        ValidationError(
+          message: "Form type '$formTypeName' not found in schema",
+          lineNumber: section.lineNumber,
+          sectionId: section.id,
+          category: ValidationErrorCategory.format,
+        ),
+      );
       return errors;
     }
 
@@ -751,12 +820,15 @@ class DocSpecsValidator {
         final value = section.getFormField(field.fieldname);
 
         if (value == null || value.isEmpty) {
-          errors.add(ValidationError(
-            message: "Required field '${field.fieldname}' is missing in section '${section.id}'",
-            lineNumber: section.lineNumber,
-            sectionId: section.id,
-            category: ValidationErrorCategory.format,
-          ));
+          errors.add(
+            ValidationError(
+              message:
+                  "Required field '${field.fieldname}' is missing in section '${section.id}'",
+              lineNumber: section.lineNumber,
+              sectionId: section.id,
+              category: ValidationErrorCategory.format,
+            ),
+          );
         }
       }
 
@@ -766,12 +838,15 @@ class DocSpecsValidator {
         if (value != null && value.isNotEmpty) {
           final regex = RegExp(field.patternCheck!.pattern);
           if (!regex.hasMatch(value)) {
-            errors.add(ValidationError(
-              message: "Field '${field.fieldname}' value '$value' does not match pattern: ${field.patternCheck!.errorMessage}",
-              lineNumber: section.lineNumber,
-              sectionId: section.id,
-              category: ValidationErrorCategory.format,
-            ));
+            errors.add(
+              ValidationError(
+                message:
+                    "Field '${field.fieldname}' value '$value' does not match pattern: ${field.patternCheck!.errorMessage}",
+                lineNumber: section.lineNumber,
+                sectionId: section.id,
+                category: ValidationErrorCategory.format,
+              ),
+            );
           }
         }
       }
@@ -793,13 +868,15 @@ class DocSpecsValidator {
             for (final fieldName in typeDef!.requiredFields!) {
               final value = section.fields[fieldName];
               if (value == null || value.isEmpty) {
-                errors.add(ValidationError(
-                  message:
-                      "Required field '$fieldName' is missing in section '${section.id}' (type '${section.type}')",
-                  lineNumber: section.lineNumber,
-                  sectionId: section.id,
-                  category: ValidationErrorCategory.format,
-                ));
+                errors.add(
+                  ValidationError(
+                    message:
+                        "Required field '$fieldName' is missing in section '${section.id}' (type '${section.type}')",
+                    lineNumber: section.lineNumber,
+                    sectionId: section.id,
+                    category: ValidationErrorCategory.format,
+                  ),
+                );
               }
             }
           }
@@ -817,7 +894,9 @@ class DocSpecsValidator {
     for (final info in sections) {
       if (info.section is SpecSection) {
         final section = info.section as SpecSection;
-        if (section.type != null && section.sections != null && section.sections!.isNotEmpty) {
+        if (section.type != null &&
+            section.sections != null &&
+            section.sections!.isNotEmpty) {
           final typeDef = schema.sectionTypes[section.type];
           if (typeDef?.subsectionTypes != null) {
             final allowedTypes = typeDef!.subsectionTypes!.keys.toSet();
@@ -828,13 +907,15 @@ class DocSpecsValidator {
                 // auto-generated IDs inheriting the parent's prefix.
                 if (child.type == section.type) continue;
                 if (!allowedTypes.contains(child.type)) {
-                  errors.add(ValidationError(
-                    message:
-                        "Section '${section.id}' (type '${section.type}') does not allow child type '${child.type}'. Allowed: ${allowedTypes.join(', ')}",
-                    lineNumber: child.lineNumber,
-                    sectionId: child.id,
-                    category: ValidationErrorCategory.sectionType,
-                  ));
+                  errors.add(
+                    ValidationError(
+                      message:
+                          "Section '${section.id}' (type '${section.type}') does not allow child type '${child.type}'. Allowed: ${allowedTypes.join(', ')}",
+                      lineNumber: child.lineNumber,
+                      sectionId: child.id,
+                      category: ValidationErrorCategory.sectionType,
+                    ),
+                  );
                 }
               }
             }
@@ -863,13 +944,15 @@ class DocSpecsValidator {
           }
         }
         if (sectionDef != null && section.type != sectionDef.sectionType) {
-          errors.add(ValidationError(
-            message:
-                "Section '${section.id}' has type '${section.type}' but document structure declares it as type '${sectionDef.sectionType}'",
-            lineNumber: section.lineNumber,
-            sectionId: section.id,
-            category: ValidationErrorCategory.structure,
-          ));
+          errors.add(
+            ValidationError(
+              message:
+                  "Section '${section.id}' has type '${section.type}' but document structure declares it as type '${sectionDef.sectionType}'",
+              lineNumber: section.lineNumber,
+              sectionId: section.id,
+              category: ValidationErrorCategory.structure,
+            ),
+          );
         }
       }
     }
@@ -907,7 +990,8 @@ class DocSpecsValidator {
       final registryKeys = <String>{};
       void collectRegistryEntries(Section section) {
         if (section is SpecSection && section.type == registryType) {
-          final keyValue = section.fields[keyField] ?? section.getFormField(keyField);
+          final keyValue =
+              section.fields[keyField] ?? section.getFormField(keyField);
           if (keyValue != null && keyValue.isNotEmpty) {
             registryKeys.add(keyValue);
           }
@@ -929,7 +1013,9 @@ class DocSpecsValidator {
       final subsectionKeys = <String>{};
       for (final targetSection in targetSections) {
         // Check the target section itself
-        final keyValue = targetSection.fields[keyField] ?? targetSection.getFormField(keyField);
+        final keyValue =
+            targetSection.fields[keyField] ??
+            targetSection.getFormField(keyField);
         if (keyValue != null && keyValue.isNotEmpty) {
           subsectionKeys.add(keyValue);
         }
@@ -937,7 +1023,8 @@ class DocSpecsValidator {
         if (targetSection.sections != null) {
           for (final child in targetSection.sections!) {
             if (child is SpecSection) {
-              final childKey = child.fields[keyField] ?? child.getFormField(keyField);
+              final childKey =
+                  child.fields[keyField] ?? child.getFormField(keyField);
               if (childKey != null && childKey.isNotEmpty) {
                 subsectionKeys.add(childKey);
               }
@@ -949,24 +1036,28 @@ class DocSpecsValidator {
       // Check: every registry entry should have a corresponding subsection
       for (final key in registryKeys) {
         if (!subsectionKeys.contains(key)) {
-          errors.add(ValidationError(
-            message:
-                "Registry entry '$key' (type '$registryType') has no corresponding subsection in '${entry.key}'",
-            sectionId: entry.key,
-            category: ValidationErrorCategory.forEach,
-          ));
+          errors.add(
+            ValidationError(
+              message:
+                  "Registry entry '$key' (type '$registryType') has no corresponding subsection in '${entry.key}'",
+              sectionId: entry.key,
+              category: ValidationErrorCategory.forEach,
+            ),
+          );
         }
       }
 
       // Check: every subsection should have a corresponding registry entry
       for (final key in subsectionKeys) {
         if (!registryKeys.contains(key)) {
-          errors.add(ValidationError(
-            message:
-                "Subsection with $keyField='$key' in '${entry.key}' has no corresponding registry entry of type '$registryType'",
-            sectionId: entry.key,
-            category: ValidationErrorCategory.forEach,
-          ));
+          errors.add(
+            ValidationError(
+              message:
+                  "Subsection with $keyField='$key' in '${entry.key}' has no corresponding registry entry of type '$registryType'",
+              sectionId: entry.key,
+              category: ValidationErrorCategory.forEach,
+            ),
+          );
         }
       }
     }
@@ -1012,18 +1103,25 @@ class DocSpecsValidator {
               (c) => c is SpecSection && c.type == subType,
             );
             if (!hasType) {
-              errors.add(ValidationError(
-                message:
-                    "Required subsection of type '$subType' is missing in section '$parentSectionName'",
-                sectionId: parentSectionName,
-                category: ValidationErrorCategory.structure,
-              ));
+              errors.add(
+                ValidationError(
+                  message:
+                      "Required subsection of type '$subType' is missing in section '$parentSectionName'",
+                  sectionId: parentSectionName,
+                  category: ValidationErrorCategory.structure,
+                ),
+              );
             }
           }
 
           // Check position constraints
           errors.addAll(
-            _checkPositionConstraint(children, subType, position, parentSectionName),
+            _checkPositionConstraint(
+              children,
+              subType,
+              position,
+              parentSectionName,
+            ),
           );
         }
       }
@@ -1060,13 +1158,15 @@ class DocSpecsValidator {
           // Check that no non-typed section appears before the last typed one
           for (var i = 0; i < lastTypedIdx; i++) {
             if (!typedIndices.contains(i)) {
-              errors.add(ValidationError(
-                message:
-                    "Subsection of type '$subType' must appear first in '$parentId', but non-'$subType' section found before it",
-                lineNumber: children[typedIndices.last].lineNumber,
-                sectionId: parentId,
-                category: ValidationErrorCategory.structure,
-              ));
+              errors.add(
+                ValidationError(
+                  message:
+                      "Subsection of type '$subType' must appear first in '$parentId', but non-'$subType' section found before it",
+                  lineNumber: children[typedIndices.last].lineNumber,
+                  sectionId: parentId,
+                  category: ValidationErrorCategory.structure,
+                ),
+              );
               break;
             }
           }
@@ -1077,13 +1177,15 @@ class DocSpecsValidator {
           final firstTypedIdx = typedIndices.first;
           for (var i = firstTypedIdx + 1; i < children.length; i++) {
             if (!typedIndices.contains(i)) {
-              errors.add(ValidationError(
-                message:
-                    "Subsection of type '$subType' must appear last in '$parentId', but non-'$subType' section found after it",
-                lineNumber: children[firstTypedIdx].lineNumber,
-                sectionId: parentId,
-                category: ValidationErrorCategory.structure,
-              ));
+              errors.add(
+                ValidationError(
+                  message:
+                      "Subsection of type '$subType' must appear last in '$parentId', but non-'$subType' section found after it",
+                  lineNumber: children[firstTypedIdx].lineNumber,
+                  sectionId: parentId,
+                  category: ValidationErrorCategory.structure,
+                ),
+              );
               break;
             }
           }
@@ -1092,13 +1194,15 @@ class DocSpecsValidator {
         // All instances of this type must be contiguous (together)
         for (var i = 1; i < typedIndices.length; i++) {
           if (typedIndices[i] != typedIndices[i - 1] + 1) {
-            errors.add(ValidationError(
-              message:
-                  "Subsections of type '$subType' must be contiguous in '$parentId', but they are separated by other sections",
-              lineNumber: children[typedIndices[i]].lineNumber,
-              sectionId: parentId,
-              category: ValidationErrorCategory.structure,
-            ));
+            errors.add(
+              ValidationError(
+                message:
+                    "Subsections of type '$subType' must be contiguous in '$parentId', but they are separated by other sections",
+                lineNumber: children[typedIndices[i]].lineNumber,
+                sectionId: parentId,
+                category: ValidationErrorCategory.structure,
+              ),
+            );
             break;
           }
         }
@@ -1114,9 +1218,5 @@ class _SectionInfo {
   final int depth;
   final Section? parent;
 
-  const _SectionInfo({
-    required this.section,
-    required this.depth,
-    this.parent,
-  });
+  const _SectionInfo({required this.section, required this.depth, this.parent});
 }

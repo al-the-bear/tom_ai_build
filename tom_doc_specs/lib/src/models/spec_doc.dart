@@ -76,8 +76,8 @@ class SpecDoc extends Document {
     List<String>? validationErrors,
     Map<String, String>? accessKeys,
     this.wasValidated = false,
-  })  : validationErrors = validationErrors ?? [],
-        _accessKeys = accessKeys ?? const {};
+  }) : validationErrors = validationErrors ?? [],
+       _accessKeys = accessKeys ?? const {};
 
   /// Creates a SpecDoc from a base Document with additional properties.
   factory SpecDoc.fromDocument(
@@ -127,8 +127,8 @@ class SpecDoc extends Document {
           : const {},
       sections: json['sections'] != null
           ? (json['sections'] as List)
-              .map((s) => SpecSection.fromJson(s as Map<String, dynamic>))
-              .toList()
+                .map((s) => SpecSection.fromJson(s as Map<String, dynamic>))
+                .toList()
           : null,
       filenameWithPath: json['filenameWithPath'] as String,
       loadTimestamp: json['loadTimestamp'] as String,

@@ -14,16 +14,12 @@ import 'schema_expander.dart';
 /// to extract an optional version (e.g., `name-1.0.docspecs-schema.yaml`).
 class SchemaFilenameParser {
   /// Extension pattern for schema files.
-  static final _extensionPattern = RegExp(
-    r'\.docspecs-schema\.ya?ml$',
-  );
+  static final _extensionPattern = RegExp(r'\.docspecs-schema\.ya?ml$');
 
   /// Optional version suffix in the name part.
   /// Matches both dash and dot separators:
   ///   `name-1.0`, `name.1.0`, `name-1.0.0`, `name.1.0.0`
-  static final _versionPattern = RegExp(
-    r'^(.+?)[.-](\d+\.\d+(?:\.\d+)?)$',
-  );
+  static final _versionPattern = RegExp(r'^(.+?)[.-](\d+\.\d+(?:\.\d+)?)$');
 
   /// Checks whether a filename has a valid schema extension.
   static bool isSchemaFile(String filename) {
@@ -46,10 +42,7 @@ class SchemaFilenameParser {
     // Try to extract version from the name part.
     final versionMatch = _versionPattern.firstMatch(namePart);
     if (versionMatch != null) {
-      return (
-        id: versionMatch.group(1)!,
-        version: versionMatch.group(2)!,
-      );
+      return (id: versionMatch.group(1)!, version: versionMatch.group(2)!);
     }
 
     return (id: namePart, version: '1.0');
@@ -112,7 +105,9 @@ class SchemaLoader {
   static dynamic _deepConvertYaml(dynamic value) {
     if (value is Map) {
       return Map<String, dynamic>.fromEntries(
-        value.entries.map((e) => MapEntry(e.key.toString(), _deepConvertYaml(e.value))),
+        value.entries.map(
+          (e) => MapEntry(e.key.toString(), _deepConvertYaml(e.value)),
+        ),
       );
     }
     if (value is List) {
@@ -614,7 +609,8 @@ class SchemaResolver {
 
   /// Searches the user schema folder.
   static Future<DocSpecSchema?> _searchUserFolder(String schemaId) async {
-    final home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+    final home =
+        Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
     if (home == null) return null;
 
     final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
@@ -628,7 +624,8 @@ class SchemaResolver {
 
   /// Searches user folder synchronously.
   static DocSpecSchema? _searchUserFolderSync(String schemaId) {
-    final home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+    final home =
+        Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
     if (home == null) return null;
 
     final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
@@ -683,10 +680,7 @@ class SchemaResolver {
   }
 
   /// Finds schema file synchronously.
-  static String? _findSchemaInFolderSync(
-    String folderPath,
-    String schemaId,
-  ) {
+  static String? _findSchemaInFolderSync(String folderPath, String schemaId) {
     final dir = Directory(folderPath);
     if (!dir.existsSync()) return null;
 
@@ -738,11 +732,7 @@ class SchemaDiscovery {
 
     // Search local folders
     if (documentPath != null) {
-      await _discoverLocalSchemas(
-        schemas,
-        documentPath,
-        workspaceRoot,
-      );
+      await _discoverLocalSchemas(schemas, documentPath, workspaceRoot);
     }
 
     // Search user folder
@@ -832,7 +822,8 @@ class SchemaDiscovery {
   static Future<void> _discoverUserSchemas(
     Map<String, SchemaInfo> schemas,
   ) async {
-    final home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+    final home =
+        Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
     if (home == null) return;
 
     final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
@@ -845,7 +836,8 @@ class SchemaDiscovery {
   }
 
   static void _discoverUserSchemasSync(Map<String, SchemaInfo> schemas) {
-    final home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+    final home =
+        Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
     if (home == null) return;
 
     final userSchemaDir = path.join(home, '.tom', 'docspecs-schema');
@@ -870,12 +862,14 @@ class SchemaDiscovery {
         final filename = path.basename(entity.path);
         final parsed = SchemaFilenameParser.parse(filename);
         if (parsed != null) {
-          schemas.add(SchemaInfo(
-            id: parsed.id,
-            version: parsed.version,
-            path: entity.path,
-            source: source,
-          ));
+          schemas.add(
+            SchemaInfo(
+              id: parsed.id,
+              version: parsed.version,
+              path: entity.path,
+              source: source,
+            ),
+          );
         }
       }
     }
@@ -894,12 +888,14 @@ class SchemaDiscovery {
         final filename = path.basename(entity.path);
         final parsed = SchemaFilenameParser.parse(filename);
         if (parsed != null) {
-          schemas.add(SchemaInfo(
-            id: parsed.id,
-            version: parsed.version,
-            path: entity.path,
-            source: source,
-          ));
+          schemas.add(
+            SchemaInfo(
+              id: parsed.id,
+              version: parsed.version,
+              path: entity.path,
+              source: source,
+            ),
+          );
         }
       }
     }

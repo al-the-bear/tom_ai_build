@@ -17,7 +17,8 @@ String _fixturesPath() {
     if (Directory(c).existsSync()) return c;
   }
   throw StateError(
-      'Cannot find test/fixtures directory from ${Directory.current.path}');
+    'Cannot find test/fixtures directory from ${Directory.current.path}',
+  );
 }
 
 void main() {
@@ -28,10 +29,16 @@ void main() {
   });
 
   test('demo document (docspecs_test_document) validates without errors', () {
-    final schemaPath =
-        p.join(fixturesPath, 'schemas', 'specification.1.0.docspecs-schema.yaml');
-    final docPath =
-        p.join(fixturesPath, 'documents', 'docspecs-test-document.md');
+    final schemaPath = p.join(
+      fixturesPath,
+      'schemas',
+      'specification.1.0.docspecs-schema.yaml',
+    );
+    final docPath = p.join(
+      fixturesPath,
+      'documents',
+      'docspecs-test-document.md',
+    );
 
     final schema = SchemaLoader.loadSync(schemaPath);
     final factory = DocSpecsFactory(schema: schema);
@@ -49,19 +56,30 @@ void main() {
     if (errors.isNotEmpty) {
       print('--- ${errors.length} validation errors ---');
       for (final e in errors) {
-        print('  [${e.category}] ${e.message} (line ${e.lineNumber}, section: ${e.sectionId})');
+        print(
+          '  [${e.category}] ${e.message} (line ${e.lineNumber}, section: ${e.sectionId})',
+        );
       }
     }
 
-    expect(errors, isEmpty,
-        reason: 'Demo document should validate without errors');
+    expect(
+      errors,
+      isEmpty,
+      reason: 'Demo document should validate without errors',
+    );
   });
 
   test('schema test document validates without errors', () {
-    final schemaPath =
-        p.join(fixturesPath, 'schemas', 'schema-test.1.0.docspecs-schema.yaml');
-    final docPath =
-        p.join(fixturesPath, 'documents', 'schema-test-document.md');
+    final schemaPath = p.join(
+      fixturesPath,
+      'schemas',
+      'schema-test.1.0.docspecs-schema.yaml',
+    );
+    final docPath = p.join(
+      fixturesPath,
+      'documents',
+      'schema-test-document.md',
+    );
 
     final schema = SchemaLoader.loadSync(schemaPath);
     final factory = DocSpecsFactory(schema: schema);
@@ -79,11 +97,16 @@ void main() {
     if (errors.isNotEmpty) {
       print('--- ${errors.length} validation errors ---');
       for (final e in errors) {
-        print('  [${e.category}] ${e.message} (line ${e.lineNumber}, section: ${e.sectionId})');
+        print(
+          '  [${e.category}] ${e.message} (line ${e.lineNumber}, section: ${e.sectionId})',
+        );
       }
     }
 
-    expect(errors, isEmpty,
-        reason: 'Schema test document should validate without errors');
+    expect(
+      errors,
+      isEmpty,
+      reason: 'Schema test document should validate without errors',
+    );
   });
 }

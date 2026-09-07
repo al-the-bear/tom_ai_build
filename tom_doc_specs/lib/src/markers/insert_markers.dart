@@ -49,8 +49,9 @@ class InsertMarker {
 /// Parses `<!--$insert:...-->` markers from markdown text.
 class InsertMarkerParser {
   /// Start marker regex: `<!--$insert:{variable}-->`
-  static final _startPattern =
-      RegExp(r'^<!--\$insert:([a-zA-Z][a-zA-Z0-9_.]+)-->$');
+  static final _startPattern = RegExp(
+    r'^<!--\$insert:([a-zA-Z][a-zA-Z0-9_.]+)-->$',
+  );
 
   /// End marker regex: `<!--$end-insert-->`
   static final _endPattern = RegExp(r'^<!--\$end-insert-->$');
@@ -92,12 +93,14 @@ class InsertMarkerParser {
             'Found <!--\$end-insert--> at line $lineNumber without a matching start marker.',
           );
         }
-        markers.add(InsertMarker(
-          variable: currentVariable,
-          startLine: startLine!,
-          endLine: lineNumber,
-          content: contentLines.join('\n'),
-        ));
+        markers.add(
+          InsertMarker(
+            variable: currentVariable,
+            startLine: startLine!,
+            endLine: lineNumber,
+            content: contentLines.join('\n'),
+          ),
+        );
         currentVariable = null;
         startLine = null;
         contentLines.clear();

@@ -30,9 +30,9 @@ class SchemaExpander {
   /// The [yamlMap] is the full parsed schema YAML. Custom tags are all
   /// top-level keys that are not reserved schema keys.
   SchemaExpander(Map<String, dynamic> yamlMap)
-      : _data = Map<String, dynamic>.fromEntries(
-          yamlMap.entries.where((e) => !_reservedKeys.contains(e.key)),
-        );
+    : _data = Map<String, dynamic>.fromEntries(
+        yamlMap.entries.where((e) => !_reservedKeys.contains(e.key)),
+      );
 
   /// Regex for matching `[[...]]` patterns.
   static final _expansionPattern = RegExp(r'(?<!\\)\[\[(.+?)\]\]');
@@ -68,10 +68,12 @@ class SchemaExpander {
 
   /// Expands all `[[...]]` patterns in a string.
   String _expandString(String input) {
-    return input.replaceAllMapped(_expansionPattern, (match) {
-      final content = match.group(1)!;
-      return _resolve(content);
-    }).replaceAll(r'\[\[', '[[');
+    return input
+        .replaceAllMapped(_expansionPattern, (match) {
+          final content = match.group(1)!;
+          return _resolve(content);
+        })
+        .replaceAll(r'\[\[', '[[');
   }
 
   /// Resolves a single `[[content]]` expression.
@@ -113,8 +115,12 @@ class SchemaExpander {
 
     // Split key:field
     final colonIndex = fieldSelector.indexOf(':');
-    final key = colonIndex >= 0 ? fieldSelector.substring(0, colonIndex) : fieldSelector;
-    final field = colonIndex >= 0 ? fieldSelector.substring(colonIndex + 1) : null;
+    final key = colonIndex >= 0
+        ? fieldSelector.substring(0, colonIndex)
+        : fieldSelector;
+    final field = colonIndex >= 0
+        ? fieldSelector.substring(colonIndex + 1)
+        : null;
 
     final data = _data[key];
     if (data == null) return '[[$selector;$separator]]';

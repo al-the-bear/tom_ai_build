@@ -192,10 +192,14 @@ Future<void> _validate(_Args args) async {
         unvalidatedCount++;
         if (!args.quiet) {
           print('? ${_relativePath(filePath)}');
-          print('    No schema declared and none given — nothing was '
-              'validated.');
-          print('    Declare one with `<!-- docspec: <id>/<version> -->` in '
-              'the document preamble,');
+          print(
+            '    No schema declared and none given — nothing was '
+            'validated.',
+          );
+          print(
+            '    Declare one with `<!-- docspec: <id>/<version> -->` in '
+            'the document preamble,',
+          );
           print('    or pass `-schema=<id>`.');
         }
       } else if (doc.isValid) {
@@ -227,14 +231,17 @@ Future<void> _validate(_Args args) async {
 
   if (!args.quiet) {
     print('');
-    final unvalidated =
-        unvalidatedCount > 0 ? ', $unvalidatedCount not validated' : '';
+    final unvalidated = unvalidatedCount > 0
+        ? ', $unvalidatedCount not validated'
+        : '';
     print('Results: $validCount valid, $invalidCount invalid$unvalidated');
     if (unvalidatedCount > 0) {
       // Said plainly, because "0 invalid" beside a row of unchecked documents
       // is exactly how an unvalidated tree passes for a validated one.
-      print('$unvalidatedCount document(s) were not checked against any '
-          'schema. "0 invalid" does not mean they are correct.');
+      print(
+        '$unvalidatedCount document(s) were not checked against any '
+        'schema. "0 invalid" does not mean they are correct.',
+      );
     }
   }
 
@@ -312,7 +319,11 @@ void _listSchemas(_Args args) {
     bySource.putIfAbsent(schema.source, () => []).add(schema);
   }
 
-  for (final source in [SchemaSource.local, SchemaSource.user, SchemaSource.builtin]) {
+  for (final source in [
+    SchemaSource.local,
+    SchemaSource.user,
+    SchemaSource.builtin,
+  ]) {
     final group = bySource[source];
     if (group == null || group.isEmpty) continue;
 
@@ -402,7 +413,10 @@ Future<void> _writeDocument(
 
   final basename = p.basenameWithoutExtension(
     doc.filename.endsWith('.docspec.md')
-        ? doc.filename.substring(0, doc.filename.length - '.docspec.md'.length + '.md'.length)
+        ? doc.filename.substring(
+            0,
+            doc.filename.length - '.docspec.md'.length + '.md'.length,
+          )
         : doc.filename,
   );
 

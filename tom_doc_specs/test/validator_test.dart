@@ -89,8 +89,7 @@ void main() {
   List<ValidationError> errorsOf(
     List<ValidationError> errors,
     ValidationErrorCategory category,
-  ) =>
-      errors.where((e) => e.category == category).toList();
+  ) => errors.where((e) => e.category == category).toList();
 
   // ---------------------------------------------------------------------------
   // 1. Document structure — required sections (type-based matching)
@@ -99,19 +98,28 @@ void main() {
     test('passes when all required sections are present by type', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
           'configuration': const SectionTypeDef(
-              name: 'configuration', prefix: 'config'),
+            name: 'configuration',
+            prefix: 'config',
+          ),
         },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-          'configuration': const SectionDef(sectionType: 'configuration'),
-        }),
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(sectionType: 'overview'),
+            'configuration': const SectionDef(sectionType: 'configuration'),
+          },
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'overview', type: 'overview'),
-        makeSection(id: 'config-001', type: 'configuration', index: 1),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'overview', type: 'overview'),
+          makeSection(id: 'config-001', type: 'configuration', index: 1),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.structure), isEmpty);
@@ -120,42 +128,59 @@ void main() {
     test('reports missing required section when type not present', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
           'requirements-section': const SectionTypeDef(
-              name: 'requirements-section', prefix: 'requirements'),
+            name: 'requirements-section',
+            prefix: 'requirements',
+          ),
         },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-          'requirements':
-              const SectionDef(sectionType: 'requirements-section'),
-        }),
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(sectionType: 'overview'),
+            'requirements': const SectionDef(
+              sectionType: 'requirements-section',
+            ),
+          },
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'overview', type: 'overview'),
-      ]);
+      final doc = makeDocument(
+        sections: [makeSection(id: 'overview', type: 'overview')],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       final structErrors = errorsOf(errors, ValidationErrorCategory.structure);
       expect(structErrors, hasLength(1));
-      expect(structErrors.first.message,
-          contains("Required section 'requirements'"));
+      expect(
+        structErrors.first.message,
+        contains("Required section 'requirements'"),
+      );
     });
 
     test('does not report missing optional sections', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
           'glossary': const SectionTypeDef(name: 'glossary', prefix: 'gloss'),
         },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-          'glossary':
-              const SectionDef(sectionType: 'glossary', optional: true),
-        }),
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(sectionType: 'overview'),
+            'glossary': const SectionDef(
+              sectionType: 'glossary',
+              optional: true,
+            ),
+          },
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'overview', type: 'overview'),
-      ]);
+      final doc = makeDocument(
+        sections: [makeSection(id: 'overview', type: 'overview')],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.structure), isEmpty);
@@ -164,13 +189,18 @@ void main() {
     test('reports all missing required sections on empty document', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
           'details': const SectionTypeDef(name: 'details', prefix: 'detail'),
         },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-          'details': const SectionDef(sectionType: 'details'),
-        }),
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(sectionType: 'overview'),
+            'details': const SectionDef(sectionType: 'details'),
+          },
+        ),
       );
       final doc = makeDocument(sections: []);
 
@@ -184,29 +214,46 @@ void main() {
       // section type "configuration" via prefix "config"
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
           'configuration': const SectionTypeDef(
-              name: 'configuration', prefix: 'config'),
+            name: 'configuration',
+            prefix: 'config',
+          ),
           'requirements-section': const SectionTypeDef(
-              name: 'requirements-section', prefix: 'requirements'),
+            name: 'requirements-section',
+            prefix: 'requirements',
+          ),
         },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-          'config': const SectionDef(sectionType: 'configuration'),
-          'requirements':
-              const SectionDef(sectionType: 'requirements-section'),
-        }),
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(sectionType: 'overview'),
+            'config': const SectionDef(sectionType: 'configuration'),
+            'requirements': const SectionDef(
+              sectionType: 'requirements-section',
+            ),
+          },
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'overview', type: 'overview'),
-        makeSection(
-            id: 'config-001', type: 'configuration', index: 1, lineNumber: 20),
-        makeSection(
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'overview', type: 'overview'),
+          makeSection(
+            id: 'config-001',
+            type: 'configuration',
+            index: 1,
+            lineNumber: 20,
+          ),
+          makeSection(
             id: 'requirements-main',
             type: 'requirements-section',
             index: 2,
-            lineNumber: 30),
-      ]);
+            lineNumber: 30,
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.structure), isEmpty);
@@ -222,21 +269,31 @@ void main() {
         sectionTypes: {
           'intro': const SectionTypeDef(name: 'intro', prefix: 'intro'),
           'body': const SectionTypeDef(name: 'body', prefix: 'body'),
-          'conclusion':
-              const SectionTypeDef(name: 'conclusion', prefix: 'conclusion'),
+          'conclusion': const SectionTypeDef(
+            name: 'conclusion',
+            prefix: 'conclusion',
+          ),
         },
-        document: DocumentStructure(sections: {
-          'introduction': const SectionDef(sectionType: 'intro'),
-          'body': const SectionDef(sectionType: 'body'),
-          'conclusion': const SectionDef(sectionType: 'conclusion'),
-        }),
+        document: DocumentStructure(
+          sections: {
+            'introduction': const SectionDef(sectionType: 'intro'),
+            'body': const SectionDef(sectionType: 'body'),
+            'conclusion': const SectionDef(sectionType: 'conclusion'),
+          },
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'intro-1', type: 'intro', lineNumber: 5),
-        makeSection(id: 'body-main', type: 'body', index: 1, lineNumber: 15),
-        makeSection(
-            id: 'conclusion-1', type: 'conclusion', index: 2, lineNumber: 25),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'intro-1', type: 'intro', lineNumber: 5),
+          makeSection(id: 'body-main', type: 'body', index: 1, lineNumber: 15),
+          makeSection(
+            id: 'conclusion-1',
+            type: 'conclusion',
+            index: 2,
+            lineNumber: 25,
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.structure), isEmpty);
@@ -247,26 +304,33 @@ void main() {
         sectionTypes: {
           'intro': const SectionTypeDef(name: 'intro', prefix: 'intro'),
           'body': const SectionTypeDef(name: 'body', prefix: 'body'),
-          'conclusion':
-              const SectionTypeDef(name: 'conclusion', prefix: 'conclusion'),
+          'conclusion': const SectionTypeDef(
+            name: 'conclusion',
+            prefix: 'conclusion',
+          ),
         },
-        document: DocumentStructure(sections: {
-          'introduction': const SectionDef(sectionType: 'intro'),
-          'body': const SectionDef(sectionType: 'body'),
-          'conclusion': const SectionDef(sectionType: 'conclusion'),
-        }),
+        document: DocumentStructure(
+          sections: {
+            'introduction': const SectionDef(sectionType: 'intro'),
+            'body': const SectionDef(sectionType: 'body'),
+            'conclusion': const SectionDef(sectionType: 'conclusion'),
+          },
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(
-            id: 'conclusion-1', type: 'conclusion', lineNumber: 5),
-        makeSection(id: 'intro-1', type: 'intro', index: 1, lineNumber: 15),
-        makeSection(id: 'body-main', type: 'body', index: 2, lineNumber: 25),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'conclusion-1', type: 'conclusion', lineNumber: 5),
+          makeSection(id: 'intro-1', type: 'intro', index: 1, lineNumber: 15),
+          makeSection(id: 'body-main', type: 'body', index: 2, lineNumber: 25),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       final structErrors = errorsOf(errors, ValidationErrorCategory.structure);
-      expect(structErrors.any((e) => e.message.contains('out of order')),
-          isTrue);
+      expect(
+        structErrors.any((e) => e.message.contains('out of order')),
+        isTrue,
+      );
     });
   });
 
@@ -323,12 +387,15 @@ void main() {
     test('reports unknown section type (null type)', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'unknown-001', type: null),
-      ]);
+      final doc = makeDocument(
+        sections: [makeSection(id: 'unknown-001', type: null)],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.sectionType), isNotEmpty);
@@ -337,14 +404,19 @@ void main() {
     test('passes when all sections have valid types', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
           'note': const SectionTypeDef(name: 'note', prefix: 'note'),
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'overview', type: 'overview'),
-        makeSection(id: 'note-001', type: 'note', index: 1),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'overview', type: 'overview'),
+          makeSection(id: 'note-001', type: 'note', index: 1),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.sectionType), isEmpty);
@@ -357,10 +429,12 @@ void main() {
   group('unique section IDs', () {
     test('reports duplicate IDs', () {
       final schema = makeSchema();
-      final doc = makeDocument(sections: [
-        makeSection(id: 'dup-001', lineNumber: 10),
-        makeSection(id: 'dup-001', lineNumber: 20, index: 1),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'dup-001', lineNumber: 10),
+          makeSection(id: 'dup-001', lineNumber: 20, index: 1),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.sectionId), isNotEmpty);
@@ -368,10 +442,12 @@ void main() {
 
     test('passes with unique IDs', () {
       final schema = makeSchema();
-      final doc = makeDocument(sections: [
-        makeSection(id: 'sec-001', lineNumber: 10),
-        makeSection(id: 'sec-002', lineNumber: 20, index: 1),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'sec-001', lineNumber: 10),
+          makeSection(id: 'sec-002', lineNumber: 20, index: 1),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.sectionId), isEmpty);
@@ -379,16 +455,16 @@ void main() {
 
     test('reports duplicate IDs in nested sections', () {
       final schema = makeSchema();
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'parent',
-          lineNumber: 5,
-          sections: [
-            makeSection(id: 'child-001', lineNumber: 10),
-          ],
-        ),
-        makeSection(id: 'child-001', lineNumber: 20, index: 1),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'parent',
+            lineNumber: 5,
+            sections: [makeSection(id: 'child-001', lineNumber: 10)],
+          ),
+          makeSection(id: 'child-001', lineNumber: 20, index: 1),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.sectionId), isNotEmpty);
@@ -400,138 +476,193 @@ void main() {
   // ---------------------------------------------------------------------------
   group('count limits', () {
     test('reports exceeding max-count-in-document', () {
-      final schema = makeSchema(sectionTypes: {
-        'note': const SectionTypeDef(
-            name: 'note', prefix: 'note', maxCountInDocument: 1),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'note-001', type: 'note'),
-        makeSection(id: 'note-002', type: 'note', index: 1),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'note': const SectionTypeDef(
+            name: 'note',
+            prefix: 'note',
+            maxCountInDocument: 1,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'note-001', type: 'note'),
+          makeSection(id: 'note-002', type: 'note', index: 1),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.countLimit), isNotEmpty);
     });
 
     test('passes when within max-count-in-document', () {
-      final schema = makeSchema(sectionTypes: {
-        'note': const SectionTypeDef(
-            name: 'note', prefix: 'note', maxCountInDocument: 2),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'note-001', type: 'note'),
-        makeSection(id: 'note-002', type: 'note', index: 1),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'note': const SectionTypeDef(
+            name: 'note',
+            prefix: 'note',
+            maxCountInDocument: 2,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'note-001', type: 'note'),
+          makeSection(id: 'note-002', type: 'note', index: 1),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.countLimit), isEmpty);
     });
 
     test('reports below min-count-in-document', () {
-      final schema = makeSchema(sectionTypes: {
-        'note': const SectionTypeDef(
-            name: 'note', prefix: 'note', minCountInDocument: 2),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'note-001', type: 'note'),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'note': const SectionTypeDef(
+            name: 'note',
+            prefix: 'note',
+            minCountInDocument: 2,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [makeSection(id: 'note-001', type: 'note')],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.countLimit), isNotEmpty);
     });
 
     test('passes when within min-count-in-document', () {
-      final schema = makeSchema(sectionTypes: {
-        'note': const SectionTypeDef(
-            name: 'note', prefix: 'note', minCountInDocument: 1),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'note-001', type: 'note'),
-        makeSection(id: 'note-002', type: 'note', index: 1),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'note': const SectionTypeDef(
+            name: 'note',
+            prefix: 'note',
+            minCountInDocument: 1,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'note-001', type: 'note'),
+          makeSection(id: 'note-002', type: 'note', index: 1),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.countLimit), isEmpty);
     });
 
     test('reports exceeding subsection max-count', () {
-      final schema = makeSchema(sectionTypes: {
-        'project': SectionTypeDef(
-          name: 'project',
-          prefix: 'proj',
-          subsectionTypes: {
-            'note': const SubsectionConstraint(typeName: 'note', maxCount: 1),
-          },
-        ),
-        'note': const SectionTypeDef(name: 'note', prefix: 'note'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'proj-main',
-          type: 'project',
-          sections: [
-            makeSection(id: 'note-001', type: 'note', lineNumber: 15),
-            makeSection(
-                id: 'note-002', type: 'note', index: 1, lineNumber: 20),
-          ],
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'project': SectionTypeDef(
+            name: 'project',
+            prefix: 'proj',
+            subsectionTypes: {
+              'note': const SubsectionConstraint(typeName: 'note', maxCount: 1),
+            },
+          ),
+          'note': const SectionTypeDef(name: 'note', prefix: 'note'),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'proj-main',
+            type: 'project',
+            sections: [
+              makeSection(id: 'note-001', type: 'note', lineNumber: 15),
+              makeSection(
+                id: 'note-002',
+                type: 'note',
+                index: 1,
+                lineNumber: 20,
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.countLimit), isNotEmpty);
     });
 
     test('reports below subsection min-count', () {
-      final schema = makeSchema(sectionTypes: {
-        'project': SectionTypeDef(
-          name: 'project',
-          prefix: 'proj',
-          subsectionTypes: {
-            'requirement': const SubsectionConstraint(
-                typeName: 'requirement', minCount: 2),
-          },
-        ),
-        'requirement':
-            const SectionTypeDef(name: 'requirement', prefix: 'req'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'proj-main',
-          type: 'project',
-          sections: [
-            makeSection(id: 'req-001', type: 'requirement', lineNumber: 15),
-          ],
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'project': SectionTypeDef(
+            name: 'project',
+            prefix: 'proj',
+            subsectionTypes: {
+              'requirement': const SubsectionConstraint(
+                typeName: 'requirement',
+                minCount: 2,
+              ),
+            },
+          ),
+          'requirement': const SectionTypeDef(
+            name: 'requirement',
+            prefix: 'req',
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'proj-main',
+            type: 'project',
+            sections: [
+              makeSection(id: 'req-001', type: 'requirement', lineNumber: 15),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.countLimit), isNotEmpty);
     });
 
     test('passes when subsection counts are within range', () {
-      final schema = makeSchema(sectionTypes: {
-        'project': SectionTypeDef(
-          name: 'project',
-          prefix: 'proj',
-          subsectionTypes: {
-            'requirement': const SubsectionConstraint(
-                typeName: 'requirement', minCount: 1, maxCount: 3),
-          },
-        ),
-        'requirement':
-            const SectionTypeDef(name: 'requirement', prefix: 'req'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'proj-main',
-          type: 'project',
-          sections: [
-            makeSection(id: 'req-001', type: 'requirement', lineNumber: 15),
-            makeSection(
-                id: 'req-002', type: 'requirement', index: 1, lineNumber: 20),
-          ],
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'project': SectionTypeDef(
+            name: 'project',
+            prefix: 'proj',
+            subsectionTypes: {
+              'requirement': const SubsectionConstraint(
+                typeName: 'requirement',
+                minCount: 1,
+                maxCount: 3,
+              ),
+            },
+          ),
+          'requirement': const SectionTypeDef(
+            name: 'requirement',
+            prefix: 'req',
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'proj-main',
+            type: 'project',
+            sections: [
+              makeSection(id: 'req-001', type: 'requirement', lineNumber: 15),
+              makeSection(
+                id: 'req-002',
+                type: 'requirement',
+                index: 1,
+                lineNumber: 20,
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.countLimit), isEmpty);
@@ -543,76 +674,95 @@ void main() {
   // ---------------------------------------------------------------------------
   group('nesting depth', () {
     test('reports exceeding max-subsection-levels of 0', () {
-      final schema = makeSchema(sectionTypes: {
-        'item': const SectionTypeDef(
-            name: 'item', prefix: 'item', maxSubsectionLevels: 0),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'item-parent',
-          type: 'item',
-          sections: [
-            makeSection(id: 'item-child', type: 'item'),
-          ],
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'item': const SectionTypeDef(
+            name: 'item',
+            prefix: 'item',
+            maxSubsectionLevels: 0,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'item-parent',
+            type: 'item',
+            sections: [makeSection(id: 'item-child', type: 'item')],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-          errorsOf(errors, ValidationErrorCategory.nestingDepth), isNotEmpty);
+        errorsOf(errors, ValidationErrorCategory.nestingDepth),
+        isNotEmpty,
+      );
     });
 
     test('passes when nesting is within limits', () {
-      final schema = makeSchema(sectionTypes: {
-        'container': const SectionTypeDef(
-            name: 'container', prefix: 'container', maxSubsectionLevels: 2),
-        'item': const SectionTypeDef(name: 'item', prefix: 'item'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'container-1',
-          type: 'container',
-          sections: [
-            makeSection(
-              id: 'item-a',
-              type: 'item',
-              sections: [
-                makeSection(id: 'item-nested', type: 'item'),
-              ],
-            ),
-          ],
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'container': const SectionTypeDef(
+            name: 'container',
+            prefix: 'container',
+            maxSubsectionLevels: 2,
+          ),
+          'item': const SectionTypeDef(name: 'item', prefix: 'item'),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'container-1',
+            type: 'container',
+            sections: [
+              makeSection(
+                id: 'item-a',
+                type: 'item',
+                sections: [makeSection(id: 'item-nested', type: 'item')],
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.nestingDepth), isEmpty);
     });
 
     test('reports exceeding max-subsection-levels of 1', () {
-      final schema = makeSchema(sectionTypes: {
-        'group': const SectionTypeDef(
-            name: 'group', prefix: 'group', maxSubsectionLevels: 1),
-        'item': const SectionTypeDef(name: 'item', prefix: 'item'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'group-1',
-          type: 'group',
-          sections: [
-            makeSection(
-              id: 'item-a',
-              type: 'item',
-              sections: [
-                makeSection(id: 'item-deep', type: 'item'),
-              ],
-            ),
-          ],
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'group': const SectionTypeDef(
+            name: 'group',
+            prefix: 'group',
+            maxSubsectionLevels: 1,
+          ),
+          'item': const SectionTypeDef(name: 'item', prefix: 'item'),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'group-1',
+            type: 'group',
+            sections: [
+              makeSection(
+                id: 'item-a',
+                type: 'item',
+                sections: [makeSection(id: 'item-deep', type: 'item')],
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-          errorsOf(errors, ValidationErrorCategory.nestingDepth), isNotEmpty);
+        errorsOf(errors, ValidationErrorCategory.nestingDepth),
+        isNotEmpty,
+      );
     });
   });
 
@@ -621,61 +771,80 @@ void main() {
   // ---------------------------------------------------------------------------
   group('tags', () {
     test('reports invalid tags', () {
-      final schema = makeSchema(sectionTypes: {
-        'task': const SectionTypeDef(
-          name: 'task',
-          prefix: 'task',
-          allowedTags: ['urgent', 'deferred', 'blocked'],
-        ),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'task-001', type: 'task', tags: ['invalid_tag']),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'task': const SectionTypeDef(
+            name: 'task',
+            prefix: 'task',
+            allowedTags: ['urgent', 'deferred', 'blocked'],
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'task-001', type: 'task', tags: ['invalid_tag']),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.tags), isNotEmpty);
     });
 
     test('passes with valid tags', () {
-      final schema = makeSchema(sectionTypes: {
-        'task': const SectionTypeDef(
-          name: 'task',
-          prefix: 'task',
-          allowedTags: ['urgent', 'deferred', 'blocked'],
-        ),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'task-001', type: 'task', tags: ['urgent']),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'task': const SectionTypeDef(
+            name: 'task',
+            prefix: 'task',
+            allowedTags: ['urgent', 'deferred', 'blocked'],
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'task-001', type: 'task', tags: ['urgent']),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.tags), isEmpty);
     });
 
     test('allows any tags when no allowed-tags defined', () {
-      final schema = makeSchema(sectionTypes: {
-        'note': const SectionTypeDef(name: 'note', prefix: 'note'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'note-001', type: 'note', tags: ['anything', 'goes']),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'note': const SectionTypeDef(name: 'note', prefix: 'note'),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'note-001', type: 'note', tags: ['anything', 'goes']),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.tags), isEmpty);
     });
 
     test('reports multiple invalid tags', () {
-      final schema = makeSchema(sectionTypes: {
-        'task': const SectionTypeDef(
-          name: 'task',
-          prefix: 'task',
-          allowedTags: ['urgent'],
-        ),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-            id: 'task-001', type: 'task', tags: ['bad1', 'bad2', 'urgent']),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'task': const SectionTypeDef(
+            name: 'task',
+            prefix: 'task',
+            allowedTags: ['urgent'],
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'task-001',
+            type: 'task',
+            tags: ['bad1', 'bad2', 'urgent'],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       final tagErrors = errorsOf(errors, ValidationErrorCategory.tags);
@@ -688,72 +857,107 @@ void main() {
   // ---------------------------------------------------------------------------
   group('text requirements', () {
     test('reports missing required text', () {
-      final schema = makeSchema(sectionTypes: {
-        'content': const SectionTypeDef(
-            name: 'content', prefix: 'cnt', textRequired: true),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'cnt-001', type: 'content', text: ''),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'content': const SectionTypeDef(
+            name: 'content',
+            prefix: 'cnt',
+            textRequired: true,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [makeSection(id: 'cnt-001', type: 'content', text: '')],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.textContent), isNotEmpty);
     });
 
     test('passes when required text is present', () {
-      final schema = makeSchema(sectionTypes: {
-        'content': const SectionTypeDef(
-            name: 'content', prefix: 'cnt', textRequired: true),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'cnt-001', type: 'content', text: 'Some text here'),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'content': const SectionTypeDef(
+            name: 'content',
+            prefix: 'cnt',
+            textRequired: true,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'cnt-001', type: 'content', text: 'Some text here'),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.textContent), isEmpty);
     });
 
     test('reports text below minimum length', () {
-      final schema = makeSchema(sectionTypes: {
-        'summary': const SectionTypeDef(
-            name: 'summary', prefix: 'summary', minTextLength: 20),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'summary-1', type: 'summary', text: 'Short'),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'summary': const SectionTypeDef(
+            name: 'summary',
+            prefix: 'summary',
+            minTextLength: 20,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'summary-1', type: 'summary', text: 'Short'),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.textContent), isNotEmpty);
     });
 
     test('reports text exceeding maximum length', () {
-      final schema = makeSchema(sectionTypes: {
-        'summary': const SectionTypeDef(
-            name: 'summary', prefix: 'summary', maxTextLength: 10),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
+      final schema = makeSchema(
+        sectionTypes: {
+          'summary': const SectionTypeDef(
+            name: 'summary',
+            prefix: 'summary',
+            maxTextLength: 10,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
             id: 'summary-1',
             type: 'summary',
-            text: 'This text is much longer than ten characters'),
-      ]);
+            text: 'This text is much longer than ten characters',
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.textContent), isNotEmpty);
     });
 
     test('passes when text length is within range', () {
-      final schema = makeSchema(sectionTypes: {
-        'summary': const SectionTypeDef(
+      final schema = makeSchema(
+        sectionTypes: {
+          'summary': const SectionTypeDef(
             name: 'summary',
             prefix: 'summary',
             minTextLength: 5,
-            maxTextLength: 50),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-            id: 'summary-1', type: 'summary', text: 'This is a good length'),
-      ]);
+            maxTextLength: 50,
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'summary-1',
+            type: 'summary',
+            text: 'This is a good length',
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.textContent), isEmpty);
@@ -765,43 +969,49 @@ void main() {
   // ---------------------------------------------------------------------------
   group('ID patterns', () {
     test('reports ID not matching pattern', () {
-      final schema = makeSchema(sectionTypes: {
-        'requirement': SectionTypeDef(
-          name: 'requirement',
-          prefix: 'req',
-          patternCheckId: const PatternCheckDef(
-            pattern: r'^req-\d{3}$',
-            errorMessage: 'ID must match req-NNN',
+      final schema = makeSchema(
+        sectionTypes: {
+          'requirement': SectionTypeDef(
+            name: 'requirement',
+            prefix: 'req',
+            patternCheckId: const PatternCheckDef(
+              pattern: r'^req-\d{3}$',
+              errorMessage: 'ID must match req-NNN',
+            ),
           ),
-        ),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'req-bad', type: 'requirement'),
-      ]);
+        },
+      );
+      final doc = makeDocument(
+        sections: [makeSection(id: 'req-bad', type: 'requirement')],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.sectionId), isNotEmpty);
     });
 
     test('passes when ID matches pattern', () {
-      final schema = makeSchema(sectionTypes: {
-        'requirement': SectionTypeDef(
-          name: 'requirement',
-          prefix: 'req',
-          patternCheckId: const PatternCheckDef(
-            pattern: r'^req-\d{3}$',
-            errorMessage: 'ID must match req-NNN',
+      final schema = makeSchema(
+        sectionTypes: {
+          'requirement': SectionTypeDef(
+            name: 'requirement',
+            prefix: 'req',
+            patternCheckId: const PatternCheckDef(
+              pattern: r'^req-\d{3}$',
+              errorMessage: 'ID must match req-NNN',
+            ),
           ),
-        ),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'req-001', type: 'requirement'),
-      ]);
+        },
+      );
+      final doc = makeDocument(
+        sections: [makeSection(id: 'req-001', type: 'requirement')],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errorsOf(errors, ValidationErrorCategory.sectionId)
-            .where((e) => e.message.contains('pattern')),
+        errorsOf(
+          errors,
+          ValidationErrorCategory.sectionId,
+        ).where((e) => e.message.contains('pattern')),
         isEmpty,
       );
     });
@@ -812,45 +1022,61 @@ void main() {
   // ---------------------------------------------------------------------------
   group('text patterns', () {
     test('reports text not matching pattern', () {
-      final schema = makeSchema(sectionTypes: {
-        'task': SectionTypeDef(
-          name: 'task',
-          prefix: 'task',
-          patternCheckText: const PatternCheckDef(
-            pattern: r'^(must|should|shall)',
-            errorMessage: 'Text must start with must/should/shall',
+      final schema = makeSchema(
+        sectionTypes: {
+          'task': SectionTypeDef(
+            name: 'task',
+            prefix: 'task',
+            patternCheckText: const PatternCheckDef(
+              pattern: r'^(must|should|shall)',
+              errorMessage: 'Text must start with must/should/shall',
+            ),
           ),
-        ),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-            id: 'task-001', type: 'task', text: 'This does not start right'),
-      ]);
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'task-001',
+            type: 'task',
+            text: 'This does not start right',
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.textContent), isNotEmpty);
     });
 
     test('passes when text matches pattern', () {
-      final schema = makeSchema(sectionTypes: {
-        'task': SectionTypeDef(
-          name: 'task',
-          prefix: 'task',
-          patternCheckText: const PatternCheckDef(
-            pattern: r'^(Must|Should|Shall)',
-            errorMessage: 'Text must start with Must/Should/Shall',
+      final schema = makeSchema(
+        sectionTypes: {
+          'task': SectionTypeDef(
+            name: 'task',
+            prefix: 'task',
+            patternCheckText: const PatternCheckDef(
+              pattern: r'^(Must|Should|Shall)',
+              errorMessage: 'Text must start with Must/Should/Shall',
+            ),
           ),
-        ),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-            id: 'task-001', type: 'task', text: 'Must be implemented by Friday'),
-      ]);
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'task-001',
+            type: 'task',
+            text: 'Must be implemented by Friday',
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errorsOf(errors, ValidationErrorCategory.textContent)
-            .where((e) => e.message.contains('pattern')),
+        errorsOf(
+          errors,
+          ValidationErrorCategory.textContent,
+        ).where((e) => e.message.contains('pattern')),
         isEmpty,
       );
     });
@@ -861,64 +1087,96 @@ void main() {
   // ---------------------------------------------------------------------------
   group('format - code blocks', () {
     test('reports missing code block', () {
-      final schema = makeSchema(sectionTypes: {
-        'code-sample': const SectionTypeDef(
-            name: 'code-sample', prefix: 'code', format: 'dart'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(id: 'code-001', type: 'code-sample', text: 'No code here'),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'code-sample': const SectionTypeDef(
+            name: 'code-sample',
+            prefix: 'code',
+            format: 'dart',
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'code-001',
+            type: 'code-sample',
+            text: 'No code here',
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.format), isNotEmpty);
     });
 
     test('reports wrong code block language', () {
-      final schema = makeSchema(sectionTypes: {
-        'code-sample': const SectionTypeDef(
-            name: 'code-sample', prefix: 'code', format: 'dart'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'code-001',
-          type: 'code-sample',
-          text: '```python\nprint("hello")\n```',
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'code-sample': const SectionTypeDef(
+            name: 'code-sample',
+            prefix: 'code',
+            format: 'dart',
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'code-001',
+            type: 'code-sample',
+            text: '```python\nprint("hello")\n```',
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.format), isNotEmpty);
     });
 
     test('passes with correct code block language', () {
-      final schema = makeSchema(sectionTypes: {
-        'code-sample': const SectionTypeDef(
-            name: 'code-sample', prefix: 'code', format: 'dart'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'code-001',
-          type: 'code-sample',
-          text: '```dart\nvoid main() {}\n```',
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'code-sample': const SectionTypeDef(
+            name: 'code-sample',
+            prefix: 'code',
+            format: 'dart',
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'code-001',
+            type: 'code-sample',
+            text: '```dart\nvoid main() {}\n```',
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.format), isEmpty);
     });
 
     test('supports multiple allowed languages', () {
-      final schema = makeSchema(sectionTypes: {
-        'code-sample': const SectionTypeDef(
-            name: 'code-sample', prefix: 'code', format: 'dart|yaml'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'code-001',
-          type: 'code-sample',
-          text: '```yaml\nkey: value\n```',
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'code-sample': const SectionTypeDef(
+            name: 'code-sample',
+            prefix: 'code',
+            format: 'dart|yaml',
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'code-001',
+            type: 'code-sample',
+            text: '```yaml\nkey: value\n```',
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.format), isEmpty);
@@ -933,22 +1191,26 @@ void main() {
       final schema = makeSchema(
         sectionTypes: {
           'endpoint': const SectionTypeDef(
-              name: 'endpoint', prefix: 'ep', format: 'endpoint-form'),
+            name: 'endpoint',
+            prefix: 'ep',
+            format: 'endpoint-form',
+          ),
         },
         formTypes: {
-          'endpoint': FormTypeDef(name: 'endpoint', fields: [
-            const FormFieldDef(fieldname: 'method', required: true),
-            const FormFieldDef(fieldname: 'path', required: true),
-          ]),
+          'endpoint': FormTypeDef(
+            name: 'endpoint',
+            fields: [
+              const FormFieldDef(fieldname: 'method', required: true),
+              const FormFieldDef(fieldname: 'path', required: true),
+            ],
+          ),
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'ep-001',
-          type: 'endpoint',
-          text: 'Method: GET',
-        ),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'ep-001', type: 'endpoint', text: 'Method: GET'),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       final formatErrors = errorsOf(errors, ValidationErrorCategory.format);
@@ -959,22 +1221,30 @@ void main() {
       final schema = makeSchema(
         sectionTypes: {
           'endpoint': const SectionTypeDef(
-              name: 'endpoint', prefix: 'ep', format: 'endpoint-form'),
+            name: 'endpoint',
+            prefix: 'ep',
+            format: 'endpoint-form',
+          ),
         },
         formTypes: {
-          'endpoint': FormTypeDef(name: 'endpoint', fields: [
-            const FormFieldDef(fieldname: 'method', required: true),
-            const FormFieldDef(fieldname: 'path', required: true),
-          ]),
+          'endpoint': FormTypeDef(
+            name: 'endpoint',
+            fields: [
+              const FormFieldDef(fieldname: 'method', required: true),
+              const FormFieldDef(fieldname: 'path', required: true),
+            ],
+          ),
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'ep-001',
-          type: 'endpoint',
-          text: 'Method: GET\nPath: /api/users',
-        ),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'ep-001',
+            type: 'endpoint',
+            text: 'Method: GET\nPath: /api/users',
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       final formatErrors = errorsOf(errors, ValidationErrorCategory.format);
@@ -985,28 +1255,32 @@ void main() {
       final schema = makeSchema(
         sectionTypes: {
           'endpoint': const SectionTypeDef(
-              name: 'endpoint', prefix: 'ep', format: 'endpoint-form'),
+            name: 'endpoint',
+            prefix: 'ep',
+            format: 'endpoint-form',
+          ),
         },
         formTypes: {
-          'endpoint': FormTypeDef(name: 'endpoint', fields: [
-            FormFieldDef(
-              fieldname: 'method',
-              required: true,
-              patternCheck: const PatternCheckDef(
-                pattern: r'^(GET|POST|PUT|DELETE)$',
-                errorMessage: 'Invalid HTTP method',
+          'endpoint': FormTypeDef(
+            name: 'endpoint',
+            fields: [
+              FormFieldDef(
+                fieldname: 'method',
+                required: true,
+                patternCheck: const PatternCheckDef(
+                  pattern: r'^(GET|POST|PUT|DELETE)$',
+                  errorMessage: 'Invalid HTTP method',
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'ep-001',
-          type: 'endpoint',
-          text: 'Method: INVALID',
-        ),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'ep-001', type: 'endpoint', text: 'Method: INVALID'),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.format), isNotEmpty);
@@ -1016,12 +1290,17 @@ void main() {
       final schema = makeSchema(
         sectionTypes: {
           'endpoint': const SectionTypeDef(
-              name: 'endpoint', prefix: 'ep', format: 'missing-form'),
+            name: 'endpoint',
+            prefix: 'ep',
+            format: 'missing-form',
+          ),
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'ep-001', type: 'endpoint', text: 'content'),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'ep-001', type: 'endpoint', text: 'content'),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.format), isNotEmpty);
@@ -1033,47 +1312,56 @@ void main() {
   // ---------------------------------------------------------------------------
   group('required fields', () {
     test('reports missing required fields', () {
-      final schema = makeSchema(sectionTypes: {
-        'endpoint': const SectionTypeDef(
-          name: 'endpoint',
-          prefix: 'ep',
-          requiredFields: ['method', 'path'],
-        ),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'ep-001',
-          type: 'endpoint',
-          text: 'Method: GET',
-        ),
-      ]);
-
-      final errors = DocSpecsValidator(schema: schema).validate(doc);
-      expect(errors.any((e) => e.message.toLowerCase().contains('path')),
-          isTrue);
-    });
-
-    test('passes when all required fields are present', () {
-      final schema = makeSchema(sectionTypes: {
-        'config': const SectionTypeDef(
-          name: 'config',
-          prefix: 'config',
-          requiredFields: ['environment', 'version'],
-        ),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'config-001',
-          type: 'config',
-          text: 'Some configuration content.',
-          fields: {'environment': 'production', 'version': '2.0'},
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'endpoint': const SectionTypeDef(
+            name: 'endpoint',
+            prefix: 'ep',
+            requiredFields: ['method', 'path'],
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'ep-001', type: 'endpoint', text: 'Method: GET'),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errors.where((e) =>
-            e.message.contains('environment') || e.message.contains('version')),
+        errors.any((e) => e.message.toLowerCase().contains('path')),
+        isTrue,
+      );
+    });
+
+    test('passes when all required fields are present', () {
+      final schema = makeSchema(
+        sectionTypes: {
+          'config': const SectionTypeDef(
+            name: 'config',
+            prefix: 'config',
+            requiredFields: ['environment', 'version'],
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'config-001',
+            type: 'config',
+            text: 'Some configuration content.',
+            fields: {'environment': 'production', 'version': '2.0'},
+          ),
+        ],
+      );
+
+      final errors = DocSpecsValidator(schema: schema).validate(doc);
+      expect(
+        errors.where(
+          (e) =>
+              e.message.contains('environment') ||
+              e.message.contains('version'),
+        ),
         isEmpty,
       );
     });
@@ -1084,65 +1372,77 @@ void main() {
   // ---------------------------------------------------------------------------
   group('child type enforcement', () {
     test('reports disallowed child types', () {
-      final schema = makeSchema(sectionTypes: {
-        'project': SectionTypeDef(
-          name: 'project',
-          prefix: 'proj',
-          subsectionTypes: {
-            'task': const SubsectionConstraint(typeName: 'task'),
-          },
-        ),
-        'task': const SectionTypeDef(name: 'task', prefix: 'task'),
-        'note': const SectionTypeDef(name: 'note', prefix: 'note'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'proj-main',
-          type: 'project',
-          sections: [
-            makeSection(id: 'note-001', type: 'note', lineNumber: 15),
-          ],
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'project': SectionTypeDef(
+            name: 'project',
+            prefix: 'proj',
+            subsectionTypes: {
+              'task': const SubsectionConstraint(typeName: 'task'),
+            },
+          ),
+          'task': const SectionTypeDef(name: 'task', prefix: 'task'),
+          'note': const SectionTypeDef(name: 'note', prefix: 'note'),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'proj-main',
+            type: 'project',
+            sections: [
+              makeSection(id: 'note-001', type: 'note', lineNumber: 15),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.sectionType), isNotEmpty);
     });
 
     test('passes with allowed child types only', () {
-      final schema = makeSchema(sectionTypes: {
-        'project': SectionTypeDef(
-          name: 'project',
-          prefix: 'proj',
-          subsectionTypes: {
-            'task': const SubsectionConstraint(typeName: 'task'),
-            'milestone':
-                const SubsectionConstraint(typeName: 'milestone'),
-          },
-        ),
-        'task': const SectionTypeDef(name: 'task', prefix: 'task'),
-        'milestone':
-            const SectionTypeDef(name: 'milestone', prefix: 'milestone'),
-      });
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'proj-main',
-          type: 'project',
-          sections: [
-            makeSection(id: 'task-001', type: 'task', lineNumber: 15),
-            makeSection(
+      final schema = makeSchema(
+        sectionTypes: {
+          'project': SectionTypeDef(
+            name: 'project',
+            prefix: 'proj',
+            subsectionTypes: {
+              'task': const SubsectionConstraint(typeName: 'task'),
+              'milestone': const SubsectionConstraint(typeName: 'milestone'),
+            },
+          ),
+          'task': const SectionTypeDef(name: 'task', prefix: 'task'),
+          'milestone': const SectionTypeDef(
+            name: 'milestone',
+            prefix: 'milestone',
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'proj-main',
+            type: 'project',
+            sections: [
+              makeSection(id: 'task-001', type: 'task', lineNumber: 15),
+              makeSection(
                 id: 'milestone-001',
                 type: 'milestone',
                 index: 1,
-                lineNumber: 20),
-          ],
-        ),
-      ]);
+                lineNumber: 20,
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errorsOf(errors, ValidationErrorCategory.sectionType)
-            .where((e) => e.message.contains('not allowed')),
+        errorsOf(
+          errors,
+          ValidationErrorCategory.sectionType,
+        ).where((e) => e.message.contains('not allowed')),
         isEmpty,
       );
     });
@@ -1155,21 +1455,26 @@ void main() {
     test('does not report when types match', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
         },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-        }),
+        document: DocumentStructure(
+          sections: {'overview': const SectionDef(sectionType: 'overview')},
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'overview', type: 'overview'),
-      ]);
+      final doc = makeDocument(
+        sections: [makeSection(id: 'overview', type: 'overview')],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errors.where((e) =>
-            e.category == ValidationErrorCategory.structure &&
-            e.message.contains('has type')),
+        errors.where(
+          (e) =>
+              e.category == ValidationErrorCategory.structure &&
+              e.message.contains('has type'),
+        ),
         isEmpty,
       );
     });
@@ -1177,25 +1482,36 @@ void main() {
     test('handles sections with IDs differing from schema keys', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
           'configuration': const SectionTypeDef(
-              name: 'configuration', prefix: 'config'),
+            name: 'configuration',
+            prefix: 'config',
+          ),
         },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-          'configuration': const SectionDef(sectionType: 'configuration'),
-        }),
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(sectionType: 'overview'),
+            'configuration': const SectionDef(sectionType: 'configuration'),
+          },
+        ),
       );
       // Section ID "config-001" is not "configuration" but has type "configuration"
-      final doc = makeDocument(sections: [
-        makeSection(id: 'overview', type: 'overview'),
-        makeSection(id: 'config-001', type: 'configuration', index: 1),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'overview', type: 'overview'),
+          makeSection(id: 'config-001', type: 'configuration', index: 1),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errorsOf(errors, ValidationErrorCategory.structure)
-            .where((e) => e.message.contains('has type')),
+        errorsOf(
+          errors,
+          ValidationErrorCategory.structure,
+        ).where((e) => e.message.contains('has type')),
         isEmpty,
       );
     });
@@ -1208,59 +1524,73 @@ void main() {
     test('reports missing subsection for registry entry', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
-          'registry': const SectionTypeDef(name: 'registry', prefix: 'registry'),
-          'component-def':
-              const SectionTypeDef(name: 'component-def', prefix: 'comp'),
-          'component-detail':
-              const SectionTypeDef(name: 'component-detail', prefix: 'detail'),
-        },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-          'registry': const SectionDef(sectionType: 'registry'),
-          'components': SectionDef(
-            sectionType: 'component-detail',
-            forEach: const ForEachDef(
-              sectionType: 'component-def',
-              key: 'name',
-            ),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
           ),
-        }),
+          'registry': const SectionTypeDef(
+            name: 'registry',
+            prefix: 'registry',
+          ),
+          'component-def': const SectionTypeDef(
+            name: 'component-def',
+            prefix: 'comp',
+          ),
+          'component-detail': const SectionTypeDef(
+            name: 'component-detail',
+            prefix: 'detail',
+          ),
+        },
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(sectionType: 'overview'),
+            'registry': const SectionDef(sectionType: 'registry'),
+            'components': SectionDef(
+              sectionType: 'component-detail',
+              forEach: const ForEachDef(
+                sectionType: 'component-def',
+                key: 'name',
+              ),
+            ),
+          },
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'overview', type: 'overview'),
-        makeSection(
-          id: 'registry-main',
-          type: 'registry',
-          index: 1,
-          sections: [
-            makeSection(
-              id: 'comp-auth',
-              type: 'component-def',
-              fields: {'name': 'auth'},
-            ),
-            makeSection(
-              id: 'comp-api',
-              type: 'component-def',
-              index: 1,
-              fields: {'name': 'api'},
-            ),
-          ],
-        ),
-        makeSection(
-          id: 'detail-section',
-          type: 'component-detail',
-          index: 2,
-          sections: [
-            // Only auth detail, missing api detail
-            makeSection(
-              id: 'detail-auth',
-              type: 'component-detail',
-              fields: {'name': 'auth'},
-            ),
-          ],
-        ),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'overview', type: 'overview'),
+          makeSection(
+            id: 'registry-main',
+            type: 'registry',
+            index: 1,
+            sections: [
+              makeSection(
+                id: 'comp-auth',
+                type: 'component-def',
+                fields: {'name': 'auth'},
+              ),
+              makeSection(
+                id: 'comp-api',
+                type: 'component-def',
+                index: 1,
+                fields: {'name': 'api'},
+              ),
+            ],
+          ),
+          makeSection(
+            id: 'detail-section',
+            type: 'component-detail',
+            index: 2,
+            sections: [
+              // Only auth detail, missing api detail
+              makeSection(
+                id: 'detail-auth',
+                type: 'component-detail',
+                fields: {'name': 'auth'},
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.forEach), isNotEmpty);
@@ -1269,52 +1599,66 @@ void main() {
     test('passes when all registry entries have subsections', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
-          'registry': const SectionTypeDef(name: 'registry', prefix: 'registry'),
-          'component-def':
-              const SectionTypeDef(name: 'component-def', prefix: 'comp'),
-          'component-detail':
-              const SectionTypeDef(name: 'component-detail', prefix: 'detail'),
-        },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-          'registry': const SectionDef(sectionType: 'registry'),
-          'components': SectionDef(
-            sectionType: 'component-detail',
-            forEach: const ForEachDef(
-              sectionType: 'component-def',
-              key: 'name',
-            ),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
           ),
-        }),
+          'registry': const SectionTypeDef(
+            name: 'registry',
+            prefix: 'registry',
+          ),
+          'component-def': const SectionTypeDef(
+            name: 'component-def',
+            prefix: 'comp',
+          ),
+          'component-detail': const SectionTypeDef(
+            name: 'component-detail',
+            prefix: 'detail',
+          ),
+        },
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(sectionType: 'overview'),
+            'registry': const SectionDef(sectionType: 'registry'),
+            'components': SectionDef(
+              sectionType: 'component-detail',
+              forEach: const ForEachDef(
+                sectionType: 'component-def',
+                key: 'name',
+              ),
+            ),
+          },
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'overview', type: 'overview'),
-        makeSection(
-          id: 'registry-main',
-          type: 'registry',
-          index: 1,
-          sections: [
-            makeSection(
-              id: 'comp-auth',
-              type: 'component-def',
-              fields: {'name': 'auth'},
-            ),
-          ],
-        ),
-        makeSection(
-          id: 'detail-section',
-          type: 'component-detail',
-          index: 2,
-          sections: [
-            makeSection(
-              id: 'detail-auth',
-              type: 'component-detail',
-              fields: {'name': 'auth'},
-            ),
-          ],
-        ),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(id: 'overview', type: 'overview'),
+          makeSection(
+            id: 'registry-main',
+            type: 'registry',
+            index: 1,
+            sections: [
+              makeSection(
+                id: 'comp-auth',
+                type: 'component-def',
+                fields: {'name': 'auth'},
+              ),
+            ],
+          ),
+          makeSection(
+            id: 'detail-section',
+            type: 'component-detail',
+            index: 2,
+            sections: [
+              makeSection(
+                id: 'detail-auth',
+                type: 'component-detail',
+                fields: {'name': 'auth'},
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.forEach), isEmpty);
@@ -1329,13 +1673,14 @@ void main() {
       final schema = makeSchema(
         sectionTypes: {
           'container': const SectionTypeDef(
-              name: 'container', prefix: 'container'),
-          'header':
-              const SectionTypeDef(name: 'header', prefix: 'header'),
+            name: 'container',
+            prefix: 'container',
+          ),
+          'header': const SectionTypeDef(name: 'header', prefix: 'header'),
         },
-        document: DocumentStructure(sections: {
-          'main': const SectionDef(sectionType: 'container'),
-        }),
+        document: DocumentStructure(
+          sections: {'main': const SectionDef(sectionType: 'container')},
+        ),
         subsectionDeclarations: {
           'main': {
             'header-sub': const SubsectionDef(
@@ -1346,17 +1691,25 @@ void main() {
           },
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'container-1', type: 'container', sections: [
-          // No header section
-          makeSection(id: 'content-1', type: 'container'),
-        ]),
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'container-1',
+            type: 'container',
+            sections: [
+              // No header section
+              makeSection(id: 'content-1', type: 'container'),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errorsOf(errors, ValidationErrorCategory.structure)
-            .any((e) => e.message.contains("Required subsection")),
+        errorsOf(
+          errors,
+          ValidationErrorCategory.structure,
+        ).any((e) => e.message.contains("Required subsection")),
         isTrue,
       );
     });
@@ -1365,15 +1718,15 @@ void main() {
       final schema = makeSchema(
         sectionTypes: {
           'container': const SectionTypeDef(
-              name: 'container', prefix: 'container'),
-          'header':
-              const SectionTypeDef(name: 'header', prefix: 'header'),
-          'content':
-              const SectionTypeDef(name: 'content', prefix: 'content'),
+            name: 'container',
+            prefix: 'container',
+          ),
+          'header': const SectionTypeDef(name: 'header', prefix: 'header'),
+          'content': const SectionTypeDef(name: 'content', prefix: 'content'),
         },
-        document: DocumentStructure(sections: {
-          'main': const SectionDef(sectionType: 'container'),
-        }),
+        document: DocumentStructure(
+          sections: {'main': const SectionDef(sectionType: 'container')},
+        ),
         subsectionDeclarations: {
           'main': {
             'header-sub': const SubsectionDef(
@@ -1383,18 +1736,30 @@ void main() {
           },
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'container-1', type: 'container', sections: [
-          makeSection(id: 'content-1', type: 'content', lineNumber: 5),
+      final doc = makeDocument(
+        sections: [
           makeSection(
-              id: 'header-1', type: 'header', index: 1, lineNumber: 10),
-        ]),
-      ]);
+            id: 'container-1',
+            type: 'container',
+            sections: [
+              makeSection(id: 'content-1', type: 'content', lineNumber: 5),
+              makeSection(
+                id: 'header-1',
+                type: 'header',
+                index: 1,
+                lineNumber: 10,
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errorsOf(errors, ValidationErrorCategory.structure)
-            .any((e) => e.message.contains('must appear first')),
+        errorsOf(
+          errors,
+          ValidationErrorCategory.structure,
+        ).any((e) => e.message.contains('must appear first')),
         isTrue,
       );
     });
@@ -1403,15 +1768,15 @@ void main() {
       final schema = makeSchema(
         sectionTypes: {
           'container': const SectionTypeDef(
-              name: 'container', prefix: 'container'),
-          'footer':
-              const SectionTypeDef(name: 'footer', prefix: 'footer'),
-          'content':
-              const SectionTypeDef(name: 'content', prefix: 'content'),
+            name: 'container',
+            prefix: 'container',
+          ),
+          'footer': const SectionTypeDef(name: 'footer', prefix: 'footer'),
+          'content': const SectionTypeDef(name: 'content', prefix: 'content'),
         },
-        document: DocumentStructure(sections: {
-          'main': const SectionDef(sectionType: 'container'),
-        }),
+        document: DocumentStructure(
+          sections: {'main': const SectionDef(sectionType: 'container')},
+        ),
         subsectionDeclarations: {
           'main': {
             'footer-sub': const SubsectionDef(
@@ -1421,18 +1786,30 @@ void main() {
           },
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'container-1', type: 'container', sections: [
-          makeSection(id: 'footer-1', type: 'footer', lineNumber: 5),
+      final doc = makeDocument(
+        sections: [
           makeSection(
-              id: 'content-1', type: 'content', index: 1, lineNumber: 10),
-        ]),
-      ]);
+            id: 'container-1',
+            type: 'container',
+            sections: [
+              makeSection(id: 'footer-1', type: 'footer', lineNumber: 5),
+              makeSection(
+                id: 'content-1',
+                type: 'content',
+                index: 1,
+                lineNumber: 10,
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errorsOf(errors, ValidationErrorCategory.structure)
-            .any((e) => e.message.contains('must appear last')),
+        errorsOf(
+          errors,
+          ValidationErrorCategory.structure,
+        ).any((e) => e.message.contains('must appear last')),
         isTrue,
       );
     });
@@ -1441,15 +1818,15 @@ void main() {
       final schema = makeSchema(
         sectionTypes: {
           'container': const SectionTypeDef(
-              name: 'container', prefix: 'container'),
-          'sidebar':
-              const SectionTypeDef(name: 'sidebar', prefix: 'sidebar'),
-          'content':
-              const SectionTypeDef(name: 'content', prefix: 'content'),
+            name: 'container',
+            prefix: 'container',
+          ),
+          'sidebar': const SectionTypeDef(name: 'sidebar', prefix: 'sidebar'),
+          'content': const SectionTypeDef(name: 'content', prefix: 'content'),
         },
-        document: DocumentStructure(sections: {
-          'main': const SectionDef(sectionType: 'container'),
-        }),
+        document: DocumentStructure(
+          sections: {'main': const SectionDef(sectionType: 'container')},
+        ),
         subsectionDeclarations: {
           'main': {
             'sidebar-sub': const SubsectionDef(
@@ -1459,20 +1836,36 @@ void main() {
           },
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'container-1', type: 'container', sections: [
-          makeSection(id: 'sidebar-1', type: 'sidebar', lineNumber: 5),
+      final doc = makeDocument(
+        sections: [
           makeSection(
-              id: 'content-1', type: 'content', index: 1, lineNumber: 10),
-          makeSection(
-              id: 'sidebar-2', type: 'sidebar', index: 2, lineNumber: 15),
-        ]),
-      ]);
+            id: 'container-1',
+            type: 'container',
+            sections: [
+              makeSection(id: 'sidebar-1', type: 'sidebar', lineNumber: 5),
+              makeSection(
+                id: 'content-1',
+                type: 'content',
+                index: 1,
+                lineNumber: 10,
+              ),
+              makeSection(
+                id: 'sidebar-2',
+                type: 'sidebar',
+                index: 2,
+                lineNumber: 15,
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errorsOf(errors, ValidationErrorCategory.structure)
-            .any((e) => e.message.contains('contiguous')),
+        errorsOf(
+          errors,
+          ValidationErrorCategory.structure,
+        ).any((e) => e.message.contains('contiguous')),
         isTrue,
       );
     });
@@ -1481,17 +1874,16 @@ void main() {
       final schema = makeSchema(
         sectionTypes: {
           'container': const SectionTypeDef(
-              name: 'container', prefix: 'container'),
-          'header':
-              const SectionTypeDef(name: 'header', prefix: 'header'),
-          'content':
-              const SectionTypeDef(name: 'content', prefix: 'content'),
-          'footer':
-              const SectionTypeDef(name: 'footer', prefix: 'footer'),
+            name: 'container',
+            prefix: 'container',
+          ),
+          'header': const SectionTypeDef(name: 'header', prefix: 'header'),
+          'content': const SectionTypeDef(name: 'content', prefix: 'content'),
+          'footer': const SectionTypeDef(name: 'footer', prefix: 'footer'),
         },
-        document: DocumentStructure(sections: {
-          'main': const SectionDef(sectionType: 'container'),
-        }),
+        document: DocumentStructure(
+          sections: {'main': const SectionDef(sectionType: 'container')},
+        ),
         subsectionDeclarations: {
           'main': {
             'header-sub': const SubsectionDef(
@@ -1505,23 +1897,38 @@ void main() {
           },
         },
       );
-      final doc = makeDocument(sections: [
-        makeSection(id: 'container-1', type: 'container', sections: [
-          makeSection(id: 'header-1', type: 'header', lineNumber: 5),
+      final doc = makeDocument(
+        sections: [
           makeSection(
-              id: 'content-1', type: 'content', index: 1, lineNumber: 10),
-          makeSection(
-              id: 'footer-1', type: 'footer', index: 2, lineNumber: 15),
-        ]),
-      ]);
+            id: 'container-1',
+            type: 'container',
+            sections: [
+              makeSection(id: 'header-1', type: 'header', lineNumber: 5),
+              makeSection(
+                id: 'content-1',
+                type: 'content',
+                index: 1,
+                lineNumber: 10,
+              ),
+              makeSection(
+                id: 'footer-1',
+                type: 'footer',
+                index: 2,
+                lineNumber: 15,
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(
-        errorsOf(errors, ValidationErrorCategory.structure)
-            .where((e) =>
-                e.message.contains('first') ||
-                e.message.contains('last') ||
-                e.message.contains('contiguous')),
+        errorsOf(errors, ValidationErrorCategory.structure).where(
+          (e) =>
+              e.message.contains('first') ||
+              e.message.contains('last') ||
+              e.message.contains('contiguous'),
+        ),
         isEmpty,
       );
     });
@@ -1556,39 +1963,44 @@ void main() {
             ),
           ),
         },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-          'requirements':
-              const SectionDef(sectionType: 'requirements', optional: true),
-        }),
-      );
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'overview',
-          type: 'overview',
-          text: 'This is a good overview of the project',
-        ),
-        makeSection(
-          id: 'req-main',
-          type: 'requirements',
-          index: 1,
-          sections: [
-            makeSection(
-              id: 'requirement-1',
-              type: 'requirement',
-              text: 'Must support user authentication',
-              tags: ['must-have'],
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(sectionType: 'overview'),
+            'requirements': const SectionDef(
+              sectionType: 'requirements',
+              optional: true,
             ),
-          ],
+          },
         ),
-      ]);
+      );
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'overview',
+            type: 'overview',
+            text: 'This is a good overview of the project',
+          ),
+          makeSection(
+            id: 'req-main',
+            type: 'requirements',
+            index: 1,
+            sections: [
+              makeSection(
+                id: 'requirement-1',
+                type: 'requirement',
+                text: 'Must support user authentication',
+                tags: ['must-have'],
+              ),
+            ],
+          ),
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       // Filter out section-type errors for sections not in sectionTypes
       // Only check for errors in sections we care about
       expect(
-        errors.where((e) =>
-            e.category != ValidationErrorCategory.sectionType),
+        errors.where((e) => e.category != ValidationErrorCategory.sectionType),
         isEmpty,
       );
     });
@@ -1608,30 +2020,27 @@ void main() {
             maxCountInDocument: 1,
           ),
         },
-        document: DocumentStructure(sections: {
-          'overview': const SectionDef(sectionType: 'overview'),
-        }),
+        document: DocumentStructure(
+          sections: {'overview': const SectionDef(sectionType: 'overview')},
+        ),
       );
-      final doc = makeDocument(sections: [
-        makeSection(
-          id: 'overview',
-          type: 'overview',
-          text: '', // Missing required text
-        ),
-        makeSection(
-          id: 'task-001',
-          type: 'task',
-          index: 1,
-          tags: ['bad-tag'], // Invalid tag
-        ),
-        makeSection(
-          id: 'task-002',
-          type: 'task',
-          index: 2,
-          tags: ['urgent'],
-        ),
-        // Two tasks exceeds max-count-in-document: 1
-      ]);
+      final doc = makeDocument(
+        sections: [
+          makeSection(
+            id: 'overview',
+            type: 'overview',
+            text: '', // Missing required text
+          ),
+          makeSection(
+            id: 'task-001',
+            type: 'task',
+            index: 1,
+            tags: ['bad-tag'], // Invalid tag
+          ),
+          makeSection(id: 'task-002', type: 'task', index: 2, tags: ['urgent']),
+          // Two tasks exceeds max-count-in-document: 1
+        ],
+      );
 
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       expect(errorsOf(errors, ValidationErrorCategory.textContent), isNotEmpty);
@@ -1647,15 +2056,21 @@ void main() {
     test('empty document with all optional sections passes', () {
       final schema = makeSchema(
         sectionTypes: {
-          'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
           'details': const SectionTypeDef(name: 'details', prefix: 'detail'),
         },
-        document: DocumentStructure(sections: {
-          'overview':
-              const SectionDef(sectionType: 'overview', optional: true),
-          'details':
-              const SectionDef(sectionType: 'details', optional: true),
-        }),
+        document: DocumentStructure(
+          sections: {
+            'overview': const SectionDef(
+              sectionType: 'overview',
+              optional: true,
+            ),
+            'details': const SectionDef(sectionType: 'details', optional: true),
+          },
+        ),
       );
       final doc = makeDocument(sections: []);
 
@@ -1670,34 +2085,45 @@ void main() {
       final errors = DocSpecsValidator(schema: schema).validate(doc);
       // Only potentially schema-related errors (no section-level checks)
       expect(
-        errors.where((e) =>
-            e.category == ValidationErrorCategory.countLimit ||
-            e.category == ValidationErrorCategory.nestingDepth ||
-            e.category == ValidationErrorCategory.tags ||
-            e.category == ValidationErrorCategory.textContent ||
-            e.category == ValidationErrorCategory.format),
+        errors.where(
+          (e) =>
+              e.category == ValidationErrorCategory.countLimit ||
+              e.category == ValidationErrorCategory.nestingDepth ||
+              e.category == ValidationErrorCategory.tags ||
+              e.category == ValidationErrorCategory.textContent ||
+              e.category == ValidationErrorCategory.format,
+        ),
         isEmpty,
       );
     });
 
     test('section with null sections list does not cause errors', () {
-      final schema = makeSchema(sectionTypes: {
-        'overview': const SectionTypeDef(name: 'overview', prefix: 'overview'),
-      });
-      final doc = makeDocument(sections: [
-        SpecSection(
-          index: 0,
-          lineNumber: 5,
-          rawHeadline: 'Overview',
-          name: 'Overview',
-          id: 'overview',
-          text: 'Content',
-          type: 'overview',
-        ),
-      ]);
+      final schema = makeSchema(
+        sectionTypes: {
+          'overview': const SectionTypeDef(
+            name: 'overview',
+            prefix: 'overview',
+          ),
+        },
+      );
+      final doc = makeDocument(
+        sections: [
+          SpecSection(
+            index: 0,
+            lineNumber: 5,
+            rawHeadline: 'Overview',
+            name: 'Overview',
+            id: 'overview',
+            text: 'Content',
+            type: 'overview',
+          ),
+        ],
+      );
 
-      expect(() => DocSpecsValidator(schema: schema).validate(doc),
-          returnsNormally);
+      expect(
+        () => DocSpecsValidator(schema: schema).validate(doc),
+        returnsNormally,
+      );
     });
   });
 }

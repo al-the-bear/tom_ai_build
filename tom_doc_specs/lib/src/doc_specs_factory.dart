@@ -136,7 +136,9 @@ class DocSpecsFactory extends DocScannerFactory {
       workspaceRoot: workspaceRoot,
       projectRoot: projectRoot,
       hierarchyDepth: hierarchyDepth,
-      schemaId: fields['schema'] ?? (schema != null ? '${schema!.id}/${schema!.version}' : ''),
+      schemaId:
+          fields['schema'] ??
+          (schema != null ? '${schema!.id}/${schema!.version}' : ''),
       accessKeys: _accessKeys,
       // The factory is constructed with the resolved schema and `DocSpecs`
       // validates iff that schema is non-null, so this is the same condition

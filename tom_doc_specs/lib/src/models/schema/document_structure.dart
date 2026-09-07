@@ -7,10 +7,7 @@ class ForEachDef {
   final String key;
 
   /// Creates a new ForEachDef.
-  const ForEachDef({
-    required this.sectionType,
-    required this.key,
-  });
+  const ForEachDef({required this.sectionType, required this.key});
 
   /// Creates a ForEachDef from a YAML map.
   factory ForEachDef.fromYaml(Map<String, dynamic> yaml) {
@@ -22,10 +19,7 @@ class ForEachDef {
 
   /// Converts to a YAML-compatible map.
   Map<String, dynamic> toYaml() {
-    return {
-      'section-type': sectionType,
-      'key': key,
-    };
+    return {'section-type': sectionType, 'key': key};
   }
 }
 
@@ -134,9 +128,7 @@ class DocumentStructure {
   final Map<String, SectionDef> sections;
 
   /// Creates a new DocumentStructure.
-  const DocumentStructure({
-    required this.sections,
-  });
+  const DocumentStructure({required this.sections});
 
   /// Creates a DocumentStructure from a YAML map.
   factory DocumentStructure.fromYaml(Map<String, dynamic> yaml) {
@@ -145,8 +137,9 @@ class DocumentStructure {
 
     if (sectionsYaml != null) {
       for (final entry in sectionsYaml.entries) {
-        sections[entry.key] =
-            SectionDef.fromYaml(entry.value as Map<String, dynamic>);
+        sections[entry.key] = SectionDef.fromYaml(
+          entry.value as Map<String, dynamic>,
+        );
       }
     }
 

@@ -86,8 +86,8 @@ class SpecSection extends Section {
           : const {},
       sections: json['sections'] != null
           ? (json['sections'] as List)
-              .map((s) => SpecSection.fromJson(s as Map<String, dynamic>))
-              .toList()
+                .map((s) => SpecSection.fromJson(s as Map<String, dynamic>))
+                .toList()
           : null,
       type: json['type'] as String?,
       tags: json['tags'] != null
