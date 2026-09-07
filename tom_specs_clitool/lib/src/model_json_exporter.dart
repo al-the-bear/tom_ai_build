@@ -112,10 +112,13 @@ class ModelJsonExporter {
       if (cls.getAnnotation('MapsTo') != null)
         'mapsTo': cls.getAnnotation('MapsTo')!.arguments['documentClass'],
       if (cls.getAnnotation('DetailedIn') != null)
-        'detailedIn': cls.getAnnotation('DetailedIn')!.arguments['documentClass'],
+        'detailedIn': cls
+            .getAnnotation('DetailedIn')!
+            .arguments['documentClass'],
       if (_standardRefs(cls.getAnnotation('StandardReferences')) != null)
-        'standardReferences':
-            _standardRefs(cls.getAnnotation('StandardReferences')),
+        'standardReferences': _standardRefs(
+          cls.getAnnotation('StandardReferences'),
+        ),
       if (cls.annotations.isNotEmpty)
         'annotations': _exportAnnotations(cls.annotations),
       'fields': cls.fields.map(_exportField).toList(),
@@ -123,10 +126,7 @@ class ModelJsonExporter {
   }
 
   Map<String, Object?> _exportField(ModelField f) {
-    final out = <String, Object?>{
-      'name': f.name,
-      'kind': _kind(f),
-    };
+    final out = <String, Object?>{'name': f.name, 'kind': _kind(f)};
     if (f.docComment.isNotEmpty) out['doc'] = f.docComment;
 
     final help = _help(f.getAnnotation('ContentHelp'));
@@ -163,23 +163,25 @@ class ModelJsonExporter {
         break;
       case 'form':
         out['formFields'] = f.formFields
-            .map((ff) => {
-                  'name': ff.name,
-                  'label': ff.description.isNotEmpty
-                      ? ff.description
-                      : _splitPascal(ff.name),
-                  if (ff.hint.isNotEmpty) 'hint': ff.hint,
-                  'type': ff.typeName,
-                  'required': ff.required,
-                  // YRD7: enum-typed form fields carry their constant names
-                  // so runtimes can validate/convert without the analyzer.
-                  if (ff.enumValues.isNotEmpty) 'enumValues': ff.enumValues,
-                  // csrb3: the registry key(s) this field's id value is drawn
-                  // from, each `<SECTIONID>.<formFieldName>`. Carried across so
-                  // the eight non-Dart runtimes can run the instance-tier
-                  // dangling-reference check too.
-                  if (ff.refersTo.isNotEmpty) 'refersTo': ff.refersTo,
-                })
+            .map(
+              (ff) => {
+                'name': ff.name,
+                'label': ff.description.isNotEmpty
+                    ? ff.description
+                    : _splitPascal(ff.name),
+                if (ff.hint.isNotEmpty) 'hint': ff.hint,
+                'type': ff.typeName,
+                'required': ff.required,
+                // YRD7: enum-typed form fields carry their constant names
+                // so runtimes can validate/convert without the analyzer.
+                if (ff.enumValues.isNotEmpty) 'enumValues': ff.enumValues,
+                // csrb3: the registry key(s) this field's id value is drawn
+                // from, each `<SECTIONID>.<formFieldName>`. Carried across so
+                // the eight non-Dart runtimes can run the instance-tier
+                // dangling-reference check too.
+                if (ff.refersTo.isNotEmpty) 'refersTo': ff.refersTo,
+              },
+            )
             .toList();
         break;
       case 'section':
@@ -189,7 +191,7 @@ class ModelJsonExporter {
       case 'content':
         out['contentType'] =
             (f.getAnnotation('ContentType')?.arguments['type'] as String?) ??
-                'text';
+            'text';
         break;
       case 'enum':
         out['enumType'] = f.typeName.replaceAll('?', '');
@@ -233,8 +235,9 @@ class ModelJsonExporter {
   };
 
   bool _isPrimitive(String typeName) {
-    final base =
-        typeName.endsWith('?') ? typeName.substring(0, typeName.length - 1) : typeName;
+    final base = typeName.endsWith('?')
+        ? typeName.substring(0, typeName.length - 1)
+        : typeName;
     return _primitiveTypes.contains(base);
   }
 
@@ -252,10 +255,12 @@ class ModelJsonExporter {
   /// stays JSON-serializable.
   List<Map<String, Object?>> _exportAnnotations(List<AnnotationData> annos) =>
       annos
-          .map((a) => <String, Object?>{
-                'name': a.name,
-                if (a.arguments.isNotEmpty) 'arguments': a.arguments,
-              })
+          .map(
+            (a) => <String, Object?>{
+              'name': a.name,
+              if (a.arguments.isNotEmpty) 'arguments': a.arguments,
+            },
+          )
           .toList();
 
   String? _sectionId(ModelClass cls) =>

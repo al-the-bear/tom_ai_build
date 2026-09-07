@@ -214,8 +214,7 @@ class ModelField {
   /// classification therefore applies a primitive guard *before* consulting
   /// this getter (`MetaTreeBuilder.classifyField`); any other caller must
   /// do the same or an `int` member will be expanded as a class.
-  bool get isComplex =>
-      !isLeaf && !isList && !isSectionType;
+  bool get isComplex => !isLeaf && !isList && !isSectionType;
 
   /// Whether this member terminates the tree: a `DocSpecsSection` content
   /// member (YRD5), or a non-complex `String` / `String?` / enum member.
@@ -626,7 +625,8 @@ class ModelReader {
         final innerTypeName = _typeDisplayName(innerType);
         final innerIsEnum = _isEnumType(innerType);
         final innerIsContentSection = innerTypeName == _contentSectionType;
-        final innerIsComplex = !innerIsEnum &&
+        final innerIsComplex =
+            !innerIsEnum &&
             !innerIsContentSection &&
             innerTypeName != 'String' &&
             innerType is InterfaceType &&
@@ -824,11 +824,11 @@ class ModelReader {
         final name = item.getField('name')?.toStringValue();
         if (name == null) continue;
 
-        final description =
-            item.getField('description')?.toStringValue() ?? '';
+        final description = item.getField('description')?.toStringValue() ?? '';
         final required = item.getField('required')?.toBoolValue() ?? false;
         final hint = item.getField('hint')?.toStringValue() ?? '';
-        final refersTo = item
+        final refersTo =
+            item
                 .getField('refersTo')
                 ?.toListValue()
                 ?.map((e) => e.toStringValue())
@@ -848,15 +848,17 @@ class ModelReader {
           }
         }
 
-        result.add(FormFieldInfo(
-          name: name,
-          typeName: typeName,
-          description: description,
-          required: required,
-          hint: hint,
-          enumValues: enumValues,
-          refersTo: refersTo,
-        ));
+        result.add(
+          FormFieldInfo(
+            name: name,
+            typeName: typeName,
+            description: description,
+            required: required,
+            hint: hint,
+            enumValues: enumValues,
+            refersTo: refersTo,
+          ),
+        );
       }
       return result;
     }

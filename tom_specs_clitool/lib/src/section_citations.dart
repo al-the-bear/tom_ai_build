@@ -168,8 +168,9 @@ final RegExp _citation = RegExp('§[  ]?($sectionIdPattern)');
 /// `[^>]*?` rather than `.*?` so an unterminated marker cannot run to the next
 /// one several lines down — the payload is confined to what precedes the first
 /// `>`, and a marker is a single-line construct.
-final RegExp _exhibitMarker =
-    RegExp(r'<!--\s*section-cite:\s*exhibit([^>]*?)-->');
+final RegExp _exhibitMarker = RegExp(
+  r'<!--\s*section-cite:\s*exhibit([^>]*?)-->',
+);
 
 /// A token of an exhibit marker's payload, anchored so a partial id is
 /// rejected.
@@ -178,8 +179,9 @@ final RegExp _exhibitId = RegExp('^$sectionIdPattern\$');
 /// A numbered or symbolically-identified heading, `## 4.1 Title` /
 /// `### PF-DOC-PUR Purpose`. The dot after a number is optional because both
 /// `## 4.` and `## 4` occur.
-final RegExp _heading =
-    RegExp('^(#{1,6})[ \t]+($sectionIdPattern)\\.?(?:[ \t]+(.*))?\$');
+final RegExp _heading = RegExp(
+  '^(#{1,6})[ \t]+($sectionIdPattern)\\.?(?:[ \t]+(.*))?\$',
+);
 
 /// Fenced code blocks, whose contents are not prose.
 final RegExp _fence = RegExp(r'^\s{0,3}(```|~~~)');
@@ -197,8 +199,9 @@ final RegExp _listItem = RegExp(r'^\s*(?:[-*+]|\d+[.)])\s');
 /// form the convention reserves for `som_multiplatform_spec_model.md` because
 /// those citations appear inside fixed-width comment banners in generated
 /// source.
-final RegExp _leadingQualifier =
-    RegExp(r'(?:([A-Za-z0-9_.-]+\.md)|\bSOM)[`*_)\]\s ]*$');
+final RegExp _leadingQualifier = RegExp(
+  r'(?:([A-Za-z0-9_.-]+\.md)|\bSOM)[`*_)\]\s ]*$',
+);
 
 /// The standards bodies whose clause citations the doc set makes.
 ///
@@ -235,12 +238,14 @@ final RegExp _externalStandardQualifier = RegExp(
 );
 
 /// A document name standing just after a citation — `§11 of `x.md``.
-final RegExp _trailingQualifier =
-    RegExp(r'^[\s ]+(?:of|in)[\s ]+[`*_(\[]*([A-Za-z0-9_.-]+\.md)');
+final RegExp _trailingQualifier = RegExp(
+  r'^[\s ]+(?:of|in)[\s ]+[`*_(\[]*([A-Za-z0-9_.-]+\.md)',
+);
 
 /// A table cell holding a document reference **and nothing else**.
 final RegExp _documentOnlyCell = RegExp(
-    r'^[\s`*_]*(?:\[[^\]]*\]\(\s*)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?[\s`*_]*$');
+  r'^[\s`*_]*(?:\[[^\]]*\]\(\s*)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?[\s`*_]*$',
+);
 
 /// A table **header** cell holding a document reference and nothing else but an
 /// optional bare `§` — `` `llm_and_d4rt_tools.md` § ``.
@@ -249,12 +254,14 @@ final RegExp _documentOnlyCell = RegExp(
 /// of that document" rather than merely mentioning it, so it is admitted here
 /// and nowhere else.
 final RegExp _documentColumnHeaderCell = RegExp(
-    r'^[\s`*_]*(?:\[[^\]]*\]\(\s*)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?'
-    r'[\s`*_]*§?[\s`*_]*$');
+  r'^[\s`*_]*(?:\[[^\]]*\]\(\s*)?([A-Za-z0-9_.-]+\.md)(?:\s*\))?'
+  r'[\s`*_]*§?[\s`*_]*$',
+);
 
 /// The `|---|:--:|` row that turns the line above it into a header.
-final RegExp _tableDelimiterRow =
-    RegExp(r'^\s{0,3}\|(?:\s*:?-{2,}:?\s*\|)+\s*$');
+final RegExp _tableDelimiterRow = RegExp(
+  r'^\s{0,3}\|(?:\s*:?-{2,}:?\s*\|)+\s*$',
+);
 
 /// The document `SOM` abbreviates.
 const String somDocument = 'som_multiplatform_spec_model.md';
@@ -557,12 +564,16 @@ String dartDocComments(String source) {
   final lineInfo = parsed.lineInfo;
   final seen = <int>{};
 
-  for (Token? token = parsed.unit.beginToken;
-      token != null && token.type != TokenType.EOF;
-      token = token.next) {
-    for (Token? comment = token.precedingComments;
-        comment != null;
-        comment = comment.next) {
+  for (
+    Token? token = parsed.unit.beginToken;
+    token != null && token.type != TokenType.EOF;
+    token = token.next
+  ) {
+    for (
+      Token? comment = token.precedingComments;
+      comment != null;
+      comment = comment.next
+    ) {
       if (!seen.add(comment.offset)) continue;
       if (!comment.lexeme.startsWith('///')) continue;
       final line = lineInfo.getLocation(comment.offset).lineNumber - 1;
@@ -579,9 +590,9 @@ String dartDocComments(String source) {
 /// would hurt — it would leave the file in no scan set with nothing said — so
 /// the line scan still runs and the gate still reports.
 String _dartDocCommentsByLine(String source) => [
-      for (final line in source.split('\n'))
-        _docLine.firstMatch(line)?.group(1) ?? '',
-    ].join('\n');
+  for (final line in source.split('\n'))
+    _docLine.firstMatch(line)?.group(1) ?? '',
+].join('\n');
 
 /// A `///` documentation line, capturing what follows the marker.
 final RegExp _docLine = RegExp(r'^\s*///[ \t]?(.*)$');
@@ -603,9 +614,9 @@ final RegExp _docLine = RegExp(r'^\s*///[ \t]?(.*)$');
 /// line scanner cannot tell apart. Requiring the `#` to open the line keeps the
 /// scanner out of that question entirely.
 String hashComments(String source) => [
-      for (final line in source.split('\n'))
-        _hashLine.firstMatch(line)?.group(1) ?? '',
-    ].join('\n');
+  for (final line in source.split('\n'))
+    _hashLine.firstMatch(line)?.group(1) ?? '',
+].join('\n');
 
 /// A whole-line `#` comment, capturing what follows the marker.
 final RegExp _hashLine = RegExp(r'^\s*#[ \t]?(.*)$');
@@ -623,9 +634,9 @@ final RegExp _hashLine = RegExp(r'^\s*#[ \t]?(.*)$');
 /// Whole-line only, for [hashComments]' reason: a trailing `//` after code is a
 /// note, and a `//` inside a string is not a comment at all.
 String slashComments(String source) => [
-      for (final line in source.split('\n'))
-        _slashLine.firstMatch(line)?.group(1) ?? '',
-    ].join('\n');
+  for (final line in source.split('\n'))
+    _slashLine.firstMatch(line)?.group(1) ?? '',
+].join('\n');
 
 /// A whole-line `//` comment, capturing what follows the marker.
 ///
@@ -650,7 +661,9 @@ const _slashKinds = {
 /// emit.
 bool isScannedSource(String path) {
   final ext = p.extension(path);
-  return ext == '.dart' || _hashKinds.contains(ext) || _slashKinds.contains(ext);
+  return ext == '.dart' ||
+      _hashKinds.contains(ext) ||
+      _slashKinds.contains(ext);
 }
 
 /// Lifts [source]'s comments according to [path]'s kind.
@@ -673,9 +686,9 @@ String liftComments(String path, String source) {
 /// ranges. `and`, `to` and `through` are in because the documents write
 /// `§4.1 and §4.2`; an em dash is out because it opens a clause, and a `|` is <!-- section-cite: exhibit 4.1 4.2 -->
 /// out because it ends a table cell.
-bool _runJoiner(String gap) =>
-    RegExp(r'^[\s,;/&+~–-]*(?:(?:and|or|to|through|plus)[\s,;/&+~–-]*)?$')
-        .hasMatch(gap);
+bool _runJoiner(String gap) => RegExp(
+  r'^[\s,;/&+~–-]*(?:(?:and|or|to|through|plus)[\s,;/&+~–-]*)?$',
+).hasMatch(gap);
 
 /// One heading that carries a section id.
 class SectionHeading {
@@ -764,7 +777,7 @@ class SectionCorpus {
 
   /// Creates a corpus from parsed documents.
   SectionCorpus(Iterable<DocumentSections> documents)
-      : _byName = {for (final d in documents) d.name: d};
+    : _byName = {for (final d in documents) d.name: d};
 
   /// The documents, in name order.
   List<DocumentSections> get documents =>
@@ -785,15 +798,21 @@ class SectionCorpus {
     final dir = Directory(docDir);
     if (!dir.existsSync()) {
       throw ArgumentError.value(
-          docDir, 'docDir', 'documentation folder not found');
+        docDir,
+        'docDir',
+        'documentation folder not found',
+      );
     }
-    final files = dir
-        .listSync()
-        .whereType<File>()
-        .where((f) => p.extension(f.path) == '.md')
-        .toList()
-      ..sort((a, b) => a.path.compareTo(b.path));
-    return SectionCorpus([for (final f in files) DocumentSections.read(f.path)]);
+    final files =
+        dir
+            .listSync()
+            .whereType<File>()
+            .where((f) => p.extension(f.path) == '.md')
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+    return SectionCorpus([
+      for (final f in files) DocumentSections.read(f.path),
+    ]);
   }
 }
 
@@ -888,7 +907,9 @@ class StaleSectionExemption {
 
   /// A one-line, `file:line`-prefixed description suitable for a build log.
   String describe({String? relativeTo}) {
-    final where = relativeTo == null ? file : p.relative(file, from: relativeTo);
+    final where = relativeTo == null
+        ? file
+        : p.relative(file, from: relativeTo);
     return '$where:$line: §$id — STALE EXEMPTION — nothing on this line needs '
         'it; drop the id from the marker';
   }
@@ -949,24 +970,25 @@ class SectionCitation {
 
   /// A one-line, `file:line`-prefixed description suitable for a build log.
   String describe({String? relativeTo}) {
-    final where = relativeTo == null ? file : p.relative(file, from: relativeTo);
+    final where = relativeTo == null
+        ? file
+        : p.relative(file, from: relativeTo);
     final excused = exemption == null ? '' : ' [${exemption!.name}]';
     return '$where:$line: §$id — ${_reason()}$excused';
   }
 
   String _reason() => switch (verdict) {
-        SectionCitationVerdict.self => 'SELF',
-        SectionCitationVerdict.crossDocument =>
-          'OK → $document (${source.name})',
-        SectionCitationVerdict.dangling =>
-          'DANGLING — bare, and ${p.basename(file)} declares no §$id. A bare '
-              'citation means this document, so name the one it belongs to: '
-              '`<file>.md §$id`',
-        SectionCitationVerdict.wrongSection =>
-          'NO SUCH SECTION — $document declares no §$id',
-        SectionCitationVerdict.unverifiable =>
-          'UNVERIFIABLE — $document is outside the scanned corpus',
-      };
+    SectionCitationVerdict.self => 'SELF',
+    SectionCitationVerdict.crossDocument => 'OK → $document (${source.name})',
+    SectionCitationVerdict.dangling =>
+      'DANGLING — bare, and ${p.basename(file)} declares no §$id. A bare '
+          'citation means this document, so name the one it belongs to: '
+          '`<file>.md §$id`',
+    SectionCitationVerdict.wrongSection =>
+      'NO SUCH SECTION — $document declares no §$id',
+    SectionCitationVerdict.unverifiable =>
+      'UNVERIFIABLE — $document is outside the scanned corpus',
+  };
 }
 
 /// A stretch of lines a citation may look back over for its document name.
@@ -1005,7 +1027,8 @@ List<_Block> _blocksOf(List<String> lines) {
       continue;
     }
     if (inFence) continue;
-    final breaks = line.trim().isEmpty ||
+    final breaks =
+        line.trim().isEmpty ||
         _heading.hasMatch(line) ||
         line.startsWith('#') ||
         _tableRow.hasMatch(line) ||
@@ -1099,8 +1122,10 @@ List<StaleSectionExemption> staleSectionExemptions(
     for (final entry in declared.entries)
       for (final id in entry.value)
         StaleSectionExemption(file: path, line: entry.key, id: id),
-  ]..sort((a, b) =>
-      a.line != b.line ? a.line.compareTo(b.line) : a.id.compareTo(b.id));
+  ]..sort(
+    (a, b) =>
+        a.line != b.line ? a.line.compareTo(b.line) : a.id.compareTo(b.id),
+  );
 }
 
 /// Finds and resolves every `§` citation in [markdown].
@@ -1114,7 +1139,9 @@ List<SectionCitation> classifySectionCitations(
   DocumentSections? own,
 }) {
   final self =
-      own ?? corpus[p.basename(path)] ?? DocumentSections.parse(markdown, path: path);
+      own ??
+      corpus[p.basename(path)] ??
+      DocumentSections.parse(markdown, path: path);
   final citations = <SectionCitation>[];
 
   final lines = markdown.split('\n');
@@ -1182,22 +1209,25 @@ List<SectionCitation> classifySectionCitations(
       // The exemption is consumed only by a verdict it could excuse, so a
       // marker naming an id that resolves anyway stays unconsumed and is
       // reported stale rather than quietly attaching to a healthy citation.
-      final excusable = verdict == SectionCitationVerdict.dangling ||
+      final excusable =
+          verdict == SectionCitationVerdict.dangling ||
           verdict == SectionCitationVerdict.wrongSection;
 
-      citations.add(SectionCitation(
-        id: id,
-        document: document,
-        source: source,
-        viaShortForm: viaShortForm,
-        file: path,
-        line: line,
-        context: block.text.split('\n')[line - block.firstLine],
-        verdict: verdict,
-        exemption: excusable && (exhibits[line]?.contains(id) ?? false)
-            ? SectionCitationExemption.exhibit
-            : null,
-      ));
+      citations.add(
+        SectionCitation(
+          id: id,
+          document: document,
+          source: source,
+          viaShortForm: viaShortForm,
+          file: path,
+          line: line,
+          context: block.text.split('\n')[line - block.firstLine],
+          verdict: verdict,
+          exemption: excusable && (exhibits[line]?.contains(id) ?? false)
+              ? SectionCitationExemption.exhibit
+              : null,
+        ),
+      );
 
       previousEnd = match.end;
       previousDocument = document;
@@ -1248,12 +1278,16 @@ class SectionCitationReport {
   });
 
   /// The citations that must fail the check.
-  List<SectionCitation> get violations =>
-      [for (final c in citations) if (c.isViolation) c];
+  List<SectionCitation> get violations => [
+    for (final c in citations)
+      if (c.isViolation) c,
+  ];
 
   /// The citations an exhibit marker excused.
-  List<SectionCitation> get exempted =>
-      [for (final c in citations) if (c.exemption != null) c];
+  List<SectionCitation> get exempted => [
+    for (final c in citations)
+      if (c.exemption != null) c,
+  ];
 
   /// Whether every citation resolves and every exemption still earns its keep.
   bool get isClean => violations.isEmpty && staleExemptions.isEmpty;
@@ -1284,16 +1318,24 @@ SectionCitationReport checkSectionCitations({
   // citations and the exemptions none of them consumed.
   void scan(String markdown, {required String path, DocumentSections? own}) {
     files.add(path);
-    final found = classifySectionCitations(markdown,
-        path: path, corpus: resolved, own: own);
+    final found = classifySectionCitations(
+      markdown,
+      path: path,
+      corpus: resolved,
+      own: own,
+    );
     citations.addAll(found);
     stale.addAll(
-        staleSectionExemptions(markdown, path: path, citations: found));
+      staleSectionExemptions(markdown, path: path, citations: found),
+    );
   }
 
   for (final document in resolved.documents) {
-    scan(File(document.path).readAsStringSync(),
-        path: document.path, own: document);
+    scan(
+      File(document.path).readAsStringSync(),
+      path: document.path,
+      own: document,
+    );
   }
 
   // Files outside the doc folder — project READMEs, say — cite the doc set too,
@@ -1312,10 +1354,11 @@ SectionCitationReport checkSectionCitations({
   for (final path in extraSources) {
     final file = File(path);
     if (!file.existsSync()) continue;
-    scan(liftComments(path, file.readAsStringSync()),
-        path: path,
-        own: DocumentSections(
-            path: path, name: p.basename(path), byId: const {}));
+    scan(
+      liftComments(path, file.readAsStringSync()),
+      path: path,
+      own: DocumentSections(path: path, name: p.basename(path), byId: const {}),
+    );
   }
 
   return SectionCitationReport(

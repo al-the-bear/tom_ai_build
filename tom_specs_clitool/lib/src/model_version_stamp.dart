@@ -71,20 +71,23 @@ ModelVersionStamp readModelVersionStamp(String modelDir) {
   final file = File(modelVersionStampPath(modelDir));
   if (!file.existsSync()) {
     throw ModelVersionStampException(
-        'Version stamp not found at ${file.path} '
-        '(run `buildkit :versioner` in the model package first).');
+      'Version stamp not found at ${file.path} '
+      '(run `buildkit :versioner` in the model package first).',
+    );
   }
   final src = file.readAsStringSync();
   String str(String field) =>
       RegExp("$field\\s*=\\s*'([^']*)'").firstMatch(src)?.group(1) ?? '';
   int num(String field) =>
       int.tryParse(
-          RegExp('$field\\s*=\\s*(\\d+)').firstMatch(src)?.group(1) ?? '') ??
+        RegExp('$field\\s*=\\s*(\\d+)').firstMatch(src)?.group(1) ?? '',
+      ) ??
       0;
   final version = str('version');
   if (version.isEmpty) {
     throw ModelVersionStampException(
-        'Could not parse `version` from ${file.path}.');
+      'Could not parse `version` from ${file.path}.',
+    );
   }
   return ModelVersionStamp(
     version: version,

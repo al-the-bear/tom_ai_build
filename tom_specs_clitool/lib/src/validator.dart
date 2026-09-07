@@ -95,8 +95,8 @@ const String _sectionIdSlot = '@sectionId';
         if (_isPrimitive(inner) || field.listElementIsContentSection) {
           final isInlineContentList =
               (inner == 'String' || field.listElementIsContentSection) &&
-                  field.getAnnotation('SectionId') != null &&
-                  field.getAnnotation('SectionIdPattern') != null;
+              field.getAnnotation('SectionId') != null &&
+              field.getAnnotation('SectionIdPattern') != null;
           if (!isInlineContentList) {
             errors.add(
               '$className.${field.name}: List<$inner> not allowed — '
@@ -109,7 +109,9 @@ const String _sectionIdSlot = '@sectionId';
       }
 
       // `tom_specs_model_rules.md` §5.4 — no primitive non-String scalars
-      if (!field.isList && !field.isEnum && _isNonStringPrimitive(field.typeName)) {
+      if (!field.isList &&
+          !field.isEnum &&
+          _isNonStringPrimitive(field.typeName)) {
         errors.add(
           '$className.${field.name}: type "${field.typeName}" not allowed — '
           'use String? with @Form Field type parameter instead',
@@ -150,10 +152,13 @@ const String _sectionIdSlot = '@sectionId';
     }
 
     // `tom_specs_model_rules.md` §5.6 — ContentType constraints
-    final contentField = cls.fields.where((f) => f.name == 'content').firstOrNull;
+    final contentField = cls.fields
+        .where((f) => f.name == 'content')
+        .firstOrNull;
     if (contentField != null) {
       final contentTypeAnno = contentField.getAnnotation('ContentType');
-      final contentType = contentTypeAnno?.arguments['type'] as String? ?? 'Form';
+      final contentType =
+          contentTypeAnno?.arguments['type'] as String? ?? 'Form';
       if (contentType != 'Form') {
         // Non-Form content — class must not have other scalar fields
         final otherScalars = cls.fields
@@ -174,7 +179,8 @@ const String _sectionIdSlot = '@sectionId';
       // mandatory description), `@Form` (the content is a packed form), or
       // `@Unused` (the class is a pure container and owns no prose). Without
       // one, the editor shows a section whose only guidance is its headline.
-      final documentsContent = contentTypeAnno != null ||
+      final documentsContent =
+          contentTypeAnno != null ||
           contentField.getAnnotation('ContentHelp') != null ||
           contentField.getAnnotation('Unused') != null ||
           contentField.getAnnotation('Form') != null ||
@@ -530,7 +536,8 @@ void _validateStructuralInvariants(
 
   final sectionIdSeen = <String, String>{}; // id → className
   final mapsToByClass = <String, Set<String>>{}; // className → {docTypeName}
-  final detailedInByClass = <String, Set<String>>{}; // className → {docTypeName}
+  final detailedInByClass =
+      <String, Set<String>>{}; // className → {docTypeName}
 
   for (final className in reachable) {
     final cls = classes[className];
@@ -540,8 +547,9 @@ void _validateStructuralInvariants(
     // once. `getAnnotation` returns only the first match, so a duplicate on the
     // same class would otherwise pass the global-uniqueness check below
     // silently (the repeated id only collides with itself).
-    final sectionIdCount =
-        cls.annotations.where((a) => a.name == 'SectionId').length;
+    final sectionIdCount = cls.annotations
+        .where((a) => a.name == 'SectionId')
+        .length;
     if (sectionIdCount > 1) {
       errors.add(
         '$_invariants @SectionId single-occurrence: $className carries $sectionIdCount '
@@ -661,7 +669,7 @@ void _validateStructuralInvariants(
         final source = field.listElementIsComplex
             ? 'element class $elementType'
             : 'owning class $className (a List<DocSpecsSection> has no '
-                'element class)';
+                  'element class)';
         errors.add(
           '$_invariants @SectionId container prefix: $className.${field.name} '
           'has container id "$lstId", but its prefix must be the @SectionId of '
@@ -887,7 +895,9 @@ void _validateStructuralInvariants(
     for (final field in owner.fields) {
       if (field.isList) {
         final el = field.listElementTypeName;
-        if (el != null && field.listElementIsComplex && classes.containsKey(el)) {
+        if (el != null &&
+            field.listElementIsComplex &&
+            classes.containsKey(el)) {
           listReferrers[el] = (listReferrers[el] ?? 0) + 1;
         }
       } else if (field.isComplex) {
@@ -907,7 +917,8 @@ void _validateStructuralInvariants(
     final cls = classes[className];
     if (cls == null) continue;
     if (className == containerRootName) continue;
-    if (className == sbpRoot) continue; // the master-blueprint anchor is not a wrapper
+    // The master-blueprint anchor is not a wrapper.
+    if (className == sbpRoot) continue;
     if (cls.getAnnotation('Document') != null) continue;
     // Unshared: exactly one complex referrer, never a list element.
     if ((complexReferrers[className] ?? 0) != 1) continue;
@@ -922,14 +933,16 @@ void _validateStructuralInvariants(
     // Keep-a-level exemptions (TSMA5) — do NOT flag these.
     final classForm =
         cls.getAnnotation('Form') != null || cls.formFields.isNotEmpty;
-    final anyFieldForm = cls.fields
-        .any((f) => f.getAnnotation('Form') != null || f.formFields.isNotEmpty);
+    final anyFieldForm = cls.fields.any(
+      (f) => f.getAnnotation('Form') != null || f.formFields.isNotEmpty,
+    );
     if (classForm || anyFieldForm) continue; // form-bearing wrapper stays
     final anyHelpRefs = others.any((f) {
       if (f.getAnnotation('ContentHelp') != null) return true;
       if (f.getAnnotation('StandardReferences') != null) return true;
       final ct = f.getAnnotation('ContentType');
-      return ct != null && (ct.arguments['type'] as String? ?? 'Form') != 'Form';
+      return ct != null &&
+          (ct.arguments['type'] as String? ?? 'Form') != 'Form';
     });
     if (anyHelpRefs) continue; // meaningful-content wrapper stays
     if (others.any((f) => f.name != 'content')) continue; // named scalar stays
@@ -939,11 +952,12 @@ void _validateStructuralInvariants(
     final subKind = sub.isList
         ? 'list<${sub.listElementTypeName}>'
         : sub.isSectionType
-            ? 'section:${sub.typeName}'
-            : 'complex:${sub.typeName.replaceAll('?', '')}';
+        ? 'section:${sub.typeName}'
+        : 'complex:${sub.typeName.replaceAll('?', '')}';
     final origin = soleComplexParent[className];
-    final where =
-        origin == null ? '(unknown parent)' : '${origin.parent}.${origin.field}';
+    final where = origin == null
+        ? '(unknown parent)'
+        : '${origin.parent}.${origin.field}';
     warnings.add(
       '$_keepRules collapsible-wrapper: $className is a single-subsection wrapper '
       'with vacuous content, referenced only by $where — collapse it by '
@@ -1032,7 +1046,12 @@ void _validateStructuralInvariants(
   // instance tier's job (`spec_validator.dart`), which needs document values
   // the class graph cannot see.
   _validateReferenceTargets(
-      classes, reachable, documentClasses, errors, warnings);
+    classes,
+    reachable,
+    documentClasses,
+    errors,
+    warnings,
+  );
 
   // --- Step 10 — §10.2 invariant NO-RESTATED-NAME: no restated heading ----
   //
@@ -1053,7 +1072,12 @@ void _validateStructuralInvariants(
   // sound: the three verdicts are exclusive, every part named has a generated
   // bearer, and every section carries a verdict.
   _validateCodeSpecKindRouting(
-      classes, reachable, documentClasses, errors, warnings);
+    classes,
+    reachable,
+    documentClasses,
+    errors,
+    warnings,
+  );
 
   // --- Step 12 — §10.2 invariant REACHABLE: document reachability ---------
   //
@@ -1075,8 +1099,9 @@ void _validateStructuralInvariants(
 /// The `CodeSpecPart` values with no generated surface — reserved so a section
 /// can name them, never emitted (`codespecs_mapping.md` §4.3). Read from
 /// `tom_specs_core` rather than restated, so the deferral is declared once.
-final Set<String> _deferredParts =
-    deferredCodeSpecParts.map((p) => p.toString()).toSet();
+final Set<String> _deferredParts = deferredCodeSpecParts
+    .map((p) => p.toString())
+    .toSet();
 
 /// The three routing verdicts, in the order a failure message reads best.
 ///
@@ -1169,8 +1194,10 @@ void _validateCodeSpecKindRouting(
   // a path that never passes through that root — so it routed nowhere and was
   // silently absent from every extract, which is the one failure the invariant
   // exists to catch.
-  for (final className in _routingWalk(classes, documentClasses).toList()
-    ..sort()) {
+  for (final className in _routingWalk(
+    classes,
+    documentClasses,
+  ).toList()..sort()) {
     final cls = classes[className];
     if (cls == null) continue;
     if (documentClasses.contains(className)) continue;
@@ -1193,10 +1220,13 @@ void _validateCodeSpecKindRouting(
   // `@CodeSpecsProjection()`. A model with none (a synthetic test model, or the
   // model before D13 existed) has nothing to route to, so the check stays
   // silent rather than reporting every part as a gap.
-  final projectionRoots = documentClasses
-      .where((d) => classes[d]?.getAnnotation('CodeSpecsProjection') != null)
-      .toList()
-    ..sort();
+  final projectionRoots =
+      documentClasses
+          .where(
+            (d) => classes[d]?.getAnnotation('CodeSpecsProjection') != null,
+          )
+          .toList()
+        ..sort();
   if (projectionRoots.isEmpty) return;
 
   final generated = <String>{};
@@ -1265,15 +1295,14 @@ Set<String> _patternedElementTypes(Map<String, ModelClass> classes) {
 /// identifier ending in `Name`/`Title`/`Label`.
 final _nameShapedField = RegExp(r'^(name|title|label)$|(Name|Title|Label)$');
 final _nameSuffix = RegExp(r'(Name|Title|Label)$');
-final _entrySuffix =
-    RegExp(r'(Entry|Record|Spec|Section|Item|Ref|Details)$');
+final _entrySuffix = RegExp(r'(Entry|Record|Spec|Section|Item|Ref|Details)$');
 
 /// What a name-shaped field names, lowercased: the empty string for a bare
 /// `name`/`title`/`label` (it can only mean the enclosing thing itself).
 String _nameFieldStem(String fieldName) =>
     const {'name', 'title', 'label'}.contains(fieldName)
-        ? ''
-        : fieldName.replaceAll(_nameSuffix, '').toLowerCase();
+    ? ''
+    : fieldName.replaceAll(_nameSuffix, '').toLowerCase();
 
 /// The subject a list-entry class is about, lowercased: its class name with the
 /// structural suffix dropped, so `BusinessProcessEntry` is about
@@ -1384,10 +1413,12 @@ void _validateEntryNameFields(
     for (final formField in _allFormFields(cls)) {
       if (!_nameShapedField.hasMatch(formField.name)) continue;
       if (formField.refersTo.isNotEmpty) continue; // (c)
-      if (registryKeys.contains('$className.${formField.name}')) continue; // (b)
+      // (b)
+      if (registryKeys.contains('$className.${formField.name}')) continue;
       final stem = _nameFieldStem(formField.name);
       final restated = entries.where(
-          (e) => stem.isEmpty || _entrySubject(e).contains(stem));
+        (e) => stem.isEmpty || _entrySubject(e).contains(stem),
+      );
       if (restated.length != entries.length) continue;
       violations.add(
         '$_invariants entry name: $className.${formField.name} restates the '
@@ -1405,9 +1436,9 @@ void _validateEntryNameFields(
 /// each member's field-level `@Form` (the discriminator of a `@OneOf` group may
 /// live on the reserved `content` member's form, e.g. `ScreenElementEntry`).
 List<FormFieldInfo> _allFormFields(ModelClass cls) => [
-      ...cls.formFields,
-      for (final field in cls.fields) ...field.formFields,
-    ];
+  ...cls.formFields,
+  for (final field in cls.fields) ...field.formFields,
+];
 
 /// Splits a qualified `EnumType.constant` token (as carried by `@Case`) into
 /// its `(enumType, constant)` parts, or `null` if it is not qualified.
@@ -1415,7 +1446,10 @@ List<FormFieldInfo> _allFormFields(ModelClass cls) => [
   if (value is! String) return null;
   final dot = value.indexOf('.');
   if (dot <= 0 || dot == value.length - 1) return null;
-  return (enumType: value.substring(0, dot), constant: value.substring(dot + 1));
+  return (
+    enumType: value.substring(0, dot),
+    constant: value.substring(dot + 1),
+  );
 }
 
 /// Static enforcement of the `@OneOf`/`@Case` closed-choice mechanism
@@ -1522,8 +1556,9 @@ void _validateOneOfGroups(
 
     final coveredConstants = <String>{};
     for (final field in cls.fields) {
-      final caseAnnos =
-          field.annotations.where((a) => a.name == 'Case').toList();
+      final caseAnnos = field.annotations
+          .where((a) => a.name == 'Case')
+          .toList();
       if (caseAnnos.isEmpty) continue;
 
       // (iv) Every @Case-bound field is a complex subsection of the container.
@@ -1578,11 +1613,12 @@ void _validateOneOfGroups(
     // (iii) Cases must cover the enum, minus the constants declared `noCase`.
     // Uncovered-and-undeclared is a WARNING: it is a completeness signal, and a
     // kind whose case has not been written yet still generates.
-    final uncovered = enumConstants
-        .difference(coveredConstants)
-        .difference(declaredNoCase)
-        .toList()
-      ..sort();
+    final uncovered =
+        enumConstants
+            .difference(coveredConstants)
+            .difference(declaredNoCase)
+            .toList()
+          ..sort();
     if (uncovered.isNotEmpty) {
       warnings.add(
         '$_invariants one-of: $className @OneOf on "$discriminator" leaves '
@@ -1705,7 +1741,8 @@ void _validateReferenceTargets(
         // could not run and the contract would stay unenforced for exactly the
         // fields it exists to protect.
         final dot = target.indexOf('.');
-        if (dot <= 0 || dot == target.length - 1 ||
+        if (dot <= 0 ||
+            dot == target.length - 1 ||
             target.indexOf('.', dot + 1) != -1) {
           errors.add(
             '$_invariants refersTo: $where declares target "$target" — a target '
@@ -1771,8 +1808,9 @@ void _validateReferenceTargets(
 
         // (iii) The target declares that form field.
         final targetFields = _allFormFields(targetClass);
-        final targetField =
-            targetFields.where((f) => f.name == fieldName).firstOrNull;
+        final targetField = targetFields
+            .where((f) => f.name == fieldName)
+            .firstOrNull;
         if (targetField == null) {
           errors.add(
             '$_invariants refersTo: $where targets "$target" but '
@@ -1849,7 +1887,8 @@ void _validateReferenceCoReachability(
   // Per-root reachability, computed once: every reference asks the same
   // question of the same handful of roots.
   final reachableByRoot = <String, Set<String>>{
-    for (final root in documentClasses) root: _findReachableTypes(classes, root),
+    for (final root in documentClasses)
+      root: _findReachableTypes(classes, root),
   };
 
   // Section id → owning class. A duplicate id is an error of its own, and an
@@ -1860,8 +1899,7 @@ void _validateReferenceCoReachability(
     final id = entry.value.getAnnotation('SectionId')?.arguments['id'];
     if (id is! String || id.isEmpty) continue;
     // A second owner replaces the entry with `null` — "ambiguous".
-    ownerBySectionId[id] =
-        ownerBySectionId.containsKey(id) ? null : entry.key;
+    ownerBySectionId[id] = ownerBySectionId.containsKey(id) ? null : entry.key;
   }
 
   for (final className in classes.keys.toList()..sort()) {
@@ -1885,8 +1923,8 @@ void _validateReferenceCoReachability(
           '$_invariants refersTo co-reachability: $className.${formField.name} '
           'targets "$target" but no @Document root reaches both $className and '
           '$owner (${referrerRoots.isEmpty ? '$className is reachable from no '
-              'root at all' : '$className is reachable from '
-              '${referrerRoots.join(', ')}'}) — the reference could never be '
+                    'root at all' : '$className is reachable from '
+                    '${referrerRoots.join(', ')}'}) — the reference could never be '
           'resolved in any document',
         );
       }
@@ -1980,10 +2018,7 @@ Set<String> _findReachableTypes(
   return visited;
 }
 
-String? _detectCycles(
-  Map<String, ModelClass> classes,
-  String rootTypeName,
-) {
+String? _detectCycles(Map<String, ModelClass> classes, String rootTypeName) {
   final visiting = <String>{};
   final visited = <String>{};
   final path = <String>[];
@@ -2032,12 +2067,17 @@ String? _detectCycles(
 
 bool _isPrimitive(String typeName) {
   final base = typeName.replaceAll('?', '');
-  return const {'String', 'int', 'double', 'bool', 'num', 'DateTime'}
-      .contains(base);
+  return const {
+    'String',
+    'int',
+    'double',
+    'bool',
+    'num',
+    'DateTime',
+  }.contains(base);
 }
 
 bool _isNonStringPrimitive(String typeName) {
   final base = typeName.replaceAll('?', '');
   return const {'int', 'double', 'bool', 'num', 'DateTime'}.contains(base);
 }
-

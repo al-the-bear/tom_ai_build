@@ -80,15 +80,29 @@ const List<String> _structuralFieldNames = [
 /// when someone **adds** a member to the reference facade, and a source parse
 /// sees the declaration whether or not this package ever calls it.
 Set<String> _somNodeMembers() {
-  final file = File(p.join(Directory.current.path, '..',
-      'tom_som_dart_runtime', 'lib', 'src', 'som_facade.dart'));
-  expect(file.existsSync(), isTrue,
-      reason: 'the Dart runtime facade must be a sibling package');
+  final file = File(
+    p.join(
+      Directory.current.path,
+      '..',
+      'tom_som_dart_runtime',
+      'lib',
+      'src',
+      'som_facade.dart',
+    ),
+  );
+  expect(
+    file.existsSync(),
+    isTrue,
+    reason: 'the Dart runtime facade must be a sibling package',
+  );
   final source = file.readAsStringSync();
 
   final start = source.indexOf('abstract class SomNode {');
-  expect(start, greaterThanOrEqualTo(0),
-      reason: 'SomNode must still be declared in som_facade.dart');
+  expect(
+    start,
+    greaterThanOrEqualTo(0),
+    reason: 'SomNode must still be declared in som_facade.dart',
+  );
   // The class body ends at the first line that is exactly `}` — SomNode holds
   // no nested declarations, so this is unambiguous.
   final bodyEnd = source.indexOf('\n}\n', start);
@@ -97,8 +111,10 @@ Set<String> _somNodeMembers() {
 
   final members = <String>{};
   // `final SpecDocument doc;` / `final String path;`
-  for (final m
-      in RegExp(r'^\s*final\s+\w+\??\s+(\w+);', multiLine: true).allMatches(body)) {
+  for (final m in RegExp(
+    r'^\s*final\s+\w+\??\s+(\w+);',
+    multiLine: true,
+  ).allMatches(body)) {
     members.add(m.group(1)!);
   }
   // `bool get isEmpty` / `String? get $headline` / `set $headline(`
@@ -110,25 +126,39 @@ Set<String> _somNodeMembers() {
 
 void main() {
   group('somStructuralAccessorNames', () {
-    test('SSA1: has an entry for every member in every language [2026-07-28]',
-        () {
-      for (final language in SomLanguage.values) {
-        final entry = somStructuralAccessorNames[language];
-        expect(entry, isNotNull,
-            reason: 'language ${language.name} has no structural-accessor '
-                'entry — adding a language means recording its facade shape');
-        for (final member in SomStructuralMember.values) {
-          expect(entry!.containsKey(member), isTrue,
-              reason: 'language ${language.name} has no entry for '
+    test(
+      'SSA1: has an entry for every member in every language [2026-07-28]',
+      () {
+        for (final language in SomLanguage.values) {
+          final entry = somStructuralAccessorNames[language];
+          expect(
+            entry,
+            isNotNull,
+            reason:
+                'language ${language.name} has no structural-accessor '
+                'entry — adding a language means recording its facade shape',
+          );
+          for (final member in SomStructuralMember.values) {
+            expect(
+              entry!.containsKey(member),
+              isTrue,
+              reason:
+                  'language ${language.name} has no entry for '
                   '${member.name} — an omission and a deliberate "cannot '
                   'collide here" must be told apart, so record the empty list '
-                  'explicitly');
+                  'explicitly',
+            );
+          }
+          expect(
+            entry!.length,
+            SomStructuralMember.values.length,
+            reason:
+                'language ${language.name} carries an entry for a member '
+                'that is no longer in SomStructuralMember',
+          );
         }
-        expect(entry!.length, SomStructuralMember.values.length,
-            reason: 'language ${language.name} carries an entry for a member '
-                'that is no longer in SomStructuralMember');
-      }
-    });
+      },
+    );
 
     test('SSA2: the dart entry agrees with the real SomNode [2026-07-28]', () {
       final declared = _somNodeMembers();
@@ -137,53 +167,68 @@ void main() {
       // Every name the table claims is structural must really be on SomNode —
       // otherwise the table is over-reserving and renames accessors for nothing.
       for (final name in tabled) {
-        expect(declared, contains(name),
-            reason: '`$name` is reserved for Dart but is not declared on '
-                'SomNode — remove it from the table');
+        expect(
+          declared,
+          contains(name),
+          reason:
+              '`$name` is reserved for Dart but is not declared on '
+              'SomNode — remove it from the table',
+        );
       }
       // …and every member SomNode declares must be reserved. This is the
       // direction that catches the bug the table exists for: a new structural
       // accessor added to the reference facade without updating the table.
       for (final name in declared) {
-        expect(tabled, contains(name),
-            reason: 'SomNode declares `$name` but the structural-accessor '
-                'table does not reserve it — a generated field of that name '
-                'would silently shadow it');
+        expect(
+          tabled,
+          contains(name),
+          reason:
+              'SomNode declares `$name` but the structural-accessor '
+              'table does not reserve it — a generated field of that name '
+              'would silently shadow it',
+        );
       }
     });
 
-    test('SSA3: rust and c record an empty surface deliberately [2026-07-28]',
-        () {
-      // Rust composes the node (`pub node: SomNode`) and C allocates every
-      // function name from one flat deduplicated namespace, so neither can
-      // shadow. Pinning this keeps the emptiness a recorded decision: if either
-      // facade ever switches to inheritance, this test is the reminder.
-      expect(somReservedAccessorNames(SomLanguage.rust), isEmpty);
-      expect(somReservedAccessorNames(SomLanguage.c), isEmpty);
-    });
+    test(
+      'SSA3: rust and c record an empty surface deliberately [2026-07-28]',
+      () {
+        // Rust composes the node (`pub node: SomNode`) and C allocates every
+        // function name from one flat deduplicated namespace, so neither can
+        // shadow. Pinning this keeps the emptiness a recorded decision: if either
+        // facade ever switches to inheritance, this test is the reminder.
+        expect(somReservedAccessorNames(SomLanguage.rust), isEmpty);
+        expect(somReservedAccessorNames(SomLanguage.c), isEmpty);
+      },
+    );
   });
 
   group('emitters honour the structural surface', () {
     final colliding = _emitAll(SpecModel.fromJson(_modelJson(safe: false)));
     final baseline = _emitAll(SpecModel.fromJson(_modelJson(safe: true)));
 
-    test('SSA4: a colliding model adds no structural-named accessor [2026-07-28]',
-        () {
-      // Every facade emits some structural members of its own — `canHaveContent`
-      // is overridden on every content-bearing section, for instance. Counting
-      // occurrences in the *baseline* (same model shape, non-colliding names)
-      // and requiring the colliding model to match it isolates exactly the
-      // field-derived accessors, with no need to guess at intent.
-      for (final language in SomLanguage.values) {
-        for (final name in somReservedAccessorNames(language)) {
-          expect(_countAccessors(colliding[language]!, language, name),
+    test(
+      'SSA4: a colliding model adds no structural-named accessor [2026-07-28]',
+      () {
+        // Every facade emits some structural members of its own — `canHaveContent`
+        // is overridden on every content-bearing section, for instance. Counting
+        // occurrences in the *baseline* (same model shape, non-colliding names)
+        // and requiring the colliding model to match it isolates exactly the
+        // field-derived accessors, with no need to guess at intent.
+        for (final language in SomLanguage.values) {
+          for (final name in somReservedAccessorNames(language)) {
+            expect(
+              _countAccessors(colliding[language]!, language, name),
               _countAccessors(baseline[language]!, language, name),
-              reason: '${language.name} emits an extra accessor named `$name` '
+              reason:
+                  '${language.name} emits an extra accessor named `$name` '
                   'when a model field carries that name — it shadows the '
-                  'structural member instead of being renamed');
+                  'structural member instead of being renamed',
+            );
+          }
         }
-      }
-    });
+      },
+    );
 
     test('SSA5: the collision is resolved, not dropped [2026-07-28]', () {
       // The counterpart to SSA4: an emitter that silently *skipped* a colliding
@@ -205,38 +250,45 @@ void main() {
       expect(dart, contains(r"doc.content('$path/isempty')"));
     });
 
-    test('SSA6: every language emits one accessor pair per field [2026-07-28]',
-        () {
-      // The renaming must not collapse two fields onto one accessor, in any
-      // language. Comparing generated line counts against the baseline catches
-      // a dropped or merged member.
-      for (final language in SomLanguage.values) {
-        expect(colliding[language]!.split('\n').length,
+    test(
+      'SSA6: every language emits one accessor pair per field [2026-07-28]',
+      () {
+        // The renaming must not collapse two fields onto one accessor, in any
+        // language. Comparing generated line counts against the baseline catches
+        // a dropped or merged member.
+        for (final language in SomLanguage.values) {
+          expect(
+            colliding[language]!.split('\n').length,
             baseline[language]!.split('\n').length,
-            reason: '${language.name} emits a different number of lines for a '
+            reason:
+                '${language.name} emits a different number of lines for a '
                 'colliding model than for the same model with safe names — a '
-                'field was dropped or merged rather than renamed');
-      }
-    });
+                'field was dropped or merged rather than renamed',
+          );
+        }
+      },
+    );
   });
 }
 
 /// Generates every language's facade source for [model].
 Map<SomLanguage, String> _emitAll(SpecModel model) => {
-      SomLanguage.dart: SomDartEmitter(model).generateLibrary(),
-      SomLanguage.python: SomPythonEmitter(model).generateLibrary(),
-      SomLanguage.java: SomJavaEmitter(model).generateLibrary(),
-      SomLanguage.javascript: SomJavaScriptEmitter(model).generateLibrary(),
-      SomLanguage.typescript: SomTypeScriptEmitter(model).generateLibrary(),
-      SomLanguage.go: SomGoEmitter(model).generateLibrary(),
-      SomLanguage.rust: SomRustEmitter(model).generateLibrary(),
-      // C / C++ split their output; declarations live in the header and
-      // definitions in the source, so both are searched.
-      SomLanguage.cpp: '${SomCppEmitter(model).generateHeader()}\n'
-          '${SomCppEmitter(model).generateSource()}',
-      SomLanguage.c: '${SomCEmitter(model).generateHeader()}\n'
-          '${SomCEmitter(model).generateSource()}',
-    };
+  SomLanguage.dart: SomDartEmitter(model).generateLibrary(),
+  SomLanguage.python: SomPythonEmitter(model).generateLibrary(),
+  SomLanguage.java: SomJavaEmitter(model).generateLibrary(),
+  SomLanguage.javascript: SomJavaScriptEmitter(model).generateLibrary(),
+  SomLanguage.typescript: SomTypeScriptEmitter(model).generateLibrary(),
+  SomLanguage.go: SomGoEmitter(model).generateLibrary(),
+  SomLanguage.rust: SomRustEmitter(model).generateLibrary(),
+  // C / C++ split their output; declarations live in the header and
+  // definitions in the source, so both are searched.
+  SomLanguage.cpp:
+      '${SomCppEmitter(model).generateHeader()}\n'
+      '${SomCppEmitter(model).generateSource()}',
+  SomLanguage.c:
+      '${SomCEmitter(model).generateHeader()}\n'
+      '${SomCEmitter(model).generateSource()}',
+};
 
 /// Counts declarations of an accessor literally named [name] in [source].
 ///
@@ -250,8 +302,7 @@ int _countAccessors(String source, SomLanguage language, String name) {
     SomLanguage.python => [r'^\s*def\s+' + n + r'\s*\('],
     SomLanguage.java => [r'\b' + n + r'\s*\('],
     SomLanguage.javascript ||
-    SomLanguage.typescript =>
-      [r'\b(?:get|set)\s+' + n + r'\s*\('],
+    SomLanguage.typescript => [r'\b(?:get|set)\s+' + n + r'\s*\('],
     SomLanguage.go => [r'\)\s*' + n + r'\s*\('],
     SomLanguage.cpp => [r'\b' + n + r'\s*\('],
     SomLanguage.rust => [r'\bfn\s+' + n + r'\s*\('],

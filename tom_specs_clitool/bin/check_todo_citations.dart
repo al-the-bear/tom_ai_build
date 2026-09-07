@@ -23,42 +23,59 @@ Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption(
       'doc',
-      help: 'Documentation folder to scan. Default: the sibling '
+      help:
+          'Documentation folder to scan. Default: the sibling '
           'tom_specs_model/doc.',
     )
     ..addMultiOption(
       'extra',
-      help: 'Additional file to scan, resolved against the same corpus. '
+      help:
+          'Additional file to scan, resolved against the same corpus. '
           'Repeatable. Defaults to the project READMEs that cite the doc set; '
           'pass --no-default-readmes to scan the doc folder alone.',
     )
-    ..addFlag('default-readmes',
-        defaultsTo: true,
-        help: 'Also scan the project READMEs that cite the doc set.')
+    ..addFlag(
+      'default-readmes',
+      defaultsTo: true,
+      help: 'Also scan the project READMEs that cite the doc set.',
+    )
     ..addMultiOption(
       'doc-folder',
-      help: 'Additional package `doc/` folder whose `*.md` files are scanned, '
+      help:
+          'Additional package `doc/` folder whose `*.md` files are scanned, '
           'recursively. Repeatable. Defaults to the package doc folders that '
           'cite the doc set; pass --no-default-doc-folders to drop them.',
     )
-    ..addFlag('default-doc-folders',
-        defaultsTo: true,
-        help: 'Also scan the package `doc/` folders that cite the doc set.')
+    ..addFlag(
+      'default-doc-folders',
+      defaultsTo: true,
+      help: 'Also scan the package `doc/` folders that cite the doc set.',
+    )
     ..addMultiOption(
       'quest',
-      help: 'Quest folder contributing todos (active + archived + deleted). '
+      help:
+          'Quest folder contributing todos (active + archived + deleted). '
           'Repeatable. Default: the tom_specs and tom_core quests, the two the '
           'TomSpecs documents cite.',
     )
     ..addOption(
       'vocabulary',
-      help: 'Token list of non-todo words sharing the id shape. '
+      help:
+          'Token list of non-todo words sharing the id shape. '
           'Default: tool/todo_citation_vocabulary.txt.',
     )
-    ..addFlag('verbose', abbr: 'v',
-        help: 'List resolved-open citations too.', negatable: false)
-    ..addFlag('help', abbr: 'h', help: 'Show usage information.',
-        negatable: false);
+    ..addFlag(
+      'verbose',
+      abbr: 'v',
+      help: 'List resolved-open citations too.',
+      negatable: false,
+    )
+    ..addFlag(
+      'help',
+      abbr: 'h',
+      help: 'Show usage information.',
+      negatable: false,
+    );
 
   final ArgResults results;
   try {
@@ -78,25 +95,38 @@ Future<void> main(List<String> arguments) async {
   final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
   final containerRoot = p.normalize(p.join(clitoolRoot, '..', '..', '..'));
 
-  final docDir = p.normalize(p.absolute(results.option('doc') ??
-      p.join(containerRoot, 'tom_ai', 'ai_build', 'tom_specs_model', 'doc')));
+  final docDir = p.normalize(
+    p.absolute(
+      results.option('doc') ??
+          p.join(containerRoot, 'tom_ai', 'ai_build', 'tom_specs_model', 'doc'),
+    ),
+  );
 
   final questDirs = results.multiOption('quest').isNotEmpty
-      ? [for (final q in results.multiOption('quest')) p.normalize(p.absolute(q))]
+      ? [
+          for (final q in results.multiOption('quest'))
+            p.normalize(p.absolute(q)),
+        ]
       : [
           for (final quest in defaultCitedQuests)
             p.join(containerRoot, '_ai', 'quests', quest),
         ];
 
-  final vocabularyPath = p.normalize(p.absolute(results.option('vocabulary') ??
-      p.join(clitoolRoot, 'tool', 'todo_citation_vocabulary.txt')));
+  final vocabularyPath = p.normalize(
+    p.absolute(
+      results.option('vocabulary') ??
+          p.join(clitoolRoot, 'tool', 'todo_citation_vocabulary.txt'),
+    ),
+  );
 
   final corpus = TodoCorpus.load([
     for (final dir in questDirs) ...TodoCorpus.questTodoFiles(dir),
   ]);
   if (corpus.sourceFiles.isEmpty) {
-    stderr.writeln('check_todo_citations error: no todo file found under '
-        '${questDirs.join(', ')} — every citation would look unresolved.');
+    stderr.writeln(
+      'check_todo_citations error: no todo file found under '
+      '${questDirs.join(', ')} — every citation would look unresolved.',
+    );
     exit(1);
   }
 
@@ -124,15 +154,19 @@ Future<void> main(List<String> arguments) async {
     exit(1);
   }
 
-  stdout.writeln('Scanned ${report.documentCount} document(s) from '
-      '${p.relative(docDir, from: containerRoot)}, the cited READMEs and the '
-      'package doc folders against '
-      '${corpus.stemCount} todo stem(s) from ${corpus.sourceFiles.length} '
-      'file(s).');
+  stdout.writeln(
+    'Scanned ${report.documentCount} document(s) from '
+    '${p.relative(docDir, from: containerRoot)}, the cited READMEs and the '
+    'package doc folders against '
+    '${corpus.stemCount} todo stem(s) from ${corpus.sourceFiles.length} '
+    'file(s).',
+  );
   stdout.writeln('  open       ${report.countOf(CitationVerdict.open)}');
   stdout.writeln('  closed     ${report.countOf(CitationVerdict.closed)}');
   stdout.writeln('  ambiguous  ${report.countOf(CitationVerdict.ambiguous)}');
-  stdout.writeln('  unresolved ${report.countOf(CitationVerdict.unresolved) + report.countOf(CitationVerdict.unknownSeries)}');
+  stdout.writeln(
+    '  unresolved ${report.countOf(CitationVerdict.unresolved) + report.countOf(CitationVerdict.unknownSeries)}',
+  );
 
   if (results.flag('verbose')) {
     for (final citation in report.citations) {
@@ -146,8 +180,10 @@ Future<void> main(List<String> arguments) async {
   }
 
   stderr.writeln('');
-  stderr.writeln('${report.violations.length} citation(s) fail to name one open '
-      'todo:');
+  stderr.writeln(
+    '${report.violations.length} citation(s) fail to name one open '
+    'todo:',
+  );
   for (final violation in report.violations) {
     stderr.writeln('  ${violation.describe(relativeTo: containerRoot)}');
   }

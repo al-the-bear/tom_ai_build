@@ -10,94 +10,94 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// field kind. `modelVersion` is `0` so the generated `v0` model version is the
 /// clean `0.0`.
 Map<String, dynamic> _fixtureJson() => {
-      'modelVersion': 0,
-      'roots': [
+  'modelVersion': 0,
+  'roots': [
+    {
+      'type': 'SolutionBlueprint',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+      'description': 'The structured project overview.',
+    },
+  ],
+  'classes': {
+    'SolutionBlueprint': {
+      'name': 'SolutionBlueprint',
+      'sectionId': 'PD00',
+      'doc': 'Root of a project definition document.',
+      'fields': [
         {
-          'type': 'SolutionBlueprint',
-          'title': 'Project Definition',
-          'sectionId': 'PD00',
-          'description': 'The structured project overview.',
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'vision',
+          'contentType': 'text',
+          'doc': 'Why the system exists.',
+        },
+        {
+          'name': 'owner',
+          'kind': 'form',
+          'sectionId': 'owner',
+          'formFields': [
+            {'name': 'name', 'label': 'Name', 'type': 'String'},
+            {'name': 'role', 'label': 'Role', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'risks',
+          'sectionIdPattern': 'RISK-ITEM-xxx',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
+          'min': 2,
+        },
+        {
+          'name': 'tags',
+          'kind': 'list',
+          'sectionId': 'tags',
+          'elementType': 'String',
+          'elementIsComplex': false,
+        },
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'situation',
+          'type': 'CurrentLandscapeAssessment',
         },
       ],
-      'classes': {
-        'SolutionBlueprint': {
-          'name': 'SolutionBlueprint',
-          'sectionId': 'PD00',
-          'doc': 'Root of a project definition document.',
-          'fields': [
-            {
-              'name': 'vision',
-              'kind': 'content',
-              'sectionId': 'vision',
-              'contentType': 'text',
-              'doc': 'Why the system exists.',
-            },
-            {
-              'name': 'owner',
-              'kind': 'form',
-              'sectionId': 'owner',
-              'formFields': [
-                {'name': 'name', 'label': 'Name', 'type': 'String'},
-                {'name': 'role', 'label': 'Role', 'type': 'String'},
-              ],
-            },
-            {
-              'name': 'risks',
-              'kind': 'list',
-              'sectionId': 'risks',
-              'sectionIdPattern': 'RISK-ITEM-xxx',
-              'elementType': 'Risk',
-              'elementIsComplex': true,
-              'min': 2,
-            },
-            {
-              'name': 'tags',
-              'kind': 'list',
-              'sectionId': 'tags',
-              'elementType': 'String',
-              'elementIsComplex': false,
-            },
-            {
-              'name': 'situation',
-              'kind': 'complex',
-              'sectionId': 'situation',
-              'type': 'CurrentLandscapeAssessment',
-            },
-          ],
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      'fields': [
+        {
+          'name': 'title',
+          'kind': 'content',
+          'sectionId': 'title',
+          'contentType': 'text',
         },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          'fields': [
-            {
-              'name': 'title',
-              'kind': 'content',
-              'sectionId': 'title',
-              'contentType': 'text',
-            },
-            {
-              'name': 'probability',
-              'kind': 'enum',
-              'sectionId': 'prob',
-              'enumType': 'Probability',
-              'enumValues': ['low', 'medium', 'high'],
-            },
-          ],
+        {
+          'name': 'probability',
+          'kind': 'enum',
+          'sectionId': 'prob',
+          'enumType': 'Probability',
+          'enumValues': ['low', 'medium', 'high'],
         },
-        'CurrentLandscapeAssessment': {
-          'name': 'CurrentLandscapeAssessment',
-          'sectionId': 'CS00',
-          'fields': [
-            {
-              'name': 'summary',
-              'kind': 'content',
-              'sectionId': 'summary',
-              'contentType': 'text',
-            },
-          ],
+      ],
+    },
+    'CurrentLandscapeAssessment': {
+      'name': 'CurrentLandscapeAssessment',
+      'sectionId': 'CS00',
+      'fields': [
+        {
+          'name': 'summary',
+          'kind': 'content',
+          'sectionId': 'summary',
+          'contentType': 'text',
         },
-      },
-    };
+      ],
+    },
+  },
+};
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
@@ -106,8 +106,11 @@ SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 /// rather than a single hard-wired one.
 Map<String, dynamic> _twoRootJson() {
   final json = _fixtureJson();
-  (json['roots'] as List)
-      .add({'type': 'Aux', 'title': 'Aux', 'sectionId': 'AX00'});
+  (json['roots'] as List).add({
+    'type': 'Aux',
+    'title': 'Aux',
+    'sectionId': 'AX00',
+  });
   (json['classes'] as Map<String, dynamic>)['Aux'] = {
     'name': 'Aux',
     'sectionId': 'AX00',
@@ -129,96 +132,96 @@ Map<String, dynamic> _twoRootJson() {
 /// world it still isn't reserved), so it stays untouched; the stored path
 /// segments are preserved throughout.
 Map<String, dynamic> _keywordJson() => {
-      'modelVersion': 0,
-      'roots': [
-        {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
-      ],
-      'classes': {
-        'Root': {
-          'name': 'Root',
-          'sectionId': 'ROOT',
-          'fields': [
-            {
-              'name': 'type',
-              'kind': 'content',
-              'sectionId': 'typ',
-              'contentType': 'text',
-            },
-            {
-              'name': 'int',
-              'kind': 'content',
-              'sectionId': 'integ',
-              'contentType': 'text',
-            },
-            {
-              'name': 'summary',
-              'kind': 'content',
-              'sectionId': 'sum',
-              'contentType': 'text',
-            },
-          ],
+  'modelVersion': 0,
+  'roots': [
+    {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
+  ],
+  'classes': {
+    'Root': {
+      'name': 'Root',
+      'sectionId': 'ROOT',
+      'fields': [
+        {
+          'name': 'type',
+          'kind': 'content',
+          'sectionId': 'typ',
+          'contentType': 'text',
         },
-      },
-    };
+        {
+          'name': 'int',
+          'kind': 'content',
+          'sectionId': 'integ',
+          'contentType': 'text',
+        },
+        {
+          'name': 'summary',
+          'kind': 'content',
+          'sectionId': 'sum',
+          'contentType': 'text',
+        },
+      ],
+    },
+  },
+};
 
 /// A spec-model where two distinct (class, form-field) pairs derive the same
 /// generated form-class name, identical to the other emitters' collision case.
 /// C++ scopes member functions per class, so accessor names never need global
 /// de-duplication — only the generated **type names** (form classes) do.
 Map<String, dynamic> _formCollisionJson() => {
-      'modelVersion': 0,
-      'roots': [
-        {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
+  'modelVersion': 0,
+  'roots': [
+    {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
+  ],
+  'classes': {
+    'Root': {
+      'name': 'Root',
+      'sectionId': 'ROOT',
+      'fields': [
+        {
+          'name': 'a',
+          'kind': 'complex',
+          'sectionId': 'a',
+          'type': 'MigrationRisks',
+        },
+        {
+          'name': 'b',
+          'kind': 'complex',
+          'sectionId': 'b',
+          'type': 'MigrationRisksGovernance',
+        },
       ],
-      'classes': {
-        'Root': {
-          'name': 'Root',
-          'sectionId': 'ROOT',
-          'fields': [
-            {
-              'name': 'a',
-              'kind': 'complex',
-              'sectionId': 'a',
-              'type': 'MigrationRisks',
-            },
-            {
-              'name': 'b',
-              'kind': 'complex',
-              'sectionId': 'b',
-              'type': 'MigrationRisksGovernance',
-            },
+    },
+    'MigrationRisks': {
+      'name': 'MigrationRisks',
+      'sectionId': 'MR00',
+      'fields': [
+        {
+          'name': 'governanceContent',
+          'kind': 'form',
+          'sectionId': 'gc',
+          'formFields': [
+            {'name': 'model', 'label': 'Model', 'type': 'String'},
           ],
         },
-        'MigrationRisks': {
-          'name': 'MigrationRisks',
-          'sectionId': 'MR00',
-          'fields': [
-            {
-              'name': 'governanceContent',
-              'kind': 'form',
-              'sectionId': 'gc',
-              'formFields': [
-                {'name': 'model', 'label': 'Model', 'type': 'String'},
-              ],
-            },
+      ],
+    },
+    'MigrationRisksGovernance': {
+      'name': 'MigrationRisksGovernance',
+      'sectionId': 'MRG0',
+      'fields': [
+        {
+          'name': 'content',
+          'kind': 'form',
+          'sectionId': 'c',
+          'formFields': [
+            {'name': 'escalation', 'label': 'Escalation', 'type': 'String'},
           ],
         },
-        'MigrationRisksGovernance': {
-          'name': 'MigrationRisksGovernance',
-          'sectionId': 'MRG0',
-          'fields': [
-            {
-              'name': 'content',
-              'kind': 'form',
-              'sectionId': 'c',
-              'formFields': [
-                {'name': 'escalation', 'label': 'Escalation', 'type': 'String'},
-              ],
-            },
-          ],
-        },
-      },
-    };
+      ],
+    },
+  },
+};
 
 /// A spec-model whose fields are named `doc` / `path` — the C++-specific hazard
 /// where a generated getter would shadow the inherited `som::SomNode::doc()` /
@@ -226,39 +229,39 @@ Map<String, dynamic> _formCollisionJson() => {
 /// reserves them with a trailing underscore. A form field named `path` is the
 /// same hazard on the form facade.
 Map<String, dynamic> _shadowJson() => {
-      'modelVersion': 0,
-      'roots': [
-        {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
-      ],
-      'classes': {
-        'Root': {
-          'name': 'Root',
-          'sectionId': 'ROOT',
-          'fields': [
-            {
-              'name': 'path',
-              'kind': 'content',
-              'sectionId': 'pth',
-              'contentType': 'text',
-            },
-            {
-              'name': 'doc',
-              'kind': 'content',
-              'sectionId': 'dc',
-              'contentType': 'text',
-            },
-            {
-              'name': 'endpoint',
-              'kind': 'form',
-              'sectionId': 'ep',
-              'formFields': [
-                {'name': 'path', 'label': 'Path', 'type': 'String'},
-              ],
-            },
+  'modelVersion': 0,
+  'roots': [
+    {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
+  ],
+  'classes': {
+    'Root': {
+      'name': 'Root',
+      'sectionId': 'ROOT',
+      'fields': [
+        {
+          'name': 'path',
+          'kind': 'content',
+          'sectionId': 'pth',
+          'contentType': 'text',
+        },
+        {
+          'name': 'doc',
+          'kind': 'content',
+          'sectionId': 'dc',
+          'contentType': 'text',
+        },
+        {
+          'name': 'endpoint',
+          'kind': 'form',
+          'sectionId': 'ep',
+          'formFields': [
+            {'name': 'path', 'label': 'Path', 'type': 'String'},
           ],
         },
-      },
-    };
+      ],
+    },
+  },
+};
 
 /// Locates a `g++` (or `clang++`/`c++`) toolchain on PATH. Returns `null` when
 /// none.
@@ -278,7 +281,8 @@ String? _cxx() {
 /// from, or `null` when it cannot be located.
 String? _runtimeDir() {
   final candidate = p.normalize(
-      p.join(Directory.current.path, '..', 'tom_som_cpp_runtime'));
+    p.join(Directory.current.path, '..', 'tom_som_cpp_runtime'),
+  );
   return Directory(p.join(candidate, 'include')).existsSync()
       ? candidate
       : null;
@@ -291,8 +295,11 @@ String? _runtimeDir() {
 /// module header (and, when [metaEmitter] is supplied, its source) is emitted
 /// alongside the facade so the reference resolves. A no-op (with a skip note)
 /// when the toolchain or runtime cannot be located.
-void _expectCppBuilds(String header, String source,
-    {SomCppMetaEmitter? metaEmitter}) {
+void _expectCppBuilds(
+  String header,
+  String source, {
+  SomCppMetaEmitter? metaEmitter,
+}) {
   final cxx = _cxx();
   if (cxx == null) {
     markTestSkipped('no C++ compiler (g++/c++/clang++) found');
@@ -311,8 +318,9 @@ void _expectCppBuilds(String header, String source,
     // thread the per-root tree from it). Always emit the header; emit the meta
     // source too when the caller wants the symbols to link.
     final meta = metaEmitter;
-    File(p.join(dir.path, 'tom_som_cpp_v0_meta.hpp'))
-        .writeAsStringSync(meta?.generateHeader() ?? _metaHeaderFor(source));
+    File(
+      p.join(dir.path, 'tom_som_cpp_v0_meta.hpp'),
+    ).writeAsStringSync(meta?.generateHeader() ?? _metaHeaderFor(source));
     final runtimeInclude = p.join(runtimeDir, 'include');
     final build = Process.runSync(cxx, [
       '-std=c++17',
@@ -328,11 +336,15 @@ void _expectCppBuilds(String header, String source,
       '-o',
       p.join(dir.path, 'tom_som_cpp_v0.o'),
     ]);
-    expect(build.exitCode, 0,
-        reason: 'C++ facade compile failed:\n${build.stdout}\n${build.stderr}');
+    expect(
+      build.exitCode,
+      0,
+      reason: 'C++ facade compile failed:\n${build.stdout}\n${build.stderr}',
+    );
     if (meta != null) {
-      File(p.join(dir.path, 'tom_som_cpp_v0_meta.cpp'))
-          .writeAsStringSync(meta.generateSource());
+      File(
+        p.join(dir.path, 'tom_som_cpp_v0_meta.cpp'),
+      ).writeAsStringSync(meta.generateSource());
       final metaBuild = Process.runSync(cxx, [
         '-std=c++17',
         '-Wall',
@@ -347,9 +359,12 @@ void _expectCppBuilds(String header, String source,
         '-o',
         p.join(dir.path, 'tom_som_cpp_v0_meta.o'),
       ]);
-      expect(metaBuild.exitCode, 0,
-          reason:
-              'C++ meta compile failed:\n${metaBuild.stdout}\n${metaBuild.stderr}');
+      expect(
+        metaBuild.exitCode,
+        0,
+        reason:
+            'C++ meta compile failed:\n${metaBuild.stdout}\n${metaBuild.stderr}',
+      );
     }
   } finally {
     dir.deleteSync(recursive: true);
@@ -362,10 +377,9 @@ void _expectCppBuilds(String header, String source,
 /// [SomCppMetaEmitter] supplied) still resolves the declaration without emitting
 /// the whole metadata module.
 String _metaHeaderFor(String source) {
-  final fns = RegExp(r'tom_som_v0_meta::(\w+MetaTree)\(\)')
-      .allMatches(source)
-      .map((m) => m.group(1)!)
-      .toSet();
+  final fns = RegExp(
+    r'tom_som_v0_meta::(\w+MetaTree)\(\)',
+  ).allMatches(source).map((m) => m.group(1)!).toSet();
   final b = StringBuffer()
     ..writeln('#ifndef TOM_SOM_CPP_V0_META_HPP')
     ..writeln('#define TOM_SOM_CPP_V0_META_HPP')
@@ -398,8 +412,11 @@ void main() {
       final header = SomCppEmitter(_fixtureModel()).generateHeader();
       maybeWriteGolden(headerGolden, header);
       final golden = File(headerGolden);
-      expect(golden.existsSync(), isTrue,
-          reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
+      expect(
+        golden.existsSync(),
+        isTrue,
+        reason: 'run with UPDATE_GOLDEN=1 to create the golden file',
+      );
       expect(header, golden.readAsStringSync());
     });
 
@@ -407,23 +424,28 @@ void main() {
       final source = SomCppEmitter(_fixtureModel()).generateSource();
       maybeWriteGolden(sourceGolden, source);
       final golden = File(sourceGolden);
-      expect(golden.existsSync(), isTrue,
-          reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
+      expect(
+        golden.existsSync(),
+        isTrue,
+        reason: 'run with UPDATE_GOLDEN=1 to create the golden file',
+      );
       expect(source, golden.readAsStringSync());
     });
 
-    test('the generated translation unit compiles clean against the runtime',
-        () {
-      final emitter = SomCppEmitter(_fixtureModel());
-      _expectCppBuilds(emitter.generateHeader(), emitter.generateSource());
-    });
+    test(
+      'the generated translation unit compiles clean against the runtime',
+      () {
+        final emitter = SomCppEmitter(_fixtureModel());
+        _expectCppBuilds(emitter.generateHeader(), emitter.generateSource());
+      },
+    );
 
     test('forward class declarations are unique', () {
       final header = SomCppEmitter(_fixtureModel()).generateHeader();
-      final names = RegExp(r'^class (\w+);', multiLine: true)
-          .allMatches(header)
-          .map((m) => m.group(1)!)
-          .toList();
+      final names = RegExp(
+        r'^class (\w+);',
+        multiLine: true,
+      ).allMatches(header).map((m) => m.group(1)!).toList();
       final seen = <String>{};
       final dupes = <String>[];
       for (final n in names) {
@@ -432,47 +454,59 @@ void main() {
       expect(dupes, isEmpty, reason: 'duplicate class declarations: $dupes');
     });
 
-    test('a typed mutation is visible through the generic path and vice-versa',
-        () {
-      // Mirror the generated facade's path derivation against a live document —
-      // the behavioural contract the C++ facade encodes (pure-Dart variant).
-      final doc = SpecDocument();
-      final ref = SpecReflection(_fixtureModel());
-      final root = ref.model.roots.single;
-      final rootSeg = ref.rootSegment(root);
+    test(
+      'a typed mutation is visible through the generic path and vice-versa',
+      () {
+        // Mirror the generated facade's path derivation against a live document —
+        // the behavioural contract the C++ facade encodes (pure-Dart variant).
+        final doc = SpecDocument();
+        final ref = SpecReflection(_fixtureModel());
+        final root = ref.model.roots.single;
+        final rootSeg = ref.rootSegment(root);
 
-      doc.setContent('$rootSeg/vision', 'A clear vision');
-      expect(doc.content('$rootSeg/vision'), 'A clear vision');
+        doc.setContent('$rootSeg/vision', 'A clear vision');
+        expect(doc.content('$rootSeg/vision'), 'A clear vision');
 
-      final itemPath = doc.addListItem('$rootSeg/risks');
-      doc.setContent('$itemPath/title', 'Schedule slip');
-      expect(doc.listItemCount('$rootSeg/risks'), 1);
-      expect(doc.content('${doc.listItems('$rootSeg/risks').single}/title'),
-          'Schedule slip');
-    });
+        final itemPath = doc.addListItem('$rootSeg/risks');
+        doc.setContent('$itemPath/title', 'Schedule slip');
+        expect(doc.listItemCount('$rootSeg/risks'), 1);
+        expect(
+          doc.content('${doc.listItems('$rootSeg/risks').single}/title'),
+          'Schedule slip',
+        );
+      },
+    );
 
     test('the model-version accessor returns the generated v0 version', () {
       final emitter = SomCppEmitter(_fixtureModel());
       expect(emitter.modelVersionString, '0.0');
       // The generated root class pins the same value as a constexpr constant.
-      expect(emitter.generateHeader(),
-          contains('static constexpr const char* kModelVersion = "0.0";'));
+      expect(
+        emitter.generateHeader(),
+        contains('static constexpr const char* kModelVersion = "0.0";'),
+      );
     });
 
-    test('the model version comes from the model stamp, not the version label',
-        () {
-      // A stamped model reports its real major.minor (SOM §4.2) regardless of
-      // the project version label — the label only names the output project.
-      final stamped = SpecModel.fromJson({
-        ..._fixtureJson(),
-        'modelVersion': 1,
-        'modelVersionLabel': '1.3.0+7.abc1234',
-      });
-      expect(
-          SomCppEmitter(stamped, versionLabel: 'v0').modelVersionString, '1.3');
-      expect(
-          SomCppEmitter(stamped, versionLabel: 'v9').modelVersionString, '1.3');
-    });
+    test(
+      'the model version comes from the model stamp, not the version label',
+      () {
+        // A stamped model reports its real major.minor (SOM §4.2) regardless of
+        // the project version label — the label only names the output project.
+        final stamped = SpecModel.fromJson({
+          ..._fixtureJson(),
+          'modelVersion': 1,
+          'modelVersionLabel': '1.3.0+7.abc1234',
+        });
+        expect(
+          SomCppEmitter(stamped, versionLabel: 'v0').modelVersionString,
+          '1.3',
+        );
+        expect(
+          SomCppEmitter(stamped, versionLabel: 'v9').modelVersionString,
+          '1.3',
+        );
+      },
+    );
 
     test('C++-keyword field names gain a trailing underscore, '
         'but path segments are preserved', () {
@@ -495,43 +529,47 @@ void main() {
     test('enum tokens are preserved as constexpr constants', () {
       final header = SomCppEmitter(_fixtureModel()).generateHeader();
       // Token stays byte-identical; only the member identifier is derived.
-      expect(header,
-          contains('static constexpr const char* low = "low";'));
-      expect(header,
-          contains('static constexpr const char* medium = "medium";'));
-      expect(header,
-          contains('static constexpr const char* high = "high";'));
+      expect(header, contains('static constexpr const char* low = "low";'));
+      expect(
+        header,
+        contains('static constexpr const char* medium = "medium";'),
+      );
+      expect(header, contains('static constexpr const char* high = "high";'));
       // Enum struct + parse declaration.
       expect(header, contains('struct Probability {'));
       expect(
-          header,
-          contains('static std::optional<std::string> parse('
-              'const std::string& token);'));
+        header,
+        contains(
+          'static std::optional<std::string> parse('
+          'const std::string& token);',
+        ),
+      );
     });
 
     test('enum-typed field accessors return std::optional', () {
       final header = SomCppEmitter(_fixtureModel()).generateHeader();
       expect(
-          header, contains('std::optional<std::string> probability() const;'));
+        header,
+        contains('std::optional<std::string> probability() const;'),
+      );
     });
 
     test('colliding form-class names are disambiguated (no duplicates)', () {
-      final header = SomCppEmitter(SpecModel.fromJson(_formCollisionJson()))
-          .generateHeader();
-      final decls = RegExp(r'^class (\w+);', multiLine: true)
-          .allMatches(header)
-          .map((m) => m.group(1)!)
-          .toList();
+      final header = SomCppEmitter(
+        SpecModel.fromJson(_formCollisionJson()),
+      ).generateHeader();
+      final decls = RegExp(
+        r'^class (\w+);',
+        multiLine: true,
+      ).allMatches(header).map((m) => m.group(1)!).toList();
       final seen = <String>{};
       final dupes = <String>[];
       for (final name in decls) {
         if (!seen.add(name)) dupes.add(name);
       }
       expect(dupes, isEmpty, reason: 'duplicate class declarations: $dupes');
-      expect(
-          header, contains('class MigrationRisksGovernanceContentForm;'));
-      expect(
-          header, contains('class MigrationRisksGovernanceContentForm2;'));
+      expect(header, contains('class MigrationRisksGovernanceContentForm;'));
+      expect(header, contains('class MigrationRisksGovernanceContentForm2;'));
     });
 
     test('fields named doc/path do not shadow the SomNode base accessors', () {
@@ -563,32 +601,43 @@ void main() {
       // The complex `risks` list carries a pattern → SomList is constructed with
       // the trailing pattern argument so the facade can generate ids.
       expect(
-          RegExp(r'som::SomList SolutionBlueprint::risks\(\) const \{[\s\S]*?'
-                  r'return som::SomList\(doc\(\), [\s\S]*?'
-                  r'"RISK-ITEM-xxx"\);')
-              .hasMatch(source),
-          isTrue,
-          reason: 'risks getter must pass the pattern to som::SomList');
+        RegExp(
+          r'som::SomList SolutionBlueprint::risks\(\) const \{[\s\S]*?'
+          r'return som::SomList\(doc\(\), [\s\S]*?'
+          r'"RISK-ITEM-xxx"\);',
+        ).hasMatch(source),
+        isTrue,
+        reason: 'risks getter must pass the pattern to som::SomList',
+      );
       // The pattern-less scalar `tags` list must pass an empty pattern string.
       final tagsBody = RegExp(
-              r'som::SomList SolutionBlueprint::tags\(\) const \{[\s\S]*?'
-              r'return som::SomList\(doc\(\), [\s\S]*?, ""\);')
-          .firstMatch(source);
-      expect(tagsBody, isNotNull,
-          reason: 'scalar tags list must pass an empty pattern string');
+        r'som::SomList SolutionBlueprint::tags\(\) const \{[\s\S]*?'
+        r'return som::SomList\(doc\(\), [\s\S]*?, ""\);',
+      ).firstMatch(source);
+      expect(
+        tagsBody,
+        isNotNull,
+        reason: 'scalar tags list must pass an empty pattern string',
+      );
       expect(tagsBody!.group(0)!, isNot(contains('RISK-ITEM-xxx')));
     });
 
     test('documentRoots subsets the generated classes', () {
       final all = SomCppEmitter(_fixtureModel()).generateHeader();
-      expect(all, contains('class CurrentLandscapeAssessment : public som::SomNode {'));
+      expect(
+        all,
+        contains('class CurrentLandscapeAssessment : public som::SomNode {'),
+      );
 
-      final justRoot = SomCppEmitter(_fixtureModel(),
-              documentRoots: ['SolutionBlueprint'])
-          .generateHeader();
+      final justRoot = SomCppEmitter(
+        _fixtureModel(),
+        documentRoots: ['SolutionBlueprint'],
+      ).generateHeader();
       // CurrentLandscapeAssessment is reachable from SolutionBlueprint, so it stays.
-      expect(justRoot,
-          contains('class CurrentLandscapeAssessment : public som::SomNode {'));
+      expect(
+        justRoot,
+        contains('class CurrentLandscapeAssessment : public som::SomNode {'),
+      );
     });
 
     test('no flat path-constant holder is emitted (SOM §8)', () {
@@ -597,12 +646,21 @@ void main() {
       // `<Code>Paths` constexpr holder struct and no path constant may leak
       // into the facade header.
       final header = SomCppEmitter(_fixtureModel()).generateHeader();
-      expect(header, isNot(contains('struct Pd00Paths')),
-          reason: 'no `<Code>Paths` holder struct may be emitted');
-      expect(header, isNot(contains('Paths {')),
-          reason: 'no `<Code>Paths` holder may remain');
-      expect(header, isNot(contains('= "PD00/')),
-          reason: 'no flat path constants may remain');
+      expect(
+        header,
+        isNot(contains('struct Pd00Paths')),
+        reason: 'no `<Code>Paths` holder struct may be emitted',
+      );
+      expect(
+        header,
+        isNot(contains('Paths {')),
+        reason: 'no `<Code>Paths` holder may remain',
+      );
+      expect(
+        header,
+        isNot(contains('= "PD00/')),
+        reason: 'no flat path constants may remain',
+      );
     });
 
     test('the facade threads the metadata module into its load functions '
@@ -615,34 +673,47 @@ void main() {
       // generic runtime decoder (the root type SolutionBlueprint → camel
       // `solutionBlueprint`).
       expect(
-          source,
-          contains('som::SpecDocument::fromYaml(yaml, '
-              'tom_som_v0_meta::solutionBlueprintMetaTree(), &err)'));
+        source,
+        contains(
+          'som::SpecDocument::fromYaml(yaml, '
+          'tom_som_v0_meta::solutionBlueprintMetaTree(), &err)',
+        ),
+      );
       expect(
-          source,
-          contains('som::SpecDocument::fromFile(path, '
-              'tom_som_v0_meta::solutionBlueprintMetaTree(), &err)'));
+        source,
+        contains(
+          'som::SpecDocument::fromFile(path, '
+          'tom_som_v0_meta::solutionBlueprintMetaTree(), &err)',
+        ),
+      );
       // The facade + meta module compile and link together (the threaded
       // tree accessor is defined by the generated meta module).
-      _expectCppBuilds(emitter.generateHeader(), source,
-          metaEmitter: SomCppMetaEmitter(_fixtureModel()));
+      _expectCppBuilds(
+        emitter.generateHeader(),
+        source,
+        metaEmitter: SomCppMetaEmitter(_fixtureModel()),
+      );
     });
     // The nine v0 meta-agreement suites read their root set from this
     // registry instead of hand-listing it, so an emitter that drops it
     // silently un-gates fourteen roots in nine languages at once.
-    test('the document-root registry carries one entry per root (SOM §8)',
-        () {
-      final all = SomCppMetaEmitter(SpecModel.fromJson(_twoRootJson()))
-          .generateSource();
+    test('the document-root registry carries one entry per root (SOM §8)', () {
+      final all = SomCppMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+      ).generateSource();
       expect(all, contains('"SolutionBlueprint",'));
       expect(all, contains('&solutionBlueprintMetaTree(),'));
-      expect(all, contains('solutionBlueprintMetaNav(solutionBlueprintMetaTree()).ref,'));
+      expect(
+        all,
+        contains('solutionBlueprintMetaNav(solutionBlueprintMetaTree()).ref,'),
+      );
       expect(all, contains('"Aux",'));
       expect(all, contains('auxMetaId(auxMetaTree()).ref,'));
 
-      final subset = SomCppMetaEmitter(SpecModel.fromJson(_twoRootJson()),
-              documentRoots: ['SolutionBlueprint'])
-          .generateSource();
+      final subset = SomCppMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+        documentRoots: ['SolutionBlueprint'],
+      ).generateSource();
       expect(subset, isNot(contains('&auxMetaTree(),')));
     });
   });

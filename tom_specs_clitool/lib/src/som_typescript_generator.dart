@@ -187,13 +187,16 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
   meta['generatedAt'] = generatedAt;
   final metaErrors = validateSpecModelMeta(meta);
   if (metaErrors.isNotEmpty) {
-    throw StateError('generated meta-data is invalid:\n  '
-        '${metaErrors.join('\n  ')}');
+    throw StateError(
+      'generated meta-data is invalid:\n  '
+      '${metaErrors.join('\n  ')}',
+    );
   }
   final metaJsonPath = p.join(outputRoot, 'meta', 'spec_model.meta.json');
   final metaFile = File(metaJsonPath)..parent.createSync(recursive: true);
   metaFile.writeAsStringSync(
-      '${const JsonEncoder.withIndent('  ').convert(meta)}\n');
+    '${const JsonEncoder.withIndent('  ').convert(meta)}\n',
+  );
 
   // ── typed TypeScript facade (editing facade over the generic runtime) ──────
   final model = SpecModel.fromJson(meta);
@@ -214,16 +217,20 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
     versionLabel: versionLabel,
     documentRoots: documentRoots,
   ).generateLibrary();
-  File(p.join(outputRoot, '${packageName}_meta.ts'))
-      .writeAsStringSync(metaModuleSource);
+  File(
+    p.join(outputRoot, '${packageName}_meta.ts'),
+  ).writeAsStringSync(metaModuleSource);
 
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to the Dart/Python/Java/JavaScript path — schemas are
   // language-agnostic.
-  final schemas =
-      DocSpecsSchemaGenerator(classes).generateAll(modelVersion: modelVersion);
-  final schemaPaths =
-      DocSpecsSchemaGenerator.writeSchemaTree(outputRoot, schemas);
+  final schemas = DocSpecsSchemaGenerator(
+    classes,
+  ).generateAll(modelVersion: modelVersion);
+  final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
+    outputRoot,
+    schemas,
+  );
 
   // ── package.json (relative `file:` dependency on the runtime) ──────────────
   // Unlike the JS path, the generated TS module imports the runtime by a fixed
@@ -236,7 +243,8 @@ SomTypeScriptGenerationResult writeSomTypeScriptProject({
   final packageVersion = packageVersionFromModel(modelLabel.split('+').first);
   final packageJsonPath = p.join(outputRoot, 'package.json');
   File(packageJsonPath).writeAsStringSync(
-      _packageJson(packageName, runtimeRel, version: packageVersion));
+    _packageJson(packageName, runtimeRel, version: packageVersion),
+  );
 
   // ── tsconfig.json (deterministic; compiles src + tests/examples to dist) ───
   final tsconfigPath = p.join(outputRoot, 'tsconfig.json');
@@ -273,7 +281,8 @@ String _packageJson(String name, String runtimeRel, {required String version}) {
       'url': 'git+https://github.com/al-the-bear/tom_ai_build.git',
       'directory': name,
     },
-    'description': 'Generated typed TomSpecs object model (v0). An editing '
+    'description':
+        'Generated typed TomSpecs object model (v0). An editing '
         'facade over the generic tom_som_typescript_runtime; see the meta-data '
         'file and DocSpecs schemas in this package. Regenerate with '
         'tom_specs_clitool/bin/generate_som.dart.',

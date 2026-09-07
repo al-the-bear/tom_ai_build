@@ -67,8 +67,8 @@ const Map<String, dynamic> kMemberKindArea = {
   'annotations': ['CsEnum'],
   'builtOn':
       'Plain Dart `enum` — a member kind, not a part: no `tom_core` basis and '
-          'no gap class (§4.1 member-kind rule; '
-          '`codespecs_derivation_contract.md` §3.1.1)',
+      'no gap class (§4.1 member-kind rule; '
+      '`codespecs_derivation_contract.md` §3.1.1)',
   'attributeSurface': '§4.1',
   'slices': [1],
   'authoringSteps': [1],
@@ -123,10 +123,10 @@ class AreasCatalog {
   /// the header states which document sections were transcribed before the
   /// reader meets a single transcribed cell. [toJsonText] is what writes it.
   Map<String, dynamic> toJson() => {
-        'source': source,
-        'slices': slices,
-        'areas': areas,
-      };
+    'source': source,
+    'slices': slices,
+    'areas': areas,
+  };
 
   /// The JSON text written to disk — two-space indented, newline-terminated,
   /// so a regeneration diff reads line by line.
@@ -155,23 +155,26 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
     if (part.code == kMemberKindArea['code'] ||
         part.kind == kMemberKindArea['part']) {
       throw AreasCatalogException(
-          '§4.1 row ${part.code} collides with the member-kind extract home '
-          '${kMemberKindArea['code']} — the registry key and kind value must '
-          'stay unique.');
+        '§4.1 row ${part.code} collides with the member-kind extract home '
+        '${kMemberKindArea['code']} — the registry key and kind value must '
+        'stay unique.',
+      );
     }
     final code = part.code;
     final steps = areaSteps[code];
     if (steps == null || steps.isEmpty) {
       throw AreasCatalogException(
-          '§4.4.6 coverage names no authoring step for $code.');
+        '§4.4.6 coverage names no authoring step for $code.',
+      );
     }
     final slices = <int>[];
     for (final step in steps) {
       final slice = stepSlices[step];
       if (slice == null) {
         throw AreasCatalogException(
-            '§4.4.6 coverage cites step $step for $code, but the step table '
-            'has no such row.');
+          '§4.4.6 coverage cites step $step for $code, but the step table '
+          'has no such row.',
+        );
       }
       if (!slices.contains(slice)) slices.add(slice);
     }
@@ -193,7 +196,8 @@ AreasCatalog buildAreasCatalog(String mappingDocument) {
   _checkStepCoverage(areaSteps, stepSlices);
 
   return AreasCatalog(
-    source: 'codespecs_mapping.md §4.1 (parts catalogue) + §4.4.3 (emission '
+    source:
+        'codespecs_mapping.md §4.1 (parts catalogue) + §4.4.3 (emission '
         'slices) + §4.4.6 (authoring order)',
     slices: [
       for (final number in sliceRows.keys.toList()..sort())
@@ -236,7 +240,12 @@ class _PartRow {
   final List<String> annotations;
   final String builtOn;
   const _PartRow(
-      this.code, this.canonicalId, this.kind, this.annotations, this.builtOn);
+    this.code,
+    this.canonicalId,
+    this.kind,
+    this.annotations,
+    this.builtOn,
+  );
 }
 
 List<_PartRow> _parsePartsCatalogue(List<String> lines) {
@@ -250,19 +259,16 @@ List<_PartRow> _parsePartsCatalogue(List<String> lines) {
     if (!RegExp(r'^CE-[A-Z]+$').hasMatch(code)) {
       throw AreasCatalogException('§4.1 row key is not a CE code: $code');
     }
-    rows.add(_PartRow(
-      code,
-      cells[1],
-      _unbacktick(cells[2]),
-      [
+    rows.add(
+      _PartRow(code, cells[1], _unbacktick(cells[2]), [
         for (final m in RegExp(r'@(Cs\w+)').allMatches(cells[3])) m.group(1)!,
-      ],
-      cells[4],
-    ));
+      ], cells[4]),
+    );
   }
   if (rows.length != 26) {
     throw AreasCatalogException(
-        '§4.1 declares 26 active parts; parsed ${rows.length}.');
+      '§4.1 declares 26 active parts; parsed ${rows.length}.',
+    );
   }
   return rows;
 }
@@ -292,7 +298,8 @@ Map<int, _SliceRow> _parseSliceTable(List<String> lines) {
   }
   if (rows.length != 7) {
     throw AreasCatalogException(
-        '§4.4.3 declares seven slices; parsed ${rows.length}.');
+      '§4.4.3 declares seven slices; parsed ${rows.length}.',
+    );
   }
   return rows;
 }
@@ -317,7 +324,8 @@ Map<int, int> _parseStepTable(List<String> lines) {
   }
   if (steps.length != 31) {
     throw AreasCatalogException(
-        '§4.4.6 declares 31 authoring steps; parsed ${steps.length}.');
+      '§4.4.6 declares 31 authoring steps; parsed ${steps.length}.',
+    );
   }
   return steps;
 }
@@ -332,9 +340,14 @@ Map<int, int> _parseStepTable(List<String> lines) {
 /// states one step list per part.
 Map<String, List<int>> _parseCoverage(List<String> lines) {
   final text = _paragraphAfter(
-      lines, '#### 4.4.6 ', 'Coverage — all twenty-six active parts', '§4.4.6');
-  final pattern =
-      RegExp(r'(CE-[A-Z]+(?:\s*/\s*CE-[A-Z]+)*)\s*\((\d+(?:,\s*\d+)*)\)');
+    lines,
+    '#### 4.4.6 ',
+    'Coverage — all twenty-six active parts',
+    '§4.4.6',
+  );
+  final pattern = RegExp(
+    r'(CE-[A-Z]+(?:\s*/\s*CE-[A-Z]+)*)\s*\((\d+(?:,\s*\d+)*)\)',
+  );
   final out = <String, List<int>>{};
   for (final m in pattern.allMatches(text)) {
     final codes = m
@@ -342,20 +355,21 @@ Map<String, List<int>> _parseCoverage(List<String> lines) {
         .split('/')
         .map((s) => s.trim())
         .where((s) => s.isNotEmpty);
-    final steps = [
-      for (final s in m.group(2)!.split(',')) int.parse(s.trim()),
-    ]..sort();
+    final steps = [for (final s in m.group(2)!.split(',')) int.parse(s.trim())]
+      ..sort();
     for (final code in codes) {
       if (out.containsKey(code)) {
         throw AreasCatalogException(
-            '§4.4.6 coverage names $code twice — the paragraph is a partition.');
+          '§4.4.6 coverage names $code twice — the paragraph is a partition.',
+        );
       }
       out[code] = steps;
     }
   }
   if (out.length != 26) {
     throw AreasCatalogException(
-        '§4.4.6 coverage should place 26 parts; parsed ${out.length}.');
+      '§4.4.6 coverage should place 26 parts; parsed ${out.length}.',
+    );
   }
   return out;
 }
@@ -424,7 +438,8 @@ void _checkCites(List<int> declaredSlices) {
     for (final cited in cites) {
       if (cited >= slice) {
         throw AreasCatalogException(
-            'slice $slice cites $cited — §4.4.2 forbids forward references.');
+          'slice $slice cites $cited — §4.4.2 forbids forward references.',
+        );
       }
     }
   }
@@ -433,16 +448,18 @@ void _checkCites(List<int> declaredSlices) {
     for (final cited in kSliceCites[slice] ?? const <int>[]) {
       if (!authored.contains(cited)) {
         throw AreasCatalogException(
-            'the §4.4.6 serialisation ${kAuthoringSliceOrder.join(", ")} '
-            'authors slice $slice before slice $cited, which it cites.');
+          'the §4.4.6 serialisation ${kAuthoringSliceOrder.join(", ")} '
+          'authors slice $slice before slice $cited, which it cites.',
+        );
       }
     }
     authored.add(slice);
   }
   if (authored.length != declaredSlices.length) {
     throw AreasCatalogException(
-        'kAuthoringSliceOrder covers ${authored.length} of '
-        '${declaredSlices.length} slices.');
+      'kAuthoringSliceOrder covers ${authored.length} of '
+      '${declaredSlices.length} slices.',
+    );
   }
 }
 
@@ -458,28 +475,32 @@ void _checkCites(List<int> declaredSlices) {
 /// `codespecs_mapping.md` §4.4.6 that hands step 1 to a part, or adds a second
 /// member-kind step, fails here rather than silently dropping an extract.
 void _checkStepCoverage(
-    Map<String, List<int>> areaSteps, Map<int, int> stepSlices) {
+  Map<String, List<int>> areaSteps,
+  Map<int, int> stepSlices,
+) {
   final claimed = <int>{for (final steps in areaSteps.values) ...steps};
   final unclaimed = stepSlices.keys.where((s) => !claimed.contains(s)).toList()
     ..sort();
-  final memberKindSteps = [...kMemberKindArea['authoringSteps'] as List]..sort();
+  final memberKindSteps = [...kMemberKindArea['authoringSteps'] as List]
+    ..sort();
   if (unclaimed.toString() != memberKindSteps.toString()) {
     throw AreasCatalogException(
-        'the member-kind extract home ${kMemberKindArea['code']} claims steps '
-        '${memberKindSteps.join(", ")}, but the §4.4.6 coverage partition '
-        'leaves ${unclaimed.isEmpty ? "none" : unclaimed.join(", ")} '
-        'unclaimed — the two must be the same set.');
+      'the member-kind extract home ${kMemberKindArea['code']} claims steps '
+      '${memberKindSteps.join(", ")}, but the §4.4.6 coverage partition '
+      'leaves ${unclaimed.isEmpty ? "none" : unclaimed.join(", ")} '
+      'unclaimed — the two must be the same set.',
+    );
   }
   final memberKindSlices = {
     for (final step in memberKindSteps) stepSlices[step as int]!,
-  }.toList()
-    ..sort();
+  }.toList()..sort();
   final declaredSlices = [...kMemberKindArea['slices'] as List]..sort();
   if (memberKindSlices.toString() != declaredSlices.toString()) {
     throw AreasCatalogException(
-        'the member-kind extract home ${kMemberKindArea['code']} declares '
-        'slices ${declaredSlices.join(", ")}, but its steps sit in slices '
-        '${memberKindSlices.join(", ")} per the §4.4.6 step table.');
+      'the member-kind extract home ${kMemberKindArea['code']} declares '
+      'slices ${declaredSlices.join(", ")}, but its steps sit in slices '
+      '${memberKindSlices.join(", ")} per the §4.4.6 step table.',
+    );
   }
 }
 
@@ -490,7 +511,10 @@ void _checkStepCoverage(
 /// The body rows of the first pipe table after the heading starting with
 /// [headingPrefix], as trimmed cell lists.
 List<List<String>> _tableAfter(
-    List<String> lines, String headingPrefix, String label) {
+  List<String> lines,
+  String headingPrefix,
+  String label,
+) {
   final start = lines.indexWhere((l) => l.startsWith(headingPrefix));
   if (start < 0) {
     throw AreasCatalogException('$label heading not found.');
@@ -498,7 +522,9 @@ List<List<String>> _tableAfter(
   var i = start + 1;
   while (i < lines.length && !_isTableRow(lines[i])) {
     if (lines[i].startsWith('#')) {
-      throw AreasCatalogException('$label has no table before the next heading.');
+      throw AreasCatalogException(
+        '$label has no table before the next heading.',
+      );
     }
     i++;
   }
@@ -515,13 +541,19 @@ List<List<String>> _tableAfter(
 
 /// The paragraph after [headingPrefix] whose first line contains [marker],
 /// joined into one line so a sentence broken across lines still matches.
-String _paragraphAfter(List<String> lines, String headingPrefix, String marker,
-    String label) {
+String _paragraphAfter(
+  List<String> lines,
+  String headingPrefix,
+  String marker,
+  String label,
+) {
   final start = lines.indexWhere((l) => l.startsWith(headingPrefix));
   if (start < 0) throw AreasCatalogException('$label heading not found.');
   final begin = lines.indexWhere((l) => l.contains(marker), start);
   if (begin < 0) {
-    throw AreasCatalogException('$label has no paragraph containing "$marker".');
+    throw AreasCatalogException(
+      '$label has no paragraph containing "$marker".',
+    );
   }
   final buffer = StringBuffer();
   for (var i = begin; i < lines.length && lines[i].trim().isNotEmpty; i++) {

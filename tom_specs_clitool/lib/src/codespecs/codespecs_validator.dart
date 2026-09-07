@@ -113,8 +113,7 @@ class CodeSpecsValidationException implements Exception {
   const CodeSpecsValidationException(this.report);
 
   @override
-  String toString() =>
-      ['${report.summary}:', ...report.lines].join('\n  ');
+  String toString() => ['${report.summary}:', ...report.lines].join('\n  ');
 }
 
 /// Runs the checks and throws [CodeSpecsValidationException] on any violation.

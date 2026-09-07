@@ -19,8 +19,8 @@ class ModelJsonStamp {
 
   /// The stamp describing the model build [versioner] was generated from.
   ModelJsonStamp.from(ModelVersionStamp versioner)
-      : version = versioner.majorVersion,
-        label = versioner.label;
+    : version = versioner.majorVersion,
+      label = versioner.label;
 
   /// The `modelVersion` counter: the model major.
   final int version;
@@ -65,10 +65,7 @@ enum ModelJsonTarget {
   /// The spec-authoring app's bundled asset. Refreshed by `bin/build.dart`
   /// (step 3), so it tracks the same build as the SOM metas and the DocSpecs
   /// schemas.
-  editor(
-    'editor',
-    'tom_forge/tom_specs_editor/assets/spec_model.json',
-  ),
+  editor('editor', 'tom_forge/tom_specs_editor/assets/spec_model.json'),
 
   /// The object-model review app's committed snapshot, refreshed periodically.
   /// Refreshing it is a re-export of the current model, never a renumbering of
@@ -90,7 +87,8 @@ enum ModelJsonTarget {
 
   /// This target's asset path inside the workspace rooted at [containerRoot].
   String outputPathIn(String containerRoot) => p.normalize(
-      p.join(containerRoot, p.joinAll(p.posix.split(containerRelativePath))));
+    p.join(containerRoot, p.joinAll(p.posix.split(containerRelativePath))),
+  );
 
   /// The target named [id], or `null` when [id] names no committed asset.
   static ModelJsonTarget? byId(String id) {

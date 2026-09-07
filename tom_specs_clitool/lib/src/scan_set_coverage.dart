@@ -62,7 +62,8 @@ class ScanSetGap {
   final String kind;
 
   @override
-  String toString() => '$path cites the doc set but no default $kind scan set '
+  String toString() =>
+      '$path cites the doc set but no default $kind scan set '
       'reaches it — add it to the matching list in tom_specs_clitool/lib/src/, '
       'or the gates will never see it';
 }
@@ -99,7 +100,9 @@ const _sourceDirs = ['lib', 'bin', 'test', 'tool', 'example'];
 /// disagree about what counts as a comment.
 bool _citesInComments(File file) {
   try {
-    return _anyCitation.hasMatch(liftComments(file.path, file.readAsStringSync()));
+    return _anyCitation.hasMatch(
+      liftComments(file.path, file.readAsStringSync()),
+    );
   } on FileSystemException {
     return false;
   }
@@ -155,9 +158,9 @@ List<ScanSetGap> findScanSetGaps({
     for (final name in _sourceDirs) {
       final source = Directory(p.join(dir.path, name));
       if (!source.existsSync() || sources.contains(rel(source.path))) continue;
-      final citing = listScannedSources(source.path)
-          .map(File.new)
-          .any(_citesInComments);
+      final citing = listScannedSources(
+        source.path,
+      ).map(File.new).any(_citesInComments);
       if (citing) {
         gaps.add(ScanSetGap(path: rel(source.path), kind: 'source tree'));
       }

@@ -94,12 +94,49 @@ class SomCEmitter {
   /// Reserved C keywords (C11). A snake-cased accessor matching one of these
   /// gains a trailing underscore so it stays a legal identifier.
   static const Set<String> _cKeywords = {
-    'auto', 'break', 'case', 'char', 'const', 'continue', 'default', 'do',
-    'double', 'else', 'enum', 'extern', 'float', 'for', 'goto', 'if', 'inline',
-    'int', 'long', 'register', 'restrict', 'return', 'short', 'signed',
-    'sizeof', 'static', 'struct', 'switch', 'typedef', 'union', 'unsigned',
-    'void', 'volatile', 'while', '_Alignas', '_Alignof', '_Atomic', '_Bool',
-    '_Complex', '_Generic', '_Imaginary', '_Noreturn', '_Static_assert',
+    'auto',
+    'break',
+    'case',
+    'char',
+    'const',
+    'continue',
+    'default',
+    'do',
+    'double',
+    'else',
+    'enum',
+    'extern',
+    'float',
+    'for',
+    'goto',
+    'if',
+    'inline',
+    'int',
+    'long',
+    'register',
+    'restrict',
+    'return',
+    'short',
+    'signed',
+    'sizeof',
+    'static',
+    'struct',
+    'switch',
+    'typedef',
+    'union',
+    'unsigned',
+    'void',
+    'volatile',
+    'while',
+    '_Alignas',
+    '_Alignof',
+    '_Atomic',
+    '_Bool',
+    '_Complex',
+    '_Generic',
+    '_Imaginary',
+    '_Noreturn',
+    '_Static_assert',
     '_Thread_local',
   };
 
@@ -191,8 +228,7 @@ class SomCEmitter {
     final mvConst = <String, String>{};
     for (final n in sortedClasses) {
       if (rootTypes.contains(n)) {
-        mvConst[n] =
-            _alloc(_valueNames, '${_screamingSnake(n)}_MODEL_VERSION');
+        mvConst[n] = _alloc(_valueNames, '${_screamingSnake(n)}_MODEL_VERSION');
       }
     }
 
@@ -216,8 +252,7 @@ class SomCEmitter {
         plan.lifecycleFn = _alloc(_funcNames, '${prefix}_init');
       }
       plan.freeFn = _alloc(_funcNames, '${prefix}_free');
-      plan.canHaveContentFn =
-          _alloc(_funcNames, '${prefix}_can_have_content');
+      plan.canHaveContentFn = _alloc(_funcNames, '${prefix}_can_have_content');
       for (final f in cls.fields) {
         final acc = _snakeAccessor(f.name);
         final getName = _alloc(_funcNames, '${prefix}_$acc');
@@ -325,16 +360,22 @@ class SomCEmitter {
       final consts = _enumConsts[e.name] ?? const <_EnumConst>[];
       final parse = _parseName[e.name]!;
       b
-        ..writeln('// Generated enum tokens for `${e.name}` values. The stored '
-            'token is byte-')
-        ..writeln('// identical across every language port, so documents stay '
-            'cross-compatible.');
+        ..writeln(
+          '// Generated enum tokens for `${e.name}` values. The stored '
+          'token is byte-',
+        )
+        ..writeln(
+          '// identical across every language port, so documents stay '
+          'cross-compatible.',
+        );
       for (final c in consts) {
         b.writeln('#define ${c.ident} "${_cStr(c.token)}"');
       }
       b
-        ..writeln('// $parse returns the token (owned) when it is a known '
-            '${e.name} value, else "".')
+        ..writeln(
+          '// $parse returns the token (owned) when it is a known '
+          '${e.name} value, else "".',
+        )
         ..writeln('char *$parse(const char *token);')
         ..writeln();
     }
@@ -345,8 +386,10 @@ class SomCEmitter {
     if (roots.isNotEmpty) {
       for (final r in roots) {
         b
-          ..writeln('// ${r.mvConst} is the model version the ${r.name} object '
-              'model was generated against (SOM §4.2).')
+          ..writeln(
+            '// ${r.mvConst} is the model version the ${r.name} object '
+            'model was generated against (SOM §4.2).',
+          )
           ..writeln('#define ${r.mvConst} "$modelVersionString"');
       }
       b.writeln();
@@ -354,10 +397,7 @@ class SomCEmitter {
 
     // struct typedefs (all share { SomNode node; }; emit together)
     b.writeln('// Typed facade structs — each binds a node (document + path).');
-    final typeOrder = <String>[
-      ..._classPlans.keys.toList()
-        ..sort(),
-    ];
+    final typeOrder = <String>[..._classPlans.keys.toList()..sort()];
     for (final n in typeOrder) {
       b.writeln('typedef struct { SomNode node; } $n;');
     }
@@ -386,55 +426,99 @@ class SomCEmitter {
     _doc(b, plan.cls.doc, '');
     if (plan.isRoot) {
       b
-        ..writeln('// Creates the typed facade at the document root and verifies '
-            "the document's")
-        ..writeln('// authoring version is editable (SOM §4.2). Returns 0 on '
-            'success; on a non-editable')
-        ..writeln('// stamp returns non-zero and, when `err` is non-NULL, '
-            'writes an owned message.')
-        ..writeln('int ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
-            'const char *document_version, char **err);')
-        ..writeln("// Returns this object model's own model version "
-            '(major.minor), per SOM §4.2.')
+        ..writeln(
+          '// Creates the typed facade at the document root and verifies '
+          "the document's",
+        )
+        ..writeln(
+          '// authoring version is editable (SOM §4.2). Returns 0 on '
+          'success; on a non-editable',
+        )
+        ..writeln(
+          '// stamp returns non-zero and, when `err` is non-NULL, '
+          'writes an owned message.',
+        )
+        ..writeln(
+          'int ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
+          'const char *document_version, char **err);',
+        )
+        ..writeln(
+          "// Returns this object model's own model version "
+          '(major.minor), per SOM §4.2.',
+        )
         ..writeln('const char *${plan.omvFn}(const $t *self);')
-        ..writeln('// Classifies whether a document authored under '
-            '`document_version` is editable')
-        ..writeln('// by this object model, without reporting an error '
-            "(SOM §21) — the non-erroring")
-        ..writeln("// companion to ${plan.lifecycleFn}'s SOM §4.2 check, so a "
-            'read-only viewer can branch')
-        ..writeln('// instead of handling the constructor error. `document_version`'
-            ' may be NULL/"".')
-        ..writeln('SomEditability ${plan.editabilityFn}('
-            'const char *document_version);')
-        ..writeln('// Loads a `*.docspecs.yaml` document in one call: decode the '
-            'YAML, populate the')
-        ..writeln('// sparse stores, and bind this typed root at the document '
-            "root with the document's")
-        ..writeln('// retained authoring stamp — one call for the former decode '
-            '→ load_json →')
-        ..writeln('// thread-`document_version` sequence (SOM §21). The owned '
-            'heap document is')
-        ..writeln('// written to `*out_doc` (which the facade borrows; free it '
-            'with')
-        ..writeln('// spec_document_free + free once the root is done). Returns '
-            '0 on success; on a')
-        ..writeln('// non-editable stamp returns non-zero and, when `err` is '
-            'non-NULL, writes an')
+        ..writeln(
+          '// Classifies whether a document authored under '
+          '`document_version` is editable',
+        )
+        ..writeln(
+          '// by this object model, without reporting an error '
+          "(SOM §21) — the non-erroring",
+        )
+        ..writeln(
+          "// companion to ${plan.lifecycleFn}'s SOM §4.2 check, so a "
+          'read-only viewer can branch',
+        )
+        ..writeln(
+          '// instead of handling the constructor error. `document_version`'
+          ' may be NULL/"".',
+        )
+        ..writeln(
+          'SomEditability ${plan.editabilityFn}('
+          'const char *document_version);',
+        )
+        ..writeln(
+          '// Loads a `*.docspecs.yaml` document in one call: decode the '
+          'YAML, populate the',
+        )
+        ..writeln(
+          '// sparse stores, and bind this typed root at the document '
+          "root with the document's",
+        )
+        ..writeln(
+          '// retained authoring stamp — one call for the former decode '
+          '→ load_json →',
+        )
+        ..writeln(
+          '// thread-`document_version` sequence (SOM §21). The owned '
+          'heap document is',
+        )
+        ..writeln(
+          '// written to `*out_doc` (which the facade borrows; free it '
+          'with',
+        )
+        ..writeln(
+          '// spec_document_free + free once the root is done). Returns '
+          '0 on success; on a',
+        )
+        ..writeln(
+          '// non-editable stamp returns non-zero and, when `err` is '
+          'non-NULL, writes an',
+        )
         ..writeln('// owned message (and frees the document).')
-        ..writeln('int ${plan.loadYamlFn}($t *self, const char *yaml, '
-            'SpecDocument **out_doc, char **err);')
-        ..writeln('// Loads a `*.docspecs.yaml` document from the file at `path` '
-            '— the file companion')
-        ..writeln('// to ${plan.loadYamlFn}. Returns non-zero (without writing '
-            '`*out_doc`) when the')
+        ..writeln(
+          'int ${plan.loadYamlFn}($t *self, const char *yaml, '
+          'SpecDocument **out_doc, char **err);',
+        )
+        ..writeln(
+          '// Loads a `*.docspecs.yaml` document from the file at `path` '
+          '— the file companion',
+        )
+        ..writeln(
+          '// to ${plan.loadYamlFn}. Returns non-zero (without writing '
+          '`*out_doc`) when the',
+        )
         ..writeln('// file cannot be read.')
-        ..writeln('int ${plan.loadFileFn}($t *self, const char *path, '
-            'SpecDocument **out_doc, char **err);');
+        ..writeln(
+          'int ${plan.loadFileFn}($t *self, const char *path, '
+          'SpecDocument **out_doc, char **err);',
+        );
     } else {
       b.writeln('// Binds a $t facade to a document and a path (path copied).');
-      b.writeln('void ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
-          'const char *path);');
+      b.writeln(
+        'void ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
+        'const char *path);',
+      );
     }
     b.writeln('void ${plan.freeFn}($t *self);');
     // SOM §21: a per-type structural predicate answering "does this TYPE
@@ -449,8 +533,10 @@ class SomCEmitter {
     // predicates `spec_document_has_content` ("value present now?") and
     // `som_node_is_empty` ("subtree empty now?"): it describes the model, not
     // the data.
-    b.writeln('// Returns 1 iff this section type declares the standard `content`'
-        ' text leaf (SOM §21).');
+    b.writeln(
+      '// Returns 1 iff this section type declares the standard `content`'
+      ' text leaf (SOM §21).',
+    );
     b.writeln('int ${plan.canHaveContentFn}(const $t *self);');
     for (final f in plan.cls.fields) {
       _declField(b, plan, f);
@@ -462,8 +548,9 @@ class SomCEmitter {
   /// A `@Unused()` on the member does **not** make this `false`: that
   /// annotation says no prose is *expected* (`tom_specs_model_rules.md`
   /// §5.6), not that the slot is absent.
-  bool _hasContentLeaf(SpecClass cls) => cls.fields
-      .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
+  bool _hasContentLeaf(SpecClass cls) => cls.fields.any(
+    (f) => f.name == 'content' && f.kind == SpecFieldKind.content,
+  );
 
   void _declField(StringBuffer b, _ClassPlan plan, SpecField f) {
     final t = plan.typeName;
@@ -491,8 +578,10 @@ class SomCEmitter {
         final elem = (f.elementIsComplex && f.elementType != null)
             ? f.elementType!
             : 'scalar';
-        b.writeln('// Returns the list view; element type: $elem '
-            '(construct from item paths).');
+        b.writeln(
+          '// Returns the list view; element type: $elem '
+          '(construct from item paths).',
+        );
         b.writeln('SomList $get(const $t *self);');
         break;
       case SpecFieldKind.form:
@@ -506,16 +595,22 @@ class SomCEmitter {
   void _declForm(StringBuffer b, _FormPlan fp) {
     final t = fp.typeName;
     b
-      ..writeln('// $t is the generated section facade for the '
-          '`${fp.field.name}` @Form section: its own `content` text followed '
-          'by one typed member per form field.')
-      ..writeln('void ${fp.initFn}($t *self, SpecDocument *doc, '
-          'const char *path);')
+      ..writeln(
+        '// $t is the generated section facade for the '
+        '`${fp.field.name}` @Form section: its own `content` text followed '
+        'by one typed member per form field.',
+      )
+      ..writeln(
+        'void ${fp.initFn}($t *self, SpecDocument *doc, '
+        'const char *path);',
+      )
       ..writeln('void ${fp.freeFn}($t *self);');
     if (fp.contentGetFn != null) {
       b
-        ..writeln('// The section\'s own free-text content, before the form '
-            'fields (owned).')
+        ..writeln(
+          '// The section\'s own free-text content, before the form '
+          'fields (owned).',
+        )
         ..writeln('char *${fp.contentGetFn}(const $t *self);')
         ..writeln('void ${fp.contentSetFn}($t *self, const char *value);');
     }
@@ -533,8 +628,7 @@ class SomCEmitter {
           b.writeln('void ${fp.setFn[ff.name]}($t *self, bool value);');
         default:
           b.writeln('char *${fp.getFn[ff.name]}(const $t *self);');
-          b.writeln(
-              'void ${fp.setFn[ff.name]}($t *self, const char *value);');
+          b.writeln('void ${fp.setFn[ff.name]}($t *self, const char *value);');
       }
     }
   }
@@ -585,8 +679,9 @@ class SomCEmitter {
       b.writeln('\t(void)token;');
       b.writeln('\treturn som_strdup("");');
     } else {
-      final cond =
-          consts.map((c) => 'strcmp(token, ${c.ident}) == 0').join(' ||\n\t    ');
+      final cond = consts
+          .map((c) => 'strcmp(token, ${c.ident}) == 0')
+          .join(' ||\n\t    ');
       b
         ..writeln('\tif ($cond) {')
         ..writeln('\t\treturn som_strdup(token);')
@@ -600,34 +695,50 @@ class SomCEmitter {
     final t = plan.typeName;
     if (plan.isRoot) {
       b
-        ..writeln('int ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
-            'const char *document_version, char **err) {')
-        ..writeln('\tif (check_som_model_version(${plan.mvConst}, '
-            'document_version, err) != 0) {')
+        ..writeln(
+          'int ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
+          'const char *document_version, char **err) {',
+        )
+        ..writeln(
+          '\tif (check_som_model_version(${plan.mvConst}, '
+          'document_version, err) != 0) {',
+        )
         ..writeln('\t\treturn 1;')
         ..writeln('\t}')
-        ..writeln('\tsom_node_init(&self->node, doc, '
-            '"${_cStr(plan.rootSeg!)}");')
+        ..writeln(
+          '\tsom_node_init(&self->node, doc, '
+          '"${_cStr(plan.rootSeg!)}");',
+        )
         ..writeln('\treturn 0;')
         ..writeln('}')
         ..writeln('const char *${plan.omvFn}(const $t *self) {')
         ..writeln('\t(void)self;')
         ..writeln('\treturn ${plan.mvConst};')
         ..writeln('}')
-        ..writeln('SomEditability ${plan.editabilityFn}('
-            'const char *document_version) {')
-        ..writeln('\treturn som_editability_for(${plan.mvConst}, '
-            'document_version);')
+        ..writeln(
+          'SomEditability ${plan.editabilityFn}('
+          'const char *document_version) {',
+        )
+        ..writeln(
+          '\treturn som_editability_for(${plan.mvConst}, '
+          'document_version);',
+        )
         ..writeln('}')
-        ..writeln('int ${plan.loadYamlFn}($t *self, const char *yaml, '
-            'SpecDocument **out_doc, char **err) {')
-        ..writeln('\tSpecDocument *doc = spec_document_from_yaml(yaml, '
-            '${_treeFnName(plan)}(), err);')
+        ..writeln(
+          'int ${plan.loadYamlFn}($t *self, const char *yaml, '
+          'SpecDocument **out_doc, char **err) {',
+        )
+        ..writeln(
+          '\tSpecDocument *doc = spec_document_from_yaml(yaml, '
+          '${_treeFnName(plan)}(), err);',
+        )
         ..writeln('\tif (doc == NULL) {')
         ..writeln('\t\treturn 1;')
         ..writeln('\t}')
-        ..writeln('\tif (${plan.lifecycleFn}(self, doc, doc->model_version, err) '
-            '!= 0) {')
+        ..writeln(
+          '\tif (${plan.lifecycleFn}(self, doc, doc->model_version, err) '
+          '!= 0) {',
+        )
         ..writeln('\t\tspec_document_free(doc);')
         ..writeln('\t\tfree(doc);')
         ..writeln('\t\treturn 1;')
@@ -635,15 +746,21 @@ class SomCEmitter {
         ..writeln('\t*out_doc = doc;')
         ..writeln('\treturn 0;')
         ..writeln('}')
-        ..writeln('int ${plan.loadFileFn}($t *self, const char *path, '
-            'SpecDocument **out_doc, char **err) {')
-        ..writeln('\tSpecDocument *doc = spec_document_from_file(path, '
-            '${_treeFnName(plan)}(), err);')
+        ..writeln(
+          'int ${plan.loadFileFn}($t *self, const char *path, '
+          'SpecDocument **out_doc, char **err) {',
+        )
+        ..writeln(
+          '\tSpecDocument *doc = spec_document_from_file(path, '
+          '${_treeFnName(plan)}(), err);',
+        )
         ..writeln('\tif (doc == NULL) {')
         ..writeln('\t\treturn 1;')
         ..writeln('\t}')
-        ..writeln('\tif (${plan.lifecycleFn}(self, doc, doc->model_version, err) '
-            '!= 0) {')
+        ..writeln(
+          '\tif (${plan.lifecycleFn}(self, doc, doc->model_version, err) '
+          '!= 0) {',
+        )
         ..writeln('\t\tspec_document_free(doc);')
         ..writeln('\t\tfree(doc);')
         ..writeln('\t\treturn 1;')
@@ -653,8 +770,10 @@ class SomCEmitter {
         ..writeln('}');
     } else {
       b
-        ..writeln('void ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
-            'const char *path) {')
+        ..writeln(
+          'void ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
+          'const char *path) {',
+        )
         ..writeln('\tsom_node_init(&self->node, doc, path);')
         ..writeln('}');
     }
@@ -693,10 +812,14 @@ class SomCEmitter {
           final parse = _parseName[f.enumType!]!;
           b
             ..writeln('char *$get(const $t *self) {')
-            ..writeln('\tchar *path = spec_path_join(self->node.path, '
-                '"$seg");')
-            ..writeln('\tconst char *v = spec_document_content('
-                'self->node.doc, path);')
+            ..writeln(
+              '\tchar *path = spec_path_join(self->node.path, '
+              '"$seg");',
+            )
+            ..writeln(
+              '\tconst char *v = spec_document_content('
+              'self->node.doc, path);',
+            )
             ..writeln('\tchar *out = $parse(v != NULL ? v : "");')
             ..writeln('\tfree(path);')
             ..writeln('\treturn out;')
@@ -724,8 +847,10 @@ class SomCEmitter {
           ..writeln('SomList $get(const $t *self) {')
           ..writeln('\tchar *path = spec_path_join(self->node.path, "$seg");')
           ..writeln('\tSomList out;')
-          ..writeln('\tsom_list_init_pattern(&out, self->node.doc, path, '
-              '"$pat");')
+          ..writeln(
+            '\tsom_list_init_pattern(&out, self->node.doc, path, '
+            '"$pat");',
+          )
           ..writeln('\tfree(path);')
           ..writeln('\treturn out;')
           ..writeln('}');
@@ -749,7 +874,9 @@ class SomCEmitter {
     b
       ..writeln('char *$get(const $t *self) {')
       ..writeln('\tchar *path = spec_path_join(self->node.path, "$seg");')
-      ..writeln('\tconst char *v = spec_document_content(self->node.doc, path);')
+      ..writeln(
+        '\tconst char *v = spec_document_content(self->node.doc, path);',
+      )
       ..writeln('\tchar *out = som_strdup(v != NULL ? v : "");')
       ..writeln('\tfree(path);')
       ..writeln('\treturn out;')
@@ -768,8 +895,10 @@ class SomCEmitter {
   void _defineForm(StringBuffer b, _FormPlan fp) {
     final t = fp.typeName;
     b
-      ..writeln('void ${fp.initFn}($t *self, SpecDocument *doc, '
-          'const char *path) {')
+      ..writeln(
+        'void ${fp.initFn}($t *self, SpecDocument *doc, '
+        'const char *path) {',
+      )
       ..writeln('\tsom_node_init(&self->node, doc, path);')
       ..writeln('}')
       ..writeln('void ${fp.freeFn}($t *self) {')
@@ -778,13 +907,17 @@ class SomCEmitter {
     if (fp.contentGetFn != null) {
       b
         ..writeln('char *${fp.contentGetFn}(const $t *self) {')
-        ..writeln('\tconst char *v = spec_document_content(self->node.doc, '
-            'self->node.path);')
+        ..writeln(
+          '\tconst char *v = spec_document_content(self->node.doc, '
+          'self->node.path);',
+        )
         ..writeln('\treturn som_strdup(v != NULL ? v : "");')
         ..writeln('}')
         ..writeln('void ${fp.contentSetFn}($t *self, const char *value) {')
-        ..writeln('\tspec_document_set_content(self->node.doc, '
-            'self->node.path, value);')
+        ..writeln(
+          '\tspec_document_set_content(self->node.doc, '
+          'self->node.path, value);',
+        )
         ..writeln('}');
     }
     for (final ff in fp.field.formFields) {
@@ -795,51 +928,67 @@ class SomCEmitter {
         case 'int':
           b
             ..writeln('long $get(const $t *self) {')
-            ..writeln('\tconst char *v = spec_document_form_field('
-                'self->node.doc, self->node.path, "$field");')
+            ..writeln(
+              '\tconst char *v = spec_document_form_field('
+              'self->node.doc, self->node.path, "$field");',
+            )
             ..writeln('\treturn (v != NULL && *v) ? atol(v) : 0;')
             ..writeln('}')
             ..writeln('void $set($t *self, long value) {')
             ..writeln('\tchar buf[32];')
             ..writeln('\tsnprintf(buf, sizeof(buf), "%ld", value);')
-            ..writeln('\tspec_document_set_form_field(self->node.doc, '
-                'self->node.path, "$field", buf);')
+            ..writeln(
+              '\tspec_document_set_form_field(self->node.doc, '
+              'self->node.path, "$field", buf);',
+            )
             ..writeln('}');
         case 'double':
         case 'num':
           b
             ..writeln('double $get(const $t *self) {')
-            ..writeln('\tconst char *v = spec_document_form_field('
-                'self->node.doc, self->node.path, "$field");')
+            ..writeln(
+              '\tconst char *v = spec_document_form_field('
+              'self->node.doc, self->node.path, "$field");',
+            )
             ..writeln('\treturn (v != NULL && *v) ? strtod(v, NULL) : 0.0;')
             ..writeln('}')
             ..writeln('void $set($t *self, double value) {')
             ..writeln('\tchar buf[32];')
             ..writeln('\tsnprintf(buf, sizeof(buf), "%g", value);')
-            ..writeln('\tspec_document_set_form_field(self->node.doc, '
-                'self->node.path, "$field", buf);')
+            ..writeln(
+              '\tspec_document_set_form_field(self->node.doc, '
+              'self->node.path, "$field", buf);',
+            )
             ..writeln('}');
         case 'bool':
           b
             ..writeln('bool $get(const $t *self) {')
-            ..writeln('\tconst char *v = spec_document_form_field('
-                'self->node.doc, self->node.path, "$field");')
+            ..writeln(
+              '\tconst char *v = spec_document_form_field('
+              'self->node.doc, self->node.path, "$field");',
+            )
             ..writeln('\treturn v != NULL && strcmp(v, "true") == 0;')
             ..writeln('}')
             ..writeln('void $set($t *self, bool value) {')
-            ..writeln('\tspec_document_set_form_field(self->node.doc, '
-                'self->node.path, "$field", value ? "true" : "false");')
+            ..writeln(
+              '\tspec_document_set_form_field(self->node.doc, '
+              'self->node.path, "$field", value ? "true" : "false");',
+            )
             ..writeln('}');
         default:
           b
             ..writeln('char *$get(const $t *self) {')
-            ..writeln('\tconst char *v = spec_document_form_field('
-                'self->node.doc, self->node.path, "$field");')
+            ..writeln(
+              '\tconst char *v = spec_document_form_field('
+              'self->node.doc, self->node.path, "$field");',
+            )
             ..writeln('\treturn som_strdup(v != NULL ? v : "");')
             ..writeln('}')
             ..writeln('void $set($t *self, const char *value) {')
-            ..writeln('\tspec_document_set_form_field(self->node.doc, '
-                'self->node.path, "$field", value);')
+            ..writeln(
+              '\tspec_document_set_form_field(self->node.doc, '
+              'self->node.path, "$field", value);',
+            )
             ..writeln('}');
       }
     }
@@ -885,7 +1034,9 @@ class SomCEmitter {
       for (final f in cls.fields) {
         if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
           byName.putIfAbsent(
-              f.enumType!, () => _EnumType(f.enumType!, f.enumValues));
+            f.enumType!,
+            () => _EnumType(f.enumType!, f.enumValues),
+          );
         }
       }
     }
@@ -898,10 +1049,14 @@ class SomCEmitter {
 
   void _fileBanner(StringBuffer b, String which) {
     b
-      ..writeln('/* GENERATED by tom_specs_clitool SomCEmitter ($versionLabel) '
-          '— do not edit by hand. */')
-      ..writeln('/* Typed object-model facade ($which) over the generic '
-          'tom_som_c_runtime document. */')
+      ..writeln(
+        '/* GENERATED by tom_specs_clitool SomCEmitter ($versionLabel) '
+        '— do not edit by hand. */',
+      )
+      ..writeln(
+        '/* Typed object-model facade ($which) over the generic '
+        'tom_som_c_runtime document. */',
+      )
       ..writeln();
   }
 
@@ -931,7 +1086,9 @@ class SomCEmitter {
   /// a field named `can_have_content` is renamed rather than silently overriding
   /// anything. Consulting the table costs nothing and means the guard is already
   /// wired if C's shape ever changes.
-  static final Set<String> _structural = somReservedAccessorNames(SomLanguage.c);
+  static final Set<String> _structural = somReservedAccessorNames(
+    SomLanguage.c,
+  );
 
   /// A snake-cased accessor base for [name]; C keywords and structural member
   /// names gain a trailing underscore. Empty ⇒ `field`.
@@ -1154,5 +1311,6 @@ class _FormPlan {
   /// True when the form declares a field literally named `content`, which
   /// shadows the section's own body text: the generated struct then omits the
   /// `_content` / `_set_content` pair so a single C name cannot mean two things.
-  bool get hasContentMember => field.formFields.any((ff) => ff.name == 'content');
+  bool get hasContentMember =>
+      field.formFields.any((ff) => ff.name == 'content');
 }

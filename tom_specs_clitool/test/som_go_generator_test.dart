@@ -45,16 +45,15 @@ void main() {
   });
 
   SomGoGenerationResult writeInto(Directory dir) => writeSomGoProject(
-        classes: classes,
-        runtimePackagePath: goRuntimeDir,
-        outputRoot: dir.path,
-        modelVersion: modelVersion,
-        modelLabel: modelLabel,
-        generatedAt: generatedAt,
-      );
+    classes: classes,
+    runtimePackagePath: goRuntimeDir,
+    outputRoot: dir.path,
+    modelVersion: modelVersion,
+    modelLabel: modelLabel,
+    generatedAt: generatedAt,
+  );
 
-  test('writes the full Go v0 artefact tree with a valid, stamped meta-data',
-      () {
+  test('writes the full Go v0 artefact tree with a valid, stamped meta-data', () {
     final dir = Directory.systemTemp.createTempSync('som_go_gen_');
     addTearDown(() => dir.deleteSync(recursive: true));
     final result = writeInto(dir);
@@ -62,10 +61,14 @@ void main() {
     // Meta-data exists, validates, and carries the stable build stamp.
     final metaFile = File(result.metaJsonPath);
     expect(metaFile.existsSync(), isTrue);
-    final meta = jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
+    final meta =
+        jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
     expect(validateSpecModelMeta(meta), isEmpty);
-    expect(meta['generatedAt'], generatedAt,
-        reason: 'generatedAt must be the stable model build instant');
+    expect(
+      meta['generatedAt'],
+      generatedAt,
+      reason: 'generatedAt must be the stable model build instant',
+    );
     expect(meta['modelVersion'], modelVersion);
     expect(meta['modelVersionLabel'], modelLabel);
 
@@ -77,9 +80,12 @@ void main() {
     // member of a grouped `import (...)` block. Assert the binding itself so the
     // check is robust to the import grouping.
     expect(
-        source,
-        contains('som '
-            '"github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"'));
+      source,
+      contains(
+        'som '
+        '"github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"',
+      ),
+    );
     expect(result.modulePath, endsWith('tom_som_go_v0.go'));
 
     // The generated metadata module (SOM §8) is written alongside the
@@ -89,11 +95,15 @@ void main() {
     expect(metaModule.existsSync(), isTrue);
     expect(result.metaModulePath, endsWith('tom_som_go_v0_meta.go'));
     final metaSource = metaModule.readAsStringSync();
-    expect(metaSource,
-        contains('var D00SolutionBlueprintMetaTree = mustMetaTree('));
+    expect(
+      metaSource,
+      contains('var D00SolutionBlueprintMetaTree = mustMetaTree('),
+    );
     expect(metaSource, contains('var SBP = '));
-    expect(source,
-        contains('som.FromYaml(yaml, D00SolutionBlueprintMetaTree)'));
+    expect(
+      source,
+      contains('som.FromYaml(yaml, D00SolutionBlueprintMetaTree)'),
+    );
 
     // One DocSpecs schema per @Document root (14).
     expect(result.schemaPaths.length, 14);
@@ -104,18 +114,26 @@ void main() {
     // go.mod records a *relative* runtime `replace` directive (portable across
     // checkouts) that resolves back to the Go runtime module.
     final goMod = File(result.goModPath).readAsStringSync();
-    expect(goMod,
-        contains('module github.com/al-the-bear/tom_ai_build/tom_som_go_v0'));
-    final m = RegExp(r'replace github\.com/al-the-bear/tom_ai_build/'
-            r'tom_som_go_runtime => (\S+)')
-        .firstMatch(goMod);
+    expect(
+      goMod,
+      contains('module github.com/al-the-bear/tom_ai_build/tom_som_go_v0'),
+    );
+    final m = RegExp(
+      r'replace github\.com/al-the-bear/tom_ai_build/'
+      r'tom_som_go_runtime => (\S+)',
+    ).firstMatch(goMod);
     expect(m, isNotNull, reason: 'go.mod must record a runtime replace');
     final rtPath = m!.group(1)!;
-    expect(p.isRelative(rtPath), isTrue,
-        reason: 'runtime path must be relative, got $rtPath');
-    expect(p.normalize(p.join(result.outputRoot, rtPath)),
-        p.normalize(goRuntimeDir),
-        reason: 'relative path must resolve to the Go runtime module');
+    expect(
+      p.isRelative(rtPath),
+      isTrue,
+      reason: 'runtime path must be relative, got $rtPath',
+    );
+    expect(
+      p.normalize(p.join(result.outputRoot, rtPath)),
+      p.normalize(goRuntimeDir),
+      reason: 'relative path must resolve to the Go runtime module',
+    );
   });
 
   test('the Go meta-data is byte-identical to the Dart path', () {
@@ -135,37 +153,50 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rg.metaJsonPath).readAsStringSync(),
-        File(rd.metaJsonPath).readAsStringSync(),
-        reason: 'meta-data must be language-agnostic / byte-identical');
+    expect(
+      File(rg.metaJsonPath).readAsStringSync(),
+      File(rd.metaJsonPath).readAsStringSync(),
+      reason: 'meta-data must be language-agnostic / byte-identical',
+    );
   });
 
-  test('regeneration is idempotent (byte-stable output for unchanged input)',
-      () {
-    final a = Directory.systemTemp.createTempSync('som_go_a_');
-    final b = Directory.systemTemp.createTempSync('som_go_b_');
-    addTearDown(() => a.deleteSync(recursive: true));
-    addTearDown(() => b.deleteSync(recursive: true));
-    final ra = writeInto(a);
-    final rb = writeInto(b);
+  test(
+    'regeneration is idempotent (byte-stable output for unchanged input)',
+    () {
+      final a = Directory.systemTemp.createTempSync('som_go_a_');
+      final b = Directory.systemTemp.createTempSync('som_go_b_');
+      addTearDown(() => a.deleteSync(recursive: true));
+      addTearDown(() => b.deleteSync(recursive: true));
+      final ra = writeInto(a);
+      final rb = writeInto(b);
 
-    expect(File(rb.modulePath).readAsStringSync(),
-        File(ra.modulePath).readAsStringSync());
-    expect(File(rb.metaModulePath).readAsStringSync(),
-        File(ra.metaModulePath).readAsStringSync());
-    expect(File(rb.metaJsonPath).readAsStringSync(),
-        File(ra.metaJsonPath).readAsStringSync());
-    expect(File(rb.goModPath).readAsStringSync(),
-        File(ra.goModPath).readAsStringSync());
-    for (var i = 0; i < ra.schemaPaths.length; i++) {
-      expect(File(rb.schemaPaths[i]).readAsStringSync(),
+      expect(
+        File(rb.modulePath).readAsStringSync(),
+        File(ra.modulePath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaModulePath).readAsStringSync(),
+        File(ra.metaModulePath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaJsonPath).readAsStringSync(),
+        File(ra.metaJsonPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.goModPath).readAsStringSync(),
+        File(ra.goModPath).readAsStringSync(),
+      );
+      for (var i = 0; i < ra.schemaPaths.length; i++) {
+        expect(
+          File(rb.schemaPaths[i]).readAsStringSync(),
           File(ra.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable');
-    }
-  });
+          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable',
+        );
+      }
+    },
+  );
 
-  test('the emitted module compiles under go build (facade + meta module)',
-      () {
+  test('the emitted module compiles under go build (facade + meta module)', () {
     final go = _go();
     if (go == null) {
       markTestSkipped('no go toolchain found');
@@ -178,17 +209,25 @@ void main() {
     // Physical path: the emitted go.mod carries a relative runtime `replace`,
     // and `go build` resolves it from the physical module dir — a symlinked
     // temp path (macOS /var/folders → /private/var) would break the `..` walk.
-    final dir = Directory(Directory.systemTemp
-        .createTempSync('som_go_compile_')
-        .resolveSymbolicLinksSync());
+    final dir = Directory(
+      Directory.systemTemp
+          .createTempSync('som_go_compile_')
+          .resolveSymbolicLinksSync(),
+    );
     addTearDown(() => dir.deleteSync(recursive: true));
     writeInto(dir);
 
-    final build =
-        Process.runSync(go, ['build', './...'], workingDirectory: dir.path);
-    expect(build.exitCode, 0,
-        reason: 'generated Go module must compile:\n'
-            '${build.stdout}\n${build.stderr}');
+    final build = Process.runSync(go, [
+      'build',
+      './...',
+    ], workingDirectory: dir.path);
+    expect(
+      build.exitCode,
+      0,
+      reason:
+          'generated Go module must compile:\n'
+          '${build.stdout}\n${build.stderr}',
+    );
   });
 }
 

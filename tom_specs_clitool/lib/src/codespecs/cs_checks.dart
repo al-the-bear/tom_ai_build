@@ -117,41 +117,42 @@ const csAuthoredKeyMarkers = <String, String>{
 /// Keyed by marker name, then by the name of the argument that declares the
 /// kind, then by kind → the slots that kind may fill. Every other optional
 /// argument of the marker is common and always permitted.
-const csPerKindSlots = <String, ({String discriminator, Map<String, Set<String>> slots})>{
-  'CsTrigger': (
-    discriminator: 'kind',
-    slots: {
-      'userGesture': {'element', 'gesture'},
-      'inFormEvent': {'form', 'formEvent', 'formField'},
-      'lifecycle': {'scope', 'phase'},
-      'serverEvent': {'channel', 'eventType'},
-      'condition': <String>{},
-    },
-  ),
-  'CsAuthorize': (
-    discriminator: 'requirement',
-    slots: {
-      'role': {'roles'},
-      'group': {'groups'},
-      'entitlement': {'entitlements'},
-      'resourceKey': {'resourceKey'},
-      'custom': {'handler', 'resourceId'},
-      'graded': {'graded'},
-      'none': <String>{},
-      'public': <String>{},
-      'authenticated': <String>{},
-      'guest': <String>{},
-    },
-  ),
-  'CsJob': (
-    discriminator: 'trigger',
-    slots: {
-      'cron': {'cron'},
-      'calendar': {'calendar'},
-      'event': {'event'},
-    },
-  ),
-};
+const csPerKindSlots =
+    <String, ({String discriminator, Map<String, Set<String>> slots})>{
+      'CsTrigger': (
+        discriminator: 'kind',
+        slots: {
+          'userGesture': {'element', 'gesture'},
+          'inFormEvent': {'form', 'formEvent', 'formField'},
+          'lifecycle': {'scope', 'phase'},
+          'serverEvent': {'channel', 'eventType'},
+          'condition': <String>{},
+        },
+      ),
+      'CsAuthorize': (
+        discriminator: 'requirement',
+        slots: {
+          'role': {'roles'},
+          'group': {'groups'},
+          'entitlement': {'entitlements'},
+          'resourceKey': {'resourceKey'},
+          'custom': {'handler', 'resourceId'},
+          'graded': {'graded'},
+          'none': <String>{},
+          'public': <String>{},
+          'authenticated': <String>{},
+          'guest': <String>{},
+        },
+      ),
+      'CsJob': (
+        discriminator: 'trigger',
+        slots: {
+          'cron': {'cron'},
+          'calendar': {'calendar'},
+          'event': {'event'},
+        },
+      ),
+    };
 
 /// The `Cs*` catalogues that mirror a `tom_core` enum, keyed by the mirror
 /// (`codespecs_derivation_contract.md` §5.3).
@@ -187,11 +188,11 @@ const csOverridableScopes = <String, Set<String>>{
 /// A generated file writes `CsTextRole.error`; a hand-written one may import
 /// the constant unqualified.
 String? enumConstantName(CsValue? value) => switch (value) {
-      CsQualifiedValue(:final name) => name,
-      CsUnknownValue(:final source) =>
-        source.contains('.') ? source.split('.').last : source,
-      _ => null,
-    };
+  CsQualifiedValue(:final name) => name,
+  CsUnknownValue(:final source) =>
+    source.contains('.') ? source.split('.').last : source,
+  _ => null,
+};
 
 /// Every construction reachable from [value], including [value] itself.
 Iterable<CsConstructionValue> constructionsIn(CsValue value) sync* {
@@ -636,13 +637,13 @@ class CsFabricatedValueCheck extends CodeSpecsCheck {
   /// The names [body] binds `final` from a call —
   /// `codespecs_derivation_contract.md` §2.4 kind 3.
   Set<String> _localsBoundFromCalls(CsMethodBody body) => {
-        for (final statement in body.allStatements)
-          if (statement.kind == CsStatementKind.localBinding &&
-              statement.isFinal &&
-              statement.call != null &&
-              statement.boundName != null)
-            statement.boundName!,
-      };
+    for (final statement in body.allStatements)
+      if (statement.kind == CsStatementKind.localBinding &&
+          statement.isFinal &&
+          statement.call != null &&
+          statement.boundName != null)
+        statement.boundName!,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -737,7 +738,8 @@ class CsBackLinkAgreementCheck extends CodeSpecsCheck {
       // so what keeps a member's section visible to the gap analysis — which
       // reads `source` and never looks inside a class.
       final missing = <String, String>{};
-      for (final member in membersOf[declaration.path] ?? const <CsDeclaration>[]) {
+      for (final member
+          in membersOf[declaration.path] ?? const <CsDeclaration>[]) {
         for (final ref in member.docSpec ?? const <CsDocRef>[]) {
           if (fromDocSpec.contains(ref.sectionId)) continue;
           missing.putIfAbsent(ref.sectionId, () => member.path);
@@ -825,9 +827,9 @@ class CsSlotExclusivityCheck extends CodeSpecsCheck {
   }
 
   List<String> _ownersOf(Map<String, Set<String>> slots, String slot) => [
-        for (final entry in slots.entries)
-          if (entry.value.contains(slot)) entry.key,
-      ];
+    for (final entry in slots.entries)
+      if (entry.value.contains(slot)) entry.key,
+  ];
 }
 
 // ---------------------------------------------------------------------------
@@ -1126,7 +1128,8 @@ class CsMigrationConvergenceCheck extends CodeSpecsCheck {
       final table = marker.firstPositionalString;
       if (table == null || table.trim().isEmpty) continue;
       final columns = <String>[];
-      for (final member in byOwner[declaration.name] ?? const <CsDeclaration>[]) {
+      for (final member
+          in byOwner[declaration.name] ?? const <CsDeclaration>[]) {
         final column = member.marker('CsColumn');
         if (column == null) continue;
         final named = column.named['column'];
@@ -1227,15 +1230,14 @@ void _apply(String statement, Map<String, Set<String>> tables) {
   final add = _alterAddPattern.firstMatch(statement);
   if (add != null) {
     final table = _identifier(add.group(1)!);
-    tables.putIfAbsent(table, () => <String>{}).add(
-          _identifier(add.group(2)!),
-        );
+    tables.putIfAbsent(table, () => <String>{}).add(_identifier(add.group(2)!));
     return;
   }
   final dropColumn = _alterDropPattern.firstMatch(statement);
   if (dropColumn != null) {
-    tables[_identifier(dropColumn.group(1)!)]
-        ?.remove(_identifier(dropColumn.group(2)!));
+    tables[_identifier(dropColumn.group(1)!)]?.remove(
+      _identifier(dropColumn.group(2)!),
+    );
   }
 }
 
@@ -1300,7 +1302,8 @@ class CsComposeTokenCheck extends CodeSpecsCheck {
   String get definedIn => '§3.2.2';
 
   @override
-  String get title => '@CsValidation never emits the non-declarable compose token';
+  String get title =>
+      '@CsValidation never emits the non-declarable compose token';
 
   @override
   List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
@@ -1898,12 +1901,11 @@ const csCollaboratorField = 'collaborator';
 /// The collaborator classes an [input] emits, by name.
 Map<String, CsDeclaration> _collaboratorClasses(
   CodeSpecsValidationInput input,
-) =>
-    {
-      for (final declaration in input.declarations)
-        if (declaration.isTopLevel && declaration.has('CsCollaborator'))
-          declaration.name: declaration,
-    };
+) => {
+  for (final declaration in input.declarations)
+    if (declaration.isTopLevel && declaration.has('CsCollaborator'))
+      declaration.name: declaration,
+};
 
 /// The type name [source] declares, stripped of nullability, type arguments and
 /// any library prefix.
@@ -2048,13 +2050,12 @@ class CsCollaboratorCallResolutionCheck extends CodeSpecsCheck {
   Set<String> _abstractMethodsOf(
     CodeSpecsValidationInput input,
     CsDeclaration collaborator,
-  ) =>
-      {
-        for (final declaration in input.project(collaborator.locus).declarations)
-          if (declaration.owner == collaborator.name &&
-              declaration.kind == CsDeclarationKind.method)
-            declaration.name,
-      };
+  ) => {
+    for (final declaration in input.project(collaborator.locus).declarations)
+      if (declaration.owner == collaborator.name &&
+          declaration.kind == CsDeclarationKind.method)
+        declaration.name,
+  };
 }
 
 /// `codespecs_derivation_contract.md` §6 check 24.
@@ -2632,7 +2633,9 @@ List<CsCollaboratorCall> csCollaboratorCalls(CodeSpecsValidationInput input) {
     for (final declaration in project.declarations) {
       if (!declaration.isTopLevel) continue;
       if (declaration.has('CsCollaborator')) continue;
-      final collaborator = _typeHead(fieldsByOwner[declaration.name]?.declaredType);
+      final collaborator = _typeHead(
+        fieldsByOwner[declaration.name]?.declaredType,
+      );
       if (collaborator == null) continue;
 
       for (final member in project.declarations) {
@@ -2903,9 +2906,9 @@ class _CsCommentSources {
 
   /// Every permitted line, in both the escaped and the raw spelling.
   Set<String> get lines => {
-        for (final entry in entries) ...entry.escapedLines,
-        for (final entry in entries) ...entry.rawLines,
-      };
+    for (final entry in entries) ...entry.escapedLines,
+    for (final entry in entries) ...entry.rawLines,
+  };
 
   /// Whether [line] is a fragment of a permitted line — the signature of a
   /// re-wrap, which is check 34's business rather than check 32's.
@@ -3001,7 +3004,7 @@ class CsCommentSourceCheck extends CodeSpecsCheck {
           fail(
             '${declaration.path} has a doc-comment line no extract holds '
             '(`$line`) — C1 takes a comment from ${sources.traced ? 'the '
-                'section its `@DocSpec` names' : 'the specification'}, and '
+                      'section its `@DocSpec` names' : 'the specification'}, and '
             'composes nothing',
             comment.location,
           ),
@@ -3220,15 +3223,15 @@ class CsCommentFidelityCheck extends CodeSpecsCheck {
 /// means checks 35 and 36 fire only on a token cited by *neither*, which is
 /// unambiguously a transfer defect and not a second message for check 7's.
 Set<String> csCitedSectionIdsOf(CsDeclaration declaration) => {
-      ...?declaration.codeSpec?.source,
-      ...?declaration.docSpec?.map((r) => r.sectionId),
-    };
+  ...?declaration.codeSpec?.source,
+  ...?declaration.docSpec?.map((r) => r.sectionId),
+};
 
 /// Every extract token the trio traces to.
 Set<String> csCitedSectionIds(CodeSpecsValidationInput input) => {
-      for (final declaration in input.declarations)
-        ...csCitedSectionIdsOf(declaration),
-    };
+  for (final declaration in input.declarations)
+    ...csCitedSectionIdsOf(declaration),
+};
 
 /// `codespecs_derivation_contract.md` §6 check 35.
 ///
@@ -3280,8 +3283,9 @@ class CsExtractCoverageCheck extends CodeSpecsCheck {
       for (final entry in extract.entries) {
         if (cited.contains(entry.sectionId)) continue;
         if (!reported.add(entry.sectionId)) continue;
-        final values =
-            extract.entries.where((e) => e.sectionId == entry.sectionId);
+        final values = extract.entries.where(
+          (e) => e.sectionId == entry.sectionId,
+        );
         final origins = values.map((e) => e.origin).toSet().join(', ');
         final at = entry.path.isEmpty ? '' : ' at ${entry.path}';
         out.add(
@@ -3421,7 +3425,8 @@ class CsReflectionWrittenNotFinalCheck extends CodeSpecsCheck {
 
       for (final entry in members.entries) {
         final owner = owners[entry.key];
-        final ownerIsDto = owner != null &&
+        final ownerIsDto =
+            owner != null &&
             owner.kind == CsDeclarationKind.classType &&
             project.locus == CsLocus.shared &&
             _csDtoSuffixes.any((s) => owner.name.endsWith(s));
@@ -3432,11 +3437,11 @@ class CsReflectionWrittenNotFinalCheck extends CodeSpecsCheck {
 
           final written = member.has('CsColumn')
               ? 'a @CsColumn attribute, which the repository assigns through '
-                  'TomColumnInformation.setVariableValue'
+                    'TomColumnInformation.setVariableValue'
               : ownerIsDto
-                  ? 'a field of the CE-API DTO ${entry.key}, which the wire '
-                      'decoder assigns'
-                  : null;
+              ? 'a field of the CE-API DTO ${entry.key}, which the wire '
+                    'decoder assigns'
+              : null;
           if (written == null) continue;
 
           // The §2.4 carve-outs, in the order the section states them.

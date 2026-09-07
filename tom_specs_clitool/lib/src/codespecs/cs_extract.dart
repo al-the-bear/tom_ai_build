@@ -68,19 +68,19 @@ enum CsGateVerdict {
 
   /// The verdict word exactly as `codespecs_prompt.md` §6.2 states it.
   String get word => switch (this) {
-        sufficient => 'sufficient',
-        notApplicable => 'not applicable',
-        insufficient => 'insufficient',
-      };
+    sufficient => 'sufficient',
+    notApplicable => 'not applicable',
+    insufficient => 'insufficient',
+  };
 
   /// Parses a `codespecs_prompt.md` §6.2 verdict word, or returns null for an
   /// unknown one.
   static CsGateVerdict? parse(String word) => switch (word) {
-        'sufficient' => sufficient,
-        'not applicable' => notApplicable,
-        'insufficient' => insufficient,
-        _ => null,
-      };
+    'sufficient' => sufficient,
+    'not applicable' => notApplicable,
+    'insufficient' => insufficient,
+    _ => null,
+  };
 }
 
 /// One area the gate record excluded from the obligation set.
@@ -256,8 +256,7 @@ class CsExtractSet {
 
   final Map<String, List<CsExtractEntry>> _bySection;
 
-  CsExtractSet._(this.extracts, this._bySection,
-      {this.excluded = const []});
+  CsExtractSet._(this.extracts, this._bySection, {this.excluded = const []});
 
   /// An empty set — the state every check treats as "no second input", so a
   /// caller that supplied no extracts sees the trio-only checks and nothing
@@ -286,8 +285,8 @@ class CsExtractSet {
 
   /// The values routed from any of [sectionIds], in the given order.
   List<CsExtractEntry> entriesForAll(Iterable<String> sectionIds) => [
-        for (final id in sectionIds) ...entriesFor(id),
-      ];
+    for (final id in sectionIds) ...entriesFor(id),
+  ];
 }
 
 /// Reads [sources] — file name → YAML text — into a [CsExtractSet].
@@ -364,12 +363,14 @@ CsExtractSet readCsExtracts(Map<String, String> sources) {
               'value is evidence the area applies (codespecs_prompt.md §6.4)',
             );
           }
-          excluded.add(CsExcludedArea(
-            areaCode: areaCode,
-            verdict: record.verdict,
-            entryCount: extract?.entries.length ?? 0,
-            source: extract?.source ?? '',
-          ));
+          excluded.add(
+            CsExcludedArea(
+              areaCode: areaCode,
+              verdict: record.verdict,
+              entryCount: extract?.entries.length ?? 0,
+              source: extract?.source ?? '',
+            ),
+          );
         case CsGateVerdict.insufficient:
           if (!record.descoped) {
             throw CsExtractException(
@@ -379,13 +380,15 @@ CsExtractSet readCsExtracts(Map<String, String> sources) {
               'recording the descope is what legitimizes a partial pass',
             );
           }
-          excluded.add(CsExcludedArea(
-            areaCode: areaCode,
-            verdict: record.verdict,
-            descoped: true,
-            entryCount: extract?.entries.length ?? 0,
-            source: extract?.source ?? '',
-          ));
+          excluded.add(
+            CsExcludedArea(
+              areaCode: areaCode,
+              verdict: record.verdict,
+              descoped: true,
+              entryCount: extract?.entries.length ?? 0,
+              source: extract?.source ?? '',
+            ),
+          );
       }
     }
   }
@@ -396,8 +399,11 @@ CsExtractSet readCsExtracts(Map<String, String> sources) {
       (bySection[e.sectionId] ??= <CsExtractEntry>[]).add(e);
     }
   }
-  return CsExtractSet._(List.unmodifiable(inScope), bySection,
-      excluded: List.unmodifiable(excluded));
+  return CsExtractSet._(
+    List.unmodifiable(inScope),
+    bySection,
+    excluded: List.unmodifiable(excluded),
+  );
 }
 
 class _CsGateEntry {
@@ -511,8 +517,9 @@ CsExtract _readExtract(String name, String yamlText) {
   }
 
   final documentNode = root['document'];
-  final documentRoot =
-      documentNode is YamlMap ? _string(documentNode['root']) : '';
+  final documentRoot = documentNode is YamlMap
+      ? _string(documentNode['root'])
+      : '';
 
   final entriesNode = root['entries'];
   final entries = <CsExtractEntry>[];
@@ -576,7 +583,5 @@ List<String> csEscapedLines(String text) {
 }
 
 /// One line with C4.4's escapes applied.
-String csEscapeCommentLine(String line) => line
-    .replaceAll('[', r'\[')
-    .replaceAll(']', r'\]')
-    .replaceAll('<', '&lt;');
+String csEscapeCommentLine(String line) =>
+    line.replaceAll('[', r'\[').replaceAll(']', r'\]').replaceAll('<', '&lt;');

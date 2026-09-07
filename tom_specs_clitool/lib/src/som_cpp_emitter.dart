@@ -100,21 +100,101 @@ class SomCppEmitter {
   /// independently and stay byte-identical, so cross-language documents remain
   /// compatible.
   static const Set<String> _cppKeywords = {
-    'alignas', 'alignof', 'and', 'and_eq', 'asm', 'atomic_cancel',
-    'atomic_commit', 'atomic_noexcept', 'auto', 'bitand', 'bitor', 'bool',
-    'break', 'case', 'catch', 'char', 'char16_t', 'char32_t', 'char8_t',
-    'class', 'co_await', 'co_return', 'co_yield', 'compl', 'concept', 'const',
-    'const_cast', 'consteval', 'constexpr', 'constinit', 'continue',
-    'decltype', 'default', 'delete', 'do', 'double', 'dynamic_cast', 'else',
-    'enum', 'explicit', 'export', 'extern', 'false', 'float', 'for', 'friend',
-    'goto', 'if', 'inline', 'int', 'long', 'mutable', 'namespace', 'new',
-    'noexcept', 'not', 'not_eq', 'nullptr', 'operator', 'or', 'or_eq',
-    'private', 'protected', 'public', 'register', 'reinterpret_cast',
-    'requires', 'return', 'short', 'signed', 'sizeof', 'static',
-    'static_assert', 'static_cast', 'struct', 'switch', 'template', 'this',
-    'thread_local', 'throw', 'true', 'try', 'typedef', 'typeid', 'typename',
-    'union', 'unsigned', 'using', 'virtual', 'void', 'volatile', 'wchar_t',
-    'while', 'xor', 'xor_eq',
+    'alignas',
+    'alignof',
+    'and',
+    'and_eq',
+    'asm',
+    'atomic_cancel',
+    'atomic_commit',
+    'atomic_noexcept',
+    'auto',
+    'bitand',
+    'bitor',
+    'bool',
+    'break',
+    'case',
+    'catch',
+    'char',
+    'char16_t',
+    'char32_t',
+    'char8_t',
+    'class',
+    'co_await',
+    'co_return',
+    'co_yield',
+    'compl',
+    'concept',
+    'const',
+    'const_cast',
+    'consteval',
+    'constexpr',
+    'constinit',
+    'continue',
+    'decltype',
+    'default',
+    'delete',
+    'do',
+    'double',
+    'dynamic_cast',
+    'else',
+    'enum',
+    'explicit',
+    'export',
+    'extern',
+    'false',
+    'float',
+    'for',
+    'friend',
+    'goto',
+    'if',
+    'inline',
+    'int',
+    'long',
+    'mutable',
+    'namespace',
+    'new',
+    'noexcept',
+    'not',
+    'not_eq',
+    'nullptr',
+    'operator',
+    'or',
+    'or_eq',
+    'private',
+    'protected',
+    'public',
+    'register',
+    'reinterpret_cast',
+    'requires',
+    'return',
+    'short',
+    'signed',
+    'sizeof',
+    'static',
+    'static_assert',
+    'static_cast',
+    'struct',
+    'switch',
+    'template',
+    'this',
+    'thread_local',
+    'throw',
+    'true',
+    'try',
+    'typedef',
+    'typeid',
+    'typename',
+    'union',
+    'unsigned',
+    'using',
+    'virtual',
+    'void',
+    'volatile',
+    'wchar_t',
+    'while',
+    'xor',
+    'xor_eq',
   };
 
   // --- generated type names (kept collision-free) --------------------------
@@ -229,7 +309,9 @@ class SomCppEmitter {
 
     // forward declarations (classes then form classes) so by-value member
     // declarations can reference any generated class.
-    b.writeln('// Forward declarations (classes reference each other by value).');
+    b.writeln(
+      '// Forward declarations (classes reference each other by value).',
+    );
     for (final n in typeOrder) {
       b.writeln('class $n;');
     }
@@ -257,10 +339,14 @@ class SomCppEmitter {
 
   void _declEnum(StringBuffer b, _EnumType e) {
     b
-      ..writeln('// Generated enum tokens for `${e.name}` values. The stored '
-          'token is byte-')
-      ..writeln('// identical across every language port, so documents stay '
-          'cross-compatible.')
+      ..writeln(
+        '// Generated enum tokens for `${e.name}` values. The stored '
+        'token is byte-',
+      )
+      ..writeln(
+        '// identical across every language port, so documents stay '
+        'cross-compatible.',
+      )
       ..writeln('struct ${e.name} {');
     var idx = 0;
     for (final v in e.values) {
@@ -269,10 +355,14 @@ class SomCppEmitter {
       idx++;
     }
     b
-      ..writeln('  // Returns the token when it is a known ${e.name} value, '
-          'else std::nullopt.')
-      ..writeln('  static std::optional<std::string> parse('
-          'const std::string& token);')
+      ..writeln(
+        '  // Returns the token when it is a known ${e.name} value, '
+        'else std::nullopt.',
+      )
+      ..writeln(
+        '  static std::optional<std::string> parse('
+        'const std::string& token);',
+      )
       ..writeln('  ${e.name}() = delete;')
       ..writeln('};');
   }
@@ -284,47 +374,83 @@ class SomCppEmitter {
     b.writeln(' public:');
     if (plan.isRoot) {
       b
-        ..writeln('  // The model version this object model was generated '
-            'against (SOM §4.2).')
-        ..writeln('  static constexpr const char* kModelVersion = '
-            '"$modelVersionString";')
-        ..writeln('  // Creates the typed facade at the document root and '
-            "verifies the document's")
-        ..writeln('  // authoring documentVersion is editable (SOM §4.2); throws '
-            'som::SomVersionError')
+        ..writeln(
+          '  // The model version this object model was generated '
+          'against (SOM §4.2).',
+        )
+        ..writeln(
+          '  static constexpr const char* kModelVersion = '
+          '"$modelVersionString";',
+        )
+        ..writeln(
+          '  // Creates the typed facade at the document root and '
+          "verifies the document's",
+        )
+        ..writeln(
+          '  // authoring documentVersion is editable (SOM §4.2); throws '
+          'som::SomVersionError',
+        )
         ..writeln('  // when it is not.')
-        ..writeln('  explicit $t(som::SpecDocument& doc, '
-            'const std::string& documentVersion = "");')
-        ..writeln('  // Loads a `*.docspecs.yaml` document into the '
-            'caller-owned `doc` and')
-        ..writeln('  // returns the typed root with the document\'s authoring '
-            'stamp already')
-        ..writeln('  // applied (SOM §21) — one call for the former decode → '
-            'loadJson →')
-        ..writeln('  // thread-documentVersion sequence. `doc` is borrowed by '
-            'the returned')
+        ..writeln(
+          '  explicit $t(som::SpecDocument& doc, '
+          'const std::string& documentVersion = "");',
+        )
+        ..writeln(
+          '  // Loads a `*.docspecs.yaml` document into the '
+          'caller-owned `doc` and',
+        )
+        ..writeln(
+          '  // returns the typed root with the document\'s authoring '
+          'stamp already',
+        )
+        ..writeln(
+          '  // applied (SOM §21) — one call for the former decode → '
+          'loadJson →',
+        )
+        ..writeln(
+          '  // thread-documentVersion sequence. `doc` is borrowed by '
+          'the returned',
+        )
         ..writeln('  // root and must outlive it (RAII ownership model).')
-        ..writeln('  static $t loadYaml(som::SpecDocument& doc, '
-            'const std::string& yaml);')
-        ..writeln('  // Loads a `*.docspecs.yaml` document from the file at '
-            '`path` into the')
+        ..writeln(
+          '  static $t loadYaml(som::SpecDocument& doc, '
+          'const std::string& yaml);',
+        )
+        ..writeln(
+          '  // Loads a `*.docspecs.yaml` document from the file at '
+          '`path` into the',
+        )
         ..writeln('  // caller-owned `doc` — the file companion to loadYaml.')
-        ..writeln('  static $t loadFile(som::SpecDocument& doc, '
-            'const std::string& path);')
-        ..writeln("  // This object model's own model version (major.minor), "
-            'per SOM §4.2.')
+        ..writeln(
+          '  static $t loadFile(som::SpecDocument& doc, '
+          'const std::string& path);',
+        )
+        ..writeln(
+          "  // This object model's own model version (major.minor), "
+          'per SOM §4.2.',
+        )
         ..writeln('  std::string objectModelVersion() const;')
-        ..writeln("  // Classifies a document's editability against this object "
-            'model without')
-        ..writeln('  // throwing — the non-throwing companion to the '
-            'constructor check (SOM §21):')
-        ..writeln('  // a read-only viewer can branch on the result instead of '
-            'catching')
-        ..writeln('  // som::SomVersionError. An empty documentVersion is the '
-            'absent-stamp')
+        ..writeln(
+          "  // Classifies a document's editability against this object "
+          'model without',
+        )
+        ..writeln(
+          '  // throwing — the non-throwing companion to the '
+          'constructor check (SOM §21):',
+        )
+        ..writeln(
+          '  // a read-only viewer can branch on the result instead of '
+          'catching',
+        )
+        ..writeln(
+          '  // som::SomVersionError. An empty documentVersion is the '
+          'absent-stamp',
+        )
         ..writeln('  // sentinel and classifies as editable.')
-        ..writeln('  static som::SomEditability editabilityFor('
-            'const std::string& documentVersion);');
+        ..writeln(
+          '  static som::SomEditability editabilityFor('
+          'const std::string& documentVersion);',
+        );
     } else {
       b.writeln('  $t(som::SpecDocument& doc, std::string path);');
     }
@@ -339,10 +465,14 @@ class SomCppEmitter {
     // trivial constant), matching the base's inline form.
     if (_hasContentLeaf(plan.cls)) {
       b
-        ..writeln('  // This section type declares the standard `content` text '
-            'leaf (SOM §21):')
-        ..writeln('  // a structural, document-independent override of the '
-            '`som::SomNode`')
+        ..writeln(
+          '  // This section type declares the standard `content` text '
+          'leaf (SOM §21):',
+        )
+        ..writeln(
+          '  // a structural, document-independent override of the '
+          '`som::SomNode`',
+        )
         ..writeln('  // `canHaveContent` default (`false`).')
         ..writeln('  bool canHaveContent() const override { return true; }');
     }
@@ -355,8 +485,9 @@ class SomCppEmitter {
   /// A `@Unused()` on the member does **not** make this `false`: that
   /// annotation says no prose is *expected* (`tom_specs_model_rules.md`
   /// §5.6), not that the slot is absent.
-  bool _hasContentLeaf(SpecClass cls) => cls.fields
-      .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
+  bool _hasContentLeaf(SpecClass cls) => cls.fields.any(
+    (f) => f.name == 'content' && f.kind == SpecFieldKind.content,
+  );
 
   /// Maps a `@Form` field's declared type name to the primitive scalar kind the
   /// facade should expose, or `'String'` for any non-primitive (enums, `List`,
@@ -409,8 +540,10 @@ class SomCppEmitter {
         final elem = (f.elementIsComplex && f.elementType != null)
             ? f.elementType!
             : 'scalar';
-        b.writeln('  // Returns the list view; element type: $elem '
-            '(construct from item paths).');
+        b.writeln(
+          '  // Returns the list view; element type: $elem '
+          '(construct from item paths).',
+        );
         b.writeln('  som::SomList $acc() const;');
         break;
       case SpecFieldKind.form:
@@ -423,20 +556,25 @@ class SomCppEmitter {
 
   void _declForm(StringBuffer b, _FormPlan fp) {
     final t = fp.typeName;
-    final hasContentMember =
-        fp.field.formFields.any((ff) => ff.name == 'content');
+    final hasContentMember = fp.field.formFields.any(
+      (ff) => ff.name == 'content',
+    );
     b
-      ..writeln('// Generated section facade for the `${fp.field.name}` '
-          '@Form section: its own `content` text followed by one typed member '
-          'per form field.')
+      ..writeln(
+        '// Generated section facade for the `${fp.field.name}` '
+        '@Form section: its own `content` text followed by one typed member '
+        'per form field.',
+      )
       ..writeln('class $t : public som::SomNode {')
       ..writeln(' public:')
       ..writeln('  $t(som::SpecDocument& doc, std::string path);')
       ..writeln('  bool canHaveContent() const override { return true; }');
     if (!hasContentMember) {
       b
-        ..writeln('  // The section\'s own free-text content, before the form '
-            'fields.')
+        ..writeln(
+          '  // The section\'s own free-text content, before the form '
+          'fields.',
+        )
         ..writeln('  std::string content() const;')
         ..writeln('  void setContent(const std::string& value);');
     }
@@ -502,8 +640,10 @@ class SomCppEmitter {
   }
 
   void _defineEnum(StringBuffer b, _EnumType e) {
-    b.writeln('std::optional<std::string> ${e.name}::parse('
-        'const std::string& token) {');
+    b.writeln(
+      'std::optional<std::string> ${e.name}::parse('
+      'const std::string& token) {',
+    );
     if (e.values.isEmpty) {
       b.writeln('  (void)token;');
       b.writeln('  return std::nullopt;');
@@ -525,34 +665,50 @@ class SomCppEmitter {
     final t = plan.cls.name;
     if (plan.isRoot) {
       b
-        ..writeln('$t::$t(som::SpecDocument& doc, '
-            'const std::string& documentVersion)')
+        ..writeln(
+          '$t::$t(som::SpecDocument& doc, '
+          'const std::string& documentVersion)',
+        )
         ..writeln('    : som::SomNode(doc, "${_cppStr(plan.rootSeg!)}") {')
-        ..writeln('  som::checkSomModelVersion(kModelVersion, '
-            'documentVersion);')
+        ..writeln(
+          '  som::checkSomModelVersion(kModelVersion, '
+          'documentVersion);',
+        )
         ..writeln('}')
-        ..writeln('$t $t::loadYaml(som::SpecDocument& doc, '
-            'const std::string& yaml) {')
+        ..writeln(
+          '$t $t::loadYaml(som::SpecDocument& doc, '
+          'const std::string& yaml) {',
+        )
         ..writeln('  std::string err;')
         ..writeln('  std::optional<som::SpecDocument> parsed =')
-        ..writeln('      som::SpecDocument::fromYaml(yaml, '
-            '$_metaNamespace::${_camel(plan.cls.name)}MetaTree(), &err);')
+        ..writeln(
+          '      som::SpecDocument::fromYaml(yaml, '
+          '$_metaNamespace::${_camel(plan.cls.name)}MetaTree(), &err);',
+        )
         ..writeln('  if (!parsed) {')
-        ..writeln('    throw som::SomVersionError('
-            'err.empty() ? "loadYaml: decode failed" : err);')
+        ..writeln(
+          '    throw som::SomVersionError('
+          'err.empty() ? "loadYaml: decode failed" : err);',
+        )
         ..writeln('  }')
         ..writeln('  doc = std::move(*parsed);')
         ..writeln('  return $t(doc, doc.modelVersion);')
         ..writeln('}')
-        ..writeln('$t $t::loadFile(som::SpecDocument& doc, '
-            'const std::string& path) {')
+        ..writeln(
+          '$t $t::loadFile(som::SpecDocument& doc, '
+          'const std::string& path) {',
+        )
         ..writeln('  std::string err;')
         ..writeln('  std::optional<som::SpecDocument> parsed =')
-        ..writeln('      som::SpecDocument::fromFile(path, '
-            '$_metaNamespace::${_camel(plan.cls.name)}MetaTree(), &err);')
+        ..writeln(
+          '      som::SpecDocument::fromFile(path, '
+          '$_metaNamespace::${_camel(plan.cls.name)}MetaTree(), &err);',
+        )
         ..writeln('  if (!parsed) {')
-        ..writeln('    throw som::SomVersionError('
-            'err.empty() ? "loadFile: decode failed" : err);')
+        ..writeln(
+          '    throw som::SomVersionError('
+          'err.empty() ? "loadFile: decode failed" : err);',
+        )
         ..writeln('  }')
         ..writeln('  doc = std::move(*parsed);')
         ..writeln('  return $t(doc, doc.modelVersion);')
@@ -560,10 +716,14 @@ class SomCppEmitter {
         ..writeln('std::string $t::objectModelVersion() const {')
         ..writeln('  return kModelVersion;')
         ..writeln('}')
-        ..writeln('som::SomEditability $t::editabilityFor('
-            'const std::string& documentVersion) {')
-        ..writeln('  return som::somEditabilityFor(kModelVersion, '
-            'documentVersion);')
+        ..writeln(
+          'som::SomEditability $t::editabilityFor('
+          'const std::string& documentVersion) {',
+        )
+        ..writeln(
+          '  return som::somEditabilityFor(kModelVersion, '
+          'documentVersion);',
+        )
         ..writeln('}');
     } else {
       b
@@ -593,8 +753,10 @@ class SomCppEmitter {
         } else {
           b
             ..writeln('std::optional<std::string> $t::$acc() const {')
-            ..writeln('  return ${f.enumType}::parse(doc().content('
-                '$childPath));')
+            ..writeln(
+              '  return ${f.enumType}::parse(doc().content('
+              '$childPath));',
+            )
             ..writeln('}');
         }
         _emitStringSetter(b, t, setAcc, childPath);
@@ -625,7 +787,11 @@ class SomCppEmitter {
   }
 
   void _emitStringGetter(
-      StringBuffer b, String t, String acc, String childPath) {
+    StringBuffer b,
+    String t,
+    String acc,
+    String childPath,
+  ) {
     b
       ..writeln('std::string $t::$acc() const {')
       ..writeln('  return doc().content($childPath);')
@@ -633,7 +799,11 @@ class SomCppEmitter {
   }
 
   void _emitStringSetter(
-      StringBuffer b, String t, String setAcc, String childPath) {
+    StringBuffer b,
+    String t,
+    String setAcc,
+    String childPath,
+  ) {
     b
       ..writeln('void $t::$setAcc(const std::string& value) {')
       ..writeln('  doc().setContent($childPath, value);')
@@ -642,8 +812,9 @@ class SomCppEmitter {
 
   void _defineForm(StringBuffer b, _FormPlan fp) {
     final t = fp.typeName;
-    final hasContentMember =
-        fp.field.formFields.any((ff) => ff.name == 'content');
+    final hasContentMember = fp.field.formFields.any(
+      (ff) => ff.name == 'content',
+    );
     b
       ..writeln('$t::$t(som::SpecDocument& doc, std::string path)')
       ..writeln('    : som::SomNode(doc, std::move(path)) {}');
@@ -664,41 +835,57 @@ class SomCppEmitter {
         case 'int':
           b
             ..writeln('std::optional<long> $t::$acc() const {')
-            ..writeln('  const std::string v = doc().formField(path(), '
-                '"$field");')
+            ..writeln(
+              '  const std::string v = doc().formField(path(), '
+              '"$field");',
+            )
             ..writeln('  if (v.empty()) return std::nullopt;')
-            ..writeln('  try { return std::stol(v); } '
-                'catch (...) { return std::nullopt; }')
+            ..writeln(
+              '  try { return std::stol(v); } '
+              'catch (...) { return std::nullopt; }',
+            )
             ..writeln('}')
             ..writeln('void $t::$setAcc(std::optional<long> value) {')
-            ..writeln('  doc().setFormField(path(), "$field", '
-                'value.has_value() ? std::to_string(*value) : "");')
+            ..writeln(
+              '  doc().setFormField(path(), "$field", '
+              'value.has_value() ? std::to_string(*value) : "");',
+            )
             ..writeln('}');
         case 'double':
         case 'num':
           b
             ..writeln('std::optional<double> $t::$acc() const {')
-            ..writeln('  const std::string v = doc().formField(path(), '
-                '"$field");')
+            ..writeln(
+              '  const std::string v = doc().formField(path(), '
+              '"$field");',
+            )
             ..writeln('  if (v.empty()) return std::nullopt;')
-            ..writeln('  try { return std::stod(v); } '
-                'catch (...) { return std::nullopt; }')
+            ..writeln(
+              '  try { return std::stod(v); } '
+              'catch (...) { return std::nullopt; }',
+            )
             ..writeln('}')
             ..writeln('void $t::$setAcc(std::optional<double> value) {')
-            ..writeln('  doc().setFormField(path(), "$field", '
-                'value.has_value() ? std::to_string(*value) : "");')
+            ..writeln(
+              '  doc().setFormField(path(), "$field", '
+              'value.has_value() ? std::to_string(*value) : "");',
+            )
             ..writeln('}');
         case 'bool':
           b
             ..writeln('std::optional<bool> $t::$acc() const {')
-            ..writeln('  const std::string v = doc().formField(path(), '
-                '"$field");')
+            ..writeln(
+              '  const std::string v = doc().formField(path(), '
+              '"$field");',
+            )
             ..writeln('  if (v.empty()) return std::nullopt;')
             ..writeln('  return v == "true";')
             ..writeln('}')
             ..writeln('void $t::$setAcc(std::optional<bool> value) {')
-            ..writeln('  doc().setFormField(path(), "$field", '
-                'value.has_value() ? (*value ? "true" : "false") : "");')
+            ..writeln(
+              '  doc().setFormField(path(), "$field", '
+              'value.has_value() ? (*value ? "true" : "false") : "");',
+            )
             ..writeln('}');
         default:
           b
@@ -752,7 +939,9 @@ class SomCppEmitter {
       for (final f in cls.fields) {
         if (f.kind == SpecFieldKind.enumValue && f.enumType != null) {
           byName.putIfAbsent(
-              f.enumType!, () => _EnumType(f.enumType!, f.enumValues));
+            f.enumType!,
+            () => _EnumType(f.enumType!, f.enumValues),
+          );
         }
       }
     }
@@ -765,10 +954,14 @@ class SomCppEmitter {
 
   void _fileBanner(StringBuffer b, String which) {
     b
-      ..writeln('// GENERATED by tom_specs_clitool SomCppEmitter '
-          '($versionLabel) — do not edit by hand.')
-      ..writeln('// Typed object-model facade ($which) over the generic '
-          'tom_som_cpp_runtime document.')
+      ..writeln(
+        '// GENERATED by tom_specs_clitool SomCppEmitter '
+        '($versionLabel) — do not edit by hand.',
+      )
+      ..writeln(
+        '// Typed object-model facade ($which) over the generic '
+        'tom_som_cpp_runtime document.',
+      )
       ..writeln();
   }
 
@@ -799,8 +992,9 @@ class SomCppEmitter {
   /// port) keeps the base methods reachable; the stored path segment /
   /// form-field key is derived independently and stays byte-identical across
   /// languages.
-  static final Set<String> _reservedMethodNames =
-      somReservedAccessorNames(SomLanguage.cpp);
+  static final Set<String> _reservedMethodNames = somReservedAccessorNames(
+    SomLanguage.cpp,
+  );
 
   /// The member-function name for a getter on [name]; a C++ keyword or an
   /// inherited `som::SomNode` method name gains a trailing underscore. Empty ⇒

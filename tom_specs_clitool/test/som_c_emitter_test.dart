@@ -10,93 +10,93 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// field kind. `modelVersion` is `0` so the generated `v0` model version is the
 /// clean `0.0`.
 Map<String, dynamic> _fixtureJson() => {
-      'modelVersion': 0,
-      'roots': [
+  'modelVersion': 0,
+  'roots': [
+    {
+      'type': 'SolutionBlueprint',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+      'description': 'The structured project overview.',
+    },
+  ],
+  'classes': {
+    'SolutionBlueprint': {
+      'name': 'SolutionBlueprint',
+      'sectionId': 'PD00',
+      'doc': 'Root of a project definition document.',
+      'fields': [
         {
-          'type': 'SolutionBlueprint',
-          'title': 'Project Definition',
-          'sectionId': 'PD00',
-          'description': 'The structured project overview.',
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'vision',
+          'contentType': 'text',
+          'doc': 'Why the system exists.',
+        },
+        {
+          'name': 'owner',
+          'kind': 'form',
+          'sectionId': 'owner',
+          'formFields': [
+            {'name': 'name', 'label': 'Name', 'type': 'String'},
+            {'name': 'role', 'label': 'Role', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'risks',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
+          'min': 2,
+        },
+        {
+          'name': 'tags',
+          'kind': 'list',
+          'sectionId': 'tags',
+          'elementType': 'String',
+          'elementIsComplex': false,
+        },
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'situation',
+          'type': 'CurrentLandscapeAssessment',
         },
       ],
-      'classes': {
-        'SolutionBlueprint': {
-          'name': 'SolutionBlueprint',
-          'sectionId': 'PD00',
-          'doc': 'Root of a project definition document.',
-          'fields': [
-            {
-              'name': 'vision',
-              'kind': 'content',
-              'sectionId': 'vision',
-              'contentType': 'text',
-              'doc': 'Why the system exists.',
-            },
-            {
-              'name': 'owner',
-              'kind': 'form',
-              'sectionId': 'owner',
-              'formFields': [
-                {'name': 'name', 'label': 'Name', 'type': 'String'},
-                {'name': 'role', 'label': 'Role', 'type': 'String'},
-              ],
-            },
-            {
-              'name': 'risks',
-              'kind': 'list',
-              'sectionId': 'risks',
-              'elementType': 'Risk',
-              'elementIsComplex': true,
-              'min': 2,
-            },
-            {
-              'name': 'tags',
-              'kind': 'list',
-              'sectionId': 'tags',
-              'elementType': 'String',
-              'elementIsComplex': false,
-            },
-            {
-              'name': 'situation',
-              'kind': 'complex',
-              'sectionId': 'situation',
-              'type': 'CurrentLandscapeAssessment',
-            },
-          ],
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      'fields': [
+        {
+          'name': 'title',
+          'kind': 'content',
+          'sectionId': 'title',
+          'contentType': 'text',
         },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          'fields': [
-            {
-              'name': 'title',
-              'kind': 'content',
-              'sectionId': 'title',
-              'contentType': 'text',
-            },
-            {
-              'name': 'probability',
-              'kind': 'enum',
-              'sectionId': 'prob',
-              'enumType': 'Probability',
-              'enumValues': ['low', 'medium', 'high'],
-            },
-          ],
+        {
+          'name': 'probability',
+          'kind': 'enum',
+          'sectionId': 'prob',
+          'enumType': 'Probability',
+          'enumValues': ['low', 'medium', 'high'],
         },
-        'CurrentLandscapeAssessment': {
-          'name': 'CurrentLandscapeAssessment',
-          'sectionId': 'CS00',
-          'fields': [
-            {
-              'name': 'summary',
-              'kind': 'content',
-              'sectionId': 'summary',
-              'contentType': 'text',
-            },
-          ],
+      ],
+    },
+    'CurrentLandscapeAssessment': {
+      'name': 'CurrentLandscapeAssessment',
+      'sectionId': 'CS00',
+      'fields': [
+        {
+          'name': 'summary',
+          'kind': 'content',
+          'sectionId': 'summary',
+          'contentType': 'text',
         },
-      },
-    };
+      ],
+    },
+  },
+};
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
@@ -105,8 +105,11 @@ SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 /// rather than a single hard-wired one.
 Map<String, dynamic> _twoRootJson() {
   final json = _fixtureJson();
-  (json['roots'] as List)
-      .add({'type': 'Aux', 'title': 'Aux', 'sectionId': 'AX00'});
+  (json['roots'] as List).add({
+    'type': 'Aux',
+    'title': 'Aux',
+    'sectionId': 'AX00',
+  });
   (json['classes'] as Map<String, dynamic>)['Aux'] = {
     'name': 'Aux',
     'sectionId': 'AX00',
@@ -127,124 +130,124 @@ Map<String, dynamic> _twoRootJson() {
 /// underscore. `match`/`move` are *not* C keywords (unlike Rust), so they stay
 /// untouched; the path segments are preserved throughout.
 Map<String, dynamic> _keywordJson() => {
-      'modelVersion': 0,
-      'roots': [
-        {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
-      ],
-      'classes': {
-        'Root': {
-          'name': 'Root',
-          'sectionId': 'ROOT',
-          'fields': [
-            {
-              'name': 'type',
-              'kind': 'content',
-              'sectionId': 'typ',
-              'contentType': 'text',
-            },
-            {
-              'name': 'int',
-              'kind': 'content',
-              'sectionId': 'integ',
-              'contentType': 'text',
-            },
-            {
-              'name': 'summary',
-              'kind': 'content',
-              'sectionId': 'sum',
-              'contentType': 'text',
-            },
-          ],
+  'modelVersion': 0,
+  'roots': [
+    {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
+  ],
+  'classes': {
+    'Root': {
+      'name': 'Root',
+      'sectionId': 'ROOT',
+      'fields': [
+        {
+          'name': 'type',
+          'kind': 'content',
+          'sectionId': 'typ',
+          'contentType': 'text',
         },
-      },
-    };
+        {
+          'name': 'int',
+          'kind': 'content',
+          'sectionId': 'integ',
+          'contentType': 'text',
+        },
+        {
+          'name': 'summary',
+          'kind': 'content',
+          'sectionId': 'sum',
+          'contentType': 'text',
+        },
+      ],
+    },
+  },
+};
 
 /// A spec-model where two distinct field names snake-case to the same accessor
 /// (`my_field` and `myField` → `my_field`) — exercising the global function-name
 /// de-duplication (C has a single flat function namespace).
 Map<String, dynamic> _accessorCollisionJson() => {
-      'modelVersion': 0,
-      'roots': [
-        {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
-      ],
-      'classes': {
-        'Root': {
-          'name': 'Root',
-          'sectionId': 'ROOT',
-          'fields': [
-            {
-              'name': 'my_field',
-              'kind': 'content',
-              'sectionId': 'mf1',
-              'contentType': 'text',
-            },
-            {
-              'name': 'myField',
-              'kind': 'content',
-              'sectionId': 'mf2',
-              'contentType': 'text',
-            },
-          ],
+  'modelVersion': 0,
+  'roots': [
+    {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
+  ],
+  'classes': {
+    'Root': {
+      'name': 'Root',
+      'sectionId': 'ROOT',
+      'fields': [
+        {
+          'name': 'my_field',
+          'kind': 'content',
+          'sectionId': 'mf1',
+          'contentType': 'text',
         },
-      },
-    };
+        {
+          'name': 'myField',
+          'kind': 'content',
+          'sectionId': 'mf2',
+          'contentType': 'text',
+        },
+      ],
+    },
+  },
+};
 
 /// A spec-model where two distinct (class, form-field) pairs derive the same
 /// generated form-struct name, identical to the other emitters' collision case.
 Map<String, dynamic> _formCollisionJson() => {
-      'modelVersion': 0,
-      'roots': [
-        {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
+  'modelVersion': 0,
+  'roots': [
+    {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
+  ],
+  'classes': {
+    'Root': {
+      'name': 'Root',
+      'sectionId': 'ROOT',
+      'fields': [
+        {
+          'name': 'a',
+          'kind': 'complex',
+          'sectionId': 'a',
+          'type': 'MigrationRisks',
+        },
+        {
+          'name': 'b',
+          'kind': 'complex',
+          'sectionId': 'b',
+          'type': 'MigrationRisksGovernance',
+        },
       ],
-      'classes': {
-        'Root': {
-          'name': 'Root',
-          'sectionId': 'ROOT',
-          'fields': [
-            {
-              'name': 'a',
-              'kind': 'complex',
-              'sectionId': 'a',
-              'type': 'MigrationRisks',
-            },
-            {
-              'name': 'b',
-              'kind': 'complex',
-              'sectionId': 'b',
-              'type': 'MigrationRisksGovernance',
-            },
+    },
+    'MigrationRisks': {
+      'name': 'MigrationRisks',
+      'sectionId': 'MR00',
+      'fields': [
+        {
+          'name': 'governanceContent',
+          'kind': 'form',
+          'sectionId': 'gc',
+          'formFields': [
+            {'name': 'model', 'label': 'Model', 'type': 'String'},
           ],
         },
-        'MigrationRisks': {
-          'name': 'MigrationRisks',
-          'sectionId': 'MR00',
-          'fields': [
-            {
-              'name': 'governanceContent',
-              'kind': 'form',
-              'sectionId': 'gc',
-              'formFields': [
-                {'name': 'model', 'label': 'Model', 'type': 'String'},
-              ],
-            },
+      ],
+    },
+    'MigrationRisksGovernance': {
+      'name': 'MigrationRisksGovernance',
+      'sectionId': 'MRG0',
+      'fields': [
+        {
+          'name': 'content',
+          'kind': 'form',
+          'sectionId': 'c',
+          'formFields': [
+            {'name': 'escalation', 'label': 'Escalation', 'type': 'String'},
           ],
         },
-        'MigrationRisksGovernance': {
-          'name': 'MigrationRisksGovernance',
-          'sectionId': 'MRG0',
-          'fields': [
-            {
-              'name': 'content',
-              'kind': 'form',
-              'sectionId': 'c',
-              'formFields': [
-                {'name': 'escalation', 'label': 'Escalation', 'type': 'String'},
-              ],
-            },
-          ],
-        },
-      },
-    };
+      ],
+    },
+  },
+};
 
 /// Locates a `gcc` (or `cc`) toolchain on PATH. Returns `null` when none.
 String? _cc() {
@@ -263,7 +266,8 @@ String? _cc() {
 /// or `null` when it cannot be located.
 String? _runtimeDir() {
   final candidate = p.normalize(
-      p.join(Directory.current.path, '..', 'tom_som_c_runtime'));
+    p.join(Directory.current.path, '..', 'tom_som_c_runtime'),
+  );
   return Directory(p.join(candidate, 'include')).existsSync()
       ? candidate
       : null;
@@ -276,8 +280,11 @@ String? _runtimeDir() {
 /// when [metaEmitter] is supplied, its source) is emitted alongside the facade
 /// so the reference resolves. A no-op (with a skip note) when the toolchain or
 /// runtime cannot be located.
-void _expectCBuilds(String header, String source,
-    {SomCMetaEmitter? metaEmitter}) {
+void _expectCBuilds(
+  String header,
+  String source, {
+  SomCMetaEmitter? metaEmitter,
+}) {
   final cc = _cc();
   if (cc == null) {
     markTestSkipped('no C compiler (gcc/cc/clang) found');
@@ -296,8 +303,9 @@ void _expectCBuilds(String header, String source,
     // thread the per-root tree from it). Always emit the header; emit the meta
     // source too when the caller wants the symbols to link.
     final meta = metaEmitter;
-    File(p.join(dir.path, 'tom_som_c_v0_meta.h'))
-        .writeAsStringSync(meta?.generateHeader() ?? _metaHeaderFor(source));
+    File(
+      p.join(dir.path, 'tom_som_c_v0_meta.h'),
+    ).writeAsStringSync(meta?.generateHeader() ?? _metaHeaderFor(source));
     final runtimeInclude = p.join(runtimeDir, 'include');
     final build = Process.runSync(cc, [
       '-std=c11',
@@ -313,11 +321,15 @@ void _expectCBuilds(String header, String source,
       '-o',
       p.join(dir.path, 'tom_som_c_v0.o'),
     ]);
-    expect(build.exitCode, 0,
-        reason: 'C compile failed:\n${build.stdout}\n${build.stderr}');
+    expect(
+      build.exitCode,
+      0,
+      reason: 'C compile failed:\n${build.stdout}\n${build.stderr}',
+    );
     if (meta != null) {
-      File(p.join(dir.path, 'tom_som_c_v0_meta.c'))
-          .writeAsStringSync(meta.generateSource());
+      File(
+        p.join(dir.path, 'tom_som_c_v0_meta.c'),
+      ).writeAsStringSync(meta.generateSource());
       final metaBuild = Process.runSync(cc, [
         '-std=c11',
         '-Wall',
@@ -332,9 +344,12 @@ void _expectCBuilds(String header, String source,
         '-o',
         p.join(dir.path, 'tom_som_c_v0_meta.o'),
       ]);
-      expect(metaBuild.exitCode, 0,
-          reason:
-              'C meta compile failed:\n${metaBuild.stdout}\n${metaBuild.stderr}');
+      expect(
+        metaBuild.exitCode,
+        0,
+        reason:
+            'C meta compile failed:\n${metaBuild.stdout}\n${metaBuild.stderr}',
+      );
     }
   } finally {
     dir.deleteSync(recursive: true);
@@ -347,10 +362,9 @@ void _expectCBuilds(String header, String source,
 /// supplied) still resolves the declaration without emitting the whole metadata
 /// module.
 String _metaHeaderFor(String source) {
-  final fns = RegExp(r'\b(\w+_meta_tree)\(\)')
-      .allMatches(source)
-      .map((m) => m.group(1)!)
-      .toSet();
+  final fns = RegExp(
+    r'\b(\w+_meta_tree)\(\)',
+  ).allMatches(source).map((m) => m.group(1)!).toSet();
   final b = StringBuffer()
     ..writeln('#ifndef TOM_SOM_C_V0_META_H')
     ..writeln('#define TOM_SOM_C_V0_META_H')
@@ -380,8 +394,11 @@ void main() {
       final header = SomCEmitter(_fixtureModel()).generateHeader();
       maybeWriteGolden(headerGolden, header);
       final golden = File(headerGolden);
-      expect(golden.existsSync(), isTrue,
-          reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
+      expect(
+        golden.existsSync(),
+        isTrue,
+        reason: 'run with UPDATE_GOLDEN=1 to create the golden file',
+      );
       expect(header, golden.readAsStringSync());
     });
 
@@ -389,24 +406,28 @@ void main() {
       final source = SomCEmitter(_fixtureModel()).generateSource();
       maybeWriteGolden(sourceGolden, source);
       final golden = File(sourceGolden);
-      expect(golden.existsSync(), isTrue,
-          reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
+      expect(
+        golden.existsSync(),
+        isTrue,
+        reason: 'run with UPDATE_GOLDEN=1 to create the golden file',
+      );
       expect(source, golden.readAsStringSync());
     });
 
-    test('the generated translation unit compiles clean against the runtime',
-        () {
-      final emitter = SomCEmitter(_fixtureModel());
-      _expectCBuilds(emitter.generateHeader(), emitter.generateSource());
-    });
+    test(
+      'the generated translation unit compiles clean against the runtime',
+      () {
+        final emitter = SomCEmitter(_fixtureModel());
+        _expectCBuilds(emitter.generateHeader(), emitter.generateSource());
+      },
+    );
 
     test('struct typedef declarations are unique', () {
       final header = SomCEmitter(_fixtureModel()).generateHeader();
-      final names = RegExp(r'^typedef struct \{ SomNode node; \} (\w+);',
-              multiLine: true)
-          .allMatches(header)
-          .map((m) => m.group(1)!)
-          .toList();
+      final names = RegExp(
+        r'^typedef struct \{ SomNode node; \} (\w+);',
+        multiLine: true,
+      ).allMatches(header).map((m) => m.group(1)!).toList();
       final seen = <String>{};
       final dupes = <String>[];
       for (final n in names) {
@@ -418,10 +439,10 @@ void main() {
     test('every function declaration name is globally unique', () {
       final header = SomCEmitter(_fixtureModel()).generateHeader();
       // Function declarations are the non-typedef, non-#define lines ending `);`.
-      final decls = RegExp(r'^[A-Za-z_].*\b(\w+)\(.*\);$', multiLine: true)
-          .allMatches(header)
-          .map((m) => m.group(1)!)
-          .toList();
+      final decls = RegExp(
+        r'^[A-Za-z_].*\b(\w+)\(.*\);$',
+        multiLine: true,
+      ).allMatches(header).map((m) => m.group(1)!).toList();
       final seen = <String>{};
       final dupes = <String>[];
       for (final n in decls) {
@@ -430,45 +451,59 @@ void main() {
       expect(dupes, isEmpty, reason: 'duplicate function names: $dupes');
     });
 
-    test('a typed mutation is visible through the generic path and vice-versa',
-        () {
-      // Mirror the generated facade's path derivation against a live document —
-      // the behavioural contract the C facade encodes (pure-Dart variant).
-      final doc = SpecDocument();
-      final ref = SpecReflection(_fixtureModel());
-      final root = ref.model.roots.single;
-      final rootSeg = ref.rootSegment(root);
+    test(
+      'a typed mutation is visible through the generic path and vice-versa',
+      () {
+        // Mirror the generated facade's path derivation against a live document —
+        // the behavioural contract the C facade encodes (pure-Dart variant).
+        final doc = SpecDocument();
+        final ref = SpecReflection(_fixtureModel());
+        final root = ref.model.roots.single;
+        final rootSeg = ref.rootSegment(root);
 
-      doc.setContent('$rootSeg/vision', 'A clear vision');
-      expect(doc.content('$rootSeg/vision'), 'A clear vision');
+        doc.setContent('$rootSeg/vision', 'A clear vision');
+        expect(doc.content('$rootSeg/vision'), 'A clear vision');
 
-      final itemPath = doc.addListItem('$rootSeg/risks');
-      doc.setContent('$itemPath/title', 'Schedule slip');
-      expect(doc.listItemCount('$rootSeg/risks'), 1);
-      expect(doc.content('${doc.listItems('$rootSeg/risks').single}/title'),
-          'Schedule slip');
-    });
+        final itemPath = doc.addListItem('$rootSeg/risks');
+        doc.setContent('$itemPath/title', 'Schedule slip');
+        expect(doc.listItemCount('$rootSeg/risks'), 1);
+        expect(
+          doc.content('${doc.listItems('$rootSeg/risks').single}/title'),
+          'Schedule slip',
+        );
+      },
+    );
 
     test('the model-version accessor returns the generated v0 version', () {
       final emitter = SomCEmitter(_fixtureModel());
       expect(emitter.modelVersionString, '0.0');
       // The generated header pins the same value as a #define.
-      expect(emitter.generateHeader(),
-          contains('#define SOLUTION_BLUEPRINT_MODEL_VERSION "0.0"'));
+      expect(
+        emitter.generateHeader(),
+        contains('#define SOLUTION_BLUEPRINT_MODEL_VERSION "0.0"'),
+      );
     });
 
-    test('the model version comes from the model stamp, not the version label',
-        () {
-      // A stamped model reports its real major.minor (SOM §4.2) regardless of
-      // the project version label — the label only names the output project.
-      final stamped = SpecModel.fromJson({
-        ..._fixtureJson(),
-        'modelVersion': 1,
-        'modelVersionLabel': '1.3.0+7.abc1234',
-      });
-      expect(SomCEmitter(stamped, versionLabel: 'v0').modelVersionString, '1.3');
-      expect(SomCEmitter(stamped, versionLabel: 'v9').modelVersionString, '1.3');
-    });
+    test(
+      'the model version comes from the model stamp, not the version label',
+      () {
+        // A stamped model reports its real major.minor (SOM §4.2) regardless of
+        // the project version label — the label only names the output project.
+        final stamped = SpecModel.fromJson({
+          ..._fixtureJson(),
+          'modelVersion': 1,
+          'modelVersionLabel': '1.3.0+7.abc1234',
+        });
+        expect(
+          SomCEmitter(stamped, versionLabel: 'v0').modelVersionString,
+          '1.3',
+        );
+        expect(
+          SomCEmitter(stamped, versionLabel: 'v9').modelVersionString,
+          '1.3',
+        );
+      },
+    );
 
     test('C-keyword field names gain a trailing underscore, '
         'but path segments are preserved', () {
@@ -478,8 +513,10 @@ void main() {
       // Field `int` → accessor `root_int_` (`int` is a C keyword); path segment
       // `integ` is untouched.
       expect(header, contains('char *root_int_(const Root *self);'));
-      expect(header,
-          contains('void root_set_int_(Root *self, const char *value);'));
+      expect(
+        header,
+        contains('void root_set_int_(Root *self, const char *value);'),
+      );
       expect(source, contains('"integ"'));
       // `type` is *not* a C keyword (unlike Rust), so it stays untouched.
       expect(header, contains('char *root_type(const Root *self);'));
@@ -511,25 +548,33 @@ void main() {
     });
 
     test('colliding form-struct names are disambiguated (no duplicates)', () {
-      final header =
-          SomCEmitter(SpecModel.fromJson(_formCollisionJson())).generateHeader();
-      final decls = RegExp(r'typedef struct \{ SomNode node; \} (\w+);',
-              multiLine: true)
-          .allMatches(header)
-          .map((m) => m.group(1)!)
-          .toList();
+      final header = SomCEmitter(
+        SpecModel.fromJson(_formCollisionJson()),
+      ).generateHeader();
+      final decls = RegExp(
+        r'typedef struct \{ SomNode node; \} (\w+);',
+        multiLine: true,
+      ).allMatches(header).map((m) => m.group(1)!).toList();
       final seen = <String>{};
       final dupes = <String>[];
       for (final name in decls) {
         if (!seen.add(name)) dupes.add(name);
       }
       expect(dupes, isEmpty, reason: 'duplicate typedef declarations: $dupes');
-      expect(header,
-          contains('typedef struct { SomNode node; } '
-              'MigrationRisksGovernanceContentForm;'));
-      expect(header,
-          contains('typedef struct { SomNode node; } '
-              'MigrationRisksGovernanceContentForm_2;'));
+      expect(
+        header,
+        contains(
+          'typedef struct { SomNode node; } '
+          'MigrationRisksGovernanceContentForm;',
+        ),
+      );
+      expect(
+        header,
+        contains(
+          'typedef struct { SomNode node; } '
+          'MigrationRisksGovernanceContentForm_2;',
+        ),
+      );
     });
 
     test('no flat path-constant holder is emitted (SOM §8)', () {
@@ -538,10 +583,16 @@ void main() {
       // comment and no `<CODE>_PATHS_*` path `#define` may leak into the
       // facade header.
       final header = SomCEmitter(_fixtureModel()).generateHeader();
-      expect(header, isNot(contains('_PATHS_')),
-          reason: 'no `<CODE>_PATHS_*` path macro may remain');
-      expect(header, isNot(contains('"PD00/')),
-          reason: 'no flat path constants may remain');
+      expect(
+        header,
+        isNot(contains('_PATHS_')),
+        reason: 'no `<CODE>_PATHS_*` path macro may remain',
+      );
+      expect(
+        header,
+        isNot(contains('"PD00/')),
+        reason: 'no flat path constants may remain',
+      );
     });
 
     test('the facade threads the metadata module into its load functions '
@@ -554,37 +605,55 @@ void main() {
       // the generic runtime decoder (root type SolutionBlueprint → snake
       // `solution_blueprint`).
       expect(
-          source,
-          contains('spec_document_from_yaml(yaml, '
-              'solution_blueprint_meta_tree(), err)'));
+        source,
+        contains(
+          'spec_document_from_yaml(yaml, '
+          'solution_blueprint_meta_tree(), err)',
+        ),
+      );
       expect(
-          source,
-          contains('spec_document_from_file(path, '
-              'solution_blueprint_meta_tree(), err)'));
+        source,
+        contains(
+          'spec_document_from_file(path, '
+          'solution_blueprint_meta_tree(), err)',
+        ),
+      );
       // The facade + meta module compile and link together (the threaded tree
       // accessor is defined by the generated meta module).
-      _expectCBuilds(emitter.generateHeader(), source,
-          metaEmitter: SomCMetaEmitter(_fixtureModel()));
+      _expectCBuilds(
+        emitter.generateHeader(),
+        source,
+        metaEmitter: SomCMetaEmitter(_fixtureModel()),
+      );
     });
 
     test('documentRoots subsets the generated structs', () {
       final all = SomCEmitter(_fixtureModel()).generateHeader();
-      expect(all,
-          contains('typedef struct { SomNode node; } CurrentLandscapeAssessment;'));
+      expect(
+        all,
+        contains(
+          'typedef struct { SomNode node; } CurrentLandscapeAssessment;',
+        ),
+      );
 
-      final justRoot = SomCEmitter(_fixtureModel(),
-              documentRoots: ['SolutionBlueprint'])
-          .generateHeader();
-      expect(justRoot,
-          contains('typedef struct { SomNode node; } CurrentLandscapeAssessment;'));
+      final justRoot = SomCEmitter(
+        _fixtureModel(),
+        documentRoots: ['SolutionBlueprint'],
+      ).generateHeader();
+      expect(
+        justRoot,
+        contains(
+          'typedef struct { SomNode node; } CurrentLandscapeAssessment;',
+        ),
+      );
     });
     // The nine v0 meta-agreement suites read their root set from this
     // registry instead of hand-listing it, so an emitter that drops it
     // silently un-gates fourteen roots in nine languages at once.
-    test('the document-root registry carries one entry per root (SOM §8)',
-        () {
-      final all = SomCMetaEmitter(SpecModel.fromJson(_twoRootJson()))
-          .generateSource();
+    test('the document-root registry carries one entry per root (SOM §8)', () {
+      final all = SomCMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+      ).generateSource();
       expect(all, contains('out[i].type = "SolutionBlueprint";'));
       expect(all, contains('out[i].segment = "PD00";'));
       expect(all, contains('out[i].nav = solution_blueprint_meta(t).ref;'));
@@ -592,9 +661,10 @@ void main() {
       expect(all, contains('out[i].type = "Aux";'));
       expect(all, contains('out[i].id = AX00(t).ref;'));
 
-      final subset = SomCMetaEmitter(SpecModel.fromJson(_twoRootJson()),
-              documentRoots: ['SolutionBlueprint'])
-          .generateSource();
+      final subset = SomCMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+        documentRoots: ['SolutionBlueprint'],
+      ).generateSource();
       expect(subset, isNot(contains('out[i].type = "Aux";')));
     });
   });

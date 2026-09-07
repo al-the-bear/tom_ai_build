@@ -114,11 +114,40 @@ class SomCMetaEmitter {
   /// Reserved C keywords (C11); a section-id-derived accessor tail matching one
   /// gains a trailing underscore so it stays a legal identifier.
   static const Set<String> _cKeywords = {
-    'auto', 'break', 'case', 'char', 'const', 'continue', 'default', 'do',
-    'double', 'else', 'enum', 'extern', 'float', 'for', 'goto', 'if', 'inline',
-    'int', 'long', 'register', 'restrict', 'return', 'short', 'signed',
-    'sizeof', 'static', 'struct', 'switch', 'typedef', 'union', 'unsigned',
-    'void', 'volatile', 'while',
+    'auto',
+    'break',
+    'case',
+    'char',
+    'const',
+    'continue',
+    'default',
+    'do',
+    'double',
+    'else',
+    'enum',
+    'extern',
+    'float',
+    'for',
+    'goto',
+    'if',
+    'inline',
+    'int',
+    'long',
+    'register',
+    'restrict',
+    'return',
+    'short',
+    'signed',
+    'sizeof',
+    'static',
+    'struct',
+    'switch',
+    'typedef',
+    'union',
+    'unsigned',
+    'void',
+    'volatile',
+    'while',
   };
 
   // ── class ordering / reachability ───────────────────────────────────────────
@@ -192,32 +221,46 @@ class SomCMetaEmitter {
     // Access-surface struct typedefs. Each wraps one SomMetaRef; accessors take
     // it by value and return the next surface struct / ref by value.
     b
-      ..writeln('/* ── dot-notation access surface structs (SOM §8) '
-          '───────────────────────── */')
-      ..writeln('/* Each wraps one SomMetaRef (tree + absolute path). Accessors '
-          'return the next */')
-      ..writeln('/* navigable position by value; `.ref.path` is the absolute '
-          'document path and */')
+      ..writeln(
+        '/* ── dot-notation access surface structs (SOM §8) '
+        '───────────────────────── */',
+      )
+      ..writeln(
+        '/* Each wraps one SomMetaRef (tree + absolute path). Accessors '
+        'return the next */',
+      )
+      ..writeln(
+        '/* navigable position by value; `.ref.path` is the absolute '
+        'document path and */',
+      )
       ..writeln('/* som_meta_ref_meta(&x.ref, &err) the metadata node. */');
     for (final n in navClasses) {
       b.writeln('typedef struct { SomMetaRef ref; } ${_navType(n)};');
     }
     b.writeln();
     b
-      ..writeln('/* ── ID-tree access surface structs (SOM §8) '
-          '─────────────────────────────── */')
-      ..writeln('/* The same tree keyed by section id (`-` → `_`). `.ref.path` '
-          'and the metadata */')
-      ..writeln('/* node agree with the dot-notation surface for every '
-          'position. */');
+      ..writeln(
+        '/* ── ID-tree access surface structs (SOM §8) '
+        '─────────────────────────────── */',
+      )
+      ..writeln(
+        '/* The same tree keyed by section id (`-` → `_`). `.ref.path` '
+        'and the metadata */',
+      )
+      ..writeln(
+        '/* node agree with the dot-notation surface for every '
+        'position. */',
+      );
     for (final n in idClasses) {
       b.writeln('typedef struct { SomMetaRef ref; } ${_idType(n)};');
     }
     b.writeln();
 
     // Dot-notation accessor declarations.
-    b.writeln('/* ── dot-notation accessors (SOM §8) '
-        '─────────────────────────────────────── */');
+    b.writeln(
+      '/* ── dot-notation accessors (SOM §8) '
+      '─────────────────────────────────────── */',
+    );
     for (final n in navClasses) {
       final cls = model.classNamed(n)!;
       final used = <String>{};
@@ -229,35 +272,51 @@ class SomCMetaEmitter {
     b.writeln();
 
     // ID-tree accessor declarations.
-    b.writeln('/* ── ID-tree accessors (SOM §8) '
-        '──────────────────────────────────────────── */');
+    b.writeln(
+      '/* ── ID-tree accessors (SOM §8) '
+      '──────────────────────────────────────────── */',
+    );
     for (final n in idClasses) {
       final cls = model.classNamed(n)!;
       for (final child in _idChildren(cls)) {
-        b.writeln('${_idReturn(child)} ${_idFn(n, child)}('
-            '${_idType(n)} x);');
+        b.writeln(
+          '${_idReturn(child)} ${_idFn(n, child)}('
+          '${_idType(n)} x);',
+        );
       }
     }
     b.writeln();
 
     // Per-root entry points.
-    b.writeln('/* ── document-root metadata trees + access surface entry points '
-        '─────────── */');
+    b.writeln(
+      '/* ── document-root metadata trees + access surface entry points '
+      '─────────── */',
+    );
     for (final root in _roots) {
       final treeFn = _treeFn(root.type);
       b
-        ..writeln('/* The populated `${root.type}` metadata tree (SOM §7.2), '
-            'built + cached on first')
+        ..writeln(
+          '/* The populated `${root.type}` metadata tree (SOM §7.2), '
+          'built + cached on first',
+        )
         ..writeln(' * call and owned by this module. */')
         ..writeln('const SomMetaTree *$treeFn(void);')
-        ..writeln('/* The dot-notation access root of `${root.type}` (SOM §8): '
-            '`<root>_nav_<Member>`. */')
-        ..writeln('${_navType(root.type)} ${_rootNavFn(root)}('
-            'const SomMetaTree *tree);')
-        ..writeln('/* The ID-tree access root of `${root.type}` (SOM §8): '
-            '`<root>_id_<SECTION_ID>`. */')
-        ..writeln('${_idType(root.type)} ${_rootIdFn(root)}('
-            'const SomMetaTree *tree);');
+        ..writeln(
+          '/* The dot-notation access root of `${root.type}` (SOM §8): '
+          '`<root>_nav_<Member>`. */',
+        )
+        ..writeln(
+          '${_navType(root.type)} ${_rootNavFn(root)}('
+          'const SomMetaTree *tree);',
+        )
+        ..writeln(
+          '/* The ID-tree access root of `${root.type}` (SOM §8): '
+          '`<root>_id_<SECTION_ID>`. */',
+        )
+        ..writeln(
+          '${_idType(root.type)} ${_rootIdFn(root)}('
+          'const SomMetaTree *tree);',
+        );
     }
     b.writeln();
 
@@ -275,14 +334,22 @@ class SomCMetaEmitter {
   /// consumer by regeneration rather than by recollection.
   void _emitRootRegistryDecl(StringBuffer b) {
     b
-      ..writeln('/* ── document-root registry (SOM §8) '
-          '──────────────────────────────────── */')
-      ..writeln('/* One document root: its class name, the path segment its '
-          'access roots are */')
-      ..writeln('/* bound at, the populated metadata tree (SOM §7.2), and the '
-          'two SOM §8 */')
-      ..writeln('/* access roots as the common SomMetaRef the accessor structs '
-          'wrap. */')
+      ..writeln(
+        '/* ── document-root registry (SOM §8) '
+        '──────────────────────────────────── */',
+      )
+      ..writeln(
+        '/* One document root: its class name, the path segment its '
+        'access roots are */',
+      )
+      ..writeln(
+        '/* bound at, the populated metadata tree (SOM §7.2), and the '
+        'two SOM §8 */',
+      )
+      ..writeln(
+        '/* access roots as the common SomMetaRef the accessor structs '
+        'wrap. */',
+      )
       ..writeln('typedef struct {')
       ..writeln('\tconst char *type;')
       ..writeln('\tconst char *segment;')
@@ -291,27 +358,43 @@ class SomCMetaEmitter {
       ..writeln('\tSomMetaRef id;')
       ..writeln('} SomMetaRootEntry;')
       ..writeln()
-      ..writeln('/* The number of document roots som_meta_roots fills in. '
-          'Named so a caller\'s */')
-      ..writeln('/* array cannot silently be one short of the registry when a '
-          'root is added — */')
+      ..writeln(
+        '/* The number of document roots som_meta_roots fills in. '
+        'Named so a caller\'s */',
+      )
+      ..writeln(
+        '/* array cannot silently be one short of the registry when a '
+        'root is added — */',
+      )
       ..writeln('/* C has no bounds check to catch it. */')
       ..writeln('#define SOM_META_ROOT_COUNT ${_roots.length}')
       ..writeln()
-      ..writeln('/* Fills `out` with every document root, in model order, and '
-          'returns the number */')
-      ..writeln('/* written — at most `cap`, so a caller sized to an older '
-          'SOM_META_ROOT_COUNT */')
-      ..writeln('/* truncates rather than overruns. Generated from the same '
-          'root list that */')
-      ..writeln('/* produced the trees above, so no consumer needs a hand-kept '
-          'copy of the */')
+      ..writeln(
+        '/* Fills `out` with every document root, in model order, and '
+        'returns the number */',
+      )
+      ..writeln(
+        '/* written — at most `cap`, so a caller sized to an older '
+        'SOM_META_ROOT_COUNT */',
+      )
+      ..writeln(
+        '/* truncates rather than overruns. Generated from the same '
+        'root list that */',
+      )
+      ..writeln(
+        '/* produced the trees above, so no consumer needs a hand-kept '
+        'copy of the */',
+      )
       ..writeln('/* root set. */')
       ..writeln('/* */')
-      ..writeln('/* OWNERSHIP: each filled entry\'s `nav` and `id` own their '
-          'path buffers — the */')
-      ..writeln('/* caller releases both with som_meta_ref_free. `tree` is '
-          'static and is not */')
+      ..writeln(
+        '/* OWNERSHIP: each filled entry\'s `nav` and `id` own their '
+        'path buffers — the */',
+      )
+      ..writeln(
+        '/* caller releases both with som_meta_ref_free. `tree` is '
+        'static and is not */',
+      )
       ..writeln('/* freed. */')
       ..writeln('size_t som_meta_roots(SomMetaRootEntry *out, size_t cap);')
       ..writeln();
@@ -320,8 +403,10 @@ class SomCMetaEmitter {
   /// Defines the registry declared by [_emitRootRegistryDecl].
   void _emitRootRegistryDef(StringBuffer b) {
     b
-      ..writeln('/* ── document-root registry (SOM §8) '
-          '──────────────────────────────────── */')
+      ..writeln(
+        '/* ── document-root registry (SOM §8) '
+        '──────────────────────────────────── */',
+      )
       ..writeln('size_t som_meta_roots(SomMetaRootEntry *out, size_t cap) {')
       ..writeln('\tsize_t i = 0;');
     for (final root in _roots) {
@@ -382,11 +467,15 @@ class SomCMetaEmitter {
 
     // Forward declarations of every child builder and node build function
     // (mutual recursion, any emission order).
-    b.writeln('/* ── metadata tree builders (SOM §7.2) — forward decls '
-        '──────────────────── */');
+    b.writeln(
+      '/* ── metadata tree builders (SOM §7.2) — forward decls '
+      '──────────────────── */',
+    );
     for (final n in _navClasses) {
-      b.writeln('static SomMetaNode **${_childrenFn(n)}('
-          'SomStrList *stack, size_t *len);');
+      b.writeln(
+        'static SomMetaNode **${_childrenFn(n)}('
+        'SomStrList *stack, size_t *len);',
+      );
     }
     for (final pb in _pendingBuilds) {
       b.writeln('static void ${pb.fnName}(SomMetaNode *n);');
@@ -397,8 +486,10 @@ class SomCMetaEmitter {
     _emitFactories(b);
 
     // Node build functions.
-    b.writeln('/* ── node build functions ─────────────────────────────────'
-        '────────────────── */');
+    b.writeln(
+      '/* ── node build functions ─────────────────────────────────'
+      '────────────────── */',
+    );
     for (final pb in _pendingBuilds) {
       b
         ..writeln('static void ${pb.fnName}(SomMetaNode *n) {')
@@ -408,25 +499,33 @@ class SomCMetaEmitter {
     b.writeln();
 
     // Children builders.
-    b.writeln('/* ── metadata tree builders (SOM §7.2) '
-        '───────────────────────────────────── */');
+    b.writeln(
+      '/* ── metadata tree builders (SOM §7.2) '
+      '───────────────────────────────────── */',
+    );
     b.write(buildersBuf.toString());
 
     // Per-root tree accessors (lazy cached) + entry points.
-    b.writeln('/* ── document-root trees + access surface entry points '
-        '─────────────────── */');
+    b.writeln(
+      '/* ── document-root trees + access surface entry points '
+      '─────────────────── */',
+    );
     for (final root in _roots) {
       _emitRoot(b, root);
     }
 
     // Dot-notation accessor definitions.
-    b.writeln('/* ── dot-notation accessors (SOM §8) '
-        '─────────────────────────────────────── */');
+    b.writeln(
+      '/* ── dot-notation accessors (SOM §8) '
+      '─────────────────────────────────────── */',
+    );
     b.write(navBuf.toString());
 
     // ID-tree accessor definitions.
-    b.writeln('/* ── ID-tree accessors (SOM §8) '
-        '──────────────────────────────────────────── */');
+    b.writeln(
+      '/* ── ID-tree accessors (SOM §8) '
+      '──────────────────────────────────────────── */',
+    );
     b.write(idBuf.toString());
 
     _emitRootRegistryDef(b);
@@ -438,16 +537,20 @@ class SomCMetaEmitter {
   /// the shared leaf factory (scalar-element lists) plus one nav/id factory per
   /// complex element class actually referenced.
   void _emitFactories(StringBuffer b) {
-    b.writeln('/* ── element-accessor factories (SomMetaRefFactory) '
-        '─────────────────────── */');
+    b.writeln(
+      '/* ── element-accessor factories (SomMetaRefFactory) '
+      '─────────────────────── */',
+    );
     // Shared leaf factory: an owned SomMetaRef for a scalar list item. Only
     // emitted when a scalar-element list accessor actually references it, so
     // the definition never triggers `-Wunused-function` on models whose list
     // accessors all carry complex-element factories.
     if (_leafFactoryUsed) {
       b
-        ..writeln('static void *meta_leaf_factory(const SomMetaTree *tree, '
-            'const char *path) {')
+        ..writeln(
+          'static void *meta_leaf_factory(const SomMetaTree *tree, '
+          'const char *path) {',
+        )
         ..writeln('\tSomMetaRef *r = (SomMetaRef *)malloc(sizeof(SomMetaRef));')
         ..writeln('\tsom_meta_ref_init(r, tree, path);')
         ..writeln('\treturn r;')
@@ -456,10 +559,14 @@ class SomCMetaEmitter {
     final navFacs = _navFactoriesUsed.toList()..sort();
     for (final cls in navFacs) {
       b
-        ..writeln('static void *meta_nav_factory_${_snake(cls)}('
-            'const SomMetaTree *tree, const char *path) {')
-        ..writeln('\t${_navType(cls)} *r = (${_navType(cls)} *)malloc('
-            'sizeof(${_navType(cls)}));')
+        ..writeln(
+          'static void *meta_nav_factory_${_snake(cls)}('
+          'const SomMetaTree *tree, const char *path) {',
+        )
+        ..writeln(
+          '\t${_navType(cls)} *r = (${_navType(cls)} *)malloc('
+          'sizeof(${_navType(cls)}));',
+        )
         ..writeln('\tsom_meta_ref_init(&r->ref, tree, path);')
         ..writeln('\treturn r;')
         ..writeln('}');
@@ -467,10 +574,14 @@ class SomCMetaEmitter {
     final idFacs = _idFactoriesUsed.toList()..sort();
     for (final cls in idFacs) {
       b
-        ..writeln('static void *meta_id_factory_${_snake(cls)}('
-            'const SomMetaTree *tree, const char *path) {')
-        ..writeln('\t${_idType(cls)} *r = (${_idType(cls)} *)malloc('
-            'sizeof(${_idType(cls)}));')
+        ..writeln(
+          'static void *meta_id_factory_${_snake(cls)}('
+          'const SomMetaTree *tree, const char *path) {',
+        )
+        ..writeln(
+          '\t${_idType(cls)} *r = (${_idType(cls)} *)malloc('
+          'sizeof(${_idType(cls)}));',
+        )
         ..writeln('\tsom_meta_ref_init(&r->ref, tree, path);')
         ..writeln('\treturn r;')
         ..writeln('}');
@@ -482,32 +593,48 @@ class SomCMetaEmitter {
 
   void _emitHelpers(StringBuffer b) {
     b
-      ..writeln('/* A growable SomMetaNode* array used while building children '
-          'lists. */')
-      ..writeln('static void meta_push(SomMetaNode ***arr, size_t *len, '
-          'size_t *cap, SomMetaNode *n) {')
+      ..writeln(
+        '/* A growable SomMetaNode* array used while building children '
+        'lists. */',
+      )
+      ..writeln(
+        'static void meta_push(SomMetaNode ***arr, size_t *len, '
+        'size_t *cap, SomMetaNode *n) {',
+      )
       ..writeln('\tif (*len == *cap) {')
       ..writeln('\t\t*cap = *cap ? *cap * 2 : 4;')
-      ..writeln('\t\t*arr = (SomMetaNode **)realloc(*arr, '
-          '*cap * sizeof(SomMetaNode *));')
+      ..writeln(
+        '\t\t*arr = (SomMetaNode **)realloc(*arr, '
+        '*cap * sizeof(SomMetaNode *));',
+      )
       ..writeln('\t}')
       ..writeln('\t(*arr)[(*len)++] = n;')
       ..writeln('}')
       ..writeln()
-      ..writeln('/* Sets an owned string field (frees the node\'s current "" '
-          'placeholder first). */')
+      ..writeln(
+        '/* Sets an owned string field (frees the node\'s current "" '
+        'placeholder first). */',
+      )
       ..writeln('static void meta_set(char **field, const char *value) {')
       ..writeln('\tfree(*field);')
       ..writeln('\t*field = som_strdup(value);')
       ..writeln('}')
       ..writeln()
-      ..writeln('/* meta_cx applies the bridge cycle rule: a class already on '
-          'the descent stack')
-      ..writeln(' * becomes a terminal re-entry node (recursive = 1, no '
-          'children). `build` fills a')
-      ..writeln(' * freshly-allocated node; `kids` appends the class\'s children '
-          'when not recursive. */')
-      ..writeln('static SomMetaNode *meta_cx(const char *cls, SomStrList *stack,')
+      ..writeln(
+        '/* meta_cx applies the bridge cycle rule: a class already on '
+        'the descent stack',
+      )
+      ..writeln(
+        ' * becomes a terminal re-entry node (recursive = 1, no '
+        'children). `build` fills a',
+      )
+      ..writeln(
+        ' * freshly-allocated node; `kids` appends the class\'s children '
+        'when not recursive. */',
+      )
+      ..writeln(
+        'static SomMetaNode *meta_cx(const char *cls, SomStrList *stack,',
+      )
       ..writeln('\t\tSomMetaNode **(*kids)(SomStrList *, size_t *),')
       ..writeln('\t\tvoid (*build)(SomMetaNode *)) {')
       ..writeln('\tSomMetaNode *n = som_meta_node_new();')
@@ -527,10 +654,14 @@ class SomCMetaEmitter {
       ..writeln('\treturn n;')
       ..writeln('}')
       ..writeln()
-      ..writeln('/* Wires a generated root node into its SomMetaTree. The '
-          'generated data is correct')
-      ..writeln(' * by construction, so a wiring failure marks an emitter bug '
-          '— abort loudly. */')
+      ..writeln(
+        '/* Wires a generated root node into its SomMetaTree. The '
+        'generated data is correct',
+      )
+      ..writeln(
+        ' * by construction, so a wiring failure marks an emitter bug '
+        '— abort loudly. */',
+      )
       ..writeln('static SomMetaTree *must_meta_tree(SomMetaNode *root) {')
       ..writeln('\tchar *err = NULL;')
       ..writeln('\tSomMetaTree *t = som_meta_tree_new(root, &err);')
@@ -568,8 +699,10 @@ class SomCMetaEmitter {
       _emitFieldNode(fields, cls, f);
     }
     final body = fields.toString();
-    b.writeln('static SomMetaNode **${_childrenFn(cls.name)}('
-        'SomStrList *stack, size_t *len) {');
+    b.writeln(
+      'static SomMetaNode **${_childrenFn(cls.name)}('
+      'SomStrList *stack, size_t *len) {',
+    );
     // `stack` is only *used* when a field threads it into `meta_cx(...)` — the
     // sole call site passes it as the exact ` stack,` argument token. Matching
     // that token (rather than a bare `stack` substring) avoids a false positive
@@ -599,14 +732,18 @@ class SomCMetaEmitter {
     if (target != null) {
       // Complex/section: node built through the cycle helper via a build fn.
       final buildFn = _uniqueBuildFn(owner, f);
-      b.writeln('\tmeta_push(&arr, len, &cap, '
-          'meta_cx("${_cStr(target.name)}", stack, '
-          '${_childrenFn(target.name)}, $buildFn));');
-      _pendingBuilds.add(_PendingBuild(buildFn, () {
-        final body = StringBuffer();
-        _emitNodeFields(body, owner, f, target: target);
-        return body.toString();
-      }));
+      b.writeln(
+        '\tmeta_push(&arr, len, &cap, '
+        'meta_cx("${_cStr(target.name)}", stack, '
+        '${_childrenFn(target.name)}, $buildFn));',
+      );
+      _pendingBuilds.add(
+        _PendingBuild(buildFn, () {
+          final body = StringBuffer();
+          _emitNodeFields(body, owner, f, target: target);
+          return body.toString();
+        }),
+      );
       return;
     }
 
@@ -621,20 +758,26 @@ class SomCMetaEmitter {
         ..writeln('\t{')
         ..writeln('\t\tSomMetaNode *ln = som_meta_node_new();')
         ..writeln('\t\t$nodeBuildFn(ln);')
-        ..writeln('\t\tln->element_node = meta_cx("${_cStr(element.name)}", '
-            'stack, ${_childrenFn(element.name)}, $elemBuildFn);')
+        ..writeln(
+          '\t\tln->element_node = meta_cx("${_cStr(element.name)}", '
+          'stack, ${_childrenFn(element.name)}, $elemBuildFn);',
+        )
         ..writeln('\t\tmeta_push(&arr, len, &cap, ln);')
         ..writeln('\t}');
-      _pendingBuilds.add(_PendingBuild(nodeBuildFn, () {
-        final body = StringBuffer();
-        _emitNodeFields(body, owner, f, target: null);
-        return body.toString();
-      }));
-      _pendingBuilds.add(_PendingBuild(elemBuildFn, () {
-        final body = StringBuffer();
-        _emitElementFields(body, element);
-        return body.toString();
-      }));
+      _pendingBuilds.add(
+        _PendingBuild(nodeBuildFn, () {
+          final body = StringBuffer();
+          _emitNodeFields(body, owner, f, target: null);
+          return body.toString();
+        }),
+      );
+      _pendingBuilds.add(
+        _PendingBuild(elemBuildFn, () {
+          final body = StringBuffer();
+          _emitElementFields(body, element);
+          return body.toString();
+        }),
+      );
       return;
     }
 
@@ -645,11 +788,13 @@ class SomCMetaEmitter {
     b.writeln('\t\t$leafBuildFn(n);');
     b.writeln('\t\tmeta_push(&arr, len, &cap, n);');
     b.writeln('\t}');
-    _pendingBuilds.add(_PendingBuild(leafBuildFn, () {
-      final body = StringBuffer();
-      _emitNodeFields(body, owner, f, target: null);
-      return body.toString();
-    }));
+    _pendingBuilds.add(
+      _PendingBuild(leafBuildFn, () {
+        final body = StringBuffer();
+        _emitNodeFields(body, owner, f, target: null);
+        return body.toString();
+      }),
+    );
   }
 
   /// Emits the `build`-function bodies deferred while walking the children
@@ -673,8 +818,12 @@ class SomCMetaEmitter {
   /// Writes the field-population statements for a normal node (`SomMetaNode *n`
   /// / the parameter named by the caller). [target] is the instantiated
   /// complex/section class (null for leaves/lists).
-  void _emitNodeFields(StringBuffer b, SpecClass owner, SpecField f,
-      {required SpecClass? target}) {
+  void _emitNodeFields(
+    StringBuffer b,
+    SpecClass owner,
+    SpecField f, {
+    required SpecClass? target,
+  }) {
     final className = target?.name ?? owner.name;
     b.writeln('\tmeta_set(&n->class_name, "${_cStr(className)}");');
     b.writeln('\tmeta_set(&n->member_name, "${_cStr(f.name)}");');
@@ -682,16 +831,22 @@ class SomCMetaEmitter {
       b.writeln('\tmeta_set(&n->section_id, "${_cStr(f.sectionId!)}");');
     }
     if (target?.sectionId != null) {
-      b.writeln('\tmeta_set(&n->class_section_id, '
-          '"${_cStr(target!.sectionId!)}");');
+      b.writeln(
+        '\tmeta_set(&n->class_section_id, '
+        '"${_cStr(target!.sectionId!)}");',
+      );
     }
     if (f.sectionIdPattern != null) {
-      b.writeln('\tmeta_set(&n->section_id_pattern, '
-          '"${_cStr(f.sectionIdPattern!)}");');
+      b.writeln(
+        '\tmeta_set(&n->section_id_pattern, '
+        '"${_cStr(f.sectionIdPattern!)}");',
+      );
     }
     b.writeln('\tn->kind = ${_kindConst(f.kind)};');
-    b.writeln('\tmeta_set(&n->type_name, '
-        '"${_cStr(f.type ?? f.elementType ?? f.enumType ?? 'String')}");');
+    b.writeln(
+      '\tmeta_set(&n->type_name, '
+      '"${_cStr(f.type ?? f.elementType ?? f.enumType ?? 'String')}");',
+    );
     if (f.serializationOrder != null) {
       b.writeln('\tn->has_serialization_order = 1;');
       b.writeln('\tn->serialization_order = ${f.serializationOrder};');
@@ -705,12 +860,18 @@ class SomCMetaEmitter {
       final desc =
           '${f.annotation('ContentType')?.argument('description') ?? ''}';
       b
-        ..writeln('\tn->content_type = (SomContentTypeMeta *)'
-            'calloc(1, sizeof(SomContentTypeMeta));')
-        ..writeln('\tn->content_type->type = som_strdup('
-            '"${_cStr(f.contentType!)}");')
-        ..writeln('\tn->content_type->description = som_strdup('
-            '"${_cStr(desc)}");');
+        ..writeln(
+          '\tn->content_type = (SomContentTypeMeta *)'
+          'calloc(1, sizeof(SomContentTypeMeta));',
+        )
+        ..writeln(
+          '\tn->content_type->type = som_strdup('
+          '"${_cStr(f.contentType!)}");',
+        )
+        ..writeln(
+          '\tn->content_type->description = som_strdup('
+          '"${_cStr(desc)}");',
+        );
     }
     if (f.help != null) {
       b.writeln('\tmeta_set(&n->content_help, "${_cStr(f.help!)}");');
@@ -728,8 +889,10 @@ class SomCMetaEmitter {
       b.writeln('\tmeta_set(&n->doc_comment, "${_cStr(docComment)}");');
     }
     if (target?.doc != null) {
-      b.writeln('\tmeta_set(&n->class_doc_comment, '
-          '"${_cStr(target!.doc!)}");');
+      b.writeln(
+        '\tmeta_set(&n->class_doc_comment, '
+        '"${_cStr(target!.doc!)}");',
+      );
     }
     if (f.kind == SpecFieldKind.form) {
       _emitForm(b, f.formFields);
@@ -738,8 +901,10 @@ class SomCMetaEmitter {
       b.writeln('\tmeta_set(&n->maps_to, "${_cStr(target!.mapsTo!)}");');
     }
     if (target?.detailedIn != null) {
-      b.writeln('\tmeta_set(&n->detailed_in, '
-          '"${_cStr(target!.detailedIn!)}");');
+      b.writeln(
+        '\tmeta_set(&n->detailed_in, '
+        '"${_cStr(target!.detailedIn!)}");',
+      );
     }
     _emitExtras(b, f.annotations);
   }
@@ -749,8 +914,10 @@ class SomCMetaEmitter {
   void _emitElementFields(StringBuffer b, SpecClass element) {
     b.writeln('\tmeta_set(&n->class_name, "${_cStr(element.name)}");');
     if (element.sectionId != null) {
-      b.writeln('\tmeta_set(&n->class_section_id, '
-          '"${_cStr(element.sectionId!)}");');
+      b.writeln(
+        '\tmeta_set(&n->class_section_id, '
+        '"${_cStr(element.sectionId!)}");',
+      );
     }
     b.writeln('\tn->kind = SOM_META_KIND_COMPLEX;');
     b.writeln('\tmeta_set(&n->type_name, "${_cStr(element.name)}");');
@@ -759,15 +926,19 @@ class SomCMetaEmitter {
     }
     if (element.doc != null) {
       b.writeln('\tmeta_set(&n->doc_comment, "${_cStr(element.doc!)}");');
-      b.writeln('\tmeta_set(&n->class_doc_comment, '
-          '"${_cStr(element.doc!)}");');
+      b.writeln(
+        '\tmeta_set(&n->class_doc_comment, '
+        '"${_cStr(element.doc!)}");',
+      );
     }
     if (element.mapsTo != null) {
       b.writeln('\tmeta_set(&n->maps_to, "${_cStr(element.mapsTo!)}");');
     }
     if (element.detailedIn != null) {
-      b.writeln('\tmeta_set(&n->detailed_in, '
-          '"${_cStr(element.detailedIn!)}");');
+      b.writeln(
+        '\tmeta_set(&n->detailed_in, '
+        '"${_cStr(element.detailedIn!)}");',
+      );
     }
   }
 
@@ -775,46 +946,70 @@ class SomCMetaEmitter {
     b.writeln('\tn->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));');
     b.writeln('\tn->form->fields_len = ${fields.length};');
     if (fields.isEmpty) return;
-    b.writeln('\tn->form->fields = (SomFormFieldMeta *)calloc('
-        '${fields.length}, sizeof(SomFormFieldMeta));');
+    b.writeln(
+      '\tn->form->fields = (SomFormFieldMeta *)calloc('
+      '${fields.length}, sizeof(SomFormFieldMeta));',
+    );
     for (var i = 0; i < fields.length; i++) {
       final ff = fields[i];
       b
-        ..writeln('\tn->form->fields[$i].name = som_strdup('
-            '"${_cStr(ff.name)}");')
-        ..writeln('\tn->form->fields[$i].type_name = som_strdup('
-            '"${_cStr(ff.type)}");')
-        ..writeln('\tn->form->fields[$i].description = som_strdup('
-            '"${_cStr(ff.label)}");')
-        ..writeln('\tn->form->fields[$i].required = '
-            '${ff.required ? 1 : 0};')
-        ..writeln('\tn->form->fields[$i].hint = som_strdup('
-            '"${_cStr(ff.hint ?? '')}");')
+        ..writeln(
+          '\tn->form->fields[$i].name = som_strdup('
+          '"${_cStr(ff.name)}");',
+        )
+        ..writeln(
+          '\tn->form->fields[$i].type_name = som_strdup('
+          '"${_cStr(ff.type)}");',
+        )
+        ..writeln(
+          '\tn->form->fields[$i].description = som_strdup('
+          '"${_cStr(ff.label)}");',
+        )
+        ..writeln(
+          '\tn->form->fields[$i].required = '
+          '${ff.required ? 1 : 0};',
+        )
+        ..writeln(
+          '\tn->form->fields[$i].hint = som_strdup('
+          '"${_cStr(ff.hint ?? '')}");',
+        )
         ..writeln('\tn->form->fields[$i].order = $i;');
       // YRD7: enum-typed fields carry their value domain; calloc already
       // zero-inits enum_values/enum_values_len for the non-enum case.
       if (ff.enumValues.isNotEmpty) {
         b
-          ..writeln('\tn->form->fields[$i].enum_values_len = '
-              '${ff.enumValues.length};')
-          ..writeln('\tn->form->fields[$i].enum_values = (char **)calloc('
-              '${ff.enumValues.length}, sizeof(char *));');
+          ..writeln(
+            '\tn->form->fields[$i].enum_values_len = '
+            '${ff.enumValues.length};',
+          )
+          ..writeln(
+            '\tn->form->fields[$i].enum_values = (char **)calloc('
+            '${ff.enumValues.length}, sizeof(char *));',
+          );
         for (var j = 0; j < ff.enumValues.length; j++) {
-          b.writeln('\tn->form->fields[$i].enum_values[$j] = som_strdup('
-              '"${_cStr(ff.enumValues[j])}");');
+          b.writeln(
+            '\tn->form->fields[$i].enum_values[$j] = som_strdup('
+            '"${_cStr(ff.enumValues[j])}");',
+          );
         }
       }
       // csrb3: reference fields carry their target registry key(s); calloc has
       // already zero-inited refers_to/refers_to_len for the non-reference case.
       if (ff.refersTo.isNotEmpty) {
         b
-          ..writeln('\tn->form->fields[$i].refers_to_len = '
-              '${ff.refersTo.length};')
-          ..writeln('\tn->form->fields[$i].refers_to = (char **)calloc('
-              '${ff.refersTo.length}, sizeof(char *));');
+          ..writeln(
+            '\tn->form->fields[$i].refers_to_len = '
+            '${ff.refersTo.length};',
+          )
+          ..writeln(
+            '\tn->form->fields[$i].refers_to = (char **)calloc('
+            '${ff.refersTo.length}, sizeof(char *));',
+          );
         for (var j = 0; j < ff.refersTo.length; j++) {
-          b.writeln('\tn->form->fields[$i].refers_to[$j] = som_strdup('
-              '"${_cStr(ff.refersTo[j])}");');
+          b.writeln(
+            '\tn->form->fields[$i].refers_to[$j] = som_strdup('
+            '"${_cStr(ff.refersTo[j])}");',
+          );
         }
       }
     }
@@ -827,12 +1022,16 @@ class SomCMetaEmitter {
     ];
     if (entries.isEmpty) return;
     b.writeln('\tn->extra_len = ${entries.length};');
-    b.writeln('\tn->extra = (SomMetaExtra *)calloc('
-        '${entries.length}, sizeof(SomMetaExtra));');
+    b.writeln(
+      '\tn->extra = (SomMetaExtra *)calloc('
+      '${entries.length}, sizeof(SomMetaExtra));',
+    );
     for (var i = 0; i < entries.length; i++) {
       final a = entries[i];
-      b.writeln('\tn->extra[$i].annotation = som_strdup('
-          '"${_cStr(a.name)}");');
+      b.writeln(
+        '\tn->extra[$i].annotation = som_strdup('
+        '"${_cStr(a.name)}");',
+      );
       // Extra.args mirrors the bridge's parsed constructor arguments (which the
       // bridge *borrows* from the live SpecModel source). The generated tree has
       // no live model to borrow from, so it parses an equivalent JSON literal
@@ -841,8 +1040,10 @@ class SomCMetaEmitter {
       // owned value lives for the process lifetime of the cached static tree and
       // is never freed — som_meta_tree_free treats args as borrowed and skips
       // it, matching the borrowed-args ownership contract.
-      b.writeln('\tn->extra[$i].args = som_json_parse('
-          '"${_cStr(jsonEncode(a.arguments))}", NULL);');
+      b.writeln(
+        '\tn->extra[$i].args = som_json_parse('
+        '"${_cStr(jsonEncode(a.arguments))}", NULL);',
+      );
     }
   }
 
@@ -864,7 +1065,9 @@ class SomCMetaEmitter {
       b.writeln('\tmeta_set(&n->section_id, "${_cStr(sectionId)}");');
     }
     if (cls?.sectionId != null) {
-      b.writeln('\tmeta_set(&n->class_section_id, "${_cStr(cls!.sectionId!)}");');
+      b.writeln(
+        '\tmeta_set(&n->class_section_id, "${_cStr(cls!.sectionId!)}");',
+      );
     }
     b.writeln('\tn->kind = SOM_META_KIND_SECTION;');
     b.writeln('\tmeta_set(&n->type_name, "${_cStr(root.type)}");');
@@ -888,12 +1091,16 @@ class SomCMetaEmitter {
     final basedOn = _basedOn(cls);
     b.writeln('\tn->document = (SomDocMeta *)calloc(1, sizeof(SomDocMeta));');
     b.writeln('\tn->document->name = som_strdup("${_cStr(root.title)}");');
-    b.writeln('\tn->document->description = som_strdup('
-        '"${_cStr(root.description ?? '')}");');
+    b.writeln(
+      '\tn->document->description = som_strdup('
+      '"${_cStr(root.description ?? '')}");',
+    );
     b.writeln('\tsom_strlist_init(&n->document->based_on);');
     for (final base in basedOn) {
-      b.writeln('\tsom_strlist_push_copy(&n->document->based_on, '
-          '"${_cStr(base)}");');
+      b.writeln(
+        '\tsom_strlist_push_copy(&n->document->based_on, '
+        '"${_cStr(base)}");',
+      );
     }
     _emitExtras(b, cls?.annotations ?? const []);
     if (cls != null) {
@@ -902,8 +1109,10 @@ class SomCMetaEmitter {
         ..writeln('\tsom_strlist_init(&stack);')
         ..writeln('\tsom_strlist_push_copy(&stack, "${_cStr(root.type)}");')
         ..writeln('\tsize_t clen = 0;')
-        ..writeln('\tSomMetaNode **c = ${_childrenFn(root.type)}('
-            '&stack, &clen);')
+        ..writeln(
+          '\tSomMetaNode **c = ${_childrenFn(root.type)}('
+          '&stack, &clen);',
+        )
         ..writeln('\tfor (size_t i = 0; i < clen; i++) {')
         ..writeln('\t\tsom_meta_node_add_child(n, c[i]);')
         ..writeln('\t}')
@@ -925,14 +1134,18 @@ class SomCMetaEmitter {
 
     // Entry points binding the surface roots to the tree + root segment path.
     b
-      ..writeln('${_navType(root.type)} ${_rootNavFn(root)}('
-          'const SomMetaTree *tree) {')
+      ..writeln(
+        '${_navType(root.type)} ${_rootNavFn(root)}('
+        'const SomMetaTree *tree) {',
+      )
       ..writeln('\t${_navType(root.type)} x;')
       ..writeln('\tsom_meta_ref_init(&x.ref, tree, "${_cStr(seg)}");')
       ..writeln('\treturn x;')
       ..writeln('}')
-      ..writeln('${_idType(root.type)} ${_rootIdFn(root)}('
-          'const SomMetaTree *tree) {')
+      ..writeln(
+        '${_idType(root.type)} ${_rootIdFn(root)}('
+        'const SomMetaTree *tree) {',
+      )
       ..writeln('\t${_idType(root.type)} x;')
       ..writeln('\tsom_meta_ref_init(&x.ref, tree, "${_cStr(seg)}");')
       ..writeln('\treturn x;')
@@ -983,10 +1196,15 @@ class SomCMetaEmitter {
         _emitLeaf(b, seg);
         return;
       case SpecFieldKind.list:
-        final element =
-            f.elementIsComplex ? model.classNamed(f.elementType ?? '') : null;
-        _emitList(b, seg, element == null ? null : _navType(element.name),
-            element == null ? null : _navFactory(element.name));
+        final element = f.elementIsComplex
+            ? model.classNamed(f.elementType ?? '')
+            : null;
+        _emitList(
+          b,
+          seg,
+          element == null ? null : _navType(element.name),
+          element == null ? null : _navFactory(element.name),
+        );
         return;
       case SpecFieldKind.form:
       case SpecFieldKind.content:
@@ -1000,8 +1218,12 @@ class SomCMetaEmitter {
   void _emitIdBody(StringBuffer b, _IdChild child) {
     if (child.isList) {
       final elem = child.targetClass;
-      _emitList(b, child.relPath, elem == null ? null : _idType(elem),
-          elem == null ? null : _idFactory(elem));
+      _emitList(
+        b,
+        child.relPath,
+        elem == null ? null : _idType(elem),
+        elem == null ? null : _idFactory(elem),
+      );
       return;
     }
     if (child.targetClass != null) {
@@ -1030,7 +1252,11 @@ class SomCMetaEmitter {
   }
 
   void _emitList(
-      StringBuffer b, String seg, String? elemType, String? factory) {
+    StringBuffer b,
+    String seg,
+    String? elemType,
+    String? factory,
+  ) {
     b
       ..writeln('\tSomListMetaRef out;')
       ..writeln('\tchar *path = spec_path_join(x.ref.path, "${_cStr(seg)}");');
@@ -1038,8 +1264,10 @@ class SomCMetaEmitter {
       b.writeln('\tsom_list_meta_ref_init(&out, x.ref.tree, path, $factory);');
     } else {
       _leafFactoryUsed = true;
-      b.writeln('\tsom_list_meta_ref_init(&out, x.ref.tree, path, '
-          'meta_leaf_factory);');
+      b.writeln(
+        '\tsom_list_meta_ref_init(&out, x.ref.tree, path, '
+        'meta_leaf_factory);',
+      );
     }
     b
       ..writeln('\tfree(path);')
@@ -1065,7 +1293,6 @@ class SomCMetaEmitter {
     return 'meta_id_factory_${_snake(cls)}';
   }
 
-
   // ── SOM §8 ID-tree children ─────────────────────────────────────────────────
 
   List<_IdChild> _idChildren(SpecClass cls) {
@@ -1074,8 +1301,8 @@ class SomCMetaEmitter {
 
     void walk(SpecClass c, String prefix, Set<String> stack) {
       for (final f in _orderedFields(c)) {
-        final isComplexLike = f.kind == SpecFieldKind.complex ||
-            f.kind == SpecFieldKind.section;
+        final isComplexLike =
+            f.kind == SpecFieldKind.complex || f.kind == SpecFieldKind.section;
         if (f.sectionId != null) {
           var name = _idName(f.sectionId!);
           var n = 2;
@@ -1088,13 +1315,22 @@ class SomCMetaEmitter {
             final elem = f.elementIsComplex
                 ? model.classNamed(f.elementType ?? '')?.name
                 : null;
-            children.add(_IdChild(
-                name: name, relPath: rel, targetClass: elem, isList: true));
-          } else if (isComplexLike) {
-            children.add(_IdChild(
+            children.add(
+              _IdChild(
                 name: name,
                 relPath: rel,
-                targetClass: model.classNamed(f.type ?? '')?.name));
+                targetClass: elem,
+                isList: true,
+              ),
+            );
+          } else if (isComplexLike) {
+            children.add(
+              _IdChild(
+                name: name,
+                relPath: rel,
+                targetClass: model.classNamed(f.type ?? '')?.name,
+              ),
+            );
           } else {
             children.add(_IdChild(name: name, relPath: rel));
           }
@@ -1177,12 +1413,18 @@ class SomCMetaEmitter {
 
   void _banner(StringBuffer b, String which) {
     b
-      ..writeln('/* GENERATED by tom_specs_clitool SomCMetaEmitter '
-          '($versionLabel) — do not edit by hand. */')
-      ..writeln('/* The populated SOM metadata trees (SOM §7.2) and the two '
-          'access surfaces of */')
-      ..writeln('/* SOM §8: the dot-notation tree (member names) and the '
-          'ID-tree (section ids). */')
+      ..writeln(
+        '/* GENERATED by tom_specs_clitool SomCMetaEmitter '
+        '($versionLabel) — do not edit by hand. */',
+      )
+      ..writeln(
+        '/* The populated SOM metadata trees (SOM §7.2) and the two '
+        'access surfaces of */',
+      )
+      ..writeln(
+        '/* SOM §8: the dot-notation tree (member names) and the '
+        'ID-tree (section ids). */',
+      )
       ..writeln('/* ($which) */')
       ..writeln();
   }
@@ -1224,8 +1466,10 @@ class SomCMetaEmitter {
       final isUpper = c.toUpperCase() == c && c.toLowerCase() != c;
       if (isUpper && i > 0) {
         final prev = s[i - 1];
-        final prevLower = prev.toLowerCase() == prev && prev.toUpperCase() != prev;
-        final prevDigit = prev.codeUnitAt(0) >= 0x30 && prev.codeUnitAt(0) <= 0x39;
+        final prevLower =
+            prev.toLowerCase() == prev && prev.toUpperCase() != prev;
+        final prevDigit =
+            prev.codeUnitAt(0) >= 0x30 && prev.codeUnitAt(0) <= 0x39;
         if (prevLower || prevDigit) buf.write('_');
       }
       buf.write(c.toLowerCase());

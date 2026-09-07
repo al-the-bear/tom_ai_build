@@ -15,14 +15,16 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 AnnotationData _a(String name, [Map<String, Object?> args = const {}]) =>
     AnnotationData(name, args);
 
-Directory get _annotationsDir => Directory(p.join(
-      Directory.current.path,
-      '..',
-      'tom_specs_core',
-      'lib',
-      'src',
-      'annotations',
-    ));
+Directory get _annotationsDir => Directory(
+  p.join(
+    Directory.current.path,
+    '..',
+    'tom_specs_core',
+    'lib',
+    'src',
+    'annotations',
+  ),
+);
 
 /// A model that applies **every** schema-bound annotation at its documented
 /// target, so the emitted schema must exercise every declared destination.
@@ -54,7 +56,9 @@ Map<String, ModelClass> _allAnnotationsModel() {
       ModelField(
         name: 'header',
         typeName: 'Header',
-        annotations: [_a('SectionId', {'id': 'EAD-HDR'})],
+        annotations: [
+          _a('SectionId', {'id': 'EAD-HDR'}),
+        ],
       ),
       // The registry the @ForEach below binds to.
       ModelField(
@@ -101,7 +105,7 @@ Map<String, ModelClass> _allAnnotationsModel() {
       _a('Prefix', {'prefix': 'SUMMARY'}),
       _a('MaxDepth', {'levels': 2}),
       _a('AllowedTags', {
-        'tags': ['draft', 'final']
+        'tags': ['draft', 'final'],
       }),
       _a('ValidationPrompt', {'prompt': 'Is the summary complete?'}),
       _a('ContentHelp', {'guidance': 'One paragraph of intent.'}),
@@ -138,8 +142,10 @@ Map<String, ModelClass> _allAnnotationsModel() {
         name: 'owner',
         typeName: 'String?',
         annotations: [
-          _a('PatternCheck',
-              {'pattern': r'^[A-Z][a-z]+$', 'errorMessage': 'Name-cased'}),
+          _a('PatternCheck', {
+            'pattern': r'^[A-Z][a-z]+$',
+            'errorMessage': 'Name-cased',
+          }),
         ],
       ),
     ],
@@ -151,7 +157,9 @@ Map<String, ModelClass> _allAnnotationsModel() {
       ModelField(
         name: 'label',
         typeName: 'String',
-        annotations: [_a('SectionId', {'id': 'REG-LBL'})],
+        annotations: [
+          _a('SectionId', {'id': 'REG-LBL'}),
+        ],
       ),
     ],
   );
@@ -160,14 +168,18 @@ Map<String, ModelClass> _allAnnotationsModel() {
     name: 'MirrorEntry',
     // @PatternCheckId overriding the @SectionIdPattern-derived stem check.
     annotations: [
-      _a('PatternCheckId',
-          {'pattern': r'^EAD-MIR-[0-9]{3}$', 'errorMessage': 'Three digits'}),
+      _a('PatternCheckId', {
+        'pattern': r'^EAD-MIR-[0-9]{3}$',
+        'errorMessage': 'Three digits',
+      }),
     ],
     fields: [
       ModelField(
         name: 'note',
         typeName: 'String',
-        annotations: [_a('SectionId', {'id': 'MIR-NOT'})],
+        annotations: [
+          _a('SectionId', {'id': 'MIR-NOT'}),
+        ],
       ),
     ],
   );
@@ -221,8 +233,11 @@ void main() {
           binding.modelOnly == null,
           reason: '${binding.annotation} must be one or the other.',
         );
-        expect(binding.note.trim(), isNotEmpty,
-            reason: '${binding.annotation} must say why.');
+        expect(
+          binding.note.trim(),
+          isNotEmpty,
+          reason: '${binding.annotation} must say why.',
+        );
       }
     });
 
@@ -242,8 +257,9 @@ void main() {
     late DocSpecSchema schema;
 
     setUp(() {
-      schema = DocSpecsSchemaGenerator(_allAnnotationsModel())
-          .generateFor('EveryAnnotationDoc');
+      schema = DocSpecsSchemaGenerator(
+        _allAnnotationsModel(),
+      ).generateFor('EveryAnnotationDoc');
       yaml = schema.toYaml();
     });
 
@@ -254,7 +270,8 @@ void main() {
       expect(
         missing,
         isEmpty,
-        reason: 'docSpecsAnnotationBindings claims these DocSpecs keys, but '
+        reason:
+            'docSpecsAnnotationBindings claims these DocSpecs keys, but '
             'a model applying every annotation produced none of them. Either '
             'wire the generator or correct the binding.',
       );
@@ -267,8 +284,11 @@ void main() {
       expect(summary.allowedTags, ['draft', 'final'], reason: '@AllowedTags');
 
       final mirror = schema.sectionTypes['ead-mir']!;
-      expect(mirror.patternCheckId?.pattern, r'^EAD-MIR-[0-9]{3}$',
-          reason: '@PatternCheckId overrides the derived stem check');
+      expect(
+        mirror.patternCheckId?.pattern,
+        r'^EAD-MIR-[0-9]{3}$',
+        reason: '@PatternCheckId overrides the derived stem check',
+      );
       expect(mirror.patternCheckId?.errorMessage, 'Three digits');
 
       final summarySection = schema.document.sections['ead-sum']!;
@@ -285,22 +305,27 @@ void main() {
       );
     });
 
-    test('a @SectionIdPattern with no @PatternCheckId keeps the stem check',
-        () {
-      final registry = schema.sectionTypes['ead-reg']!;
-      expect(registry.patternCheckId?.pattern, r'^EAD-REG-.+$');
-    });
+    test(
+      'a @SectionIdPattern with no @PatternCheckId keeps the stem check',
+      () {
+        final registry = schema.sectionTypes['ead-reg']!;
+        expect(registry.patternCheckId?.pattern, r'^EAD-REG-.+$');
+      },
+    );
 
     test('the emitted schema round-trips through the DocSpecs loader', () {
       final dir = Directory.systemTemp.createTempSync('tsam-schema-');
       addTearDown(() => dir.deleteSync(recursive: true));
-      final file = File(p.join(
-        dir.path,
-        schema.id,
-        DocSpecsSchemaGenerator.fileNameFor(schema),
-      ))
-        ..parent.createSync(recursive: true)
-        ..writeAsStringSync(DocSpecsSchemaGenerator.toYamlString(schema));
+      final file =
+          File(
+              p.join(
+                dir.path,
+                schema.id,
+                DocSpecsSchemaGenerator.fileNameFor(schema),
+              ),
+            )
+            ..parent.createSync(recursive: true)
+            ..writeAsStringSync(DocSpecsSchemaGenerator.toYamlString(schema));
 
       final reloaded = SchemaLoader.loadSync(file.path);
       expect(reloaded.sectionTypes['ead-sum']?.allowedTags, ['draft', 'final']);
@@ -369,38 +394,45 @@ void main() {
       final dropped =
           applied.map((a) => a.name).toSet().difference(carried).toList()
             ..sort();
-      expect(dropped, isEmpty,
-          reason: 'These annotations reach no runtime through the metadata.');
+      expect(
+        dropped,
+        isEmpty,
+        reason: 'These annotations reach no runtime through the metadata.',
+      );
     });
 
-    test('an unslotted annotation survives serialization with its arguments',
-        () {
-      final classes = {
-        'Probe': ModelClass(
-          name: 'Probe',
-          annotations: [
-            _a('Document', {'name': 'Probe'}),
-            _a('SectionId', {'id': 'PRB'}),
-            _a('MaxDepth', {'levels': 3}),
-            _a('AllowedTags', {
-              'tags': ['a', 'b']
-            }),
-          ],
-          fields: [
-            ModelField(
-              name: 'body',
-              typeName: 'String',
-              annotations: [_a('SectionId', {'id': 'PRB-BOD'})],
-            ),
-          ],
-        ),
-      };
-      final json = MetaTreeBuilder(classes).build('Probe').toJson();
-      final extra = (json['extra'] as List).cast<Map<String, Object?>>();
-      final byName = {for (final e in extra) e['annotation'] as String: e};
-      expect((byName['MaxDepth']!['args'] as Map)['levels'], 3);
-      expect((byName['AllowedTags']!['args'] as Map)['tags'], ['a', 'b']);
-    });
+    test(
+      'an unslotted annotation survives serialization with its arguments',
+      () {
+        final classes = {
+          'Probe': ModelClass(
+            name: 'Probe',
+            annotations: [
+              _a('Document', {'name': 'Probe'}),
+              _a('SectionId', {'id': 'PRB'}),
+              _a('MaxDepth', {'levels': 3}),
+              _a('AllowedTags', {
+                'tags': ['a', 'b'],
+              }),
+            ],
+            fields: [
+              ModelField(
+                name: 'body',
+                typeName: 'String',
+                annotations: [
+                  _a('SectionId', {'id': 'PRB-BOD'}),
+                ],
+              ),
+            ],
+          ),
+        };
+        final json = MetaTreeBuilder(classes).build('Probe').toJson();
+        final extra = (json['extra'] as List).cast<Map<String, Object?>>();
+        final byName = {for (final e in extra) e['annotation'] as String: e};
+        expect((byName['MaxDepth']!['args'] as Map)['levels'], 3);
+        expect((byName['AllowedTags']!['args'] as Map)['tags'], ['a', 'b']);
+      },
+    );
   });
 
   group('TSAM3 a for-each must bind a reachable registry', () {
@@ -413,12 +445,15 @@ void main() {
         ..add(_a('ForEach', {'registryType': 'NO-SUCH', 'key': 'k'}));
 
       expect(
-        () => DocSpecsSchemaGenerator(classes).generateFor('EveryAnnotationDoc'),
-        throwsA(isA<StateError>().having(
-          (e) => e.message,
-          'message',
-          contains('no-such'),
-        )),
+        () =>
+            DocSpecsSchemaGenerator(classes).generateFor('EveryAnnotationDoc'),
+        throwsA(
+          isA<StateError>().having(
+            (e) => e.message,
+            'message',
+            contains('no-such'),
+          ),
+        ),
       );
     });
   });

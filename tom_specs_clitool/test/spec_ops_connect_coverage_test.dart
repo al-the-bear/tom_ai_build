@@ -28,10 +28,26 @@ const _sourceRoot = 'D00SolutionBlueprint';
 
 void main() {
   final clitoolRoot = Directory.current.path;
-  final metaPath = p.normalize(p.join(
-      clitoolRoot, '..', 'tom_som_dart_v0', 'meta', 'spec_model.meta.json'));
-  final registryPath = p.normalize(p.join(clitoolRoot, '..', 'tom_specs_model',
-      'lib', 'src', 'generated', 'spec_ops.g.dart'));
+  final metaPath = p.normalize(
+    p.join(
+      clitoolRoot,
+      '..',
+      'tom_som_dart_v0',
+      'meta',
+      'spec_model.meta.json',
+    ),
+  );
+  final registryPath = p.normalize(
+    p.join(
+      clitoolRoot,
+      '..',
+      'tom_specs_model',
+      'lib',
+      'src',
+      'generated',
+      'spec_ops.g.dart',
+    ),
+  );
 
   group('emitted connect bindings cover every projection root (N11)', () {
     late Map<String, dynamic> metaClasses;
@@ -43,8 +59,8 @@ void main() {
           jsonDecode(File(metaPath).readAsStringSync()) as Map<String, dynamic>;
       metaClasses = meta['classes'] as Map<String, dynamic>;
       projectionRoots = [
-        for (final root in (meta['roots'] as List<dynamic>)
-            .cast<Map<String, dynamic>>())
+        for (final root
+            in (meta['roots'] as List<dynamic>).cast<Map<String, dynamic>>())
           if (root['type'] != _sourceRoot) root['type'] as String,
       ];
       bindings = _readConnectBindings(File(registryPath).readAsStringSync());
@@ -61,8 +77,9 @@ void main() {
 
       for (final root in projectionRoots) {
         final bound = bindings[root] ?? const <String, String>{};
-        final fields = (metaClasses[root] as Map<String, dynamic>)['fields']
-            as List<dynamic>;
+        final fields =
+            (metaClasses[root] as Map<String, dynamic>)['fields']
+                as List<dynamic>;
         for (final f in fields.cast<Map<String, dynamic>>()) {
           if (!_isChildNode(f)) continue;
           if (_documentLocalTypes.contains(_targetType(f))) continue;
@@ -75,13 +92,21 @@ void main() {
         }
       }
 
-      expect(covered, greaterThan(100),
-          reason: 'almost nothing was compared, so the registry parsing below '
-              'has probably drifted from the emitted shape');
-      expect(missing, isEmpty,
-          reason: '${missing.length} projection children have no connect '
-              'binding and would serialize as empty sections:\n'
-              '${missing.take(20).join('\n')}');
+      expect(
+        covered,
+        greaterThan(100),
+        reason:
+            'almost nothing was compared, so the registry parsing below '
+            'has probably drifted from the emitted shape',
+      );
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            '${missing.length} projection children have no connect '
+            'binding and would serialize as empty sections:\n'
+            '${missing.take(20).join('\n')}',
+      );
     });
 
     test('the document header is the only deliberate omission', () {
@@ -89,8 +114,11 @@ void main() {
       // added to the codegen it has to be argued for here too.
       for (final root in projectionRoots) {
         final bound = bindings[root] ?? const <String, String>{};
-        expect(bound.containsKey('header'), isFalse,
-            reason: '$root.header must stay document-local');
+        expect(
+          bound.containsKey('header'),
+          isFalse,
+          reason: '$root.header must stay document-local',
+        );
       }
     });
 
@@ -122,8 +150,9 @@ Map<String, Map<String, String>> _readConnectBindings(String source) {
 
 /// Matches an emitted `connect: (o, s) { final n = o as <Root>; ... },` block.
 final RegExp _connectPattern = RegExp(
-    r'connect: \(o, s\) \{\n      final n = o as (\w+);\n(.*?)\n    \},',
-    dotAll: true);
+  r'connect: \(o, s\) \{\n      final n = o as (\w+);\n(.*?)\n    \},',
+  dotAll: true,
+);
 
 /// Matches `n.<member> = <expression>;` inside a connect body.
 final RegExp _assignmentPattern = RegExp(r'n\.(\w+) = ([^;]+);');

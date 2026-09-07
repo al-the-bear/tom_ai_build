@@ -22,16 +22,18 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 void main() {
   final clitoolRoot = Directory.current.path;
   final containerRoot = p.normalize(p.join(clitoolRoot, '..', '..', '..'));
-  final docDir = p.normalize(p.join(clitoolRoot, '..', 'tom_specs_model', 'doc'));
+  final docDir = p.normalize(
+    p.join(clitoolRoot, '..', 'tom_specs_model', 'doc'),
+  );
 
   /// A corpus of documents named `<name>` declaring `<ids>` as headings.
   SectionCorpus corpusOf(Map<String, List<String>> documents) => SectionCorpus([
-        for (final entry in documents.entries)
-          DocumentSections.parse(
-            [for (final id in entry.value) '## $id Title'].join('\n\n'),
-            path: p.join('/docs', entry.key),
-          ),
-      ]);
+    for (final entry in documents.entries)
+      DocumentSections.parse(
+        [for (final id in entry.value) '## $id Title'].join('\n\n'),
+        path: p.join('/docs', entry.key),
+      ),
+  ]);
 
   /// Classifies [markdown] as if it were `own.md`, against [corpus].
   List<SectionCitation> classify(
@@ -39,22 +41,23 @@ void main() {
     required SectionCorpus corpus,
     List<String> ownSections = const [],
     String own = 'own.md',
-  }) =>
-      classifySectionCitations(
-        markdown,
-        path: p.join('/docs', own),
-        corpus: corpus,
-        own: DocumentSections.parse(
-          [for (final id in ownSections) '## $id Title'].join('\n\n'),
-          path: p.join('/docs', own),
-        ),
-      );
+  }) => classifySectionCitations(
+    markdown,
+    path: p.join('/docs', own),
+    corpus: corpus,
+    own: DocumentSections.parse(
+      [for (final id in ownSections) '## $id Title'].join('\n\n'),
+      path: p.join('/docs', own),
+    ),
+  );
 
   group('SCC1: the self-reference carve-out', () {
     test('a bare citation that resolves in its own document is self', () {
       final citations = classify(
         'The rule is stated in §4.1.',
-        corpus: corpusOf({'other.md': ['4.1']}),
+        corpus: corpusOf({
+          'other.md': ['4.1'],
+        }),
         ownSections: ['4.1'],
       );
 
@@ -70,7 +73,9 @@ void main() {
       // §N that resolves nowhere in its own file has lost its document name.
       final citations = classify(
         'See §9.2 for the details.',
-        corpus: corpusOf({'other.md': ['9.2']}),
+        corpus: corpusOf({
+          'other.md': ['9.2'],
+        }),
         ownSections: ['1', '2'],
       );
 
@@ -81,7 +86,9 @@ void main() {
     test('the failure message names the document that would fix it', () {
       final citations = classify(
         'See §9.2.',
-        corpus: corpusOf({'other.md': ['9.2']}),
+        corpus: corpusOf({
+          'other.md': ['9.2'],
+        }),
       );
 
       expect(citations.single.describe(), contains('own.md:1'));
@@ -103,11 +110,17 @@ void main() {
         'as **other.md** §9.2 says',
       ]) {
         final citations = classify(written, corpus: corpus);
-        expect(citations.single.source, SectionQualifierSource.leading,
-            reason: written);
+        expect(
+          citations.single.source,
+          SectionQualifierSource.leading,
+          reason: written,
+        );
         expect(citations.single.document, 'other.md', reason: written);
-        expect(citations.single.verdict, SectionCitationVerdict.crossDocument,
-            reason: written);
+        expect(
+          citations.single.verdict,
+          SectionCitationVerdict.crossDocument,
+          reason: written,
+        );
       }
     });
 
@@ -188,29 +201,35 @@ void main() {
       );
 
       expect(citations, hasLength(2));
-      expect(citations.map((c) => c.source),
-          everyElement(SectionQualifierSource.tableRow));
-      expect(citations.map((c) => c.verdict),
-          everyElement(SectionCitationVerdict.crossDocument));
-    });
-
-    test('a first cell that mixes prose with a citation does not scope the row',
-        () {
-      // The near-miss this narrowness was written for: a serialization table
-      // whose column one cites another document and whose column two cites the
-      // table's own. An unrestricted row scope resolves column two against the
-      // wrong file and reports nothing.
-      final citations = classify(
-        '| Stored `codeSpec` (`other.md` §9.2) | Emitted per §7.7 |',
-        corpus: corpus,
-        ownSections: ['7.7'],
+      expect(
+        citations.map((c) => c.source),
+        everyElement(SectionQualifierSource.tableRow),
       );
-
-      expect(citations, hasLength(2));
-      expect(citations.first.document, 'other.md');
-      expect(citations[1].source, SectionQualifierSource.bare);
-      expect(citations[1].verdict, SectionCitationVerdict.self);
+      expect(
+        citations.map((c) => c.verdict),
+        everyElement(SectionCitationVerdict.crossDocument),
+      );
     });
+
+    test(
+      'a first cell that mixes prose with a citation does not scope the row',
+      () {
+        // The near-miss this narrowness was written for: a serialization table
+        // whose column one cites another document and whose column two cites the
+        // table's own. An unrestricted row scope resolves column two against the
+        // wrong file and reports nothing.
+        final citations = classify(
+          '| Stored `codeSpec` (`other.md` §9.2) | Emitted per §7.7 |',
+          corpus: corpus,
+          ownSections: ['7.7'],
+        );
+
+        expect(citations, hasLength(2));
+        expect(citations.first.document, 'other.md');
+        expect(citations[1].source, SectionQualifierSource.bare);
+        expect(citations[1].verdict, SectionCitationVerdict.self);
+      },
+    );
 
     test('a column headed by a document scopes the cells beneath it', () {
       // The transpose of the row rule, written for a table that indexes a
@@ -225,11 +244,15 @@ void main() {
       );
 
       expect(citations, hasLength(2));
-      expect(citations.map((c) => c.source),
-          everyElement(SectionQualifierSource.tableColumn));
+      expect(
+        citations.map((c) => c.source),
+        everyElement(SectionQualifierSource.tableColumn),
+      );
       expect(citations.map((c) => c.document), everyElement('other.md'));
-      expect(citations.map((c) => c.verdict),
-          everyElement(SectionCitationVerdict.crossDocument));
+      expect(
+        citations.map((c) => c.verdict),
+        everyElement(SectionCitationVerdict.crossDocument),
+      );
     });
 
     test('only the headed column is scoped', () {
@@ -290,7 +313,10 @@ void main() {
         '| Area | `other.md` § |\n'
         '|------|--------------|\n'
         '| Scripting | `third.md` §5.5 |',
-        corpus: corpusOf({'other.md': ['4.1'], 'third.md': ['5.5']}),
+        corpus: corpusOf({
+          'other.md': ['4.1'],
+          'third.md': ['5.5'],
+        }),
       );
 
       expect(citations.single.source, SectionQualifierSource.leading);
@@ -299,21 +325,29 @@ void main() {
   });
 
   group('SCC3: resolution is exact', () {
-    final corpus = corpusOf({'other.md': ['12.3']});
+    final corpus = corpusOf({
+      'other.md': ['12.3'],
+    });
 
     test('a child id does not resolve through its parent heading', () {
       // Rejected deliberately: relaxing to the ancestor excuses a hundred
       // citations that belong to a different document, and nothing a parser can
       // see tells that case from the genuine "rule 6 inside §12.3" one.
-      final citations = classify('see §12.3.6', corpus: corpus,
-          ownSections: ['12.3']);
+      final citations = classify(
+        'see §12.3.6',
+        corpus: corpus,
+        ownSections: ['12.3'],
+      );
 
       expect(citations.single.verdict, SectionCitationVerdict.dangling);
     });
 
     test('a parent id does not resolve through a child heading', () {
-      final citations =
-          classify('see §12', corpus: corpus, ownSections: ['12.3']);
+      final citations = classify(
+        'see §12',
+        corpus: corpus,
+        ownSections: ['12.3'],
+      );
 
       expect(citations.single.verdict, SectionCitationVerdict.dangling);
     });
@@ -336,11 +370,16 @@ void main() {
   });
 
   group('SCC4: what counts as a citation', () {
-    final corpus = corpusOf({'other.md': ['4.1']});
+    final corpus = corpusOf({
+      'other.md': ['4.1'],
+    });
 
     test('symbolic heading ids are citations too', () {
-      final citations = classify('see §PF-FLW-OVE', corpus: corpus,
-          ownSections: ['PF-FLW-OVE']);
+      final citations = classify(
+        'see §PF-FLW-OVE',
+        corpus: corpus,
+        ownSections: ['PF-FLW-OVE'],
+      );
 
       expect(citations.single.verdict, SectionCitationVerdict.self);
     });
@@ -398,9 +437,13 @@ void main() {
       // in a sibling tree and must not be scanned.
       expect(report.corpus.length, report.files.length);
       expect(report.citations, isNotEmpty);
-      expect(report.countOf(SectionCitationVerdict.wrongSection), 0,
-          reason: 'a citation naming a document that lacks the section is a '
-              'defect the doc set has never had');
+      expect(
+        report.countOf(SectionCitationVerdict.wrongSection),
+        0,
+        reason:
+            'a citation naming a document that lacks the section is a '
+            'defect the doc set has never had',
+      );
     });
 
     test('the self-reference carve-out is what the doc set actually does', () {
@@ -452,10 +495,13 @@ void main() {
       // an unresolved corpus would pass the assertion above having checked
       // nothing.
       expect(report.files.length, greaterThan(defaultCitedReadmes.length));
-      expect(report.countOf(SectionCitationVerdict.crossDocument),
-          greaterThan(0),
-          reason: 'a corpus in which nothing cites anything else would make the '
-              'whole resolver vacuous');
+      expect(
+        report.countOf(SectionCitationVerdict.crossDocument),
+        greaterThan(0),
+        reason:
+            'a corpus in which nothing cites anything else would make the '
+            'whole resolver vacuous',
+      );
     });
   });
 
@@ -562,7 +608,10 @@ class A {}
           entry.key: listScannedSources(entry.value),
       };
       final sources = [for (final files in byRoot.values) ...files];
-      final report = checkSectionCitations(docDir: docDir, extraSources: sources);
+      final report = checkSectionCitations(
+        docDir: docDir,
+        extraSources: sources,
+      );
 
       expect(
         report.violations
@@ -597,62 +646,72 @@ class A {}
     });
   });
 
-  group('SCC7: citations of public standards are not citations of this set',
-      () {
+  group('SCC7: citations of public standards are not citations of this set', () {
     test('a standard designator qualifies the citation that follows it', () {
       final citations = classify(
         'The suite maps onto ISO/IEC/IEEE 29148 §6 front matter.',
-        corpus: corpusOf({'own.md': ['6']}),
+        corpus: corpusOf({
+          'own.md': ['6'],
+        }),
         ownSections: ['6'],
       );
 
       expect(citations, hasLength(1));
       expect(citations.single.document, 'ISO/IEC/IEEE 29148');
-      expect(
-          citations.single.source, SectionQualifierSource.externalStandard);
+      expect(citations.single.source, SectionQualifierSource.externalStandard);
       expect(citations.single.verdict, SectionCitationVerdict.unverifiable);
     });
 
-    test('without the rule the citation would pass as a correct self-reference',
-        () {
-      // Why this rule is not a tolerance widening but a defect fix. The citing
-      // document declares a §6 of its own, so reading the ISO citation as bare
-      // resolved it — silently, to the wrong document. A false alarm is
-      // findable; this was not.
-      final citations = classify(
-        'ISO/IEC/IEEE 29148 §6 front matter, and §6 of this document.',
-        corpus: corpusOf({'own.md': ['6']}),
-        ownSections: ['6'],
-      );
+    test(
+      'without the rule the citation would pass as a correct self-reference',
+      () {
+        // Why this rule is not a tolerance widening but a defect fix. The citing
+        // document declares a §6 of its own, so reading the ISO citation as bare
+        // resolved it — silently, to the wrong document. A false alarm is
+        // findable; this was not.
+        final citations = classify(
+          'ISO/IEC/IEEE 29148 §6 front matter, and §6 of this document.',
+          corpus: corpusOf({
+            'own.md': ['6'],
+          }),
+          ownSections: ['6'],
+        );
 
-      expect(citations, hasLength(2));
-      expect(citations.first.verdict, SectionCitationVerdict.unverifiable);
-      // The second is a genuine self-reference and must stay one: the rule
-      // qualifies the citation the designator stands before, not the sentence.
-      expect(citations.last.verdict, SectionCitationVerdict.self);
-    });
+        expect(citations, hasLength(2));
+        expect(citations.first.verdict, SectionCitationVerdict.unverifiable);
+        // The second is a genuine self-reference and must stay one: the rule
+        // qualifies the citation the designator stands before, not the sentence.
+        expect(citations.last.verdict, SectionCitationVerdict.self);
+      },
+    );
 
-    test('a bare body name does not qualify — the standard number is required',
-        () {
-      // `ISO §4` names no standard. Admitting it would let the mere mention of
-      // an organisation vouch for a citation, which is the silent
-      // mis-resolution the convention exists to prevent.
-      final citations = classify(
-        'Nothing in ISO §4 applies here.',
-        corpus: corpusOf({'own.md': ['9']}),
-        ownSections: ['9'],
-      );
+    test(
+      'a bare body name does not qualify — the standard number is required',
+      () {
+        // `ISO §4` names no standard. Admitting it would let the mere mention of
+        // an organisation vouch for a citation, which is the silent
+        // mis-resolution the convention exists to prevent.
+        final citations = classify(
+          'Nothing in ISO §4 applies here.',
+          corpus: corpusOf({
+            'own.md': ['9'],
+          }),
+          ownSections: ['9'],
+        );
 
-      expect(citations.single.source, SectionQualifierSource.bare);
-      expect(citations.single.verdict, SectionCitationVerdict.dangling);
-    });
+        expect(citations.single.source, SectionQualifierSource.bare);
+        expect(citations.single.verdict, SectionCitationVerdict.dangling);
+      },
+    );
 
     test('an unrecognised body does not qualify', () {
       // The body list is closed. Keying on the shape "capitals then a number"
       // instead would let a CodeSpecs part code do the qualifying.
       final citations = classify(
         'The part CE-ER 5 §4 is not a standard.',
-        corpus: corpusOf({'own.md': ['9']}),
+        corpus: corpusOf({
+          'own.md': ['9'],
+        }),
         ownSections: ['9'],
       );
 
@@ -663,7 +722,9 @@ class A {}
     test('a run inherits the designator, as it inherits a document name', () {
       final citations = classify(
         'See ISO/IEC 25010:2023 §4.2, §4.3.',
-        corpus: corpusOf({'own.md': ['4.2']}),
+        corpus: corpusOf({
+          'own.md': ['4.2'],
+        }),
         ownSections: ['4.2'],
       );
 
@@ -681,7 +742,9 @@ class A {}
       // earlier in the line cannot capture a properly qualified citation.
       final citations = classify(
         'Derived from ISO 9241 and stated in `x.md` §2.',
-        corpus: corpusOf({'x.md': ['2']}),
+        corpus: corpusOf({
+          'x.md': ['2'],
+        }),
       );
 
       expect(citations.single.source, SectionQualifierSource.leading);
@@ -692,14 +755,15 @@ class A {}
 
   group('SCC8: the exhibit exemption', () {
     /// Classifies [markdown] and reports what the markers left unconsumed.
-    List<StaleSectionExemption> stale(String markdown,
-            {required SectionCorpus corpus, List<String> ownSections = const []}) =>
-        staleSectionExemptions(
-          markdown,
-          path: p.join('/docs', 'own.md'),
-          citations:
-              classify(markdown, corpus: corpus, ownSections: ownSections),
-        );
+    List<StaleSectionExemption> stale(
+      String markdown, {
+      required SectionCorpus corpus,
+      List<String> ownSections = const [],
+    }) => staleSectionExemptions(
+      markdown,
+      path: p.join('/docs', 'own.md'),
+      citations: classify(markdown, corpus: corpus, ownSections: ownSections),
+    );
 
     test('a named id on the marked line is excused, not resolved', () {
       // The exemption suppresses the *defect*, it does not invent a referent:
@@ -707,14 +771,20 @@ class A {}
       // about what the file actually contains.
       final citations = classify(
         'Documents write `§4.1 / §4.2`. <!-- section-cite: exhibit 4.1 4.2 -->',
-        corpus: corpusOf({'other.md': ['4.1']}),
+        corpus: corpusOf({
+          'other.md': ['4.1'],
+        }),
       );
 
       expect(citations, hasLength(2));
-      expect(citations.every((c) => c.verdict == SectionCitationVerdict.dangling),
-          isTrue);
-      expect(citations.every((c) => c.exemption == SectionCitationExemption.exhibit),
-          isTrue);
+      expect(
+        citations.every((c) => c.verdict == SectionCitationVerdict.dangling),
+        isTrue,
+      );
+      expect(
+        citations.every((c) => c.exemption == SectionCitationExemption.exhibit),
+        isTrue,
+      );
       expect(citations.every((c) => c.isViolation), isFalse);
     });
 
@@ -726,7 +796,9 @@ class A {}
       final citations = classify(
         'Documents write `§4.1`, and the rule is stated in §9.9. '
         '<!-- section-cite: exhibit 4.1 -->',
-        corpus: corpusOf({'other.md': ['4.1']}),
+        corpus: corpusOf({
+          'other.md': ['4.1'],
+        }),
       );
 
       expect(citations, hasLength(2));
@@ -744,7 +816,9 @@ class A {}
         'Before §4.1.\n'
         'Exhibit `§4.1`. <!-- section-cite: exhibit 4.1 -->\n'
         'After §4.1.',
-        corpus: corpusOf({'other.md': ['4.1']}),
+        corpus: corpusOf({
+          'other.md': ['4.1'],
+        }),
       );
 
       expect(citations, hasLength(3));
@@ -778,8 +852,11 @@ class A {}
       final markdown =
           'The rule is stated in §4.1. <!-- section-cite: exhibit 4.1 4.2 -->';
 
-      final entries = stale(markdown,
-          corpus: corpusOf({'other.md': []}), ownSections: ['4.1']);
+      final entries = stale(
+        markdown,
+        corpus: corpusOf({'other.md': []}),
+        ownSections: ['4.1'],
+      );
 
       // `4.1` resolves in its own document, so the exemption has nothing to
       // excuse and is not consumed; `4.2` appears nowhere on the line at all.
@@ -813,7 +890,9 @@ class A {}
       final citations = classifySectionCitations(
         dartDocComments(source),
         path: '/pkg/lib/a.dart',
-        corpus: corpusOf({'other.md': ['4.1']}),
+        corpus: corpusOf({
+          'other.md': ['4.1'],
+        }),
         own: DocumentSections.parse('', path: '/pkg/lib/a.dart'),
       );
 
@@ -824,11 +903,14 @@ class A {}
 
       final onOneLine = classifySectionCitations(
         dartDocComments(
-            '/// Shows the run rule with `§4.1 / §4.2`. '
-            '<!-- section-cite: exhibit 4.1 4.2 -->\n'
-            'class A {}\n'),
+          '/// Shows the run rule with `§4.1 / §4.2`. '
+          '<!-- section-cite: exhibit 4.1 4.2 -->\n'
+          'class A {}\n',
+        ),
         path: '/pkg/lib/a.dart',
-        corpus: corpusOf({'other.md': ['4.1']}),
+        corpus: corpusOf({
+          'other.md': ['4.1'],
+        }),
         own: DocumentSections.parse('', path: '/pkg/lib/a.dart'),
       );
 
@@ -939,20 +1021,37 @@ class A {}
     });
 
     test('liftComments picks the lift by extension', () {
-      expect(liftComments('a.dart', '/// Cites §4.1.\nclass A {}'),
-          contains('§4.1'));
+      expect(
+        liftComments('a.dart', '/// Cites §4.1.\nclass A {}'),
+        contains('§4.1'),
+      );
       expect(liftComments('a.sh', '# Cites §4.1.\nexit 0'), contains('§4.1'));
-      expect(liftComments('a.go', '// Cites §4.1.\nfunc main() {}'),
-          contains('§4.1'));
+      expect(
+        liftComments('a.go', '// Cites §4.1.\nfunc main() {}'),
+        contains('§4.1'),
+      );
       // A `//` in a Dart file is a note, not documentation — the one place the
       // two line lifts deliberately disagree.
-      expect(liftComments('a.dart', '// Cites §4.1.\nclass A {}').trim(),
-          isEmpty);
+      expect(
+        liftComments('a.dart', '// Cites §4.1.\nclass A {}').trim(),
+        isEmpty,
+      );
     });
 
     test('isScannedSource admits the kinds these packages write', () {
-      for (final ok in ['a.dart', 'a.sh', 'a.py', 'a.yaml', 'a.c', 'a.go',
-        'a.java', 'a.js', 'a.ts', 'a.rs', 'a.cpp']) {
+      for (final ok in [
+        'a.dart',
+        'a.sh',
+        'a.py',
+        'a.yaml',
+        'a.c',
+        'a.go',
+        'a.java',
+        'a.js',
+        'a.ts',
+        'a.rs',
+        'a.cpp',
+      ]) {
         expect(isScannedSource(ok), isTrue, reason: ok);
       }
       for (final no in ['a.png', 'a.md', 'a.json', 'a.txt']) {

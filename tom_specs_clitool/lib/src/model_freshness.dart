@@ -129,11 +129,11 @@ class ModelSurface {
   /// The key names are the on-disk contract: [fromJson] requires every one of
   /// them, so renaming a key here invalidates every committed stamp.
   Map<String, Object?> toJson() => {
-        'fingerprint': fingerprint,
-        'fileCount': fileCount,
-        'declarationCount': declarationCount,
-        'packages': packages,
-      };
+    'fingerprint': fingerprint,
+    'fileCount': fileCount,
+    'declarationCount': declarationCount,
+    'packages': packages,
+  };
 
   /// Reads a stamp back from its JSON form.
   ///
@@ -142,11 +142,11 @@ class ModelSurface {
   /// defaulting would let the guard compare against a stamp that means
   /// something other than it says.
   static ModelSurface fromJson(Map<String, Object?> json) => ModelSurface(
-        fingerprint: json['fingerprint']! as String,
-        fileCount: json['fileCount']! as int,
-        declarationCount: json['declarationCount']! as int,
-        packages: (json['packages']! as List).cast<String>(),
-      );
+    fingerprint: json['fingerprint']! as String,
+    fileCount: json['fileCount']! as int,
+    declarationCount: json['declarationCount']! as int,
+    packages: (json['packages']! as List).cast<String>(),
+  );
 }
 
 /// The fingerprint of one set of Dart source files.
@@ -198,7 +198,11 @@ LibrarySurface fingerprintSources(List<File> files, {required String rootDir}) {
       ..write(rendered.text);
   }
 
-  return LibrarySurface(_sha256(buffer.toString()), sorted.length, declarations);
+  return LibrarySurface(
+    _sha256(buffer.toString()),
+    sorted.length,
+    declarations,
+  );
 }
 
 /// Computes the current model fingerprint.
@@ -222,8 +226,7 @@ ModelSurface computeModelSurface({
     throw StateError('model version stamp not found at ${versioner.path}');
   }
 
-  final surface =
-      fingerprintSources([...files, versioner], rootDir: root);
+  final surface = fingerprintSources([...files, versioner], rootDir: root);
 
   return ModelSurface(
     fingerprint: surface.hash,
@@ -238,7 +241,8 @@ ModelSurface? readModelSurfaceStamp({required String clitoolRoot}) {
   final file = File(p.join(clitoolRoot, modelSurfaceStampPath));
   if (!file.existsSync()) return null;
   return ModelSurface.fromJson(
-      jsonDecode(file.readAsStringSync()) as Map<String, Object?>);
+    jsonDecode(file.readAsStringSync()) as Map<String, Object?>,
+  );
 }
 
 /// Writes [surface] to the stamp file. Called by `bin/generate_som.dart`, never
@@ -378,7 +382,8 @@ class _FunctionBodyCollector extends RecursiveAstVisitor<void> {
   }
 
   @override
-  void visitExpressionFunctionBody(ExpressionFunctionBody node) => _record(node);
+  void visitExpressionFunctionBody(ExpressionFunctionBody node) =>
+      _record(node);
 
   @override
   void visitEmptyFunctionBody(EmptyFunctionBody node) => _record(node);

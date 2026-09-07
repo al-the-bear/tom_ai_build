@@ -32,7 +32,8 @@ void main() {
       expect(
         gaps.map((g) => g.toString()).toList(),
         isEmpty,
-        reason: 'These files cite the doc set but no gate reads them. Add each '
+        reason:
+            'These files cite the doc set but no gate reads them. Add each '
             'to defaultCitedReadmes / defaultCitedDocFolders / '
             'defaultCitedSourceRoots in tom_specs_clitool/lib/src/.',
       );
@@ -46,9 +47,13 @@ void main() {
         for (final pkg in tomSpecsPackageRoots)
           if (!Directory(p.join(root, pkg)).existsSync()) pkg,
       ];
-      expect(missing, isEmpty,
-          reason: 'tomSpecsPackageRoots names a directory that is not here; '
-              'the coverage check silently skips it.');
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            'tomSpecsPackageRoots names a directory that is not here; '
+            'the coverage check silently skips it.',
+      );
       expect(tomSpecsPackageRoots.length, greaterThanOrEqualTo(29));
     });
 
@@ -62,23 +67,28 @@ void main() {
 
       final pkg = Directory(p.join(tmp.path, 'tom_ai', 'ai_build', 'tom_fake'))
         ..createSync(recursive: true);
-      File(p.join(pkg.path, 'README.md'))
-          .writeAsStringSync('See `som_multiplatform_spec_model.md` §12.');
+      File(
+        p.join(pkg.path, 'README.md'),
+      ).writeAsStringSync('See `som_multiplatform_spec_model.md` §12.');
       Directory(p.join(pkg.path, 'doc')).createSync();
-      File(p.join(pkg.path, 'doc', 'guide.md'))
-          .writeAsStringSync('Per `tom_specs_model_rules.md` §5.2.');
+      File(
+        p.join(pkg.path, 'doc', 'guide.md'),
+      ).writeAsStringSync('Per `tom_specs_model_rules.md` §5.2.');
       Directory(p.join(pkg.path, 'lib')).createSync();
-      File(p.join(pkg.path, 'lib', 'fake.dart'))
-          .writeAsStringSync('/// Per `codespecs_mapping.md` §4.1.\nclass A {}');
+      File(
+        p.join(pkg.path, 'lib', 'fake.dart'),
+      ).writeAsStringSync('/// Per `codespecs_mapping.md` §4.1.\nclass A {}');
 
       final gaps = findScanSetGaps(
         containerRoot: tmp.path,
         packageRoots: const ['tom_ai/ai_build/tom_fake'],
       );
 
-      expect(gaps.map((g) => g.kind).toSet(),
-          {'README', 'doc folder', 'source tree'},
-          reason: 'all three set kinds must be checked, not just the first');
+      expect(
+        gaps.map((g) => g.kind).toSet(),
+        {'README', 'doc folder', 'source tree'},
+        reason: 'all three set kinds must be checked, not just the first',
+      );
       expect(gaps.first.toString(), contains('no default'));
     });
 
@@ -95,7 +105,8 @@ void main() {
       for (final dir in ['bin', 'test', 'tool', 'example']) {
         Directory(p.join(pkg.path, dir)).createSync();
         File(p.join(pkg.path, dir, 'a.dart')).writeAsStringSync(
-            '/// Per `codespecs_mapping.md` §4.1.\nvoid main() {}');
+          '/// Per `codespecs_mapping.md` §4.1.\nvoid main() {}',
+        );
       }
 
       final gaps = findScanSetGaps(
@@ -111,7 +122,8 @@ void main() {
           'tom_ai/ai_build/tom_dirs/tool',
           'tom_ai/ai_build/tom_dirs/example',
         },
-        reason: 'each source directory is its own gap: they are separate '
+        reason:
+            'each source directory is its own gap: they are separate '
             'entries in defaultCitedSourceRoots, so the repair is per '
             'directory',
       );
@@ -127,7 +139,8 @@ void main() {
         ..createSync(recursive: true);
       Directory(p.join(pkg.path, 'tool')).createSync();
       File(p.join(pkg.path, 'tool', 'run.sh')).writeAsStringSync(
-          '#!/usr/bin/env bash\n# Per `codespecs_mapping.md` §4.1.\nexit 0\n');
+        '#!/usr/bin/env bash\n# Per `codespecs_mapping.md` §4.1.\nexit 0\n',
+      );
 
       expect(
         findScanSetGaps(
@@ -138,28 +151,31 @@ void main() {
       );
     });
 
-    test('a § outside a comment does not make a directory a scan-set member',
-        () {
-      // The gate reads comments, so the coverage walk must too. A `§` in a
-      // string literal is not a citation anyone follows, and reporting the
-      // directory would send someone to add a root that then finds nothing.
-      final tmp = Directory.systemTemp.createTempSync('scan_set_str_');
-      addTearDown(() => tmp.deleteSync(recursive: true));
-      final pkg = Directory(p.join(tmp.path, 'tom_ai', 'ai_build', 'tom_str'))
-        ..createSync(recursive: true);
-      Directory(p.join(pkg.path, 'test')).createSync();
-      File(p.join(pkg.path, 'test', 'a_test.dart')).writeAsStringSync(
+    test(
+      'a § outside a comment does not make a directory a scan-set member',
+      () {
+        // The gate reads comments, so the coverage walk must too. A `§` in a
+        // string literal is not a citation anyone follows, and reporting the
+        // directory would send someone to add a root that then finds nothing.
+        final tmp = Directory.systemTemp.createTempSync('scan_set_str_');
+        addTearDown(() => tmp.deleteSync(recursive: true));
+        final pkg = Directory(p.join(tmp.path, 'tom_ai', 'ai_build', 'tom_str'))
+          ..createSync(recursive: true);
+        Directory(p.join(pkg.path, 'test')).createSync();
+        File(p.join(pkg.path, 'test', 'a_test.dart')).writeAsStringSync(
           "void main() {\n  const fixture = '/// Per `x.md` §4.1.';\n"
-          "  print(fixture);\n}\n");
+          "  print(fixture);\n}\n",
+        );
 
-      expect(
-        findScanSetGaps(
-          containerRoot: tmp.path,
-          packageRoots: const ['tom_ai/ai_build/tom_str'],
-        ),
-        isEmpty,
-      );
-    });
+        expect(
+          findScanSetGaps(
+            containerRoot: tmp.path,
+            packageRoots: const ['tom_ai/ai_build/tom_str'],
+          ),
+          isEmpty,
+        );
+      },
+    );
 
     test('a package that cites nothing needs no scan set', () {
       // The membership rule is *citing*, not *kind*: listing a package with no
@@ -170,8 +186,9 @@ void main() {
         ..createSync(recursive: true);
       File(p.join(pkg.path, 'README.md')).writeAsStringSync('No citations.');
       Directory(p.join(pkg.path, 'lib')).createSync();
-      File(p.join(pkg.path, 'lib', 'quiet.dart'))
-          .writeAsStringSync('/// Plain prose.\nclass A {}');
+      File(
+        p.join(pkg.path, 'lib', 'quiet.dart'),
+      ).writeAsStringSync('/// Plain prose.\nclass A {}');
 
       expect(
         findScanSetGaps(

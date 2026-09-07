@@ -8,59 +8,62 @@ import 'package:test/test.dart';
 /// registered language (it is not in the SOM §17.3 registry); it only
 /// exercises the language-agnostic renderers and rewriters.
 PackagingDescriptor _sampleDescriptor() => const PackagingDescriptor(
-      language: SomLanguage.dart,
-      displayName: 'Dart',
-      runtimePackageName: 'tom_som_dart_runtime',
-      facadePackageName: 'tom_som_dart_v0',
-      codeFence: 'dart',
-      installShort: 'Add `tom_som_dart_v0` to your `pubspec.yaml`.',
-      usageSnippet: "final doc = SpecDocument()..loadJson(decoded.document);",
-      integrateRoutes: [
-        PackagingRoute(heading: 'From pub.dev', body: 'dart pub add tom_som_dart_v0'),
-        PackagingRoute(heading: 'Git dependency', body: 'use a `git:` dep'),
-      ],
-      buildFromSource: 'dart pub get && dart pub publish --dry-run',
-      buildArtifactIgnores: ['.dart_tool/', 'doc/api/'],
-      runtimeManifestFileName: 'pubspec.yaml',
-      runtimeManifestFormat: ManifestFormat.pubspec,
-      manifestDescription: 'A sample facade.',
-      manifestDescriptionFile: 'pubspec.yaml',
-      whereThisFitsSentence: 'Dart is the reference plane.',
-      tutorialSentence: 'A Dart walkthrough end to end.',
-      exampleDirName: 'example',
-      examples: [
-        PackagingExample(
-          file: 'a_typed_access.dart',
-          demonstrates: 'The generated typed facade.',
-        ),
-      ],
-      usageSections: [
-        PackagingUsage(
-          heading: 'The generic store underneath',
-          intro: 'A facade is a view; the document is the value.',
-          snippet: 'final doc = SpecDocument();',
-        ),
-      ],
-      verifyCommand: 'dart test',
-    );
+  language: SomLanguage.dart,
+  displayName: 'Dart',
+  runtimePackageName: 'tom_som_dart_runtime',
+  facadePackageName: 'tom_som_dart_v0',
+  codeFence: 'dart',
+  installShort: 'Add `tom_som_dart_v0` to your `pubspec.yaml`.',
+  usageSnippet: "final doc = SpecDocument()..loadJson(decoded.document);",
+  integrateRoutes: [
+    PackagingRoute(
+      heading: 'From pub.dev',
+      body: 'dart pub add tom_som_dart_v0',
+    ),
+    PackagingRoute(heading: 'Git dependency', body: 'use a `git:` dep'),
+  ],
+  buildFromSource: 'dart pub get && dart pub publish --dry-run',
+  buildArtifactIgnores: ['.dart_tool/', 'doc/api/'],
+  runtimeManifestFileName: 'pubspec.yaml',
+  runtimeManifestFormat: ManifestFormat.pubspec,
+  manifestDescription: 'A sample facade.',
+  manifestDescriptionFile: 'pubspec.yaml',
+  whereThisFitsSentence: 'Dart is the reference plane.',
+  tutorialSentence: 'A Dart walkthrough end to end.',
+  exampleDirName: 'example',
+  examples: [
+    PackagingExample(
+      file: 'a_typed_access.dart',
+      demonstrates: 'The generated typed facade.',
+    ),
+  ],
+  usageSections: [
+    PackagingUsage(
+      heading: 'The generic store underneath',
+      intro: 'A facade is a view; the document is the value.',
+      snippet: 'final doc = SpecDocument();',
+    ),
+  ],
+  verifyCommand: 'dart test',
+);
 
 /// A minimal generated surface for the renderer tests — two roots, standing in
 /// for the fourteen a real `meta/spec_model.meta.json` carries.
 FacadeSurface _sampleSurface() => const FacadeSurface(
-      classCount: 1254,
-      roots: [
-        FacadeDocumentRoot(
-          type: 'D00SolutionBlueprint',
-          sectionId: 'SBP',
-          title: 'Solution Blueprint',
-        ),
-        FacadeDocumentRoot(
-          type: 'D01CurrentLandscapeAssessment',
-          sectionId: 'CLA',
-          title: 'Current Landscape Assessment',
-        ),
-      ],
-    );
+  classCount: 1254,
+  roots: [
+    FacadeDocumentRoot(
+      type: 'D00SolutionBlueprint',
+      sectionId: 'SBP',
+      title: 'Solution Blueprint',
+    ),
+    FacadeDocumentRoot(
+      type: 'D01CurrentLandscapeAssessment',
+      sectionId: 'CLA',
+      title: 'Current Landscape Assessment',
+    ),
+  ],
+);
 
 /// The workspace's `tom_ai/ai_build` directory, which holds every SOM package
 /// beside this one. `null` when the test runs outside a checkout of the
@@ -104,21 +107,33 @@ void main() {
 
     test('pyproject version', () {
       const src = '[project]\nname = "foo"\nversion = "0.0.0"\n';
-      final out = rewriteManifestVersion(src, ManifestFormat.pyproject, '1.0.0');
+      final out = rewriteManifestVersion(
+        src,
+        ManifestFormat.pyproject,
+        '1.0.0',
+      );
       expect(out, contains('version = "1.0.0"'));
     });
 
     test('package.json version', () {
       const src = '{\n  "name": "foo",\n  "version": "0.0.0"\n}\n';
-      final out =
-          rewriteManifestVersion(src, ManifestFormat.packageJson, '1.0.0');
+      final out = rewriteManifestVersion(
+        src,
+        ManifestFormat.packageJson,
+        '1.0.0',
+      );
       expect(out, contains('"version": "1.0.0"'));
     });
 
     test('Cargo.toml rewrites the package version, not later ones', () {
-      const src = '[package]\nname = "foo"\nversion = "0.0.0"\n\n'
+      const src =
+          '[package]\nname = "foo"\nversion = "0.0.0"\n\n'
           '[dependencies]\nserde = { version = "1.0" }\n';
-      final out = rewriteManifestVersion(src, ManifestFormat.cargoToml, '2.0.0');
+      final out = rewriteManifestVersion(
+        src,
+        ManifestFormat.cargoToml,
+        '2.0.0',
+      );
       expect(out, contains('name = "foo"\nversion = "2.0.0"'));
       // The dependency version is untouched (replaceFirst).
       expect(out, contains('serde = { version = "1.0" }'));
@@ -126,15 +141,21 @@ void main() {
 
     test('go version constant gets a v-prefix', () {
       const src = 'package somv0\n\nconst Version = "v0.0.0"\n';
-      final out =
-          rewriteManifestVersion(src, ManifestFormat.goVersionConst, '1.0.0');
+      final out = rewriteManifestVersion(
+        src,
+        ManifestFormat.goVersionConst,
+        '1.0.0',
+      );
       expect(out, contains('Version = "v1.0.0"'));
     });
 
     test('Makefile VERSION variable', () {
       const src = 'VERSION := 0.0.0\nCC := gcc\n';
-      final out =
-          rewriteManifestVersion(src, ManifestFormat.makefileVar, '1.0.0');
+      final out = rewriteManifestVersion(
+        src,
+        ManifestFormat.makefileVar,
+        '1.0.0',
+      );
       expect(out, contains('VERSION := 1.0.0'));
     });
 
@@ -146,7 +167,11 @@ void main() {
 
     test('throws when no version field exists', () {
       expect(
-        () => rewriteManifestVersion('name: foo\n', ManifestFormat.pubspec, '1.0.0'),
+        () => rewriteManifestVersion(
+          'name: foo\n',
+          ManifestFormat.pubspec,
+          '1.0.0',
+        ),
         throwsStateError,
       );
     });
@@ -154,10 +179,10 @@ void main() {
 
   group('renderFacadeReadme — the §2 template (SOM §17)', () {
     String render() => renderFacadeReadme(
-          _sampleDescriptor(),
-          version: '1.0.0',
-          surface: _sampleSurface(),
-        );
+      _sampleDescriptor(),
+      version: '1.0.0',
+      surface: _sampleSurface(),
+    );
 
     test('emits the §2.1 sections in order, and no others', () {
       final headings = [
@@ -194,32 +219,49 @@ void main() {
 
     test('the document-roots table is the surface, not a hand-kept copy', () {
       final md = render();
-      expect(md, contains('| `SBP` | Solution Blueprint | `D00SolutionBlueprint` |'));
-      expect(md, contains('| `CLA` | Current Landscape Assessment | '
-          '`D01CurrentLandscapeAssessment` |'));
+      expect(
+        md,
+        contains('| `SBP` | Solution Blueprint | `D00SolutionBlueprint` |'),
+      );
+      expect(
+        md,
+        contains(
+          '| `CLA` | Current Landscape Assessment | '
+          '`D01CurrentLandscapeAssessment` |',
+        ),
+      );
       expect(md, contains('1254 generated types'));
     });
 
-    test('the §4.2 tutorial link is emitted with its per-language sentence', () {
-      final md = render();
-      expect(md, contains('[doc/tutorial.md](doc/tutorial.md)'));
-      expect(md, contains('A Dart walkthrough end to end.'));
-    });
+    test(
+      'the §4.2 tutorial link is emitted with its per-language sentence',
+      () {
+        final md = render();
+        expect(md, contains('[doc/tutorial.md](doc/tutorial.md)'));
+        expect(md, contains('A Dart walkthrough end to end.'));
+      },
+    );
 
-    test('the §2.4 cross-link block has all three parts and links index.md', () {
-      final md = render();
-      expect(md, contains('**TomSpecs subject matter**'));
-      expect(md, contains('**This package**'));
-      expect(md, contains('**Siblings**'));
-      expect(md, contains('](../tom_specs_model/doc/index.md)'));
-      expect(md, contains('](../tom_som_dart_runtime)'));
-    });
+    test(
+      'the §2.4 cross-link block has all three parts and links index.md',
+      () {
+        final md = render();
+        expect(md, contains('**TomSpecs subject matter**'));
+        expect(md, contains('**This package**'));
+        expect(md, contains('**Siblings**'));
+        expect(md, contains('](../tom_specs_model/doc/index.md)'));
+        expect(md, contains('](../tom_som_dart_runtime)'));
+      },
+    );
 
     test('quick start, examples and usage carry the descriptor content', () {
       final md = render();
       expect(md, contains('Add `tom_som_dart_v0`'));
       expect(md, contains('```dart'));
-      expect(md, contains('[`a_typed_access.dart`](example/a_typed_access.dart)'));
+      expect(
+        md,
+        contains('[`a_typed_access.dart`](example/a_typed_access.dart)'),
+      );
       expect(md, contains('### The generic store underneath'));
       expect(md, contains('readme_howtointegrate.md'));
     });
@@ -273,30 +315,34 @@ void main() {
       final d = packagingDescriptorFor(lang);
       if (d == null) continue;
 
-      test('${lang.slug}: the mandatory per-language sentences are present', () {
-        // §4.2: the tutorial link is emitted from the template, so a tenth
-        // language cannot be registered without a sentence describing its
-        // tutorial. Same for the §2.1 row 3 description and the §2.3 closer.
-        expect(d.tutorialSentence, isNotEmpty);
-        expect(d.manifestDescription, isNotEmpty);
-        expect(d.manifestDescriptionFile, isNotEmpty);
-        expect(d.whereThisFitsSentence, isNotEmpty);
-        expect(d.verifyCommand, isNotEmpty);
-        expect(d.exampleDirName, anyOf('example', 'examples'));
-        expect(d.examples, isNotEmpty);
-        expect(d.usageSections, isNotEmpty);
-        for (final usage in d.usageSections) {
-          expect(usage.heading, isNotEmpty);
-          expect(usage.intro, isNotEmpty);
-          expect(usage.snippet.trim(), isNotEmpty);
-        }
-      });
+      test(
+        '${lang.slug}: the mandatory per-language sentences are present',
+        () {
+          // §4.2: the tutorial link is emitted from the template, so a tenth
+          // language cannot be registered without a sentence describing its
+          // tutorial. Same for the §2.1 row 3 description and the §2.3 closer.
+          expect(d.tutorialSentence, isNotEmpty);
+          expect(d.manifestDescription, isNotEmpty);
+          expect(d.manifestDescriptionFile, isNotEmpty);
+          expect(d.whereThisFitsSentence, isNotEmpty);
+          expect(d.verifyCommand, isNotEmpty);
+          expect(d.exampleDirName, anyOf('example', 'examples'));
+          expect(d.examples, isNotEmpty);
+          expect(d.usageSections, isNotEmpty);
+          for (final usage in d.usageSections) {
+            expect(usage.heading, isNotEmpty);
+            expect(usage.intro, isNotEmpty);
+            expect(usage.snippet.trim(), isNotEmpty);
+          }
+        },
+      );
 
       test('${lang.slug}: every listed example file exists', () {
         final root = _aiBuildDir();
         if (root == null) return;
         final dir = Directory(
-            p.join(root.path, d.facadePackageName, d.exampleDirName));
+          p.join(root.path, d.facadePackageName, d.exampleDirName),
+        );
         if (!dir.existsSync()) {
           fail('examples directory not found: ${dir.path}');
         }
@@ -305,32 +351,37 @@ void main() {
           expect(
             File(entry).existsSync() || Directory(entry).existsSync(),
             isTrue,
-            reason: 'README Examples table names a sample that does not '
+            reason:
+                'README Examples table names a sample that does not '
                 'exist: $entry',
           );
         }
       });
 
-      test('${lang.slug}: the manifest still carries the README description',
-          () {
-        final root = _aiBuildDir();
-        if (root == null) return;
-        final file = File(p.join(
-            root.path, d.facadePackageName, d.manifestDescriptionFile));
-        if (!file.existsSync()) {
-          fail('manifest not found: ${file.path}');
-        }
-        // Whitespace-insensitive: pubspec wraps its description across lines,
-        // so the comparison is of words, not of line breaks.
-        String flat(String t) => t.replaceAll(RegExp(r'\s+'), ' ').trim();
-        expect(
-          flat(file.readAsStringSync()),
-          contains(flat(d.manifestDescription)),
-          reason: 'the README one-line description must match '
-              '${d.manifestDescriptionFile} word for word '
-              '(tom_specs_documentation_standard.md §2.1 row 3)',
-        );
-      });
+      test(
+        '${lang.slug}: the manifest still carries the README description',
+        () {
+          final root = _aiBuildDir();
+          if (root == null) return;
+          final file = File(
+            p.join(root.path, d.facadePackageName, d.manifestDescriptionFile),
+          );
+          if (!file.existsSync()) {
+            fail('manifest not found: ${file.path}');
+          }
+          // Whitespace-insensitive: pubspec wraps its description across lines,
+          // so the comparison is of words, not of line breaks.
+          String flat(String t) => t.replaceAll(RegExp(r'\s+'), ' ').trim();
+          expect(
+            flat(file.readAsStringSync()),
+            contains(flat(d.manifestDescription)),
+            reason:
+                'the README one-line description must match '
+                '${d.manifestDescriptionFile} word for word '
+                '(tom_specs_documentation_standard.md §2.1 row 3)',
+          );
+        },
+      );
     }
   });
 
@@ -419,8 +470,11 @@ void main() {
       };
       for (final lang in SomLanguage.values) {
         if (registered.contains(lang)) continue;
-        expect(packagingDescriptorFor(lang), isNull,
-            reason: 'no descriptor should be registered yet for $lang');
+        expect(
+          packagingDescriptorFor(lang),
+          isNull,
+          reason: 'no descriptor should be registered yet for $lang',
+        );
       }
     });
   });
@@ -437,9 +491,13 @@ void main() {
       // PyPI / git / editable routes plus the shipped-data-files route are
       // all documented.
       expect(d.integrateRoutes, hasLength(4));
-      expect(d.integrateRoutes.last.heading, contains('data files'),
-          reason: 'the 4th route documents the wheel-shipped meta/schemas '
-              'data resolution (tom_som_python_v0_data)');
+      expect(
+        d.integrateRoutes.last.heading,
+        contains('data files'),
+        reason:
+            'the 4th route documents the wheel-shipped meta/schemas '
+            'data resolution (tom_som_python_v0_data)',
+      );
     });
   });
 
@@ -551,28 +609,33 @@ void main() {
   });
 
   group('rewriteManifestVersion — Maven pom.xml (SOM §17.3)', () {
-    test('pom.xml rewrites the project version, not the modelVersion or deps',
-        () {
-      const src = '<project>\n'
-          '  <modelVersion>4.0.0</modelVersion>\n'
-          '  <artifactId>foo</artifactId>\n'
-          '  <version>0.0.0</version>\n'
-          '  <dependencies>\n'
-          '    <dependency><version>9.9.9</version></dependency>\n'
-          '  </dependencies>\n'
-          '</project>\n';
-      final out = rewriteManifestVersion(src, ManifestFormat.pomXml, '1.0.0');
-      // The project version is rewritten…
-      expect(out, contains('<artifactId>foo</artifactId>\n  <version>1.0.0'));
-      // …while <modelVersion> (the POM schema version) is left intact…
-      expect(out, contains('<modelVersion>4.0.0</modelVersion>'));
-      // …and a later dependency version is untouched (replaceFirst).
-      expect(out, contains('<dependency><version>9.9.9</version></dependency>'));
-    });
+    test(
+      'pom.xml rewrites the project version, not the modelVersion or deps',
+      () {
+        const src =
+            '<project>\n'
+            '  <modelVersion>4.0.0</modelVersion>\n'
+            '  <artifactId>foo</artifactId>\n'
+            '  <version>0.0.0</version>\n'
+            '  <dependencies>\n'
+            '    <dependency><version>9.9.9</version></dependency>\n'
+            '  </dependencies>\n'
+            '</project>\n';
+        final out = rewriteManifestVersion(src, ManifestFormat.pomXml, '1.0.0');
+        // The project version is rewritten…
+        expect(out, contains('<artifactId>foo</artifactId>\n  <version>1.0.0'));
+        // …while <modelVersion> (the POM schema version) is left intact…
+        expect(out, contains('<modelVersion>4.0.0</modelVersion>'));
+        // …and a later dependency version is untouched (replaceFirst).
+        expect(
+          out,
+          contains('<dependency><version>9.9.9</version></dependency>'),
+        );
+      },
+    );
 
     test('is idempotent', () {
-      const src =
-          '<project>\n  <version>1.0.0</version>\n</project>\n';
+      const src = '<project>\n  <version>1.0.0</version>\n</project>\n';
       final out = rewriteManifestVersion(src, ManifestFormat.pomXml, '1.0.0');
       expect(out, src);
     });

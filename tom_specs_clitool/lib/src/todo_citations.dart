@@ -200,15 +200,21 @@ class TodoCorpus {
         final id = entry['id'];
         if (id is! String || id.isEmpty) continue;
         final stem = id.split('_').first;
-        final status = entry['status'] is String ? entry['status'] as String : '';
+        final status = entry['status'] is String
+            ? entry['status'] as String
+            : '';
 
-        byStem.putIfAbsent(stem, () => []).add(TodoRecord(
-              id: id,
-              stem: stem,
-              status: status,
-              sourcePath: path,
-              closed: closedFile || _closedStatuses.contains(status),
-            ));
+        byStem
+            .putIfAbsent(stem, () => [])
+            .add(
+              TodoRecord(
+                id: id,
+                stem: stem,
+                status: status,
+                sourcePath: path,
+                closed: closedFile || _closedStatuses.contains(status),
+              ),
+            );
         final shape = todoIdShape.firstMatch(stem);
         if (shape != null) prefixes.add(shape.group(1)!);
       }
@@ -268,7 +274,8 @@ enum CitationExemption {
 /// closed regardless of the `status:` it carries.
 bool _isClosedTodoFile(String path) {
   final name = p.basename(path);
-  return name.startsWith('todos-archived.') || name.startsWith('todos-deleted.');
+  return name.startsWith('todos-archived.') ||
+      name.startsWith('todos-deleted.');
 }
 
 /// One todo-id citation found in one document line.
@@ -323,37 +330,40 @@ class TodoCitation {
 
   /// True when this citation must fail the check.
   bool get isViolation => switch (verdict) {
-        CitationVerdict.open => false,
-        CitationVerdict.closed => exemption == null,
-        // Deliberately not exemptable — see the library doc.
-        CitationVerdict.ambiguous => true,
-        CitationVerdict.unresolved || CitationVerdict.unknownSeries => true,
-      };
+    CitationVerdict.open => false,
+    CitationVerdict.closed => exemption == null,
+    // Deliberately not exemptable — see the library doc.
+    CitationVerdict.ambiguous => true,
+    CitationVerdict.unresolved || CitationVerdict.unknownSeries => true,
+  };
 
   /// A one-line, `file:line`-prefixed description suitable for a build log.
   String describe({String? relativeTo}) {
-    final where = relativeTo == null ? file : p.relative(file, from: relativeTo);
+    final where = relativeTo == null
+        ? file
+        : p.relative(file, from: relativeTo);
     return '$where:$line: `$token` — ${_reason()}';
   }
 
   String _reason() => switch (verdict) {
-        CitationVerdict.open => 'OPEN',
-        CitationVerdict.closed => exemption == null
-            ? 'CLOSED — the todo is finished; state the outcome instead of '
+    CitationVerdict.open => 'OPEN',
+    CitationVerdict.closed =>
+      exemption == null
+          ? 'CLOSED — the todo is finished; state the outcome instead of '
                 'citing open work, or, if it names the raiser or a landed '
                 'prerequisite, cite the open todo that owns the follow-up on '
                 'the same line and mark it <!-- todo-cite: provenance -->'
-            : 'CLOSED (${exemption!.name})',
-        CitationVerdict.ambiguous =>
-          'AMBIGUOUS — ${matchedIds.length} todos carry this stem, so the '
-              'citation names all of them; write the one you mean, date code '
-              'and all: ${matchedIds.join(', ')}',
-        CitationVerdict.unresolved =>
-          'UNRESOLVED — no todo with this number exists in the series',
-        CitationVerdict.unknownSeries =>
-          'UNRESOLVED — no todo file in the corpus uses this series; if it is '
-              'not a todo id, add it to the vocabulary',
-      };
+          : 'CLOSED (${exemption!.name})',
+    CitationVerdict.ambiguous =>
+      'AMBIGUOUS — ${matchedIds.length} todos carry this stem, so the '
+          'citation names all of them; write the one you mean, date code '
+          'and all: ${matchedIds.join(', ')}',
+    CitationVerdict.unresolved =>
+      'UNRESOLVED — no todo with this number exists in the series',
+    CitationVerdict.unknownSeries =>
+      'UNRESOLVED — no todo file in the corpus uses this series; if it is '
+          'not a todo id, add it to the vocabulary',
+  };
 }
 
 /// Tokens that share the todo-id shape but are not todo ids.
@@ -418,7 +428,8 @@ List<TodoCitation> classifyMarkdown(
 
   // A document-level `<!-- todo-cite: history -->` exempts the whole file. Read
   // it before classifying so its position in the file does not matter.
-  final documentExemption = lines.any((l) {
+  final documentExemption =
+      lines.any((l) {
         final m = _citeMarker.firstMatch(l.trim());
         return m != null && m.group(1) == 'history' && l.trim() == m.group(0);
       })
@@ -440,7 +451,9 @@ List<TodoCitation> classifyMarkdown(
     // the line also cites an open todo, which is not known until every token on
     // it has been resolved.
     final onLine =
-        <(String token, String stem, CitationVerdict verdict, List<String> ids)>[];
+        <
+          (String token, String stem, CitationVerdict verdict, List<String> ids)
+        >[];
     for (final match in _inlineCode.allMatches(line)) {
       final token = match.group(1)!.trim();
       if (vocabulary.contains(token)) continue;
@@ -469,15 +482,17 @@ List<TodoCitation> classifyMarkdown(
     }
 
     for (final (token, stem, verdict, ids) in onLine) {
-      citations.add(TodoCitation(
-        token: token,
-        stem: stem,
-        file: path,
-        line: i + 1,
-        verdict: verdict,
-        matchedIds: ids,
-        exemption: verdict == CitationVerdict.closed ? exemption : null,
-      ));
+      citations.add(
+        TodoCitation(
+          token: token,
+          stem: stem,
+          file: path,
+          line: i + 1,
+          verdict: verdict,
+          matchedIds: ids,
+          exemption: verdict == CitationVerdict.closed ? exemption : null,
+        ),
+      );
     }
   }
 
@@ -509,8 +524,11 @@ List<TodoRecord> _recordsFor(String token, String stem, TodoCorpus corpus) {
   ];
 }
 
-CitationVerdict _verdictFor(List<TodoRecord> records, String stem,
-    TodoCorpus corpus) {
+CitationVerdict _verdictFor(
+  List<TodoRecord> records,
+  String stem,
+  TodoCorpus corpus,
+) {
   if (records.length > 1) return CitationVerdict.ambiguous;
   if (records.length == 1) {
     return records.single.closed
@@ -552,8 +570,10 @@ class TodoCitationReport {
   final TodoCorpus corpus;
 
   /// The citations that are defects, in document then line order.
-  List<TodoCitation> get violations =>
-      [for (final c in citations) if (c.isViolation) c];
+  List<TodoCitation> get violations => [
+    for (final c in citations)
+      if (c.isViolation) c,
+  ];
 
   /// Whether the scan found nothing to report.
   bool get isClean => violations.isEmpty;
@@ -586,15 +606,20 @@ TodoCitationReport checkDocFolder({
 }) {
   final dir = Directory(docDir);
   if (!dir.existsSync()) {
-    throw ArgumentError.value(docDir, 'docDir', 'documentation folder not found');
+    throw ArgumentError.value(
+      docDir,
+      'docDir',
+      'documentation folder not found',
+    );
   }
 
-  final files = dir
-      .listSync()
-      .whereType<File>()
-      .where((f) => p.extension(f.path) == '.md')
-      .toList()
-    ..sort((a, b) => a.path.compareTo(b.path));
+  final files =
+      dir
+          .listSync()
+          .whereType<File>()
+          .where((f) => p.extension(f.path) == '.md')
+          .toList()
+        ..sort((a, b) => a.path.compareTo(b.path));
   for (final path in extraFiles) {
     final file = File(path);
     if (file.existsSync()) files.add(file);
@@ -602,12 +627,14 @@ TodoCitationReport checkDocFolder({
 
   final citations = <TodoCitation>[];
   for (final file in files) {
-    citations.addAll(classifyMarkdown(
-      file.readAsStringSync(),
-      path: file.path,
-      corpus: corpus,
-      vocabulary: vocabulary,
-    ));
+    citations.addAll(
+      classifyMarkdown(
+        file.readAsStringSync(),
+        path: file.path,
+        corpus: corpus,
+        vocabulary: vocabulary,
+      ),
+    );
   }
 
   return TodoCitationReport(

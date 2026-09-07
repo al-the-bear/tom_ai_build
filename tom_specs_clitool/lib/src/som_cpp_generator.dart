@@ -87,6 +87,7 @@ class SomCppGenerationResult {
   /// / `.cpp`): the populated SomMetaTrees plus the dot-notation and ID-tree
   /// access surfaces.
   final String metaModuleHeaderPath;
+
   /// The metadata module's translation unit (`src/tom_som_cpp_v0_meta.cpp`),
   /// paired with [metaModuleHeaderPath]. The facade's load functions thread the
   /// per-root tree defined here into the generic runtime decoder, so a build
@@ -198,13 +199,16 @@ SomCppGenerationResult writeSomCppProject({
   meta['generatedAt'] = generatedAt;
   final metaErrors = validateSpecModelMeta(meta);
   if (metaErrors.isNotEmpty) {
-    throw StateError('generated meta-data is invalid:\n  '
-        '${metaErrors.join('\n  ')}');
+    throw StateError(
+      'generated meta-data is invalid:\n  '
+      '${metaErrors.join('\n  ')}',
+    );
   }
   final metaJsonPath = p.join(outputRoot, 'meta', 'spec_model.meta.json');
   final metaFile = File(metaJsonPath)..parent.createSync(recursive: true);
   metaFile.writeAsStringSync(
-      '${const JsonEncoder.withIndent('  ').convert(meta)}\n');
+    '${const JsonEncoder.withIndent('  ').convert(meta)}\n',
+  );
 
   // ── typed C++ facade (editing facade over the generic runtime) ─────────────
   final model = SpecModel.fromJson(meta);
@@ -230,23 +234,32 @@ SomCppGenerationResult writeSomCppProject({
     versionLabel: versionLabel,
     documentRoots: documentRoots,
   );
-  final metaModuleHeaderPath =
-      p.join(outputRoot, 'include', 'tom_som_cpp_v0_meta.hpp');
+  final metaModuleHeaderPath = p.join(
+    outputRoot,
+    'include',
+    'tom_som_cpp_v0_meta.hpp',
+  );
   File(metaModuleHeaderPath)
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(metaEmitter.generateHeader());
-  final metaModuleSourcePath =
-      p.join(outputRoot, 'src', 'tom_som_cpp_v0_meta.cpp');
+  final metaModuleSourcePath = p.join(
+    outputRoot,
+    'src',
+    'tom_som_cpp_v0_meta.cpp',
+  );
   File(metaModuleSourcePath)
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(metaEmitter.generateSource());
 
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to every other language path — schemas are language-agnostic.
-  final schemas =
-      DocSpecsSchemaGenerator(classes).generateAll(modelVersion: modelVersion);
-  final schemaPaths =
-      DocSpecsSchemaGenerator.writeSchemaTree(outputRoot, schemas);
+  final schemas = DocSpecsSchemaGenerator(
+    classes,
+  ).generateAll(modelVersion: modelVersion);
+  final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
+    outputRoot,
+    schemas,
+  );
 
   // ── Makefile (relative RUNTIME_DIR include/link wiring) ────────────────────
   // C++ has no module system: the generated source resolves the runtime header

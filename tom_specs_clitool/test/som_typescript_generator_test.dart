@@ -53,8 +53,7 @@ void main() {
         generatedAt: generatedAt,
       );
 
-  test('writes the full TS v0 artefact tree with a valid, stamped meta-data',
-      () {
+  test('writes the full TS v0 artefact tree with a valid, stamped meta-data', () {
     final dir = Directory.systemTemp.createTempSync('som_ts_gen_');
     addTearDown(() => dir.deleteSync(recursive: true));
     final result = writeInto(dir);
@@ -62,28 +61,39 @@ void main() {
     // Meta-data exists, validates, and carries the stable build stamp.
     final metaFile = File(result.metaJsonPath);
     expect(metaFile.existsSync(), isTrue);
-    final meta = jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
+    final meta =
+        jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
     expect(validateSpecModelMeta(meta), isEmpty);
-    expect(meta['generatedAt'], generatedAt,
-        reason: 'generatedAt must be the stable model build instant');
+    expect(
+      meta['generatedAt'],
+      generatedAt,
+      reason: 'generatedAt must be the stable model build instant',
+    );
     expect(meta['modelVersion'], modelVersion);
     expect(meta['modelVersionLabel'], modelLabel);
 
     // Typed facade module exists and declares + exports the global root class.
     final source = File(result.modulePath).readAsStringSync();
-    expect(source, contains('export class D00SolutionBlueprint extends SomNode'));
+    expect(
+      source,
+      contains('export class D00SolutionBlueprint extends SomNode'),
+    );
     expect(source, contains("from 'tom_som_typescript_runtime';"));
     expect(result.modulePath, endsWith('tom_som_typescript_v0.ts'));
 
     // The generated metadata module (SOM §8) is written alongside the
     // facade and carries the populated trees + access surfaces.
-    final metaModule = File(p.join(
-        p.dirname(result.modulePath), 'tom_som_typescript_v0_meta.ts'));
+    final metaModule = File(
+      p.join(p.dirname(result.modulePath), 'tom_som_typescript_v0_meta.ts'),
+    );
     expect(metaModule.existsSync(), isTrue);
     expect(
-        metaModule.readAsStringSync(),
-        contains('export const d00SolutionBlueprintMetaTree: SomMetaTree = '
-            'new SomMetaTree('));
+      metaModule.readAsStringSync(),
+      contains(
+        'export const d00SolutionBlueprintMetaTree: SomMetaTree = '
+        'new SomMetaTree(',
+      ),
+    );
 
     // One DocSpecs schema per @Document root (14).
     expect(result.schemaPaths.length, 14);
@@ -93,19 +103,25 @@ void main() {
 
     // package.json records a *relative* `file:` runtime dependency (portable
     // across checkouts) that resolves back to the TS runtime package.
-    final manifest = jsonDecode(File(result.packageJsonPath).readAsStringSync())
-        as Map<String, Object?>;
+    final manifest =
+        jsonDecode(File(result.packageJsonPath).readAsStringSync())
+            as Map<String, Object?>;
     expect(manifest['name'], 'tom_som_typescript_v0');
     expect(manifest['main'], 'dist/tom_som_typescript_v0.js');
     final deps = manifest['dependencies'] as Map<String, Object?>;
     final dep = deps['tom_som_typescript_runtime'] as String;
     expect(dep, startsWith('file:'), reason: 'runtime must be a file: dep');
     final rtPath = dep.substring('file:'.length);
-    expect(p.isRelative(rtPath), isTrue,
-        reason: 'runtime path must be relative, got $rtPath');
-    expect(p.normalize(p.join(result.outputRoot, rtPath)),
-        p.normalize(tsRuntimeDir),
-        reason: 'relative path must resolve to the TS runtime package');
+    expect(
+      p.isRelative(rtPath),
+      isTrue,
+      reason: 'runtime path must be relative, got $rtPath',
+    );
+    expect(
+      p.normalize(p.join(result.outputRoot, rtPath)),
+      p.normalize(tsRuntimeDir),
+      reason: 'relative path must resolve to the TS runtime package',
+    );
 
     // The facade build first builds the runtime `dist/` so a clean checkout can
     // typecheck the facade without a manual pre-step (CS4-D6). `prebuild` runs
@@ -113,36 +129,46 @@ void main() {
     // dependency.
     final scripts = manifest['scripts'] as Map<String, Object?>;
     expect(scripts['build'], 'tsc');
-    expect(scripts['prebuild'], 'npm --prefix $rtPath run build',
-        reason: 'prebuild must build the runtime dist via the relative path');
+    expect(
+      scripts['prebuild'],
+      'npm --prefix $rtPath run build',
+      reason: 'prebuild must build the runtime dist via the relative path',
+    );
 
     // npm packaging contract (SOM §17.3): the version is the model version, the
     // package is BSD-3-Clause but still private (release 1 is source-only; the
     // flag refuses an accidental `npm publish`), the tarball payload is
     // pinned via `files`/`exports` and ships the *compiled* `dist/` (`.js` +
     // `.d.ts`), and `prepack` rebuilds `dist/` before packing.
-    expect(manifest['version'], '1.0.0',
-        reason: 'version tracks the TomSpecs model version');
+    expect(
+      manifest['version'],
+      '1.0.0',
+      reason: 'version tracks the TomSpecs model version',
+    );
     expect(manifest['private'], isTrue);
     expect(manifest['license'], 'BSD-3-Clause');
     expect(manifest['types'], 'dist/tom_som_typescript_v0.d.ts');
-    expect(scripts['prepack'], 'npm run build',
-        reason: 'prepack must rebuild the shipped dist/ before packing');
+    expect(
+      scripts['prepack'],
+      'npm run build',
+      reason: 'prepack must rebuild the shipped dist/ before packing',
+    );
     final files = (manifest['files'] as List).cast<String>();
     expect(
-        files,
-        containsAll(<String>[
-          'dist/tom_som_typescript_v0.js',
-          'dist/tom_som_typescript_v0.d.ts',
-          'dist/tom_som_typescript_v0_meta.js',
-          'dist/tom_som_typescript_v0_meta.d.ts',
-          'meta/',
-          'schemas/',
-          'README.md',
-          'readme_howtointegrate.md',
-          'CHANGELOG.md',
-          'LICENSE',
-        ]));
+      files,
+      containsAll(<String>[
+        'dist/tom_som_typescript_v0.js',
+        'dist/tom_som_typescript_v0.d.ts',
+        'dist/tom_som_typescript_v0_meta.js',
+        'dist/tom_som_typescript_v0_meta.d.ts',
+        'meta/',
+        'schemas/',
+        'README.md',
+        'readme_howtointegrate.md',
+        'CHANGELOG.md',
+        'LICENSE',
+      ]),
+    );
     final exports = manifest['exports'] as Map<String, Object?>;
     final rootExport = exports['.'] as Map<String, Object?>;
     expect(rootExport['types'], './dist/tom_som_typescript_v0.d.ts');
@@ -167,9 +193,11 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rt.metaJsonPath).readAsStringSync(),
-        File(rd.metaJsonPath).readAsStringSync(),
-        reason: 'meta-data must be language-agnostic / byte-identical');
+    expect(
+      File(rt.metaJsonPath).readAsStringSync(),
+      File(rd.metaJsonPath).readAsStringSync(),
+      reason: 'meta-data must be language-agnostic / byte-identical',
+    );
   });
 
   test('the TS DocSpecs schemas are byte-identical to the Dart path', () {
@@ -187,39 +215,56 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(rt.schemaPaths.map((s) => p.basename(s)).toList(),
-        rd.schemaPaths.map((s) => p.basename(s)).toList());
+    expect(
+      rt.schemaPaths.map((s) => p.basename(s)).toList(),
+      rd.schemaPaths.map((s) => p.basename(s)).toList(),
+    );
     for (var i = 0; i < rt.schemaPaths.length; i++) {
-      expect(File(rt.schemaPaths[i]).readAsStringSync(),
-          File(rd.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(rt.schemaPaths[i])} must be '
-              'language-agnostic / byte-identical');
+      expect(
+        File(rt.schemaPaths[i]).readAsStringSync(),
+        File(rd.schemaPaths[i]).readAsStringSync(),
+        reason:
+            'schema ${p.basename(rt.schemaPaths[i])} must be '
+            'language-agnostic / byte-identical',
+      );
     }
   });
 
-  test('regeneration is idempotent (byte-stable output for unchanged input)',
-      () {
-    final a = Directory.systemTemp.createTempSync('som_ts_a_');
-    final b = Directory.systemTemp.createTempSync('som_ts_b_');
-    addTearDown(() => a.deleteSync(recursive: true));
-    addTearDown(() => b.deleteSync(recursive: true));
-    final ra = writeInto(a);
-    final rb = writeInto(b);
+  test(
+    'regeneration is idempotent (byte-stable output for unchanged input)',
+    () {
+      final a = Directory.systemTemp.createTempSync('som_ts_a_');
+      final b = Directory.systemTemp.createTempSync('som_ts_b_');
+      addTearDown(() => a.deleteSync(recursive: true));
+      addTearDown(() => b.deleteSync(recursive: true));
+      final ra = writeInto(a);
+      final rb = writeInto(b);
 
-    expect(File(rb.modulePath).readAsStringSync(),
-        File(ra.modulePath).readAsStringSync());
-    expect(File(rb.metaJsonPath).readAsStringSync(),
-        File(ra.metaJsonPath).readAsStringSync());
-    expect(File(rb.packageJsonPath).readAsStringSync(),
-        File(ra.packageJsonPath).readAsStringSync());
-    expect(File(rb.tsconfigPath).readAsStringSync(),
-        File(ra.tsconfigPath).readAsStringSync());
-    for (var i = 0; i < ra.schemaPaths.length; i++) {
-      expect(File(rb.schemaPaths[i]).readAsStringSync(),
+      expect(
+        File(rb.modulePath).readAsStringSync(),
+        File(ra.modulePath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaJsonPath).readAsStringSync(),
+        File(ra.metaJsonPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.packageJsonPath).readAsStringSync(),
+        File(ra.packageJsonPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.tsconfigPath).readAsStringSync(),
+        File(ra.tsconfigPath).readAsStringSync(),
+      );
+      for (var i = 0; i < ra.schemaPaths.length; i++) {
+        expect(
+          File(rb.schemaPaths[i]).readAsStringSync(),
           File(ra.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable');
-    }
-  });
+          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable',
+        );
+      }
+    },
+  );
 
   test('the analyze+write path matches the write-only path', () async {
     final viaWrite = Directory.systemTemp.createTempSync('som_ts_w_');
@@ -236,61 +281,75 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rf.modulePath).readAsStringSync(),
-        File(rw.modulePath).readAsStringSync());
-    expect(File(rf.metaJsonPath).readAsStringSync(),
-        File(rw.metaJsonPath).readAsStringSync());
+    expect(
+      File(rf.modulePath).readAsStringSync(),
+      File(rw.modulePath).readAsStringSync(),
+    );
+    expect(
+      File(rf.metaJsonPath).readAsStringSync(),
+      File(rw.metaJsonPath).readAsStringSync(),
+    );
   });
 
-  test('the emitted full module tsc-compiles clean against the runtime types',
-      () {
-    final tsc = _tsc(tsRuntimeDir);
-    if (tsc == null) {
-      markTestSkipped('project-local tsc not installed in the runtime');
-      return;
-    }
-    final dir = Directory.systemTemp.createTempSync('som_ts_compile_');
-    addTearDown(() => dir.deleteSync(recursive: true));
-    final result = writeInto(dir);
+  test(
+    'the emitted full module tsc-compiles clean against the runtime types',
+    () {
+      final tsc = _tsc(tsRuntimeDir);
+      if (tsc == null) {
+        markTestSkipped('project-local tsc not installed in the runtime');
+        return;
+      }
+      final dir = Directory.systemTemp.createTempSync('som_ts_compile_');
+      addTearDown(() => dir.deleteSync(recursive: true));
+      final result = writeInto(dir);
 
-    // Resolve the bare `tom_som_typescript_runtime` specifier to the runtime
-    // *source* (index.ts) via a compile-time `paths` mapping — a pure type-check
-    // of the full 3000+ class module, no `node_modules` link required.
-    final runtimeIndex =
-        p.join(tsRuntimeDir, 'src', 'index.ts').replaceAll('\\', '/');
-    // The runtime uses Node built-ins (e.g. `fs` in `fromFile`), so the
-    // type-check needs `@types/node` just like the real `npm run build` does.
-    // Point `typeRoots` at the runtime's own installed `@types` so `node`
-    // resolves from the temp dir; `types: []` would fail on those built-ins.
-    final runtimeTypes =
-        p.join(tsRuntimeDir, 'node_modules', '@types').replaceAll('\\', '/');
-    final checkConfig = <String, Object?>{
-      'compilerOptions': <String, Object?>{
-        'target': 'ES2020',
-        'lib': <String>['ES2020'],
-        'module': 'commonjs',
-        'moduleResolution': 'node',
-        'ignoreDeprecations': '6.0',
-        'strict': true,
-        'esModuleInterop': true,
-        'skipLibCheck': true,
-        'noEmit': true,
-        'baseUrl': '.',
-        'paths': <String, Object?>{
-          'tom_som_typescript_runtime': <String>[runtimeIndex],
+      // Resolve the bare `tom_som_typescript_runtime` specifier to the runtime
+      // *source* (index.ts) via a compile-time `paths` mapping — a pure type-check
+      // of the full 3000+ class module, no `node_modules` link required.
+      final runtimeIndex = p
+          .join(tsRuntimeDir, 'src', 'index.ts')
+          .replaceAll('\\', '/');
+      // The runtime uses Node built-ins (e.g. `fs` in `fromFile`), so the
+      // type-check needs `@types/node` just like the real `npm run build` does.
+      // Point `typeRoots` at the runtime's own installed `@types` so `node`
+      // resolves from the temp dir; `types: []` would fail on those built-ins.
+      final runtimeTypes = p
+          .join(tsRuntimeDir, 'node_modules', '@types')
+          .replaceAll('\\', '/');
+      final checkConfig = <String, Object?>{
+        'compilerOptions': <String, Object?>{
+          'target': 'ES2020',
+          'lib': <String>['ES2020'],
+          'module': 'commonjs',
+          'moduleResolution': 'node',
+          'ignoreDeprecations': '6.0',
+          'strict': true,
+          'esModuleInterop': true,
+          'skipLibCheck': true,
+          'noEmit': true,
+          'baseUrl': '.',
+          'paths': <String, Object?>{
+            'tom_som_typescript_runtime': <String>[runtimeIndex],
+          },
+          'typeRoots': <String>[runtimeTypes],
+          'types': <String>['node'],
         },
-        'typeRoots': <String>[runtimeTypes],
-        'types': <String>['node'],
-      },
-      'include': <String>[p.basename(result.modulePath)],
-    };
-    final checkPath = p.join(dir.path, 'tsconfig.check.json');
-    File(checkPath).writeAsStringSync(jsonEncode(checkConfig));
-    final r =
-        Process.runSync(tsc, ['-p', 'tsconfig.check.json'], workingDirectory: dir.path);
-    expect(r.exitCode, 0,
-        reason: 'generated TS module must tsc-compile:\n${r.stdout}\n${r.stderr}');
-  });
+        'include': <String>[p.basename(result.modulePath)],
+      };
+      final checkPath = p.join(dir.path, 'tsconfig.check.json');
+      File(checkPath).writeAsStringSync(jsonEncode(checkConfig));
+      final r = Process.runSync(tsc, [
+        '-p',
+        'tsconfig.check.json',
+      ], workingDirectory: dir.path);
+      expect(
+        r.exitCode,
+        0,
+        reason:
+            'generated TS module must tsc-compile:\n${r.stdout}\n${r.stderr}',
+      );
+    },
+  );
 }
 
 /// The project-local `tsc` binary inside the runtime's `node_modules`, or `null`

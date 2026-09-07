@@ -35,10 +35,26 @@ const _mixinLeaves = {'DocumentHeader', 'SectionMeta'};
 
 void main() {
   final clitoolRoot = Directory.current.path;
-  final metaPath = p.normalize(p.join(
-      clitoolRoot, '..', 'tom_som_dart_v0', 'meta', 'spec_model.meta.json'));
-  final registryPath = p.normalize(p.join(clitoolRoot, '..', 'tom_specs_model',
-      'lib', 'src', 'generated', 'spec_ops.g.dart'));
+  final metaPath = p.normalize(
+    p.join(
+      clitoolRoot,
+      '..',
+      'tom_som_dart_v0',
+      'meta',
+      'spec_model.meta.json',
+    ),
+  );
+  final registryPath = p.normalize(
+    p.join(
+      clitoolRoot,
+      '..',
+      'tom_specs_model',
+      'lib',
+      'src',
+      'generated',
+      'spec_ops.g.dart',
+    ),
+  );
 
   group('the committed spec-ops registry matches the committed meta', () {
     late Map<String, dynamic> metaClasses;
@@ -56,9 +72,13 @@ void main() {
     test('the registry parses into a plausible number of registrations', () {
       // Guards the guard: every assertion below is vacuous if the emitted shape
       // has moved and the regexes now match nothing.
-      expect(registrations, hasLength(greaterThan(1000)),
-          reason: 'parsed ${registrations.length} registrations out of '
-              '$registryPath — the emitted shape has probably changed');
+      expect(
+        registrations,
+        hasLength(greaterThan(1000)),
+        reason:
+            'parsed ${registrations.length} registrations out of '
+            '$registryPath — the emitted shape has probably changed',
+      );
     });
 
     test('every model class in the meta is registered', () {
@@ -67,12 +87,16 @@ void main() {
           if (!_mixinLeaves.contains(name) && !registrations.containsKey(name))
             name,
       ];
-      expect(missing, isEmpty,
-          reason: '${missing.length} class(es) the meta declares have no '
-              'SpecClassOps, so the engine cannot snapshot or serialize them:\n'
-              '${missing.take(20).join('\n')}\n'
-              'Regenerate: cd tom_specs_clitool && '
-              'dart run bin/generate_som.dart');
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            '${missing.length} class(es) the meta declares have no '
+            'SpecClassOps, so the engine cannot snapshot or serialize them:\n'
+            '${missing.take(20).join('\n')}\n'
+            'Regenerate: cd tom_specs_clitool && '
+            'dart run bin/generate_som.dart',
+      );
     });
 
     test('every class that declares content carries it in cloneShallow', () {
@@ -84,10 +108,14 @@ void main() {
         if (block == null) continue; // covered by the registration test above
         if (!block.contains('..content = n.content')) missing.add(name);
       }
-      expect(missing, isEmpty,
-          reason: '${missing.length} class(es) declare `content` but their '
-              'cloneShallow drops it — a copy-on-write edit loses the '
-              "section's prose:\n${missing.take(20).join('\n')}");
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            '${missing.length} class(es) declare `content` but their '
+            'cloneShallow drops it — a copy-on-write edit loses the '
+            "section's prose:\n${missing.take(20).join('\n')}",
+      );
     });
 
     test('every class that declares content exposes it as the yamlScalar', () {
@@ -99,27 +127,38 @@ void main() {
           missing.add(name);
         }
       }
-      expect(missing, isEmpty,
-          reason: '${missing.length} class(es) declare `content` but have no '
-              'yamlScalar, so their prose does not serialize at all:\n'
-              '${missing.take(20).join('\n')}');
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            '${missing.length} class(es) declare `content` but have no '
+            'yamlScalar, so their prose does not serialize at all:\n'
+            '${missing.take(20).join('\n')}',
+      );
     });
 
-    test('the SpecNode leaves are exempt, and the exemption is load-bearing',
-        () {
+    test('the SpecNode leaves are exempt, and the exemption is load-bearing', () {
       // Stated as a test rather than a comment: the mixin fast-path is the only
       // reason a model class may be absent from the registry, so a third
       // absence has to be argued for here.
       for (final leaf in _mixinLeaves) {
-        expect(registrations, isNot(contains(leaf)),
-            reason: '$leaf adopts SpecNode by mixin; registering it too would '
-                'give it two contradictory contracts');
+        expect(
+          registrations,
+          isNot(contains(leaf)),
+          reason:
+              '$leaf adopts SpecNode by mixin; registering it too would '
+              'give it two contradictory contracts',
+        );
       }
       // At least one leaf must actually reach the meta, or the exemption the
       // registration test above applies would be excusing nothing.
-      expect(metaClasses.keys.toSet().intersection(_mixinLeaves), isNotEmpty,
-          reason: 'no SpecNode leaf is in the meta, so the exemption is dead '
-              'weight — drop it rather than leave a rule nothing exercises');
+      expect(
+        metaClasses.keys.toSet().intersection(_mixinLeaves),
+        isNotEmpty,
+        reason:
+            'no SpecNode leaf is in the meta, so the exemption is dead '
+            'weight — drop it rather than leave a rule nothing exercises',
+      );
     });
   });
 }
@@ -135,8 +174,9 @@ Iterable<String> _contentClasses(
     if (entry.key == containerRoot) continue;
     if (_mixinLeaves.contains(entry.key)) continue;
     final fields = (entry.value as Map<String, dynamic>)['fields'] as List?;
-    final declaresContent = (fields ?? const [])
-        .any((f) => (f as Map<String, dynamic>)['name'] == 'content');
+    final declaresContent = (fields ?? const []).any(
+      (f) => (f as Map<String, dynamic>)['name'] == 'content',
+    );
     if (declaresContent) yield entry.key;
   }
 }
@@ -148,10 +188,11 @@ Iterable<String> _contentClasses(
 /// line inside one is indented further — so a non-greedy match to it splits the
 /// file exactly at the registration boundaries.
 Map<String, String> _readRegistrations(String source) => {
-      for (final m in _registrationPattern.allMatches(source))
-        m.group(1)!: m.group(2)!,
-    };
+  for (final m in _registrationPattern.allMatches(source))
+    m.group(1)!: m.group(2)!,
+};
 
 final RegExp _registrationPattern = RegExp(
-    r'  SpecRegistry\.register\((\w+), SpecClassOps\(\n(.*?)\n  \)\);',
-    dotAll: true);
+  r'  SpecRegistry\.register\((\w+), SpecClassOps\(\n(.*?)\n  \)\);',
+  dotAll: true,
+);

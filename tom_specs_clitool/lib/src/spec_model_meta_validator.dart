@@ -43,9 +43,7 @@ List<String> validateSpecModelMeta(Object? meta) {
   final errors = <String>[];
 
   if (meta is! Map) {
-    return [
-      'meta-data root must be a JSON object, got ${meta.runtimeType}',
-    ];
+    return ['meta-data root must be a JSON object, got ${meta.runtimeType}'];
   }
 
   for (final key in requiredSpecModelMetaKeys) {

@@ -17,11 +17,16 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'out-dir',
       abbr: 'o',
-      help: 'Output directory for the schema '
+      help:
+          'Output directory for the schema '
           '(default: <cwd>/.tom/json-schema).',
     )
-    ..addFlag('help', abbr: 'h', help: 'Show usage information.',
-        negatable: false);
+    ..addFlag(
+      'help',
+      abbr: 'h',
+      help: 'Show usage information.',
+      negatable: false,
+    );
 
   final ArgResults results;
   try {
@@ -33,22 +38,28 @@ Future<void> main(List<String> arguments) async {
   }
 
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/docspecs_yaml_schema.dart '
-        '[--out-dir <dir>]');
+    stdout.writeln(
+      'Usage: dart run bin/docspecs_yaml_schema.dart '
+      '[--out-dir <dir>]',
+    );
     stdout.writeln(parser.usage);
     exit(0);
   }
 
-  final outDir = p.normalize(p.absolute(
-    results.option('out-dir') ??
-        p.join(Directory.current.path, '.tom', 'json-schema'),
-  ));
+  final outDir = p.normalize(
+    p.absolute(
+      results.option('out-dir') ??
+          p.join(Directory.current.path, '.tom', 'json-schema'),
+    ),
+  );
 
   final generator = DocspecsYamlSchemaGenerator();
   final file = File(p.join(outDir, DocspecsYamlSchemaGenerator.fileName));
   file.parent.createSync(recursive: true);
   file.writeAsStringSync(generator.toJsonString());
 
-  stdout.writeln('docspecs_yaml_schema: wrote ${file.path} '
-      '(format version ${generator.formatVersion}).');
+  stdout.writeln(
+    'docspecs_yaml_schema: wrote ${file.path} '
+    '(format version ${generator.formatVersion}).',
+  );
 }

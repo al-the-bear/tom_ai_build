@@ -31,47 +31,46 @@ CodeSpecsValidationInput _input({
   Map<String, String>? againClient,
   Map<String, String>? againServer,
   CsExtractSet? extracts,
-}) =>
-    CodeSpecsValidationInput(
-      shared: readCsLocusProject(
-        locus: CsLocus.shared,
-        packageName: _sharedPackage,
-        sources: shared,
-      ),
-      client: readCsLocusProject(
-        locus: CsLocus.client,
-        packageName: _clientPackage,
-        sources: client,
-      ),
-      server: readCsLocusProject(
-        locus: CsLocus.server,
-        packageName: _serverPackage,
-        sources: server,
-      ),
-      migrations: migrations,
-      enumMirrors: mirrors,
-      extracts: extracts,
-      regeneration:
-          againShared == null && againClient == null && againServer == null
-              ? null
-              : CodeSpecsRegeneration(
-                  shared: readCsLocusProject(
-                    locus: CsLocus.shared,
-                    packageName: _sharedPackage,
-                    sources: againShared ?? shared,
-                  ),
-                  client: readCsLocusProject(
-                    locus: CsLocus.client,
-                    packageName: _clientPackage,
-                    sources: againClient ?? client,
-                  ),
-                  server: readCsLocusProject(
-                    locus: CsLocus.server,
-                    packageName: _serverPackage,
-                    sources: againServer ?? server,
-                  ),
-                ),
-    );
+}) => CodeSpecsValidationInput(
+  shared: readCsLocusProject(
+    locus: CsLocus.shared,
+    packageName: _sharedPackage,
+    sources: shared,
+  ),
+  client: readCsLocusProject(
+    locus: CsLocus.client,
+    packageName: _clientPackage,
+    sources: client,
+  ),
+  server: readCsLocusProject(
+    locus: CsLocus.server,
+    packageName: _serverPackage,
+    sources: server,
+  ),
+  migrations: migrations,
+  enumMirrors: mirrors,
+  extracts: extracts,
+  regeneration:
+      againShared == null && againClient == null && againServer == null
+      ? null
+      : CodeSpecsRegeneration(
+          shared: readCsLocusProject(
+            locus: CsLocus.shared,
+            packageName: _sharedPackage,
+            sources: againShared ?? shared,
+          ),
+          client: readCsLocusProject(
+            locus: CsLocus.client,
+            packageName: _clientPackage,
+            sources: againClient ?? client,
+          ),
+          server: readCsLocusProject(
+            locus: CsLocus.server,
+            packageName: _serverPackage,
+            sources: againServer ?? server,
+          ),
+        ),
+);
 
 /// One `<CE-CODE>.extract.yaml`, in the shape `spec_codespecs_extract` emits.
 ///
@@ -157,11 +156,9 @@ const _scErrorEntry = ('SEER', 'messageText', 'Order was rejected.');
 CsExtractSet _scopedExtracts({List<(String, String, String?)>? gate}) =>
     readCsExtracts({
       'CE-DB.extract.yaml': _extractYaml('CE-DB', _customerEntries),
-      'CE-SC.extract.yaml': _extractYaml(
-        'CE-SC',
-        [_scErrorEntry],
-        className: 'ServerErrorEntry',
-      ),
+      'CE-SC.extract.yaml': _extractYaml('CE-SC', [
+        _scErrorEntry,
+      ], className: 'ServerErrorEntry'),
       if (gate != null) kCsGateRecordFile: _gateYaml(gate),
     });
 
@@ -181,8 +178,10 @@ const _customerEntries = <(String, String, String)>[
 
 /// The violations of `codespecs_derivation_contract.md` §6 check [number]
 /// raised by [input].
-List<CodeSpecsViolation> _forCheck(int number, CodeSpecsValidationInput input) =>
-    runCodeSpecsChecks(input).forCheck(number);
+List<CodeSpecsViolation> _forCheck(
+  int number,
+  CodeSpecsValidationInput input,
+) => runCodeSpecsChecks(input).forCheck(number);
 
 /// Declares the pair of tests every check gets: [red] must break it and
 /// [green] must not, and the failure must name the rule.
@@ -217,15 +216,18 @@ void _redGreen(
 void main() {
   group('§6 check catalogue', () {
     test('names the thirty-seven checks in table order', () {
-      expect(
-        codeSpecsChecks.map((c) => c.number),
-        [for (var i = 1; i <= 37; i++) i],
-      );
+      expect(codeSpecsChecks.map((c) => c.number), [
+        for (var i = 1; i <= 37; i++) i,
+      ]);
     });
 
     test('every check carries the section that defines its rule', () {
       for (final check in codeSpecsChecks) {
-        expect(check.definedIn, startsWith('§'), reason: 'check ${check.number}');
+        expect(
+          check.definedIn,
+          startsWith('§'),
+          reason: 'check ${check.number}',
+        );
         expect(check.title, isNotEmpty, reason: 'check ${check.number}');
       }
     });
@@ -283,9 +285,11 @@ enum Colour { red }
     });
 
     test('§3.3.6\'s secret holder reads as static, final and late', () {
-      final secret =
-          project.declarations.firstWhere((d) => d.name == 'secret');
-      expect((secret.isFinal, secret.isLate, secret.isStatic), (true, true, true));
+      final secret = project.declarations.firstWhere((d) => d.name == 'secret');
+      expect(
+        (secret.isFinal, secret.isLate, secret.isStatic),
+        (true, true, true),
+      );
     });
 
     test('what spells no keyword records none', () {
@@ -427,16 +431,16 @@ class Unnamed {}
       4,
       '§2.1 N5',
       says: contains('carries no table'),
-      red: _input(
-        server: {'lib/a.dart': "@CsTable('') class Order {}"},
-      ),
+      red: _input(server: {'lib/a.dart': "@CsTable('') class Order {}"}),
       green: _input(
         server: {'lib/a.dart': "@CsTable('orders') class Order {}"},
       ),
     );
 
     test('an absent key is as missing as a blank one', () {
-      final input = _input(client: {'lib/a.dart': '@CsClient() class Shell {}'});
+      final input = _input(
+        client: {'lib/a.dart': '@CsClient() class Shell {}'},
+      );
       expect(_forCheck(4, input).single.message, contains('no clientId'));
     });
 
@@ -480,7 +484,8 @@ class OrderService {
     test('an empty explication string fails as surely as an absent one', () {
       final input = _input(
         server: {
-          'lib/a.dart': "class S { void f() { throw UnsupportedError('  '); } }",
+          'lib/a.dart':
+              "class S { void f() { throw UnsupportedError('  '); } }",
         },
       );
       expect(_forCheck(5, input), isNotEmpty);
@@ -779,7 +784,7 @@ class Reports {}
         server: {
           'lib/a.dart':
               "@CsJob(trigger: CsJobTrigger.cron, cron: '0 * * * *', event: 'x') "
-                  'class Nightly {}',
+              'class Nightly {}',
         },
       );
       expect(_forCheck(8, input).single.message, contains("'event' slot"));
@@ -938,20 +943,27 @@ class orderFailed {}
       '§3.4.2',
       says: contains('which the shared project does not declare'),
       red: _input(
-        server: {'lib/a.dart': "@CsEndpoint('order.place') class PlaceOrder {}"},
+        server: {
+          'lib/a.dart': "@CsEndpoint('order.place') class PlaceOrder {}",
+        },
       ),
       green: _input(
         shared: {
-          'lib/a.dart': "@CsEndpoint('order.place') class PlaceOrderContract {}",
+          'lib/a.dart':
+              "@CsEndpoint('order.place') class PlaceOrderContract {}",
         },
-        server: {'lib/a.dart': "@CsEndpoint('order.place') class PlaceOrder {}"},
+        server: {
+          'lib/a.dart': "@CsEndpoint('order.place') class PlaceOrder {}",
+        },
       ),
     );
 
     test('a shared CsOperationRef const also declares the operation', () {
       final input = _input(
         shared: {'lib/a.dart': "const place = CsOperationRef('order.place');"},
-        server: {'lib/a.dart': "@CsEndpoint('order.place') class PlaceOrder {}"},
+        server: {
+          'lib/a.dart': "@CsEndpoint('order.place') class PlaceOrder {}",
+        },
       );
       expect(_forCheck(12, input), isEmpty);
     });
@@ -1014,7 +1026,8 @@ class Order {
 
     test('a table constraint is not a column', () {
       final applied = applyMigrations(const {
-        '001.sql': 'CREATE TABLE orders (id TEXT, customer TEXT, '
+        '001.sql':
+            'CREATE TABLE orders (id TEXT, customer TEXT, '
             'PRIMARY KEY (id), FOREIGN KEY (customer) REFERENCES c(id));',
       });
       expect(applied['orders'], {'id', 'customer'});
@@ -1061,13 +1074,15 @@ class Order {
       says: contains('which is not strictly narrower than its own'),
       red: _input(
         client: {
-          'lib/a.dart': "@CsUserSetting('theme', "
+          'lib/a.dart':
+              "@CsUserSetting('theme', "
               'overridableBy: CsOverridableBy.client) class theme {}',
         },
       ),
       green: _input(
         client: {
-          'lib/a.dart': "@CsUserSetting('theme', "
+          'lib/a.dart':
+              "@CsUserSetting('theme', "
               'overridableBy: CsOverridableBy.device) class theme {}',
         },
       ),
@@ -1076,7 +1091,8 @@ class Order {
     test('a server config may open any narrower scope', () {
       final input = _input(
         server: {
-          'lib/a.dart': "@CsServerConfig('db.pool', "
+          'lib/a.dart':
+              "@CsServerConfig('db.pool', "
               'overridableBy: CsOverridableBy.device) class dbPool {}',
         },
       );
@@ -1086,7 +1102,8 @@ class Order {
     test('none is always valid', () {
       final input = _input(
         client: {
-          'lib/a.dart': "@CsClientConfig('api.base', "
+          'lib/a.dart':
+              "@CsClientConfig('api.base', "
               'overridableBy: CsOverridableBy.none) class apiBase {}',
         },
       );
@@ -1226,7 +1243,9 @@ class SalesReport {
         },
       ),
       green: _input(
-        client: {'lib/a.dart': "const orderDetail = CsRouteRef('orderDetail');"},
+        client: {
+          'lib/a.dart': "const orderDetail = CsRouteRef('orderDetail');",
+        },
         server: {
           'lib/a.dart': '''
 class SalesReport {
@@ -1328,24 +1347,26 @@ class ServerConfig {
       expect(_forCheck(19, input), isEmpty);
     });
 
-    test('with no extracts there is no declared-key set, so it does not run',
-        () {
-      // The back-link token cannot tell the two CE-CF shapes apart — both ride
-      // narrative-borne forms — so the declared keys come from the extracts,
-      // and without them the check has no second side.
-      final input = _input(
-        server: {
-          'lib/a.dart': '''
+    test(
+      'with no extracts there is no declared-key set, so it does not run',
+      () {
+        // The back-link token cannot tell the two CE-CF shapes apart — both ride
+        // narrative-borne forms — so the declared keys come from the extracts,
+        // and without them the check has no second side.
+        final input = _input(
+          server: {
+            'lib/a.dart': '''
 class ServerConfig {
   @CsServerConfig('logStorage.sinkPassword',
       overridableBy: CsOverridableBy.none, secret: true)
   static late final String sinkPassword;
 }
 ''',
-        },
-      );
-      expect(_forCheck(19, input), isEmpty);
-    });
+          },
+        );
+        expect(_forCheck(19, input), isEmpty);
+      },
+    );
   });
 
   group('20 — setting keys share one namespace (§2.1 N10)', () {
@@ -1819,15 +1840,16 @@ class CustomerActionController {
     });
   });
 
-  group('24 — a collaborator holds abstract methods and nothing else (§3.0.1)',
-      () {
-    _redGreen(
-      24,
-      '§3.0.1',
-      says: contains('a field on a @CsCollaborator class'),
-      red: _input(
-        client: {
-          'lib/a.dart': '''
+  group(
+    '24 — a collaborator holds abstract methods and nothing else (§3.0.1)',
+    () {
+      _redGreen(
+        24,
+        '§3.0.1',
+        says: contains('a field on a @CsCollaborator class'),
+        red: _input(
+          client: {
+            'lib/a.dart': '''
 @CsCollaborator()
 abstract class CustomerActionControllerCollaborator {
   final Object cache = Object();
@@ -1835,58 +1857,58 @@ abstract class CustomerActionControllerCollaborator {
   Future<void> saveCustomerStoreTheRecord(Object context);
 }
 ''',
-        },
-      ),
-      green: _input(
-        client: {
-          'lib/a.dart': '''
+          },
+        ),
+        green: _input(
+          client: {
+            'lib/a.dart': '''
 @CsCollaborator()
 abstract class CustomerActionControllerCollaborator {
   Future<void> saveCustomerStoreTheRecord(Object context);
 }
 ''',
-        },
-      ),
-    );
+          },
+        ),
+      );
 
-    test('a non-abstract collaborator class', () {
-      final input = _input(
-        client: {
-          'lib/a.dart': '''
+      test('a non-abstract collaborator class', () {
+        final input = _input(
+          client: {
+            'lib/a.dart': '''
 @CsCollaborator()
 class CustomerActionControllerCollaborator {
   Future<void> saveCustomerStoreTheRecord(Object context) async {}
 }
 ''',
-        },
-      );
-      expect(
-        _forCheck(24, input).map((v) => v.message).join('\n'),
-        contains('is not declared abstract'),
-      );
-    });
+          },
+        );
+        expect(
+          _forCheck(24, input).map((v) => v.message).join('\n'),
+          contains('is not declared abstract'),
+        );
+      });
 
-    test('an implemented method pre-empts the Phase-6 implementation', () {
-      final input = _input(
-        client: {
-          'lib/a.dart': '''
+      test('an implemented method pre-empts the Phase-6 implementation', () {
+        final input = _input(
+          client: {
+            'lib/a.dart': '''
 @CsCollaborator()
 abstract class CustomerActionControllerCollaborator {
   Future<void> saveCustomerStoreTheRecord(Object context) async {}
 }
 ''',
-        },
-      );
-      expect(
-        _forCheck(24, input).single.message,
-        contains('an implemented method'),
-      );
-    });
+          },
+        );
+        expect(
+          _forCheck(24, input).single.message,
+          contains('an implemented method'),
+        );
+      });
 
-    test('a constructor makes the seam constructible', () {
-      final input = _input(
-        client: {
-          'lib/a.dart': '''
+      test('a constructor makes the seam constructible', () {
+        final input = _input(
+          client: {
+            'lib/a.dart': '''
 @CsCollaborator()
 abstract class CustomerActionControllerCollaborator {
   CustomerActionControllerCollaborator();
@@ -1894,18 +1916,15 @@ abstract class CustomerActionControllerCollaborator {
   Future<void> saveCustomerStoreTheRecord(Object context);
 }
 ''',
-        },
-      );
-      expect(
-        _forCheck(24, input).single.message,
-        contains('a constructor'),
-      );
-    });
+          },
+        );
+        expect(_forCheck(24, input).single.message, contains('a constructor'));
+      });
 
-    test('a static member hides logic no step maps to', () {
-      final input = _input(
-        client: {
-          'lib/a.dart': '''
+      test('a static member hides logic no step maps to', () {
+        final input = _input(
+          client: {
+            'lib/a.dart': '''
 @CsCollaborator()
 abstract class CustomerActionControllerCollaborator {
   static Object build() => Object();
@@ -1913,27 +1932,31 @@ abstract class CustomerActionControllerCollaborator {
   Future<void> saveCustomerStoreTheRecord(Object context);
 }
 ''',
-        },
-      );
-      expect(
-        _forCheck(24, input).single.message,
-        contains('a static member'),
-      );
-    });
+          },
+        );
+        expect(
+          _forCheck(24, input).single.message,
+          contains('a static member'),
+        );
+      });
 
-    test('an ordinary abstract class without the marker is not this check', () {
-      final input = _input(
-        client: {
-          'lib/a.dart': '''
+      test(
+        'an ordinary abstract class without the marker is not this check',
+        () {
+          final input = _input(
+            client: {
+              'lib/a.dart': '''
 abstract class Something {
   final Object cache = Object();
 }
 ''',
+            },
+          );
+          expect(_forCheck(24, input), isEmpty);
         },
       );
-      expect(_forCheck(24, input), isEmpty);
-    });
-  });
+    },
+  );
 
   group('25 — every form-3 method carries a doc comment (§2.8 C2 P3)', () {
     _redGreen(
@@ -1965,37 +1988,41 @@ class OrderService {
       ),
     );
 
-    test('a collaborator method has no body, so the comment is all there is',
-        () {
-      final input = _input(
-        server: {
-          'lib/a.dart': '''
+    test(
+      'a collaborator method has no body, so the comment is all there is',
+      () {
+        final input = _input(
+          server: {
+            'lib/a.dart': '''
 @CsCollaborator()
 abstract class OrderServiceCollaborator {
   Future<void> placeReservesTheStock(String orderId);
 }
 ''',
-        },
-      );
-      expect(_forCheck(25, input), isNotEmpty);
-    });
+          },
+        );
+        expect(_forCheck(25, input), isNotEmpty);
+      },
+    );
 
-    test('a form-1 or form-2 declaration is covered by P2, not by this rule',
-        () {
-      // No body anywhere, so the declaration is not form-3 and its members are
-      // not held to P3.
-      final input = _input(
-        server: {
-          'lib/a.dart': '''
+    test(
+      'a form-1 or form-2 declaration is covered by P2, not by this rule',
+      () {
+        // No body anywhere, so the declaration is not form-3 and its members are
+        // not held to P3.
+        final input = _input(
+          server: {
+            'lib/a.dart': '''
 @CsTable('orders')
 class Order {
   String? reference;
 }
 ''',
-        },
-      );
-      expect(_forCheck(25, input), isEmpty);
-    });
+          },
+        );
+        expect(_forCheck(25, input), isEmpty);
+      },
+    );
 
     test('every method of a form-3 declaration, not only the form-3 ones', () {
       // P3 attaches to the declaration: one method that throws makes the whole
@@ -2155,21 +2182,23 @@ class Order {}
       expect(_forCheck(27, input).first.message, contains('blank line'));
     });
 
-    test('the block sits above the *first* annotation, not the declaration',
-        () {
-      final input = _input(
-        server: {
-          'lib/a.dart': '''
+    test(
+      'the block sits above the *first* annotation, not the declaration',
+      () {
+        final input = _input(
+          server: {
+            'lib/a.dart': '''
 /// The order.
 @CodeSpec('ce-db.Order', source: ['SBP.3.1'])
 @DocSpec([DocRef('SBP.3.1', 'the order table')])
 @CsTable('orders')
 class Order {}
 ''',
-        },
-      );
-      expect(_forCheck(27, input), isEmpty);
-    });
+          },
+        );
+        expect(_forCheck(27, input), isEmpty);
+      },
+    );
 
     test('a leading @DocSpec is the first annotation, not blank lines', () {
       // §2.9 step 4's member shape: doc comment, then @DocSpec (a member
@@ -2411,11 +2440,12 @@ class OrderService {
       ),
     );
 
-    test('a guard on something other than the collaborator is still composed',
-        () {
-      final input = _input(
-        server: {
-          'lib/a.dart': '''
+    test(
+      'a guard on something other than the collaborator is still composed',
+      () {
+        final input = _input(
+          server: {
+            'lib/a.dart': '''
 class OrderService {
   /// Places the order.
   Future<void> place(String orderId) async {
@@ -2426,10 +2456,11 @@ class OrderService {
   }
 }
 ''',
-        },
-      );
-      expect(_forCheck(29, input), isNotEmpty);
-    });
+          },
+        );
+        expect(_forCheck(29, input), isNotEmpty);
+      },
+    );
 
     test('B7: this derivation produces no repetition', () {
       final input = _input(
@@ -2562,7 +2593,10 @@ class OrderService {
         },
       );
       expect(_forCheck(30, input), hasLength(1));
-      expect(_forCheck(30, input).single.message, contains('produces no value'));
+      expect(
+        _forCheck(30, input).single.message,
+        contains('produces no value'),
+      );
     });
 
     test('a guard returns bool, because B4 made it a condition', () {
@@ -2596,11 +2630,12 @@ class OrderService {
       expect(_forCheck(30, input).first.message, contains('guard'));
     });
 
-    test('the last contributing step carries the calling body\'s return type',
-        () {
-      final input = _input(
-        server: {
-          'lib/a.dart': '''
+    test(
+      'the last contributing step carries the calling body\'s return type',
+      () {
+        final input = _input(
+          server: {
+            'lib/a.dart': '''
 @CsCollaborator()
 abstract class OrderServiceCollaborator {
   /// Confirms it.
@@ -2616,11 +2651,12 @@ class OrderService {
   }
 }
 ''',
-        },
-      );
-      expect(_forCheck(30, input), isNotEmpty);
-      expect(_forCheck(30, input).first.message, contains('return'));
-    });
+          },
+        );
+        expect(_forCheck(30, input), isNotEmpty);
+        expect(_forCheck(30, input).first.message, contains('return'));
+      },
+    );
 
     test('an unresolved call is check 23\'s, so this one stays silent', () {
       final input = _input(
@@ -2719,7 +2755,8 @@ class Customer {}
       ),
       green: _input(
         server: {
-          'lib/a.dart': '''
+          'lib/a.dart':
+              '''
 /// A person or organisation that places orders.
 ///
 /// $_customerContent
@@ -2746,20 +2783,22 @@ class Customer {}
       expect(_forCheck(32, input), isEmpty);
     });
 
-    test('a section the extracts do not know is not a section it can judge',
-        () {
-      final input = _input(
-        server: {
-          'lib/a.dart': '''
+    test(
+      'a section the extracts do not know is not a section it can judge',
+      () {
+        final input = _input(
+          server: {
+            'lib/a.dart': '''
 /// Prose that occurs in no specification anywhere.
 @DocSpec([DocRef('SBP.9.9', 'a section no area routed')])
 class Order {}
 ''',
-        },
-        extracts: _extract(_customerEntries),
-      );
-      expect(_forCheck(32, input), isEmpty);
-    });
+          },
+          extracts: _extract(_customerEntries),
+        );
+        expect(_forCheck(32, input), isEmpty);
+      },
+    );
 
     test('C4.4 escaping is check 27\'s, so an escaped line still matches', () {
       final input = _input(
@@ -2777,28 +2816,31 @@ class Customer {}
       expect(_forCheck(32, input), isEmpty);
     });
 
-    test('a re-wrapped line is check 34\'s fault, and is not reported twice',
-        () {
-      final input = _input(
-        server: {
-          'lib/a.dart': '''
+    test(
+      'a re-wrapped line is check 34\'s fault, and is not reported twice',
+      () {
+        final input = _input(
+          server: {
+            'lib/a.dart': '''
 /// Customers are never deleted — a closed
 /// account keeps its orders.
 @DocSpec([DocRef('IMO-014', 'supplies the entity')])
 class Customer {}
 ''',
-        },
-        extracts: _extract(_customerEntries),
-      );
-      expect(_forCheck(32, input), isEmpty);
-      expect(_forCheck(34, input), isNotEmpty);
-    });
+          },
+          extracts: _extract(_customerEntries),
+        );
+        expect(_forCheck(32, input), isEmpty);
+        expect(_forCheck(34, input), isNotEmpty);
+      },
+    );
 
-    test('an enum constant carries no `@DocSpec`, and is still author text',
-        () {
-      final input = _input(
-        shared: {
-          'lib/a.dart': '''
+    test(
+      'an enum constant carries no `@DocSpec`, and is still author text',
+      () {
+        final input = _input(
+          shared: {
+            'lib/a.dart': '''
 @DocSpec([DocRef('IMO-014', 'supplies the domain')])
 @CsDomainEnum()
 enum CustomerState {
@@ -2806,15 +2848,16 @@ enum CustomerState {
   active,
 }
 ''',
-        },
-        extracts: _extract(_customerEntries),
-      );
-      expect(_forCheck(32, input), isNotEmpty);
-      expect(
-        _forCheck(32, input).single.message,
-        contains('C1 takes a comment from the specification'),
-      );
-    });
+          },
+          extracts: _extract(_customerEntries),
+        );
+        expect(_forCheck(32, input), isNotEmpty);
+        expect(
+          _forCheck(32, input).single.message,
+          contains('C1 takes a comment from the specification'),
+        );
+      },
+    );
   });
 
   group('33 — grouped holder template (§2.8 C3)', () {
@@ -2908,7 +2951,8 @@ class Customer {}
       ),
       green: _input(
         server: {
-          'lib/a.dart': '''
+          'lib/a.dart':
+              '''
 /// $_customerContent
 @DocSpec([DocRef('IMO-014', 'supplies the entity')])
 class Customer {}
@@ -2999,10 +3043,7 @@ class Customer {
 }
 ''',
         },
-        extracts: _extract([
-          ..._customerEntries,
-          ('DATAA', 'maxLength', '80'),
-        ]),
+        extracts: _extract([..._customerEntries, ('DATAA', 'maxLength', '80')]),
       ),
       green: _input(
         server: {
@@ -3017,19 +3058,19 @@ class Customer {
 }
 ''',
         },
-        extracts: _extract([
-          ..._customerEntries,
-          ('DATAA', 'maxLength', '80'),
-        ]),
+        extracts: _extract([..._customerEntries, ('DATAA', 'maxLength', '80')]),
       ),
     );
 
-    test('with no extracts there is no left-hand set, so it raises nothing', () {
-      final input = _input(
-        server: {'lib/a.dart': "@CsTable('customer') class Customer {}"},
-      );
-      expect(_forCheck(35, input), isEmpty);
-    });
+    test(
+      'with no extracts there is no left-hand set, so it raises nothing',
+      () {
+        final input = _input(
+          server: {'lib/a.dart': "@CsTable('customer') class Customer {}"},
+        );
+        expect(_forCheck(35, input), isEmpty);
+      },
+    );
 
     test('a section with nine values is one gap, not nine', () {
       final input = _input(
@@ -3043,33 +3084,39 @@ class Customer {
       expect(raised.single.message, contains('routes 9 value(s) of IMO-014'));
     });
 
-    test('the gap names the fields, so it is actionable rather than a count',
-        () {
-      final input = _input(
-        server: {'lib/a.dart': 'class Customer {}'},
-        extracts: _extract(_customerEntries),
-      );
-      expect(
-        _forCheck(35, input).single.message,
-        allOf(
-          contains('CE-DB'),
-          contains('DataEntityEntry.description'),
-          contains('DataEntityEntry.content'),
-        ),
-      );
-    });
+    test(
+      'the gap names the fields, so it is actionable rather than a count',
+      () {
+        final input = _input(
+          server: {'lib/a.dart': 'class Customer {}'},
+          extracts: _extract(_customerEntries),
+        );
+        expect(
+          _forCheck(35, input).single.message,
+          allOf(
+            contains('CE-DB'),
+            contains('DataEntityEntry.description'),
+            contains('DataEntityEntry.content'),
+          ),
+        );
+      },
+    );
 
-    test('@CodeSpec.source alone covers a section — check 7 owns the drift', () {
-      final input = _input(
-        server: {
-          'lib/a.dart': "@CodeSpec('dataAccess.Customer', source: ['IMO-014']) "
-              'class Customer {}',
-        },
-        extracts: _extract(_customerEntries),
-      );
-      expect(_forCheck(35, input), isEmpty);
-      expect(_forCheck(7, input), isNotEmpty);
-    });
+    test(
+      '@CodeSpec.source alone covers a section — check 7 owns the drift',
+      () {
+        final input = _input(
+          server: {
+            'lib/a.dart':
+                "@CodeSpec('dataAccess.Customer', source: ['IMO-014']) "
+                'class Customer {}',
+          },
+          extracts: _extract(_customerEntries),
+        );
+        expect(_forCheck(35, input), isEmpty);
+        expect(_forCheck(7, input), isNotEmpty);
+      },
+    );
 
     test('a truncated area fails the pass rather than warning', () {
       // The completeness half of §9.6 made operational: an area whose extract
@@ -3136,7 +3183,8 @@ class Customer {}
     test('with no extracts there is nothing to resolve against', () {
       final input = _input(
         server: {
-          'lib/a.dart': "@DocSpec([DocRef('SBP.9.9', 'nowhere')]) "
+          'lib/a.dart':
+              "@DocSpec([DocRef('SBP.9.9', 'nowhere')]) "
               'class Customer {}',
         },
       );
@@ -3193,10 +3241,7 @@ class Customer {}
     ];
 
     test('without a record, check 35 demands the descoped area\'s facts', () {
-      final input = _input(
-        server: partialServer,
-        extracts: _scopedExtracts(),
-      );
+      final input = _input(server: partialServer, extracts: _scopedExtracts());
       expect(
         _forCheck(35, input).map((v) => v.message).join('\n'),
         contains('SEER'),
@@ -3229,10 +3274,7 @@ class Customer {}
         },
         extracts: _scopedExtracts(gate: partialGate),
       );
-      expect(
-        _forCheck(36, input).single.message,
-        contains('SEER'),
-      );
+      expect(_forCheck(36, input).single.message, contains('SEER'));
     });
 
     test('the exclusions stay visible so the driver can announce them', () {
@@ -3246,19 +3288,20 @@ class Customer {}
     });
 
     test('a not-applicable verdict may name an area with no extract file', () {
-      final set = _scopedExtracts(gate: [
-        ...partialGate,
-        ('CE-JB', 'not applicable', null),
-      ]);
+      final set = _scopedExtracts(
+        gate: [...partialGate, ('CE-JB', 'not applicable', null)],
+      );
       expect(set.excluded.map((e) => e.areaCode), contains('CE-JB'));
     });
 
     test('a not-applicable area with routed entries contradicts §6.4', () {
       expect(
-        () => _scopedExtracts(gate: [
-          ('CE-DB', 'sufficient', null),
-          ('CE-SC', 'not applicable', null),
-        ]),
+        () => _scopedExtracts(
+          gate: [
+            ('CE-DB', 'sufficient', null),
+            ('CE-SC', 'not applicable', null),
+          ],
+        ),
         throwsA(isA<CsExtractException>()),
       );
     });
@@ -3268,10 +3311,12 @@ class Customer {}
       // unresolved insufficient area — recording the descope is the act that
       // legitimizes the partial pass.
       expect(
-        () => _scopedExtracts(gate: [
-          ('CE-DB', 'sufficient', null),
-          ('CE-SC', 'insufficient', null),
-        ]),
+        () => _scopedExtracts(
+          gate: [
+            ('CE-DB', 'sufficient', null),
+            ('CE-SC', 'insufficient', null),
+          ],
+        ),
         throwsA(isA<CsExtractException>()),
       );
     });
@@ -3285,31 +3330,34 @@ class Customer {}
 
     test('an unknown verdict word is refused', () {
       expect(
-        () => _scopedExtracts(gate: [
-          ('CE-DB', 'sufficient', null),
-          ('CE-SC', 'deferred', null),
-        ]),
+        () => _scopedExtracts(
+          gate: [('CE-DB', 'sufficient', null), ('CE-SC', 'deferred', null)],
+        ),
         throwsA(isA<CsExtractException>()),
       );
     });
 
     test('two verdicts for one area are refused', () {
       expect(
-        () => _scopedExtracts(gate: [
-          ('CE-DB', 'sufficient', null),
-          ('CE-DB', 'sufficient', null),
-          ('CE-SC', 'insufficient', 'descoped'),
-        ]),
+        () => _scopedExtracts(
+          gate: [
+            ('CE-DB', 'sufficient', null),
+            ('CE-DB', 'sufficient', null),
+            ('CE-SC', 'insufficient', 'descoped'),
+          ],
+        ),
         throwsA(isA<CsExtractException>()),
       );
     });
 
     test('a resolution on a non-insufficient verdict is refused', () {
       expect(
-        () => _scopedExtracts(gate: [
-          ('CE-DB', 'sufficient', 'descoped'),
-          ('CE-SC', 'insufficient', 'descoped'),
-        ]),
+        () => _scopedExtracts(
+          gate: [
+            ('CE-DB', 'sufficient', 'descoped'),
+            ('CE-SC', 'insufficient', 'descoped'),
+          ],
+        ),
         throwsA(isA<CsExtractException>()),
       );
     });
@@ -3318,10 +3366,12 @@ class Customer {}
       // Any other resolution means the area's inputs were completed and its
       // verdict re-taken as sufficient — there is nothing else to record.
       expect(
-        () => _scopedExtracts(gate: [
-          ('CE-DB', 'sufficient', null),
-          ('CE-SC', 'insufficient', 'completed'),
-        ]),
+        () => _scopedExtracts(
+          gate: [
+            ('CE-DB', 'sufficient', null),
+            ('CE-SC', 'insufficient', 'completed'),
+          ],
+        ),
         throwsA(isA<CsExtractException>()),
       );
     });
@@ -3343,8 +3393,9 @@ class Customer {}
         () => readCsExtracts({
           'CE-DB.extract.yaml': _extractYaml('CE-DB', _customerEntries),
           kCsGateRecordFile: _gateYaml(const [('CE-DB', 'sufficient', null)]),
-          'nested/$kCsGateRecordFile':
-              _gateYaml(const [('CE-DB', 'sufficient', null)]),
+          'nested/$kCsGateRecordFile': _gateYaml(const [
+            ('CE-DB', 'sufficient', null),
+          ]),
         }),
         throwsA(isA<CsExtractException>()),
       );
@@ -3416,13 +3467,10 @@ class CustomerSaveResponse {
 ''',
         },
       );
-      expect(
-        _forCheck(37, input).map((v) => v.message).toList(),
-        [
-          contains('CustomerSaveRequest.customerId'),
-          contains('CustomerSaveResponse.accepted'),
-        ],
-      );
+      expect(_forCheck(37, input).map((v) => v.message).toList(), [
+        contains('CustomerSaveRequest.customerId'),
+        contains('CustomerSaveResponse.accepted'),
+      ]);
     });
 
     test('a shared class that is not a DTO is not this check', () {
@@ -3556,8 +3604,8 @@ class OrderingConfig {
     // so it is the fixture that has to pass every comment check: a rule the
     // worked example breaks is a rule stated against the contract's own output.
     CodeSpecsValidationInput workedExample() => _input(
-          shared: {
-            'lib/src/authorization/resource_keys.dart': '''
+      shared: {
+        'lib/src/authorization/resource_keys.dart': '''
 // GENERATED by TomSpecs Phase 4 (CodeSpecs) — do not edit.
 
 import 'package:tom_code_specs/tom_code_specs.dart';
@@ -3567,9 +3615,10 @@ class ResourceKeys {
   static const customerPii = CsResourceKeyRef('customer.pii');
 }
 ''',
-          },
-          server: {
-            'lib/src/data_access/customer.dart': '''
+      },
+      server: {
+        'lib/src/data_access/customer.dart':
+            '''
 // GENERATED by TomSpecs Phase 4 (CodeSpecs) — do not edit.
 // Source document: information_model.md (D06)
 // Spec model version: 1.4.0
@@ -3622,25 +3671,25 @@ class Customer {
   late String signedContract;
 }
 ''',
-          },
-          extracts: _extract([
-            ..._customerEntries,
-            ('IMO-014', 'entityName', 'Customer'),
-            ('IMO-014', 'table', 'customer'),
-            ('IMO-014', 'datasource', 'core'),
-            ('IMO-014-a', 'attributeName', 'name'),
-            ('IMO-014-a', 'column', 'cust_name'),
-            ('IMO-014-a', 'columnType', 'VARCHAR'),
-            ('IMO-014-a', 'accessKey', 'customer.pii'),
-            ('IMO-014-a', 'description', 'The name the customer trades under.'),
-            ('DATAA', 'maxLength', '80'),
-            ('IMO-014-b', 'attributeName', 'signedContract'),
-            ('IMO-014-b', 'column', 'signed_contract'),
-            ('DAATT-DTFR', 'keyPrefix', 'contracts'),
-            ('DAATT-DTFR', 'cascadeDelete', 'true'),
-            ('DAATT-DTFR', 'acceptedMediaTypes', 'application/pdf'),
-          ]),
-        );
+      },
+      extracts: _extract([
+        ..._customerEntries,
+        ('IMO-014', 'entityName', 'Customer'),
+        ('IMO-014', 'table', 'customer'),
+        ('IMO-014', 'datasource', 'core'),
+        ('IMO-014-a', 'attributeName', 'name'),
+        ('IMO-014-a', 'column', 'cust_name'),
+        ('IMO-014-a', 'columnType', 'VARCHAR'),
+        ('IMO-014-a', 'accessKey', 'customer.pii'),
+        ('IMO-014-a', 'description', 'The name the customer trades under.'),
+        ('DATAA', 'maxLength', '80'),
+        ('IMO-014-b', 'attributeName', 'signedContract'),
+        ('IMO-014-b', 'column', 'signed_contract'),
+        ('DAATT-DTFR', 'keyPrefix', 'contracts'),
+        ('DAATT-DTFR', 'cascadeDelete', 'true'),
+        ('DAATT-DTFR', 'acceptedMediaTypes', 'application/pdf'),
+      ]),
+    );
 
     // The example is where the two back-links have to be seen composing: the
     // class is the emission unit and the two members carry @DocSpec alone, so
@@ -3677,8 +3726,8 @@ class Customer {
 
   group('the pass as a whole', () {
     CodeSpecsValidationInput cleanTrio() => _input(
-          shared: {
-            'lib/contract.dart': '''
+      shared: {
+        'lib/contract.dart': '''
 @CodeSpec('ce-sc.placeOrder', source: ['SBP.7.1'])
 @DocSpec([DocRef('SBP.7.1', 'the place-order interaction')])
 @CsEndpoint('order.place')
@@ -3693,9 +3742,10 @@ class placeOrder {}
 )
 class orderFailed {}
 ''',
-          },
-          client: {
-            'lib/form.dart': '''
+      },
+      client: {
+        'lib/form.dart':
+            '''
 import 'package:$_sharedPackage/contract.dart';
 
 const submitOrder = CsActionRef('submitOrder');
@@ -3717,9 +3767,10 @@ class orderForm {
 )
 class submitOrderTrigger {}
 ''',
-          },
-          server: {
-            'lib/service.dart': '''
+      },
+      server: {
+        'lib/service.dart':
+            '''
 import 'package:$_sharedPackage/contract.dart';
 
 @CodeSpec('ce-sv.placeOrder', source: ['SBP.7.1'])
@@ -3732,16 +3783,16 @@ class PlaceOrderHandler {
   }
 }
 ''',
-          },
-          mirrors: const [
-            CsEnumMirror(
-              csEnumName: 'CsSample',
-              coreEnumName: 'TomSample',
-              csValues: ['info', 'warning', 'error', 'fatal'],
-              coreValues: ['info', 'warning', 'error', 'fatal'],
-            ),
-          ],
-        );
+      },
+      mirrors: const [
+        CsEnumMirror(
+          csEnumName: 'CsSample',
+          coreEnumName: 'TomSample',
+          csValues: ['info', 'warning', 'error', 'fatal'],
+          coreValues: ['info', 'warning', 'error', 'fatal'],
+        ),
+      ],
+    );
 
     test('a clean trio raises nothing at all', () {
       final report = runCodeSpecsChecks(cleanTrio());
@@ -3792,7 +3843,8 @@ class Order {
       final report = runCodeSpecsChecks(
         _input(
           client: {
-            'lib/a.dart': "import 'package:$_serverPackage/a.dart';\n"
+            'lib/a.dart':
+                "import 'package:$_serverPackage/a.dart';\n"
                 "@CsUserSetting('', overridableBy: CsOverridableBy.client) "
                 'class theme {}',
           },

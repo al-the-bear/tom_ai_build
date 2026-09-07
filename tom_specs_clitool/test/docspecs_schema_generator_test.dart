@@ -47,7 +47,9 @@ Map<String, ModelClass> _demoModel() {
       ModelField(
         name: 'header',
         typeName: 'Header',
-        annotations: [_a('SectionId', {'id': 'D00-HDR'})],
+        annotations: [
+          _a('SectionId', {'id': 'D00-HDR'}),
+        ],
       ),
       ModelField(
         name: 'items',
@@ -61,11 +63,7 @@ Map<String, ModelClass> _demoModel() {
           _a('Max', {'count': 4}),
         ],
       ),
-      ModelField(
-        name: 'notes',
-        typeName: 'Notes',
-        annotations: [],
-      ),
+      ModelField(name: 'notes', typeName: 'Notes', annotations: []),
       ModelField(
         name: 'legacy',
         typeName: 'String',
@@ -81,8 +79,11 @@ Map<String, ModelClass> _demoModel() {
     annotations: [_a('Form')],
     formFields: [
       FormFieldInfo(
-          name: 'title', typeName: 'String', required: true,
-          hint: 'e.g. My System'),
+        name: 'title',
+        typeName: 'String',
+        required: true,
+        hint: 'e.g. My System',
+      ),
       FormFieldInfo(name: 'approvedBy', typeName: 'String'),
     ],
     fields: [
@@ -91,8 +92,10 @@ Map<String, ModelClass> _demoModel() {
         name: 'approvedBy',
         typeName: 'String?',
         annotations: [
-          _a('PatternCheck',
-              {'pattern': r'^[A-Z][a-z]+$', 'errorMessage': 'Name-cased'}),
+          _a('PatternCheck', {
+            'pattern': r'^[A-Z][a-z]+$',
+            'errorMessage': 'Name-cased',
+          }),
         ],
       ),
     ],
@@ -128,12 +131,7 @@ Map<String, ModelClass> _demoModel() {
       ),
     ],
   );
-  return {
-    'DemoDoc': root,
-    'Header': header,
-    'Item': item,
-    'Notes': notes,
-  };
+  return {'DemoDoc': root, 'Header': header, 'Item': item, 'Notes': notes};
 }
 
 /// Writes [schema] as YAML to a temp tree and loads it back through the real
@@ -170,8 +168,13 @@ void main() {
       expect(
         schema.sectionTypes.keys,
         containsAll(<String>[
-          'd00-ovr', 'd00-det', 'd00-hdr', 'd00-itm', 'd00-note',
-          'itmr-lbl', 'note-rmk',
+          'd00-ovr',
+          'd00-det',
+          'd00-hdr',
+          'd00-itm',
+          'd00-note',
+          'itmr-lbl',
+          'note-rmk',
         ]),
       );
       // The exact TomSpecs id survives modulo the parser's prefix grammar
@@ -181,19 +184,22 @@ void main() {
       expect(schema.sectionTypes['d00-itm']!.prefix, 'D00_ITM_');
     });
 
-    test('SOM §13: subsection-types carry nearest section-bearing children with '
-        'min/max cardinality', () {
-      final schema = gen.generateFor('DemoDoc');
-      // The list element's child content section is its subsection.
-      final itm = schema.sectionTypes['d00-itm']!;
-      expect(itm.subsectionTypes!.keys, ['itmr-lbl']);
-      expect(itm.subsectionTypes!['itmr-lbl']!.maxCount, 1);
-      // The container section carries its nested content child.
-      final note = schema.sectionTypes['d00-note']!;
-      expect(note.subsectionTypes!.keys, ['note-rmk']);
-      // Leaf content sections have no subsection-types at all.
-      expect(schema.sectionTypes['d00-ovr']!.subsectionTypes, isNull);
-    });
+    test(
+      'SOM §13: subsection-types carry nearest section-bearing children with '
+      'min/max cardinality',
+      () {
+        final schema = gen.generateFor('DemoDoc');
+        // The list element's child content section is its subsection.
+        final itm = schema.sectionTypes['d00-itm']!;
+        expect(itm.subsectionTypes!.keys, ['itmr-lbl']);
+        expect(itm.subsectionTypes!['itmr-lbl']!.maxCount, 1);
+        // The container section carries its nested content child.
+        final note = schema.sectionTypes['d00-note']!;
+        expect(note.subsectionTypes!.keys, ['note-rmk']);
+        // Leaf content sections have no subsection-types at all.
+        expect(schema.sectionTypes['d00-ovr']!.subsectionTypes, isNull);
+      },
+    );
 
     test('SOM §13: list-element pattern-check-id compiles the exact '
         '@SectionIdPattern with xxx → .+ (YRD3 stem check)', () {
@@ -227,12 +233,18 @@ void main() {
     test('SOM §13: description from @ContentHelp first, doc comment fallback; '
         'validation-prompt from @ValidationPrompt', () {
       final schema = gen.generateFor('DemoDoc');
-      expect(schema.sectionTypes['d00-ovr']!.description,
-          'What the system does and why.');
-      expect(schema.sectionTypes['note-rmk']!.description,
-          'A single remark line.');
-      expect(schema.sectionTypes['d00-note']!.validationPrompt,
-          'Check the notes are actionable.');
+      expect(
+        schema.sectionTypes['d00-ovr']!.description,
+        'What the system does and why.',
+      );
+      expect(
+        schema.sectionTypes['note-rmk']!.description,
+        'A single remark line.',
+      );
+      expect(
+        schema.sectionTypes['d00-note']!.validationPrompt,
+        'Check the notes are actionable.',
+      );
     });
 
     test('toYamlString escapes embedded double quotes so a description with '
@@ -240,7 +252,8 @@ void main() {
       // Regression: json2yaml double-quotes a scalar containing a comma but
       // leaves embedded `"` unescaped, producing invalid YAML. A free-text
       // @ContentHelp such as `... (e.g., "orders", "payments").` must survive.
-      const guidance = 'Create a flowchart and label edges with data flow '
+      const guidance =
+          'Create a flowchart and label edges with data flow '
           'descriptions (e.g., "orders", "payments", "notifications").';
       final model = <String, ModelClass>{
         'QuoteDoc': ModelClass(
@@ -300,8 +313,11 @@ void main() {
         };
         final schema = DocSpecsSchemaGenerator(model).generateFor('PlainDoc');
         final reloaded = _writeAndReload(dir, schema);
-        expect(reloaded.sectionTypes['p00-body']!.description, entry.value,
-            reason: 'case: ${entry.key}');
+        expect(
+          reloaded.sectionTypes['p00-body']!.description,
+          entry.value,
+          reason: 'case: ${entry.key}',
+        );
       }
     });
 
@@ -357,8 +373,10 @@ void main() {
         ),
       };
       final schema = DocSpecsSchemaGenerator(model).generateFor('HeadDoc');
-      expect(schema.customTags['title-format'],
-          '# <!--[HD00]--> Headlined Document');
+      expect(
+        schema.customTags['title-format'],
+        '# <!--[HD00]--> Headlined Document',
+      );
     });
 
     test('SOM §13: @Unused nodes are omitted from the schema entirely', () {
@@ -377,27 +395,30 @@ void main() {
       expect(prefixLens, sorted);
     });
 
-    test('SOM §13: the emitted YAML reloads through the DocSpecs loader with all '
-        'constructs intact', () {
-      final schema = gen.generateFor('DemoDoc');
-      final reloaded = _writeAndReload(dir, schema);
-      expect(reloaded.fullId, 'demo-doc/1.0');
-      expect(reloaded.sectionTypes.length, schema.sectionTypes.length);
-      expect(reloaded.formTypes?.length, 1);
-      // Subsection constraints survive the round-trip.
-      final itm = reloaded.sectionTypes['d00-itm']!;
-      expect(itm.subsectionTypes!['itmr-lbl']!.maxCount, 1);
-      expect(itm.patternCheckId!.pattern, r'^D00-ITM-.+$');
-      // Form field description + pattern-check survive.
-      final form = reloaded.formTypes!['d00-hdr-form']!;
-      expect(form.fields.first.description, 'e.g. My System');
-      expect(form.fields.last.patternCheck!.pattern, r'^[A-Z][a-z]+$');
-      // The title-format custom tag survives.
-      expect(reloaded.customTags['title-format'], '# <!--[D00]--> Demo Doc');
-      // Document requiredness survives.
-      expect(reloaded.document.sections['d00-ovr']!.optional, isNull);
-      expect(reloaded.document.sections['d00-det']!.optional, isTrue);
-    });
+    test(
+      'SOM §13: the emitted YAML reloads through the DocSpecs loader with all '
+      'constructs intact',
+      () {
+        final schema = gen.generateFor('DemoDoc');
+        final reloaded = _writeAndReload(dir, schema);
+        expect(reloaded.fullId, 'demo-doc/1.0');
+        expect(reloaded.sectionTypes.length, schema.sectionTypes.length);
+        expect(reloaded.formTypes?.length, 1);
+        // Subsection constraints survive the round-trip.
+        final itm = reloaded.sectionTypes['d00-itm']!;
+        expect(itm.subsectionTypes!['itmr-lbl']!.maxCount, 1);
+        expect(itm.patternCheckId!.pattern, r'^D00-ITM-.+$');
+        // Form field description + pattern-check survive.
+        final form = reloaded.formTypes!['d00-hdr-form']!;
+        expect(form.fields.first.description, 'e.g. My System');
+        expect(form.fields.last.patternCheck!.pattern, r'^[A-Z][a-z]+$');
+        // The title-format custom tag survives.
+        expect(reloaded.customTags['title-format'], '# <!--[D00]--> Demo Doc');
+        // Document requiredness survives.
+        expect(reloaded.document.sections['d00-ovr']!.optional, isNull);
+        expect(reloaded.document.sections['d00-det']!.optional, isTrue);
+      },
+    );
 
     test('S2: schema version counts up with the model stamp', () {
       expect(gen.generateFor('DemoDoc', modelVersion: 1).version, '1.0');
@@ -411,8 +432,11 @@ void main() {
       // 1.3 as the in-file schema version — the *same* string the _v0 facades
       // report via SpecModel.modelVersionString — not the int-major-only 1.0.
       const label = '1.3.0+5.abc1234';
-      final schema =
-          gen.generateFor('DemoDoc', modelVersion: 1, modelLabel: label);
+      final schema = gen.generateFor(
+        'DemoDoc',
+        modelVersion: 1,
+        modelLabel: label,
+      );
 
       // Single-sourced with the facades: identical to the runtime helper.
       expect(schema.version, somModelVersionString(1, label));
@@ -430,19 +454,24 @@ void main() {
       // An unstamped model still falls back to <major>.0.
       final unstamped = gen.generateFor('DemoDoc', modelVersion: 1);
       expect(unstamped.version, '1.0');
-      expect(DocSpecsSchemaGenerator.fileNameFor(unstamped),
-          'demo-doc.1.0.docspecs-schema.yaml');
+      expect(
+        DocSpecsSchemaGenerator.fileNameFor(unstamped),
+        'demo-doc.1.0.docspecs-schema.yaml',
+      );
     });
 
     test('CS2-D7: generateAll threads the label to every schema', () {
-      final schemas = DocSpecsSchemaGenerator(classes)
-          .generateAll(modelVersion: 1, modelLabel: '2.5.0+9.deadbee');
+      final schemas = DocSpecsSchemaGenerator(
+        classes,
+      ).generateAll(modelVersion: 1, modelLabel: '2.5.0+9.deadbee');
       expect(schemas.values, isNotEmpty);
       for (final schema in schemas.values) {
         expect(schema.version, '2.5');
         // Filename still keyed off the integer major → `2.0`.
-        expect(DocSpecsSchemaGenerator.fileNameFor(schema),
-            '${schema.id}.2.0.docspecs-schema.yaml');
+        expect(
+          DocSpecsSchemaGenerator.fileNameFor(schema),
+          '${schema.id}.2.0.docspecs-schema.yaml',
+        );
       }
     });
 
@@ -456,26 +485,37 @@ void main() {
       // pruned. Without that, the old major stays frozen at the model shape it
       // had when the version moved and drifts silently.
       DocSpecsSchemaGenerator.writeSchemaTree(
-          dir.path, gen.generateAll(modelVersion: 9));
+        dir.path,
+        gen.generateAll(modelVersion: 9),
+      );
       // A root that no longer exists leaves a whole directory behind.
       final goneRoot = Directory(p.join(dir.path, 'schemas', 'retired-doc'))
         ..createSync(recursive: true);
-      File(p.join(goneRoot.path, 'retired-doc.1.0.docspecs-schema.yaml'))
-          .writeAsStringSync('stale');
+      File(
+        p.join(goneRoot.path, 'retired-doc.1.0.docspecs-schema.yaml'),
+      ).writeAsStringSync('stale');
 
       final written = DocSpecsSchemaGenerator.writeSchemaTree(
-          dir.path, gen.generateAll(modelVersion: 1));
+        dir.path,
+        gen.generateAll(modelVersion: 1),
+      );
 
-      final onDisk = Directory(p.join(dir.path, 'schemas'))
-          .listSync(recursive: true)
-          .whereType<File>()
-          .map((f) => f.path)
-          .toList()
-        ..sort();
-      expect(onDisk, equals(written..sort()),
-          reason: 'schemas/ holds exactly what this run wrote');
-      expect(onDisk.where((f) => f.endsWith('.9.0.docspecs-schema.yaml')),
-          isEmpty);
+      final onDisk =
+          Directory(p.join(dir.path, 'schemas'))
+              .listSync(recursive: true)
+              .whereType<File>()
+              .map((f) => f.path)
+              .toList()
+            ..sort();
+      expect(
+        onDisk,
+        equals(written..sort()),
+        reason: 'schemas/ holds exactly what this run wrote',
+      );
+      expect(
+        onDisk.where((f) => f.endsWith('.9.0.docspecs-schema.yaml')),
+        isEmpty,
+      );
       expect(goneRoot.existsSync(), isFalse);
     });
   });
@@ -500,48 +540,62 @@ void main() {
     setUp(() => dir = Directory.systemTemp.createTempSync('specs_schema_e2e_'));
     tearDown(() => dir.deleteSync(recursive: true));
 
-    test('S1: generates exactly 14 schemas (1 global SBP + 13 projections)', () {
-      final schemas = DocSpecsSchemaGenerator(classes).generateAll();
-      expect(schemas.length, 14);
-      expect(schemas.keys, contains('solution-blueprint'));
-    });
+    test(
+      'S1: generates exactly 14 schemas (1 global SBP + 13 projections)',
+      () {
+        final schemas = DocSpecsSchemaGenerator(classes).generateAll();
+        expect(schemas.length, 14);
+        expect(schemas.keys, contains('solution-blueprint'));
+      },
+    );
 
-    test('schema-gen: the generated SBP schema is SOM §13-structured — lower-cased type '
-        'names, legal prefixes, subsection-types, title-format', () {
-      final schema =
-          DocSpecsSchemaGenerator(classes).generateFor('D00SolutionBlueprint');
-      expect(schema.id, 'solution-blueprint');
-      expect(schema.sectionTypes, isNotEmpty);
-      // All type names are lower-cased ids; all prefixes satisfy the DocSpecs
-      // prefix grammar.
-      for (final entry in schema.sectionTypes.entries) {
-        expect(entry.key, equals(entry.key.toLowerCase()),
-            reason: 'type name ${entry.key} must be lower-cased');
-        expect(RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(entry.value.prefix!), isTrue,
-            reason: 'prefix ${entry.value.prefix} must be DocSpecs-legal');
-      }
-      // At least one section-bearing container carries subsection-types.
-      expect(
-        schema.sectionTypes.values.any(
-            (t) => t.subsectionTypes != null && t.subsectionTypes!.isNotEmpty),
-        isTrue,
-      );
-      // Every pattern check compiles and is anchored.
-      for (final t in schema.sectionTypes.values) {
-        final check = t.patternCheckId;
-        if (check == null) continue;
-        expect(() => RegExp(check.pattern), returnsNormally);
-        expect(check.pattern, startsWith('^'));
-        expect(check.pattern, endsWith(r'$'));
-      }
-      // SOM §13 rule 4 title format.
-      expect(schema.customTags['title-format'], startsWith('# <!--['));
-      // The document lists top-level slots referencing existing types.
-      expect(schema.document.sections, isNotEmpty);
-      for (final s in schema.document.sections.values) {
-        expect(schema.sectionTypes, contains(s.sectionType));
-      }
-    });
+    test(
+      'schema-gen: the generated SBP schema is SOM §13-structured — lower-cased type '
+      'names, legal prefixes, subsection-types, title-format',
+      () {
+        final schema = DocSpecsSchemaGenerator(
+          classes,
+        ).generateFor('D00SolutionBlueprint');
+        expect(schema.id, 'solution-blueprint');
+        expect(schema.sectionTypes, isNotEmpty);
+        // All type names are lower-cased ids; all prefixes satisfy the DocSpecs
+        // prefix grammar.
+        for (final entry in schema.sectionTypes.entries) {
+          expect(
+            entry.key,
+            equals(entry.key.toLowerCase()),
+            reason: 'type name ${entry.key} must be lower-cased',
+          );
+          expect(
+            RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(entry.value.prefix!),
+            isTrue,
+            reason: 'prefix ${entry.value.prefix} must be DocSpecs-legal',
+          );
+        }
+        // At least one section-bearing container carries subsection-types.
+        expect(
+          schema.sectionTypes.values.any(
+            (t) => t.subsectionTypes != null && t.subsectionTypes!.isNotEmpty,
+          ),
+          isTrue,
+        );
+        // Every pattern check compiles and is anchored.
+        for (final t in schema.sectionTypes.values) {
+          final check = t.patternCheckId;
+          if (check == null) continue;
+          expect(() => RegExp(check.pattern), returnsNormally);
+          expect(check.pattern, startsWith('^'));
+          expect(check.pattern, endsWith(r'$'));
+        }
+        // SOM §13 rule 4 title format.
+        expect(schema.customTags['title-format'], startsWith('# <!--['));
+        // The document lists top-level slots referencing existing types.
+        expect(schema.document.sections, isNotEmpty);
+        for (final s in schema.document.sections.values) {
+          expect(schema.sectionTypes, contains(s.sectionType));
+        }
+      },
+    );
 
     test('schema-gen: no schema constrains a section text body — '
         'pattern-check-text is never emitted '
@@ -553,8 +607,11 @@ void main() {
       final schemas = DocSpecsSchemaGenerator(classes).generateAll();
       for (final schema in schemas.values) {
         for (final entry in schema.sectionTypes.entries) {
-          expect(entry.value.patternCheckText, isNull,
-              reason: '${schema.id}/${entry.key} emits pattern-check-text');
+          expect(
+            entry.value.patternCheckText,
+            isNull,
+            reason: '${schema.id}/${entry.key} emits pattern-check-text',
+          );
         }
       }
     });
@@ -564,8 +621,11 @@ void main() {
       final schemas = DocSpecsSchemaGenerator(classes).generateAll();
       for (final schema in schemas.values) {
         final reloaded = _writeAndReload(dir, schema);
-        expect(reloaded.sectionTypes, isNotEmpty,
-            reason: '${schema.id} has no section-types');
+        expect(
+          reloaded.sectionTypes,
+          isNotEmpty,
+          reason: '${schema.id} has no section-types',
+        );
         expect(reloaded.version, '1.0');
         expect(reloaded.sectionTypes.length, schema.sectionTypes.length);
       }

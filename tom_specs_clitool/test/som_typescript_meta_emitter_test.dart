@@ -11,108 +11,108 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// and an id-less section (`details`) so the ID-tree hoisting rule is
 /// exercised.
 Map<String, dynamic> _fixtureJson() => {
-      'modelVersion': 0,
-      'roots': [
+  'modelVersion': 0,
+  'roots': [
+    {
+      'type': 'SolutionBlueprint',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+      'description': 'The structured project overview.',
+    },
+  ],
+  'classes': {
+    'SolutionBlueprint': {
+      'name': 'SolutionBlueprint',
+      'sectionId': 'PD00',
+      'doc': 'Root of a project definition document.',
+      'fields': [
         {
-          'type': 'SolutionBlueprint',
-          'title': 'Project Definition',
-          'sectionId': 'PD00',
-          'description': 'The structured project overview.',
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'vision',
+          'contentType': 'text',
+          'doc': 'Why the system exists.',
+        },
+        {
+          'name': 'owner',
+          'kind': 'form',
+          'sectionId': 'owner',
+          'formFields': [
+            {'name': 'name', 'label': 'Name', 'type': 'String'},
+            {'name': 'role', 'label': 'Role', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'risks',
+          'sectionIdPattern': 'RISK-ITEM-xxx',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
+          'min': 2,
+        },
+        {
+          'name': 'tags',
+          'kind': 'list',
+          'sectionId': 'tags',
+          'elementType': 'String',
+          'elementIsComplex': false,
+        },
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'situation',
+          'type': 'CurrentLandscapeAssessment',
+        },
+        {
+          // Id-less section: the ID-tree hoists through it (its target's
+          // id-bearing fields surface at the root, path-prefixed).
+          'name': 'details',
+          'kind': 'section',
+          'type': 'CurrentLandscapeAssessment',
         },
       ],
-      'classes': {
-        'SolutionBlueprint': {
-          'name': 'SolutionBlueprint',
-          'sectionId': 'PD00',
-          'doc': 'Root of a project definition document.',
-          'fields': [
-            {
-              'name': 'vision',
-              'kind': 'content',
-              'sectionId': 'vision',
-              'contentType': 'text',
-              'doc': 'Why the system exists.',
-            },
-            {
-              'name': 'owner',
-              'kind': 'form',
-              'sectionId': 'owner',
-              'formFields': [
-                {'name': 'name', 'label': 'Name', 'type': 'String'},
-                {'name': 'role', 'label': 'Role', 'type': 'String'},
-              ],
-            },
-            {
-              'name': 'risks',
-              'kind': 'list',
-              'sectionId': 'risks',
-              'sectionIdPattern': 'RISK-ITEM-xxx',
-              'elementType': 'Risk',
-              'elementIsComplex': true,
-              'min': 2,
-            },
-            {
-              'name': 'tags',
-              'kind': 'list',
-              'sectionId': 'tags',
-              'elementType': 'String',
-              'elementIsComplex': false,
-            },
-            {
-              'name': 'situation',
-              'kind': 'complex',
-              'sectionId': 'situation',
-              'type': 'CurrentLandscapeAssessment',
-            },
-            {
-              // Id-less section: the ID-tree hoists through it (its target's
-              // id-bearing fields surface at the root, path-prefixed).
-              'name': 'details',
-              'kind': 'section',
-              'type': 'CurrentLandscapeAssessment',
-            },
-          ],
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      'fields': [
+        {
+          'name': 'title',
+          'kind': 'content',
+          'sectionId': 'title',
+          'contentType': 'text',
         },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          'fields': [
-            {
-              'name': 'title',
-              'kind': 'content',
-              'sectionId': 'title',
-              'contentType': 'text',
-            },
-            {
-              'name': 'probability',
-              'kind': 'enum',
-              'sectionId': 'prob',
-              'enumType': 'Probability',
-              'enumValues': ['low', 'medium', 'high'],
-            },
-            {
-              // Recursive: Risk inside Risk — becomes a terminal re-entry.
-              'name': 'mitigation',
-              'kind': 'complex',
-              'sectionId': 'mitigation',
-              'type': 'Risk',
-            },
-          ],
+        {
+          'name': 'probability',
+          'kind': 'enum',
+          'sectionId': 'prob',
+          'enumType': 'Probability',
+          'enumValues': ['low', 'medium', 'high'],
         },
-        'CurrentLandscapeAssessment': {
-          'name': 'CurrentLandscapeAssessment',
-          'sectionId': 'CS00',
-          'fields': [
-            {
-              'name': 'summary',
-              'kind': 'content',
-              'sectionId': 'summary',
-              'contentType': 'text',
-            },
-          ],
+        {
+          // Recursive: Risk inside Risk — becomes a terminal re-entry.
+          'name': 'mitigation',
+          'kind': 'complex',
+          'sectionId': 'mitigation',
+          'type': 'Risk',
         },
-      },
-    };
+      ],
+    },
+    'CurrentLandscapeAssessment': {
+      'name': 'CurrentLandscapeAssessment',
+      'sectionId': 'CS00',
+      'fields': [
+        {
+          'name': 'summary',
+          'kind': 'content',
+          'sectionId': 'summary',
+          'contentType': 'text',
+        },
+      ],
+    },
+  },
+};
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
@@ -121,8 +121,11 @@ SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 /// rather than a single hard-wired one.
 Map<String, dynamic> _twoRootJson() {
   final json = _fixtureJson();
-  (json['roots'] as List)
-      .add({'type': 'Aux', 'title': 'Aux', 'sectionId': 'AX00'});
+  (json['roots'] as List).add({
+    'type': 'Aux',
+    'title': 'Aux',
+    'sectionId': 'AX00',
+  });
   (json['classes'] as Map<String, dynamic>)['Aux'] = {
     'name': 'Aux',
     'sectionId': 'AX00',
@@ -258,7 +261,8 @@ process.stdout.write('OK');
 /// the test runs from, or `null` when it cannot be located.
 String? _runtimeDir() {
   final candidate = p.normalize(
-      p.join(Directory.current.path, '..', 'tom_som_typescript_runtime'));
+    p.join(Directory.current.path, '..', 'tom_som_typescript_runtime'),
+  );
   return Directory(candidate).existsSync() ? candidate : null;
 }
 
@@ -290,46 +294,66 @@ void main() {
 
     test('emits per-root tree, dot-notation and ID-tree entry points', () {
       expect(
-          source,
-          contains('export const solutionBlueprintMetaTree: SomMetaTree = '
-              'new SomMetaTree('));
+        source,
+        contains(
+          'export const solutionBlueprintMetaTree: SomMetaTree = '
+          'new SomMetaTree(',
+        ),
+      );
       expect(
-          source,
-          contains(r'export const solutionBlueprint: SolutionBlueprint$Nav = '
-              r'new SolutionBlueprint$Nav('));
+        source,
+        contains(
+          r'export const solutionBlueprint: SolutionBlueprint$Nav = '
+          r'new SolutionBlueprint$Nav(',
+        ),
+      );
       expect(
-          source,
-          contains(r'export const PD00: SolutionBlueprint$Id = '
-              r'new SolutionBlueprint$Id('));
+        source,
+        contains(
+          r'export const PD00: SolutionBlueprint$Id = '
+          r'new SolutionBlueprint$Id(',
+        ),
+      );
     });
 
     test('emits one Nav class per model class with member-named getters', () {
       expect(
-          source,
-          contains(
-              r'export class SolutionBlueprint$Nav extends SomMetaRef {'));
+        source,
+        contains(r'export class SolutionBlueprint$Nav extends SomMetaRef {'),
+      );
       expect(source, contains(r'export class Risk$Nav extends SomMetaRef {'));
       expect(
-          source,
-          contains(r'export class CurrentLandscapeAssessment$Nav '
-              'extends SomMetaRef {'));
+        source,
+        contains(
+          r'export class CurrentLandscapeAssessment$Nav '
+          'extends SomMetaRef {',
+        ),
+      );
       // A list getter is a SomListMetaRef parameterised by a fully-annotated
       // element factory function (strict tsc).
       expect(
-          source,
-          contains('new SomListMetaRef(this.tree, this.path + "/risks", '
-              r'(t: SomMetaTree, p: string) => new Risk$Nav(t, p))'));
+        source,
+        contains(
+          'new SomListMetaRef(this.tree, this.path + "/risks", '
+          r'(t: SomMetaTree, p: string) => new Risk$Nav(t, p))',
+        ),
+      );
       // A scalar list's items are plain refs (no element accessor class).
       expect(
-          source,
-          contains('new SomListMetaRef(this.tree, this.path + "/tags", '
-              '(t: SomMetaTree, p: string) => new SomMetaRef(t, p))'));
+        source,
+        contains(
+          'new SomListMetaRef(this.tree, this.path + "/tags", '
+          '(t: SomMetaTree, p: string) => new SomMetaRef(t, p))',
+        ),
+      );
     });
 
     test('ID-tree getters are named by section id and hoist through id-less '
         'members', () {
-      expect(source,
-          contains(r'export class SolutionBlueprint$Id extends SomMetaRef {'));
+      expect(
+        source,
+        contains(r'export class SolutionBlueprint$Id extends SomMetaRef {'),
+      );
       expect(source, contains(r'export class Risk$Id extends SomMetaRef {'));
       // Hoisted: CurrentLandscapeAssessment.summary surfaces on the root's
       // Id class through the id-less `details` section.
@@ -365,32 +389,39 @@ void main() {
       // Node resolves the runtime's compiled entry (`dist/src/index.js`)
       // through the node_modules link below, so the runtime dist must exist.
       if (!File(p.join(runtimeDir, 'dist', 'src', 'index.js')).existsSync()) {
-        final build = await Process.run('npm', ['run', 'build'],
-            workingDirectory: runtimeDir);
+        final build = await Process.run('npm', [
+          'run',
+          'build',
+        ], workingDirectory: runtimeDir);
         if (build.exitCode != 0) {
-          markTestSkipped('runtime dist build failed:\n${build.stdout}\n'
-              '${build.stderr}');
+          markTestSkipped(
+            'runtime dist build failed:\n${build.stdout}\n'
+            '${build.stderr}',
+          );
           return;
         }
       }
       final dir = await Directory.systemTemp.createTemp('som_ts_meta_emit_');
       try {
         File(p.join(dir.path, 'generated_meta.ts')).writeAsStringSync(source);
-        File(p.join(dir.path, 'fixture.json'))
-            .writeAsStringSync(jsonEncode(_fixtureJson()));
+        File(
+          p.join(dir.path, 'fixture.json'),
+        ).writeAsStringSync(jsonEncode(_fixtureJson()));
         File(p.join(dir.path, 'check.ts')).writeAsStringSync(_checkProgram);
         // Both modules import the runtime by bare specifier — wire resolution
         // for `tsc` (types) and `node` (compiled js) through a node_modules
         // link onto the real runtime package.
         final nm = Directory(p.join(dir.path, 'node_modules'))
           ..createSync(recursive: true);
-        Link(p.join(nm.path, 'tom_som_typescript_runtime'))
-            .createSync(runtimeDir);
+        Link(
+          p.join(nm.path, 'tom_som_typescript_runtime'),
+        ).createSync(runtimeDir);
         // `@types/node` resolves from the runtime's own node_modules (the
         // temp dir carries only the runtime link) — same as the facade
         // compile test.
-        final runtimeTypes =
-            p.join(runtimeDir, 'node_modules', '@types').replaceAll('\\', '/');
+        final runtimeTypes = p
+            .join(runtimeDir, 'node_modules', '@types')
+            .replaceAll('\\', '/');
         final tsconfig = <String, Object?>{
           'compilerOptions': <String, Object?>{
             'target': 'ES2020',
@@ -408,19 +439,30 @@ void main() {
           },
           'include': <String>['*.ts'],
         };
-        File(p.join(dir.path, 'tsconfig.json'))
-            .writeAsStringSync(jsonEncode(tsconfig));
+        File(
+          p.join(dir.path, 'tsconfig.json'),
+        ).writeAsStringSync(jsonEncode(tsconfig));
 
-        final compile = await Process.run(tsc, ['-p', 'tsconfig.json'],
-            workingDirectory: dir.path);
-        expect(compile.exitCode, 0,
-            reason: 'tsc compile failed:\n${compile.stdout}\n'
-                '${compile.stderr}');
+        final compile = await Process.run(tsc, [
+          '-p',
+          'tsconfig.json',
+        ], workingDirectory: dir.path);
+        expect(
+          compile.exitCode,
+          0,
+          reason:
+              'tsc compile failed:\n${compile.stdout}\n'
+              '${compile.stderr}',
+        );
 
-        final run = await Process.run(node, [p.join('dist', 'check.js')],
-            workingDirectory: dir.path);
-        expect(run.exitCode, 0,
-            reason: 'check program failed:\n${run.stdout}\n${run.stderr}');
+        final run = await Process.run(node, [
+          p.join('dist', 'check.js'),
+        ], workingDirectory: dir.path);
+        expect(
+          run.exitCode,
+          0,
+          reason: 'check program failed:\n${run.stdout}\n${run.stderr}',
+        );
         expect(run.stdout.toString().trim(), 'OK');
       } finally {
         dir.deleteSync(recursive: true);
@@ -443,33 +485,48 @@ void main() {
           },
         },
       });
-      expect(() => SomTypeScriptMetaEmitter(bad).generateLibrary(),
-          throwsStateError);
+      expect(
+        () => SomTypeScriptMetaEmitter(bad).generateLibrary(),
+        throwsStateError,
+      );
     });
 
     test('documentRoots subsets the emitted roots but accessor classes stay '
         'complete', () {
       final all = SomTypeScriptMetaEmitter(_fixtureModel()).generateLibrary();
-      final subset = SomTypeScriptMetaEmitter(_fixtureModel(),
-          documentRoots: ['SolutionBlueprint']).generateLibrary();
+      final subset = SomTypeScriptMetaEmitter(
+        _fixtureModel(),
+        documentRoots: ['SolutionBlueprint'],
+      ).generateLibrary();
       expect(all, contains('solutionBlueprintMetaTree'));
       expect(subset, contains('solutionBlueprintMetaTree'));
     });
     // The nine v0 meta-agreement suites read their root set from this
     // registry instead of hand-listing it, so an emitter that drops it
     // silently un-gates fourteen roots in nine languages at once.
-    test('the document-root registry carries one entry per root (SOM §8)',
-        () {
-      final all = SomTypeScriptMetaEmitter(SpecModel.fromJson(_twoRootJson()))
-          .generateLibrary();
-      expect(all, contains('"SolutionBlueprint": {type: "SolutionBlueprint", segment: "PD00", '
-              'tree: solutionBlueprintMetaTree, nav: solutionBlueprint, id: PD00}'));
-      expect(all, contains('"Aux": {type: "Aux", segment: "AX00", tree: auxMetaTree, '
-              'nav: aux, id: AX00}'));
+    test('the document-root registry carries one entry per root (SOM §8)', () {
+      final all = SomTypeScriptMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+      ).generateLibrary();
+      expect(
+        all,
+        contains(
+          '"SolutionBlueprint": {type: "SolutionBlueprint", segment: "PD00", '
+          'tree: solutionBlueprintMetaTree, nav: solutionBlueprint, id: PD00}',
+        ),
+      );
+      expect(
+        all,
+        contains(
+          '"Aux": {type: "Aux", segment: "AX00", tree: auxMetaTree, '
+          'nav: aux, id: AX00}',
+        ),
+      );
 
-      final subset = SomTypeScriptMetaEmitter(SpecModel.fromJson(_twoRootJson()),
-              documentRoots: ['SolutionBlueprint'])
-          .generateLibrary();
+      final subset = SomTypeScriptMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+        documentRoots: ['SolutionBlueprint'],
+      ).generateLibrary();
       expect(subset, isNot(contains('"Aux": {type: "Aux"')));
     });
   });

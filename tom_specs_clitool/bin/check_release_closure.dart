@@ -22,15 +22,22 @@ Future<void> main(List<String> arguments) async {
     )
     ..addOption(
       'container-root',
-      help: 'Workspace container root. Default: derived from this script '
+      help:
+          'Workspace container root. Default: derived from this script '
           '(clitool/../../..).',
     )
-    ..addFlag('verbose',
-        abbr: 'v',
-        help: 'List every walked package and approved crossing.',
-        negatable: false)
-    ..addFlag('help', abbr: 'h', help: 'Show usage information.',
-        negatable: false);
+    ..addFlag(
+      'verbose',
+      abbr: 'v',
+      help: 'List every walked package and approved crossing.',
+      negatable: false,
+    )
+    ..addFlag(
+      'help',
+      abbr: 'h',
+      help: 'Show usage information.',
+      negatable: false,
+    );
 
   final ArgResults results;
   try {
@@ -48,11 +55,17 @@ Future<void> main(List<String> arguments) async {
   }
 
   final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
-  final containerRoot = p.normalize(p.absolute(
-      results.option('container-root') ??
-          p.join(clitoolRoot, '..', '..', '..')));
-  final manifestPath = p.normalize(p.absolute(results.option('manifest') ??
-      p.join(clitoolRoot, 'tool', 'release_set.yaml')));
+  final containerRoot = p.normalize(
+    p.absolute(
+      results.option('container-root') ?? p.join(clitoolRoot, '..', '..', '..'),
+    ),
+  );
+  final manifestPath = p.normalize(
+    p.absolute(
+      results.option('manifest') ??
+          p.join(clitoolRoot, 'tool', 'release_set.yaml'),
+    ),
+  );
 
   final ReleaseManifest manifest;
   try {
@@ -62,8 +75,10 @@ Future<void> main(List<String> arguments) async {
     exit(2);
   }
 
-  final report =
-      checkReleaseClosure(manifest: manifest, containerRoot: containerRoot);
+  final report = checkReleaseClosure(
+    manifest: manifest,
+    containerRoot: containerRoot,
+  );
 
   if (results.flag('verbose')) {
     for (final entry in manifest.releaseSet.entries) {
@@ -75,10 +90,11 @@ Future<void> main(List<String> arguments) async {
   }
 
   stdout.writeln(
-      'Walked ${report.packagesWalked} release package(s) and '
-      '${report.approvedCrossings} approved crossing(s); '
-      '${report.edgesChecked} dependency edge(s) classified, '
-      '${manifest.sourceOnly.length} source-only member(s) checked.');
+    'Walked ${report.packagesWalked} release package(s) and '
+    '${report.approvedCrossings} approved crossing(s); '
+    '${report.edgesChecked} dependency edge(s) classified, '
+    '${manifest.sourceOnly.length} source-only member(s) checked.',
+  );
   final byKind = <ClosureViolationKind, int>{};
   for (final v in report.violations) {
     byKind[v.kind] = (byKind[v.kind] ?? 0) + 1;
@@ -88,15 +104,19 @@ Future<void> main(List<String> arguments) async {
   }
 
   if (!report.isClosed) {
-    stderr.writeln('check_release_closure: '
-        '${report.violations.length} violation(s):');
+    stderr.writeln(
+      'check_release_closure: '
+      '${report.violations.length} violation(s):',
+    );
     for (final violation in report.violations) {
       stderr.writeln('  ${violation.describe()}');
     }
     exit(1);
   }
 
-  stdout.writeln('OK — the release set is closed: every edge stays inside '
-      'the set, crosses at an approved published package, or lands on '
-      'third-party pub.');
+  stdout.writeln(
+    'OK — the release set is closed: every edge stays inside '
+    'the set, crosses at an approved published package, or lands on '
+    'third-party pub.',
+  );
 }

@@ -18,45 +18,85 @@ Future<void> main(List<String> arguments) async {
   final aiBuild = p.dirname(clitoolRoot);
 
   final parser = ArgParser()
-    ..addOption('config',
-        abbr: 'c',
-        help: 'Path to the tom-spec-object-model config YAML. '
-            'Default: <clitool>/tom_som.yaml.')
-    ..addOption('model',
-        help: 'Path to the tom_specs_model package. '
-            'Default: <ai_build>/tom_specs_model.')
-    ..addOption('runtime',
-        help: 'Path to the tom_som_dart_runtime package (pubspec dep target). '
-            'Default: <ai_build>/tom_som_dart_runtime.')
-    ..addOption('py-runtime',
-        help: 'Path to the tom_som_python_runtime package (manifest dep '
-            'target). Default: <ai_build>/tom_som_python_runtime.')
-    ..addOption('java-runtime',
-        help: 'Path to the tom_som_java_runtime package (manifest dep '
-            'target). Default: <ai_build>/tom_som_java_runtime.')
-    ..addOption('js-runtime',
-        help: 'Path to the tom_som_javascript_runtime package (manifest dep '
-            'target). Default: <ai_build>/tom_som_javascript_runtime.')
-    ..addOption('ts-runtime',
-        help: 'Path to the tom_som_typescript_runtime package (file: dep '
-            'target). Default: <ai_build>/tom_som_typescript_runtime.')
-    ..addOption('go-runtime',
-        help: 'Path to the tom_som_go_runtime module (go.mod replace '
-            'target). Default: <ai_build>/tom_som_go_runtime.')
-    ..addOption('rust-runtime',
-        help: 'Path to the tom_som_rust_runtime crate (Cargo.toml path dep '
-            'target). Default: <ai_build>/tom_som_rust_runtime.')
-    ..addOption('c-runtime',
-        help: 'Path to the tom_som_c_runtime project (Makefile RUNTIME_DIR '
-            'target). Default: <ai_build>/tom_som_c_runtime.')
-    ..addOption('cpp-runtime',
-        help: 'Path to the tom_som_cpp_runtime project (Makefile RUNTIME_DIR '
-            'target). Default: <ai_build>/tom_som_cpp_runtime.')
-    ..addOption('model-version',
-        help: 'Override the integer model-version stamp. '
-            'Default: major component of the model version.')
-    ..addFlag('help', abbr: 'h', help: 'Show usage information.',
-        negatable: false);
+    ..addOption(
+      'config',
+      abbr: 'c',
+      help:
+          'Path to the tom-spec-object-model config YAML. '
+          'Default: <clitool>/tom_som.yaml.',
+    )
+    ..addOption(
+      'model',
+      help:
+          'Path to the tom_specs_model package. '
+          'Default: <ai_build>/tom_specs_model.',
+    )
+    ..addOption(
+      'runtime',
+      help:
+          'Path to the tom_som_dart_runtime package (pubspec dep target). '
+          'Default: <ai_build>/tom_som_dart_runtime.',
+    )
+    ..addOption(
+      'py-runtime',
+      help:
+          'Path to the tom_som_python_runtime package (manifest dep '
+          'target). Default: <ai_build>/tom_som_python_runtime.',
+    )
+    ..addOption(
+      'java-runtime',
+      help:
+          'Path to the tom_som_java_runtime package (manifest dep '
+          'target). Default: <ai_build>/tom_som_java_runtime.',
+    )
+    ..addOption(
+      'js-runtime',
+      help:
+          'Path to the tom_som_javascript_runtime package (manifest dep '
+          'target). Default: <ai_build>/tom_som_javascript_runtime.',
+    )
+    ..addOption(
+      'ts-runtime',
+      help:
+          'Path to the tom_som_typescript_runtime package (file: dep '
+          'target). Default: <ai_build>/tom_som_typescript_runtime.',
+    )
+    ..addOption(
+      'go-runtime',
+      help:
+          'Path to the tom_som_go_runtime module (go.mod replace '
+          'target). Default: <ai_build>/tom_som_go_runtime.',
+    )
+    ..addOption(
+      'rust-runtime',
+      help:
+          'Path to the tom_som_rust_runtime crate (Cargo.toml path dep '
+          'target). Default: <ai_build>/tom_som_rust_runtime.',
+    )
+    ..addOption(
+      'c-runtime',
+      help:
+          'Path to the tom_som_c_runtime project (Makefile RUNTIME_DIR '
+          'target). Default: <ai_build>/tom_som_c_runtime.',
+    )
+    ..addOption(
+      'cpp-runtime',
+      help:
+          'Path to the tom_som_cpp_runtime project (Makefile RUNTIME_DIR '
+          'target). Default: <ai_build>/tom_som_cpp_runtime.',
+    )
+    ..addOption(
+      'model-version',
+      help:
+          'Override the integer model-version stamp. '
+          'Default: major component of the model version.',
+    )
+    ..addFlag(
+      'help',
+      abbr: 'h',
+      help: 'Show usage information.',
+      negatable: false,
+    );
 
   final ArgResults args;
   try {
@@ -72,36 +112,69 @@ Future<void> main(List<String> arguments) async {
     exit(0);
   }
 
-  final configPath = p.normalize(p.absolute(
-      args.option('config') ?? p.join(clitoolRoot, 'tom_som.yaml')));
+  final configPath = p.normalize(
+    p.absolute(args.option('config') ?? p.join(clitoolRoot, 'tom_som.yaml')),
+  );
   if (!File(configPath).existsSync()) {
     _fail('Config not found: $configPath');
   }
-  final modelDir = p.normalize(p.absolute(
-      args.option('model') ?? p.join(aiBuild, 'tom_specs_model')));
-  final runtimeDir = p.normalize(p.absolute(
-      args.option('runtime') ?? p.join(aiBuild, 'tom_som_dart_runtime')));
-  final pyRuntimeDir = p.normalize(p.absolute(
-      args.option('py-runtime') ?? p.join(aiBuild, 'tom_som_python_runtime')));
-  final javaRuntimeDir = p.normalize(p.absolute(
-      args.option('java-runtime') ?? p.join(aiBuild, 'tom_som_java_runtime')));
-  final jsRuntimeDir = p.normalize(p.absolute(args.option('js-runtime') ??
-      p.join(aiBuild, 'tom_som_javascript_runtime')));
-  final tsRuntimeDir = p.normalize(p.absolute(args.option('ts-runtime') ??
-      p.join(aiBuild, 'tom_som_typescript_runtime')));
-  final goRuntimeDir = p.normalize(p.absolute(args.option('go-runtime') ??
-      p.join(aiBuild, 'tom_som_go_runtime')));
-  final rustRuntimeDir = p.normalize(p.absolute(args.option('rust-runtime') ??
-      p.join(aiBuild, 'tom_som_rust_runtime')));
-  final cRuntimeDir = p.normalize(p.absolute(args.option('c-runtime') ??
-      p.join(aiBuild, 'tom_som_c_runtime')));
-  final cppRuntimeDir = p.normalize(p.absolute(args.option('cpp-runtime') ??
-      p.join(aiBuild, 'tom_som_cpp_runtime')));
+  final modelDir = p.normalize(
+    p.absolute(args.option('model') ?? p.join(aiBuild, 'tom_specs_model')),
+  );
+  final runtimeDir = p.normalize(
+    p.absolute(
+      args.option('runtime') ?? p.join(aiBuild, 'tom_som_dart_runtime'),
+    ),
+  );
+  final pyRuntimeDir = p.normalize(
+    p.absolute(
+      args.option('py-runtime') ?? p.join(aiBuild, 'tom_som_python_runtime'),
+    ),
+  );
+  final javaRuntimeDir = p.normalize(
+    p.absolute(
+      args.option('java-runtime') ?? p.join(aiBuild, 'tom_som_java_runtime'),
+    ),
+  );
+  final jsRuntimeDir = p.normalize(
+    p.absolute(
+      args.option('js-runtime') ??
+          p.join(aiBuild, 'tom_som_javascript_runtime'),
+    ),
+  );
+  final tsRuntimeDir = p.normalize(
+    p.absolute(
+      args.option('ts-runtime') ??
+          p.join(aiBuild, 'tom_som_typescript_runtime'),
+    ),
+  );
+  final goRuntimeDir = p.normalize(
+    p.absolute(
+      args.option('go-runtime') ?? p.join(aiBuild, 'tom_som_go_runtime'),
+    ),
+  );
+  final rustRuntimeDir = p.normalize(
+    p.absolute(
+      args.option('rust-runtime') ?? p.join(aiBuild, 'tom_som_rust_runtime'),
+    ),
+  );
+  final cRuntimeDir = p.normalize(
+    p.absolute(
+      args.option('c-runtime') ?? p.join(aiBuild, 'tom_som_c_runtime'),
+    ),
+  );
+  final cppRuntimeDir = p.normalize(
+    p.absolute(
+      args.option('cpp-runtime') ?? p.join(aiBuild, 'tom_som_cpp_runtime'),
+    ),
+  );
   for (final dir in [modelDir, runtimeDir]) {
     if (!Directory(dir).existsSync()) _fail('Directory not found: $dir');
   }
 
-  final config = SpecObjectModelConfig.fromYaml(File(configPath).readAsStringSync());
+  final config = SpecObjectModelConfig.fromYaml(
+    File(configPath).readAsStringSync(),
+  );
 
   // SOM §5.2: restamp the serialization order as the mandatory first step,
   // *before* the model is read. This guarantees every `_v0` facade in this run
@@ -113,11 +186,13 @@ Future<void> main(List<String> arguments) async {
   } on StateError catch (e) {
     _fail('serialization-order restamp failed: ${e.message}');
   }
-  stdout.writeln('generate_som: restamped @SerializationOrder — '
-      'files changed: ${stampResult.filesChanged}, '
-      'members stamped: ${stampResult.membersStamped}'
-      '${stampResult.membersRestamped > 0 ? ', restamped: '
-          '${stampResult.membersRestamped}' : ''}');
+  stdout.writeln(
+    'generate_som: restamped @SerializationOrder — '
+    'files changed: ${stampResult.filesChanged}, '
+    'members stamped: ${stampResult.membersStamped}'
+    '${stampResult.membersRestamped > 0 ? ', restamped: '
+              '${stampResult.membersRestamped}' : ''}',
+  );
   for (final w in stampResult.multiVarWarnings) {
     stderr.writeln('  WARNING (multi-variable field): $w');
   }
@@ -128,9 +203,11 @@ Future<void> main(List<String> arguments) async {
   // visit — a hard error that fails the run, never a warning.
   final unstamped = await findUnstampedModelMembers(modelDir);
   if (unstamped.isNotEmpty) {
-    _fail('${unstamped.length} spec-model member(s) lack a current '
-        '@SerializationOrder after restamp (the stamper missed a construct):\n'
-        '  - ${unstamped.join('\n  - ')}');
+    _fail(
+      '${unstamped.length} spec-model member(s) lack a current '
+      '@SerializationOrder after restamp (the stamper missed a construct):\n'
+      '  - ${unstamped.join('\n  - ')}',
+    );
   }
 
   // The `spec_ops.g.dart` registry is generated out of this same model, so it is
@@ -148,10 +225,12 @@ Future<void> main(List<String> arguments) async {
   } on StateError catch (e) {
     _fail('spec-ops registry generation failed: ${e.message}');
   }
-  stdout.writeln('generate_som: spec-ops registry — '
-      '${specOps.classCount} classes, '
-      '${specOps.changed ? 'rewritten' : 'unchanged'} → '
-      '${p.relative(specOps.outputPath, from: modelDir)}');
+  stdout.writeln(
+    'generate_som: spec-ops registry — '
+    '${specOps.classCount} classes, '
+    '${specOps.changed ? 'rewritten' : 'unchanged'} → '
+    '${p.relative(specOps.outputPath, from: modelDir)}',
+  );
 
   // The model version stamp drives the meta-data + schema version and the
   // idempotency-stable `generatedAt`.
@@ -169,8 +248,10 @@ Future<void> main(List<String> arguments) async {
   stdout.writeln('  model:   $modelDir');
   stdout.writeln('  runtime: $runtimeDir');
   stdout.writeln('  version: $modelVersion  (label: ${stamp.label})');
-  stdout.writeln('  roots:   '
-      '${config.generatesAllRoots ? 'all' : config.documentRoots.join(', ')}');
+  stdout.writeln(
+    '  roots:   '
+    '${config.generatesAllRoots ? 'all' : config.documentRoots.join(', ')}',
+  );
 
   // The hand-authored runtime package per language — the version-alignment
   // target for the packaging hook (SOM §17). Keyed so the post-emit step can
@@ -203,8 +284,10 @@ Future<void> main(List<String> arguments) async {
           versionLabel: config.versionLabel,
           documentRoots: config.documentRoots,
         );
-        stdout.writeln('  classes: ${result.classCount}  '
-            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln(
+          '  classes: ${result.classCount}  '
+          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+        );
         stdout.writeln('  meta:    ${result.metaJsonPath}');
         stdout.writeln('  lib:     ${result.libPath}');
         stdout.writeln('  pubspec: ${result.pubspecPath}');
@@ -220,8 +303,10 @@ Future<void> main(List<String> arguments) async {
           versionLabel: config.versionLabel,
           documentRoots: config.documentRoots,
         );
-        stdout.writeln('  classes: ${result.classCount}  '
-            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln(
+          '  classes: ${result.classCount}  '
+          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+        );
         stdout.writeln('  meta:      ${result.metaJsonPath}');
         stdout.writeln('  module:    ${result.modulePath}');
         stdout.writeln('  pyproject: ${result.pyprojectPath}');
@@ -237,8 +322,10 @@ Future<void> main(List<String> arguments) async {
           versionLabel: config.versionLabel,
           documentRoots: config.documentRoots,
         );
-        stdout.writeln('  classes: ${result.classCount}  '
-            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln(
+          '  classes: ${result.classCount}  '
+          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+        );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  source:   ${result.sourcePath}');
         stdout.writeln('  manifest: ${result.manifestPath}');
@@ -254,8 +341,10 @@ Future<void> main(List<String> arguments) async {
           versionLabel: config.versionLabel,
           documentRoots: config.documentRoots,
         );
-        stdout.writeln('  classes: ${result.classCount}  '
-            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln(
+          '  classes: ${result.classCount}  '
+          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+        );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  module:   ${result.modulePath}');
         stdout.writeln('  package:  ${result.packageJsonPath}');
@@ -271,8 +360,10 @@ Future<void> main(List<String> arguments) async {
           versionLabel: config.versionLabel,
           documentRoots: config.documentRoots,
         );
-        stdout.writeln('  classes: ${result.classCount}  '
-            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln(
+          '  classes: ${result.classCount}  '
+          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+        );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  module:   ${result.modulePath}');
         stdout.writeln('  package:  ${result.packageJsonPath}');
@@ -289,8 +380,10 @@ Future<void> main(List<String> arguments) async {
           versionLabel: config.versionLabel,
           documentRoots: config.documentRoots,
         );
-        stdout.writeln('  classes: ${result.classCount}  '
-            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln(
+          '  classes: ${result.classCount}  '
+          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+        );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  module:   ${result.modulePath}');
         stdout.writeln('  go.mod:   ${result.goModPath}');
@@ -306,8 +399,10 @@ Future<void> main(List<String> arguments) async {
           versionLabel: config.versionLabel,
           documentRoots: config.documentRoots,
         );
-        stdout.writeln('  classes: ${result.classCount}  '
-            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln(
+          '  classes: ${result.classCount}  '
+          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+        );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  lib:      ${result.libPath}');
         stdout.writeln('  Cargo:    ${result.cargoTomlPath}');
@@ -323,8 +418,10 @@ Future<void> main(List<String> arguments) async {
           versionLabel: config.versionLabel,
           documentRoots: config.documentRoots,
         );
-        stdout.writeln('  classes: ${result.classCount}  '
-            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln(
+          '  classes: ${result.classCount}  '
+          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+        );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  header:   ${result.headerPath}');
         stdout.writeln('  source:   ${result.sourcePath}');
@@ -343,8 +440,10 @@ Future<void> main(List<String> arguments) async {
           versionLabel: config.versionLabel,
           documentRoots: config.documentRoots,
         );
-        stdout.writeln('  classes: ${result.classCount}  '
-            'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}');
+        stdout.writeln(
+          '  classes: ${result.classCount}  '
+          'roots: ${result.rootCount}  schemas: ${result.schemaPaths.length}',
+        );
         stdout.writeln('  meta:     ${result.metaJsonPath}');
         stdout.writeln('  header:   ${result.headerPath}');
         stdout.writeln('  source:   ${result.sourcePath}');
@@ -372,7 +471,8 @@ Future<void> main(List<String> arguments) async {
         );
       }
       stdout.writeln(
-          '  packaging: README + readme_howtointegrate.md @ v$packageVersion');
+        '  packaging: README + readme_howtointegrate.md @ v$packageVersion',
+      );
     }
   }
 
@@ -389,7 +489,8 @@ Future<void> main(List<String> arguments) async {
   // Only a canonical run may stamp. A run against a custom config, a different
   // model, or an overridden version produces a tree that a default re-run would
   // not reproduce, so certifying the committed packages from it would be a lie.
-  final isCanonicalRun = args.option('config') == null &&
+  final isCanonicalRun =
+      args.option('config') == null &&
       args.option('model') == null &&
       args.option('model-version') == null;
   if (isCanonicalRun) {
@@ -398,18 +499,28 @@ Future<void> main(List<String> arguments) async {
       packages: configuredPackageNames(config),
     );
     writeModelSurfaceStamp(surface, clitoolRoot: clitoolRoot);
-    stdout.writeln('\ngenerate_som: stamped model surface → '
-        '$modelSurfaceStampPath');
-    stdout.writeln('  fingerprint: ${surface.fingerprint.substring(0, 16)}…  '
-        'files: ${surface.fileCount}  '
-        'declarations: ${surface.declarationCount}');
-    stdout.writeln('  COMMIT THE STAMP WITH THE REGENERATED PACKAGES — it is '
-        'what the freshness check compares against.');
+    stdout.writeln(
+      '\ngenerate_som: stamped model surface → '
+      '$modelSurfaceStampPath',
+    );
+    stdout.writeln(
+      '  fingerprint: ${surface.fingerprint.substring(0, 16)}…  '
+      'files: ${surface.fileCount}  '
+      'declarations: ${surface.declarationCount}',
+    );
+    stdout.writeln(
+      '  COMMIT THE STAMP WITH THE REGENERATED PACKAGES — it is '
+      'what the freshness check compares against.',
+    );
   } else {
-    stdout.writeln('\nNOTE: non-default --config/--model/--model-version, so '
-        '$modelSurfaceStampPath was NOT updated.');
-    stdout.writeln('      Re-run without overrides to certify the committed '
-        'packages.');
+    stdout.writeln(
+      '\nNOTE: non-default --config/--model/--model-version, so '
+      '$modelSurfaceStampPath was NOT updated.',
+    );
+    stdout.writeln(
+      '      Re-run without overrides to certify the committed '
+      'packages.',
+    );
   }
 
   // Regenerating the Dart target moves `tom_som_dart_v0`'s public surface, and
@@ -419,10 +530,14 @@ Future<void> main(List<String> arguments) async {
   // freshness failure. See tom_spec_engine/_copilot_guidelines/
   // bridge_regeneration.md § "How staleness is caught".
   if (config.languages.any((t) => t.language == SomLanguage.dart)) {
-    stdout.writeln('\nNOTE: tom_som_dart_v0 was regenerated, so the D4rt '
-        'bridges in tom_spec_engine are now stale.');
-    stdout.writeln('      cd ../tom_spec_engine && '
-        'dart run tool/regenerate_bridges.dart');
+    stdout.writeln(
+      '\nNOTE: tom_som_dart_v0 was regenerated, so the D4rt '
+      'bridges in tom_spec_engine are now stale.',
+    );
+    stdout.writeln(
+      '      cd ../tom_spec_engine && '
+      'dart run tool/regenerate_bridges.dart',
+    );
   }
 
   stdout.writeln('\nDone.');

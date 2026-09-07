@@ -23,18 +23,36 @@ import 'package:test/test.dart';
 
 void main() {
   final clitoolRoot = Directory.current.path;
-  final metaPath = p.normalize(p.join(
-      clitoolRoot, '..', 'tom_som_dart_v0', 'meta', 'spec_model.meta.json'));
-  final registryPath = p.normalize(p.join(clitoolRoot, '..', 'tom_specs_model',
-      'lib', 'src', 'generated', 'spec_ops.g.dart'));
+  final metaPath = p.normalize(
+    p.join(
+      clitoolRoot,
+      '..',
+      'tom_som_dart_v0',
+      'meta',
+      'spec_model.meta.json',
+    ),
+  );
+  final registryPath = p.normalize(
+    p.join(
+      clitoolRoot,
+      '..',
+      'tom_specs_model',
+      'lib',
+      'src',
+      'generated',
+      'spec_ops.g.dart',
+    ),
+  );
 
   group('SpecSlot section ids agree with the SOM meta (SOM §12.2)', () {
     late Map<String, dynamic> metaClasses;
     late Map<String, Map<String, String?>> registrySlots;
 
     setUpAll(() {
-      metaClasses = (jsonDecode(File(metaPath).readAsStringSync())
-          as Map<String, dynamic>)['classes'] as Map<String, dynamic>;
+      metaClasses =
+          (jsonDecode(File(metaPath).readAsStringSync())
+                  as Map<String, dynamic>)['classes']
+              as Map<String, dynamic>;
       registrySlots = _readRegistrySlots(File(registryPath).readAsStringSync());
     });
 
@@ -67,22 +85,32 @@ void main() {
           final expected = metaKeyId(f);
           final actual = slots[member];
           if (expected != actual) {
-            mismatches.add('${entry.key}.$member (${f['kind']}'
-                '${f['type'] == null ? '' : ' -> ${f['type']}'}): '
-                'meta ${expected ?? '<none>'} != registry '
-                '${actual ?? '<none>'}');
+            mismatches.add(
+              '${entry.key}.$member (${f['kind']}'
+              '${f['type'] == null ? '' : ' -> ${f['type']}'}): '
+              'meta ${expected ?? '<none>'} != registry '
+              '${actual ?? '<none>'}',
+            );
           }
         }
       }
 
-      expect(compared, greaterThan(1000),
-          reason: 'the registry/meta pairing found almost no slots to compare, '
-              'so this test is not actually checking anything — the parsing '
-              'below has probably drifted from the generated shape.');
-      expect(mismatches, isEmpty,
-          reason: '${mismatches.length} of $compared slots key differently in '
-              'tom_specs_model than in the nine SOM runtimes.\n'
-              '${mismatches.take(20).join('\n')}');
+      expect(
+        compared,
+        greaterThan(1000),
+        reason:
+            'the registry/meta pairing found almost no slots to compare, '
+            'so this test is not actually checking anything — the parsing '
+            'below has probably drifted from the generated shape.',
+      );
+      expect(
+        mismatches,
+        isEmpty,
+        reason:
+            '${mismatches.length} of $compared slots key differently in '
+            'tom_specs_model than in the nine SOM runtimes.\n'
+            '${mismatches.take(20).join('\n')}',
+      );
     });
 
     test('most slots do carry an id, so agreement is not vacuous', () {
@@ -115,8 +143,9 @@ Map<String, Map<String, String?>> _readRegistrySlots(String source) {
 
 /// Matches the tail of an emitted `SpecSlot.node`/`SpecSlot.list`:
 /// `label: '<member>'` optionally followed by `, sectionId: '<id>'`.
-final RegExp _slotPattern =
-    RegExp(r"label: '(\w+)'(?:, sectionId: '([^']+)')?\)");
+final RegExp _slotPattern = RegExp(
+  r"label: '(\w+)'(?:, sectionId: '([^']+)')?\)",
+);
 
 String? _annotationArg(Map<String, dynamic> node, String name, String arg) {
   final annotations = node['annotations'] as List<dynamic>?;

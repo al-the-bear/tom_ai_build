@@ -52,9 +52,9 @@ class EntrypointOption {
 
   /// The spellings a row may legitimately use for this option.
   Set<String> get spellings => {
-        '--$name',
-        if (isFlag && negatable) '--no-$name',
-      };
+    '--$name',
+    if (isFlag && negatable) '--no-$name',
+  };
 
   @override
   String toString() => '--$name';
@@ -96,8 +96,7 @@ class EntrypointCorrespondence {
 /// entrypoint declares it and the README documents it once in prose.
 const String kUniversalOption = 'help';
 
-final RegExp _addCall =
-    RegExp(r"add(Option|Flag|MultiOption)\(\s*'([^']+)'");
+final RegExp _addCall = RegExp(r"add(Option|Flag|MultiOption)\(\s*'([^']+)'");
 
 /// Parses the options an entrypoint declares out of its Dart [source].
 ///
@@ -119,8 +118,9 @@ List<EntrypointOption> parseEntrypointOptions(String source) {
     // begins; for the last call, the rest of the source is a safe upper bound
     // because `negatable:` / `mandatory:` can only precede its own closing
     // paren, and no later text can reintroduce them without another match.
-    final bodyEnd =
-        i + 1 < matches.length ? matches[i + 1].start : source.length;
+    final bodyEnd = i + 1 < matches.length
+        ? matches[i + 1].start
+        : source.length;
     final body = source.substring(match.end, bodyEnd);
 
     options.add(

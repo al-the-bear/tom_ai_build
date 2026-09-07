@@ -118,21 +118,100 @@ class SomCppMetaEmitter {
   /// accessor tail matching one gains a trailing underscore so it stays a legal
   /// identifier.
   static const Set<String> _cppKeywords = {
-    'alignas', 'alignof', 'and', 'and_eq', 'asm', 'atomic_cancel',
-    'atomic_commit', 'atomic_noexcept', 'auto', 'bitand', 'bitor', 'bool',
-    'break', 'case', 'catch', 'char', 'char16_t', 'char32_t', 'char8_t',
-    'class', 'co_await', 'co_return', 'co_yield', 'compl', 'concept', 'const',
-    'const_cast', 'consteval', 'constexpr', 'constinit', 'continue',
-    'decltype', 'default', 'delete', 'do', 'double', 'dynamic_cast', 'else',
-    'enum', 'explicit', 'export', 'extern', 'false', 'float', 'for', 'friend',
-    'goto', 'if', 'inline', 'int', 'long', 'mutable', 'namespace', 'new',
-    'noexcept', 'not', 'not_eq', 'nullptr', 'operator', 'or', 'or_eq',
-    'private', 'protected', 'public', 'register', 'reinterpret_cast',
-    'requires', 'return', 'short', 'signed', 'sizeof', 'static',
-    'static_assert', 'struct', 'switch', 'template', 'this',
-    'thread_local', 'throw', 'true', 'try', 'typedef', 'typeid', 'typename',
-    'union', 'unsigned', 'using', 'virtual', 'void', 'volatile', 'wchar_t',
-    'while', 'xor', 'xor_eq',
+    'alignas',
+    'alignof',
+    'and',
+    'and_eq',
+    'asm',
+    'atomic_cancel',
+    'atomic_commit',
+    'atomic_noexcept',
+    'auto',
+    'bitand',
+    'bitor',
+    'bool',
+    'break',
+    'case',
+    'catch',
+    'char',
+    'char16_t',
+    'char32_t',
+    'char8_t',
+    'class',
+    'co_await',
+    'co_return',
+    'co_yield',
+    'compl',
+    'concept',
+    'const',
+    'const_cast',
+    'consteval',
+    'constexpr',
+    'constinit',
+    'continue',
+    'decltype',
+    'default',
+    'delete',
+    'do',
+    'double',
+    'dynamic_cast',
+    'else',
+    'enum',
+    'explicit',
+    'export',
+    'extern',
+    'false',
+    'float',
+    'for',
+    'friend',
+    'goto',
+    'if',
+    'inline',
+    'int',
+    'long',
+    'mutable',
+    'namespace',
+    'new',
+    'noexcept',
+    'not',
+    'not_eq',
+    'nullptr',
+    'operator',
+    'or',
+    'or_eq',
+    'private',
+    'protected',
+    'public',
+    'register',
+    'reinterpret_cast',
+    'requires',
+    'return',
+    'short',
+    'signed',
+    'sizeof',
+    'static',
+    'static_assert',
+    'struct',
+    'switch',
+    'template',
+    'this',
+    'thread_local',
+    'throw',
+    'true',
+    'try',
+    'typedef',
+    'typeid',
+    'typename',
+    'union',
+    'unsigned',
+    'using',
+    'virtual',
+    'void',
+    'volatile',
+    'wchar_t',
+    'while',
+    'xor',
+    'xor_eq',
   };
 
   // ── class ordering / reachability ───────────────────────────────────────────
@@ -212,22 +291,32 @@ class SomCppMetaEmitter {
     // accessors take it by value and return the next surface struct / ref by
     // value.
     b
-      ..writeln('// ── dot-notation access surface structs (SOM §8) '
-          '─────────────────────────')
-      ..writeln('// Each wraps one som::SomMetaRef (tree + absolute path). '
-          'Accessors return the')
-      ..writeln('// next navigable position by value; `.ref.path` is the '
-          'absolute document path')
+      ..writeln(
+        '// ── dot-notation access surface structs (SOM §8) '
+        '─────────────────────────',
+      )
+      ..writeln(
+        '// Each wraps one som::SomMetaRef (tree + absolute path). '
+        'Accessors return the',
+      )
+      ..writeln(
+        '// next navigable position by value; `.ref.path` is the '
+        'absolute document path',
+      )
       ..writeln('// and `.ref.meta()` the metadata node.');
     for (final n in navClasses) {
       b.writeln('struct ${_navType(n)} { som::SomMetaRef ref; };');
     }
     b.writeln();
     b
-      ..writeln('// ── ID-tree access surface structs (SOM §8) '
-          '──────────────────────────────')
-      ..writeln('// The same tree keyed by section id. `.ref.path` and the '
-          'metadata node agree')
+      ..writeln(
+        '// ── ID-tree access surface structs (SOM §8) '
+        '──────────────────────────────',
+      )
+      ..writeln(
+        '// The same tree keyed by section id. `.ref.path` and the '
+        'metadata node agree',
+      )
       ..writeln('// with the dot-notation surface for every position.');
     for (final n in idClasses) {
       b.writeln('struct ${_idType(n)} { som::SomMetaRef ref; };');
@@ -235,8 +324,10 @@ class SomCppMetaEmitter {
     b.writeln();
 
     // Dot-notation accessor declarations.
-    b.writeln('// ── dot-notation accessors (SOM §8) '
-        '──────────────────────────────────────');
+    b.writeln(
+      '// ── dot-notation accessors (SOM §8) '
+      '──────────────────────────────────────',
+    );
     for (final n in navClasses) {
       final cls = model.classNamed(n)!;
       final used = <String>{};
@@ -248,8 +339,10 @@ class SomCppMetaEmitter {
     b.writeln();
 
     // ID-tree accessor declarations.
-    b.writeln('// ── ID-tree accessors (SOM §8) '
-        '───────────────────────────────────────────');
+    b.writeln(
+      '// ── ID-tree accessors (SOM §8) '
+      '───────────────────────────────────────────',
+    );
     for (final n in idClasses) {
       final cls = model.classNamed(n)!;
       for (final child in _idChildren(cls)) {
@@ -259,21 +352,29 @@ class SomCppMetaEmitter {
     b.writeln();
 
     // Per-root entry points.
-    b.writeln('// ── document-root metadata trees + access surface entry '
-        'points ──────────');
+    b.writeln(
+      '// ── document-root metadata trees + access surface entry '
+      'points ──────────',
+    );
     for (final root in _roots) {
       final treeFn = _treeFn(root.type);
       b
-        ..writeln('// The populated `${root.type}` metadata tree (SOM §7.2), '
-            'built + cached on')
+        ..writeln(
+          '// The populated `${root.type}` metadata tree (SOM §7.2), '
+          'built + cached on',
+        )
         ..writeln('// first call and owned by this module.')
         ..writeln('const som::SomMetaTree& $treeFn();')
         ..writeln('// The dot-notation access root of `${root.type}` (SOM §8).')
-        ..writeln('${_navType(root.type)} ${_rootNavFn(root)}('
-            'const som::SomMetaTree& tree);')
+        ..writeln(
+          '${_navType(root.type)} ${_rootNavFn(root)}('
+          'const som::SomMetaTree& tree);',
+        )
         ..writeln('// The ID-tree access root of `${root.type}` (SOM §8).')
-        ..writeln('${_idType(root.type)} ${_rootIdFn(root)}('
-            'const som::SomMetaTree& tree);');
+        ..writeln(
+          '${_idType(root.type)} ${_rootIdFn(root)}('
+          'const som::SomMetaTree& tree);',
+        );
     }
     b.writeln();
 
@@ -294,14 +395,22 @@ class SomCppMetaEmitter {
   /// consumer by regeneration rather than by recollection.
   void _emitRootRegistryDecl(StringBuffer b) {
     b
-      ..writeln('// ── document-root registry (SOM §8) '
-          '──────────────────────────────────────')
-      ..writeln('// One document root: its class name, the path segment its '
-          'access roots are')
-      ..writeln('// bound at, the populated metadata tree (SOM §7.2), and the '
-          'two SOM §8')
-      ..writeln('// access roots as the common som::SomMetaRef the accessor '
-          'structs wrap.')
+      ..writeln(
+        '// ── document-root registry (SOM §8) '
+        '──────────────────────────────────────',
+      )
+      ..writeln(
+        '// One document root: its class name, the path segment its '
+        'access roots are',
+      )
+      ..writeln(
+        '// bound at, the populated metadata tree (SOM §7.2), and the '
+        'two SOM §8',
+      )
+      ..writeln(
+        '// access roots as the common som::SomMetaRef the accessor '
+        'structs wrap.',
+      )
       ..writeln('struct SomMetaRootEntry {')
       ..writeln('\tstd::string type;')
       ..writeln('\tstd::string segment;')
@@ -310,12 +419,18 @@ class SomCppMetaEmitter {
       ..writeln('\tsom::SomMetaRef id;')
       ..writeln('};')
       ..writeln()
-      ..writeln('// Every document root this module generates, in model order. '
-          'Emitted from the')
-      ..writeln('// same root list that produced the trees above, so iterating '
-          'it is equivalent')
-      ..writeln('// to reading the generator input — no consumer needs a '
-          'hand-kept copy of the')
+      ..writeln(
+        '// Every document root this module generates, in model order. '
+        'Emitted from the',
+      )
+      ..writeln(
+        '// same root list that produced the trees above, so iterating '
+        'it is equivalent',
+      )
+      ..writeln(
+        '// to reading the generator input — no consumer needs a '
+        'hand-kept copy of the',
+      )
       ..writeln('// root set.')
       ..writeln('std::vector<SomMetaRootEntry> somMetaRoots();')
       ..writeln();
@@ -324,8 +439,10 @@ class SomCppMetaEmitter {
   /// Defines the registry declared by [_emitRootRegistryDecl].
   void _emitRootRegistryDef(StringBuffer b) {
     b
-      ..writeln('// ── document-root registry (SOM §8) '
-          '──────────────────────────────────────')
+      ..writeln(
+        '// ── document-root registry (SOM §8) '
+        '──────────────────────────────────────',
+      )
       ..writeln('std::vector<SomMetaRootEntry> somMetaRoots() {')
       ..writeln('\tstd::vector<SomMetaRootEntry> out;')
       ..writeln('\tout.reserve(${_roots.length});');
@@ -384,17 +501,23 @@ class SomCppMetaEmitter {
     _emitHelpers(b);
 
     // Forward declarations of every children builder (mutual recursion).
-    b.writeln('// ── metadata tree builders (SOM §7.2) — forward decls '
-        '───────────────────');
+    b.writeln(
+      '// ── metadata tree builders (SOM §7.2) — forward decls '
+      '───────────────────',
+    );
     for (final n in _navClasses) {
-      b.writeln('void ${_childrenFn(n)}('
-          'som::SomMetaNode& parent, std::vector<std::string>& stack);');
+      b.writeln(
+        'void ${_childrenFn(n)}('
+        'som::SomMetaNode& parent, std::vector<std::string>& stack);',
+      );
     }
     b.writeln();
 
     // Children builders.
-    b.writeln('// ── metadata tree builders (SOM §7.2) '
-        '────────────────────────────────────');
+    b.writeln(
+      '// ── metadata tree builders (SOM §7.2) '
+      '────────────────────────────────────',
+    );
     for (final n in _navClasses) {
       _emitChildrenBuilder(b, model.classNamed(n)!);
     }
@@ -406,20 +529,26 @@ class SomCppMetaEmitter {
     b.writeln();
 
     // Per-root tree accessors (lazy cached) + entry points.
-    b.writeln('// ── document-root trees + access surface entry points '
-        '───────────────────');
+    b.writeln(
+      '// ── document-root trees + access surface entry points '
+      '───────────────────',
+    );
     for (final root in _roots) {
       _emitRoot(b, root);
     }
 
     // Dot-notation accessor definitions.
-    b.writeln('// ── dot-notation accessors (SOM §8) '
-        '──────────────────────────────────────');
+    b.writeln(
+      '// ── dot-notation accessors (SOM §8) '
+      '──────────────────────────────────────',
+    );
     b.write(navBuf.toString());
 
     // ID-tree accessor definitions.
-    b.writeln('// ── ID-tree accessors (SOM §8) '
-        '───────────────────────────────────────────');
+    b.writeln(
+      '// ── ID-tree accessors (SOM §8) '
+      '───────────────────────────────────────────',
+    );
     b.write(idBuf.toString());
 
     _emitRootRegistryDef(b);
@@ -432,31 +561,43 @@ class SomCppMetaEmitter {
   /// shared leaf factory (scalar-element lists) plus one nav/id factory per
   /// complex element class actually referenced.
   void _emitFactories(StringBuffer b) {
-    b.writeln('// ── element-accessor factories (som::SomMetaRefFactory) '
-        '──────────────────');
+    b.writeln(
+      '// ── element-accessor factories (som::SomMetaRefFactory) '
+      '──────────────────',
+    );
     if (_leafFactoryUsed) {
       b
-        ..writeln('void* metaLeafFactory(const som::SomMetaTree* tree, '
-            'const std::string& path) {')
+        ..writeln(
+          'void* metaLeafFactory(const som::SomMetaTree* tree, '
+          'const std::string& path) {',
+        )
         ..writeln('\treturn new som::SomMetaRef(tree, path);')
         ..writeln('}');
     }
     final navFacs = _navFactoriesUsed.toList()..sort();
     for (final cls in navFacs) {
       b
-        ..writeln('void* ${_navFactoryFn(cls)}(const som::SomMetaTree* tree, '
-            'const std::string& path) {')
-        ..writeln('\treturn new ${_navType(cls)}{som::SomMetaRef(tree, '
-            'path)};')
+        ..writeln(
+          'void* ${_navFactoryFn(cls)}(const som::SomMetaTree* tree, '
+          'const std::string& path) {',
+        )
+        ..writeln(
+          '\treturn new ${_navType(cls)}{som::SomMetaRef(tree, '
+          'path)};',
+        )
         ..writeln('}');
     }
     final idFacs = _idFactoriesUsed.toList()..sort();
     for (final cls in idFacs) {
       b
-        ..writeln('void* ${_idFactoryFn(cls)}(const som::SomMetaTree* tree, '
-            'const std::string& path) {')
-        ..writeln('\treturn new ${_idType(cls)}{som::SomMetaRef(tree, '
-            'path)};')
+        ..writeln(
+          'void* ${_idFactoryFn(cls)}(const som::SomMetaTree* tree, '
+          'const std::string& path) {',
+        )
+        ..writeln(
+          '\treturn new ${_idType(cls)}{som::SomMetaRef(tree, '
+          'path)};',
+        )
         ..writeln('}');
     }
     b.writeln();
@@ -466,17 +607,27 @@ class SomCppMetaEmitter {
 
   void _emitHelpers(StringBuffer b) {
     b
-      ..writeln('// metaCx applies the bridge cycle rule: a class already on the '
-          'descent stack')
-      ..writeln('// becomes a terminal re-entry node (recursive = true, no '
-          'children). `build`')
-      ..writeln('// fills a freshly-allocated node; `kids` appends the class\'s '
-          'children when not')
+      ..writeln(
+        '// metaCx applies the bridge cycle rule: a class already on the '
+        'descent stack',
+      )
+      ..writeln(
+        '// becomes a terminal re-entry node (recursive = true, no '
+        'children). `build`',
+      )
+      ..writeln(
+        '// fills a freshly-allocated node; `kids` appends the class\'s '
+        'children when not',
+      )
       ..writeln('// recursive.')
       ..writeln('template <typename Build, typename Kids>')
-      ..writeln('std::unique_ptr<som::SomMetaNode> metaCx('
-          'const std::string& cls,')
-      ..writeln('\t\tstd::vector<std::string>& stack, Build build, Kids kids) {')
+      ..writeln(
+        'std::unique_ptr<som::SomMetaNode> metaCx('
+        'const std::string& cls,',
+      )
+      ..writeln(
+        '\t\tstd::vector<std::string>& stack, Build build, Kids kids) {',
+      )
       ..writeln('\tauto n = std::make_unique<som::SomMetaNode>();')
       ..writeln('\tbuild(*n);')
       ..writeln('\tfor (const auto& s : stack) {')
@@ -519,8 +670,10 @@ class SomCppMetaEmitter {
       _emitFieldNode(fields, cls, f);
     }
     final body = fields.toString();
-    b.writeln('void ${_childrenFn(cls.name)}('
-        'som::SomMetaNode& parent, std::vector<std::string>& stack) {');
+    b.writeln(
+      'void ${_childrenFn(cls.name)}('
+      'som::SomMetaNode& parent, std::vector<std::string>& stack) {',
+    );
     // Detect a *real* use of each parameter — a whole-identifier occurrence, not
     // a substring buried in a quoted description (a form-field doc string can
     // legitimately contain the word "stack" or "parent"). Only the metaCx
@@ -552,7 +705,14 @@ class SomCppMetaEmitter {
         ..writeln('\t{')
         ..writeln('\t\tauto n = metaCx("${_cppStr(target.name)}", stack,')
         ..writeln('\t\t\t[](som::SomMetaNode& n) {');
-      _emitNodeFields(b, owner, f, target: target, recv: 'n', indent: '\t\t\t\t');
+      _emitNodeFields(
+        b,
+        owner,
+        f,
+        target: target,
+        recv: 'n',
+        indent: '\t\t\t\t',
+      );
       b
         ..writeln('\t\t\t},')
         ..writeln('\t\t\t${_childrenFn(target.name)});')
@@ -571,8 +731,10 @@ class SomCppMetaEmitter {
         ..writeln('\t\tauto ln = std::make_unique<som::SomMetaNode>();');
       _emitNodeFields(b, owner, f, target: null, recv: '(*ln)', indent: '\t\t');
       b
-        ..writeln('\t\tln->elementNode = metaCx("${_cppStr(element.name)}", '
-            'stack,')
+        ..writeln(
+          '\t\tln->elementNode = metaCx("${_cppStr(element.name)}", '
+          'stack,',
+        )
         ..writeln('\t\t\t[](som::SomMetaNode& n) {');
       _emitElementFields(b, element, recv: 'n', indent: '\t\t\t\t');
       b
@@ -596,8 +758,14 @@ class SomCppMetaEmitter {
   /// Writes the field-population statements for a normal node. [recv] is the
   /// node lvalue expression (`n` / `(*n)` / `(*ln)`); [target] is the
   /// instantiated complex/section class (null for leaves/lists).
-  void _emitNodeFields(StringBuffer b, SpecClass owner, SpecField f,
-      {required SpecClass? target, required String recv, required String indent}) {
+  void _emitNodeFields(
+    StringBuffer b,
+    SpecClass owner,
+    SpecField f, {
+    required SpecClass? target,
+    required String recv,
+    required String indent,
+  }) {
     final className = target?.name ?? owner.name;
     void set(String field, String value) =>
         b.writeln('$indent$recv.$field = "${_cppStr(value)}";');
@@ -605,7 +773,9 @@ class SomCppMetaEmitter {
     set('memberName', f.name);
     if (f.sectionId != null) set('sectionId', f.sectionId!);
     if (target?.sectionId != null) set('classSectionId', target!.sectionId!);
-    if (f.sectionIdPattern != null) set('sectionIdPattern', f.sectionIdPattern!);
+    if (f.sectionIdPattern != null) {
+      set('sectionIdPattern', f.sectionIdPattern!);
+    }
     b.writeln('$indent$recv.kind = ${_kindConst(f.kind)};');
     set('typeName', f.type ?? f.elementType ?? f.enumType ?? 'String');
     if (f.serializationOrder != null) {
@@ -622,8 +792,10 @@ class SomCppMetaEmitter {
     if (f.contentType != null) {
       final desc =
           '${f.annotation('ContentType')?.argument('description') ?? ''}';
-      b.writeln('$indent$recv.contentType = som::SomContentTypeMeta{'
-          '"${_cppStr(f.contentType!)}", "${_cppStr(desc)}"};');
+      b.writeln(
+        '$indent$recv.contentType = som::SomContentTypeMeta{'
+        '"${_cppStr(f.contentType!)}", "${_cppStr(desc)}"};',
+      );
     }
     if (f.help != null) set('contentHelp', f.help!);
     final headline = f.headline ?? target?.headline;
@@ -643,8 +815,12 @@ class SomCppMetaEmitter {
 
   /// Writes the field-population statements for a list's complex-element subtree
   /// node.
-  void _emitElementFields(StringBuffer b, SpecClass element,
-      {required String recv, required String indent}) {
+  void _emitElementFields(
+    StringBuffer b,
+    SpecClass element, {
+    required String recv,
+    required String indent,
+  }) {
     void set(String field, String value) =>
         b.writeln('$indent$recv.$field = "${_cppStr(value)}";');
     set('className', element.name);
@@ -660,8 +836,12 @@ class SomCppMetaEmitter {
     if (element.detailedIn != null) set('detailedIn', element.detailedIn!);
   }
 
-  void _emitForm(StringBuffer b, List<FormFieldSpec> fields,
-      {required String recv, required String indent}) {
+  void _emitForm(
+    StringBuffer b,
+    List<FormFieldSpec> fields, {
+    required String recv,
+    required String indent,
+  }) {
     b.writeln('$indent$recv.form = som::SomFormMeta{};');
     for (var i = 0; i < fields.length; i++) {
       final ff = fields[i];
@@ -669,22 +849,30 @@ class SomCppMetaEmitter {
       // the initializer stays complete under -Werror=missing-field-initializers;
       // enum-typed fields carry their value domain, non-enum fields an empty
       // vector.
-      final enumArg = ', std::vector<std::string>{'
+      final enumArg =
+          ', std::vector<std::string>{'
           '${ff.enumValues.map((e) => '"${_cppStr(e)}"').join(', ')}}';
       // csrb3: same reasoning for the reference-target member — always emitted,
       // empty for a non-reference field.
-      final refersToArg = ', std::vector<std::string>{'
+      final refersToArg =
+          ', std::vector<std::string>{'
           '${ff.refersTo.map((e) => '"${_cppStr(e)}"').join(', ')}}';
-      b.writeln('$indent$recv.form->fields.push_back(som::SomFormFieldMeta{'
-          '"${_cppStr(ff.name)}", "${_cppStr(ff.type)}", '
-          '"${_cppStr(ff.label)}", ${ff.required}, '
-          '"${_cppStr(ff.hint ?? '')}", $i'
-          '$enumArg$refersToArg});');
+      b.writeln(
+        '$indent$recv.form->fields.push_back(som::SomFormFieldMeta{'
+        '"${_cppStr(ff.name)}", "${_cppStr(ff.type)}", '
+        '"${_cppStr(ff.label)}", ${ff.required}, '
+        '"${_cppStr(ff.hint ?? '')}", $i'
+        '$enumArg$refersToArg});',
+      );
     }
   }
 
-  void _emitExtras(StringBuffer b, List<SpecAnnotation> annotations,
-      {required String recv, required String indent}) {
+  void _emitExtras(
+    StringBuffer b,
+    List<SpecAnnotation> annotations, {
+    required String recv,
+    required String indent,
+  }) {
     final entries = [
       for (final a in annotations)
         if (!_slottedAnnotations.contains(a.name)) a,
@@ -696,8 +884,10 @@ class SomCppMetaEmitter {
       // once; somMetaNodeDiff compares args by value (order-independent for
       // objects), so a byte-for-byte match with the bridge is not required.
       final lit = _cppStr(jsonEncode(a.arguments));
-      b.writeln('$indent$recv.extra.push_back(som::SomMetaExtra{'
-          '"${_cppStr(a.name)}", som::jsonParse("$lit", nullptr)});');
+      b.writeln(
+        '$indent$recv.extra.push_back(som::SomMetaExtra{'
+        '"${_cppStr(a.name)}", som::jsonParse("$lit", nullptr)});',
+      );
     }
   }
 
@@ -711,7 +901,9 @@ class SomCppMetaEmitter {
     // Root node build function (populates a node like a child node, but with
     // @Document metadata and children built directly).
     b.writeln('const som::SomMetaTree& $treeFn() {');
-    b.writeln('\tstatic const std::unique_ptr<som::SomMetaTree> cached = []() {');
+    b.writeln(
+      '\tstatic const std::unique_ptr<som::SomMetaTree> cached = []() {',
+    );
     b.writeln('\t\tauto n = std::make_unique<som::SomMetaNode>();');
     b.writeln('\t\tn->className = "${_cppStr(root.type)}";');
     final sectionId = root.sectionId ?? cls?.sectionId;
@@ -743,8 +935,10 @@ class SomCppMetaEmitter {
     final basedOn = _basedOn(cls);
     b.writeln('\t\tn->document = som::SomDocMeta{};');
     b.writeln('\t\tn->document->name = "${_cppStr(root.title)}";');
-    b.writeln('\t\tn->document->description = '
-        '"${_cppStr(root.description ?? '')}";');
+    b.writeln(
+      '\t\tn->document->description = '
+      '"${_cppStr(root.description ?? '')}";',
+    );
     for (final base in basedOn) {
       b.writeln('\t\tn->document->basedOn.push_back("${_cppStr(base)}");');
     }
@@ -762,15 +956,23 @@ class SomCppMetaEmitter {
 
     // Entry points binding the surface roots to the tree + root segment path.
     b
-      ..writeln('${_navType(root.type)} ${_rootNavFn(root)}('
-          'const som::SomMetaTree& tree) {')
-      ..writeln('\treturn ${_navType(root.type)}{'
-          'som::SomMetaRef(&tree, "${_cppStr(seg)}")};')
+      ..writeln(
+        '${_navType(root.type)} ${_rootNavFn(root)}('
+        'const som::SomMetaTree& tree) {',
+      )
+      ..writeln(
+        '\treturn ${_navType(root.type)}{'
+        'som::SomMetaRef(&tree, "${_cppStr(seg)}")};',
+      )
       ..writeln('}')
-      ..writeln('${_idType(root.type)} ${_rootIdFn(root)}('
-          'const som::SomMetaTree& tree) {')
-      ..writeln('\treturn ${_idType(root.type)}{'
-          'som::SomMetaRef(&tree, "${_cppStr(seg)}")};')
+      ..writeln(
+        '${_idType(root.type)} ${_rootIdFn(root)}('
+        'const som::SomMetaTree& tree) {',
+      )
+      ..writeln(
+        '\treturn ${_idType(root.type)}{'
+        'som::SomMetaRef(&tree, "${_cppStr(seg)}")};',
+      )
       ..writeln('}')
       ..writeln();
   }
@@ -818,8 +1020,9 @@ class SomCppMetaEmitter {
         _emitLeaf(b, seg);
         return;
       case SpecFieldKind.list:
-        final element =
-            f.elementIsComplex ? model.classNamed(f.elementType ?? '') : null;
+        final element = f.elementIsComplex
+            ? model.classNamed(f.elementType ?? '')
+            : null;
         _emitList(b, seg, element == null ? null : _navFactory(element.name));
         return;
       case SpecFieldKind.form:
@@ -845,19 +1048,25 @@ class SomCppMetaEmitter {
   }
 
   void _emitChildStruct(StringBuffer b, String type, String seg) {
-    b.writeln('\treturn $type{som::SomMetaRef(x.ref.tree, '
-        'som::specPathJoin(x.ref.path, "${_cppStr(seg)}"))};');
+    b.writeln(
+      '\treturn $type{som::SomMetaRef(x.ref.tree, '
+      'som::specPathJoin(x.ref.path, "${_cppStr(seg)}"))};',
+    );
   }
 
   void _emitLeaf(StringBuffer b, String seg) {
-    b.writeln('\treturn som::SomMetaRef(x.ref.tree, '
-        'som::specPathJoin(x.ref.path, "${_cppStr(seg)}"));');
+    b.writeln(
+      '\treturn som::SomMetaRef(x.ref.tree, '
+      'som::specPathJoin(x.ref.path, "${_cppStr(seg)}"));',
+    );
   }
 
   void _emitList(StringBuffer b, String seg, String? factory) {
     final fac = factory ?? _leafFactory();
-    b.writeln('\treturn som::SomListMetaRef(x.ref.tree, '
-        'som::specPathJoin(x.ref.path, "${_cppStr(seg)}"), $fac);');
+    b.writeln(
+      '\treturn som::SomListMetaRef(x.ref.tree, '
+      'som::specPathJoin(x.ref.path, "${_cppStr(seg)}"), $fac);',
+    );
   }
 
   // ── factories (som::SomMetaRefFactory) ──────────────────────────────────────
@@ -892,8 +1101,8 @@ class SomCppMetaEmitter {
 
     void walk(SpecClass c, String prefix, Set<String> stack) {
       for (final f in _orderedFields(c)) {
-        final isComplexLike = f.kind == SpecFieldKind.complex ||
-            f.kind == SpecFieldKind.section;
+        final isComplexLike =
+            f.kind == SpecFieldKind.complex || f.kind == SpecFieldKind.section;
         if (f.sectionId != null) {
           var name = _idName(f.sectionId!);
           var n = 2;
@@ -906,13 +1115,22 @@ class SomCppMetaEmitter {
             final elem = f.elementIsComplex
                 ? model.classNamed(f.elementType ?? '')?.name
                 : null;
-            children.add(_IdChild(
-                name: name, relPath: rel, targetClass: elem, isList: true));
-          } else if (isComplexLike) {
-            children.add(_IdChild(
+            children.add(
+              _IdChild(
                 name: name,
                 relPath: rel,
-                targetClass: model.classNamed(f.type ?? '')?.name));
+                targetClass: elem,
+                isList: true,
+              ),
+            );
+          } else if (isComplexLike) {
+            children.add(
+              _IdChild(
+                name: name,
+                relPath: rel,
+                targetClass: model.classNamed(f.type ?? '')?.name,
+              ),
+            );
           } else {
             children.add(_IdChild(name: name, relPath: rel));
           }
@@ -934,6 +1152,7 @@ class SomCppMetaEmitter {
   // ── name helpers ────────────────────────────────────────────────────────────
 
   String _navType(String cls) => 'Nav${_pascal(cls)}';
+
   /// Whether the emitted children-builder [body] uses [ident] as a real C++
   /// identifier — i.e. a whole-word occurrence *outside* any double-quoted
   /// string literal. Form-field descriptions are emitted as quoted literals and
@@ -963,8 +1182,7 @@ class SomCppMetaEmitter {
     return cand;
   }
 
-  String _idFn(String cls, _IdChild child) =>
-      'id${_pascal(cls)}_${child.name}';
+  String _idFn(String cls, _IdChild child) => 'id${_pascal(cls)}_${child.name}';
 
   String _navReturn(SpecField f) {
     switch (f.kind) {
@@ -1011,12 +1229,18 @@ class SomCppMetaEmitter {
 
   void _banner(StringBuffer b, String which) {
     b
-      ..writeln('// GENERATED by tom_specs_clitool SomCppMetaEmitter '
-          '($versionLabel) — do not edit by hand.')
-      ..writeln('// The populated SOM metadata trees (SOM §7.2) and the two '
-          'access surfaces of')
-      ..writeln('// SOM §8: the dot-notation tree (member names) and the '
-          'ID-tree (section ids).')
+      ..writeln(
+        '// GENERATED by tom_specs_clitool SomCppMetaEmitter '
+        '($versionLabel) — do not edit by hand.',
+      )
+      ..writeln(
+        '// The populated SOM metadata trees (SOM §7.2) and the two '
+        'access surfaces of',
+      )
+      ..writeln(
+        '// SOM §8: the dot-notation tree (member names) and the '
+        'ID-tree (section ids).',
+      )
       ..writeln('// ($which)')
       ..writeln();
   }

@@ -52,8 +52,7 @@ AnalysisDriver createAnalysisDriver(String packagePath) {
   scheduler.events.drain<void>().ignore();
 
   final analysisOptions = AnalysisOptionsImpl();
-  final optionsMap =
-      AnalysisOptionsMap.forSharedOptions(analysisOptions);
+  final optionsMap = AnalysisOptionsMap.forSharedOptions(analysisOptions);
 
   final driver = AnalysisDriver(
     scheduler: scheduler,
@@ -77,8 +76,7 @@ Uint8List _loadEmbeddedSdkSummary() {
   return base64Decode(base64String);
 }
 
-({Map<String, List<Folder>> packageMap, Packages packages})
-    _parsePackageConfig(
+({Map<String, List<Folder>> packageMap, Packages packages}) _parsePackageConfig(
   String packagePath,
   PhysicalResourceProvider resourceProvider,
 ) {
@@ -90,7 +88,8 @@ Uint8List _loadEmbeddedSdkSummary() {
     return (packageMap: {}, packages: Packages({}));
   }
 
-  final json = jsonDecode(configFile.readAsStringSync()) as Map<String, dynamic>;
+  final json =
+      jsonDecode(configFile.readAsStringSync()) as Map<String, dynamic>;
   final configUri = configFile.parent.uri;
   final packageEntries = json['packages'] as List<dynamic>? ?? [];
 

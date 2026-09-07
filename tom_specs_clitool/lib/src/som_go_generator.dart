@@ -73,6 +73,7 @@ class SomGoGenerationResult {
 
   /// The generated metadata module (`tom_som_go_<label>_meta.go`).
   final String metaModulePath;
+
   /// The lossless model graph at `meta/spec_model.meta.json` (SOM §5.3). It is
   /// written first and then re-read to drive both emitters, so the committed
   /// meta-data and the committed source cannot describe different models.
@@ -178,13 +179,16 @@ SomGoGenerationResult writeSomGoProject({
   meta['generatedAt'] = generatedAt;
   final metaErrors = validateSpecModelMeta(meta);
   if (metaErrors.isNotEmpty) {
-    throw StateError('generated meta-data is invalid:\n  '
-        '${metaErrors.join('\n  ')}');
+    throw StateError(
+      'generated meta-data is invalid:\n  '
+      '${metaErrors.join('\n  ')}',
+    );
   }
   final metaJsonPath = p.join(outputRoot, 'meta', 'spec_model.meta.json');
   final metaFile = File(metaJsonPath)..parent.createSync(recursive: true);
   metaFile.writeAsStringSync(
-      '${const JsonEncoder.withIndent('  ').convert(meta)}\n');
+    '${const JsonEncoder.withIndent('  ').convert(meta)}\n',
+  );
 
   // ── typed Go facade (editing facade over the generic runtime) ──────────────
   final model = SpecModel.fromJson(meta);
@@ -212,10 +216,13 @@ SomGoGenerationResult writeSomGoProject({
 
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to every other language path — schemas are language-agnostic.
-  final schemas =
-      DocSpecsSchemaGenerator(classes).generateAll(modelVersion: modelVersion);
-  final schemaPaths =
-      DocSpecsSchemaGenerator.writeSchemaTree(outputRoot, schemas);
+  final schemas = DocSpecsSchemaGenerator(
+    classes,
+  ).generateAll(modelVersion: modelVersion);
+  final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
+    outputRoot,
+    schemas,
+  );
 
   // ── go.mod (domain module path + local `replace` on the runtime) ───────────
   // The generated Go source imports the runtime by its domain-qualified module
@@ -226,11 +233,13 @@ SomGoGenerationResult writeSomGoProject({
       .relative(p.normalize(runtimePackagePath), from: p.normalize(outputRoot))
       .replaceAll('\\', '/');
   final goModPath = p.join(outputRoot, 'go.mod');
-  File(goModPath).writeAsStringSync(_goMod(
-    moduleName,
-    runtimeRel,
-    runtimeVersion: packageVersionFromModel(modelLabel.split('+').first),
-  ));
+  File(goModPath).writeAsStringSync(
+    _goMod(
+      moduleName,
+      runtimeRel,
+      runtimeVersion: packageVersionFromModel(modelLabel.split('+').first),
+    ),
+  );
 
   return SomGoGenerationResult(
     outputRoot: outDir.path,
@@ -257,8 +266,11 @@ const String _goModuleBase = 'github.com/al-the-bear/tom_ai_build';
 /// directive resolves it in-repo.
 const String _goRuntimeModulePath = '$_goModuleBase/tom_som_go_runtime';
 
-String _goMod(String moduleName, String runtimeRel,
-    {required String runtimeVersion}) {
+String _goMod(
+  String moduleName,
+  String runtimeRel, {
+  required String runtimeVersion,
+}) {
   // A leading "./" keeps the replace target an explicit relative path; Go
   // requires relative replace targets to start with "./" or "../".
   //

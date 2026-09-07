@@ -75,7 +75,7 @@ enum SomStructuralMember {
 ///   deduplication, so a field named `can_have_content` is renamed rather than
 ///   silently overriding `<type>_can_have_content`.
 const Map<SomLanguage, Map<SomStructuralMember, List<String>>>
-    somStructuralAccessorNames = {
+somStructuralAccessorNames = {
   // Facade `extends SomNode`; `doc`/`path` are fields, the three sparse
   // accessors are `$`-prefixed getter/setter pairs sharing one name.
   SomLanguage.dart: {
@@ -183,5 +183,5 @@ const Map<SomLanguage, Map<SomStructuralMember, List<String>>>
 /// (a trailing `_`), so the collision resolves to a *different* accessor rather
 /// than to a shadowed structural one.
 Set<String> somReservedAccessorNames(SomLanguage language) => {
-      for (final names in somStructuralAccessorNames[language]!.values) ...names,
-    };
+  for (final names in somStructuralAccessorNames[language]!.values) ...names,
+};

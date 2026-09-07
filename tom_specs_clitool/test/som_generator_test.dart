@@ -36,16 +36,15 @@ void main() {
   });
 
   SomGenerationResult writeInto(Directory dir) => writeSomDartProject(
-        classes: classes,
-        runtimePackagePath: runtimeDir,
-        outputRoot: dir.path,
-        modelVersion: modelVersion,
-        modelLabel: modelLabel,
-        generatedAt: generatedAt,
-      );
+    classes: classes,
+    runtimePackagePath: runtimeDir,
+    outputRoot: dir.path,
+    modelVersion: modelVersion,
+    modelLabel: modelLabel,
+    generatedAt: generatedAt,
+  );
 
-  test('writes the full v0 artefact tree with a valid, stamped meta-data file',
-      () {
+  test('writes the full v0 artefact tree with a valid, stamped meta-data file', () {
     final dir = Directory.systemTemp.createTempSync('som_gen_');
     addTearDown(() => dir.deleteSync(recursive: true));
     final result = writeInto(dir);
@@ -53,10 +52,14 @@ void main() {
     // Meta-data exists, validates, and carries the stable build stamp.
     final metaFile = File(result.metaJsonPath);
     expect(metaFile.existsSync(), isTrue);
-    final meta = jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
+    final meta =
+        jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
     expect(validateSpecModelMeta(meta), isEmpty);
-    expect(meta['generatedAt'], generatedAt,
-        reason: 'generatedAt must be the stable model build instant');
+    expect(
+      meta['generatedAt'],
+      generatedAt,
+      reason: 'generatedAt must be the stable model build instant',
+    );
     expect(meta['modelVersion'], modelVersion);
     expect(meta['modelVersionLabel'], modelLabel);
 
@@ -77,53 +80,88 @@ void main() {
     // in a separate `pubspec_overrides.yaml` (excluded from `dart pub publish`).
     final pubspec = File(result.pubspecPath).readAsStringSync();
     expect(pubspec, contains('name: tom_som_dart_v0'));
-    expect(pubspec, isNot(contains('publish_to: none')),
-        reason: 'a publishable facade must not opt out of publishing');
-    expect(pubspec, contains('version: 1.0.0'),
-        reason: 'facade version is the TomSpecs model version');
-    expect(pubspec, contains('tom_som_dart_runtime: ^1.0.0'),
-        reason: 'runtime dep must be a hosted, model-version-pinned constraint');
-    expect(RegExp(r'path:\s').hasMatch(pubspec), isFalse,
-        reason: 'no path dependency may remain in the publishable pubspec');
+    expect(
+      pubspec,
+      isNot(contains('publish_to: none')),
+      reason: 'a publishable facade must not opt out of publishing',
+    );
+    expect(
+      pubspec,
+      contains('version: 1.0.0'),
+      reason: 'facade version is the TomSpecs model version',
+    );
+    expect(
+      pubspec,
+      contains('tom_som_dart_runtime: ^1.0.0'),
+      reason: 'runtime dep must be a hosted, model-version-pinned constraint',
+    );
+    expect(
+      RegExp(r'path:\s').hasMatch(pubspec),
+      isFalse,
+      reason: 'no path dependency may remain in the publishable pubspec',
+    );
 
     // The local-development override resolves the runtime by a relative path.
     final overrides = File(
-        p.join(p.dirname(result.pubspecPath), 'pubspec_overrides.yaml'));
-    expect(overrides.existsSync(), isTrue,
-        reason: 'generator must emit pubspec_overrides.yaml for local dev');
+      p.join(p.dirname(result.pubspecPath), 'pubspec_overrides.yaml'),
+    );
+    expect(
+      overrides.existsSync(),
+      isTrue,
+      reason: 'generator must emit pubspec_overrides.yaml for local dev',
+    );
     final overrideText = overrides.readAsStringSync();
     expect(overrideText, contains('dependency_overrides:'));
-    final depPath = RegExp(r'path:\s*(\S+)').firstMatch(overrideText)!.group(1)!;
-    expect(p.isRelative(depPath), isTrue,
-        reason: 'override runtime dep must be a relative path, got $depPath');
-    expect(p.normalize(p.join(result.outputRoot, depPath)),
-        p.normalize(runtimeDir),
-        reason: 'relative override dep must resolve to tom_som_dart_runtime');
+    final depPath = RegExp(
+      r'path:\s*(\S+)',
+    ).firstMatch(overrideText)!.group(1)!;
+    expect(
+      p.isRelative(depPath),
+      isTrue,
+      reason: 'override runtime dep must be a relative path, got $depPath',
+    );
+    expect(
+      p.normalize(p.join(result.outputRoot, depPath)),
+      p.normalize(runtimeDir),
+      reason: 'relative override dep must resolve to tom_som_dart_runtime',
+    );
   });
 
-  test('regeneration is idempotent (byte-stable output for unchanged input)',
-      () {
-    final a = Directory.systemTemp.createTempSync('som_gen_a_');
-    final b = Directory.systemTemp.createTempSync('som_gen_b_');
-    addTearDown(() => a.deleteSync(recursive: true));
-    addTearDown(() => b.deleteSync(recursive: true));
-    final ra = writeInto(a);
-    final rb = writeInto(b);
+  test(
+    'regeneration is idempotent (byte-stable output for unchanged input)',
+    () {
+      final a = Directory.systemTemp.createTempSync('som_gen_a_');
+      final b = Directory.systemTemp.createTempSync('som_gen_b_');
+      addTearDown(() => a.deleteSync(recursive: true));
+      addTearDown(() => b.deleteSync(recursive: true));
+      final ra = writeInto(a);
+      final rb = writeInto(b);
 
-    expect(File(rb.libPath).readAsStringSync(),
-        File(ra.libPath).readAsStringSync());
-    expect(File(rb.metaJsonPath).readAsStringSync(),
-        File(ra.metaJsonPath).readAsStringSync());
-    expect(File(rb.pubspecPath).readAsStringSync(),
-        File(ra.pubspecPath).readAsStringSync());
-    expect(rb.schemaPaths.map((s) => p.basename(s)).toList(),
-        ra.schemaPaths.map((s) => p.basename(s)).toList());
-    for (var i = 0; i < ra.schemaPaths.length; i++) {
-      expect(File(rb.schemaPaths[i]).readAsStringSync(),
+      expect(
+        File(rb.libPath).readAsStringSync(),
+        File(ra.libPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaJsonPath).readAsStringSync(),
+        File(ra.metaJsonPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.pubspecPath).readAsStringSync(),
+        File(ra.pubspecPath).readAsStringSync(),
+      );
+      expect(
+        rb.schemaPaths.map((s) => p.basename(s)).toList(),
+        ra.schemaPaths.map((s) => p.basename(s)).toList(),
+      );
+      for (var i = 0; i < ra.schemaPaths.length; i++) {
+        expect(
+          File(rb.schemaPaths[i]).readAsStringSync(),
           File(ra.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable');
-    }
-  });
+          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable',
+        );
+      }
+    },
+  );
 
   test('the analyze+write path matches the write-only path', () async {
     final viaWrite = Directory.systemTemp.createTempSync('som_gen_w_');
@@ -140,9 +178,13 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rf.libPath).readAsStringSync(),
-        File(rw.libPath).readAsStringSync());
-    expect(File(rf.metaJsonPath).readAsStringSync(),
-        File(rw.metaJsonPath).readAsStringSync());
+    expect(
+      File(rf.libPath).readAsStringSync(),
+      File(rw.libPath).readAsStringSync(),
+    );
+    expect(
+      File(rf.metaJsonPath).readAsStringSync(),
+      File(rw.metaJsonPath).readAsStringSync(),
+    );
   });
 }

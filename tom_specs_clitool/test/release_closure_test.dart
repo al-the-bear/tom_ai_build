@@ -23,16 +23,22 @@ void main() {
     test('the committed manifest walks the real tree at zero violations', () {
       final manifest = ReleaseManifest.load(manifestPath);
       final report = checkReleaseClosure(
-          manifest: manifest, containerRoot: containerRoot);
+        manifest: manifest,
+        containerRoot: containerRoot,
+      );
       expect(
         report.violations.map((v) => v.describe()),
         isEmpty,
-        reason: 'the release set must stay dependency-closed — an edge onto '
+        reason:
+            'the release set must stay dependency-closed — an edge onto '
             'the engine/brain/assistant/d4rt plane or an unapproved '
             'workspace package pulls excluded code into the release',
       );
-      expect(report.packagesWalked, manifest.releaseSet.length,
-          reason: 'every Dart member must actually be walked');
+      expect(
+        report.packagesWalked,
+        manifest.releaseSet.length,
+        reason: 'every Dart member must actually be walked',
+      );
       expect(report.edgesChecked, greaterThan(0));
     });
   });
@@ -43,8 +49,13 @@ void main() {
     setUp(() => root = Directory.systemTemp.createTempSync('release_closure_'));
     tearDown(() => root.deleteSync(recursive: true));
 
-    void writePackage(String dir, String name, String deps,
-        {String devDeps = '', String? overridesFile}) {
+    void writePackage(
+      String dir,
+      String name,
+      String deps, {
+      String devDeps = '',
+      String? overridesFile,
+    }) {
       final pkgDir = Directory(p.join(root.path, dir))
         ..createSync(recursive: true);
       File(p.join(pkgDir.path, 'pubspec.yaml')).writeAsStringSync('''
@@ -57,8 +68,9 @@ dev_dependencies:
 $devDeps
 ''');
       if (overridesFile != null) {
-        File(p.join(pkgDir.path, 'pubspec_overrides.yaml'))
-            .writeAsStringSync(overridesFile);
+        File(
+          p.join(pkgDir.path, 'pubspec_overrides.yaml'),
+        ).writeAsStringSync(overridesFile);
       }
     }
 
@@ -71,14 +83,13 @@ $devDeps
         'tom_d4rt',
         'tom_spec_engine',
       ],
-    }) =>
-        ReleaseManifest(
-          releaseSet: releaseSet,
-          sourceOnly: const [],
-          allow: allow,
-          forbid: forbid,
-          workspacePrefixes: const ['tom_'],
-        );
+    }) => ReleaseManifest(
+      releaseSet: releaseSet,
+      sourceOnly: const [],
+      allow: allow,
+      forbid: forbid,
+      workspacePrefixes: const ['tom_'],
+    );
 
     test('RCL2: a forbidden dependency fails naming the edge', () {
       writePackage('pkg_a', 'tom_pkg_a', '  tom_brain_shared: ^1.0.0\n');
@@ -93,8 +104,12 @@ $devDeps
     });
 
     test('RCL2: a forbidden dev dependency fails too', () {
-      writePackage('pkg_a', 'tom_pkg_a', '  path: ^1.9.0\n',
-          devDeps: '  tom_assistant_core: ^1.0.0\n');
+      writePackage(
+        'pkg_a',
+        'tom_pkg_a',
+        '  path: ^1.9.0\n',
+        devDeps: '  tom_assistant_core: ^1.0.0\n',
+      );
       final report = checkReleaseClosure(
         manifest: manifest(releaseSet: {'tom_pkg_a': 'pkg_a'}),
         containerRoot: root.path,
@@ -106,9 +121,14 @@ $devDeps
     });
 
     test('RCL2: a forbidden pubspec_overrides entry fails too', () {
-      writePackage('pkg_a', 'tom_pkg_a', '  path: ^1.9.0\n',
-          overridesFile: 'dependency_overrides:\n'
-              '  tom_d4rt:\n    path: ../elsewhere\n');
+      writePackage(
+        'pkg_a',
+        'tom_pkg_a',
+        '  path: ^1.9.0\n',
+        overridesFile:
+            'dependency_overrides:\n'
+            '  tom_d4rt:\n    path: ../elsewhere\n',
+      );
       final report = checkReleaseClosure(
         manifest: manifest(releaseSet: {'tom_pkg_a': 'pkg_a'}),
         containerRoot: root.path,
@@ -118,40 +138,54 @@ $devDeps
       expect(v.edgeKind, ClosureEdgeKind.override);
     });
 
-    test('RCL3: an unapproved workspace dependency fails; third-party passes',
-        () {
-      writePackage(
-          'pkg_a', 'tom_pkg_a', '  tom_mystery: ^1.0.0\n  args: ^2.6.0\n');
-      final report = checkReleaseClosure(
-        manifest: manifest(releaseSet: {'tom_pkg_a': 'pkg_a'}),
-        containerRoot: root.path,
-      );
-      final v = report.violations.single;
-      expect(v.kind, ClosureViolationKind.unapprovedWorkspace);
-      expect(v.describe(), contains('tom_pkg_a -> tom_mystery'));
-    });
+    test(
+      'RCL3: an unapproved workspace dependency fails; third-party passes',
+      () {
+        writePackage(
+          'pkg_a',
+          'tom_pkg_a',
+          '  tom_mystery: ^1.0.0\n  args: ^2.6.0\n',
+        );
+        final report = checkReleaseClosure(
+          manifest: manifest(releaseSet: {'tom_pkg_a': 'pkg_a'}),
+          containerRoot: root.path,
+        );
+        final v = report.violations.single;
+        expect(v.kind, ClosureViolationKind.unapprovedWorkspace);
+        expect(v.describe(), contains('tom_pkg_a -> tom_mystery'));
+      },
+    );
 
     test('RCL4: the walk continues through an approved crossing and catches '
         'what sits behind it', () {
       writePackage('pkg_a', 'tom_pkg_a', '  tom_published: ^1.0.0\n');
-      writePackage('published', 'tom_published', '  tom_brain_memory: ^1.0.0\n');
+      writePackage(
+        'published',
+        'tom_published',
+        '  tom_brain_memory: ^1.0.0\n',
+      );
       final report = checkReleaseClosure(
         manifest: manifest(
           releaseSet: {'tom_pkg_a': 'pkg_a'},
           allow: {
             'tom_published': const ReleaseAllowEntry(
-                name: 'tom_published',
-                path: 'published',
-                reason: 'published to pub.dev'),
+              name: 'tom_published',
+              path: 'published',
+              reason: 'published to pub.dev',
+            ),
           },
         ),
         containerRoot: root.path,
       );
       final v = report.violations.single;
       expect(v.kind, ClosureViolationKind.forbidden);
-      expect(v.describe(), contains('tom_published -> tom_brain_memory'),
-          reason: 'approving the crossing must not approve what sits behind '
-              'it');
+      expect(
+        v.describe(),
+        contains('tom_published -> tom_brain_memory'),
+        reason:
+            'approving the crossing must not approve what sits behind '
+            'it',
+      );
       expect(report.approvedCrossings, 1);
     });
 
@@ -163,9 +197,10 @@ $devDeps
           releaseSet: {'tom_pkg_a': 'pkg_a'},
           allow: {
             'tom_published': const ReleaseAllowEntry(
-                name: 'tom_published',
-                path: 'published',
-                reason: 'published to pub.dev'),
+              name: 'tom_published',
+              path: 'published',
+              reason: 'published to pub.dev',
+            ),
           },
         ),
         containerRoot: root.path,
@@ -173,35 +208,45 @@ $devDeps
       expect(report.violations, isEmpty);
     });
 
-    test('RCL5: an allow entry matching a forbid pattern is a manifest error',
-        () {
-      writePackage('pkg_a', 'tom_pkg_a', '  {}\n');
-      final report = checkReleaseClosure(
-        manifest: manifest(
-          releaseSet: {'tom_pkg_a': 'pkg_a'},
-          allow: {
-            'tom_brain_memory': const ReleaseAllowEntry(
-                name: 'tom_brain_memory', reason: 'nice try'),
-          },
-        ),
-        containerRoot: root.path,
-      );
-      expect(
-        report.violations.map((v) => v.kind),
-        contains(ClosureViolationKind.manifest),
-      );
-      expect(report.violations.map((v) => v.describe()).join('\n'),
-          contains('tom_brain_memory'));
-    });
+    test(
+      'RCL5: an allow entry matching a forbid pattern is a manifest error',
+      () {
+        writePackage('pkg_a', 'tom_pkg_a', '  {}\n');
+        final report = checkReleaseClosure(
+          manifest: manifest(
+            releaseSet: {'tom_pkg_a': 'pkg_a'},
+            allow: {
+              'tom_brain_memory': const ReleaseAllowEntry(
+                name: 'tom_brain_memory',
+                reason: 'nice try',
+              ),
+            },
+          ),
+          containerRoot: root.path,
+        );
+        expect(
+          report.violations.map((v) => v.kind),
+          contains(ClosureViolationKind.manifest),
+        );
+        expect(
+          report.violations.map((v) => v.describe()).join('\n'),
+          contains('tom_brain_memory'),
+        );
+      },
+    );
 
     test('RCL6: a path dependency pointing at a stray copy fails', () {
-      writePackage('pkg_a', 'tom_pkg_a',
-          '  tom_pkg_b:\n    path: ../stray/pkg_b\n');
+      writePackage(
+        'pkg_a',
+        'tom_pkg_a',
+        '  tom_pkg_b:\n    path: ../stray/pkg_b\n',
+      );
       writePackage('pkg_b', 'tom_pkg_b', '  {}\n');
       writePackage('stray/pkg_b', 'tom_pkg_b', '  {}\n');
       final report = checkReleaseClosure(
         manifest: manifest(
-            releaseSet: {'tom_pkg_a': 'pkg_a', 'tom_pkg_b': 'pkg_b'}),
+          releaseSet: {'tom_pkg_a': 'pkg_a', 'tom_pkg_b': 'pkg_b'},
+        ),
         containerRoot: root.path,
       );
       expect(
@@ -210,17 +255,19 @@ $devDeps
       );
     });
 
-    test('RCL6: a pubspec whose name disagrees with the manifest key fails',
-        () {
-      writePackage('pkg_a', 'tom_pkg_renamed', '  {}\n');
-      final report = checkReleaseClosure(
-        manifest: manifest(releaseSet: {'tom_pkg_a': 'pkg_a'}),
-        containerRoot: root.path,
-      );
-      final v = report.violations.single;
-      expect(v.kind, ClosureViolationKind.manifest);
-      expect(v.describe(), contains('tom_pkg_renamed'));
-    });
+    test(
+      'RCL6: a pubspec whose name disagrees with the manifest key fails',
+      () {
+        writePackage('pkg_a', 'tom_pkg_renamed', '  {}\n');
+        final report = checkReleaseClosure(
+          manifest: manifest(releaseSet: {'tom_pkg_a': 'pkg_a'}),
+          containerRoot: root.path,
+        );
+        final v = report.violations.single;
+        expect(v.kind, ClosureViolationKind.manifest);
+        expect(v.describe(), contains('tom_pkg_renamed'));
+      },
+    );
 
     test('RCL6: a missing source_only directory fails', () {
       writePackage('pkg_a', 'tom_pkg_a', '  {}\n');
@@ -252,8 +299,10 @@ allow:
   tom_published:
     path: published
 ''');
-      expect(() => ReleaseManifest.load(file.path),
-          throwsA(isA<FormatException>()));
+      expect(
+        () => ReleaseManifest.load(file.path),
+        throwsA(isA<FormatException>()),
+      );
     });
 
     test('the committed manifest loads and names every member once', () {

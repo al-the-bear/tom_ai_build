@@ -46,22 +46,27 @@ void main() {
       dotAll: true,
     );
 
-    final docs = docsDir
-        .listSync()
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.md'))
-        .toList()
-      ..sort((a, b) => a.path.compareTo(b.path));
+    final docs =
+        docsDir
+            .listSync()
+            .whereType<File>()
+            .where((f) => f.path.endsWith('.md'))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
 
     test('at least one excerpt is pinned, so the guard is not vacuous', () {
       final total = docs.fold<int>(
         0,
         (n, f) => n + marker.allMatches(f.readAsStringSync()).length,
       );
-      expect(total, greaterThan(0),
-          reason: 'no `<!-- outline-excerpt: ... -->` marker found in '
-              '${docsDir.path} -- the guard below would pass by checking '
-              'nothing. An absent anchor is a finding, not a pass.');
+      expect(
+        total,
+        greaterThan(0),
+        reason:
+            'no `<!-- outline-excerpt: ... -->` marker found in '
+            '${docsDir.path} -- the guard below would pass by checking '
+            'nothing. An absent anchor is a finding, not a pass.',
+      );
     });
 
     for (final doc in docs) {
@@ -73,9 +78,13 @@ void main() {
 
         test('${p.basename(doc.path)}:$line quotes $file verbatim', () {
           final source = File(p.join(outlinesDir, file));
-          expect(source.existsSync(), isTrue,
-              reason: 'excerpt names $file, which does not exist in '
-                  '$outlinesDir');
+          expect(
+            source.existsSync(),
+            isTrue,
+            reason:
+                'excerpt names $file, which does not exist in '
+                '$outlinesDir',
+          );
 
           final generated = source.readAsStringSync();
           if (generated.contains(body)) return;
@@ -101,9 +110,11 @@ void main() {
                   return 'excerpt is a prefix but not contiguous';
                 }();
 
-          fail('the excerpt in ${p.basename(doc.path)} is not a verbatim cut '
-              'of $file -- re-cut it from the regenerated outline rather than '
-              'editing it by hand.\n$detail');
+          fail(
+            'the excerpt in ${p.basename(doc.path)} is not a verbatim cut '
+            'of $file -- re-cut it from the regenerated outline rather than '
+            'editing it by hand.\n$detail',
+          );
         });
       }
     }
@@ -140,15 +151,18 @@ void main() {
 
     test('an enum member renders `name: Type (values)` inline (§11.2.5)', () {
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          leaf('content'),
-          ModelField(
-            name: 'priority',
-            typeName: 'Priority',
-            isEnum: true,
-            enumValues: ['must', 'should', 'could'],
-          ),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            leaf('content'),
+            ModelField(
+              name: 'priority',
+              typeName: 'Priority',
+              isEnum: true,
+              enumValues: ['must', 'should', 'could'],
+            ),
+          ],
+        ),
       });
       expect(body, '  - content, priority: Priority (must, should, could)');
     });
@@ -175,15 +189,22 @@ void main() {
           );
 
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          list('unbounded', []),
-          list('atLeastOne', [AnnotationData('Min', {'count': 1})]),
-          list('atMostFive', [AnnotationData('Max', {'count': 5})]),
-          list('between', [
-            AnnotationData('Min', {'count': 1}),
-            AnnotationData('Max', {'count': 5}),
-          ]),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            list('unbounded', []),
+            list('atLeastOne', [
+              AnnotationData('Min', {'count': 1}),
+            ]),
+            list('atMostFive', [
+              AnnotationData('Max', {'count': 5}),
+            ]),
+            list('between', [
+              AnnotationData('Min', {'count': 1}),
+              AnnotationData('Max', {'count': 5}),
+            ]),
+          ],
+        ),
       });
 
       expect(body.split('\n'), [
@@ -196,21 +217,24 @@ void main() {
 
     test('@Position shows only non-default values (§11.2.11)', () {
       ModelField positioned(String name, String position) => ModelField(
-            name: name,
-            typeName: 'List<Item>',
-            isList: true,
-            listElementTypeName: 'Item',
-            annotations: [
-              AnnotationData('Position', {'position': position})
-            ],
-          );
+        name: name,
+        typeName: 'List<Item>',
+        isList: true,
+        listElementTypeName: 'Item',
+        annotations: [
+          AnnotationData('Position', {'position': position}),
+        ],
+      );
 
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          positioned('preamble', 'first'),
-          positioned('items', 'relative'),
-          positioned('appendices', 'last'),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            positioned('preamble', 'first'),
+            positioned('items', 'relative'),
+            positioned('appendices', 'last'),
+          ],
+        ),
       });
 
       expect(body.split('\n'), [
@@ -222,81 +246,88 @@ void main() {
 
     test('@ForEach renders the registry key with ⟷ (§11.2.12)', () {
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          ModelField(
-            name: 'implementations',
-            typeName: 'List<Item>',
-            isList: true,
-            listElementTypeName: 'Item',
-            annotations: [
-              AnnotationData('ForEach', {
-                'registryType': 'PRIDN',
-                'key': 'processId',
-              })
-            ],
-          ),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            ModelField(
+              name: 'implementations',
+              typeName: 'List<Item>',
+              isList: true,
+              listElementTypeName: 'Item',
+              annotations: [
+                AnnotationData('ForEach', {
+                  'registryType': 'PRIDN',
+                  'key': 'processId',
+                }),
+              ],
+            ),
+          ],
+        ),
       });
       expect(body, '  - implementations: `Item`[] ⟷ PRIDN.processId');
     });
 
     test('@Comment appends `← (text)` with no column padding (§11.2.10)', () {
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          ModelField(
-            name: 'systems',
-            typeName: 'List<Item>',
-            isList: true,
-            listElementTypeName: 'Item',
-            annotations: [
-              AnnotationData('Comment', {'text': 'seeded'})
-            ],
-          ),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            ModelField(
+              name: 'systems',
+              typeName: 'List<Item>',
+              isList: true,
+              listElementTypeName: 'Item',
+              annotations: [
+                AnnotationData('Comment', {'text': 'seeded'}),
+              ],
+            ),
+          ],
+        ),
       });
       expect(body, '  - systems: `Item`[] ← (seeded)');
     });
 
     test('@Reference shows both names, is not followed (§11.2.9)', () {
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          ModelField(
-            name: 'basedOn',
-            typeName: 'Requirement',
-            annotations: [
-              AnnotationData('Reference', {'description': 'Source System'})
-            ],
-          ),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            ModelField(
+              name: 'basedOn',
+              typeName: 'Requirement',
+              annotations: [
+                AnnotationData('Reference', {'description': 'Source System'}),
+              ],
+            ),
+          ],
+        ),
         // Would be expanded if the reference were followed.
-        'Requirement':
-            ModelClass(name: 'Requirement', fields: [leaf('content')]),
+        'Requirement': ModelClass(
+          name: 'Requirement',
+          fields: [leaf('content')],
+        ),
       });
       expect(body, '  - basedOn: `Requirement` (ref: Source System)');
     });
 
     test('schema-only annotations are HTML comments, between the class line '
         'and its members, at the class line indent (§11.2.14)', () {
-      final body = render(
-        'Root',
-        {
-          'Root': ModelClass(
-            name: 'Root',
-            fields: [ModelField(name: 'general', typeName: 'Settings')],
-          ),
-          'Settings': ModelClass(
-            name: 'Settings',
-            fields: [leaf('content')],
-            annotations: [
-              AnnotationData('Prefix', {'prefix': 'CSA-SYS'}),
-              AnnotationData('MaxDepth', {'depth': 2}),
-              // Visible-elsewhere annotations must not leak in here.
-              AnnotationData('SectionId', {'id': 'ROOT'}),
-            ],
-          ),
-        },
-        showSchemaAnnotations: true,
-      );
+      final body = render('Root', {
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [ModelField(name: 'general', typeName: 'Settings')],
+        ),
+        'Settings': ModelClass(
+          name: 'Settings',
+          fields: [leaf('content')],
+          annotations: [
+            AnnotationData('Prefix', {'prefix': 'CSA-SYS'}),
+            AnnotationData('MaxDepth', {'depth': 2}),
+            // Visible-elsewhere annotations must not leak in here.
+            AnnotationData('SectionId', {'id': 'ROOT'}),
+          ],
+        ),
+      }, showSchemaAnnotations: true);
 
       // The annotation lines align with the class line they annotate, so they
       // sit one level *out* from the members below them -- which is what makes
@@ -311,29 +342,31 @@ void main() {
 
     test('member-level schema annotations name their target, at the leaf '
         'bullet indent (§11.2.14)', () {
-      final body = render(
-        'Root',
-        {
-          'Root': ModelClass(name: 'Root', fields: [
-            ModelField(name: 'record', typeName: 'Entry'),
-          ]),
-          'Entry': ModelClass(name: 'Entry', fields: [
+      final body = render('Root', {
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [ModelField(name: 'record', typeName: 'Entry')],
+        ),
+        'Entry': ModelClass(
+          name: 'Entry',
+          fields: [
             ModelField(
               name: 'content',
               typeName: 'String',
-              annotations: [AnnotationData('MinLength', {'length': 50})],
+              annotations: [
+                AnnotationData('MinLength', {'length': 50}),
+              ],
             ),
             ModelField(
               name: 'systemName',
               typeName: 'String',
               annotations: [
-                AnnotationData('AccessKey', {'key': 'systemName'})
+                AnnotationData('AccessKey', {'key': 'systemName'}),
               ],
             ),
-          ]),
-        },
-        showSchemaAnnotations: true,
-      );
+          ],
+        ),
+      }, showSchemaAnnotations: true);
 
       // Leaf members share one bullet, so an annotation cannot be positioned
       // against an individual member -- it names its target instead.
@@ -356,16 +389,19 @@ void main() {
       // section, so this was eliding exactly the distinction it called
       // significant.
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          ModelField(name: 'header', typeName: 'Entry'),
-          ModelField(
-            name: 'revisionHistory',
-            typeName: 'List<Entry>',
-            isList: true,
-            listElementTypeName: 'Entry',
-            listElementIsComplex: true,
-          ),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            ModelField(name: 'header', typeName: 'Entry'),
+            ModelField(
+              name: 'revisionHistory',
+              typeName: 'List<Entry>',
+              isList: true,
+              listElementTypeName: 'Entry',
+              listElementIsComplex: true,
+            ),
+          ],
+        ),
         'Entry': ModelClass(name: 'Entry', fields: [leaf('content')]),
       });
 
@@ -383,15 +419,18 @@ void main() {
       // type with nothing under it -- readable as a singular member of an
       // unexpanded class.
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          leaf('content'),
-          ModelField(
-            name: 'relatedPainPoints',
-            typeName: 'List<String>',
-            isList: true,
-            listElementTypeName: 'String',
-          ),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            leaf('content'),
+            ModelField(
+              name: 'relatedPainPoints',
+              typeName: 'List<String>',
+              isList: true,
+              listElementTypeName: 'String',
+            ),
+          ],
+        ),
       });
 
       expect(body.split('\n'), [
@@ -407,21 +446,26 @@ void main() {
       // to find every list; the bracket tag then says how many, when the
       // model constrains it.
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          ModelField(
-            name: 'unbounded',
-            typeName: 'List<Item>',
-            isList: true,
-            listElementTypeName: 'Item',
-          ),
-          ModelField(
-            name: 'bounded',
-            typeName: 'List<Item>',
-            isList: true,
-            listElementTypeName: 'Item',
-            annotations: [AnnotationData('Min', {'count': 1})],
-          ),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            ModelField(
+              name: 'unbounded',
+              typeName: 'List<Item>',
+              isList: true,
+              listElementTypeName: 'Item',
+            ),
+            ModelField(
+              name: 'bounded',
+              typeName: 'List<Item>',
+              isList: true,
+              listElementTypeName: 'Item',
+              annotations: [
+                AnnotationData('Min', {'count': 1}),
+              ],
+            ),
+          ],
+        ),
       });
 
       expect(body.split('\n'), [
@@ -438,22 +482,25 @@ void main() {
       // exactly the class name, so a reader (or a grep) can still lift a type
       // name out of an outline.
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          ModelField(
-            name: 'systems',
-            typeName: 'List<Item>',
-            isList: true,
-            listElementTypeName: 'Item',
-            annotations: [
-              AnnotationData('Comment', {'text': 'seeded'}),
-              AnnotationData('Position', {'position': 'last'}),
-              AnnotationData('ForEach', {
-                'registryType': 'PRIDN',
-                'key': 'processId',
-              }),
-            ],
-          ),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            ModelField(
+              name: 'systems',
+              typeName: 'List<Item>',
+              isList: true,
+              listElementTypeName: 'Item',
+              annotations: [
+                AnnotationData('Comment', {'text': 'seeded'}),
+                AnnotationData('Position', {'position': 'last'}),
+                AnnotationData('ForEach', {
+                  'registryType': 'PRIDN',
+                  'key': 'processId',
+                }),
+              ],
+            ),
+          ],
+        ),
       });
 
       expect(body, '  - systems: `Item`[] ← (seeded) [last] ⟷ PRIDN.processId');
@@ -461,14 +508,21 @@ void main() {
 
     test('the name-match rule drops a redundant member name (§11.2.2)', () {
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          ModelField(name: 'systemOverview', typeName: 'SystemOverview'),
-          ModelField(name: 'header', typeName: 'DocumentHeader'),
-        ]),
-        'SystemOverview':
-            ModelClass(name: 'SystemOverview', fields: [leaf('content')]),
-        'DocumentHeader':
-            ModelClass(name: 'DocumentHeader', fields: [leaf('content')]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            ModelField(name: 'systemOverview', typeName: 'SystemOverview'),
+            ModelField(name: 'header', typeName: 'DocumentHeader'),
+          ],
+        ),
+        'SystemOverview': ModelClass(
+          name: 'SystemOverview',
+          fields: [leaf('content')],
+        ),
+        'DocumentHeader': ModelClass(
+          name: 'DocumentHeader',
+          fields: [leaf('content')],
+        ),
       });
 
       expect(body.split('\n'), [
@@ -485,11 +539,14 @@ void main() {
       // writer strips `?` from the type name, and a leaf renders as its bare
       // field name. Pinned so the claim cannot be reinstated unnoticed.
       final body = render('Root', {
-        'Root': ModelClass(name: 'Root', fields: [
-          ModelField(name: 'required', typeName: 'String'),
-          ModelField(name: 'optional', typeName: 'String?'),
-          ModelField(name: 'maybeChild', typeName: 'Child?'),
-        ]),
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [
+            ModelField(name: 'required', typeName: 'String'),
+            ModelField(name: 'optional', typeName: 'String?'),
+            ModelField(name: 'maybeChild', typeName: 'Child?'),
+          ],
+        ),
         'Child': ModelClass(name: 'Child', fields: [leaf('content')]),
       });
 
@@ -516,21 +573,14 @@ void main() {
 
     test('a long leaf line wraps one level deeper, commas kept at line end '
         '(§11.2.4)', () {
-      final body = render(
-        'Root',
-        {
-          'Root': ModelClass(
-            name: 'Root',
-            fields: [leaf('alpha'), leaf('bravo'), leaf('charlie')],
-          ),
-        },
-        maxLineLength: 22,
-      );
+      final body = render('Root', {
+        'Root': ModelClass(
+          name: 'Root',
+          fields: [leaf('alpha'), leaf('bravo'), leaf('charlie')],
+        ),
+      }, maxLineLength: 22);
 
-      expect(body.split('\n'), [
-        '  - alpha, bravo,',
-        '    charlie',
-      ]);
+      expect(body.split('\n'), ['  - alpha, bravo,', '    charlie']);
     });
   });
 }

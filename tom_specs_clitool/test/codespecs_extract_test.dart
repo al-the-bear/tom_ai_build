@@ -110,10 +110,10 @@ void main() {
       });
       expect(set.knowsSection('IMO-014'), isTrue);
       expect(set.knowsSection('IMO-015'), isFalse);
-      expect(
-        set.entriesFor('IMO-014').map((e) => e.areaCode),
-        ['CE-DB', 'CE-AZ'],
-      );
+      expect(set.entriesFor('IMO-014').map((e) => e.areaCode), [
+        'CE-DB',
+        'CE-AZ',
+      ]);
       expect(set.entriesForAll(['IMO-015', 'IMO-014']), hasLength(2));
       expect(set.entriesFor('IMO-015'), isEmpty);
     });
@@ -129,7 +129,9 @@ void main() {
       // no input passes — which is the one failure mode a validator may not
       // have.
       expect(
-        () => readCsExtracts({'x.extract.yaml': _yaml(version: kCsExtractFormat + 1)}),
+        () => readCsExtracts({
+          'x.extract.yaml': _yaml(version: kCsExtractFormat + 1),
+        }),
         throwsA(
           isA<CsExtractException>().having(
             (e) => e.message,
@@ -223,7 +225,9 @@ void main() {
 
     test('a fenced code block is copied through unescaped', () {
       expect(
-        csEscapedLines('A [ref].\n```\norder[0] = Order<int>();\n```\nAfter [x].'),
+        csEscapedLines(
+          'A [ref].\n```\norder[0] = Order<int>();\n```\nAfter [x].',
+        ),
         [
           r'A \[ref\].',
           '```',

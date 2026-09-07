@@ -126,11 +126,7 @@ class OutlineWriter {
     }
   }
 
-  void _writeLeafLine(
-    List<ModelField> fields,
-    int depth,
-    ModelClass cls,
-  ) {
+  void _writeLeafLine(List<ModelField> fields, int depth, ModelClass cls) {
     final indent = _indent(depth + 1);
 
     // Field-level schema annotations (`tom_specs_model_rules.md` §11.2.14)
@@ -197,11 +193,7 @@ class OutlineWriter {
     return buf.toString();
   }
 
-  void _writeWrappedLeafLine(
-    String prefix,
-    List<String> parts,
-    int depth,
-  ) {
+  void _writeWrappedLeafLine(String prefix, List<String> parts, int depth) {
     final continuationIndent = _indent(depth + 2);
     final lines = <String>[];
     var currentLine = StringBuffer(prefix);
@@ -243,11 +235,7 @@ class OutlineWriter {
     }
   }
 
-  void _writeComplexField(
-    ModelField field,
-    int depth,
-    Set<String> ancestors,
-  ) {
+  void _writeComplexField(ModelField field, int depth, Set<String> ancestors) {
     if (field.isList) {
       _writeListField(field, depth, ancestors);
     } else {
@@ -307,17 +295,16 @@ class OutlineWriter {
 
     // Recurse into child class — skip @Reference fields
     // (`tom_specs_model_rules.md` §5.7)
-    if (!skipRecursion && childClass != null && !isReference && !ancestors.contains(typeName)) {
+    if (!skipRecursion &&
+        childClass != null &&
+        !isReference &&
+        !ancestors.contains(typeName)) {
       final newAncestors = {...ancestors, typeName};
       _writeClass(typeName, childClass, depth + 1, newAncestors);
     }
   }
 
-  void _writeListField(
-    ModelField field,
-    int depth,
-    Set<String> ancestors,
-  ) {
+  void _writeListField(ModelField field, int depth, Set<String> ancestors) {
     final indent = _indent(depth + 1);
     // YRD5: `List<DocSpecsSection>` renders as the pre-YRD5 `String` inline
     // content list so outlines stay byte-identical.
@@ -351,8 +338,9 @@ class OutlineWriter {
     // marker sits outside the backticks so the backticked span stays exactly
     // the class name, and ahead of the trailing annotations because it belongs
     // to the type rather than to the member.
-    final line =
-        StringBuffer('$indent-$cardinalityTag ${field.name}: `$innerType`[]');
+    final line = StringBuffer(
+      '$indent-$cardinalityTag ${field.name}: `$innerType`[]',
+    );
 
     // Trailing annotations
     _appendTrailingAnnotations(line, field, indent.length);
@@ -392,7 +380,8 @@ class OutlineWriter {
     final docClassName = anno.arguments['documentClass'] as String? ?? '';
     if (docClassName.isEmpty) return null;
     final docClass = classes[docClassName];
-    final sectionId = docClass?.getAnnotation('SectionId')?.arguments['id'] as String?;
+    final sectionId =
+        docClass?.getAnnotation('SectionId')?.arguments['id'] as String?;
     return sectionId ?? docClassName;
   }
 

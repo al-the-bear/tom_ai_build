@@ -44,16 +44,15 @@ void main() {
   });
 
   SomRustGenerationResult writeInto(Directory dir) => writeSomRustProject(
-        classes: classes,
-        runtimePackagePath: rustRuntimeDir,
-        outputRoot: dir.path,
-        modelVersion: modelVersion,
-        modelLabel: modelLabel,
-        generatedAt: generatedAt,
-      );
+    classes: classes,
+    runtimePackagePath: rustRuntimeDir,
+    outputRoot: dir.path,
+    modelVersion: modelVersion,
+    modelLabel: modelLabel,
+    generatedAt: generatedAt,
+  );
 
-  test('writes the full Rust v0 artefact tree with a valid, stamped meta-data',
-      () {
+  test('writes the full Rust v0 artefact tree with a valid, stamped meta-data', () {
     final dir = Directory.systemTemp.createTempSync('som_rust_gen_');
     addTearDown(() => dir.deleteSync(recursive: true));
     final result = writeInto(dir);
@@ -61,10 +60,14 @@ void main() {
     // Meta-data exists, validates, and carries the stable build stamp.
     final metaFile = File(result.metaJsonPath);
     expect(metaFile.existsSync(), isTrue);
-    final meta = jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
+    final meta =
+        jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
     expect(validateSpecModelMeta(meta), isEmpty);
-    expect(meta['generatedAt'], generatedAt,
-        reason: 'generatedAt must be the stable model build instant');
+    expect(
+      meta['generatedAt'],
+      generatedAt,
+      reason: 'generatedAt must be the stable model build instant',
+    );
     expect(meta['modelVersion'], modelVersion);
     expect(meta['modelVersionLabel'], modelLabel);
 
@@ -79,15 +82,25 @@ void main() {
     // it; the loaders thread the generated tree through the tree-based codec.
     expect(result.metaModulePath, endsWith(p.join('src', 'meta.rs')));
     final metaSource = File(result.metaModulePath).readAsStringSync();
-    expect(metaSource,
-        contains('pub fn d00_solution_blueprint_meta_tree() -> '
-            'som::SomMetaTree {'));
-    expect(metaSource,
-        contains('pub fn d00_solution_blueprint_meta(tree: '
-            '&som::SomMetaTree) -> D00SolutionBlueprintNav<\'_> {'));
+    expect(
+      metaSource,
+      contains(
+        'pub fn d00_solution_blueprint_meta_tree() -> '
+        'som::SomMetaTree {',
+      ),
+    );
+    expect(
+      metaSource,
+      contains(
+        'pub fn d00_solution_blueprint_meta(tree: '
+        '&som::SomMetaTree) -> D00SolutionBlueprintNav<\'_> {',
+      ),
+    );
     expect(source, contains('pub mod meta;'));
-    expect(source,
-        contains('let tree = meta::d00_solution_blueprint_meta_tree();'));
+    expect(
+      source,
+      contains('let tree = meta::d00_solution_blueprint_meta_tree();'),
+    );
 
     // One DocSpecs schema per @Document root (14).
     expect(result.schemaPaths.length, 14);
@@ -101,8 +114,11 @@ void main() {
     // what crates.io indexes — per the release-1 licence decision.
     final cargo = File(result.cargoTomlPath).readAsStringSync();
     expect(cargo, contains('name = "tom_som_rust_v0"'));
-    expect(cargo, contains('version = "1.0.0"'),
-        reason: 'crate version must be the model version');
+    expect(
+      cargo,
+      contains('version = "1.0.0"'),
+      reason: 'crate version must be the model version',
+    );
     expect(cargo, contains('license = "BSD-3-Clause"'));
     expect(cargo, contains('repository = '));
 
@@ -111,18 +127,29 @@ void main() {
     // runtime `version` (= model version) alongside the path — `cargo package`
     // requires every dependency to specify a version.
     final m = RegExp(
-            r'tom_som_rust_runtime = \{ path = "([^"]+)", version = "([^"]+)" \}')
-        .firstMatch(cargo);
-    expect(m, isNotNull,
-        reason: 'Cargo.toml must record a versioned runtime path dep');
+      r'tom_som_rust_runtime = \{ path = "([^"]+)", version = "([^"]+)" \}',
+    ).firstMatch(cargo);
+    expect(
+      m,
+      isNotNull,
+      reason: 'Cargo.toml must record a versioned runtime path dep',
+    );
     final rtPath = m!.group(1)!;
-    expect(m.group(2), '1.0.0',
-        reason: 'runtime dep version must be the model version');
-    expect(p.isRelative(rtPath), isTrue,
-        reason: 'runtime path must be relative, got $rtPath');
-    expect(p.normalize(p.join(result.outputRoot, rtPath)),
-        p.normalize(rustRuntimeDir),
-        reason: 'relative path must resolve to the rust runtime crate');
+    expect(
+      m.group(2),
+      '1.0.0',
+      reason: 'runtime dep version must be the model version',
+    );
+    expect(
+      p.isRelative(rtPath),
+      isTrue,
+      reason: 'runtime path must be relative, got $rtPath',
+    );
+    expect(
+      p.normalize(p.join(result.outputRoot, rtPath)),
+      p.normalize(rustRuntimeDir),
+      reason: 'relative path must resolve to the rust runtime crate',
+    );
   });
 
   test('the Rust meta-data is byte-identical to the Dart path', () {
@@ -142,9 +169,11 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rr.metaJsonPath).readAsStringSync(),
-        File(rd.metaJsonPath).readAsStringSync(),
-        reason: 'meta-data must be language-agnostic / byte-identical');
+    expect(
+      File(rr.metaJsonPath).readAsStringSync(),
+      File(rd.metaJsonPath).readAsStringSync(),
+      reason: 'meta-data must be language-agnostic / byte-identical',
+    );
   });
 
   test('the Rust DocSpecs schemas are byte-identical to the Dart path', () {
@@ -162,39 +191,56 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(rr.schemaPaths.map((s) => p.basename(s)).toList(),
-        rd.schemaPaths.map((s) => p.basename(s)).toList());
+    expect(
+      rr.schemaPaths.map((s) => p.basename(s)).toList(),
+      rd.schemaPaths.map((s) => p.basename(s)).toList(),
+    );
     for (var i = 0; i < rr.schemaPaths.length; i++) {
-      expect(File(rr.schemaPaths[i]).readAsStringSync(),
-          File(rd.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(rr.schemaPaths[i])} must be '
-              'language-agnostic / byte-identical');
+      expect(
+        File(rr.schemaPaths[i]).readAsStringSync(),
+        File(rd.schemaPaths[i]).readAsStringSync(),
+        reason:
+            'schema ${p.basename(rr.schemaPaths[i])} must be '
+            'language-agnostic / byte-identical',
+      );
     }
   });
 
-  test('regeneration is idempotent (byte-stable output for unchanged input)',
-      () {
-    final a = Directory.systemTemp.createTempSync('som_rust_a_');
-    final b = Directory.systemTemp.createTempSync('som_rust_b_');
-    addTearDown(() => a.deleteSync(recursive: true));
-    addTearDown(() => b.deleteSync(recursive: true));
-    final ra = writeInto(a);
-    final rb = writeInto(b);
+  test(
+    'regeneration is idempotent (byte-stable output for unchanged input)',
+    () {
+      final a = Directory.systemTemp.createTempSync('som_rust_a_');
+      final b = Directory.systemTemp.createTempSync('som_rust_b_');
+      addTearDown(() => a.deleteSync(recursive: true));
+      addTearDown(() => b.deleteSync(recursive: true));
+      final ra = writeInto(a);
+      final rb = writeInto(b);
 
-    expect(File(rb.libPath).readAsStringSync(),
-        File(ra.libPath).readAsStringSync());
-    expect(File(rb.metaModulePath).readAsStringSync(),
-        File(ra.metaModulePath).readAsStringSync());
-    expect(File(rb.metaJsonPath).readAsStringSync(),
-        File(ra.metaJsonPath).readAsStringSync());
-    expect(File(rb.cargoTomlPath).readAsStringSync(),
-        File(ra.cargoTomlPath).readAsStringSync());
-    for (var i = 0; i < ra.schemaPaths.length; i++) {
-      expect(File(rb.schemaPaths[i]).readAsStringSync(),
+      expect(
+        File(rb.libPath).readAsStringSync(),
+        File(ra.libPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaModulePath).readAsStringSync(),
+        File(ra.metaModulePath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaJsonPath).readAsStringSync(),
+        File(ra.metaJsonPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.cargoTomlPath).readAsStringSync(),
+        File(ra.cargoTomlPath).readAsStringSync(),
+      );
+      for (var i = 0; i < ra.schemaPaths.length; i++) {
+        expect(
+          File(rb.schemaPaths[i]).readAsStringSync(),
           File(ra.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable');
-    }
-  });
+          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable',
+        );
+      }
+    },
+  );
 
   test('the analyze+write path matches the write-only path', () async {
     final viaWrite = Directory.systemTemp.createTempSync('som_rust_w_');
@@ -211,12 +257,18 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rf.libPath).readAsStringSync(),
-        File(rw.libPath).readAsStringSync());
-    expect(File(rf.metaModulePath).readAsStringSync(),
-        File(rw.metaModulePath).readAsStringSync());
-    expect(File(rf.metaJsonPath).readAsStringSync(),
-        File(rw.metaJsonPath).readAsStringSync());
+    expect(
+      File(rf.libPath).readAsStringSync(),
+      File(rw.libPath).readAsStringSync(),
+    );
+    expect(
+      File(rf.metaModulePath).readAsStringSync(),
+      File(rw.metaModulePath).readAsStringSync(),
+    );
+    expect(
+      File(rf.metaJsonPath).readAsStringSync(),
+      File(rw.metaJsonPath).readAsStringSync(),
+    );
   });
 
   test('the emitted crate compiles under cargo build', () {
@@ -232,16 +284,22 @@ void main() {
     // Physical path: Cargo.toml carries a relative runtime `path` dependency,
     // and cargo resolves it from the physical crate dir — a symlinked temp
     // path (macOS /var/folders → /private/var) would break the `..` walk.
-    final dir = Directory(Directory.systemTemp
-        .createTempSync('som_rust_compile_')
-        .resolveSymbolicLinksSync());
+    final dir = Directory(
+      Directory.systemTemp
+          .createTempSync('som_rust_compile_')
+          .resolveSymbolicLinksSync(),
+    );
     addTearDown(() => dir.deleteSync(recursive: true));
     writeInto(dir);
 
     final build = Process.runSync(cargo, ['build'], workingDirectory: dir.path);
-    expect(build.exitCode, 0,
-        reason: 'generated Rust crate must compile:\n'
-            '${build.stdout}\n${build.stderr}');
+    expect(
+      build.exitCode,
+      0,
+      reason:
+          'generated Rust crate must compile:\n'
+          '${build.stdout}\n${build.stderr}',
+    );
   });
 }
 

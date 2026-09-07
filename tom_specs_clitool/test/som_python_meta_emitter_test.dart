@@ -10,108 +10,108 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// field kind **plus recursion** (`Risk.mitigation: Risk`) and an id-less
 /// section (`details`) so the ID-tree hoisting rule is exercised.
 Map<String, dynamic> _fixtureJson() => {
-      'modelVersion': 0,
-      'roots': [
+  'modelVersion': 0,
+  'roots': [
+    {
+      'type': 'SolutionBlueprint',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+      'description': 'The structured project overview.',
+    },
+  ],
+  'classes': {
+    'SolutionBlueprint': {
+      'name': 'SolutionBlueprint',
+      'sectionId': 'PD00',
+      'doc': 'Root of a project definition document.',
+      'fields': [
         {
-          'type': 'SolutionBlueprint',
-          'title': 'Project Definition',
-          'sectionId': 'PD00',
-          'description': 'The structured project overview.',
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'vision',
+          'contentType': 'text',
+          'doc': 'Why the system exists.',
+        },
+        {
+          'name': 'owner',
+          'kind': 'form',
+          'sectionId': 'owner',
+          'formFields': [
+            {'name': 'name', 'label': 'Name', 'type': 'String'},
+            {'name': 'role', 'label': 'Role', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'risks',
+          'sectionIdPattern': 'RISK-ITEM-xxx',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
+          'min': 2,
+        },
+        {
+          'name': 'tags',
+          'kind': 'list',
+          'sectionId': 'tags',
+          'elementType': 'String',
+          'elementIsComplex': false,
+        },
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'situation',
+          'type': 'CurrentLandscapeAssessment',
+        },
+        {
+          // Id-less section: the ID-tree hoists through it (its target's
+          // id-bearing fields surface at the root, path-prefixed).
+          'name': 'details',
+          'kind': 'section',
+          'type': 'CurrentLandscapeAssessment',
         },
       ],
-      'classes': {
-        'SolutionBlueprint': {
-          'name': 'SolutionBlueprint',
-          'sectionId': 'PD00',
-          'doc': 'Root of a project definition document.',
-          'fields': [
-            {
-              'name': 'vision',
-              'kind': 'content',
-              'sectionId': 'vision',
-              'contentType': 'text',
-              'doc': 'Why the system exists.',
-            },
-            {
-              'name': 'owner',
-              'kind': 'form',
-              'sectionId': 'owner',
-              'formFields': [
-                {'name': 'name', 'label': 'Name', 'type': 'String'},
-                {'name': 'role', 'label': 'Role', 'type': 'String'},
-              ],
-            },
-            {
-              'name': 'risks',
-              'kind': 'list',
-              'sectionId': 'risks',
-              'sectionIdPattern': 'RISK-ITEM-xxx',
-              'elementType': 'Risk',
-              'elementIsComplex': true,
-              'min': 2,
-            },
-            {
-              'name': 'tags',
-              'kind': 'list',
-              'sectionId': 'tags',
-              'elementType': 'String',
-              'elementIsComplex': false,
-            },
-            {
-              'name': 'situation',
-              'kind': 'complex',
-              'sectionId': 'situation',
-              'type': 'CurrentLandscapeAssessment',
-            },
-            {
-              // Id-less section: the ID-tree hoists through it (its target's
-              // id-bearing fields surface at the root, path-prefixed).
-              'name': 'details',
-              'kind': 'section',
-              'type': 'CurrentLandscapeAssessment',
-            },
-          ],
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      'fields': [
+        {
+          'name': 'title',
+          'kind': 'content',
+          'sectionId': 'title',
+          'contentType': 'text',
         },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          'fields': [
-            {
-              'name': 'title',
-              'kind': 'content',
-              'sectionId': 'title',
-              'contentType': 'text',
-            },
-            {
-              'name': 'probability',
-              'kind': 'enum',
-              'sectionId': 'prob',
-              'enumType': 'Probability',
-              'enumValues': ['low', 'medium', 'high'],
-            },
-            {
-              // Recursive: Risk inside Risk — becomes a terminal re-entry.
-              'name': 'mitigation',
-              'kind': 'complex',
-              'sectionId': 'mitigation',
-              'type': 'Risk',
-            },
-          ],
+        {
+          'name': 'probability',
+          'kind': 'enum',
+          'sectionId': 'prob',
+          'enumType': 'Probability',
+          'enumValues': ['low', 'medium', 'high'],
         },
-        'CurrentLandscapeAssessment': {
-          'name': 'CurrentLandscapeAssessment',
-          'sectionId': 'CS00',
-          'fields': [
-            {
-              'name': 'summary',
-              'kind': 'content',
-              'sectionId': 'summary',
-              'contentType': 'text',
-            },
-          ],
+        {
+          // Recursive: Risk inside Risk — becomes a terminal re-entry.
+          'name': 'mitigation',
+          'kind': 'complex',
+          'sectionId': 'mitigation',
+          'type': 'Risk',
         },
-      },
-    };
+      ],
+    },
+    'CurrentLandscapeAssessment': {
+      'name': 'CurrentLandscapeAssessment',
+      'sectionId': 'CS00',
+      'fields': [
+        {
+          'name': 'summary',
+          'kind': 'content',
+          'sectionId': 'summary',
+          'contentType': 'text',
+        },
+      ],
+    },
+  },
+};
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
@@ -120,8 +120,11 @@ SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 /// rather than a single hard-wired one.
 Map<String, dynamic> _twoRootJson() {
   final json = _fixtureJson();
-  (json['roots'] as List)
-      .add({'type': 'Aux', 'title': 'Aux', 'sectionId': 'AX00'});
+  (json['roots'] as List).add({
+    'type': 'Aux',
+    'title': 'Aux',
+    'sectionId': 'AX00',
+  });
   (json['classes'] as Map<String, dynamic>)['Aux'] = {
     'name': 'Aux',
     'sectionId': 'AX00',
@@ -277,24 +280,27 @@ void main() {
 
     test('emits per-root tree, dot-notation and ID-tree entry points', () {
       expect(source, contains('solutionBlueprintMetaTree = SomMetaTree('));
-      expect(source,
-          contains('solutionBlueprint = SolutionBlueprintNav('));
+      expect(source, contains('solutionBlueprint = SolutionBlueprintNav('));
       expect(source, contains('PD00 = SolutionBlueprintId('));
     });
 
     test('emits one Nav class per model class with member-named getters', () {
       expect(source, contains('class SolutionBlueprintNav(SomMetaRef):'));
       expect(source, contains('class RiskNav(SomMetaRef):'));
-      expect(source,
-          contains('class CurrentLandscapeAssessmentNav(SomMetaRef):'));
+      expect(
+        source,
+        contains('class CurrentLandscapeAssessmentNav(SomMetaRef):'),
+      );
       // A list getter is a SomListMetaRef parameterised by the element class.
-      expect(source,
-          contains('SomListMetaRef(self.tree, f"{self.path}/risks", RiskNav)'));
+      expect(
+        source,
+        contains('SomListMetaRef(self.tree, f"{self.path}/risks", RiskNav)'),
+      );
       // A scalar list's items are plain refs (no element accessor class).
       expect(
-          source,
-          contains(
-              'SomListMetaRef(self.tree, f"{self.path}/tags", SomMetaRef)'));
+        source,
+        contains('SomListMetaRef(self.tree, f"{self.path}/tags", SomMetaRef)'),
+      );
     });
 
     test('ID-tree getters are named by section id and hoist through id-less '
@@ -324,18 +330,26 @@ void main() {
       }
       final dir = await Directory.systemTemp.createTemp('som_py_meta_emit_');
       try {
-        final runtimePath = p.normalize(p.join(
-            Directory.current.path, '..', 'tom_som_python_runtime'));
+        final runtimePath = p.normalize(
+          p.join(Directory.current.path, '..', 'tom_som_python_runtime'),
+        );
         File(p.join(dir.path, 'generated_meta.py')).writeAsStringSync(source);
-        File(p.join(dir.path, 'fixture.json'))
-            .writeAsStringSync(jsonEncode(_fixtureJson()));
+        File(
+          p.join(dir.path, 'fixture.json'),
+        ).writeAsStringSync(jsonEncode(_fixtureJson()));
         File(p.join(dir.path, 'check.py')).writeAsStringSync(_checkProgram);
 
-        final run = await Process.run(python, ['check.py'],
-            workingDirectory: dir.path,
-            environment: {'PYTHONPATH': runtimePath});
-        expect(run.exitCode, 0,
-            reason: 'check program failed:\n${run.stdout}\n${run.stderr}');
+        final run = await Process.run(
+          python,
+          ['check.py'],
+          workingDirectory: dir.path,
+          environment: {'PYTHONPATH': runtimePath},
+        );
+        expect(
+          run.exitCode,
+          0,
+          reason: 'check program failed:\n${run.stdout}\n${run.stderr}',
+        );
         expect(run.stdout.toString().trim(), 'OK');
       } finally {
         dir.deleteSync(recursive: true);
@@ -358,32 +372,47 @@ void main() {
           },
         },
       });
-      expect(() => SomPythonMetaEmitter(bad).generateLibrary(),
-          throwsStateError);
+      expect(
+        () => SomPythonMetaEmitter(bad).generateLibrary(),
+        throwsStateError,
+      );
     });
 
     test('documentRoots subsets the emitted roots but accessor classes stay '
         'complete', () {
       final all = SomPythonMetaEmitter(_fixtureModel()).generateLibrary();
-      final subset = SomPythonMetaEmitter(_fixtureModel(),
-          documentRoots: ['SolutionBlueprint']).generateLibrary();
+      final subset = SomPythonMetaEmitter(
+        _fixtureModel(),
+        documentRoots: ['SolutionBlueprint'],
+      ).generateLibrary();
       expect(all, contains('solutionBlueprintMetaTree'));
       expect(subset, contains('solutionBlueprintMetaTree'));
     });
     // The nine v0 meta-agreement suites read their root set from this
     // registry instead of hand-listing it, so an emitter that drops it
     // silently un-gates fourteen roots in nine languages at once.
-    test('the document-root registry carries one entry per root (SOM §8)',
-        () {
-      final all = SomPythonMetaEmitter(SpecModel.fromJson(_twoRootJson()))
-          .generateLibrary();
-      expect(all, contains('"SolutionBlueprint": SomMetaRootEntry("SolutionBlueprint", "PD00", '
-              'solutionBlueprintMetaTree, solutionBlueprint, PD00)'));
-      expect(all, contains('"Aux": SomMetaRootEntry("Aux", "AX00", auxMetaTree, aux, AX00)'));
+    test('the document-root registry carries one entry per root (SOM §8)', () {
+      final all = SomPythonMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+      ).generateLibrary();
+      expect(
+        all,
+        contains(
+          '"SolutionBlueprint": SomMetaRootEntry("SolutionBlueprint", "PD00", '
+          'solutionBlueprintMetaTree, solutionBlueprint, PD00)',
+        ),
+      );
+      expect(
+        all,
+        contains(
+          '"Aux": SomMetaRootEntry("Aux", "AX00", auxMetaTree, aux, AX00)',
+        ),
+      );
 
-      final subset = SomPythonMetaEmitter(SpecModel.fromJson(_twoRootJson()),
-              documentRoots: ['SolutionBlueprint'])
-          .generateLibrary();
+      final subset = SomPythonMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+        documentRoots: ['SolutionBlueprint'],
+      ).generateLibrary();
       expect(subset, isNot(contains('"Aux": SomMetaRootEntry(')));
     });
   });

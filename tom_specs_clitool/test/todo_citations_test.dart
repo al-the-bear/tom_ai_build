@@ -80,9 +80,13 @@ void main() {
       final citations = classify('Superseded by `abc3`.', corpus);
 
       expect(citations.single.verdict, CitationVerdict.closed);
-      expect(citations.single.isViolation, isTrue,
-          reason: 'a deleted todo is closed even though its status never '
-              'reached completed');
+      expect(
+        citations.single.isViolation,
+        isTrue,
+        reason:
+            'a deleted todo is closed even though its status never '
+            'reached completed',
+      );
     });
 
     test('a provenance-marked citation of an archived id passes', () {
@@ -96,8 +100,9 @@ void main() {
         corpus,
       );
 
-      final closed =
-          citations.singleWhere((c) => c.verdict == CitationVerdict.closed);
+      final closed = citations.singleWhere(
+        (c) => c.verdict == CitationVerdict.closed,
+      );
       expect(closed.token, 'abc1');
       expect(closed.exemption, CitationExemption.provenance);
       expect(closed.isViolation, isFalse);
@@ -107,9 +112,9 @@ void main() {
 
   group('TCC2: the provenance marker has to point somewhere live', () {
     TodoCorpus corpus() => corpusWith(
-          active: [('abc2_x-open', 'not-started')],
-          archived: [('abc1_x-done', 'completed')],
-        );
+      active: [('abc2_x-open', 'not-started')],
+      archived: [('abc1_x-done', 'completed')],
+    );
 
     test('a marked line with no open citation is still a violation', () {
       final citations = classify(
@@ -117,9 +122,13 @@ void main() {
         corpus(),
       );
 
-      expect(citations.single.exemption, isNull,
-          reason: 'without an open todo on the line the marker would be a '
-              'blanket "ignore me"');
+      expect(
+        citations.single.exemption,
+        isNull,
+        reason:
+            'without an open todo on the line the marker would be a '
+            'blanket "ignore me"',
+      );
       expect(citations.single.isViolation, isTrue);
     });
 
@@ -129,8 +138,9 @@ void main() {
         corpus(),
       );
 
-      final closed =
-          citations.singleWhere((c) => c.verdict == CitationVerdict.closed);
+      final closed = citations.singleWhere(
+        (c) => c.verdict == CitationVerdict.closed,
+      );
       expect(closed.exemption, CitationExemption.history);
       expect(closed.isViolation, isFalse);
     });
@@ -141,34 +151,50 @@ void main() {
         corpus(),
       );
 
-      expect(citations.single.isViolation, isTrue,
-          reason: 'the document-level marker must stand alone on its line, so '
-              'a passing mention cannot silence a whole file');
+      expect(
+        citations.single.isViolation,
+        isTrue,
+        reason:
+            'the document-level marker must stand alone on its line, so '
+            'a passing mention cannot silence a whole file',
+      );
     });
   });
 
   group('TCC3: recognising a citation', () {
-    test('an id whose series exists but whose number does not is unresolved',
-        () {
-      final citations =
-          classify('See `abc7`.', corpusWith(active: [('abc2_x', 'not-started')]));
+    test(
+      'an id whose series exists but whose number does not is unresolved',
+      () {
+        final citations = classify(
+          'See `abc7`.',
+          corpusWith(active: [('abc2_x', 'not-started')]),
+        );
 
-      expect(citations.single.verdict, CitationVerdict.unresolved);
-      expect(citations.single.isViolation, isTrue);
-    });
+        expect(citations.single.verdict, CitationVerdict.unresolved);
+        expect(citations.single.isViolation, isTrue);
+      },
+    );
 
     test('an id from a series no todo file uses is unresolved too', () {
       final citations = classify(
-          'See `csex7`.', corpusWith(active: [('abc2_x', 'not-started')]));
+        'See `csex7`.',
+        corpusWith(active: [('abc2_x', 'not-started')]),
+      );
 
-      expect(citations.single.verdict, CitationVerdict.unknownSeries,
-          reason: 'the eight citations that motivated the gate were of a series '
-              'no enumeration contained — the shape has to be the trigger');
+      expect(
+        citations.single.verdict,
+        CitationVerdict.unknownSeries,
+        reason:
+            'the eight citations that motivated the gate were of a series '
+            'no enumeration contained — the shape has to be the trigger',
+      );
       expect(citations.single.isViolation, isTrue);
     });
 
     test('a full on-disk id resolves through its stem', () {
-      final corpus = corpusWith(active: [('abc2_ahci-do-the-thing', 'blocked')]);
+      final corpus = corpusWith(
+        active: [('abc2_ahci-do-the-thing', 'blocked')],
+      );
 
       final citations = classify('See `abc2_ahci-do-the-thing`.', corpus);
 
@@ -179,19 +205,27 @@ void main() {
     test('a completed todo in the active file is closed', () {
       final corpus = corpusWith(active: [('abc2_x', 'completed')]);
 
-      expect(classify('See `abc2`.', corpus).single.verdict,
-          CitationVerdict.closed,
-          reason: 'keying only on the file would let a document cite finished '
-              'work until someone ran an archive pass');
+      expect(
+        classify('See `abc2`.', corpus).single.verdict,
+        CitationVerdict.closed,
+        reason:
+            'keying only on the file would let a document cite finished '
+            'work until someone ran an archive pass',
+      );
     });
 
     test('a resolved citation names the id it resolved to', () {
-      final corpus = corpusWith(active: [('abc2_ahci-do-the-thing', 'blocked')]);
+      final corpus = corpusWith(
+        active: [('abc2_ahci-do-the-thing', 'blocked')],
+      );
 
-      expect(classify('See `abc2`.', corpus).single.matchedIds,
-          ['abc2_ahci-do-the-thing'],
-          reason: 'the ids are carried for every verdict, not only the '
-              'ambiguous one, so a report can always show what was hit');
+      expect(
+        classify('See `abc2`.', corpus).single.matchedIds,
+        ['abc2_ahci-do-the-thing'],
+        reason:
+            'the ids are carried for every verdict, not only the '
+            'ambiguous one, so a report can always show what was hit',
+      );
     });
 
     test('vocabulary tokens are not citations at all', () {
@@ -226,23 +260,30 @@ void main() {
     /// Two todos under one stem, the shape a per-prompt renumbering produces:
     /// an older attempt that finished and a newer one that has not.
     TodoCorpus corpus() => corpusWith(
-          active: [('abc2_ahpu-second-attempt', 'not-started')],
-          archived: [('abc2_ahjt-first-attempt', 'completed')],
-        );
+      active: [('abc2_ahpu-second-attempt', 'not-started')],
+      archived: [('abc2_ahjt-first-attempt', 'completed')],
+    );
 
     test('a bare stem naming two todos is ambiguous, not open', () {
       final citation = classify('Tracked at `abc2`.', corpus()).single;
 
-      expect(citation.verdict, CitationVerdict.ambiguous,
-          reason: 'answering with the open record would let the citation read '
-              'as healthy while pointing at two different things — and the '
-              'closed one is the older, so a reader following it lands on '
-              'finished work');
+      expect(
+        citation.verdict,
+        CitationVerdict.ambiguous,
+        reason:
+            'answering with the open record would let the citation read '
+            'as healthy while pointing at two different things — and the '
+            'closed one is the older, so a reader following it lands on '
+            'finished work',
+      );
       expect(citation.isViolation, isTrue);
       expect(
-          citation.matchedIds,
-          unorderedEquals(
-              ['abc2_ahpu-second-attempt', 'abc2_ahjt-first-attempt']));
+        citation.matchedIds,
+        unorderedEquals([
+          'abc2_ahpu-second-attempt',
+          'abc2_ahjt-first-attempt',
+        ]),
+      );
     });
 
     test('the report names every id the stem matched', () {
@@ -251,9 +292,13 @@ void main() {
       final described = citation.describe(relativeTo: '.');
       expect(described, contains('AMBIGUOUS'));
       expect(described, contains('abc2_ahpu-second-attempt'));
-      expect(described, contains('abc2_ahjt-first-attempt'),
-          reason: 'the fix is to write whichever id was meant, so the message '
-              'has to hand the reader the candidates');
+      expect(
+        described,
+        contains('abc2_ahjt-first-attempt'),
+        reason:
+            'the fix is to write whichever id was meant, so the message '
+            'has to hand the reader the candidates',
+      );
     });
 
     test('the date code disambiguates and resolves exactly', () {
@@ -262,37 +307,51 @@ void main() {
       expect(open.matchedIds, ['abc2_ahpu-second-attempt']);
 
       final closed = classify('Raised by `abc2_ahjt`.', corpus()).single;
-      expect(closed.verdict, CitationVerdict.closed,
-          reason: 'qualifying a citation narrows it; it does not excuse it');
+      expect(
+        closed.verdict,
+        CitationVerdict.closed,
+        reason: 'qualifying a citation narrows it; it does not excuse it',
+      );
       expect(closed.isViolation, isTrue);
     });
 
     test('a citation qualified past the date code resolves too', () {
-      final citation =
-          classify('Tracked at `abc2_ahpu-second-attempt`.', corpus()).single;
+      final citation = classify(
+        'Tracked at `abc2_ahpu-second-attempt`.',
+        corpus(),
+      ).single;
 
       expect(citation.verdict, CitationVerdict.open);
     });
 
     test('a slug appended with an underscore is matched at that boundary', () {
-      final corpus = corpusWith(active: [
-        ('abc2_ahpu_second_attempt', 'not-started'),
-        ('abc2_ahjt-first-attempt', 'completed'),
-      ]);
+      final corpus = corpusWith(
+        active: [
+          ('abc2_ahpu_second_attempt', 'not-started'),
+          ('abc2_ahjt-first-attempt', 'completed'),
+        ],
+      );
 
-      expect(classify('Tracked at `abc2_ahpu`.', corpus).single.verdict,
-          CitationVerdict.open,
-          reason: 'ids append the slug with either separator, so anchoring on '
-              'only one of them would leave half the corpus uncitable');
+      expect(
+        classify('Tracked at `abc2_ahpu`.', corpus).single.verdict,
+        CitationVerdict.open,
+        reason:
+            'ids append the slug with either separator, so anchoring on '
+            'only one of them would leave half the corpus uncitable',
+      );
     });
 
     test('a truncated date code is unresolved, not a prefix match', () {
       final citation = classify('Tracked at `abc2_ahp`.', corpus()).single;
 
-      expect(citation.verdict, CitationVerdict.unresolved,
-          reason: 'a half-written date code is a typo and has to read as one — '
-              'matching it to abc2_ahpu would resurrect the guessing the '
-              'ambiguous verdict exists to stop');
+      expect(
+        citation.verdict,
+        CitationVerdict.unresolved,
+        reason:
+            'a half-written date code is a typo and has to read as one — '
+            'matching it to abc2_ahpu would resurrect the guessing the '
+            'ambiguous verdict exists to stop',
+      );
       expect(citation.matchedIds, isEmpty);
     });
 
@@ -316,19 +375,30 @@ void main() {
         corpus(),
       ).single;
 
-      expect(history.isViolation, isTrue,
-          reason: 'both markers excuse a citation of finished work; ambiguity '
-              'is a different question, and a changelog entry naming two todos '
-              'strands its reader just as badly');
+      expect(
+        history.isViolation,
+        isTrue,
+        reason:
+            'both markers excuse a citation of finished work; ambiguity '
+            'is a different question, and a changelog entry naming two todos '
+            'strands its reader just as badly',
+      );
     });
   });
 
   group('TCC4: the live documentation', () {
     test('every todo id cited in the doc set resolves to one open todo', () {
       final docDir = p.join(
-          containerRoot, 'tom_ai', 'ai_build', 'tom_specs_model', 'doc');
+        containerRoot,
+        'tom_ai',
+        'ai_build',
+        'tom_specs_model',
+        'doc',
+      );
       if (!Directory(docDir).existsSync()) {
-        markTestSkipped('tom_specs_model is not checked out beside the clitool');
+        markTestSkipped(
+          'tom_specs_model is not checked out beside the clitool',
+        );
         return;
       }
       final questDirs = [
@@ -354,7 +424,8 @@ void main() {
             p.normalize(p.join(containerRoot, readme)),
         ],
         vocabulary: TodoCitationVocabulary.load(
-            p.join(clitoolRoot, 'tool', 'todo_citation_vocabulary.txt')),
+          p.join(clitoolRoot, 'tool', 'todo_citation_vocabulary.txt'),
+        ),
       );
 
       expect(
@@ -369,11 +440,18 @@ void main() {
       // scanned nothing: a moved doc folder or an unmounted quest tree. That
       // the scanner recognises and classifies a citation is TCC1–TCC3's job,
       // against fixtures that do not move when the live todos do.
-      expect(report.documentCount, greaterThan(0),
-          reason: 'a gate that scanned no document would pass vacuously');
-      expect(report.corpus.stemCount, greaterThan(0),
-          reason: 'a gate with an empty corpus would resolve nothing to check '
-              'against');
+      expect(
+        report.documentCount,
+        greaterThan(0),
+        reason: 'a gate that scanned no document would pass vacuously',
+      );
+      expect(
+        report.corpus.stemCount,
+        greaterThan(0),
+        reason:
+            'a gate with an empty corpus would resolve nothing to check '
+            'against',
+      );
     });
   });
 }

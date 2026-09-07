@@ -40,20 +40,27 @@ import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
 /// CLI is the thin TomSpecs front-end that also emits `sdk_summary.sum`.
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
-    ..addMultiOption('package',
-        help: 'Target package directory whose resolved '
-            '.dart_tool/package_config.json drives package coverage. '
-            'Run `flutter pub get` / `dart pub get` there first. '
-            'Repeatable: the bundle covers the UNION of every given '
-            'package\'s dependency closure (e.g. the editor plus '
-            'tom_flutter_ui for the CodeSpecs Flutter code fields).',
-        defaultsTo: const ['.'])
-    ..addOption('out-dir',
-        help: 'Directory to write sdk_summary.sum + packages.sum into.',
-        defaultsTo: p.join('assets', 'summaries'))
-    ..addFlag('sdk-only',
-        help: 'Generate only sdk_summary.sum (skip the heavy package bundle).',
-        negatable: false)
+    ..addMultiOption(
+      'package',
+      help:
+          'Target package directory whose resolved '
+          '.dart_tool/package_config.json drives package coverage. '
+          'Run `flutter pub get` / `dart pub get` there first. '
+          'Repeatable: the bundle covers the UNION of every given '
+          'package\'s dependency closure (e.g. the editor plus '
+          'tom_flutter_ui for the CodeSpecs Flutter code fields).',
+      defaultsTo: const ['.'],
+    )
+    ..addOption(
+      'out-dir',
+      help: 'Directory to write sdk_summary.sum + packages.sum into.',
+      defaultsTo: p.join('assets', 'summaries'),
+    )
+    ..addFlag(
+      'sdk-only',
+      help: 'Generate only sdk_summary.sum (skip the heavy package bundle).',
+      negatable: false,
+    )
     ..addFlag('help', abbr: 'h', negatable: false, help: 'Show usage.');
 
   final ArgResults args;
@@ -108,8 +115,10 @@ Future<void> main(List<String> arguments) async {
     final pkgOut = io.File(p.join(outDir, 'packages.sum'));
     pkgOut.writeAsBytesSync(bundle.bytes);
     print('Done in ${sw.elapsedMilliseconds}ms');
-    print('  → ${pkgOut.path} (${bundle.bytes.length} bytes, '
-        '${bundle.packageCount} packages, ${bundle.libraryCount} libraries)');
+    print(
+      '  → ${pkgOut.path} (${bundle.bytes.length} bytes, '
+      '${bundle.packageCount} packages, ${bundle.libraryCount} libraries)',
+    );
   } on SummaryConfigException catch (e) {
     io.stderr.writeln('ERROR: ${e.message}');
     io.exit(1);

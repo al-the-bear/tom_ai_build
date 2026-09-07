@@ -271,11 +271,15 @@ String renderChangelog(PackagingDescriptor d, {required String version}) {
     ..writeln()
     ..writeln('## $version')
     ..writeln()
-    ..writeln('- Generated `${d.facadePackageName}` at TomSpecs model version '
-        '`$version`.')
-    ..writeln('- Regenerated wholesale from the model by '
-        '`tom_specs_clitool/bin/generate_som.dart`; the version tracks the '
-        'TomSpecs model version.');
+    ..writeln(
+      '- Generated `${d.facadePackageName}` at TomSpecs model version '
+      '`$version`.',
+    )
+    ..writeln(
+      '- Regenerated wholesale from the model by '
+      '`tom_specs_clitool/bin/generate_som.dart`; the version tracks the '
+      'TomSpecs model version.',
+    );
   return b.toString();
 }
 
@@ -378,8 +382,9 @@ FacadeSurface readFacadeSurface(String outputRoot) {
   final metaFile = File(p.join(outputRoot, 'meta', 'spec_model.meta.json'));
   if (!metaFile.existsSync()) {
     throw StateError(
-        'facade meta-data not found: ${metaFile.path} — the packaging hook '
-        'runs after the language emitter, so this file must already exist.');
+      'facade meta-data not found: ${metaFile.path} — the packaging hook '
+      'runs after the language emitter, so this file must already exist.',
+    );
   }
   final Object? decoded = jsonDecode(metaFile.readAsStringSync());
   if (decoded is! Map<String, dynamic>) {
@@ -433,8 +438,10 @@ String renderFacadeReadme(
   const doc = '../tom_specs_model/doc';
   final runtime = '../${d.runtimePackageName}';
   final b = StringBuffer()
-    ..writeln('# ${d.facadePackageName} — typed TomSpecs object model for '
-        '${d.displayName}')
+    ..writeln(
+      '# ${d.facadePackageName} — typed TomSpecs object model for '
+      '${d.displayName}',
+    )
     ..writeln()
     ..writeln(_generatedBanner)
     ..writeln()
@@ -442,18 +449,24 @@ String renderFacadeReadme(
     // document name, so no citation depends on a qualifier surviving a line
     // break across the `>` marker.
     ..writeln('> **Cross-references.**')
-    ..writeln('> [`tom_specs_model/doc/som_multiplatform_spec_model.md`]'
-        '($doc/som_multiplatform_spec_model.md)')
+    ..writeln(
+      '> [`tom_specs_model/doc/som_multiplatform_spec_model.md`]'
+      '($doc/som_multiplatform_spec_model.md)',
+    )
     ..writeln('> is the SOM authority: `SOM §6` decides the split between this')
     ..writeln('> typed access path and the generic one, `SOM §8` decides what')
     ..writeln('> this generated surface contains, `SOM §4.2` decides the model')
     ..writeln('> version stamp and the editing rules it enforces, and')
     ..writeln('> `SOM §17` decides how the package is built and published.')
-    ..writeln('> [`tom_specs_model/doc/index.md`]($doc/index.md) catalogues '
-        'every')
+    ..writeln(
+      '> [`tom_specs_model/doc/index.md`]($doc/index.md) catalogues '
+      'every',
+    )
     ..writeln('> TomSpecs subject-matter document and owns the `§` citation')
-    ..writeln('> convention. This README says how to **use this package\'s '
-        'code**;')
+    ..writeln(
+      '> convention. This README says how to **use this package\'s '
+      'code**;',
+    )
     ..writeln('> those documents own the model, the formats and the rules, and')
     ..writeln('> nothing here restates them.')
     ..writeln()
@@ -462,46 +475,52 @@ String renderFacadeReadme(
     // §2.3.
     ..writeln('## Where this fits')
     ..writeln()
-    ..writeln('`${d.facadePackageName}` is the **generated typed face** of the '
-        'TomSpecs object model for ${d.displayName}: one type per document '
-        'section, so a specification is read and written through named members '
-        'rather than through string paths. It exists because a string path is '
-        'checked only at run time — a mistyped one reads as an absent value '
-        'instead of an error — and a specification is exactly the kind of '
-        'document where that failure is silent and expensive. It is one half '
-        'of a pair: the hand-written [`${d.runtimePackageName}`]($runtime) '
-        'holds everything identical in every language (the sparse document '
-        'store, the codecs, the validator) and this half holds only what '
-        'changes when the model changes, so a regeneration rewrites the typed '
-        'types and touches nothing else. The same pair exists for all nine SOM '
-        'languages, generated from one model, so a document written through '
-        'any of them reads identically through the other eight. '
-        '${d.whereThisFitsSentence}')
+    ..writeln(
+      '`${d.facadePackageName}` is the **generated typed face** of the '
+      'TomSpecs object model for ${d.displayName}: one type per document '
+      'section, so a specification is read and written through named members '
+      'rather than through string paths. It exists because a string path is '
+      'checked only at run time — a mistyped one reads as an absent value '
+      'instead of an error — and a specification is exactly the kind of '
+      'document where that failure is silent and expensive. It is one half '
+      'of a pair: the hand-written [`${d.runtimePackageName}`]($runtime) '
+      'holds everything identical in every language (the sparse document '
+      'store, the codecs, the validator) and this half holds only what '
+      'changes when the model changes, so a regeneration rewrites the typed '
+      'types and touches nothing else. The same pair exists for all nine SOM '
+      'languages, generated from one model, so a document written through '
+      'any of them reads identically through the other eight. '
+      '${d.whereThisFitsSentence}',
+    )
     ..writeln()
     // §2.1 row 5.
     ..writeln('## Overview')
     ..writeln()
-    ..writeln('A TomSpecs document is **sparse and path-keyed**: a value lives '
-        'under the globally-unique section-id path it belongs to, and an '
-        'absent key means "no value" rather than an empty one. This package '
-        'holds none of those values — `SpecDocument`, in the runtime, does. '
-        'What it holds is a typed **view**: each generated type wraps a '
-        'document together with the path prefix it is rooted at, and its '
-        'members resolve to the paths beneath that prefix. Constructing a '
-        'document root also runs the model-version check (`SOM §4.2`), so a '
-        'document stamped by a different model version is refused rather than '
-        'silently misread.')
+    ..writeln(
+      'A TomSpecs document is **sparse and path-keyed**: a value lives '
+      'under the globally-unique section-id path it belongs to, and an '
+      'absent key means "no value" rather than an empty one. This package '
+      'holds none of those values — `SpecDocument`, in the runtime, does. '
+      'What it holds is a typed **view**: each generated type wraps a '
+      'document together with the path prefix it is rooted at, and its '
+      'members resolve to the paths beneath that prefix. Constructing a '
+      'document root also runs the model-version check (`SOM §4.2`), so a '
+      'document stamped by a different model version is refused rather than '
+      'silently misread.',
+    )
     ..writeln()
-    ..writeln('Everything generated here is derived from the `tom_specs_model` '
-        'Dart model and rewritten wholesale on every run of '
-        '`tom_specs_clitool/bin/generate_som.dart`. Beside the typed types the '
-        'package ships the lossless meta-data file '
-        '(`meta/spec_model.meta.json`, `SOM §5.3`), the generated DocSpecs '
-        'schemas (`schemas/`, `SOM §13`), and the metadata trees that drive '
-        'the dot-notation and id-tree access surfaces (`SOM §8`). The '
-        'hand-written trees beside them — `${d.exampleDirName}/`, the tests, '
-        '`doc/` — are preserved across regeneration; the generator writes '
-        'files, it never wipes the output root.')
+    ..writeln(
+      'Everything generated here is derived from the `tom_specs_model` '
+      'Dart model and rewritten wholesale on every run of '
+      '`tom_specs_clitool/bin/generate_som.dart`. Beside the typed types the '
+      'package ships the lossless meta-data file '
+      '(`meta/spec_model.meta.json`, `SOM §5.3`), the generated DocSpecs '
+      'schemas (`schemas/`, `SOM §13`), and the metadata trees that drive '
+      'the dot-notation and id-tree access surfaces (`SOM §8`). The '
+      'hand-written trees beside them — `${d.exampleDirName}/`, the tests, '
+      '`doc/` — are preserved across regeneration; the generator writes '
+      'files, it never wipes the output root.',
+    )
     ..writeln()
     // §2.1 row 6.
     ..writeln('## Installation')
@@ -512,21 +531,25 @@ String renderFacadeReadme(
       ..writeln();
   }
   b
-    ..writeln('`${d.facadePackageName}` and `${d.runtimePackageName}` both '
-        'carry version `$version`, taken from the TomSpecs model version — '
-        'pin them together. Every other dependency route (git, path, vendored, '
-        'build-from-source) is in '
-        '[readme_howtointegrate.md](readme_howtointegrate.md).')
+    ..writeln(
+      '`${d.facadePackageName}` and `${d.runtimePackageName}` both '
+      'carry version `$version`, taken from the TomSpecs model version — '
+      'pin them together. Every other dependency route (git, path, vendored, '
+      'build-from-source) is in '
+      '[readme_howtointegrate.md](readme_howtointegrate.md).',
+    )
     ..writeln()
     // §2.1 row 7.
     ..writeln('## Features')
     ..writeln()
     ..writeln('### Document roots')
     ..writeln()
-    ..writeln('Each root is a whole TomSpecs document, and the first segment '
-        'of every path beneath it is its section id. Construct the root you '
-        'need over a `SpecDocument`; the ${surface.classCount} generated types '
-        'are reached through it.')
+    ..writeln(
+      'Each root is a whole TomSpecs document, and the first segment '
+      'of every path beneath it is its section id. Construct the root you '
+      'need over a `SpecDocument`; the ${surface.classCount} generated types '
+      'are reached through it.',
+    )
     ..writeln()
     ..writeln('| Section id | Document | Generated root type |')
     ..writeln('| ---------- | -------- | ------------------- |');
@@ -544,8 +567,10 @@ String renderFacadeReadme(
     ..writeln(d.usageSnippet.trimRight())
     ..writeln('```')
     ..writeln()
-    ..writeln('Prints `A platform that unifies our fragmented order systems.` '
-        '— the value just written, read back through the typed getter.')
+    ..writeln(
+      'Prints `A platform that unifies our fragmented order systems.` '
+      '— the value just written, read back through the typed getter.',
+    )
     ..writeln();
   // §2.1 row 9.
   if (d.examples.isNotEmpty) {
@@ -555,22 +580,28 @@ String renderFacadeReadme(
       ..writeln('| Sample | Demonstrates |')
       ..writeln('| ------ | ------------ |');
     for (final example in d.examples) {
-      b.writeln('| [`${example.file}`](${d.exampleDirName}/${example.file}) '
-          '| ${example.demonstrates} |');
+      b.writeln(
+        '| [`${example.file}`](${d.exampleDirName}/${example.file}) '
+        '| ${example.demonstrates} |',
+      );
     }
     b
       ..writeln()
-      ..writeln('[`${d.exampleDirName}/README.md`]'
-          '(${d.exampleDirName}/README.md) gives the run command for each.')
+      ..writeln(
+        '[`${d.exampleDirName}/README.md`]'
+        '(${d.exampleDirName}/README.md) gives the run command for each.',
+      )
       ..writeln()
       // The distinction is worth stating in every facade README, because the
       // two are easy to confuse and land a reader in the wrong place: these
       // examples demonstrate THIS package, while a sample demonstrates
       // TomSpecs across several (documentation standard §7).
-      ..writeln('For complete, runnable **sample projects** — a whole task '
-          'carried end to end across several packages rather than one '
-          "package's API — see "
-          '[`tom_specs_samples/`](../tom_specs_samples/README.md).')
+      ..writeln(
+        'For complete, runnable **sample projects** — a whole task '
+        'carried end to end across several packages rather than one '
+        "package's API — see "
+        '[`tom_specs_samples/`](../tom_specs_samples/README.md).',
+      )
       ..writeln();
   }
   // §2.1 row 10.
@@ -591,9 +622,11 @@ String renderFacadeReadme(
   b
     ..writeln('### Regenerating')
     ..writeln()
-    ..writeln('This package is output. When the model changes, regenerate it '
-        'rather than editing it — every file carrying the '
-        '`GENERATED … do not edit by hand` banner is overwritten:')
+    ..writeln(
+      'This package is output. When the model changes, regenerate it '
+      'rather than editing it — every file carrying the '
+      '`GENERATED … do not edit by hand` banner is overwritten:',
+    )
     ..writeln()
     ..writeln('```bash')
     ..writeln('dart run tom_specs_clitool/bin/generate_som.dart')
@@ -610,7 +643,9 @@ String renderFacadeReadme(
     ..writeln('     SomNode / SomScalar / SomList     editing-facade bases')
     ..writeln('            │  bound to')
     ..writeln('            ▼')
-    ..writeln('      SpecDocument                sparse, path-keyed value store')
+    ..writeln(
+      '      SpecDocument                sparse, path-keyed value store',
+    )
     ..writeln('            │                     (${d.runtimePackageName})')
     ..writeln('            ▼')
     ..writeln('  SpecReflection · SpecValidator · YAML + Markdown codecs')
@@ -621,22 +656,36 @@ String renderFacadeReadme(
     ..writeln()
     ..writeln('| Type | Responsibility |')
     ..writeln('| ---- | -------------- |')
-    ..writeln('| `D00SolutionBlueprint` … | The generated document roots — one '
-        'per row of the table above, each the typed entry point to a whole '
-        'document. |')
-    ..writeln('| `SomNode` | The base every generated section type extends: a '
-        'document plus the path prefix this section is rooted at. |')
-    ..writeln('| `SomScalar` | A typed leaf — parse and format at the store '
-        'boundary, so `int` / `bool` / enum members read as themselves. |')
-    ..writeln('| `SomList` | A typed repeated section — append, index and '
-        'enumerate items whose paths the store generates. |')
-    ..writeln('| `SomMetaTree` / `SomMetaNode` | The generated metadata trees '
-        '(`SOM §7`): the model\'s shape as data, behind the dot-notation and '
-        'id-tree access surfaces. |')
-    ..writeln('| `SomEditability` | The `SOM §4.2` version-check outcome — '
-        'whether a stamped document may be edited by this facade. |')
-    ..writeln('| `SpecDocument` | The value store itself. Lives in '
-        '`${d.runtimePackageName}`; every type above is a view onto it. |')
+    ..writeln(
+      '| `D00SolutionBlueprint` … | The generated document roots — one '
+      'per row of the table above, each the typed entry point to a whole '
+      'document. |',
+    )
+    ..writeln(
+      '| `SomNode` | The base every generated section type extends: a '
+      'document plus the path prefix this section is rooted at. |',
+    )
+    ..writeln(
+      '| `SomScalar` | A typed leaf — parse and format at the store '
+      'boundary, so `int` / `bool` / enum members read as themselves. |',
+    )
+    ..writeln(
+      '| `SomList` | A typed repeated section — append, index and '
+      'enumerate items whose paths the store generates. |',
+    )
+    ..writeln(
+      '| `SomMetaTree` / `SomMetaNode` | The generated metadata trees '
+      '(`SOM §7`): the model\'s shape as data, behind the dot-notation and '
+      'id-tree access surfaces. |',
+    )
+    ..writeln(
+      '| `SomEditability` | The `SOM §4.2` version-check outcome — '
+      'whether a stamped document may be edited by this facade. |',
+    )
+    ..writeln(
+      '| `SpecDocument` | The value store itself. Lives in '
+      '`${d.runtimePackageName}`; every type above is a view onto it. |',
+    )
     ..writeln()
     // §2.1 row 12.
     ..writeln('## Ecosystem')
@@ -657,72 +706,98 @@ String renderFacadeReadme(
     ..writeln('  tom_som_conformance      the shared cross-language corpus')
     ..writeln('```')
     ..writeln()
-    ..writeln('The same shape repeats for all nine languages; the corpus at '
-        'the bottom is shared, which is what makes "identical in every '
-        'language" a measured claim rather than an intention (`SOM §19`).')
+    ..writeln(
+      'The same shape repeats for all nine languages; the corpus at '
+      'the bottom is shared, which is what makes "identical in every '
+      'language" a measured claim rather than an intention (`SOM §19`).',
+    )
     ..writeln()
     // §2.4.
     ..writeln('## Further documentation')
     ..writeln()
-    ..writeln('**TomSpecs subject matter** — the authorities this package '
-        'implements:')
+    ..writeln(
+      '**TomSpecs subject matter** — the authorities this package '
+      'implements:',
+    )
     ..writeln()
     ..writeln('| Document | Authority for |')
     ..writeln('|----------|---------------|')
-    ..writeln('| [index.md]($doc/index.md) | The catalogue of every TomSpecs '
-        'subject-matter document, and the `§` citation convention. |')
-    ..writeln('| [som_multiplatform_spec_model.md]'
-        '($doc/som_multiplatform_spec_model.md) | The two access paths, what '
-        'this generated surface contains, the version stamp and editing '
-        'rules, the `*.md` and `*.docspecs.yaml` formats, and the conformance '
-        'corpus. |')
-    ..writeln('| [som_toolchains.md]($doc/som_toolchains.md) | This language '
-        'plane\'s build and verify toolchain, and the reference host. |')
-    ..writeln('| [tom_specs_model_meta_schema.md]'
-        '($doc/tom_specs_model_meta_schema.md) | The on-disk schema of '
-        '`meta/spec_model.meta.json`. |')
+    ..writeln(
+      '| [index.md]($doc/index.md) | The catalogue of every TomSpecs '
+      'subject-matter document, and the `§` citation convention. |',
+    )
+    ..writeln(
+      '| [som_multiplatform_spec_model.md]'
+      '($doc/som_multiplatform_spec_model.md) | The two access paths, what '
+      'this generated surface contains, the version stamp and editing '
+      'rules, the `*.md` and `*.docspecs.yaml` formats, and the conformance '
+      'corpus. |',
+    )
+    ..writeln(
+      '| [som_toolchains.md]($doc/som_toolchains.md) | This language '
+      'plane\'s build and verify toolchain, and the reference host. |',
+    )
+    ..writeln(
+      '| [tom_specs_model_meta_schema.md]'
+      '($doc/tom_specs_model_meta_schema.md) | The on-disk schema of '
+      '`meta/spec_model.meta.json`. |',
+    )
     ..writeln()
     ..writeln('**This package** — its own guides:')
     ..writeln()
     ..writeln('| Guide | Covers |')
     ..writeln('|-------|--------|')
     ..writeln('| [doc/tutorial.md](doc/tutorial.md) | ${d.tutorialSentence} |')
-    ..writeln('| [readme_howtointegrate.md](readme_howtointegrate.md) | Every '
-        'dependency route, how to pin the version, and building from '
-        'source. |')
-    ..writeln('| [${d.exampleDirName}/README.md](${d.exampleDirName}/README.md)'
-        ' | The runnable samples and how to run each. |')
+    ..writeln(
+      '| [readme_howtointegrate.md](readme_howtointegrate.md) | Every '
+      'dependency route, how to pin the version, and building from '
+      'source. |',
+    )
+    ..writeln(
+      '| [${d.exampleDirName}/README.md](${d.exampleDirName}/README.md)'
+      ' | The runnable samples and how to run each. |',
+    )
     ..writeln()
     ..writeln('**Siblings** — packages you will reach for next:')
     ..writeln()
     ..writeln('| Package | What it is |')
     ..writeln('|---------|-----------|')
-    ..writeln('| [${d.runtimePackageName}]($runtime) | The generic runtime '
-        'this facade is a view over — reach for it directly to drive a '
-        'document by path. |')
-    ..writeln('| [tom_som_conformance](../tom_som_conformance) | The shared '
-        'corpus and the cross-language drivers that run every port against '
-        'it. |')
-    ..writeln('| [tom_specs_clitool](../tom_specs_clitool) | The generator '
-        'that writes this package. |')
+    ..writeln(
+      '| [${d.runtimePackageName}]($runtime) | The generic runtime '
+      'this facade is a view over — reach for it directly to drive a '
+      'document by path. |',
+    )
+    ..writeln(
+      '| [tom_som_conformance](../tom_som_conformance) | The shared '
+      'corpus and the cross-language drivers that run every port against '
+      'it. |',
+    )
+    ..writeln(
+      '| [tom_specs_clitool](../tom_specs_clitool) | The generator '
+      'that writes this package. |',
+    )
     ..writeln()
     // §2.5.
     ..writeln('## Status')
     ..writeln()
-    ..writeln('Version **$version**, tracking the TomSpecs model version and '
-        'matching `${d.runtimePackageName}`. Generated surface: '
-        '${surface.roots.length} document roots, ${surface.classCount} types. '
-        'Verify the package with:')
+    ..writeln(
+      'Version **$version**, tracking the TomSpecs model version and '
+      'matching `${d.runtimePackageName}`. Generated surface: '
+      '${surface.roots.length} document roots, ${surface.classCount} types. '
+      'Verify the package with:',
+    )
     ..writeln()
     ..writeln('```bash')
     ..writeln(d.verifyCommand.trimRight())
     ..writeln('```')
     ..writeln()
-    ..writeln('A generated README states no fixed test count: the count moves '
-        'with the model, and a number this file could not update would go '
-        'stale the first time the model did. The command above is the '
-        'standing answer — it runs this package against the shared '
-        'cross-language corpus (`SOM §19`).');
+    ..writeln(
+      'A generated README states no fixed test count: the count moves '
+      'with the model, and a number this file could not update would go '
+      'stale the first time the model did. The command above is the '
+      'standing answer — it runs this package against the shared '
+      'cross-language corpus (`SOM §19`).',
+    );
   return b.toString();
 }
 
@@ -734,11 +809,13 @@ String renderHowToIntegrate(PackagingDescriptor d, {required String version}) {
     ..writeln()
     ..writeln(_generatedBanner)
     ..writeln()
-    ..writeln('`${d.facadePackageName}` is the typed TomSpecs object-model '
-        'facade for ${d.displayName}. It depends on `${d.runtimePackageName}`. '
-        'Both are versioned to the TomSpecs **model version** (currently '
-        '`$version`) — pin to that version so your document reads and writes '
-        'match the model the facade was generated from.')
+    ..writeln(
+      '`${d.facadePackageName}` is the typed TomSpecs object-model '
+      'facade for ${d.displayName}. It depends on `${d.runtimePackageName}`. '
+      'Both are versioned to the TomSpecs **model version** (currently '
+      '`$version`) — pin to that version so your document reads and writes '
+      'match the model the facade was generated from.',
+    )
     ..writeln()
     ..writeln('## Quick start')
     ..writeln()
@@ -760,10 +837,12 @@ String renderHowToIntegrate(PackagingDescriptor d, {required String version}) {
   b
     ..writeln('## Pinning the version')
     ..writeln()
-    ..writeln('Both `${d.runtimePackageName}` and `${d.facadePackageName}` '
-        'carry version `$version`, taken from the TomSpecs model version. When '
-        'you upgrade the model, regenerate and move to the new matching '
-        'version so the facade and your stored documents stay in step.')
+    ..writeln(
+      'Both `${d.runtimePackageName}` and `${d.facadePackageName}` '
+      'carry version `$version`, taken from the TomSpecs model version. When '
+      'you upgrade the model, regenerate and move to the new matching '
+      'version so the facade and your stored documents stay in step.',
+    )
     ..writeln()
     ..writeln('## Building from source')
     ..writeln()
@@ -773,20 +852,30 @@ String renderHowToIntegrate(PackagingDescriptor d, {required String version}) {
     ..writeln()
     ..writeln('| Document | Covers |')
     ..writeln('|----------|--------|')
-    ..writeln('| [README.md](README.md) | What this package is, its document '
-        'roots, and how to use them. |')
+    ..writeln(
+      '| [README.md](README.md) | What this package is, its document '
+      'roots, and how to use them. |',
+    )
     ..writeln('| [doc/tutorial.md](doc/tutorial.md) | ${d.tutorialSentence} |')
-    ..writeln('| [${d.exampleDirName}/README.md]'
-        '(${d.exampleDirName}/README.md) | The runnable samples. |')
-    ..writeln('| [tom_specs_model/doc/som_multiplatform_spec_model.md]'
-        '(../tom_specs_model/doc/som_multiplatform_spec_model.md) | The SOM '
-        'authority: the model, the formats, and `SOM §17` — the packaging '
-        'rules this guide implements. |')
-    ..writeln('| [tom_specs_model/doc/index.md]'
-        '(../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs '
-        'subject-matter document. |')
-    ..writeln('| [${d.runtimePackageName}](../${d.runtimePackageName}) | The '
-        'generic runtime this facade depends on. |');
+    ..writeln(
+      '| [${d.exampleDirName}/README.md]'
+      '(${d.exampleDirName}/README.md) | The runnable samples. |',
+    )
+    ..writeln(
+      '| [tom_specs_model/doc/som_multiplatform_spec_model.md]'
+      '(../tom_specs_model/doc/som_multiplatform_spec_model.md) | The SOM '
+      'authority: the model, the formats, and `SOM §17` — the packaging '
+      'rules this guide implements. |',
+    )
+    ..writeln(
+      '| [tom_specs_model/doc/index.md]'
+      '(../tom_specs_model/doc/index.md) | The catalogue of every TomSpecs '
+      'subject-matter document. |',
+    )
+    ..writeln(
+      '| [${d.runtimePackageName}](../${d.runtimePackageName}) | The '
+      'generic runtime this facade depends on. |',
+    );
   return b.toString();
 }
 
@@ -799,39 +888,39 @@ String rewriteManifestVersion(
   ManifestFormat format,
   String version,
 ) {
-  final (RegExp pattern, String Function(Match) replace) rule = switch (format) {
-    ManifestFormat.pubspec => (
-        RegExp(r'^version:\s*.*$', multiLine: true),
-        (_) => 'version: $version',
-      ),
-    ManifestFormat.pyproject => (
-        RegExp(r'^version\s*=\s*".*"', multiLine: true),
-        (_) => 'version = "$version"',
-      ),
-    ManifestFormat.packageJson => (
-        RegExp(r'"version"\s*:\s*".*?"'),
-        (_) => '"version": "$version"',
-      ),
-    ManifestFormat.cargoToml => (
-        RegExp(r'^version\s*=\s*".*"', multiLine: true),
-        (_) => 'version = "$version"',
-      ),
-    ManifestFormat.goVersionConst => (
-        RegExp(r'Version\s*=\s*"[^"]*"'),
-        (_) => 'Version = "v$version"',
-      ),
-    ManifestFormat.makefileVar => (
-        RegExp(r'^VERSION\s*[:?]?=.*$', multiLine: true),
-        (_) => 'VERSION := $version',
-      ),
-    ManifestFormat.pomXml => (
-        RegExp(r'<version>[^<]*</version>'),
-        (_) => '<version>$version</version>',
-      ),
-  };
+  final (RegExp pattern, String Function(Match) replace) rule =
+      switch (format) {
+        ManifestFormat.pubspec => (
+          RegExp(r'^version:\s*.*$', multiLine: true),
+          (_) => 'version: $version',
+        ),
+        ManifestFormat.pyproject => (
+          RegExp(r'^version\s*=\s*".*"', multiLine: true),
+          (_) => 'version = "$version"',
+        ),
+        ManifestFormat.packageJson => (
+          RegExp(r'"version"\s*:\s*".*?"'),
+          (_) => '"version": "$version"',
+        ),
+        ManifestFormat.cargoToml => (
+          RegExp(r'^version\s*=\s*".*"', multiLine: true),
+          (_) => 'version = "$version"',
+        ),
+        ManifestFormat.goVersionConst => (
+          RegExp(r'Version\s*=\s*"[^"]*"'),
+          (_) => 'Version = "v$version"',
+        ),
+        ManifestFormat.makefileVar => (
+          RegExp(r'^VERSION\s*[:?]?=.*$', multiLine: true),
+          (_) => 'VERSION := $version',
+        ),
+        ManifestFormat.pomXml => (
+          RegExp(r'<version>[^<]*</version>'),
+          (_) => '<version>$version</version>',
+        ),
+      };
   if (!rule.$1.hasMatch(content)) {
-    throw StateError(
-        'no $format version field found to realign to $version');
+    throw StateError('no $format version field found to realign to $version');
   }
   // Replace only the first match (the package's own version), leaving later
   // occurrences (e.g. dependency versions) untouched.
@@ -846,7 +935,10 @@ const String _gitignoreHeader =
 /// already ignores all of them is returned unchanged.
 String ensureGitignoreContent(String existing, List<String> globs) {
   final lines = existing.split('\n').map((l) => l.trim()).toSet();
-  final missing = [for (final g in globs) if (!lines.contains(g.trim())) g];
+  final missing = [
+    for (final g in globs)
+      if (!lines.contains(g.trim())) g,
+  ];
   if (missing.isEmpty) {
     return existing;
   }
@@ -877,21 +969,28 @@ void writeFacadePackaging({
   required PackagingDescriptor descriptor,
   required String version,
 }) {
-  File(p.join(outputRoot, 'README.md')).writeAsStringSync(renderFacadeReadme(
-    descriptor,
-    version: version,
-    surface: readFacadeSurface(outputRoot),
-  ));
-  File(p.join(outputRoot, 'readme_howtointegrate.md'))
-      .writeAsStringSync(renderHowToIntegrate(descriptor, version: version));
+  File(p.join(outputRoot, 'README.md')).writeAsStringSync(
+    renderFacadeReadme(
+      descriptor,
+      version: version,
+      surface: readFacadeSurface(outputRoot),
+    ),
+  );
+  File(
+    p.join(outputRoot, 'readme_howtointegrate.md'),
+  ).writeAsStringSync(renderHowToIntegrate(descriptor, version: version));
   File(p.join(outputRoot, 'LICENSE')).writeAsStringSync(licenseText);
-  File(p.join(outputRoot, 'CHANGELOG.md'))
-      .writeAsStringSync(renderChangelog(descriptor, version: version));
+  File(
+    p.join(outputRoot, 'CHANGELOG.md'),
+  ).writeAsStringSync(renderChangelog(descriptor, version: version));
   final ignorePath = p.join(outputRoot, '.gitignore');
-  final existing =
-      File(ignorePath).existsSync() ? File(ignorePath).readAsStringSync() : '';
-  final updated =
-      ensureGitignoreContent(existing, descriptor.buildArtifactIgnores);
+  final existing = File(ignorePath).existsSync()
+      ? File(ignorePath).readAsStringSync()
+      : '';
+  final updated = ensureGitignoreContent(
+    existing,
+    descriptor.buildArtifactIgnores,
+  );
   if (updated != existing) {
     File(ignorePath).writeAsStringSync(updated);
   }
@@ -912,7 +1011,10 @@ void alignRuntimeManifestVersion({
   }
   final content = manifest.readAsStringSync();
   final updated = rewriteManifestVersion(
-      content, descriptor.runtimeManifestFormat, version);
+    content,
+    descriptor.runtimeManifestFormat,
+    version,
+  );
   if (updated != content) {
     manifest.writeAsStringSync(updated);
   }
@@ -949,7 +1051,8 @@ const PackagingDescriptor _dartDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_dart_runtime',
   facadePackageName: 'tom_som_dart_v0',
   codeFence: 'dart',
-  installShort: 'Add `tom_som_dart_v0` to your `pubspec.yaml` '
+  installShort:
+      'Add `tom_som_dart_v0` to your `pubspec.yaml` '
       '(`dart pub add tom_som_dart_v0`), then:',
   usageSnippet: '''
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
@@ -968,7 +1071,8 @@ void main() {
   integrateRoutes: [
     PackagingRoute(
       heading: 'From pub.dev',
-      body: 'Add the dependency and let pub resolve it:\n\n'
+      body:
+          'Add the dependency and let pub resolve it:\n\n'
           '```bash\n'
           'dart pub add tom_som_dart_v0\n'
           '```\n\n'
@@ -980,7 +1084,8 @@ void main() {
     ),
     PackagingRoute(
       heading: 'Git dependency',
-      body: 'Depend on the package directly from source control:\n\n'
+      body:
+          'Depend on the package directly from source control:\n\n'
           '```yaml\n'
           'dependencies:\n'
           '  tom_som_dart_v0:\n'
@@ -991,7 +1096,8 @@ void main() {
     ),
     PackagingRoute(
       heading: 'Path dependency (monorepo / vendored)',
-      body: 'When the SOM projects sit alongside your package, depend by '
+      body:
+          'When the SOM projects sit alongside your package, depend by '
           'path:\n\n'
           '```yaml\n'
           'dependencies:\n'
@@ -1000,7 +1106,8 @@ void main() {
           '```',
     ),
   ],
-  buildFromSource: 'Regenerate the facade and dry-run the package from the '
+  buildFromSource:
+      'Regenerate the facade and dry-run the package from the '
       'workspace:\n\n'
       '```bash\n'
       'dart run tom_specs_clitool/bin/generate_som.dart\n'
@@ -1009,31 +1116,39 @@ void main() {
   buildArtifactIgnores: ['.dart_tool/', 'build/', 'doc/api/', '*.tar.gz'],
   runtimeManifestFileName: 'pubspec.yaml',
   runtimeManifestFormat: ManifestFormat.pubspec,
-  manifestDescription: 'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_dart_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
+  manifestDescription:
+      'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_dart_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
   manifestDescriptionFile: 'pubspec.yaml',
-  whereThisFitsSentence: 'Dart is the reference plane: the model, the generator and the conformance goldens are all authored here, and the other eight languages are transcribed from it.',
-  tutorialSentence: 'A Dart walkthrough end to end — add the dependency, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+  whereThisFitsSentence:
+      'Dart is the reference plane: the model, the generator and the conformance goldens are all authored here, and the other eight languages are transcribed from it.',
+  tutorialSentence:
+      'A Dart walkthrough end to end — add the dependency, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
   exampleDirName: 'example',
   examples: [
     PackagingExample(
       file: 'a_typed_access.dart',
-      demonstrates: 'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
+      demonstrates:
+          'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
     ),
     PackagingExample(
       file: 'b_generic_document.dart',
-      demonstrates: 'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
+      demonstrates:
+          'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
     ),
     PackagingExample(
       file: 'c_reflection_metadata.dart',
-      demonstrates: 'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+      demonstrates:
+          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
     PackagingExample(
       file: 'd_sample_typed_access.dart',
-      demonstrates: 'The shared cross-language sample document read through typed getters.',
+      demonstrates:
+          'The shared cross-language sample document read through typed getters.',
     ),
     PackagingExample(
       file: 'e_sample_generic_access.dart',
-      demonstrates: 'The same sample read through raw string paths — identical output to (d).',
+      demonstrates:
+          'The same sample read through raw string paths — identical output to (d).',
     ),
     PackagingExample(
       file: 'f_sample_hybrid_access.dart',
@@ -1043,7 +1158,8 @@ void main() {
   usageSections: [
     PackagingUsage(
       heading: 'The generic store underneath',
-      intro: 'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
+      intro:
+          'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
       snippet: '''
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
@@ -1065,7 +1181,8 @@ print(SpecDocumentYaml.encode(
     ),
     PackagingUsage(
       heading: 'Metadata and reflection',
-      intro: 'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+      intro:
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
 import 'dart:convert';
 import 'dart:io';
@@ -1103,7 +1220,8 @@ const PackagingDescriptor _pythonDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_python_runtime',
   facadePackageName: 'tom_som_python_v0',
   codeFence: 'python',
-  installShort: 'Install `tom_som_python_v0` (`pip install tom_som_python_v0`), '
+  installShort:
+      'Install `tom_som_python_v0` (`pip install tom_som_python_v0`), '
       'then:',
   usageSnippet: '''
 import tom_som_python_v0 as m
@@ -1122,7 +1240,8 @@ print(blueprint.content)''',
   integrateRoutes: [
     PackagingRoute(
       heading: 'From PyPI',
-      body: 'Install the facade (it pulls in `tom_som_python_runtime`):\n\n'
+      body:
+          'Install the facade (it pulls in `tom_som_python_runtime`):\n\n'
           '```bash\n'
           'pip install tom_som_python_v0\n'
           '```\n\n'
@@ -1133,7 +1252,8 @@ print(blueprint.content)''',
     ),
     PackagingRoute(
       heading: 'Git dependency',
-      body: 'Install directly from source control (the facade lives in a '
+      body:
+          'Install directly from source control (the facade lives in a '
           'sub-directory of the mono-repo):\n\n'
           '```bash\n'
           'pip install "tom_som_python_v0 @ '
@@ -1143,7 +1263,8 @@ print(blueprint.content)''',
     ),
     PackagingRoute(
       heading: 'Path / editable (monorepo / vendored)',
-      body: 'When the SOM projects sit alongside your code, install both the '
+      body:
+          'When the SOM projects sit alongside your code, install both the '
           'facade and the runtime editable:\n\n'
           '```bash\n'
           'pip install -e ../tom_som_python_runtime\n'
@@ -1156,7 +1277,8 @@ print(blueprint.content)''',
     ),
     PackagingRoute(
       heading: 'Shipped data files (meta-data + DocSpecs schemas)',
-      body: 'The distribution carries the lossless object-model meta-data '
+      body:
+          'The distribution carries the lossless object-model meta-data '
           '(`spec_model.meta.json`) and the DocSpecs schemas as data '
           'packages inside the wheel. Resolve them through the generated '
           'resolution module — it works both from a source checkout and from '
@@ -1171,7 +1293,8 @@ print(blueprint.content)''',
           '```',
     ),
   ],
-  buildFromSource: 'Regenerate the facade and build the PEP 517 dists from the '
+  buildFromSource:
+      'Regenerate the facade and build the PEP 517 dists from the '
       'workspace:\n\n'
       '```bash\n'
       'dart run tom_specs_clitool/bin/generate_som.dart\n'
@@ -1188,29 +1311,36 @@ print(blueprint.content)''',
   ],
   runtimeManifestFileName: 'pyproject.toml',
   runtimeManifestFormat: ManifestFormat.pyproject,
-  manifestDescription: 'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_python_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
+  manifestDescription:
+      'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_python_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
   manifestDescriptionFile: 'pyproject.toml',
-  whereThisFitsSentence: 'The facade is a single top-level module and the runtime ships the importable `tom_som_runtime` package, so both resolve from a plain `pip install` with no build step.',
-  tutorialSentence: 'A Python walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+  whereThisFitsSentence:
+      'The facade is a single top-level module and the runtime ships the importable `tom_som_runtime` package, so both resolve from a plain `pip install` with no build step.',
+  tutorialSentence:
+      'A Python walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
       file: 'a_typed_access.py',
-      demonstrates: 'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
+      demonstrates:
+          'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
     ),
     PackagingExample(
       file: 'b_generic_document.py',
-      demonstrates: 'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
+      demonstrates:
+          'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
     ),
     PackagingExample(
       file: 'c_reflection_metadata.py',
-      demonstrates: 'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+      demonstrates:
+          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
   ],
   usageSections: [
     PackagingUsage(
       heading: 'The generic store underneath',
-      intro: 'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
+      intro:
+          'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
       snippet: '''
 from tom_som_runtime import SpecDocument, yaml_encode
 from tom_som_python_v0_meta import d00SolutionBlueprintMetaTree
@@ -1230,7 +1360,8 @@ print(yaml_encode(doc, d00SolutionBlueprintMetaTree, model_version="1.0"))
     ),
     PackagingUsage(
       heading: 'Metadata and reflection',
-      intro: 'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+      intro:
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
 import json
 
@@ -1266,7 +1397,8 @@ const PackagingDescriptor _javaDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_java_runtime',
   facadePackageName: 'tom_som_java_v0',
   codeFence: 'java',
-  installShort: 'Add `tom_som_java_v0` (group `io.github.al-the-bear`) to your '
+  installShort:
+      'Add `tom_som_java_v0` (group `io.github.al-the-bear`) to your '
       'Maven `pom.xml`, then:',
   usageSnippet: '''
 import tom_som_runtime.SpecDocument;
@@ -1284,7 +1416,8 @@ System.out.println(blueprint.content());''',
   integrateRoutes: [
     PackagingRoute(
       heading: 'From a Maven repository',
-      body: 'Declare the dependency (it pulls in `tom_som_java_runtime`):\n\n'
+      body:
+          'Declare the dependency (it pulls in `tom_som_java_runtime`):\n\n'
           '```xml\n'
           '<dependency>\n'
           '  <groupId>io.github.al-the-bear</groupId>\n'
@@ -1295,7 +1428,8 @@ System.out.println(blueprint.content());''',
     ),
     PackagingRoute(
       heading: 'Local install (mvn install)',
-      body: 'When the SOM projects sit alongside your build, install both into '
+      body:
+          'When the SOM projects sit alongside your build, install both into '
           'your local `~/.m2` repository, runtime first:\n\n'
           '```bash\n'
           'cd ../tom_som_java_runtime && mvn install\n'
@@ -1304,7 +1438,8 @@ System.out.println(blueprint.content());''',
     ),
     PackagingRoute(
       heading: 'JAR fallback (no Maven)',
-      body: 'On a JDK-only host, build the JARs with the bundled scripts '
+      body:
+          'On a JDK-only host, build the JARs with the bundled scripts '
           '(runtime first — the facade compiles against it):\n\n'
           '```bash\n'
           'cd ../tom_som_java_runtime && ./build_jar.sh\n'
@@ -1314,7 +1449,8 @@ System.out.println(blueprint.content());''',
           '`javac`/`java` classpath.',
     ),
   ],
-  buildFromSource: 'Regenerate the facade and build the JARs from the '
+  buildFromSource:
+      'Regenerate the facade and build the JARs from the '
       'workspace:\n\n'
       '```bash\n'
       'dart run tom_specs_clitool/bin/generate_som.dart\n'
@@ -1327,29 +1463,36 @@ System.out.println(blueprint.content());''',
   buildArtifactIgnores: ['build/', 'build_tool/', '*.class', '*.jar'],
   runtimeManifestFileName: 'pom.xml',
   runtimeManifestFormat: ManifestFormat.pomXml,
-  manifestDescription: 'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_java_runtime. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
+  manifestDescription:
+      'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_java_runtime. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
   manifestDescriptionFile: 'pom.xml',
-  whereThisFitsSentence: 'Both halves are plain Maven `jar` artifacts with no third-party dependencies, so a JDK alone builds and runs them — `build_jar.sh` produces the same artifact `mvn package` would.',
-  tutorialSentence: 'A Java walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+  whereThisFitsSentence:
+      'Both halves are plain Maven `jar` artifacts with no third-party dependencies, so a JDK alone builds and runs them — `build_jar.sh` produces the same artifact `mvn package` would.',
+  tutorialSentence:
+      'A Java walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
       file: 'ATypedAccess.java',
-      demonstrates: 'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
+      demonstrates:
+          'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
     ),
     PackagingExample(
       file: 'BGenericDocument.java',
-      demonstrates: 'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
+      demonstrates:
+          'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
     ),
     PackagingExample(
       file: 'CReflectionMetadata.java',
-      demonstrates: 'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+      demonstrates:
+          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
   ],
   usageSections: [
     PackagingUsage(
       heading: 'The generic store underneath',
-      intro: 'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
+      intro:
+          'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
       snippet: '''
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentYaml;
@@ -1370,7 +1513,8 @@ System.out.println(SpecDocumentYaml.encode(
     ),
     PackagingUsage(
       heading: 'Metadata and reflection',
-      intro: 'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+      intro:
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -1411,7 +1555,8 @@ const PackagingDescriptor _javaScriptDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_javascript_runtime',
   facadePackageName: 'tom_som_javascript_v0',
   codeFence: 'javascript',
-  installShort: 'Add `tom_som_javascript_v0` to your project '
+  installShort:
+      'Add `tom_som_javascript_v0` to your project '
       '(`npm install tom_som_javascript_v0`), then:',
   usageSnippet: '''
 const m = require('tom_som_javascript_v0');
@@ -1429,7 +1574,8 @@ console.log(blueprint.content);''',
   integrateRoutes: [
     PackagingRoute(
       heading: 'From npm',
-      body: 'Install the facade (it depends on `tom_som_javascript_runtime`):'
+      body:
+          'Install the facade (it depends on `tom_som_javascript_runtime`):'
           '\n\n'
           '```bash\n'
           'npm install tom_som_javascript_v0\n'
@@ -1443,7 +1589,8 @@ console.log(blueprint.content);''',
     ),
     PackagingRoute(
       heading: 'Git dependency',
-      body: 'npm cannot install a sub-directory of a git repository directly, '
+      body:
+          'npm cannot install a sub-directory of a git repository directly, '
           'and the facade lives in a sub-directory of the mono-repo — so '
           'clone first, then install by path (runtime first):\n\n'
           '```bash\n'
@@ -1454,7 +1601,8 @@ console.log(blueprint.content);''',
     ),
     PackagingRoute(
       heading: 'Path / link (monorepo / vendored)',
-      body: 'When the SOM projects sit alongside your code, link both the '
+      body:
+          'When the SOM projects sit alongside your code, link both the '
           'runtime and the facade (runtime first):\n\n'
           '```bash\n'
           'npm install ../tom_som_javascript_runtime\n'
@@ -1466,7 +1614,8 @@ console.log(blueprint.content);''',
           'dependency.',
     ),
   ],
-  buildFromSource: 'Regenerate the facade and dry-run the packages from the '
+  buildFromSource:
+      'Regenerate the facade and dry-run the packages from the '
       'workspace:\n\n'
       '```bash\n'
       'dart run tom_specs_clitool/bin/generate_som.dart\n'
@@ -1476,29 +1625,36 @@ console.log(blueprint.content);''',
   buildArtifactIgnores: ['node_modules/', '*.tgz'],
   runtimeManifestFileName: 'package.json',
   runtimeManifestFormat: ManifestFormat.packageJson,
-  manifestDescription: 'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_javascript_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
+  manifestDescription:
+      'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_javascript_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
   manifestDescriptionFile: 'package.json',
-  whereThisFitsSentence: 'Plain CommonJS with no build step and no runtime dependencies — `require` the package and the typed roots are there.',
-  tutorialSentence: 'A JavaScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+  whereThisFitsSentence:
+      'Plain CommonJS with no build step and no runtime dependencies — `require` the package and the typed roots are there.',
+  tutorialSentence:
+      'A JavaScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
       file: 'a_typed_access.js',
-      demonstrates: 'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
+      demonstrates:
+          'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
     ),
     PackagingExample(
       file: 'b_generic_document.js',
-      demonstrates: 'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
+      demonstrates:
+          'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
     ),
     PackagingExample(
       file: 'c_reflection_metadata.js',
-      demonstrates: 'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+      demonstrates:
+          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
   ],
   usageSections: [
     PackagingUsage(
       heading: 'The generic store underneath',
-      intro: 'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
+      intro:
+          'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
       snippet: '''
 const m = require('tom_som_javascript_v0');
 const { SpecDocument, yamlEncode } = require('tom_som_javascript_runtime');
@@ -1517,7 +1673,8 @@ console.log(yamlEncode(doc, m.d00SolutionBlueprintMetaTree, '1.0'));
     ),
     PackagingUsage(
       heading: 'Metadata and reflection',
-      intro: 'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+      intro:
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
 const fs = require('fs');
 const { SpecModel, SpecReflection } =
@@ -1555,7 +1712,8 @@ const PackagingDescriptor _typeScriptDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_typescript_runtime',
   facadePackageName: 'tom_som_typescript_v0',
   codeFence: 'typescript',
-  installShort: 'Add `tom_som_typescript_v0` to your project '
+  installShort:
+      'Add `tom_som_typescript_v0` to your project '
       '(`npm install tom_som_typescript_v0`), then:',
   usageSnippet: '''
 import { SpecDocument } from 'tom_som_typescript_runtime';
@@ -1573,7 +1731,8 @@ console.log(blueprint.content);''',
   integrateRoutes: [
     PackagingRoute(
       heading: 'From npm',
-      body: 'Install the facade (it depends on `tom_som_typescript_runtime`):'
+      body:
+          'Install the facade (it depends on `tom_som_typescript_runtime`):'
           '\n\n'
           '```bash\n'
           'npm install tom_som_typescript_v0\n'
@@ -1589,7 +1748,8 @@ console.log(blueprint.content);''',
     ),
     PackagingRoute(
       heading: 'Git dependency',
-      body: 'npm cannot install a sub-directory of a git repository directly, '
+      body:
+          'npm cannot install a sub-directory of a git repository directly, '
           'and the facade lives in a sub-directory of the mono-repo — so '
           'clone first, then install by path (runtime first; the facade '
           "compiles against the runtime's `dist/`):\n\n"
@@ -1601,7 +1761,8 @@ console.log(blueprint.content);''',
     ),
     PackagingRoute(
       heading: 'Path / link (monorepo / vendored)',
-      body: 'When the SOM projects sit alongside your code, install both the '
+      body:
+          'When the SOM projects sit alongside your code, install both the '
           'runtime and the facade (runtime first — the facade compiles against '
           "the runtime's `dist/`):\n\n"
           '```bash\n'
@@ -1613,7 +1774,8 @@ console.log(blueprint.content);''',
           'it and `npm run build` compiles both.',
     ),
   ],
-  buildFromSource: 'Regenerate the facade and dry-run the packages from the '
+  buildFromSource:
+      'Regenerate the facade and dry-run the packages from the '
       'workspace (each `prepack` runs `tsc`; the facade builds the runtime '
       'first):\n\n'
       '```bash\n'
@@ -1624,29 +1786,36 @@ console.log(blueprint.content);''',
   buildArtifactIgnores: ['node_modules/', 'dist/', '*.tgz'],
   runtimeManifestFileName: 'package.json',
   runtimeManifestFormat: ManifestFormat.packageJson,
-  manifestDescription: 'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_typescript_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
+  manifestDescription:
+      'Generated typed TomSpecs object model (v0). An editing facade over the generic tom_som_typescript_runtime; see the meta-data file and DocSpecs schemas in this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.',
   manifestDescriptionFile: 'package.json',
-  whereThisFitsSentence: 'The package ships TypeScript sources and compiles to `dist/`, so consumers get the declaration files and the section types are checked by `tsc` rather than at run time.',
-  tutorialSentence: 'A TypeScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+  whereThisFitsSentence:
+      'The package ships TypeScript sources and compiles to `dist/`, so consumers get the declaration files and the section types are checked by `tsc` rather than at run time.',
+  tutorialSentence:
+      'A TypeScript walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
       file: 'a_typed_access.ts',
-      demonstrates: 'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
+      demonstrates:
+          'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
     ),
     PackagingExample(
       file: 'b_generic_document.ts',
-      demonstrates: 'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
+      demonstrates:
+          'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
     ),
     PackagingExample(
       file: 'c_reflection_metadata.ts',
-      demonstrates: 'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+      demonstrates:
+          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
   ],
   usageSections: [
     PackagingUsage(
       heading: 'The generic store underneath',
-      intro: 'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
+      intro:
+          'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
       snippet: '''
 import { SpecDocument, yamlEncode } from 'tom_som_typescript_runtime';
 import { d00SolutionBlueprintMetaTree } from 'tom_som_typescript_v0';
@@ -1665,7 +1834,8 @@ console.log(yamlEncode(doc, d00SolutionBlueprintMetaTree, '1.0'));
     ),
     PackagingUsage(
       heading: 'Metadata and reflection',
-      intro: 'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+      intro:
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
 import * as fs from 'fs';
 import { SpecModel, SpecReflection } from 'tom_som_typescript_runtime';
@@ -1707,7 +1877,8 @@ const PackagingDescriptor _goDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_go_runtime',
   facadePackageName: 'tom_som_go_v0',
   codeFence: 'go',
-  installShort: 'Add `tom_som_go_v0` to your module '
+  installShort:
+      'Add `tom_som_go_v0` to your module '
       '(`go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@vVERSION`), '
       'then:',
   usageSnippet: '''
@@ -1732,7 +1903,8 @@ fmt.Println(blueprint.Content())''',
   integrateRoutes: [
     PackagingRoute(
       heading: 'From `go get`',
-      body: 'Fetch the facade at a version tag (it pulls in '
+      body:
+          'Fetch the facade at a version tag (it pulls in '
           '`tom_som_go_runtime`):\n\n'
           '```bash\n'
           'go get github.com/al-the-bear/tom_ai_build/tom_som_go_v0@vVERSION\n'
@@ -1744,7 +1916,8 @@ fmt.Println(blueprint.Content())''',
     ),
     PackagingRoute(
       heading: 'Version tags',
-      body: 'Go has no central registry — a module version *is* a VCS tag. Both '
+      body:
+          'Go has no central registry — a module version *is* a VCS tag. Both '
           '`tom_som_go_runtime` and `tom_som_go_v0` are tagged '
           '`vMAJOR.MINOR.PATCH` at the TomSpecs model version (currently '
           '`vVERSION`), matching the in-source `Version` constant each module '
@@ -1753,7 +1926,8 @@ fmt.Println(blueprint.Content())''',
     ),
     PackagingRoute(
       heading: 'Path replace (monorepo / vendored)',
-      body: 'When the SOM projects sit alongside your code, point Go at the '
+      body:
+          'When the SOM projects sit alongside your code, point Go at the '
           'local checkout with a `replace` directive in your `go.mod` (the '
           'facade already does this for the runtime):\n\n'
           '```\n'
@@ -1766,7 +1940,8 @@ fmt.Println(blueprint.Content())''',
           '```',
     ),
   ],
-  buildFromSource: 'Regenerate the facade and build/vet both modules from the '
+  buildFromSource:
+      'Regenerate the facade and build/vet both modules from the '
       'workspace (the facade resolves the runtime through its relative '
       '`replace`):\n\n'
       '```bash\n'
@@ -1777,29 +1952,36 @@ fmt.Println(blueprint.Content())''',
   buildArtifactIgnores: ['*.test', '*.out'],
   runtimeManifestFileName: 'doc.go',
   runtimeManifestFormat: ManifestFormat.goVersionConst,
-  manifestDescription: 'Typed object-model facade over the generic `tom_som_go_runtime` document.',
+  manifestDescription:
+      'Typed object-model facade over the generic `tom_som_go_runtime` document.',
   manifestDescriptionFile: 'tom_som_go_v0.go',
-  whereThisFitsSentence: 'Go versions live in VCS tags rather than a manifest, so each module also carries an in-source `Version` constant, and the generator writes a `require` plus a local `replace` so the module builds both standalone and in-repo.',
-  tutorialSentence: 'A Go walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+  whereThisFitsSentence:
+      'Go versions live in VCS tags rather than a manifest, so each module also carries an in-source `Version` constant, and the generator writes a `require` plus a local `replace` so the module builds both standalone and in-repo.',
+  tutorialSentence:
+      'A Go walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
       file: 'a_typed_access',
-      demonstrates: 'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
+      demonstrates:
+          'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
     ),
     PackagingExample(
       file: 'b_generic_document',
-      demonstrates: 'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
+      demonstrates:
+          'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
     ),
     PackagingExample(
       file: 'c_reflection_metadata',
-      demonstrates: 'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+      demonstrates:
+          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
   ],
   usageSections: [
     PackagingUsage(
       heading: 'The generic store underneath',
-      intro: 'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
+      intro:
+          'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
       snippet: '''
 import (
 	"fmt"
@@ -1826,7 +2008,8 @@ fmt.Print(yaml)
     ),
     PackagingUsage(
       heading: 'Metadata and reflection',
-      intro: 'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+      intro:
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
 data, err := os.ReadFile("meta/spec_model.meta.json")
 if err != nil {
@@ -1867,7 +2050,8 @@ const PackagingDescriptor _rustDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_rust_runtime',
   facadePackageName: 'tom_som_rust_v0',
   codeFence: 'rust',
-  installShort: 'Add `tom_som_rust_v0` to your `Cargo.toml` '
+  installShort:
+      'Add `tom_som_rust_v0` to your `Cargo.toml` '
       '(`cargo add tom_som_rust_v0`), then:',
   usageSnippet: '''
 use tom_som_rust_runtime as som;
@@ -1889,7 +2073,8 @@ fn main() {
   integrateRoutes: [
     PackagingRoute(
       heading: 'From crates.io',
-      body: 'These are proprietary (`publish = false`) crates, so they are not '
+      body:
+          'These are proprietary (`publish = false`) crates, so they are not '
           'on crates.io. When published to a private registry, add the facade '
           '(it pulls in `tom_som_rust_runtime`):\n\n'
           '```bash\n'
@@ -1903,7 +2088,8 @@ fn main() {
     ),
     PackagingRoute(
       heading: 'Git dependency',
-      body: 'Depend on the facade directly from source control (it lives in a '
+      body:
+          'Depend on the facade directly from source control (it lives in a '
           'sub-directory of the mono-repo):\n\n'
           '```toml\n'
           '[dependencies]\n'
@@ -1915,7 +2101,8 @@ fn main() {
     ),
     PackagingRoute(
       heading: 'Path dependency (monorepo / vendored)',
-      body: 'When the SOM crates sit alongside your crate, depend by path (the '
+      body:
+          'When the SOM crates sit alongside your crate, depend by path (the '
           'facade already does this for the runtime):\n\n'
           '```toml\n'
           '[dependencies]\n'
@@ -1923,7 +2110,8 @@ fn main() {
           '```',
     ),
   ],
-  buildFromSource: 'Regenerate the facade, then build/package from the '
+  buildFromSource:
+      'Regenerate the facade, then build/package from the '
       'workspace (runtime first — the facade compiles against it through its '
       'relative `path` dependency):\n\n'
       '```bash\n'
@@ -1942,31 +2130,38 @@ fn main() {
   runtimeManifestFormat: ManifestFormat.cargoToml,
   manifestDescription: 'Generated typed TomSpecs object-model facade (Rust).',
   manifestDescriptionFile: 'Cargo.toml',
-  whereThisFitsSentence: 'The crate has no third-party dependencies — only the runtime crate — and because `cargo package` requires every dependency to carry a version, the `path` dependency on the runtime also pins the model version.',
-  tutorialSentence: 'A Rust walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+  whereThisFitsSentence:
+      'The crate has no third-party dependencies — only the runtime crate — and because `cargo package` requires every dependency to carry a version, the `path` dependency on the runtime also pins the model version.',
+  tutorialSentence:
+      'A Rust walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
       file: 'a_typed_access.rs',
-      demonstrates: 'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
+      demonstrates:
+          'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
     ),
     PackagingExample(
       file: 'b_generic_document.rs',
-      demonstrates: 'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
+      demonstrates:
+          'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
     ),
     PackagingExample(
       file: 'c_reflection_metadata.rs',
-      demonstrates: 'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+      demonstrates:
+          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
     PackagingExample(
       file: 'golden_log.rs',
-      demonstrates: 'The cross-language golden-log generator (`SOM §19`) — reads essentially every section both ways and asserts typed equals generic.',
+      demonstrates:
+          'The cross-language golden-log generator (`SOM §19`) — reads essentially every section both ways and asserts typed equals generic.',
     ),
   ],
   usageSections: [
     PackagingUsage(
       heading: 'The generic store underneath',
-      intro: 'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
+      intro:
+          'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
       snippet: '''
 use tom_som_rust_runtime as som;
 use tom_som_rust_v0::meta;
@@ -1988,7 +2183,8 @@ print!("{}", som::encode_yaml(&doc, &tree, "1.0").expect("encode_yaml"));
     ),
     PackagingUsage(
       heading: 'Metadata and reflection',
-      intro: 'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+      intro:
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
 use std::fs;
 
@@ -2033,7 +2229,8 @@ const PackagingDescriptor _cDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_c_runtime',
   facadePackageName: 'tom_som_c_v0',
   codeFence: 'c',
-  installShort: 'Build and install `tom_som_c_v0` (and `tom_som_c_runtime`), '
+  installShort:
+      'Build and install `tom_som_c_v0` (and `tom_som_c_runtime`), '
       'then compile against it with `pkg-config`:',
   usageSnippet: '''
 #include "tom_som_c_v0.h"
@@ -2066,7 +2263,8 @@ int main(void) {
   integrateRoutes: [
     PackagingRoute(
       heading: 'pkg-config (installed)',
-      body: 'C has no package registry. Install the facade and the runtime '
+      body:
+          'C has no package registry. Install the facade and the runtime '
           '(runtime first — the facade links against it), then let `pkg-config` '
           'supply the compile and link flags:\n\n'
           '```bash\n'
@@ -2080,7 +2278,8 @@ int main(void) {
     ),
     PackagingRoute(
       heading: 'Source tarball (vendored)',
-      body: 'Produce versioned source tarballs and vendor them into your '
+      body:
+          'Produce versioned source tarballs and vendor them into your '
           'build:\n\n'
           '```bash\n'
           'make -C ../tom_som_c_runtime dist   # tom_som_c_runtime-VERSION.tar.gz\n'
@@ -2091,7 +2290,8 @@ int main(void) {
     ),
     PackagingRoute(
       heading: 'In-tree (monorepo)',
-      body: 'When the SOM projects sit alongside your code, build the facade in '
+      body:
+          'When the SOM projects sit alongside your code, build the facade in '
           "place; its `Makefile` builds the runtime on demand through a relative "
           '`RUNTIME_DIR`:\n\n'
           '```bash\n'
@@ -2102,7 +2302,8 @@ int main(void) {
           '```',
     ),
   ],
-  buildFromSource: 'Regenerate the facade, then build and package both projects '
+  buildFromSource:
+      'Regenerate the facade, then build and package both projects '
       'from the workspace (runtime first — the facade builds it on demand '
       'through its relative `RUNTIME_DIR`):\n\n'
       '```bash\n'
@@ -2125,27 +2326,33 @@ int main(void) {
   runtimeManifestFormat: ManifestFormat.makefileVar,
   manifestDescription: 'Generated typed TomSpecs object-model facade (C).',
   manifestDescriptionFile: 'Makefile',
-  whereThisFitsSentence: 'There is no registry: both halves build to a static and a shared library with a pkg-config `.pc` file, so `make install` and `pkg-config --cflags --libs` are the integration surface.',
-  tutorialSentence: 'A C walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+  whereThisFitsSentence:
+      'There is no registry: both halves build to a static and a shared library with a pkg-config `.pc` file, so `make install` and `pkg-config --cflags --libs` are the integration surface.',
+  tutorialSentence:
+      'A C walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
       file: 'a_typed_access.c',
-      demonstrates: 'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
+      demonstrates:
+          'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
     ),
     PackagingExample(
       file: 'b_generic_document.c',
-      demonstrates: 'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
+      demonstrates:
+          'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
     ),
     PackagingExample(
       file: 'c_reflection_metadata.c',
-      demonstrates: 'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+      demonstrates:
+          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
   ],
   usageSections: [
     PackagingUsage(
       heading: 'The generic store underneath',
-      intro: 'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
+      intro:
+          'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
       snippet: '''
 #include "tom_som_c_runtime.h"
 #include "tom_som_c_v0_meta.h"
@@ -2174,7 +2381,8 @@ spec_document_free(&doc);
     ),
     PackagingUsage(
       heading: 'Metadata and reflection',
-      intro: 'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+      intro:
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
 #include "tom_som_c_runtime.h"
 
@@ -2222,7 +2430,8 @@ const PackagingDescriptor _cppDescriptor = PackagingDescriptor(
   runtimePackageName: 'tom_som_cpp_runtime',
   facadePackageName: 'tom_som_cpp_v0',
   codeFence: 'cpp',
-  installShort: 'Build and install `tom_som_cpp_v0` (and '
+  installShort:
+      'Build and install `tom_som_cpp_v0` (and '
       '`tom_som_cpp_runtime`), then compile against it with `pkg-config`:',
   usageSnippet: '''
 #include "tom_som_cpp_v0.hpp"
@@ -2248,7 +2457,8 @@ int main() {
   integrateRoutes: [
     PackagingRoute(
       heading: 'pkg-config (installed)',
-      body: 'C++ has no universal package registry. Install the facade and the '
+      body:
+          'C++ has no universal package registry. Install the facade and the '
           'runtime (runtime first — the facade links against it), then let '
           '`pkg-config` supply the compile and link flags:\n\n'
           '```bash\n'
@@ -2262,7 +2472,8 @@ int main() {
     ),
     PackagingRoute(
       heading: 'Source tarball (vendored)',
-      body: 'Produce versioned source tarballs and vendor them into your '
+      body:
+          'Produce versioned source tarballs and vendor them into your '
           'build:\n\n'
           '```bash\n'
           'make -C ../tom_som_cpp_runtime dist   # tom_som_cpp_runtime-VERSION.tar.gz\n'
@@ -2273,7 +2484,8 @@ int main() {
     ),
     PackagingRoute(
       heading: 'In-tree (monorepo)',
-      body: 'When the SOM projects sit alongside your code, build the facade in '
+      body:
+          'When the SOM projects sit alongside your code, build the facade in '
           "place; its `Makefile` builds the runtime on demand through a relative "
           '`RUNTIME_DIR`:\n\n'
           '```bash\n'
@@ -2284,7 +2496,8 @@ int main() {
           '```',
     ),
   ],
-  buildFromSource: 'Regenerate the facade, then build and package both projects '
+  buildFromSource:
+      'Regenerate the facade, then build and package both projects '
       'from the workspace (runtime first — the facade builds it on demand '
       'through its relative `RUNTIME_DIR`):\n\n'
       '```bash\n'
@@ -2307,27 +2520,33 @@ int main() {
   runtimeManifestFormat: ManifestFormat.makefileVar,
   manifestDescription: 'Generated typed TomSpecs object-model facade (C++).',
   manifestDescriptionFile: 'Makefile',
-  whereThisFitsSentence: 'Idiomatic C++17 with RAII throughout — the document is a value that must outlive every facade bound to it, and getters return `std::string` by value, so there is nothing to free.',
-  tutorialSentence: 'A C++ walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
+  whereThisFitsSentence:
+      'Idiomatic C++17 with RAII throughout — the document is a value that must outlive every facade bound to it, and getters return `std::string` by value, so there is nothing to free.',
+  tutorialSentence:
+      'A C++ walkthrough end to end — install, open a document, read and edit a section, validate it, and serialize to `*.docspecs.yaml` and Markdown.',
   exampleDirName: 'examples',
   examples: [
     PackagingExample(
       file: 'a_typed_access.cpp',
-      demonstrates: 'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
+      demonstrates:
+          'The generated typed facade — named members, nested-section navigation, and the typed `SomList` collection.',
     ),
     PackagingExample(
       file: 'b_generic_document.cpp',
-      demonstrates: 'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
+      demonstrates:
+          'The generic runtime underneath — string paths into a sparse store, plus JSON and YAML serialization.',
     ),
     PackagingExample(
       file: 'c_reflection_metadata.cpp',
-      demonstrates: 'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
+      demonstrates:
+          'The value-free reflection surface — load `meta/spec_model.meta.json`, enumerate roots and fields, resolve a path to the model node it lands on.',
     ),
   ],
   usageSections: [
     PackagingUsage(
       heading: 'The generic store underneath',
-      intro: 'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
+      intro:
+          'A facade is a view; the document is the value. Reach past the typed types whenever a path is computed rather than known — both sides address exactly the same store.',
       snippet: '''
 #include "tom_som_cpp_runtime.hpp"
 #include "tom_som_cpp_v0_meta.hpp"
@@ -2351,7 +2570,8 @@ std::cout << *yaml;
     ),
     PackagingUsage(
       heading: 'Metadata and reflection',
-      intro: 'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
+      intro:
+          'The exported class graph answers "what *can* the model hold?" with no document values involved — enumerate roots and fields, or resolve a concrete path to the model node it lands on (`SOM §7`).',
       snippet: '''
 #include "tom_som_cpp_runtime.hpp"
 

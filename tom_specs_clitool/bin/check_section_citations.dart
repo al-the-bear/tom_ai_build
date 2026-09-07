@@ -26,42 +26,59 @@ Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
     ..addOption(
       'doc',
-      help: 'Documentation folder to scan. Default: the sibling '
+      help:
+          'Documentation folder to scan. Default: the sibling '
           'tom_specs_model/doc.',
     )
     ..addMultiOption(
       'extra',
-      help: 'Additional file to scan, resolved against the same corpus. '
+      help:
+          'Additional file to scan, resolved against the same corpus. '
           'Repeatable. Defaults to the project READMEs that cite the doc set; '
           'pass --no-default-readmes to scan the doc folder alone.',
     )
-    ..addFlag('default-readmes',
-        defaultsTo: true,
-        help: 'Also scan the project READMEs that cite the doc set.')
+    ..addFlag(
+      'default-readmes',
+      defaultsTo: true,
+      help: 'Also scan the project READMEs that cite the doc set.',
+    )
     ..addMultiOption(
       'doc-folder',
-      help: 'Additional package `doc/` folder whose `*.md` files are scanned, '
+      help:
+          'Additional package `doc/` folder whose `*.md` files are scanned, '
           'recursively. Repeatable. Defaults to the package doc folders that '
           'cite the doc set; pass --no-default-doc-folders to drop them.',
     )
-    ..addFlag('default-doc-folders',
-        defaultsTo: true,
-        help: 'Also scan the package `doc/` folders that cite the doc set.')
+    ..addFlag(
+      'default-doc-folders',
+      defaultsTo: true,
+      help: 'Also scan the package `doc/` folders that cite the doc set.',
+    )
     ..addMultiOption(
       'source',
-      help: 'Additional source file — or a directory of them — whose comments '
+      help:
+          'Additional source file — or a directory of them — whose comments '
           'are scanned: `///` in Dart, `#` in shell/Python/YAML, `//` in the '
           'C family. Repeatable. Defaults to the citing source trees; pass '
           '--no-default-sources to scan markdown alone.',
     )
-    ..addFlag('default-sources',
-        defaultsTo: true,
-        help: 'Also scan the comments of the citing source trees.')
-    ..addFlag('verbose', abbr: 'v',
-        help: 'List every citation, not only the unresolved ones.',
-        negatable: false)
-    ..addFlag('help', abbr: 'h', help: 'Show usage information.',
-        negatable: false);
+    ..addFlag(
+      'default-sources',
+      defaultsTo: true,
+      help: 'Also scan the comments of the citing source trees.',
+    )
+    ..addFlag(
+      'verbose',
+      abbr: 'v',
+      help: 'List every citation, not only the unresolved ones.',
+      negatable: false,
+    )
+    ..addFlag(
+      'help',
+      abbr: 'h',
+      help: 'Show usage information.',
+      negatable: false,
+    );
 
   final ArgResults results;
   try {
@@ -73,7 +90,9 @@ Future<void> main(List<String> arguments) async {
   }
 
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/check_section_citations.dart [options]');
+    stdout.writeln(
+      'Usage: dart run bin/check_section_citations.dart [options]',
+    );
     stdout.writeln(parser.usage);
     exit(0);
   }
@@ -81,8 +100,12 @@ Future<void> main(List<String> arguments) async {
   final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
   final containerRoot = p.normalize(p.join(clitoolRoot, '..', '..', '..'));
 
-  final docDir = p.normalize(p.absolute(results.option('doc') ??
-      p.join(containerRoot, 'tom_ai', 'ai_build', 'tom_specs_model', 'doc')));
+  final docDir = p.normalize(
+    p.absolute(
+      results.option('doc') ??
+          p.join(containerRoot, 'tom_ai', 'ai_build', 'tom_specs_model', 'doc'),
+    ),
+  );
 
   final SectionCitationReport report;
   try {
@@ -122,20 +145,32 @@ Future<void> main(List<String> arguments) async {
     exit(1);
   }
 
-  stdout.writeln('Scanned ${report.files.length} file(s) against '
-      '${report.corpus.length} document(s) in '
-      '${p.relative(docDir, from: containerRoot)}; '
-      '${report.citations.length} citation(s).');
-  stdout.writeln('  self          '
-      '${report.countOf(SectionCitationVerdict.self)}');
-  stdout.writeln('  cross-document '
-      '${report.countOf(SectionCitationVerdict.crossDocument)}');
-  stdout.writeln('  unverifiable  '
-      '${report.countOf(SectionCitationVerdict.unverifiable)}');
-  stdout.writeln('  dangling      '
-      '${report.countOf(SectionCitationVerdict.dangling)}');
-  stdout.writeln('  no such section '
-      '${report.countOf(SectionCitationVerdict.wrongSection)}');
+  stdout.writeln(
+    'Scanned ${report.files.length} file(s) against '
+    '${report.corpus.length} document(s) in '
+    '${p.relative(docDir, from: containerRoot)}; '
+    '${report.citations.length} citation(s).',
+  );
+  stdout.writeln(
+    '  self          '
+    '${report.countOf(SectionCitationVerdict.self)}',
+  );
+  stdout.writeln(
+    '  cross-document '
+    '${report.countOf(SectionCitationVerdict.crossDocument)}',
+  );
+  stdout.writeln(
+    '  unverifiable  '
+    '${report.countOf(SectionCitationVerdict.unverifiable)}',
+  );
+  stdout.writeln(
+    '  dangling      '
+    '${report.countOf(SectionCitationVerdict.dangling)}',
+  );
+  stdout.writeln(
+    '  no such section '
+    '${report.countOf(SectionCitationVerdict.wrongSection)}',
+  );
   stdout.writeln('  exhibit       ${report.exempted.length}');
 
   if (results.flag('verbose')) {
@@ -145,22 +180,28 @@ Future<void> main(List<String> arguments) async {
   }
 
   if (report.isClean) {
-    stdout.writeln('OK — every § citation resolves to a heading, and every '
-        'exhibit marker covers one that cannot.');
+    stdout.writeln(
+      'OK — every § citation resolves to a heading, and every '
+      'exhibit marker covers one that cannot.',
+    );
     exit(0);
   }
 
   stderr.writeln('');
   if (report.violations.isNotEmpty) {
-    stderr.writeln('${report.violations.length} citation(s) resolve to no '
-        'heading:');
+    stderr.writeln(
+      '${report.violations.length} citation(s) resolve to no '
+      'heading:',
+    );
     for (final violation in report.violations) {
       stderr.writeln('  ${violation.describe(relativeTo: containerRoot)}');
     }
   }
   if (report.staleExemptions.isNotEmpty) {
-    stderr.writeln('${report.staleExemptions.length} exhibit marker id(s) '
-        'excuse nothing:');
+    stderr.writeln(
+      '${report.staleExemptions.length} exhibit marker id(s) '
+      'excuse nothing:',
+    );
     for (final stale in report.staleExemptions) {
       stderr.writeln('  ${stale.describe(relativeTo: containerRoot)}');
     }

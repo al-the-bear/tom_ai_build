@@ -354,67 +354,69 @@ class MetaNode {
   /// slots are omitted). Useful for tooling and golden tests; the facades
   /// embed the tree as generated code, not via this JSON (SOM §7.2).
   Map<String, Object?> toJson() => {
-        'className': className,
-        if (memberName != null) 'memberName': memberName,
-        if (sectionId != null) 'sectionId': sectionId,
-        if (sectionIdPattern != null) 'sectionIdPattern': sectionIdPattern,
-        'kind': kindLabel,
-        'typeName': typeName,
-        if (serializationOrder != null)
-          'serializationOrder': serializationOrder,
-        if (min != null) 'min': min,
-        if (unused) 'unused': true,
-        if (contentType != null)
-          'contentType': {
-            'type': contentType!.type,
-            if (contentType!.description.isNotEmpty)
-              'description': contentType!.description,
-          },
-        if (contentHelp != null) 'contentHelp': contentHelp,
-        if (headline != null) 'headline': headline,
-        if (comment != null) 'comment': comment,
-        if (docComment != null) 'docComment': docComment,
-        if (classDocComment != null) 'classDocComment': classDocComment,
-        if (form != null)
-          'form': {
-            'fields': form!.fields
-                .map((f) => {
-                      'name': f.name,
-                      'typeName': f.typeName,
-                      if (f.description != null) 'description': f.description,
-                      if (f.required) 'required': true,
-                      if (f.hint != null) 'hint': f.hint,
-                      'order': f.order,
-                      if (f.enumValues.isNotEmpty) 'enumValues': f.enumValues,
-                      if (f.refersTo.isNotEmpty) 'refersTo': f.refersTo,
-                    })
-                .toList(),
-          },
-        if (document != null)
-          'document': {
-            'name': document!.name,
-            'description': document!.description,
-            if (document!.basedOn.isNotEmpty) 'basedOn': document!.basedOn,
-          },
-        if (mapsTo != null) 'mapsTo': mapsTo,
-        if (detailedIn != null) 'detailedIn': detailedIn,
-        if (enumValues.isNotEmpty) 'enumValues': enumValues,
-        if (extra.isNotEmpty)
-          'extra': extra
-              .map((e) => {
-                    'annotation': e.name,
-                    if (e.arguments.isNotEmpty) 'args': e.arguments,
-                  })
-              .toList(),
-        if (recursive) 'recursive': true,
-        if (children.isNotEmpty)
-          'children': children.map((c) => c.toJson()).toList(),
-        if (elementNode != null) 'elementNode': elementNode!.toJson(),
-      };
+    'className': className,
+    if (memberName != null) 'memberName': memberName,
+    if (sectionId != null) 'sectionId': sectionId,
+    if (sectionIdPattern != null) 'sectionIdPattern': sectionIdPattern,
+    'kind': kindLabel,
+    'typeName': typeName,
+    if (serializationOrder != null) 'serializationOrder': serializationOrder,
+    if (min != null) 'min': min,
+    if (unused) 'unused': true,
+    if (contentType != null)
+      'contentType': {
+        'type': contentType!.type,
+        if (contentType!.description.isNotEmpty)
+          'description': contentType!.description,
+      },
+    if (contentHelp != null) 'contentHelp': contentHelp,
+    if (headline != null) 'headline': headline,
+    if (comment != null) 'comment': comment,
+    if (docComment != null) 'docComment': docComment,
+    if (classDocComment != null) 'classDocComment': classDocComment,
+    if (form != null)
+      'form': {
+        'fields': form!.fields
+            .map(
+              (f) => {
+                'name': f.name,
+                'typeName': f.typeName,
+                if (f.description != null) 'description': f.description,
+                if (f.required) 'required': true,
+                if (f.hint != null) 'hint': f.hint,
+                'order': f.order,
+                if (f.enumValues.isNotEmpty) 'enumValues': f.enumValues,
+                if (f.refersTo.isNotEmpty) 'refersTo': f.refersTo,
+              },
+            )
+            .toList(),
+      },
+    if (document != null)
+      'document': {
+        'name': document!.name,
+        'description': document!.description,
+        if (document!.basedOn.isNotEmpty) 'basedOn': document!.basedOn,
+      },
+    if (mapsTo != null) 'mapsTo': mapsTo,
+    if (detailedIn != null) 'detailedIn': detailedIn,
+    if (enumValues.isNotEmpty) 'enumValues': enumValues,
+    if (extra.isNotEmpty)
+      'extra': extra
+          .map(
+            (e) => {
+              'annotation': e.name,
+              if (e.arguments.isNotEmpty) 'args': e.arguments,
+            },
+          )
+          .toList(),
+    if (recursive) 'recursive': true,
+    if (children.isNotEmpty)
+      'children': children.map((c) => c.toJson()).toList(),
+    if (elementNode != null) 'elementNode': elementNode!.toJson(),
+  };
 
   /// The SOM §7.1 kind label (`enum`, not `enumValue`).
-  String get kindLabel =>
-      kind == MetaNodeKind.enumValue ? 'enum' : kind.name;
+  String get kindLabel => kind == MetaNodeKind.enumValue ? 'enum' : kind.name;
 }
 
 /// Builds [MetaNode] trees from the resolved [ModelClass] graph.
@@ -501,9 +503,9 @@ class MetaTreeBuilder {
     List<MetaNode> children = const [];
     if (!recursive) {
       final nextStack = {...stack, cls.name};
-      children = _orderedFields(cls)
-          .map((f) => _fieldNode(f, stack: nextStack))
-          .toList();
+      children = _orderedFields(
+        cls,
+      ).map((f) => _fieldNode(f, stack: nextStack)).toList();
     }
 
     final fieldDoc = field?.docComment ?? '';
@@ -532,10 +534,9 @@ class MetaTreeBuilder {
       headline: slots.headline,
       comment: slots.comment,
       docComment: docComment.isEmpty ? null : docComment,
-      classDocComment:
-          cls.docComment.isNotEmpty && cls.docComment != docComment
-              ? cls.docComment
-              : null,
+      classDocComment: cls.docComment.isNotEmpty && cls.docComment != docComment
+          ? cls.docComment
+          : null,
       form: form,
       document: slots.document,
       mapsTo: slots.mapsTo,
@@ -577,9 +578,11 @@ class MetaTreeBuilder {
     return MetaNode(
       // metaTypeName keeps `DocSpecsSection` members byte-identical to the
       // former `String` members in the exported tree (YRD5).
-      className: _baseTypeName(field.isList
-          ? (field.metaListElementTypeName ?? 'Object')
-          : field.metaTypeName),
+      className: _baseTypeName(
+        field.isList
+            ? (field.metaListElementTypeName ?? 'Object')
+            : field.metaTypeName,
+      ),
       memberName: field.name,
       sectionId: slots.sectionId,
       sectionIdPattern: slots.sectionIdPattern,
@@ -619,8 +622,8 @@ class MetaTreeBuilder {
       kind: enumType != null
           ? MetaNodeKind.enumValue
           : (elementTypeName == 'String'
-              ? MetaNodeKind.content
-              : MetaNodeKind.scalar),
+                ? MetaNodeKind.content
+                : MetaNodeKind.scalar),
       typeName: elementTypeName,
       enumValues: enumType?.values ?? const [],
     );
@@ -785,8 +788,7 @@ class _SlotCollector {
   /// `Type` literal to its class name. Marks the node as the seed of a
   /// Phase 3 DocSpec: its whole subtree flows into that document
   /// (`tom_specs_model_rules.md` §9.2).
-  String? get mapsTo =>
-      _first('MapsTo')?.arguments['documentClass'] as String?;
+  String? get mapsTo => _first('MapsTo')?.arguments['documentClass'] as String?;
 
   /// `@DetailedIn(Type)` target class name — promotes the node to a
   /// top-level entry of that Phase 3 DocSpec. The structural validator
@@ -821,16 +823,18 @@ class _SlotCollector {
     final fields = <MetaFormField>[];
     for (var i = 0; i < formFields.length; i++) {
       final f = formFields[i];
-      fields.add(MetaFormField(
-        name: f.name,
-        typeName: f.typeName,
-        description: f.description.isEmpty ? null : f.description,
-        required: f.required,
-        hint: f.hint.isEmpty ? null : f.hint,
-        order: i,
-        enumValues: f.enumValues,
-        refersTo: f.refersTo,
-      ));
+      fields.add(
+        MetaFormField(
+          name: f.name,
+          typeName: f.typeName,
+          description: f.description.isEmpty ? null : f.description,
+          required: f.required,
+          hint: f.hint.isEmpty ? null : f.hint,
+          order: i,
+          enumValues: f.enumValues,
+          refersTo: f.refersTo,
+        ),
+      );
     }
     return MetaFormInfo(fields);
   }
@@ -838,8 +842,8 @@ class _SlotCollector {
   /// Every annotation without a dedicated slot, field-level first, in source
   /// declaration order — the lossless completeness guarantee (SOM §7.1).
   List<MetaExtraAnnotation> get extra => [
-        for (final a in [...fieldAnnotations, ...classAnnotations])
-          if (!MetaTreeBuilder.slottedAnnotationNames.contains(a.name))
-            MetaExtraAnnotation(a.name, a.arguments),
-      ];
+    for (final a in [...fieldAnnotations, ...classAnnotations])
+      if (!MetaTreeBuilder.slottedAnnotationNames.contains(a.name))
+        MetaExtraAnnotation(a.name, a.arguments),
+  ];
 }

@@ -13,101 +13,142 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// the transcribed kind values must be exactly the `CodeSpecPart` enum's active
 /// members (agreement with the code the mapping document says it generates).
 void main() {
-  final mapping =
-      File('../tom_specs_model/doc/codespecs_mapping.md').readAsStringSync();
+  final mapping = File(
+    '../tom_specs_model/doc/codespecs_mapping.md',
+  ).readAsStringSync();
 
   group('codespecs_areas.json', () {
     test('the committed catalogue equals a fresh transcription', () {
       final committed = File(
-          '../tom_specs_model/generated-doc/codespecs/codespecs_areas.json');
-      expect(committed.existsSync(), isTrue,
-          reason: 'run `dart run bin/codespecs_areas.dart`');
+        '../tom_specs_model/generated-doc/codespecs/codespecs_areas.json',
+      );
+      expect(
+        committed.existsSync(),
+        isTrue,
+        reason: 'run `dart run bin/codespecs_areas.dart`',
+      );
       expect(
         committed.readAsStringSync(),
         buildAreasCatalog(mapping).toJsonText(),
-        reason: 'codespecs_areas.json is stale — regenerate it and commit the '
+        reason:
+            'codespecs_areas.json is stale — regenerate it and commit the '
             'diff. The mapping document is the authority; this file is only '
             'its machine-readable form.',
       );
     });
 
-    test('every kind value is a CodeSpecPart the annotation package declares',
-        () {
-      final source = File(
-              '../tom_specs_core/lib/src/annotations/code_spec_kind.dart')
-          .readAsStringSync();
-      final body = RegExp(r'enum CodeSpecPart\s*\{([\s\S]*?)\n\}')
-          .firstMatch(source)
-          ?.group(1);
-      expect(body, isNotNull, reason: 'CodeSpecPart enum not found');
+    test(
+      'every kind value is a CodeSpecPart the annotation package declares',
+      () {
+        final source = File(
+          '../tom_specs_core/lib/src/annotations/code_spec_kind.dart',
+        ).readAsStringSync();
+        final body = RegExp(
+          r'enum CodeSpecPart\s*\{([\s\S]*?)\n\}',
+        ).firstMatch(source)?.group(1);
+        expect(body, isNotNull, reason: 'CodeSpecPart enum not found');
 
-      // Enum members are the identifiers at the start of a declaration line;
-      // doc comments and trailing commentary are skipped by the anchor.
-      final declared = {
-        for (final m
-            in RegExp(r'^\s{2}([a-z]\w*)\s*,', multiLine: true).allMatches(body!))
-          m.group(1)!,
-      };
-      expect(declared, isNotEmpty);
+        // Enum members are the identifiers at the start of a declaration line;
+        // doc comments and trailing commentary are skipped by the anchor.
+        final declared = {
+          for (final m in RegExp(
+            r'^\s{2}([a-z]\w*)\s*,',
+            multiLine: true,
+          ).allMatches(body!))
+            m.group(1)!,
+        };
+        expect(declared, isNotEmpty);
 
-      final catalog = buildAreasCatalog(mapping);
-      final transcribed = {for (final a in catalog.areas) a['part'] as String};
+        final catalog = buildAreasCatalog(mapping);
+        final transcribed = {
+          for (final a in catalog.areas) a['part'] as String,
+        };
 
-      expect(transcribed.difference(declared), isEmpty,
-          reason: '§4.1 names a kind value the CodeSpecPart enum does not '
+        expect(
+          transcribed.difference(declared),
+          isEmpty,
+          reason:
+              '§4.1 names a kind value the CodeSpecPart enum does not '
               'declare — the enum is generated from that table, so one of the '
-              'two has moved without the other.');
+              'two has moved without the other.',
+        );
 
-      // The other direction is not equality: §4.3 reserves a value for the
-      // deferred part, so the enum is legitimately larger. `domainEnum` is a
-      // member kind rather than a §4.1 part, but CE-EN — its extract home
-      // (§4.1 member-kind rule bullet) — transcribes it into the areas
-      // catalogue, so the only surplus left is the deferred candidate.
-      expect(declared.difference(transcribed).length, 1,
-          reason: 'the enum should hold exactly one non-area value — the §4.3 '
+        // The other direction is not equality: §4.3 reserves a value for the
+        // deferred part, so the enum is legitimately larger. `domainEnum` is a
+        // member kind rather than a §4.1 part, but CE-EN — its extract home
+        // (§4.1 member-kind rule bullet) — transcribes it into the areas
+        // catalogue, so the only surplus left is the deferred candidate.
+        expect(
+          declared.difference(transcribed).length,
+          1,
+          reason:
+              'the enum should hold exactly one non-area value — the §4.3 '
               'deferred candidate. Surplus: '
-              '${(declared.difference(transcribed).toList()..sort()).join(", ")}');
-      expect(transcribed, contains('domainEnum'),
-          reason: 'CE-EN, the member-kind extract home, must claim domainEnum');
-    });
+              '${(declared.difference(transcribed).toList()..sort()).join(", ")}',
+        );
+        expect(
+          transcribed,
+          contains('domainEnum'),
+          reason: 'CE-EN, the member-kind extract home, must claim domainEnum',
+        );
+      },
+    );
 
-    test('the slice relation is acyclic and the authoring order respects it',
-        () {
-      // buildAreasCatalog runs the structural guard over kSliceCites; this
-      // test states the property the guard exists for, so a future edit that
-      // drops the call fails here rather than passing silently.
-      for (final entry in kSliceCites.entries) {
-        for (final cited in entry.value) {
-          expect(cited, lessThan(entry.key),
-              reason: '§4.4.2 forbids forward references between slices');
+    test(
+      'the slice relation is acyclic and the authoring order respects it',
+      () {
+        // buildAreasCatalog runs the structural guard over kSliceCites; this
+        // test states the property the guard exists for, so a future edit that
+        // drops the call fails here rather than passing silently.
+        for (final entry in kSliceCites.entries) {
+          for (final cited in entry.value) {
+            expect(
+              cited,
+              lessThan(entry.key),
+              reason: '§4.4.2 forbids forward references between slices',
+            );
+          }
         }
-      }
-      final authored = <int>{};
-      for (final slice in kAuthoringSliceOrder) {
-        expect(authored.containsAll(kSliceCites[slice]!), isTrue,
-            reason: 'slice $slice is authored before a slice it cites');
-        authored.add(slice);
-      }
-      expect(authored.length, kSliceCites.length);
-    });
+        final authored = <int>{};
+        for (final slice in kAuthoringSliceOrder) {
+          expect(
+            authored.containsAll(kSliceCites[slice]!),
+            isTrue,
+            reason: 'slice $slice is authored before a slice it cites',
+          );
+          authored.add(slice);
+        }
+        expect(authored.length, kSliceCites.length);
+      },
+    );
 
-    test('every area places itself in the slices its authoring steps sit in',
-        () {
-      final catalog = buildAreasCatalog(mapping);
-      final sliceOf = {
-        for (final s in catalog.slices) s['number'] as int: s,
-      };
-      for (final area in catalog.areas) {
-        final slices = (area['slices'] as List).cast<int>();
-        expect(slices, isNotEmpty, reason: '${area['code']} sits in no slice');
-        for (final n in slices) {
-          expect(sliceOf.containsKey(n), isTrue,
-              reason: '${area['code']} names slice $n, which §4.4.3 has not');
+    test(
+      'every area places itself in the slices its authoring steps sit in',
+      () {
+        final catalog = buildAreasCatalog(mapping);
+        final sliceOf = {for (final s in catalog.slices) s['number'] as int: s};
+        for (final area in catalog.areas) {
+          final slices = (area['slices'] as List).cast<int>();
+          expect(
+            slices,
+            isNotEmpty,
+            reason: '${area['code']} sits in no slice',
+          );
+          for (final n in slices) {
+            expect(
+              sliceOf.containsKey(n),
+              isTrue,
+              reason: '${area['code']} names slice $n, which §4.4.3 has not',
+            );
+          }
+          expect(
+            (area['authoringSteps'] as List),
+            isNotEmpty,
+            reason: '${area['code']} has no authoring step',
+          );
         }
-        expect((area['authoringSteps'] as List), isNotEmpty,
-            reason: '${area['code']} has no authoring step');
-      }
-    });
+      },
+    );
 
     test('a mapping document missing a table fails loudly', () {
       // The transcription's one real hazard is silence: a §4.1 restructure that
@@ -117,7 +158,10 @@ void main() {
           .convert(mapping)
           .where((l) => !l.startsWith('#### 4.4.6 '))
           .join('\n');
-      expect(() => buildAreasCatalog(broken), throwsA(isA<AreasCatalogException>()));
+      expect(
+        () => buildAreasCatalog(broken),
+        throwsA(isA<AreasCatalogException>()),
+      );
     });
   });
 }

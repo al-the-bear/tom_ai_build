@@ -55,7 +55,7 @@ class DocspecsYamlSchemaGenerator {
   /// the one this build writes — normally a test. Leaving it null is what
   /// keeps the schema and the writer in lockstep.
   DocspecsYamlSchemaGenerator({int? formatVersion})
-      : formatVersion = formatVersion ?? SpecDocumentYaml.formatVersion;
+    : formatVersion = formatVersion ?? SpecDocumentYaml.formatVersion;
 
   /// Builds the Draft-07 JSON Schema as a plain JSON-encodable map.
   Map<String, Object?> generate() {
@@ -63,7 +63,8 @@ class DocspecsYamlSchemaGenerator {
       r'$schema': 'http://json-schema.org/draft-07/schema#',
       r'$id': schemaId,
       'title': 'TomSpecs Document (*.docspecs.yaml)',
-      'description': 'Structural schema for the generic on-disk TomSpecs '
+      'description':
+          'Structural schema for the generic on-disk TomSpecs '
           'document wire format written by SpecDocumentYaml.encode '
           '(hierarchical format version $formatVersion). Validates the file '
           'envelope and value nesting, independently of any per-root DocSpecs '
@@ -80,13 +81,15 @@ class DocspecsYamlSchemaGenerator {
         'modelVersion': {
           'type': 'string',
           'pattern': r'^[0-9]+\.[0-9]+$',
-          'description': 'Authoring object-model version (major.minor) the '
+          'description':
+              'Authoring object-model version (major.minor) the '
               'content was last written against.',
         },
         'document': {r'$ref': r'#/$defs/document'},
         'review': {
           'type': 'object',
-          'description': 'Optional editor structural-review pass; opaque to '
+          'description':
+              'Optional editor structural-review pass; opaque to '
               'the runtime, so its inner shape is unconstrained.',
           'additionalProperties': true,
         },
@@ -94,19 +97,22 @@ class DocspecsYamlSchemaGenerator {
       r'$defs': <String, Object?>{
         'document': {
           'type': 'object',
-          'description': 'The live object-model values as one nested section '
+          'description':
+              'The live object-model values as one nested section '
               'tree under a single document-root key ("<SECTION-ID> '
               '<memberName>"). An empty mapping decodes as an empty document.',
           'maxProperties': 1,
           'additionalProperties': {
             'type': 'object',
-            'description': 'The root section body — a mapping of child nodes '
+            'description':
+                'The root section body — a mapping of child nodes '
                 '(a scalar in root position is rejected by the codec).',
             'additionalProperties': {r'$ref': r'#/$defs/node'},
           },
         },
         'node': {
-          'description': 'One section-tree node: a scalar leaf '
+          'description':
+              'One section-tree node: a scalar leaf '
               '(content/scalar/enum value or form field) or a nested mapping '
               '(section, form block, list container, list item). Which one is '
               'legal at a given position is model-dependent and enforced by '

@@ -26,30 +26,43 @@ void main() {
 
     setUpAll(() {
       config = SpecObjectModelConfig.fromYaml(
-          File(configPath).readAsStringSync());
+        File(configPath).readAsStringSync(),
+      );
     });
 
     test('every configured language is covered by the stamp and on disk', () {
       final stamp = readModelSurfaceStamp(clitoolRoot: clitoolRoot);
-      expect(stamp, isNotNull,
-          reason: 'no $modelSurfaceStampPath — run '
-              '`dart run bin/generate_som.dart` to write it.');
+      expect(
+        stamp,
+        isNotNull,
+        reason:
+            'no $modelSurfaceStampPath — run '
+            '`dart run bin/generate_som.dart` to write it.',
+      );
 
       final mismatch = somPackageCoverageMismatch(
         config: config,
         configDir: p.dirname(configPath),
         stampedPackages: stamp!.packages,
       );
-      expect(mismatch, isNull,
-          reason: 'the set of generated packages has changed without a '
-              'regeneration.\n$mismatch');
+      expect(
+        mismatch,
+        isNull,
+        reason:
+            'the set of generated packages has changed without a '
+            'regeneration.\n$mismatch',
+      );
     });
 
     test('the committed packages were generated from the current model', () {
       final stamp = readModelSurfaceStamp(clitoolRoot: clitoolRoot);
-      expect(stamp, isNotNull,
-          reason: 'no $modelSurfaceStampPath — run '
-              '`dart run bin/generate_som.dart` to write it.');
+      expect(
+        stamp,
+        isNotNull,
+        reason:
+            'no $modelSurfaceStampPath — run '
+            '`dart run bin/generate_som.dart` to write it.',
+      );
 
       final now = computeModelSurface(
         modelPackagePath: modelDir,
@@ -57,23 +70,24 @@ void main() {
       );
       if (now.fingerprint == stamp!.fingerprint) return;
 
-      fail('tom_specs_model has changed since it was last generated from, so '
-          'all ${stamp.packages.length} tom_som_*_v0 packages — sources, '
-          'meta/spec_model.meta.json and the DocSpecs schemas — plus the '
-          'spec_ops.g.dart registry in the model package describe the '
-          'previous model.\n'
-          '  files:        ${stamp.fileCount} -> ${now.fileCount}\n'
-          '  declarations: ${stamp.declarationCount} -> '
-          '${now.declarationCount}\n'
-          '\n'
-          'Regenerate and commit the result together with the stamp:\n'
-          '  cd tom_specs_clitool && dart run bin/generate_som.dart\n'
-          '\n'
-          'See _copilot_guidelines/som_regeneration.md.');
+      fail(
+        'tom_specs_model has changed since it was last generated from, so '
+        'all ${stamp.packages.length} tom_som_*_v0 packages — sources, '
+        'meta/spec_model.meta.json and the DocSpecs schemas — plus the '
+        'spec_ops.g.dart registry in the model package describe the '
+        'previous model.\n'
+        '  files:        ${stamp.fileCount} -> ${now.fileCount}\n'
+        '  declarations: ${stamp.declarationCount} -> '
+        '${now.declarationCount}\n'
+        '\n'
+        'Regenerate and commit the result together with the stamp:\n'
+        '  cd tom_specs_clitool && dart run bin/generate_som.dart\n'
+        '\n'
+        'See _copilot_guidelines/som_regeneration.md.',
+      );
     });
 
-    test('the fingerprint covers the reader file set plus the version stamp',
-        () {
+    test('the fingerprint covers the reader file set plus the version stamp', () {
       // Pins the one deliberate difference from ModelReader's own file set: the
       // reader skips `*.versioner.dart`, but three of the meta's stamped fields
       // are read straight out of it, so the gate must not.
@@ -125,7 +139,9 @@ class Alpha {
 
     test('moves when a member is added', () {
       final changed = base.replaceFirst(
-          '  String? title;', '  String? title;\n  String? subtitle;');
+        '  String? title;',
+        '  String? title;\n  String? subtitle;',
+      );
       expect(hashOf({'a.dart': changed}), isNot(hashOf({'a.dart': base})));
     });
 
@@ -140,12 +156,18 @@ class Alpha {
     });
 
     test('moves when a declared type changes', () {
-      final changed = base.replaceFirst('String? title;', 'List<String>? title;');
+      final changed = base.replaceFirst(
+        'String? title;',
+        'List<String>? title;',
+      );
       expect(hashOf({'a.dart': changed}), isNot(hashOf({'a.dart': base})));
     });
 
     test('moves when an annotation argument changes', () {
-      final changed = base.replaceFirst("@SectionId('AAA')", "@SectionId('BBB')");
+      final changed = base.replaceFirst(
+        "@SectionId('AAA')",
+        "@SectionId('BBB')",
+      );
       expect(hashOf({'a.dart': changed}), isNot(hashOf({'a.dart': base})));
     });
 
@@ -153,8 +175,10 @@ class Alpha {
       // The model-specific case: doc comments are exported into every language's
       // meta as `docComment`, so rewording one really does change all nine
       // packages. (The equivalent guard over the D4rt bridges ignores them.)
-      final changed =
-          base.replaceFirst("/// The section's title.", '/// The headline.');
+      final changed = base.replaceFirst(
+        "/// The section's title.",
+        '/// The headline.',
+      );
       expect(hashOf({'a.dart': changed}), isNot(hashOf({'a.dart': base})));
     });
 
@@ -171,14 +195,17 @@ class Alpha {
 
     test('ignores a rewritten function body', () {
       final changed = base.replaceFirst(
-          'String get shout => title!.toUpperCase();',
-          'String get shout {\n    return title!.toUpperCase();\n  }');
+        'String get shout => title!.toUpperCase();',
+        'String get shout {\n    return title!.toUpperCase();\n  }',
+      );
       expect(hashOf({'a.dart': changed}), hashOf({'a.dart': base}));
     });
 
     test('ignores an ordinary comment', () {
       final changed = base.replaceFirst(
-          '  // An ordinary implementation note.', '  // Something else.');
+        '  // An ordinary implementation note.',
+        '  // Something else.',
+      );
       expect(hashOf({'a.dart': changed}), hashOf({'a.dart': base}));
     });
   });

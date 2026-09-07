@@ -294,6 +294,7 @@ export 'src/codespecs/areas_catalog.dart'
 // tom_specs_documentation_standard.md, held against reality by a walker over
 // the committed manifest, in the shape of the release-closure gate beside it.
 export 'src/doc_coverage.dart';
+export 'src/format_check.dart';
 
 export 'src/packaging.dart'
     show

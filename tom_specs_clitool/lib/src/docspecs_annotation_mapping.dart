@@ -65,15 +65,15 @@ class DocSpecsAnnotationBinding {
     this.owner,
     this.modelOnly,
     required this.note,
-  })  : assert(
-          (schemaKey == null) != (modelOnly == null),
-          'A binding is either schema-bound (schemaKey) or model-only '
-          '(modelOnly) — exactly one.',
-        ),
-        assert(
-          schemaKey == null || owner != null,
-          'A schema-bound binding names the schema object that owns the key.',
-        );
+  }) : assert(
+         (schemaKey == null) != (modelOnly == null),
+         'A binding is either schema-bound (schemaKey) or model-only '
+         '(modelOnly) — exactly one.',
+       ),
+       assert(
+         schemaKey == null || owner != null,
+         'A schema-bound binding names the schema object that owns the key.',
+       );
 
   /// The annotation class name as declared in `tom_specs_core`.
   final String annotation;
@@ -137,7 +137,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'SectionId',
     schemaKey: 'prefix',
     owner: DocSpecsOwner.sectionType,
-    note: 'Names the section type (id lower-cased) and, with the TomSpecs '
+    note:
+        'Names the section type (id lower-cased) and, with the TomSpecs '
         'dashes transformed to `_`, supplies the default prefix.',
   ),
 
@@ -148,7 +149,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'SectionIdPattern',
     schemaKey: 'pattern-check-id',
     owner: DocSpecsOwner.sectionType,
-    note: 'The pattern with `xxx` compiled to `.+`; an explicit '
+    note:
+        'The pattern with `xxx` compiled to `.+`; an explicit '
         '`@PatternCheckId` overrides it.',
   ),
 
@@ -159,7 +161,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'Document',
     schemaKey: 'title-format',
     owner: DocSpecsOwner.schema,
-    note: 'Marks the root: its `name` becomes the schema id and the '
+    note:
+        'Marks the root: its `name` becomes the schema id and the '
         '`title-format` custom tag.',
   ),
 
@@ -170,7 +173,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'Prefix',
     schemaKey: 'prefix',
     owner: DocSpecsOwner.sectionType,
-    note: 'Overrides the section-id-derived prefix for two-stage heading '
+    note:
+        'Overrides the section-id-derived prefix for two-stage heading '
         'resolution.',
   ),
 
@@ -181,7 +185,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'Position',
     schemaKey: 'position',
     owner: DocSpecsOwner.subsectionDeclaration,
-    note: "`first` / `last` / `any`; emitted into the root's "
+    note:
+        "`first` / `last` / `any`; emitted into the root's "
         '`subsection-declarations` block.',
   ),
 
@@ -191,7 +196,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'SerializationOrder',
     modelOnly: ModelOnlyReason.generation,
-    note: 'Pins on-disk member order across the nine runtimes. Document '
+    note:
+        'Pins on-disk member order across the nine runtimes. Document '
         'section order is carried by the schema structure itself.',
   ),
 
@@ -203,7 +209,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'ContentType',
     schemaKey: 'format',
     owner: DocSpecsOwner.sectionType,
-    note: 'Code/diagram content types become `format`; plain text carries '
+    note:
+        'Code/diagram content types become `format`; plain text carries '
         'none (a `format` makes the validator demand a fenced block).',
   ),
 
@@ -224,7 +231,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'Field',
     schemaKey: 'fieldname',
     owner: DocSpecsOwner.formField,
-    note: 'One `@Form` field: name, `required`, and `description` from the '
+    note:
+        'One `@Form` field: name, `required`, and `description` from the '
         'author hint.',
   ),
 
@@ -245,7 +253,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'Headline',
     schemaKey: 'title-format',
     owner: DocSpecsOwner.schema,
-    note: 'A root-class headline wins over the `@Document` name in the '
+    note:
+        'A root-class headline wins over the `@Document` name in the '
         '`title-format` custom tag (YRD4).',
   ),
 
@@ -265,7 +274,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'Unused',
     modelOnly: ModelOnlyReason.structural,
-    note: 'Omits the node and its subtree from the schema entirely — an '
+    note:
+        'Omits the node and its subtree from the schema entirely — an '
         'absence, not a property.',
   ),
 
@@ -275,7 +285,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'Comment',
     modelOnly: ModelOnlyReason.generation,
-    note: 'Free-form metadata for downstream generators (e.g. the CodeSpecs '
+    note:
+        'Free-form metadata for downstream generators (e.g. the CodeSpecs '
         'projection loci).',
   ),
 
@@ -287,7 +298,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'Min',
     schemaKey: 'min-count',
     owner: DocSpecsOwner.subsectionConstraint,
-    note: 'Also drives `optional:` on a top-level `document.sections` entry '
+    note:
+        'Also drives `optional:` on a top-level `document.sections` entry '
         'and `text-required` on a content member.',
   ),
 
@@ -345,7 +357,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'PatternCheckId',
     schemaKey: 'pattern-check-id',
     owner: DocSpecsOwner.sectionType,
-    note: 'Explicit id-format check; overrides the `@SectionIdPattern`-derived '
+    note:
+        'Explicit id-format check; overrides the `@SectionIdPattern`-derived '
         'stem check.',
   ),
 
@@ -366,7 +379,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'ValidationPrompt',
     schemaKey: 'validation-prompt',
     owner: DocSpecsOwner.sectionType,
-    note: 'AI-assisted validation prompt. Emitted on the section type only — '
+    note:
+        'AI-assisted validation prompt. Emitted on the section type only — '
         "DocSpecs also allows one per `document.sections` entry, but the "
         'model has a single annotation, so duplicating it there would say the '
         'same thing twice.',
@@ -378,7 +392,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'OneOf',
     modelOnly: ModelOnlyReason.generation,
-    note: 'A discriminated subsection group. The DocSpecs schema has no '
+    note:
+        'A discriminated subsection group. The DocSpecs schema has no '
         'conditional-presence construct, so both arms stay optional there and '
         'the choice is enforced by the runtime `validateDocument`.',
   ),
@@ -389,7 +404,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'Case',
     modelOnly: ModelOnlyReason.generation,
-    note: 'Binds a subsection to one `@OneOf` discriminator constant; shares '
+    note:
+        'Binds a subsection to one `@OneOf` discriminator constant; shares '
         "`@OneOf`'s reason.",
   ),
 
@@ -400,7 +416,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'Reference',
     modelOnly: ModelOnlyReason.traceability,
-    note: 'A typed pointer at another section class. It adds no section of '
+    note:
+        'A typed pointer at another section class. It adds no section of '
         'its own — the outliner does not recurse into it and the schema has '
         'no cross-reference construct.',
   ),
@@ -412,7 +429,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'AccessKey',
     schemaKey: 'access-key',
     owner: DocSpecsOwner.documentSection,
-    note: 'The key a section is reached by in the DocSpecs access API, '
+    note:
+        'The key a section is reached by in the DocSpecs access API, '
         'overriding the section name.',
   ),
 
@@ -423,7 +441,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
     'ForEach',
     schemaKey: 'for-each',
     owner: DocSpecsOwner.documentSection,
-    note: 'Links a list section to the registry section type whose entries it '
+    note:
+        'Links a list section to the registry section type whose entries it '
         'must mirror 1:1, matched by `key`.',
   ),
 
@@ -434,7 +453,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'MapsTo',
     modelOnly: ModelOnlyReason.traceability,
-    note: 'Names the Solution Blueprint seed node for a Phase-3 document — a '
+    note:
+        'Names the Solution Blueprint seed node for a Phase-3 document — a '
         'relation between two schemas, not a property of either.',
   ),
 
@@ -444,7 +464,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'DetailedIn',
     modelOnly: ModelOnlyReason.traceability,
-    note: 'Promotes a class to a top-level entry of the target document; '
+    note:
+        'Promotes a class to a top-level entry of the target document; '
         'shapes which schema a section appears in, not what it declares.',
   ),
 
@@ -454,7 +475,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'StandardReferences',
     modelOnly: ModelOnlyReason.traceability,
-    note: 'The public standard a section derives from. Provenance, not a '
+    note:
+        'The public standard a section derives from. Provenance, not a '
         'constraint on the document.',
   ),
 
@@ -465,7 +487,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'CodeSpecKind',
     modelOnly: ModelOnlyReason.traceability,
-    note: 'Routes a section type to CodeSpecs part types — a statement about '
+    note:
+        'Routes a section type to CodeSpecs part types — a statement about '
         'downstream code generation.',
   ),
 
@@ -484,7 +507,8 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'NoArtifact',
     modelOnly: ModelOnlyReason.traceability,
-    note: 'The third routing verdict — records that a section feeds neither '
+    note:
+        'The third routing verdict — records that a section feeds neither '
         'CodeSpecs nor a follow-up process. A statement about downstream '
         'artifacts, not about the document.',
   ),
@@ -495,20 +519,22 @@ const List<DocSpecsAnnotationBinding> docSpecsAnnotationBindings = [
   DocSpecsAnnotationBinding(
     'CodeSpecsProjection',
     modelOnly: ModelOnlyReason.generation,
-    note: 'Marks a `@Document` root as the CodeSpecs generation projection, '
+    note:
+        'Marks a `@Document` root as the CodeSpecs generation projection, '
         'exempting it from the detail-count invariant.',
   ),
 ];
 
 /// Bindings keyed by annotation name.
-Map<String, DocSpecsAnnotationBinding> get docSpecsAnnotationBindingsByName =>
-    {for (final b in docSpecsAnnotationBindings) b.annotation: b};
+Map<String, DocSpecsAnnotationBinding> get docSpecsAnnotationBindingsByName => {
+  for (final b in docSpecsAnnotationBindings) b.annotation: b,
+};
 
 /// The schema keys the generator is expected to be able to emit.
 Set<String> get boundDocSpecsSchemaKeys => {
-      for (final b in docSpecsAnnotationBindings)
-        if (b.schemaKey != null) b.schemaKey!,
-    };
+  for (final b in docSpecsAnnotationBindings)
+    if (b.schemaKey != null) b.schemaKey!,
+};
 
 /// The result of diffing the declared bindings against the annotation classes
 /// `tom_specs_core` actually declares.
@@ -596,8 +622,7 @@ Set<String> readDeclaredAnnotationClasses(Directory annotationsDir) {
 /// Compares the declared annotation classes against the mapping table.
 AnnotationCatalogueCorrespondence checkAnnotationCatalogue(
   Directory annotationsDir,
-) =>
-    AnnotationCatalogueCorrespondence(
-      declared: readDeclaredAnnotationClasses(annotationsDir),
-      bound: docSpecsAnnotationBindingsByName.keys.toSet(),
-    );
+) => AnnotationCatalogueCorrespondence(
+  declared: readDeclaredAnnotationClasses(annotationsDir),
+  bound: docSpecsAnnotationBindingsByName.keys.toSet(),
+);

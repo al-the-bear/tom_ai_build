@@ -44,16 +44,15 @@ void main() {
   });
 
   SomJavaGenerationResult writeInto(Directory dir) => writeSomJavaProject(
-        classes: classes,
-        runtimePackagePath: javaRuntimeDir,
-        outputRoot: dir.path,
-        modelVersion: modelVersion,
-        modelLabel: modelLabel,
-        generatedAt: generatedAt,
-      );
+    classes: classes,
+    runtimePackagePath: javaRuntimeDir,
+    outputRoot: dir.path,
+    modelVersion: modelVersion,
+    modelLabel: modelLabel,
+    generatedAt: generatedAt,
+  );
 
-  test('writes the full Java v0 artefact tree with a valid, stamped meta-data',
-      () {
+  test('writes the full Java v0 artefact tree with a valid, stamped meta-data', () {
     final dir = Directory.systemTemp.createTempSync('som_java_gen_');
     addTearDown(() => dir.deleteSync(recursive: true));
     final result = writeInto(dir);
@@ -61,10 +60,14 @@ void main() {
     // Meta-data exists, validates, and carries the stable build stamp.
     final metaFile = File(result.metaJsonPath);
     expect(metaFile.existsSync(), isTrue);
-    final meta = jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
+    final meta =
+        jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
     expect(validateSpecModelMeta(meta), isEmpty);
-    expect(meta['generatedAt'], generatedAt,
-        reason: 'generatedAt must be the stable model build instant');
+    expect(
+      meta['generatedAt'],
+      generatedAt,
+      reason: 'generatedAt must be the stable model build instant',
+    );
     expect(meta['modelVersion'], modelVersion);
     expect(meta['modelVersionLabel'], modelLabel);
 
@@ -73,23 +76,31 @@ void main() {
     final source = File(result.sourcePath).readAsStringSync();
     expect(source, contains('public final class TomSomV0'));
     expect(source, contains('class D00SolutionBlueprint extends SomNode'));
-    expect(result.sourcePath, endsWith(p.join('tom_som_java_v0', 'TomSomV0.java')));
+    expect(
+      result.sourcePath,
+      endsWith(p.join('tom_som_java_v0', 'TomSomV0.java')),
+    );
 
     // The metadata module (SOM §8) exists as the facade's package sibling and
     // carries the per-root trees + access-surface entry points; the facade's
     // loaders thread the generated tree into the runtime.
     final metaModule = File(result.metaModulePath);
     expect(metaModule.existsSync(), isTrue);
-    expect(result.metaModulePath,
-        endsWith(p.join('tom_som_java_v0', 'TomSomV0Meta.java')));
+    expect(
+      result.metaModulePath,
+      endsWith(p.join('tom_som_java_v0', 'TomSomV0Meta.java')),
+    );
     final metaSource = metaModule.readAsStringSync();
     expect(metaSource, contains('public final class TomSomV0Meta'));
     expect(metaSource, contains('D00SolutionBlueprintMetaTree'));
     expect(metaSource, contains('SBP ='));
     expect(
-        source,
-        contains('SpecDocument.fromYaml(yaml, '
-            'TomSomV0Meta.D00SolutionBlueprintMetaTree)'));
+      source,
+      contains(
+        'SpecDocument.fromYaml(yaml, '
+        'TomSomV0Meta.D00SolutionBlueprintMetaTree)',
+      ),
+    );
 
     // One DocSpecs schema per @Document root (14).
     expect(result.schemaPaths.length, 14);
@@ -104,11 +115,16 @@ void main() {
             as Map<String, Object?>;
     expect(manifest['package'], 'tom_som_java_v0');
     final rtPath = manifest['runtimeSourcePath'] as String;
-    expect(p.isRelative(rtPath), isTrue,
-        reason: 'runtime source path must be relative, got $rtPath');
-    expect(p.normalize(p.join(result.outputRoot, rtPath)),
-        p.normalize(p.join(javaRuntimeDir, 'src')),
-        reason: 'relative path must resolve to the java runtime src');
+    expect(
+      p.isRelative(rtPath),
+      isTrue,
+      reason: 'runtime source path must be relative, got $rtPath',
+    );
+    expect(
+      p.normalize(p.join(result.outputRoot, rtPath)),
+      p.normalize(p.join(javaRuntimeDir, 'src')),
+      reason: 'relative path must resolve to the java runtime src',
+    );
 
     // pom.xml is a publishable Maven manifest (SOM §17.3): it declares the
     // coordinates under `io.github.al-the-bear`, the facade version pinned to the
@@ -118,19 +134,30 @@ void main() {
     expect(result.pomPath, endsWith('pom.xml'));
     expect(pom, contains('<groupId>io.github.al-the-bear</groupId>'));
     expect(pom, contains('<artifactId>tom_som_java_v0</artifactId>'));
-    expect(pom, contains('<modelVersion>4.0.0</modelVersion>'),
-        reason: 'a Maven POM must declare its schema modelVersion');
-    // The first (project) <version> is the model version 1.0.0 (label major).
-    final firstVersion =
-        RegExp(r'<version>([^<]*)</version>').firstMatch(pom)!.group(1);
-    expect(firstVersion, '1.0.0',
-        reason: 'the facade version is the TomSpecs model version');
-    expect(pom, contains('<sourceDirectory>src</sourceDirectory>'),
-        reason: 'the flat facade layout keeps sources under src/');
     expect(
-        pom,
-        contains('<artifactId>tom_som_java_runtime</artifactId>'),
-        reason: 'the facade must depend on the runtime artifact');
+      pom,
+      contains('<modelVersion>4.0.0</modelVersion>'),
+      reason: 'a Maven POM must declare its schema modelVersion',
+    );
+    // The first (project) <version> is the model version 1.0.0 (label major).
+    final firstVersion = RegExp(
+      r'<version>([^<]*)</version>',
+    ).firstMatch(pom)!.group(1);
+    expect(
+      firstVersion,
+      '1.0.0',
+      reason: 'the facade version is the TomSpecs model version',
+    );
+    expect(
+      pom,
+      contains('<sourceDirectory>src</sourceDirectory>'),
+      reason: 'the flat facade layout keeps sources under src/',
+    );
+    expect(
+      pom,
+      contains('<artifactId>tom_som_java_runtime</artifactId>'),
+      reason: 'the facade must depend on the runtime artifact',
+    );
 
     // build_jar.sh is the JDK-only `mvn package` fallback: it reads the runtime
     // location from the build manifest and the version from pom.xml, then jars
@@ -160,9 +187,11 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rj.metaJsonPath).readAsStringSync(),
-        File(rd.metaJsonPath).readAsStringSync(),
-        reason: 'meta-data must be language-agnostic / byte-identical');
+    expect(
+      File(rj.metaJsonPath).readAsStringSync(),
+      File(rd.metaJsonPath).readAsStringSync(),
+      reason: 'meta-data must be language-agnostic / byte-identical',
+    );
   });
 
   test('the Java DocSpecs schemas are byte-identical to the Dart path', () {
@@ -180,43 +209,64 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(rj.schemaPaths.map((s) => p.basename(s)).toList(),
-        rd.schemaPaths.map((s) => p.basename(s)).toList());
+    expect(
+      rj.schemaPaths.map((s) => p.basename(s)).toList(),
+      rd.schemaPaths.map((s) => p.basename(s)).toList(),
+    );
     for (var i = 0; i < rj.schemaPaths.length; i++) {
-      expect(File(rj.schemaPaths[i]).readAsStringSync(),
-          File(rd.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(rj.schemaPaths[i])} must be '
-              'language-agnostic / byte-identical');
+      expect(
+        File(rj.schemaPaths[i]).readAsStringSync(),
+        File(rd.schemaPaths[i]).readAsStringSync(),
+        reason:
+            'schema ${p.basename(rj.schemaPaths[i])} must be '
+            'language-agnostic / byte-identical',
+      );
     }
   });
 
-  test('regeneration is idempotent (byte-stable output for unchanged input)',
-      () {
-    final a = Directory.systemTemp.createTempSync('som_java_a_');
-    final b = Directory.systemTemp.createTempSync('som_java_b_');
-    addTearDown(() => a.deleteSync(recursive: true));
-    addTearDown(() => b.deleteSync(recursive: true));
-    final ra = writeInto(a);
-    final rb = writeInto(b);
+  test(
+    'regeneration is idempotent (byte-stable output for unchanged input)',
+    () {
+      final a = Directory.systemTemp.createTempSync('som_java_a_');
+      final b = Directory.systemTemp.createTempSync('som_java_b_');
+      addTearDown(() => a.deleteSync(recursive: true));
+      addTearDown(() => b.deleteSync(recursive: true));
+      final ra = writeInto(a);
+      final rb = writeInto(b);
 
-    expect(File(rb.sourcePath).readAsStringSync(),
-        File(ra.sourcePath).readAsStringSync());
-    expect(File(rb.metaModulePath).readAsStringSync(),
-        File(ra.metaModulePath).readAsStringSync());
-    expect(File(rb.metaJsonPath).readAsStringSync(),
-        File(ra.metaJsonPath).readAsStringSync());
-    expect(File(rb.manifestPath).readAsStringSync(),
-        File(ra.manifestPath).readAsStringSync());
-    expect(File(rb.pomPath).readAsStringSync(),
-        File(ra.pomPath).readAsStringSync());
-    expect(File(rb.buildScriptPath).readAsStringSync(),
-        File(ra.buildScriptPath).readAsStringSync());
-    for (var i = 0; i < ra.schemaPaths.length; i++) {
-      expect(File(rb.schemaPaths[i]).readAsStringSync(),
+      expect(
+        File(rb.sourcePath).readAsStringSync(),
+        File(ra.sourcePath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaModulePath).readAsStringSync(),
+        File(ra.metaModulePath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaJsonPath).readAsStringSync(),
+        File(ra.metaJsonPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.manifestPath).readAsStringSync(),
+        File(ra.manifestPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.pomPath).readAsStringSync(),
+        File(ra.pomPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.buildScriptPath).readAsStringSync(),
+        File(ra.buildScriptPath).readAsStringSync(),
+      );
+      for (var i = 0; i < ra.schemaPaths.length; i++) {
+        expect(
+          File(rb.schemaPaths[i]).readAsStringSync(),
           File(ra.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable');
-    }
-  });
+          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable',
+        );
+      }
+    },
+  );
 
   test('the analyze+write path matches the write-only path', () async {
     final viaWrite = Directory.systemTemp.createTempSync('som_java_w_');
@@ -233,10 +283,14 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rf.sourcePath).readAsStringSync(),
-        File(rw.sourcePath).readAsStringSync());
-    expect(File(rf.metaJsonPath).readAsStringSync(),
-        File(rw.metaJsonPath).readAsStringSync());
+    expect(
+      File(rf.sourcePath).readAsStringSync(),
+      File(rw.sourcePath).readAsStringSync(),
+    );
+    expect(
+      File(rf.metaJsonPath).readAsStringSync(),
+      File(rw.metaJsonPath).readAsStringSync(),
+    );
   });
 
   test('the emitted source compiles under javac', () {
@@ -263,8 +317,11 @@ void main() {
       result.sourcePath,
       result.metaModulePath,
     ]);
-    expect(res.exitCode, 0,
-        reason: 'generated Java source must compile:\n${res.stderr}');
+    expect(
+      res.exitCode,
+      0,
+      reason: 'generated Java source must compile:\n${res.stderr}',
+    );
   });
 
   test('build_jar.sh produces a facade-only JAR (SOM §17.2)', () {
@@ -285,20 +342,29 @@ void main() {
     // The emitted manifest's relative runtimeSourcePath resolves from this temp
     // project back to the real runtime src, so build_jar.sh compiles against it.
     final res = Process.runSync('bash', [result.buildScriptPath]);
-    expect(res.exitCode, 0,
-        reason: 'build_jar.sh must build the facade JAR:\n${res.stderr}');
+    expect(
+      res.exitCode,
+      0,
+      reason: 'build_jar.sh must build the facade JAR:\n${res.stderr}',
+    );
 
     final jar = File(p.join(dir.path, 'build', 'tom_som_java_v0-1.0.0.jar'));
-    expect(jar.existsSync(), isTrue,
-        reason: 'build_jar.sh must write build/tom_som_java_v0-<version>.jar');
+    expect(
+      jar.existsSync(),
+      isTrue,
+      reason: 'build_jar.sh must write build/tom_som_java_v0-<version>.jar',
+    );
 
     // The facade JAR carries only the facade package (the runtime ships its own
     // JAR), so runtime classes must be absent.
     final listing =
         Process.runSync('jar', ['--list', '--file', jar.path]).stdout as String;
     expect(listing, contains('tom_som_java_v0/'));
-    expect(listing, isNot(contains('tom_som_runtime/')),
-        reason: 'the facade JAR must exclude the separately-shipped runtime');
+    expect(
+      listing,
+      isNot(contains('tom_som_runtime/')),
+      reason: 'the facade JAR must exclude the separately-shipped runtime',
+    );
   });
 }
 

@@ -172,12 +172,14 @@ class SpecObjectModelConfig {
     if (versionLabel.trim().isEmpty) {
       throw SpecObjectModelConfigException('version-label must not be empty');
     }
-    final outputBase =
-        _stringField(block, 'output-base') ?? defaultOutputBase;
+    final outputBase = _stringField(block, 'output-base') ?? defaultOutputBase;
 
     final documentRoots = _parseDocumentRoots(block['document-roots']);
-    final languages =
-        _parseLanguages(block['languages'], versionLabel, outputBase);
+    final languages = _parseLanguages(
+      block['languages'],
+      versionLabel,
+      outputBase,
+    );
 
     return SpecObjectModelConfig(
       versionLabel: versionLabel,
@@ -195,16 +197,19 @@ class SpecObjectModelConfig {
     final doc = loadYaml(yamlText);
     if (doc is! Map) {
       throw SpecObjectModelConfigException(
-          'config document must be a YAML mapping at the top level');
+        'config document must be a YAML mapping at the top level',
+      );
     }
     final block = doc[configKey];
     if (block == null) {
       throw SpecObjectModelConfigException(
-          'no `$configKey` block found in the config document');
+        'no `$configKey` block found in the config document',
+      );
     }
     if (block is! Map) {
       throw SpecObjectModelConfigException(
-          '`$configKey` must be a mapping, got ${block.runtimeType}');
+        '`$configKey` must be a mapping, got ${block.runtimeType}',
+      );
     }
     return SpecObjectModelConfig.fromMap(block);
   }
@@ -214,7 +219,8 @@ class SpecObjectModelConfig {
     if (value == null) return null;
     if (value is! String) {
       throw SpecObjectModelConfigException(
-          '`$key` must be a string, got ${value.runtimeType}');
+        '`$key` must be a string, got ${value.runtimeType}',
+      );
     }
     return value;
   }
@@ -223,14 +229,16 @@ class SpecObjectModelConfig {
     if (raw == null) return const [];
     if (raw is! List) {
       throw SpecObjectModelConfigException(
-          '`document-roots` must be a list, got ${raw.runtimeType}');
+        '`document-roots` must be a list, got ${raw.runtimeType}',
+      );
     }
     final roots = <String>[];
     for (final entry in raw) {
       if (entry is! String) {
         throw SpecObjectModelConfigException(
-            '`document-roots` entries must be strings, got '
-            '${entry.runtimeType} ($entry)');
+          '`document-roots` entries must be strings, got '
+          '${entry.runtimeType} ($entry)',
+        );
       }
       roots.add(entry);
     }
@@ -238,10 +246,14 @@ class SpecObjectModelConfig {
   }
 
   static List<SomLanguageTarget> _parseLanguages(
-      Object? raw, String versionLabel, String outputBase) {
+    Object? raw,
+    String versionLabel,
+    String outputBase,
+  ) {
     if (raw is! List || raw.isEmpty) {
       throw SpecObjectModelConfigException(
-          '`languages` must be a non-empty list of target languages');
+        '`languages` must be a non-empty list of target languages',
+      );
     }
     final targets = <SomLanguageTarget>[];
     final seen = <SomLanguage>{};
@@ -249,12 +261,15 @@ class SpecObjectModelConfig {
       final (language, override) = _parseLanguageEntry(entry);
       if (!seen.add(language)) {
         throw SpecObjectModelConfigException(
-            'duplicate language `${language.slug}` in `languages`');
+          'duplicate language `${language.slug}` in `languages`',
+        );
       }
-      final outputRoot = override ??
+      final outputRoot =
+          override ??
           p.join(outputBase, 'tom_som_${language.slug}_$versionLabel');
       targets.add(
-          SomLanguageTarget(language: language, outputRoot: outputRoot));
+        SomLanguageTarget(language: language, outputRoot: outputRoot),
+      );
     }
     return targets;
   }
@@ -269,26 +284,30 @@ class SpecObjectModelConfig {
       final token = entry['language'];
       if (token is! String) {
         throw SpecObjectModelConfigException(
-            'a `languages` map entry needs a string `language` key');
+          'a `languages` map entry needs a string `language` key',
+        );
       }
       final output = entry['output'];
       if (output != null && output is! String) {
         throw SpecObjectModelConfigException(
-            '`output` must be a string, got ${output.runtimeType}');
+          '`output` must be a string, got ${output.runtimeType}',
+        );
       }
       return (_resolveToken(token), output as String?);
     }
     throw SpecObjectModelConfigException(
-        '`languages` entries must be a token string or a {language, output} '
-        'map, got ${entry.runtimeType}');
+      '`languages` entries must be a token string or a {language, output} '
+      'map, got ${entry.runtimeType}',
+    );
   }
 
   static SomLanguage _resolveToken(String token) {
     final language = SomLanguage.fromToken(token);
     if (language == null) {
       throw SpecObjectModelConfigException(
-          'unknown language `$token`; supported: '
-          '${SomLanguage.values.map((l) => l.slug).join(', ')}');
+        'unknown language `$token`; supported: '
+        '${SomLanguage.values.map((l) => l.slug).join(', ')}',
+      );
     }
     return language;
   }

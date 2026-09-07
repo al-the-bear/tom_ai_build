@@ -21,14 +21,16 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'target',
       allowed: [for (final t in ModelJsonTarget.values) t.id],
-      help: 'Refresh a committed spec_model.json asset. Determines both the '
+      help:
+          'Refresh a committed spec_model.json asset. Determines both the '
           'output path and the version stamp; cannot be combined with '
           '--output / --model-version / --model-label.',
     )
     ..addOption(
       'package',
       abbr: 'p',
-      help: 'Path to the target Dart package (its lib/ directory is scanned). '
+      help:
+          'Path to the target Dart package (its lib/ directory is scanned). '
           'With --target, defaults to the sibling tom_specs_model package.',
     )
     ..addOption(
@@ -38,15 +40,22 @@ Future<void> main(List<String> arguments) async {
     )
     ..addOption(
       'model-version',
-      help: 'S2 model-version counter to stamp into the JSON (integer). '
+      help:
+          'S2 model-version counter to stamp into the JSON (integer). '
           'Ad-hoc exports only. Default: 0.',
     )
     ..addOption(
       'model-label',
-      help: 'Human-readable build label for the model version stamp '
+      help:
+          'Human-readable build label for the model version stamp '
           '(ad-hoc exports only).',
     )
-    ..addFlag('help', abbr: 'h', help: 'Show usage information.', negatable: false);
+    ..addFlag(
+      'help',
+      abbr: 'h',
+      help: 'Show usage information.',
+      negatable: false,
+    );
 
   final ArgResults results;
   try {
@@ -58,9 +67,13 @@ Future<void> main(List<String> arguments) async {
   }
 
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/model_json.dart --target editor|reviewer');
-    stdout.writeln('       dart run bin/model_json.dart '
-        '--package <path> --output <file.json>');
+    stdout.writeln(
+      'Usage: dart run bin/model_json.dart --target editor|reviewer',
+    );
+    stdout.writeln(
+      '       dart run bin/model_json.dart '
+      '--package <path> --output <file.json>',
+    );
     stdout.writeln(parser.usage);
     exit(0);
   }
@@ -76,12 +89,18 @@ Future<void> main(List<String> arguments) async {
   if (target != null) {
     for (final opt in const ['output', 'model-version', 'model-label']) {
       if (results.wasParsed(opt)) {
-        _fail('--$opt cannot be combined with --target: the ${target.id} '
-            'asset owns its path and its version stamp.');
+        _fail(
+          '--$opt cannot be combined with --target: the ${target.id} '
+          'asset owns its path and its version stamp.',
+        );
       }
     }
-    packagePath = p.normalize(p.absolute(results.option('package') ??
-        p.join(containerRoot, 'tom_ai', 'ai_build', 'tom_specs_model')));
+    packagePath = p.normalize(
+      p.absolute(
+        results.option('package') ??
+            p.join(containerRoot, 'tom_ai', 'ai_build', 'tom_specs_model'),
+      ),
+    );
     outputPath = target.outputPathIn(containerRoot);
     try {
       stamp = ModelJsonStamp.from(readModelVersionStamp(packagePath));
@@ -90,8 +109,10 @@ Future<void> main(List<String> arguments) async {
     }
   } else {
     if (results.option('package') == null || results.option('output') == null) {
-      _fail('Give either --target <${ModelJsonTarget.values.map((t) => t.id).join('|')}> '
-          'or both --package and --output.');
+      _fail(
+        'Give either --target <${ModelJsonTarget.values.map((t) => t.id).join('|')}> '
+        'or both --package and --output.',
+      );
     }
     packagePath = p.normalize(p.absolute(results.option('package')!));
     outputPath = p.normalize(p.absolute(results.option('output')!));
@@ -100,14 +121,18 @@ Future<void> main(List<String> arguments) async {
     // stamp (or the un-stamped default) by way of a hand-written --output.
     final committed = targetForOutputPath(outputPath);
     if (committed != null) {
-      _fail('$outputPath is the committed "${committed.id}" asset. '
-          'Refresh it with `--target ${committed.id}` so it keeps its own '
-          'version stamp.');
+      _fail(
+        '$outputPath is the committed "${committed.id}" asset. '
+        'Refresh it with `--target ${committed.id}` so it keeps its own '
+        'version stamp.',
+      );
     }
     final version = int.tryParse(results.option('model-version') ?? '0') ?? 0;
     final label = results.option('model-label');
     stamp = ModelJsonStamp(
-        version, (label?.isNotEmpty ?? false) ? label : null);
+      version,
+      (label?.isNotEmpty ?? false) ? label : null,
+    );
   }
 
   final libPath = p.join(packagePath, 'lib');
@@ -119,8 +144,10 @@ Future<void> main(List<String> arguments) async {
   final driver = createAnalysisDriver(packagePath);
   final reader = ModelReader(driver);
   await reader.analyzePackage(libPath);
-  stdout.writeln('Found ${reader.classes.length} classes, '
-      '${reader.enums.length} enums.');
+  stdout.writeln(
+    'Found ${reader.classes.length} classes, '
+    '${reader.enums.length} enums.',
+  );
 
   final json = ModelJsonExporter(
     reader.classes,
@@ -133,8 +160,10 @@ Future<void> main(List<String> arguments) async {
   outFile.parent.createSync(recursive: true);
   outFile.writeAsStringSync('$encoded\n');
 
-  stdout.writeln('Wrote ${json['rootCount']} roots, '
-      '${json['classCount']} classes to $outputPath (model version $stamp)');
+  stdout.writeln(
+    'Wrote ${json['rootCount']} roots, '
+    '${json['classCount']} classes to $outputPath (model version $stamp)',
+  );
 }
 
 /// The workspace container root, derived from this script's location

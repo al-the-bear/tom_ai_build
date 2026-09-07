@@ -16,17 +16,29 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// document stays the single authority and the JSON is its transcription.
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
-    ..addOption('mapping',
-        help: 'The mapping document to transcribe. Default: the sibling '
-            'tom_specs_model/doc/codespecs_mapping.md.')
-    ..addOption('output',
-        help: 'Where to write the catalogue. Default: '
-            'tom_specs_model/generated-doc/codespecs/codespecs_areas.json.')
-    ..addFlag('check',
-        help: 'Verify the committed file matches the document; write nothing.',
-        negatable: false)
-    ..addFlag('help',
-        abbr: 'h', help: 'Show usage information.', negatable: false);
+    ..addOption(
+      'mapping',
+      help:
+          'The mapping document to transcribe. Default: the sibling '
+          'tom_specs_model/doc/codespecs_mapping.md.',
+    )
+    ..addOption(
+      'output',
+      help:
+          'Where to write the catalogue. Default: '
+          'tom_specs_model/generated-doc/codespecs/codespecs_areas.json.',
+    )
+    ..addFlag(
+      'check',
+      help: 'Verify the committed file matches the document; write nothing.',
+      negatable: false,
+    )
+    ..addFlag(
+      'help',
+      abbr: 'h',
+      help: 'Show usage information.',
+      negatable: false,
+    );
 
   final ArgResults results;
   try {
@@ -46,11 +58,23 @@ Future<void> main(List<String> arguments) async {
   final clitoolRoot = p.dirname(p.dirname(p.fromUri(Platform.script)));
   final modelRoot = p.normalize(p.join(clitoolRoot, '..', 'tom_specs_model'));
 
-  final mappingPath = p.normalize(p.absolute(results.option('mapping') ??
-      p.join(modelRoot, 'doc', 'codespecs_mapping.md')));
-  final outputPath = p.normalize(p.absolute(results.option('output') ??
-      p.join(modelRoot, 'generated-doc', 'codespecs',
-          'codespecs_areas.json')));
+  final mappingPath = p.normalize(
+    p.absolute(
+      results.option('mapping') ??
+          p.join(modelRoot, 'doc', 'codespecs_mapping.md'),
+    ),
+  );
+  final outputPath = p.normalize(
+    p.absolute(
+      results.option('output') ??
+          p.join(
+            modelRoot,
+            'generated-doc',
+            'codespecs',
+            'codespecs_areas.json',
+          ),
+    ),
+  );
 
   final String text;
   try {
@@ -66,13 +90,18 @@ Future<void> main(List<String> arguments) async {
         exit(1);
       }
       if (committed.readAsStringSync() != text) {
-        stderr.writeln('codespecs_areas --check: '
-            '${p.relative(outputPath, from: clitoolRoot)} is stale — '
-            'run `dart run bin/codespecs_areas.dart` and commit the diff.');
+        stderr.writeln(
+          'codespecs_areas --check: '
+          '${p.relative(outputPath, from: clitoolRoot)} is stale — '
+          'run `dart run bin/codespecs_areas.dart` and commit the diff.',
+        );
         exit(1);
       }
     } else {
-      text = writeAreasCatalog(mappingPath: mappingPath, outputPath: outputPath);
+      text = writeAreasCatalog(
+        mappingPath: mappingPath,
+        outputPath: outputPath,
+      );
     }
   } on AreasCatalogException catch (e) {
     stderr.writeln('codespecs_areas error: ${e.message}');
@@ -80,10 +109,14 @@ Future<void> main(List<String> arguments) async {
   }
 
   final catalog = buildAreasCatalog(File(mappingPath).readAsStringSync());
-  stdout.writeln('${results.flag('check') ? 'OK — up to date' : 'Wrote'} '
-      '${p.relative(outputPath, from: clitoolRoot)}');
-  stdout.writeln('  ${catalog.areas.length} area(s), '
-      '${catalog.slices.length} slice(s), '
-      '${text.length} byte(s).');
+  stdout.writeln(
+    '${results.flag('check') ? 'OK — up to date' : 'Wrote'} '
+    '${p.relative(outputPath, from: clitoolRoot)}',
+  );
+  stdout.writeln(
+    '  ${catalog.areas.length} area(s), '
+    '${catalog.slices.length} slice(s), '
+    '${text.length} byte(s).',
+  );
   exit(0);
 }

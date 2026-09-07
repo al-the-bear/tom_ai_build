@@ -57,8 +57,8 @@ CsLocusProject readCsLocusProjectFromDirectory({
   if (libDir.existsSync()) {
     for (final entity in libDir.listSync(recursive: true)) {
       if (entity is io.File && entity.path.endsWith('.dart')) {
-        sources[p.relative(entity.path, from: root)] =
-            entity.readAsStringSync();
+        sources[p.relative(entity.path, from: root)] = entity
+            .readAsStringSync();
       }
     }
   }
@@ -110,9 +110,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
         declarations.addAll(
           _classMembers(locus, path, lines, name.lexeme, members),
         );
-        constructions.addAll(
-          _constructions(path, lines, name.lexeme, members),
-        );
+        constructions.addAll(_constructions(path, lines, name.lexeme, members));
       case EnumDeclaration():
         final name = member.namePart.typeName;
         declarations.add(
@@ -144,8 +142,11 @@ CsFile _readFile(CsLocus locus, String path, String source) {
               metadata: constant.metadata,
               offset: constant.name.offset,
               isStatic: true,
-              docComment:
-                  _docComment(path, lines, constant.documentationComment),
+              docComment: _docComment(
+                path,
+                lines,
+                constant.documentationComment,
+              ),
             ),
           );
         }
@@ -239,13 +240,16 @@ List<CsComment> _comments(String path, LineInfo lines, CompilationUnit unit) {
   final out = <CsComment>[];
   final first = unit.beginToken;
   for (var token = first; !token.isEof; token = token.next!) {
-    for (Token? comment = token.precedingComments;
-        comment != null;
-        comment = comment.next) {
+    for (
+      Token? comment = token.precedingComments;
+      comment != null;
+      comment = comment.next
+    ) {
       out.add(
         CsComment(
           text: comment.lexeme,
-          isDocumentation: comment.lexeme.startsWith('///') ||
+          isDocumentation:
+              comment.lexeme.startsWith('///') ||
               comment.lexeme.startsWith('/**'),
           isBanner: identical(token, first),
           location: _at(path, lines, comment.offset),
@@ -261,10 +265,9 @@ CsDocComment? _docComment(String path, LineInfo lines, Comment? comment) {
   if (comment == null) return null;
   final tokens = comment.tokens;
   if (tokens.isEmpty) return null;
-  return CsDocComment(
-    [for (final token in tokens) token.lexeme],
-    _at(path, lines, tokens.first.offset),
-  );
+  return CsDocComment([
+    for (final token in tokens) token.lexeme,
+  ], _at(path, lines, tokens.first.offset));
 }
 
 /// The members of a class body — empty for a body-less primary-constructor
@@ -625,8 +628,7 @@ List<CsStatement> _statements(
   String path,
   LineInfo lines,
   List<Statement> statements,
-) =>
-    [for (final statement in statements) _statement(path, lines, statement)];
+) => [for (final statement in statements) _statement(path, lines, statement)];
 
 CsStatement _statement(String path, LineInfo lines, Statement statement) {
   final location = _at(path, lines, statement.offset);
@@ -659,8 +661,9 @@ CsStatement _statement(String path, LineInfo lines, Statement statement) {
 
     case VariableDeclarationStatement():
       final variables = statement.variables;
-      final first =
-          variables.variables.isEmpty ? null : variables.variables.first;
+      final first = variables.variables.isEmpty
+          ? null
+          : variables.variables.first;
       return _valueStatement(
         path,
         lines,
@@ -973,9 +976,7 @@ CsValue _value(Expression expression) {
       final values = <CsValue>[];
       for (final element in expression.elements) {
         values.add(
-          element is Expression
-              ? _value(element)
-              : CsUnknownValue('$element'),
+          element is Expression ? _value(element) : CsUnknownValue('$element'),
         );
       }
       return CsListValue(values);

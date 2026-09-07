@@ -24,8 +24,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 void main() {
   final clitoolRoot = Directory.current.path;
-  final containerRoot =
-      p.normalize(p.join(clitoolRoot, '..', '..', '..'));
+  final containerRoot = p.normalize(p.join(clitoolRoot, '..', '..', '..'));
   final modelDir = p.normalize(p.join(clitoolRoot, '..', 'tom_specs_model'));
 
   group('committed asset target/stamp policy', () {
@@ -42,7 +41,10 @@ void main() {
       // its own label about which model it described. A build that differs in
       // every component makes the confusion impossible to pass by accident.
       const build = ModelVersionStamp(
-          version: '42.7.0', buildNumber: 99, gitCommit: 'deadbee');
+        version: '42.7.0',
+        buildNumber: 99,
+        gitCommit: 'deadbee',
+      );
       final stamp = ModelJsonStamp.from(build);
       expect(stamp.version, 42);
       expect(stamp.label, '42.7.0+99.deadbee');
@@ -55,16 +57,21 @@ void main() {
       final versioner = readModelVersionStamp(modelDir);
       final expected = ModelJsonStamp.from(versioner);
       for (final target in ModelJsonTarget.values) {
-        expect(ModelJsonStamp.from(versioner).version, expected.version,
-            reason: '${target.id} must not carry a stamp of its own');
+        expect(
+          ModelJsonStamp.from(versioner).version,
+          expected.version,
+          reason: '${target.id} must not carry a stamp of its own',
+        );
       }
     });
 
     test('no two targets share an id or a path', () {
       final paths = ModelJsonTarget.values.map((t) => t.containerRelativePath);
       expect(paths.toSet(), hasLength(ModelJsonTarget.values.length));
-      expect(ModelJsonTarget.values.map((t) => t.id).toSet(),
-          hasLength(ModelJsonTarget.values.length));
+      expect(
+        ModelJsonTarget.values.map((t) => t.id).toSet(),
+        hasLength(ModelJsonTarget.values.length),
+      );
     });
 
     test('every committed asset path is recognised as its own target', () {
@@ -77,12 +84,16 @@ void main() {
     test('an ad-hoc export path is governed by no target', () {
       // The recognition is a suffix match, so it must not be so loose that any
       // path ending in `spec_model.json` counts as committed.
-      expect(targetForOutputPath(p.join(containerRoot, 'ztmp', 'scratch.json')),
-          isNull);
       expect(
-          targetForOutputPath(
-              p.join(containerRoot, 'ztmp', 'assets', 'spec_model.json')),
-          isNull);
+        targetForOutputPath(p.join(containerRoot, 'ztmp', 'scratch.json')),
+        isNull,
+      );
+      expect(
+        targetForOutputPath(
+          p.join(containerRoot, 'ztmp', 'assets', 'spec_model.json'),
+        ),
+        isNull,
+      );
       expect(ModelJsonTarget.byId('nonesuch'), isNull);
     });
   });
@@ -105,12 +116,20 @@ void main() {
         final asset =
             json.decode(file.readAsStringSync()) as Map<String, dynamic>;
         final expected = ModelJsonStamp.from(versioner);
-        expect(asset['modelVersion'], expected.version,
-            reason: 'refresh it with `dart run bin/model_json.dart '
-                '--target ${target.id}`');
-        expect(asset['modelVersionLabel'], expected.label,
-            reason: 'refresh it with `dart run bin/model_json.dart '
-                '--target ${target.id}`');
+        expect(
+          asset['modelVersion'],
+          expected.version,
+          reason:
+              'refresh it with `dart run bin/model_json.dart '
+              '--target ${target.id}`',
+        );
+        expect(
+          asset['modelVersionLabel'],
+          expected.label,
+          reason:
+              'refresh it with `dart run bin/model_json.dart '
+              '--target ${target.id}`',
+        );
         expect(asset['metaSchemaVersion'], specModelMetaSchemaVersion);
         expect(validateSpecModelMeta(asset), isEmpty);
       });
@@ -134,9 +153,13 @@ void main() {
       }
       final assets = loaded.values.toList();
       for (final key in const ['classCount', 'rootCount', 'containerRoot']) {
-        expect(assets.map((a) => a[key]).toSet(), hasLength(1),
-            reason: '$key differs between the committed assets — one of them '
-                'was not re-exported against the current model');
+        expect(
+          assets.map((a) => a[key]).toSet(),
+          hasLength(1),
+          reason:
+              '$key differs between the committed assets — one of them '
+              'was not re-exported against the current model',
+        );
       }
     });
   });
@@ -152,11 +175,24 @@ void main() {
       for (final target in ModelJsonTarget.values)
         target.id: target.outputPathIn(containerRoot),
       for (final lang in const [
-        'c', 'cpp', 'dart', 'go', 'java',
-        'javascript', 'python', 'rust', 'typescript',
+        'c',
+        'cpp',
+        'dart',
+        'go',
+        'java',
+        'javascript',
+        'python',
+        'rust',
+        'typescript',
       ])
-        'som:$lang': p.join(containerRoot, 'tom_ai', 'ai_build',
-            'tom_som_${lang}_v0', 'meta', 'spec_model.meta.json'),
+        'som:$lang': p.join(
+          containerRoot,
+          'tom_ai',
+          'ai_build',
+          'tom_som_${lang}_v0',
+          'meta',
+          'spec_model.meta.json',
+        ),
     };
 
     artifacts.forEach((name, path) {
@@ -169,13 +205,21 @@ void main() {
         final stamped =
             json.decode(file.readAsStringSync()) as Map<String, dynamic>;
         final label = stamped['modelVersionLabel'] as String?;
-        expect(label, isNotNull,
-            reason: '$name carries no label, so its counter cannot be checked '
-                'against anything');
-        expect(stamped['modelVersion'], modelMajorOfLabel(label),
-            reason: '$name stamps modelVersion ${stamped['modelVersion']} '
-                'beside label "$label" — the counter is the label\'s major, so '
-                'these describe two different models');
+        expect(
+          label,
+          isNotNull,
+          reason:
+              '$name carries no label, so its counter cannot be checked '
+              'against anything',
+        );
+        expect(
+          stamped['modelVersion'],
+          modelMajorOfLabel(label),
+          reason:
+              '$name stamps modelVersion ${stamped['modelVersion']} '
+              'beside label "$label" — the counter is the label\'s major, so '
+              'these describe two different models',
+        );
       });
     });
 
@@ -192,8 +236,11 @@ void main() {
         seen.putIfAbsent(name, () => {stamped['modelVersionLabel']});
       });
       final labels = seen.values.expand((s) => s).toSet();
-      expect(labels, hasLength(1),
-          reason: 'committed artifacts disagree on the model build: $labels');
+      expect(
+        labels,
+        hasLength(1),
+        reason: 'committed artifacts disagree on the model build: $labels',
+      );
     });
   });
 }

@@ -44,8 +44,11 @@ void main() {
 
     test('every language has a project-safe slug (no "++"/spaces)', () {
       for (final l in SomLanguage.values) {
-        expect(RegExp(r'^[a-z0-9]+$').hasMatch(l.slug), isTrue,
-            reason: '${l.name} slug "${l.slug}" must be package-name-safe');
+        expect(
+          RegExp(r'^[a-z0-9]+$').hasMatch(l.slug),
+          isTrue,
+          reason: '${l.name} slug "${l.slug}" must be package-name-safe',
+        );
       }
       expect(SomLanguage.cpp.slug, 'cpp');
     });
@@ -68,14 +71,19 @@ void main() {
     });
 
     test('parses the requested document roots', () {
-      expect(config.documentRoots,
-          ['SolutionBlueprint', 'CurrentLandscapeAssessment']);
+      expect(config.documentRoots, [
+        'SolutionBlueprint',
+        'CurrentLandscapeAssessment',
+      ]);
       expect(config.generatesAllRoots, isFalse);
     });
 
     test('parses every language target in order', () {
-      expect(config.languages.map((t) => t.language),
-          [SomLanguage.dart, SomLanguage.java, SomLanguage.python]);
+      expect(config.languages.map((t) => t.language), [
+        SomLanguage.dart,
+        SomLanguage.java,
+        SomLanguage.python,
+      ]);
     });
 
     test('honours a per-language output override', () {
@@ -91,11 +99,15 @@ void main() {
         'output-base': 'gen',
         'languages': ['dart', 'c++'],
       });
-      expect(config.targetFor(SomLanguage.dart)!.outputRoot,
-          p.join('gen', 'tom_som_dart_v0'));
+      expect(
+        config.targetFor(SomLanguage.dart)!.outputRoot,
+        p.join('gen', 'tom_som_dart_v0'),
+      );
       // c++ resolves to the package-safe slug "cpp" in the default path.
-      expect(config.targetFor(SomLanguage.cpp)!.outputRoot,
-          p.join('gen', 'tom_som_cpp_v0'));
+      expect(
+        config.targetFor(SomLanguage.cpp)!.outputRoot,
+        p.join('gen', 'tom_som_cpp_v0'),
+      );
     });
 
     test('output-base defaults to "." and version-label to "v0"', () {
@@ -103,8 +115,10 @@ void main() {
         'languages': ['go'],
       });
       expect(config.versionLabel, 'v0');
-      expect(config.targetFor(SomLanguage.go)!.outputRoot,
-          p.join('.', 'tom_som_go_v0'));
+      expect(
+        config.targetFor(SomLanguage.go)!.outputRoot,
+        p.join('.', 'tom_som_go_v0'),
+      );
     });
 
     test('the version label flows into default output paths', () {
@@ -112,8 +126,10 @@ void main() {
         'version-label': 'v1',
         'languages': ['rust'],
       });
-      expect(config.targetFor(SomLanguage.rust)!.outputRoot,
-          p.join('.', 'tom_som_rust_v1'));
+      expect(
+        config.targetFor(SomLanguage.rust)!.outputRoot,
+        p.join('.', 'tom_som_rust_v1'),
+      );
     });
 
     test('absent document-roots means "generate all roots"', () {
@@ -191,12 +207,18 @@ tom-spec-object-model:
 ''';
       final config = SpecObjectModelConfig.fromYaml(yaml);
       expect(config.versionLabel, 'v0');
-      expect(config.languages.map((t) => t.language),
-          [SomLanguage.dart, SomLanguage.typescript]);
-      expect(config.targetFor(SomLanguage.dart)!.outputRoot,
-          p.join('gen', 'tom_som_dart_v0'));
-      expect(config.targetFor(SomLanguage.typescript)!.outputRoot,
-          'web/tom_som_ts');
+      expect(config.languages.map((t) => t.language), [
+        SomLanguage.dart,
+        SomLanguage.typescript,
+      ]);
+      expect(
+        config.targetFor(SomLanguage.dart)!.outputRoot,
+        p.join('gen', 'tom_som_dart_v0'),
+      );
+      expect(
+        config.targetFor(SomLanguage.typescript)!.outputRoot,
+        'web/tom_som_ts',
+      );
     });
 
     test('throws when the top-level block is absent', () {
@@ -210,7 +232,9 @@ tom-spec-object-model:
   group('SomLanguageTarget', () {
     test('exposes the resolved language and output root', () {
       const target = SomLanguageTarget(
-          language: SomLanguage.dart, outputRoot: 'gen/tom_som_dart_v0');
+        language: SomLanguage.dart,
+        outputRoot: 'gen/tom_som_dart_v0',
+      );
       expect(target.language, SomLanguage.dart);
       expect(target.outputRoot, 'gen/tom_som_dart_v0');
     });

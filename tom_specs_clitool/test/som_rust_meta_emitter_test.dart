@@ -22,109 +22,109 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// section (exercising SOM §8 hoisting) and a recursive `Risk.mitigation`
 /// complex (exercising the cycle rule).
 Map<String, dynamic> _fixtureJson() => {
-      'modelVersion': 0,
-      'roots': [
+  'modelVersion': 0,
+  'roots': [
+    {
+      'type': 'SolutionBlueprint',
+      'title': 'Project Definition',
+      'sectionId': 'PD00',
+      'description': 'The structured project overview.',
+    },
+  ],
+  'classes': {
+    'SolutionBlueprint': {
+      'name': 'SolutionBlueprint',
+      'sectionId': 'PD00',
+      'doc': 'Root of a project definition document.',
+      'fields': [
         {
-          'type': 'SolutionBlueprint',
-          'title': 'Project Definition',
-          'sectionId': 'PD00',
-          'description': 'The structured project overview.',
+          'name': 'vision',
+          'kind': 'content',
+          'sectionId': 'vision',
+          'contentType': 'text',
+          'doc': 'Why the system exists.',
+        },
+        {
+          'name': 'owner',
+          'kind': 'form',
+          'sectionId': 'owner',
+          'formFields': [
+            {'name': 'name', 'label': 'Name', 'type': 'String'},
+            {'name': 'role', 'label': 'Role', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'risks',
+          'kind': 'list',
+          'sectionId': 'risks',
+          'sectionIdPattern': 'RISK-ITEM-xxx',
+          'elementType': 'Risk',
+          'elementIsComplex': true,
+          'min': 2,
+        },
+        {
+          'name': 'tags',
+          'kind': 'list',
+          'sectionId': 'tags',
+          'elementType': 'String',
+          'elementIsComplex': false,
+        },
+        {
+          'name': 'situation',
+          'kind': 'complex',
+          'sectionId': 'situation',
+          'type': 'CurrentLandscapeAssessment',
+        },
+        {
+          // Id-less section — its target's ids hoist onto the root's
+          // ID-tree accessor (SOM §8).
+          'name': 'details',
+          'kind': 'section',
+          'type': 'CurrentLandscapeAssessment',
         },
       ],
-      'classes': {
-        'SolutionBlueprint': {
-          'name': 'SolutionBlueprint',
-          'sectionId': 'PD00',
-          'doc': 'Root of a project definition document.',
-          'fields': [
-            {
-              'name': 'vision',
-              'kind': 'content',
-              'sectionId': 'vision',
-              'contentType': 'text',
-              'doc': 'Why the system exists.',
-            },
-            {
-              'name': 'owner',
-              'kind': 'form',
-              'sectionId': 'owner',
-              'formFields': [
-                {'name': 'name', 'label': 'Name', 'type': 'String'},
-                {'name': 'role', 'label': 'Role', 'type': 'String'},
-              ],
-            },
-            {
-              'name': 'risks',
-              'kind': 'list',
-              'sectionId': 'risks',
-              'sectionIdPattern': 'RISK-ITEM-xxx',
-              'elementType': 'Risk',
-              'elementIsComplex': true,
-              'min': 2,
-            },
-            {
-              'name': 'tags',
-              'kind': 'list',
-              'sectionId': 'tags',
-              'elementType': 'String',
-              'elementIsComplex': false,
-            },
-            {
-              'name': 'situation',
-              'kind': 'complex',
-              'sectionId': 'situation',
-              'type': 'CurrentLandscapeAssessment',
-            },
-            {
-              // Id-less section — its target's ids hoist onto the root's
-              // ID-tree accessor (SOM §8).
-              'name': 'details',
-              'kind': 'section',
-              'type': 'CurrentLandscapeAssessment',
-            },
-          ],
+    },
+    'Risk': {
+      'name': 'Risk',
+      'sectionId': 'RISK',
+      'fields': [
+        {
+          'name': 'title',
+          'kind': 'content',
+          'sectionId': 'title',
+          'contentType': 'text',
         },
-        'Risk': {
-          'name': 'Risk',
-          'sectionId': 'RISK',
-          'fields': [
-            {
-              'name': 'title',
-              'kind': 'content',
-              'sectionId': 'title',
-              'contentType': 'text',
-            },
-            {
-              'name': 'probability',
-              'kind': 'enum',
-              'sectionId': 'prob',
-              'enumType': 'Probability',
-              'enumValues': ['low', 'medium', 'high'],
-            },
-            {
-              // Recursive complex — the cycle rule yields a terminal
-              // re-entry node here.
-              'name': 'mitigation',
-              'kind': 'complex',
-              'sectionId': 'mitigation',
-              'type': 'Risk',
-            },
-          ],
+        {
+          'name': 'probability',
+          'kind': 'enum',
+          'sectionId': 'prob',
+          'enumType': 'Probability',
+          'enumValues': ['low', 'medium', 'high'],
         },
-        'CurrentLandscapeAssessment': {
-          'name': 'CurrentLandscapeAssessment',
-          'sectionId': 'CS00',
-          'fields': [
-            {
-              'name': 'summary',
-              'kind': 'content',
-              'sectionId': 'summary',
-              'contentType': 'text',
-            },
-          ],
+        {
+          // Recursive complex — the cycle rule yields a terminal
+          // re-entry node here.
+          'name': 'mitigation',
+          'kind': 'complex',
+          'sectionId': 'mitigation',
+          'type': 'Risk',
         },
-      },
-    };
+      ],
+    },
+    'CurrentLandscapeAssessment': {
+      'name': 'CurrentLandscapeAssessment',
+      'sectionId': 'CS00',
+      'fields': [
+        {
+          'name': 'summary',
+          'kind': 'content',
+          'sectionId': 'summary',
+          'contentType': 'text',
+        },
+      ],
+    },
+  },
+};
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
@@ -133,8 +133,11 @@ SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 /// rather than a single hard-wired one.
 Map<String, dynamic> _twoRootJson() {
   final json = _fixtureJson();
-  (json['roots'] as List)
-      .add({'type': 'Aux', 'title': 'Aux', 'sectionId': 'AX00'});
+  (json['roots'] as List).add({
+    'type': 'Aux',
+    'title': 'Aux',
+    'sectionId': 'AX00',
+  });
   (json['classes'] as Map<String, dynamic>)['Aux'] = {
     'name': 'Aux',
     'sectionId': 'AX00',
@@ -153,25 +156,25 @@ Map<String, dynamic> _twoRootJson() {
 /// A model whose member name collides with a reserved accessor method name of
 /// the generated Nav structs (`path`) — generation must fail loudly.
 Map<String, dynamic> _reservedNameJson() => {
-      'modelVersion': 0,
-      'roots': [
-        {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
-      ],
-      'classes': {
-        'Root': {
-          'name': 'Root',
-          'sectionId': 'ROOT',
-          'fields': [
-            {
-              'name': 'path',
-              'kind': 'content',
-              'sectionId': 'pth',
-              'contentType': 'text',
-            },
-          ],
+  'modelVersion': 0,
+  'roots': [
+    {'type': 'Root', 'title': 'Root', 'sectionId': 'ROOT'},
+  ],
+  'classes': {
+    'Root': {
+      'name': 'Root',
+      'sectionId': 'ROOT',
+      'fields': [
+        {
+          'name': 'path',
+          'kind': 'content',
+          'sectionId': 'pth',
+          'contentType': 'text',
         },
-      },
-    };
+      ],
+    },
+  },
+};
 
 /// Locates a `cargo` toolchain — on PATH, or the conventional `~/.cargo/bin/cargo`
 /// rustup install used on the fleet's build hosts. Returns `null` when none.
@@ -194,7 +197,8 @@ String? _cargo() {
 /// runs from, or `null` when it cannot be located.
 String? _runtimeDir() {
   final candidate = p.normalize(
-      p.join(Directory.current.path, '..', 'tom_som_rust_runtime'));
+    p.join(Directory.current.path, '..', 'tom_som_rust_runtime'),
+  );
   return Directory(candidate).existsSync() ? candidate : null;
 }
 
@@ -267,8 +271,12 @@ fn main() {
 ''';
 
 void main() {
-  final goldenPath = p.join(Directory.current.path, 'test', 'golden',
-      'som_rust_v0_meta_fixture.rs.golden');
+  final goldenPath = p.join(
+    Directory.current.path,
+    'test',
+    'golden',
+    'som_rust_v0_meta_fixture.rs.golden',
+  );
 
   group('SomRustMetaEmitter', () {
     test('emitted output matches the committed golden file', () {
@@ -279,51 +287,85 @@ void main() {
         golden.parent.createSync(recursive: true);
         golden.writeAsStringSync(source);
       }
-      expect(golden.existsSync(), isTrue,
-          reason: 'run with UPDATE_GOLDEN=1 to create the golden file');
+      expect(
+        golden.existsSync(),
+        isTrue,
+        reason: 'run with UPDATE_GOLDEN=1 to create the golden file',
+      );
       expect(source, golden.readAsStringSync());
     });
 
-    test('emits per-root tree builders and both access-surface entry points',
-        () {
-      final source = SomRustMetaEmitter(_fixtureModel()).generateLibrary();
-      // Per-call tree construction (SomMetaTree is Rc-based / not Sync, so no
-      // statics) plus tree-borrowing entry points.
-      expect(source,
-          contains('pub fn solution_blueprint_meta_tree() -> '
-              'som::SomMetaTree {'));
-      expect(source,
-          contains('pub fn solution_blueprint_meta(tree: &som::SomMetaTree) '
-              '-> SolutionBlueprintNav<\'_> {'));
-      expect(source,
-          contains('pub fn PD00(tree: &som::SomMetaTree) -> '
-              'SolutionBlueprintId<\'_> {'));
-      // The verbatim-uppercase ID entry point needs the module-level allow.
-      expect(source, contains('#![allow(non_snake_case)]'));
-      expect(source, contains('#![allow(dead_code)]'));
-    });
+    test(
+      'emits per-root tree builders and both access-surface entry points',
+      () {
+        final source = SomRustMetaEmitter(_fixtureModel()).generateLibrary();
+        // Per-call tree construction (SomMetaTree is Rc-based / not Sync, so no
+        // statics) plus tree-borrowing entry points.
+        expect(
+          source,
+          contains(
+            'pub fn solution_blueprint_meta_tree() -> '
+            'som::SomMetaTree {',
+          ),
+        );
+        expect(
+          source,
+          contains(
+            'pub fn solution_blueprint_meta(tree: &som::SomMetaTree) '
+            '-> SolutionBlueprintNav<\'_> {',
+          ),
+        );
+        expect(
+          source,
+          contains(
+            'pub fn PD00(tree: &som::SomMetaTree) -> '
+            'SolutionBlueprintId<\'_> {',
+          ),
+        );
+        // The verbatim-uppercase ID entry point needs the module-level allow.
+        expect(source, contains('#![allow(non_snake_case)]'));
+        expect(source, contains('#![allow(dead_code)]'));
+      },
+    );
 
     test('emits Nav structs with typed member accessors (SOM §8)', () {
       final source = SomRustMetaEmitter(_fixtureModel()).generateLibrary();
       expect(source, contains('pub struct SolutionBlueprintNav<\'a> {'));
       expect(source, contains('pub struct RiskNav<\'a> {'));
-      expect(source,
-          contains('pub struct CurrentLandscapeAssessmentNav<\'a> {'));
+      expect(
+        source,
+        contains('pub struct CurrentLandscapeAssessmentNav<\'a> {'),
+      );
       // Complex member → target Nav; complex-element list → SomListMetaRef
       // with the element Nav factory; scalar list → SomMetaRef elements.
-      expect(source,
-          contains('pub fn situation(&self) -> '
-              'CurrentLandscapeAssessmentNav<\'a> {'));
-      expect(source,
-          contains('pub fn risks(&self) -> '
-              'som::SomListMetaRef<\'a, RiskNav<\'a>> {'));
+      expect(
+        source,
+        contains(
+          'pub fn situation(&self) -> '
+          'CurrentLandscapeAssessmentNav<\'a> {',
+        ),
+      );
+      expect(
+        source,
+        contains(
+          'pub fn risks(&self) -> '
+          'som::SomListMetaRef<\'a, RiskNav<\'a>> {',
+        ),
+      );
       expect(source, contains('RiskNav::new)'));
-      expect(source,
-          contains('pub fn tags(&self) -> '
-              'som::SomListMetaRef<\'a, som::SomMetaRef<\'a>> {'));
+      expect(
+        source,
+        contains(
+          'pub fn tags(&self) -> '
+          'som::SomListMetaRef<\'a, som::SomMetaRef<\'a>> {',
+        ),
+      );
       expect(source, contains('som::SomMetaRef::new)'));
       // Leaf member → SomMetaRef with the byte-identical path segment.
-      expect(source, contains('pub fn vision(&self) -> som::SomMetaRef<\'a> {'));
+      expect(
+        source,
+        contains('pub fn vision(&self) -> som::SomMetaRef<\'a> {'),
+      );
       expect(source, contains('"vision"'));
     });
 
@@ -335,13 +377,16 @@ void main() {
       // step onto the root Id accessor, with the full relative path baked in.
       expect(source, contains('"details/summary"'));
       // Id-bearing complex members keep their own Id-typed step.
-      expect(source,
-          contains('pub fn situation(&self) -> '
-              'CurrentLandscapeAssessmentId<\'a> {'));
+      expect(
+        source,
+        contains(
+          'pub fn situation(&self) -> '
+          'CurrentLandscapeAssessmentId<\'a> {',
+        ),
+      );
     });
 
-    test('builds metadata via the cycle helper with the bridge cycle rule',
-        () {
+    test('builds metadata via the cycle helper with the bridge cycle rule', () {
       final source = SomRustMetaEmitter(_fixtureModel()).generateLibrary();
       expect(source, contains('fn meta_cx('));
       // The recursive `Risk.mitigation` complex is built through the helper,
@@ -349,23 +394,36 @@ void main() {
       expect(source, contains('meta_cx("Risk", s, meta_children_risk,'));
       // Slotted annotations land in their dedicated node fields.
       expect(source, contains('min: Some(2)'));
-      expect(source,
-          contains('section_id_pattern: "RISK-ITEM-xxx".to_string()'));
-      expect(source, contains('som::SomFormFieldMeta { name: '
-          '"name".to_string()'));
+      expect(
+        source,
+        contains('section_id_pattern: "RISK-ITEM-xxx".to_string()'),
+      );
+      expect(
+        source,
+        contains(
+          'som::SomFormFieldMeta { name: '
+          '"name".to_string()',
+        ),
+      );
       // A builder with no complex descent names its stack param `_s`
       // (warning-clean); one with descent uses `s`.
       expect(
-          source,
-          contains('fn meta_children_current_landscape_assessment(_s: &mut '
-              'HashSet<String>)'));
-      expect(source,
-          contains('fn meta_children_solution_blueprint(s: &mut '
-              'HashSet<String>)'));
+        source,
+        contains(
+          'fn meta_children_current_landscape_assessment(_s: &mut '
+          'HashSet<String>)',
+        ),
+      );
+      expect(
+        source,
+        contains(
+          'fn meta_children_solution_blueprint(s: &mut '
+          'HashSet<String>)',
+        ),
+      );
     });
 
-    test(
-        'FUNCTIONAL: the generated module compiles and its trees/surfaces '
+    test('FUNCTIONAL: the generated module compiles and its trees/surfaces '
         'agree with the runtime bridge', () {
       final cargo = _cargo();
       if (cargo == null) {
@@ -381,34 +439,47 @@ void main() {
       try {
         Directory(p.join(dir.path, 'src')).createSync(recursive: true);
         File(p.join(dir.path, 'src', 'meta.rs')).writeAsStringSync(
-            SomRustMetaEmitter(_fixtureModel()).generateLibrary());
+          SomRustMetaEmitter(_fixtureModel()).generateLibrary(),
+        );
         File(p.join(dir.path, 'src', 'main.rs')).writeAsStringSync(_checkMain);
-        File(p.join(dir.path, 'fixture.json'))
-            .writeAsStringSync(jsonEncode(_fixtureJson()));
+        File(
+          p.join(dir.path, 'fixture.json'),
+        ).writeAsStringSync(jsonEncode(_fixtureJson()));
         final depPath = runtimeDir.replaceAll('\\', '/');
-        File(p.join(dir.path, 'Cargo.toml')).writeAsStringSync('[package]\n'
-            'name = "som_rust_meta_check"\n'
-            'version = "0.0.0"\n'
-            'edition = "2021"\n'
-            'publish = false\n'
-            '\n'
-            '[dependencies]\n'
-            'tom_som_rust_runtime = { path = "$depPath" }\n');
-        final run =
-            Process.runSync(cargo, ['run', '--quiet'], workingDirectory: dir.path);
-        expect(run.exitCode, 0,
-            reason: 'functional check failed:\n${run.stdout}\n${run.stderr}');
+        File(p.join(dir.path, 'Cargo.toml')).writeAsStringSync(
+          '[package]\n'
+          'name = "som_rust_meta_check"\n'
+          'version = "0.0.0"\n'
+          'edition = "2021"\n'
+          'publish = false\n'
+          '\n'
+          '[dependencies]\n'
+          'tom_som_rust_runtime = { path = "$depPath" }\n',
+        );
+        final run = Process.runSync(cargo, [
+          'run',
+          '--quiet',
+        ], workingDirectory: dir.path);
+        expect(
+          run.exitCode,
+          0,
+          reason: 'functional check failed:\n${run.stdout}\n${run.stderr}',
+        );
         expect((run.stdout as String).trim(), 'OK');
       } finally {
         dir.deleteSync(recursive: true);
       }
     });
 
-    test('a member colliding with a reserved accessor name fails generation',
-        () {
-      final emitter = SomRustMetaEmitter(SpecModel.fromJson(_reservedNameJson()));
-      expect(emitter.generateLibrary, throwsStateError);
-    });
+    test(
+      'a member colliding with a reserved accessor name fails generation',
+      () {
+        final emitter = SomRustMetaEmitter(
+          SpecModel.fromJson(_reservedNameJson()),
+        );
+        expect(emitter.generateLibrary, throwsStateError);
+      },
+    );
 
     test('documentRoots subsets the emitted root entry points', () {
       final json = _fixtureJson();
@@ -435,8 +506,10 @@ void main() {
       expect(all, contains('pub fn solution_blueprint_meta_tree()'));
       expect(all, contains('pub fn aux_meta_tree()'));
 
-      final subset = SomRustMetaEmitter(model,
-          documentRoots: ['SolutionBlueprint']).generateLibrary();
+      final subset = SomRustMetaEmitter(
+        model,
+        documentRoots: ['SolutionBlueprint'],
+      ).generateLibrary();
       expect(subset, contains('pub fn solution_blueprint_meta_tree()'));
       expect(subset, isNot(contains('pub fn aux_meta_tree()')));
       expect(subset, isNot(contains('pub fn AX00(')));
@@ -444,19 +517,20 @@ void main() {
     // The nine v0 meta-agreement suites read their root set from this
     // registry instead of hand-listing it, so an emitter that drops it
     // silently un-gates fourteen roots in nine languages at once.
-    test('the document-root registry carries one entry per root (SOM §8)',
-        () {
-      final all = SomRustMetaEmitter(SpecModel.fromJson(_twoRootJson()))
-          .generateLibrary();
+    test('the document-root registry carries one entry per root (SOM §8)', () {
+      final all = SomRustMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+      ).generateLibrary();
       expect(all, contains('type_name: "SolutionBlueprint"'));
       expect(all, contains('type_name: "Aux"'));
       expect(all, contains('tree: solution_blueprint_meta_tree'));
       expect(all, contains('nav_ref: aux_nav_ref'));
       expect(all, contains('id_ref: aux_id_ref'));
 
-      final subset = SomRustMetaEmitter(SpecModel.fromJson(_twoRootJson()),
-              documentRoots: ['SolutionBlueprint'])
-          .generateLibrary();
+      final subset = SomRustMetaEmitter(
+        SpecModel.fromJson(_twoRootJson()),
+        documentRoots: ['SolutionBlueprint'],
+      ).generateLibrary();
       expect(subset, isNot(contains('type_name: "Aux"')));
     });
   });

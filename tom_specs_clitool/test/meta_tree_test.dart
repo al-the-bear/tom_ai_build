@@ -22,13 +22,12 @@ ModelClass _cls(
   List<AnnotationData> annotations = const [],
   List<ModelField> fields = const [],
   String docComment = '',
-}) =>
-    ModelClass(
-      name: name,
-      annotations: annotations,
-      fields: fields,
-      docComment: docComment,
-    );
+}) => ModelClass(
+  name: name,
+  annotations: annotations,
+  fields: fields,
+  docComment: docComment,
+);
 
 void main() {
   group('MetaTreeBuilder unit (synthetic model)', () {
@@ -48,8 +47,9 @@ void main() {
             AnnotationData('ContentHelp', {'guidance': 'Fill the demo.'}),
             AnnotationData('Comment', {'text': 'Seeds → QAP'}),
             AnnotationData('MapsTo', {'documentClass': 'InformationModel'}),
-            AnnotationData(
-                'DetailedIn', {'documentClass': 'D06InformationModel'}),
+            AnnotationData('DetailedIn', {
+              'documentClass': 'D06InformationModel',
+            }),
             // No dedicated slot — must land in `extra`.
             AnnotationData('StandardReferences', {
               'standards': ['ISO 25010'],
@@ -73,8 +73,10 @@ void main() {
               annotations: [
                 AnnotationData('SerializationOrder', {'order': 1}),
                 AnnotationData('SectionId', {'id': 'SUMM'}),
-                AnnotationData(
-                    'ContentType', {'type': 'text', 'description': 'Prose'}),
+                AnnotationData('ContentType', {
+                  'type': 'text',
+                  'description': 'Prose',
+                }),
                 AnnotationData('TextRequired'),
               ],
             ),
@@ -130,54 +132,72 @@ void main() {
       expect(summary.extra.map((e) => e.name), ['TextRequired']);
     });
 
-    test('META-U2: form fields round-trip with hints and order [2026-07-07]',
-        () {
-      final classes = <String, ModelClass>{
-        'Root': _cls('Root', fields: [
-          ModelField(
-            name: 'documentControl',
-            typeName: 'String?',
-            annotations: [AnnotationData('Form')],
-            formFields: [
-              FormFieldInfo(
-                  name: 'version', typeName: 'String', hint: 'e.g. 1.0'),
-              FormFieldInfo(name: 'approvedBy', typeName: 'String'),
-              FormFieldInfo(name: 'reviewCount', typeName: 'int'),
+    test(
+      'META-U2: form fields round-trip with hints and order [2026-07-07]',
+      () {
+        final classes = <String, ModelClass>{
+          'Root': _cls(
+            'Root',
+            fields: [
+              ModelField(
+                name: 'documentControl',
+                typeName: 'String?',
+                annotations: [AnnotationData('Form')],
+                formFields: [
+                  FormFieldInfo(
+                    name: 'version',
+                    typeName: 'String',
+                    hint: 'e.g. 1.0',
+                  ),
+                  FormFieldInfo(name: 'approvedBy', typeName: 'String'),
+                  FormFieldInfo(name: 'reviewCount', typeName: 'int'),
+                ],
+              ),
             ],
           ),
-        ]),
-      };
+        };
 
-      final node = MetaTreeBuilder(classes).build('Root').children.single;
-      expect(node.kind, MetaNodeKind.form);
-      expect(node.form, isNotNull);
-      final fields = node.form!.fields;
-      expect(fields.map((f) => f.name), ['version', 'approvedBy', 'reviewCount']);
-      expect(fields.map((f) => f.order), [0, 1, 2]);
-      expect(fields[0].hint, 'e.g. 1.0');
-      expect(fields[1].hint, isNull);
-      expect(fields[2].typeName, 'int');
-    });
+        final node = MetaTreeBuilder(classes).build('Root').children.single;
+        expect(node.kind, MetaNodeKind.form);
+        expect(node.form, isNotNull);
+        final fields = node.form!.fields;
+        expect(fields.map((f) => f.name), [
+          'version',
+          'approvedBy',
+          'reviewCount',
+        ]);
+        expect(fields.map((f) => f.order), [0, 1, 2]);
+        expect(fields[0].hint, 'e.g. 1.0');
+        expect(fields[1].hint, isNull);
+        expect(fields[2].typeName, 'int');
+      },
+    );
 
     test('META-U3: list fields carry @SectionIdPattern/@Min and expand the '
         'element subtree [2026-07-07]', () {
       final classes = <String, ModelClass>{
-        'Root': _cls('Root', fields: [
-          ModelField(
-            name: 'entries',
-            typeName: 'List<GoalEntry>',
-            isList: true,
-            listElementTypeName: 'GoalEntry',
-            listElementIsComplex: true,
-            annotations: [
-              AnnotationData('SectionIdPattern', {'pattern': 'GOAL-ITEM-xxx'}),
-              AnnotationData('Min', {'count': 1}),
-            ],
-          ),
-        ]),
-        'GoalEntry': _cls('GoalEntry', fields: [
-          ModelField(name: 'content', typeName: 'String?'),
-        ]),
+        'Root': _cls(
+          'Root',
+          fields: [
+            ModelField(
+              name: 'entries',
+              typeName: 'List<GoalEntry>',
+              isList: true,
+              listElementTypeName: 'GoalEntry',
+              listElementIsComplex: true,
+              annotations: [
+                AnnotationData('SectionIdPattern', {
+                  'pattern': 'GOAL-ITEM-xxx',
+                }),
+                AnnotationData('Min', {'count': 1}),
+              ],
+            ),
+          ],
+        ),
+        'GoalEntry': _cls(
+          'GoalEntry',
+          fields: [ModelField(name: 'content', typeName: 'String?')],
+        ),
       };
 
       final node = MetaTreeBuilder(classes).build('Root').children.single;
@@ -193,15 +213,26 @@ void main() {
     test('META-U4: children follow @SerializationOrder, declaration order as '
         'fallback [2026-07-07]', () {
       final classes = <String, ModelClass>{
-        'Root': _cls('Root', fields: [
-          ModelField(name: 'b', typeName: 'String?', annotations: [
-            AnnotationData('SerializationOrder', {'order': 1}),
-          ]),
-          ModelField(name: 'a', typeName: 'String?', annotations: [
-            AnnotationData('SerializationOrder', {'order': 0}),
-          ]),
-          ModelField(name: 'c', typeName: 'String?'),
-        ]),
+        'Root': _cls(
+          'Root',
+          fields: [
+            ModelField(
+              name: 'b',
+              typeName: 'String?',
+              annotations: [
+                AnnotationData('SerializationOrder', {'order': 1}),
+              ],
+            ),
+            ModelField(
+              name: 'a',
+              typeName: 'String?',
+              annotations: [
+                AnnotationData('SerializationOrder', {'order': 0}),
+              ],
+            ),
+            ModelField(name: 'c', typeName: 'String?'),
+          ],
+        ),
       };
 
       final root = MetaTreeBuilder(classes).build('Root');
@@ -215,9 +246,7 @@ void main() {
           annotations: [
             AnnotationData('SectionId', {'id': 'NODE'}),
           ],
-          fields: [
-            ModelField(name: 'child', typeName: 'Node'),
-          ],
+          fields: [ModelField(name: 'child', typeName: 'Node')],
         ),
       };
 
@@ -244,8 +273,10 @@ void main() {
       final reader = ModelReader(driver);
       await reader.analyzePackage(p.join(modelPath, 'lib'));
       classes = reader.classes;
-      roots = MetaTreeBuilder(classes, enums: reader.enums)
-          .buildAllDocumentRoots();
+      roots = MetaTreeBuilder(
+        classes,
+        enums: reader.enums,
+      ).buildAllDocumentRoots();
     });
 
     test('META-E1: all 14 document roots build a tree [2026-07-07]', () {
@@ -258,8 +289,7 @@ void main() {
       expect(sbp.children, isNotEmpty);
     });
 
-    test(
-        'META-E2: every annotation on every reachable class/field is '
+    test('META-E2: every annotation on every reachable class/field is '
         'represented on its node (all 14 roots) [2026-07-07]', () {
       final problems = <String>[];
 
@@ -291,8 +321,10 @@ void main() {
               }
             }
             if (field == null) {
-              problems.add('$here: child ${child.memberName} has no '
-                  'source field on ${cls.name}');
+              problems.add(
+                '$here: child ${child.memberName} has no '
+                'source field on ${cls.name}',
+              );
               continue;
             }
             check(child, sourceField: field, path: here);
@@ -307,13 +339,14 @@ void main() {
         check(entry.value, path: entry.key);
       }
 
-      expect(problems, isEmpty,
-          reason:
-              '${problems.length} gaps:\n${problems.take(40).join('\n')}');
+      expect(
+        problems,
+        isEmpty,
+        reason: '${problems.length} gaps:\n${problems.take(40).join('\n')}',
+      );
     });
 
-    test(
-        'META-E3: doc comments and member names round-trip on a known node '
+    test('META-E3: doc comments and member names round-trip on a known node '
         '[2026-07-07]', () {
       final sbp = roots['D00SolutionBlueprint']!;
       // Every child of the SBP root corresponds to a declared field name.
@@ -323,10 +356,7 @@ void main() {
         expect(fieldNames, contains(child.memberName));
       }
       // At least one node in the tree carries a doc comment.
-      expect(
-        sbp.walk().any((n) => (n.docComment ?? '').isNotEmpty),
-        isTrue,
-      );
+      expect(sbp.walk().any((n) => (n.docComment ?? '').isNotEmpty), isTrue);
     });
   });
 }
@@ -334,18 +364,18 @@ void main() {
 /// The annotation names a node represents: dedicated slots that are populated
 /// plus the lossless `extra` names.
 Set<String> _representedAnnotationNames(MetaNode node) => {
-      if (node.sectionId != null) 'SectionId',
-      if (node.sectionIdPattern != null) 'SectionIdPattern',
-      if (node.serializationOrder != null) 'SerializationOrder',
-      if (node.min != null) 'Min',
-      if (node.unused) 'Unused',
-      if (node.contentType != null) 'ContentType',
-      if (node.contentHelp != null) 'ContentHelp',
-      if (node.headline != null) 'Headline',
-      if (node.comment != null) 'Comment',
-      if (node.form != null) 'Form',
-      if (node.document != null) 'Document',
-      if (node.mapsTo != null) 'MapsTo',
-      if (node.detailedIn != null) 'DetailedIn',
-      ...node.extra.map((e) => e.name),
-    };
+  if (node.sectionId != null) 'SectionId',
+  if (node.sectionIdPattern != null) 'SectionIdPattern',
+  if (node.serializationOrder != null) 'SerializationOrder',
+  if (node.min != null) 'Min',
+  if (node.unused) 'Unused',
+  if (node.contentType != null) 'ContentType',
+  if (node.contentHelp != null) 'ContentHelp',
+  if (node.headline != null) 'Headline',
+  if (node.comment != null) 'Comment',
+  if (node.form != null) 'Form',
+  if (node.document != null) 'Document',
+  if (node.mapsTo != null) 'MapsTo',
+  if (node.detailedIn != null) 'DetailedIn',
+  ...node.extra.map((e) => e.name),
+};

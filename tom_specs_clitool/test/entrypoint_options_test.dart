@@ -21,10 +21,10 @@ void main() {
   final readme = File('${Directory.current.path}/README.md');
 
   Map<String, String> realSources() => {
-        for (final f in binDir.listSync().whereType<File>())
-          if (f.path.endsWith('.dart'))
-            f.uri.pathSegments.last: f.readAsStringSync(),
-      };
+    for (final f in binDir.listSync().whereType<File>())
+      if (f.path.endsWith('.dart'))
+        f.uri.pathSegments.last: f.readAsStringSync(),
+  };
 
   group('README bin/ table ↔ entrypoint ArgParser correspondence', () {
     test('the real table and the real entrypoints agree', () {
@@ -41,9 +41,7 @@ void main() {
         markdown: readme.readAsStringSync(),
         sources: realSources(),
       );
-      final documented = {
-        for (final row in report.rows) ...row.entrypoints,
-      };
+      final documented = {for (final row in report.rows) ...row.entrypoints};
 
       expect(documented, containsAll(realSources().keys));
     });
@@ -51,7 +49,9 @@ void main() {
     test('an option with no mention in its row is reported', () {
       final report = compareEntrypointOptions(
         markdown: _tableOf({'demo.dart': 'Does a thing with `--kept`.'}),
-        sources: {'demo.dart': _parserOf(["'kept'", "'dropped'"])},
+        sources: {
+          'demo.dart': _parserOf(["'kept'", "'dropped'"]),
+        },
       );
 
       expect(report.isConsistent, isFalse);
@@ -61,19 +61,23 @@ void main() {
       );
     });
 
-    test('a flag the row cites and the entrypoint does not declare is reported',
-        () {
-      final report = compareEntrypointOptions(
-        markdown: _tableOf({'demo.dart': 'Takes `--kept` and `--vanished`.'}),
-        sources: {'demo.dart': _parserOf(["'kept'"])},
-      );
+    test(
+      'a flag the row cites and the entrypoint does not declare is reported',
+      () {
+        final report = compareEntrypointOptions(
+          markdown: _tableOf({'demo.dart': 'Takes `--kept` and `--vanished`.'}),
+          sources: {
+            'demo.dart': _parserOf(["'kept'"]),
+          },
+        );
 
-      expect(report.isConsistent, isFalse);
-      expect(
-        report.problems.single,
-        contains('cites --vanished, which the entrypoint does not declare'),
-      );
-    });
+        expect(report.isConsistent, isFalse);
+        expect(
+          report.problems.single,
+          contains('cites --vanished, which the entrypoint does not declare'),
+        );
+      },
+    );
 
     test('an entrypoint with no row at all is reported', () {
       final report = compareEntrypointOptions(
@@ -125,7 +129,9 @@ void main() {
     test('a wildcard flag reference does not count as naming the family', () {
       final report = compareEntrypointOptions(
         markdown: _tableOf({'demo.dart': 'Takes the two `--out-*` paths.'}),
-        sources: {'demo.dart': _parserOf(["'out-a'", "'out-b'"])},
+        sources: {
+          'demo.dart': _parserOf(["'out-a'", "'out-b'"]),
+        },
       );
 
       expect(report.isConsistent, isFalse);
@@ -177,12 +183,15 @@ final parser = ArgParser()
 
     test('the tool/ table below is not parsed as part of the bin/ table', () {
       final report = compareEntrypointOptions(
-        markdown: '${_tableOf({'demo.dart': 'Takes `--kept`.'})}\n'
+        markdown:
+            '${_tableOf({'demo.dart': 'Takes `--kept`.'})}\n'
             'And in `tool/` — two scripts:\n\n'
             '| Entry | Purpose | Re-run when |\n'
             '| --- | --- | --- |\n'
             '| `regenerate_outlines.sh` | Renders `--everything`. | Always. |\n',
-        sources: {'demo.dart': _parserOf(["'kept'"])},
+        sources: {
+          'demo.dart': _parserOf(["'kept'"]),
+        },
       );
 
       expect(report.rows, hasLength(1));

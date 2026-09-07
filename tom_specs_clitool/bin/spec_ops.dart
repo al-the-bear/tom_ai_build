@@ -18,24 +18,31 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// for this CLI to write the registry somewhere else, or to regenerate it alone
 /// without paying for a nine-language run.
 Future<void> main(List<String> arguments) async {
-  final aiBuild = p.dirname(p.normalize(
-      p.dirname(p.dirname(p.fromUri(Platform.script)))));
+  final aiBuild = p.dirname(
+    p.normalize(p.dirname(p.dirname(p.fromUri(Platform.script)))),
+  );
 
   final parser = ArgParser()
     ..addOption(
       'package',
       abbr: 'p',
-      help: 'Path to the tom_specs_model package (its lib/ is scanned). '
+      help:
+          'Path to the tom_specs_model package (its lib/ is scanned). '
           'Default: <ai_build>/tom_specs_model.',
     )
     ..addOption(
       'output',
       abbr: 'o',
-      help: 'Output .dart file path. '
+      help:
+          'Output .dart file path. '
           'Default: <package>/${specOpsPathSegments.join('/')}.',
     )
-    ..addFlag('help', abbr: 'h', help: 'Show usage information.',
-        negatable: false);
+    ..addFlag(
+      'help',
+      abbr: 'h',
+      help: 'Show usage information.',
+      negatable: false,
+    );
 
   final ArgResults results;
   try {
@@ -47,14 +54,17 @@ Future<void> main(List<String> arguments) async {
   }
 
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/spec_ops.dart '
-        '[--package <model-path>] [--output <file.g.dart>]\n');
+    stdout.writeln(
+      'Usage: dart run bin/spec_ops.dart '
+      '[--package <model-path>] [--output <file.g.dart>]\n',
+    );
     stdout.writeln(parser.usage);
     exit(0);
   }
 
-  final packagePath = p.normalize(p.absolute(
-      results.option('package') ?? p.join(aiBuild, 'tom_specs_model')));
+  final packagePath = p.normalize(
+    p.absolute(results.option('package') ?? p.join(aiBuild, 'tom_specs_model')),
+  );
 
   stdout.writeln('spec_ops: analyzing $packagePath ...');
   final SpecOpsResult result;
@@ -68,6 +78,8 @@ Future<void> main(List<String> arguments) async {
     exit(1);
   }
   stdout.writeln('Found ${result.classCount} classes.');
-  stdout.writeln('${result.changed ? 'Wrote' : 'Unchanged'} spec-ops registry '
-      'at ${result.outputPath}');
+  stdout.writeln(
+    '${result.changed ? 'Wrote' : 'Unchanged'} spec-ops registry '
+    'at ${result.outputPath}',
+  );
 }

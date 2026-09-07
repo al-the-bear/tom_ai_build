@@ -47,8 +47,10 @@ final RegExp oeIdPattern = RegExp(r'\bOE-([0-9]{1,3}[a-z]?)\b');
 ///
 /// Keyed on the title, not the number: the register is appended after the last
 /// section today, and a future document may renumber it.
-final RegExp oeRegisterHeading =
-    RegExp(r'^##\s+[0-9]+\.\s+Open-Ends Register\b', multiLine: false);
+final RegExp oeRegisterHeading = RegExp(
+  r'^##\s+[0-9]+\.\s+Open-Ends Register\b',
+  multiLine: false,
+);
 
 /// The document that owns the register, relative to the container root.
 const oeRegisterDocument =
@@ -210,12 +212,14 @@ class OeCitation {
 
   /// A one-line, `file:line`-prefixed description suitable for a build log.
   String describe({String? relativeTo}) {
-    final where = relativeTo == null ? file : p.relative(file, from: relativeTo);
+    final where = relativeTo == null
+        ? file
+        : p.relative(file, from: relativeTo);
     final reason = defined
         ? 'OK'
         : 'UNDEFINED — no row in the Open-Ends Register '
-            '($oeRegisterDocument) defines it; add the row, or cite the id '
-            'that does';
+              '($oeRegisterDocument) defines it; add the row, or cite the id '
+              'that does';
     return '$where:$line: $id — $reason';
   }
 }
@@ -238,10 +242,9 @@ List<OeCitation> findOeCitations(
 
   for (var i = 0; i < lines.length; i++) {
     final line = lines[i];
-    final skip =
-        inRegisterDocument && line.trimLeft().startsWith('|')
-            ? firstInlineCodeOf(line)
-            : null;
+    final skip = inRegisterDocument && line.trimLeft().startsWith('|')
+        ? firstInlineCodeOf(line)
+        : null;
 
     var suppressed = skip != null && _isWholeOeId(skip);
     for (final match in oeIdPattern.allMatches(line)) {
@@ -252,12 +255,14 @@ List<OeCitation> findOeCitations(
         suppressed = false;
         continue;
       }
-      citations.add(OeCitation(
-        id: id,
-        file: path,
-        line: i + 1,
-        defined: register.defines(id),
-      ));
+      citations.add(
+        OeCitation(
+          id: id,
+          file: path,
+          line: i + 1,
+          defined: register.defines(id),
+        ),
+      );
     }
   }
 
@@ -291,8 +296,10 @@ class OeCitationReport {
   final OeRegister register;
 
   /// The citations that resolve to no register row, in file then line order.
-  List<OeCitation> get violations =>
-      [for (final c in citations) if (c.isViolation) c];
+  List<OeCitation> get violations => [
+    for (final c in citations)
+      if (c.isViolation) c,
+  ];
 
   /// The distinct ids cited anywhere in the corpus.
   Set<String> get citedIds => {for (final c in citations) c.id};
@@ -328,12 +335,14 @@ OeCitationReport checkOeCitations({
 
   final citations = <OeCitation>[];
   for (final path in files) {
-    citations.addAll(findOeCitations(
-      File(path).readAsStringSync(),
-      path: path,
-      register: register,
-      inRegisterDocument: p.equals(path, register.sourcePath),
-    ));
+    citations.addAll(
+      findOeCitations(
+        File(path).readAsStringSync(),
+        path: path,
+        register: register,
+        inRegisterDocument: p.equals(path, register.sourcePath),
+      ),
+    );
   }
 
   return OeCitationReport(

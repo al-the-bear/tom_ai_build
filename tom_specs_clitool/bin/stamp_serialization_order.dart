@@ -22,13 +22,17 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///   `dart run bin/stamp_serialization_order.dart --package <model-path> [--dry-run]`
 Future<void> main(List<String> arguments) async {
   final parser = ArgParser()
-    ..addOption('package',
-        abbr: 'p',
-        help: 'Path to the target Dart package (its lib/src is rewritten).',
-        mandatory: true)
-    ..addFlag('dry-run',
-        help: 'Report what would change without writing files.',
-        negatable: false)
+    ..addOption(
+      'package',
+      abbr: 'p',
+      help: 'Path to the target Dart package (its lib/src is rewritten).',
+      mandatory: true,
+    )
+    ..addFlag(
+      'dry-run',
+      help: 'Report what would change without writing files.',
+      negatable: false,
+    )
     ..addFlag('help', abbr: 'h', negatable: false);
 
   final ArgResults results;
@@ -40,8 +44,10 @@ Future<void> main(List<String> arguments) async {
     exit(2);
   }
   if (results.flag('help')) {
-    stdout.writeln('Usage: dart run bin/stamp_serialization_order.dart '
-        '--package <path> [--dry-run]');
+    stdout.writeln(
+      'Usage: dart run bin/stamp_serialization_order.dart '
+      '--package <path> [--dry-run]',
+    );
     stdout.writeln(parser.usage);
     exit(0);
   }
@@ -57,15 +63,19 @@ Future<void> main(List<String> arguments) async {
     exit(1);
   }
 
-  stdout.writeln('stamp_serialization_order: '
-      '${dryRun ? '[dry-run] ' : ''}'
-      'files changed: ${result.filesChanged}, '
-      'members stamped: ${result.membersStamped}'
-      '${result.membersRestamped > 0 ? ', restamped (removed old): '
-          '${result.membersRestamped}' : ''}');
+  stdout.writeln(
+    'stamp_serialization_order: '
+    '${dryRun ? '[dry-run] ' : ''}'
+    'files changed: ${result.filesChanged}, '
+    'members stamped: ${result.membersStamped}'
+    '${result.membersRestamped > 0 ? ', restamped (removed old): '
+              '${result.membersRestamped}' : ''}',
+  );
   if (result.multiVarWarnings.isNotEmpty) {
-    stderr.writeln('WARNING: ${result.multiVarWarnings.length} multi-variable '
-        'field declaration(s) share one ordinal:');
+    stderr.writeln(
+      'WARNING: ${result.multiVarWarnings.length} multi-variable '
+      'field declaration(s) share one ordinal:',
+    );
     for (final w in result.multiVarWarnings) {
       stderr.writeln('  - $w');
     }

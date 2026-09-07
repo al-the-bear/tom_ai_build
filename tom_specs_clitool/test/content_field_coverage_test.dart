@@ -23,29 +23,43 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
-  final metaPath = p.normalize(p.join(Directory.current.path, '..',
-      'tom_som_dart_v0', 'meta', 'spec_model.meta.json'));
+  final metaPath = p.normalize(
+    p.join(
+      Directory.current.path,
+      '..',
+      'tom_som_dart_v0',
+      'meta',
+      'spec_model.meta.json',
+    ),
+  );
 
-  test('every class in the meta declares content, except the container root',
-      () {
-    final meta = jsonDecode(File(metaPath).readAsStringSync())
-        as Map<String, dynamic>;
-    final containerRoot = meta['containerRoot'] as String;
-    final classes = meta['classes'] as Map<String, dynamic>;
+  test(
+    'every class in the meta declares content, except the container root',
+    () {
+      final meta =
+          jsonDecode(File(metaPath).readAsStringSync()) as Map<String, dynamic>;
+      final containerRoot = meta['containerRoot'] as String;
+      final classes = meta['classes'] as Map<String, dynamic>;
 
-    final missing = <String>[];
-    for (final entry in classes.entries) {
-      if (entry.key == containerRoot) continue;
-      final fields = (entry.value as Map<String, dynamic>)['fields'] as List?;
-      final hasContent = (fields ?? const []).any(
-          (f) => (f as Map<String, dynamic>)['name'] == 'content');
-      if (!hasContent) missing.add(entry.key);
-    }
+      final missing = <String>[];
+      for (final entry in classes.entries) {
+        if (entry.key == containerRoot) continue;
+        final fields = (entry.value as Map<String, dynamic>)['fields'] as List?;
+        final hasContent = (fields ?? const []).any(
+          (f) => (f as Map<String, dynamic>)['name'] == 'content',
+        );
+        if (!hasContent) missing.add(entry.key);
+      }
 
-    expect(missing, isEmpty,
-        reason: '${missing.length} class(es) lack the `content: String?` '
-            'override required by tom_specs_model_rules.md §5.2');
-  });
+      expect(
+        missing,
+        isEmpty,
+        reason:
+            '${missing.length} class(es) lack the `content: String?` '
+            'override required by tom_specs_model_rules.md §5.2',
+      );
+    },
+  );
 
   test('every content field carries one of the four §5.6 annotations', () {
     // The annotation is what a spec author reads beside the input, so an
@@ -54,8 +68,8 @@ void main() {
     // the prose wrapped around them.
     const documenting = {'ContentHelp', 'ContentType', 'Form', 'Unused'};
 
-    final meta = jsonDecode(File(metaPath).readAsStringSync())
-        as Map<String, dynamic>;
+    final meta =
+        jsonDecode(File(metaPath).readAsStringSync()) as Map<String, dynamic>;
     final containerRoot = meta['containerRoot'] as String;
     final classes = meta['classes'] as Map<String, dynamic>;
 
@@ -64,8 +78,9 @@ void main() {
       if (entry.key == containerRoot) continue;
       final fields = ((entry.value as Map<String, dynamic>)['fields'] as List?)
           ?.cast<Map<String, dynamic>>();
-      final content =
-          (fields ?? const []).where((f) => f['name'] == 'content').firstOrNull;
+      final content = (fields ?? const [])
+          .where((f) => f['name'] == 'content')
+          .firstOrNull;
       if (content == null) continue; // covered by the test above
       final names = ((content['annotations'] as List?) ?? const [])
           .map((a) => (a as Map<String, dynamic>)['name'] as String)
@@ -73,18 +88,25 @@ void main() {
       if (names.intersection(documenting).isEmpty) undocumented.add(entry.key);
     }
 
-    expect(undocumented, isEmpty,
-        reason: '${undocumented.length} class(es) have an undocumented '
-            '`content` field (tom_specs_model_rules.md §5.6)');
+    expect(
+      undocumented,
+      isEmpty,
+      reason:
+          '${undocumented.length} class(es) have an undocumented '
+          '`content` field (tom_specs_model_rules.md §5.6)',
+    );
   });
 
   test('the container root is genuinely exempt, not merely absent', () {
-    final meta = jsonDecode(File(metaPath).readAsStringSync())
-        as Map<String, dynamic>;
+    final meta =
+        jsonDecode(File(metaPath).readAsStringSync()) as Map<String, dynamic>;
     final containerRoot = meta['containerRoot'] as String;
     final classes = meta['classes'] as Map<String, dynamic>;
 
-    expect(classes, contains(containerRoot),
-        reason: 'the exemption only means something if the root is present');
+    expect(
+      classes,
+      contains(containerRoot),
+      reason: 'the exemption only means something if the root is present',
+    );
   });
 }

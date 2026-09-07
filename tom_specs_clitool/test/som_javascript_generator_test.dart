@@ -52,8 +52,7 @@ void main() {
         generatedAt: generatedAt,
       );
 
-  test('writes the full JS v0 artefact tree with a valid, stamped meta-data',
-      () {
+  test('writes the full JS v0 artefact tree with a valid, stamped meta-data', () {
     final dir = Directory.systemTemp.createTempSync('som_js_gen_');
     addTearDown(() => dir.deleteSync(recursive: true));
     final result = writeInto(dir);
@@ -61,10 +60,14 @@ void main() {
     // Meta-data exists, validates, and carries the stable build stamp.
     final metaFile = File(result.metaJsonPath);
     expect(metaFile.existsSync(), isTrue);
-    final meta = jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
+    final meta =
+        jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
     expect(validateSpecModelMeta(meta), isEmpty);
-    expect(meta['generatedAt'], generatedAt,
-        reason: 'generatedAt must be the stable model build instant');
+    expect(
+      meta['generatedAt'],
+      generatedAt,
+      reason: 'generatedAt must be the stable model build instant',
+    );
     expect(meta['modelVersion'], modelVersion);
     expect(meta['modelVersionLabel'], modelLabel);
 
@@ -76,13 +79,14 @@ void main() {
 
     // The generated metadata module (SOM §8) is written alongside the
     // facade and carries the populated trees + access surfaces.
-    final metaModule = File(p.join(
-        p.dirname(result.modulePath), 'tom_som_javascript_v0_meta.js'));
+    final metaModule = File(
+      p.join(p.dirname(result.modulePath), 'tom_som_javascript_v0_meta.js'),
+    );
     expect(metaModule.existsSync(), isTrue);
     expect(
-        metaModule.readAsStringSync(),
-        contains(
-            'const d00SolutionBlueprintMetaTree = new SomMetaTree('));
+      metaModule.readAsStringSync(),
+      contains('const d00SolutionBlueprintMetaTree = new SomMetaTree('),
+    );
 
     // One DocSpecs schema per @Document root (14).
     expect(result.schemaPaths.length, 14);
@@ -92,37 +96,47 @@ void main() {
 
     // package.json records a *relative* runtime path (portable across checkouts)
     // that resolves back to the JS runtime package.
-    final manifest = jsonDecode(File(result.packageJsonPath).readAsStringSync())
-        as Map<String, Object?>;
+    final manifest =
+        jsonDecode(File(result.packageJsonPath).readAsStringSync())
+            as Map<String, Object?>;
     expect(manifest['name'], 'tom_som_javascript_v0');
     expect(manifest['main'], 'tom_som_javascript_v0.js');
     final tomSom = manifest['tomSom'] as Map<String, Object?>;
     final rtPath = tomSom['runtimePath'] as String;
-    expect(p.isRelative(rtPath), isTrue,
-        reason: 'runtime path must be relative, got $rtPath');
-    expect(p.normalize(p.join(result.outputRoot, rtPath)),
-        p.normalize(jsRuntimeDir),
-        reason: 'relative path must resolve to the JS runtime package');
+    expect(
+      p.isRelative(rtPath),
+      isTrue,
+      reason: 'runtime path must be relative, got $rtPath',
+    );
+    expect(
+      p.normalize(p.join(result.outputRoot, rtPath)),
+      p.normalize(jsRuntimeDir),
+      reason: 'relative path must resolve to the JS runtime package',
+    );
 
     // npm packaging contract (SOM §17.3): the version is the model version, the
     // package is BSD-3-Clause but still private (release 1 is source-only; the
     // flag refuses an accidental `npm publish`), the tarball payload is
     // pinned via `files`/`exports`, and the runtime is a declared dependency.
-    expect(manifest['version'], '1.0.0',
-        reason: 'version tracks the TomSpecs model version');
+    expect(
+      manifest['version'],
+      '1.0.0',
+      reason: 'version tracks the TomSpecs model version',
+    );
     expect(manifest['private'], isTrue);
     expect(manifest['license'], 'BSD-3-Clause');
     final files = (manifest['files'] as List).cast<String>();
     expect(
-        files,
-        containsAll(<String>[
-          'tom_som_javascript_v0.js',
-          'tom_som_javascript_v0_meta.js',
-          'meta/',
-          'schemas/',
-          'README.md',
-          'LICENSE',
-        ]));
+      files,
+      containsAll(<String>[
+        'tom_som_javascript_v0.js',
+        'tom_som_javascript_v0_meta.js',
+        'meta/',
+        'schemas/',
+        'README.md',
+        'LICENSE',
+      ]),
+    );
     final exports = manifest['exports'] as Map<String, Object?>;
     expect(exports['.'], './tom_som_javascript_v0.js');
     final deps = manifest['dependencies'] as Map<String, Object?>;
@@ -144,9 +158,11 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rj.metaJsonPath).readAsStringSync(),
-        File(rd.metaJsonPath).readAsStringSync(),
-        reason: 'meta-data must be language-agnostic / byte-identical');
+    expect(
+      File(rj.metaJsonPath).readAsStringSync(),
+      File(rd.metaJsonPath).readAsStringSync(),
+      reason: 'meta-data must be language-agnostic / byte-identical',
+    );
   });
 
   test('the JS DocSpecs schemas are byte-identical to the Dart path', () {
@@ -164,37 +180,52 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(rj.schemaPaths.map((s) => p.basename(s)).toList(),
-        rd.schemaPaths.map((s) => p.basename(s)).toList());
+    expect(
+      rj.schemaPaths.map((s) => p.basename(s)).toList(),
+      rd.schemaPaths.map((s) => p.basename(s)).toList(),
+    );
     for (var i = 0; i < rj.schemaPaths.length; i++) {
-      expect(File(rj.schemaPaths[i]).readAsStringSync(),
-          File(rd.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(rj.schemaPaths[i])} must be '
-              'language-agnostic / byte-identical');
+      expect(
+        File(rj.schemaPaths[i]).readAsStringSync(),
+        File(rd.schemaPaths[i]).readAsStringSync(),
+        reason:
+            'schema ${p.basename(rj.schemaPaths[i])} must be '
+            'language-agnostic / byte-identical',
+      );
     }
   });
 
-  test('regeneration is idempotent (byte-stable output for unchanged input)',
-      () {
-    final a = Directory.systemTemp.createTempSync('som_js_a_');
-    final b = Directory.systemTemp.createTempSync('som_js_b_');
-    addTearDown(() => a.deleteSync(recursive: true));
-    addTearDown(() => b.deleteSync(recursive: true));
-    final ra = writeInto(a);
-    final rb = writeInto(b);
+  test(
+    'regeneration is idempotent (byte-stable output for unchanged input)',
+    () {
+      final a = Directory.systemTemp.createTempSync('som_js_a_');
+      final b = Directory.systemTemp.createTempSync('som_js_b_');
+      addTearDown(() => a.deleteSync(recursive: true));
+      addTearDown(() => b.deleteSync(recursive: true));
+      final ra = writeInto(a);
+      final rb = writeInto(b);
 
-    expect(File(rb.modulePath).readAsStringSync(),
-        File(ra.modulePath).readAsStringSync());
-    expect(File(rb.metaJsonPath).readAsStringSync(),
-        File(ra.metaJsonPath).readAsStringSync());
-    expect(File(rb.packageJsonPath).readAsStringSync(),
-        File(ra.packageJsonPath).readAsStringSync());
-    for (var i = 0; i < ra.schemaPaths.length; i++) {
-      expect(File(rb.schemaPaths[i]).readAsStringSync(),
+      expect(
+        File(rb.modulePath).readAsStringSync(),
+        File(ra.modulePath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaJsonPath).readAsStringSync(),
+        File(ra.metaJsonPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.packageJsonPath).readAsStringSync(),
+        File(ra.packageJsonPath).readAsStringSync(),
+      );
+      for (var i = 0; i < ra.schemaPaths.length; i++) {
+        expect(
+          File(rb.schemaPaths[i]).readAsStringSync(),
           File(ra.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable');
-    }
-  });
+          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable',
+        );
+      }
+    },
+  );
 
   test('the analyze+write path matches the write-only path', () async {
     final viaWrite = Directory.systemTemp.createTempSync('som_js_w_');
@@ -211,10 +242,14 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rf.modulePath).readAsStringSync(),
-        File(rw.modulePath).readAsStringSync());
-    expect(File(rf.metaJsonPath).readAsStringSync(),
-        File(rw.metaJsonPath).readAsStringSync());
+    expect(
+      File(rf.modulePath).readAsStringSync(),
+      File(rw.modulePath).readAsStringSync(),
+    );
+    expect(
+      File(rf.metaJsonPath).readAsStringSync(),
+      File(rw.metaJsonPath).readAsStringSync(),
+    );
   });
 
   test('the emitted full module loads under node', () {
@@ -230,14 +265,17 @@ void main() {
     // Physical path: package.json carries a relative tomSom.runtimePath, and
     // node resolves it from the physical module dir — a symlinked temp path
     // (macOS /var/folders → /private/var) would break the `..` walk.
-    final dir = Directory(Directory.systemTemp
-        .createTempSync('som_js_load_')
-        .resolveSymbolicLinksSync());
+    final dir = Directory(
+      Directory.systemTemp
+          .createTempSync('som_js_load_')
+          .resolveSymbolicLinksSync(),
+    );
     addTearDown(() => dir.deleteSync(recursive: true));
     final result = writeInto(dir);
 
     final modulePath = result.modulePath.replaceAll(r'\', '/');
-    final check = '''
+    final check =
+        '''
 const m = require(${jsonEncode(modulePath)});
 const { SpecDocument } = require(${jsonEncode(jsRuntimeDir.replaceAll(r'\', '/'))});
 const pd = new m.D00SolutionBlueprint(new SpecDocument());
@@ -246,8 +284,11 @@ if (typeof pd.path !== 'string' || pd.path.length === 0) throw new Error('root p
 process.stdout.write('OK');
 ''';
     final r = Process.runSync(node, ['-e', check]);
-    expect(r.exitCode, 0,
-        reason: 'generated JS module must load under node:\n${r.stderr}');
+    expect(
+      r.exitCode,
+      0,
+      reason: 'generated JS module must load under node:\n${r.stderr}',
+    );
     expect(r.stdout.toString().trim(), 'OK');
   });
 }

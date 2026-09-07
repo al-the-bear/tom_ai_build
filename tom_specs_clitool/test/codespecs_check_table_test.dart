@@ -23,9 +23,7 @@ void main() {
         '${Directory.current.path}/../tom_specs_model/doc/'
         'codespecs_derivation_contract.md',
       );
-      final report = compareCsCheckTable(
-        markdown: contract.readAsStringSync(),
-      );
+      final report = compareCsCheckTable(markdown: contract.readAsStringSync());
 
       expect(report.rows, hasLength(codeSpecsChecks.length));
       expect(report.problems, isEmpty, reason: report.problems.join('\n'));
@@ -103,11 +101,11 @@ void main() {
 /// A `codespecs_derivation_contract.md` §6 stand-in carrying [entries] as its
 /// table.
 String _tableOf(List<(int, String)> entries) => [
-      '## 6. Validator checks this contract creates',
-      '',
-      '| # | Check | Defined in | Implemented by |',
-      '|---|-------|------------|----------------|',
-      for (final (number, className) in entries)
-        '| $number | A rule | §2.1 | `$className` |',
-      '',
-    ].join('\n');
+  '## 6. Validator checks this contract creates',
+  '',
+  '| # | Check | Defined in | Implemented by |',
+  '|---|-------|------------|----------------|',
+  for (final (number, className) in entries)
+    '| $number | A rule | §2.1 | `$className` |',
+  '',
+].join('\n');

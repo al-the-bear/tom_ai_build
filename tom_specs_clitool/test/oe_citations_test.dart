@@ -89,18 +89,21 @@ The register once contained `OE-7`, in a paragraph rather than a row.
     test('throws when the register heading is absent', () {
       expect(
         () => OeRegister.parse('# Spec\n\n## 1. Intro\n', path: 'spec.md'),
-        throwsA(isA<StateError>().having(
-          (e) => e.message,
-          'message',
-          contains('Open-Ends Register'),
-        )),
+        throwsA(
+          isA<StateError>().having(
+            (e) => e.message,
+            'message',
+            contains('Open-Ends Register'),
+          ),
+        ),
       );
     });
 
     test('finds the heading at any section number', () {
-      final register =
-          OeRegister.parse('## 7. Open-Ends Register\n\n| `OE-4` | x. | open |',
-              path: 'spec.md');
+      final register = OeRegister.parse(
+        '## 7. Open-Ends Register\n\n| `OE-4` | x. | open |',
+        path: 'spec.md',
+      );
 
       expect(register.ids, {'OE-4'});
     });
@@ -291,8 +294,9 @@ The register once contained `OE-7`, in a paragraph rather than a row.
     // `dart test` runs from the package root, so the container is three levels
     // up. Deriving it from `Platform.script` would point at the runner's own
     // temporary entry point.
-    final containerRoot =
-        p.normalize(p.join(Directory.current.path, '..', '..', '..'));
+    final containerRoot = p.normalize(
+      p.join(Directory.current.path, '..', '..', '..'),
+    );
 
     File resolve(String posixRelative) =>
         File(p.join(containerRoot, p.joinAll(p.posix.split(posixRelative))));
@@ -301,22 +305,26 @@ The register once contained `OE-7`, in a paragraph rather than a row.
       final spec = resolve(oeRegisterDocument);
       // Guards the guard: a moved document would otherwise make the check
       // vacuous rather than red.
-      expect(spec.existsSync(), isTrue,
-          reason: 'register document not found at $oeRegisterDocument');
+      expect(
+        spec.existsSync(),
+        isTrue,
+        reason: 'register document not found at $oeRegisterDocument',
+      );
 
       final register = OeRegister.read(spec.path);
-      final roots = [
-        for (final root in defaultCitingRoots) resolve(root).path,
-      ].where((path) =>
-          File(path).existsSync() || Directory(path).existsSync()).toList();
+      final roots = [for (final root in defaultCitingRoots) resolve(root).path]
+          .where(
+            (path) => File(path).existsSync() || Directory(path).existsSync(),
+          )
+          .toList();
 
       final report = checkOeCitations(roots: roots, register: register);
 
       expect(report.register.duplicates, isEmpty);
-      expect(
-        [for (final v in report.violations) v.describe(relativeTo: containerRoot)],
-        isEmpty,
-      );
+      expect([
+        for (final v in report.violations)
+          v.describe(relativeTo: containerRoot),
+      ], isEmpty);
       // The register exists because the citations do; an empty corpus would
       // pass silently and mean the roots stopped resolving.
       expect(report.citations, isNotEmpty);

@@ -117,11 +117,12 @@ class DocSpecsSchemaGenerator {
     int modelVersion = 1,
     String? modelLabel,
   }) {
-    final rootNames = classes.values
-        .where((c) => c.getAnnotation('Document') != null)
-        .map((c) => c.name)
-        .toList()
-      ..sort();
+    final rootNames =
+        classes.values
+            .where((c) => c.getAnnotation('Document') != null)
+            .map((c) => c.name)
+            .toList()
+          ..sort();
 
     final result = <String, DocSpecSchema>{};
     for (final rootName in rootNames) {
@@ -234,15 +235,17 @@ class DocSpecsSchemaGenerator {
       sectionTypes: sectionTypes,
       formTypes: builder.formTypes.isEmpty ? null : builder.formTypes,
       document: DocumentStructure(sections: sections),
-      subsectionDeclarations:
-          subsectionDeclarations.isEmpty ? null : subsectionDeclarations,
+      subsectionDeclarations: subsectionDeclarations.isEmpty
+          ? null
+          : subsectionDeclarations,
       customTags: customTags,
     );
   }
 
   /// Serialises a schema to YAML text for writing to `.tom/docspecs-schema/`.
   static String toYamlString(DocSpecSchema schema) {
-    final header = '# Generated from the TomSpecs object model — do not edit.\n'
+    final header =
+        '# Generated from the TomSpecs object model — do not edit.\n'
         '# Schema: ${schema.fullId}\n\n';
     return header + json2yaml(_escapeForJson2Yaml(schema.toYaml()));
   }
@@ -273,7 +276,8 @@ class DocSpecsSchemaGenerator {
   static dynamic _escapeForJson2Yaml(dynamic value) {
     if (value is Map) {
       return value.map<String, dynamic>(
-          (k, v) => MapEntry(k as String, _escapeForJson2Yaml(v)));
+        (k, v) => MapEntry(k as String, _escapeForJson2Yaml(v)),
+      );
     }
     if (value is Iterable) {
       return value.map(_escapeForJson2Yaml).toList();
@@ -295,8 +299,22 @@ class DocSpecsSchemaGenerator {
     if (s.isNotEmpty && num.tryParse(s) != null) return true;
     if (s == 'true' || s == 'false') return true;
     const specials = [
-      ': ', '[', ']', '{', '}', '>', '!', '*', '&', '|', '%', ' #', '`', '@',
-      ',', '?',
+      ': ',
+      '[',
+      ']',
+      '{',
+      '}',
+      '>',
+      '!',
+      '*',
+      '&',
+      '|',
+      '%',
+      ' #',
+      '`',
+      '@',
+      ',',
+      '?',
     ];
     return specials.any(s.contains);
   }
@@ -380,9 +398,9 @@ class DocSpecsSchemaGenerator {
     }
     final paths = <String>[];
     for (final schema in schemas.values) {
-      final file =
-          File(p.join(outputRoot, 'schemas', schema.id, fileNameFor(schema)))
-            ..parent.createSync(recursive: true);
+      final file = File(
+        p.join(outputRoot, 'schemas', schema.id, fileNameFor(schema)),
+      )..parent.createSync(recursive: true);
       file.writeAsStringSync(toYamlString(schema));
       paths.add(file.path);
     }
@@ -526,7 +544,9 @@ class _SchemaBuilder {
     // The element's own @SectionId is a fallback when the list carries no
     // pattern (the pattern is the `tom_specs_model_rules.md` §10.2-preferred
     // coverage mechanism).
-    final exactId = pattern != null ? _patternStem(pattern) : element?.sectionId;
+    final exactId = pattern != null
+        ? _patternStem(pattern)
+        : element?.sectionId;
     if (exactId == null || element == null || element.unused) {
       // Scalar/enum lists (or uncovered lists) have no section representation.
       return const [];
@@ -555,11 +575,14 @@ class _SchemaBuilder {
     // directly under the parent (pre-DRA1 behaviour).
     final containerId = node.sectionId;
     if (containerId == null) {
-      return [_ChildRef(itemTypeName, minCount: node.min, maxCount: maxItemCount)];
+      return [
+        _ChildRef(itemTypeName, minCount: node.min, maxCount: maxItemCount),
+      ];
     }
 
-    final containerTypeName =
-        containerId.replaceAll(RegExp(r'-+$'), '').toLowerCase();
+    final containerTypeName = containerId
+        .replaceAll(RegExp(r'-+$'), '')
+        .toLowerCase();
     _registerListContainerType(
       typeName: containerTypeName,
       exactId: containerId,
@@ -591,7 +614,8 @@ class _SchemaBuilder {
     // The list field's own annotations describe the container, which is what
     // the parent (and the document structure) references.
     _recordPlacement(typeName, node);
-    final description = node.contentHelp ??
+    final description =
+        node.contentHelp ??
         _firstLine(node.docComment) ??
         existing?.description;
     final merged = <String, SubsectionConstraint>{
@@ -663,12 +687,14 @@ class _SchemaBuilder {
     }
 
     // text-required: @TextRequired, or @Min(1) on a content member.
-    final textRequired = _extraPresent(node, 'TextRequired') ||
+    final textRequired =
+        _extraPresent(node, 'TextRequired') ||
             (node.kind == MetaNodeKind.content && (node.min ?? 0) >= 1)
         ? true
         : null;
 
-    final description = node.contentHelp ??
+    final description =
+        node.contentHelp ??
         listNode?.contentHelp ??
         _firstLine(node.docComment) ??
         _firstLine(listNode?.docComment);
@@ -681,7 +707,8 @@ class _SchemaBuilder {
     // An explicit @PatternCheckId is the author's own id-format rule and wins
     // over the stem check derived from @SectionIdPattern: the derived form is
     // a fallback for lists that only declare their pattern.
-    final explicitPatternCheckId = _explicitPatternCheckId(node) ??
+    final explicitPatternCheckId =
+        _explicitPatternCheckId(node) ??
         (listNode == null ? null : _explicitPatternCheckId(listNode));
 
     _sectionTypes[typeName] = SectionTypeDef(
@@ -694,11 +721,14 @@ class _SchemaBuilder {
           _extraInt(node, 'MinLength', 'length') ?? existing?.minTextLength,
       maxTextLength:
           _extraInt(node, 'MaxLength', 'length') ?? existing?.maxTextLength,
-      maxSubsectionLevels: _extraInt(node, 'MaxDepth', 'levels') ??
+      maxSubsectionLevels:
+          _extraInt(node, 'MaxDepth', 'levels') ??
           existing?.maxSubsectionLevels,
-      allowedTags: _extraStringList(node, 'AllowedTags', 'tags') ??
+      allowedTags:
+          _extraStringList(node, 'AllowedTags', 'tags') ??
           existing?.allowedTags,
-      validationPrompt: _extraString(node, 'ValidationPrompt', 'prompt') ??
+      validationPrompt:
+          _extraString(node, 'ValidationPrompt', 'prompt') ??
           existing?.validationPrompt,
       patternCheckId:
           explicitPatternCheckId ?? patternCheckId ?? existing?.patternCheckId,
@@ -714,7 +744,8 @@ class _SchemaBuilder {
       if (pattern == null) continue;
       return PatternCheckDef(
         pattern: pattern,
-        errorMessage: (extra.arguments['errorMessage'] as String?) ??
+        errorMessage:
+            (extra.arguments['errorMessage'] as String?) ??
             'IDs of this section must match $pattern',
       );
     }
@@ -757,7 +788,8 @@ class _SchemaBuilder {
       if (pattern == null) continue;
       return PatternCheckDef(
         pattern: pattern,
-        errorMessage: (extra.arguments['errorMessage'] as String?) ??
+        errorMessage:
+            (extra.arguments['errorMessage'] as String?) ??
             'Value must match $pattern',
       );
     }
@@ -769,8 +801,9 @@ class _SchemaBuilder {
   Map<String, SectionTypeDef> orderedSectionTypes() {
     final entries = _sectionTypes.entries.toList()
       ..sort((a, b) {
-        final byLen =
-            (b.value.prefix?.length ?? 0).compareTo(a.value.prefix?.length ?? 0);
+        final byLen = (b.value.prefix?.length ?? 0).compareTo(
+          a.value.prefix?.length ?? 0,
+        );
         return byLen != 0 ? byLen : a.key.compareTo(b.key);
       });
     return {for (final e in entries) e.key: e.value};
@@ -791,10 +824,8 @@ class _SchemaBuilder {
   /// the runtime's list-scoped concern, not the schema's. This mirrors the md
   /// parser's own pattern matching (`xxx` → `.+`), so every facade-authored
   /// document validates against its own schema regardless of its stored ids.
-  static String _compilePattern(String pattern) => pattern
-      .split('xxx')
-      .map(RegExp.escape)
-      .join('.+');
+  static String _compilePattern(String pattern) =>
+      pattern.split('xxx').map(RegExp.escape).join('.+');
 
   /// A unique, DocSpecs-legal prefix for a section id: the exact id with the
   /// TomSpecs dashes transformed to `_` (the prefix grammar `^[a-zA-Z0-9_]+$`
@@ -806,8 +837,9 @@ class _SchemaBuilder {
   /// uniquified on the same terms, so an author cannot write a prefix the
   /// DocSpecs grammar rejects or one that shadows a sibling.
   String _prefixFor(String exactId, {MetaNode? node}) {
-    final declared =
-        node == null ? null : _extraString(node, 'Prefix', 'prefix');
+    final declared = node == null
+        ? null
+        : _extraString(node, 'Prefix', 'prefix');
     var base = (declared ?? exactId).replaceAll(RegExp(r'[^a-zA-Z0-9_]+'), '_');
     if (base.isEmpty) base = 'SEC';
     var candidate = base;

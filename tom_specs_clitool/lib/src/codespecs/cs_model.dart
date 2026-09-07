@@ -205,8 +205,7 @@ class CsMarker {
   ///
   /// `codespecs_derivation_contract.md` §2.3 puts the authored identifier in
   /// exactly this slot for every marker that has one.
-  CsValue? get firstPositional =>
-      positional.isEmpty ? null : positional.first;
+  CsValue? get firstPositional => positional.isEmpty ? null : positional.first;
 
   /// The first positional argument as a string, when it is one.
   String? get firstPositionalString {
@@ -216,9 +215,9 @@ class CsMarker {
 
   /// Named arguments that are neither absent nor an explicit `null`.
   Map<String, CsValue> get presentNamed => {
-        for (final e in named.entries)
-          if (e.value is! CsNullValue) e.key: e.value,
-      };
+    for (final e in named.entries)
+      if (e.value is! CsNullValue) e.key: e.value,
+  };
 }
 
 /// One `DocRef` tuple of a `@DocSpec` annotation.
@@ -301,11 +300,7 @@ class CsCall {
   final CsLocation location;
 
   /// Creates a call site.
-  const CsCall({
-    required this.method,
-    required this.location,
-    this.receiver,
-  });
+  const CsCall({required this.method, required this.location, this.receiver});
 }
 
 /// What kind of statement one line of a generated body is.
@@ -541,9 +536,9 @@ class CsDocComment {
 
   /// The comment text with each line's `///` marker removed.
   List<String> get text => [
-        for (final line in lines)
-          line.startsWith('///') ? line.substring(3).trimLeft() : line,
-      ];
+    for (final line in lines)
+      line.startsWith('///') ? line.substring(3).trimLeft() : line,
+  ];
 
   /// The comment text with each line's `/// ` marker removed and **nothing
   /// else** — at most the one space C4.1 puts after the marker.
@@ -553,9 +548,7 @@ class CsDocComment {
   /// nested list item or an indented fenced line differs from its source only
   /// in that indentation, so trimming it would make a mangled comment compare
   /// equal to the specification it mangled.
-  List<String> get verbatimText => [
-        for (final line in lines) _unmark(line),
-      ];
+  List<String> get verbatimText => [for (final line in lines) _unmark(line)];
 
   static String _unmark(String line) {
     if (!line.startsWith('///')) return line;
@@ -880,10 +873,10 @@ class CodeSpecsRegeneration {
 
   /// The project for [locus].
   CsLocusProject project(CsLocus locus) => switch (locus) {
-        CsLocus.shared => shared,
-        CsLocus.client => client,
-        CsLocus.server => server,
-      };
+    CsLocus.shared => shared,
+    CsLocus.client => client,
+    CsLocus.server => server,
+  };
 }
 
 /// Everything the thirty-seven checks read.
@@ -932,10 +925,10 @@ class CodeSpecsValidationInput {
 
   /// The project for [locus].
   CsLocusProject project(CsLocus locus) => switch (locus) {
-        CsLocus.shared => shared,
-        CsLocus.client => client,
-        CsLocus.server => server,
-      };
+    CsLocus.shared => shared,
+    CsLocus.client => client,
+    CsLocus.server => server,
+  };
 
   /// Every declaration across the trio.
   Iterable<CsDeclaration> get declarations =>

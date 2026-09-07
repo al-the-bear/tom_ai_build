@@ -29,12 +29,14 @@ Future<void> main(List<String> arguments) async {
     )
     ..addOption(
       'migrations',
-      help: 'Directory of CE-MG migration artifacts (*.sql), for check 13. '
+      help:
+          'Directory of CE-MG migration artifacts (*.sql), for check 13. '
           'Omitted: the check has nothing to converge and reports nothing.',
     )
     ..addOption(
       'extracts',
-      help: 'Directory of per-area extracts (*.extract.yaml), for the comment '
+      help:
+          'Directory of per-area extracts (*.extract.yaml), for the comment '
           'checks (32, 33, 34) and the transfer checks (35, 36). Give the '
           "run's whole extract tree or none: a partial one understates what "
           'the trio was supposed to carry, and check 35 would pass a gap it '
@@ -45,30 +47,35 @@ Future<void> main(List<String> arguments) async {
     )
     ..addOption(
       'cs-vocabulary',
-      help: "Path to tom_code_specs' vocabulary source (file or directory), "
+      help:
+          "Path to tom_code_specs' vocabulary source (file or directory), "
           'for the mirrored-catalogue check (9). No catalogue currently has a '
           'tom_core counterpart, so the check has an empty pair table and this '
           'reports nothing until one is added.',
     )
     ..addOption(
       'core-source',
-      help: 'Path to the tom_core source (file or directory) holding the '
+      help:
+          'Path to the tom_core source (file or directory) holding the '
           'mirrored counterparts, for the mirrored-catalogue check (9). Same '
           'empty-pair-table caveat as --cs-vocabulary.',
     )
     ..addOption(
       'regenerated-shared',
-      help: 'Path to a second generation run\'s shared package, for the '
+      help:
+          'Path to a second generation run\'s shared package, for the '
           'determinism check (31). All three or none.',
     )
     ..addOption(
       'regenerated-client',
-      help: 'Path to a second generation run\'s client package, for the '
+      help:
+          'Path to a second generation run\'s client package, for the '
           'determinism check (31). All three or none.',
     )
     ..addOption(
       'regenerated-server',
-      help: 'Path to a second generation run\'s server package, for the '
+      help:
+          'Path to a second generation run\'s server package, for the '
           'determinism check (31). All three or none.',
     )
     ..addFlag(
@@ -103,8 +110,10 @@ Future<void> main(List<String> arguments) async {
       if (!results.wasParsed(name)) name,
   ];
   if (missing.isNotEmpty) {
-    stderr.writeln('Error: the CodeSpecs trio is the pass\'s subject; '
-        'missing required option(s): ${missing.map((n) => '--$n').join(', ')}.');
+    stderr.writeln(
+      'Error: the CodeSpecs trio is the pass\'s subject; '
+      'missing required option(s): ${missing.map((n) => '--$n').join(', ')}.',
+    );
     stderr.writeln();
     _printUsage(parser);
     exit(2);
@@ -167,8 +176,8 @@ Future<void> main(List<String> arguments) async {
       '(verdict `${area.verdict.word}`'
       '${area.descoped ? ', resolution `descoped`' : ''}) — '
       '${area.entryCount == 0 ? 'no routed entries' : '${area.entryCount} '
-          'routed entr${area.entryCount == 1 ? 'y' : 'ies'} dropped from the '
-          'obligation set'}; checks 32–36 do not hold the trio to this area.',
+                'routed entr${area.entryCount == 1 ? 'y' : 'ies'} dropped from the '
+                'obligation set'}; checks 32–36 do not hold the trio to this area.',
     );
   }
 
@@ -257,8 +266,8 @@ CsExtractSet _extracts(String? path) {
     final isExtract = entity.path.endsWith('.extract.yaml');
     final isGate = p.basename(entity.path) == kCsGateRecordFile;
     if (!isExtract && !isGate) continue;
-    sources[p.relative(entity.path, from: dir.path)] =
-        entity.readAsStringSync();
+    sources[p.relative(entity.path, from: dir.path)] = entity
+        .readAsStringSync();
   }
   try {
     return readCsExtracts(sources);

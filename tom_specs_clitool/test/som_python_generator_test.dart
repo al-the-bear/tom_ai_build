@@ -43,103 +43,138 @@ void main() {
   });
 
   SomPythonGenerationResult writeInto(Directory dir) => writeSomPythonProject(
-        classes: classes,
-        runtimePackagePath: pyRuntimeDir,
-        outputRoot: dir.path,
-        modelVersion: modelVersion,
-        modelLabel: modelLabel,
-        generatedAt: generatedAt,
+    classes: classes,
+    runtimePackagePath: pyRuntimeDir,
+    outputRoot: dir.path,
+    modelVersion: modelVersion,
+    modelLabel: modelLabel,
+    generatedAt: generatedAt,
+  );
+
+  test(
+    'writes the full Python v0 artefact tree with a valid, stamped meta-data',
+    () {
+      final dir = Directory.systemTemp.createTempSync('som_py_gen_');
+      addTearDown(() => dir.deleteSync(recursive: true));
+      final result = writeInto(dir);
+
+      // Meta-data exists, validates, and carries the stable build stamp.
+      final metaFile = File(result.metaJsonPath);
+      expect(metaFile.existsSync(), isTrue);
+      final meta =
+          jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
+      expect(validateSpecModelMeta(meta), isEmpty);
+      expect(
+        meta['generatedAt'],
+        generatedAt,
+        reason: 'generatedAt must be the stable model build instant',
+      );
+      expect(meta['modelVersion'], modelVersion);
+      expect(meta['modelVersionLabel'], modelLabel);
+
+      // Typed facade module exists and declares the global root class.
+      final module = File(result.modulePath).readAsStringSync();
+      expect(module, contains('class D00SolutionBlueprint'));
+      expect(result.modulePath, endsWith('tom_som_python_v0.py'));
+
+      // The generated metadata module (SOM §8) is written alongside the
+      // facade and carries the populated trees + access surfaces.
+      final metaModule = File(
+        p.join(p.dirname(result.modulePath), 'tom_som_python_v0_meta.py'),
+      );
+      expect(metaModule.existsSync(), isTrue);
+      expect(
+        metaModule.readAsStringSync(),
+        contains('d00SolutionBlueprintMetaTree = SomMetaTree('),
       );
 
-  test('writes the full Python v0 artefact tree with a valid, stamped meta-data',
-      () {
-    final dir = Directory.systemTemp.createTempSync('som_py_gen_');
-    addTearDown(() => dir.deleteSync(recursive: true));
-    final result = writeInto(dir);
+      // One DocSpecs schema per @Document root (14).
+      expect(result.schemaPaths.length, 14);
+      for (final s in result.schemaPaths) {
+        expect(File(s).existsSync(), isTrue);
+      }
 
-    // Meta-data exists, validates, and carries the stable build stamp.
-    final metaFile = File(result.metaJsonPath);
-    expect(metaFile.existsSync(), isTrue);
-    final meta = jsonDecode(metaFile.readAsStringSync()) as Map<String, Object?>;
-    expect(validateSpecModelMeta(meta), isEmpty);
-    expect(meta['generatedAt'], generatedAt,
-        reason: 'generatedAt must be the stable model build instant');
-    expect(meta['modelVersion'], modelVersion);
-    expect(meta['modelVersionLabel'], modelLabel);
-
-    // Typed facade module exists and declares the global root class.
-    final module = File(result.modulePath).readAsStringSync();
-    expect(module, contains('class D00SolutionBlueprint'));
-    expect(result.modulePath, endsWith('tom_som_python_v0.py'));
-
-    // The generated metadata module (SOM §8) is written alongside the
-    // facade and carries the populated trees + access surfaces.
-    final metaModule = File(
-        p.join(p.dirname(result.modulePath), 'tom_som_python_v0_meta.py'));
-    expect(metaModule.existsSync(), isTrue);
-    expect(metaModule.readAsStringSync(),
-        contains('d00SolutionBlueprintMetaTree = SomMetaTree('));
-
-    // One DocSpecs schema per @Document root (14).
-    expect(result.schemaPaths.length, 14);
-    for (final s in result.schemaPaths) {
-      expect(File(s).existsSync(), isTrue);
-    }
-
-    // pyproject.toml is a publishable PEP 517 manifest (SOM §17.3): it declares a
-    // build backend, the facade module as a single top-level py-module, the
-    // facade version pinned to the model version, and a hosted runtime
-    // dependency. It *also* records a *relative* runtime path (portable across
-    // checkouts) for local, unpublished development.
-    final pyproject = File(result.pyprojectPath).readAsStringSync();
-    expect(pyproject, contains('name = "tom_som_python_v0"'));
-    expect(pyproject, contains('[build-system]'),
-        reason: 'a PEP 517 dist must declare a build backend');
-    expect(pyproject, contains('build-backend = "setuptools.build_meta"'));
-    expect(pyproject, contains('version = "1.0.0"'),
-        reason: 'facade version is the TomSpecs model version');
-    expect(
+      // pyproject.toml is a publishable PEP 517 manifest (SOM §17.3): it declares a
+      // build backend, the facade module as a single top-level py-module, the
+      // facade version pinned to the model version, and a hosted runtime
+      // dependency. It *also* records a *relative* runtime path (portable across
+      // checkouts) for local, unpublished development.
+      final pyproject = File(result.pyprojectPath).readAsStringSync();
+      expect(pyproject, contains('name = "tom_som_python_v0"'));
+      expect(
         pyproject,
-        contains('py-modules = ["tom_som_python_v0", "tom_som_python_v0_meta", '
-            '"tom_som_python_v0_data"]'),
-        reason: 'the facade, its generated metadata module and the data '
+        contains('[build-system]'),
+        reason: 'a PEP 517 dist must declare a build backend',
+      );
+      expect(pyproject, contains('build-backend = "setuptools.build_meta"'));
+      expect(
+        pyproject,
+        contains('version = "1.0.0"'),
+        reason: 'facade version is the TomSpecs model version',
+      );
+      expect(
+        pyproject,
+        contains(
+          'py-modules = ["tom_som_python_v0", "tom_som_python_v0_meta", '
+          '"tom_som_python_v0_data"]',
+        ),
+        reason:
+            'the facade, its generated metadata module and the data '
             'resolution module must be listed explicitly so setuptools skips '
-            'flat-layout auto-discovery');
-    // The shipped data trees (meta/ + schemas/) are mapped into the wheel as
-    // importable data packages, so an installed dist carries the meta-data and
-    // the DocSpecs schemas (not just the code).
-    expect(pyproject,
-        contains('packages = ["tom_som_python_v0_meta_data", '
-            '"tom_som_python_v0_schemas"]'),
-        reason: 'the wheel must carry the data packages');
-    expect(pyproject, contains('"tom_som_python_v0_meta_data" = "meta"'));
-    expect(pyproject, contains('"tom_som_python_v0_schemas" = "schemas"'));
-    // The mapped directories are packageable (marker inits) and the resolution
-    // module resolves them installed-or-checkout.
-    expect(
+            'flat-layout auto-discovery',
+      );
+      // The shipped data trees (meta/ + schemas/) are mapped into the wheel as
+      // importable data packages, so an installed dist carries the meta-data and
+      // the DocSpecs schemas (not just the code).
+      expect(
+        pyproject,
+        contains(
+          'packages = ["tom_som_python_v0_meta_data", '
+          '"tom_som_python_v0_schemas"]',
+        ),
+        reason: 'the wheel must carry the data packages',
+      );
+      expect(pyproject, contains('"tom_som_python_v0_meta_data" = "meta"'));
+      expect(pyproject, contains('"tom_som_python_v0_schemas" = "schemas"'));
+      // The mapped directories are packageable (marker inits) and the resolution
+      // module resolves them installed-or-checkout.
+      expect(
         File(p.join(result.outputRoot, 'meta', '__init__.py')).existsSync(),
         isTrue,
-        reason: 'meta/ needs an __init__.py marker to be wheel-packageable');
-    expect(
+        reason: 'meta/ needs an __init__.py marker to be wheel-packageable',
+      );
+      expect(
         File(p.join(result.outputRoot, 'schemas', '__init__.py')).existsSync(),
         isTrue,
-        reason: 'schemas/ needs an __init__.py marker to be wheel-packageable');
-    final dataModule =
-        File(p.join(result.outputRoot, 'tom_som_python_v0_data.py'));
-    expect(dataModule.existsSync(), isTrue);
-    final dataSource = dataModule.readAsStringSync();
-    expect(dataSource, contains('def spec_model_meta_path()'));
-    expect(dataSource, contains('def schemas_root()'));
-    expect(pyproject, contains('tom_som_python_runtime>=1.0.0'),
-        reason: 'the runtime dep must be pinned to the model version');
-    final rtPath =
-        RegExp(r'runtime-path\s*=\s*"([^"]+)"').firstMatch(pyproject)!.group(1)!;
-    expect(p.isRelative(rtPath), isTrue,
-        reason: 'runtime path must be relative, got $rtPath');
-    expect(p.normalize(p.join(result.outputRoot, rtPath)),
+        reason: 'schemas/ needs an __init__.py marker to be wheel-packageable',
+      );
+      final dataModule = File(
+        p.join(result.outputRoot, 'tom_som_python_v0_data.py'),
+      );
+      expect(dataModule.existsSync(), isTrue);
+      final dataSource = dataModule.readAsStringSync();
+      expect(dataSource, contains('def spec_model_meta_path()'));
+      expect(dataSource, contains('def schemas_root()'));
+      expect(
+        pyproject,
+        contains('tom_som_python_runtime>=1.0.0'),
+        reason: 'the runtime dep must be pinned to the model version',
+      );
+      final rtPath = RegExp(
+        r'runtime-path\s*=\s*"([^"]+)"',
+      ).firstMatch(pyproject)!.group(1)!;
+      expect(
+        p.isRelative(rtPath),
+        isTrue,
+        reason: 'runtime path must be relative, got $rtPath',
+      );
+      expect(
+        p.normalize(p.join(result.outputRoot, rtPath)),
         p.normalize(p.join(pyRuntimeDir, 'tom_som_runtime')),
-        reason: 'relative path must resolve to the python runtime module');
-  });
+        reason: 'relative path must resolve to the python runtime module',
+      );
+    },
+  );
 
   test('the Python meta-data is byte-identical to the Dart path', () {
     // Both languages share the same language-agnostic meta-data; prove it by
@@ -158,34 +193,48 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rp.metaJsonPath).readAsStringSync(),
-        File(rd.metaJsonPath).readAsStringSync(),
-        reason: 'meta-data must be language-agnostic / byte-identical');
+    expect(
+      File(rp.metaJsonPath).readAsStringSync(),
+      File(rd.metaJsonPath).readAsStringSync(),
+      reason: 'meta-data must be language-agnostic / byte-identical',
+    );
   });
 
-  test('regeneration is idempotent (byte-stable output for unchanged input)',
-      () {
-    final a = Directory.systemTemp.createTempSync('som_py_a_');
-    final b = Directory.systemTemp.createTempSync('som_py_b_');
-    addTearDown(() => a.deleteSync(recursive: true));
-    addTearDown(() => b.deleteSync(recursive: true));
-    final ra = writeInto(a);
-    final rb = writeInto(b);
+  test(
+    'regeneration is idempotent (byte-stable output for unchanged input)',
+    () {
+      final a = Directory.systemTemp.createTempSync('som_py_a_');
+      final b = Directory.systemTemp.createTempSync('som_py_b_');
+      addTearDown(() => a.deleteSync(recursive: true));
+      addTearDown(() => b.deleteSync(recursive: true));
+      final ra = writeInto(a);
+      final rb = writeInto(b);
 
-    expect(File(rb.modulePath).readAsStringSync(),
-        File(ra.modulePath).readAsStringSync());
-    expect(File(rb.metaJsonPath).readAsStringSync(),
-        File(ra.metaJsonPath).readAsStringSync());
-    expect(File(rb.pyprojectPath).readAsStringSync(),
-        File(ra.pyprojectPath).readAsStringSync());
-    expect(rb.schemaPaths.map((s) => p.basename(s)).toList(),
-        ra.schemaPaths.map((s) => p.basename(s)).toList());
-    for (var i = 0; i < ra.schemaPaths.length; i++) {
-      expect(File(rb.schemaPaths[i]).readAsStringSync(),
+      expect(
+        File(rb.modulePath).readAsStringSync(),
+        File(ra.modulePath).readAsStringSync(),
+      );
+      expect(
+        File(rb.metaJsonPath).readAsStringSync(),
+        File(ra.metaJsonPath).readAsStringSync(),
+      );
+      expect(
+        File(rb.pyprojectPath).readAsStringSync(),
+        File(ra.pyprojectPath).readAsStringSync(),
+      );
+      expect(
+        rb.schemaPaths.map((s) => p.basename(s)).toList(),
+        ra.schemaPaths.map((s) => p.basename(s)).toList(),
+      );
+      for (var i = 0; i < ra.schemaPaths.length; i++) {
+        expect(
+          File(rb.schemaPaths[i]).readAsStringSync(),
           File(ra.schemaPaths[i]).readAsStringSync(),
-          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable');
-    }
-  });
+          reason: 'schema ${p.basename(ra.schemaPaths[i])} must be stable',
+        );
+      }
+    },
+  );
 
   test('the analyze+write path matches the write-only path', () async {
     final viaWrite = Directory.systemTemp.createTempSync('som_py_w_');
@@ -202,10 +251,14 @@ void main() {
       modelLabel: modelLabel,
       generatedAt: generatedAt,
     );
-    expect(File(rf.modulePath).readAsStringSync(),
-        File(rw.modulePath).readAsStringSync());
-    expect(File(rf.metaJsonPath).readAsStringSync(),
-        File(rw.metaJsonPath).readAsStringSync());
+    expect(
+      File(rf.modulePath).readAsStringSync(),
+      File(rw.modulePath).readAsStringSync(),
+    );
+    expect(
+      File(rf.metaJsonPath).readAsStringSync(),
+      File(rw.metaJsonPath).readAsStringSync(),
+    );
   });
 
   test('the emitted module compiles under python3 (py_compile)', () {
@@ -218,14 +271,26 @@ void main() {
     addTearDown(() => dir.deleteSync(recursive: true));
     final result = writeInto(dir);
 
-    final res = Process.runSync(python3, ['-m', 'py_compile', result.modulePath]);
-    expect(res.exitCode, 0,
-        reason: 'generated Python module must compile:\n${res.stderr}');
-    final metaPath =
-        p.join(p.dirname(result.modulePath), 'tom_som_python_v0_meta.py');
+    final res = Process.runSync(python3, [
+      '-m',
+      'py_compile',
+      result.modulePath,
+    ]);
+    expect(
+      res.exitCode,
+      0,
+      reason: 'generated Python module must compile:\n${res.stderr}',
+    );
+    final metaPath = p.join(
+      p.dirname(result.modulePath),
+      'tom_som_python_v0_meta.py',
+    );
     final resMeta = Process.runSync(python3, ['-m', 'py_compile', metaPath]);
-    expect(resMeta.exitCode, 0,
-        reason: 'generated Python meta module must compile:\n${resMeta.stderr}');
+    expect(
+      resMeta.exitCode,
+      0,
+      reason: 'generated Python meta module must compile:\n${resMeta.stderr}',
+    );
   });
 }
 

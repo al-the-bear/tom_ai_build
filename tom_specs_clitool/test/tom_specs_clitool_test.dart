@@ -13,25 +13,26 @@ ModelClass _cls(
   String name,
   List<AnnotationData> annotations, [
   List<ModelField> fields = const [],
-]) =>
-    ModelClass(name: name, annotations: annotations, fields: fields);
+]) => ModelClass(name: name, annotations: annotations, fields: fields);
 
-ModelField _field(String name, String typeName, [List<AnnotationData> annotations = const []]) =>
-    ModelField(name: name, typeName: typeName, annotations: annotations);
+ModelField _field(
+  String name,
+  String typeName, [
+  List<AnnotationData> annotations = const [],
+]) => ModelField(name: name, typeName: typeName, annotations: annotations);
 
 ModelField _listField(
   String name,
   String elementTypeName, [
   List<AnnotationData> annotations = const [],
-]) =>
-    ModelField(
-      name: name,
-      typeName: 'List<$elementTypeName>',
-      isList: true,
-      listElementTypeName: elementTypeName,
-      listElementIsComplex: true,
-      annotations: annotations,
-    );
+]) => ModelField(
+  name: name,
+  typeName: 'List<$elementTypeName>',
+  isList: true,
+  listElementTypeName: elementTypeName,
+  listElementIsComplex: true,
+  annotations: annotations,
+);
 
 /// Every class reachable from [root] by complex / complex-list members —
 /// the same traversal the validator's own reachability uses, restated here so a
@@ -78,20 +79,31 @@ void main() {
       classes = reader.classes;
     });
 
-    test('tom_specs_model_rules.md §10.2: no duplicate @SectionId strings across D00SolutionBlueprint tree', () {
-      final result = validateStructuralInvariants(classes);
-      final dupeErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId uniqueness'))
-          .toList();
-      expect(dupeErrors, isEmpty, reason: dupeErrors.join('\n'));
-    });
+    test(
+      'tom_specs_model_rules.md §10.2: no duplicate @SectionId strings across D00SolutionBlueprint tree',
+      () {
+        final result = validateStructuralInvariants(classes);
+        final dupeErrors = result.errors
+            .where(
+              (e) => e.contains(
+                'tom_specs_model_rules.md §10.2 @SectionId uniqueness',
+              ),
+            )
+            .toList();
+        expect(dupeErrors, isEmpty, reason: dupeErrors.join('\n'));
+      },
+    );
 
     test(
       'tom_specs_model_rules.md §10.2: every reachable class has @SectionId (or is @SectionIdPattern-covered)',
       () {
         final result = validateStructuralInvariants(classes);
         final coverageWarnings = result.warnings
-            .where((w) => w.contains('tom_specs_model_rules.md §10.2 @SectionId coverage'))
+            .where(
+              (w) => w.contains(
+                'tom_specs_model_rules.md §10.2 @SectionId coverage',
+              ),
+            )
             .toList();
         // CS-02 (dsa5) is complete — zero coverage gaps from the SBP root.
         expect(coverageWarnings, isEmpty, reason: coverageWarnings.join('\n'));
@@ -126,53 +138,88 @@ void main() {
         ];
         final gapReport = <String>[];
         for (final root in roots) {
-          expect(classes.containsKey(root), isTrue,
-              reason: 'root type $root not found in the model');
+          expect(
+            classes.containsKey(root),
+            isTrue,
+            reason: 'root type $root not found in the model',
+          );
           final gaps = sectionIdCoverageGaps(classes, root);
           if (gaps.isNotEmpty) {
-            gapReport.add('$root: ${gaps.length} gap(s) — '
-                '${gaps.take(10).join(', ')}');
+            gapReport.add(
+              '$root: ${gaps.length} gap(s) — '
+              '${gaps.take(10).join(', ')}',
+            );
           }
         }
         expect(gapReport, isEmpty, reason: gapReport.join('\n'));
       },
     );
 
-    test('tom_specs_model_rules.md §10.2: no duplicate @SectionIdPattern strings', () {
-      final result = validateStructuralInvariants(classes);
-      final patternErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern uniqueness'))
-          .toList();
-      expect(patternErrors, isEmpty, reason: patternErrors.join('\n'));
-    });
+    test(
+      'tom_specs_model_rules.md §10.2: no duplicate @SectionIdPattern strings',
+      () {
+        final result = validateStructuralInvariants(classes);
+        final patternErrors = result.errors
+            .where(
+              (e) => e.contains(
+                'tom_specs_model_rules.md §10.2 @SectionIdPattern uniqueness',
+              ),
+            )
+            .toList();
+        expect(patternErrors, isEmpty, reason: patternErrors.join('\n'));
+      },
+    );
 
-    test('tom_specs_model_rules.md §10.2: every @DetailedIn(D) class has @MapsTo(D) on itself or an ancestor', () {
-      final result = validateStructuralInvariants(classes);
-      final ancestorErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @DetailedIn ancestor check'))
-          .toList();
-      expect(ancestorErrors, isEmpty, reason: ancestorErrors.join('\n'));
-    });
+    test(
+      'tom_specs_model_rules.md §10.2: every @DetailedIn(D) class has @MapsTo(D) on itself or an ancestor',
+      () {
+        final result = validateStructuralInvariants(classes);
+        final ancestorErrors = result.errors
+            .where(
+              (e) => e.contains(
+                'tom_specs_model_rules.md §10.2 @DetailedIn ancestor check',
+              ),
+            )
+            .toList();
+        expect(ancestorErrors, isEmpty, reason: ancestorErrors.join('\n'));
+      },
+    );
 
-    test('tom_specs_model_rules.md §10.2: every @Document class has at least one @DetailedIn entry in SBP tree', () {
-      final result = validateStructuralInvariants(classes);
-      final detailCountWarnings = result.warnings
-          .where((w) => w.contains('tom_specs_model_rules.md §10.2 detail-count'))
-          .toList();
-      expect(detailCountWarnings, isEmpty, reason: detailCountWarnings.join('\n'));
-    });
+    test(
+      'tom_specs_model_rules.md §10.2: every @Document class has at least one @DetailedIn entry in SBP tree',
+      () {
+        final result = validateStructuralInvariants(classes);
+        final detailCountWarnings = result.warnings
+            .where(
+              (w) => w.contains('tom_specs_model_rules.md §10.2 detail-count'),
+            )
+            .toList();
+        expect(
+          detailCountWarnings,
+          isEmpty,
+          reason: detailCountWarnings.join('\n'),
+        );
+      },
+    );
 
-    test('tom_specs_model_rules.md §10.2: section ids resolve identically from every @Document root '
-        '(dsa4 root-independence)', () {
-      final result = validateStructuralInvariants(classes);
-      final rootIdErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 root-independent id'))
-          .toList();
-      // Every class must have a single id-resolution mode: a class-level
-      // @SectionId XOR being a @SectionIdPattern list element. A class mixing
-      // both resolves to different ids depending on the traversal root.
-      expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
-    });
+    test(
+      'tom_specs_model_rules.md §10.2: section ids resolve identically from every @Document root '
+      '(dsa4 root-independence)',
+      () {
+        final result = validateStructuralInvariants(classes);
+        final rootIdErrors = result.errors
+            .where(
+              (e) => e.contains(
+                'tom_specs_model_rules.md §10.2 root-independent id',
+              ),
+            )
+            .toList();
+        // Every class must have a single id-resolution mode: a class-level
+        // @SectionId XOR being a @SectionIdPattern list element. A class mixing
+        // both resolves to different ids depending on the traversal root.
+        expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
+      },
+    );
 
     test(
       'tom_specs_model_rules.md §10.2: no reachable complex List<T> field lacks @SectionIdPattern '
@@ -180,32 +227,45 @@ void main() {
       () {
         final result = validateStructuralInvariants(classes);
         final listCoverageErrors = result.errors
-            .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage'))
+            .where(
+              (e) => e.contains(
+                'tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage',
+              ),
+            )
             .toList();
         // Every repeated section (complex List<T> field that is not
         // @Reference) must carry a numbering pattern.
-        expect(listCoverageErrors, isEmpty, reason: listCoverageErrors.join('\n'));
+        expect(
+          listCoverageErrors,
+          isEmpty,
+          reason: listCoverageErrors.join('\n'),
+        );
       },
     );
 
-    test(
-      'tom_specs_model_rules.md §10.2: list container IDs are per-class unique and pattern-paired '
-      '(field-suffix scheme)',
-      () {
-        final result = validateStructuralInvariants(classes);
-        final lstErrors = result.errors
-            .where((e) =>
-                e.contains('tom_specs_model_rules.md §10.2 @SectionId per-class uniqueness') ||
-                e.contains('tom_specs_model_rules.md §10.2 @SectionId consistency') ||
-                e.contains('tom_specs_model_rules.md §10.2 @SectionId/@SectionIdPattern pairing'))
-            .toList();
-        // Every list field carries `<E>-<FIELDSUFFIX>-LST` + matching pattern;
-        // the field suffix makes sibling container IDs distinct, so same-class
-        // same-type lists (e.g. in/out-of-scope processes) do not collide.
-        // Rule: tom_specs_model/doc/tom_specs_model_rules.md §7.2/§7.4.
-        expect(lstErrors, isEmpty, reason: lstErrors.join('\n'));
-      },
-    );
+    test('tom_specs_model_rules.md §10.2: list container IDs are per-class unique and pattern-paired '
+        '(field-suffix scheme)', () {
+      final result = validateStructuralInvariants(classes);
+      final lstErrors = result.errors
+          .where(
+            (e) =>
+                e.contains(
+                  'tom_specs_model_rules.md §10.2 @SectionId per-class uniqueness',
+                ) ||
+                e.contains(
+                  'tom_specs_model_rules.md §10.2 @SectionId consistency',
+                ) ||
+                e.contains(
+                  'tom_specs_model_rules.md §10.2 @SectionId/@SectionIdPattern pairing',
+                ),
+          )
+          .toList();
+      // Every list field carries `<E>-<FIELDSUFFIX>-LST` + matching pattern;
+      // the field suffix makes sibling container IDs distinct, so same-class
+      // same-type lists (e.g. in/out-of-scope processes) do not collide.
+      // Rule: tom_specs_model/doc/tom_specs_model_rules.md §7.2/§7.4.
+      expect(lstErrors, isEmpty, reason: lstErrors.join('\n'));
+    });
 
     test('outliner validates IntegrationInterfaceSpecification root '
         'without non-field-shape errors', () {
@@ -216,103 +276,112 @@ void main() {
       // (the YRB5 id-sweep backlog). Those are enforced by the dedicated
       // field-shape count test below; this smoke test asserts the root is
       // otherwise structurally clean, so filter the known backlog out.
-      final result = validateModel(classes, 'D07IntegrationInterfaceSpecification');
+      final result = validateModel(
+        classes,
+        'D07IntegrationInterfaceSpecification',
+      );
       final otherErrors = result.errors
           .where((e) => !e.contains('§5.1 field-shape'))
           .toList();
       expect(otherErrors, isEmpty, reason: otherErrors.join('\n'));
     });
 
-    test(
-      'CS-03 (dsa6): validateModel yields ZERO errors from every one of the '
-      '14 roots + the container — @ContentType / tom_specs_model_rules.md '
-      '§5.1 field-shape clean',
-      () {
-        // This is exactly the gate bin/outliner.dart applies (it exit(1)s on
-        // any validateModel error). Asserting zero errors from every root —
-        // including D00SolutionBlueprint, which historically errored out on the
-        // CS-03 @ContentType violations — locks the fix in and guards the
-        // outliner's "runs with zero errors for all 14 roots" contract.
-        const roots = <String>[
-          'DocSpecsProject', // canonical container
-          'D00SolutionBlueprint',
-          'D01CurrentLandscapeAssessment',
-          'D02TargetOperatingModel',
-          'D03InformationModel',
-          'D04RequirementsSpecification',
-          'D05InteractionScenarios',
-          'D06ArchitectureTechnologySpecification',
-          'D07IntegrationInterfaceSpecification',
-          'D08SecurityAccessSpecification',
-          'D09ExperienceDesignSpecification',
-          'D10QualityAcceptancePlan',
-          'D11DeliveryRoadmap',
-          'D12TransitionRolloutPlan',
-          'D13CodeSpecsProjection',
-        ];
-        final report = <String>[];
-        for (final root in roots) {
-          expect(classes.containsKey(root), isTrue,
-              reason: 'root type $root not found in the model');
-          final errors = validateModel(classes, root).errors;
-          if (errors.isNotEmpty) {
-            report.add('$root: ${errors.length} error(s)\n'
-                '  ${errors.take(10).join('\n  ')}');
-          }
+    test('CS-03 (dsa6): validateModel yields ZERO errors from every one of the '
+        '14 roots + the container — @ContentType / tom_specs_model_rules.md '
+        '§5.1 field-shape clean', () {
+      // This is exactly the gate bin/outliner.dart applies (it exit(1)s on
+      // any validateModel error). Asserting zero errors from every root —
+      // including D00SolutionBlueprint, which historically errored out on the
+      // CS-03 @ContentType violations — locks the fix in and guards the
+      // outliner's "runs with zero errors for all 14 roots" contract.
+      const roots = <String>[
+        'DocSpecsProject', // canonical container
+        'D00SolutionBlueprint',
+        'D01CurrentLandscapeAssessment',
+        'D02TargetOperatingModel',
+        'D03InformationModel',
+        'D04RequirementsSpecification',
+        'D05InteractionScenarios',
+        'D06ArchitectureTechnologySpecification',
+        'D07IntegrationInterfaceSpecification',
+        'D08SecurityAccessSpecification',
+        'D09ExperienceDesignSpecification',
+        'D10QualityAcceptancePlan',
+        'D11DeliveryRoadmap',
+        'D12TransitionRolloutPlan',
+        'D13CodeSpecsProjection',
+      ];
+      final report = <String>[];
+      for (final root in roots) {
+        expect(
+          classes.containsKey(root),
+          isTrue,
+          reason: 'root type $root not found in the model',
+        );
+        final errors = validateModel(classes, root).errors;
+        if (errors.isNotEmpty) {
+          report.add(
+            '$root: ${errors.length} error(s)\n'
+            '  ${errors.take(10).join('\n  ')}',
+          );
         }
-        expect(report, isEmpty, reason: report.join('\n'));
-      },
-    );
+      }
+      expect(report, isEmpty, reason: report.join('\n'));
+    });
 
-    test(
-      'tom_specs_model_rules.md §5.1 field-shape (YRB1/YRB5): the inline '
-      'sub-section id sweep is '
-      'complete — zero reachable non-"content" String fields lack a '
-      'field-level @SectionId',
-      () {
-        // Walk the whole model from the canonical container so every reachable
-        // class is checked, then count the rule-1 offenders: descriptively
-        // named String / `@Form`-on-String fields (shape (3)) that lack a
-        // field-level @SectionId. YRB1 ENFORCED the rule (added the error + this
-        // guard); YRB5 then FIXED the model — every offender now carries a
-        // globally-unique `<PARENT_CLASS_SECTIONID>-<FIELD_MNEMONIC>` id.
-        //
-        // History: the backlog started at 177 reachable String offenders (a
-        // by-kind census of spec_model.json reported 185, over-counting by 8 —
-        // 7 `TextSection?` @Form sub-sections whose class owns the id, and 1
-        // orphan-class field unreachable from the container). YRB3 folded the 11
-        // String-typed `@Reference` fields into the sweep (→ 166 remaining), and
-        // YRB5 stamped the last 166. The sweep is now complete → 0.
-        final result = validateModel(classes, 'DocSpecsProject');
-        final missingId = result.errors
-            .where((e) => e.contains('§5.1 field-shape') &&
-                e.contains('must carry a field-level @SectionId'))
-            .toList();
-        expect(missingId, isEmpty,
-            reason: 'YRB5 cleared the inline sub-section id backlog; expected '
-                '0 un-ided String fields, got ${missingId.length}:\n'
-                '${missingId.join('\n')}');
-      },
-    );
+    test('tom_specs_model_rules.md §5.1 field-shape (YRB1/YRB5): the inline '
+        'sub-section id sweep is '
+        'complete — zero reachable non-"content" String fields lack a '
+        'field-level @SectionId', () {
+      // Walk the whole model from the canonical container so every reachable
+      // class is checked, then count the rule-1 offenders: descriptively
+      // named String / `@Form`-on-String fields (shape (3)) that lack a
+      // field-level @SectionId. YRB1 ENFORCED the rule (added the error + this
+      // guard); YRB5 then FIXED the model — every offender now carries a
+      // globally-unique `<PARENT_CLASS_SECTIONID>-<FIELD_MNEMONIC>` id.
+      //
+      // History: the backlog started at 177 reachable String offenders (a
+      // by-kind census of spec_model.json reported 185, over-counting by 8 —
+      // 7 `TextSection?` @Form sub-sections whose class owns the id, and 1
+      // orphan-class field unreachable from the container). YRB3 folded the 11
+      // String-typed `@Reference` fields into the sweep (→ 166 remaining), and
+      // YRB5 stamped the last 166. The sweep is now complete → 0.
+      final result = validateModel(classes, 'DocSpecsProject');
+      final missingId = result.errors
+          .where(
+            (e) =>
+                e.contains('§5.1 field-shape') &&
+                e.contains('must carry a field-level @SectionId'),
+          )
+          .toList();
+      expect(
+        missingId,
+        isEmpty,
+        reason:
+            'YRB5 cleared the inline sub-section id backlog; expected '
+            '0 un-ided String fields, got ${missingId.length}:\n'
+            '${missingId.join('\n')}',
+      );
+    });
 
-    test(
-      'tom_specs_model_rules.md §5.1 field-shape (YRB1/YRC1): no field '
-      'misuses the reserved name '
-      '"content" for a non-String value',
-      () {
-        // The reserved-name rule flags any `content` field that is not a plain
-        // String value. YRC1 fixed the last offender —
-        // ResponsiveBehavior.content (a complex sub-section named `content`) was
-        // renamed to `contentReflow` — so the sweep is now complete: zero
-        // reserved-name violations across the whole model.
-        final result = validateModel(classes, 'DocSpecsProject');
-        final reserved = result.errors
-            .where((e) => e.contains('§5.1 field-shape') &&
-                e.contains('reserved field name'))
-            .toList();
-        expect(reserved, isEmpty, reason: reserved.join('\n'));
-      },
-    );
+    test('tom_specs_model_rules.md §5.1 field-shape (YRB1/YRC1): no field '
+        'misuses the reserved name '
+        '"content" for a non-String value', () {
+      // The reserved-name rule flags any `content` field that is not a plain
+      // String value. YRC1 fixed the last offender —
+      // ResponsiveBehavior.content (a complex sub-section named `content`) was
+      // renamed to `contentReflow` — so the sweep is now complete: zero
+      // reserved-name violations across the whole model.
+      final result = validateModel(classes, 'DocSpecsProject');
+      final reserved = result.errors
+          .where(
+            (e) =>
+                e.contains('§5.1 field-shape') &&
+                e.contains('reserved field name'),
+          )
+          .toList();
+      expect(reserved, isEmpty, reason: reserved.join('\n'));
+    });
 
     test('T1: the canonical container is DocSpecsProject', () {
       expect(findContainerRoot(classes), 'DocSpecsProject');
@@ -331,43 +400,47 @@ void main() {
     test('T2: every projection root is a pure projection of the SBP tree', () {
       final result = validateStructuralInvariants(classes);
       final pureProjectionErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 pure-projection'))
+          .where(
+            (e) => e.contains('tom_specs_model_rules.md §10.2 pure-projection'),
+          )
           .toList();
       // Each Phase 3 root aggregates Solution Blueprint sections only — no
       // projection-local content without a blueprint counterpart (N12).
-      expect(pureProjectionErrors, isEmpty,
-          reason: pureProjectionErrors.join('\n'));
+      expect(
+        pureProjectionErrors,
+        isEmpty,
+        reason: pureProjectionErrors.join('\n'),
+      );
     });
 
-    test(
-      'every instance member carries a 0-based contiguous '
-      '@SerializationOrder ordinal',
-      () {
-        final problems = <String>[];
-        classes.forEach((name, cls) {
-          if (cls.fields.isEmpty) return;
-          final orders = <int>[];
-          for (final f in cls.fields) {
-            final o = f.serializationOrder;
-            if (o == null) {
-              problems.add('$name.${f.name}: missing @SerializationOrder');
-            } else {
-              orders.add(o);
-            }
+    test('every instance member carries a 0-based contiguous '
+        '@SerializationOrder ordinal', () {
+      final problems = <String>[];
+      classes.forEach((name, cls) {
+        if (cls.fields.isEmpty) return;
+        final orders = <int>[];
+        for (final f in cls.fields) {
+          final o = f.serializationOrder;
+          if (o == null) {
+            problems.add('$name.${f.name}: missing @SerializationOrder');
+          } else {
+            orders.add(o);
           }
-          orders.sort();
-          final expected = [for (var i = 0; i < cls.fields.length; i++) i];
-          if (orders.join(',') != expected.join(',')) {
-            problems.add('$name: ordinals {${orders.join(',')}} '
-                '!= {${expected.join(',')}}');
-          }
-        });
-        // The SOM §5.2 stamping script must cover every member of every
-        // spec-model class with a unique, contiguous, 0-based ordinal in
-        // source order.
-        expect(problems, isEmpty, reason: problems.take(20).join('\n'));
-      },
-    );
+        }
+        orders.sort();
+        final expected = [for (var i = 0; i < cls.fields.length; i++) i];
+        if (orders.join(',') != expected.join(',')) {
+          problems.add(
+            '$name: ordinals {${orders.join(',')}} '
+            '!= {${expected.join(',')}}',
+          );
+        }
+      });
+      // The SOM §5.2 stamping script must cover every member of every
+      // spec-model class with a unique, contiguous, 0-based ordinal in
+      // source order.
+      expect(problems, isEmpty, reason: problems.take(20).join('\n'));
+    });
 
     test('tom_specs_model_rules.md §8 rule 4: no list entry restates its own '
         'headline in a form field', () {
@@ -375,10 +448,14 @@ void main() {
       // and a legitimate one look identical in source, so nothing but this
       // check stops the next one from being written.
       final result = validateStructuralInvariants(classes);
-      final entryNameErrors =
-          result.errors.where((e) => e.contains('entry name:')).toList();
-      expect(entryNameErrors, isEmpty,
-          reason: entryNameErrors.take(20).join('\n'));
+      final entryNameErrors = result.errors
+          .where((e) => e.contains('entry name:'))
+          .toList();
+      expect(
+        entryNameErrors,
+        isEmpty,
+        reason: entryNameErrors.take(20).join('\n'),
+      );
     });
 
     test('codespecs_mapping.md §8.3: no section carries both @CodeSpecKind and '
@@ -391,8 +468,11 @@ void main() {
       final exclusionErrors = result.errors
           .where((e) => e.contains('CodeSpecs/follow-up exclusion:'))
           .toList();
-      expect(exclusionErrors, isEmpty,
-          reason: exclusionErrors.take(20).join('\n'));
+      expect(
+        exclusionErrors,
+        isEmpty,
+        reason: exclusionErrors.take(20).join('\n'),
+      );
     });
 
     test('codespecs_mapping.md §8.3: every active CodeSpecs part named by a '
@@ -412,8 +492,11 @@ void main() {
       final routingWarnings = result.warnings
           .where((w) => w.contains('CodeSpecs part routing:'))
           .toList();
-      expect(routingWarnings, isEmpty,
-          reason: routingWarnings.take(20).join('\n'));
+      expect(
+        routingWarnings,
+        isEmpty,
+        reason: routingWarnings.take(20).join('\n'),
+      );
     });
 
     test('codespecs_mapping.md §4.3: a @CodeSpecKind section inside a '
@@ -426,12 +509,17 @@ void main() {
       final d13Reachable = _reachableFrom(classes, 'D13CodeSpecsProjection');
       final sbpReachable = _reachableFrom(classes, 'D00SolutionBlueprint');
       final taggedButUnreachable = sbpReachable
-          .where((c) =>
-              classes[c]?.getAnnotation('CodeSpecKind') != null &&
-              !d13Reachable.contains(c))
+          .where(
+            (c) =>
+                classes[c]?.getAnnotation('CodeSpecKind') != null &&
+                !d13Reachable.contains(c),
+          )
           .toList();
-      expect(taggedButUnreachable, isNotEmpty,
-          reason: 'the counterexamples are the reason the rule is not enforced');
+      expect(
+        taggedButUnreachable,
+        isNotEmpty,
+        reason: 'the counterexamples are the reason the rule is not enforced',
+      );
       // `UserAssistance` is the section csre4 was raised against — CE-TX help
       // copy authored in the DOC follow-up subtree, generated via the shared
       // message-key registry.
@@ -448,18 +536,25 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
           [
-            _field('alpha', 'Alpha'),
-            _field('beta', 'Beta'),
+            AnnotationData('SectionId', {'id': 'TST'}),
           ],
+          [_field('alpha', 'Alpha'), _field('beta', 'Beta')],
         ),
-        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'TST-DUP'})]),
-        'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'TST-DUP'})]),
+        'Alpha': _cls('Alpha', [
+          AnnotationData('SectionId', {'id': 'TST-DUP'}),
+        ]),
+        'Beta': _cls('Beta', [
+          AnnotationData('SectionId', {'id': 'TST-DUP'}),
+        ]),
       };
       final result = validateStructuralInvariants(classes);
       expect(
-        result.errors.any((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId uniqueness')),
+        result.errors.any(
+          (e) => e.contains(
+            'tom_specs_model_rules.md §10.2 @SectionId uniqueness',
+          ),
+        ),
         isTrue,
         reason: 'Expected a uniqueness error for "TST-DUP"',
       );
@@ -469,17 +564,22 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
           [
-            _field('alpha', 'Alpha'),
-            _field('beta', 'Beta'),
+            AnnotationData('SectionId', {'id': 'TST'}),
           ],
+          [_field('alpha', 'Alpha'), _field('beta', 'Beta')],
         ),
-        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'TST-AAA'})]),
-        'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'TST-BBB'})]),
+        'Alpha': _cls('Alpha', [
+          AnnotationData('SectionId', {'id': 'TST-AAA'}),
+        ]),
+        'Beta': _cls('Beta', [
+          AnnotationData('SectionId', {'id': 'TST-BBB'}),
+        ]),
       };
       final result = validateStructuralInvariants(classes);
-      final dupeErrors = result.errors.where((e) => e.contains('uniqueness')).toList();
+      final dupeErrors = result.errors
+          .where((e) => e.contains('uniqueness'))
+          .toList();
       expect(dupeErrors, isEmpty);
     });
 
@@ -487,7 +587,9 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('alpha', 'Alpha')],
         ),
         // Two class-level @SectionId annotations on one class (same id) —
@@ -503,7 +605,9 @@ void main() {
       expect(
         result.errors.any(
           (e) =>
-              e.contains('tom_specs_model_rules.md §10.2 @SectionId single-occurrence') &&
+              e.contains(
+                'tom_specs_model_rules.md §10.2 @SectionId single-occurrence',
+              ) &&
               e.contains('Alpha'),
         ),
         isTrue,
@@ -515,14 +619,22 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('alpha', 'Alpha')],
         ),
-        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'TST-AAA'})]),
+        'Alpha': _cls('Alpha', [
+          AnnotationData('SectionId', {'id': 'TST-AAA'}),
+        ]),
       };
       final result = validateStructuralInvariants(classes);
       final singleOccErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId single-occurrence'))
+          .where(
+            (e) => e.contains(
+              'tom_specs_model_rules.md §10.2 @SectionId single-occurrence',
+            ),
+          )
           .toList();
       expect(singleOccErrors, isEmpty, reason: singleOccErrors.join('\n'));
     });
@@ -533,12 +645,16 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('alpha', 'Alpha')],
         ),
         // Seven letters — the shortest over-length id, so the test pins the
         // boundary rather than an obviously-wrong extreme.
-        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'ALPHAXX'})]),
+        'Alpha': _cls('Alpha', [
+          AnnotationData('SectionId', {'id': 'ALPHAXX'}),
+        ]),
       };
       final result = validateStructuralInvariants(classes);
       expect(
@@ -556,14 +672,19 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('alpha', 'Alpha')],
         ),
-        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'ALEDEF'})]),
+        'Alpha': _cls('Alpha', [
+          AnnotationData('SectionId', {'id': 'ALEDEF'}),
+        ]),
       };
       final result = validateStructuralInvariants(classes);
-      final lengthErrors =
-          result.errors.where((e) => e.contains('@SectionId length')).toList();
+      final lengthErrors = result.errors
+          .where((e) => e.contains('@SectionId length'))
+          .toList();
       expect(lengthErrors, isEmpty, reason: lengthErrors.join('\n'));
     });
 
@@ -573,77 +694,109 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('alpha', 'Alpha')],
         ),
-        'Alpha': _cls(
-          'Alpha',
-          [AnnotationData('SectionId', {'id': 'ALEDEF-ITEM-LST'})],
-        ),
+        'Alpha': _cls('Alpha', [
+          AnnotationData('SectionId', {'id': 'ALEDEF-ITEM-LST'}),
+        ]),
       };
       final result = validateStructuralInvariants(classes);
-      final lengthErrors =
-          result.errors.where((e) => e.contains('@SectionId length')).toList();
+      final lengthErrors = result.errors
+          .where((e) => e.contains('@SectionId length'))
+          .toList();
       expect(lengthErrors, isEmpty, reason: lengthErrors.join('\n'));
     });
   });
 
   group('unit: @SectionId coverage check', () {
-    test('warns when a reachable class has no @SectionId and no @SectionIdPattern coverage', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [_field('noId', 'NoId')],
-        ),
-        'NoId': _cls('NoId', []), // deliberately missing @SectionId
-      };
-      final result = validateStructuralInvariants(classes);
-      expect(
-        result.warnings.any((w) => w.contains('tom_specs_model_rules.md §10.2 @SectionId coverage') && w.contains('NoId')),
-        isTrue,
-        reason: 'Expected a coverage warning for class NoId',
-      );
-    });
+    test(
+      'warns when a reachable class has no @SectionId and no @SectionIdPattern coverage',
+      () {
+        final classes = {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [_field('noId', 'NoId')],
+          ),
+          'NoId': _cls('NoId', []), // deliberately missing @SectionId
+        };
+        final result = validateStructuralInvariants(classes);
+        expect(
+          result.warnings.any(
+            (w) =>
+                w.contains(
+                  'tom_specs_model_rules.md §10.2 @SectionId coverage',
+                ) &&
+                w.contains('NoId'),
+          ),
+          isTrue,
+          reason: 'Expected a coverage warning for class NoId',
+        );
+      },
+    );
 
-    test('does not warn for list-element types covered by @SectionIdPattern', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [_field('container', 'Container')],
-        ),
-        'Container': _cls(
-          'Container',
-          [AnnotationData('SectionId', {'id': 'TST-CON'})],
-          [
-            _listField('items', 'ListItem', [
-              AnnotationData('SectionIdPattern', {'pattern': 'TST-CON-xx'}),
-            ]),
-          ],
-        ),
-        'ListItem': _cls('ListItem', []), // exempt — covered by @SectionIdPattern
-      };
-      final result = validateStructuralInvariants(classes);
-      final coverageWarnings = result.warnings
-          .where((w) => w.contains('tom_specs_model_rules.md §10.2 @SectionId coverage'))
-          .toList();
-      expect(coverageWarnings, isEmpty);
-    });
+    test(
+      'does not warn for list-element types covered by @SectionIdPattern',
+      () {
+        final classes = {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [_field('container', 'Container')],
+          ),
+          'Container': _cls(
+            'Container',
+            [
+              AnnotationData('SectionId', {'id': 'TST-CON'}),
+            ],
+            [
+              _listField('items', 'ListItem', [
+                AnnotationData('SectionIdPattern', {'pattern': 'TST-CON-xx'}),
+              ]),
+            ],
+          ),
+          'ListItem': _cls(
+            'ListItem',
+            [],
+          ), // exempt — covered by @SectionIdPattern
+        };
+        final result = validateStructuralInvariants(classes);
+        final coverageWarnings = result.warnings
+            .where(
+              (w) => w.contains(
+                'tom_specs_model_rules.md §10.2 @SectionId coverage',
+              ),
+            )
+            .toList();
+        expect(coverageWarnings, isEmpty);
+      },
+    );
   });
 
   group('unit: sectionIdCoverageGaps (dsa5 per-root coverage helper)', () {
-    test('reports a gap for a class lacking @SectionId, from the given root', () {
-      final classes = {
-        'RootA': _cls(
-          'RootA',
-          [AnnotationData('SectionId', {'id': 'A'})],
-          [_field('leaf', 'Leaf')],
-        ),
-        'Leaf': _cls('Leaf', const []), // no @SectionId, not pattern-covered
-      };
-      expect(sectionIdCoverageGaps(classes, 'RootA'), equals(['Leaf']));
-    });
+    test(
+      'reports a gap for a class lacking @SectionId, from the given root',
+      () {
+        final classes = {
+          'RootA': _cls(
+            'RootA',
+            [
+              AnnotationData('SectionId', {'id': 'A'}),
+            ],
+            [_field('leaf', 'Leaf')],
+          ),
+          'Leaf': _cls('Leaf', const []), // no @SectionId, not pattern-covered
+        };
+        expect(sectionIdCoverageGaps(classes, 'RootA'), equals(['Leaf']));
+      },
+    );
 
     test('a class is covered from one root but a gap from another', () {
       // Leaf is a @SectionIdPattern list element under RootA (covered), but a
@@ -651,7 +804,9 @@ void main() {
       final classes = {
         'RootA': _cls(
           'RootA',
-          [AnnotationData('SectionId', {'id': 'A'})],
+          [
+            AnnotationData('SectionId', {'id': 'A'}),
+          ],
           [
             _listField('items', 'Leaf', [
               AnnotationData('SectionIdPattern', {'pattern': 'A-ITEMS-xxx'}),
@@ -660,7 +815,9 @@ void main() {
         ),
         'RootB': _cls(
           'RootB',
-          [AnnotationData('SectionId', {'id': 'B'})],
+          [
+            AnnotationData('SectionId', {'id': 'B'}),
+          ],
           [_field('leaf', 'Leaf')],
         ),
         'Leaf': _cls('Leaf', const []),
@@ -674,94 +831,108 @@ void main() {
         'DocSpecsProject': _cls('DocSpecsProject', const [], [
           _field('blueprint', 'D00SolutionBlueprint'),
         ]),
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-        ),
+        'D00SolutionBlueprint': _cls('D00SolutionBlueprint', [
+          AnnotationData('SectionId', {'id': 'TST'}),
+        ]),
       };
       expect(sectionIdCoverageGaps(classes, 'DocSpecsProject'), isEmpty);
     });
   });
 
-  group('unit: unreachableClasses (invariant REACHABLE — document reachability)',
-      () {
-    Map<String, ModelClass> withOrphan({required bool orphaned}) => {
-          'DocSpecsProject': _cls('DocSpecsProject', const [], [
-            _field('blueprint', 'D00SolutionBlueprint'),
-          ]),
-          'D00SolutionBlueprint': _cls(
-            'D00SolutionBlueprint',
-            [
-              AnnotationData('Document', {'name': 'SBP'}),
-              AnnotationData('SectionId', {'id': 'TST'}),
-            ],
-            [if (!orphaned) _field('stray', 'Stray')],
-          ),
-          'Stray': _cls('Stray', [
-            AnnotationData('SectionId', {'id': 'STR'}),
-          ]),
-        };
-
-    test('reports a class no @Document root reaches', () {
-      expect(unreachableClasses(withOrphan(orphaned: true)), equals(['Stray']));
-    });
-
-    test('is empty once some root points at it', () {
-      expect(unreachableClasses(withOrphan(orphaned: false)), isEmpty);
-    });
-
-    test('the container root is exempt — nothing points at the tree root', () {
-      // DocSpecsProject is unreachable by construction; it must not be flagged.
-      expect(
-        unreachableClasses(withOrphan(orphaned: true)),
-        isNot(contains('DocSpecsProject')),
-      );
-    });
-
-    test('a model with no @Document root is silent, not all-unreachable', () {
-      final classes = {
-        'RootA': _cls('RootA', [
-          AnnotationData('SectionId', {'id': 'A'}),
+  group(
+    'unit: unreachableClasses (invariant REACHABLE — document reachability)',
+    () {
+      Map<String, ModelClass> withOrphan({required bool orphaned}) => {
+        'DocSpecsProject': _cls('DocSpecsProject', const [], [
+          _field('blueprint', 'D00SolutionBlueprint'),
         ]),
-        'Loose': _cls('Loose', [
-          AnnotationData('SectionId', {'id': 'L'}),
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [
+            AnnotationData('Document', {'name': 'SBP'}),
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
+          [if (!orphaned) _field('stray', 'Stray')],
+        ),
+        'Stray': _cls('Stray', [
+          AnnotationData('SectionId', {'id': 'STR'}),
         ]),
       };
-      expect(unreachableClasses(classes), isEmpty);
-    });
 
-    test('the invariant surfaces as a validator error, not only a query', () {
-      final result = validateStructuralInvariants(withOrphan(orphaned: true));
-      expect(
-        result.errors.where((e) => e.contains('document reachability')),
-        hasLength(1),
-      );
-    });
-  });
+      test('reports a class no @Document root reaches', () {
+        expect(
+          unreachableClasses(withOrphan(orphaned: true)),
+          equals(['Stray']),
+        );
+      });
+
+      test('is empty once some root points at it', () {
+        expect(unreachableClasses(withOrphan(orphaned: false)), isEmpty);
+      });
+
+      test('the container root is exempt — nothing points at the tree root', () {
+        // DocSpecsProject is unreachable by construction; it must not be flagged.
+        expect(
+          unreachableClasses(withOrphan(orphaned: true)),
+          isNot(contains('DocSpecsProject')),
+        );
+      });
+
+      test('a model with no @Document root is silent, not all-unreachable', () {
+        final classes = {
+          'RootA': _cls('RootA', [
+            AnnotationData('SectionId', {'id': 'A'}),
+          ]),
+          'Loose': _cls('Loose', [
+            AnnotationData('SectionId', {'id': 'L'}),
+          ]),
+        };
+        expect(unreachableClasses(classes), isEmpty);
+      });
+
+      test('the invariant surfaces as a validator error, not only a query', () {
+        final result = validateStructuralInvariants(withOrphan(orphaned: true));
+        expect(
+          result.errors.where((e) => e.contains('document reachability')),
+          hasLength(1),
+        );
+      });
+    },
+  );
 
   group('unit: @SectionIdPattern list-coverage check', () {
     test('errors when a complex List<T> field lacks @SectionIdPattern', () {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('container', 'Container')],
         ),
         'Container': _cls(
           'Container',
-          [AnnotationData('SectionId', {'id': 'TST-CON'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST-CON'}),
+          ],
           [
             // List field with NO @SectionIdPattern and no @Reference.
             _listField('items', 'ListItem'),
           ],
         ),
-        'ListItem': _cls('ListItem', [AnnotationData('SectionId', {'id': 'TST-ITM'})]),
+        'ListItem': _cls('ListItem', [
+          AnnotationData('SectionId', {'id': 'TST-ITM'}),
+        ]),
       };
       final result = validateStructuralInvariants(classes);
       expect(
-        result.errors.any((e) =>
-            e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage') &&
-            e.contains('Container.items')),
+        result.errors.any(
+          (e) =>
+              e.contains(
+                'tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage',
+              ) &&
+              e.contains('Container.items'),
+        ),
         isTrue,
         reason: 'Expected a list-coverage error for Container.items',
       );
@@ -771,12 +942,16 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('container', 'Container')],
         ),
         'Container': _cls(
           'Container',
-          [AnnotationData('SectionId', {'id': 'TST-CON'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST-CON'}),
+          ],
           [
             _listField('items', 'ListItem', [
               AnnotationData('SectionId', {'id': 'ITM-LST'}),
@@ -784,41 +959,60 @@ void main() {
             ]),
           ],
         ),
-        'ListItem': _cls('ListItem', [AnnotationData('SectionId', {'id': 'ITM'})]),
+        'ListItem': _cls('ListItem', [
+          AnnotationData('SectionId', {'id': 'ITM'}),
+        ]),
       };
       final result = validateStructuralInvariants(classes);
       final listCoverageErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage'))
+          .where(
+            (e) => e.contains(
+              'tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage',
+            ),
+          )
           .toList();
       expect(listCoverageErrors, isEmpty);
     });
 
-    test('does not error for a @Reference list field without @SectionIdPattern', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [_field('container', 'Container')],
-        ),
-        'Container': _cls(
-          'Container',
-          [AnnotationData('SectionId', {'id': 'TST-CON'})],
-          [
-            // @Reference list fields point at sections owned elsewhere —
-            // they are exempt from the list-coverage requirement.
-            _listField('refs', 'ListItem', [
-              AnnotationData('Reference', {'label': 'Referenced Items'}),
-            ]),
-          ],
-        ),
-        'ListItem': _cls('ListItem', [AnnotationData('SectionId', {'id': 'ITM'})]),
-      };
-      final result = validateStructuralInvariants(classes);
-      final listCoverageErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage'))
-          .toList();
-      expect(listCoverageErrors, isEmpty);
-    });
+    test(
+      'does not error for a @Reference list field without @SectionIdPattern',
+      () {
+        final classes = {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [_field('container', 'Container')],
+          ),
+          'Container': _cls(
+            'Container',
+            [
+              AnnotationData('SectionId', {'id': 'TST-CON'}),
+            ],
+            [
+              // @Reference list fields point at sections owned elsewhere —
+              // they are exempt from the list-coverage requirement.
+              _listField('refs', 'ListItem', [
+                AnnotationData('Reference', {'label': 'Referenced Items'}),
+              ]),
+            ],
+          ),
+          'ListItem': _cls('ListItem', [
+            AnnotationData('SectionId', {'id': 'ITM'}),
+          ]),
+        };
+        final result = validateStructuralInvariants(classes);
+        final listCoverageErrors = result.errors
+            .where(
+              (e) => e.contains(
+                'tom_specs_model_rules.md §10.2 @SectionIdPattern list-coverage',
+              ),
+            )
+            .toList();
+        expect(listCoverageErrors, isEmpty);
+      },
+    );
   });
 
   group('unit: list container-ID (-LST) checks', () {
@@ -829,155 +1023,224 @@ void main() {
       required String patA,
       required String idB,
       required String patB,
-    }) =>
-        {
+    }) => {
+      'D00SolutionBlueprint': _cls(
+        'D00SolutionBlueprint',
+        [
+          AnnotationData('SectionId', {'id': 'TST'}),
+        ],
+        [_field('scope', 'Scope')],
+      ),
+      'Scope': _cls(
+        'Scope',
+        [
+          AnnotationData('SectionId', {'id': 'TST-SCO'}),
+        ],
+        [
+          _listField('inItems', 'Item', [
+            AnnotationData('SectionId', {'id': idA}),
+            AnnotationData('SectionIdPattern', {'pattern': patA}),
+          ]),
+          _listField('outItems', 'Item', [
+            AnnotationData('SectionId', {'id': idB}),
+            AnnotationData('SectionIdPattern', {'pattern': patB}),
+          ]),
+        ],
+      ),
+      'Item': _cls('Item', [
+        AnnotationData('SectionId', {'id': 'ITM'}),
+      ]),
+    };
+
+    test(
+      'passes when sibling lists carry distinct field-suffixed container IDs',
+      () {
+        final result = validateStructuralInvariants(
+          twoSiblingLists(
+            idA: 'ITM-INITEMS-LST',
+            patA: 'ITM-INITEMS-xxx',
+            idB: 'ITM-OUTITEMS-LST',
+            patB: 'ITM-OUTITEMS-xxx',
+          ),
+        );
+        final lstErrors = result.errors
+            .where(
+              (e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId'),
+            )
+            .toList();
+        expect(lstErrors, isEmpty, reason: lstErrors.join('\n'));
+      },
+    );
+
+    test(
+      'errors when two sibling lists share a container ID (per-class uniqueness)',
+      () {
+        final result = validateStructuralInvariants(
+          twoSiblingLists(
+            idA: 'ITM-LST',
+            patA: 'ITM-xxx',
+            idB: 'ITM-LST',
+            patB: 'ITM-xxx',
+          ),
+        );
+        expect(
+          result.errors.any(
+            (e) =>
+                e.contains(
+                  'tom_specs_model_rules.md §10.2 @SectionId per-class uniqueness',
+                ) &&
+                e.contains('Scope.inItems') &&
+                e.contains('Scope.outItems'),
+          ),
+          isTrue,
+          reason:
+              'Expected a per-class uniqueness error for the shared ITM-LST',
+        );
+      },
+    );
+
+    test(
+      'errors when one container ID maps to two element types (type-consistency)',
+      () {
+        final classes = {
           'D00SolutionBlueprint': _cls(
             'D00SolutionBlueprint',
-            [AnnotationData('SectionId', {'id': 'TST'})],
-            [_field('scope', 'Scope')],
-          ),
-          'Scope': _cls(
-            'Scope',
-            [AnnotationData('SectionId', {'id': 'TST-SCO'})],
             [
-              _listField('inItems', 'Item', [
-                AnnotationData('SectionId', {'id': idA}),
-                AnnotationData('SectionIdPattern', {'pattern': patA}),
-              ]),
-              _listField('outItems', 'Item', [
-                AnnotationData('SectionId', {'id': idB}),
-                AnnotationData('SectionIdPattern', {'pattern': patB}),
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [_field('a', 'AHolder'), _field('b', 'BHolder')],
+          ),
+          'AHolder': _cls(
+            'AHolder',
+            [
+              AnnotationData('SectionId', {'id': 'TST-AH'}),
+            ],
+            [
+              _listField('xs', 'Alpha', [
+                AnnotationData('SectionId', {'id': 'SHARED-XS-LST'}),
+                AnnotationData('SectionIdPattern', {
+                  'pattern': 'SHARED-XS-xxx',
+                }),
               ]),
             ],
           ),
-          'Item': _cls('Item', [AnnotationData('SectionId', {'id': 'ITM'})]),
+          'BHolder': _cls(
+            'BHolder',
+            [
+              AnnotationData('SectionId', {'id': 'TST-BH'}),
+            ],
+            [
+              _listField('xs', 'Beta', [
+                AnnotationData('SectionId', {'id': 'SHARED-XS-LST'}),
+                AnnotationData('SectionIdPattern', {
+                  'pattern': 'SHARED-XS-xxx',
+                }),
+              ]),
+            ],
+          ),
+          'Alpha': _cls('Alpha', [
+            AnnotationData('SectionId', {'id': 'ALP'}),
+          ]),
+          'Beta': _cls('Beta', [
+            AnnotationData('SectionId', {'id': 'BET'}),
+          ]),
         };
+        final result = validateStructuralInvariants(classes);
+        expect(
+          result.errors.any(
+            (e) => e.contains(
+              'tom_specs_model_rules.md §10.2 @SectionId consistency',
+            ),
+          ),
+          isTrue,
+          reason: 'Expected a consistency error for SHARED-XS-LST → Alpha/Beta',
+        );
+      },
+    );
 
-    test('passes when sibling lists carry distinct field-suffixed container IDs', () {
-      final result = validateStructuralInvariants(twoSiblingLists(
-        idA: 'ITM-INITEMS-LST',
-        patA: 'ITM-INITEMS-xxx',
-        idB: 'ITM-OUTITEMS-LST',
-        patB: 'ITM-OUTITEMS-xxx',
-      ));
-      final lstErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId'))
-          .toList();
-      expect(lstErrors, isEmpty, reason: lstErrors.join('\n'));
-    });
-
-    test('errors when two sibling lists share a container ID (per-class uniqueness)', () {
-      final result = validateStructuralInvariants(twoSiblingLists(
-        idA: 'ITM-LST',
-        patA: 'ITM-xxx',
-        idB: 'ITM-LST',
-        patB: 'ITM-xxx',
-      ));
-      expect(
-        result.errors.any((e) =>
-            e.contains('tom_specs_model_rules.md §10.2 @SectionId per-class uniqueness') &&
-            e.contains('Scope.inItems') &&
-            e.contains('Scope.outItems')),
-        isTrue,
-        reason: 'Expected a per-class uniqueness error for the shared ITM-LST',
-      );
-    });
-
-    test('errors when one container ID maps to two element types (type-consistency)', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [_field('a', 'AHolder'), _field('b', 'BHolder')],
-        ),
-        'AHolder': _cls(
-          'AHolder',
-          [AnnotationData('SectionId', {'id': 'TST-AH'})],
-          [
-            _listField('xs', 'Alpha', [
-              AnnotationData('SectionId', {'id': 'SHARED-XS-LST'}),
-              AnnotationData('SectionIdPattern', {'pattern': 'SHARED-XS-xxx'}),
-            ]),
-          ],
-        ),
-        'BHolder': _cls(
-          'BHolder',
-          [AnnotationData('SectionId', {'id': 'TST-BH'})],
-          [
-            _listField('xs', 'Beta', [
-              AnnotationData('SectionId', {'id': 'SHARED-XS-LST'}),
-              AnnotationData('SectionIdPattern', {'pattern': 'SHARED-XS-xxx'}),
-            ]),
-          ],
-        ),
-        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'ALP'})]),
-        'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'BET'})]),
-      };
-      final result = validateStructuralInvariants(classes);
-      expect(
-        result.errors.any((e) => e.contains('tom_specs_model_rules.md §10.2 @SectionId consistency')),
-        isTrue,
-        reason: 'Expected a consistency error for SHARED-XS-LST → Alpha/Beta',
-      );
-    });
-
-    test('errors when @SectionIdPattern does not mirror the container ID (pairing)', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [_field('h', 'Holder')],
-        ),
-        'Holder': _cls(
-          'Holder',
-          [AnnotationData('SectionId', {'id': 'TST-H'})],
-          [
-            _listField('items', 'Item', [
-              AnnotationData('SectionId', {'id': 'ITM-ITEMS-LST'}),
-              // Mismatched pattern — should be ITM-ITEMS-xxx.
-              AnnotationData('SectionIdPattern', {'pattern': 'ITM-WRONG-xxx'}),
-            ]),
-          ],
-        ),
-        'Item': _cls('Item', [AnnotationData('SectionId', {'id': 'ITM'})]),
-      };
-      final result = validateStructuralInvariants(classes);
-      expect(
-        result.errors.any((e) =>
-            e.contains('tom_specs_model_rules.md §10.2 @SectionId/@SectionIdPattern pairing') &&
-            e.contains('Holder.items')),
-        isTrue,
-        reason: 'Expected a pairing error for Holder.items',
-      );
-    });
+    test(
+      'errors when @SectionIdPattern does not mirror the container ID (pairing)',
+      () {
+        final classes = {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [_field('h', 'Holder')],
+          ),
+          'Holder': _cls(
+            'Holder',
+            [
+              AnnotationData('SectionId', {'id': 'TST-H'}),
+            ],
+            [
+              _listField('items', 'Item', [
+                AnnotationData('SectionId', {'id': 'ITM-ITEMS-LST'}),
+                // Mismatched pattern — should be ITM-ITEMS-xxx.
+                AnnotationData('SectionIdPattern', {
+                  'pattern': 'ITM-WRONG-xxx',
+                }),
+              ]),
+            ],
+          ),
+          'Item': _cls('Item', [
+            AnnotationData('SectionId', {'id': 'ITM'}),
+          ]),
+        };
+        final result = validateStructuralInvariants(classes);
+        expect(
+          result.errors.any(
+            (e) =>
+                e.contains(
+                  'tom_specs_model_rules.md §10.2 @SectionId/@SectionIdPattern pairing',
+                ) &&
+                e.contains('Holder.items'),
+          ),
+          isTrue,
+          reason: 'Expected a pairing error for Holder.items',
+        );
+      },
+    );
   });
 
   group('unit: @DetailedIn ancestor @MapsTo check', () {
-    test('errors when @DetailedIn(D) has no @MapsTo(D) on self or ancestor', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [_field('seed', 'SeedClass')],
-        ),
-        'SeedClass': _cls('SeedClass', [
-          AnnotationData('SectionId', {'id': 'TST-SEED'}),
-          // @DetailedIn(DocA) but NO @MapsTo(DocA) here or on any ancestor!
-          AnnotationData('DetailedIn', {'documentClass': 'DocA'}),
-        ]),
-      };
-      final result = validateStructuralInvariants(classes);
-      expect(
-        result.errors.any((e) => e.contains('tom_specs_model_rules.md §10.2 @DetailedIn ancestor check')),
-        isTrue,
-      );
-    });
+    test(
+      'errors when @DetailedIn(D) has no @MapsTo(D) on self or ancestor',
+      () {
+        final classes = {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [_field('seed', 'SeedClass')],
+          ),
+          'SeedClass': _cls('SeedClass', [
+            AnnotationData('SectionId', {'id': 'TST-SEED'}),
+            // @DetailedIn(DocA) but NO @MapsTo(DocA) here or on any ancestor!
+            AnnotationData('DetailedIn', {'documentClass': 'DocA'}),
+          ]),
+        };
+        final result = validateStructuralInvariants(classes);
+        expect(
+          result.errors.any(
+            (e) => e.contains(
+              'tom_specs_model_rules.md §10.2 @DetailedIn ancestor check',
+            ),
+          ),
+          isTrue,
+        );
+      },
+    );
 
     test('passes when @MapsTo(D) is on the same class as @DetailedIn(D)', () {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('seed', 'SeedClass')],
         ),
         'SeedClass': _cls('SeedClass', [
@@ -987,128 +1250,186 @@ void main() {
         ]),
       };
       final result = validateStructuralInvariants(classes);
-      final ancestorErrors =
-          result.errors.where((e) => e.contains('tom_specs_model_rules.md §10.2 @DetailedIn ancestor check')).toList();
+      final ancestorErrors = result.errors
+          .where(
+            (e) => e.contains(
+              'tom_specs_model_rules.md §10.2 @DetailedIn ancestor check',
+            ),
+          )
+          .toList();
       expect(ancestorErrors, isEmpty);
     });
 
-    test('passes when @MapsTo(D) is on an ancestor of the @DetailedIn(D) class', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [_field('seed', 'SeedClass')],
-        ),
-        'SeedClass': _cls('SeedClass', [
-          AnnotationData('SectionId', {'id': 'TST-SEED'}),
-          AnnotationData('MapsTo', {'documentClass': 'DocA'}), // ancestor has @MapsTo
-        ], [
-          _field('child', 'ChildClass'),
-        ]),
-        'ChildClass': _cls('ChildClass', [
-          AnnotationData('SectionId', {'id': 'TST-SEED-CHD'}),
-          AnnotationData('DetailedIn', {'documentClass': 'DocA'}),
-        ]),
-      };
-      final result = validateStructuralInvariants(classes);
-      final ancestorErrors =
-          result.errors.where((e) => e.contains('tom_specs_model_rules.md §10.2 @DetailedIn ancestor check')).toList();
-      expect(ancestorErrors, isEmpty);
-    });
+    test(
+      'passes when @MapsTo(D) is on an ancestor of the @DetailedIn(D) class',
+      () {
+        final classes = {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [_field('seed', 'SeedClass')],
+          ),
+          'SeedClass': _cls(
+            'SeedClass',
+            [
+              AnnotationData('SectionId', {'id': 'TST-SEED'}),
+              AnnotationData('MapsTo', {
+                'documentClass': 'DocA',
+              }), // ancestor has @MapsTo
+            ],
+            [_field('child', 'ChildClass')],
+          ),
+          'ChildClass': _cls('ChildClass', [
+            AnnotationData('SectionId', {'id': 'TST-SEED-CHD'}),
+            AnnotationData('DetailedIn', {'documentClass': 'DocA'}),
+          ]),
+        };
+        final result = validateStructuralInvariants(classes);
+        final ancestorErrors = result.errors
+            .where(
+              (e) => e.contains(
+                'tom_specs_model_rules.md §10.2 @DetailedIn ancestor check',
+              ),
+            )
+            .toList();
+        expect(ancestorErrors, isEmpty);
+      },
+    );
   });
 
   group('unit: root-independent section-id resolution (dsa4)', () {
-    test('errors when a class is reached both as a @SectionIdPattern list '
-        'element AND as a standalone complex section (mixed resolution mode)',
-        () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [
-            // Reached as a list element → addressed by the instance pattern.
-            _listField('items', 'Item', [
-              AnnotationData('SectionId', {'id': 'ITEM-ITEMS-LST'}),
-              AnnotationData('SectionIdPattern', {'pattern': 'ITEM-ITEMS-xxx'}),
-            ]),
-            // ...and also reached as a standalone complex section → addressed
-            // by its own class-level @SectionId. The two modes resolve to
-            // different ids depending on the traversal root.
-            _field('featuredItem', 'Item'),
-          ],
-        ),
-        'Item': _cls('Item', [AnnotationData('SectionId', {'id': 'ITEM'})]),
-      };
-      final result = validateStructuralInvariants(classes);
-      expect(
-        result.errors.any((e) => e.contains('tom_specs_model_rules.md §10.2 root-independent id')),
-        isTrue,
-        reason: result.errors.join('\n'),
-      );
-    });
+    test(
+      'errors when a class is reached both as a @SectionIdPattern list '
+      'element AND as a standalone complex section (mixed resolution mode)',
+      () {
+        final classes = {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [
+              // Reached as a list element → addressed by the instance pattern.
+              _listField('items', 'Item', [
+                AnnotationData('SectionId', {'id': 'ITEM-ITEMS-LST'}),
+                AnnotationData('SectionIdPattern', {
+                  'pattern': 'ITEM-ITEMS-xxx',
+                }),
+              ]),
+              // ...and also reached as a standalone complex section → addressed
+              // by its own class-level @SectionId. The two modes resolve to
+              // different ids depending on the traversal root.
+              _field('featuredItem', 'Item'),
+            ],
+          ),
+          'Item': _cls('Item', [
+            AnnotationData('SectionId', {'id': 'ITEM'}),
+          ]),
+        };
+        final result = validateStructuralInvariants(classes);
+        expect(
+          result.errors.any(
+            (e) => e.contains(
+              'tom_specs_model_rules.md §10.2 root-independent id',
+            ),
+          ),
+          isTrue,
+          reason: result.errors.join('\n'),
+        );
+      },
+    );
 
-    test('passes when a class carries @SectionId and is only ever a '
-        '@SectionIdPattern list element (the -LST prefix source is by design)',
-        () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [
-            _listField('items', 'Item', [
-              AnnotationData('SectionId', {'id': 'ITEM-ITEMS-LST'}),
-              AnnotationData('SectionIdPattern', {'pattern': 'ITEM-ITEMS-xxx'}),
-            ]),
-          ],
-        ),
-        // Element class carries @SectionId — this is the `<E>` prefix source
-        // for the list container/pattern ids (ITEM → ITEM-ITEMS-LST/-xxx), not
-        // a conflict, because it is never reached as a standalone section.
-        'Item': _cls('Item', [AnnotationData('SectionId', {'id': 'ITEM'})]),
-      };
-      final result = validateStructuralInvariants(classes);
-      final rootIdErrors =
-          result.errors.where((e) => e.contains('tom_specs_model_rules.md §10.2 root-independent id')).toList();
-      expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
-    });
+    test(
+      'passes when a class carries @SectionId and is only ever a '
+      '@SectionIdPattern list element (the -LST prefix source is by design)',
+      () {
+        final classes = {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [
+              _listField('items', 'Item', [
+                AnnotationData('SectionId', {'id': 'ITEM-ITEMS-LST'}),
+                AnnotationData('SectionIdPattern', {
+                  'pattern': 'ITEM-ITEMS-xxx',
+                }),
+              ]),
+            ],
+          ),
+          // Element class carries @SectionId — this is the `<E>` prefix source
+          // for the list container/pattern ids (ITEM → ITEM-ITEMS-LST/-xxx), not
+          // a conflict, because it is never reached as a standalone section.
+          'Item': _cls('Item', [
+            AnnotationData('SectionId', {'id': 'ITEM'}),
+          ]),
+        };
+        final result = validateStructuralInvariants(classes);
+        final rootIdErrors = result.errors
+            .where(
+              (e) => e.contains(
+                'tom_specs_model_rules.md §10.2 root-independent id',
+              ),
+            )
+            .toList();
+        expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
+      },
+    );
 
     test('passes when a class with @SectionId is only ever a standalone '
         'complex section (never a list element)', () {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('overview', 'Overview')],
         ),
-        'Overview': _cls('Overview', [AnnotationData('SectionId', {'id': 'OVW'})]),
+        'Overview': _cls('Overview', [
+          AnnotationData('SectionId', {'id': 'OVW'}),
+        ]),
       };
       final result = validateStructuralInvariants(classes);
-      final rootIdErrors =
-          result.errors.where((e) => e.contains('tom_specs_model_rules.md §10.2 root-independent id')).toList();
+      final rootIdErrors = result.errors
+          .where(
+            (e) => e.contains(
+              'tom_specs_model_rules.md §10.2 root-independent id',
+            ),
+          )
+          .toList();
       expect(rootIdErrors, isEmpty, reason: rootIdErrors.join('\n'));
     });
   });
 
   group('unit: canonical container root (T1)', () {
     Map<String, ModelClass> modelWithContainer() => {
-          'DocSpecsProject': _cls('DocSpecsProject', [], [
-            _field('projectDefinition', 'D00SolutionBlueprint'),
-            _field('businessProcesses', 'TargetOperatingModel'),
-          ]),
-          'D00SolutionBlueprint': _cls(
-            'D00SolutionBlueprint',
-            [AnnotationData('SectionId', {'id': 'TST'})],
-            [_field('shared', 'SharedSection')],
-          ),
-          'SharedSection':
-              _cls('SharedSection', [AnnotationData('SectionId', {'id': 'TST-SHR'})]),
-          'TargetOperatingModel': _cls('TargetOperatingModel', [
-            AnnotationData('Document', {'name': 'Target Operating Model'}),
-            AnnotationData('SectionId', {'id': 'TOM'}),
-          ], [
-            _field('shared', 'SharedSection'),
-          ]),
-        };
+      'DocSpecsProject': _cls('DocSpecsProject', [], [
+        _field('projectDefinition', 'D00SolutionBlueprint'),
+        _field('businessProcesses', 'TargetOperatingModel'),
+      ]),
+      'D00SolutionBlueprint': _cls(
+        'D00SolutionBlueprint',
+        [
+          AnnotationData('SectionId', {'id': 'TST'}),
+        ],
+        [_field('shared', 'SharedSection')],
+      ),
+      'SharedSection': _cls('SharedSection', [
+        AnnotationData('SectionId', {'id': 'TST-SHR'}),
+      ]),
+      'TargetOperatingModel': _cls(
+        'TargetOperatingModel',
+        [
+          AnnotationData('Document', {'name': 'Target Operating Model'}),
+          AnnotationData('SectionId', {'id': 'TOM'}),
+        ],
+        [_field('shared', 'SharedSection')],
+      ),
+    };
 
     test('findContainerRoot detects the unannotated SBP-owning class', () {
       expect(findContainerRoot(modelWithContainer()), 'DocSpecsProject');
@@ -1118,7 +1439,9 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('shared', 'SharedSection')],
         ),
         'SharedSection': _cls('SharedSection', []),
@@ -1126,8 +1449,7 @@ void main() {
       expect(findContainerRoot(classes), isNull);
     });
 
-    test(
-        'the container is exempt from tom_specs_model_rules.md §5.6 content '
+    test('the container is exempt from tom_specs_model_rules.md §5.6 content '
         'checks when it is the root', () {
       final result = validateModel(modelWithContainer(), 'DocSpecsProject');
       final containerWarnings = result.warnings
@@ -1145,55 +1467,75 @@ void main() {
   });
 
   group('unit: pure-projection invariant (T2)', () {
-    test('errors when a projection root reaches a non-SBP (projection-local) type', () {
-      final classes = {
-        'D00SolutionBlueprint': _cls(
-          'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
-          [_field('shared', 'SharedSection')],
-        ),
-        'SharedSection':
-            _cls('SharedSection', [AnnotationData('SectionId', {'id': 'TST-SHR'})]),
-        'BizProc': _cls('BizProc', [
-          AnnotationData('Document', {'name': 'Target Operating Model'}),
-          AnnotationData('SectionId', {'id': 'TOM'}),
-        ], [
-          _field('shared', 'SharedSection'), // OK — has a SBP counterpart
-          _field('local', 'ProjLocal'), // violation — no SBP counterpart
-        ]),
-        'ProjLocal':
-            _cls('ProjLocal', [AnnotationData('SectionId', {'id': 'BP-LOC'})]),
-      };
-      final result = validateStructuralInvariants(classes);
-      expect(
-        result.errors.any((e) =>
-            e.contains('tom_specs_model_rules.md §10.2 pure-projection') &&
-            e.contains('BizProc') &&
-            e.contains('ProjLocal')),
-        isTrue,
-        reason: 'Expected a pure-projection error for BizProc → ProjLocal',
-      );
-    });
+    test(
+      'errors when a projection root reaches a non-SBP (projection-local) type',
+      () {
+        final classes = {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [_field('shared', 'SharedSection')],
+          ),
+          'SharedSection': _cls('SharedSection', [
+            AnnotationData('SectionId', {'id': 'TST-SHR'}),
+          ]),
+          'BizProc': _cls(
+            'BizProc',
+            [
+              AnnotationData('Document', {'name': 'Target Operating Model'}),
+              AnnotationData('SectionId', {'id': 'TOM'}),
+            ],
+            [
+              _field('shared', 'SharedSection'), // OK — has a SBP counterpart
+              _field('local', 'ProjLocal'), // violation — no SBP counterpart
+            ],
+          ),
+          'ProjLocal': _cls('ProjLocal', [
+            AnnotationData('SectionId', {'id': 'BP-LOC'}),
+          ]),
+        };
+        final result = validateStructuralInvariants(classes);
+        expect(
+          result.errors.any(
+            (e) =>
+                e.contains('tom_specs_model_rules.md §10.2 pure-projection') &&
+                e.contains('BizProc') &&
+                e.contains('ProjLocal'),
+          ),
+          isTrue,
+          reason: 'Expected a pure-projection error for BizProc → ProjLocal',
+        );
+      },
+    );
 
     test('passes when a projection root reaches only SBP-reachable types', () {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('shared', 'SharedSection')],
         ),
-        'SharedSection':
-            _cls('SharedSection', [AnnotationData('SectionId', {'id': 'TST-SHR'})]),
-        'BizProc': _cls('BizProc', [
-          AnnotationData('Document', {'name': 'Target Operating Model'}),
-          AnnotationData('SectionId', {'id': 'TOM'}),
-        ], [
-          _field('shared', 'SharedSection'),
+        'SharedSection': _cls('SharedSection', [
+          AnnotationData('SectionId', {'id': 'TST-SHR'}),
         ]),
+        'BizProc': _cls(
+          'BizProc',
+          [
+            AnnotationData('Document', {'name': 'Target Operating Model'}),
+            AnnotationData('SectionId', {'id': 'TOM'}),
+          ],
+          [_field('shared', 'SharedSection')],
+        ),
       };
       final result = validateStructuralInvariants(classes);
       final pureProjectionErrors = result.errors
-          .where((e) => e.contains('tom_specs_model_rules.md §10.2 pure-projection'))
+          .where(
+            (e) => e.contains('tom_specs_model_rules.md §10.2 pure-projection'),
+          )
           .toList();
       expect(pureProjectionErrors, isEmpty);
     });
@@ -1209,47 +1551,51 @@ void main() {
       List<String> registryKinds = const ['CodeSpecPart.text'],
       List<String> followUpSectionKinds = const ['CodeSpecPart.text'],
       List<AnnotationData> extraOnFollowUpRoot = const [],
-    }) =>
-        {
-          'D00SolutionBlueprint': _cls(
-            'D00SolutionBlueprint',
-            [AnnotationData('SectionId', {'id': 'TST'})],
-            [
-              _field('registry', 'MessageRegistry'),
-              _field('followUp', 'DesignFollowUp'),
-            ],
-          ),
-          'MessageRegistry': _cls('MessageRegistry', [
-            AnnotationData('SectionId', {'id': 'TST-REG'}),
-            AnnotationData('CodeSpecKind', {'kinds': registryKinds}),
-          ]),
-          'DesignFollowUp': _cls('DesignFollowUp', [
-            AnnotationData('SectionId', {'id': 'TST-FU'}),
-            AnnotationData('FollowUpKind', {
-              'processes': ['FollowUpProcess.doc']
-            }),
-            ...extraOnFollowUpRoot,
-          ], [
-            _field('help', 'HelpCopy'),
-          ]),
-          'HelpCopy': _cls('HelpCopy', [
-            AnnotationData('SectionId', {'id': 'TST-HLP'}),
-            AnnotationData('CodeSpecKind', {'kinds': followUpSectionKinds}),
-          ]),
-          'CGP': _cls('CGP', [
-            AnnotationData('Document', {'name': 'CodeSpecs Projection'}),
-            AnnotationData('CodeSpecsProjection', const {}),
-            AnnotationData('SectionId', {'id': 'CGP'}),
-          ], [
-            _field('registry', 'MessageRegistry'),
-          ]),
-        };
+    }) => {
+      'D00SolutionBlueprint': _cls(
+        'D00SolutionBlueprint',
+        [
+          AnnotationData('SectionId', {'id': 'TST'}),
+        ],
+        [
+          _field('registry', 'MessageRegistry'),
+          _field('followUp', 'DesignFollowUp'),
+        ],
+      ),
+      'MessageRegistry': _cls('MessageRegistry', [
+        AnnotationData('SectionId', {'id': 'TST-REG'}),
+        AnnotationData('CodeSpecKind', {'kinds': registryKinds}),
+      ]),
+      'DesignFollowUp': _cls(
+        'DesignFollowUp',
+        [
+          AnnotationData('SectionId', {'id': 'TST-FU'}),
+          AnnotationData('FollowUpKind', {
+            'processes': ['FollowUpProcess.doc'],
+          }),
+          ...extraOnFollowUpRoot,
+        ],
+        [_field('help', 'HelpCopy')],
+      ),
+      'HelpCopy': _cls('HelpCopy', [
+        AnnotationData('SectionId', {'id': 'TST-HLP'}),
+        AnnotationData('CodeSpecKind', {'kinds': followUpSectionKinds}),
+      ]),
+      'CGP': _cls(
+        'CGP',
+        [
+          AnnotationData('Document', {'name': 'CodeSpecs Projection'}),
+          AnnotationData('CodeSpecsProjection', const {}),
+          AnnotationData('SectionId', {'id': 'CGP'}),
+        ],
+        [_field('registry', 'MessageRegistry')],
+      ),
+    };
 
     List<String> routingErrors(Map<String, ModelClass> classes) =>
-        validateStructuralInvariants(classes)
-            .errors
-            .where((e) => e.contains('CodeSpecs part routing:'))
-            .toList();
+        validateStructuralInvariants(
+          classes,
+        ).errors.where((e) => e.contains('CodeSpecs part routing:')).toList();
 
     test('a @CodeSpecKind inside a follow-up subtree passes when the part has '
         'a projection-reachable bearer', () {
@@ -1271,13 +1617,15 @@ void main() {
       expect(errors.single, contains('HelpCopy'));
     });
 
-    test('a deferred part is exempt — it has no generated surface to reach',
-        () {
-      final errors = routingErrors(
-        model(followUpSectionKinds: const ['CodeSpecPart.workflow']),
-      );
-      expect(errors, isEmpty);
-    });
+    test(
+      'a deferred part is exempt — it has no generated surface to reach',
+      () {
+        final errors = routingErrors(
+          model(followUpSectionKinds: const ['CodeSpecPart.workflow']),
+        );
+        expect(errors, isEmpty);
+      },
+    );
 
     test('a deferred part that acquires a bearer warns that the exemption is '
         'stale', () {
@@ -1285,31 +1633,39 @@ void main() {
         model(registryKinds: const ['CodeSpecPart.workflow']),
       );
       expect(
-        result.warnings.any((w) =>
-            w.contains('CodeSpecs part routing:') &&
-            w.contains('CodeSpecPart.workflow')),
+        result.warnings.any(
+          (w) =>
+              w.contains('CodeSpecs part routing:') &&
+              w.contains('CodeSpecPart.workflow'),
+        ),
         isTrue,
         reason: result.warnings.join('\n'),
       );
     });
 
-    test('errors when one class carries both @CodeSpecKind and @FollowUpKind',
-        () {
-      final result = validateStructuralInvariants(model(
-        extraOnFollowUpRoot: [
-          AnnotationData('CodeSpecKind', {
-            'kinds': ['CodeSpecPart.text']
-          }),
-        ],
-      ));
-      expect(
-        result.errors.any((e) =>
-            e.contains('CodeSpecs/follow-up exclusion:') &&
-            e.contains('DesignFollowUp')),
-        isTrue,
-        reason: result.errors.join('\n'),
-      );
-    });
+    test(
+      'errors when one class carries both @CodeSpecKind and @FollowUpKind',
+      () {
+        final result = validateStructuralInvariants(
+          model(
+            extraOnFollowUpRoot: [
+              AnnotationData('CodeSpecKind', {
+                'kinds': ['CodeSpecPart.text'],
+              }),
+            ],
+          ),
+        );
+        expect(
+          result.errors.any(
+            (e) =>
+                e.contains('CodeSpecs/follow-up exclusion:') &&
+                e.contains('DesignFollowUp'),
+          ),
+          isTrue,
+          reason: result.errors.join('\n'),
+        );
+      },
+    );
 
     test('a model with no generation projection reports no routing gaps', () {
       // Before D13 existed — and in every synthetic model that does not
@@ -1328,20 +1684,15 @@ void main() {
     // actually walks. These tests pin the walk's shape: it starts at every
     // `@Document` root and stops descending at a `@FollowUpKind`.
 
-    ModelClass doc(String name, List<ModelField> fields) => _cls(
-          name,
-          [
-            AnnotationData('Document', {'name': name}),
-            AnnotationData('SectionId', {'id': name.toUpperCase()}),
-          ],
-          fields,
-        );
+    ModelClass doc(String name, List<ModelField> fields) => _cls(name, [
+      AnnotationData('Document', {'name': name}),
+      AnnotationData('SectionId', {'id': name.toUpperCase()}),
+    ], fields);
 
     List<String> totalityErrors(Map<String, ModelClass> classes) =>
-        validateStructuralInvariants(classes)
-            .errors
-            .where((e) => e.contains('routing totality:'))
-            .toList();
+        validateStructuralInvariants(
+          classes,
+        ).errors.where((e) => e.contains('routing totality:')).toList();
 
     test('a class reachable both under a follow-up root and by a path that '
         'never passes through one is reported', () {
@@ -1354,29 +1705,31 @@ void main() {
           _field('authorization', 'AuthorizationModel'),
           _field('design', 'DesignFollowUp'),
         ]),
-        'AuthorizationModel': _cls('AuthorizationModel', [
-          AnnotationData('SectionId', {'id': 'AZM'}),
-          AnnotationData('CodeSpecKind', {
-            'kinds': ['CodeSpecPart.authorization']
-          }),
-        ], [
-          _field('graded', 'GradedAccess'),
+        'AuthorizationModel': _cls(
+          'AuthorizationModel',
+          [
+            AnnotationData('SectionId', {'id': 'AZM'}),
+            AnnotationData('CodeSpecKind', {
+              'kinds': ['CodeSpecPart.authorization'],
+            }),
+          ],
+          [_field('graded', 'GradedAccess')],
+        ),
+        'DesignFollowUp': _cls(
+          'DesignFollowUp',
+          [
+            AnnotationData('SectionId', {'id': 'XDF'}),
+            AnnotationData('FollowUpKind', {
+              'processes': ['FollowUpProcess.doc'],
+            }),
+          ],
+          [_field('graded', 'GradedAccess')],
+        ),
+        'GradedAccess': _cls('GradedAccess', [
+          AnnotationData('SectionId', {'id': 'AZGRD'}),
         ]),
-        'DesignFollowUp': _cls('DesignFollowUp', [
-          AnnotationData('SectionId', {'id': 'XDF'}),
-          AnnotationData('FollowUpKind', {
-            'processes': ['FollowUpProcess.doc']
-          }),
-        ], [
-          _field('graded', 'GradedAccess'),
-        ]),
-        'GradedAccess':
-            _cls('GradedAccess', [AnnotationData('SectionId', {'id': 'AZGRD'})]),
       };
-      expect(
-        totalityErrors(classes).single,
-        contains('GradedAccess'),
-      );
+      expect(totalityErrors(classes).single, contains('GradedAccess'));
     });
 
     test('a class reachable only below a follow-up root is exempt — the walk '
@@ -1385,207 +1738,288 @@ void main() {
         'D00SolutionBlueprint': doc('D00SolutionBlueprint', [
           _field('design', 'DesignFollowUp'),
         ]),
-        'DesignFollowUp': _cls('DesignFollowUp', [
-          AnnotationData('SectionId', {'id': 'XDF'}),
-          AnnotationData('FollowUpKind', {
-            'processes': ['FollowUpProcess.doc']
-          }),
-        ], [
-          _field('style', 'StyleGuide'),
+        'DesignFollowUp': _cls(
+          'DesignFollowUp',
+          [
+            AnnotationData('SectionId', {'id': 'XDF'}),
+            AnnotationData('FollowUpKind', {
+              'processes': ['FollowUpProcess.doc'],
+            }),
+          ],
+          [_field('style', 'StyleGuide')],
+        ),
+        'StyleGuide': _cls('StyleGuide', [
+          AnnotationData('SectionId', {'id': 'XDF-STY'}),
         ]),
-        'StyleGuide':
-            _cls('StyleGuide', [AnnotationData('SectionId', {'id': 'XDF-STY'})]),
       };
       expect(totalityErrors(classes), isEmpty);
     });
 
-    test('the walk starts at every @Document root, not at the blueprint alone',
-        () {
-      // All follow-up roots live in the SBP tree, but D01–D12 re-use the same
-      // sections by their own paths. A section only a detail document reaches
-      // is reached by the runtime too, so it needs a verdict here as well.
-      final classes = {
-        'D00SolutionBlueprint': doc('D00SolutionBlueprint', const []),
-        'D07IntegrationInterfaceSpecification':
-            doc('D07IntegrationInterfaceSpecification', [
-          _field('endpoint', 'EndpointDetail'),
-        ]),
-        'EndpointDetail': _cls(
-            'EndpointDetail', [AnnotationData('SectionId', {'id': 'IFM-EP'})]),
-      };
-      expect(
-        totalityErrors(classes).single,
-        contains('EndpointDetail'),
-      );
-    });
+    test(
+      'the walk starts at every @Document root, not at the blueprint alone',
+      () {
+        // All follow-up roots live in the SBP tree, but D01–D12 re-use the same
+        // sections by their own paths. A section only a detail document reaches
+        // is reached by the runtime too, so it needs a verdict here as well.
+        final classes = {
+          'D00SolutionBlueprint': doc('D00SolutionBlueprint', const []),
+          'D07IntegrationInterfaceSpecification': doc(
+            'D07IntegrationInterfaceSpecification',
+            [_field('endpoint', 'EndpointDetail')],
+          ),
+          'EndpointDetail': _cls('EndpointDetail', [
+            AnnotationData('SectionId', {'id': 'IFM-EP'}),
+          ]),
+        };
+        expect(totalityErrors(classes).single, contains('EndpointDetail'));
+      },
+    );
 
     test('any of the three verdicts satisfies totality', () {
       Map<String, ModelClass> withVerdict(List<AnnotationData> verdict) => {
-            'D00SolutionBlueprint': doc('D00SolutionBlueprint', [
-              _field('section', 'Section'),
-            ]),
-            'Section': _cls('Section', [
-              AnnotationData('SectionId', {'id': 'SEC'}),
-              ...verdict,
-            ]),
-          };
+        'D00SolutionBlueprint': doc('D00SolutionBlueprint', [
+          _field('section', 'Section'),
+        ]),
+        'Section': _cls('Section', [
+          AnnotationData('SectionId', {'id': 'SEC'}),
+          ...verdict,
+        ]),
+      };
 
-      expect(totalityErrors(withVerdict(const [])), hasLength(1),
-          reason: 'control: no verdict must fail');
       expect(
-        totalityErrors(withVerdict([
-          AnnotationData('CodeSpecKind', {
-            'kinds': ['CodeSpecPart.text']
-          })
-        ])),
+        totalityErrors(withVerdict(const [])),
+        hasLength(1),
+        reason: 'control: no verdict must fail',
+      );
+      expect(
+        totalityErrors(
+          withVerdict([
+            AnnotationData('CodeSpecKind', {
+              'kinds': ['CodeSpecPart.text'],
+            }),
+          ]),
+        ),
         isEmpty,
       );
       expect(
-        totalityErrors(withVerdict([
-          AnnotationData('FollowUpKind', {
-            'processes': ['FollowUpProcess.doc']
-          })
-        ])),
+        totalityErrors(
+          withVerdict([
+            AnnotationData('FollowUpKind', {
+              'processes': ['FollowUpProcess.doc'],
+            }),
+          ]),
+        ),
         isEmpty,
       );
       expect(
-        totalityErrors(withVerdict([
-          AnnotationData('NoArtifact', {'reason': 'NoArtifactReason.container'})
-        ])),
+        totalityErrors(
+          withVerdict([
+            AnnotationData('NoArtifact', {
+              'reason': 'NoArtifactReason.container',
+            }),
+          ]),
+        ),
         isEmpty,
       );
     });
   });
 
-  group('unit: tom_specs_model_rules.md §5.1 canonical field shapes (YRB1)',
-      () {
+  group('unit: tom_specs_model_rules.md §5.1 canonical field shapes (YRB1)', () {
     // Field-shape errors carry the '§5.1 field-shape' prefix. Synthetic models
     // deliberately omit D00SolutionBlueprint so the `tom_specs_model_rules.md`
     // §10.2 invariants stay a no-op and only the field-shape rules under test
     // can fire.
     List<String> shapeErrors(Map<String, ModelClass> classes, String root) =>
-        validateModel(classes, root)
-            .errors
-            .where((e) => e.contains('§5.1 field-shape'))
-            .toList();
+        validateModel(
+          classes,
+          root,
+        ).errors.where((e) => e.contains('§5.1 field-shape')).toList();
 
-    ModelField idField(String name, String typeName,
-            [List<AnnotationData> extra = const []]) =>
-        _field(name, typeName, [
-          AnnotationData('SectionId', {'id': 'SEC-${name.toUpperCase()}'}),
-          ...extra,
-        ]);
+    ModelField idField(
+      String name,
+      String typeName, [
+      List<AnnotationData> extra = const [],
+    ]) => _field(name, typeName, [
+      AnnotationData('SectionId', {'id': 'SEC-${name.toUpperCase()}'}),
+      ...extra,
+    ]);
 
-    test('errors when a non-"content" String field lacks a field-level @SectionId',
-        () {
-      final classes = {
-        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
-          _field('purpose', 'String'), // shape (3) but MISSING the id
-        ]),
-      };
-      final errs = shapeErrors(classes, 'Sec');
-      expect(
-        errs.any((e) =>
-            e.contains('Sec.purpose') &&
-            e.contains('must carry a field-level @SectionId')),
-        isTrue,
-        reason: errs.join('\n'),
-      );
-    });
+    test(
+      'errors when a non-"content" String field lacks a field-level @SectionId',
+      () {
+        final classes = {
+          'Sec': _cls(
+            'Sec',
+            [
+              AnnotationData('SectionId', {'id': 'SEC'}),
+            ],
+            [
+              _field('purpose', 'String'), // shape (3) but MISSING the id
+            ],
+          ),
+        };
+        final errs = shapeErrors(classes, 'Sec');
+        expect(
+          errs.any(
+            (e) =>
+                e.contains('Sec.purpose') &&
+                e.contains('must carry a field-level @SectionId'),
+          ),
+          isTrue,
+          reason: errs.join('\n'),
+        );
+      },
+    );
 
-    test('passes when a non-"content" String field carries a field-level @SectionId',
-        () {
-      final classes = {
-        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
-          idField('purpose', 'String'), // shape (3), id present
-        ]),
-      };
-      expect(shapeErrors(classes, 'Sec'), isEmpty);
-    });
+    test(
+      'passes when a non-"content" String field carries a field-level @SectionId',
+      () {
+        final classes = {
+          'Sec': _cls(
+            'Sec',
+            [
+              AnnotationData('SectionId', {'id': 'SEC'}),
+            ],
+            [
+              idField('purpose', 'String'), // shape (3), id present
+            ],
+          ),
+        };
+        expect(shapeErrors(classes, 'Sec'), isEmpty);
+      },
+    );
 
-    test('passes for the reserved "content" String field without an id (shape 1)',
-        () {
-      final classes = {
-        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
-          _field('content', 'String'),
-        ]),
-      };
-      expect(shapeErrors(classes, 'Sec'), isEmpty);
-    });
+    test(
+      'passes for the reserved "content" String field without an id (shape 1)',
+      () {
+        final classes = {
+          'Sec': _cls(
+            'Sec',
+            [
+              AnnotationData('SectionId', {'id': 'SEC'}),
+            ],
+            [_field('content', 'String')],
+          ),
+        };
+        expect(shapeErrors(classes, 'Sec'), isEmpty);
+      },
+    );
 
     test('passes for a "content" String field with @Form (shape 2)', () {
       final classes = {
-        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
-          _field('content', 'String', [AnnotationData('Form', {})]),
-        ]),
+        'Sec': _cls(
+          'Sec',
+          [
+            AnnotationData('SectionId', {'id': 'SEC'}),
+          ],
+          [
+            _field('content', 'String', [AnnotationData('Form', {})]),
+          ],
+        ),
       };
       expect(shapeErrors(classes, 'Sec'), isEmpty);
     });
 
-    test('errors when "content" is a complex (non-String) field (reserved name)',
-        () {
-      final classes = {
-        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
-          _field('content', 'ChildSection'), // reserved name misused
-        ]),
-        'ChildSection':
-            _cls('ChildSection', [AnnotationData('SectionId', {'id': 'SEC-CHD'})]),
-      };
-      final errs = shapeErrors(classes, 'Sec');
-      expect(
-        errs.any((e) =>
-            e.contains('Sec.content') && e.contains('reserved field name')),
-        isTrue,
-        reason: errs.join('\n'),
-      );
-    });
+    test(
+      'errors when "content" is a complex (non-String) field (reserved name)',
+      () {
+        final classes = {
+          'Sec': _cls(
+            'Sec',
+            [
+              AnnotationData('SectionId', {'id': 'SEC'}),
+            ],
+            [
+              _field('content', 'ChildSection'), // reserved name misused
+            ],
+          ),
+          'ChildSection': _cls('ChildSection', [
+            AnnotationData('SectionId', {'id': 'SEC-CHD'}),
+          ]),
+        };
+        final errs = shapeErrors(classes, 'Sec');
+        expect(
+          errs.any(
+            (e) =>
+                e.contains('Sec.content') && e.contains('reserved field name'),
+          ),
+          isTrue,
+          reason: errs.join('\n'),
+        );
+      },
+    );
 
-    test('errors when the reserved "content" field carries a field-level @SectionId',
-        () {
-      final classes = {
-        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
-          _field('content', 'String',
-              [AnnotationData('SectionId', {'id': 'SEC-CONTENT'})]),
-        ]),
-      };
-      final errs = shapeErrors(classes, 'Sec');
-      expect(
-        errs.any((e) =>
-            e.contains('Sec.content') && e.contains('must not carry')),
-        isTrue,
-        reason: errs.join('\n'),
-      );
-    });
+    test(
+      'errors when the reserved "content" field carries a field-level @SectionId',
+      () {
+        final classes = {
+          'Sec': _cls(
+            'Sec',
+            [
+              AnnotationData('SectionId', {'id': 'SEC'}),
+            ],
+            [
+              _field('content', 'String', [
+                AnnotationData('SectionId', {'id': 'SEC-CONTENT'}),
+              ]),
+            ],
+          ),
+        };
+        final errs = shapeErrors(classes, 'Sec');
+        expect(
+          errs.any(
+            (e) => e.contains('Sec.content') && e.contains('must not carry'),
+          ),
+          isTrue,
+          reason: errs.join('\n'),
+        );
+      },
+    );
 
     test('the field-shape rule does not fire for a non-String int scalar '
         '(that is the separate scalar rule)', () {
       final classes = {
-        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
-          _field('count', 'int'),
-        ]),
+        'Sec': _cls(
+          'Sec',
+          [
+            AnnotationData('SectionId', {'id': 'SEC'}),
+          ],
+          [_field('count', 'int')],
+        ),
       };
       // No field-shape error (isString is false) …
       expect(shapeErrors(classes, 'Sec'), isEmpty);
       // … but the pre-existing non-String primitive rule still rejects it.
       final all = validateModel(classes, 'Sec').errors;
-      expect(all.any((e) => e.contains('Sec.count') && e.contains('not allowed')),
-          isTrue, reason: all.join('\n'));
+      expect(
+        all.any((e) => e.contains('Sec.count') && e.contains('not allowed')),
+        isTrue,
+        reason: all.join('\n'),
+      );
     });
 
-    test('passes for an enum field without a field-level @SectionId (boundary)',
-        () {
-      final classes = {
-        'Sec': _cls('Sec', [AnnotationData('SectionId', {'id': 'SEC'})], [
-          ModelField(
-            name: 'status',
-            typeName: 'Status',
-            isEnum: true,
-            enumValues: const ['open', 'closed'],
+    test(
+      'passes for an enum field without a field-level @SectionId (boundary)',
+      () {
+        final classes = {
+          'Sec': _cls(
+            'Sec',
+            [
+              AnnotationData('SectionId', {'id': 'SEC'}),
+            ],
+            [
+              ModelField(
+                name: 'status',
+                typeName: 'Status',
+                isEnum: true,
+                enumValues: const ['open', 'closed'],
+              ),
+            ],
           ),
-        ]),
-      };
-      expect(shapeErrors(classes, 'Sec'), isEmpty);
-    });
+        };
+        expect(shapeErrors(classes, 'Sec'), isEmpty);
+      },
+    );
   });
 
   group('unit: ModelJsonExporter', () {
@@ -1613,48 +2047,55 @@ void main() {
       expect(json['rootCount'], 3);
       final roots = json['roots'] as List;
       // D00Alpha (0) → D02Zeta (2) → Plain (no Dxx, sorts last by title).
-      expect(roots.map((r) => (r as Map)['title']),
-          ['Alpha Doc', 'Zeta Doc', 'Plain Doc']);
+      expect(roots.map((r) => (r as Map)['title']), [
+        'Alpha Doc',
+        'Zeta Doc',
+        'Plain Doc',
+      ]);
       expect((roots.first as Map)['sectionId'], 'AL00');
     });
 
     test('classifies field kinds and carries kind-specific data', () {
       final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', [
-          AnnotationData('SectionId', {'id': 'DC00'}),
-        ], [
-          ModelField(name: 'intro', typeName: 'String'),
-          ModelField(
-            name: 'diagram',
-            typeName: 'DiagramSection',
-            isSectionType: true,
-            sectionContentType: 'mermaid',
-          ),
-          ModelField(
-            name: 'state',
-            typeName: 'Status',
-            isEnum: true,
-            enumValues: const ['open', 'closed'],
-          ),
-          ModelField(name: 'count', typeName: 'int'),
-          ModelField(name: 'child', typeName: 'ChildClass'),
-          _listField('items', 'ItemEntry', [
-            AnnotationData('Min', {'count': 2}),
-          ]),
-          ModelField(
-            name: 'header',
-            typeName: 'TextSection',
-            formFields: [
-              FormFieldInfo(
-                name: 'title',
-                typeName: 'String',
-                description: 'Title',
-                required: true,
-                hint: 'short',
-              ),
-            ],
-          ),
-        ]),
+        'Doc': _cls(
+          'Doc',
+          [
+            AnnotationData('SectionId', {'id': 'DC00'}),
+          ],
+          [
+            ModelField(name: 'intro', typeName: 'String'),
+            ModelField(
+              name: 'diagram',
+              typeName: 'DiagramSection',
+              isSectionType: true,
+              sectionContentType: 'mermaid',
+            ),
+            ModelField(
+              name: 'state',
+              typeName: 'Status',
+              isEnum: true,
+              enumValues: const ['open', 'closed'],
+            ),
+            ModelField(name: 'count', typeName: 'int'),
+            ModelField(name: 'child', typeName: 'ChildClass'),
+            _listField('items', 'ItemEntry', [
+              AnnotationData('Min', {'count': 2}),
+            ]),
+            ModelField(
+              name: 'header',
+              typeName: 'TextSection',
+              formFields: [
+                FormFieldInfo(
+                  name: 'title',
+                  typeName: 'String',
+                  description: 'Title',
+                  required: true,
+                  hint: 'short',
+                ),
+              ],
+            ),
+          ],
+        ),
         'ChildClass': _cls('ChildClass', [
           AnnotationData('SectionId', {'id': 'DC00-CHD'}),
         ]),
@@ -1696,16 +2137,18 @@ void main() {
       expect(json.containsKey('modelVersionLabel'), isFalse);
     });
 
-    test('a stamped export carries the model version and label (B2/SOM §17)',
-        () {
-      final json = ModelJsonExporter(
-        const <String, ModelClass>{},
-        modelVersion: 3,
-        modelVersionLabel: '1.0.0+3.abc1234',
-      ).export();
-      expect(json['modelVersion'], 3);
-      expect(json['modelVersionLabel'], '1.0.0+3.abc1234');
-    });
+    test(
+      'a stamped export carries the model version and label (B2/SOM §17)',
+      () {
+        final json = ModelJsonExporter(
+          const <String, ModelClass>{},
+          modelVersion: 3,
+          modelVersionLabel: '1.0.0+3.abc1234',
+        ).export();
+        expect(json['modelVersion'], 3);
+        expect(json['modelVersionLabel'], '1.0.0+3.abc1234');
+      },
+    );
   });
 
   // ---------------------------------------------------------------------------
@@ -1717,22 +2160,26 @@ void main() {
   group('unit: ModelJsonExporter lossless annotations[]', () {
     test('emits a lossless annotations[] block on classes and fields', () {
       final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', [
-          AnnotationData('SectionId', {'id': 'DC00'}),
-          AnnotationData('MapsTo', {'documentClass': 'InformationModel'}),
-          AnnotationData('ContentHelp', {'guidance': 'help text'}),
-        ], [
-          ModelField(
-            name: 'count',
-            typeName: 'int',
-            annotations: [
-              AnnotationData('Min', {'count': 2}),
-              AnnotationData('Max', {'value': 100}),
-              AnnotationData('PatternCheck', {'pattern': r'\d+'}),
-              AnnotationData('ContentType', {'type': 'number'}),
-            ],
-          ),
-        ]),
+        'Doc': _cls(
+          'Doc',
+          [
+            AnnotationData('SectionId', {'id': 'DC00'}),
+            AnnotationData('MapsTo', {'documentClass': 'InformationModel'}),
+            AnnotationData('ContentHelp', {'guidance': 'help text'}),
+          ],
+          [
+            ModelField(
+              name: 'count',
+              typeName: 'int',
+              annotations: [
+                AnnotationData('Min', {'count': 2}),
+                AnnotationData('Max', {'value': 100}),
+                AnnotationData('PatternCheck', {'pattern': r'\d+'}),
+                AnnotationData('ContentType', {'type': 'number'}),
+              ],
+            ),
+          ],
+        ),
       };
       final json = ModelJsonExporter(classes).export();
       final doc = (json['classes'] as Map)['Doc'] as Map;
@@ -1744,14 +2191,16 @@ void main() {
         classByName.keys,
         containsAll(['SectionId', 'MapsTo', 'ContentHelp']),
       );
-      expect((classByName['MapsTo']!['arguments'] as Map)['documentClass'],
-          'InformationModel');
+      expect(
+        (classByName['MapsTo']!['arguments'] as Map)['documentClass'],
+        'InformationModel',
+      );
       expect((classByName['SectionId']!['arguments'] as Map)['id'], 'DC00');
 
       // Field-level: @Min/@Max/@PatternCheck/@ContentType round-trip in full.
-      final field = (doc['fields'] as List)
-          .cast<Map>()
-          .firstWhere((f) => f['name'] == 'count');
+      final field = (doc['fields'] as List).cast<Map>().firstWhere(
+        (f) => f['name'] == 'count',
+      );
       final fieldAnnos = (field['annotations'] as List).cast<Map>();
       final fieldByName = {for (final a in fieldAnnos) a['name'] as String: a};
       expect(
@@ -1760,10 +2209,14 @@ void main() {
       );
       expect((fieldByName['Min']!['arguments'] as Map)['count'], 2);
       expect((fieldByName['Max']!['arguments'] as Map)['value'], 100);
-      expect((fieldByName['PatternCheck']!['arguments'] as Map)['pattern'],
-          r'\d+');
-      expect((fieldByName['ContentType']!['arguments'] as Map)['type'],
-          'number');
+      expect(
+        (fieldByName['PatternCheck']!['arguments'] as Map)['pattern'],
+        r'\d+',
+      );
+      expect(
+        (fieldByName['ContentType']!['arguments'] as Map)['type'],
+        'number',
+      );
 
       // The whole export must stay JSON-serializable.
       expect(() => jsonEncode(json), returnsNormally);
@@ -1773,8 +2226,9 @@ void main() {
       final classAnnos = [
         AnnotationData('SectionId', {'id': 'DC00'}),
         AnnotationData('Document', {'name': 'Doc'}),
-        AnnotationData(
-            'DetailedIn', {'documentClass': 'ArchitectureTechnologySpecification'}),
+        AnnotationData('DetailedIn', {
+          'documentClass': 'ArchitectureTechnologySpecification',
+        }),
       ];
       final fieldAnnos = [
         AnnotationData('Min', {'count': 1}),
@@ -1803,23 +2257,24 @@ void main() {
       expect(exportedFieldNames, fieldAnnos.map((a) => a.name).toSet());
     });
 
-    test('preserves source declaration order of annotations (stable block)', () {
-      final ordered = [
-        AnnotationData('SectionId', {'id': 'DC00'}),
-        AnnotationData('MapsTo', {'documentClass': 'D'}),
-        AnnotationData('DetailedIn', {'documentClass': 'D'}),
-      ];
-      final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', ordered),
-      };
-      final json = ModelJsonExporter(classes).export();
-      final doc = (json['classes'] as Map)['Doc'] as Map;
-      final names = (doc['annotations'] as List)
-          .cast<Map>()
-          .map((a) => a['name'])
-          .toList();
-      expect(names, ['SectionId', 'MapsTo', 'DetailedIn']);
-    });
+    test(
+      'preserves source declaration order of annotations (stable block)',
+      () {
+        final ordered = [
+          AnnotationData('SectionId', {'id': 'DC00'}),
+          AnnotationData('MapsTo', {'documentClass': 'D'}),
+          AnnotationData('DetailedIn', {'documentClass': 'D'}),
+        ];
+        final classes = <String, ModelClass>{'Doc': _cls('Doc', ordered)};
+        final json = ModelJsonExporter(classes).export();
+        final doc = (json['classes'] as Map)['Doc'] as Map;
+        final names = (doc['annotations'] as List)
+            .cast<Map>()
+            .map((a) => a['name'])
+            .toList();
+        expect(names, ['SectionId', 'MapsTo', 'DetailedIn']);
+      },
+    );
 
     test('omits the annotations key for a class/field with no annotations', () {
       final classes = <String, ModelClass>{
@@ -1836,22 +2291,28 @@ void main() {
 
     test('@Form field hints survive the export (formFields + annotations)', () {
       final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', [AnnotationData('SectionId', {'id': 'DC00'})], [
-          ModelField(
-            name: 'header',
-            typeName: 'TextSection',
-            annotations: [AnnotationData('Form', {})],
-            formFields: [
-              FormFieldInfo(
-                name: 'title',
-                typeName: 'String',
-                description: 'Title',
-                required: true,
-                hint: 'keep it short',
-              ),
-            ],
-          ),
-        ]),
+        'Doc': _cls(
+          'Doc',
+          [
+            AnnotationData('SectionId', {'id': 'DC00'}),
+          ],
+          [
+            ModelField(
+              name: 'header',
+              typeName: 'TextSection',
+              annotations: [AnnotationData('Form', {})],
+              formFields: [
+                FormFieldInfo(
+                  name: 'title',
+                  typeName: 'String',
+                  description: 'Title',
+                  required: true,
+                  hint: 'keep it short',
+                ),
+              ],
+            ),
+          ],
+        ),
       };
       final json = ModelJsonExporter(classes).export();
       final doc = (json['classes'] as Map)['Doc'] as Map;
@@ -1861,8 +2322,9 @@ void main() {
       final ff = (field['formFields'] as List).cast<Map>().single;
       expect(ff['hint'], 'keep it short');
       // … and the @Form annotation itself is present in the lossless block.
-      final names =
-          (field['annotations'] as List).cast<Map>().map((a) => a['name']);
+      final names = (field['annotations'] as List).cast<Map>().map(
+        (a) => a['name'],
+      );
       expect(names, contains('Form'));
     });
   });
@@ -1881,7 +2343,8 @@ void main() {
           AnnotationData('SectionId', {'id': 'QM00'}),
           AnnotationData('StandardReferences', {
             'standards': ['ISO/IEC 25010:2023 §4.2 — Functional suitability'],
-            'connotation': 'The quality characteristics the system is measured '
+            'connotation':
+                'The quality characteristics the system is measured '
                 'against.',
           }),
         ]),
@@ -1890,14 +2353,19 @@ void main() {
       final cls = (json['classes'] as Map)['QualityModel'] as Map;
 
       final refs = cls['standardReferences'] as Map;
-      expect((refs['standards'] as List).single,
-          'ISO/IEC 25010:2023 §4.2 — Functional suitability');
-      expect(refs['connotation'],
-          'The quality characteristics the system is measured against.');
+      expect(
+        (refs['standards'] as List).single,
+        'ISO/IEC 25010:2023 §4.2 — Functional suitability',
+      );
+      expect(
+        refs['connotation'],
+        'The quality characteristics the system is measured against.',
+      );
 
       // Still present (losslessly) in the generic annotations block.
-      final annoNames =
-          (cls['annotations'] as List).cast<Map>().map((a) => a['name']);
+      final annoNames = (cls['annotations'] as List).cast<Map>().map(
+        (a) => a['name'],
+      );
       expect(annoNames, contains('StandardReferences'));
 
       expect(() => jsonEncode(json), returnsNormally);
@@ -1905,34 +2373,46 @@ void main() {
 
     test('curated standardReferences surfaces on a field', () {
       final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', [AnnotationData('SectionId', {'id': 'DC00'})], [
-          ModelField(
-            name: 'objective',
-            typeName: 'String',
-            annotations: [
-              AnnotationData('StandardReferences', {
-                'standards': ['IEEE 830-1998 §5.3 — Specific requirements'],
-                'connotation': 'A single measurable objective.',
-              }),
-            ],
-          ),
-        ]),
+        'Doc': _cls(
+          'Doc',
+          [
+            AnnotationData('SectionId', {'id': 'DC00'}),
+          ],
+          [
+            ModelField(
+              name: 'objective',
+              typeName: 'String',
+              annotations: [
+                AnnotationData('StandardReferences', {
+                  'standards': ['IEEE 830-1998 §5.3 — Specific requirements'],
+                  'connotation': 'A single measurable objective.',
+                }),
+              ],
+            ),
+          ],
+        ),
       };
       final json = ModelJsonExporter(classes).export();
       final doc = (json['classes'] as Map)['Doc'] as Map;
       final field = (doc['fields'] as List).cast<Map>().single;
 
       final refs = field['standardReferences'] as Map;
-      expect((refs['standards'] as List).single,
-          'IEEE 830-1998 §5.3 — Specific requirements');
+      expect(
+        (refs['standards'] as List).single,
+        'IEEE 830-1998 §5.3 — Specific requirements',
+      );
       expect(refs['connotation'], 'A single measurable objective.');
     });
 
     test('omits standardReferences when the annotation is absent or empty', () {
       final classes = <String, ModelClass>{
-        'Bare': _cls('Bare', [AnnotationData('SectionId', {'id': 'BR00'})], [
-          ModelField(name: 'f', typeName: 'String'),
-        ]),
+        'Bare': _cls(
+          'Bare',
+          [
+            AnnotationData('SectionId', {'id': 'BR00'}),
+          ],
+          [ModelField(name: 'f', typeName: 'String')],
+        ),
         // Present but carrying no usable values → still omitted.
         'Empty': _cls('Empty', [
           AnnotationData('StandardReferences', {
@@ -1958,34 +2438,49 @@ void main() {
   // curated `serializationOrder` key.
   // ---------------------------------------------------------------------------
   group('unit: ModelJsonExporter @SerializationOrder (SOM §5.2)', () {
-    test('ModelField.serializationOrder reads the ordinal from the annotation',
-        () {
-      final f = _field('header', 'DocumentHeader',
-          [AnnotationData('SerializationOrder', {'order': 3})]);
-      expect(f.serializationOrder, 3);
-      expect(_field('bare', 'String').serializationOrder, isNull);
-    });
+    test(
+      'ModelField.serializationOrder reads the ordinal from the annotation',
+      () {
+        final f = _field('header', 'DocumentHeader', [
+          AnnotationData('SerializationOrder', {'order': 3}),
+        ]);
+        expect(f.serializationOrder, 3);
+        expect(_field('bare', 'String').serializationOrder, isNull);
+      },
+    );
 
-    test('serializationOrder surfaces on member nodes; omitted when absent', () {
-      final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', [AnnotationData('SectionId', {'id': 'DC00'})], [
-          _field('content', 'String',
-              [AnnotationData('SerializationOrder', {'order': 0})]),
-          _field('header', 'DocumentHeader',
-              [AnnotationData('SerializationOrder', {'order': 1})]),
-          _field('unstamped', 'String'),
-        ]),
-      };
-      final json = ModelJsonExporter(classes).export();
-      final fields = ((json['classes'] as Map)['Doc'] as Map)['fields'] as List;
-      final byName = {
-        for (final f in fields.cast<Map>()) f['name'] as String: f,
-      };
-      expect(byName['content']!['serializationOrder'], 0);
-      expect(byName['header']!['serializationOrder'], 1);
-      expect(byName['unstamped']!.containsKey('serializationOrder'), isFalse);
-      expect(() => jsonEncode(json), returnsNormally);
-    });
+    test(
+      'serializationOrder surfaces on member nodes; omitted when absent',
+      () {
+        final classes = <String, ModelClass>{
+          'Doc': _cls(
+            'Doc',
+            [
+              AnnotationData('SectionId', {'id': 'DC00'}),
+            ],
+            [
+              _field('content', 'String', [
+                AnnotationData('SerializationOrder', {'order': 0}),
+              ]),
+              _field('header', 'DocumentHeader', [
+                AnnotationData('SerializationOrder', {'order': 1}),
+              ]),
+              _field('unstamped', 'String'),
+            ],
+          ),
+        };
+        final json = ModelJsonExporter(classes).export();
+        final fields =
+            ((json['classes'] as Map)['Doc'] as Map)['fields'] as List;
+        final byName = {
+          for (final f in fields.cast<Map>()) f['name'] as String: f,
+        };
+        expect(byName['content']!['serializationOrder'], 0);
+        expect(byName['header']!['serializationOrder'], 1);
+        expect(byName['unstamped']!.containsKey('serializationOrder'), isFalse);
+        expect(() => jsonEncode(json), returnsNormally);
+      },
+    );
   });
 
   // ---------------------------------------------------------------------------
@@ -1998,12 +2493,14 @@ void main() {
   group('unit: meta-data schema + version stamp', () {
     Map<String, Object?> sampleMeta() {
       final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', [
-          AnnotationData('Document', {'name': 'Doc'}),
-          AnnotationData('SectionId', {'id': 'DC00'}),
-        ], [
-          ModelField(name: 'content', typeName: 'String'),
-        ]),
+        'Doc': _cls(
+          'Doc',
+          [
+            AnnotationData('Document', {'name': 'Doc'}),
+            AnnotationData('SectionId', {'id': 'DC00'}),
+          ],
+          [ModelField(name: 'content', typeName: 'String')],
+        ),
       };
       return ModelJsonExporter(
         classes,
@@ -2037,10 +2534,16 @@ void main() {
       ]) {
         final meta = sampleMeta()..remove(key);
         final errors = validateSpecModelMeta(meta);
-        expect(errors, isNotEmpty,
-            reason: 'removing "$key" must produce an error');
-        expect(errors.join('\n'), contains(key),
-            reason: 'the error must name the missing key "$key"');
+        expect(
+          errors,
+          isNotEmpty,
+          reason: 'removing "$key" must produce an error',
+        );
+        expect(
+          errors.join('\n'),
+          contains(key),
+          reason: 'the error must name the missing key "$key"',
+        );
       }
     });
 
@@ -2049,13 +2552,16 @@ void main() {
       expect(validateSpecModelMeta(<Object?>[]), isNotEmpty);
     });
 
-    test('validateSpecModelMeta rejects a meta-schema newer than supported', () {
-      final meta = sampleMeta()
-        ..['metaSchemaVersion'] = specModelMetaSchemaVersion + 1;
-      final errors = validateSpecModelMeta(meta);
-      expect(errors, isNotEmpty);
-      expect(errors.join('\n'), contains('metaSchemaVersion'));
-    });
+    test(
+      'validateSpecModelMeta rejects a meta-schema newer than supported',
+      () {
+        final meta = sampleMeta()
+          ..['metaSchemaVersion'] = specModelMetaSchemaVersion + 1;
+        final errors = validateSpecModelMeta(meta);
+        expect(errors, isNotEmpty);
+        expect(errors.join('\n'), contains('metaSchemaVersion'));
+      },
+    );
 
     test('validateSpecModelMeta rejects wrong-typed required values', () {
       final meta = sampleMeta()..['classes'] = 'should be a map';
@@ -2073,10 +2579,14 @@ void main() {
       // Header: idempotent guard + the two model package imports.
       expect(src, contains('void registerSpecOps()'));
       expect(src, contains('if (_registered) return;'));
-      expect(src,
-          contains("import 'package:tom_specs_core/tom_specs_core.dart';"));
-      expect(src,
-          contains("import 'package:tom_specs_model/tom_specs_model.dart';"));
+      expect(
+        src,
+        contains("import 'package:tom_specs_core/tom_specs_core.dart';"),
+      );
+      expect(
+        src,
+        contains("import 'package:tom_specs_model/tom_specs_model.dart';"),
+      );
       // All ten tom_specs_core section content leaves are registered by hand.
       for (final leaf in const [
         'TextSection',
@@ -2084,105 +2594,120 @@ void main() {
         'DartCodeSection',
         'DdlCodeSection',
       ]) {
-        expect(src, contains('SpecRegistry.register($leaf, SpecClassOps('),
-            reason: '$leaf content leaf must be registered');
+        expect(
+          src,
+          contains('SpecRegistry.register($leaf, SpecClassOps('),
+          reason: '$leaf content leaf must be registered',
+        );
       }
     });
 
-    test('classifies child-node, list and scalar fields into slot/clone/scalar',
-        () {
-      final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', const [], [
-          _field('content', 'String'),
-          _field('child', 'ChildClass'),
-          ModelField(
-            name: 'maybeChild',
-            typeName: 'ChildClass?',
-            isNullable: true,
+    test(
+      'classifies child-node, list and scalar fields into slot/clone/scalar',
+      () {
+        final classes = <String, ModelClass>{
+          'Doc': _cls('Doc', const [], [
+            _field('content', 'String'),
+            _field('child', 'ChildClass'),
+            ModelField(
+              name: 'maybeChild',
+              typeName: 'ChildClass?',
+              isNullable: true,
+            ),
+            _listField('items', 'ItemEntry'),
+            _field('intro', 'String'),
+          ]),
+          'ChildClass': _cls('ChildClass', const []),
+          'ItemEntry': _cls('ItemEntry', const []),
+        };
+        final src = SpecOpsGenerator(classes).generate();
+
+        // A single complex child → SpecSlot.node with a non-null cast.
+        expect(
+          src,
+          contains(
+            "SpecSlot.node(() => n.child, "
+            "(v) => n.child = v as ChildClass, label: 'child')",
           ),
-          _listField('items', 'ItemEntry'),
-          _field('intro', 'String'),
-        ]),
-        'ChildClass': _cls('ChildClass', const []),
-        'ItemEntry': _cls('ItemEntry', const []),
-      };
-      final src = SpecOpsGenerator(classes).generate();
+        );
+        // A nullable complex child → nullable cast.
+        expect(
+          src,
+          contains(
+            "SpecSlot.node(() => n.maybeChild, "
+            "(v) => n.maybeChild = v as ChildClass?, label: 'maybeChild')",
+          ),
+        );
+        // A list-of-complex → SpecSlot.list with a narrowing .cast<Element>().
+        expect(
+          src,
+          contains(
+            "SpecSlot.list(() => n.items, "
+            "(v) => n.items = v.cast<ItemEntry>(), label: 'items')",
+          ),
+        );
+        // cloneShallow copies every field, including the scalars.
+        expect(src, contains('..content = n.content'));
+        expect(src, contains('..intro = n.intro'));
+        // yamlScalar prefers the canonical `content` field.
+        expect(src, contains('yamlScalar: (o) => (o as Doc).content,'));
+      },
+    );
 
-      // A single complex child → SpecSlot.node with a non-null cast.
-      expect(
-        src,
-        contains("SpecSlot.node(() => n.child, "
-            "(v) => n.child = v as ChildClass, label: 'child')"),
-      );
-      // A nullable complex child → nullable cast.
-      expect(
-        src,
-        contains("SpecSlot.node(() => n.maybeChild, "
-            "(v) => n.maybeChild = v as ChildClass?, label: 'maybeChild')"),
-      );
-      // A list-of-complex → SpecSlot.list with a narrowing .cast<Element>().
-      expect(
-        src,
-        contains("SpecSlot.list(() => n.items, "
-            "(v) => n.items = v.cast<ItemEntry>(), label: 'items')"),
-      );
-      // cloneShallow copies every field, including the scalars.
-      expect(src, contains('..content = n.content'));
-      expect(src, contains('..intro = n.intro'));
-      // yamlScalar prefers the canonical `content` field.
-      expect(src, contains('yamlScalar: (o) => (o as Doc).content,'));
-    });
-
-    test('omits yamlScalar for a multi-scalar class without a content field',
-        () {
-      final classes = <String, ModelClass>{
-        'Multi': _cls('Multi', const [], [
-          _field('alpha', 'String'),
-          _field('beta', 'String'),
-        ]),
-      };
-      final src = SpecOpsGenerator(classes).generate();
-      // Two scalars, neither named `content` → no yamlScalar emitted (deferred
-      // multi-scalar packing). cloneShallow still copies both.
-      final multiBlock = src.substring(src.indexOf('register(Multi,'));
-      expect(multiBlock, isNot(contains('yamlScalar:')));
-      expect(src, contains('..alpha = n.alpha'));
-      expect(src, contains('..beta = n.beta'));
-    });
-
-    test('stamps each slot with the section id SpecYaml keys it on (SOM §12.2)',
-        () {
-      final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', const [], [
-          // Member-level id wins outright.
-          _field('own', 'Plain', [
-            AnnotationData('SectionId', const {'id': 'OWN'}),
+    test(
+      'omits yamlScalar for a multi-scalar class without a content field',
+      () {
+        final classes = <String, ModelClass>{
+          'Multi': _cls('Multi', const [], [
+            _field('alpha', 'String'),
+            _field('beta', 'String'),
           ]),
-          // No member id → the target class's own id names the child. This is
-          // the common shape in the real model.
-          _field('viaClass', 'Titled'),
-          // Neither → the slot carries no id and keys on the member name.
-          _field('plain', 'Plain'),
-          // A list keeps only its member-level id...
-          _listField('entries', 'Titled', [
-            AnnotationData('SectionId', const {'id': 'ENT-LST'}),
-          ]),
-          // ...and an unannotated list takes no id from its element class.
-          _listField('bare', 'Titled'),
-        ]),
-        'Plain': _cls('Plain', const []),
-        'Titled': _cls('Titled', [
-          AnnotationData('SectionId', const {'id': 'TTL'}),
-        ]),
-      };
-      final src = SpecOpsGenerator(classes).generate();
+        };
+        final src = SpecOpsGenerator(classes).generate();
+        // Two scalars, neither named `content` → no yamlScalar emitted (deferred
+        // multi-scalar packing). cloneShallow still copies both.
+        final multiBlock = src.substring(src.indexOf('register(Multi,'));
+        expect(multiBlock, isNot(contains('yamlScalar:')));
+        expect(src, contains('..alpha = n.alpha'));
+        expect(src, contains('..beta = n.beta'));
+      },
+    );
 
-      expect(src, contains("label: 'own', sectionId: 'OWN')"));
-      expect(src, contains("label: 'viaClass', sectionId: 'TTL')"));
-      expect(src, contains("label: 'plain')"));
-      expect(src, contains("label: 'entries', sectionId: 'ENT-LST')"));
-      expect(src, contains("label: 'bare')"));
-    });
+    test(
+      'stamps each slot with the section id SpecYaml keys it on (SOM §12.2)',
+      () {
+        final classes = <String, ModelClass>{
+          'Doc': _cls('Doc', const [], [
+            // Member-level id wins outright.
+            _field('own', 'Plain', [
+              AnnotationData('SectionId', const {'id': 'OWN'}),
+            ]),
+            // No member id → the target class's own id names the child. This is
+            // the common shape in the real model.
+            _field('viaClass', 'Titled'),
+            // Neither → the slot carries no id and keys on the member name.
+            _field('plain', 'Plain'),
+            // A list keeps only its member-level id...
+            _listField('entries', 'Titled', [
+              AnnotationData('SectionId', const {'id': 'ENT-LST'}),
+            ]),
+            // ...and an unannotated list takes no id from its element class.
+            _listField('bare', 'Titled'),
+          ]),
+          'Plain': _cls('Plain', const []),
+          'Titled': _cls('Titled', [
+            AnnotationData('SectionId', const {'id': 'TTL'}),
+          ]),
+        };
+        final src = SpecOpsGenerator(classes).generate();
+
+        expect(src, contains("label: 'own', sectionId: 'OWN')"));
+        expect(src, contains("label: 'viaClass', sectionId: 'TTL')"));
+        expect(src, contains("label: 'plain')"));
+        expect(src, contains("label: 'entries', sectionId: 'ENT-LST')"));
+        expect(src, contains("label: 'bare')"));
+      },
+    );
 
     test('skips the two hand-written SpecNode mixin leaves', () {
       final classes = <String, ModelClass>{
@@ -2213,33 +2738,40 @@ void main() {
     // candidate. The root references the wrapper; the wrapper carries exactly
     // one subsection + bare content.
     List<String> collapsibleWarnings(Map<String, ModelClass> classes) =>
-        validateStructuralInvariants(classes)
-            .warnings
+        validateStructuralInvariants(classes).warnings
             .where((w) => w.contains('§5.8 collapsible-wrapper'))
             .toList();
 
     // A leaf section the wrapper's single subsection points at.
-    ModelClass innerSection() =>
-        _cls('Inner', [AnnotationData('SectionId', {'id': 'INR'})], [
-          _field('content', 'String'),
-        ]);
+    ModelClass innerSection() => _cls(
+      'Inner',
+      [
+        AnnotationData('SectionId', {'id': 'INR'}),
+      ],
+      [_field('content', 'String')],
+    );
 
     Map<String, ModelClass> modelWithWrapper(ModelClass wrapper) => {
-          'D00SolutionBlueprint': _cls(
-            'D00SolutionBlueprint',
-            [AnnotationData('SectionId', {'id': 'TST'})],
-            [_field('wrapper', 'Wrapper')],
-          ),
-          'Wrapper': wrapper,
-          'Inner': innerSection(),
-        };
+      'D00SolutionBlueprint': _cls(
+        'D00SolutionBlueprint',
+        [
+          AnnotationData('SectionId', {'id': 'TST'}),
+        ],
+        [_field('wrapper', 'Wrapper')],
+      ),
+      'Wrapper': wrapper,
+      'Inner': innerSection(),
+    };
 
     test('flags a collapsible single-subsection wrapper with bare content', () {
       final classes = modelWithWrapper(
-        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
-          _field('content', 'String'),
-          _field('inner', 'Inner'),
-        ]),
+        _cls(
+          'Wrapper',
+          [
+            AnnotationData('SectionId', {'id': 'WRP'}),
+          ],
+          [_field('content', 'String'), _field('inner', 'Inner')],
+        ),
       );
       final warns = collapsibleWarnings(classes);
       expect(warns, hasLength(1), reason: warns.join('\n'));
@@ -2248,26 +2780,38 @@ void main() {
       expect(warns.single, contains('complex:Inner'));
     });
 
-    test('flags a collapsible wrapper with a list subsection and no content', () {
-      final classes = modelWithWrapper(
-        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
-          _listField('inner', 'Inner',
-              [AnnotationData('SectionIdPattern', {'pattern': 'WRP-{n}'})]),
-        ]),
-      );
-      final warns = collapsibleWarnings(classes);
-      expect(warns, hasLength(1), reason: warns.join('\n'));
-      expect(warns.single, contains('list<Inner>'));
-    });
+    test(
+      'flags a collapsible wrapper with a list subsection and no content',
+      () {
+        final classes = modelWithWrapper(
+          _cls(
+            'Wrapper',
+            [
+              AnnotationData('SectionId', {'id': 'WRP'}),
+            ],
+            [
+              _listField('inner', 'Inner', [
+                AnnotationData('SectionIdPattern', {'pattern': 'WRP-{n}'}),
+              ]),
+            ],
+          ),
+        );
+        final warns = collapsibleWarnings(classes);
+        expect(warns, hasLength(1), reason: warns.join('\n'));
+        expect(warns.single, contains('list<Inner>'));
+      },
+    );
 
     test('does NOT flag a form-bearing wrapper (keep-a-level, TSMA5)', () {
       final classes = modelWithWrapper(
-        _cls('Wrapper',
-            [AnnotationData('SectionId', {'id': 'WRP'}), AnnotationData('Form', {})],
-            [
-              _field('content', 'String'),
-              _field('inner', 'Inner'),
-            ]),
+        _cls(
+          'Wrapper',
+          [
+            AnnotationData('SectionId', {'id': 'WRP'}),
+            AnnotationData('Form', {}),
+          ],
+          [_field('content', 'String'), _field('inner', 'Inner')],
+        ),
       );
       expect(collapsibleWarnings(classes), isEmpty);
     });
@@ -2275,11 +2819,18 @@ void main() {
     test('does NOT flag a wrapper whose content carries @ContentHelp '
         '(meaningful content, TSMA5)', () {
       final classes = modelWithWrapper(
-        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
-          _field('content', 'String',
-              [AnnotationData('ContentHelp', {'guidance': 'distinct concept'})]),
-          _field('inner', 'Inner'),
-        ]),
+        _cls(
+          'Wrapper',
+          [
+            AnnotationData('SectionId', {'id': 'WRP'}),
+          ],
+          [
+            _field('content', 'String', [
+              AnnotationData('ContentHelp', {'guidance': 'distinct concept'}),
+            ]),
+            _field('inner', 'Inner'),
+          ],
+        ),
       );
       expect(collapsibleWarnings(classes), isEmpty);
     });
@@ -2287,46 +2838,64 @@ void main() {
     test('does NOT flag a wrapper whose content carries @StandardReferences '
         '(meaningful content, TSMA5)', () {
       final classes = modelWithWrapper(
-        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
-          _field('content', 'String', [
-            AnnotationData('StandardReferences', {
-              'standards': ['ISO/IEC 25010:2023 §4.2'],
-              'connotation': 'documents the section as a distinct concept',
-            }),
-          ]),
-          _field('inner', 'Inner'),
-        ]),
+        _cls(
+          'Wrapper',
+          [
+            AnnotationData('SectionId', {'id': 'WRP'}),
+          ],
+          [
+            _field('content', 'String', [
+              AnnotationData('StandardReferences', {
+                'standards': ['ISO/IEC 25010:2023 §4.2'],
+                'connotation': 'documents the section as a distinct concept',
+              }),
+            ]),
+            _field('inner', 'Inner'),
+          ],
+        ),
       );
       expect(collapsibleWarnings(classes), isEmpty);
     });
 
-    test('does NOT flag a wrapper whose content carries a non-Form @ContentType '
-        '(meaningful content, TSMA5)', () {
-      final classes = modelWithWrapper(
-        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
-          _field('content', 'String',
-              [AnnotationData('ContentType', {'type': 'mermaid'})]),
-          _field('inner', 'Inner'),
-        ]),
-      );
-      expect(collapsibleWarnings(classes), isEmpty);
-    });
+    test(
+      'does NOT flag a wrapper whose content carries a non-Form @ContentType '
+      '(meaningful content, TSMA5)',
+      () {
+        final classes = modelWithWrapper(
+          _cls(
+            'Wrapper',
+            [
+              AnnotationData('SectionId', {'id': 'WRP'}),
+            ],
+            [
+              _field('content', 'String', [
+                AnnotationData('ContentType', {'type': 'mermaid'}),
+              ]),
+              _field('inner', 'Inner'),
+            ],
+          ),
+        );
+        expect(collapsibleWarnings(classes), isEmpty);
+      },
+    );
 
     test('does NOT flag a shared wrapper reached by >1 parent field '
         '(shared substructure, TSMA5/TSMA3 rule)', () {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
           [
-            _field('first', 'Wrapper'),
-            _field('second', 'Wrapper'),
+            AnnotationData('SectionId', {'id': 'TST'}),
           ],
+          [_field('first', 'Wrapper'), _field('second', 'Wrapper')],
         ),
-        'Wrapper': _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
-          _field('content', 'String'),
-          _field('inner', 'Inner'),
-        ]),
+        'Wrapper': _cls(
+          'Wrapper',
+          [
+            AnnotationData('SectionId', {'id': 'WRP'}),
+          ],
+          [_field('content', 'String'), _field('inner', 'Inner')],
+        ),
         'Inner': innerSection(),
       };
       expect(collapsibleWarnings(classes), isEmpty);
@@ -2335,11 +2904,17 @@ void main() {
     test('does NOT flag a wrapper with a named scalar besides content '
         '(independent meaning, TSMA5)', () {
       final classes = modelWithWrapper(
-        _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
-          _field('content', 'String'),
-          _field('label', 'String'),
-          _field('inner', 'Inner'),
-        ]),
+        _cls(
+          'Wrapper',
+          [
+            AnnotationData('SectionId', {'id': 'WRP'}),
+          ],
+          [
+            _field('content', 'String'),
+            _field('label', 'String'),
+            _field('inner', 'Inner'),
+          ],
+        ),
       );
       expect(collapsibleWarnings(classes), isEmpty);
     });
@@ -2349,70 +2924,86 @@ void main() {
       final classes = {
         'D00SolutionBlueprint': _cls(
           'D00SolutionBlueprint',
-          [AnnotationData('SectionId', {'id': 'TST'})],
+          [
+            AnnotationData('SectionId', {'id': 'TST'}),
+          ],
           [_field('wrapper', 'Wrapper')],
         ),
-        'Wrapper': _cls('Wrapper', [AnnotationData('SectionId', {'id': 'WRP'})], [
-          _field('inner', 'Inner'),
-          _field('other', 'Other'),
-        ]),
+        'Wrapper': _cls(
+          'Wrapper',
+          [
+            AnnotationData('SectionId', {'id': 'WRP'}),
+          ],
+          [_field('inner', 'Inner'), _field('other', 'Other')],
+        ),
         'Inner': innerSection(),
-        'Other': _cls('Other', [AnnotationData('SectionId', {'id': 'OTH'})], [
-          _field('content', 'String'),
-        ]),
+        'Other': _cls(
+          'Other',
+          [
+            AnnotationData('SectionId', {'id': 'OTH'}),
+          ],
+          [_field('content', 'String')],
+        ),
       };
       expect(collapsibleWarnings(classes), isEmpty);
     });
   });
 
-  group(
-      'end-to-end: real tom_specs_model tom_specs_model_rules.md §5.8 '
-      'collapsible-wrapper steady state',
-      () {
-    test('the post-TSMA4 model emits zero collapsible-wrapper warnings', () async {
-      final driver = createAnalysisDriver(modelPath);
-      final reader = ModelReader(driver);
-      await reader.analyzePackage(p.join(modelPath, 'lib'));
-      final result = validateStructuralInvariants(reader.classes);
-      final collapsible = result.warnings
-          .where((w) => w.contains('§5.8 collapsible-wrapper'))
-          .toList();
-      // TSMA4 collapsed every meaning-free wrapper. TSMA5's kept wrappers
-      // (form-bearing / meaningful-content / shared) are exempt, so the
-      // validator flags none. This test *is* the steady state: it is what
-      // catches a redundant wrapper level added after the campaign closed.
-      expect(collapsible, isEmpty, reason: collapsible.join('\n'));
-    });
+  group('end-to-end: real tom_specs_model tom_specs_model_rules.md §5.8 '
+      'collapsible-wrapper steady state', () {
+    test(
+      'the post-TSMA4 model emits zero collapsible-wrapper warnings',
+      () async {
+        final driver = createAnalysisDriver(modelPath);
+        final reader = ModelReader(driver);
+        await reader.analyzePackage(p.join(modelPath, 'lib'));
+        final result = validateStructuralInvariants(reader.classes);
+        final collapsible = result.warnings
+            .where((w) => w.contains('§5.8 collapsible-wrapper'))
+            .toList();
+        // TSMA4 collapsed every meaning-free wrapper. TSMA5's kept wrappers
+        // (form-bearing / meaningful-content / shared) are exempt, so the
+        // validator flags none. This test *is* the steady state: it is what
+        // catches a redundant wrapper level added after the campaign closed.
+        expect(collapsible, isEmpty, reason: collapsible.join('\n'));
+      },
+    );
   });
 
   group('unit: YRD5 DocSpecsSection base type', () {
-    ModelField sectionField(String name,
-            [List<AnnotationData> annotations = const []]) =>
-        ModelField(
-          name: name,
-          typeName: 'DocSpecsSection?',
-          isNullable: true,
-          isContentSection: true,
-          annotations: annotations,
-        );
+    ModelField sectionField(
+      String name, [
+      List<AnnotationData> annotations = const [],
+    ]) => ModelField(
+      name: name,
+      typeName: 'DocSpecsSection?',
+      isNullable: true,
+      isContentSection: true,
+      annotations: annotations,
+    );
 
-    ModelField sectionListField(String name,
-            [List<AnnotationData> annotations = const []]) =>
-        ModelField(
-          name: name,
-          typeName: 'List<DocSpecsSection>',
-          isList: true,
-          listElementTypeName: 'DocSpecsSection',
-          listElementIsComplex: false,
-          listElementIsContentSection: true,
-          annotations: annotations,
-        );
+    ModelField sectionListField(
+      String name, [
+      List<AnnotationData> annotations = const [],
+    ]) => ModelField(
+      name: name,
+      typeName: 'List<DocSpecsSection>',
+      isList: true,
+      listElementTypeName: 'DocSpecsSection',
+      listElementIsComplex: false,
+      listElementIsContentSection: true,
+      annotations: annotations,
+    );
 
     test('classifyField treats DocSpecsSection members as content', () {
-      expect(MetaTreeBuilder.classifyField(sectionField('summary')),
-          MetaNodeKind.content);
-      expect(MetaTreeBuilder.classifyField(sectionListField('notes')),
-          MetaNodeKind.list);
+      expect(
+        MetaTreeBuilder.classifyField(sectionField('summary')),
+        MetaNodeKind.content,
+      );
+      expect(
+        MetaTreeBuilder.classifyField(sectionListField('notes')),
+        MetaNodeKind.list,
+      );
     });
 
     test('metaTypeName normalizes to the pre-YRD5 String shapes', () {
@@ -2426,190 +3017,228 @@ void main() {
       expect(list.metaListElementTypeName, 'String');
     });
 
-    test('ModelJsonExporter exports DocSpecsSection members byte-compatibly',
-        () {
-      final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', [
-          AnnotationData('SectionId', {'id': 'DC00'}),
-        ], [
-          sectionField('summary', [
-            AnnotationData('SectionId', {'id': 'DC00-SUM'}),
-          ]),
-          sectionListField('notes', [
-            AnnotationData('SectionId', {'id': 'DC00-NTS-LST'}),
-            AnnotationData('SectionIdPattern', {'pattern': 'DC00-NTS-xxx'}),
-          ]),
-        ]),
-      };
-      final json = ModelJsonExporter(classes).export();
-      final doc = (json['classes'] as Map)['Doc'] as Map;
-      final fields = (doc['fields'] as List).cast<Map>();
-      final byName = {for (final f in fields) f['name'] as String: f};
-      expect(byName['summary']!['kind'], 'content');
-      expect(byName['summary']!.containsKey('type'), isFalse,
-          reason: 'content fields must not leak the DocSpecsSection type name');
-      expect(byName['notes']!['kind'], 'list');
-      expect(byName['notes']!['elementType'], 'String');
-      expect(byName['notes']!['elementIsComplex'], false);
-    });
-
     test(
-        'tom_specs_model_rules.md §5.1: a non-"content" DocSpecsSection '
-        'member requires @SectionId',
-        () {
+      'ModelJsonExporter exports DocSpecsSection members byte-compatibly',
+      () {
+        final classes = <String, ModelClass>{
+          'Doc': _cls(
+            'Doc',
+            [
+              AnnotationData('SectionId', {'id': 'DC00'}),
+            ],
+            [
+              sectionField('summary', [
+                AnnotationData('SectionId', {'id': 'DC00-SUM'}),
+              ]),
+              sectionListField('notes', [
+                AnnotationData('SectionId', {'id': 'DC00-NTS-LST'}),
+                AnnotationData('SectionIdPattern', {'pattern': 'DC00-NTS-xxx'}),
+              ]),
+            ],
+          ),
+        };
+        final json = ModelJsonExporter(classes).export();
+        final doc = (json['classes'] as Map)['Doc'] as Map;
+        final fields = (doc['fields'] as List).cast<Map>();
+        final byName = {for (final f in fields) f['name'] as String: f};
+        expect(byName['summary']!['kind'], 'content');
+        expect(
+          byName['summary']!.containsKey('type'),
+          isFalse,
+          reason: 'content fields must not leak the DocSpecsSection type name',
+        );
+        expect(byName['notes']!['kind'], 'list');
+        expect(byName['notes']!['elementType'], 'String');
+        expect(byName['notes']!['elementIsComplex'], false);
+      },
+    );
+
+    test('tom_specs_model_rules.md §5.1: a non-"content" DocSpecsSection '
+        'member requires @SectionId', () {
       final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', [
-          AnnotationData('SectionId', {'id': 'DC00'}),
-        ], [
-          sectionField('summary'), // deliberately missing @SectionId
-        ]),
+        'Doc': _cls(
+          'Doc',
+          [
+            AnnotationData('SectionId', {'id': 'DC00'}),
+          ],
+          [
+            sectionField('summary'), // deliberately missing @SectionId
+          ],
+        ),
       };
       final result = validateModel(classes, 'Doc');
       expect(
-        result.errors.any((e) =>
-            e.contains('§5.1 field-shape') && e.contains('Doc.summary')),
+        result.errors.any(
+          (e) => e.contains('§5.1 field-shape') && e.contains('Doc.summary'),
+        ),
         isTrue,
         reason: result.errors.join('\n'),
       );
     });
 
-    test(
-        'tom_specs_model_rules.md §5.1: List<DocSpecsSection> is the inline '
+    test('tom_specs_model_rules.md §5.1: List<DocSpecsSection> is the inline '
         'content list shape', () {
-      ModelClass docWith(ModelField field) => _cls('Doc', [
-            AnnotationData('SectionId', {'id': 'DC00'}),
-          ], [
-            field
-          ]);
+      ModelClass docWith(ModelField field) => _cls(
+        'Doc',
+        [
+          AnnotationData('SectionId', {'id': 'DC00'}),
+        ],
+        [field],
+      );
       // Without the annotated pair → error (same rule as List<String>).
-      final bare = validateModel(
-          {'Doc': docWith(sectionListField('notes'))}, 'Doc');
+      final bare = validateModel({
+        'Doc': docWith(sectionListField('notes')),
+      }, 'Doc');
       expect(
         bare.errors.any(
-            (e) => e.contains('Doc.notes') && e.contains('not allowed')),
+          (e) => e.contains('Doc.notes') && e.contains('not allowed'),
+        ),
         isTrue,
         reason: bare.errors.join('\n'),
       );
       // With @SectionId + @SectionIdPattern → accepted.
       final annotated = validateModel({
-        'Doc': docWith(sectionListField('notes', [
-          AnnotationData('SectionId', {'id': 'DC00-NTS-LST'}),
-          AnnotationData('SectionIdPattern', {'pattern': 'DC00-NTS-xxx'}),
-        ])),
+        'Doc': docWith(
+          sectionListField('notes', [
+            AnnotationData('SectionId', {'id': 'DC00-NTS-LST'}),
+            AnnotationData('SectionIdPattern', {'pattern': 'DC00-NTS-xxx'}),
+          ]),
+        ),
       }, 'Doc');
       expect(
-        annotated.errors
-            .where((e) => e.contains('Doc.notes') && e.contains('not allowed')),
+        annotated.errors.where(
+          (e) => e.contains('Doc.notes') && e.contains('not allowed'),
+        ),
         isEmpty,
         reason: annotated.errors.join('\n'),
       );
     });
 
-    test('YRD5 extends-invariant activates once any class extends the base',
-        () {
-      ModelClass cls(String name, String id, List<ModelField> fields,
-              {bool extendsBase = false}) =>
-          ModelClass(
-            name: name,
-            annotations: [
-              AnnotationData('SectionId', {'id': id})
-            ],
-            fields: fields,
-            extendsDocSpecsSection: extendsBase,
-          );
+    test(
+      'YRD5 extends-invariant activates once any class extends the base',
+      () {
+        ModelClass cls(
+          String name,
+          String id,
+          List<ModelField> fields, {
+          bool extendsBase = false,
+        }) => ModelClass(
+          name: name,
+          annotations: [
+            AnnotationData('SectionId', {'id': id}),
+          ],
+          fields: fields,
+          extendsDocSpecsSection: extendsBase,
+        );
 
-      // Inactive: no class extends DocSpecsSection → no YRD5 errors.
-      final legacy = validateModel({
-        'Doc': cls('Doc', 'DC00', [_field('child', 'Child')]),
-        'Child': cls('Child', 'DC00-CHD', const []),
-      }, 'Doc');
-      expect(legacy.errors.where((e) => e.contains('YRD5')), isEmpty);
+        // Inactive: no class extends DocSpecsSection → no YRD5 errors.
+        final legacy = validateModel({
+          'Doc': cls('Doc', 'DC00', [_field('child', 'Child')]),
+          'Child': cls('Child', 'DC00-CHD', const []),
+        }, 'Doc');
+        expect(legacy.errors.where((e) => e.contains('YRD5')), isEmpty);
 
-      // Active: one class extends, the other does not → error for the other.
-      final mixed = validateModel({
-        'Doc':
-            cls('Doc', 'DC00', [_field('child', 'Child')], extendsBase: true),
-        'Child': cls('Child', 'DC00-CHD', const []),
-      }, 'Doc');
-      expect(
-        mixed.errors.any(
-            (e) => e.contains('YRD5') && e.contains('Child')),
-        isTrue,
-        reason: mixed.errors.join('\n'),
-      );
+        // Active: one class extends, the other does not → error for the other.
+        final mixed = validateModel({
+          'Doc': cls('Doc', 'DC00', [
+            _field('child', 'Child'),
+          ], extendsBase: true),
+          'Child': cls('Child', 'DC00-CHD', const []),
+        }, 'Doc');
+        expect(
+          mixed.errors.any((e) => e.contains('YRD5') && e.contains('Child')),
+          isTrue,
+          reason: mixed.errors.join('\n'),
+        );
 
-      // Fully adopted → no YRD5 errors.
-      final adopted = validateModel({
-        'Doc':
-            cls('Doc', 'DC00', [_field('child', 'Child')], extendsBase: true),
-        'Child': cls('Child', 'DC00-CHD', const [], extendsBase: true),
-      }, 'Doc');
-      expect(adopted.errors.where((e) => e.contains('YRD5')), isEmpty);
-    });
+        // Fully adopted → no YRD5 errors.
+        final adopted = validateModel({
+          'Doc': cls('Doc', 'DC00', [
+            _field('child', 'Child'),
+          ], extendsBase: true),
+          'Child': cls('Child', 'DC00-CHD', const [], extendsBase: true),
+        }, 'Doc');
+        expect(adopted.errors.where((e) => e.contains('YRD5')), isEmpty);
+      },
+    );
 
     test(
-        'tom_specs_model_rules.md §5.6: `content` must carry one of the four '
-        'documenting annotations, and a class-level @Form is not one of them',
-        () {
-      ModelClass docWith(
-        List<AnnotationData> contentAnnotations, {
-        List<AnnotationData> classAnnotations = const [],
-      }) =>
-          _cls('Doc', [
+      'tom_specs_model_rules.md §5.6: `content` must carry one of the four '
+      'documenting annotations, and a class-level @Form is not one of them',
+      () {
+        ModelClass docWith(
+          List<AnnotationData> contentAnnotations, {
+          List<AnnotationData> classAnnotations = const [],
+        }) => _cls(
+          'Doc',
+          [
             AnnotationData('SectionId', {'id': 'DC00'}),
             ...classAnnotations,
-          ], [
+          ],
+          [
             ModelField(
               name: 'content',
               typeName: 'String?',
               isNullable: true,
               annotations: contentAnnotations,
             ),
-          ]);
+          ],
+        );
 
-      bool flags(ModelClass cls) => validateModel({'Doc': cls}, 'Doc')
-          .errors
-          .any((e) => e.contains('Doc.content') && e.contains('undocumented'));
+        bool flags(ModelClass cls) =>
+            validateModel({'Doc': cls}, 'Doc').errors.any(
+              (e) => e.contains('Doc.content') && e.contains('undocumented'),
+            );
 
-      expect(flags(docWith(const [])), isTrue,
-          reason: 'a bare `content` is undocumented');
+        expect(
+          flags(docWith(const [])),
+          isTrue,
+          reason: 'a bare `content` is undocumented',
+        );
 
-      // A class-level @Form documents the form fields, not the prose that
-      // wraps them — it must not silence the check (the security-and-access
-      // sections are all form-bearing and all needed their own help).
-      expect(
-        flags(docWith(const [], classAnnotations: [AnnotationData('Form')])),
-        isTrue,
-        reason: 'a class-level @Form does not document the content field',
-      );
+        // A class-level @Form documents the form fields, not the prose that
+        // wraps them — it must not silence the check (the security-and-access
+        // sections are all form-bearing and all needed their own help).
+        expect(
+          flags(docWith(const [], classAnnotations: [AnnotationData('Form')])),
+          isTrue,
+          reason: 'a class-level @Form does not document the content field',
+        );
 
-      for (final ann in ['ContentHelp', 'ContentType', 'Form', 'Unused']) {
-        expect(flags(docWith([AnnotationData(ann)])), isFalse,
-            reason: '@$ann on the content field discharges §5.6');
-      }
-    });
+        for (final ann in ['ContentHelp', 'ContentType', 'Form', 'Unused']) {
+          expect(
+            flags(docWith([AnnotationData(ann)])),
+            isFalse,
+            reason: '@$ann on the content field discharges §5.6',
+          );
+        }
+      },
+    );
 
     test('SpecOpsGenerator slots DocSpecsSection members as child nodes', () {
       final classes = <String, ModelClass>{
-        'Doc': _cls('Doc', [
-          AnnotationData('SectionId', {'id': 'DC00'}),
-        ], [
-          ModelField(name: 'content', typeName: 'String?', isNullable: true),
-          sectionField('summary', [
-            AnnotationData('SectionId', {'id': 'DC00-SUM'}),
-          ]),
-          sectionListField('notes', [
-            AnnotationData('SectionId', {'id': 'DC00-NTS-LST'}),
-            AnnotationData('SectionIdPattern', {'pattern': 'DC00-NTS-xxx'}),
-          ]),
-        ]),
+        'Doc': _cls(
+          'Doc',
+          [
+            AnnotationData('SectionId', {'id': 'DC00'}),
+          ],
+          [
+            ModelField(name: 'content', typeName: 'String?', isNullable: true),
+            sectionField('summary', [
+              AnnotationData('SectionId', {'id': 'DC00-SUM'}),
+            ]),
+            sectionListField('notes', [
+              AnnotationData('SectionId', {'id': 'DC00-NTS-LST'}),
+              AnnotationData('SectionIdPattern', {'pattern': 'DC00-NTS-xxx'}),
+            ]),
+          ],
+        ),
       };
       final code = SpecOpsGenerator(classes).generate();
       // The base type itself is registered as a content leaf.
       expect(code, contains('SpecRegistry.register(DocSpecsSection,'));
       // Single member → SpecSlot.node with the real Dart cast.
-      expect(code,
-          contains('n.summary = v as DocSpecsSection?'));
+      expect(code, contains('n.summary = v as DocSpecsSection?'));
       // List member → SpecSlot.list with the real element cast.
       expect(code, contains('n.notes = v.cast<DocSpecsSection>()'));
       // The canonical content String stays the yaml scalar.
@@ -2623,14 +3252,13 @@ void main() {
       String name,
       String typeName,
       List<String> caseValues,
-    ) =>
-        ModelField(
-          name: name,
-          typeName: typeName,
-          annotations: [
-            for (final v in caseValues) AnnotationData('Case', {'value': v}),
-          ],
-        );
+    ) => ModelField(
+      name: name,
+      typeName: typeName,
+      annotations: [
+        for (final v in caseValues) AnnotationData('Case', {'value': v}),
+      ],
+    );
 
     // A container carrying @OneOf plus its enum discriminator @Form field.
     ModelClass container({
@@ -2639,57 +3267,57 @@ void main() {
       required List<String> enumValues,
       required List<ModelField> caseFields,
       bool includeDiscriminator = true,
-    }) =>
-        ModelClass(
-          name: 'Container',
-          annotations: [
-            AnnotationData('SectionId', {'id': 'CTR'}),
-            AnnotationData('OneOf', {'discriminator': discriminator}),
-          ],
-          formFields: includeDiscriminator
-              ? [
-                  FormFieldInfo(
-                    name: discriminator,
-                    typeName: enumType,
-                    enumValues: enumValues,
-                  ),
-                ]
-              : const [],
-          fields: caseFields,
-        );
+    }) => ModelClass(
+      name: 'Container',
+      annotations: [
+        AnnotationData('SectionId', {'id': 'CTR'}),
+        AnnotationData('OneOf', {'discriminator': discriminator}),
+      ],
+      formFields: includeDiscriminator
+          ? [
+              FormFieldInfo(
+                name: discriminator,
+                typeName: enumType,
+                enumValues: enumValues,
+              ),
+            ]
+          : const [],
+      fields: caseFields,
+    );
 
     // Wraps a container + case subsection classes under a reachable SBP root.
     Map<String, ModelClass> model(
       ModelClass ctr, {
       Map<String, ModelClass> subs = const {},
-    }) =>
-        {
-          'D00SolutionBlueprint': ModelClass(
-            name: 'D00SolutionBlueprint',
-            annotations: [
-              AnnotationData('Document', {}),
-              AnnotationData('SectionId', {'id': 'SBP00'}),
-            ],
-            fields: [_field('container', 'Container')],
-          ),
-          'Container': ctr,
-          ...subs,
-        };
+    }) => {
+      'D00SolutionBlueprint': ModelClass(
+        name: 'D00SolutionBlueprint',
+        annotations: [
+          AnnotationData('Document', {}),
+          AnnotationData('SectionId', {'id': 'SBP00'}),
+        ],
+        fields: [_field('container', 'Container')],
+      ),
+      'Container': ctr,
+      ...subs,
+    };
 
     List<String> oneOfErrors(Map<String, ModelClass> classes) =>
-        validateStructuralInvariants(classes)
-            .errors
-            .where((e) => e.contains('one-of'))
-            .toList();
+        validateStructuralInvariants(
+          classes,
+        ).errors.where((e) => e.contains('one-of')).toList();
     List<String> oneOfWarnings(Map<String, ModelClass> classes) =>
-        validateStructuralInvariants(classes)
-            .warnings
-            .where((e) => e.contains('one-of'))
-            .toList();
+        validateStructuralInvariants(
+          classes,
+        ).warnings.where((e) => e.contains('one-of')).toList();
 
     final alphaBeta = {
-      'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'ALP'})]),
-      'Beta': _cls('Beta', [AnnotationData('SectionId', {'id': 'BET'})]),
+      'Alpha': _cls('Alpha', [
+        AnnotationData('SectionId', {'id': 'ALP'}),
+      ]),
+      'Beta': _cls('Beta', [
+        AnnotationData('SectionId', {'id': 'BET'}),
+      ]),
     };
 
     test('fully-covered cases produce no one-of errors or warnings', () {
@@ -2733,15 +3361,22 @@ void main() {
           discriminator: 'kind',
           enumType: 'Kind',
           enumValues: ['a'],
-          caseFields: [caseField('alpha', 'Alpha', ['Kind.a'])],
+          caseFields: [
+            caseField('alpha', 'Alpha', ['Kind.a']),
+          ],
           includeDiscriminator: false,
         ),
         subs: alphaBeta,
       );
       expect(
         oneOfErrors(classes),
-        contains(predicate<String>(
-            (e) => e.contains('is not a\n@Form field') || e.contains('is not a @Form field'))),
+        contains(
+          predicate<String>(
+            (e) =>
+                e.contains('is not a\n@Form field') ||
+                e.contains('is not a @Form field'),
+          ),
+        ),
       );
     });
 
@@ -2751,7 +3386,9 @@ void main() {
           discriminator: 'kind',
           enumType: 'String',
           enumValues: const [], // empty → not a model enum
-          caseFields: [caseField('alpha', 'Alpha', ['Kind.a'])],
+          caseFields: [
+            caseField('alpha', 'Alpha', ['Kind.a']),
+          ],
         ),
         subs: alphaBeta,
       );
@@ -2767,14 +3404,19 @@ void main() {
           discriminator: 'kind',
           enumType: 'Kind',
           enumValues: ['a', 'b'],
-          caseFields: [caseField('alpha', 'Alpha', ['Other.a'])],
+          caseFields: [
+            caseField('alpha', 'Alpha', ['Other.a']),
+          ],
         ),
         subs: alphaBeta,
       );
       expect(
         oneOfErrors(classes),
-        contains(predicate<String>(
-            (e) => e.contains('does not belong to the discriminator enum'))),
+        contains(
+          predicate<String>(
+            (e) => e.contains('does not belong to the discriminator enum'),
+          ),
+        ),
       );
     });
 
@@ -2784,14 +3426,17 @@ void main() {
           discriminator: 'kind',
           enumType: 'Kind',
           enumValues: ['a', 'b'],
-          caseFields: [caseField('alpha', 'Alpha', ['Kind.z'])],
+          caseFields: [
+            caseField('alpha', 'Alpha', ['Kind.z']),
+          ],
         ),
         subs: alphaBeta,
       );
       expect(
         oneOfErrors(classes),
-        contains(predicate<String>(
-            (e) => e.contains('is not a constant of "Kind"'))),
+        contains(
+          predicate<String>((e) => e.contains('is not a constant of "Kind"')),
+        ),
       );
     });
 
@@ -2805,16 +3450,22 @@ void main() {
             ModelField(
               name: 'scalar',
               typeName: 'String',
-              annotations: [AnnotationData('Case', {'value': 'Kind.a'})],
+              annotations: [
+                AnnotationData('Case', {'value': 'Kind.a'}),
+              ],
             ),
           ],
         ),
       );
       expect(
         oneOfErrors(classes),
-        contains(predicate<String>(
-            (e) => e.contains('is not a\ncomplex subsection') ||
-                e.contains('is not a complex subsection'))),
+        contains(
+          predicate<String>(
+            (e) =>
+                e.contains('is not a\ncomplex subsection') ||
+                e.contains('is not a complex subsection'),
+          ),
+        ),
       );
     });
 
@@ -2830,15 +3481,20 @@ void main() {
         ),
         'Loose': ModelClass(
           name: 'Loose',
-          annotations: [AnnotationData('SectionId', {'id': 'LSE'})],
-          fields: [caseField('alpha', 'Alpha', ['Kind.a'])],
+          annotations: [
+            AnnotationData('SectionId', {'id': 'LSE'}),
+          ],
+          fields: [
+            caseField('alpha', 'Alpha', ['Kind.a']),
+          ],
         ),
         ...alphaBeta,
       };
       expect(
         oneOfErrors(classes),
-        contains(predicate<String>(
-            (e) => e.contains('declares no @OneOf group'))),
+        contains(
+          predicate<String>((e) => e.contains('declares no @OneOf group')),
+        ),
       );
     });
 
@@ -2852,11 +3508,7 @@ void main() {
             AnnotationData('OneOf', {'discriminator': 'kind'}),
           ],
           formFields: [
-            FormFieldInfo(
-              name: 'kind',
-              typeName: 'Kind',
-              enumValues: ['a'],
-            ),
+            FormFieldInfo(name: 'kind', typeName: 'Kind', enumValues: ['a']),
           ],
           fields: [
             ModelField(
@@ -2884,54 +3536,55 @@ void main() {
       String referenceTypeName = 'String',
       Map<String, ModelClass> extra = const {},
       List<ModelField> rootExtraFields = const [],
-    }) =>
-        {
-          'D00SolutionBlueprint': ModelClass(
-            name: 'D00SolutionBlueprint',
-            annotations: [
-              AnnotationData('Document', {}),
-              AnnotationData('SectionId', {'id': 'SBP00'}),
-            ],
-            fields: [
-              _listField('routes', 'RouteEntry', [
-                AnnotationData('SectionId', {'id': 'RT-LST'}),
-                AnnotationData('SectionIdPattern', {'pattern': 'RT-xxx'}),
-              ]),
-              _field('linker', 'Linker'),
-              ...rootExtraFields,
-            ],
+    }) => {
+      'D00SolutionBlueprint': ModelClass(
+        name: 'D00SolutionBlueprint',
+        annotations: [
+          AnnotationData('Document', {}),
+          AnnotationData('SectionId', {'id': 'SBP00'}),
+        ],
+        fields: [
+          _listField('routes', 'RouteEntry', [
+            AnnotationData('SectionId', {'id': 'RT-LST'}),
+            AnnotationData('SectionIdPattern', {'pattern': 'RT-xxx'}),
+          ]),
+          _field('linker', 'Linker'),
+          ...rootExtraFields,
+        ],
+      ),
+      'RouteEntry': ModelClass(
+        name: 'RouteEntry',
+        annotations: [
+          AnnotationData('SectionId', {'id': 'RTEN'}),
+        ],
+        formFields: [
+          FormFieldInfo(name: 'routeId', typeName: 'String', required: true),
+        ],
+      ),
+      'Linker': ModelClass(
+        name: 'Linker',
+        annotations: [
+          AnnotationData('SectionId', {'id': 'LNK'}),
+        ],
+        formFields: [
+          FormFieldInfo(
+            name: 'target',
+            typeName: referenceTypeName,
+            refersTo: refersTo,
           ),
-          'RouteEntry': ModelClass(
-            name: 'RouteEntry',
-            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
-            formFields: [
-              FormFieldInfo(name: 'routeId', typeName: 'String', required: true),
-            ],
-          ),
-          'Linker': ModelClass(
-            name: 'Linker',
-            annotations: [AnnotationData('SectionId', {'id': 'LNK'})],
-            formFields: [
-              FormFieldInfo(
-                name: 'target',
-                typeName: referenceTypeName,
-                refersTo: refersTo,
-              ),
-            ],
-          ),
-          ...extra,
-        };
+        ],
+      ),
+      ...extra,
+    };
 
     List<String> refErrors(Map<String, ModelClass> classes) =>
-        validateStructuralInvariants(classes)
-            .errors
-            .where((e) => e.contains('refersTo'))
-            .toList();
+        validateStructuralInvariants(
+          classes,
+        ).errors.where((e) => e.contains('refersTo')).toList();
     List<String> refWarnings(Map<String, ModelClass> classes) =>
-        validateStructuralInvariants(classes)
-            .warnings
-            .where((e) => e.contains('refersTo'))
-            .toList();
+        validateStructuralInvariants(
+          classes,
+        ).warnings.where((e) => e.contains('refersTo')).toList();
 
     test('a resolvable target produces no errors or warnings', () {
       final classes = model(refersTo: ['RTEN.routeId']);
@@ -2958,18 +3611,25 @@ void main() {
     });
 
     test('an ambiguous section id is rejected', () {
-      final errs = refErrors(model(
-        refersTo: ['RTEN.routeId'],
-        extra: {
-          'OtherRouteEntry': ModelClass(
-            name: 'OtherRouteEntry',
-            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
-            formFields: [FormFieldInfo(name: 'routeId', typeName: 'String')],
-          ),
-        },
-      ));
-      expect(errs.any((e) => e.contains('ambiguous')), isTrue,
-          reason: errs.join('\n'));
+      final errs = refErrors(
+        model(
+          refersTo: ['RTEN.routeId'],
+          extra: {
+            'OtherRouteEntry': ModelClass(
+              name: 'OtherRouteEntry',
+              annotations: [
+                AnnotationData('SectionId', {'id': 'RTEN'}),
+              ],
+              formFields: [FormFieldInfo(name: 'routeId', typeName: 'String')],
+            ),
+          },
+        ),
+      );
+      expect(
+        errs.any((e) => e.contains('ambiguous')),
+        isTrue,
+        reason: errs.join('\n'),
+      );
     });
 
     test('a target class that declares no such @Form field is rejected', () {
@@ -2978,52 +3638,62 @@ void main() {
       expect(errs.single, contains('declares no @Form field "screenId"'));
     });
 
-    test('an optional target form field is rejected — a key must be required',
-        () {
-      // `OptionalKeyEntry` is a proper list element, but its id may be omitted,
-      // so an entry can decline to declare the id a reference names.
-      final errs = refErrors(model(
-        refersTo: ['OKEN.optionalId'],
-        rootExtraFields: [
-          _listField('optionals', 'OptionalKeyEntry', [
-            AnnotationData('SectionId', {'id': 'OK-LST'}),
-            AnnotationData('SectionIdPattern', {'pattern': 'OK-xxx'}),
-          ]),
-        ],
-        extra: {
-          'OptionalKeyEntry': ModelClass(
-            name: 'OptionalKeyEntry',
-            annotations: [AnnotationData('SectionId', {'id': 'OKEN'})],
-            formFields: [
-              FormFieldInfo(name: 'optionalId', typeName: 'String'),
+    test(
+      'an optional target form field is rejected — a key must be required',
+      () {
+        // `OptionalKeyEntry` is a proper list element, but its id may be omitted,
+        // so an entry can decline to declare the id a reference names.
+        final errs = refErrors(
+          model(
+            refersTo: ['OKEN.optionalId'],
+            rootExtraFields: [
+              _listField('optionals', 'OptionalKeyEntry', [
+                AnnotationData('SectionId', {'id': 'OK-LST'}),
+                AnnotationData('SectionIdPattern', {'pattern': 'OK-xxx'}),
+              ]),
             ],
+            extra: {
+              'OptionalKeyEntry': ModelClass(
+                name: 'OptionalKeyEntry',
+                annotations: [
+                  AnnotationData('SectionId', {'id': 'OKEN'}),
+                ],
+                formFields: [
+                  FormFieldInfo(name: 'optionalId', typeName: 'String'),
+                ],
+              ),
+            },
           ),
-        },
-      ));
-      expect(errs, hasLength(1));
-      expect(errs.single, contains('is not required'));
-    });
+        );
+        expect(errs, hasLength(1));
+        expect(errs.single, contains('is not required'));
+      },
+    );
 
     test('a target that is not enumerated is rejected', () {
       // `Preamble` hangs off the document root, so it exists once per document
       // — it never declares a *set* of ids to resolve against.
-      final errs = refErrors(model(
-        refersTo: ['PRE.preambleId'],
-        rootExtraFields: [_field('preamble', 'Preamble')],
-        extra: {
-          'Preamble': ModelClass(
-            name: 'Preamble',
-            annotations: [AnnotationData('SectionId', {'id': 'PRE'})],
-            formFields: [
-              FormFieldInfo(
-                name: 'preambleId',
-                typeName: 'String',
-                required: true,
-              ),
-            ],
-          ),
-        },
-      ));
+      final errs = refErrors(
+        model(
+          refersTo: ['PRE.preambleId'],
+          rootExtraFields: [_field('preamble', 'Preamble')],
+          extra: {
+            'Preamble': ModelClass(
+              name: 'Preamble',
+              annotations: [
+                AnnotationData('SectionId', {'id': 'PRE'}),
+              ],
+              formFields: [
+                FormFieldInfo(
+                  name: 'preambleId',
+                  typeName: 'String',
+                  required: true,
+                ),
+              ],
+            ),
+          },
+        ),
+      );
       expect(errs, hasLength(1));
       expect(errs.single, contains('is not enumerated'));
     });
@@ -3037,12 +3707,16 @@ void main() {
         extra: {
           'RouteEntry': ModelClass(
             name: 'RouteEntry',
-            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
+            annotations: [
+              AnnotationData('SectionId', {'id': 'RTEN'}),
+            ],
             fields: [_field('identification', 'RouteIdentification')],
           ),
           'RouteIdentification': ModelClass(
             name: 'RouteIdentification',
-            annotations: [AnnotationData('SectionId', {'id': 'RTID'})],
+            annotations: [
+              AnnotationData('SectionId', {'id': 'RTID'}),
+            ],
             formFields: [
               FormFieldInfo(
                 name: 'routeId',
@@ -3058,14 +3732,18 @@ void main() {
     });
 
     test('every target of a multi-target reference is checked', () {
-      final errs = refErrors(model(refersTo: ['RTEN.routeId', 'GHOST.screenId']));
+      final errs = refErrors(
+        model(refersTo: ['RTEN.routeId', 'GHOST.screenId']),
+      );
       expect(errs, hasLength(1));
       expect(errs.single, contains('GHOST'));
     });
 
     test('a non-String reference field is a warning, not an error', () {
-      final classes =
-          model(refersTo: ['RTEN.routeId'], referenceTypeName: 'int');
+      final classes = model(
+        refersTo: ['RTEN.routeId'],
+        referenceTypeName: 'int',
+      );
       expect(refErrors(classes), isEmpty);
       final warns = refWarnings(classes);
       expect(warns, hasLength(1));
@@ -3073,28 +3751,32 @@ void main() {
     });
 
     test('a field-level @Form carries references too (shape 2/3)', () {
-      final classes = model(refersTo: const [], extra: {
-        'Inline': ModelClass(
-          name: 'Inline',
-          annotations: [AnnotationData('SectionId', {'id': 'INL'})],
-          fields: [
-            ModelField(
-              name: 'content',
-              typeName: 'String?',
-              isNullable: true,
-              formFields: [
-                FormFieldInfo(
-                  name: 'target',
-                  typeName: 'String',
-                  refersTo: const ['GHOST.routeId'],
-                ),
-              ],
-            ),
-          ],
-        ),
-      }, rootExtraFields: [
-        _field('inline', 'Inline'),
-      ]);
+      final classes = model(
+        refersTo: const [],
+        extra: {
+          'Inline': ModelClass(
+            name: 'Inline',
+            annotations: [
+              AnnotationData('SectionId', {'id': 'INL'}),
+            ],
+            fields: [
+              ModelField(
+                name: 'content',
+                typeName: 'String?',
+                isNullable: true,
+                formFields: [
+                  FormFieldInfo(
+                    name: 'target',
+                    typeName: 'String',
+                    refersTo: const ['GHOST.routeId'],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        },
+        rootExtraFields: [_field('inline', 'Inline')],
+      );
       final errs = refErrors(classes);
       expect(errs, hasLength(1));
       expect(errs.single, contains('Inline.target'));
@@ -3115,65 +3797,94 @@ void main() {
 
     test('an @sectionId target needs no form field on the entry', () {
       // The whole point: FRE-shaped entries declare no id form field at all.
-      final classes = model(refersTo: ['RTEN.$_sectionIdSlot'], extra: {
-        'RouteEntry': ModelClass(
-          name: 'RouteEntry',
-          annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
-        ),
-      });
+      final classes = model(
+        refersTo: ['RTEN.$_sectionIdSlot'],
+        extra: {
+          'RouteEntry': ModelClass(
+            name: 'RouteEntry',
+            annotations: [
+              AnnotationData('SectionId', {'id': 'RTEN'}),
+            ],
+          ),
+        },
+      );
       expect(refErrors(classes), isEmpty);
     });
 
-    test('an @sectionId target on a list without @SectionIdPattern is rejected',
-        () {
-      final errs = refErrors(model(
-        refersTo: ['PLN.$_sectionIdSlot'],
-        rootExtraFields: [
-          _listField('plains', 'PlainEntry', [
-            AnnotationData('SectionId', {'id': 'PL-LST'}),
-          ]),
-        ],
-        extra: {
-          'PlainEntry': ModelClass(
-            name: 'PlainEntry',
-            annotations: [AnnotationData('SectionId', {'id': 'PLN'})],
+    test(
+      'an @sectionId target on a list without @SectionIdPattern is rejected',
+      () {
+        final errs = refErrors(
+          model(
+            refersTo: ['PLN.$_sectionIdSlot'],
+            rootExtraFields: [
+              _listField('plains', 'PlainEntry', [
+                AnnotationData('SectionId', {'id': 'PL-LST'}),
+              ]),
+            ],
+            extra: {
+              'PlainEntry': ModelClass(
+                name: 'PlainEntry',
+                annotations: [
+                  AnnotationData('SectionId', {'id': 'PLN'}),
+                ],
+              ),
+            },
           ),
-        },
-      ));
-      expect(errs, hasLength(1));
-      expect(errs.single, contains('never the element type of a '
-          '@SectionIdPattern list'));
-    });
+        );
+        expect(errs, hasLength(1));
+        expect(
+          errs.single,
+          contains(
+            'never the element type of a '
+            '@SectionIdPattern list',
+          ),
+        );
+      },
+    );
 
     test('an @sectionId target on a singleton subsection is rejected', () {
       // `RouteIdentification` is enumerated (once per entry) and so is a valid
       // *form field* target — but it carries one fixed @SectionId, not an id
       // per instance, so it declares no set of ids.
-      final errs = refErrors(model(
-        refersTo: ['RTID.$_sectionIdSlot'],
-        extra: {
-          'RouteEntry': ModelClass(
-            name: 'RouteEntry',
-            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
-            fields: [_field('identification', 'RouteIdentification')],
-          ),
-          'RouteIdentification': ModelClass(
-            name: 'RouteIdentification',
-            annotations: [AnnotationData('SectionId', {'id': 'RTID'})],
-          ),
-        },
-      ));
+      final errs = refErrors(
+        model(
+          refersTo: ['RTID.$_sectionIdSlot'],
+          extra: {
+            'RouteEntry': ModelClass(
+              name: 'RouteEntry',
+              annotations: [
+                AnnotationData('SectionId', {'id': 'RTEN'}),
+              ],
+              fields: [_field('identification', 'RouteIdentification')],
+            ),
+            'RouteIdentification': ModelClass(
+              name: 'RouteIdentification',
+              annotations: [
+                AnnotationData('SectionId', {'id': 'RTID'}),
+              ],
+            ),
+          },
+        ),
+      );
       expect(errs, hasLength(1));
-      expect(errs.single, contains('never the element type of a '
-          '@SectionIdPattern list'));
+      expect(
+        errs.single,
+        contains(
+          'never the element type of a '
+          '@SectionIdPattern list',
+        ),
+      );
     });
 
-    test('an @sectionId target section id that no class carries is rejected',
-        () {
-      final errs = refErrors(model(refersTo: ['GHOST.$_sectionIdSlot']));
-      expect(errs, hasLength(1));
-      expect(errs.single, contains("no class carries @SectionId('GHOST')"));
-    });
+    test(
+      'an @sectionId target section id that no class carries is rejected',
+      () {
+        final errs = refErrors(model(refersTo: ['GHOST.$_sectionIdSlot']));
+        expect(errs, hasLength(1));
+        expect(errs.single, contains("no class carries @SectionId('GHOST')"));
+      },
+    );
 
     test('an unknown @-prefixed slot is rejected — "@" is reserved', () {
       final errs = refErrors(model(refersTo: ['RTEN.@storedId']));
@@ -3206,7 +3917,9 @@ void main() {
         extra: {
           'OptionalKeyEntry': ModelClass(
             name: 'OptionalKeyEntry',
-            annotations: [AnnotationData('SectionId', {'id': 'OKEN'})],
+            annotations: [
+              AnnotationData('SectionId', {'id': 'OKEN'}),
+            ],
             formFields: [
               FormFieldInfo(
                 name: 'requiredId',
@@ -3227,29 +3940,29 @@ void main() {
     // held apart so each test can hang them off whichever roots it needs. What
     // the check asks is only ever "does some root reach both".
     ModelClass routeEntry() => ModelClass(
-          name: 'RouteEntry',
-          annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
-          formFields: [
-            FormFieldInfo(name: 'routeId', typeName: 'String', required: true),
-          ],
-        );
+      name: 'RouteEntry',
+      annotations: [
+        AnnotationData('SectionId', {'id': 'RTEN'}),
+      ],
+      formFields: [
+        FormFieldInfo(name: 'routeId', typeName: 'String', required: true),
+      ],
+    );
 
     ModelClass linker(List<String> refersTo) => ModelClass(
-          name: 'Linker',
-          annotations: [AnnotationData('SectionId', {'id': 'LNK'})],
-          formFields: [
-            FormFieldInfo(
-              name: 'target',
-              typeName: 'String',
-              refersTo: refersTo,
-            ),
-          ],
-        );
+      name: 'Linker',
+      annotations: [
+        AnnotationData('SectionId', {'id': 'LNK'}),
+      ],
+      formFields: [
+        FormFieldInfo(name: 'target', typeName: 'String', refersTo: refersTo),
+      ],
+    );
 
     ModelField routesList() => _listField('routes', 'RouteEntry', [
-          AnnotationData('SectionId', {'id': 'RT-LST'}),
-          AnnotationData('SectionIdPattern', {'pattern': 'RT-xxx'}),
-        ]);
+      AnnotationData('SectionId', {'id': 'RT-LST'}),
+      AnnotationData('SectionIdPattern', {'pattern': 'RT-xxx'}),
+    ]);
 
     ModelClass root(String name, String sectionId, List<ModelField> fields) =>
         ModelClass(
@@ -3262,18 +3975,16 @@ void main() {
         );
 
     List<String> coReachErrors(Map<String, ModelClass> classes) =>
-        validateStructuralInvariants(classes)
-            .errors
-            .where((e) => e.contains('co-reachability'))
-            .toList();
+        validateStructuralInvariants(
+          classes,
+        ).errors.where((e) => e.contains('co-reachability')).toList();
 
     test('a root reaching both ends satisfies the rule', () {
       final classes = {
-        'D00SolutionBlueprint': root(
-          'D00SolutionBlueprint',
-          'SBP00',
-          [routesList(), _field('linker', 'Linker')],
-        ),
+        'D00SolutionBlueprint': root('D00SolutionBlueprint', 'SBP00', [
+          routesList(),
+          _field('linker', 'Linker'),
+        ]),
         'RouteEntry': routeEntry(),
         'Linker': linker(['RTEN.routeId']),
       };
@@ -3285,16 +3996,13 @@ void main() {
       // not the registry it cites. The instance tier skips there; the rule only
       // asks that *some* root can still decide it, and D00 can.
       final classes = {
-        'D00SolutionBlueprint': root(
-          'D00SolutionBlueprint',
-          'SBP00',
-          [routesList(), _field('linker', 'Linker')],
-        ),
-        'D01Standalone': root(
-          'D01Standalone',
-          'STA01',
-          [_field('linker', 'Linker')],
-        ),
+        'D00SolutionBlueprint': root('D00SolutionBlueprint', 'SBP00', [
+          routesList(),
+          _field('linker', 'Linker'),
+        ]),
+        'D01Standalone': root('D01Standalone', 'STA01', [
+          _field('linker', 'Linker'),
+        ]),
         'RouteEntry': routeEntry(),
         'Linker': linker(['RTEN.routeId']),
       };
@@ -3306,16 +4014,12 @@ void main() {
       // in the blueprint. No document could ever resolve the reference, so the
       // ids it names would go unverified everywhere.
       final classes = {
-        'D00SolutionBlueprint': root(
-          'D00SolutionBlueprint',
-          'SBP00',
-          [routesList()],
-        ),
-        'D01Standalone': root(
-          'D01Standalone',
-          'STA01',
-          [_field('linker', 'Linker')],
-        ),
+        'D00SolutionBlueprint': root('D00SolutionBlueprint', 'SBP00', [
+          routesList(),
+        ]),
+        'D01Standalone': root('D01Standalone', 'STA01', [
+          _field('linker', 'Linker'),
+        ]),
         'RouteEntry': routeEntry(),
         'Linker': linker(['RTEN.routeId']),
       };
@@ -3330,11 +4034,9 @@ void main() {
       // The case a check confined to the Solution Blueprint subtree could never
       // see: the referring class hangs off no @Document root whatsoever.
       final classes = {
-        'D00SolutionBlueprint': root(
-          'D00SolutionBlueprint',
-          'SBP00',
-          [routesList()],
-        ),
+        'D00SolutionBlueprint': root('D00SolutionBlueprint', 'SBP00', [
+          routesList(),
+        ]),
         'RouteEntry': routeEntry(),
         'Linker': linker(['RTEN.routeId']),
       };
@@ -3345,11 +4047,10 @@ void main() {
 
     test('a malformed target is left to the grammar check', () {
       final classes = {
-        'D00SolutionBlueprint': root(
-          'D00SolutionBlueprint',
-          'SBP00',
-          [routesList(), _field('linker', 'Linker')],
-        ),
+        'D00SolutionBlueprint': root('D00SolutionBlueprint', 'SBP00', [
+          routesList(),
+          _field('linker', 'Linker'),
+        ]),
         'RouteEntry': routeEntry(),
         'Linker': linker(['RTEN']),
       };
@@ -3358,11 +4059,10 @@ void main() {
 
     test('an unresolvable target is left to the target-exists check', () {
       final classes = {
-        'D00SolutionBlueprint': root(
-          'D00SolutionBlueprint',
-          'SBP00',
-          [routesList(), _field('linker', 'Linker')],
-        ),
+        'D00SolutionBlueprint': root('D00SolutionBlueprint', 'SBP00', [
+          routesList(),
+          _field('linker', 'Linker'),
+        ]),
         'RouteEntry': routeEntry(),
         'Linker': linker(['GHOST.routeId']),
       };
@@ -3370,8 +4070,7 @@ void main() {
     });
   });
 
-  group('unit: a list entry may not restate its heading (§8 rule 4, csre3)',
-      () {
+  group('unit: a list entry may not restate its heading (§8 rule 4, csre3)', () {
     // A list-entry section's headline is per-instance free text, so it *is*
     // the entry's name; a form field holding that same name is a second slot
     // for one value. Both exemptions are read off the field, never declared.
@@ -3380,13 +4079,14 @@ void main() {
       List<FormFieldInfo> formFields, {
       List<ModelField> fields = const [],
       String sectionId = 'ENT',
-    }) =>
-        ModelClass(
-          name: name,
-          annotations: [AnnotationData('SectionId', {'id': sectionId})],
-          formFields: formFields,
-          fields: fields,
-        );
+    }) => ModelClass(
+      name: name,
+      annotations: [
+        AnnotationData('SectionId', {'id': sectionId}),
+      ],
+      formFields: formFields,
+      fields: fields,
+    );
 
     ModelField patternedList(String fieldName, String elementType, String id) =>
         _listField(fieldName, elementType, [
@@ -3397,24 +4097,22 @@ void main() {
     Map<String, ModelClass> nameModel(
       Map<String, ModelClass> classes, {
       List<ModelField> rootFields = const [],
-    }) =>
-        {
-          'D00SolutionBlueprint': ModelClass(
-            name: 'D00SolutionBlueprint',
-            annotations: [
-              AnnotationData('Document', {}),
-              AnnotationData('SectionId', {'id': 'SBP00'}),
-            ],
-            fields: rootFields,
-          ),
-          ...classes,
-        };
+    }) => {
+      'D00SolutionBlueprint': ModelClass(
+        name: 'D00SolutionBlueprint',
+        annotations: [
+          AnnotationData('Document', {}),
+          AnnotationData('SectionId', {'id': 'SBP00'}),
+        ],
+        fields: rootFields,
+      ),
+      ...classes,
+    };
 
     List<String> nameErrors(Map<String, ModelClass> classes) =>
-        validateStructuralInvariants(classes)
-            .errors
-            .where((e) => e.contains('entry name:'))
-            .toList();
+        validateStructuralInvariants(
+          classes,
+        ).errors.where((e) => e.contains('entry name:')).toList();
 
     test('a list entry naming itself is rejected', () {
       final classes = nameModel(
@@ -3453,14 +4151,14 @@ void main() {
         {
           'RouteEntry': ModelClass(
             name: 'RouteEntry',
-            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
+            annotations: [
+              AnnotationData('SectionId', {'id': 'RTEN'}),
+            ],
             fields: [_field('identification', 'RouteIdentification')],
           ),
-          'RouteIdentification': nameEntry(
-            'RouteIdentification',
-            [FormFieldInfo(name: 'routeName', typeName: 'String')],
-            sectionId: 'RTIDN',
-          ),
+          'RouteIdentification': nameEntry('RouteIdentification', [
+            FormFieldInfo(name: 'routeName', typeName: 'String'),
+          ], sectionId: 'RTIDN'),
         },
         rootFields: [patternedList('entries', 'RouteEntry', 'RT')],
       );
@@ -3487,11 +4185,9 @@ void main() {
       // predetermined, so the form field is the only slot the name has.
       final classes = nameModel(
         {
-          'RouteSummary': nameEntry(
-            'RouteSummary',
-            [FormFieldInfo(name: 'routeName', typeName: 'String')],
-            sectionId: 'RTSUM',
-          ),
+          'RouteSummary': nameEntry('RouteSummary', [
+            FormFieldInfo(name: 'routeName', typeName: 'String'),
+          ], sectionId: 'RTSUM'),
         },
         rootFields: [_field('summary', 'RouteSummary')],
       );
@@ -3503,17 +4199,18 @@ void main() {
       // other sections are matched on, not merely the entry's display title.
       final classes = nameModel(
         {
-          'RouteEntry': nameEntry(
-            'RouteEntry',
-            [
-              FormFieldInfo(
-                  name: 'routeName', typeName: 'String', required: true),
-            ],
-            sectionId: 'RTEN',
-          ),
+          'RouteEntry': nameEntry('RouteEntry', [
+            FormFieldInfo(
+              name: 'routeName',
+              typeName: 'String',
+              required: true,
+            ),
+          ], sectionId: 'RTEN'),
           'Linker': ModelClass(
             name: 'Linker',
-            annotations: [AnnotationData('SectionId', {'id': 'LNK'})],
+            annotations: [
+              AnnotationData('SectionId', {'id': 'LNK'}),
+            ],
             formFields: [
               FormFieldInfo(
                 name: 'target',
@@ -3537,25 +4234,20 @@ void main() {
       // the heading renders it, so there is still exactly one authority.
       final classes = nameModel(
         {
-          'RouteEntry': nameEntry(
-            'RouteEntry',
-            [
-              FormFieldInfo(
-                  name: 'routeName', typeName: 'String', required: true),
-            ],
-            sectionId: 'RTEN',
-          ),
-          'RouteReferenceEntry': nameEntry(
-            'RouteReferenceEntry',
-            [
-              FormFieldInfo(
-                name: 'routeName',
-                typeName: 'String',
-                refersTo: ['RTEN.routeName'],
-              ),
-            ],
-            sectionId: 'RTRF',
-          ),
+          'RouteEntry': nameEntry('RouteEntry', [
+            FormFieldInfo(
+              name: 'routeName',
+              typeName: 'String',
+              required: true,
+            ),
+          ], sectionId: 'RTEN'),
+          'RouteReferenceEntry': nameEntry('RouteReferenceEntry', [
+            FormFieldInfo(
+              name: 'routeName',
+              typeName: 'String',
+              refersTo: ['RTEN.routeName'],
+            ),
+          ], sectionId: 'RTRF'),
         },
         rootFields: [
           patternedList('entries', 'RouteEntry', 'RT'),
@@ -3575,23 +4267,20 @@ void main() {
       List<String> errorsMentioning(
         Map<String, ModelClass> classes,
         String slot,
-      ) =>
-          validateStructuralInvariants(classes)
-              .errors
-              .where((e) => e.contains(slot))
-              .toList();
+      ) => validateStructuralInvariants(
+        classes,
+      ).errors.where((e) => e.contains(slot)).toList();
 
       test('an id-shaped field restating its own entry is accepted', () {
         final classes = nameModel(
           {
-            'RouteEntry': nameEntry(
-              'RouteEntry',
-              [
-                FormFieldInfo(
-                    name: 'routeId', typeName: 'String', required: true),
-              ],
-              sectionId: 'RTEN',
-            ),
+            'RouteEntry': nameEntry('RouteEntry', [
+              FormFieldInfo(
+                name: 'routeId',
+                typeName: 'String',
+                required: true,
+              ),
+            ], sectionId: 'RTEN'),
           },
           rootFields: [patternedList('entries', 'RouteEntry', 'RT')],
         );
@@ -3603,15 +4292,14 @@ void main() {
         // falling outside the check's scope.
         final classes = nameModel(
           {
-            'RouteEntry': nameEntry(
-              'RouteEntry',
-              [
-                FormFieldInfo(
-                    name: 'routeId', typeName: 'String', required: true),
-                FormFieldInfo(name: 'routeName', typeName: 'String'),
-              ],
-              sectionId: 'RTEN',
-            ),
+            'RouteEntry': nameEntry('RouteEntry', [
+              FormFieldInfo(
+                name: 'routeId',
+                typeName: 'String',
+                required: true,
+              ),
+              FormFieldInfo(name: 'routeName', typeName: 'String'),
+            ], sectionId: 'RTEN'),
           },
           rootFields: [patternedList('entries', 'RouteEntry', 'RT')],
         );
@@ -3620,47 +4308,52 @@ void main() {
         expect(errorsMentioning(classes, 'routeId'), isEmpty);
       });
 
-      test('a registry-key id in an extracted identification block is accepted',
-          () {
-        // The model's own case: `ProcessIdentification.processId` beneath
-        // `BusinessProcessEntry`, with references resolving to it. For names
-        // that is exemption (b); for ids it is not an exemption at all, since
-        // `@sectionId` (§6.2 rule 6) makes such a field unnecessary — so the
-        // field is accepted by the shape test alone, and nothing else.
-        final classes = nameModel(
-          {
-            'ProcessEntry': ModelClass(
-              name: 'ProcessEntry',
-              annotations: [AnnotationData('SectionId', {'id': 'BPREN'})],
-              fields: [_field('identification', 'ProcessIdentification')],
-            ),
-            'ProcessIdentification': nameEntry(
-              'ProcessIdentification',
-              [
+      test(
+        'a registry-key id in an extracted identification block is accepted',
+        () {
+          // The model's own case: `ProcessIdentification.processId` beneath
+          // `BusinessProcessEntry`, with references resolving to it. For names
+          // that is exemption (b); for ids it is not an exemption at all, since
+          // `@sectionId` (§6.2 rule 6) makes such a field unnecessary — so the
+          // field is accepted by the shape test alone, and nothing else.
+          final classes = nameModel(
+            {
+              'ProcessEntry': ModelClass(
+                name: 'ProcessEntry',
+                annotations: [
+                  AnnotationData('SectionId', {'id': 'BPREN'}),
+                ],
+                fields: [_field('identification', 'ProcessIdentification')],
+              ),
+              'ProcessIdentification': nameEntry('ProcessIdentification', [
                 FormFieldInfo(
-                    name: 'processId', typeName: 'String', required: true),
-              ],
-              sectionId: 'PRIDN',
-            ),
-            'Linker': ModelClass(
-              name: 'Linker',
-              annotations: [AnnotationData('SectionId', {'id': 'LNK'})],
-              formFields: [
-                FormFieldInfo(
-                  name: 'target',
+                  name: 'processId',
                   typeName: 'String',
-                  refersTo: ['PRIDN.processId'],
+                  required: true,
                 ),
-              ],
-            ),
-          },
-          rootFields: [
-            patternedList('entries', 'ProcessEntry', 'BP'),
-            _field('linker', 'Linker'),
-          ],
-        );
-        expect(errorsMentioning(classes, 'processId'), isEmpty);
-      });
+              ], sectionId: 'PRIDN'),
+              'Linker': ModelClass(
+                name: 'Linker',
+                annotations: [
+                  AnnotationData('SectionId', {'id': 'LNK'}),
+                ],
+                formFields: [
+                  FormFieldInfo(
+                    name: 'target',
+                    typeName: 'String',
+                    refersTo: ['PRIDN.processId'],
+                  ),
+                ],
+              ),
+            },
+            rootFields: [
+              patternedList('entries', 'ProcessEntry', 'BP'),
+              _field('linker', 'Linker'),
+            ],
+          );
+          expect(errorsMentioning(classes, 'processId'), isEmpty);
+        },
+      );
 
       test('the two readings of an id are indistinguishable to the model', () {
         // `assumptionId` holds this document's own serial (ASM-001) and is a
@@ -3670,22 +4363,20 @@ void main() {
         // convicts neither.
         final classes = nameModel(
           {
-            'AssumptionEntry': nameEntry(
-              'AssumptionEntry',
-              [
-                FormFieldInfo(
-                    name: 'assumptionId', typeName: 'String', required: true),
-              ],
-              sectionId: 'ASMEN',
-            ),
-            'ElementEntry': nameEntry(
-              'ElementEntry',
-              [
-                FormFieldInfo(
-                    name: 'elementId', typeName: 'String', required: true),
-              ],
-              sectionId: 'ELMEN',
-            ),
+            'AssumptionEntry': nameEntry('AssumptionEntry', [
+              FormFieldInfo(
+                name: 'assumptionId',
+                typeName: 'String',
+                required: true,
+              ),
+            ], sectionId: 'ASMEN'),
+            'ElementEntry': nameEntry('ElementEntry', [
+              FormFieldInfo(
+                name: 'elementId',
+                typeName: 'String',
+                required: true,
+              ),
+            ], sectionId: 'ELMEN'),
           },
           rootFields: [
             patternedList('assumptions', 'AssumptionEntry', 'ASM'),

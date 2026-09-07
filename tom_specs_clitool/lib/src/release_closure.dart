@@ -60,7 +60,11 @@ class ReleaseAllowEntry {
   /// [reason] is required and [path] is not, which is the whole shape of the
   /// approval: every crossing must justify itself, but only a crossing with
   /// local source can be walked through.
-  const ReleaseAllowEntry({required this.name, this.path, required this.reason});
+  const ReleaseAllowEntry({
+    required this.name,
+    this.path,
+    required this.reason,
+  });
 
   /// Package name.
   final String name;
@@ -107,14 +111,14 @@ class ReleaseManifest {
   final List<String> workspacePrefixes;
 
   /// Whether [name] matches a forbid pattern.
-  bool isForbidden(String name) => forbid.any((pattern) =>
-      pattern.endsWith('*')
-          ? name.startsWith(pattern.substring(0, pattern.length - 1))
-          : name == pattern);
+  bool isForbidden(String name) => forbid.any(
+    (pattern) => pattern.endsWith('*')
+        ? name.startsWith(pattern.substring(0, pattern.length - 1))
+        : name == pattern,
+  );
 
   /// Whether [name] looks workspace-authored.
-  bool isWorkspaceLocal(String name) =>
-      workspacePrefixes.any(name.startsWith);
+  bool isWorkspaceLocal(String name) => workspacePrefixes.any(name.startsWith);
 
   /// Loads and shape-checks the manifest at [path].
   static ReleaseManifest load(String path) {
@@ -146,8 +150,9 @@ class ReleaseManifest {
         final reason = value['reason'] as String?;
         if (reason == null || reason.trim().isEmpty) {
           throw FormatException(
-              'allow entry "$name" has no reason — an exemption nobody can '
-              'review is not an exemption ($path)');
+            'allow entry "$name" has no reason — an exemption nobody can '
+            'review is not an exemption ($path)',
+          );
         }
         allow[name] = ReleaseAllowEntry(
           name: name,
@@ -297,35 +302,42 @@ ClosureReport checkReleaseClosure({
   // --- Manifest sanity: forbid beats every other list. ---
   for (final name in manifest.releaseSet.keys) {
     if (manifest.isForbidden(name)) {
-      violations.add(ClosureViolation(
-        kind: ClosureViolationKind.manifest,
-        from: 'manifest',
-        to: name,
-        detail: 'release_set member matches a forbid pattern',
-      ));
+      violations.add(
+        ClosureViolation(
+          kind: ClosureViolationKind.manifest,
+          from: 'manifest',
+          to: name,
+          detail: 'release_set member matches a forbid pattern',
+        ),
+      );
     }
   }
   for (final name in manifest.allow.keys) {
     if (manifest.isForbidden(name)) {
-      violations.add(ClosureViolation(
-        kind: ClosureViolationKind.manifest,
-        from: 'manifest',
-        to: name,
-        detail: 'allow entry matches a forbid pattern — the allowlist cannot '
-            'approve an excluded package',
-      ));
+      violations.add(
+        ClosureViolation(
+          kind: ClosureViolationKind.manifest,
+          from: 'manifest',
+          to: name,
+          detail:
+              'allow entry matches a forbid pattern — the allowlist cannot '
+              'approve an excluded package',
+        ),
+      );
     }
   }
 
   // --- Source-only members exist. ---
   for (final dir in manifest.sourceOnly) {
     if (!Directory(p.join(containerRoot, dir)).existsSync()) {
-      violations.add(ClosureViolation(
-        kind: ClosureViolationKind.manifest,
-        from: 'manifest',
-        to: dir,
-        detail: 'source_only member directory does not exist',
-      ));
+      violations.add(
+        ClosureViolation(
+          kind: ClosureViolationKind.manifest,
+          from: 'manifest',
+          to: dir,
+          detail: 'source_only member directory does not exist',
+        ),
+      );
     }
   }
 
@@ -344,27 +356,32 @@ ClosureReport checkReleaseClosure({
   }) {
     edges++;
     if (manifest.isForbidden(depName)) {
-      violations.add(ClosureViolation(
-        kind: ClosureViolationKind.forbidden,
-        from: fromName,
-        to: depName,
-        edgeKind: edgeKind,
-        detail: 'reaches an excluded package (release 1 ships without it)',
-      ));
+      violations.add(
+        ClosureViolation(
+          kind: ClosureViolationKind.forbidden,
+          from: fromName,
+          to: depName,
+          edgeKind: edgeKind,
+          detail: 'reaches an excluded package (release 1 ships without it)',
+        ),
+      );
       return false;
     }
     final inSet = manifest.releaseSet.containsKey(depName);
     final allowed = manifest.allow.containsKey(depName);
     if (!inSet && !allowed) {
       if (manifest.isWorkspaceLocal(depName)) {
-        violations.add(ClosureViolation(
-          kind: ClosureViolationKind.unapprovedWorkspace,
-          from: fromName,
-          to: depName,
-          edgeKind: edgeKind,
-          detail: 'leaves the release set for a workspace package that is '
-              'neither a member nor an approved published crossing',
-        ));
+        violations.add(
+          ClosureViolation(
+            kind: ClosureViolationKind.unapprovedWorkspace,
+            from: fromName,
+            to: depName,
+            edgeKind: edgeKind,
+            detail:
+                'leaves the release set for a workspace package that is '
+                'neither a member nor an approved published crossing',
+          ),
+        );
       }
       return false; // Third-party: permitted, and nothing local to walk.
     }
@@ -373,19 +390,23 @@ ClosureReport checkReleaseClosure({
     // A path dependency must point at the manifest's directory for the name.
     if (depSpec is YamlMap && depSpec['path'] is String) {
       final resolved = p.normalize(
-          p.join(containerRoot, fromDir, depSpec['path'] as String));
+        p.join(containerRoot, fromDir, depSpec['path'] as String),
+      );
       final expected = dirFor(depName);
       if (expected != null &&
           p.normalize(p.join(containerRoot, expected)) != resolved) {
-        violations.add(ClosureViolation(
-          kind: ClosureViolationKind.pathMismatch,
-          from: fromName,
-          to: depName,
-          edgeKind: edgeKind,
-          detail: 'path dependency resolves to '
-              '${p.relative(resolved, from: containerRoot)}, but the manifest '
-              'places $depName at $expected',
-        ));
+        violations.add(
+          ClosureViolation(
+            kind: ClosureViolationKind.pathMismatch,
+            from: fromName,
+            to: depName,
+            edgeKind: edgeKind,
+            detail:
+                'path dependency resolves to '
+                '${p.relative(resolved, from: containerRoot)}, but the manifest '
+                'places $depName at $expected',
+          ),
+        );
       }
     }
     return true;
@@ -403,22 +424,26 @@ ClosureReport checkReleaseClosure({
     if (dir == null) return; // Hosted-only allow entry: the edge was approved.
     final pubspecFile = File(p.join(containerRoot, dir, 'pubspec.yaml'));
     if (!pubspecFile.existsSync()) {
-      violations.add(ClosureViolation(
-        kind: ClosureViolationKind.manifest,
-        from: name,
-        to: p.join(dir, 'pubspec.yaml'),
-        detail: 'manifest names this directory but it holds no pubspec.yaml',
-      ));
+      violations.add(
+        ClosureViolation(
+          kind: ClosureViolationKind.manifest,
+          from: name,
+          to: p.join(dir, 'pubspec.yaml'),
+          detail: 'manifest names this directory but it holds no pubspec.yaml',
+        ),
+      );
       return;
     }
     final pubspec = loadYaml(pubspecFile.readAsStringSync()) as YamlMap;
     if (pubspec['name'] != name) {
-      violations.add(ClosureViolation(
-        kind: ClosureViolationKind.manifest,
-        from: name,
-        to: '${pubspec['name']}',
-        detail: 'pubspec name disagrees with the manifest key',
-      ));
+      violations.add(
+        ClosureViolation(
+          kind: ClosureViolationKind.manifest,
+          from: name,
+          to: '${pubspec['name']}',
+          detail: 'pubspec name disagrees with the manifest key',
+        ),
+      );
       return;
     }
     if (isMember) membersWalked++;
@@ -431,7 +456,10 @@ ClosureReport checkReleaseClosure({
 
     final toRecurse = <String>[];
     void classifySection(
-        Map<String, Object?> deps, ClosureEdgeKind edgeKind, bool recurse) {
+      Map<String, Object?> deps,
+      ClosureEdgeKind edgeKind,
+      bool recurse,
+    ) {
       for (final entry in deps.entries) {
         final continueInto = classify(
           fromName: name,
@@ -444,23 +472,36 @@ ClosureReport checkReleaseClosure({
       }
     }
 
-    classifySection(section(pubspec, 'dependencies'),
-        ClosureEdgeKind.dependency, true);
+    classifySection(
+      section(pubspec, 'dependencies'),
+      ClosureEdgeKind.dependency,
+      true,
+    );
     // Dev deps: only release members must build from a clean checkout; an
     // allowed package's dev deps never reach the release.
     if (isMember) {
-      classifySection(section(pubspec, 'dev_dependencies'),
-          ClosureEdgeKind.devDependency, false);
+      classifySection(
+        section(pubspec, 'dev_dependencies'),
+        ClosureEdgeKind.devDependency,
+        false,
+      );
     }
-    classifySection(section(pubspec, 'dependency_overrides'),
-        ClosureEdgeKind.override, false);
-    final overridesFile =
-        File(p.join(containerRoot, dir, 'pubspec_overrides.yaml'));
+    classifySection(
+      section(pubspec, 'dependency_overrides'),
+      ClosureEdgeKind.override,
+      false,
+    );
+    final overridesFile = File(
+      p.join(containerRoot, dir, 'pubspec_overrides.yaml'),
+    );
     if (overridesFile.existsSync()) {
       final overrides = loadYaml(overridesFile.readAsStringSync());
       if (overrides is YamlMap) {
-        classifySection(section(overrides, 'dependency_overrides'),
-            ClosureEdgeKind.override, false);
+        classifySection(
+          section(overrides, 'dependency_overrides'),
+          ClosureEdgeKind.override,
+          false,
+        );
       }
     }
 

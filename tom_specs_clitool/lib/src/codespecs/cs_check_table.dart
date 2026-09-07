@@ -36,7 +36,10 @@ class CsCheckTableCorrespondence {
   final List<String> problems;
 
   /// Creates the outcome.
-  const CsCheckTableCorrespondence({required this.rows, required this.problems});
+  const CsCheckTableCorrespondence({
+    required this.rows,
+    required this.problems,
+  });
 
   /// Whether the table and the registry are the same list.
   bool get isConsistent => problems.isEmpty;

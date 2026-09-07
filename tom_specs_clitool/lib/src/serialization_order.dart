@@ -121,40 +121,45 @@ SerializationStampResult stampSerializationOrder({
     // must follow.
     final ordinals = <ClassDeclaration, int>{};
 
-    unit.accept(_FieldVisitor((member) {
-      // Only instance members of *classes* are stamped (enum/mixin/extension
-      // fields are out of scope for the spec-model).
-      final cls = member.thisOrAncestorOfType<ClassDeclaration>();
-      if (cls == null) return;
-      if (member.isStatic) return;
+    unit.accept(
+      _FieldVisitor((member) {
+        // Only instance members of *classes* are stamped (enum/mixin/extension
+        // fields are out of scope for the spec-model).
+        final cls = member.thisOrAncestorOfType<ClassDeclaration>();
+        if (cls == null) return;
+        if (member.isStatic) return;
 
-      final ordinal = ordinals[cls] = (ordinals[cls] ?? -1) + 1;
+        final ordinal = ordinals[cls] = (ordinals[cls] ?? -1) + 1;
 
-      final vars = member.fields.variables;
-      if (vars.length > 1) {
-        multiVarWarnings.add('${p.relative(file.path, from: packagePath)}: '
+        final vars = member.fields.variables;
+        if (vars.length > 1) {
+          multiVarWarnings.add(
+            '${p.relative(file.path, from: packagePath)}: '
             '${cls.namePart.typeName.lexeme}.'
             '${vars.map((v) => v.name.lexeme).join(',')} '
-            '(multi-variable declaration — single shared ordinal $ordinal)');
-      }
-
-      // Strip any pre-existing @SerializationOrder annotation on this member.
-      for (final ann in member.metadata) {
-        if (ann.name.name == 'SerializationOrder') {
-          final endOffset = ann.endToken.next?.offset ?? ann.end;
-          edits.add(_Edit(ann.offset, endOffset, ''));
-          membersRestamped++;
+            '(multi-variable declaration — single shared ordinal $ordinal)',
+          );
         }
-      }
 
-      // Insert before the variable declaration's first token (the type /
-      // final / var keyword), i.e. after any other annotations & doc comment.
-      final insertAt = member.fields.beginToken.offset;
-      final indent = _lineIndent(source, insertAt);
-      edits.add(
-          _Edit(insertAt, insertAt, '@SerializationOrder($ordinal)\n$indent'));
-      membersStamped++;
-    }));
+        // Strip any pre-existing @SerializationOrder annotation on this member.
+        for (final ann in member.metadata) {
+          if (ann.name.name == 'SerializationOrder') {
+            final endOffset = ann.endToken.next?.offset ?? ann.end;
+            edits.add(_Edit(ann.offset, endOffset, ''));
+            membersRestamped++;
+          }
+        }
+
+        // Insert before the variable declaration's first token (the type /
+        // final / var keyword), i.e. after any other annotations & doc comment.
+        final insertAt = member.fields.beginToken.offset;
+        final indent = _lineIndent(source, insertAt);
+        edits.add(
+          _Edit(insertAt, insertAt, '@SerializationOrder($ordinal)\n$indent'),
+        );
+        membersStamped++;
+      }),
+    );
 
     if (edits.isEmpty) continue;
 

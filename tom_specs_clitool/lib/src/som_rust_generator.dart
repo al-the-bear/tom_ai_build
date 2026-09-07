@@ -76,6 +76,7 @@ class SomRustGenerationResult {
   /// The generated metadata module (`src/meta.rs`): populated SOM §7.2 metadata
   /// trees plus the dot-notation and ID-tree navigation surfaces (SOM §8).
   final String metaModulePath;
+
   /// The lossless object-model graph, `meta/spec_model.meta.json` (SOM §5.3).
   /// It is validated by `validateSpecModelMeta` *before* it is written, so a
   /// path returned here always names a file that passed validation. Being
@@ -184,13 +185,16 @@ SomRustGenerationResult writeSomRustProject({
   meta['generatedAt'] = generatedAt;
   final metaErrors = validateSpecModelMeta(meta);
   if (metaErrors.isNotEmpty) {
-    throw StateError('generated meta-data is invalid:\n  '
-        '${metaErrors.join('\n  ')}');
+    throw StateError(
+      'generated meta-data is invalid:\n  '
+      '${metaErrors.join('\n  ')}',
+    );
   }
   final metaJsonPath = p.join(outputRoot, 'meta', 'spec_model.meta.json');
   final metaFile = File(metaJsonPath)..parent.createSync(recursive: true);
   metaFile.writeAsStringSync(
-      '${const JsonEncoder.withIndent('  ').convert(meta)}\n');
+    '${const JsonEncoder.withIndent('  ').convert(meta)}\n',
+  );
 
   // ── typed Rust facade (editing facade over the generic runtime) ────────────
   final model = SpecModel.fromJson(meta);
@@ -216,10 +220,13 @@ SomRustGenerationResult writeSomRustProject({
 
   // ── DocSpecs schemas (one per @Document root) ──────────────────────────────
   // Identical to every other language path — schemas are language-agnostic.
-  final schemas =
-      DocSpecsSchemaGenerator(classes).generateAll(modelVersion: modelVersion);
-  final schemaPaths =
-      DocSpecsSchemaGenerator.writeSchemaTree(outputRoot, schemas);
+  final schemas = DocSpecsSchemaGenerator(
+    classes,
+  ).generateAll(modelVersion: modelVersion);
+  final schemaPaths = DocSpecsSchemaGenerator.writeSchemaTree(
+    outputRoot,
+    schemas,
+  );
 
   // ── Cargo.toml (relative `path` dependency on the runtime) ─────────────────
   // The generated Rust source depends on the runtime by a fixed crate name, so
@@ -230,8 +237,9 @@ SomRustGenerationResult writeSomRustProject({
       .relative(p.normalize(runtimePackagePath), from: p.normalize(outputRoot))
       .replaceAll('\\', '/');
   final cargoTomlPath = p.join(outputRoot, 'Cargo.toml');
-  File(cargoTomlPath)
-      .writeAsStringSync(_cargoToml(crateName, runtimeRel, packageVersion));
+  File(
+    cargoTomlPath,
+  ).writeAsStringSync(_cargoToml(crateName, runtimeRel, packageVersion));
 
   return SomRustGenerationResult(
     outputRoot: outDir.path,

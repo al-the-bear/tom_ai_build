@@ -21,7 +21,8 @@ Future<void> main(List<String> arguments) async {
     ..addOption(
       'output',
       abbr: 'o',
-      help: 'Output file path. Defaults to '
+      help:
+          'Output file path. Defaults to '
           'generated-doc/outlines/<RootType>_outline.md.',
     )
     ..addOption(
@@ -31,14 +32,16 @@ Future<void> main(List<String> arguments) async {
     )
     ..addFlag(
       'show-schema-annotations',
-      help: 'Show schema-only annotations inline '
+      help:
+          'Show schema-only annotations inline '
           '(tom_specs_model_rules.md §11.2.14).',
       defaultsTo: false,
     )
     ..addFlag(
       'stop-at-detailed-in',
       abbr: 'c',
-      help: 'Stop tree traversal at sections annotated with @DetailedIn — '
+      help:
+          'Stop tree traversal at sections annotated with @DetailedIn — '
           'show the section heading with a → DocId suffix but do not expand '
           'the sub-tree. Produces a compact high-level outline.',
       defaultsTo: false,
@@ -74,7 +77,8 @@ Future<void> main(List<String> arguments) async {
   // Default output path. Generated outlines are kept apart from hand-written
   // documentation so a stray ad-hoc run cannot leave a stale copy sitting in
   // doc/ — that is exactly how the folder accumulated 26 orphaned outlines.
-  final outputPath = results.option('output') ??
+  final outputPath =
+      results.option('output') ??
       p.join(
         packagePath,
         'generated-doc',
@@ -140,7 +144,9 @@ Future<void> main(List<String> arguments) async {
 }
 
 void _printUsage(ArgParser parser) {
-  stdout.writeln('Usage: dart run bin/outliner.dart --package <path> [options]');
+  stdout.writeln(
+    'Usage: dart run bin/outliner.dart --package <path> [options]',
+  );
   stdout.writeln();
   stdout.writeln(parser.usage);
 }

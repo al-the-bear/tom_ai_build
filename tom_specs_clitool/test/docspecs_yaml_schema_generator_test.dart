@@ -26,45 +26,45 @@ JsonSchema _buildSchema() =>
 /// A minimal, valid in-memory v2 document (plain JSON-compatible maps): one
 /// root key holding a nested section tree of scalar leaves and mappings.
 Map<String, Object?> _validDoc() => <String, Object?>{
-      'version': DocspecsYamlSchemaGenerator().formatVersion,
-      'modelVersion': '1.0',
-      'document': <String, Object?>{
-        'DEMO Demo': <String, Object?>{
-          'TTL title': 'Hello',
-          'CNT count': 3,
-          'DET details': <String, Object?>{
-            'owner': 'Bob',
-            'contact': 'bob@example.com',
-          },
-          'items': <String, Object?>{
-            'items-1': <String, Object?>{
-              'label': 'First',
-              'STS status': 'open',
-            },
-            'items-2': <String, Object?>{
-              'label': 'Second',
-              'STS status': 'done',
-            },
-          },
-        },
+  'version': DocspecsYamlSchemaGenerator().formatVersion,
+  'modelVersion': '1.0',
+  'document': <String, Object?>{
+    'DEMO Demo': <String, Object?>{
+      'TTL title': 'Hello',
+      'CNT count': 3,
+      'DET details': <String, Object?>{
+        'owner': 'Bob',
+        'contact': 'bob@example.com',
       },
-    };
+      'items': <String, Object?>{
+        'items-1': <String, Object?>{'label': 'First', 'STS status': 'open'},
+        'items-2': <String, Object?>{'label': 'Second', 'STS status': 'done'},
+      },
+    },
+  },
+};
 
 void main() {
   group('DocspecsYamlSchemaGenerator metadata', () {
     test('exposes a stable schema id and filename', () {
-      expect(DocspecsYamlSchemaGenerator.schemaId,
-          'https://tom.ai/schemas/yaml/docspecs-document.schema.json');
-      expect(DocspecsYamlSchemaGenerator.fileName,
-          'docspecs-document.schema.json');
+      expect(
+        DocspecsYamlSchemaGenerator.schemaId,
+        'https://tom.ai/schemas/yaml/docspecs-document.schema.json',
+      );
+      expect(
+        DocspecsYamlSchemaGenerator.fileName,
+        'docspecs-document.schema.json',
+      );
     });
 
     test('defaults the format version to the codec constant', () {
       // SpecDocumentYaml.formatVersion is 2 (the Hierarchical format);
       // the generator must track it so the schema and the writer stay in
       // lockstep.
-      expect(DocspecsYamlSchemaGenerator().formatVersion,
-          SpecDocumentYaml.formatVersion);
+      expect(
+        DocspecsYamlSchemaGenerator().formatVersion,
+        SpecDocumentYaml.formatVersion,
+      );
       expect(DocspecsYamlSchemaGenerator().formatVersion, 2);
     });
 
@@ -107,19 +107,27 @@ void main() {
     });
 
     test('validates the known-good corpus expected.docspecs.yaml', () {
-      final corpus = File(p.join(
-        Directory.current.path,
-        '..',
-        'tom_som_conformance',
-        'corpus',
-        'expected.docspecs.yaml',
-      ));
-      expect(corpus.existsSync(), isTrue,
-          reason: 'corpus fixture missing: ${corpus.path}');
+      final corpus = File(
+        p.join(
+          Directory.current.path,
+          '..',
+          'tom_som_conformance',
+          'corpus',
+          'expected.docspecs.yaml',
+        ),
+      );
+      expect(
+        corpus.existsSync(),
+        isTrue,
+        reason: 'corpus fixture missing: ${corpus.path}',
+      );
       final doc = _plain(loadYaml(corpus.readAsStringSync()));
       final results = _buildSchema().validate(doc);
-      expect(results.isValid, isTrue,
-          reason: 'corpus rejected: ${results.errors}');
+      expect(
+        results.isValid,
+        isTrue,
+        reason: 'corpus rejected: ${results.errors}',
+      );
     });
 
     test('accepts an optional opaque review pass', () {

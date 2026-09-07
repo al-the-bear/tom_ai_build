@@ -17,10 +17,12 @@ void main() {
   final clitoolDir = Directory.current.path;
   final modelDir = p.normalize(p.join(clitoolDir, '..', 'tom_specs_model'));
 
-  final clitoolConfig =
-      File(p.join(clitoolDir, '.dart_tool', 'package_config.json'));
-  final modelConfig =
-      File(p.join(modelDir, '.dart_tool', 'package_config.json'));
+  final clitoolConfig = File(
+    p.join(clitoolDir, '.dart_tool', 'package_config.json'),
+  );
+  final modelConfig = File(
+    p.join(modelDir, '.dart_tool', 'package_config.json'),
+  );
 
   group('readPackageRoots', () {
     test('returns name→root map for a resolved package_config.json', () {
@@ -32,15 +34,20 @@ void main() {
       expect(roots, contains('tom_specs_clitool'));
       // The recorded root is the package directory that contains `lib/`.
       final root = roots['tom_specs_clitool']!;
-      expect(Directory(p.join(root, 'lib')).existsSync(), isTrue,
-          reason: 'root should be the package dir containing lib/');
+      expect(
+        Directory(p.join(root, 'lib')).existsSync(),
+        isTrue,
+        reason: 'root should be the package dir containing lib/',
+      );
     });
   });
 
   group('mergePackageRootsForDirs', () {
     test('unions the dependency closures of multiple package dirs', () {
       if (!clitoolConfig.existsSync() || !modelConfig.existsSync()) {
-        markTestSkipped('a sibling package_config.json is missing — run pub get');
+        markTestSkipped(
+          'a sibling package_config.json is missing — run pub get',
+        );
         return;
       }
       final merged = mergePackageRootsForDirs([clitoolDir, modelDir]);
@@ -49,14 +56,16 @@ void main() {
       expect(merged, contains('tom_specs_model')); // model closure
     });
 
-    test('throws SummaryConfigException for a dir without a resolved config',
-        () {
-      final tmp = Directory.systemTemp.createTempSync('oe25_no_config');
-      addTearDown(() => tmp.deleteSync(recursive: true));
-      expect(
-        () => mergePackageRootsForDirs([tmp.path]),
-        throwsA(isA<SummaryConfigException>()),
-      );
-    });
+    test(
+      'throws SummaryConfigException for a dir without a resolved config',
+      () {
+        final tmp = Directory.systemTemp.createTempSync('oe25_no_config');
+        addTearDown(() => tmp.deleteSync(recursive: true));
+        expect(
+          () => mergePackageRootsForDirs([tmp.path]),
+          throwsA(isA<SummaryConfigException>()),
+        );
+      },
+    );
   });
 }
