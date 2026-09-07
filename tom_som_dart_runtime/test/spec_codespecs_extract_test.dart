@@ -528,6 +528,144 @@ void main() {
       expect(_extractor().extractFor('CE-FM')!.fileStem, 'CE-FM.extract');
     });
   });
+
+  group('the area catalogue reports a bad row locatably', () {
+    // The catalogue is hand-authored input shared by all nine runtimes, and
+    // this file's posture everywhere else is to fail loudly AND locatably.
+    // These reads used to be bare casts — `(j['number'] as num)`,
+    // `j['code'] as String` — so a typo produced an opaque TypeError naming
+    // no row, leaving the author to find it by bisection.
+
+    test('a slice missing its number names the slice', () {
+      expect(
+        () => CodeSpecsAreaCatalog.fromJson({
+          'slices': [
+            {'title': 'Data and enums', 'project': 'shared'},
+          ],
+        }),
+        throwsA(
+          isA<FormatException>().having(
+            (e) => e.message,
+            'message',
+            allOf(contains('"number"'), contains('Data and enums')),
+          ),
+        ),
+      );
+    });
+
+    test('a non-numeric number is distinguished from a missing one', () {
+      expect(
+        () => CodeSpecsAreaCatalog.fromJson({
+          'slices': [
+            {'number': '1', 'title': 'Data and enums'},
+          ],
+        }),
+        throwsA(
+          isA<FormatException>().having(
+            (e) => e.message,
+            'message',
+            allOf(contains('Data and enums'), contains('String')),
+          ),
+        ),
+      );
+    });
+
+    test('an area missing its code falls back to naming it by part', () {
+      // The label is computed BEFORE the required-key checks precisely so a
+      // row missing the key that would normally identify it is still named.
+      expect(
+        () => CodeSpecsAreaCatalog.fromJson({
+          'areas': [
+            {'part': 'serverApi', 'canonicalId': 'ServerApi'},
+          ],
+        }),
+        throwsA(
+          isA<FormatException>().having(
+            (e) => e.message,
+            'message',
+            allOf(contains('"code"'), contains('serverApi')),
+          ),
+        ),
+      );
+    });
+
+    test('an area missing its part names it by code', () {
+      expect(
+        () => CodeSpecsAreaCatalog.fromJson({
+          'areas': [
+            {'code': 'CE-API'},
+          ],
+        }),
+        throwsA(
+          isA<FormatException>().having(
+            (e) => e.message,
+            'message',
+            allOf(contains('"part"'), contains('CE-API')),
+          ),
+        ),
+      );
+    });
+
+    test('a row with nothing to name it by lists its keys', () {
+      expect(
+        () => CodeSpecsAreaCatalog.fromJson({
+          'areas': [
+            {'active': true},
+          ],
+        }),
+        throwsA(
+          isA<FormatException>().having(
+            (e) => e.message,
+            'message',
+            contains('[active]'),
+          ),
+        ),
+      );
+    });
+
+    test('a non-numeric entry in an int list names the list and the row', () {
+      expect(
+        () => CodeSpecsAreaCatalog.fromJson({
+          'areas': [
+            {
+              'code': 'CE-API',
+              'part': 'serverApi',
+              'slices': [3, 'four'],
+            },
+          ],
+        }),
+        throwsA(
+          isA<FormatException>().having(
+            (e) => e.message,
+            'message',
+            allOf(contains('"slices"'), contains('CE-API'), contains('four')),
+          ),
+        ),
+      );
+    });
+
+    test('a well-formed catalogue still loads unchanged', () {
+      final cat = CodeSpecsAreaCatalog.fromJson({
+        'source': 'codespecs_mapping.md §4.1',
+        'slices': [
+          {'number': 1, 'title': 'Data and enums', 'project': 'shared'},
+        ],
+        'areas': [
+          {
+            'code': 'CE-API',
+            'canonicalId': 'ServerApi',
+            'part': 'serverApi',
+            'slices': [3],
+            'authoringSteps': [2],
+          },
+        ],
+      });
+      expect(cat.slices.single.number, 1);
+      expect(cat.areas.single.code, 'CE-API');
+      expect(cat.areas.single.kindValue, 'CodeSpecPart.serverApi');
+      expect(cat.areas.single.active, isTrue);
+    });
+  });
 }
 
 // --- fixture ----------------------------------------------------------------

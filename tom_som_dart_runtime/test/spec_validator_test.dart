@@ -788,4 +788,104 @@ void main() {
       expect(SpecReflection(m).reachableClassNames('Nope'), isEmpty);
     });
   });
+
+  group('a `section` field has two shapes, and only one is a leaf', () {
+    // The rule that is easy to get backwards, so it is pinned from both
+    // sides. `SpecFieldKind.section` is handled exactly like `complex`:
+    // descend when `SpecField.type` resolves, leaf when it does not.
+    //
+    //  * A WRAPPER section names a `tom_specs_core` class (`TextSection`,
+    //    `FlowDiagramSection`, …) that is deliberately absent from
+    //    `SpecModel.classes`. It carries `sectionType` and NO `type`, and the
+    //    missing `type` is what makes it a leaf — no special case needed.
+    //    Every one of the 337 section fields `tom_specs_model` exports is
+    //    this shape, which is why a walker written for leaves alone passes
+    //    every test the model itself can generate.
+    //  * A COLLAPSING section names a real class and carries `type`. The
+    //    conformance corpus pins it precisely because a port that treats
+    //    every section as a leaf misresolves every path beneath one.
+    SpecModel modelWith(Map<String, dynamic> sectionField) =>
+        SpecModel.fromJson({
+          'modelVersion': 1,
+          'roots': [
+            {'type': 'Root', 'title': 'Root', 'sectionId': 'RT00'},
+          ],
+          'classes': {
+            'Root': {
+              'name': 'Root',
+              'sectionId': 'RT00',
+              'fields': [sectionField],
+            },
+            'Notes': {
+              'name': 'Notes',
+              'sectionId': 'NOTE',
+              'fields': [
+                {'name': 'body', 'kind': 'content', 'sectionId': 'NOTE-BDY'},
+              ],
+            },
+          },
+        });
+
+    test('a collapsing section reaches its target class', () {
+      final m = modelWith({
+        'name': 'notes',
+        'kind': 'section',
+        'type': 'Notes',
+      });
+      expect(SpecReflection(m).reachableClassNames('Root'), {'Root', 'Notes'});
+    });
+
+    test('a collapsing section resolves a path beneath it', () {
+      final m = modelWith({
+        'name': 'notes',
+        'kind': 'section',
+        'type': 'Notes',
+      });
+      final refl = SpecReflection(m);
+      expect(refl.resolve('RT00/notes')?.targetClass?.name, 'Notes');
+      expect(
+        refl.resolve('RT00/notes/NOTE-BDY')?.kind,
+        SpecNodeKind.content,
+        reason:
+            'a walker that treats every section as a leaf loses every path '
+            'below one — the failure the conformance corpus exists to catch',
+      );
+    });
+
+    test('a wrapper section reaches nothing and resolves as a leaf', () {
+      final m = modelWith({
+        'name': 'vision',
+        'kind': 'section',
+        'sectionType': 'TextSection',
+        'contentType': 'text',
+      });
+      expect(SpecReflection(m).reachableClassNames('Root'), {'Root'});
+      final refl = SpecReflection(m);
+      expect(refl.resolve('RT00/vision')?.kind, SpecNodeKind.section);
+      expect(
+        refl.resolve('RT00/vision')?.targetClass,
+        isNull,
+        reason: 'TextSection is deliberately absent from the class graph',
+      );
+      expect(
+        refl.resolve('RT00/vision/anything'),
+        isNull,
+        reason: 'nothing is addressable below a wrapper section',
+      );
+    });
+
+    test('sectionType is descriptive metadata, never a lookup key', () {
+      // The whole reason `sectionType` has no reader in this package: the
+      // name it carries is not in the graph, so resolving it is meaningless.
+      final m = modelWith({
+        'name': 'vision',
+        'kind': 'section',
+        'sectionType': 'TextSection',
+      });
+      final field = m.classNamed('Root')!.fieldNamed('vision')!;
+      expect(field.sectionType, 'TextSection');
+      expect(field.type, isNull);
+      expect(m.classNamed(field.sectionType), isNull);
+    });
+  });
 }

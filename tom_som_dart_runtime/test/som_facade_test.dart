@@ -422,4 +422,56 @@ void main() {
       }
     });
   });
+
+  group(r'the three structural $ accessors (SomNode)', () {
+    // `$headline` and `$codeSpec` are sparse overlays where absent means
+    // "use the default", so both accept `null` as *clear the store*.
+    // `$sectionId` is not one of those, and the difference is the point of
+    // this group: it used to accept `String?` and silently ignore `null`, so
+    // `node.$sectionId = null` read as "clear the id" and did nothing at all.
+    // It now takes a non-nullable `String`, because [SpecDocument] has no
+    // operation that returns an item to "no id assigned" — the call the type
+    // used to allow could never have been honoured.
+
+    (SpecDocument, _Item) itemAt() {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'RT');
+      final item = root.items.add();
+      return (doc, item);
+    }
+
+    test(r'$sectionId round-trips through the document store', () {
+      final (doc, item) = itemAt();
+      expect(item.$sectionId, isNull, reason: 'no id assigned yet');
+      item.$sectionId = 'ITEM-ALPHA';
+      expect(item.$sectionId, 'ITEM-ALPHA');
+      expect(doc.itemSectionId(item.path), 'ITEM-ALPHA');
+    });
+
+    test(r'a duplicate $sectionId within one list is refused', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'RT');
+      final first = root.items.add()..$sectionId = 'ITEM-ALPHA';
+      expect(first.$sectionId, 'ITEM-ALPHA');
+      final second = root.items.add();
+      expect(
+        () => second.$sectionId = 'ITEM-ALPHA',
+        throwsA(isA<SpecSectionIdCollision>()),
+      );
+    });
+
+    test(r'$headline and $codeSpec DO clear on null', () {
+      // The asymmetry, pinned from the other side: these two mean it.
+      final (_, item) = itemAt();
+      item.$headline = 'Alpha';
+      expect(item.$headline, 'Alpha');
+      item.$headline = null;
+      expect(item.$headline, isNull);
+
+      item.$codeSpec = 'lib/a.dart#A';
+      expect(item.$codeSpec, 'lib/a.dart#A');
+      item.$codeSpec = null;
+      expect(item.$codeSpec, isNull);
+    });
+  });
 }

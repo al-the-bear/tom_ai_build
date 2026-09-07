@@ -667,6 +667,76 @@ void main() {
       expect(group.uncoveredValues, isEmpty);
     });
 
+    test('an unresolvable discriminator is NOT complete', () {
+      // The vacuity trap: with no resolved field there are no discriminator
+      // values, so `uncoveredValues` is empty and "no uncovered values" is
+      // trivially satisfied. `isComplete` therefore used to read TRUE for an
+      // @OneOf whose discriminator is a typo — reporting full coverage for a
+      // group nothing is known about, the exact opposite of the signal
+      // codespecs_mapping.md §8.2 wants.
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementTpye'}, // typo'd on purpose
+          cases: {
+            'elementAction': ['ElementKind.action'],
+          },
+        ),
+      ).oneOf!;
+      expect(group.hasDiscriminatorValues, isFalse);
+      expect(
+        group.isComplete,
+        isFalse,
+        reason: 'unknown coverage must not read as complete coverage',
+      );
+    });
+
+    test('a discriminator that is not an enum is NOT complete either', () {
+      // Same vacuity by a different route: the field resolves, but it has no
+      // enum values to cover. `hasDiscriminatorValues` names the one
+      // precondition both cases fail.
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementId'}, // a plain String field
+        ),
+      ).oneOf!;
+      expect(group.discriminatorField, isNotNull);
+      expect(group.hasDiscriminatorValues, isFalse);
+      expect(group.isComplete, isFalse);
+    });
+
+    test('a fully covered resolvable discriminator IS complete', () {
+      // The positive case, so the guard cannot be satisfied by returning
+      // `false` unconditionally.
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          discriminatorValues: ['action', 'input'],
+          cases: {
+            'elementAction': ['ElementKind.action'],
+            'fieldSpec': ['ElementKind.input'],
+          },
+        ),
+      ).oneOf!;
+      expect(group.hasDiscriminatorValues, isTrue);
+      expect(group.uncoveredValues, isEmpty);
+      expect(group.isComplete, isTrue);
+    });
+
+    test('a partly covered discriminator is not complete', () {
+      final group = classOf(
+        modelWith(
+          oneOfArgs: {'discriminator': 'elementType'},
+          discriminatorValues: ['action', 'input'],
+          cases: {
+            'elementAction': ['ElementKind.action'],
+          },
+        ),
+      ).oneOf!;
+      expect(group.hasDiscriminatorValues, isTrue);
+      expect(group.uncoveredValues, <String>['input']);
+      expect(group.isComplete, isFalse);
+    });
+
     test('collects every @Case on a field — the annotation is repeatable', () {
       // The real model has 30 `@Case` annotations spread over 7 fields; a
       // reader that returns only the first would misreport 6 of them.

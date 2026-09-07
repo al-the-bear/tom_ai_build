@@ -90,7 +90,8 @@ class DocSpecsViolation {
   /// by this validator resolves a runtime [path] at all (binding is a
   /// separate step — see [bindDocSpecsMarkdown]), so it is `null` throughout
   /// the current implementation and reserved for callers that fold binding
-  /// results into the same list.
+  /// results into the same list. See [path] for why "always null here" does
+  /// not make it removable.
   DocSpecsViolation({
     required this.rule,
     required this.line,
@@ -117,6 +118,13 @@ class DocSpecsViolation {
   /// [DocSpecsValidator.validate], which works schema-to-markdown and never
   /// consults a [SpecModel]; it exists so binding-tier findings can share
   /// this type.
+  ///
+  /// **Not dead, and not removable.** It is a member of the SOM §14 violation
+  /// structure, which is specified as uniform across the nine runtimes — Rust,
+  /// Java and C all declare it, and all nine render it the same way, so
+  /// dropping it from Dart would desync the reference implementation from the
+  /// eight ports measured against it. That every violation *this tier* raises
+  /// leaves it `null` is a property of the tier, not of the field.
   final String? path;
 
   /// The **1-based** source line, so it can be handed to an editor unchanged.
@@ -551,6 +559,21 @@ class DocSpecsDocumentSection {
 class DocSpecsSchema {
   DocSpecsSchema._();
 
+  /// The schema's own `<id>/<version>` identity — the value a conforming
+  /// document names in its `<!-- docspec: … -->` header
+  /// ([DocSpecsDocument.declaredSchema]) — or `null` when the file states
+  /// none.
+  ///
+  /// Read from the generated `# Schema: <id>/<version>` header comment, and
+  /// from a top-level `schema:` key when a hand-written file carries one. The
+  /// generator emits only the comment form today, which is why the comment is
+  /// parsed rather than left to the YAML loader.
+  ///
+  /// Nothing in [DocSpecsValidator.validate] consults this — see
+  /// [DocSpecsValidator.schemaMismatch] for why that check is a caller's to
+  /// make.
+  String? schemaId;
+
   /// The schema's `title-format` — the literal level-1 heading a conforming
   /// document must open with, e.g. `# <!--[DEMO]--> Demo Document`
   /// (SOM §13).
@@ -608,10 +631,24 @@ class DocSpecsSchema {
     'validation-prompt',
   };
 
+  /// The generator's `# Schema: <id>/<version>` header line. A comment, so the
+  /// YAML loader drops it — this is the only way to recover the identity of a
+  /// generated schema file.
+  static final RegExp _schemaHeader = RegExp(
+    r'^#\s*Schema:\s*(\S+)\s*$',
+    multiLine: true,
+  );
+
   /// Loads a schema from its YAML [text]. Malformed YAML throws; unsupported
   /// features are collected into [DocSpecsSchema.warnings] instead.
+  ///
+  /// Two shapes are refused outright rather than warned about, because both
+  /// are schema defects that would otherwise surface as misleading *document*
+  /// findings: a form-type with two field names differing only in case, and
+  /// (at use time) an invalid `pattern` regex.
   static DocSpecsSchema fromYamlText(String text) {
     final schema = DocSpecsSchema._();
+    schema.schemaId = _schemaHeader.firstMatch(text)?.group(1);
     final rootNode = loadYaml(text);
     if (rootNode is! Map) {
       throw FormatException('docspecs schema must be a YAML map');
@@ -628,7 +665,11 @@ class DocSpecsSchema {
           _loadFormTypes(schema, root[key]);
         case 'document':
           _loadDocument(schema, root[key]);
-        case 'schema' || 'version' || 'name' || 'description':
+        case 'schema':
+          // A structured identity wins over the generated header comment: a
+          // hand-written file that states one means it.
+          schema.schemaId = '${root[key]}';
+        case 'version' || 'name' || 'description':
           break; // informational headers — accepted, no semantics here.
         default:
           schema.warnings.add('unsupported top-level schema key "$k" ignored');
@@ -729,7 +770,42 @@ class DocSpecsSchema {
           );
         }
       }
+      // Field labels are matched case-insensitively in the document body
+      // (`_validateForm`), so two declared fields differing only in case are
+      // indistinguishable once a document is parsed: the later one wins the
+      // lookup and the earlier one can never receive a value — reported as a
+      // spurious `missingRequiredField` when it is required, and silently
+      // never pattern-checked when it is not.
+      //
+      // That is a **schema defect**, so it is refused here rather than turned
+      // into misleading document findings, in the same spirit as an invalid
+      // `pattern` regex. Refusing at load also means it fails when the bad
+      // schema is read, not later when some document happens to reach that
+      // form. No generated schema can produce it — verified across all 4,964
+      // form types the model emits — so this is reachable only from a
+      // hand-written one.
+      _assertFieldNamesDistinct(name, fields);
       schema.formTypes[name] = DocSpecsFormType(name: name, fields: fields);
+    }
+  }
+
+  /// Throws [FormatException] when two of [fields] share a name up to case.
+  static void _assertFieldNamesDistinct(
+    String formName,
+    List<DocSpecsFormField> fields,
+  ) {
+    final seen = <String, String>{};
+    for (final f in fields) {
+      final key = f.name.toLowerCase();
+      final first = seen[key];
+      if (first != null) {
+        throw FormatException(
+          'docspecs schema: form-type "$formName" declares "$first" and '
+          '"${f.name}", which differ only in case — form field labels are '
+          'matched case-insensitively, so one of them could never be checked',
+        );
+      }
+      seen[key] = f.name;
     }
   }
 
@@ -780,13 +856,42 @@ class DocSpecsValidator {
   DocSpecsValidator(this.schema);
 
   /// The schema every check is made against.
-  ///
-  /// Note that nothing here compares it to the document's own
-  /// `<!-- docspec: … -->` declaration
-  /// ([DocSpecsDocument.declaredSchema]) — picking the right schema for a
-  /// document is the caller's job, and validating against the wrong one
-  /// yields a long, plausible-looking violation list rather than an error.
   final DocSpecsSchema schema;
+
+  /// Whether [doc] declares a *different* schema than this validator holds —
+  /// the one-line answer to "am I about to validate against the wrong file?".
+  ///
+  /// Returns a description of the mismatch, or `null` when there is none.
+  /// `null` also covers the two cases where no comparison is possible: a
+  /// document with no `<!-- docspec: … -->` header, and a schema file that
+  /// states no identity ([DocSpecsSchema.schemaId]). Absence of a claim is not
+  /// evidence of a conflict.
+  ///
+  /// **This is deliberately not folded into [validate].** The SOM §14
+  /// violation structure is uniform across the nine runtimes and its rule set
+  /// is closed — there is no rule for "wrong schema", and Dart is the golden
+  /// reference the other eight are measured against, so emitting a violation
+  /// the others cannot produce would break that contract rather than extend
+  /// it. Promoting this into `validate` is a nine-runtime change: a new rule
+  /// value, eight ports and the conformance corpus.
+  ///
+  /// Until then it is a *pre-flight* check, and calling it is worth the line:
+  /// validating a document against the wrong schema produces a long,
+  /// plausible-looking violation list in which every entry is a red herring.
+  ///
+  /// ```dart
+  /// final mismatch = validator.schemaMismatch(doc);
+  /// if (mismatch != null) throw StateError(mismatch);
+  /// final violations = validator.validate(doc);
+  /// ```
+  String? schemaMismatch(DocSpecsDocument doc) {
+    final declared = doc.declaredSchema;
+    final own = schema.schemaId;
+    if (declared == null || own == null || declared == own) return null;
+    return 'document declares schema "$declared" but this validator holds '
+        '"$own" — every finding below would be measured against the wrong '
+        'file';
+  }
 
   /// Convenience: parse + validate in one call.
   List<DocSpecsViolation> validateMarkdown(String markdown) =>

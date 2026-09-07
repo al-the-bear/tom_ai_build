@@ -265,11 +265,16 @@ class CodeSpecsSlice {
   /// `title`, `project` and `cites` fall back to empty, so a half-authored
   /// catalogue loads and fails later against the specific missing fact rather
   /// than refusing the whole file.
+  ///
+  /// The throw is a [FormatException] naming the row, not the raw `TypeError`
+  /// a bare cast would raise: the catalogue is hand-authored input shared by
+  /// all nine runtimes, so a message that does not say *which row* leaves the
+  /// author to find a typo by bisection.
   factory CodeSpecsSlice.fromJson(Map<String, dynamic> j) => CodeSpecsSlice(
-    number: (j['number'] as num).toInt(),
+    number: _requiredInt(j, 'number', _rowLabel(j, ['title', 'project'])),
     title: j['title'] as String? ?? '',
     project: j['project'] as String? ?? '',
-    cites: _intList(j['cites']),
+    cites: _intList(j['cites'], _rowLabel(j, ['title', 'project']), 'cites'),
   );
 }
 
@@ -333,17 +338,22 @@ class CodeSpecsArea {
   /// `@CodeSpecKind` values are matched against, so neither can be defaulted
   /// without silently producing an area nothing routes to. `active` defaults
   /// to `true`, matching the constructor — omission means live, not retired.
-  factory CodeSpecsArea.fromJson(Map<String, dynamic> j) => CodeSpecsArea(
-    code: j['code'] as String,
-    canonicalId: j['canonicalId'] as String? ?? '',
-    part: j['part'] as String,
-    annotations: _stringList(j['annotations']),
-    builtOn: j['builtOn'] as String? ?? '',
-    attributeSurface: j['attributeSurface'] as String? ?? '',
-    slices: _intList(j['slices']),
-    authoringSteps: _intList(j['authoringSteps']),
-    active: j['active'] as bool? ?? true,
-  );
+  factory CodeSpecsArea.fromJson(Map<String, dynamic> j) {
+    // Name the row before reading it, so a missing `code` is still reported
+    // against something a reader can find in the file.
+    final label = _rowLabel(j, ['code', 'part', 'canonicalId']);
+    return CodeSpecsArea(
+      code: _requiredString(j, 'code', label),
+      canonicalId: j['canonicalId'] as String? ?? '',
+      part: _requiredString(j, 'part', label),
+      annotations: _stringList(j['annotations']),
+      builtOn: j['builtOn'] as String? ?? '',
+      attributeSurface: j['attributeSurface'] as String? ?? '',
+      slices: _intList(j['slices'], label, 'slices'),
+      authoringSteps: _intList(j['authoringSteps'], label, 'authoringSteps'),
+      active: j['active'] as bool? ?? true,
+    );
+  }
 
   /// The fully-qualified `@CodeSpecKind` value — `CodeSpecPart.form`.
   String get kindValue => 'CodeSpecPart.$part';
@@ -1096,9 +1106,70 @@ List<String> _stringList(Object? raw) =>
     (raw as List?)?.map((e) => e.toString()).toList(growable: false) ??
     const <String>[];
 
-List<int> _intList(Object? raw) =>
-    (raw as List?)?.map((e) => (e as num).toInt()).toList(growable: false) ??
-    const <int>[];
+/// Reads an int list, naming [owner] and [key] when an element is not a
+/// number. A bare `(e as num)` reports only the offending *value*, which in a
+/// catalogue of 27 areas each carrying two int lists is not enough to find it.
+List<int> _intList(Object? raw, [String owner = '', String key = '']) {
+  if (raw == null) return const <int>[];
+  if (raw is! List) {
+    throw FormatException(
+      'CodeSpecs area catalogue: "$key" of $owner must be a list, '
+      'got ${raw.runtimeType}',
+    );
+  }
+  return [
+    for (final e in raw)
+      if (e is num)
+        e.toInt()
+      else
+        throw FormatException(
+          'CodeSpecs area catalogue: "$key" of $owner contains a '
+          'non-numeric entry ${_describe(e)}',
+        ),
+  ].toList(growable: false);
+}
+
+/// A short human label for a catalogue row: the first of [preferred] the row
+/// actually carries as a string, else the row's key list.
+///
+/// Deliberately tolerant — it runs *before* the required-key checks, so it
+/// must produce something for a row that is missing the very key that would
+/// normally identify it.
+String _rowLabel(Map<String, dynamic> j, List<String> preferred) {
+  for (final key in preferred) {
+    final v = j[key];
+    if (v is String && v.isNotEmpty) return '$key "$v"';
+  }
+  final keys = j.keys.join(', ');
+  return keys.isEmpty ? 'an empty row' : 'the row with keys [$keys]';
+}
+
+String _requiredString(Map<String, dynamic> j, String key, String owner) {
+  final v = j[key];
+  if (v is String && v.isNotEmpty) return v;
+  throw FormatException(
+    'CodeSpecs area catalogue: $owner is missing a non-empty "$key" '
+    '(got ${_describe(v)})',
+  );
+}
+
+int _requiredInt(Map<String, dynamic> j, String key, String owner) {
+  final v = j[key];
+  if (v is num) return v.toInt();
+  throw FormatException(
+    'CodeSpecs area catalogue: $owner is missing a numeric "$key" '
+    '(got ${_describe(v)})',
+  );
+}
+
+/// Renders a rejected value for an error message: `absent` for a missing key,
+/// else the value with its type, so `"3"` and `3` are distinguishable.
+///
+/// Formats by hand rather than through `dart:convert`, keeping this file free
+/// of the encoder dependency for the same reason [_yamlString] states: the
+/// eight ports transcribe one rule instead of trusting nine encoders to agree.
+String _describe(Object? v) =>
+    v == null ? 'absent' : '${v.runtimeType} ${_yamlString('$v')}';
 
 /// A JSON string literal, which is also a valid YAML 1.2 double-quoted scalar.
 /// Hand-written rather than delegated to `dart:convert` so the eight ports have

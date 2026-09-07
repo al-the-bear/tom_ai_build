@@ -375,4 +375,217 @@ document:
       },
     );
   });
+
+  group('DocSpecsViolation.path (SOM §14)', () {
+    // Always null from `validate`, which works schema-to-markdown and never
+    // consults a SpecModel. That is a property of the tier, not evidence the
+    // field is dead: `path` is a member of the SOM §14 violation structure,
+    // which is specified as uniform across the nine runtimes, and all nine
+    // render it the same way. These two tests are what make "not dead"
+    // checkable rather than merely asserted in a comment.
+
+    test('the validate tier leaves it null on every finding', () {
+      final schema = DocSpecsSchema.fromYamlText(_demoSchemaYaml);
+      final violations = DocSpecsValidator(
+        schema,
+      ).validateMarkdown('# <!--[NOPE]--> Wrong\n\nbody\n');
+      expect(violations, isNotEmpty);
+      for (final v in violations) {
+        expect(v.path, isNull, reason: '$v');
+      }
+    });
+
+    test('the renderer includes it when a binding tier supplies one', () {
+      // The shared `line N: rule [sid] (path) — message` form, byte-for-byte
+      // what the Rust, Java and C ports emit.
+      final withPath = DocSpecsViolation(
+        rule: DocSpecsViolationRule.textRequired,
+        sectionId: 'DEMO-BODY',
+        path: 'DEMO/body',
+        line: 7,
+        message: 'needs body text',
+      );
+      expect(
+        withPath.toString(),
+        'line 7: textRequired [DEMO-BODY] (DEMO/body) — needs body text',
+      );
+      final withoutPath = DocSpecsViolation(
+        rule: DocSpecsViolationRule.textRequired,
+        sectionId: 'DEMO-BODY',
+        line: 7,
+        message: 'needs body text',
+      );
+      expect(
+        withoutPath.toString(),
+        'line 7: textRequired [DEMO-BODY] — needs body text',
+        reason: 'an absent path contributes nothing, not an empty "()"',
+      );
+    });
+  });
+
+  group('schema identity and the pre-flight mismatch check', () {
+    test('the generated header comment carries the schema identity', () {
+      // A comment, so the YAML loader drops it — parsing it is the only way to
+      // recover the identity of a generated schema file.
+      expect(
+        DocSpecsSchema.fromYamlText(_demoSchemaYaml).schemaId,
+        'demo-doc/1.0',
+      );
+    });
+
+    test('a structured `schema:` key wins over the header comment', () {
+      final schema = DocSpecsSchema.fromYamlText(
+        '$_demoSchemaYaml\nschema: hand-written/2.0\n',
+      );
+      expect(schema.schemaId, 'hand-written/2.0');
+      expect(
+        schema.warnings.where((w) => w.contains('schema')),
+        isEmpty,
+        reason: 'it is read now, so it must not also be reported as ignored',
+      );
+    });
+
+    test('a document declaring a different schema is a mismatch', () {
+      final v = DocSpecsValidator(DocSpecsSchema.fromYamlText(_demoSchemaYaml));
+      final doc = DocSpecsDocument.parse(
+        '<!-- docspec: other-doc/1.0 -->\n\n# <!--[DEMO]--> Demo\n\nbody\n',
+      );
+      expect(doc.declaredSchema, 'other-doc/1.0');
+      expect(v.schemaMismatch(doc), contains('other-doc/1.0'));
+      expect(v.schemaMismatch(doc), contains('demo-doc/1.0'));
+    });
+
+    test('a document declaring the same schema is not a mismatch', () {
+      final v = DocSpecsValidator(DocSpecsSchema.fromYamlText(_demoSchemaYaml));
+      final doc = DocSpecsDocument.parse(
+        '<!-- docspec: demo-doc/1.0 -->\n\n# <!--[DEMO]--> Demo\n\nbody\n',
+      );
+      expect(v.schemaMismatch(doc), isNull);
+    });
+
+    test('absence of a claim on either side is not a mismatch', () {
+      // Two ways to have nothing to compare, and neither is evidence of a
+      // conflict: a document with no header, and a schema with no identity.
+      final withId = DocSpecsValidator(
+        DocSpecsSchema.fromYamlText(_demoSchemaYaml),
+      );
+      expect(
+        withId.schemaMismatch(
+          DocSpecsDocument.parse('# <!--[DEMO]--> Demo\n\nbody\n'),
+        ),
+        isNull,
+      );
+      final noId = DocSpecsValidator(
+        DocSpecsSchema.fromYamlText(
+          'title-format: "# <!--[DEMO]--> Demo"\nsection-types:\n  demo:\n'
+          '    prefix: DEMO\n',
+        ),
+      );
+      expect(noId.schema.schemaId, isNull);
+      expect(
+        noId.schemaMismatch(
+          DocSpecsDocument.parse(
+            '<!-- docspec: other-doc/1.0 -->\n\n# <!--[DEMO]--> Demo\n\nb\n',
+          ),
+        ),
+        isNull,
+      );
+    });
+
+    test('validate itself is unchanged — the check is the caller-s', () {
+      // Deliberately NOT folded in: the SOM §14 rule set is closed and uniform
+      // across the nine runtimes, and Dart is the golden reference the other
+      // eight are measured against. Emitting a rule the others cannot produce
+      // would break that contract rather than extend it.
+      final v = DocSpecsValidator(DocSpecsSchema.fromYamlText(_demoSchemaYaml));
+      final doc = DocSpecsDocument.parse(
+        '<!-- docspec: other-doc/1.0 -->\n\n# <!--[DEMO]--> Demo\n\nbody\n',
+      );
+      expect(v.schemaMismatch(doc), isNotNull);
+
+      // The sharper statement than "validate finds nothing": validate finds
+      // exactly what it would have found without the header at all. The
+      // wrong-schema fact does not leak into the violation list, which is the
+      // nine-runtime contract.
+      //
+      // Compared on rule + sectionId + message rather than the rendered
+      // string, because the header legitimately shifts every line number by
+      // the two lines it occupies — a difference in position, not in finding.
+      final withoutHeader = DocSpecsDocument.parse(
+        '# <!--[DEMO]--> Demo\n\nbody\n',
+      );
+      String finding(DocSpecsViolation x) =>
+          '${x.rule.name}|${x.sectionId}|${x.message}';
+      expect(
+        v.validate(doc).map(finding),
+        v.validate(withoutHeader).map(finding),
+      );
+      expect(
+        v.validate(doc).where((x) => x.message.contains('other-doc')),
+        isEmpty,
+      );
+    });
+  });
+
+  group('a form-type with case-colliding field names is refused', () {
+    // Form field labels are matched case-insensitively against the document
+    // body, so two declared fields differing only in case are
+    // indistinguishable once a document is parsed: the later one wins the
+    // lookup, and the earlier can never receive a value — a spurious
+    // `missingRequiredField` when required, and a silently unchecked pattern
+    // when not. That is a schema defect, so it is refused at load, in the same
+    // spirit as an invalid `pattern` regex.
+    //
+    // No generated schema can produce it: verified across all 4,964 form types
+    // the model emits. It is reachable only from a hand-written file, which is
+    // exactly the input that has nobody checking it.
+
+    test('the collision is reported with both names and the form', () {
+      expect(
+        () => DocSpecsSchema.fromYamlText(
+          'form-types:\n'
+          '  demo-form:\n'
+          '    fields:\n'
+          '      - fieldname: Owner\n'
+          '      - fieldname: owner\n',
+        ),
+        throwsA(
+          isA<FormatException>().having(
+            (e) => e.message,
+            'message',
+            allOf(
+              contains('demo-form'),
+              contains('"Owner"'),
+              contains('"owner"'),
+            ),
+          ),
+        ),
+      );
+    });
+
+    test('distinct names load normally', () {
+      final schema = DocSpecsSchema.fromYamlText(
+        'form-types:\n'
+        '  demo-form:\n'
+        '    fields:\n'
+        '      - fieldname: Owner\n'
+        '      - fieldname: reviewer\n',
+      );
+      expect(schema.formTypes['demo-form']!.fields, hasLength(2));
+    });
+  });
 }
+
+/// A minimal generated-shape schema: the `# Schema:` header comment the
+/// generator emits, a title-format and one section type.
+const _demoSchemaYaml =
+    '# Generated from the TomSpecs object model — do not edit.\n'
+    '# Schema: demo-doc/1.0\n'
+    '\n'
+    'title-format: "# <!--[DEMO]--> Demo"\n'
+    'section-types:\n'
+    '  demo:\n'
+    '    prefix: DEMO\n'
+    'document:\n'
+    '  sections:\n'
+    '    demo: {}\n';

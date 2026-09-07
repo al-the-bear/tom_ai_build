@@ -90,10 +90,15 @@ abstract class SomNode {
   /// suffix, validated unique within the owning list. Raises
   /// [SpecSectionIdCollision] on a duplicate, or [ArgumentError] if this node
   /// is not a live list item.
-  set $sectionId(String? id) {
-    if (id == null) return;
-    doc.setItemSectionId(path, id);
-  }
+  ///
+  /// **Takes a non-nullable `String`, unlike the two sibling `$` setters.**
+  /// [$headline] and [$codeSpec] treat `null` as *clear the store*; there is
+  /// no such operation here, because [SpecDocument] has no way to return an
+  /// item to "no id assigned" once one is set. Accepting `String?` and
+  /// ignoring `null` — which is what this setter used to do — made
+  /// `node.$sectionId = null` read as "clear the id" and do nothing at all.
+  /// The type now refuses the call rather than swallowing it.
+  set $sectionId(String id) => doc.setItemSectionId(path, id);
 
   /// This section's **stored headline** (YRD3), or `null` when the section
   /// renders its effective default title (`@Headline` default, else name

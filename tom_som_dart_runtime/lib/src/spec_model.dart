@@ -24,12 +24,26 @@ enum SpecFieldKind {
   /// apply to it.
   form,
 
-  /// A section-typed member: a content leaf whose declared wrapper class is
-  /// named by [SpecField.sectionType] (`TextSection`, `FlowDiagramSection`,
-  /// …) and whose render classification is [SpecField.contentType]. The
-  /// wrapper classes live in `tom_specs_core` and are deliberately *not*
-  /// exported into [SpecModel.classes], so a traversal must treat this as a
-  /// leaf rather than trying to resolve the name.
+  /// A section-typed member, whose declared class is named by
+  /// [SpecField.sectionType] and whose render classification is
+  /// [SpecField.contentType].
+  ///
+  /// **A traversal handles this exactly like [complex]: descend when
+  /// [SpecField.type] resolves, treat it as a leaf when it does not.** The
+  /// two shapes are:
+  ///
+  /// * a **wrapper** section (`TextSection`, `FlowDiagramSection`, …) — the
+  ///   class lives in `tom_specs_core` and is deliberately *not* exported
+  ///   into [SpecModel.classes], so the field carries no [SpecField.type] and
+  ///   the miss makes it a leaf without any special case;
+  /// * a **collapsing** section, whose [SpecField.type] names a real class —
+  ///   the path descends into it, keyed by `sectionId ?? classSectionId`
+  ///   (SOM §12.2).
+  ///
+  /// The whole of `tom_specs_model` is the first shape today, so a walker
+  /// written for leaves alone passes every test the model can generate — and
+  /// fails the conformance corpus, which pins the second shape for exactly
+  /// that reason.
   section,
 
   /// A plain `String` member rendered as markdown prose under its own
@@ -511,13 +525,29 @@ class SpecField with AnnotatedSpecNode {
   /// *demands* a fenced block.
   final String? contentType;
 
-  /// For [SpecFieldKind.section], the declared wrapper class name with any
-  /// `?` stripped (`TextSection`, `FlowDiagramSection`, …); `null` otherwise.
+  /// For [SpecFieldKind.section], the declared class name with any `?`
+  /// stripped; `null` otherwise.
   ///
-  /// These wrappers belong to `tom_specs_core` and are deliberately absent
-  /// from [SpecModel.classes], so this is descriptive metadata — not a name
-  /// to look up. A section is a content leaf; [contentType] is what decides
-  /// how it renders.
+  /// **Descriptive metadata, not a lookup key — [type] is the lookup key even
+  /// for a section.** The distinction is easy to get backwards, so state it
+  /// as the two cases it actually has:
+  ///
+  /// * A **wrapper** section — `TextSection`, `FlowDiagramSection`, … — names
+  ///   a `tom_specs_core` class deliberately absent from [SpecModel.classes].
+  ///   Such a field carries `sectionType` and **no** [type], and is a content
+  ///   leaf whose rendering [contentType] decides. Every one of the 337
+  ///   section fields the current `tom_specs_model` exports is of this kind,
+  ///   which is why nothing in this package reads `sectionType`.
+  /// * A **collapsing** section names a real class in [SpecModel.classes] and
+  ///   carries [type]. It behaves exactly like [SpecFieldKind.complex]: the
+  ///   path descends into the target class, keyed by
+  ///   `sectionId ?? classSectionId` (SOM §12.2). The conformance corpus pins
+  ///   this case precisely because a port that treats every section as a leaf
+  ///   misresolves every path beneath one.
+  ///
+  /// So "no reader" is the correct state for this member, not a defect: it
+  /// records what the model declared for a consumer that wants it, while
+  /// descent is decided by [type] alone.
   final String? sectionType;
 
   // enum
@@ -533,14 +563,19 @@ class SpecField with AnnotatedSpecNode {
 
   // complex / scalar
   /// The declared type name with any `?` stripped, for
-  /// [SpecFieldKind.complex] and [SpecFieldKind.scalar] fields only; `null`
-  /// for every other kind — notably for a section, whose class name lives in
-  /// [sectionType], and for a list, whose element name lives in
+  /// [SpecFieldKind.complex] and [SpecFieldKind.scalar] fields, and for a
+  /// **collapsing** [SpecFieldKind.section] (see [sectionType]); `null` for
+  /// every other kind, and for a list, whose element name lives in
   /// [elementType].
   ///
-  /// For a complex field this is the key to look up in [SpecModel.classes] to
-  /// descend; for a scalar it is a primitive name (`int`, `bool`, `DateTime`,
-  /// …) to convert against.
+  /// For a complex or collapsing-section field this is the key to look up in
+  /// [SpecModel.classes] to descend — the two kinds are handled together
+  /// wherever the graph is walked, and a walker that treats `section` as a
+  /// leaf misresolves every path beneath one. For a scalar it is a primitive
+  /// name (`int`, `bool`, `DateTime`, …) to convert against.
+  ///
+  /// A wrapper section carries no [type] at all; the miss is what makes it a
+  /// leaf, so no walker needs a separate branch for it.
   final String? type;
 
   // form
@@ -681,10 +716,8 @@ class OneOfGroup {
   /// optional so that an *unresolvable* discriminator still yields a group
   /// rather than nothing at all — the case fields stay visible for review.
   ///
-  /// Note the consequence: with no resolved field, [discriminatorValues] is
-  /// empty and every coverage answer is therefore vacuous — [isComplete]
-  /// reads `true`. A caller judging coverage must check
-  /// [discriminatorValues] is non-empty first.
+  /// A group built that way answers [hasDiscriminatorValues] `false`, and
+  /// [isComplete] is defined against it — see both.
   const OneOfGroup({
     required this.discriminator,
     required this.caseFields,
@@ -724,8 +757,25 @@ class OneOfGroup {
     ];
   }
 
+  /// Whether the discriminator resolved to something whose values can be
+  /// enumerated — the precondition for any coverage answer to mean anything.
+  ///
+  /// `false` in two cases: the [discriminator] names a form field the class
+  /// does not declare (a typo), or it names one that is not an enum. Both
+  /// leave [discriminatorValues] empty, and an empty value list makes
+  /// [coveredValues] and [uncoveredValues] empty too.
+  bool get hasDiscriminatorValues => discriminatorValues.isNotEmpty;
+
   /// Whether every discriminator value is covered by some case field.
-  bool get isComplete => uncoveredValues.isEmpty;
+  ///
+  /// **Requires [hasDiscriminatorValues].** Without it this used to read
+  /// `true` — vacuously, because "no uncovered values" is trivially satisfied
+  /// when there are no values at all — so an `@OneOf` with a typo'd
+  /// discriminator reported as fully covered, the exact opposite of the signal
+  /// `codespecs_mapping.md` §8.2 wants. An unresolvable discriminator is now
+  /// *not complete*: nothing is known about the coverage, and "unknown" must
+  /// not read as "fine".
+  bool get isComplete => hasDiscriminatorValues && uncoveredValues.isEmpty;
 }
 
 /// A model class with its fields.
