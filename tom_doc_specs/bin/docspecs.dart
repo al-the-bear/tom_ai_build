@@ -21,7 +21,8 @@ import 'package:tom_doc_specs/tom_doc_specs.dart';
 ///   --no-ai            Disable AI validation prompts
 ///
 /// Exit Codes:
-///   0 - Success (all documents valid)
+///   0 - Success (every document that could be validated was valid; a document
+///       declaring no schema is reported as `?` and is not an error)
 ///   1 - Validation errors found
 ///   2 - Schema not found
 ///   3 - File not found
@@ -174,6 +175,7 @@ Future<void> _validate(_Args args) async {
   var hasErrors = false;
   var validCount = 0;
   var invalidCount = 0;
+  var unvalidatedCount = 0;
 
   for (final filePath in files) {
     try {
@@ -182,7 +184,21 @@ Future<void> _validate(_Args args) async {
         schemaId: args.schema,
       );
 
-      if (doc.isValid) {
+      if (!doc.wasValidated) {
+        // Nothing was checked, so nothing passed. Printing `✓` here is the
+        // failure this branch exists to prevent: the document declared no
+        // schema and none was given, so `isValid` is vacuously true and says
+        // nothing at all.
+        unvalidatedCount++;
+        if (!args.quiet) {
+          print('? ${_relativePath(filePath)}');
+          print('    No schema declared and none given — nothing was '
+              'validated.');
+          print('    Declare one with `<!-- docspec: <id>/<version> -->` in '
+              'the document preamble,');
+          print('    or pass `-schema=<id>`.');
+        }
+      } else if (doc.isValid) {
         validCount++;
         if (!args.quiet) {
           print('✓ ${_relativePath(filePath)}');
@@ -211,7 +227,15 @@ Future<void> _validate(_Args args) async {
 
   if (!args.quiet) {
     print('');
-    print('Results: $validCount valid, $invalidCount invalid');
+    final unvalidated =
+        unvalidatedCount > 0 ? ', $unvalidatedCount not validated' : '';
+    print('Results: $validCount valid, $invalidCount invalid$unvalidated');
+    if (unvalidatedCount > 0) {
+      // Said plainly, because "0 invalid" beside a row of unchecked documents
+      // is exactly how an unvalidated tree passes for a validated one.
+      print('$unvalidatedCount document(s) were not checked against any '
+          'schema. "0 invalid" does not mean they are correct.');
+    }
   }
 
   if (hasErrors) {

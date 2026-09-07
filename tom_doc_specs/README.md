@@ -52,7 +52,10 @@ into a plain `Document` / `Section` tree. This package adds three things on top:
   `formFields` parsed out.
 - **Validation.** `DocSpecsValidator` walks the typed tree against the schema
   and returns `ValidationError`s that name the section and say what to do about
-  it. `SpecDoc.isValid` is the one-line answer.
+  it. `SpecDoc.isValid` is the one-line answer — read together with
+  `SpecDoc.wasValidated`, which says whether a schema was found at all. A
+  document nothing checked has no errors either, and those two states must not
+  read the same.
 
 Two things fall out of having the schema in hand. `DocSpecsSkeletonGenerator`
 turns a schema into an empty conforming document, so a new document starts in
@@ -98,7 +101,7 @@ dart pub global activate tom_doc_specs
 
 | Feature | Behaviour |
 | ------- | --------- |
-| `SpecDoc` | A `Document` with `schemaId`, `validationErrors` and `isValid` |
+| `SpecDoc` | A `Document` with `schemaId`, `validationErrors`, `isValid` and `wasValidated` |
 | `SpecSection` | A `Section` with its resolved `type`, `tags`, `format`, `formFields` and `preamble` |
 | By id or access key | `doc['note-001']` and `doc['overview']` both reach the same section |
 | By type | `doc.getSpecSectionType('requirement').getAll()` — every section of a type, anywhere in the document |
@@ -111,6 +114,7 @@ dart pub global activate tom_doc_specs
 | ------- | --------- |
 | Structural validation | Missing required sections, unknown sections, wrong order, id/type mismatches, missing form fields |
 | Error detail | `ValidationError` carries a category, the offending section and a remedy line |
+| Checked vs clean | `wasValidated` is `false` when no schema could be resolved, so an unchecked document cannot pass for a valid one |
 | AI validation | `validateAsync` runs the schema's prose rules through an `AiValidator` you implement; the sync `validate` never calls it |
 | Prompt expansion | `PromptExpander` fills `${...}` placeholders in a schema's prompts from the document, before the prompt is handed over |
 | Skeletons | `DocSpecsSkeletonGenerator.generate(schema)` emits an empty conforming document |
@@ -177,6 +181,42 @@ one added tomorrow is picked up without changing this code.
 
 ## Usage
 
+### Declaring a schema
+
+A document says which schema it follows in its **preamble** — everything above
+the second heading. Two forms are read, and both are equally good:
+
+```markdown
+<!-- docspec: release-notes/1.0 -->
+# Release Notes
+```
+
+```markdown
+# Release Notes <!-- schema=release-notes/1.0 -->
+```
+
+The standalone comment may sit above or below the title; whichever form appears
+first wins. Bounding the search at the second heading is what stops a
+`<!-- docspec: … -->` quoted inside some section's body from being taken for the
+document's own declaration.
+
+Passing `schemaId:` to `scanDocument` overrides whatever the document says.
+
+**When neither the document nor the caller names a schema, nothing is
+validated** — and that is not a pass:
+
+```dart
+final doc = await DocSpecs.scanDocument(filePath: 'plain.md');
+
+print(doc.wasValidated);   // false — no schema was found
+print(doc.isValid);        // true, and it means nothing: nothing was checked
+```
+
+`isValid` only reports that no error was *recorded*. Check `wasValidated &&
+isValid` when you mean "this document is known to be correct". The `docspecs`
+CLI makes the same distinction: an undeclared document is reported `?`, never
+`✓`.
+
 ### Reporting what is wrong
 
 Delete the two requirement sections from that document and the same scan says
@@ -216,23 +256,32 @@ depend on, so the code that reads "the overview" keeps working.
 final schema = DocSpecs.loadSchemaSync(
   schemaId: 'release-notes/1.0',
   documentPath: 'notes.md',
-);
+)!;
 print(DocSpecsSkeletonGenerator.generate(schema));
 
 // <!-- docspec: release-notes/1.0 -->
 //
-// # [note-overview] Overview
+// # [note-note-001] Note 001
 //
 //
 // ## [req-requirements] Requirements
 ```
 
-A skeleton is a starting point, not a valid document: it declares its schema as
-`<!-- docspec: id/version -->`, while `DocSpecs.scanDocument` reads the schema
-from `schema=id/version` in the **first headline**. Scanned as-is a skeleton is
-therefore read as schemaless — `schemaId` comes back empty and `isValid` is a
-vacuous `true` with no errors, because nothing was checked. Pass `schemaId:`
-explicitly (or write the headline form) to validate what you have filled in.
+A skeleton is a starting point, not a valid document — it carries placeholder
+content and its sections are the ones the schema *requires*, so validating one
+straight out of the generator will report what you have not filled in yet. That
+is the point of it.
+
+Two rough edges are visible in that output and are tracked as
+`tsdocc1_aigi`: headings are named and identified from the schema's **section
+key** rather than its `access-key`, so a key of `note-001` becomes
+`[note-note-001] Note 001`; and the first document section is emitted at level 1,
+where the scanner reads it as the document *title* rather than as a section.
+
+It does now **scan back with its own schema**, though: `DocSpecs.scanDocument`
+reads both declaration forms out of a document's preamble — the standalone
+`<!-- docspec: id/version -->` comment the generator writes, and the older
+`schema=id/version` inside the first headline.
 
 ### Command line
 
@@ -294,7 +343,7 @@ option list. The exit code is the machine-readable answer:
 | `SchemaDiscovery` | Enumerates the schemas visible from a location, as `SchemaInfo` |
 | `SchemaExpander` | Expands `[[key]]` references within a schema before it is used |
 | `DocSpecsFactory` | The `DocScannerFactory` that makes the scanner build `SpecDoc` / `SpecSection` and resolves each section's type by prefix |
-| `SpecDoc` | A validated document — `schemaId`, `validationErrors`, `isValid`, `getSection`, `getSpecSectionType`, `getSectionsByTag` |
+| `SpecDoc` | A validated document — `schemaId`, `validationErrors`, `isValid`, `wasValidated`, `getSection`, `getSpecSectionType`, `getSectionsByTag` |
 | `SpecSection` | A typed section — `type`, `tags`, `format`, `formFields`, `preamble`, `getSubsectionsByType` |
 | `SpecSectionType` | Every section of one type, grouped by the section it was found under |
 | `DocSpecsValidator` | The structural check, returning `ValidationError`s |
@@ -345,4 +394,4 @@ lets the package be used on any structured markdown at all.
 
 ## Status
 
-Version **0.1.0**, published on pub.dev. **241 tests**, all passing.
+Version **0.2.0** — **0.1.0** is the release on pub.dev; 0.2.0 is unpublished. **253 tests**, all passing.

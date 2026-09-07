@@ -101,6 +101,25 @@ This is a valid document.
       expect(result.exitCode, isNot(equals(3))); // Not file-not-found
     });
 
+    test('a document with no schema reports `?`, never `\u2713`', () async {
+      // The vacuous pass this branch exists to prevent: nothing was checked,
+      // so nothing passed, and `\u2713` beside an unchecked document is the
+      // whole defect in one character.
+      final schemaless = File(p.join(fixtureDir.path, 'no_schema.md'))
+        ..writeAsStringSync('# Plain Document\n\nNo declaration anywhere.\n');
+
+      final result = await runCli(['validate', schemaless.path]);
+      final out = result.stdout.toString();
+
+      expect(out, contains('? '));
+      expect(out, isNot(contains('\u2713 ')));
+      expect(out, contains('nothing was validated'));
+      expect(out, contains('not validated'));
+      expect(out, contains('does not mean they are correct'));
+      expect(result.exitCode, 0,
+          reason: 'an undeclared schema is a gap to report, not a failure');
+    });
+
     test('scan command produces JSON output', () async {
       final result = await runCli([
         'scan',

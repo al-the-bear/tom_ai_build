@@ -399,20 +399,53 @@ class DocSpecs {
     return _parseSchemaIdFromLines(lines);
   }
 
-  /// Parses schema ID from document lines.
+  /// The standalone comment form: `<!-- docspec: <id>/<version> -->`.
+  ///
+  /// What `DocSpecsSkeletonGenerator` emits, what `CLAUDE.md` documents as the
+  /// workspace convention, and what every document in `test/fixtures/documents`
+  /// is written with.
+  static final RegExp _docspecComment =
+      RegExp(r'<!--\s*docspec:\s*([^\s>]+)\s*-->');
+
+  /// The in-headline form: `# <!-- schema=<id> --> Title`.
+  ///
+  /// What `doc_specs_specification.md` documents and what this parser read
+  /// before it read anything else.
+  static final RegExp _schemaField = RegExp(r'schema\s*=\s*([^\s>]+)');
+
+  /// Parses a document's schema declaration out of its preamble.
+  ///
+  /// **Both declaration forms are accepted**, because both are documented and
+  /// both are written. Reading only the in-headline one made a generated
+  /// skeleton — and every fixture document in this package — scan as
+  /// schemaless, and a schemaless scan reports no errors, which reads exactly
+  /// like a pass.
+  ///
+  /// **Where it looks: the preamble, meaning everything up to the second
+  /// headline.** The declaration belongs to the *document*, so it sits before
+  /// the first content section — in practice immediately above or below the
+  /// title, and both placements occur in this package's own fixtures. Bounding
+  /// the search there is what keeps a `<!-- docspec: … -->` quoted inside some
+  /// section's body from being mistaken for the document's own declaration, and
+  /// it means the cost does not grow with the file.
+  ///
+  /// **Precedence is document order**: whichever form appears first wins. A
+  /// document carrying both and meaning two different schemas is malformed, and
+  /// a positional rule needs no table to explain it.
+  ///
+  /// Returns `null` when the preamble declares nothing.
   static String? _parseSchemaIdFromLines(List<String> lines) {
-    // Find first headline
+    var headlines = 0;
     for (final line in lines) {
       if (line.startsWith('#')) {
-        // Look for schema field: <!-- schema=xxx -->
-        final schemaPattern = RegExp(r'schema\s*=\s*([^\s>]+)');
-        final match = schemaPattern.firstMatch(line);
-        if (match != null) {
-          return match.group(1);
-        }
-        // Only check first headline
-        return null;
+        headlines++;
+        if (headlines > 1) return null;
+        final inHeadline = _schemaField.firstMatch(line);
+        if (inHeadline != null) return inHeadline.group(1);
+        continue;
       }
+      final comment = _docspecComment.firstMatch(line);
+      if (comment != null) return comment.group(1);
     }
     return null;
   }

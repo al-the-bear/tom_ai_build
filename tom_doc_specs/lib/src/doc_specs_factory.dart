@@ -138,6 +138,10 @@ class DocSpecsFactory extends DocScannerFactory {
       hierarchyDepth: hierarchyDepth,
       schemaId: fields['schema'] ?? (schema != null ? '${schema!.id}/${schema!.version}' : ''),
       accessKeys: _accessKeys,
+      // The factory is constructed with the resolved schema and `DocSpecs`
+      // validates iff that schema is non-null, so this is the same condition
+      // read once rather than two that can drift.
+      wasValidated: schema != null,
     );
   }
 }

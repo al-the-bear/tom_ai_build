@@ -33,6 +33,19 @@ class SpecDoc extends Document {
   /// Validation errors (empty if valid).
   final List<String> validationErrors;
 
+  /// Whether this document was actually checked against a schema.
+  ///
+  /// **This is the field that separates "checked and clean" from "never
+  /// checked".** [isValid] can only report that no error was *recorded*, and a
+  /// document nothing validated records none — so a schemaless scan used to
+  /// come back `isValid: true` with an empty error list, which reads exactly
+  /// like a pass and is not one.
+  ///
+  /// `false` when no schema could be resolved: the document declared none and
+  /// no `schemaId` was passed. In that state [isValid] carries no information
+  /// and a caller that branches on it alone is branching on nothing.
+  final bool wasValidated;
+
   /// Section name to access-key mappings from schema.
   final Map<String, String> _accessKeys;
 
@@ -62,6 +75,7 @@ class SpecDoc extends Document {
     this.schemaId = '',
     List<String>? validationErrors,
     Map<String, String>? accessKeys,
+    this.wasValidated = false,
   })  : validationErrors = validationErrors ?? [],
         _accessKeys = accessKeys ?? const {};
 
@@ -71,6 +85,7 @@ class SpecDoc extends Document {
     String schemaId = '',
     List<String>? validationErrors,
     Map<String, String>? accessKeys,
+    bool wasValidated = false,
   }) {
     return SpecDoc(
       index: document.index,
@@ -94,6 +109,7 @@ class SpecDoc extends Document {
       schemaId: schemaId,
       validationErrors: validationErrors,
       accessKeys: accessKeys,
+      wasValidated: wasValidated,
     );
   }
 
@@ -131,10 +147,16 @@ class SpecDoc extends Document {
       accessKeys: json['accessKeys'] != null
           ? Map<String, String>.from(json['accessKeys'] as Map)
           : null,
+      wasValidated: json['wasValidated'] as bool? ?? false,
     );
   }
 
-  /// Whether document is valid against schema.
+  /// Whether no validation error was recorded.
+  ///
+  /// **Read this together with [wasValidated].** On its own it cannot tell a
+  /// document that passed from one that was never checked: both have an empty
+  /// [validationErrors]. `wasValidated && isValid` is the question almost every
+  /// caller actually means.
   bool get isValid => validationErrors.isEmpty;
 
   /// Get a top-level section by name or access-key.
@@ -274,6 +296,7 @@ class SpecDoc extends Document {
     return {
       ...super.toJson(),
       'schemaId': schemaId,
+      'wasValidated': wasValidated,
       if (validationErrors.isNotEmpty) 'validationErrors': validationErrors,
       if (_accessKeys.isNotEmpty) 'accessKeys': _accessKeys,
     };
@@ -281,5 +304,6 @@ class SpecDoc extends Document {
 
   @override
   String toString() =>
-      'SpecDoc(filename: $filename, schemaId: $schemaId, isValid: $isValid)';
+      'SpecDoc(filename: $filename, schemaId: $schemaId, '
+      '${wasValidated ? 'isValid: $isValid' : 'not validated'})';
 }
