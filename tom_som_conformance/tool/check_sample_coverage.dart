@@ -64,10 +64,12 @@ void main(List<String> args) {
     }
   }
 
-  final confDir = confArg ??
+  final confDir =
+      confArg ??
       Directory(File(Platform.script.toFilePath()).parent.path).parent.path;
   final metaFile = File(
-      '${Directory(confDir).parent.path}/tom_som_dart_v0/meta/spec_model.meta.json');
+    '${Directory(confDir).parent.path}/tom_som_dart_v0/meta/spec_model.meta.json',
+  );
   final samplesDir = Directory('$confDir/samples');
   final manifestFile = File('$confDir/tool/sample_coverage_manifest.yaml');
 
@@ -112,12 +114,13 @@ void main(List<String> args) {
   walk(_root);
 
   // --- Scan the samples: every id token appearing as a mapping key. ---
-  final sampleFiles = samplesDir
-      .listSync()
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.docspecs.yaml'))
-      .toList()
-    ..sort((a, b) => a.path.compareTo(b.path));
+  final sampleFiles =
+      samplesDir
+          .listSync()
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.docspecs.yaml'))
+          .toList()
+        ..sort((a, b) => a.path.compareTo(b.path));
   if (sampleFiles.isEmpty) {
     stderr.writeln('no *.docspecs.yaml samples under ${samplesDir.path}');
     exit(1);
@@ -134,7 +137,8 @@ void main(List<String> args) {
 
   if (writeManifest) {
     manifestFile.writeAsStringSync(
-        _renderManifest(uncoveredLists, uncoveredSections));
+      _renderManifest(uncoveredLists, uncoveredSections),
+    );
     stdout.writeln('wrote ${manifestFile.path}');
     _report(listIds, coveredLists, sectionIds, coveredSections, sampleFiles);
     return;
@@ -143,8 +147,10 @@ void main(List<String> args) {
   // --- Compare against the committed remaining set. ---
   if (!manifestFile.existsSync()) {
     stderr.writeln('manifest missing: ${manifestFile.path}');
-    stderr.writeln('run with --write-manifest to create it, and review '
-        'the result before committing.');
+    stderr.writeln(
+      'run with --write-manifest to create it, and review '
+      'the result before committing.',
+    );
     exit(1);
   }
   final manifest = _readManifest(manifestFile.readAsLinesSync());
@@ -163,56 +169,75 @@ void main(List<String> args) {
   }
 
   fail(
-      'list structures',
-      'uncovered and not in the manifest',
-      uncoveredLists.difference(manifestLists),
-      'instantiate them in a sample, or record the gap in '
-          '${manifestFile.path} (reviewed, not reflexive)');
+    'list structures',
+    'uncovered and not in the manifest',
+    uncoveredLists.difference(manifestLists),
+    'instantiate them in a sample, or record the gap in '
+        '${manifestFile.path} (reviewed, not reflexive)',
+  );
   fail(
-      'list structures',
-      'in the manifest but now covered',
-      manifestLists.intersection(coveredLists),
-      'coverage only ratchets forward — delete these manifest lines');
+    'list structures',
+    'in the manifest but now covered',
+    manifestLists.intersection(coveredLists),
+    'coverage only ratchets forward — delete these manifest lines',
+  );
   fail(
-      'list structures',
-      'in the manifest but not reachable in the model',
-      manifestLists.difference(listIds),
-      'the structure was removed or renamed — delete these manifest lines');
+    'list structures',
+    'in the manifest but not reachable in the model',
+    manifestLists.difference(listIds),
+    'the structure was removed or renamed — delete these manifest lines',
+  );
   fail(
-      'section ids',
-      'uncovered and not in the manifest',
-      uncoveredSections.difference(manifestSections),
-      'instantiate them in a sample, or record the gap in '
-          '${manifestFile.path} (reviewed, not reflexive)');
+    'section ids',
+    'uncovered and not in the manifest',
+    uncoveredSections.difference(manifestSections),
+    'instantiate them in a sample, or record the gap in '
+        '${manifestFile.path} (reviewed, not reflexive)',
+  );
   fail(
-      'section ids',
-      'in the manifest but now covered',
-      manifestSections.intersection(coveredSections),
-      'coverage only ratchets forward — delete these manifest lines');
+    'section ids',
+    'in the manifest but now covered',
+    manifestSections.intersection(coveredSections),
+    'coverage only ratchets forward — delete these manifest lines',
+  );
   fail(
-      'section ids',
-      'in the manifest but not reachable in the model',
-      manifestSections.difference(sectionIds),
-      'the id was removed or renamed — delete these manifest lines');
+    'section ids',
+    'in the manifest but not reachable in the model',
+    manifestSections.difference(sectionIds),
+    'the id was removed or renamed — delete these manifest lines',
+  );
 
   _report(listIds, coveredLists, sectionIds, coveredSections, sampleFiles);
   if (failures > 0) {
-    stderr.writeln('FAILED: $failures disagreement(s) between the samples, '
-        'the model, and the manifest.');
+    stderr.writeln(
+      'FAILED: $failures disagreement(s) between the samples, '
+      'the model, and the manifest.',
+    );
     exit(1);
   }
   stdout.writeln('OK — the manifest is exactly the remaining set.');
 }
 
-void _report(Set<String> listIds, Set<String> coveredLists,
-    Set<String> sectionIds, Set<String> coveredSections, List<File> samples) {
-  stdout.writeln('samples: ${samples.map((f) => f.uri.pathSegments.last).join(', ')}');
-  stdout.writeln('list structures instantiated: '
-      '${coveredLists.length}/${listIds.length} '
-      '(${listIds.length - coveredLists.length} remaining)');
-  stdout.writeln('section ids instantiated:     '
-      '${coveredSections.length}/${sectionIds.length} '
-      '(${sectionIds.length - coveredSections.length} remaining)');
+void _report(
+  Set<String> listIds,
+  Set<String> coveredLists,
+  Set<String> sectionIds,
+  Set<String> coveredSections,
+  List<File> samples,
+) {
+  stdout.writeln(
+    'samples: ${samples.map((f) => f.uri.pathSegments.last).join(', ')}',
+  );
+  stdout.writeln(
+    'list structures instantiated: '
+    '${coveredLists.length}/${listIds.length} '
+    '(${listIds.length - coveredLists.length} remaining)',
+  );
+  stdout.writeln(
+    'section ids instantiated:     '
+    '${coveredSections.length}/${sectionIds.length} '
+    '(${sectionIds.length - coveredSections.length} remaining)',
+  );
 }
 
 /// Every token appearing as the id part of a mapping key, skipping the inside
@@ -253,7 +278,9 @@ String _renderManifest(Set<String> lists, Set<String> sections) {
     ..writeln('# The remaining set: every model structure reachable from the')
     ..writeln('# D00SolutionBlueprint root that no sample under samples/ yet')
     ..writeln('# instantiates. Held against reality by')
-    ..writeln('# tool/check_sample_coverage.dart — an uncovered id missing here,')
+    ..writeln(
+      '# tool/check_sample_coverage.dart — an uncovered id missing here,',
+    )
     ..writeln('# an entry that became covered, or an entry the model no longer')
     ..writeln('# reaches all fail the gate. Coverage only ratchets forward:')
     ..writeln('# growing the samples deletes lines here, and an empty manifest')

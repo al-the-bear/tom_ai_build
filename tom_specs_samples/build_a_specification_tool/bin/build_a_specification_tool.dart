@@ -72,10 +72,14 @@ void _reflection(SpecModel model) {
 
   print('THE TWO VERSION STAMPS. They answer different questions and a tool');
   print('that checks one for the other will accept a file it cannot read:');
-  print('  modelVersion      = ${model.modelVersion}'
-      '  — WHICH MODEL this snapshot describes');
-  print('  metaSchemaVersion = ${model.metaSchemaVersion}'
-      '  — the FILE FORMAT the snapshot itself is written in');
+  print(
+    '  modelVersion      = ${model.modelVersion}'
+    '  — WHICH MODEL this snapshot describes',
+  );
+  print(
+    '  metaSchemaVersion = ${model.metaSchemaVersion}'
+    '  — the FILE FORMAT the snapshot itself is written in',
+  );
   print('  modelVersionLabel = ${model.modelVersionLabel}');
   print('  generatedAt       = ${model.generatedAt?.toIso8601String()}');
   print('');
@@ -91,14 +95,20 @@ void _reflection(SpecModel model) {
   // change with the calendar.
   final stamp = model.checkStamp(now: DateTime.utc(2026, 9, 7));
   print('SNAPSHOT CHECK (`checkStamp`), against a fixed clock:');
-  print('  age                 : ${stamp.age?.inDays} days'
-      ' (aged: ${stamp.isAged})');
-  print('  classes  declared/actual : '
-      '${stamp.declaredClassCount}/${stamp.actualClassCount}'
-      '  disagrees: ${stamp.classCountDisagrees}');
-  print('  roots    declared/actual : '
-      '${stamp.declaredRootCount}/${stamp.actualRootCount}'
-      '  disagrees: ${stamp.rootCountDisagrees}');
+  print(
+    '  age                 : ${stamp.age?.inDays} days'
+    ' (aged: ${stamp.isAged})',
+  );
+  print(
+    '  classes  declared/actual : '
+    '${stamp.declaredClassCount}/${stamp.actualClassCount}'
+    '  disagrees: ${stamp.classCountDisagrees}',
+  );
+  print(
+    '  roots    declared/actual : '
+    '${stamp.declaredRootCount}/${stamp.actualRootCount}'
+    '  disagrees: ${stamp.rootCountDisagrees}',
+  );
   print('  Declared-vs-actual is not redundant: the declared value is what');
   print('  the exporter recorded, the actual value is what survived to the');
   print('  reader, and a truncated file is exactly where they part.');
@@ -108,16 +118,20 @@ void _reflection(SpecModel model) {
   print('SHAPE:');
   print('  document roots : ${reflection.roots.length}');
   print('  classes        : ${reflection.classes.length}');
-  print('  container root : ${model.containerRoot}'
-      ' — the one true tree root, which is not itself a document');
+  print(
+    '  container root : ${model.containerRoot}'
+    ' — the one true tree root, which is not itself a document',
+  );
   print('');
 
   final root = reflection.rootForSegment('SBP')!;
   final fields = reflection.fieldsOf(root.type);
   print('FIELDS of ${root.type} (${fields.length} total, first 4):');
   for (final f in fields.take(4)) {
-    print('  ${f.name.padRight(24)} kind=${f.kind.name.padRight(8)}'
-        ' ${f.type ?? ''}');
+    print(
+      '  ${f.name.padRight(24)} kind=${f.kind.name.padRight(8)}'
+      ' ${f.type ?? ''}',
+    );
   }
   print('');
 
@@ -126,8 +140,10 @@ void _reflection(SpecModel model) {
   final form = reflection
       .fieldsOf('DataEntityEntry')
       .firstWhere((f) => f.kind == SpecFieldKind.form);
-  print('FORM SLOTS of DataEntityEntry.${form.name} '
-      '(section id ${form.sectionId}):');
+  print(
+    'FORM SLOTS of DataEntityEntry.${form.name} '
+    '(section id ${form.sectionId}):',
+  );
   for (final slot in form.formFields) {
     print('  ${slot.name.padRight(16)} ${slot.label}');
   }
@@ -140,8 +156,10 @@ void _reflection(SpecModel model) {
     final args = a.arguments.keys.join(', ');
     print('  @${a.name}${args.isEmpty ? '' : '($args)'}');
   }
-  print('  ${kRenderedAnnotations.length} annotation names have declared '
-      'display semantics');
+  print(
+    '  ${kRenderedAnnotations.length} annotation names have declared '
+    'display semantics',
+  );
   print('  (`kRenderedAnnotations`), so two apps cannot disagree about what');
   print('  a marker means while each renders it in its own idiom.');
   print('');
@@ -154,9 +172,11 @@ void _reflection(SpecModel model) {
     'SBP/informationAndDataModel/nosuchthing',
   ]) {
     final r = reflection.resolve(path);
-    print('  ${path.padRight(50)} '
-        '${r == null ? '(unresolved)' : 'kind=${r.kind.name}'
-            '  leaf=${r.isValueLeaf}'}');
+    print(
+      '  ${path.padRight(50)} '
+      '${r == null ? '(unresolved)' : 'kind=${r.kind.name}'
+                '  leaf=${r.isValueLeaf}'}',
+    );
   }
 }
 
@@ -185,8 +205,10 @@ void _genericAccess(SpecModel model, SpecDocument doc) {
   for (final path in doc.formPaths.toList()..sort()) {
     print('  $path');
     for (final slot in doc.formFieldNames(path).toList()..sort()) {
-      print('      ${slot.padRight(16)} '
-          '${_clip(doc.formField(path, slot) ?? '', 52)}');
+      print(
+        '      ${slot.padRight(16)} '
+        '${_clip(doc.formField(path, slot) ?? '', 52)}',
+      );
     }
   }
   print('');
@@ -202,12 +224,16 @@ void _genericAccess(SpecModel model, SpecDocument doc) {
 
   print('WHERE PATHS COME FROM. A tool must never hard-code a path literal —');
   print('a literal is undiscoverable and rots silently when the model moves.');
-  print('Two safe sources, both compiler-checked '
-      '(see example/f_sample_hybrid_access.dart):');
+  print(
+    'Two safe sources, both compiler-checked '
+    '(see example/f_sample_hybrid_access.dart):',
+  );
   print('');
   print('  1. the generated metadata refs —');
   print('     d00SolutionBlueprint.informationAndDataModel.dataModel.path');
-  print('       = ${d00SolutionBlueprint.informationAndDataModel.dataModel.path}');
+  print(
+    '       = ${d00SolutionBlueprint.informationAndDataModel.dataModel.path}',
+  );
   print('  2. the id-keyed metadata tree, for a path known only at runtime —');
   final node = d00SolutionBlueprintMetaTree.byId('DAENT-ENTI-LST');
   print('     d00SolutionBlueprintMetaTree.byId(\'DAENT-ENTI-LST\')');
@@ -215,11 +241,14 @@ void _genericAccess(SpecModel model, SpecDocument doc) {
   print('');
   print('  The tree also goes the other way: byPath gives the node, and with');
   print('  it the class, kind and children a generic renderer needs.');
-  final byPath = d00SolutionBlueprintMetaTree
-      .byPath('SBP/informationAndDataModel/dataModel');
+  final byPath = d00SolutionBlueprintMetaTree.byPath(
+    'SBP/informationAndDataModel/dataModel',
+  );
   print('     byPath(\'SBP/informationAndDataModel/dataModel\')');
-  print('       class=${byPath?.className} kind=${byPath?.kind.name} '
-      'children=${byPath?.children.length}');
+  print(
+    '       class=${byPath?.className} kind=${byPath?.kind.name} '
+    'children=${byPath?.children.length}',
+  );
 }
 
 // ===========================================================================
@@ -252,8 +281,10 @@ void _theSchema(DocSpecsSchema schema) {
   print('  every instance:');
   for (final id in ['DAENT-IDEN', 'DAENT-ENTI-7', 'NOSUCH-1']) {
     final t = schema.resolveSectionType(id);
-    print('    ${id.padRight(16)} -> '
-        '${t == null ? '(no type — a tool treats this as unknownSection)' : t.prefix}');
+    print(
+      '    ${id.padRight(16)} -> '
+      '${t == null ? '(no type — a tool treats this as unknownSection)' : t.prefix}',
+    );
   }
 }
 
@@ -289,14 +320,17 @@ void _validation(SpecModel model, DocSpecsSchema schema, SpecDocument doc) {
   print('');
 
   final instance = validateDocument(model, doc);
-  final document = DocSpecsValidator(schema)
-      .validateMarkdown(doc.toMarkdown(model, rootType: _kRoot));
+  final document = DocSpecsValidator(
+    schema,
+  ).validateMarkdown(doc.toMarkdown(model, rootType: _kRoot));
   print('THE FIXTURE, both tiers:');
   print('  instance tier : ${instance.length} error(s)');
   print('  document tier : ${document.length} violation(s)');
   for (final v in document.take(4)) {
-    print('    line ${v.line}: ${v.rule.name} [${v.sectionId}] '
-        '${_clip(v.message, 54)}');
+    print(
+      '    line ${v.line}: ${v.rule.name} [${v.sectionId}] '
+      '${_clip(v.message, 54)}',
+    );
   }
   if (document.length > 4) {
     print('    … and ${document.length - 4} more');
@@ -309,9 +343,10 @@ void _validation(SpecModel model, DocSpecsSchema schema, SpecDocument doc) {
   _authorFixture(D00SolutionBlueprint(broken));
   broken.setContent('SBP/informationAndDataModel/nosuchsection/content', 'x');
   broken.setFormField(
-      'SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-IDEN',
-      'notAField',
-      'x');
+    'SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-IDEN',
+    'notAField',
+    'x',
+  );
   final brokenInstance = validateDocument(model, broken);
   print('A DELIBERATELY BROKEN COPY — one path the model does not have, one');
   print('form slot the form does not declare:');
@@ -322,11 +357,15 @@ void _validation(SpecModel model, DocSpecsSchema schema, SpecDocument doc) {
 
   print('THE CLOSED VERDICT SETS. Both are enums, so a tool switches over');
   print('them exhaustively rather than matching on message text:');
-  print('  SpecValidationCode  (${SpecValidationCode.values.length}): '
-      '${SpecValidationCode.values.map((c) => c.name).join(', ')}');
+  print(
+    '  SpecValidationCode  (${SpecValidationCode.values.length}): '
+    '${SpecValidationCode.values.map((c) => c.name).join(', ')}',
+  );
   print('  DocSpecsViolationRule (${DocSpecsViolationRule.values.length}):');
   for (final chunk in _chunk(
-      DocSpecsViolationRule.values.map((r) => r.name).toList(), 4)) {
+    DocSpecsViolationRule.values.map((r) => r.name).toList(),
+    4,
+  )) {
     print('    ${chunk.join(', ')}');
   }
 }
@@ -351,15 +390,19 @@ void _theTool(SpecModel model, DocSpecsSchema schema, SpecDocument doc) {
     final bar = row.offered == 0
         ? ''
         : '${(100 * row.written / row.offered).round()}%'.padLeft(6);
-    print('  ${row.title.padRight(_kTitleWidth)} '
-        '${row.written.toString().padLeft(5)} / '
-        '${row.offered.toString().padLeft(5)}$bar');
+    print(
+      '  ${row.title.padRight(_kTitleWidth)} '
+      '${row.written.toString().padLeft(5)} / '
+      '${row.offered.toString().padLeft(5)}$bar',
+    );
   }
   print('  ${'-' * _kTitleWidth} ${'-' * 19}');
-  print('  ${'TOTAL'.padRight(_kTitleWidth)} '
-      '${report.written.toString().padLeft(5)} / '
-      '${report.offered.toString().padLeft(5)}'
-      '${'${(100 * report.written / report.offered).round()}%'.padLeft(6)}');
+  print(
+    '  ${'TOTAL'.padRight(_kTitleWidth)} '
+    '${report.written.toString().padLeft(5)} / '
+    '${report.offered.toString().padLeft(5)}'
+    '${'${(100 * report.written / report.offered).round()}%'.padLeft(6)}',
+  );
   print('');
   print('  SBP.11 offers 2529 positions because a Solution Blueprint SEEDS');
   print('  the twelve Phase-3 documents: its section classes ARE those');
@@ -374,8 +417,10 @@ void _theTool(SpecModel model, DocSpecsSchema schema, SpecDocument doc) {
       .where((v) => v.rule == DocSpecsViolationRule.missingRequiredField)
       .length;
   print('    $required missing required field(s) — the only gaps a validator');
-  print('    will name, out of ${report.offered - report.written} unwritten '
-      'positions.');
+  print(
+    '    will name, out of ${report.offered - report.written} unwritten '
+    'positions.',
+  );
   print('');
   print('That gap between the two numbers is the tool\'s reason to exist.');
 }
@@ -437,11 +482,7 @@ SpecificationCoverage specificationCoverage(
     final counter = _Counter(doc);
     counter.walk(reflection, field, path, <String>{root.type});
     if (counter.offered == 0) continue;
-    rows.add(CoverageRow(
-      _rowTitle(field),
-      counter.offered,
-      counter.written,
-    ));
+    rows.add(CoverageRow(_rowTitle(field), counter.offered, counter.written));
   }
   return SpecificationCoverage(rows);
 }
@@ -514,8 +555,10 @@ class _Counter {
         final type = field.type;
         if (type == null || seen.contains(type)) return;
         for (final child in reflection.fieldsOf(type)) {
-          walk(reflection, child, '$path/${reflection.fieldSegment(child)}',
-              {...seen, type});
+          walk(reflection, child, '$path/${reflection.fieldSegment(child)}', {
+            ...seen,
+            type,
+          });
         }
     }
   }
@@ -552,13 +595,15 @@ void _authorFixture(D00SolutionBlueprint sbp) {
       'Three legacy systems with no shared customer record.';
 
   final metrics = sbp.currentLandscape.operationalMetrics;
-  metrics.addContent('Average order turnaround: 4.2 days.',
-      date: _kAuthoredOn);
-  metrics.addContent('Manual reconciliation: ~12 hours per week.',
-      date: _kAuthoredOn);
+  metrics.addContent('Average order turnaround: 4.2 days.', date: _kAuthoredOn);
+  metrics.addContent(
+    'Manual reconciliation: ~12 hours per week.',
+    date: _kAuthoredOn,
+  );
 
-  final customer =
-      sbp.informationAndDataModel.dataModel.entities.add(date: _kAuthoredOn);
+  final customer = sbp.informationAndDataModel.dataModel.entities.add(
+    date: _kAuthoredOn,
+  );
   customer.$headline = 'Customer';
   customer.identity
     ..entityName = 'Customer'
@@ -585,8 +630,12 @@ void _authorFixture(D00SolutionBlueprint sbp) {
 Future<SpecModel> _loadModel() async {
   final root = await _packageRoot('tom_som_dart_v0');
   return SpecModel.fromJson(
-    jsonDecode(File.fromUri(root.resolve('meta/spec_model.meta.json'))
-        .readAsStringSync()) as Map<String, dynamic>,
+    jsonDecode(
+          File.fromUri(
+            root.resolve('meta/spec_model.meta.json'),
+          ).readAsStringSync(),
+        )
+        as Map<String, dynamic>,
   );
 }
 
@@ -594,16 +643,20 @@ Future<SpecModel> _loadModel() async {
 Future<DocSpecsSchema> _loadSchema() async {
   final root = await _packageRoot('tom_som_dart_v0');
   return DocSpecsSchema.fromYamlText(
-    File.fromUri(root.resolve('schemas/solution-blueprint/'
-            'solution-blueprint.1.0.docspecs-schema.yaml'))
-        .readAsStringSync(),
+    File.fromUri(
+      root.resolve(
+        'schemas/solution-blueprint/'
+        'solution-blueprint.1.0.docspecs-schema.yaml',
+      ),
+    ).readAsStringSync(),
   );
 }
 
 /// The root directory of [package], wherever pub put it.
 Future<Uri> _packageRoot(String package) async {
   final lib = await Isolate.resolvePackageUri(
-      Uri.parse('package:$package/$package.dart'));
+    Uri.parse('package:$package/$package.dart'),
+  );
   if (lib == null) {
     throw StateError('cannot resolve package:$package — run dart pub get');
   }

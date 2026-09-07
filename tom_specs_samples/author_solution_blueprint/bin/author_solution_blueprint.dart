@@ -45,8 +45,7 @@ Future<void> main() async {
   // — and lands in the same path-keyed store the generic API reads.
   print('2. Authoring, printing each section id as it is written');
 
-  sbp.content =
-      'Unify three legacy order systems behind one customer record.';
+  sbp.content = 'Unify three legacy order systems behind one customer record.';
   _wrote(sbp.path, 'the blueprint itself');
 
   final intro = sbp.introductionAndScope;
@@ -95,8 +94,9 @@ Future<void> main() async {
   // stamp, and hand back a typed root. Re-encoding the reload and comparing
   // the two strings is the actual proof — comparing field by field would only
   // prove the fields somebody thought to compare.
-  final reloaded =
-      D00SolutionBlueprint.loadFile('${outDir.path}/blueprint.docspecs.yaml');
+  final reloaded = D00SolutionBlueprint.loadFile(
+    '${outDir.path}/blueprint.docspecs.yaml',
+  );
   final reYaml = SpecDocumentYaml.encode(
     document: reloaded.doc,
     tree: d00SolutionBlueprintMetaTree,
@@ -105,8 +105,10 @@ Future<void> main() async {
 
   print('4. Round-tripped the yaml through D00SolutionBlueprint.loadFile');
   print('   reload equals original  : ${reYaml == yaml}');
-  print('   a value read back typed : '
-      '"${reloaded.currentLandscape.operationalMetrics[0].content}"');
+  print(
+    '   a value read back typed : '
+    '"${reloaded.currentLandscape.operationalMetrics[0].content}"',
+  );
   print('');
 
   // ---------------------------------------------------------------- step 5
@@ -152,11 +154,15 @@ int _lines(String s) => s.trimRight().split('\n').length;
 /// and reads it from wherever pub put the package.
 Future<SpecModel> _loadShippedModel() async {
   final lib = await Isolate.resolvePackageUri(
-      Uri.parse('package:tom_som_dart_v0/tom_som_dart_v0.dart'));
+    Uri.parse('package:tom_som_dart_v0/tom_som_dart_v0.dart'),
+  );
   if (lib == null) {
-    throw StateError('cannot resolve package:tom_som_dart_v0 — run dart pub get');
+    throw StateError(
+      'cannot resolve package:tom_som_dart_v0 — run dart pub get',
+    );
   }
   final meta = File.fromUri(lib.resolve('../meta/spec_model.meta.json'));
   return SpecModel.fromJson(
-      jsonDecode(meta.readAsStringSync()) as Map<String, dynamic>);
+    jsonDecode(meta.readAsStringSync()) as Map<String, dynamic>,
+  );
 }

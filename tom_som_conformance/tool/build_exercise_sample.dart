@@ -49,7 +49,8 @@ void main(List<String> args) {
       ? args.first
       : Directory(File(Platform.script.toFilePath()).parent.path).parent.path;
   final metaFile = File(
-      '${Directory(confDir).parent.path}/tom_som_dart_v0/meta/spec_model.meta.json');
+    '${Directory(confDir).parent.path}/tom_som_dart_v0/meta/spec_model.meta.json',
+  );
   final outFile = File('$confDir/samples/exercise_full_model.docspecs.yaml');
 
   if (!metaFile.existsSync()) {
@@ -68,7 +69,9 @@ void main(List<String> args) {
   final b = StringBuffer()
     ..writeln('# TomSpecs document (*.docspecs.yaml). Hierarchical format v2.')
     ..writeln('#')
-    ..writeln('# GENERATED exercise sample — instantiates every model structure')
+    ..writeln(
+      '# GENERATED exercise sample — instantiates every model structure',
+    )
     ..writeln('# reachable from the D00SolutionBlueprint root, for the sample')
     ..writeln('# instantiation-coverage gate (SOM §19). Not a narrative')
     ..writeln('# specification: every value is placeholder prose.')
@@ -162,6 +165,8 @@ void main(List<String> args) {
 
   outFile.writeAsStringSync(b.toString());
   stdout.writeln('wrote ${outFile.path}');
-  stdout.writeln('class bodies emitted: $classBodies '
-      '(visited ${visited.length}), keys emitted: $keysEmitted');
+  stdout.writeln(
+    'class bodies emitted: $classBodies '
+    '(visited ${visited.length}), keys emitted: $keysEmitted',
+  );
 }

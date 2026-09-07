@@ -40,8 +40,10 @@ Future<void> main() async {
   _variantB(inputs);
 
   print('');
-  print('Extracts written to build/codespecs_extracts/ '
-      '(${extracts.length * 2} files).');
+  print(
+    'Extracts written to build/codespecs_extracts/ '
+    '(${extracts.length * 2} files).',
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -82,7 +84,9 @@ void _variantB(_Inputs inputs) {
   _authorSpecification(D00SolutionBlueprint(doc), aggregateRoots: false);
 
   _rule('Variant B — the same document, one required field cleared');
-  print('Both entities keep their `DAENT-CLAS` section and its `category`, and');
+  print(
+    'Both entities keep their `DAENT-CLAS` section and its `category`, and',
+  );
   print('both have `aggregateRoot` cleared. Nothing else changed.');
   print('');
 
@@ -156,14 +160,21 @@ _GateResult _runGate(_Inputs inputs, SpecDocument doc) {
   );
   try {
     final extracts = extractor.extractAll();
-    print('   A3 routing totality      : pass — '
-        '${extractor.routings().length} sections walked, all routed');
+    print(
+      '   A3 routing totality      : pass — '
+      '${extractor.routings().length} sections walked, all routed',
+    );
     print('   A4 / A5                  : not run here — required-argument');
     print('                              sources and carrier presence are');
     print('                              read off the per-marker argument');
     print('                              table, which the generator owns and');
     print('                              the SOM runtimes do not ship.');
-    return _GateResult(a1, a2, null, a1.isEmpty && a2.isEmpty ? extracts : null);
+    return _GateResult(
+      a1,
+      a2,
+      null,
+      a1.isEmpty && a2.isEmpty ? extracts : null,
+    );
   } on CodeSpecsExtractError catch (e) {
     print('   A3 routing totality      : FAIL — ${e.message}');
     return _GateResult(a1, a2, e, null);
@@ -181,8 +192,10 @@ void _stage2(List<CodeSpecsExtract> extracts) {
   print('   areas in the catalogue   : ${extracts.length}');
   print('   populated                : ${populated.length}');
   for (final e in populated) {
-    print('     ${e.area.code.padRight(6)} ${e.entries.length} entries  '
-        '→ ${e.projects.join(', ')}');
+    print(
+      '     ${e.area.code.padRight(6)} ${e.entries.length} entries  '
+      '→ ${e.projects.join(', ')}',
+    );
   }
   print('   empty                    : ${extracts.length - populated.length}');
   print('   Most areas are empty because this document says nothing about');
@@ -190,7 +203,8 @@ void _stage2(List<CodeSpecsExtract> extracts) {
   print('   CANDIDATE for "not applicable" — never the verdict itself, which');
   print('   is a judgment and belongs to stage B (codespecs_prompt.md §6.4).');
 
-  final dir = Directory('build/codespecs_extracts')..createSync(recursive: true);
+  final dir = Directory('build/codespecs_extracts')
+    ..createSync(recursive: true);
   for (final e in extracts) {
     File('${dir.path}/${e.fileStem}.yaml').writeAsStringSync(e.toYaml());
     File('${dir.path}/${e.fileStem}.md').writeAsStringSync(e.toMarkdown());
@@ -214,8 +228,10 @@ void _stage3(List<CodeSpecsExtract> extracts) {
   print('   may cite   : ${db.citableParts.join(', ')}');
   print('   entries carried to the agent (${db.entries.length}):');
   for (final e in db.entries) {
-    print('     ${e.sectionId.padRight(11)} ${e.fieldName.padRight(14)} '
-        '${_short(e.value)}');
+    print(
+      '     ${e.sectionId.padRight(11)} ${e.fieldName.padRight(14)} '
+      '${_short(e.value)}',
+    );
   }
   print('');
   print('   What the agent wrote from it —');
@@ -226,14 +242,18 @@ void _stage3(List<CodeSpecsExtract> extracts) {
   }
   print('');
   print('   CE-API\'s extract holds the same 23 entries and yields NO code');
-  print('   here. Its shared wire DTO is derived, not authored: one exists per');
+  print(
+    '   here. Its shared wire DTO is derived, not authored: one exists per',
+  );
   print('   entity a server operation names, and this document specifies no');
   print('   operations (codespecs_derivation_contract.md §3.2.11 point 1). A');
   print('   NON-empty extract can legitimately produce nothing, exactly as an');
   print('   empty one can be legitimately not applicable. Both are verdicts,');
   print('   and a verdict is judgment.');
   print('');
-  print('   Fixed for the agent, not chosen by it: `Customer` is PascalCase of');
+  print(
+    '   Fixed for the agent, not chosen by it: `Customer` is PascalCase of',
+  );
   print('   the entity-name field and `customers` is the table field verbatim');
   print('   (codespecs_derivation_contract.md §3.3.1 points 3 and 4); every');
   print('   doc comment is the specification\'s own text (§2.8 C1). Chosen by');
@@ -251,7 +271,9 @@ void _stage4() {
   print('4. Validating the emitted trio                [MECHANICAL]');
   print('   `validate_codespecs.dart` runs the derivation contract\'s §6');
   print('   checks over the shared / client / server trio. It reads emitted');
-  print('   Dart with the analyzer\'s parser and never resolves it, so it runs');
+  print(
+    '   Dart with the analyzer\'s parser and never resolves it, so it runs',
+  );
   print('   on a tree that has never been through `pub get` — which is what');
   print('   lets a generator validate its own output before anything fetches');
   print('   a dependency.');
@@ -307,8 +329,12 @@ void _authorSpecification(
   // The bounded context CE-SU's required `boundedContext` argument resolves
   // against: `DAENT-CLAS.boundedContext` carries `refersTo: ['BCE.contextName']`,
   // so an unauthored registry would make the reference dangle at A2.
-  final ordering = sbp.solutionArchitectureAndTechnology.technicalFramework
-      .softwareDesign.layeringAndModuleStructure.boundedContexts
+  final ordering = sbp
+      .solutionArchitectureAndTechnology
+      .technicalFramework
+      .softwareDesign
+      .layeringAndModuleStructure
+      .boundedContexts
       .add(date: _kAuthoredOn);
   ordering.$headline = 'Ordering';
   ordering.content
@@ -374,8 +400,9 @@ void _authorSpecification(
 /// Read rather than inlined so the printed listing and the file the validator
 /// checks cannot drift apart: a sample that prints one thing and validates
 /// another teaches the wrong lesson twice.
-final String _authoredExample =
-    File('codespec/server/lib/src/data_access/customer.dart').readAsStringSync();
+final String _authoredExample = File(
+  'codespec/server/lib/src/data_access/customer.dart',
+).readAsStringSync();
 
 /// The stage-4 output, recorded by `tool/validate.sh`.
 ///
@@ -385,8 +412,9 @@ final String _authoredExample =
 /// program's output depend on whether the workspace happens to be beside it.
 /// `tool/validate.sh` re-runs both invocations and fails if this file has gone
 /// stale, which is what keeps it a record rather than a claim.
-final String _validationReport =
-    File('codespec/validation_report.txt').readAsStringSync();
+final String _validationReport = File(
+  'codespec/validation_report.txt',
+).readAsStringSync();
 
 String _verdict(int violations) =>
     violations == 0 ? 'pass — 0 violations' : 'FAIL — $violations violations';
@@ -423,20 +451,31 @@ class _Inputs {
     final specsModel = await _packageDir('tom_specs_model');
 
     final model = SpecModel.fromJson(
-      jsonDecode(File.fromUri(v0.resolve('meta/spec_model.meta.json'))
-          .readAsStringSync()) as Map<String, dynamic>,
+      jsonDecode(
+            File.fromUri(
+              v0.resolve('meta/spec_model.meta.json'),
+            ).readAsStringSync(),
+          )
+          as Map<String, dynamic>,
     );
 
     final schema = DocSpecsSchema.fromYamlText(
-      File.fromUri(v0.resolve('schemas/solution-blueprint/'
-              'solution-blueprint.1.0.docspecs-schema.yaml'))
-          .readAsStringSync(),
+      File.fromUri(
+        v0.resolve(
+          'schemas/solution-blueprint/'
+          'solution-blueprint.1.0.docspecs-schema.yaml',
+        ),
+      ).readAsStringSync(),
     );
 
     final catalog = CodeSpecsAreaCatalog.fromJson(
-      jsonDecode(File.fromUri(specsModel
-                  .resolve('generated-doc/codespecs/codespecs_areas.json'))
-              .readAsStringSync())
+      jsonDecode(
+            File.fromUri(
+              specsModel.resolve(
+                'generated-doc/codespecs/codespecs_areas.json',
+              ),
+            ).readAsStringSync(),
+          )
           as Map<String, dynamic>,
     );
 
@@ -446,7 +485,8 @@ class _Inputs {
   /// The root directory of [package], wherever pub put it.
   static Future<Uri> _packageDir(String package) async {
     final lib = await Isolate.resolvePackageUri(
-        Uri.parse('package:$package/$package.dart'));
+      Uri.parse('package:$package/$package.dart'),
+    );
     if (lib == null) {
       throw StateError('cannot resolve package:$package — run dart pub get');
     }

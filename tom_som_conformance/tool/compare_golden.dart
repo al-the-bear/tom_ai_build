@@ -37,8 +37,10 @@ void main(List<String> args) {
   final reference = File('$goldenDir/dart.log');
   if (!reference.existsSync()) {
     stderr.writeln('reference log missing: ${reference.path}');
-    stderr.writeln('run the Dart generator first '
-        '(dart run tool/golden_log.dart in tom_som_dart_v0).');
+    stderr.writeln(
+      'run the Dart generator first '
+      '(dart run tool/golden_log.dart in tom_som_dart_v0).',
+    );
     exit(1);
   }
   final refBytes = reference.readAsBytesSync();
@@ -61,12 +63,16 @@ void main(List<String> args) {
       continue;
     }
     failures++;
-    stderr.writeln('MISMATCH $lang.log differs from dart.log '
-        '(${bytes.length} vs ${refBytes.length} bytes)');
+    stderr.writeln(
+      'MISMATCH $lang.log differs from dart.log '
+      '(${bytes.length} vs ${refBytes.length} bytes)',
+    );
     final lines = utf8Lines(bytes);
     final firstDiff = firstDifferingLine(refLines, lines);
     if (firstDiff >= 0) {
-      final refLine = firstDiff < refLines.length ? refLines[firstDiff] : '<eof>';
+      final refLine = firstDiff < refLines.length
+          ? refLines[firstDiff]
+          : '<eof>';
       final gotLine = firstDiff < lines.length ? lines[firstDiff] : '<eof>';
       stderr.writeln('  first diff at line ${firstDiff + 1}:');
       stderr.writeln('    dart : $refLine');
@@ -75,12 +81,16 @@ void main(List<String> args) {
   }
 
   if (failures > 0) {
-    stderr.writeln('\nFAILED: $failures language log(s) differ from the '
-        'Dart reference.');
+    stderr.writeln(
+      '\nFAILED: $failures language log(s) differ from the '
+      'Dart reference.',
+    );
     exit(1);
   }
-  stdout.writeln('\nPASSED: all $checked language logs are byte-identical to '
-      'dart.log.');
+  stdout.writeln(
+    '\nPASSED: all $checked language logs are byte-identical to '
+    'dart.log.',
+  );
 }
 
 bool bytesEqual(Uint8List a, Uint8List b) {
